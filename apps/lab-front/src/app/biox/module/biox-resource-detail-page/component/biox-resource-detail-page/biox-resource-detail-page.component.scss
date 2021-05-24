@@ -27,3 +27,9 @@
 .body {
   height: 100%;
 }
+
+
+.test {
+  height: calc(100vh - var(--menu-toolbar-height));
+  display: block;
+}

@@ -1,0 +1,24 @@
+<div class="container" #container>
+  <div class="flow-test-container" #flow
+       (mouseup)="onMouseUp($event)"
+       (mousemove)="mouseMove($event)"
+       (contextmenu)="disableContextMenu($event)">
+
+
+
+  <div class="example-box" cdkDragBoundary=".container" cdkDrag>
+
+    <div cdkDragHandle>I can only be dragged within the dotted container</div>
+
+    <div class="port" (mousedown)="mouseDown($event)" ></div>
+  </div>
+
+  <div class="example-box" cdkDragBoundary=".container" cdkDrag>
+
+    <div cdkDragHandle>I can only be dragged within the dotted container</div>
+
+    <div class="port" (mousedown)="mouseDown($event)"></div>
+  </div>
+
+  </div>
+</div>

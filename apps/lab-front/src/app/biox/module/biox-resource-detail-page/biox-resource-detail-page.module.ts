@@ -9,7 +9,8 @@ import {BioxResourceViewSpecsPortalComponent} from './component/biox-resource-vi
 import {BioxConfigureResourceViewComponent} from './component/biox-configure-resource-view/biox-configure-resource-view.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BioxConfigCoreModule} from '../../../core/entity-module/biox-config-core/biox-config-core.module';
-
+import { FlowTestComponent } from './component/flow-test/flow-test.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 /**
  * Simple module for the resource detail page
  */
@@ -18,13 +19,16 @@ import {BioxConfigCoreModule} from '../../../core/entity-module/biox-config-core
     BioxResourceDetailPageComponent,
     BioxResourceViewSpecsComponent,
     BioxResourceViewSpecsPortalComponent,
-    BioxConfigureResourceViewComponent
+    BioxConfigureResourceViewComponent,
+    FlowTestComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+
+    DragDropModule, // todo to remove
 
     CoreModule,
     BioxResourceCoreModule,
