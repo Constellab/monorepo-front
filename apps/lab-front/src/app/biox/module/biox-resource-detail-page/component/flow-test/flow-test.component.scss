@@ -1,15 +1,28 @@
 
 .container {
-  height: 100vh;
-  width: 100%;
+  //height: calc(100vh - var(--menu-toolbar-height));
+  //width: 100%;
+
+  height: 1000px;
+  width: 1000px;
   position: relative;
   overflow: hidden;
 }
 
 .flow-test-container {
-  height: calc(100vh - var(--menu-toolbar-height));
-  width: 100%;
+  //height: calc(100vh - var(--menu-toolbar-height));
+  //width: 100%;
+  //width: 11000px;
+  //height: 11000px;
+  width: 400px;
+  height: 400px;
+  //left: -5000px;
+  //top: -5000px;
+  //left: 50%;
+  //top: 50%;
   position: absolute;
+  border: red 2px solid;
+  //transform: translate(5000px, -5000px) scale(1);
 
 
   ::ng-deep path {
@@ -29,11 +42,22 @@
 }
 
 .example-box {
+  z-index: 999;
   position: absolute;
   width: 150px;
   height: 150px;
   border: 1px solid black;
   overflow: hidden;
+}
+
+.example-box-1 {
+  left: 100px;
+  top: 50px
+}
+
+.example-box-2 {
+  left: 400px;
+  top: 50px
 }
 
 .port {

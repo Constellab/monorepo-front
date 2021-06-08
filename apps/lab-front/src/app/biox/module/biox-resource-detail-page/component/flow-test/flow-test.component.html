@@ -6,14 +6,15 @@
 
 
 
-  <div class="example-box" cdkDragBoundary=".container" cdkDrag>
+  <div class="example-box example-box-1" cdkDragBoundary=".container" cdkDrag
+  [cdkDragConstrainPosition]="constrainPosition">
 
     <div cdkDragHandle>I can only be dragged within the dotted container</div>
 
     <div class="port" (mousedown)="mouseDown($event)" ></div>
   </div>
 
-  <div class="example-box" cdkDragBoundary=".container" cdkDrag>
+  <div class="example-box example-box-2" cdkDragBoundary=".container" cdkDrag>
 
     <div cdkDragHandle>I can only be dragged within the dotted container</div>
 
