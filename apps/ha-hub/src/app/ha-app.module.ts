@@ -34,7 +34,7 @@ function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): (
 @NgModule({
   declarations: [HaAppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
 
@@ -53,7 +53,7 @@ function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): (
     FlTranslateModule.forRoot({
       defaultLang: ClSupportedLanguage.en,
       availableLang: [ClSupportedLanguage.en],
-      filenames: ['global-']
+      filenames: ['global-'],
     }),
     FlTranslateModule.forRoot2(),
 
@@ -65,18 +65,24 @@ function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): (
 
     FlIconModule.forRoot({
       iconFolder: 'assets/fl-mat-icons/',
-      iconsToRegister: flIconsDefault
+      iconsToRegister: flIconsDefault,
     }),
     FlTextEditorModule.forRoot({
-      blots: []
+      blots: [],
     }),
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: FlHttpInterceptorService,
-    multi: true
-  },
-  {provide: APP_INITIALIZER, useFactory: loadUserOnInit, deps: [HaAuthenticatedUserService], multi: true},
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FlHttpInterceptorService,
+      multi: true,
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadUserOnInit,
+      deps: [HaAuthenticatedUserService],
+      multi: true,
+    },
   ],
   bootstrap: [HaAppComponent],
 })
