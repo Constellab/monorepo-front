@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ha-monorepo-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  templateUrl: './ha-app.component.html',
+  styleUrls: ['./ha-app.component.scss'],
 })
-export class AppComponent {
+export class HaAppComponent {
   title = 'ha-documentation';
 }

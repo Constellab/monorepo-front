@@ -31,6 +31,7 @@ export class CaNotificationsPortalComponent implements OnInit {
 
   private updateNotifications(): void {
     this.notifications = this.notificationsService.getUserNotifications(this.authUserService.getUser().id, !this.slideState);
+    this.notificationState.updateNotification();
   }
 
 

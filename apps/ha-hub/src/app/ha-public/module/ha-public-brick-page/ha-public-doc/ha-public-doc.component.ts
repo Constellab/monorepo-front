@@ -105,7 +105,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   buildForm(): void {
     this.formGp = new FormBuilder().group({
       id: [null],
-      content: [{value: null, disabled: true}],
+      content: [null],
     });
   }
 
@@ -155,6 +155,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       this.richText = new CmRichText(doc.content);
 
       this.titles = this.richText.getHeaders([2, 3]);
+      this.formGp.controls.content.disable();
     }
 
     this.textEditorConfig =
@@ -173,7 +174,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   }
 
   private setFormGroupValue(doc: HaDocumentationContentFormDTO): void {
-    this.formGp.patchValue(doc);
+    this.formGp.patchValue(doc)
   }
 
   private saveContent(value: CmRichTextI): void {

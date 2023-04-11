@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppComponent} from './app.component';
+import {HaAppComponent} from './ha-app.component';
 import {
   FlApiModule,
   FlAuthModule,
@@ -19,7 +19,7 @@ import {HaApiServiceConfig} from './ha-core/ha-model/ha-config/ha-api-module.con
 import {HaApiErrorService} from './ha-core/ha-model/ha-config/ha-api-error.service';
 import {ClSupportedLanguage} from '@monorepo/core-lib';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AppRoutingModule} from './app-routing-module';
+import {HaAppRoutingModule} from './ha-app-routing-module';
 import {HaCoreModule} from './ha-core/ha-core.module';
 import {HaAuthService} from './ha-core/ha-service/ha-auth.service';
 import {HaAuthenticatedUserService} from './ha-core/ha-service/ha-authenticated-user.service';
@@ -32,13 +32,13 @@ function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): (
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [HaAppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
 
-    AppRoutingModule,
+    HaAppRoutingModule,
     HaCoreModule,
 
     FlUserModule.forRoot(HaUserConfig),
@@ -78,7 +78,7 @@ function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): (
   },
   {provide: APP_INITIALIZER, useFactory: loadUserOnInit, deps: [HaAuthenticatedUserService], multi: true},
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [HaAppComponent],
 })
 export class HaAppModule {
 }

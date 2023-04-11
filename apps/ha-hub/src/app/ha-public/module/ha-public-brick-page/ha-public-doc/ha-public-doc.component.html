@@ -3,7 +3,7 @@
 </div>
 
 
-<div class="main-panel" *ngIf="!docNotFound">
+<div *ngIf="!docNotFound">
   <div class="loader" *ngIf="isLoading || !documentation">
     <fl-loader size="medium"></fl-loader>
   </div>
@@ -26,7 +26,7 @@
     </div>
   </div>
 </div>
-<div class="right-div g-scrollable-element" *ngIf="documentation">
+<div class="right-panel right-div g-scrollable-element" *ngIf="documentation">
   <div>
     <ha-public-brick-right-panel [currentPage]="documentation.title" [brickVersion]="brickVersion" [brickName]="brickName"
                                  [docTitles]="titles"></ha-public-brick-right-panel>

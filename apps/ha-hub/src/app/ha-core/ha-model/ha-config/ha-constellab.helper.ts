@@ -12,14 +12,4 @@ export class HaConstellabHelper {
   public static getConstellabSignupUrl(): string {
     return HaConstellabHelper.getConstellabUrl() + '/signup';
   }
-
-  /////////////////////////////// API ///////////////////////////////
-
-  public static getConstellabApiUrl(): string {
-    return HaEnvironmentHelper.getConstellabApiUrl();
-  }
-
-  public static getConstellabUserPhotoUrl(userId: string): string {
-    return HaConstellabHelper.getConstellabApiUrl() + '/users/photo/' + userId;
-  }
 }

@@ -44,13 +44,8 @@ form{
 }
 
 .right-div{
-  width: 295px;
-  min-width: 295px;
   height: fit-content;
-  position: fixed;
-  top: 223px;
-  right: var(--margin-side);
-  transition: 0.2s;
+  top: calc(223px - 44px);
   padding: 8px;
   border-radius: 18px;
   background-color: var(--card-background);

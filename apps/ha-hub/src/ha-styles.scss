@@ -21,8 +21,8 @@
 @import 'highlight.js/styles/monokai-sublime.css';
 
 .g-form-input {
-    width: 100%;
-    margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .g-page {
@@ -94,14 +94,15 @@ h5 {
 .main-panel{
   margin: 0 auto;
   max-width: calc(60rem + 32px);
+  transition: 0.2s;
 }
 
 .right-panel{
   width: 295px;
-  min-width: 295px;
+  max-width: 295px;
   position: fixed;
   margin-top: 44px;
-  left: var(--margin-side);
+  right: var(--margin-side);
 }
 
 .button-left-panel{
@@ -121,33 +122,55 @@ h5 {
   transform: translateX(-50%);
 }
 
-@media (max-width: 1600px) {
-  .main-panel{
-    margin: 0 var(--margin-side) 0 auto;
-  }
-}
-
-@media (max-width: 1360px){
+@media (max-width: 1675px) {
   body{
     --margin-side: 50px;
   }
 }
 
-@media (max-width: 1260px){
+@media (max-width: 1600px){
+  body{
+    --margin-side: 40px;
+  }
+}
+
+@media (max-width: 1575px){
+  body{
+    --margin-side: 30px;
+  }
+}
+
+@media (max-width: 1550px){
   body{
     --margin-side: 20px;
   }
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1525px){
   body{
-    --margin-side: 20px;
+    --margin-side: 10px;
   }
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1505px){
   body{
     --margin-side: 5px;
+  }
+}
+
+@media (max-width: 1495px){
+  .right-panel{
+    max-width: calc(100vw - 295px - 8px - 2 * var(--margin-side) - 60rem - 40px);
+  }
+
+  .main-panel{
+    margin: 0 auto 0 calc(var(--margin-side) + 295px + 8px);
+  }
+}
+
+@media (max-width: 1330px){
+  .right-panel{
+    display: none;
   }
 }
 
@@ -158,6 +181,10 @@ h5 {
 
   .button-left-panel{
     display: block !important;
+  }
+
+  .main-panel{
+    margin: 0 auto;
   }
 
   .left-panel{

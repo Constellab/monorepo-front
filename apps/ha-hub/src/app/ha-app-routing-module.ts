@@ -17,9 +17,9 @@ const routes: Routes = [
 {
     preloadingStrategy: PreloadAllModules,
     scrollPositionRestoration: 'enabled',
-    paramsInheritanceStrategy: 'always',
-    anchorScrolling: 'enabled',
-    onSameUrlNavigation: 'reload'
+  paramsInheritanceStrategy: 'always',
+  anchorScrolling: 'enabled',
+  onSameUrlNavigation: 'reload'
 }
     ),
   ],
@@ -27,5 +27,5 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModule {
+export class HaAppRoutingModule {
 }

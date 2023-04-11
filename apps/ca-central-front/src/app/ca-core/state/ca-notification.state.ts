@@ -71,6 +71,10 @@ export class CaNotificationState {
     }));
   }
 
+  public updateNotification(): void {
+    this.init();
+  }
+
   public readEntityNotificationsByLink(link: string, notificationType: CaNotificationType): Observable<void> {
     return this.getEntityNotificationsNumberByLink(link).pipe(map((notifNumber) => {
       if (notifNumber > 0) {
