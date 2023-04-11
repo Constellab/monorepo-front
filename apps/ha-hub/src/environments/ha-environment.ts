@@ -4,6 +4,11 @@
 
 import {HaEnvironment} from './ha-environment.class';
 
+/**
+ * File for local environment,
+ *
+ * NEVER IMPORT ENVIRONMENT DIRECTLY FORM HERE, USE ENVIRONMENT HELPER INSTEAD
+ */
 export const environment: HaEnvironment = {
   production: false,
   settings: {

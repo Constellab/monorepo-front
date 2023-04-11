@@ -1,21 +1,20 @@
 import {Injectable} from '@angular/core';
 import {FlDatasourcePaginated, FlUserConfig} from '@monorepo/front-core-lib';
-import {HaConstellabHelper} from './ha-constellab.helper';
 import {HaUser} from '../ha-entities/ha-user';
 import {Observable} from 'rxjs';
-import {HaAuthenticatedUserService} from '../../ha-service/ha-authenticated-user.service';
+import {HaEnvironmentHelper} from './ha-environment.helper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HaUserConfig extends FlUserConfig {
 
-  constructor(private userService: HaAuthenticatedUserService) {
+  constructor() {
     super();
   }
 
-  getUserPhotoUrl(userId: string): string {
-    return this.userService.getUserPhotoUrl(userId);
+  getUserPhotoUrl(photoUrl: string): string {
+    return HaEnvironmentHelper.getApiUrl() + '/users/photo-v2/' + photoUrl;
   }
 
   getUserDetailRoute(userId: string): string {

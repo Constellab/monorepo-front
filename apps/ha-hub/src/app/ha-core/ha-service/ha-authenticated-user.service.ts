@@ -38,10 +38,6 @@ export class HaAuthenticatedUserService implements FlCleanableService{
     );
   }
 
-  public getUserPhotoUrl(userId: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.userRoute}/photo/${userId}`);
-  }
-
   clean(): void {
     this.userSubject.next(null);
   }
