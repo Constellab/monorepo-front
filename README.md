@@ -1,6 +1,6 @@
 # Monorepo
 
-This project contains all the gencovery code for Angular and Nest app.
+This project contains all the gencovery code for Angular app.
 
 All the app and libraries hava a prefix to simplify search
 
@@ -17,11 +17,6 @@ For example, to build the version 1.0.0, push the tag `ca_1.0.0`.
 Then execute the npm script ```ca-central-front:caprover-deploy-preprod``` or ```ca-central-front:caprover-deploy-prod```
 to deploy the app to caprover. Be careful of the image tag.
 
-### Central back : Cn
-The nest app for the central (constellab). 
-
-Prefix: Cn
-
 ### Lab front
 The angular front app for the lab. One front is available per lab. 
 
@@ -31,11 +26,6 @@ Prefix : Lab
 The hub angular app containing the documentation.
 
 Prefix : Ha
-
-### Hub back (hn-hub) : Dn
-The hub nest app containing the documentation.
-
-Prefix : Hn
 
 ## Libraries
 
@@ -54,5 +44,4 @@ Library for angular app that contains modules, components, directives, pipes and
 
 Prefix : Fl
 
-### back-core-lib : Bl
-Library for nest apps that contain generic back classes
+
