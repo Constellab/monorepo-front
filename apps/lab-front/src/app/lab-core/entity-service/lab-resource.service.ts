@@ -96,6 +96,10 @@ export class LabResourceService {
     return this.apiService.put(`${this.route}/${id}/tags`, tags, LabTag);
   }
 
+  public updateProject(id: string, projectId: string): Observable<LabResource> {
+    return this.apiService.put(`${this.route}/${id}/project`, {project_id: projectId}, LabResource);
+  }
+
   //////////////////////////////////////// RESOURCE TYPE ///////////////////////////////////////
 
 

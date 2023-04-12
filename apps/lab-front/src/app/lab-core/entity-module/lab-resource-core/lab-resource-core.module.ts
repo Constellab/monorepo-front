@@ -86,6 +86,9 @@ import {LabShareCoreModule} from '../lab-share-core/lab-share-core.module';
 import {
   LabImportResourceFromLabComponent
 } from './component/lab-import-resource-from-lab/lab-import-resource-from-lab.component';
+import {
+  LabResourceUpdateProjectDialogComponent
+} from './component/lab-resource-update-project-dialog/lab-resource-update-project-dialog.component';
 
 
 @NgModule({
@@ -122,6 +125,7 @@ import {
     LabResourceViewDetailDialogComponent,
     LabResourceChildrenListComponent,
     LabImportResourceFromLabComponent,
+    LabResourceUpdateProjectDialogComponent,
   ],
   exports: [
     LabResourceTypeSelectOptionsComponent,
@@ -145,6 +149,7 @@ import {
     LabResourceViewDetailDialogComponent,
     LabResourceViewSpecListComponent,
     LabImportResourceFromLabComponent,
+    LabResourceUpdateProjectDialogComponent,
   ],
   imports: [
     CommonModule,

@@ -29,6 +29,11 @@
     <span>{{'biox.update_resource_name' | translate}}</span>
   </button>
 
+  <button mat-menu-item type="button" (click)="openUpdateProject()">
+    <mat-icon flIcon="project">edit</mat-icon>
+    <span>{{'biox.update_project' | translate}}</span>
+  </button>
+
   <button mat-menu-item type="button" (click)="updateResourceType()"
           *ngIf="resource.isUpdatable() && !readOnly">
     <mat-icon>edit</mat-icon>

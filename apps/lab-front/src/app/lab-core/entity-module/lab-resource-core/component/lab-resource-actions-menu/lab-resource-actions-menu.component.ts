@@ -22,6 +22,11 @@ import {
   LabTypeDialogComponent,
   LabTypeDialogInput
 } from '../../../lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
+import {
+  LabResourceUpdateProjectDialogComponent,
+  LabResourceUpdateProjectDialogInput
+} from '../lab-resource-update-project-dialog/lab-resource-update-project-dialog.component';
+import {LabProject} from '../../../../model/entities/lab-project.class';
 
 /**
  * Action menu button for resources, it has a ng-content for custom buttons
@@ -97,6 +102,23 @@ export class LabResourceActionsMenuComponent implements OnInit {
   private onUpdateResourceClosed(resource?: LabResource): void {
     if (resource) {
       this.update.next(resource);
+    }
+  }
+
+  openUpdateProject(): void {
+    const data: LabResourceUpdateProjectDialogInput = {
+      resourceId: this.resource.id,
+      experiment: this.resource.experiment,
+      project: this.resource.project
+    };
+    this.dialogService.openSmallDialog(LabResourceUpdateProjectDialogComponent, {data: data})
+      .afterClosed().subscribe(project => this.updateProjectClosed(project));
+  }
+
+  private updateProjectClosed(project?: LabProject): void {
+    if (project) {
+      this.resource.project = project;
+      this.update.next(this.resource);
     }
   }
 

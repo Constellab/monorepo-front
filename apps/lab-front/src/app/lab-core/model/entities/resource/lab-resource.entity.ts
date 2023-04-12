@@ -4,6 +4,7 @@ import {Expose, Type} from 'class-transformer';
 import {LabEntityWithTag} from '../lab-entity-with-tag.entity';
 import {TdTypeObjectStatus} from '@monorepo/technical-doc';
 import {LabFlaggedEntity} from '../../global/lab-flagged-entity.class';
+import {LabProject} from '../lab-project.class';
 
 /**
  * Represent a file or a folder link to the resource
@@ -63,10 +64,13 @@ export class LabResource extends LabEntityWithTag implements LabFlaggedEntity {
 
   flagged: boolean;
 
-  experiment: {
+  experiment?: {
     id: string;
     title: string;
   };
+
+  @Type(() => LabProject)
+  project?: LabProject;
 
   isFsNode(): boolean {
     return this.fsNode != null;
@@ -82,6 +86,11 @@ export class LabResource extends LabEntityWithTag implements LabFlaggedEntity {
 
   isDeletable(): boolean {
     return this.origin !== 'GENERATED';
+  }
+
+  // can only update project manually if the resource was not generated from an experiment
+  canUpdateProject(): boolean{
+    return this.experiment == null;
   }
 
 }

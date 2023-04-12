@@ -60,6 +60,10 @@ export class LabExperimentService {
     return this.apiService.put(`${this.route}/${experimentId}`, this.experimentFormToBody(experiment), LabExperiment);
   }
 
+  public updateProject(experimentId: string, projectId: string): Observable<LabExperiment> {
+    return this.apiService.put(`${this.route}/${experimentId}/project`, {project_id: projectId}, LabExperiment);
+  }
+
   private experimentFormToBody(experiment: LabExperimentSimpleForm): { title: string, project_id: string } {
     return {
       title: experiment.title,
