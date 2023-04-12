@@ -14,7 +14,7 @@ export class HaUserConfig extends FlUserConfig {
   }
 
   getUserPhotoUrl(photoUrl: string): string {
-    return HaEnvironmentHelper.getApiUrl() + '/users/photo-v2/' + photoUrl;
+    return HaEnvironmentHelper.getConstellabApiUrl() + '/users/photo-v2/' + photoUrl;
   }
 
   getUserDetailRoute(userId: string): string {
