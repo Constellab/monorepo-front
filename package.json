@@ -44,7 +44,7 @@
     "ha-hub:build-dev": "nx build ha-hub --configuration=devevelopment",
     "ha-hub:build-image": "docker build -f apps/ha-hub/Dockerfile -t ha-hub .",
     "ha-hub:caprover-deploy-pre-prod": "deploy.cmd https://captain.constellab-pre-prod.gencovery.com hub-front-pre-prod registry.gitlab.com/constellab/core/monorepo-front/community-front",
-    "ha-hub:caprover-deploy-prod": "deploy.cmd https://captain.constellab.gencovery.com hub-front registry.gitlab.com/constellab/core/monorepo-front/community-front",
+    "ha-hub:caprover-deploy-prod": "deploy.cmd https://captain.constellab.gencovery.com hub-front registry.gitlab.com/constellab/core/monorepo-front/community-front"
   },
   "private": true,
   "dependencies": {
