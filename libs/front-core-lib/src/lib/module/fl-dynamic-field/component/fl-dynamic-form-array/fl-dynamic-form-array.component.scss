@@ -3,6 +3,11 @@
   width: 100%;
 }
 
+.section{
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 .section-border{
   padding: 3px;
   border: 1px solid var(--hover-color);
@@ -12,3 +17,4 @@
 mat-divider{
   margin-bottom: 0.5em;
 }
+

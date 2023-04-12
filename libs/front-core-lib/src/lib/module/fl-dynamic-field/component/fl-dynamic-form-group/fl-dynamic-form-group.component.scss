@@ -1,15 +1,16 @@
-:host{
+:host {
   display: block;
   width: 100%;
 }
 
-.group-container{
+.group-container {
   display: block;
   width: 100%;
 }
 
-.field-container{
+.field-container {
   flex: 1;
   min-width: 150px;
+  margin-bottom: 1em;
 }
 
