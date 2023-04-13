@@ -45,7 +45,7 @@
           }
         ],
         "scripts": [],
-        "allowedCommonJsDependencies": ["quill", "luxon", "lodash.throttle"]
+        "allowedCommonJsDependencies": ["quill", "luxon", "lodash.throttle", "quill-delta-to-html"]
       },
       "configurations": {
         "development": {

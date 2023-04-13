@@ -44,17 +44,16 @@ export class FlTranslationLoader implements TranslateLoader {
               private filenames: string[] = [''],
               private prefix: string = 'assets/i18n/',
               private suffix: string = '.json') {
+
   }
 
   // load the app translation and add the library translation
   getTranslation(lang: string): Observable<FlTranslateObject> {
     const obs$: Observable<any>[] = [];
-
     // create observable to get all translation
     for (const file of this.filenames) {
       obs$.push(this.http.get(`${this.prefix}${file}${lang}${this.suffix}`));
     }
-
     // wait for all request
     return zip(...obs$).pipe(
       map((translations: any[]) => this.getTranslationSuccess(translations))

@@ -55,6 +55,7 @@ function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): (
       availableLang: [ClSupportedLanguage.en],
       filenames: ['global-'],
     }),
+
     FlTranslateModule.forRoot2(),
 
     FlSnackBarModule.forRoot(),
