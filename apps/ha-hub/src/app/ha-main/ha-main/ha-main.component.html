@@ -34,7 +34,7 @@
       </fl-user-profile-picture>
     </span>
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item [routerLink]="'/admin'">{{'admin_dashboard' | translate}}</button>
+      <button mat-menu-item [routerLink]="'/admin'" *haIsAdmin>{{'admin_dashboard' | translate}}</button>
       <button mat-menu-item (click)="logout()">{{'logout' |translate}}</button>
     </mat-menu>
   </mat-toolbar>
