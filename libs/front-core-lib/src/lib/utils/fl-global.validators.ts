@@ -64,24 +64,6 @@ export class FlGlobalValidators {
   }
 
   /**
-   * Verify that the value matches the regex
-   * @param regex regex used to check
-   * return error invalidFormat
-   */
-  public static regexValidator(regex: RegExp): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
-      if (!control.parent || !control.value) {
-        return null;
-      }
-
-      if (!regex.test(control.value)) {
-        return {invalidFormat: true};
-      }
-      return null;
-    };
-  }
-
-  /**
    * Verify that the value is a integer
    * return error notInteger
    */

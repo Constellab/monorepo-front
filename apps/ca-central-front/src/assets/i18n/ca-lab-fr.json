@@ -225,5 +225,6 @@
   "lab_config_changed": "Configuration modifiée, veuillez cliquer sur le bouton \"Sauvegarder\" pour enregistrer les changements.",
   "lab_brick_version_show_previous": "Afficher les versions précédentes. Attention, cela peut engendrer des des erreurs. A n'utiliser que si vous savez ce que vous faites.",
   "lab_global_info": "Informations générales",
-  "lab_virtual_host_error": "Le virtual host doit être un sous domain de {{domain}}"
+  "lab_virtual_host_domain_error": "Le virtual host doit être un sous domain de {{domain}}",
+  "lab_virtual_host_pattern_error_fr": "Le nom de domaine doit uniquement contenir des lettres minuscules, des chiffres et des tirets"
 }

@@ -225,5 +225,6 @@
   "lab_config_changed": "Configuration modified, please click on the \"Save\" button to save the changes.",
   "lab_brick_version_show_previous": "Show previous versions. Warning, this can cause errors. Only use if you know what you are doing.",
   "lab_global_info": "Global info",
-  "lab_virtual_host_error": "The virtual host must be a subdomain of {{domain}}"
+  "lab_virtual_host_domain_error": "The virtual host must be a subdomain of {{domain}}",
+  "lab_virtual_host_pattern_error": "The virtual host must only contain lowercase letters, numbers and dashes"
 }

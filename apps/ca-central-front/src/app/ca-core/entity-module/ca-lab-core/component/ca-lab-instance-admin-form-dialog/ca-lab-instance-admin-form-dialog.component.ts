@@ -64,11 +64,12 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
   }
 
   buildForm(): FormGroup<CaLabInstanceAdminForm> {
+
     return new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required]],
       type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
-      virtualHost: [null, [Validators.required, this.virtualHostValidator()]],
+      virtualHost: [null, [Validators.required, this.virtualHostDomainValidator()]],
       serverInfo: [null, [Validators.required]],
       billingMode: [null, [Validators.required]],
       volumeSize: [null, [Validators.required, FlGlobalValidators.isInteger, Validators.min(50)]],
@@ -138,7 +139,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
     return 'lab_instance_updated';
   }
 
-  public virtualHostValidator(): ValidatorFn {
+  public virtualHostDomainValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value: any = control.value;
       if (value == null || value.length === 0) {
@@ -154,6 +155,11 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       const mainDomain = value.substring(subDomain.length + 1);
       if (this.supportedDomains.indexOf(mainDomain) === -1) {
         return {invalid: true};
+      }
+
+      // check that subdomain is only lowercase letters, numbers and '-'
+      if (!subDomain.match(/^[a-z0-9-]+$/)) {
+        return {pattern: true};
       }
 
       return null;
