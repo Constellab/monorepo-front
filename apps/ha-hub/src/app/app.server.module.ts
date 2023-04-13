@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
 
-import { AppModule } from './app.module';
-import { AppComponent } from './app.component';
+import { HaAppModule } from './ha-app.module';
+import { HaAppComponent } from './ha-app.component';
 import {FlexLayoutServerModule} from '@angular/flex-layout/server';
 
 @NgModule({
-  imports: [AppModule, ServerModule,FlexLayoutServerModule],
-  bootstrap: [AppComponent],
+  imports: [HaAppModule, ServerModule,FlexLayoutServerModule],
+  bootstrap: [HaAppComponent],
 })
 export class AppServerModule {}

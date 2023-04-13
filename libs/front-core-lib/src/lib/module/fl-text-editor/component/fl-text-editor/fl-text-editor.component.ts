@@ -37,6 +37,7 @@ import {FlHtmlHelper} from '../../../../utils/fl-html.helper';
 import {FlQuillScrollContainer, FlQuillSetup} from '../../model/fl-quill-setup.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 import BlockBlot from 'parchment/dist/src/blot/block';
+import {QuillDeltaToHtmlConverter} from 'quill-delta-to-html';
 //import "quill-mention"; //TODO: check how to import this
 
 hljs.registerLanguage('python', python);
@@ -83,6 +84,8 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
    */
   @Input() scrollContainer: FlQuillScrollContainer = 'auto';
 
+  @Input() baseDelta?: any;
+
   @Output() textChange: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('editor', {static: true}) editorElement: ElementRef<HTMLElement>;
 
@@ -115,8 +118,7 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
 
   async ngOnInit(): Promise<void> {
     if (!this.testBrowser) {
-      this.editorElement.nativeElement.innerHTML = 'LMAOOOOOOOOOOOOOOOO';
-      //TODO: transform the content of the editor in HTML and print it
+      this.editorElement.nativeElement.innerHTML = new QuillDeltaToHtmlConverter(this.baseDelta.ops, {}).convert();
       return;
     }
 
