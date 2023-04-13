@@ -251,7 +251,7 @@
 
 // DENSE
 .ql-dense .ql-editor p{
-  line-height: 1em !important;
+  line-height: 1.5em !important;
   margin-bottom: 0 !important;
   margin-top: 0.8em;
 }
@@ -284,6 +284,6 @@
 
 span.mention {
   background-color: var(--card-background);
-  padding: 2px 5px;
+  padding: 0 5px;
   border-radius: 5px;
 }
