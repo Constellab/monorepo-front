@@ -19,7 +19,7 @@ export class TranslateServerLoader implements TranslateLoader {
 
       for (const file of this.filenames) {
         Object.assign(jsonData, JSON.parse(
-          fs.readFileSync(path.resolve(__dirname, `../assets/i18n/${file}${lang}${this.suffix}`), 'utf8')
+          fs.readFileSync(path.resolve(__dirname, `../browser/assets/i18n/${file}${lang}${this.suffix}`), 'utf8')
         ));
       }
 
