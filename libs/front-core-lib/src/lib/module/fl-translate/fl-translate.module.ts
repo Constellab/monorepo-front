@@ -8,11 +8,17 @@ import {FlTranslateService} from './service/fl-translate.service';
 import {FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig} from './model/fl-translate-module-config';
 import {CookieService} from 'ngx-cookie-service';
 import {FlTranslatableTextPipe} from './pipe/fl-translatable-text.pipe';
+import {TransferState} from '@angular/platform-browser';
+import {TranslateServerLoader} from './fl-translation-server-loader';
 
 // AoT requires an exported function for factories
 // load the translations
 export function TranslationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
+}
+
+export function FlTranslationServerLoader(transferState: TransferState, config: FlTranslateModuleConfig): TranslateServerLoader {
+  return new TranslateServerLoader(transferState, config.filenames, config.filePrefix, config.fileSuffix);
 }
 
 // init the translation
@@ -36,6 +42,9 @@ export function initTranslateService(service: FlTranslateService): () => void {
   ]
 })
 export class FlTranslateModule {
+
+  constructor() {
+  }
 
   /**
    * Call this method only once on the LabAppModule
@@ -66,12 +75,16 @@ export class FlTranslateModule {
    * Both forRoot method
    * For root method to export TranslateModule
    */
-  public static forRoot2(): ModuleWithProviders<FlTranslateModule> {
+  public static forRoot2(): ModuleWithProviders<TranslateModule> {
     return TranslateModule.forRoot({
-      loader: {
+      loader: (typeof window !== 'undefined' && window.document) ? {
         provide: TranslateLoader,
         useFactory: TranslationLoaderFactory,
         deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
+      } : {
+        provide: TranslateLoader,
+        useFactory: FlTranslationServerLoader,
+        deps: [TransferState, FL_TRANSLATE_MODULE_CONFIG]
       },
       missingTranslationHandler: {
         provide: MissingTranslationHandler,

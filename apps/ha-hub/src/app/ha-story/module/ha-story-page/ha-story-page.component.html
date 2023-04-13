@@ -17,8 +17,8 @@
     </p>
 
 
-    <fl-text-editor class="text-editor g-max-article-width" [disabled]="true" mode="JSON" scrollContainer="auto"
-                    [config]="textEditorConfig" [noPadding]="true" flAutoScrollToAnchor [formControl]="formControl">
+    <fl-text-editor class="text-editor g-max-article-width" mode="JSON" scrollContainer="auto"
+                    [config]="textEditorConfig" [noPadding]="true" flAutoScrollToAnchor [formControl]="formControl" [baseDelta]="story?.content">
     </fl-text-editor>
   </div>
 

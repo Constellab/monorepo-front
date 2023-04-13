@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
@@ -11,6 +11,7 @@ import {
   FlTranslateService
 } from '@monorepo/front-core-lib';
 import {CmApiError} from '@monorepo/common-model';
+import {isPlatformBrowser} from '@angular/common';
 
 
 /**
@@ -22,7 +23,10 @@ export class HaApiErrorService extends FlApiErrorService {
   constructor(snackBarService: FlSnackBarService,
               translateService: FlTranslateService,
               private router: Router,
-              private cookieService: FlCookieService) {
+              private cookieService: FlCookieService,
+              // eslint-disable-next-line @typescript-eslint/ban-types
+              @Inject(PLATFORM_ID) private platformId: Object
+  ) {
     super(snackBarService, translateService);
   }
 
@@ -96,7 +100,7 @@ export class HaApiErrorService extends FlApiErrorService {
     // to assure the user is disconnected
     this.cookieService.removeCookie(flAuthExpiredCookie);
 
-    if(window) window.location.reload();
+    if(isPlatformBrowser(this.platformId)) window.location.reload();
 
     serverError.message = this.translateService.translate('session_expired');
 

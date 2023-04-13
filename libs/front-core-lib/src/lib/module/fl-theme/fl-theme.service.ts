@@ -1,7 +1,7 @@
-import {Inject, Injectable, Renderer2, RendererFactory2} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID, Renderer2, RendererFactory2} from '@angular/core';
 import {FlPlatformService} from '../../service/fl-plateform.service';
 import {FlLocalStorageService} from '../../service/fl-local-storage.service';
-import {DOCUMENT} from '@angular/common';
+import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {clDefaultTheme, ClTheme, clThemeIsSupported} from '@monorepo/core-lib';
 import {FlThemeDetail, flThemeDetailDark, flThemeDetailLight} from './model/fl-theme-detail.class';
 import {flRootInjector} from '../../utils/fl-root-injector';
@@ -21,6 +21,8 @@ export class FlThemeService {
   constructor(private platformService: FlPlatformService,
               private localStorageService: FlLocalStorageService,
               @Inject(DOCUMENT) private document: Document,
+              // eslint-disable-next-line @typescript-eslint/ban-types
+              @Inject(PLATFORM_ID) private platformId: Object,
               rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
@@ -85,13 +87,16 @@ export class FlThemeService {
 
   // get the theme of the browser
   public getBrowserTheme(): ClTheme {
-    // dark-mode media query matched or not
-    const matched: boolean = window?.matchMedia('(prefers-color-scheme: dark)')?.matches;
+    if(isPlatformBrowser(this.platformId)){
+      // dark-mode media query matched or not
+      const matched: boolean = window?.matchMedia('(prefers-color-scheme: dark)')?.matches;
 
-    if (matched == null) {
-      return clDefaultTheme;
+      if (matched == null) {
+        return clDefaultTheme;
+      }
+      return matched ? ClTheme.DARK_THEME : ClTheme.LIGHT_THEME;
     }
-    return matched ? ClTheme.DARK_THEME : ClTheme.LIGHT_THEME;
+    return ClTheme.LIGHT_THEME;
   }
 
 

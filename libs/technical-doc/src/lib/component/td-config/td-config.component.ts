@@ -18,11 +18,11 @@ export class TdConfigComponent implements OnInit {
   }
 
   public getParamSet(confSpec: TdParamSpec): Record<string, TdParamSpec> {
-    return (confSpec as TdParamSpecParamSet).additional_info.param_set;
+    return (confSpec as TdParamSpecParamSet)?.additional_info?.param_set;
   }
 
   public getMaxParamSetOccurrences(confSpec: TdParamSpec): number {
-    return (confSpec as TdParamSpecParamSet).additional_info.max_number_of_occurrences;
+    return (confSpec as TdParamSpecParamSet)?.additional_info?.max_number_of_occurrences;
   }
 
 }
