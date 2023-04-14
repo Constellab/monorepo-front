@@ -30,5 +30,11 @@ function bootstrap(): void {
 if (document.readyState !== 'loading') {
   bootstrap();
 } else {
+  environment.settings = {
+    apiUrl: 'http://host.docker.internal:3333',
+    constellabApiUrl: 'https://api.preconstellab.com',
+    constellabFrontUrl: 'https://preconstellab.com',
+    communityFrontUrl: 'http://localhost:4200'
+  };
   document.addEventListener('DOMContentLoaded', bootstrap);
 }

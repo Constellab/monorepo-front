@@ -19,7 +19,7 @@
 
   <p class="left-side-div-title">{{'popular_topics' | translate}} :</p>
 
-  <mat-chip-listbox selectable multiple>
+  <mat-chip-listbox selectable multiple *ngIf="popularTopics$">
     <mat-chip *ngFor="let topic of popularTopics$ | async" [value]="isSelected(topic)" (click)="selectTopic(topic)"
               style="cursor: pointer">
       {{topic.name}}
@@ -28,7 +28,7 @@
 </div>
 
 <div class="main-panel">
-  <div class="stories-div">
+  <div class="stories-div" *ngIf="stories">
     <h1 class="title">{{'stories' | translate}}</h1>
     <div class="stories-list">
       <a class="story" *ngFor="let story of stories?.connect() | async" [routerLink]="story.id">
