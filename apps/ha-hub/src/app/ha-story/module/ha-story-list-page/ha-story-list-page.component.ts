@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {
   HaCreateStoryDtoInput,
@@ -16,6 +16,7 @@ import {HaTopicService} from '../../../ha-core/ha-service/ha-topic.service';
 import {Observable} from 'rxjs';
 import {HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 import {ClStringHelper} from '@monorepo/core-lib';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'ha-story-list-page',
@@ -47,12 +48,15 @@ export class HaStoryListPageComponent implements OnInit {
   constructor(private dialogService: FlDialogService,
               private router: Router,
               private storyService: HaStoryService,
-              private topicService: HaTopicService) {
+              private topicService: HaTopicService,
+              @Inject(PLATFORM_ID) private platformId: any) {
   }
 
   ngOnInit(): void {
-    this.stories = this.storyService.getAllPaginated();
-    this.popularTopics$ = this.topicService.getPopularTopics();
+    if(isPlatformBrowser(this.platformId)){
+      this.stories = this.storyService.getAllPaginated();
+      this.popularTopics$ = this.topicService.getPopularTopics();
+    }
   }
 
 

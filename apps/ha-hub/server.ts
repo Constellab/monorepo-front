@@ -7,6 +7,7 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
+import {environment} from './src/environments/ha-environment';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -49,6 +50,13 @@ export function app(): express.Express {
 
 function run(): void {
   const port = process.env['PORT'] || 4000;
+
+  environment.settings = {
+    apiUrl: 'http://host.docker.internal:3333',
+    constellabApiUrl: 'https://api.preconstellab.com',
+    constellabFrontUrl: 'https://preconstellab.com',
+    communityFrontUrl: 'http://localhost:4200'
+  };
 
   // Start up the Node server
   const server = app();

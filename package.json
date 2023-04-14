@@ -44,6 +44,7 @@
     "lab-front:build-image": "docker build -f apps/lab-front/Dockerfile -t lab-front .",
     "ha-hub:serve": "nx serve ha-hub",
     "ha-hub:serve-ssr": "nx run ha-hub:serve-ssr",
+    "ha-hub:build-ssr": "nx run ha-hub:build:production | nx run ha-hub:server:production",
     "ha-hub:build-prod": "nx build ha-hub --prod",
     "ha-hub:build-dev": "nx build ha-hub --configuration=devevelopment",
     "ha-hub:build-image": "docker build -f apps/ha-hub/Dockerfile -t ha-hub .",
