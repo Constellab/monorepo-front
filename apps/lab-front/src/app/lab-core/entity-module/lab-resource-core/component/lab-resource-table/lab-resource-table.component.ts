@@ -13,7 +13,7 @@ import {
   FlDialogService,
   FlDropEvent,
   FlEntityArrayObs,
-  FlTableAbstractDirective,
+  FlTableColumn,
   FlTag,
   FlTagSelectedEvent
 } from '@monorepo/front-core-lib';
@@ -34,10 +34,11 @@ import {Observable} from 'rxjs';
   styleUrls: ['./lab-resource-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LabResourceTableComponent extends FlTableAbstractDirective<LabResource>
-  implements OnInit {
+export class LabResourceTableComponent implements OnInit {
 
   @Input() datasource: FlArrayObs<LabResource>;
+
+  @Input() columns: FlTableColumn<LabResource>[];
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() selectableRow: boolean = false;
@@ -47,6 +48,9 @@ export class LabResourceTableComponent extends FlTableAbstractDirective<LabResou
   @Output() resourceSelected: EventEmitter<LabResource> = new EventEmitter();
 
   @Output() tagSelected: EventEmitter<FlTag> = new EventEmitter();
+
+  // column used in the sub table (for resource set)
+  subTableColumns: FlTableColumn<LabResource>[];
 
   // enable drop tags
   supportedDropType: LabDragType = LabDragType.TAG;
@@ -60,11 +64,11 @@ export class LabResourceTableComponent extends FlTableAbstractDirective<LabResou
   constructor(private cdr: ChangeDetectorRef,
               private resourceService: LabResourceService,
               private dialogService: FlDialogService) {
-    super(['created', 'action', 'name', 'type', 'tags', 'viewResource', 'openInNewTab',
-      'expandedDetail', 'preview', 'flagged']);
   }
 
   ngOnInit(): void {
+    // remove the tag column from the sub table
+    this.subTableColumns = this.columns.filter(c => c !== 'tags');
   }
 
   rowClicked(resource: LabResource): void {

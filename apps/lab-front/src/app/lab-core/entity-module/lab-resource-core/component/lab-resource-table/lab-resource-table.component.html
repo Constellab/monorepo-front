@@ -2,17 +2,17 @@
 
   <!-- Name -->
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border">
+    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border g-column-width-2">
       <span> {{'name' | translate}}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let resource" class="g-cell-with-left-border name-cell"
+    <mat-cell *matCellDef="let resource" class="g-cell-with-left-border g-column-width-2 name-cell"
               [style.border-left-color]="resource.experiment?.id | flStringToRgb">
 
       <button *ngIf="resource.hasChildren; else leftPadding" mat-icon-button type="button"
               (click)="toggleResourceChildren(resource, $event)"
               [matTooltip]="'databox.resource_see_children' | translate"
               [matTooltipDisabled]="expandedResource === resource"
-              class="expand-button">
+              class="expand-button g-button-icon-small" fxHide.xs>
         <mat-icon>{{expandedResource === resource ? 'expand_less' : 'expand_more'}}</mat-icon>
       </button>
 
@@ -22,14 +22,17 @@
       </ng-template>
 
       <mat-icon *ngIf="resource.typeStatus === 'UNAVAILABLE'" color="warn"
-                class="type-unavailable" [matTooltip]="'biox.resource_type_unavailable_error' | translate">
+                class="type-unavailable" [matTooltip]="'biox.resource_type_unavailable_error' | translate"
+                fxHide.xs>
         error
       </mat-icon>
-      <div class="name-container">
+      <div class="name-container g-text-dense-height">
         <div [matTooltip]="resource.name"
-             [matTooltipShowDelay]="1000" matTooltipPosition="after">{{resource.name}}</div>
+             [matTooltipShowDelay]="1000" matTooltipPosition="after">
+          {{resource.name}}
+        </div>
         <fl-text-icon class="g-text-tiny g-text-light" *ngIf="resource.experiment"
-                      gap="0">
+                      gap="0" fxHide.xs>
           <mat-icon flIcon="experiment" class="g-icon-tiny"></mat-icon>
           {{resource.experiment.title}}
         </fl-text-icon>
@@ -56,7 +59,7 @@
     <mat-cell *matCellDef="let resource">
       <div>
         <div>{{resource.resourceTypeHumanName}}</div>
-        <div *ngIf="resource.fsNode?.size != null" class="g-text-light g-text-tiny">
+        <div *ngIf="resource.fsNode?.size != null" class="g-text-light g-text-tiny g-text-dense-height">
           {{resource.fsNode.size | flByteText}}
         </div>
       </div>
@@ -65,10 +68,10 @@
 
   <!-- Tags -->
   <ng-container matColumnDef="tags">
-    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+    <mat-header-cell *matHeaderCellDef>
       <span> {{'tags' | translate}}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let resource" class="g-column-width-2 tags">
+    <mat-cell *matCellDef="let resource" class="tags">
       <fl-tag-list [tags]="resource.tags"
                    [tagSelectable]="tagSelectable" (tagSelected)="onTagSelected($event)"></fl-tag-list>
     </mat-cell>
@@ -140,7 +143,7 @@
   <ng-container matColumnDef="expandedDetail">
     <mat-header-cell *matHeaderCellDef>
     </mat-header-cell>
-    <mat-cell *matCellDef="let resource" [attr.colspan]="_columns.length"
+    <mat-cell *matCellDef="let resource" [attr.colspan]="columns.length"
               class="expanded-cell"
               [style.border-left-color]="resource.experiment?.id | flStringToRgb">
       <div class="expanded-cell-content" *ngIf="resource === expandedResource">
@@ -148,7 +151,7 @@
         <lab-resource-table
           [datasource]="expandedChildrenResources$" [selectableRow]="selectableRow"
           [tagSelectable]="tagSelectable"
-          [columns]="_columnsInput" class="sub-table"
+          [columns]="subTableColumns" class="sub-table"
           (resourceSelected)="emitResourceSelected($event)"
           (tagSelected)="emitTagSelected($event)"></lab-resource-table>
 
@@ -161,23 +164,11 @@
   </ng-container>
 
 
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let user">
-      <div>
-        <span>{{user[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
   <ng-container *ngIf="selectableRow; else notSelectable">
-    <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
+    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
              (click)="rowClicked(row)"
              flDragHover="drag-element" [flDragHoverMode]="supportedDropType" (flDrop)="onDrop(row, $event)"></mat-row>
     <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expandable-row"></mat-row>
@@ -185,7 +176,7 @@
 
   <!-- Mode link -->
   <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
+    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
              [routerLink]="row | labDetailRoute"
              flDragHover="drag-element" [flDragHoverMode]="supportedDropType" (flDrop)="onDrop(row, $event)"></mat-row>
     <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expandable-row"></mat-row>

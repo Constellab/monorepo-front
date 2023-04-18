@@ -39,9 +39,7 @@ export const labResourceSearchName: string = 'biox-resource';
   selector: 'lab-resource-search',
   templateUrl: './lab-resource-search.component.html',
   styleUrls: ['./lab-resource-search.component.scss'],
-  providers: [
-    FlSearchState,
-  ]
+  providers: [FlSearchState]
 
 })
 export class LabResourceSearchComponent implements OnInit, OnDestroy {
@@ -61,8 +59,7 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
   datasource: FlDatasourcePaginated<LabResource>;
 
-  columns: FlTableColumn<LabResource>[] = ['name', 'type',
-    'tags', 'created', 'preview', 'flagged'];
+  columns: FlTableColumn<LabResource>[];
 
   files: File[];
 
@@ -77,6 +74,9 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.columns = this.fullPageSearch ?
+      ['name', 'type', 'tags', 'created', 'preview', 'flagged'] :
+      ['name', 'type', 'created', 'preview']; // no tags, flagged
     // in none selectable mode, we add the action column
     if (!this.resourceSelectable) {
       this.columns.push('action');

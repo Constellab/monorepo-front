@@ -18,7 +18,7 @@ export class LabResourceViewHistoricComponent implements OnInit {
 
   datasource: LabViewConfigDatasource;
 
-  columns: FlTableColumn<LabViewConfig>[] = ['title', 'tags', 'preview', 'flagged'];
+  columns: FlTableColumn<LabViewConfig>[] = ['title', 'preview', 'flagged'];
 
   constructor(private viewConfigService: LabViewConfigService,
               private resourceTabState: LabResourceDetailTabsState) {

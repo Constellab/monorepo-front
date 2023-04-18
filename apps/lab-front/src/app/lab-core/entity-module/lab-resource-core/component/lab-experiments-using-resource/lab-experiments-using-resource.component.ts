@@ -17,7 +17,7 @@ export class LabExperimentsUsingResourceComponent implements OnInit {
 
   datasource: LabExperimentDatasource;
 
-  columns: FlTableColumn<LabExperiment>[] = ['title', 'status', 'tags'];
+  columns: FlTableColumn<LabExperiment>[] = ['title', 'status'];
 
   constructor(private experimentService: LabExperimentService) {
   }
