@@ -1,5 +1,6 @@
 .io-div-head{
   display: flex;
+  margin-bottom: 1em;
 }
 
 .io-div-head *{
@@ -16,11 +17,7 @@
   flex-shrink: 1;
 }
 
-.io-specification{
-  width: auto;
-  padding: 0 !important;
-  font-size: 1.2em;
-}
+
 
 .io-chip-div{
   flex: auto;

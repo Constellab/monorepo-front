@@ -245,6 +245,11 @@ figure {
   text-decoration: underline;
 }
 
+// reduce the line height to the minimum to avoid too much space between lines
+.g-text-dense-height {
+  line-height: 1.2em;
+}
+
 
 /**************************** Flex *****************************/
 .g-grow-max-height {
