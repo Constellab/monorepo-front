@@ -2,7 +2,7 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Se
 import {Observable, of} from 'rxjs';
 import {FlFormFieldDirective} from '../../../abstract-directive/form/fl-form-field.directive';
 import {NgControl} from '@angular/forms';
-import {ENTER, TAB} from '@angular/cdk/keycodes';
+import {TAB} from '@angular/cdk/keycodes';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatInput} from '@angular/material/input';
@@ -29,7 +29,7 @@ export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirecti
   @ViewChild(MatInput, {read: ElementRef}) input: ElementRef<HTMLInputElement>;
 
 
-  separatorKeysCodes: number[] = [ENTER, TAB];
+  separatorKeysCodes: number[] = [TAB];
   filteredOptions$: Observable<T[]>;
 
   constructor(@Optional() @Self() ngControl: NgControl) {

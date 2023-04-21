@@ -23,7 +23,8 @@
         {{'publish_story' | translate}}
       </button>
     </div>
-    <button mat-icon-button type="button" class="co-author-bt" *ngIf="isAuthor() | async" (click)="openCoAuthorDialog()">
+    <button mat-icon-button type="button" class="co-author-bt" *ngIf="isAuthor() | async"
+            (click)="openCoAuthorDialog()">
       <mat-icon>group_add</mat-icon>
     </button>
   </div>
@@ -38,10 +39,10 @@
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>
-    </mat-chip-grid>
 
-    <input matInput flInputMaxLength="30" [formControl]="topicControl"
-           [matAutocomplete]="auto" [matChipInputFor]="topicChipList" #topicInput>
+      <input matInput flInputMaxLength="30" [formControl]="topicControl"
+             [matAutocomplete]="auto" [matChipInputFor]="topicChipList" #topicInput>
+    </mat-chip-grid>
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn"
                       (optionSelected)="onSelectTopic($event)">
       <mat-option *ngFor="let topic of filteredTopics | async" [value]="topic">
@@ -55,7 +56,8 @@
   </mat-form-field>
 
   <mat-error *ngIf="contentHasError">{{contentError | translate}}</mat-error>
-  <form class="story-content-form" [formGroup]="formGp" id="story-content-form" [ngClass]="contentEditorIsFocused ? ['focus'] : []">
+  <form class="story-content-form" [formGroup]="formGp" id="story-content-form"
+        [ngClass]="contentEditorIsFocused ? ['focus'] : []">
     <fl-text-editor class="content-editor g-max-article-width" mode="JSON" scrollContainer="auto"
                     formControlName="content"
                     [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [noPadding]="true"

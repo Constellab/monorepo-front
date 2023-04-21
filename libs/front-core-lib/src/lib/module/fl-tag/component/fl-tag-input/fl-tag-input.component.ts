@@ -151,7 +151,7 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
     }
   }
 
-  removeTempFruit(): void {
+  removeTempTag(): void {
     this.newTag = null;
     this.switchMode('key');
   }
