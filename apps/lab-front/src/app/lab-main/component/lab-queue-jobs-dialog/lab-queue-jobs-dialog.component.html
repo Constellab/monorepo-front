@@ -28,16 +28,17 @@
     <ng-container *flSectionBody>
       <mat-list class="content">
         <mat-list-item *ngFor="let job of jobs; let index = index">
-          <h3 matLine><a [routerLink]="job.experiment | labDetailRoute" class="g-text-link">{{job.experiment.title}}</a>
+          <h3 matListItemTitle><a [routerLink]="job.experiment | labDetailRoute" class="g-text-link">{{job.experiment.title}}</a>
           </h3>
-          <p matLine>
-            <span> {{job.user.fullname}} </span>
-          </p>
+          <p matListItemLine><span>{{job.user.fullname}}</span></p>
 
-          <button mat-icon-button type="button" color="warn" (click)="removeExperimentFromQueue(job, index)"
-                  [matTooltip]="'biox.remove_experiment_from_queue' | translate">
-            <mat-icon>stop</mat-icon>
-          </button>
+
+          <span matListItemMeta>
+            <button mat-icon-button type="button" color="warn" (click)="removeExperimentFromQueue(job, index)"
+                    [matTooltip]="'biox.remove_experiment_from_queue' | translate">
+              <mat-icon>stop</mat-icon>
+            </button>
+          </span>
         </mat-list-item>
       </mat-list>
     </ng-container>
