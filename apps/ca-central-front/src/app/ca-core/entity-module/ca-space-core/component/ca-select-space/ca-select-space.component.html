@@ -6,8 +6,8 @@
                  [disabled]="disabled"
                  (focused)="onFocused($event)">
 
-  <div class="photo" *flInputSearchPrefix="let selectedSpace">
-    <ca-space-photo *ngIf="selectedSpace; else noUser" [space]="selectedSpace"
+  <div class="photo" *flInputSearchPrefix="let currentSpace">
+    <ca-space-photo *ngIf="currentSpace; else noUser" [space]="currentSpace"
                     size="small"></ca-space-photo>
     <ng-template #noUser>
       <mat-icon flIcon="space"></mat-icon>

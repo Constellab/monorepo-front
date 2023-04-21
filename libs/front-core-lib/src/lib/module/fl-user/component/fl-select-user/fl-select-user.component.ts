@@ -40,6 +40,7 @@ export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implemen
 
   callChangeEvent(value: FlUser): void {
     this.valueChange.emit(value);
+    this.selectedUser = value;
   }
 
   onDisableChange(): void {

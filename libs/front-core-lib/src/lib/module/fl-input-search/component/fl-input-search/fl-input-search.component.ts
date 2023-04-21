@@ -30,8 +30,8 @@ import {FlInputSearchPrefixDirective} from '../../directive/fl-input-search-pref
 export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
 
   @Input() set selectedItem(selectedItem: T | Observable<T>) {
+    this.clearInitObs();
     if (selectedItem instanceof Observable) {
-      this.clearInitObs();
       this.initWithObs(selectedItem);
     } else {
       this._selectedItem = selectedItem;
@@ -196,7 +196,6 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.clearInitObs();
   }
-
 
 
 }

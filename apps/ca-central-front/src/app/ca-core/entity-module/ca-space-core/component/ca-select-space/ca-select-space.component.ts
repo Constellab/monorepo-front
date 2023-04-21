@@ -38,6 +38,7 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
 
   callChangeEvent(value: CaSpace): void {
     this.valueChange.emit(value);
+    this.selectedSpace = value;
   }
 
   onDisableChange(): void {

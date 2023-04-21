@@ -6,8 +6,8 @@
                  [disabled]="disabled"
                  (focused)="onFocused($event)">
 
-  <div class="photo" *flInputSearchPrefix="let selectedUser">
-    <fl-user-profile-picture *ngIf="selectedUser; else noUser" [user]="selectedUser"
+  <div class="photo" *flInputSearchPrefix="let currentUser">
+    <fl-user-profile-picture *ngIf="currentUser; else noUser" [user]="currentUser"
                              size="small"></fl-user-profile-picture>
     <ng-template #noUser>
       <mat-icon>account_circle</mat-icon>
