@@ -52,10 +52,10 @@ function run(): void {
   const port = process.env['PORT'] || 4000;
 
   environment.settings = {
-    apiUrl: process.env['API_URL'],
-    constellabApiUrl: process.env['CONSTELLAB_API_URL'],
-    constellabFrontUrl: process.env['CONSTELLAB_FRONT_URL'],
-    communityFrontUrl: process.env['COMMUNITY_FRONT_URL']
+    apiUrl: process.env['API_URL'] || 'http://localhost:3333',
+    constellabApiUrl: process.env['CONSTELLAB_API_URL'] || 'https://api.preconstellab.com',
+    constellabFrontUrl: process.env['CONSTELLAB_FRONT_URL'] || 'https://preconstellab.com',
+    communityFrontUrl: process.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200'
   };
 
 

@@ -26,6 +26,7 @@ import {HaAuthenticatedUserService} from './ha-core/ha-service/ha-authenticated-
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {HaTdServiceConfig} from './ha-core/ha-model/ha-config/ha-td-service.config';
 import {HaUserConfig} from './ha-core/ha-model/ha-config/ha-user-config.config';
+import {HaMainModule} from './ha-main/ha-main.module';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -71,6 +72,7 @@ function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): (
     FlTextEditorModule.forRoot({
       blots: [],
     }),
+    HaMainModule
   ],
   providers: [
     {
