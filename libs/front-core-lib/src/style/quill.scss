@@ -159,7 +159,7 @@
 
   // Code block
   pre.ql-syntax {
-    background-color: var(--card-background);
+    background-color: var(--main-background);
     color: var(--color-foreground);
     margin-top: 2em;
     margin-bottom: 2em;
@@ -189,6 +189,10 @@
   display: block;
 }
 
+
+.g-text-editor-hint a{
+  color: black !important;
+}
 
 // set background color for tooltip containing button
 .ql-bubble .ql-tooltip {

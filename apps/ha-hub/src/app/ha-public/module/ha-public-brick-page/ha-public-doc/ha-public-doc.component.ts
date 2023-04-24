@@ -151,7 +151,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
     this.setFormGroupValue(doc);
     this.titles = [];
-    if (this.formGp.value.content && doc.content) {
+
+    if (doc.content) {
       this.richText = new CmRichText(doc.content);
 
       this.titles = this.richText.getHeaders([2, 3]);
