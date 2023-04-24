@@ -1,9 +1,7 @@
-<ha-ha404 [errorText]="'error_brick_not_found'" *ngIf="brickNotFound"></ha-ha404>
 
-<fl-async-section [object]="brick$" class="full-w" *ngIf="!brickNotFound">
+<fl-async-section [object]="brick$" class="full-w" [emptyText]="'error_brick_not_found'">
   <ng-container *flSectionBody="let brick">
-
-    <div class="left-panel">
+    <div class="left-panel" *ngIf="brick">
       <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
       <a [routerLink]="'/bricks'" class="back-link">
         <fl-text-icon [iconPosition]="'start'">
@@ -29,5 +27,6 @@
     <!--    <router-outlet></router-outlet>-->
   </ng-container>
 </fl-async-section>
+
 
 

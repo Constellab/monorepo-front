@@ -22,11 +22,11 @@ export class HaPublicBrickPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     if(this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')){
       this.initBrick(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
     } else {
       this.activatedRoute.params.subscribe((params: Params) => {
+
         this.initBrick(params.brickName);
       });
     }
@@ -35,11 +35,6 @@ export class HaPublicBrickPageComponent implements OnInit {
   private initBrick(name: string): void{
     this.brickNotFound = false;
     this.brick$ = this.brickService.getByName(name);
-    this.brick$.subscribe((brick) => {
-      if(brick == null){
-        this.brickNotFound = true;
-      }
-    })
   }
 }
 
