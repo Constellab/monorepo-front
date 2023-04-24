@@ -3,7 +3,6 @@ import {
   FlArticleModule,
   FlAuthModule,
   FlAutocompleteMultipleModule,
-  FlBioNetworkModule,
   FlCardModule,
   FlChartModule,
   FlColorModule,
@@ -43,6 +42,7 @@ import {
 import {RvResourceViewModule} from '@monorepo/resource-view';
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {PrProtocolModule} from '@monorepo/protocol';
+import {BnBioNetworkModule} from '@monorepo/bio-network';
 
 /**
  * Regrouped all the needed import for this app from library
@@ -75,7 +75,6 @@ import {PrProtocolModule} from '@monorepo/protocol';
     FlPortalActionsModule,
     FlDateModule,
     FlAuthModule,
-    FlBioNetworkModule,
     FlDrawerModule,
     FlTagModule,
     FlTextEditorModule,
@@ -93,6 +92,7 @@ import {PrProtocolModule} from '@monorepo/protocol';
     FlUserModule,
 
     //  Other lib
+    BnBioNetworkModule,
     RvResourceViewModule,
     TdTechnicalDocModule,
     PrProtocolModule,

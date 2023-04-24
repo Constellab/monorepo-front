@@ -1,0 +1,26 @@
+<ng-container *ngIf="node$ | async as node">
+
+  <bn-bio-network-reaction-detail [reaction]="node.data">
+  </bn-bio-network-reaction-detail>
+
+
+  <bn-bio-network-reaction-content [reaction$]="node$"></bn-bio-network-reaction-content>
+
+
+  <fl-key-value class="g-section">
+    <fl-key>{{'bnBioNetwork.pathway' | translate}}</fl-key>
+    {{node.cluster.clusterId}}
+  </fl-key-value>
+
+  <div *ngIf="node.existsInMultipleCluster" class="section">
+    <p>{{'bnBioNetwork.reaction_exists_in_multiple_pathways' | translate}} :</p>
+
+    <ul>
+      <li *ngFor="let reaction of duplicateReactions$ | async"
+          class="g-text-link" (click)="selectNode(reaction)"
+          [ngClass]="{'selected-pathway':reaction.cluster.clusterId === node.cluster.clusterId}">
+        {{reaction.cluster.clusterId}}
+      </li>
+    </ul>
+  </div>
+</ng-container>

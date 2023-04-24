@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {RvResourceViewComponent} from './component/rv-resource-view/rv-resource-view.component';
 import {RvViewJsonComponent} from './component/rv-view-json/rv-view-json.component';
 import {
-  FlBioNetworkModule,
   FlChartModule,
   FlCoreComponentModule,
   FlDialogModule,
@@ -29,8 +28,9 @@ import {RvReportResourceViewComponent} from './component/rv-report-resource-view
 import {MatIconModule} from '@angular/material/icon';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RvViewImageComponent} from './component/rv-view-image/rv-view-image.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
+import {BnBioNetworkModule} from '@monorepo/bio-network';
 
 @NgModule({
   imports: [
@@ -46,12 +46,13 @@ import {MatButtonModule} from '@angular/material/button';
     FlCoreComponentModule,
     FlTranslateModule,
     FlChartModule,
-    FlBioNetworkModule,
     FlSpreadsheetModule,
     FlDialogModule,
     FlKeyValueModule,
     FlTextEditorModule,
     FlLoaderModule,
+
+    BnBioNetworkModule,
   ],
   declarations: [
     RvResourceViewComponent,

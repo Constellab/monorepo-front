@@ -11,7 +11,6 @@ import {CookieService} from 'ngx-cookie-service';
 import {
   FlApiModule,
   FlAuthModule,
-  FlBioNetworkModule,
   FlDialogModule,
   FlHttpInterceptorService,
   FlIconModule,
@@ -40,6 +39,7 @@ import {CaTdServiceConfig} from './ca-core/model/config/ca-td-service.config';
 import {PrProtocolModule} from '@monorepo/protocol';
 import {CaUserConfig} from './ca-core/model/config/ca-user-config.service';
 import {CaSpaceInterceptor} from './ca-core/interceptor/ca-space-interceptor.service';
+import {BnBioNetworkModule} from '@monorepo/bio-network';
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
@@ -93,7 +93,7 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
     FlUserModule.forRoot(CaUserConfig),
 
     RvResourceViewModule.forRoot({availableViews: rvDefaultViewTypeInfos}),
-    FlBioNetworkModule.forRoot(),
+    BnBioNetworkModule.forRoot(),
 
     TdTechnicalDocModule.forRoot(CaTdServiceConfig),
   ],

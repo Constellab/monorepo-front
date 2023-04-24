@@ -1,0 +1,30 @@
+<mat-expansion-panel *ngIf="node$| async as node">
+  <mat-expansion-panel-header>
+    {{'bnBioNetwork.node_positions' | translate}}
+  </mat-expansion-panel-header>
+
+  <div>x: {{node.x}}</div>
+  <div>y: {{node.y}}</div>
+
+  <!-- Section to save positions to biota only for metabolite -->
+  <div *ngIf="serviceIsEnabled && metabolites$ | async as metabolite">
+
+    <p class="g-text-light g-text-small help-text"> {{'bnBioNetwork.save_positions_to_biota_help' | translate}}</p>
+
+    <mat-form-field class="g-form-field-compact-height g-full">
+      <mat-label>{{'bnBioNetwork.metabolite_level' | translate}}</mat-label>
+      <mat-select [(value)]="nodeLevel" required [placeholder]="'bnBioNetwork.metabolite_level' | translate">
+        <mat-option *ngFor="let key of metabolitesLevels | flObjectKeys" [value]="metabolitesLevels[key]">
+          {{'bnBioNetwork.metabolite_level_' + metabolitesLevels[key]| translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-stroked-button type="button" class="g-button-small g-centered-forced"
+            (click)="savePositions(metabolite)">
+      <mat-icon>save</mat-icon>
+      {{'bnBioNetwork.save_positions_to_biota' | translate}}
+      <fl-button-loader *ngIf="saveIsLoading"></fl-button-loader>
+    </button>
+  </div>
+</mat-expansion-panel>

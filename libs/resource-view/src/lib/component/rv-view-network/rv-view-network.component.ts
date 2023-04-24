@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FlBioNetwork} from '@monorepo/front-core-lib';
 import {RvResourceViewDirective} from '../../model/rv-resource-view.directive';
 import {RvResourceViewNetwork} from '../../model/rv-resource-view.class';
+import {BnBioNetwork} from '@monorepo/bio-network';
 
 /**
  * Display the resource as a network pathway
@@ -13,7 +13,7 @@ import {RvResourceViewNetwork} from '../../model/rv-resource-view.class';
 })
 export class RvViewNetworkComponent extends RvResourceViewDirective<RvResourceViewNetwork> implements OnInit {
 
-  networks: FlBioNetwork | FlBioNetwork[];
+  networks: BnBioNetwork | BnBioNetwork[];
 
   error: boolean;
 

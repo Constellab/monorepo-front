@@ -23,6 +23,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "paths": {
+      "@monorepo/bio-network": ["libs/bio-network/src/index.ts"],
       "@monorepo/common-model": ["libs/common-model/src/index.ts"],
       "@monorepo/core-lib": ["libs/core-lib/src/index.ts"],
       "@monorepo/front-core-lib": ["libs/front-core-lib/src/index.ts"],

@@ -1,0 +1,12 @@
+<ng-container *ngIf="node$ | async as node">
+
+  <bn-bio-network-metabolite-detail [metabolite]="node.data">
+  </bn-bio-network-metabolite-detail>
+
+  <fl-key-value>
+    <fl-key>{{'bnBioNetwork.pathway' | translate}}</fl-key>
+    {{node.parentNode.cluster.clusterId}}
+  </fl-key-value>
+
+
+</ng-container>
