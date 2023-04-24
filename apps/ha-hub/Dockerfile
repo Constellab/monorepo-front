@@ -4,15 +4,15 @@ FROM node:18-alpine3.17 as buildContainer
 WORKDIR /app
 
 ## Copy package.json
-#COPY /package.json /package-lock.json ./
+COPY /package.json /package-lock.json ./
 #
 ## Install dependencies
-#RUN npm install
+RUN npm install
 #
 ## Copy the workspace and build the app
-#COPY . .
+COPY . .
 #
-#RUN npm run ha-hub:build-ssr
+RUN npm run ha-hub:build-ssr
 
 COPY /dist/apps/ha-hub/ /app/dist/apps/ha-hub/
 
