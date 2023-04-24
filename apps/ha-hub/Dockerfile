@@ -14,7 +14,7 @@ COPY . .
 #
 RUN npm run ha-hub:build-ssr
 
-COPY /dist/apps/ha-hub/ /app/dist/apps/ha-hub/
+#COPY /dist/apps/ha-hub/ /app/dist/apps/ha-hub/
 
 # Copy the entry point
 COPY apps/ha-hub/entrypoint.sh /entrypoint.sh
