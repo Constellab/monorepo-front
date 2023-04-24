@@ -20,7 +20,7 @@
       <form class="documentation-form" [formGroup]="formGp" *ngIf="!isLoading">
         <fl-text-editor class="content-editor g-max-article-width" formControlName="content"
                          mode="JSON" scrollContainer="auto"
-                        [disabled]="(isAdmin | async) === false || isDisabled" [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [noPadding]="true"
+                        [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [noPadding]="true"
                         flAutoScrollToAnchor [baseDelta]="documentation?.content"></fl-text-editor>
       </form>
     </div>

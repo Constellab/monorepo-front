@@ -268,7 +268,10 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   }
 
   private changeTextEditorState(): void {
-    this.isDisabled = !this.isDisabled;
+    if(this.formGp.controls.content.disabled)
+      this.formGp.controls.content.enable();
+    else
+      this.formGp.controls.content.disable();
   }
 
   private prepareEditDialog(): void {
