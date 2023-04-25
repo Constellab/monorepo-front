@@ -25,6 +25,8 @@ export class LabViewConfigSearchFields {
   tags: FlTag[];
 
   includeNotFlagged: boolean;
+
+  id: string;
 }
 
 export class LabViewConfigSearch {
@@ -56,7 +58,8 @@ export class LabViewConfigSearch {
     // Date
     createdAt: FlSearchConverter.dateInterval('created_at'),
     tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
-    includeNotFlagged: {key: 'include_not_flagged', operator: 'EQ'}
+    includeNotFlagged: {key: 'include_not_flagged', operator: 'EQ'},
+    id: {key: 'id', operator: 'EQ'}
   };
 
 
@@ -71,7 +74,8 @@ export class LabViewConfigSearch {
           to: [null],
         }),
         tags: [null],
-        includeNotFlagged: [null]
+        includeNotFlagged: [null],
+        id: [null]
       }
     );
   }

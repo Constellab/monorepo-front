@@ -33,6 +33,8 @@ export class LabExperimentSearchFields {
   isValidated: boolean;
   isArchived: boolean;
 
+  id: string;
+
 }
 
 export class LabExperimentSearch {
@@ -68,6 +70,7 @@ export class LabExperimentSearch {
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
     isArchived: {key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
     isValidated: {key: 'is_validated', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
+    id: {key: 'id', operator: 'EQ'},
   };
 
   public static getAdvancedSearchForm(): FormGroup<LabExperimentSearchFields> {
@@ -89,6 +92,7 @@ export class LabExperimentSearch {
         }),
         isArchived: [null],
         isValidated: [null],
+        id: [null],
       }
     );
   }

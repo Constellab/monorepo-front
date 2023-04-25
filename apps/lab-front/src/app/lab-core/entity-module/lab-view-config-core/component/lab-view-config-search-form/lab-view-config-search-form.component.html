@@ -39,6 +39,12 @@
     <lab-tag-dashboard formControlName="tags" (selectionChange)="callSearch()"
                        class="tags"></lab-tag-dashboard>
 
+    <!--  Id -->
+    <mat-form-field class="g-search-field g-form-field-compact">
+      <mat-label>{{'id' | translate }}</mat-label>
+      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
+    </mat-form-field>
+
     <!--  Creation date  -->
     <div class="g-no-hint g-full g-form-field-compact">
       <p class="g-text-small subtitle">{{'creation_date' | translate}}</p>

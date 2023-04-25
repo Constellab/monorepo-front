@@ -33,6 +33,8 @@ export class LabResourceSearchFields {
   isArchived: boolean;
   includeChildrenResource: boolean;
   includeNotFlagged: boolean;
+
+  id: string;
 }
 
 
@@ -79,7 +81,8 @@ export class LabResourceSearch {
     includeNotFlagged: {
       key: 'include_not_flagged',
       operator: 'EQ',
-    }
+    },
+    id: {key: 'id', operator: 'EQ'},
   };
 
 
@@ -103,6 +106,7 @@ export class LabResourceSearch {
         isArchived: [null],
         includeChildrenResource: [null],
         includeNotFlagged: [null],
+        id: [null],
       }
     );
   }

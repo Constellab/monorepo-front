@@ -51,6 +51,12 @@
         </mat-select>
       </mat-form-field>
 
+      <!--  Id -->
+      <mat-form-field class="g-search-field">
+        <mat-label>{{'id' | translate }}</mat-label>
+        <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
+      </mat-form-field>
+
       <!--  Created by  -->
       <mat-form-field class="g-search-field">
         <mat-label>{{'created_by' | translate }}</mat-label>
