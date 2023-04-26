@@ -5,6 +5,7 @@ import {CmVersion} from '@monorepo/common-model';
 import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
+import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -18,14 +19,21 @@ export class HaPublicListBricksPageComponent implements OnInit {
 
   constructor(private haBrickService: HaBrickService,
               @Inject(PLATFORM_ID) private platformId: object,
-              private transferState: TransferState) {
+              private transferState: TransferState,
+              private metadataService: HaMetadataService) {
   }
 
   ngOnInit(): void {
+    this.metadataService.setPageTitle('ha.bricks.title');
+    this.metadataService.addMetaTag('description', 'ha.bricks.description');
+    this.metadataService.addMetaTag('keywords', 'ha.bricks.keywords');
     this.BRICKS_KEY = makeStateKey('bricks');
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICKS_KEY)) {
       this.bricks = this.transferState.get(this.BRICKS_KEY, null) as HaBrick[];
       this.transferState.remove(this.BRICKS_KEY);
+      for (const b of this.bricks) {
+        b.lastVersion = new CmVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);
+      }
       return;
     }
 

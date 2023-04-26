@@ -129,5 +129,37 @@
   "become_coauthor": "Become co-author",
   "invite_text": "invite you to become co-author of the story",
   "product_doc": "Product documentation",
-  "tech_doc": "Technical documentation"
+  "tech_doc": "Technical documentation",
+
+  "ha.home.title": "Home - Constellab Community",
+  "ha.home.description": "Home page of Constellab Community, Constellab Community is a collaborative platform for sharing knowledge and best practices in the field of AI and data science. It is a place where you can find and share technical documentations, tutorials, use-cases and other articles.",
+  "ha.home.keywords": "constellab, community, knowledge, sharing, technical, documentation, story, tutorial, use-case, article, ai, data science, machine learning, deep learning, python, r, scala, spark, tensorflow, pytorch, scikit-learn, pandas, numpy, jupyter, notebook, docker, kubernetes, hadoop, hive, spark, kafka, flink, cassandra, elasticsearch, mongodb, redis, postgresql, mysql, sql, nosql, big data, data lake, data warehouse, data science, data engineering, data analytics, data visualization, data scientist, data engineer, data analyst, data viz",
+
+  "ha.stories.title": "Stories - Constellab Community",
+  "ha.stories.description": "List of stories page",
+  "ha.stories.keywords": "constellab, community, stories, article, story, user-case",
+
+  "ha.story.title": "{{title}} - Constellab Community",
+  "ha.story.description": "This is the page of the story {{title}}",
+  "ha.story.keywords": "constellab, community, story, article, user-case, {{title}}",
+
+  "ha.brick.title": "{{title}} - Constellab Community",
+  "ha.brick.description": "This is the page of the brick {{title}}",
+  "ha.brick.keywords": "constellab, community, brick, {{title}}, description",
+
+  "ha.bricks.title": "Bricks - Constellab Community",
+  "ha.bricks.description": "List of bricks page",
+  "ha.bricks.keywords": "constellab, community, bricks, technical, documentation",
+
+  "ha.documentation.brick.title": "{{docTitle}} - {{brickTitle}} - Constellab Community",
+  "ha.documentation.brick.description": "This is the page of the documentation {{docTitle}} of the brick {{brickTitle}}",
+  "ha.documentation.brick.keywords": "constellab, community, brick, {{brickTitle}}, {{docTitle}}, documentation",
+
+  "ha.techdocumentation.brick.title": "{{docTitle}} - {{brickTitle}} - Constellab Community",
+  "ha.techdocumentation.brick.description": "This is the page of the technical documentation {{docTitle}} of the brick {{brickTitle}}",
+  "ha.techdocumentation.brick.keywords": "constellab, community, brick, {{brickTitle}}, {{docTitle}}, technical, documentation",
+
+  "ha.versions.brick.title": "Versions - {{brickTitle}} - Constellab Community",
+  "ha.versions.brick.description": "List of versions of the brick {{brickTitle}}",
+  "ha.versions.brick.keywords": "constellab, community, brick, {{brickTitle}}, versions"
 }

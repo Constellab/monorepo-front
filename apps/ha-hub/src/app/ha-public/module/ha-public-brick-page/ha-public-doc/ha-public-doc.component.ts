@@ -27,6 +27,7 @@ import {
 } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
+import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 
 @Component({
   selector: 'ha-public-doc-page',
@@ -65,7 +66,9 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private transferState: TransferState,
-    @Inject(PLATFORM_ID) private platformId: object) {
+    @Inject(PLATFORM_ID) private platformId: object,
+    private metadataService: HaMetadataService,
+  ) {
   }
 
 
@@ -126,7 +129,6 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   private getDocumentationByPath(url: UrlSegment[], isFirstDoc: boolean): void {
     this.isLoading = true;
-    this.titles = [];
     this.documentation = null;
     this.isCheck = false;
     this.docNotFound = false;
@@ -158,12 +160,12 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.isDisabled = true;
     this.documentation = doc;
 
+
     this.setFormGroupValue(doc);
     this.titles = [];
 
     if (doc.content) {
       this.richText = new CmRichText(doc.content);
-
       this.titles = this.richText.getHeaders([2, 3]);
       this.formGp.controls.content.disable();
     }
@@ -173,6 +175,13 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
         this.documentationService, this.dialogService);
 
     this.isLoading = false;
+
+    this.metadataService.setPageTitle('ha.documentation.brick.title',
+      true, {brickTitle: this.brickName, docTitle: this.documentation.title});
+    this.metadataService.addMetaTag('description', 'ha.documentation.brick.description',
+      true, {brickTitle: this.brickName, docTitle: this.documentation.title});
+    this.metadataService.addMetaTag('keywords', 'ha.documentation.brick.keywords',
+      true, {brickTitle: this.brickName, docTitle: this.documentation.title});
   }
 
   onContentUpdate(content: any): void {
