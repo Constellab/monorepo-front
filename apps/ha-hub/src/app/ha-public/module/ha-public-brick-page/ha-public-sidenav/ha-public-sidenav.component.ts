@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
 import {
   HaMateTreeFlatDataSource,
   HaNode,
@@ -37,6 +37,8 @@ import {HaPublicDocComponent} from '../ha-public-doc/ha-public-doc.component';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaAuthService} from '../../../../ha-core/ha-service/ha-auth.service';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
+import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 
 interface FlatNode {
@@ -105,6 +107,10 @@ export class HaPublicSidenavComponent implements OnInit {
   sideNavIsOpen: boolean = false;
   activatedRoute: ActivatedRoute = this.route;
 
+  //TRANSFERSTATE
+  DOCUMENTATIONS_KEY : StateKey<object>;
+  TECH_DOCUMENTATION_KEY: StateKey<object>;
+
   constructor(
     private brickService: HaBrickService,
     private loginService: HaAuthService,
@@ -114,9 +120,11 @@ export class HaPublicSidenavComponent implements OnInit {
     private documentationService: HaDocumentationService,
     private folderService: HaFolderService,
     private dialogService: FlDialogService,
-    public mediaObserver: MediaObserver,
+    private mediaObserver: MediaObserver,
     private changeDetectorRefs: ChangeDetectorRef,
-    private authenticatedUserService: HaAuthenticatedUserService
+    private authenticatedUserService: HaAuthenticatedUserService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private transferState: TransferState
   ) {
   }
 
@@ -131,6 +139,9 @@ export class HaPublicSidenavComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.DOCUMENTATIONS_KEY = makeStateKey<object>('DOCUMENTATIONS_KEY');
+    this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
+
     this.mediaSubscription = this.mediaObserver
       .asObservable()
       .pipe()
@@ -140,51 +151,76 @@ export class HaPublicSidenavComponent implements OnInit {
 
 
     if(this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')){
-      this.init(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy', 'latest');
+      this.init( 'latest');
     } else {
       this.route.params.subscribe(params => {
-        this.init(params['brickName'], params['version']);
+        this.init(params['version']);
       });
     }
   }
 
-  private init(brickName: string, brickVersion: string): void {
-    this.brickService.getByName(brickName).subscribe(brick => {
-      this.brickId = brick.id;
-      this.brickName = brick.name
-      this.brickVersion = brickVersion;
+  private init(brickVersion: string): void {
 
-      this.getTechnicalDocumentations();
-      this.getDocumentations();
-    });
+    this.brickId = this.brick.id;
+    this.brickName = this.brick.name
+    this.brickVersion = brickVersion;
+
+    this.getTechnicalDocumentations();
+    this.getDocumentations();
   }
 
   private getTechnicalDocumentations(): void{
+    if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.TECH_DOCUMENTATION_KEY)){
+      const data = this.transferState.get(this.TECH_DOCUMENTATION_KEY, null) as HaNode;
+      this.transferState.remove(this.TECH_DOCUMENTATION_KEY);
+      this.onTechDocumentationsData(data);
+      return;
+    }
     this.brickService.getTechnicalDocumentation(this.brickId, this.brickVersion).subscribe(data => {
-      if (data) {
-        this.technicalDataSource.data = [data];
-        this.technicalDataSource$ = of(this.technicalDataSource);
-        this.technicalDocResources = data.children[0].children;
-        this.technicalDocTasks = data.children[1].children;
-        this.technicalDocProtocols = data.children[2].children;
-        this.updateTechDataSource();
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.TECH_DOCUMENTATION_KEY)) {
+        this.transferState.set(this.TECH_DOCUMENTATION_KEY, data);
       }
+      this.onTechDocumentationsData(data);
     });
   }
 
-  private getDocumentations(): void{
-    this.brickService.getBrickDocs(this.brickId, this.brickVersion).subscribe((data) => {
-      this.rebuildTreeForData(data.children);
-      if (this.dataSource.data.length > 0) {
-        this.dataSource$ = of(this.dataSource);
-        this.mainFolderId = this.dataSource.data[0].parentId;
-        this.changeDetectorRefs.detectChanges();
+  private onTechDocumentationsData(data: HaNode): void{
+    if (data) {
+      this.technicalDataSource.data = [data];
+      this.technicalDataSource$ = of(this.technicalDataSource);
+      this.technicalDocResources = data.children[0].children;
+      this.technicalDocTasks = data.children[1].children;
+      this.technicalDocProtocols = data.children[2].children;
+      this.updateTechDataSource();
+    }
+  }
 
-        this.route.children[0].url.subscribe((cp) => {
-          this.expandToOpenedDoc(cp);
-        });
+  private getDocumentations(): void{
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
+      const data = this.transferState.get(this.DOCUMENTATIONS_KEY, null) as HaNode;
+      this.transferState.remove(this.DOCUMENTATIONS_KEY);
+      this.onDocumentationsData(data);
+      return;
+    }
+    this.brickService.getBrickDocs(this.brickId, this.brickVersion).subscribe((data) => {
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
+        this.transferState.set(this.DOCUMENTATIONS_KEY, data);
       }
+      this.onDocumentationsData(data);
     });
+  }
+
+  private onDocumentationsData(data: HaNode): void{
+    this.rebuildTreeForData(data.children);
+    if (this.dataSource.data.length > 0) {
+      this.dataSource$ = of(this.dataSource);
+      this.mainFolderId = this.dataSource.data[0].parentId;
+      this.changeDetectorRefs.detectChanges();
+
+      this.route.children[0].url.subscribe((cp) => {
+        this.expandToOpenedDoc(cp);
+      });
+    }
   }
 
   private expandToOpenedDoc(cp: UrlSegment[]): void{

@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {CmVersion} from '@monorepo/common-model';
 import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
+import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -12,16 +14,29 @@ import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service'
 export class HaPublicListBricksPageComponent implements OnInit {
 
   bricks: HaBrick[];
+  BRICKS_KEY: StateKey<object>;
 
-  constructor(private haBrickService: HaBrickService) {
+  constructor(private haBrickService: HaBrickService,
+              @Inject(PLATFORM_ID) private platformId: object,
+              private transferState: TransferState) {
   }
 
   ngOnInit(): void {
+    this.BRICKS_KEY = makeStateKey('bricks');
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICKS_KEY)) {
+      this.bricks = this.transferState.get(this.BRICKS_KEY, null) as HaBrick[];
+      this.transferState.remove(this.BRICKS_KEY);
+      return;
+    }
+
     this.haBrickService.get().subscribe((bricks: HaBrick[]) => {
       for (const b of bricks) {
         b.lastVersion = new CmVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);
       }
       this.bricks = bricks;
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICKS_KEY)){
+        this.transferState.set(this.BRICKS_KEY, this.bricks);
+      }
     });
   }
 

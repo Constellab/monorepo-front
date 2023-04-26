@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {HaBrick, HaEditBrickDTO} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,6 +10,8 @@ import {HaReferenceDTO} from '../../../../ha-core/ha-model/ha-entities/ha-versio
 import {HaBrickVersionService} from '../../../../ha-core/ha-service/ha-brick-version.service';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 import {Observable} from 'rxjs';
+import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 @Component({
   selector: 'ha-public-brick-description-page',
@@ -24,17 +26,25 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   references: HaReferenceDTO[];
   isAdmin: boolean;
 
+  BRICK_DESCRIPTION_VERSION_KEY: StateKey<object>;
+  BRICK_DESCRIPTION_KEY: StateKey<object>;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private brickService: HaBrickService,
     private brickVersionService: HaBrickVersionService,
     private dialogService: FlDialogService,
-    private authUserService: HaAuthenticatedUserService
+    private authUserService: HaAuthenticatedUserService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private transferState: TransferState
   ) {
   }
 
   ngOnInit(): void {
+    this.BRICK_DESCRIPTION_KEY = makeStateKey<object>('BRICK_DESCRIPTION_KEY');
+    this.BRICK_DESCRIPTION_VERSION_KEY = makeStateKey<object>('BRICK_DESCRIPTION_VERSION_KEY');
+
     if (this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')) {
       this.setBrick(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
       this.setLastBrickVersion(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
@@ -44,21 +54,41 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
         this.setBrick(params.brickName);
       });
     }
+
     this.isAdmin$().subscribe(admin => this.isAdmin = admin);
   }
 
   private setBrick(brickName: string): void {
+    if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_DESCRIPTION_KEY)){
+      this.brick = this.transferState.get(this.BRICK_DESCRIPTION_KEY, null) as HaBrick;
+      this.transferState.remove(this.BRICK_DESCRIPTION_KEY);
+    }
     this.brickService.getByName(brickName).subscribe(brick => {
       this.brick = brick;
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICK_DESCRIPTION_KEY)) {
+        this.transferState.set(this.BRICK_DESCRIPTION_KEY, brick);
+      }
     });
   }
 
   private setLastBrickVersion(brickName: string): void {
+    if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_DESCRIPTION_VERSION_KEY)){
+      const data = this.transferState.get(this.BRICK_DESCRIPTION_VERSION_KEY, null) as HaBrickVersion;
+      this.transferState.remove(this.BRICK_DESCRIPTION_VERSION_KEY);
+      this.onLatestBrickVersion(data);
+    }
     this.brickService.getLastVersion(brickName).subscribe(res => {
-      this.latestBrickVersion = res;
-      this.lastVersion = new CmVersion(res.brickMajorVersion.major, res.minor, res.patch, res.subPatch);
-      this.setDirectReferences(res.id);
+      this.onLatestBrickVersion(res);
     });
+  }
+
+  private onLatestBrickVersion(brickVersion: HaBrickVersion): void {
+    this.latestBrickVersion = brickVersion;
+    this.lastVersion = new CmVersion(brickVersion.brickMajorVersion.major, brickVersion.minor, brickVersion.patch, brickVersion.subPatch);
+    if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICK_DESCRIPTION_VERSION_KEY)) {
+      this.transferState.set(this.BRICK_DESCRIPTION_VERSION_KEY, brickVersion);
+    }
+    this.setDirectReferences(brickVersion.id);
   }
 
   private setDirectReferences(brickVersionId: string): void {

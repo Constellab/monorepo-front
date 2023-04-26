@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import {Observable} from 'rxjs';
+import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -11,22 +12,25 @@ import {Observable} from 'rxjs';
 })
 export class HaPublicBrickPageComponent implements OnInit {
 
-  brick$: Observable<HaBrick>;
+  brick$: HaBrick;
   brickNotFound: boolean = false;
+  BRICK_KEY: StateKey<object>;
 
   constructor(
     private brickService: HaBrickService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private transferState: TransferState
   ) {
   }
 
   ngOnInit(): void {
+    this.BRICK_KEY = makeStateKey<HaBrick>('brick');
     if(this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')){
       this.initBrick(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
     } else {
       this.activatedRoute.params.subscribe((params: Params) => {
-
         this.initBrick(params.brickName);
       });
     }
@@ -34,7 +38,24 @@ export class HaPublicBrickPageComponent implements OnInit {
 
   private initBrick(name: string): void{
     this.brickNotFound = false;
-    this.brick$ = this.brickService.getByName(name);
+
+    //Set the brick loaded from the server to the transfer state
+    if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_KEY)){
+      this.brick$ = this.transferState.get(this.BRICK_KEY, null) as HaBrick;
+      this.transferState.remove(this.BRICK_KEY);
+      return;
+    }
+
+    this.brickService.getByName(name).subscribe((brick: HaBrick) => {
+      if(!brick) {
+        this.brickNotFound = true;
+        return;
+      }
+      this.brick$ = brick;
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICK_KEY)) {
+        this.transferState.set(this.BRICK_KEY, brick);
+      }
+    });
   }
 }
 
