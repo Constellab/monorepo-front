@@ -57,7 +57,6 @@ export class HaStoryListPageComponent implements OnInit {
   ngOnInit(): void {
     this.metadataService.setPageTitle('ha.stories.title');
     this.metadataService.addMetaTag('description', 'ha.stories.description');
-    this.metadataService.addMetaTag('keywords', 'ha.stories.keywords');
     if(isPlatformBrowser(this.platformId)){
       this.stories = this.storyService.getAllPaginated();
       this.popularTopics$ = this.topicService.getPopularTopics();

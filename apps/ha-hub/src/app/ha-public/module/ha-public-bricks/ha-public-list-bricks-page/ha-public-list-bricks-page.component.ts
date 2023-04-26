@@ -26,7 +26,6 @@ export class HaPublicListBricksPageComponent implements OnInit {
   ngOnInit(): void {
     this.metadataService.setPageTitle('ha.bricks.title');
     this.metadataService.addMetaTag('description', 'ha.bricks.description');
-    this.metadataService.addMetaTag('keywords', 'ha.bricks.keywords');
     this.BRICKS_KEY = makeStateKey('bricks');
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICKS_KEY)) {
       this.bricks = this.transferState.get(this.BRICKS_KEY, null) as HaBrick[];

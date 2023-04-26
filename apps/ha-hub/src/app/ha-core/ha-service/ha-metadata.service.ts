@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
-import {TranslateService} from '@ngx-translate/core';
+import {FlTranslateService} from '@monorepo/front-core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class HaMetadataService {
   constructor(
     private metaService: Meta,
     private titleService: Title,
-    private translateService: TranslateService
+    private translateService: FlTranslateService
   ) { }
 
   setPageTitle(title: string, hasTranslation: boolean = true, data?: any): void {

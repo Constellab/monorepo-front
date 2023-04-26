@@ -197,6 +197,10 @@ export class FlTranslateService {
     this.setAppLanguage(lang);
   }
 
+  public get(key: string, data?: any): Observable<string> {
+    return this.translateService.get(key, data);
+  }
+
   /**
    * Set the lang for the translate service, date and date adapter
    */

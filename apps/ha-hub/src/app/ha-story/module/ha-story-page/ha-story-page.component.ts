@@ -70,6 +70,5 @@ export class HaStoryPageComponent implements OnInit {
     this.titles = (new CmRichText(this.story.content)).getHeaders([2, 3]);
     this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
     this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
-    this.metadataService.addMetaTag('keywords', 'ha.story.keywords', true, {title: this.story.title});
   }
 }

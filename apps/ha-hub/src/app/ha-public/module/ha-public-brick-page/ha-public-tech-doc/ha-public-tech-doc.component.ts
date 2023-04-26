@@ -81,7 +81,5 @@ export class HaPublicTechDocComponent implements OnInit {
       true, {brickTitle: this.brickName, docTitle: this.techDoc.humanName});
     this.metadataService.addMetaTag('description', 'ha.techdocumentation.brick.description',
       true, {brickTitle: this.brickName, docTitle: this.techDoc.humanName});
-    this.metadataService.addMetaTag('keywords', 'ha.techdocumentation.brick.keywords',
-      true, {brickTitle: this.brickName, docTitle: this.techDoc.humanName});
   }
 }
