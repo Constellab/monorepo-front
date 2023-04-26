@@ -77,7 +77,6 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     this.brick = brick;
     this.metadataService.setPageTitle('ha.brick.title', true, {title: brick.name});
     this.metadataService.addMetaTag('description', 'ha.brick.description', true, {description: brick.name});
-    this.metadataService.addMetaTag('keywords', 'ha.brick.keywords', true, {description: brick.name});
   }
 
   private setLastBrickVersion(brickName: string): void {

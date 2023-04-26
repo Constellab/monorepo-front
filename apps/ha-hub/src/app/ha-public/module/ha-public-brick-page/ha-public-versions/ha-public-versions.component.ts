@@ -48,7 +48,6 @@ export class HaPublicVersionsComponent implements OnInit {
   private init(brickName: string): void {
     this.metadataService.setPageTitle('ha.versions.brick.title', true, {brickTitle: brickName});
     this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true,{brickTitle: brickName});
-    this.metadataService.addMetaTag('keywords', 'ha.versions.brick.keywords', true, {brickTitle: brickName});
     this.brickService.getByName(brickName).subscribe(brick => {
       this.brickId = brick.id;
       this.setDataSource();

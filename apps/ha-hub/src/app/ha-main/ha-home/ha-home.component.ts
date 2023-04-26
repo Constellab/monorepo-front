@@ -17,7 +17,6 @@ export class HaHomeComponent implements OnInit {
   ngOnInit(): void {
     this.metadataService.setPageTitle('ha.home.title');
     this.metadataService.addMetaTag('description', 'ha.home.description');
-    this.metadataService.addMetaTag('keywords', 'ha.home.keywords');
   }
 
 }

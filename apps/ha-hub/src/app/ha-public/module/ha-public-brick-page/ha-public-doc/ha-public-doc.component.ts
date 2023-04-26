@@ -180,8 +180,6 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       true, {brickTitle: this.brickName, docTitle: this.documentation.title});
     this.metadataService.addMetaTag('description', 'ha.documentation.brick.description',
       true, {brickTitle: this.brickName, docTitle: this.documentation.title});
-    this.metadataService.addMetaTag('keywords', 'ha.documentation.brick.keywords',
-      true, {brickTitle: this.brickName, docTitle: this.documentation.title});
   }
 
   onContentUpdate(content: any): void {
