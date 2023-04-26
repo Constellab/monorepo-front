@@ -12,6 +12,7 @@ import {
   HaPublicAddVersionDialogComponent
 } from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
 import {HaNodeDTO} from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
+import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 
 @Component({
   selector: 'ha-public-versions-page',
@@ -29,7 +30,8 @@ export class HaPublicVersionsComponent implements OnInit {
     private route: ActivatedRoute,
     private brickService: HaBrickService,
     private dialogService: FlDialogService,
-    private router: Router
+    private router: Router,
+    private metadataService: HaMetadataService
   ) {
   }
 
@@ -44,6 +46,9 @@ export class HaPublicVersionsComponent implements OnInit {
   }
 
   private init(brickName: string): void {
+    this.metadataService.setPageTitle('ha.versions.brick.title', true, {brickTitle: brickName});
+    this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true,{brickTitle: brickName});
+    this.metadataService.addMetaTag('keywords', 'ha.versions.brick.keywords', true, {brickTitle: brickName});
     this.brickService.getByName(brickName).subscribe(brick => {
       this.brickId = brick.id;
       this.setDataSource();

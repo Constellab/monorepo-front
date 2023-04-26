@@ -12,6 +12,7 @@ import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-auth
 import {Observable} from 'rxjs';
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
+import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 
 @Component({
   selector: 'ha-public-brick-description-page',
@@ -37,7 +38,8 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     private dialogService: FlDialogService,
     private authUserService: HaAuthenticatedUserService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState
+    private transferState: TransferState,
+    private metadataService: HaMetadataService
   ) {
   }
 
@@ -60,15 +62,22 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
 
   private setBrick(brickName: string): void {
     if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_DESCRIPTION_KEY)){
-      this.brick = this.transferState.get(this.BRICK_DESCRIPTION_KEY, null) as HaBrick;
+      this.onBrick(this.transferState.get(this.BRICK_DESCRIPTION_KEY, null) as HaBrick);
       this.transferState.remove(this.BRICK_DESCRIPTION_KEY);
     }
     this.brickService.getByName(brickName).subscribe(brick => {
-      this.brick = brick;
       if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICK_DESCRIPTION_KEY)) {
         this.transferState.set(this.BRICK_DESCRIPTION_KEY, brick);
       }
+      this.onBrick(brick);
     });
+  }
+
+  private onBrick(brick: HaBrick): void {
+    this.brick = brick;
+    this.metadataService.setPageTitle('ha.brick.title', true, {title: brick.name});
+    this.metadataService.addMetaTag('description', 'ha.brick.description', true, {description: brick.name});
+    this.metadataService.addMetaTag('keywords', 'ha.brick.keywords', true, {description: brick.name});
   }
 
   private setLastBrickVersion(brickName: string): void {

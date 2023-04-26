@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
 import {HaStory} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
@@ -6,6 +6,9 @@ import {HaStoryTextEditorConfig} from '../ha-story-edit-page/ha-story-text-edito
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {FormControl} from '@ngneat/reactive-forms';
 import {CmRichText, CmRichTextI} from '@monorepo/common-model';
+import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
+import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 @Component({
   selector: 'ha-ha-story-page',
@@ -22,14 +25,21 @@ export class HaStoryPageComponent implements OnInit {
 
   titles: any[];
 
+  STORY_KEY: StateKey<object>;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private storyService: HaStoryService,
-    private dialogService: FlDialogService
+    private dialogService: FlDialogService,
+    private metadataService: HaMetadataService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private transferState: TransferState
   ) {
   }
 
   ngOnInit(): void {
+    this.STORY_KEY = makeStateKey<object>('story');
+
     this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.dialogService);
 
     this.activatedRoute.params.subscribe(params => {
@@ -38,11 +48,28 @@ export class HaStoryPageComponent implements OnInit {
   }
 
   private getStory(id: string): void {
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.STORY_KEY)) {
+      const story: HaStory = new HaStory();
+      story.init(this.transferState.get(this.STORY_KEY, null) as HaStory);
+      this.onStory(story);
+      this.transferState.remove(this.STORY_KEY);
+      return;
+    }
+
     this.storyService.getById(id).subscribe((story: HaStory) => {
-      this.story = story;
-      this.formControl.setValue(this.story.content);
-      this.formControl.disable({emitEvent: true});
-      this.titles = (new CmRichText(this.story.content)).getHeaders([2, 3]);
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY))
+        this.transferState.set(this.STORY_KEY, story);
+      this.onStory(story);
     });
+  }
+
+  private onStory(story: HaStory): void{
+    this.story = story;
+    this.formControl.setValue(this.story.content);
+    this.formControl.disable({emitEvent: true});
+    this.titles = (new CmRichText(this.story.content)).getHeaders([2, 3]);
+    this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
+    this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
+    this.metadataService.addMetaTag('keywords', 'ha.story.keywords', true, {title: this.story.title});
   }
 }

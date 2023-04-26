@@ -58,6 +58,10 @@ export class HaStory{
 
   lastModifiedAt: DateTime;
 
+  init(story: HaStory): void {
+    Object.assign(this, story);
+  }
+
   getAuthor(): HaUser{
     return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
   }
