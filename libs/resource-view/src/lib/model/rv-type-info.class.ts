@@ -9,6 +9,7 @@ import {RvViewSpreadsheetComponent} from '../component/rv-view-spreadsheet/rv-vi
 import {RvViewTextComponent} from '../component/rv-view-text/rv-view-text.component';
 import {FlThemeSwitch} from '@monorepo/front-core-lib';
 import {RvViewImageComponent} from '../component/rv-view-image/rv-view-image.component';
+import {RvViewHtmlComponent} from '../component/rv-view-html/rv-view-html.component';
 
 // Information of the view type
 export interface RvResourceViewTypeInfo {
@@ -41,6 +42,14 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
     defaultDisplayMode: 'fullScreen',
     forceDefaultDisplayMode: false,
     viewComponent: RvViewTextComponent,
+    image: null,
+  },
+  'html-view': {
+    icon: 'html',
+    text: 'rvResourceView.resource_view_html',
+    defaultDisplayMode: 'fullScreen',
+    forceDefaultDisplayMode: false,
+    viewComponent: RvViewHtmlComponent,
     image: null,
   },
   'table-view': {

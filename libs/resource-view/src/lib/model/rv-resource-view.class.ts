@@ -19,7 +19,8 @@ export type RvResourceViewType =
   | 'box-plot-view'
   | 'multi-view'
   | 'venn-diagram-view'
-  | 'heatmap-view';
+  | 'heatmap-view'
+  | 'html-view';
 
 // Mode to where display the view
 export type RvViewDisplayMode = 'fullScreen' | 'portal';
@@ -66,6 +67,13 @@ export interface RvResourceViewImage extends RvResourceViewBase {
   };
 }
 
+export interface RvResourceViewHTML extends RvResourceViewBase {
+  type: 'html-view';
+  data: {
+    html: string;
+  }
+}
+
 export interface RvResourceViewMulti extends RvResourceViewBase {
   type: 'multi-view';
   data: RvResourceViewMultiData;
@@ -88,7 +96,8 @@ export type RvResourceView =
   | RvResourceViewImage
   | RvResourceViewNetwork
   | RvResourceViewText
-  | RvResourceViewTable;
+  | RvResourceViewTable
+  | RvResourceViewHTML;
 
 export type RvViewChartType =
   RvResourceViewBasicPlot2d

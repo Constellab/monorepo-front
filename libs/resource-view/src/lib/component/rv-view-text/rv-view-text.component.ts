@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {RvResourceViewDirective} from '../../model/rv-resource-view.directive';
 import {RvResourceViewText} from '../../model/rv-resource-view.class';
 
@@ -13,15 +13,6 @@ import {RvResourceViewText} from '../../model/rv-resource-view.class';
   styleUrls: ['./rv-view-text.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RvViewTextComponent extends RvResourceViewDirective<RvResourceViewText> implements OnInit {
+export class RvViewTextComponent extends RvResourceViewDirective<RvResourceViewText> {
 
-  @Input() view: RvResourceViewText;
-
-
-  constructor() {
-    super();
-  }
-
-  ngOnInit(): void {
-  }
 }
