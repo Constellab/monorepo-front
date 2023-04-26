@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, OnDestroy, OnInit, Output, PLATFORM_ID} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {
   HaDocumentation,
@@ -25,6 +25,8 @@ import {HaNodeDTO} from '../../../../ha-core/ha-model/ha-entities/ha-node.class'
 import {
   HaPublicSidenavCreateFormDialogComponent
 } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
+import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 @Component({
   selector: 'ha-public-doc-page',
@@ -45,12 +47,13 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   lastUrl: string = null;
   isAdmin: Observable<boolean> = this.authUserService.isAdmin();
   isCheck: boolean = false;
-  isLoading: boolean = true;
+  isLoading: boolean = false;
   textEditorConfig: HaDocTextEditorConfig;
   docNotFound: boolean = false;
   isDisabled: boolean = true;
   menuOpen: boolean;
   openedMenu: FlOverlayRef;
+  DOC_KEY: StateKey<object>;
 
   constructor(
     private brickService: HaBrickService,
@@ -60,11 +63,14 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     private portalService: FlPortalService,
     private contextMenuService: FlMenuDynamicService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private transferState: TransferState,
+    @Inject(PLATFORM_ID) private platformId: object) {
   }
 
 
   ngOnInit(): void {
+    this.DOC_KEY = makeStateKey<object>('doc');
     this.buildForm();
 
     if (this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')) {
@@ -96,7 +102,16 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
     this.route.url.subscribe((url: UrlSegment[]) => {
       if (url.toString() != this.lastUrl && this.lastUrl != '') {
-        this.getDocumentationByPath(url);
+        if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)){
+          const doc: HaDocumentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
+          if(doc)
+            this.actionOnDoc(url.length == 0, doc);
+          else
+            this.docNotFound = true;
+          this.transferState.remove(this.DOC_KEY);
+        } else {
+          this.getDocumentationByPath(url, url.length == 0);
+        }
       }
       this.lastUrl = url.toString();
     });
@@ -109,35 +124,29 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getDocumentationByPath(url: UrlSegment[]): void {
+  private getDocumentationByPath(url: UrlSegment[], isFirstDoc: boolean): void {
     this.isLoading = true;
     this.titles = [];
     this.documentation = null;
     this.isCheck = false;
-    let isFirstDoc: boolean = false;
     this.docNotFound = false;
     let path: string;
-    if (url.length == 0) {
-      isFirstDoc = true;
-      this.brickService.getFirstDoc(this.brickName, this.brickVersion).subscribe(doc => {
-        if(doc){
-          this.actionOnDoc(isFirstDoc, doc);
-        } else {
-          this.docNotFound = true;
-        }
-
-      });
-    } else {
+    if(!isFirstDoc)
       path = url.join('/') + '/';
-      this.brickService.getDocByPath(this.brickName, path, this.brickVersion).subscribe(doc => {
-        if(doc){
-          this.actionOnDoc(isFirstDoc, doc);
-        } else {
-          this.docNotFound = true;
+    this.brickService.getDocByPath(this.brickName, path, this.brickVersion).subscribe(doc => {
+      if(doc){
+        if(isPlatformServer(this.platformId)){
+          if(this.transferState.hasKey(this.DOC_KEY)){
+            this.documentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
+          } else {
+            this.transferState.set(this.DOC_KEY, doc);
+          }
         }
-
-      });
-    }
+        this.actionOnDoc(isFirstDoc, doc);
+      } else {
+        this.docNotFound = true;
+      }
+    });
   }
 
   private actionOnDoc(isFirstDoc: boolean, doc: any): void {

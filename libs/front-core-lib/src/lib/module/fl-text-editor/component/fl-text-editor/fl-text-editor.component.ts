@@ -37,7 +37,8 @@ import {FlHtmlHelper} from '../../../../utils/fl-html.helper';
 import {FlQuillScrollContainer, FlQuillSetup} from '../../model/fl-quill-setup.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 import BlockBlot from 'parchment/dist/src/blot/block';
-import {QuillDeltaToHtmlConverter} from 'quill-delta-to-html';
+import {GroupType, QuillDeltaToHtmlConverter} from 'quill-delta-to-html';
+import {TDataGroup} from 'quill-delta-to-html/dist/commonjs/grouper/group-types';
 //import "quill-mention"; //TODO: check how to import this
 
 hljs.registerLanguage('python', python);
@@ -47,7 +48,6 @@ hljs.registerLanguage('python', python);
  * JSON --> Get JSON as Delta and generate JSON
  */
 type FlTextEditorMode = 'HTML' | 'JSON'
-
 
 /**
  * Rich text editor (currently using quill)
@@ -115,10 +115,28 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
     renderer.addClass(this.elementRef.nativeElement, FlTextEditorsManagerState.textEditorElementClass);
     this.testBrowser = isPlatformBrowser(platformId);
   }
-
   async ngOnInit(): Promise<void> {
     if (!this.testBrowser) {
-      this.editorElement.nativeElement.innerHTML = new QuillDeltaToHtmlConverter(this.baseDelta.ops, {}).convert();
+      const deltaOps = this.baseDelta.ops;
+      //TODO: check if this is the best way to do this
+      for(const [i, op] of deltaOps.entries()) {
+        if(op.attributes?.header) {
+          deltaOps[i].attributes = {header: op.attributes.header.level}
+        }
+      }
+      const converter: any = new QuillDeltaToHtmlConverter(deltaOps);
+
+      (this.elementRef.nativeElement.firstChild as any).style.width = '0';
+      const html = converter.convert();
+      //create a div that contains the html, the div have 2 class ql-bubble and ql-editor
+      const divBubble = this.renderer.createElement('div');
+      this.renderer.addClass(divBubble, 'ql-bubble');
+      divBubble.style.width = '100%';
+      const divEditor = this.renderer.createElement('div');
+      this.renderer.addClass(divEditor, 'ql-editor');
+      this.renderer.setProperty(divEditor, 'innerHTML', html);
+      this.renderer.appendChild(divBubble, divEditor);
+      this.elementRef.nativeElement.insertBefore(divBubble, this.elementRef.nativeElement.firstChild);
       return;
     }
 
@@ -133,7 +151,6 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
         matchVisual: false
       }
     }
-
     modules = Object.assign(modules, this.config.getExtraModules());
 
     // create and configure quill

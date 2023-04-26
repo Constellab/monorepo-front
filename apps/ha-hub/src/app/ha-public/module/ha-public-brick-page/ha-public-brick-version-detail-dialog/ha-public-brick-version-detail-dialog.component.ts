@@ -37,7 +37,6 @@ export class HaPublicBrickVersionDetailDialogComponent implements OnInit {
       for(const r of this.references){
         if(r.referenceState == HaBrickVersionReferenceState.DIRECT) this.directReferences.push(r);
         else this.indirectReferences.push(r);
-        console.log(this.directReferences, this.indirectReferences)
       }
     });
   }

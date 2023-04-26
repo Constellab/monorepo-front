@@ -1,4 +1,4 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, BrowserTransferStateModule, TransferState} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HaAppComponent} from './ha-app.component';
@@ -75,6 +75,7 @@ function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): (
     HaMainModule
   ],
   providers: [
+    TransferState,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FlHttpInterceptorService,

@@ -6,6 +6,8 @@ import {TranslateModule} from '@ngx-translate/core';
 import {HaCoreModule} from '../ha-core/ha-core.module';
 import {HaLoginPageComponent} from './ha-login-page/ha-login-page.component';
 import { HaHomeComponent } from './ha-home/ha-home.component';
+import {HaPublicModule} from '../ha-public/ha-public.module';
+import {HaStoryModule} from '../ha-story/ha-story.module';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { HaHomeComponent } from './ha-home/ha-home.component';
     CommonModule,
     HaMainRoutingModule,
     TranslateModule,
-    HaCoreModule
+    HaCoreModule,
+    HaPublicModule,
+    HaStoryModule
   ]
 })
 export class HaMainModule {
