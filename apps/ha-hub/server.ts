@@ -24,6 +24,44 @@ export function app(): express.Express {
       bootstrap: AppServerModule,
     })
   );
+
+  const securityHeadersMiddleware = (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): void => {
+
+    res.setHeader("X-Frame-Options", "SAMEORIGIN");
+    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("X-Xss-Protection", "1; mode=block");
+
+    //ONLY FOR PROD
+    if (environment.production) {
+      // eslint-disable-next-line max-len
+      res.setHeader("Content-Security-Policy", "default-src 'self' *.gencovery.com *.constellab.community; script-src-elem 'self' *.gencovery.com *.constellab.community data:; frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com; worker-src *.gencovery.com *.constellab.community data: 'self' blob:; style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community https://fonts.googleapis.com; img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community; font-src 'self' data: http: https: fonts.googleapis.com; connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com");
+    }
+
+
+    res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
+
+    res.setHeader(
+      "Feature-Policy",
+      // eslint-disable-next-line max-len
+      "accelerometer 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; payment 'none'"
+    );
+
+    next();
+  };
+
+  server.use(securityHeadersMiddleware);
+
+  server.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.send(`User-agent: *
+            Disallow:
+            Sitemap: ${process.env['COMMUNITY_FRONT_URL']}/sitemap.xml`);
+  });
+
   server.set('view engine', 'html');
   server.set('views', distFolder);
 

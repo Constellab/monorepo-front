@@ -251,7 +251,6 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
       this.setHTML(value);
     } else {
       this.setJsonDelta(value).then(() => {
-        console.log(this.quill.getContents());
       });
     }
   }
