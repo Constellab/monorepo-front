@@ -35,13 +35,6 @@ export function app(): express.Express {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("X-Xss-Protection", "1; mode=block");
 
-    //ONLY FOR PROD
-    if (environment.production) {
-      // eslint-disable-next-line max-len
-      res.setHeader("Content-Security-Policy", "default-src 'self' *.gencovery.com *.constellab.community; script-src-elem 'self' *.gencovery.com *.constellab.community data:; frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com; worker-src *.gencovery.com *.constellab.community data: 'self' blob:; style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community https://fonts.googleapis.com; img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community; font-src 'self' data: http: https: fonts.googleapis.com; connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com");
-    }
-
-
     res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
 
     res.setHeader(
@@ -68,13 +61,13 @@ export function app(): express.Express {
   server.use((req, res, next) => {
     // Set the cache control headers for specific file types
     if (req.url.match(/(dark-theme\.css|light-theme\.css|\.json)$/)) {
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Cache-Control', 'no-store, must-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
     }
 
     if (req.url.match(/\.html$/)) {
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Cache-Control', 'no-store, must-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
       res.setHeader('X-Frame-Options', 'SAMEORIGIN');
