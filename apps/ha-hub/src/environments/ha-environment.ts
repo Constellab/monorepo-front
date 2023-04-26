@@ -15,7 +15,7 @@ export const environment: HaEnvironment = {
     apiUrl: 'http://localhost:3333',
     constellabApiUrl: 'https://api.preconstellab.com',
     constellabFrontUrl: 'https://preconstellab.com',
-    communityFrontUrl: 'http://localhost:4200'
+    communityFrontUrl: 'http://localhost:4200',
   },
 };
 
