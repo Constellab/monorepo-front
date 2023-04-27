@@ -265,6 +265,6 @@
     "associate_resource_to_project": "Associer la ressource importée au projet. Cela permet d'inclure la ressource dans le projet",
     "associate_resource_experiment_to_project": "Cette ressource a été générée par une expérience qui est associée à un projet. Vous pouvez changer le projet de l'expérience, cela déplacera également toutes les ressources générées vers le projet.",
     "resource_project_updated": "Projet de la ressource mis à jour",
-    "experiment_project_updated": "Projet de l'expérience mis à jour",
+    "experiment_project_updated": "Projet de l'expérience mis à jour"
   }
 }
