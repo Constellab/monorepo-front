@@ -34,7 +34,12 @@ export function app(): express.Express {
     res.setHeader("X-Frame-Options", "SAMEORIGIN");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("X-Xss-Protection", "1; mode=block");
-
+    if(environment.production) {
+      // TODO: CHECK IF THERE IS A BETTER WAY
+      //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' is for the inline script in the index.html
+      // eslint-disable-next-line max-len
+      res.setHeader("Content-Security-Policy", "default-src 'self' *.gencovery.com *.constellab.community; script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.gencovery.com *.constellab.community data:; frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com; worker-src *.gencovery.com *.constellab.community data: 'self' blob:; style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community https://fonts.googleapis.com; img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community; font-src 'self' data: http: https: fonts.googleapis.com; connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com");
+    }
     res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
 
     res.setHeader(
@@ -45,6 +50,7 @@ export function app(): express.Express {
 
     next();
   };
+
 
   server.use(securityHeadersMiddleware);
 
