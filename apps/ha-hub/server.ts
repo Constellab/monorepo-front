@@ -51,8 +51,15 @@ export function app(): express.Express {
   server.get('/robots.txt', (req, res) => {
     res.type('text/plain');
     res.send(`User-agent: *
-            Disallow:
-            Sitemap: ${process.env['COMMUNITY_FRONT_URL']}/sitemap.xml`);
+Disallow:
+Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
+  });
+
+  server.get('/sitemap.xml', (req, res) => {
+    res.type('text/xml');
+    const distFolder = join(process.cwd(), 'dist/apps/ha-hub/server');
+    const filePath = join(distFolder, 'sitemap.xml');
+    res.sendFile(filePath);
   });
 
   server.set('view engine', 'html');

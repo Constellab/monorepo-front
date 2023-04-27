@@ -17,13 +17,13 @@ WORKDIR /app
 # Copy the entry point
 COPY apps/ha-hub/entrypoint.sh /entrypoint.sh
 
-COPY apps/ha-hub/sitemap.xml /sitemap.xml
-
 COPY package*.json ./
 
 RUN npm ci --production
 
 COPY --from=buildContainer /app/dist ./dist
+
+COPY apps/ha-hub/sitemap.xml dist/apps/ha-hub/server/sitemap.xml
 
 EXPOSE 4000
 
