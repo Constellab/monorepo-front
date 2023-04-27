@@ -135,7 +135,6 @@
       }
     },
     "server": {
-      "dependsOn": ["build"],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
         "outputPath": "dist/apps/ha-hub/server",
