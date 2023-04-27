@@ -170,6 +170,8 @@
     "documentation": "Documentation",
     "folder_extract_file": "Extraire le fichier",
     "folder_extract_folder": "Extraire le dossier",
+    "extract_fs_node_help": "L'extraction va créer une nouvelle ressource (fichier ou dossier) qui référence le fichier ou dossier que vous avez sélectionné. Cette ressource pourra ensuite être utilisée dans une expérience.",
+    "folder_view_sub_files": "View file",
     "view_type": "Type de vue",
     "view_config_date": "Viewed",
     "view_config_select": "Sélectionner une config de vue",

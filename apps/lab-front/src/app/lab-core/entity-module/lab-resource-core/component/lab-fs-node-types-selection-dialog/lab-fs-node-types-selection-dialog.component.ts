@@ -14,6 +14,7 @@ export type LabFsNodeTypesSelectionDialogMode = 'files' | 'folder' | 'filesOrFol
 export interface LabFsNodeTypesSelectionDialogInput {
   dialogMode: LabFsNodeTypesSelectionDialogMode;
   filenames: string[];
+  helpText?: string;
 }
 
 
@@ -61,6 +62,8 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
 
   resourceTypes$: Observable<LabTypeEntity[]>;
 
+  helpText: string;
+
   private fileTypes$: ClCachedObservable<LabTypeEntity[]>;
   private folderTypes$: ClCachedObservable<LabTypeEntity[]>;
 
@@ -75,6 +78,7 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
     this.folderTypes$ = new ClCachedObservable(this.fileResourceService.getFolderTypes());
     this.buildForm();
     this.onNodeModeChange(this.formGp.value.nodeMode);
+    this.helpText = this.input.helpText;
   }
 
   private buildForm(): void {

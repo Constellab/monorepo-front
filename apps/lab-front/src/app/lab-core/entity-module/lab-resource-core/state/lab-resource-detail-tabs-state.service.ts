@@ -75,24 +75,24 @@ export class LabResourceDetailTabsState implements OnDestroy {
   ////////////////////////////////////// VIEWS /////////////////////////////////////
 
   public addViewConfigTab(viewConfigId: string): void {
-    this.createTab({
-      viewSymbol: Symbol(),
-      type: 'view',
-      obs: new ClCachedObservable(this.viewConfigService.callViewConfig(viewConfigId)).getObs()
-    });
+    this.addFullScreenView(this.viewConfigService.callViewConfig(viewConfigId));
   }
 
   public addView(resourceId: string, config: LabResourceViewSpecWithConfig): void {
     if (config.displayMode === 'fullScreen') {
-      this.createTab({
-        viewSymbol: Symbol(),
-        type: 'view',
-        obs: new ClCachedObservable(this.callResourceView(resourceId,
-          config.viewMethodName, config.viewConfigValues, config.transformersWithConfig)).getObs()
-      });
+      this.addFullScreenView(this.callResourceView(resourceId,
+        config.viewMethodName, config.viewConfigValues, config.transformersWithConfig));
     } else {
       this.loadViewInPortal(resourceId, config);
     }
+  }
+
+  public addFullScreenView(obs: Observable<LabResourceView>): void {
+    this.createTab({
+      viewSymbol: Symbol(),
+      type: 'view',
+      obs: new ClCachedObservable(obs).getObs()
+    });
   }
 
   private callResourceView(resourceId: string, methodName: string, configValues: PrConfigValues,

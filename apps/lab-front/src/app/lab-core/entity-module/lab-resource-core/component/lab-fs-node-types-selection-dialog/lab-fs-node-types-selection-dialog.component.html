@@ -4,6 +4,9 @@
 
 <mat-dialog-content>
 
+  <div *ngIf="helpText" class="help-text g-text-light">
+    {{helpText | translate}}
+  </div>
 
   <form (ngSubmit)="submit()" id="file-type-form" [formGroup]="formGp">
 

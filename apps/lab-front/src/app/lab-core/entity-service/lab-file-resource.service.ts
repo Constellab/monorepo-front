@@ -5,6 +5,7 @@ import {ClPageI} from '@monorepo/core-lib';
 import {LabResource, LabResourceDatasource} from '../model/entities/resource/lab-resource.entity';
 import {HttpEvent} from '@angular/common/http';
 import {LabTypeEntity} from '../model/entities/lab-type/lab-type.entity';
+import {LabResourceView} from '../model/entities/resource/lab-resource-view.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,10 @@ export class LabFileResourceService {
       path: subPath,
       fs_node_typing_name: typingName
     }, LabResource);
+  }
+
+  public callFolderSubFileView(id: string, subFilePath: string): Observable<LabResourceView> {
+    return this.apiService.post(`${this.route}/${id}/folder/sub-file-view`, {sub_file_path: subFilePath}, LabResourceView);
   }
 
   //////////////////////////////////////////// FILE TYPE ////////////////////////////////////////

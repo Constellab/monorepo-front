@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Optional} from '@angular/core';
 import {
   LabResourceViewFolder,
   LabResourceViewFolderContent,
@@ -16,6 +16,7 @@ import {
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
 import {LabRouterService} from '../../../../service/lab-router.service';
 import {RvResourceViewDirective} from '@monorepo/resource-view';
+import {LabResourceDetailTabsState} from '../../state/lab-resource-detail-tabs-state.service';
 
 /**
  * Resource view for folder
@@ -35,7 +36,8 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
               private route: ActivatedRoute,
               private dialogService: FlDialogService,
               private routerService: LabRouterService,
-              private menuDynamicService: FlMenuDynamicService) {
+              private menuDynamicService: FlMenuDynamicService,
+              @Optional() private tabsState: LabResourceDetailTabsState) {
     super();
   }
 
@@ -69,12 +71,18 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
   extractNode(node: LabResourceViewFolderContentFlat): void {
     const input: LabFsNodeTypesSelectionDialogInput = {
       dialogMode: node.isFolder ? 'folder' : 'files',
-      filenames: [node.name]
+      filenames: [node.name],
+      helpText: 'biox.extract_fs_node_help'
     };
 
     this.dialogService.openSmallDialog(LabFsNodeTypesSelectionDialogComponent, {data: input}).afterClosed().subscribe(
       result => this.selectNodeTypeClosed(result, node)
     );
+  }
+
+  // open the dialog to select the node type
+  callFileView(node: LabResourceViewFolderContentFlat): void {
+    this.tabsState.addFullScreenView(this.fileService.callFolderSubFileView(this.resourceId, this.getNodePath(node)));
   }
 
 
@@ -98,7 +106,7 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
   }
 
 
-  // retrieve the node full path by calling ancestors
+  // retrieve the node full path by calling ancestors, with '/' separator
   private getNodePath(node: LabResourceViewFolderContentFlat): string {
     let path: string = null;
     let currentNode: LabResourceViewFolderContentFlat = node;
@@ -116,6 +124,7 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
   // use to open menu on right click
   openMenu(node: LabResourceViewFolderContentFlat, event: MouseEvent): void {
     event.preventDefault();
+    event.stopImmediatePropagation();
 
     const menuDynamic: FlMenuDynamic[] = [];
     if (node.resource_model_id) {
@@ -123,7 +132,7 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
         type: 'link',
         text: {text: 'resource', translateText: true},
         link: LabRouterService.getResourceDetailRoute(node.resource_model_id),
-        icon: 'visibility',
+        icon: 'resource',
       });
     } else {
       // button to extract the node
@@ -133,13 +142,28 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
           text: node.isFolder ? 'biox.folder_extract_folder' : 'biox.folder_extract_file',
           translateText: true
         },
-        onClick: () => this.extractNode(node)
+        onClick: () => this.extractNode(node),
+        icon: 'drive_file_move'
       });
+
+      // TODO : this only work when the view is under tabs state
+      if (!node.isFolder && this.tabsState) {
+        // button to extract the node
+        menuDynamic.push({
+          type: 'button',
+          text: {
+            text: 'biox.folder_view_sub_files',
+            translateText: true
+          },
+          onClick: () => this.callFileView(node),
+          icon: 'visibility'
+        });
+      }
 
     }
 
 
-    this.menuDynamicService.openDynamicMenuFromMouseEvent(menuDynamic, event);
+    this.menuDynamicService.openDynamicMenuAbsolute(menuDynamic, event);
   }
 
 }
