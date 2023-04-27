@@ -1,0 +1,16 @@
+<fl-portal>
+  <fl-portal-content>
+    <div class="section">{{'chChart.venn_groups' | translate}} : {{groupNames}}</div>
+    <div class="section">{{'chChart.venn_nb_data' | translate}} : {{dataLength}}</div>
+
+    <div class="section data">
+      <ng-container *ngIf="dataLength > 0; else noData">
+        {{'chChart.venn_data' | translate }} : {{dataStr}}
+      </ng-container>
+      <ng-template #noData>
+        {{'chChart.venn_no_data' | translate }}
+      </ng-template>
+    </div>
+
+  </fl-portal-content>
+</fl-portal>

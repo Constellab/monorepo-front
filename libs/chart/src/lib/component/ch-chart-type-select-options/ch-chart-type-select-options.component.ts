@@ -1,0 +1,40 @@
+import {AfterViewInit, Component, Host, Input, OnInit} from '@angular/core';
+import { MatSelect } from '@angular/material/select';
+
+import {ChChartType, chChartTypeIcons} from '../../model/ch-chart.class';
+import {FlEmbeddedOptionsAbstractDirective} from '@monorepo/front-core-lib';
+
+/**
+ * Component to place inside a mat-select to add the option of available charts
+ */
+@Component({
+  selector: 'ch-chart-type-select-options',
+  templateUrl: './ch-chart-type-select-options.component.html',
+  styleUrls: ['./ch-chart-type-select-options.component.scss']
+})
+export class ChChartTypeSelectOptionsComponent extends FlEmbeddedOptionsAbstractDirective
+  implements OnInit, AfterViewInit {
+
+  @Input() availableChartTypes: ChChartType[];
+
+  chartTypeIcons: Record<ChChartType, string> = chChartTypeIcons;
+
+  constructor(@Host() private select: MatSelect) {
+    super(select);
+  }
+
+  ngOnInit(): void {
+    if (this.availableChartTypes == null) {
+      this.availableChartTypes = [
+        ChChartType.LINE, ChChartType.SCATTER_PLOT, ChChartType.BAR_PLOT,
+        ChChartType.HISTOGRAM, ChChartType.STACKED_PLOT, ChChartType.BOX_PLOT,
+        ChChartType.HEAT_MAP, ChChartType.VENN_DIAGRAM,
+      ];
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.initOptions();
+  }
+
+}

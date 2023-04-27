@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlPortalService, FlSheetChartConfig, FlSpreadsheet} from '@monorepo/front-core-lib';
+import {SpSheetChartConfig, SpSpreadsheet} from '@monorepo/spreadsheet';
 import {RvResourceViewDirective, RvResourceViewTable, rvTableToSpreadsheet} from '@monorepo/resource-view';
 import {
   LabTableChartConfigBarPlot,
@@ -14,6 +14,7 @@ import {
 } from '../../model/lab-table-chart-config.class';
 import {LabResourceTableService} from '../../../../entity-service/lab-resource-table.service';
 import {LabResourceSpreadsheetPageLoader} from '../../model/lab-resource-spreadsheet-page-loader.class';
+import {FlPortalService} from '@monorepo/front-core-lib';
 
 /**
  * Component to display a resource in a spreadsheet
@@ -27,9 +28,9 @@ export class LabResourceViewSpreadsheetComponent extends RvResourceViewDirective
 
   @Input() view: RvResourceViewTable;
 
-  spreadSheet: FlSpreadsheet;
+  spreadSheet: SpSpreadsheet;
 
-  chartConfig: FlSheetChartConfig[];
+  chartConfig: SpSheetChartConfig[];
 
   pagination: LabResourceSpreadsheetPageLoader;
 

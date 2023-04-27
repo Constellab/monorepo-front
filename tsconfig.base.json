@@ -24,11 +24,13 @@
     "skipDefaultLibCheck": true,
     "paths": {
       "@monorepo/bio-network": ["libs/bio-network/src/index.ts"],
+      "@monorepo/chart": ["libs/chart/src/index.ts"],
       "@monorepo/common-model": ["libs/common-model/src/index.ts"],
       "@monorepo/core-lib": ["libs/core-lib/src/index.ts"],
       "@monorepo/front-core-lib": ["libs/front-core-lib/src/index.ts"],
       "@monorepo/protocol": ["libs/protocol/src/index.ts"],
       "@monorepo/resource-view": ["libs/resource-view/src/index.ts"],
+      "@monorepo/spreadsheet": ["libs/spreadsheet/src/index.ts"],
       "@monorepo/technical-doc": ["libs/technical-doc/src/index.ts"]
     }
   },

@@ -1,0 +1,16 @@
+<fl-portal>
+  <fl-portal-content>
+    <div fxLayout="column" fxLayoutGap="1em">
+      <div>
+        <ch-chart-value name="x" [value]="x" [formatter]="xLabelFormatter"></ch-chart-value>
+        <ch-chart-value name="y" [value]="y" [formatter]="yLabelFormatter"></ch-chart-value>
+
+        <ch-chart-serie-inline class="serie" [color]="color" [serieName]="data.serieName">
+        </ch-chart-serie-inline>
+      </div>
+
+      <fl-tag-list class="g-text-small" [tags]="data.data.tags" [tagColorer]="tagColorer"></fl-tag-list>
+    </div>
+  </fl-portal-content>
+</fl-portal>
+

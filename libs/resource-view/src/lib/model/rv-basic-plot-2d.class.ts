@@ -1,13 +1,13 @@
 import {
-  FlChart2dDatum,
-  FlChart2dMultiSerie,
-  FlChartBarPlot,
-  FlChartConfig,
-  FlChartLine2d,
-  FlChartScatterPlot2d,
-  FlChartSerie,
-  FlChartStackedBar
-} from '@monorepo/front-core-lib';
+  ChChart2dDatum,
+  ChChart2dMultiSerie,
+  ChChartBarPlot,
+  ChChartConfig,
+  ChChartLine2d,
+  ChChartScatterPlot2d,
+  ChChartSerie,
+  ChChartStackedBar
+} from '@monorepo/chart';
 import {RvResourceViewBase} from './rv-resource-view.class';
 
 export interface RvResourceViewBasicPlot2d extends RvResourceViewBase {
@@ -32,39 +32,39 @@ export interface RvResourceViewChart2dSerie {
 }
 
 /**
- * Build a FlChart from a basic resource view
+ * Build a ChChart from a basic resource view
  * @param view
  */
-export function rvBasicPlotToChart(view: RvResourceViewBasicPlot2d): FlChartConfig {
-  const series: FlChart2dMultiSerie<FlChart2dDatum> = rvResourceBuildBasicChart2d(view.data);
+export function rvBasicPlotToChart(view: RvResourceViewBasicPlot2d): ChChartConfig {
+  const series: ChChart2dMultiSerie<ChChart2dDatum> = rvResourceBuildBasicChart2d(view.data);
 
   switch (view.type) {
     case 'scatter-plot-2d-view':
-      return new FlChartScatterPlot2d(series);
+      return new ChChartScatterPlot2d(series);
     case 'line-plot-2d-view':
-      return new FlChartLine2d(series);
+      return new ChChartLine2d(series);
     case 'bar-plot-view':
-      return new FlChartBarPlot(series);
+      return new ChChartBarPlot(series);
     case 'stacked-bar-plot-view':
-      return new FlChartStackedBar(series);
+      return new ChChartStackedBar(series);
   }
 }
 
 
-export function rvResourceBuildBasicChart2d(viewData: RvResourceViewChart2dData): FlChart2dMultiSerie<FlChart2dDatum> {
-  const series: FlChart2dMultiSerie<FlChart2dDatum> = new FlChart2dMultiSerie();
+export function rvResourceBuildBasicChart2d(viewData: RvResourceViewChart2dData): ChChart2dMultiSerie<ChChart2dDatum> {
+  const series: ChChart2dMultiSerie<ChChart2dDatum> = new ChChart2dMultiSerie();
 
   let serieIndex: number = 1;
   for (const viewSerie of viewData.series) {
-    const data: FlChart2dDatum[] = [];
+    const data: ChChart2dDatum[] = [];
 
     for (let i = 0; i < viewSerie.data.x.length; i++) {
-      const datum = new FlChart2dDatum(viewSerie.data.x[i], viewSerie.data.y[i]);
+      const datum = new ChChart2dDatum(viewSerie.data.x[i], viewSerie.data.y[i]);
       datum.tags = viewSerie.data.tags ? viewSerie.data.tags[i] : null;
       data.push(datum);
     }
 
-    series.addSerie(new FlChartSerie(data, viewSerie.name ?? serieIndex.toString()));
+    series.addSerie(new ChChartSerie(data, viewSerie.name ?? serieIndex.toString()));
     serieIndex++;
   }
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FlChartConfig} from '@monorepo/front-core-lib';
+import {ChChartConfig} from '@monorepo/chart';
 import {RvResourceViewDirective} from '../../model/rv-resource-view.directive';
 import {rvBasicPlotToChart} from '../../model/rv-basic-plot-2d.class';
 import {rvBoxPlotToChart} from '../../model/rv-box-plot.class';
@@ -20,7 +20,7 @@ import {rvVulcanoPlotToChart} from '../../model/rv-vulcano-plot.class';
 export class RvViewChart2dComponent
   extends RvResourceViewDirective<RvViewChartType> implements OnInit {
 
-  chart: FlChartConfig;
+  chart: ChChartConfig;
 
 
   ngOnInit(): void {

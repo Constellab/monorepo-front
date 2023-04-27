@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {FlSpreadsheet} from '@monorepo/front-core-lib';
+import {SpSpreadsheet} from '@monorepo/spreadsheet';
 import {RvResourceViewDirective} from '../../model/rv-resource-view.directive';
 import {RV_MODULE_CONFIG, RvResourceViewModuleConfig} from '../../model/rv-resource-view-module.config';
 import {RvResourceViewTable, rvTableToSpreadsheet} from '../../model/rv-table.class';
@@ -17,7 +17,7 @@ export class RvViewSpreadsheetComponent extends RvResourceViewDirective<RvResour
 
   @Input() view: RvResourceViewTable;
 
-  spreadSheet: FlSpreadsheet;
+  spreadSheet: SpSpreadsheet;
 
   constructor(@Inject(RV_MODULE_CONFIG) private moduleConfig: RvResourceViewModuleConfig) {
     super();

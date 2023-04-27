@@ -1,0 +1,12 @@
+<div fxLayout="column" class="container">
+
+  <div class="section g-scrollable-element">
+    <ch-chart-legend-multi-series *ngIf="data.series" [data]="data" [disableLegends]="tagAreSelected"></ch-chart-legend-multi-series>
+  </div>
+
+  <div class="section tag-section g-scrollable-element" *ngIf="hasTag$ | async">
+    <div>{{'chChart.tags' | translate}}</div>
+    <fl-tags-select-colors [tagColorer]="data.tagColorer" (colorChange)="onTagColorChange($event)"
+                           class="g-text-small" groupLayout="column"></fl-tags-select-colors>
+  </div>
+</div>

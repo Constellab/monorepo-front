@@ -1,0 +1,21 @@
+<fl-portal>
+  <fl-portal-content>
+
+    <ch-chart-value name="x" [value]="x" [formatter]="xLabelFormatter"></ch-chart-value>
+    <div class="container">
+      <div *ngFor="let dataWithSerie of data" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em"
+           class="serie g-text-tiny"
+           [matTooltip]="dataWithSerie.data.getY() | chChartValueFormatter:yLabelFormatter:'long'">
+
+        <ch-chart-serie-inline [color]="dataWithSerie.serieKey | chChartScale:seriesColorScale"
+                               [serieName]="dataWithSerie.serieName" class="serie-inline g-text-light"
+                               [limitSerieNameWidth]="true">
+        </ch-chart-serie-inline>
+
+        <div class="value">{{dataWithSerie.data.getY() | chChartValueFormatter:yLabelFormatter}}</div>
+
+      </div>
+    </div>
+  </fl-portal-content>
+</fl-portal>
+

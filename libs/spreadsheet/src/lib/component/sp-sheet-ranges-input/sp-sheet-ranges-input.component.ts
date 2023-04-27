@@ -1,0 +1,164 @@
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self} from '@angular/core';
+import {NgControl} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import {SpSpreadsheetState} from '../../state/sp-spreadsheet.state';
+import {Observable, of, Subscription} from 'rxjs';
+import {SpSheetSelectionRange} from '../../model/chart/sp-sheet-chart-selection-form.class';
+import {SpSheetSingleSelection} from '../../model/selection/sp-sheet-single-selection.class';
+import {SpSpreadsheetChartSelectionHelper} from '../../utils/sp-spreadsheet-chart-selection.helper';
+import {SpCellsMultipleRange} from '../../model/selection/sp-cells-multiple-range.class';
+import {FlFormFieldDirective} from '@monorepo/front-core-lib';
+
+interface SpSpreadsheetRangeForm {
+  type: 'range' | 'columns';
+  rangeSelection?: string;
+  columnsSelection?: string[];
+}
+
+
+/**
+ * Component for chart generation. It is a NgModel component to manage multiple range selection
+ * It supports multiple mode :
+ *  - Range selection
+ *  - Columns selection
+ */
+@Component({
+  selector: 'sp-sheet-ranges-input',
+  templateUrl: './Sp-sheet-ranges-input.component.html',
+  styleUrls: ['./Sp-sheet-ranges-input.component.scss'],
+  providers: [{provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent}]
+})
+export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsheetRangeForm, SpSheetSelectionRange>
+  implements OnInit, OnDestroy {
+
+  @Input() placeholder: string;
+
+  @Input() initialSelection: SpSheetSingleSelection;
+
+  @Input() selectionListenerGroup: string;
+
+  @Input() rangeMode: 'single' | 'multi' = 'multi';
+
+  @Output() selectionChange: EventEmitter<SpSheetSelectionRange> = new EventEmitter();
+
+
+  formGp: FormGroup<SpSpreadsheetRangeForm>;
+
+  columnSearchFunc: (searchString: string) => Observable<string[]>;
+
+  private subscription: Subscription;
+
+  constructor(@Optional() @Self() ngControl: NgControl,
+              private state: SpSpreadsheetState) {
+    super(ngControl);
+
+
+  }
+
+  ngOnInit(): void {
+    this.initForm();
+
+
+    this.columnSearchFunc = (searchString => of(this.state.currentSheet.searchColumns(searchString)));
+
+    if (this.initialSelection) {
+      this.onNewSelection(this.initialSelection);
+    }
+
+    // use a timeout to prevent change detection error
+    setTimeout(() => {
+      this.formGp.valueChanges.subscribe(
+        value => this.setAndEmitValue(value)
+      );
+    }, 0);
+  }
+
+  private initForm(): void {
+    const rangeValidation = this.rangeMode === 'multi' ?
+      SpSpreadsheetChartSelectionHelper.multipleSelectionValidator(this.state.currentSheet) :
+      SpSpreadsheetChartSelectionHelper.singleSelectionValidator(this.state.currentSheet);
+    // init form Group here, because the writeValue can be called before ngOnInit
+    this.formGp = new FormBuilder().group({
+      type: ['range'],
+      rangeSelection: [null, [rangeValidation]],
+      columnsSelection: [null]
+    });
+
+    if (this.value != null) {
+      this.formGp.patchValue(this.value);
+    }
+  }
+
+  callChangeEvent(value: SpSheetSelectionRange): void {
+    this.selectionChange.next(value);
+  }
+
+  onDisableChange(): void {
+  }
+
+  writeValue(obj: SpSheetSelectionRange): void {
+    this.value = this.convertOuterToInner(obj);
+
+    if (!obj) return;
+
+    if (this.formGp) {
+      this.formGp.patchValue(this.value);
+    }
+  }
+
+
+  get mode(): 'range' | 'columns' {
+    return this.formGp.value.type;
+  }
+
+  protected convertOuterToInner(outerValue: SpSheetSelectionRange): SpSpreadsheetRangeForm {
+    if (!outerValue) return null;
+
+    if (outerValue.type === 'range') {
+      const multipleRange = SpCellsMultipleRange.fromCellCoordsRange(outerValue.selection);
+      return {
+        type: 'range',
+        rangeSelection: multipleRange.toString(),
+        columnsSelection: null
+      };
+    } else {
+      return {
+        type: 'columns',
+        columnsSelection: outerValue.selection,
+        rangeSelection: null
+      };
+    }
+  }
+
+  protected convertInnerToOuter(innerValue: SpSpreadsheetRangeForm): SpSheetSelectionRange {
+    if (!innerValue || this.formGp.invalid) return null;
+
+    if (innerValue.type === 'range') {
+      if (!innerValue.rangeSelection || this.formGp.get('rangeSelection').invalid) return null;
+      const multipleRange = SpCellsMultipleRange.fromString(innerValue.rangeSelection);
+      return {
+        type: 'range',
+        selection: multipleRange.toCoords()
+      };
+    } else {
+      if (!innerValue.columnsSelection) return null;
+      return {
+        type: 'columns',
+        selection: innerValue.columnsSelection
+      };
+    }
+  }
+
+  onNewSelection(selection: SpSheetSingleSelection): void {
+    if (selection == null) return;
+
+    this.writeValue(selection.toSpSheetSelectionRange());
+  }
+
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
+
+}

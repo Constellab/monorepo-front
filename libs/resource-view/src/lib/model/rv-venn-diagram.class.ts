@@ -1,4 +1,4 @@
-import {FlChartConfig, FlChartVennData, FlChartVennDiagram} from '@monorepo/front-core-lib';
+import {ChChartConfig, ChChartVennData, ChChartVennDiagram} from '@monorepo/chart';
 import {RvResourceViewBase} from './rv-resource-view.class';
 
 export interface RvResourceVennDiagram extends RvResourceViewBase{
@@ -18,15 +18,15 @@ export interface RvResourceVennDiagramData {
 
 
 /**
- * Convert a venn diagram view to a FlChart object
+ * Convert a venn diagram view to a ChChart object
  * @param view
  */
-export function rvVennDiagramToChart(view: RvResourceVennDiagram): FlChartConfig {
-  const data: FlChartVennData = {
+export function rvVennDiagramToChart(view: RvResourceVennDiagram): ChChartConfig {
+  const data: ChChartVennData = {
     totalNbOfGroups: view.data.total_number_of_groups,
     groupNames: view.data.group_names,
     sections: view.data.sections.map(section => ({groupNames: section.group_names, data: section.data}))
   };
 
-  return new FlChartVennDiagram(data);
+  return new ChChartVennDiagram(data);
 }

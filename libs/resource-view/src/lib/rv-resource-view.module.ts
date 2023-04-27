@@ -3,13 +3,11 @@ import {CommonModule} from '@angular/common';
 import {RvResourceViewComponent} from './component/rv-resource-view/rv-resource-view.component';
 import {RvViewJsonComponent} from './component/rv-view-json/rv-view-json.component';
 import {
-  FlChartModule,
   FlCoreComponentModule,
   FlDialogModule,
   FlJsonEditorModule,
   FlKeyValueModule,
   FlLoaderModule,
-  FlSpreadsheetModule,
   FlTextEditorModule,
   FlTranslateModule,
   FlTranslateService,
@@ -32,6 +30,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {BnBioNetworkModule} from '@monorepo/bio-network';
 import {RvViewHtmlComponent} from './component/rv-view-html/rv-view-html.component';
+import {ChChartModule} from '@monorepo/chart';
+import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
 
 @NgModule({
   imports: [
@@ -46,14 +46,14 @@ import {RvViewHtmlComponent} from './component/rv-view-html/rv-view-html.compone
     FlJsonEditorModule,
     FlCoreComponentModule,
     FlTranslateModule,
-    FlChartModule,
-    FlSpreadsheetModule,
     FlDialogModule,
     FlKeyValueModule,
     FlTextEditorModule,
     FlLoaderModule,
 
     BnBioNetworkModule,
+    ChChartModule,
+    SpSpreadsheetModule,
   ],
   declarations: [
     RvResourceViewComponent,
@@ -101,7 +101,7 @@ export class RvResourceViewModule {
   ): ModuleWithProviders<RvResourceViewModule> {
     return {
       ngModule: RvResourceViewModule,
-      providers: [{ provide: RV_MODULE_CONFIG, useValue: config }],
+      providers: [{provide: RV_MODULE_CONFIG, useValue: config}],
     };
   }
 }

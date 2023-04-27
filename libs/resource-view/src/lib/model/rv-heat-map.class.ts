@@ -1,5 +1,5 @@
 import {ClHelpService, ClNumberHelper} from '@monorepo/core-lib';
-import {FlChart3dDatum, FlChartConfig, FlChartHeatMap, FlChartHeatMapDataContainer} from '@monorepo/front-core-lib';
+import {ChChart3dDatum, ChChartConfig, ChChartHeatMap, ChChartHeatMapDataContainer} from '@monorepo/chart';
 import {RvResourceViewBase} from './rv-resource-view.class';
 
 
@@ -22,22 +22,22 @@ export interface RvResourceViewHeaderMapHeader {
 }
 
 /**
- * Convert the heat map view to a FlChart object
+ * Convert the heat map view to a ChChart object
  * @param view
  */
-export function rvHeatMapToChart(view: RvResourceViewHeatMap): FlChartConfig {
+export function rvHeatMapToChart(view: RvResourceViewHeatMap): ChChartConfig {
   const viewData = ClHelpService.transpose2dArray(view.data.table);
-  const chartData: FlChart3dDatum[][] = [];
+  const chartData: ChChart3dDatum[][] = [];
 
   for (let column = 0; column < viewData.length; column++) {
     const columnInfo: RvResourceViewHeaderMapHeader = view.data.columns ? view.data.columns[column] : {name: column.toString(), tags: {}}
     // convert all the column data into a 3d datum, where x = columnIndex, y = index of value and z = value as number
-    const data: FlChart3dDatum[] = [];
+    const data: ChChart3dDatum[] = [];
 
     for (let row = 0; row < viewData[column].length; row++) {
       const rowInfo: RvResourceViewHeaderMapHeader = view.data.rows ? view.data.rows[row] : {name: row.toString(), tags: {}}
       const value = ClNumberHelper.fromString(viewData[column][row], null);
-      const datum = new FlChart3dDatum(column, row, value);
+      const datum = new ChChart3dDatum(column, row, value);
       datum.tags = Object.assign({}, columnInfo.tags, rowInfo.tags)
 
       data.push(datum)
@@ -45,7 +45,7 @@ export function rvHeatMapToChart(view: RvResourceViewHeatMap): FlChartConfig {
     chartData.push(data);
   }
 
-  const dataContainer = new FlChartHeatMapDataContainer(chartData);
+  const dataContainer = new ChChartHeatMapDataContainer(chartData);
 
   if (!ClHelpService.isNullOrEmpty(view.data.columns)) {
     dataContainer.setXTickLabels(view.data.columns.map(column => column.name));
@@ -63,6 +63,6 @@ export function rvHeatMapToChart(view: RvResourceViewHeatMap): FlChartConfig {
     dataContainer.axisYLabel = view.data.y_label;
   }
 
-  return new FlChartHeatMap(dataContainer);
+  return new ChChartHeatMap(dataContainer);
 }
 

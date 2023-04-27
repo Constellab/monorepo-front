@@ -4,7 +4,6 @@ import {
   FlAuthModule,
   FlAutocompleteMultipleModule,
   FlCardModule,
-  FlChartModule,
   FlColorModule,
   FlCoreComponentModule,
   FlCoreDirectiveModule,
@@ -30,7 +29,6 @@ import {
   FlSearchModule,
   FlSectionModule,
   FlSnackBarModule,
-  FlSpreadsheetModule,
   FlStatusModule,
   FlTagModule,
   FlTextEditorModule,
@@ -43,6 +41,8 @@ import {RvResourceViewModule} from '@monorepo/resource-view';
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {PrProtocolModule} from '@monorepo/protocol';
 import {BnBioNetworkModule} from '@monorepo/bio-network';
+import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
+import {ChChartModule} from '@monorepo/chart';
 
 /**
  * Regrouped all the needed import for this app from library
@@ -69,8 +69,6 @@ import {BnBioNetworkModule} from '@monorepo/bio-network';
     FlJsonEditorModule,
     FlDynamicFieldModule,
     FlFormModule,
-    FlSpreadsheetModule,
-    FlChartModule,
     FlInputFileModule,
     FlPortalActionsModule,
     FlDateModule,
@@ -96,6 +94,8 @@ import {BnBioNetworkModule} from '@monorepo/bio-network';
     RvResourceViewModule,
     TdTechnicalDocModule,
     PrProtocolModule,
+    SpSpreadsheetModule,
+    ChChartModule,
   ]
 })
 export class LabCustomLibraryModule {

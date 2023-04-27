@@ -1,11 +1,11 @@
 import {
-  FlChart2dMultiSerie,
-  FlChartConfig,
-  FlChartDataBin,
-  FlChartHistogram,
-  FlChartLabelFormatter,
-  FlChartSerie
-} from '@monorepo/front-core-lib';
+  ChChart2dMultiSerie,
+  ChChartConfig,
+  ChChartDataBin,
+  ChChartHistogram,
+  ChChartLabelFormatter,
+  ChChartSerie
+} from '@monorepo/chart';
 import {RvResourceViewBase} from './rv-resource-view.class';
 
 export interface RvResourceViewHistogram extends RvResourceViewBase {
@@ -31,30 +31,30 @@ export interface RvResourceViewHistogramSerie {
  * Convert a resource histogram view to a Chart
  * @param view
  */
-export function rvHistogramToChart(view: RvResourceViewHistogram): FlChartConfig {
-  const series: FlChart2dMultiSerie<FlChartDataBin> = new FlChart2dMultiSerie();
+export function rvHistogramToChart(view: RvResourceViewHistogram): ChChartConfig {
+  const series: ChChart2dMultiSerie<ChChartDataBin> = new ChChart2dMultiSerie();
 
   for (const viewSerie of view.data.series) {
-    const data: FlChartDataBin[] = [];
+    const data: ChChartDataBin[] = [];
 
     for (let i = 0; i < viewSerie.data.x.length - 1; i++) {
       // create the bin
       const min = viewSerie.data.x[i];
       const max = viewSerie.data.x[i + 1];
-      data.push(new FlChartDataBin(i, viewSerie.data.y[i], min, max));
+      data.push(new ChChartDataBin(i, viewSerie.data.y[i], min, max));
     }
 
-    series.addSerie(new FlChartSerie(data, viewSerie.name));
+    series.addSerie(new ChChartSerie(data, viewSerie.name));
   }
 
   // define the axisXLabelFormat
-  series.axisXLabelTicksFormatter = new FlChartLabelFormatter(
+  series.axisXLabelTicksFormatter = new ChChartLabelFormatter(
     (index: number) => {
-      const dataHisto: FlChartDataBin = series.series[0].data[index];
+      const dataHisto: ChChartDataBin = series.series[0].data[index];
       return dataHisto.getIntervalText();
     },
-    FlChartDataBin.getIntervalTextLength()
+    ChChartDataBin.getIntervalTextLength()
   );
 
-  return new FlChartHistogram(series);
+  return new ChChartHistogram(series);
 }

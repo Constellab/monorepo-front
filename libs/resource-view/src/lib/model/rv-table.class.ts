@@ -1,5 +1,5 @@
 import {RvResourceViewBase} from './rv-resource-view.class';
-import {FlSheet, FlSheetHeaders, FlSpreadsheet, FlSpreadsheetFactory} from '@monorepo/front-core-lib';
+import {SpSheet, SpSheetHeaders, SpSpreadsheet, SpSpreadsheetFactory} from '@monorepo/spreadsheet';
 
 export interface RvResourceViewTable extends RvResourceViewBase {
   type: 'table-view' | 'dataset-view' | 'tabular-view';
@@ -28,15 +28,15 @@ export interface RvResourceViewTableHeader {
  * @param table
  * @param ignoreOffsets if true the offsets (fromRow and fromCol) are ignored
  */
-export function rvTableToSpreadsheet(table: RvResourceViewTable, ignoreOffsets: boolean = false): FlSpreadsheet {
-  const spreadSheet: FlSpreadsheet = new FlSpreadsheet();
+export function rvTableToSpreadsheet(table: RvResourceViewTable, ignoreOffsets: boolean = false): SpSpreadsheet {
+  const spreadSheet: SpSpreadsheet = new SpSpreadsheet();
   // if the resource is a csv file
-  const sheet: FlSheet = FlSpreadsheetFactory.fromArray(table.data.table, table.title ?? 'Sheet 1');
+  const sheet: SpSheet = SpSpreadsheetFactory.fromArray(table.data.table, table.title ?? 'Sheet 1');
 
   sheet.totalColumnsCount = table.data.total_number_of_columns;
   sheet.totalRowsCount = table.data.total_number_of_rows;
-  sheet.columns = new FlSheetHeaders(table.data.columns);
-  sheet.rows = new FlSheetHeaders(table.data.rows);
+  sheet.columns = new SpSheetHeaders(table.data.columns);
+  sheet.rows = new SpSheetHeaders(table.data.rows);
 
   if (!ignoreOffsets) {
     sheet.rowOffset = table.data.from_row - 1; // -1 because communication are based on 1-based index

@@ -39,17 +39,17 @@
 
   <div>
     <h2>{{'monitoring.global_usage' | translate}}</h2>
-    <fl-chart [chart]="mainChart" class="chart"></fl-chart>
+    <ch-chart [chart]="mainChart" class="chart"></ch-chart>
   </div>
 
   <div class="sub-grid">
     <div>
       <h2>{{'monitoring.all_cpu_percent' | translate}}</h2>
-      <fl-chart [chart]="allCpuChart" class="chart"></fl-chart>
+      <ch-chart [chart]="allCpuChart" class="chart"></ch-chart>
     </div>
     <div>
       <h2>{{'monitoring.network_consumption' | translate}}</h2>
-      <fl-chart [chart]="networkChart" class="chart"></fl-chart>
+      <ch-chart [chart]="networkChart" class="chart"></ch-chart>
     </div>
   </div>
 </div>

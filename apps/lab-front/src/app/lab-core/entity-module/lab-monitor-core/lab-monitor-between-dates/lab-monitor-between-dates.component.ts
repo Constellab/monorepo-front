@@ -1,15 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LabMonitor, LabMonitorBetweenDates} from '../../../model/entities/lab-monitor.entity';
 import {
-  FlChart2dDatum,
-  FlChart2dMultiSerie,
-  FlChartLabelFormatter,
-  FlChartLine2d,
-  FlChartSerie,
   FlFileHelper,
   FlTranslateService
 } from '@monorepo/front-core-lib';
 import {DateTime} from 'luxon';
+import {ChChart2dDatum, ChChartSerie, ChChartLine2d, ChChartLabelFormatter} from '@monorepo/chart';
+import {ChChart2dMultiSerie} from '@monorepo/chart';
 
 @Component({
   selector: 'lab-monitor-between-dates',
@@ -22,11 +19,11 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
 
   lastMonitor?: LabMonitor;
 
-  mainChart: FlChartLine2d;
+  mainChart: ChChartLine2d;
 
-  allCpuChart: FlChartLine2d;
+  allCpuChart: ChChartLine2d;
 
-  networkChart: FlChartLine2d;
+  networkChart: ChChartLine2d;
 
   constructor(private translateService: FlTranslateService) {
   }
@@ -42,7 +39,7 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
   }
 
   private initMainChart(): void {
-    const series: FlChart2dMultiSerie<FlChart2dDatum> = new FlChart2dMultiSerie();
+    const series: ChChart2dMultiSerie<ChChart2dDatum> = new ChChart2dMultiSerie();
 
     series.addSerie(this.getCpuPercentSeries());
     series.addSerie(this.getOSDiskPercentSeries());
@@ -52,47 +49,47 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
 
     // Set x ticks to date format
     series.axisXLabelTicksFormatter = this.getXAxisTickFormat();
-    this.mainChart = new FlChartLine2d(series);
+    this.mainChart = new ChChartLine2d(series);
   }
 
-  private getCpuPercentSeries(): FlChartSerie<FlChart2dDatum> {
+  private getCpuPercentSeries(): ChChartSerie<ChChart2dDatum> {
     const data = this.monitor.monitors.map((monitor) => {
-      return new FlChart2dDatum(monitor.createdAt.valueOf(),
+      return new ChChart2dDatum(monitor.createdAt.valueOf(),
         monitor.cpuPercent);
     });
-    return new FlChartSerie(data, this.translateService.translate('monitoring.cpu_usage'));
+    return new ChChartSerie(data, this.translateService.translate('monitoring.cpu_usage'));
   }
 
-  private getOSDiskPercentSeries(): FlChartSerie<FlChart2dDatum> {
+  private getOSDiskPercentSeries(): ChChartSerie<ChChart2dDatum> {
     const data = this.monitor.monitors.map((monitor) => {
-      return new FlChart2dDatum(monitor.createdAt.valueOf(), monitor.diskUsagePercent);
+      return new ChChart2dDatum(monitor.createdAt.valueOf(), monitor.diskUsagePercent);
     });
-    return new FlChartSerie(data, this.translateService.translate('monitoring.os_disk_usage'));
+    return new ChChartSerie(data, this.translateService.translate('monitoring.os_disk_usage'));
   }
 
-  private getLabDiskPercentSeries(): FlChartSerie<FlChart2dDatum> {
+  private getLabDiskPercentSeries(): ChChartSerie<ChChart2dDatum> {
     const data = this.monitor.monitors.map((monitor) => {
-      return new FlChart2dDatum(monitor.createdAt.valueOf(), monitor.externalDiskUsagePercent);
+      return new ChChart2dDatum(monitor.createdAt.valueOf(), monitor.externalDiskUsagePercent);
     });
-    return new FlChartSerie(data, this.translateService.translate('monitoring.lab_disk_usage'));
+    return new ChChartSerie(data, this.translateService.translate('monitoring.lab_disk_usage'));
   }
 
-  private getRamPercentSeries(): FlChartSerie<FlChart2dDatum> {
+  private getRamPercentSeries(): ChChartSerie<ChChart2dDatum> {
     const data = this.monitor.monitors.map((monitor) => {
-      return new FlChart2dDatum(monitor.createdAt.valueOf(), monitor.ramUsagePercent);
+      return new ChChart2dDatum(monitor.createdAt.valueOf(), monitor.ramUsagePercent);
     });
-    return new FlChartSerie(data, this.translateService.translate('monitoring.memory_usage'));
+    return new ChChartSerie(data, this.translateService.translate('monitoring.memory_usage'));
   }
 
-  private getSwapPercentSeries(): FlChartSerie<FlChart2dDatum> {
+  private getSwapPercentSeries(): ChChartSerie<ChChart2dDatum> {
     const data = this.monitor.monitors.map((monitor) => {
-      return new FlChart2dDatum(monitor.createdAt.valueOf(), monitor.swapMemoryPercent);
+      return new ChChart2dDatum(monitor.createdAt.valueOf(), monitor.swapMemoryPercent);
     });
-    return new FlChartSerie(data, this.translateService.translate('monitoring.swap_usage'));
+    return new ChChartSerie(data, this.translateService.translate('monitoring.swap_usage'));
   }
 
   private initAllCpuChart(): void {
-    const series: FlChart2dMultiSerie<FlChart2dDatum> = new FlChart2dMultiSerie();
+    const series: ChChart2dMultiSerie<ChChart2dDatum> = new ChChart2dMultiSerie();
 
     if (this.monitor.monitors[0]) {
       const cpuCount = this.monitor.monitors[0].cpuCount;
@@ -105,52 +102,52 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
     // Set x ticks to date format
     series.axisXLabelTicksFormatter = this.getXAxisTickFormat();
 
-    this.allCpuChart = new FlChartLine2d(series);
+    this.allCpuChart = new ChChartLine2d(series);
   }
 
-  private getCpuDetailPercentSeries(cpuIndex: number): FlChartSerie<FlChart2dDatum> {
+  private getCpuDetailPercentSeries(cpuIndex: number): ChChartSerie<ChChart2dDatum> {
     const data = this.monitor.monitors.map((monitor) => {
-      return new FlChart2dDatum(monitor.createdAt.valueOf(),
+      return new ChChart2dDatum(monitor.createdAt.valueOf(),
         monitor.data.allCpuPercent[cpuIndex] ?? 0);
     });
-    return new FlChartSerie(data, `CPU ${cpuIndex} (%)`);
+    return new ChChartSerie(data, `CPU ${cpuIndex} (%)`);
   }
 
   private initNetworkChart(): void {
-    const series: FlChart2dMultiSerie<FlChart2dDatum> = new FlChart2dMultiSerie();
+    const series: ChChart2dMultiSerie<ChChart2dDatum> = new ChChart2dMultiSerie();
 
     // in network
     const data = this.monitor.monitors.map((monitor) => {
-      return new FlChart2dDatum(monitor.createdAt.valueOf(),
+      return new ChChart2dDatum(monitor.createdAt.valueOf(),
         (monitor.netIoBytesRecv ?? 0) / 1024 / 1024);
     });
-    series.addSerie(new FlChartSerie(data,
+    series.addSerie(new ChChartSerie(data,
       this.translateService.translate('monitoring.network_in_mb')));
 
 
     // out network
     const data2 = this.monitor.monitors.map((monitor) => {
-      return new FlChart2dDatum(monitor.createdAt.valueOf(),
+      return new ChChart2dDatum(monitor.createdAt.valueOf(),
         (monitor.netIoBytesSent ?? 0) / 1024 / 1024);
     });
 
-    series.addSerie(new FlChartSerie(data2,
+    series.addSerie(new ChChartSerie(data2,
       this.translateService.translate('monitoring.network_out_mb')));
 
     // Set tick formatter
     series.axisXLabelTicksFormatter = this.getXAxisTickFormat();
-    series.axisYLabelTicksFormatter = new FlChartLabelFormatter(
+    series.axisYLabelTicksFormatter = new ChChartLabelFormatter(
       (value: number) => FlFileHelper.getFileSizeText(value),
       10
     );
 
 
-    this.networkChart = new FlChartLine2d(series);
+    this.networkChart = new ChChartLine2d(series);
   }
 
 
-  private getXAxisTickFormat(): FlChartLabelFormatter {
-    return new FlChartLabelFormatter(
+  private getXAxisTickFormat(): ChChartLabelFormatter {
+    return new ChChartLabelFormatter(
       (value: number) => DateTime.fromMillis(value).toFormat('HH:mm:ss'),
       8,
       (value: number) => DateTime.fromMillis(value).toFormat('yyyy-MM-dd HH:mm:ss')

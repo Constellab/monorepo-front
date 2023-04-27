@@ -1,15 +1,8 @@
 import {
-  FlChartType,
   FlMenuDynamic,
   FlOverlayRef,
   FlPortalConfig,
   FlPortalService,
-  FlSheet,
-  FlSheetChart2dSerieSelectionForm,
-  FlSheetChartConfig,
-  FlSheetChartSelectionFormAdditional,
-  FlSheetSelectionRange,
-  FlSpreadsheetChartSerieSelectionInput
 } from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -21,11 +14,18 @@ import {
 } from '../component/lab-resource-view-portal/lab-resource-view-portal.component';
 import {RvTransformerParams} from '@monorepo/resource-view';
 import {PrConfigValues} from '@monorepo/protocol';
+import {
+  SpSheet,
+  SpSheetChart2dSerieSelectionForm,
+  SpSheetChartConfig,
+  SpSheetChartSelectionFormAdditional, SpSheetSelectionRange, SpSpreadsheetChartSerieSelectionInput
+} from '@monorepo/spreadsheet';
+import { ChChartType } from '@monorepo/chart';
 
 /**
  * Main config class to generate chart from the sheet by calling the resource service
  */
-export abstract class LabTableChartConfig extends FlSheetChartConfig {
+export abstract class LabTableChartConfig extends SpSheetChartConfig {
 
   constructor(private resourceId: string, private tableViewMethodName: string,
               private tableViewConfig: PrConfigValues, private tableTransformers: RvTransformerParams[],
@@ -68,7 +68,7 @@ export abstract class LabTableChartConfig extends FlSheetChartConfig {
 export abstract class LabTableChart2dConfig extends LabTableChartConfig {
 
   generate2dChart(chartType: LabTableChartType, chartConfig: PrConfigValues,
-                  additionalFields: FlSheetChartSelectionFormAdditional,
+                  additionalFields: SpSheetChartSelectionFormAdditional,
                   contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     const fullChartConfig: PrConfigValues = Object.assign({
       x_axis_label: additionalFields.xAxisLabel,
@@ -79,7 +79,7 @@ export abstract class LabTableChart2dConfig extends LabTableChartConfig {
   }
 
 
-  getAdditionalFieldsName(): (keyof FlSheetChartSelectionFormAdditional)[] {
+  getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
     return ['xAxisLabel', 'yAxisLabel'];
   }
 }
@@ -87,21 +87,21 @@ export abstract class LabTableChart2dConfig extends LabTableChartConfig {
 //////////////////////////////////// LINE PLOT /////////////////////////////////////
 export class LabTableChartConfigLinePlot extends LabTableChart2dConfig {
 
-  getChartType(): FlChartType {
-    return FlChartType.LINE;
+  getChartType(): ChChartType {
+    return ChChartType.LINE;
   }
 
-  generateChart(series: FlSheetChart2dSerieSelectionForm[], additionalFields: FlSheetChartSelectionFormAdditional,
-                sheet: FlSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
+                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.generate2dChart('line-plot-2d', {series: series},
       additionalFields, contextMenuItems);
   }
 
-  createSeriesFromDataRange(sheet: FlSheet, selectionRange: FlSheetSelectionRange): FlSheetChart2dSerieSelectionForm[] {
+  createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
     return this.createMultipleSeriesForY(sheet, selectionRange);
   }
 
-  getSelectSerieConfig(serie: FlSheetChart2dSerieSelectionForm): FlSpreadsheetChartSerieSelectionInput {
+  getSelectSerieConfig(serie: SpSheetChart2dSerieSelectionForm): SpSpreadsheetChartSerieSelectionInput {
     return {
       serie: serie,
       mode: 'full',
@@ -110,7 +110,7 @@ export class LabTableChartConfigLinePlot extends LabTableChart2dConfig {
     };
   }
 
-  getAdditionalFieldsName(): (keyof FlSheetChartSelectionFormAdditional)[] {
+  getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
     return ['xAxisLabel', 'yAxisLabel'];
   }
 }
@@ -118,21 +118,21 @@ export class LabTableChartConfigLinePlot extends LabTableChart2dConfig {
 //////////////////////////////////// SCATTER PLOT /////////////////////////////////////
 export class LabTableChartConfigScatterPlot extends LabTableChart2dConfig {
 
-  getChartType(): FlChartType {
-    return FlChartType.SCATTER_PLOT;
+  getChartType(): ChChartType {
+    return ChChartType.SCATTER_PLOT;
   }
 
-  generateChart(series: FlSheetChart2dSerieSelectionForm[], additionalFields: FlSheetChartSelectionFormAdditional,
-                sheet: FlSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
+                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.generate2dChart('scatter-plot-2d', {series: series},
       additionalFields, contextMenuItems);
   }
 
-  createSeriesFromDataRange(sheet: FlSheet, selectionRange: FlSheetSelectionRange): FlSheetChart2dSerieSelectionForm[] {
+  createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
     return this.createMultipleSeriesForXAndY(sheet, selectionRange);
   }
 
-  getSelectSerieConfig(serie: FlSheetChart2dSerieSelectionForm): FlSpreadsheetChartSerieSelectionInput {
+  getSelectSerieConfig(serie: SpSheetChart2dSerieSelectionForm): SpSpreadsheetChartSerieSelectionInput {
     return {
       serie: serie,
       mode: 'full',
@@ -141,7 +141,7 @@ export class LabTableChartConfigScatterPlot extends LabTableChart2dConfig {
     };
   }
 
-  getAdditionalFieldsName(): (keyof FlSheetChartSelectionFormAdditional)[] {
+  getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
     return ['xAxisLabel', 'yAxisLabel'];
   }
 }
@@ -149,12 +149,12 @@ export class LabTableChartConfigScatterPlot extends LabTableChart2dConfig {
 //////////////////////////////////// VULCANO PLOT /////////////////////////////////////
 export class LabTableChartConfigVulcanoPlot extends LabTableChart2dConfig {
 
-  getChartType(): FlChartType {
-    return FlChartType.VULCANO_PLOT;
+  getChartType(): ChChartType {
+    return ChChartType.VULCANO_PLOT;
   }
 
-  generateChart(series: FlSheetChart2dSerieSelectionForm[], additionalFields: FlSheetChartSelectionFormAdditional,
-                sheet: FlSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
+                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.generate2dChart('vulcano-plot',
       {
         series: series,
@@ -164,11 +164,11 @@ export class LabTableChartConfigVulcanoPlot extends LabTableChart2dConfig {
       additionalFields, contextMenuItems);
   }
 
-  createSeriesFromDataRange(sheet: FlSheet, selectionRange: FlSheetSelectionRange): FlSheetChart2dSerieSelectionForm[] {
+  createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
     return this.createMultipleSeriesForXAndY(sheet, selectionRange);
   }
 
-  getSelectSerieConfig(serie: FlSheetChart2dSerieSelectionForm): FlSpreadsheetChartSerieSelectionInput {
+  getSelectSerieConfig(serie: SpSheetChart2dSerieSelectionForm): SpSpreadsheetChartSerieSelectionInput {
     return {
       serie: serie,
       mode: 'full',
@@ -182,7 +182,7 @@ export class LabTableChartConfigVulcanoPlot extends LabTableChart2dConfig {
     return 1;
   }
 
-  getAdditionalFieldsName(): (keyof FlSheetChartSelectionFormAdditional)[] {
+  getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
     return ['xThreshold', 'yThreshold', 'xAxisLabel', 'yAxisLabel'];
   }
 }
@@ -191,21 +191,21 @@ export class LabTableChartConfigVulcanoPlot extends LabTableChart2dConfig {
 //////////////////////////////////// BAR PLOT /////////////////////////////////////
 export class LabTableChartConfigBarPlot extends LabTableChart2dConfig {
 
-  getChartType(): FlChartType {
-    return FlChartType.BAR_PLOT;
+  getChartType(): ChChartType {
+    return ChChartType.BAR_PLOT;
   }
 
-  generateChart(series: FlSheetChart2dSerieSelectionForm[], additionalFields: FlSheetChartSelectionFormAdditional,
-                sheet: FlSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
+                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.generate2dChart('bar-plot', {series: series},
       additionalFields, contextMenuItems);
   }
 
-  createSeriesFromDataRange(sheet: FlSheet, selectionRange: FlSheetSelectionRange): FlSheetChart2dSerieSelectionForm[] {
+  createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
     return this.createMultipleSeriesForY(sheet, selectionRange);
   }
 
-  getSelectSerieConfig(serie: FlSheetChart2dSerieSelectionForm): FlSpreadsheetChartSerieSelectionInput {
+  getSelectSerieConfig(serie: SpSheetChart2dSerieSelectionForm): SpSpreadsheetChartSerieSelectionInput {
     return {
       serie: serie,
       mode: 'onlyY',
@@ -213,7 +213,7 @@ export class LabTableChartConfigBarPlot extends LabTableChart2dConfig {
     };
   }
 
-  getAdditionalFieldsName(): (keyof FlSheetChartSelectionFormAdditional)[] {
+  getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
     return ['xAxisLabel', 'yAxisLabel'];
   }
 }
@@ -221,12 +221,12 @@ export class LabTableChartConfigBarPlot extends LabTableChart2dConfig {
 //////////////////////////////////// STACKED BAR PLOT /////////////////////////////////////
 export class LabTableChartConfigStackedBarPlot extends LabTableChart2dConfig {
 
-  getChartType(): FlChartType {
-    return FlChartType.STACKED_PLOT;
+  getChartType(): ChChartType {
+    return ChChartType.STACKED_PLOT;
   }
 
-  generateChart(series: FlSheetChart2dSerieSelectionForm[], additionalFields: FlSheetChartSelectionFormAdditional,
-                sheet: FlSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
+                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.generate2dChart('stack-bar-plot',
       {
         series: series,
@@ -235,11 +235,11 @@ export class LabTableChartConfigStackedBarPlot extends LabTableChart2dConfig {
       additionalFields, contextMenuItems);
   }
 
-  createSeriesFromDataRange(sheet: FlSheet, selectionRange: FlSheetSelectionRange): FlSheetChart2dSerieSelectionForm[] {
+  createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
     return this.createMultipleSeriesForY(sheet, selectionRange);
   }
 
-  getSelectSerieConfig(serie: FlSheetChart2dSerieSelectionForm): FlSpreadsheetChartSerieSelectionInput {
+  getSelectSerieConfig(serie: SpSheetChart2dSerieSelectionForm): SpSpreadsheetChartSerieSelectionInput {
     return {
       serie: serie,
       mode: 'onlyY',
@@ -247,19 +247,19 @@ export class LabTableChartConfigStackedBarPlot extends LabTableChart2dConfig {
     };
   }
 
-  getAdditionalFieldsName(): (keyof FlSheetChartSelectionFormAdditional)[] {
+  getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
     return ['normalize', 'xAxisLabel', 'yAxisLabel'];
   }
 }
 
 //////////////////////////////////// HISTOGRAM /////////////////////////////////////
 export class LabTableChartConfigHistogram extends LabTableChart2dConfig {
-  getChartType(): FlChartType {
-    return FlChartType.HISTOGRAM;
+  getChartType(): ChChartType {
+    return ChChartType.HISTOGRAM;
   }
 
-  generateChart(series: FlSheetChart2dSerieSelectionForm[], additionalFields: FlSheetChartSelectionFormAdditional,
-                sheet: FlSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
+                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.generate2dChart('histogram',
       {
         series: series,
@@ -270,11 +270,11 @@ export class LabTableChartConfigHistogram extends LabTableChart2dConfig {
   }
 
 
-  createSeriesFromDataRange(sheet: FlSheet, selectionRange: FlSheetSelectionRange): FlSheetChart2dSerieSelectionForm[] {
+  createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
     return this.createSingleSelectionForY(selectionRange);
   }
 
-  getAdditionalFieldsName(): (keyof FlSheetChartSelectionFormAdditional)[] {
+  getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
     return ['nbOfBins', 'density', 'xAxisLabel', 'yAxisLabel'];
   }
 
@@ -283,7 +283,7 @@ export class LabTableChartConfigHistogram extends LabTableChart2dConfig {
     return 1;
   }
 
-  getSelectSerieConfig(serie: FlSheetChart2dSerieSelectionForm): FlSpreadsheetChartSerieSelectionInput {
+  getSelectSerieConfig(serie: SpSheetChart2dSerieSelectionForm): SpSpreadsheetChartSerieSelectionInput {
     return {
       serie: serie,
       mode: 'onlyY',
@@ -295,21 +295,21 @@ export class LabTableChartConfigHistogram extends LabTableChart2dConfig {
 //////////////////////////////////// BOX PLOT /////////////////////////////////////
 export class LabTableChartConfigBoxPlot extends LabTableChart2dConfig {
 
-  getChartType(): FlChartType {
-    return FlChartType.BOX_PLOT;
+  getChartType(): ChChartType {
+    return ChChartType.BOX_PLOT;
   }
 
-  generateChart(series: FlSheetChart2dSerieSelectionForm[], additionalFields: FlSheetChartSelectionFormAdditional,
-                sheet: FlSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
+                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.generate2dChart('box-plot', {series: series},
       additionalFields, contextMenuItems);
   }
 
-  createSeriesFromDataRange(sheet: FlSheet, selectionRange: FlSheetSelectionRange): FlSheetChart2dSerieSelectionForm[] {
+  createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
     return this.createMultipleSeriesForY(sheet, selectionRange);
   }
 
-  getSelectSerieConfig(serie: FlSheetChart2dSerieSelectionForm): FlSpreadsheetChartSerieSelectionInput {
+  getSelectSerieConfig(serie: SpSheetChart2dSerieSelectionForm): SpSpreadsheetChartSerieSelectionInput {
     return {
       serie: serie,
       mode: 'onlyY',
@@ -317,7 +317,7 @@ export class LabTableChartConfigBoxPlot extends LabTableChart2dConfig {
     };
   }
 
-  getAdditionalFieldsName(): (keyof FlSheetChartSelectionFormAdditional)[] {
+  getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
     return ['xAxisLabel', 'yAxisLabel'];
   }
 }
@@ -325,17 +325,17 @@ export class LabTableChartConfigBoxPlot extends LabTableChart2dConfig {
 //////////////////////////////////// HEAT MAP /////////////////////////////////////
 export class LabTableChartConfigHeatMap extends LabTableChart2dConfig {
 
-  getChartType(): FlChartType {
-    return FlChartType.HEAT_MAP;
+  getChartType(): ChChartType {
+    return ChChartType.HEAT_MAP;
   }
 
-  generateChart(series: FlSheetChart2dSerieSelectionForm[], additionalFields: FlSheetChartSelectionFormAdditional,
-                sheet: FlSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
+                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.generate2dChart('heatmap', {serie: series[0]},
       additionalFields, contextMenuItems);
   }
 
-  createSeriesFromDataRange(sheet: FlSheet, selectionRange: FlSheetSelectionRange): FlSheetChart2dSerieSelectionForm[] {
+  createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
     return this.createSingleSelectionForY(selectionRange);
   }
 
@@ -343,7 +343,7 @@ export class LabTableChartConfigHeatMap extends LabTableChart2dConfig {
     return 1;
   }
 
-  getSelectSerieConfig(serie: FlSheetChart2dSerieSelectionForm): FlSpreadsheetChartSerieSelectionInput {
+  getSelectSerieConfig(serie: SpSheetChart2dSerieSelectionForm): SpSpreadsheetChartSerieSelectionInput {
     return {
       serie: serie,
       mode: 'onlyY',
@@ -351,7 +351,7 @@ export class LabTableChartConfigHeatMap extends LabTableChart2dConfig {
     };
   }
 
-  getAdditionalFieldsName(): (keyof FlSheetChartSelectionFormAdditional)[] {
+  getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
     return ['xAxisLabel', 'yAxisLabel'];
   }
 }
@@ -360,16 +360,16 @@ export class LabTableChartConfigHeatMap extends LabTableChart2dConfig {
 //////////////////////////////////// VENN DIAGRAM /////////////////////////////////////
 export class LabTableChartConfigVennDiagram extends LabTableChartConfig {
 
-  getChartType(): FlChartType {
-    return FlChartType.VENN_DIAGRAM;
+  getChartType(): ChChartType {
+    return ChChartType.VENN_DIAGRAM;
   }
 
-  generateChart(series: FlSheetChart2dSerieSelectionForm[], additionalFields: FlSheetChartSelectionFormAdditional,
-                sheet: FlSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
+                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.callChartOnTable('venn-diagram', {series: series}, contextMenuItems);
   }
 
-  createSeriesFromDataRange(sheet: FlSheet, selectionRange: FlSheetSelectionRange): FlSheetChart2dSerieSelectionForm[] {
+  createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
     return this.createMultipleSeriesForY(sheet, selectionRange);
   }
 
@@ -377,7 +377,7 @@ export class LabTableChartConfigVennDiagram extends LabTableChartConfig {
     return 4;
   }
 
-  getSelectSerieConfig(serie: FlSheetChart2dSerieSelectionForm): FlSpreadsheetChartSerieSelectionInput {
+  getSelectSerieConfig(serie: SpSheetChart2dSerieSelectionForm): SpSpreadsheetChartSerieSelectionInput {
     return {
       serie: serie,
       mode: 'onlyY',

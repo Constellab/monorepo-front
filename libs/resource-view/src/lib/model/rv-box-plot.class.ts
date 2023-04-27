@@ -1,10 +1,10 @@
 import {
-  FlChartBoxPlot,
-  FlChartBoxPlotData,
-  FlChartBoxPlotSerie,
-  FlChartConfig,
-  FlChartMultiSerie
-} from '@monorepo/front-core-lib';
+  ChChartBoxPlot,
+  ChChartBoxPlotData,
+  ChChartBoxPlotSerie,
+  ChChartConfig,
+  ChChartMultiSerie
+} from '@monorepo/chart';
 import {RvResourceViewBase} from './rv-resource-view.class';
 
 export interface RvResourceViewBoxPlot extends RvResourceViewBase{
@@ -39,12 +39,12 @@ export interface RvResourceViewBoxPlotSerie {
  * Function to convert the box plot view to a chart
  * @param view
  */
-export function rvBoxPlotToChart(view: RvResourceViewBoxPlot): FlChartConfig {
-  const series: FlChartMultiSerie<FlChartBoxPlotData> = new FlChartMultiSerie();
+export function rvBoxPlotToChart(view: RvResourceViewBoxPlot): ChChartConfig {
+  const series: ChChartMultiSerie<ChChartBoxPlotData> = new ChChartMultiSerie();
 
   let serieIndex: number = 1;
   for (const viewSerie of view.data.series) {
-    const serie = new FlChartBoxPlotSerie([], viewSerie.name ?? serieIndex.toString());
+    const serie = new ChChartBoxPlotSerie([], viewSerie.name ?? serieIndex.toString());
 
     for (let i = 0; i < viewSerie.data.max.length; i++) {
       serie.addData({
@@ -76,5 +76,5 @@ export function rvBoxPlotToChart(view: RvResourceViewBoxPlot): FlChartConfig {
   if(view.data.y_label) {
     series.axisYLabel = view.data.y_label;
   }
-  return new FlChartBoxPlot(series);
+  return new ChChartBoxPlot(series);
 }
