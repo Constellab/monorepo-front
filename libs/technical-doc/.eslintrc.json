@@ -33,15 +33,6 @@
           }
         ]
       }
-    },
-    {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/angular-template"
-      ],
-      "rules": {}
     }
   ]
 }
