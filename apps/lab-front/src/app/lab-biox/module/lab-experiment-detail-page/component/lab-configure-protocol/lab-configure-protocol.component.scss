@@ -6,7 +6,7 @@
 }
 
 .left-section{
-  border-right: 1px solid var(--card-background);
+  border-right: 1px solid var(--hover-color);
   //width: 13em;
   //flex-shrink: 0;
 }
@@ -14,12 +14,12 @@
 .process{
   cursor: pointer;
   padding: 1em;
-  border-bottom: 1px solid var(--card-background);
+  border-bottom: 1px solid var(--hover-color);
 
 }
 
 .process:hover{
-  background-color: var(--card-background);
+  background-color: var(--hover-color);
 }
 
 .right-section{
