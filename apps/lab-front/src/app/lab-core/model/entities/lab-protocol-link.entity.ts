@@ -21,8 +21,6 @@ export class LabProtocolLink {
 
   @Type(() => LabProtocolLinkPart)
   to: LabProtocolLinkPart;
-
-  resource_id: string;
 }
 
 /**

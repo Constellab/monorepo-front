@@ -6,13 +6,9 @@
     </div>
   </div>
   <div class="io-chip-div">
-    <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_optional && !ioSpec.is_skippable"
+    <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_optional"
              matTooltip="{{'td.optional_tooltip' | translate}}">
       {{'td.optional' | translate}}
-    </fl-chip>
-    <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_skippable"
-             matTooltip="{{'td.skippable_tooltip' | translate}}">
-      {{'td.skippable' | translate}}
     </fl-chip>
     <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_constant"
              matTooltip="{{'td.constant_tooltip' | translate}}">

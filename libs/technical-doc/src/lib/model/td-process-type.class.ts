@@ -25,8 +25,6 @@ export interface TdIOSpec {
 
   is_optional?: boolean;
 
-  is_skippable?: boolean;
-
   is_constant?: boolean;
 }
 
