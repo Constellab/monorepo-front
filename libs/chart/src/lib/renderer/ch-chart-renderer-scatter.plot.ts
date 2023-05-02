@@ -15,7 +15,8 @@ export class ChChartRendererScatterPlot extends ChChart2AxisRendererWithColors<C
   private portalHandler: ChChartPortalHandler = new ChChartPortalHandler();
 
   constructor(defaultColorFunction: ChChartColorFunction<ChChartDataWithSerie<ChChart2dDatum>>,
-              private tagColorer: FlTagColorer) {
+              private tagColorer: FlTagColorer,
+              private pointSize: number = 3){
     super(defaultColorFunction);
   }
 
@@ -33,7 +34,7 @@ export class ChChartRendererScatterPlot extends ChChart2AxisRendererWithColors<C
       .data((d) => d.getDataWithSerie(true))
       .enter()
       .append('circle')
-      .attr('r', 3)
+      .attr('r', this.pointSize)
       .style('fill', this.currentColorFunction)
       .attr('cx', (d: ChChartDataWithSerie<ChChart2dDatum>) => this.data.xAxis.scale.scale(d.data.getX()))
       .attr('cy', (d: ChChartDataWithSerie<ChChart2dDatum>) => this.data.yAxis.scale.scale(d.data.getY()))

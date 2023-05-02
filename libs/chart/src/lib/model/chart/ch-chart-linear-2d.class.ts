@@ -89,8 +89,8 @@ export abstract class ChChartLinear2d extends ChChartConfig {
 export class ChChartLine2d extends ChChartLinear2d {
 
   createRenderers(): ChChart2AxisRenderer<ChChart2dMultiSerie<any>>[] {
-    return [new ChChartRendererLinePlot(this.seriesColorScale), new ChChartRendererScatterPlot(this.getSeriesColorFunction(),
-      this.tagColorer)];
+    return [new ChChartRendererLinePlot(this.seriesColorScale),
+      new ChChartRendererScatterPlot(this.getSeriesColorFunction(), this.tagColorer, 1.5)];
   }
 
   protected getExtendDomain(): number {
