@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, filter, firstValueFrom, Observable, Subscription, switchMap} from 'rxjs';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
-import {LabExperimentDetailPageState} from './lab-experiment-detail-page.state';
 import {
   PrConfigValues,
   PrWorkflowActionEvent,
@@ -18,6 +17,7 @@ import {
   LabResourceViewDetailDialogInput
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
 import {FlDialogService} from '@monorepo/front-core-lib';
+import {LabWorkflowEditConfig} from '../model/lab-workflow-edit-config.class';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -30,7 +30,7 @@ export class LabWorkflowNodeDetailState {
   private drawer: MatDrawer;
   private subscription: Subscription;
 
-  constructor(private experimentState: LabExperimentDetailPageState,
+  constructor(private workflowEditConfig: LabWorkflowEditConfig,
               private actionState: PrWorkflowActionState,
               private dialogService: FlDialogService) {
   }
@@ -88,7 +88,7 @@ export class LabWorkflowNodeDetailState {
   // TODO to improve
   public updateConfigValues(config: PrConfigValues): void {
     const node = this.node$.value;
-    this.experimentState.updateProcessConfig(node.parentLayerId, node.nodeName, config);
+    this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.nodeName, config);
   }
 
   private openResourceDetail(resourceId: string): void {

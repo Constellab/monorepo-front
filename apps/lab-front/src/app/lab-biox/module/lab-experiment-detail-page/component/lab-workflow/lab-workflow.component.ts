@@ -12,7 +12,6 @@ import {first} from 'rxjs/operators';
   selector: 'lab-workflow',
   templateUrl: './lab-workflow.component.html',
   styleUrls: ['./lab-workflow.component.scss'],
-  providers: [LabWorkflowEditConfig]
 })
 export class LabWorkflowComponent implements OnInit, AfterViewInit {
 
@@ -49,7 +48,7 @@ export class LabWorkflowComponent implements OnInit, AfterViewInit {
 
   private loadExperimentFlowSuccess(): void {
     this.workflow = this.experimentState.workflow;
-    this.editConfig.setWorkflow(this.workflow);
+    this.editConfig.init(this.workflow);
     this.workflowIsLoading = false;
   }
 

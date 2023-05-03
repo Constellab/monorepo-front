@@ -265,6 +265,10 @@
     "associate_resource_to_project": "Associer la ressource importée au projet. Cela permet d'inclure la ressource dans le projet",
     "associate_resource_experiment_to_project": "Cette ressource a été générée par une expérience qui est associée à un projet. Vous pouvez changer le projet de l'expérience, cela déplacera également toutes les ressources générées vers le projet.",
     "resource_project_updated": "Projet de la ressource mis à jour",
-    "experiment_project_updated": "Projet de l'expérience mis à jour"
+    "experiment_project_updated": "Projet de l'expérience mis à jour",
+    "update_finished_experiment": "Modifier l'expérience",
+    "update_finished_experiment_confirmation": "Cette expérience a été exécutée, êtes-vous sûr de vouloir la mettre à jour ? Le statut de l'expérience changera mais les processus terminés ne sera pas affecté.",
+    "update_finished_process": "Modifier le processus",
+    "update_finished_process_confirmation": "Ce processus a été exécuté, êtes-vous sûr de vouloir le mettre à jour ? Ce processus et tous les processus suivants seront réinitialisés et les ressources associées supprimées. Les processus précédents ne seront pas affectés. Le statut de l'expérience changera."
   }
 }

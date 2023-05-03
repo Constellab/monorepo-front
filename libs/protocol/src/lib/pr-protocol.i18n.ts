@@ -24,7 +24,8 @@ const prProtocolI18nFr: FlLangTranslation = {
     deleting_connection: "Suppression de la connexion",
     human_name: "Nom humain",
     short_description: "Brève description",
-    default_value: "Valeur par défaut"
+    default_value: "Valeur par défaut",
+    partially_run: "Partiellement exécuté",
   }
 };
 
@@ -47,7 +48,8 @@ const prProtocolI18nEn: FlLangTranslation = {
     deleting_connection: "Deleting connection",
     human_name: "Human name",
     short_description: "Short description",
-    default_value: "Default value"
+    default_value: "Default value",
+    partially_run: "Partially run",
   }
 };
 

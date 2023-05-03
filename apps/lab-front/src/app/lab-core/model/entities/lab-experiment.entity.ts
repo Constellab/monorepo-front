@@ -15,7 +15,8 @@ import {DateTime} from 'luxon';
 import {LabProject, LabProjectObject} from './lab-project.class';
 import {LabRunningProcessInfo} from './process/lab-process.entity';
 
-export type LabExperimentStatus = 'DRAFT' | 'IN_QUEUE' | 'WAITING_FOR_CLI_PROCESS' | 'RUNNING' | 'SUCCESS' | 'ERROR';
+export type LabExperimentStatus = 'DRAFT' | 'IN_QUEUE' | 'WAITING_FOR_CLI_PROCESS'
+  | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN';
 
 // const to list the experiment status translation texts
 export const labExperimentStatusDict: FlStatusDict<LabExperimentStatus> = {
@@ -26,6 +27,8 @@ export const labExperimentStatusDict: FlStatusDict<LabExperimentStatus> = {
   RUNNING: FlStatusHelper.getRunningStatus('RUNNING'),
   WAITING_FOR_CLI_PROCESS: FlStatusHelper.getInfoStatus('WAITING_FOR_CLI_PROCESS', 'biox.experiment_waiting_for_cli',
     FlStatusHelper.draftIcon),
+  PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run',
+    FlStatusHelper.draftIcon)
 };
 
 
@@ -90,6 +93,10 @@ export class LabExperiment extends LabEntityWithTag implements LabProjectObject 
 
   isRunning(): boolean {
     return this.status.value === 'RUNNING' || this.status.value === 'WAITING_FOR_CLI_PROCESS';
+  }
+
+  isFinished(): boolean {
+    return this.status.value === 'SUCCESS' || this.status.value === 'ERROR';
   }
 }
 

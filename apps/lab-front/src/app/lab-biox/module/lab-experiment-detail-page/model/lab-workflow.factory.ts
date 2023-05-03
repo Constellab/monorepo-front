@@ -16,7 +16,7 @@ import {map} from 'rxjs/operators';
 import {Injectable, NgZone} from '@angular/core';
 import {LabResourceService} from '../../../../lab-core/entity-service/lab-resource.service';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
-import {LabAddProcessWithLink} from './lab-workflow-action.class';
+import {LabProtocolLink} from '../../../../lab-core/model/entities/lab-protocol-link.entity';
 
 @Injectable({providedIn: 'root'})
 export class LabWorkflowFactory {
@@ -94,21 +94,21 @@ export class LabWorkflowFactory {
 
     // if the position of this process were saved in the protocol, use it
     if (processLayout) {
-      processNode.setCoords(processLayout)
+      processNode.setCoords(processLayout);
     }
     return processNode;
   }
 
-  public labProcessWithLinkToNodeWithLink(processWithLink: LabAddProcessWithLink): PrAddNodeWithConnection {
-    const node = this.labProcessToWorkflowNode(processWithLink.process);
+  public labProcessWithLinkToNodeWithLink(process: LabProcess, link: LabProtocolLink): PrAddNodeWithConnection {
+    const node = this.labProcessToWorkflowNode(process);
 
     return {
       node: node,
       connection: {
-        fromNode: processWithLink.link.from.nodeName,
-        fromPort: processWithLink.link.from.port,
-        toNode: processWithLink.link.to.nodeName,
-        toPort: processWithLink.link.to.port
+        fromNode: link.from.nodeName,
+        fromPort: link.from.port,
+        toNode: link.to.nodeName,
+        toPort: link.to.port
       }
     };
   }

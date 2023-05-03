@@ -2,7 +2,7 @@ import {FlStatus, FlStatusDict, FlStatusHelper} from '@monorepo/front-core-lib';
 import {PrIO} from './pr-io.class';
 import {PrConfig} from './pr-config.class';
 
-export type PrProcessStatus = 'DRAFT' | 'RUNNING' | 'SUCCESS' | 'ERROR';
+export type PrProcessStatus = 'DRAFT' | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN';
 
 
 export const prProcessStatusDict: FlStatusDict<PrProcessStatus> = {
@@ -10,6 +10,8 @@ export const prProcessStatusDict: FlStatusDict<PrProcessStatus> = {
   RUNNING: FlStatusHelper.getRunningStatus('RUNNING'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run',
+    FlStatusHelper.draftIcon)
 };
 
 /**

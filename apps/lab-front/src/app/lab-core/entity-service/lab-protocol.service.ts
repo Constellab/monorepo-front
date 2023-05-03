@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {FlApiWithCacheService} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {LabProcessLayout, LabProtocol, LabProtocolLayout} from '../model/entities/process/lab-protocol.entity';
-import {LabProcess} from '../model/entities/process/lab-process.entity';
-import {LabAddProcessWithLink} from '../../lab-biox/module/lab-experiment-detail-page/model/lab-workflow-action.class';
-import {labInstantiateProcess} from '../model/entities/process/lab-process.transform';
+import {LabProtocolUpdateDTO} from '../../lab-biox/module/lab-experiment-detail-page/model/lab-workflow-action.class';
 import {PrConfigValues} from '@monorepo/protocol';
 
 @Injectable({
@@ -28,9 +26,9 @@ export class LabProtocolService {
    * @param protocolId
    * @param processTypingName
    */
-  public addProcessToProtocol(protocolId: string, processTypingName: string): Observable<LabProcess> {
+  public addProcessToProtocol(protocolId: string, processTypingName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/add-process/${processTypingName}`, null,
-      (result) => labInstantiateProcess(result));
+      LabProtocolUpdateDTO);
   }
 
   /**
@@ -42,10 +40,10 @@ export class LabProtocolService {
    * @param outputPortName name of the port to link to
    */
   public addProcessConnectedToOutput(protocolId: string, processTypingName: string,
-                                     outputProcessName: string, outputPortName: string): Observable<LabAddProcessWithLink> {
+                                     outputProcessName: string, outputPortName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(
       `${this.baseRoute}/${protocolId}/add-process/${processTypingName}/connected-to-output/${outputProcessName}/${outputPortName}`,
-      null, LabAddProcessWithLink);
+      null, LabProtocolUpdateDTO);
   }
 
   /**
@@ -57,14 +55,14 @@ export class LabProtocolService {
    * @param inputPortName name of the port to link to
    */
   public addProcessConnectedToInput(protocolId: string, processTypingName: string,
-                                    inputProcessName: string, inputPortName: string): Observable<LabAddProcessWithLink> {
+                                    inputProcessName: string, inputPortName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(
       `${this.baseRoute}/${protocolId}/add-process/${processTypingName}/connected-to-input/${inputProcessName}/${inputPortName}`,
-      null, LabAddProcessWithLink);
+      null, LabProtocolUpdateDTO);
   }
 
-  public deleteProcessInProtocol(protocolId: string, processInstanceName: string): Observable<any> {
-    return this.apiService.delete(`${this.baseRoute}/${protocolId}/process/${processInstanceName}`);
+  public deleteProcessInProtocol(protocolId: string, processInstanceName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.delete(`${this.baseRoute}/${protocolId}/process/${processInstanceName}`, LabProtocolUpdateDTO);
   }
 
   //////////////////////////////////////// CONNECTION /////////////////////////////////////
@@ -74,53 +72,54 @@ export class LabProtocolService {
     output_port_name: string
     input_process_name: string
     input_port_name: string
-  }): Observable<void> {
-    return this.apiService.post(`${this.baseRoute}/${protocolId}/connector`, connection);
+  }): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/connector`, connection, LabProtocolUpdateDTO);
   }
 
   public deleteConnection(protocolId: string, inputProcessName: string, inputPortName: string): Observable<void> {
-    return this.apiService.delete(`${this.baseRoute}/${protocolId}/connector/${inputProcessName}/${inputPortName}`);
+    return this.apiService.delete(`${this.baseRoute}/${protocolId}/connector/${inputProcessName}/${inputPortName}`, LabProtocolUpdateDTO);
   }
 
   //////////////////////////////////////// CONFIG /////////////////////////////////////
 
-  public saveProcessConfig(protocolId: string, processInstanceName: string, config: PrConfigValues): Observable<void> {
-    return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processInstanceName}/config`, config);
+  public saveProcessConfig(protocolId: string, processInstanceName: string, config: PrConfigValues): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processInstanceName}/config`,
+      config, LabProtocolUpdateDTO);
   }
 
   //////////////////////////////////////// INTERFACE / OUTERFACE /////////////////////////////////////
 
-  public deleteInterface(protocolId: string, interfaceName: string): Observable<void> {
-    return this.apiService.delete(`${this.baseRoute}/${protocolId}/interface/${interfaceName}`);
+  public deleteInterface(protocolId: string, interfaceName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.delete(`${this.baseRoute}/${protocolId}/interface/${interfaceName}`, LabProtocolUpdateDTO);
   }
 
-  public deleteOuterface(protocolId: string, outerfaceName: string): Observable<void> {
-    return this.apiService.delete(`${this.baseRoute}/${protocolId}/outerface/${outerfaceName}`);
+  public deleteOuterface(protocolId: string, outerfaceName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.delete(`${this.baseRoute}/${protocolId}/outerface/${outerfaceName}`, LabProtocolUpdateDTO);
   }
 
   //////////////////////////////////////// SPECIFIC PROCESS /////////////////////////////////////
 
   public addSourceToProcessInput(protocolId: string, resourceId: string,
-                                 processName: string, inputPortName: string,): Observable<LabAddProcessWithLink> {
+                                 processName: string, inputPortName: string,): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/add-source/${resourceId}/${processName}/${inputPortName}`,
-      null, LabAddProcessWithLink);
+      null, LabProtocolUpdateDTO);
   }
 
-  public addSource(protocolId: string, resourceId: string): Observable<LabProcess> {
+  public addSource(protocolId: string, resourceId: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/add-source/${resourceId}`,
-      null, (result) => labInstantiateProcess(result));
+      null, LabProtocolUpdateDTO);
   }
 
   public addTaskOutput(protocolId: string, processName: string,
-                       outputPortName: string): Observable<LabAddProcessWithLink> {
+                       outputPortName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/add-sink/${processName}/${outputPortName}`,
-      null, LabAddProcessWithLink);
+      null, LabProtocolUpdateDTO);
   }
 
   public addViewerToProcessOutput(protocolId: string, processName: string,
-                                  outputPortName: string): Observable<LabAddProcessWithLink> {
+                                  outputPortName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/add-viewer/${processName}/${outputPortName}`,
-      null, LabAddProcessWithLink);
+      null, LabProtocolUpdateDTO);
   }
 
   ///////////////////////////////////////////////// LAYOUT /////////////////////////////////////////////////

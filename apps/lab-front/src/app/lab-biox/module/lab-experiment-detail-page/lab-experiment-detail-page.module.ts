@@ -52,6 +52,7 @@ import {
   LabProgressBarCoreModule
 } from '../../../lab-core/entity-module/lab-progress-bar-core/lab-progress-bar-core.module';
 import {LabProjectCoreModule} from '../../../lab-core/entity-module/lab-project-core/lab-project-core.module';
+import {LabWorkflowEditConfig} from './model/lab-workflow-edit-config.class';
 
 
 @NgModule({
@@ -98,6 +99,7 @@ import {LabProjectCoreModule} from '../../../lab-core/entity-module/lab-project-
     // declare the state here otherwise the angular element can't access them
     LabExperimentDetailPageState,
     LabWorkflowNodeDetailState,
+    LabWorkflowEditConfig,
   ]
 })
 export class LabExperimentDetailPageModule {

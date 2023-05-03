@@ -8,14 +8,7 @@ import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protoc
 import {LabTag} from '../../../../lab-core/model/entities/lab-tag.entity';
 import {FlPortalActionsService, FlQuillJson} from '@monorepo/front-core-lib';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
-import {
-  PrConfigValues,
-  PrWorkflow,
-  PrWorkflowLayer,
-  PrWorkflowNode,
-  PrWorkflowNodeProcess,
-  PrWorkflowNodeProtocol
-} from '@monorepo/protocol';
+import {PrWorkflow, PrWorkflowLayer, PrWorkflowNode, PrWorkflowNodeProtocol} from '@monorepo/protocol';
 import {LabWorkflowFactory} from '../model/lab-workflow.factory';
 
 @Injectable()
@@ -174,7 +167,26 @@ export class LabExperimentDetailPageState {
     return merge(...obs).pipe(
       tap(protocol => this.refreshProtocolSuccess(protocol)),
     );
+  }
 
+  public refreshProtocolAndParents(dbProtocol: LabProtocol): void {
+    const protocol = this.workflow.findLayerWithId(dbProtocol.id);
+    if (protocol == null) return;
+
+    this.refreshProtocolSuccess(dbProtocol);
+
+    // also refresh the parent protocol if there is one
+    let parent = protocol.parentLayer;
+    const parentsIds = [];
+    while (parent != null) {
+      parentsIds.push(protocol.id);
+      parent = protocol.parentLayer;
+    }
+
+    if (parentsIds.length > 0) {
+      this.refreshProtocols(parentsIds).subscribe();
+    }
+    this.refreshExperiment();
   }
 
   public stopProtocolsRefresh(): void {
@@ -232,30 +244,7 @@ export class LabExperimentDetailPageState {
   }
 
 
-  ////////////////////// OTHER ///////////////////////
-  public updateProcessConfig(protocolId: string, processInstanceName: string, config: PrConfigValues): void {
-    const node = this.workflow.findNodeByName(protocolId, processInstanceName);
-
-    if (node == null) {
-      console.error(`Could not find node with name ${processInstanceName} in protocol ${protocolId}`);
-      return;
-    }
-
-    if (!(node instanceof PrWorkflowNodeProcess)) {
-      console.error(`Node with name ${processInstanceName} in protocol ${protocolId} is not a process node, it can't be configured`);
-      return;
-    }
-
-    node.updateConfigValues(config);
-
-    const obs = this.protocolService.saveProcessConfig(protocolId, processInstanceName, config);
-    this.actionsService.addAction({
-      type: 'workflow-save-config',
-      action: obs,
-      text: {text: 'biox.saving_config', translateText: true}
-    });
-  }
-
+  ////////////////////// OTHER //////////////////////
 
   public clear(): void {
     this.experiment$.complete();

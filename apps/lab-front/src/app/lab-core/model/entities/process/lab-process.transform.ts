@@ -9,6 +9,7 @@ import {Transform} from 'class-transformer';
  * @param json
  */
 export function labInstantiateProcess(json: any): LabProcess {
+  if(json === null) return null;
   // if this is a resource file
   if (json.is_protocol) {
     return ClCoreJsonConvert.deserializeObject(json, LabProtocol);

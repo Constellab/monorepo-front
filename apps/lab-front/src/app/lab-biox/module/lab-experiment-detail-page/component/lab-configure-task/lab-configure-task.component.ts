@@ -5,7 +5,7 @@ import {LabConfigureSpecsForm} from '../../../../../lab-core/model/entities/lab-
 import {
   LabConfigureSpecsFormComponent
 } from '../../../../../lab-core/entity-module/lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
-import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
+import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class';
 
 @Component({
   selector: 'lab-configure-task',
@@ -19,7 +19,7 @@ export class LabConfigureTaskComponent implements OnInit {
   formGp: UntypedFormGroup = new UntypedFormGroup({});
 
 
-  constructor(private experimentState: LabExperimentDetailPageState) {
+  constructor(private workflowEditConfig: LabWorkflowEditConfig) {
   }
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class LabConfigureTaskComponent implements OnInit {
 
   private saveConfig(config: LabConfigureSpecsForm): void {
     const configValue = {...config.public, ...config.protected};
-    this.experimentState.updateProcessConfig(this.task.parentProtocolId, this.task.instanceName, configValue);
+    this.workflowEditConfig.updateProcessConfig(this.task.parentProtocolId, this.task.instanceName, configValue);
   }
 
 }
