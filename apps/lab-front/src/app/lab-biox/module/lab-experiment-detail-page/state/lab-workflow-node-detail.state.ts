@@ -85,10 +85,14 @@ export class LabWorkflowNodeDetailState {
     this.subscription?.unsubscribe();
   }
 
-  // TODO to improve
   public updateConfigValues(config: PrConfigValues): void {
     const node = this.node$.value;
     this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.nodeName, config);
+  }
+
+  public resetProcess(): void {
+    const node = this.node$.value;
+    this.workflowEditConfig.resetProcess(node.parentLayerId, node.nodeName);
   }
 
   private openResourceDetail(resourceId: string): void {

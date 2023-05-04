@@ -65,6 +65,10 @@ export class LabProtocolService {
     return this.apiService.delete(`${this.baseRoute}/${protocolId}/process/${processInstanceName}`, LabProtocolUpdateDTO);
   }
 
+  public resetProcessInProtocol(protocolId: string, processInstanceName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processInstanceName}/reset`, null, LabProtocolUpdateDTO);
+  }
+
   //////////////////////////////////////// CONNECTION /////////////////////////////////////
 
   public addConnection(protocolId: string, connection: {

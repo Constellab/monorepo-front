@@ -16,6 +16,7 @@ import {
   LabMonitorBetweenDatesDialogComponent,
   LabMonitorBetweenDatesDialogInput
 } from '../../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
+import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 
 @Component({
   selector: 'lab-workflow-node-progress',
@@ -29,7 +30,8 @@ export class LabWorkflowNodeProgressComponent implements OnInit {
   elapsedTime$: Observable<number>;
 
   constructor(private dialogService: FlDialogService,
-              private processService: LabProcessService) {
+              private processService: LabProcessService,
+              private workflowNodeDetail: LabWorkflowNodeDetailState) {
   }
 
   ngOnInit(): void {
@@ -63,5 +65,9 @@ export class LabWorkflowNodeProgressComponent implements OnInit {
     };
 
     this.dialogService.openBigDialog(LabMonitorBetweenDatesDialogComponent, {data: input});
+  }
+
+  resetProcess(): void {
+    this.workflowNodeDetail.resetProcess();
   }
 }

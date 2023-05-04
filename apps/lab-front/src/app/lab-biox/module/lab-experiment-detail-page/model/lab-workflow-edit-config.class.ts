@@ -39,6 +39,7 @@ enum LabWorkflowAction {
   DELETE_INTERFACE = 'workflow-delete-interface',
   DELETE_OUTERFACE = 'workflow-delete-outerface',
   UPDATE_PROCESS_CONFIG = 'workflow-update-process-config',
+  RESET_PROCESS = 'reset-process',
 }
 
 interface LabWorkflowEventConnectionAdditionalInfo {
@@ -217,18 +218,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
   public updateProcessConfig(protocolId: string, processInstanceName: string, config: PrConfigValues): void {
-    const layer = this.workflow.findLayerWithId(protocolId);
-    const node = layer.findNodeByName(processInstanceName);
-
-    if (node == null) {
-      console.error(`Could not find node with name ${processInstanceName} in protocol ${protocolId}`);
-      return;
-    }
-
-    if (!(node instanceof PrWorkflowNodeProcess)) {
-      console.error(`Node with name ${processInstanceName} in protocol ${protocolId} is not a process node, it can't be configured`);
-      return;
-    }
+    const node = this.getAndCheckProcessNode(protocolId, processInstanceName);
+    if (node == null) return;
 
     // info use to roll back the config if the user cancel the edit
     const additionalInfo: LabWorkflowEventConfigAdditionalInfo = {
@@ -246,7 +237,45 @@ export class LabWorkflowEditConfig implements OnDestroy {
       additionalInformation: additionalInfo
     };
     this.executeUpdateAction(action, node.currentObject as LabProcess, true);
+  }
 
+  public resetProcess(protocolId: string, processInstanceName: string): void {
+    const obs = this.protocolService.resetProcessInProtocol(protocolId, processInstanceName);
+    const action: FlPortalAction = {
+      type: LabWorkflowAction.RESET_PROCESS,
+      action: obs,
+      text: {text: 'biox.resetting_process', translateText: true},
+    };
+
+    const dialogInfo: FlConfirmDialogInput = {
+      title: 'biox.reset_process',
+      content: 'biox.reset_process_confirmation',
+      translateTitleAndContent: true,
+    };
+
+    this.dialogService.openConfirmDialog(dialogInfo).afterClosed().subscribe(
+      (result: FlConfirmDialogResult) => {
+        if (result.choice) {
+          this.actionsService.addAction(action, true);
+        }
+      });
+  }
+
+  private getAndCheckProcessNode(protocolId: string, processInstanceName: string): PrWorkflowNodeProcess {
+    const layer = this.workflow.findLayerWithId(protocolId);
+    const node = layer.findNodeByName(processInstanceName);
+
+    if (node == null) {
+      console.error(`Could not find node with name ${processInstanceName} in protocol ${protocolId}`);
+      return null;
+    }
+
+    if (!(node instanceof PrWorkflowNodeProcess)) {
+      console.error(`Node with name ${processInstanceName} in protocol ${protocolId} is not a process node, it can't be configured`);
+      return null;
+    }
+
+    return node;
   }
 
   private onWorkflowEvent(workflowEvent: PrWorkflowEvent): void {
@@ -498,7 +527,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
       LabWorkflowAction.DELETE_PROCESS,
       LabWorkflowAction.DELETE_INTERFACE, LabWorkflowAction.DELETE_OUTERFACE,
       LabWorkflowAction.DELETE_CONNECTION, LabWorkflowAction.ADD_CONNECTION,
-      LabWorkflowAction.UPDATE_PROCESS_CONFIG]);
+      LabWorkflowAction.UPDATE_PROCESS_CONFIG, LabWorkflowAction.RESET_PROCESS]);
   }
 
   private executeUpdateAction(action: FlPortalAction, process: LabProcess,

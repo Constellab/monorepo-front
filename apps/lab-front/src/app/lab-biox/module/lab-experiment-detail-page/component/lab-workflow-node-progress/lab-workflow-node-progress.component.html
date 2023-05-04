@@ -48,5 +48,13 @@
 
   </ng-container>
 
+  <ng-container *ngIf="process.isFinished()">
+    <button mat-stroked-button type="button" (click)="resetProcess()"
+            class="g-button-small element detail-button">
+      <mat-icon>restart_alt</mat-icon>
+      {{'biox.reset_process' | translate}}
+    </button>
+  </ng-container>
+
 
 </div>
