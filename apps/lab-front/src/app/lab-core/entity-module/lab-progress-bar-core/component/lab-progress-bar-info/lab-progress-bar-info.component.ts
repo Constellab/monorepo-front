@@ -49,7 +49,7 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
     this.messages$ = this.messageDatasource.connect();
 
     this.elapsedTime$ = this.progressBar$.pipe(
-      map(progressBar => progressBar.elapsedTime)
+      map(progressBar => progressBar.elapsedTime),
     );
 
     // every time the progress bar updated (reload from state), refresh the message list

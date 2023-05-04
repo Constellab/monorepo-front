@@ -10,10 +10,10 @@
         {{process.progressBar.currentValue}} %
       </fl-key-value>
 
-      <ng-container *ngIf="elapsedTime$ | async as elapsedTime">
-        <fl-key-value *ngIf="elapsedTime > 0">
+      <ng-container *ngIf="{value : elapsedTime$ | async} as elapsedTime">
+        <fl-key-value *ngIf="elapsedTime.value >= 0">
           <fl-key>{{'biox.execution_time' | translate}}</fl-key>
-          {{elapsedTime | flDuration}}
+          {{elapsedTime.value | flDuration}}
         </fl-key-value>
       </ng-container>
 

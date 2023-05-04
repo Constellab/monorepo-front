@@ -1,6 +1,6 @@
 import {LabBaseEntity} from '../global/lab-entity.entity';
 import {Expose, Type} from 'class-transformer';
-import {ClDateHelper, ClLuxonDateTimeTransform} from '@monorepo/core-lib';
+import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {DateTime} from 'luxon';
 import {FlArrayObs, FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform} from '@monorepo/front-core-lib';
 
@@ -47,15 +47,12 @@ export class LabProgressBar extends LabBaseEntity {
   @Expose({name: 'current_value'})
   currentValue: number;
 
+  @Expose({name: 'elapsed_time'})
+  elapsedTime: number;
 
-  // duration of the process in millisecond
-  get elapsedTime(): number {
-    if (this.startedAt == null) return 0;
-
-    const endedAt = this.endedAt ?? ClDateHelper.getDate();
-
-    return endedAt.diff(this.startedAt, 'millisecond').milliseconds;
-  }
+  @Expose({name: 'second_start'})
+  @ClLuxonDateTimeTransform()
+  secondStart: DateTime;
 }
 
 /**

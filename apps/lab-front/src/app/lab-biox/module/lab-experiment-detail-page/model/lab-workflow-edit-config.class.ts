@@ -344,7 +344,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
         };
 
         // associate the right process of the connection for the action
-        process = workflowEvent.connection.outputNode.currentObject;
+        process = workflowEvent.connection.inputNode.currentObject;
 
         if (workflowEvent.action === 'addConnection') {
           portalAction = {
