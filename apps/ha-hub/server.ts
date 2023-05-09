@@ -8,6 +8,10 @@ import {join} from 'path';
 
 import {AppServerModule} from './src/main.server';
 import {environment} from './src/environments/ha-environment';
+import {EnumChangefreq, SitemapItem, SitemapStream, streamToPromise} from 'sitemap';
+import {createGzip} from 'zlib';
+import axios from 'axios';
+import { Readable } from 'stream';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -60,13 +64,53 @@ export function app(): express.Express {
 Disallow:
 Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
   });
+  // server.get('/sitemap.xml', (req, res) => {
+  //   res.type('text/xml');
+  //   const distFolder = join(process.cwd(), 'dist/apps/ha-hub/server');
+  //   const filePath = join(distFolder, 'sitemap.xml');
+  //   res.sendFile(filePath);
+  // });
 
-  server.get('/sitemap.xml', (req, res) => {
-    res.type('text/xml');
-    const distFolder = join(process.cwd(), 'dist/apps/ha-hub/server');
-    const filePath = join(distFolder, 'sitemap.xml');
-    res.sendFile(filePath);
+  let lastSiteMapUpdate: Date = null;
+  let siteMap: string = null;
+
+  server.get('/sitemap.xml', async (req, res) => {
+    res.header('Content-Type', 'application/xml');
+
+    try {
+      const now = new Date();
+      const oneDayInMs = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+
+      if (lastSiteMapUpdate === null || (now.getTime() - lastSiteMapUpdate.getTime()) > oneDayInMs) {
+        const smStream = new SitemapStream({hostname: environment.settings.communityFrontUrl});
+
+        const urls = [
+          {url: '/', changefreq: EnumChangefreq.MONTHLY, priority: 1},
+          {url: '/stories', changefreq: EnumChangefreq.MONTHLY, priority: 1},
+          {url: '/bricks', changefreq: EnumChangefreq.MONTHLY, priority: 1},
+          {url: '/login', changefreq: EnumChangefreq.MONTHLY, priority: 1}
+        ];
+
+        const dynamicBricksUrls = await fetchBricksMap();
+        const dynamicStoriesUrls = await fetchStoriesMap();
+        const dynamicUrls = [...dynamicBricksUrls, ...dynamicStoriesUrls];
+        const allUrls = [...urls, ...dynamicUrls];
+
+        allUrls.forEach((url) => smStream.write(url));
+        smStream.end();
+
+        // Save the sitemap to disk or to a database
+        siteMap = await streamToPromise(smStream).then((sm) => sm.toString());
+        lastSiteMapUpdate = now;
+      }
+
+      res.send(siteMap);
+    } catch (e) {
+      console.error(e);
+      res.status(500).end();
+    }
   });
+
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
@@ -103,12 +147,46 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
   server.get('*', (req, res) => {
     res.render(indexHtml, {
       req,
-      providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }],
+      providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}],
     });
   });
 
   return server;
 }
+
+// Method to get dynamically bricks part sitemap
+async function fetchBricksMap(): Promise<SitemapItem[]> {
+  try {
+    const response = await axios.get(`${environment.settings.apiUrl}/brick/all-map`);
+    const brickUrlMap: string[] = response.data;
+
+    return brickUrlMap.map((brickUrl) => ({
+      url: `/bricks/${brickUrl}`,
+      changefreq: EnumChangefreq.DAILY,
+      priority: 0.8,
+    }) as SitemapItem);
+  } catch (error) {
+    console.error('Error fetching bricks URLs:', error);
+    return [];
+  }
+}
+
+async function fetchStoriesMap(): Promise<SitemapItem[]>{
+  try {
+    const response = await axios.get(`${environment.settings.apiUrl}/story/all-map`);
+    const storiesUrlMap: string[] = response.data;
+
+    return storiesUrlMap.map((storyId) => ({
+      url: `/stories/${storyId}`,
+      changefreq: EnumChangefreq.DAILY,
+      priority: 0.8,
+    }) as SitemapItem);
+  } catch (error) {
+    console.error('Error fetching stories URLs:', error);
+    return [];
+  }
+}
+
 
 function run(): void {
   const port = process.env['PORT'] || 4000;
