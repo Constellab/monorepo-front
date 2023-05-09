@@ -19,7 +19,7 @@
       </mat-form-field>
     </div>
     <div *ngIf="story.status === 'DRAFT'">
-      <button mat-flat-button type="button" class="publish-story-bt" *haIsAdmin (click)="publish()">
+      <button mat-flat-button type="button" class="publish-story-bt" *haIsAuthenticated (click)="publish()">
         {{'publish_story' | translate}}
       </button>
     </div>
