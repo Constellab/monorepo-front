@@ -174,9 +174,9 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
 
     this.quill.clipboard.addMatcher(Node.TEXT_NODE, (node, delta): any => {
       if (ClStringHelper.isHttpLink(node.nodeValue)) {
-        delta.ops = []
-        FlQuillSetup.addMatcherLink(this.state.getCurrentSelectionIndex(), node.nodeValue, delta, this.state);
+        delta = FlQuillSetup.addMatcherLink(this.state.getCurrentSelectionIndex(), node.nodeValue, delta, this.state);
       }
+      console.log('RETURN', this.state.quill.getContents());
       return delta;
     });
 

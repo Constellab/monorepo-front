@@ -73,11 +73,23 @@ export class FlTextEditorState implements OnDestroy {
     this.quill.insertEmbed(index, 'customFormula', value);
   }
 
-  public insertLink(index: number, link: string, linkName: string): any{
+  public insertLink(index: number, link: string, linkName: string): any {
     import('quill').then((quillImport) => {
       return this.quill.insertText(index, linkName, 'link', link, quillImport.default.sources.USER);
     });
+  }
 
+  public createLink(index: number, link: string, linkName: string): any {
+    return {
+      ops: [
+        {
+          attributes: {
+            link: link
+          },
+          insert: linkName
+        }
+      ]
+    }
   }
 
   public insertText(index: number, text: string): any {
