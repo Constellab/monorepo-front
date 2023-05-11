@@ -12,8 +12,9 @@
   background-color: var(--card-background);
   border-radius: 18px;
   padding: 8px;
-
 }
+
+
 
 .title{
   border-radius: 10px;
@@ -72,5 +73,11 @@
 @media (max-width: 1600px) {
   .main-panel{
     margin: 4em auto 0 auto !important;
+  }
+}
+
+@media (max-width: 1450px) {
+  .right-div{
+    display: none;
   }
 }
