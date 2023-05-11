@@ -9,7 +9,7 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlattener} from '@angular/material/tree';
 import {HaFolderService} from '../../../../ha-core/ha-service/ha-folder.service';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {ActivatedRoute, NavigationEnd, Router, UrlSegment} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -27,7 +27,7 @@ import {
 import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import {SelectionModel} from '@angular/cdk/collections';
-import {filter, Observable, of, startWith, Subject, Subscription, tap} from 'rxjs';
+import {filter, Observable, of, startWith, Subscription, tap} from 'rxjs';
 import {MediaChange, MediaObserver} from '@angular/flex-layout';
 import {FormControl} from '@ngneat/reactive-forms';
 import {ClStringHelper} from '@monorepo/core-lib';
@@ -67,6 +67,7 @@ export class HaPublicSidenavComponent implements OnInit {
   // expansion model tracks expansion state
   mainFolderId: string;
   expansionModel = new SelectionModel<FlatNode>(true);
+  techExpansionModel = new SelectionModel<FlatNode>(true);
   changedData: HaNode[];
   hoverId: string;
 
@@ -75,11 +76,10 @@ export class HaPublicSidenavComponent implements OnInit {
     node => node.expandable
   );
 
-  technicalTreeControl = new FlatTreeControl<FlatNode>(
+  techTreeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
     node => node.expandable
   );
-
 
   dataSource$: Observable<HaMateTreeFlatDataSource<HaNode, any, any>>;
   technicalDataSource$: Observable<HaMateTreeFlatDataSource<HaNode, any, any>>;
@@ -92,8 +92,26 @@ export class HaPublicSidenavComponent implements OnInit {
   activatedRoute: ActivatedRoute = this.route;
 
   //TRANSFERSTATE
-  DOCUMENTATIONS_KEY : StateKey<object>;
+  DOCUMENTATIONS_KEY: StateKey<object>;
   TECH_DOCUMENTATION_KEY: StateKey<object>;
+
+  techTreeFlattener = new MatTreeFlattener(
+    (node: HaNode, level: number): any => {
+      return {
+        expandable: !!node.children,
+        order: node.order,
+        name: node.name,
+        path: node.path,
+        completePath: node.completePath,
+        parentId: node.parentId,
+        id: node.id,
+        level: level,
+      };
+    },
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
 
   treeFlattener = new MatTreeFlattener(
     (node: HaNode, level: number): any => {
@@ -114,7 +132,7 @@ export class HaPublicSidenavComponent implements OnInit {
   );
 
   dataSource = new HaMateTreeFlatDataSource(this.treeControl, this.treeFlattener);
-  technicalDataSource = new HaMateTreeFlatDataSource(this.technicalTreeControl, this.treeFlattener);
+  technicalDataSource = new HaMateTreeFlatDataSource(this.techTreeControl, this.techTreeFlattener);
 
   currentCompletePath: string;
 
@@ -192,16 +210,6 @@ export class HaPublicSidenavComponent implements OnInit {
     });
   }
 
-  private onTechDocumentationsData(data: HaNode): void{
-    if (data) {
-      this.technicalDataSource.data = [data];
-      this.technicalDataSource$ = of(this.technicalDataSource);
-      this.technicalDocResources = data.children[0].children;
-      this.technicalDocTasks = data.children[1].children;
-      //this.updateTechDataSource();
-    }
-  }
-
   private getDocumentations(): void{
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
       const data = this.transferState.get(this.DOCUMENTATIONS_KEY, null) as HaNode;
@@ -223,14 +231,6 @@ export class HaPublicSidenavComponent implements OnInit {
       this.dataSource$ = of(this.dataSource);
       this.mainFolderId = this.dataSource.data[0].parentId;
       this.changeDetectorRefs.detectChanges();
-    }
-  }
-
-  private expandToOpenedDoc(cp: UrlSegment[]): void{
-    for(const dN of this.treeControl.dataNodes){
-      if(dN.expandable && cp.find(c => c.path == dN.path)){
-        this.treeControl.expand(dN);
-      }
     }
   }
 
@@ -516,7 +516,7 @@ export class HaPublicSidenavComponent implements OnInit {
         techDataSourceData[0].children[2].children = this.technicalDocProtocols.filter(child =>
           ClStringHelper.stringContains(child.name, value, true, true, true));
 
-        const res: HaMateTreeFlatDataSource<HaNode, any, any> = new HaMateTreeFlatDataSource(this.treeControl, this.treeFlattener);
+        const res: HaMateTreeFlatDataSource<HaNode, any, any> = new HaMateTreeFlatDataSource(this.techTreeControl, this.techTreeFlattener);
         const emptyFolder: HaNode[] = [];
         for (const n of techDataSourceData[0].children) {
           if (!n.children || n.children.length == 0) {
@@ -545,6 +545,16 @@ export class HaPublicSidenavComponent implements OnInit {
     );
   }
 
+  private onTechDocumentationsData(data: HaNode): void{
+    if (data) {
+      this.technicalDataSource.data = [data];
+      this.technicalDataSource$ = of(this.technicalDataSource);
+      this.technicalDocResources = data.children[0].children;
+      this.technicalDocTasks = data.children[1].children;
+      this.updateTechDataSource();
+    }
+  }
+
   isDocNodeSelected(node: HaNode): boolean{
     if(!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
     const completePath: string = this.currentCompletePath.split('doc/')[1] + '/';
@@ -555,8 +565,7 @@ export class HaPublicSidenavComponent implements OnInit {
     if(!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
     const completePath: string = this.currentCompletePath.split('doc/')[1] + '/';
     if(completePath.includes(node.completePath)){
-      //check if is technical node
-      if(node.completePath.includes('technical-folder/'))
+      if (completePath.includes('technical-folder/'))
         this.expandTechNode(node);
       else
         this.expandNode(node);
@@ -570,7 +579,7 @@ export class HaPublicSidenavComponent implements OnInit {
   }
 
   private expandTechNode(node: HaNode): void {
-    this.technicalTreeControl.expand(this.technicalTreeControl.dataNodes.find(n => n.completePath === node.completePath));
+    this.techTreeControl.expand(this.techTreeControl.dataNodes.find(n => n.completePath === node.completePath));
   }
 }
 
