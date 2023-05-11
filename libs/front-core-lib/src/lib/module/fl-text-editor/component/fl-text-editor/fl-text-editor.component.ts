@@ -117,6 +117,9 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
   }
   async ngOnInit(): Promise<void> {
     if (!this.testBrowser) {
+      if(this.baseDelta == null || this.baseDelta.ops == null) {
+        return;
+      }
       const deltaOps = this.baseDelta.ops;
       //TODO: check if this is the best way to do this
       for(const [i, op] of deltaOps.entries()) {
@@ -188,12 +191,6 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
 
     if (this.autoFocus && !this.disabled) {
       this.quill.focus();
-    }
-
-    if (this.theme === 'VISIBLE_BUTTON') {
-      const keyboard = this.quill.getModule('keyboard');
-      //Delete the linebreak event on enter key pressed
-      //delete keyboard.bindings[13];
     }
 
     this.quill.on('text-change', () => this.setAndEmitValue(this.getQuillValue()));

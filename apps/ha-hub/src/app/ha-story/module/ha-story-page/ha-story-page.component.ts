@@ -50,24 +50,27 @@ export class HaStoryPageComponent implements OnInit {
   private getStory(id: string): void {
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.STORY_KEY)) {
       const story: HaStory = new HaStory();
-      story.init(this.transferState.get(this.STORY_KEY, null) as HaStory);
+      const result: any = this.transferState.get(this.STORY_KEY, null);
+      story.init(result.story as HaStory);
+      this.titles = result.titles;
       this.onStory(story);
       this.transferState.remove(this.STORY_KEY);
-      return;
+    } else {
+      this.storyService.getById(id).subscribe((story: HaStory) => {
+        this.onStory(story);
+      });
     }
-
-    this.storyService.getById(id).subscribe((story: HaStory) => {
-      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY))
-        this.transferState.set(this.STORY_KEY, story);
-      this.onStory(story);
-    });
   }
 
   private onStory(story: HaStory): void{
     this.story = story;
     this.formControl.setValue(this.story.content);
     this.formControl.disable({emitEvent: true});
-    this.titles = (new CmRichText(this.story.content)).getHeaders([2, 3]);
+    this.titles = this.titles == null || this.titles.length == 0 ?
+      (new CmRichText(this.story.content)).getHeaders([2, 3]) : this.titles;
+    if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)){
+      this.transferState.set(this.STORY_KEY, {story: story, titles: this.titles});
+    }
     this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
     this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
   }

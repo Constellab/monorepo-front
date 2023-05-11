@@ -211,6 +211,7 @@ export class CmRichText {
     return this.richText;
   }
 
+  //TODO: Voir comment améliorer la méthode
   public getHeaders(headersSize: number[]): any[] {
     const headers: any[] = [];
     const contentData: any[] = this.getContent().ops;
@@ -218,7 +219,8 @@ export class CmRichText {
       const listId: string[] = [];
       contentData.forEach((c, i) => {
         if (contentData[i + 1] && contentData[i + 1].attributes && contentData[i + 1].attributes.header
-          && (headersSize.includes(contentData[i + 1].attributes.header.level))) {
+          && (headersSize.includes(contentData[i + 1].attributes.header.level) ||
+            headersSize.includes(contentData[i + 1].attributes.header))) {
           const inserts: string[] = c.insert.split('\n');
 
           if (contentData[i + 1].attributes.header.id) {
