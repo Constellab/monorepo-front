@@ -62,7 +62,7 @@
   </mat-tree>
 
   <mat-tree *ngIf="technicalDataSource$ | async" [dataSource]="technicalDataSource$ | async"
-            [treeControl]="treeControl">
+            [treeControl]="techTreeControl">
 
     <mat-tree-node *matTreeNodeDef="let node" class="sidenav-item small-text"
                    [ngClass]="isDocNodeSelected(node) ? 'sidenav-item-selected' : ''"
@@ -76,13 +76,13 @@
 
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" class="sidenav-item sidenav-item-with-icon small-text icon-pointer"
                    [ngClass]="isFolderNodeSelected(node) ? 'sidenav-item-selected' : ''"
-                   [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}" (click)="expansionModel.toggle(node)" matTreeNodeToggle>
+                   [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}" (click)="techExpansionModel.toggle(node)" matTreeNodeToggle>
       <div *ngIf="node.id != null">
         {{node.name}}
       </div>
       <div class="line-icons">
         <mat-icon class="g-icon-small icon-pointer">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          {{techTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
         </mat-icon>
       </div>
     </mat-tree-node>
