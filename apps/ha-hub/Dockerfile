@@ -23,8 +23,6 @@ RUN npm ci --production
 
 COPY --from=buildContainer /app/dist ./dist
 
-COPY apps/ha-hub/sitemap.xml dist/apps/ha-hub/server/sitemap.xml
-
 EXPOSE 4000
 
 RUN sed -i -e 's/\r$//' /entrypoint.sh && \
