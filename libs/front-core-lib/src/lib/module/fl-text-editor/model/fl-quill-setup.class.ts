@@ -35,7 +35,7 @@ export class FlQuillSetup {
   }
 
   public static addMatcherLink(index: number, link: string, delta: any, state: FlTextEditorState): any {
-    return state.insertLink(index, link, link);
+    return state.createLink(index, link, link);
   }
 
   public static addMatcher(node: any, delta: any, state: FlTextEditorState, config: FlTextEditorConfig): any {
