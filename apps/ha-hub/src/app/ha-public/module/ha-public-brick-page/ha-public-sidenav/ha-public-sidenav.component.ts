@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
 import {ChangeDetectorRef, Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
 import {
   HaMateTreeFlatDataSource,
@@ -10,7 +9,7 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlattener} from '@angular/material/tree';
 import {HaFolderService} from '../../../../ha-core/ha-service/ha-folder.service';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router, UrlSegment} from '@angular/router';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -28,12 +27,11 @@ import {
 import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Observable, of, startWith, Subscription, tap} from 'rxjs';
+import {filter, Observable, of, startWith, Subject, Subscription, tap} from 'rxjs';
 import {MediaChange, MediaObserver} from '@angular/flex-layout';
 import {FormControl} from '@ngneat/reactive-forms';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {map} from 'rxjs/operators';
-import {HaPublicDocComponent} from '../ha-public-doc/ha-public-doc.component';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaAuthService} from '../../../../ha-core/ha-service/ha-auth.service';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
@@ -66,37 +64,24 @@ export class HaPublicSidenavComponent implements OnInit {
   menuOpen: boolean;
   openedMenu: FlOverlayRef;
 
-  trackByIdentity = (index: number, item: any): any => item;
-
-  private _transformer = (node: HaNode, level: number): any => {
-    return {
-      expandable: !!node.children,
-      order: node.order,
-      name: node.name,
-      path: node.path,
-      completePath: node.completePath,
-      parentId: node.parentId,
-      id: node.id,
-      level: level,
-    };
-  };
+  // expansion model tracks expansion state
+  mainFolderId: string;
+  expansionModel = new SelectionModel<FlatNode>(true);
+  changedData: HaNode[];
+  hoverId: string;
 
   treeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
     node => node.expandable
   );
 
-
-  treeFlattener = new MatTreeFlattener(
-    this._transformer,
+  technicalTreeControl = new FlatTreeControl<FlatNode>(
     node => node.level,
-    node => node.expandable,
-    node => node.children,
+    node => node.expandable
   );
 
-  dataSource = new HaMateTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
   dataSource$: Observable<HaMateTreeFlatDataSource<HaNode, any, any>>;
-  technicalDataSource = new HaMateTreeFlatDataSource(this.treeControl, this.treeFlattener);
   technicalDataSource$: Observable<HaMateTreeFlatDataSource<HaNode, any, any>>;
   technicalDocResources: HaNode[];
   technicalDocTasks: HaNode[];
@@ -104,12 +89,37 @@ export class HaPublicSidenavComponent implements OnInit {
 
   private mediaSubscription!: Subscription;
   isSmallScreen: boolean = false;
-  sideNavIsOpen: boolean = false;
   activatedRoute: ActivatedRoute = this.route;
 
   //TRANSFERSTATE
   DOCUMENTATIONS_KEY : StateKey<object>;
   TECH_DOCUMENTATION_KEY: StateKey<object>;
+
+  treeFlattener = new MatTreeFlattener(
+    (node: HaNode, level: number): any => {
+      return {
+        expandable: !!node.children,
+        order: node.order,
+        name: node.name,
+        path: node.path,
+        completePath: node.completePath,
+        parentId: node.parentId,
+        id: node.id,
+        level: level,
+      };
+    },
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
+
+  dataSource = new HaMateTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  technicalDataSource = new HaMateTreeFlatDataSource(this.technicalTreeControl, this.treeFlattener);
+
+  currentCompletePath: string;
+
+  trackByIdentity = (index: number, item: any): any => item;
+
 
   constructor(
     private brickService: HaBrickService,
@@ -130,15 +140,7 @@ export class HaPublicSidenavComponent implements OnInit {
 
   hasChild = (_: number, node: FlatNode): boolean => node.expandable;
 
-  // expansion model tracks expansion state
-  mainFolderId: string;
-  expansionModel = new SelectionModel<FlatNode>(true);
-  changedData: HaNode[];
-  dragging = false;
-  hoverId: string;
-
   ngOnInit(): void {
-
     this.DOCUMENTATIONS_KEY = makeStateKey<object>('DOCUMENTATIONS_KEY');
     this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
 
@@ -155,6 +157,12 @@ export class HaPublicSidenavComponent implements OnInit {
     } else {
       this.route.params.subscribe(params => {
         this.init(params['version']);
+        this.currentCompletePath = this.router.url.split(params['version'])[1];
+        this.router.events
+          .pipe(filter(event => event instanceof NavigationEnd))
+          .subscribe((event: NavigationEnd) => {
+            this.currentCompletePath = event.url.split(params['version'])[1];
+          });
       });
     }
   }
@@ -190,8 +198,7 @@ export class HaPublicSidenavComponent implements OnInit {
       this.technicalDataSource$ = of(this.technicalDataSource);
       this.technicalDocResources = data.children[0].children;
       this.technicalDocTasks = data.children[1].children;
-      this.technicalDocProtocols = data.children[2].children;
-      this.updateTechDataSource();
+      //this.updateTechDataSource();
     }
   }
 
@@ -216,10 +223,6 @@ export class HaPublicSidenavComponent implements OnInit {
       this.dataSource$ = of(this.dataSource);
       this.mainFolderId = this.dataSource.data[0].parentId;
       this.changeDetectorRefs.detectChanges();
-
-      this.route.children[0].url.subscribe((cp) => {
-        this.expandToOpenedDoc(cp);
-      });
     }
   }
 
@@ -498,16 +501,6 @@ export class HaPublicSidenavComponent implements OnInit {
     });
   }
 
-  closeSideNav(): void {
-    this.sideNavIsOpen = false;
-  }
-
-  openSideNav(): void {
-    if (this.isSmallScreen) {
-      this.sideNavIsOpen = true;
-    }
-  }
-
   private updateTechDataSource(): void {
     this.technicalDataSource$ = this.searchTechDocControl.valueChanges.pipe(
       startWith(''),
@@ -552,25 +545,32 @@ export class HaPublicSidenavComponent implements OnInit {
     );
   }
 
+  isDocNodeSelected(node: HaNode): boolean{
+    if(!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
+    const completePath: string = this.currentCompletePath.split('doc/')[1] + '/';
+    return completePath == node.completePath;
+  }
+
+  isFolderNodeSelected(node: HaNode): boolean{
+    if(!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
+    const completePath: string = this.currentCompletePath.split('doc/')[1] + '/';
+    if(completePath.includes(node.completePath)){
+      //check if is technical node
+      if(node.completePath.includes('technical-folder/'))
+        this.expandTechNode(node);
+      else
+        this.expandNode(node);
+      return true;
+    }
+    return false;
+  }
+
   private expandNode(node: HaNode): void {
     this.treeControl.expand(this.treeControl.dataNodes.find(n => n.completePath === node.completePath));
   }
 
-
-
-  componentAdded(event: HaPublicDocComponent): void {
-    if (event && event.newItemEvent) {
-      event.newItemEvent.subscribe(e => {
-        if (e == 'rename') {
-          this.getDocumentations();
-        } else if (e == 'delete') {
-          this.brickService.getBrickDocs(this.brickId, this.brickVersion).subscribe((data) => {
-            this.rebuildTreeForData(data.children);
-            this.router.navigate(['.'], {relativeTo: this.route})
-          });
-        }
-      });
-    }
+  private expandTechNode(node: HaNode): void {
+    this.technicalTreeControl.expand(this.technicalTreeControl.dataNodes.find(n => n.completePath === node.completePath));
   }
 }
 

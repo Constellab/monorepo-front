@@ -197,7 +197,7 @@ export class CaProjectService {
   }
 
   public deleteProjectComment(projectId: string, commentId: string): Observable<CaProjectComment> {
-    return this.apiService.post(`${this.route}/${projectId}/comment/${commentId}/delete`, null, CaProjectComment);
+    return this.apiService.delete(`${this.route}/${projectId}/comment/${commentId}/delete`, null);
   }
 
   uploadCommentImage(file: File, projectId: string): Observable<FlTextEditorUploadedImage> {

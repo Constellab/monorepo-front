@@ -21,11 +21,10 @@
                     [config]="textEditorConfig" [noPadding]="true" flAutoScrollToAnchor [formControl]="formControl" [baseDelta]="story?.content">
     </fl-text-editor>
   </div>
-
-  <div class="right-div" *ngIf="titles && titles.length > 0">
-    <a [routerLink]="'.'" *ngFor="let title of titles" [fragment]="title.id" class="title"
-       [ngClass]="title.level === 2 ? ['big-title'] : ['small-title']">
-      {{title.title}}
-    </a>
-  </div>
+</div>
+<div class="right-div right-panel" *ngIf="titles && titles.length > 0">
+  <a [routerLink]="'.'" *ngFor="let title of titles" [fragment]="title.id" class="title"
+     [ngClass]="title.level === 2 ? ['big-title'] : ['small-title']">
+    {{title.title}}
+  </a>
 </div>

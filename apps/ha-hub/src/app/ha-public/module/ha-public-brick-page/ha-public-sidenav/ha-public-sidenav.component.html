@@ -10,7 +10,8 @@
   </mat-form-field>
 
   <a [routerLink]="'.'"
-     [relativeTo]="activatedRoute" [routerLinkActive]="'active'" class="sidenav-item small-text">
+     [relativeTo]="activatedRoute" [routerLinkActive]="'active'" class="sidenav-item small-text"
+     [ngClass]="currentCompletePath === '' ? 'sidenav-item-selected' : ''">
     {{'introduction' | translate}}
   </a>
 
@@ -22,6 +23,7 @@
                    [cdkDragDisabled]="!(isAdmin$ | async) || node.name == null" [cdkDragData]="node"
                    (mouseenter)="hoverId=node.id" (mouseleave)="hoverId=null"
                    class="sidenav-item small-text sidenav-item-with-icon g-drag-hide-placeholder"
+                   [ngClass]="isDocNodeSelected(node) ? 'sidenav-item-selected' : ''"
                    [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}">
       <a [routerLink]="'doc/' + node.completePath"
          [relativeTo]="activatedRoute" [routerLinkActive]="'active'" *ngIf="node.id != null">
@@ -38,6 +40,7 @@
                    [cdkDragDisabled]="!(isAdmin$ | async) || node.name == null" [cdkDragData]="node"
                    (mouseenter)="hoverId=node.id" (mouseleave)="hoverId=null"
                    class="sidenav-item small-text sidenav-item-with-icon g-drag-hide-placeholder icon-pointer"
+                   [ngClass]="isFolderNodeSelected(node) ? 'sidenav-item-selected' : ''"
                    [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}" (click)="expansionModel.toggle(node)"
                    matTreeNodeToggle>
       <div *ngIf="node.id != null">
@@ -62,6 +65,7 @@
             [treeControl]="treeControl">
 
     <mat-tree-node *matTreeNodeDef="let node" class="sidenav-item small-text"
+                   [ngClass]="isDocNodeSelected(node) ? 'sidenav-item-selected' : ''"
                    [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}">
       <a [routerLink]="'doc/' + node.completePath" [relativeTo]="activatedRoute" [routerLinkActive]="'active'"
          *ngIf="node.id != null">
@@ -71,6 +75,7 @@
     </mat-tree-node>
 
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" class="sidenav-item sidenav-item-with-icon small-text icon-pointer"
+                   [ngClass]="isFolderNodeSelected(node) ? 'sidenav-item-selected' : ''"
                    [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}" (click)="expansionModel.toggle(node)" matTreeNodeToggle>
       <div *ngIf="node.id != null">
         {{node.name}}
@@ -84,7 +89,8 @@
 
   </mat-tree>
 
-  <a [routerLink]="'version'" [relativeTo]="activatedRoute" [routerLinkActive]="'active'" class="sidenav-item small-text">
+  <a [routerLink]="'version'" [relativeTo]="activatedRoute" [routerLinkActive]="'active'" class="sidenav-item small-text"
+     [ngClass]="currentCompletePath === '/version' ? 'sidenav-item-selected' : ''">
     {{'version' | translate}}
   </a>
 </div>

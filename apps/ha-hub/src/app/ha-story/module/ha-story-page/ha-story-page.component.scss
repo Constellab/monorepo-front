@@ -4,9 +4,8 @@
 }
 
 .right-div{
-  margin-top: 13px;
-  margin-left: 20px;
-  width: 295px;
+  position: fixed;
+  top: 38px;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -17,7 +16,6 @@
 }
 
 .title{
-
   border-radius: 10px;
   padding: 7px 8px;
   margin-top: 8px;
@@ -37,7 +35,7 @@
 
 .story-pannel{
   margin: 0 auto;
-  min-width: 60vw;
+  min-width: 55vw;
   width: fit-content;
   background-color: var(--main-background);
   border-radius: 16px;
