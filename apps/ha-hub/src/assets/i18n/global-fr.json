@@ -153,6 +153,10 @@
   "ha.techdocumentation.brick.description": "Page de la documentation technique {{docTitle}} de la brick {{brickTitle}}",
 
   "ha.versions.brick.title": "Community - {{brickTitle}} - Versions",
-  "ha.versions.brick.description": "Liste des versions de la brick {{brickTitle}}"
+  "ha.versions.brick.description": "Liste des versions de la brick {{brickTitle}}",
+
+
+  "light_theme": "Thème clair",
+  "dark_theme": "Thème sombre"
 
 }

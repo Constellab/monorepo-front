@@ -8,7 +8,6 @@
   width: 60rem;
   max-width: calc(100vw - 18px);
   border-radius: 18px;
-  background-color: var(--card-background);
   padding: 0 8px 8px 8px;
   display: flex;
   flex-direction: column;
@@ -25,7 +24,6 @@
   width: 279px;
   height: fit-content;
   border-radius: 18px;
-  background-color: var(--card-background);
   max-height: 50vh;
   right: 100px;
 }
@@ -100,7 +98,7 @@ h2{
 .tech-info-div > p{
   margin-top: 11px;
   padding: 8px;
-  background-color: var(--main-background);
+  background-color: var(--card-background);
   border-radius: 10px;
   max-width: calc(100% - 24px);
   white-space: nowrap;

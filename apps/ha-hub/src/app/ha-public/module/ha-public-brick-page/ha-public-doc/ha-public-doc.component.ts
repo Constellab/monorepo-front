@@ -239,6 +239,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   }
 
   private getContextMenuConfig(): FlMenuDynamic[] {
+    console.log(this.isDisabled);
     if (this.isDisabled) {
       return [
         {
@@ -284,6 +285,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   }
 
   private changeTextEditorState(): void {
+    this.isDisabled = !this.isDisabled;
     if(this.formGp.controls.content.disabled)
       this.formGp.controls.content.enable();
     else

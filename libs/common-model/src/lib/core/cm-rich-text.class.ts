@@ -220,7 +220,7 @@ export class CmRichText {
       contentData.forEach((c, i) => {
         if (contentData[i + 1] && contentData[i + 1].attributes && contentData[i + 1].attributes.header
           && (headersSize.includes(contentData[i + 1].attributes.header.level) ||
-            headersSize.includes(contentData[i + 1].attributes.header))) {
+            headersSize.includes(contentData[i + 1].attributes.header)) && typeof c.insert === 'string') {
           const inserts: string[] = c.insert.split('\n');
 
           if (contentData[i + 1].attributes.header.id) {

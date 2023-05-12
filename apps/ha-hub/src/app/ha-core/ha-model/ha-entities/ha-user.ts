@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform, ClSupportedLanguage} from '@monorepo/core-lib';
+import {ClLuxonDateTimeTransform, ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 import {FlUser} from '@monorepo/front-core-lib';
 
 export class HaUser implements FlUser {
@@ -10,6 +10,8 @@ export class HaUser implements FlUser {
   lastname: string;
 
   email: string;
+
+  theme: ClTheme;
 
   photo: string;
 

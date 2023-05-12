@@ -76,6 +76,23 @@
   margin: auto;
 }
 
+.round{
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  border: 1px solid grey;
+  margin-right: 1em;
+  display: inline-block;
+}
+
+.round-light{
+  background-color: white;
+}
+
+.round-dark{
+  background-color: #424242;
+}
+
 @media (max-width: 1160px) {
   .nav-bar{
     padding: 16px 50px 0 50px;
