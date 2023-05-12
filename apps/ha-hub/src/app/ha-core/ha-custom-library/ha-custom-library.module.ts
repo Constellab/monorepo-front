@@ -15,7 +15,7 @@ import {
   FlSectionModule,
   FlSnackBarModule,
   FlTextEditorModule,
-  FlTextIconModule,
+  FlTextIconModule, FlThemeModule,
   FlTranslateModule,
   FlUserModule
 } from '@monorepo/front-core-lib';
@@ -41,6 +41,7 @@ import {TdTechnicalDocModule} from '@monorepo/technical-doc';
     FlTextIconModule,
     FlCoreComponentModule,
     FlCardModule,
+    FlThemeModule,
 
     //-------------------
 

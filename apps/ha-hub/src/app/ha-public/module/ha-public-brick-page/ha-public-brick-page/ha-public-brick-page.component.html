@@ -3,12 +3,6 @@
   <ng-container *flSectionBody="let brick">
     <div class="left-panel" *ngIf="brick">
       <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
-      <a [routerLink]="'/bricks'" class="back-link">
-        <fl-text-icon [iconPosition]="'start'">
-          <mat-icon>arrow_back</mat-icon>
-          {{'back_to_all_bricks' | translate}}
-        </fl-text-icon>
-      </a>
       <ha-public-sidenav [brick]="brick"></ha-public-sidenav>
       <div class="sidenav-div">
         <p>{{'related_tags' | translate}} :</p>

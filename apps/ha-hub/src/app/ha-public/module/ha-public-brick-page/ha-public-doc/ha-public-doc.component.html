@@ -10,7 +10,7 @@
   <div class="doc-div" *ngIf="!isLoading && documentation">
     <div class="doc-div-content g-max-article-width">
       <div class="doc-title-div">
-        <h4>{{documentation.title}}</h4>
+        <h3>{{documentation.title}}</h3>
         <button mat-icon-button type="button" (click)="onClickMenu($event)" *ngIf="isAdmin | async">
           <mat-icon>
             more_vert

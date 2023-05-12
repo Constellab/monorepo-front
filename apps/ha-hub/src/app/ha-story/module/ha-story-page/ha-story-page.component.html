@@ -8,9 +8,9 @@
 </div>
 <div class="story-pannel" *ngIf="story">
   <div class="story-content">
-    <h2>
+    <h3>
       {{story.title}}
-    </h2>
+    </h3>
     <p class="small-text user-date-info">
       <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
       <span class="g-text-small date-info">{{story.createdAt | flDate:'DATETIME_MED'}}</span>

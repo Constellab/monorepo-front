@@ -3,7 +3,8 @@ import {FlApiService, FlCleanableService, FlCleanerService} from '@monorepo/fron
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HaUser, HaUserCategory} from '../ha-model/ha-entities/ha-user';
 import {HaAuthService} from './ha-auth.service';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
+import {ClTheme} from '@monorepo/core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import {map} from 'rxjs/operators';
 export class HaAuthenticatedUserService implements FlCleanableService{
 
   private readonly userRoute: string = 'user';
+  private userAuthenticated: HaUser;
   public userSubject: BehaviorSubject<HaUser> = new BehaviorSubject<HaUser>(null);
 
   constructor(private apiService: FlApiService,
@@ -21,6 +23,7 @@ export class HaAuthenticatedUserService implements FlCleanableService{
   public init(): void {
     if (this.authService.hasAuthorizationCookie()) {
       this.apiService.get(this.userRoute).subscribe((user: HaUser) => {
+        this.userAuthenticated = user;
         this.userSubject.next(user);
       });
     } else {
@@ -36,6 +39,22 @@ export class HaAuthenticatedUserService implements FlCleanableService{
     return this.getUser().pipe(
       map(user => user != null && user.category === HaUserCategory.ADMIN)
     );
+  }
+
+  public changeTheme(theme: ClTheme): Observable<void> {
+    return this.apiService.put(`${this.userRoute}/theme/${theme}`, null).pipe(
+      tap(() => this.changeThemeSuccess(theme))
+    );
+  }
+
+  private changeThemeSuccess(theme: ClTheme): void {
+    this.userAuthenticated.theme = theme;
+    this.notifyUserChange();
+  }
+
+  private notifyUserChange(): void {
+    // emit the new user
+    this.userSubject.next(this.userAuthenticated);
   }
 
   clean(): void {

@@ -172,17 +172,22 @@ export class HaPublicSidenavComponent implements OnInit {
 
     if(this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')){
       this.init( 'latest');
+      this.initCurrentCompletePath('-doc');
     } else {
       this.route.params.subscribe(params => {
         this.init(params['version']);
-        this.currentCompletePath = this.router.url.split(params['version'])[1];
-        this.router.events
-          .pipe(filter(event => event instanceof NavigationEnd))
-          .subscribe((event: NavigationEnd) => {
-            this.currentCompletePath = event.url.split(params['version'])[1];
-          });
+        this.initCurrentCompletePath(params['version']);
       });
     }
+  }
+
+  private initCurrentCompletePath(separator: string): void{
+    this.currentCompletePath = this.router.url.split(separator)[1];
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentCompletePath = event.url.split(separator)[1];
+      });
   }
 
   private init(brickVersion: string): void {

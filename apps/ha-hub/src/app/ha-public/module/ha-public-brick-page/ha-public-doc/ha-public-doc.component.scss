@@ -9,7 +9,6 @@
   max-width: calc(100vw - 18px);
   border-radius: 18px;
   padding: 0 9px 0 9px;
-  background-color: var(--card-background);
 }
 
 .doc-div-content{
@@ -45,7 +44,7 @@ form{
 
 .right-div{
   height: fit-content;
-  top: calc(223px - 44px);
+  //top: calc(223px - 44px);
   padding: 8px;
   border-radius: 18px;
   background-color: var(--card-background);
@@ -53,5 +52,5 @@ form{
 
 .right-div > div{
   min-height: 20vh;
-  max-height:50vh;
+  max-height: calc(100vh - 126px);
 }

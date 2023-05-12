@@ -11,7 +11,7 @@ import {
   flIconsDefault,
   FlPortalModule,
   FlSnackBarModule,
-  FlTextEditorModule,
+  FlTextEditorModule, FlThemeService,
   FlTranslateModule,
   FlUserModule
 } from '@monorepo/front-core-lib';
@@ -30,6 +30,10 @@ import {HaMainModule} from './ha-main/ha-main.module';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
+}
+
+function loadThemeOnInit(themeService: FlThemeService): () => void {
+  return (): void => themeService.init();
 }
 
 @NgModule({
@@ -87,6 +91,7 @@ function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): (
       deps: [HaAuthenticatedUserService],
       multi: true,
     },
+    {provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true},
   ],
   bootstrap: [HaAppComponent],
 })

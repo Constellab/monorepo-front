@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HaUser} from '../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import {FlDialogService, FlThemeService} from '@monorepo/front-core-lib';
 import {HaAuthService} from '../../ha-core/ha-service/ha-auth.service';
 import {HaApiServiceConfig} from '../../ha-core/ha-model/ha-config/ha-api-module.config';
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
 import {ActivatedRoute, UrlSegment} from '@angular/router';
+import {ClTheme} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-main',
@@ -21,18 +22,24 @@ export class HaMainComponent implements OnInit {
 
   currentUrlSegment: UrlSegment[];
 
+  currentTheme: ClTheme;
+
+  theme = ClTheme;
+
 
   constructor(private authUserService: HaAuthenticatedUserService,
               private authService: HaAuthService,
               private dialogService: FlDialogService,
               private apiService: HaApiServiceConfig,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private themeService: FlThemeService) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.url.subscribe(url => {
       this.currentUrlSegment = url;
     });
+    this.currentTheme = this.themeService.getCurrentTheme();
   }
 
   logout(): void {
@@ -53,6 +60,23 @@ export class HaMainComponent implements OnInit {
 
   getTechDocRoute(): string {
     return HaRouterService.getTechDocRoute();
+  }
+
+  isHome(): boolean {
+    return this.currentUrlSegment.length === 0;
+  }
+
+  selectTheme(theme: ClTheme): void {
+    if(this.currentTheme !== theme) {
+      this.themeService.changeTheme(theme);
+      this.authUserService.changeTheme(theme).subscribe();
+      this.currentTheme = theme;
+    }
+  }
+
+  getCommunityLogo(): string {
+    return this.currentTheme === this.theme.LIGHT_THEME ? 'assets/fl-logo/community-logo-text-black.svg' :
+      'assets/fl-logo/community-logo-text-white.svg';
   }
 
 }
