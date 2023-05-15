@@ -1,0 +1,24 @@
+<div [fxLayout]="layout" fxLayoutAlign="start stretch" class="g-full-height">
+  <div>
+    <div *ngFor="let resource of resources$">
+
+      <lab-workflow-node-io [resource$]="resource"
+                                  [mode]="mode"
+                                  (selectPort)="onResourceClick($event)"></lab-workflow-node-io>
+    </div>
+  </div>
+
+  <ng-container *ngIf="isOpened">
+    <ng-container *ngIf="selectedResourceId$ | async; else noResource">
+      <lab-resource-default-view [resourceId]="selectedResourceId$"
+                                 class="view-container"></lab-resource-default-view>
+    </ng-container>
+
+    <ng-template #noResource>
+      <fl-error-text class="error-text"
+                     [errorMessage]="(mode === 'input' ? 'biox.no_input_resource' : 'biox.no_output_resource') | translate">
+      </fl-error-text>
+
+    </ng-template>
+  </ng-container>
+</div>

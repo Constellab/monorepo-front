@@ -21,11 +21,11 @@ export class CaCommunityHelper {
   }
 
   public static getDevEnvironmentUrl(): string {
-    return this.getTechDocUrl() + '/doc/developer-guide/dev-environment';
+    return this.getTechDocUrl() + '/doc/developer-guide/dev-environment/getting-started';
   }
 
   public static getOnPremiseDocUrl(): string {
-    return this.getProductDocUrl() + '/doc/digital-lab/on-premises-digital-lab';
+    return this.getProductDocUrl() + '/doc/digital-lab/digital-lab-for-desktop';
   }
 
   public static getBrickUrl(brickName: string, version: string): string {

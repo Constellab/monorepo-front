@@ -28,6 +28,7 @@ export * from './lib/model/pr-resource.class';
 // state
 export * from './lib/state/pr-workflow-action-state';
 export * from './lib/state/pr-workflow-manager-state';
+export * from './lib/state/pr-workflow-resources.state';
 
 
 // component

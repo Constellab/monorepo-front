@@ -89,7 +89,9 @@ import {
 import {
   LabResourceUpdateProjectDialogComponent
 } from './component/lab-resource-update-project-dialog/lab-resource-update-project-dialog.component';
-
+import {
+  LabResourceDefaultViewComponent
+} from './component/lab-resource-default-view/lab-resource-default-view.component';
 
 @NgModule({
   declarations: [
@@ -126,31 +128,33 @@ import {
     LabResourceChildrenListComponent,
     LabImportResourceFromLabComponent,
     LabResourceUpdateProjectDialogComponent,
+    LabResourceDefaultViewComponent,
   ],
-  exports: [
-    LabResourceTypeSelectOptionsComponent,
-    LabResourceViewPortalComponent,
-    LabResourceTableComponent,
-    LabResourceSearchComponent,
-    LabResourceOriginOptionsComponent,
-    LabSelectResourceDialogComponent,
-    LabResourceCardComponent,
-    LabImportResourceDialogComponent,
-    LabResourceDetailDialogComponent,
-    LabUpdateResourceTypeComponent,
-    LabUpdateResourceNameDialogComponent,
-    LabResourceActionsMenuComponent,
-    LabConfigureResourceViewComponent,
-    LabResourceDetailTabsComponent,
-    LabResourceDetailTabHeaderComponent,
-    LabResourceDetailComponent,
-    LabResourceViewDetailComponent,
-    LabResourcePreviewButtonComponent,
-    LabResourceViewDetailDialogComponent,
-    LabResourceViewSpecListComponent,
-    LabImportResourceFromLabComponent,
-    LabResourceUpdateProjectDialogComponent,
-  ],
+    exports: [
+        LabResourceTypeSelectOptionsComponent,
+        LabResourceViewPortalComponent,
+        LabResourceTableComponent,
+        LabResourceSearchComponent,
+        LabResourceOriginOptionsComponent,
+        LabSelectResourceDialogComponent,
+        LabResourceCardComponent,
+        LabImportResourceDialogComponent,
+        LabResourceDetailDialogComponent,
+        LabUpdateResourceTypeComponent,
+        LabUpdateResourceNameDialogComponent,
+        LabResourceActionsMenuComponent,
+        LabConfigureResourceViewComponent,
+        LabResourceDetailTabsComponent,
+        LabResourceDetailTabHeaderComponent,
+        LabResourceDetailComponent,
+        LabResourceViewDetailComponent,
+        LabResourcePreviewButtonComponent,
+        LabResourceViewDetailDialogComponent,
+        LabResourceViewSpecListComponent,
+        LabImportResourceFromLabComponent,
+        LabResourceUpdateProjectDialogComponent,
+        LabResourceDefaultViewComponent,
+    ],
   imports: [
     CommonModule,
     RouterModule,
@@ -171,5 +175,4 @@ import {
     LabShareCoreModule,
   ],
 })
-export class LabResourceCoreModule {
-}
+export class LabResourceCoreModule {}

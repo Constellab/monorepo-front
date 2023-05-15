@@ -6,10 +6,11 @@ import {PrConfigValues} from '../pr-config.class';
 import {map, Observable} from 'rxjs';
 import {FlStatus, FlTranslatableText} from '@monorepo/front-core-lib';
 import {TdTypingName} from '@monorepo/technical-doc';
+import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
 
 export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
 
-  constructor(process: PrProcess) {
+  constructor(process: PrProcess, protected resourceState: PrWorkflowResourcesState) {
     super(process.instanceName, process.parentProtocolId, process);
   }
 
@@ -90,14 +91,17 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
     );
   }
 
-  // method to resource typing names associated to a port
-  getPortResourceTypingNames(portName: string, portType: 'input' | 'output'): string[] | null {
-    const port = portType === 'input' ? this.findInputPortByName(portName) : this.findOutputPortByName(portName);
-
-    if (port == null) return null;
-
-    // return all the typing names of the spec
-    return port.getResourceTypingNames();
+  getInputs$(): Observable<Record<string, PrIO>> {
+    return this.getObject$().pipe(
+      map((process: PrProcess) => process.inputs)
+    );
   }
+
+  getOutputs$(): Observable<Record<string, PrIO>> {
+    return this.getObject$().pipe(
+      map((process: PrProcess) => process.outputs)
+    );
+  }
+
 
 }

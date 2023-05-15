@@ -273,6 +273,11 @@
     "update_finished_experiment_confirmation": "This experiment has been executed, are you sure you want to update it ? The status of the experiment will change but the executed processes will not be affected.",
     "update_finished_process": "Update process",
     "update_finished_process_confirmation": "This process has been executed, are you sure you want to update it ? This process and all the next processes will be reset and associated resources deleted. Previous processes will not be affected. The experiment status will change.",
-    "progress_bar_multiple_start": "This protocol was executed multiple times. It shows the start of the first execution and the end of the last execution."
+    "progress_bar_multiple_start": "This protocol was executed multiple times. It shows the start of the first execution and the end of the last execution.",
+    "process_dashboard": "Dashboard",
+    "no_input_resource": "No input resource, the previous processes was not executed or not connected",
+    "no_output_resource": "No output resource, the process was not executed or is in error",
+    "resource_loading_error": "Error while loading the resource",
+    "no_config_for_task": "This task does not have any configuration"
   }
 }

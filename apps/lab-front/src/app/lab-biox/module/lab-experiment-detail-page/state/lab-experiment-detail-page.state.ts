@@ -6,7 +6,14 @@ import {filter, map, tap} from 'rxjs/operators';
 import {LabProtocol} from '../../../../lab-core/model/entities/process/lab-protocol.entity';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
 import {LabTag} from '../../../../lab-core/model/entities/lab-tag.entity';
-import {FlPortalActionsService, FlQuillJson} from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlPortalActionsService,
+  FlQuillJson,
+  FlSnackBarService
+} from '@monorepo/front-core-lib';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {PrWorkflow, PrWorkflowLayer, PrWorkflowNode, PrWorkflowNodeProtocol} from '@monorepo/protocol';
 import {LabWorkflowFactory} from '../model/lab-workflow.factory';
@@ -29,11 +36,14 @@ export class LabExperimentDetailPageState {
   private refreshSubscription: Subscription;
   private experimentSubscription: Subscription;
 
+  private experimentIsStarting: boolean = false;
 
   constructor(private experimentService: LabExperimentService,
               private protocolService: LabProtocolService,
               private actionsService: FlPortalActionsService,
-              private workflowFactory: LabWorkflowFactory) {
+              private workflowFactory: LabWorkflowFactory,
+              private snackBarService: FlSnackBarService,
+              private dialogService: FlDialogService) {
   }
 
   public init(experimentId: string): void {
@@ -189,6 +199,16 @@ export class LabExperimentDetailPageState {
     this.refreshExperiment();
   }
 
+  public refreshProcess(process: LabProcess): void {
+    const layer = this.workflow.findLayerWithId(process.parentProtocolId);
+    if (layer) {
+      const node: PrWorkflowNode = layer.findNodeByName(process.instanceName);
+      if (node) {
+        node.updateObject(process);
+      }
+    }
+  }
+
   public stopProtocolsRefresh(): void {
     if (this.timeout) {
       clearTimeout(this.timeout);
@@ -241,6 +261,44 @@ export class LabExperimentDetailPageState {
 
   private getCurrentMainProtocol(): LabProtocol {
     return this.mainProtocol$.value;
+  }
+
+  ////////////////////// START / STOP //////////////////////
+  start(): void {
+    if (this.experimentIsStarting) return;
+    const experiment: LabExperiment = this.currentExperiment;
+
+    this.experimentIsStarting = true;
+    this.experimentService.startExperiment(experiment.id).subscribe({
+      next: (exp) => this.onStartSuccess(exp),
+      error: () => this.experimentIsStarting = false
+    });
+  }
+
+  private onStartSuccess(experiment: LabExperiment): void {
+    this.snackBarService.openSuccessMessage({text: 'biox.experiment_started', translateText: true});
+    this.experimentIsStarting = false;
+    this.updateExperiment(experiment);
+    this.startProtocolsRefresh();
+  }
+
+  stopExperiment(): void {
+    const data: FlConfirmDialogInput = {
+      title: 'biox.stop_experiment',
+      content: 'biox.stop_experiment_confirmation',
+      translateTitleAndContent: true,
+      observable: this.experimentService.stopExperiment(this.currentExperiment.id),
+      successMessage: 'biox.experiment_stopped',
+      translateMessage: true
+    };
+
+    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
+      (result: FlConfirmDialogResult<LabExperiment>) => {
+        if (result.choice) {
+          this.updateExperiment(result.result);
+        }
+      }
+    );
   }
 
 

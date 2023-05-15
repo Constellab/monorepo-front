@@ -11,6 +11,10 @@ export class PrWorkflowPort {
               public specs: TdIOSpec) {
   }
 
+  get humanName(): string {
+    return this.specs.human_name;
+  }
+
   /**
    * get the input drawflow name based on port index
    * @param index

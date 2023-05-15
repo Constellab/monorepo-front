@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {ClHelpService} from '@monorepo/core-lib';
 import {
   LabConfigureSpecsFormDialogComponent,
@@ -16,6 +16,7 @@ import {
   LabTypeDialogInput
 } from '../../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import {PrWorkflowNodeIo, PrWorkflowNodeProcess} from '@monorepo/protocol';
+import {LabWorkflowNodeDashboardComponent} from '../lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
 
 type ConfigMode = 'config' | 'source' | 'view-task' | 'protocol' | null;
 
@@ -37,7 +38,8 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
 
   constructor(private dialogService: FlDialogService,
               private experimentState: LabExperimentDetailPageState,
-              private nodeDetailState: LabWorkflowNodeDetailState) {
+              private nodeDetailState: LabWorkflowNodeDetailState,
+              private viewContainerRef: ViewContainerRef) {
   }
 
   ngOnInit(): void {
@@ -96,5 +98,10 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
       typingName: typingName
     };
     this.dialogService.openMediumDialog(LabTypeDialogComponent, {data: data});
+  }
+
+  openProcessDashboard(): void {
+    this.dialogService.openBigDialog(LabWorkflowNodeDashboardComponent, {
+      panelClass: ['g-dialog-no-padding', 'g-dialog-main-background'], viewContainerRef: this.viewContainerRef});
   }
 }

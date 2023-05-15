@@ -10,14 +10,12 @@ import {LabResourceCoreModule} from '../../../lab-core/entity-module/lab-resourc
 import {LabConfigCoreModule} from '../../../lab-core/entity-module/lab-config-core/lab-config-core.module';
 import {LabWorkflowActionsComponent} from './component/lab-workflow-actions/lab-workflow-actions.component';
 import {LabWorkflowNodeDetailComponent} from './component/lab-workflow-node-detail/lab-workflow-node-detail.component';
-import {LabExperimentDetailPageState} from './state/lab-experiment-detail-page.state';
 import {
   LabWorkflowDrawerActionComponent
 } from './component/lab-workflow-drawer-action/lab-workflow-drawer-action.component';
 import {LabWorkflowNodeConfigComponent} from './component/lab-workflow-node-config/lab-workflow-node-config.component';
 import {LabTaskSourceConfigComponent} from './component/lab-task-source-config/lab-task-source-config.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LabWorkflowNodeDetailState} from './state/lab-workflow-node-detail.state';
 import {
   LabExperimentDetailHeaderComponent
 } from './component/lab-experiment-detail-header/lab-experiment-detail-header.component';
@@ -52,8 +50,13 @@ import {
   LabProgressBarCoreModule
 } from '../../../lab-core/entity-module/lab-progress-bar-core/lab-progress-bar-core.module';
 import {LabProjectCoreModule} from '../../../lab-core/entity-module/lab-project-core/lab-project-core.module';
-import {LabWorkflowEditConfig} from './model/lab-workflow-edit-config.class';
-
+import {
+  LabWorkflowNodeDashboardComponent
+} from './component/lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
+import {LabWorkflowNodeIoComponent} from './component/lab-workflow-node-io/lab-workflow-node-io.component';
+import {
+  LabWorkflowNodeIoPanelComponent
+} from './component/lab-workflow-node-io-panel/lab-workflow-node-io-panel.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,9 @@ import {LabWorkflowEditConfig} from './model/lab-workflow-edit-config.class';
     LabConfigureViewerDialogComponent,
     LabTaskViewerConfigComponent,
     LabTaskViewerShowConfigComponent,
+    LabWorkflowNodeDashboardComponent,
+    LabWorkflowNodeIoComponent,
+    LabWorkflowNodeIoPanelComponent,
   ],
   imports: [
     CommonModule,
@@ -95,12 +101,5 @@ import {LabWorkflowEditConfig} from './model/lab-workflow-edit-config.class';
     LabProgressBarCoreModule,
     LabProjectCoreModule,
   ],
-  providers: [
-    // declare the state here otherwise the angular element can't access them
-    LabExperimentDetailPageState,
-    LabWorkflowNodeDetailState,
-    LabWorkflowEditConfig,
-  ]
 })
-export class LabExperimentDetailPageModule {
-}
+export class LabExperimentDetailPageModule {}

@@ -1,8 +1,8 @@
-<fl-async-section [object]="processes$" emptyText="biox.process_no_config">
+<fl-async-section [object]="processes$" emptyText="biox.process_no_config" class="g-full-height">
 
   <ng-container *flSectionBody="let processes">
 
-    <div class="container">
+    <div class="container g-full-height">
 
       <div class="left-section">
         <div *ngFor="let process of processes" class="process" matRipple

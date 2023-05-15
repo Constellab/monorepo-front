@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {PrProcess} from '../pr-process.class';
 import {PrWorkflowLayer} from '../pr-workflow-layer.class';
 import {ClCachedObservable} from '@monorepo/core-lib';
+import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
 
 export class PrWorkflowNodeProtocol extends PrWorkflowNodeProcess {
 
@@ -10,8 +11,9 @@ export class PrWorkflowNodeProtocol extends PrWorkflowNodeProcess {
   private readonly isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(process: PrProcess,
-              subLayer$: Observable<PrWorkflowLayer>) {
-    super(process);
+              subLayer$: Observable<PrWorkflowLayer>,
+              resourceState: PrWorkflowResourcesState) {
+    super(process, resourceState);
     this.layer$ = new ClCachedObservable(subLayer$);
   }
 

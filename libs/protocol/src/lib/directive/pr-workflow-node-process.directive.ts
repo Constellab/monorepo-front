@@ -16,8 +16,9 @@ import {
   PrWorkflowPortActionPortalInput
 } from '../component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
 import {PrWorkflowPort} from '../model/pr-workflow-port.class';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {PrWorkflowNodeDirective} from './pr-workflow-node.directive';
+import {PrWorkflowResourcesState} from '../state/pr-workflow-resources.state';
 
 @Directive()
 export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirective implements OnDestroy {
@@ -29,7 +30,6 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
 
   node: PrWorkflowNodeProcess;
 
-  title$: Observable<FlTranslatableText>;
   subTitle$: Observable<string>;
   status$: Observable<FlStatus>;
 
@@ -39,14 +39,15 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
               elementRef: ElementRef,
               protected actionState: PrWorkflowActionState,
               protected renderer: Renderer2,
-              private portalService: FlPortalService) {
+              private portalService: FlPortalService,
+              protected workflowResourcesState: PrWorkflowResourcesState){
     super(workflowManager, elementRef);
   }
 
   protected initNode(): void {
     super.initNode();
 
-    this.title$ = this.node.getTitle$();
+
     this.subTitle$ = this.node.getSubTitle$();
     this.status$ = this.node.getStatus$();
 
@@ -133,6 +134,21 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
       PrWorkflowNodeProcessDirective.currentOverlayRef.dispose();
     }
     PrWorkflowNodeProcessDirective.currentOverlayRef = this.portalService.createPortal(PrWorkflowPortActionPortalComponent, config, data);
+  }
+
+  // get the title of the process if it is linked to a Resource (process IO)
+  protected getResourceTitle(resourceIds: Observable<string>): Observable<FlTranslatableText>{
+    return this.workflowResourcesState.getResourceFromObs(resourceIds).pipe(
+      map(resource => {
+        if (resource?.status === 'success') {
+          return resource.object != null ? resource.object.name : this.node.currentObject.title;
+        } else if (resource?.status === 'error') {
+          return {text: 'pr.error', translateText: true};
+        } else {
+          return this.node.currentObject.title;
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {

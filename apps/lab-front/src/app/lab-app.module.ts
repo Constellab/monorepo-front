@@ -42,6 +42,9 @@ import {PrProtocolModule} from '@monorepo/protocol';
 import {LabBioNetworkService} from './lab-core/entity-service/lab-bio-network.service';
 import {LabUserConfig} from './lab-core/model/config/lab-user-config.service';
 import {BnBioNetworkModule} from '@monorepo/bio-network';
+import {
+  LabWorkflowResourcesState
+} from './lab-biox/module/lab-experiment-detail-page/state/lab-workflow-resources.state';
 
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
@@ -95,7 +98,7 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
     TdTechnicalDocModule.forRoot(LabTdServiceConfig),
     FlUserModule.forRoot(LabUserConfig),
 
-    PrProtocolModule.forRoot(),
+    PrProtocolModule.forRoot(LabWorkflowResourcesState),
 
 
     LabAppRoutingModule

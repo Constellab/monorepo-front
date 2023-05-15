@@ -1,0 +1,39 @@
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  // make the grid fill the whole container
+  height: 100%;
+}
+
+
+.header {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 10px;
+  border-bottom: 1px solid var(--hover-color);
+}
+
+.section-container {
+  flex: 1;
+  min-height: 0; // limit max height
+}
+
+.section {
+  min-width: 0;
+  padding-top: 1em;
+}
+
+.central-section {
+  flex: 1;
+}
+
+.input-section.is-opened {
+  border-right: 1px solid var(--hover-color);
+  flex: 1;
+}
+
+.output-section.is-opened {
+  border-left: 1px solid var(--hover-color);
+  flex: 1;
+}

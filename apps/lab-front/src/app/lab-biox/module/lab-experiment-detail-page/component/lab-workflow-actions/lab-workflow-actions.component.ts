@@ -1,12 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LabExperimentService} from '../../../../../lab-core/entity-service/lab-experiment.service';
 import {LabExperiment} from '../../../../../lab-core/model/entities/lab-experiment.entity';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlSnackBarService
-} from '@monorepo/front-core-lib';
+import {FlDialogService} from '@monorepo/front-core-lib';
 import {
   LabSelectTypeDialogComponent,
   LabSelectTypeDialogInput
@@ -29,15 +24,10 @@ import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class'
   styleUrls: ['./lab-workflow-actions.component.scss']
 })
 export class LabWorkflowActionsComponent implements OnInit, OnDestroy {
-
-  saveIsLoading: boolean = false;
-  startIsLoading: boolean = false;
-
   experiment$: Observable<LabExperiment>;
 
   constructor(private workflowEditState: LabWorkflowEditConfig,
               private experimentService: LabExperimentService,
-              private snackBarService: FlSnackBarService,
               private dialogService: FlDialogService,
               private experimentState: LabExperimentDetailPageState) {
   }
@@ -47,9 +37,6 @@ export class LabWorkflowActionsComponent implements OnInit, OnDestroy {
     this.experimentState.checkAndStartRefreshProtocol();
   }
 
-  get isLoading(): boolean {
-    return this.saveIsLoading || this.startIsLoading;
-  }
 
   addProcess(): void {
     const data: LabSelectTypeDialogInput = {
@@ -79,64 +66,15 @@ export class LabWorkflowActionsComponent implements OnInit, OnDestroy {
   }
 
 
-  // save(): void {
-  //   const experiment: LabExperiment = this.experimentState.currentExperiment;
-  //   this.saveIsLoading = true;
-  //   this.experimentService.updateExperimentProtocol(experiment.id, this.workflowManager.workflow).subscribe({
-  //     next: newExp => this.onSaveSuccess(newExp),
-  //     error: () => this.saveIsLoading = false,
-  //   });
-  // }
-
-
-  // private onSaveSuccess(experiment: LabExperiment): void {
-  //   this.snackBarService.openSuccessMessage({text: 'biox.experiment_saved', translateText: true});
-  //   this.saveIsLoading = false;
-  //   this.experimentState.updateExperiment(experiment);
-  // }
-
   start(): void {
-    const experiment: LabExperiment = this.experimentState.currentExperiment;
-
-    this.startIsLoading = true;
-    this.experimentService.startExperiment(experiment.id).subscribe({
-      next: (exp) => this.onStartSuccess(exp),
-      error: () => this.startIsLoading = false
-    });
-  }
-
-  private onStartSuccess(experiment: LabExperiment): void {
-    this.snackBarService.openSuccessMessage({text: 'biox.experiment_started', translateText: true});
-    this.startIsLoading = false;
-    this.experimentState.updateExperiment(experiment);
-    this.experimentState.startProtocolsRefresh();
+    this.experimentState.start();
   }
 
   stopExperiment(): void {
-    const data: FlConfirmDialogInput = {
-      title: 'biox.stop_experiment',
-      content: 'biox.stop_experiment_confirmation',
-      translateTitleAndContent: true,
-      observable: this.experimentService.stopExperiment(this.experimentState.currentExperiment.id),
-      successMessage: 'biox.experiment_stopped',
-      translateMessage: true
-    };
-
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onUpdateExperimentClosed(result)
-    );
-  }
-
-
-  private onUpdateExperimentClosed(result: FlConfirmDialogResult<LabExperiment>): void {
-    if (result?.choice) {
-      this.experimentState.updateExperiment(result.result);
-    }
+    this.experimentState.stopExperiment();
   }
 
   ngOnDestroy(): void {
     this.experimentState.stopProtocolsRefresh();
   }
-
-
 }

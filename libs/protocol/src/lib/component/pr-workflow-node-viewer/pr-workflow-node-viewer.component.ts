@@ -3,6 +3,7 @@ import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-p
 import {Observable} from 'rxjs';
 import {PrWorkflowNodeViewer} from '../../model/node/pr-workflow-node-viewer.class';
 import {TdTaskViewerConfig} from '@monorepo/technical-doc';
+import {FlTranslatableText} from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'pr-workflow-node-viewer',
@@ -16,10 +17,13 @@ export class PrWorkflowNodeViewerComponent extends PrWorkflowNodeProcessDirectiv
 
   node: PrWorkflowNodeViewer;
 
+  title$: Observable<FlTranslatableText>;
+
   ngOnInit(): void {
     this.initNode();
     this.isSuccess$ = this.node.isSuccess$();
     this.isConfigured$ = this.node.isConfigured$();
+    this.title$ = this.getResourceTitle(this.node.getResourceId$());
   }
 
   callView(): void {

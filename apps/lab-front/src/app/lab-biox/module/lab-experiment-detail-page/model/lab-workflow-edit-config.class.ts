@@ -28,7 +28,6 @@ import {LabWorkflowFactory} from './lab-workflow.factory';
 import {LabProtocolUpdateDTO} from './lab-workflow-action.class';
 import {LabExperimentDetailPageState} from '../state/lab-experiment-detail-page.state';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
-import {ClHelpService} from '@monorepo/core-lib';
 
 enum LabWorkflowAction {
   ADD_PROCESS = 'workflow-add-process',
@@ -52,12 +51,6 @@ interface LabWorkflowEventNodeAdditionalInfo {
   node: PrWorkflowNode;
   connections: PrWorkflowConnection[];
 }
-
-interface LabWorkflowEventConfigAdditionalInfo {
-  oldConfig: PrConfigValues;
-  node: PrWorkflowNodeProcess;
-}
-
 
 @Injectable()
 export class LabWorkflowEditConfig implements OnDestroy {
@@ -221,20 +214,11 @@ export class LabWorkflowEditConfig implements OnDestroy {
     const node = this.getAndCheckProcessNode(protocolId, processInstanceName);
     if (node == null) return;
 
-    // info use to roll back the config if the user cancel the edit
-    const additionalInfo: LabWorkflowEventConfigAdditionalInfo = {
-      node: node,
-      oldConfig: ClHelpService.deepClone(node.currentObject.config.values)
-    };
-
-    node.updateConfigValues(config);
-
     const obs = this.protocolService.saveProcessConfig(protocolId, processInstanceName, config);
     const action: FlPortalAction = {
       type: LabWorkflowAction.UPDATE_PROCESS_CONFIG,
       action: obs,
       text: {text: 'biox.saving_config', translateText: true},
-      additionalInformation: additionalInfo
     };
     this.executeUpdateAction(action, node.currentObject as LabProcess, true);
   }
@@ -433,9 +417,6 @@ export class LabWorkflowEditConfig implements OnDestroy {
       for (const connection of info.connections) {
         layer.addConnection(connection);
       }
-    } else if (actionType === LabWorkflowAction.UPDATE_PROCESS_CONFIG) {
-      const info: LabWorkflowEventConfigAdditionalInfo = additionalInfo;
-      info.node.updateConfigValues(info.oldConfig);
     }
   }
 
@@ -572,9 +553,15 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   // call after an update action has been performed to check if the protocol has been updated
   private refreshProtocolAndParent(protocolUpdate: LabProtocolUpdateDTO): void {
-    if (protocolUpdate instanceof LabProtocolUpdateDTO && protocolUpdate.protocolUpdated && protocolUpdate.protocol) {
+    if (!(protocolUpdate instanceof LabProtocolUpdateDTO)) return;
+
+    if (protocolUpdate.protocolUpdated && protocolUpdate.protocol) {
       this.experimentState.refreshProtocolAndParents(protocolUpdate.protocol);
+    // if the protocol has not been updated, we check if the process has been updated
+    } else if (protocolUpdate.process) {
+      this.experimentState.refreshProcess(protocolUpdate.process);
     }
+
   }
 
   ngOnDestroy(): void {

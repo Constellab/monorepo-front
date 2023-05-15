@@ -7,12 +7,18 @@
 }
 
 // remove padding of dialog content
-.mdc-dialog .mdc-dialog__content{
+.mat-mdc-dialog-content.mdc-dialog__content{
   padding: 10px 0 10px 0 !important;
 }
 
 .mat-mdc-dialog-surface{
   border-radius: var(--card-radius) !important;
+  padding: 24px;
+}
+
+// disable padding of dialog
+.g-dialog-no-padding .mat-mdc-dialog-surface{
+  padding: 0;
 }
 
 // Style the component inside the dialog to be full height of parent
@@ -38,6 +44,7 @@
 .g-dialog-main-background .mat-mdc-dialog-container{
   --mdc-dialog-container-color: var(--main-background);
 }
+
 
 
 /********************* SMALL DIALOG ***********************/

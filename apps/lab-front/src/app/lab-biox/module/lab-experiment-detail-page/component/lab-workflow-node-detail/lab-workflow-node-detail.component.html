@@ -11,6 +11,12 @@
         {{'biox.process_type_doc' | translate}}
         <mat-icon>info</mat-icon>
       </button>
+
+      <button mat-stroked-button type="button" class="g-button-small doc-button"
+              (click)="openProcessDashboard()">
+        {{'biox.process_dashboard' | translate}}
+        <mat-icon>dashboard</mat-icon>
+      </button>
     </div>
 
     <mat-divider class="divider"></mat-divider>
@@ -18,7 +24,6 @@
 
   <!---------------------------- Progress ---------------------------->
   <lab-workflow-node-progress [process$]="labProcess$"></lab-workflow-node-progress>
-
 
 
   <!---------------------------- Config ---------------------------->

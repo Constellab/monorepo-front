@@ -7,7 +7,7 @@ import {
   LabSelectResourceDialogComponent
 } from '../../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
-import {PrWorkflowNodeSource} from '@monorepo/protocol';
+import {PrWorkflowNodeSource, PrWorkflowResourcesState} from '@monorepo/protocol';
 
 /**
  * Specific component to configure a task of type gws.plug.Source
@@ -31,7 +31,8 @@ export class LabTaskSourceConfigComponent implements OnInit, OnDestroy {
 
   constructor(private nodeDetail: LabWorkflowNodeDetailState,
               private dialogService: FlDialogService,
-              private experimentState: LabExperimentDetailPageState) {
+              private experimentState: LabExperimentDetailPageState,
+              private resourceWorkflow: PrWorkflowResourcesState<LabResource>) {
   }
 
   ngOnInit(): void {
@@ -47,7 +48,7 @@ export class LabTaskSourceConfigComponent implements OnInit, OnDestroy {
     // it can be called because the state change before the component is destroyed
     if (!(node instanceof PrWorkflowNodeSource)) return;
     this.node = node;
-    this.selectedResource$ = node.getLoadedResource$() as Observable<FlStatusEvent<LabResource>>;
+    this.selectedResource$ = this.resourceWorkflow.getResourceFromObs(node.getResourceId$());
   }
 
   openResourceSelection(): void {
@@ -59,7 +60,6 @@ export class LabTaskSourceConfigComponent implements OnInit, OnDestroy {
   private onResourceSelectionClosed(resource?: LabResource): void {
     if (resource) {
       this.nodeDetail.updateConfigValues({resource_id: resource.id});
-      this.node.setLoadedResource(resource);
     }
   }
 

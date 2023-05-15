@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
 import {Observable} from 'rxjs';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
@@ -15,14 +15,14 @@ import {
   selector: 'lab-protocol-config',
   templateUrl: './lab-protocol-config.component.html',
   styleUrls: ['./lab-protocol-config.component.scss'],
-  providers: [FlDialogService]
 })
 export class LabProtocolConfigComponent implements OnInit {
   isEditable$: Observable<boolean>;
 
   constructor(private experimentState: LabExperimentDetailPageState,
               private nodeDetailState: LabWorkflowNodeDetailState,
-              private dialogService: FlDialogService) {
+              private dialogService: FlDialogService,
+              private viewContainerRef: ViewContainerRef) {
   }
 
   ngOnInit(): void {
@@ -36,7 +36,8 @@ export class LabProtocolConfigComponent implements OnInit {
       protocolId: process.id,
     }
 
-    this.dialogService.openMediumDialog(LabConfigureProtocolDialogComponent, {data: data});
+    this.dialogService.openMediumDialog(LabConfigureProtocolDialogComponent,
+      {data: data, viewContainerRef: this.viewContainerRef});
   }
 
 }

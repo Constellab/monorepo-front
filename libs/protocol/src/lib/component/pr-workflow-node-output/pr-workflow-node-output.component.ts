@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {PrWorkflowNodeIo} from '../../model/node/pr-workflow-node-io.class';
 import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-process.directive';
+import {FlTranslatableText} from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'pr-workflow-node-output',
@@ -14,10 +15,13 @@ export class PrWorkflowNodeOutputComponent extends PrWorkflowNodeProcessDirectiv
 
   node: PrWorkflowNodeIo;
 
+  title$: Observable<FlTranslatableText>;
+
   ngOnInit(): void {
     this.initNode();
 
     this.resourceId$ = this.node.getResourceId$();
+    this.title$ = this.getResourceTitle(this.node.getResourceId$());
   }
 
 }

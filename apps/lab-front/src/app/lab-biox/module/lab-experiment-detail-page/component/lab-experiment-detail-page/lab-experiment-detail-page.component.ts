@@ -8,6 +8,8 @@ import {MatDrawer} from '@angular/material/sidenav';
 import {first} from 'rxjs/operators';
 import {PrWorkflowActionState} from '@monorepo/protocol';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
+import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class';
+import {LabWorkflowFactory} from '../../model/lab-workflow.factory';
 
 /**
  * Page for the biox experiment detail with workflow view/edit
@@ -15,7 +17,9 @@ import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.s
 @Component({
   selector: 'lab-experiment-detail-page',
   templateUrl: './lab-experiment-detail-page.component.html',
-  styleUrls: ['./lab-experiment-detail-page.component.scss']
+  styleUrls: ['./lab-experiment-detail-page.component.scss'],
+  providers: [LabExperimentDetailPageState, LabWorkflowNodeDetailState, LabWorkflowEditConfig,
+    LabWorkflowFactory]
 })
 export class LabExperimentDetailPageComponent implements OnInit, OnDestroy {
 

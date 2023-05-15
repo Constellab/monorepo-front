@@ -1,0 +1,75 @@
+<mat-dialog-content class="content" fxLayout="column">
+
+  <div *ngIf="process$ | async as process" fxLayout="row" fxLayoutAlign="space-between start" class="header">
+
+    <div>
+      <h2>{{process.instanceName}}</h2>
+      <p *ngIf="process.data.description">{{process.data.description}}</p>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
+      <fl-status-chip [status]="process.status"></fl-status-chip>
+
+      <button *ngIf="isEditable$ | async" mat-icon-button type="button" (click)="startExperiment()" tabindex="-1"
+              [matTooltip]="'biox.experiment_start' | translate" matTooltipPosition="below">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+
+        <button mat-menu-item type="button"
+                (click)="openTypingDoc(process.processTypingName)">
+          <mat-icon>info</mat-icon>
+          <span>{{'biox.process_type_doc' | translate}}</span>
+        </button>
+
+
+        <!--   Progress and logs infos     -->
+        <ng-container *ngIf="process.progressBar && process.status.value !== 'DRAFT'">
+
+          <button mat-menu-item type="button" (click)="openProgressDetails()">
+            <mat-icon>description</mat-icon>
+            {{'biox.node_progress_detail' | translate}}
+          </button>
+
+
+          <button mat-menu-item type="button" (click)="openProcessLogs(process)">
+            <mat-icon>description</mat-icon>
+            {{'biox.view_process_logs' | translate}}
+          </button>
+
+          <button mat-menu-item type="button" (click)="openProcessMonitor(process)">
+            <mat-icon>troubleshoot</mat-icon>
+            {{'biox.view_process_monitoring' | translate}}
+          </button>
+
+        </ng-container>
+
+        <ng-container *ngIf="process.isFinished()">
+          <button mat-menu-item type="button" (click)="resetProcess()">
+            <mat-icon color="warn">restart_alt</mat-icon>
+            <span class="g-warn-text">{{'biox.reset_process' | translate}}</span>
+          </button>
+        </ng-container>
+      </mat-menu>
+    </div>
+  </div>
+
+
+  <div fxLayout="row" fxLayoutAlign="start stretch" class="section-container">
+
+    <lab-workflow-node-io-panel [nodeProcess$]="nodeProcess$" mode="input"
+                                 class="section input-section"></lab-workflow-node-io-panel>
+
+    <lab-configure-process class="section central-section g-scrollable-element"
+                           [process$]="process$"></lab-configure-process>
+
+    <lab-workflow-node-io-panel [nodeProcess$]="nodeProcess$" mode="output"
+                                 class="section output-section"></lab-workflow-node-io-panel>
+  </div>
+
+</mat-dialog-content>

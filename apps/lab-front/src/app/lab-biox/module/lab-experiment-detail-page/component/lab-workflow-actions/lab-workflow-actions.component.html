@@ -11,10 +11,8 @@
     </button>
 
     <button mat-icon-button type="button" (click)="start()"
-            [matTooltip]="'biox.experiment_start' | translate" matTooltipPosition="below"
-            [disabled]="isLoading">
+            [matTooltip]="'biox.experiment_start' | translate" matTooltipPosition="below">
       <mat-icon>play_arrow</mat-icon>
-      <fl-button-loader *ngIf="startIsLoading"></fl-button-loader>
     </button>
   </ng-container>
 

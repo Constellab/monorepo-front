@@ -1,4 +1,4 @@
-import {Injector, ModuleWithProviders, NgModule} from '@angular/core';
+import {Injector, ModuleWithProviders, NgModule, Type} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PrWorkflowManagerState} from './state/pr-workflow-manager-state';
 import {PrWorkflowComponent} from './component/pr-workflow/pr-workflow.component';
@@ -40,6 +40,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
+import {PrWorkflowResourcesState} from './state/pr-workflow-resources.state';
 
 
 @NgModule({
@@ -117,12 +118,13 @@ export class PrProtocolModule {
     translateService.addModuleTranslation('PrProtocolModule', prProtocolI18n);
   }
 
-  public static forRoot(): ModuleWithProviders<PrProtocolModule> {
+  public static forRoot(resourceState: Type<PrWorkflowResourcesState>): ModuleWithProviders<PrProtocolModule> {
     return {
       ngModule: PrProtocolModule,
       providers: [
         PrWorkflowManagerState,
         PrWorkflowActionState,
+        {provide: PrWorkflowResourcesState, useClass: resourceState}
       ]
     };
   }

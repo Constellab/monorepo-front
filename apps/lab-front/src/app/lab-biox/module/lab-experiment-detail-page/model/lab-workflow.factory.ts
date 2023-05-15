@@ -7,23 +7,22 @@ import {
   PrWorkflowNodeProcess,
   PrWorkflowNodeProtocol,
   PrWorkflowNodeSource,
-  PrWorkflowNodeViewer
+  PrWorkflowNodeViewer,
+  PrWorkflowResourcesState
 } from '@monorepo/protocol';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {Observable} from 'rxjs';
-import {LabResource} from '../../../../lab-core/model/entities/resource/lab-resource.entity';
 import {map} from 'rxjs/operators';
 import {Injectable, NgZone} from '@angular/core';
-import {LabResourceService} from '../../../../lab-core/entity-service/lab-resource.service';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
 import {LabProtocolLink} from '../../../../lab-core/model/entities/lab-protocol-link.entity';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class LabWorkflowFactory {
 
   constructor(private ngZone: NgZone,
               private protocolService: LabProtocolService,
-              private resourceService: LabResourceService) {
+              private resourceState: PrWorkflowResourcesState) {
   }
 
   public protocolToWorkflow(protocol: LabProtocol): PrWorkflow {
@@ -74,22 +73,21 @@ export class LabWorkflowFactory {
 
 
   public labProcessToWorkflowNode(process: LabProcess, processLayout?: LabProcessLayout): PrWorkflowNodeProcess {
-    const getResource = (id: string): Observable<LabResource> => this.resourceService.getById(id);
 
     let processNode: PrWorkflowNodeProcess;
     if (process.isSource()) {
-      processNode = new PrWorkflowNodeSource(process, getResource);
+      processNode = new PrWorkflowNodeSource(process, this.resourceState);
     } else if (process.isOutput()) {
-      processNode = new PrWorkflowNodeOutput(process, getResource);
+      processNode = new PrWorkflowNodeOutput(process, this.resourceState);
     } else if (process.isViewer()) {
-      processNode = new PrWorkflowNodeViewer(process, getResource);
+      processNode = new PrWorkflowNodeViewer(process, this.resourceState);
     } else if (process.isProtocol) {
       const layer$: Observable<PrWorkflowLayer> = this.protocolService.getProtocol(process.id).pipe(
         map(protocol => this.createLayer(protocol, false))
       );
-      processNode = new PrWorkflowNodeProtocol(process, layer$);
+      processNode = new PrWorkflowNodeProtocol(process, layer$, this.resourceState);
     } else {
-      processNode = new PrWorkflowNodeProcess(process);
+      processNode = new PrWorkflowNodeProcess(process, this.resourceState);
     }
 
     // if the position of this process were saved in the protocol, use it

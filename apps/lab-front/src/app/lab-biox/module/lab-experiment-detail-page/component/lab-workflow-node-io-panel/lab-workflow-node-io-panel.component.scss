@@ -1,0 +1,10 @@
+.view-container{
+  min-width: 0; // prevent width overflow
+  flex: 1;
+}
+
+.error-text{
+  display: block;
+  padding-left: 1em;
+  padding-right: 1em;
+}

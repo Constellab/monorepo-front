@@ -189,6 +189,7 @@ export abstract class PrWorkflowNode<T = any> {
     }
   }
 
+
   protected getPortElement(drawflowPortName: string): HTMLElement | null {
     // retrieve the node HTML element
     const element: HTMLElement = this.getHTMLElement();
