@@ -11,7 +11,7 @@ import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 @Component({
-  selector: 'ha-ha-story-page',
+  selector: 'ha-story-page',
   templateUrl: './ha-story-page.component.html',
   styleUrls: ['./ha-story-page.component.scss']
 })

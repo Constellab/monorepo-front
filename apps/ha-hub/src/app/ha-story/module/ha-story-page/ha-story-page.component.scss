@@ -13,7 +13,18 @@
   padding: 8px;
 }
 
+.co-author-key-val{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
+.co-author-span{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
 .title{
   border-radius: 10px;
@@ -23,10 +34,12 @@
 
 .big-title{
   background-color: var(--main-background);
+  font-weight: 500;
 }
 
 .small-title{
   background-color: var(--hover-color);
+  margin-left: 16px;
 }
 
 .title:first-child{
@@ -66,7 +79,6 @@
 .date-info{
   margin-left: 4px;
   padding-left: 4px;
-  border-left: 1px solid var(--light-color);
 }
 
 @media (max-width: 1600px) {

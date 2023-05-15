@@ -9,7 +9,7 @@ import {HaCustomMaterialModule} from '../ha-core/ha-custom-material/ha-custom-ma
 import {HaCoreModule} from '../ha-core/ha-core.module';
 import {HaStoryCreateDialogComponent} from './module/ha-story-create-dialog/ha-story-create-dialog.component';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
-import {FlDateModule} from "@monorepo/front-core-lib";
+import {FlDateModule, FlKeyValueModule} from "@monorepo/front-core-lib";
 import {HaStoryMyListComponent} from './module/ha-story-my-list/ha-story-my-list.component';
 import {HaStoryCoAuthorDialogComponent} from './module/ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import {HaStoryInvitePageComponent} from './module/ha-story-invite-page/ha-story-invite-page.component';
@@ -17,19 +17,20 @@ import {HaStoryInvitePageComponent} from './module/ha-story-invite-page/ha-story
 
 @NgModule({
   declarations: [HaStoryPageComponent, HaStoryEditPageComponent, HaStoryListPageComponent, HaStoryCreateDialogComponent, HaStoryMyListComponent, HaStoryCoAuthorDialogComponent, HaStoryInvitePageComponent],
-  imports: [
-    HaStoryRoutingModule,
-    HaCustomLibraryModule,
-    ReactiveFormsModule,
-    HaCustomMaterialModule,
-    HaCoreModule,
-    NgIf,
-    AsyncPipe,
-    NgForOf,
-    FlDateModule,
+    imports: [
+        HaStoryRoutingModule,
+        HaCustomLibraryModule,
+        ReactiveFormsModule,
+        HaCustomMaterialModule,
+        HaCoreModule,
+        NgIf,
+        AsyncPipe,
+        NgForOf,
+        FlDateModule,
 
-    FormsModule,
-  ]
+        FormsModule,
+        FlKeyValueModule,
+    ]
 })
 export class HaStoryModule {
 }

@@ -15,15 +15,23 @@
       <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
       <span class="g-text-small date-info">{{story.createdAt | flDate:'DATETIME_MED'}}</span>
     </p>
+    <fl-key-value class="g-text-small co-author-key-val user-date-info">
+      <fl-key>{{'coauthors' | translate}}</fl-key>
+      <span class="co-author-span">
+        <fl-user-inline *ngFor="let coAuthor of story.getCoAuthors()" [user]="coAuthor"
+                        [portalOnHover]="false"></fl-user-inline>
+      </span>
+    </fl-key-value>
 
 
     <fl-text-editor class="text-editor g-max-article-width" mode="JSON" scrollContainer="auto"
-                    [config]="textEditorConfig" [noPadding]="true" flAutoScrollToAnchor [formControl]="formControl" [baseDelta]="story?.content">
+                    [config]="textEditorConfig" [noPadding]="true" flAutoScrollToAnchor [formControl]="formControl"
+                    [baseDelta]="story?.content">
     </fl-text-editor>
   </div>
 </div>
 <div class="right-div right-panel" *ngIf="titles && titles.length > 0">
-  <a [routerLink]="'.'" *ngFor="let title of titles" [fragment]="title.id" class="title"
+  <a [routerLink]="'.'" *ngFor="let title of titles" [fragment]="title.id" class="title small-text"
      [ngClass]="title.level === 2 ? ['big-title'] : ['small-title']">
     {{title.title}}
   </a>

@@ -157,6 +157,9 @@
 
 
   "light_theme": "Thème clair",
-  "dark_theme": "Thème sombre"
+  "dark_theme": "Thème sombre",
+
+  "switch_fr": "Passer en français",
+  "switch_en": "Passer en anglais"
 
 }

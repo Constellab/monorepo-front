@@ -65,6 +65,11 @@ export class HaStory{
   getAuthor(): HaUser{
     return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
   }
+
+  getCoAuthors(): HaUser[]{
+    return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.COAUTHOR)
+      .map(storyAuthor => storyAuthor.user);
+  }
 }
 
 export class HaCreateStoryDto{

@@ -62,8 +62,12 @@ h5 {
   margin: 0;
 }
 
-.brick-name-line{
-
+.brick-name-line span{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  vertical-align: middle;
+  gap: 5px;
 }
 
 .brick-version{

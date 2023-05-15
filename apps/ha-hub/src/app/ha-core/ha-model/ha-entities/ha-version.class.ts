@@ -51,6 +51,9 @@ export class HaAddVersionInput{
     }
     this.technicalInfo = technicalInfo;
     this.brickVersionReferences = [];
+    for(const b of environment.bricks){
+      this.brickVersionReferences.push({name: b.name, version: b.version});
+    }
     for(const d of environment.pip){
       for(const p of d.packages){
         if(p.is_brick){
@@ -89,12 +92,13 @@ export enum HaBrickVersionReferenceState{
 export interface HaImportReferenceDTO{
   name: string;
   version: string;
-  is_brick: boolean;
+  is_brick?: boolean;
 }
 
 export interface HaEnvironmentDTO{
   pip: HaRepoTypeNewVersionDTO[];
   git: HaRepoTypeNewVersionDTO[];
+  bricks?: HaImportReferenceDTO[];
 }
 
 export interface HaRepoTypeNewVersionDTO{

@@ -33,9 +33,12 @@ export class HaPublicListBricksPageComponent implements OnInit {
       for (const b of this.bricks) {
         b.lastVersion = new CmVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);
       }
-      return;
     }
 
+    this.setupBricks();
+  }
+
+  private setupBricks(): void {
     this.haBrickService.get().subscribe((bricks: HaBrick[]) => {
       for (const b of bricks) {
         b.lastVersion = new CmVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);

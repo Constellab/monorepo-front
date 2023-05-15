@@ -26,6 +26,9 @@ export class FlUserInlineComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if(!this.user.fullname){
+      this.user.fullname = this.user.firstname + ' ' + this.user.lastname;
+    }
   }
 
   getTextSizeClass(): string {
