@@ -7,7 +7,7 @@ import {HaAuthService} from '../../ha-core/ha-service/ha-auth.service';
 import {HaApiServiceConfig} from '../../ha-core/ha-model/ha-config/ha-api-module.config';
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
 import {ActivatedRoute, UrlSegment} from '@angular/router';
-import {ClTheme} from '@monorepo/core-lib';
+import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-main',
@@ -24,7 +24,11 @@ export class HaMainComponent implements OnInit {
 
   currentTheme: ClTheme;
 
+  currentLanguage: ClSupportedLanguage;
+
   theme = ClTheme;
+
+  lang = ClSupportedLanguage;
 
 
   constructor(private authUserService: HaAuthenticatedUserService,
@@ -40,6 +44,9 @@ export class HaMainComponent implements OnInit {
       this.currentUrlSegment = url;
     });
     this.currentTheme = this.themeService.getCurrentTheme();
+    this.authUserService.getUser().subscribe(user => {
+      this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
+    });
   }
 
   logout(): void {
@@ -74,9 +81,18 @@ export class HaMainComponent implements OnInit {
     }
   }
 
+  selectLanguage(event: ClSupportedLanguage): void {
+    const lang = event;
+    if(this.currentLanguage !== lang) {
+      this.authUserService.changeLang(lang).subscribe();
+      this.currentLanguage = lang;
+    }
+  }
+
   getCommunityLogo(): string {
     return this.currentTheme === this.theme.LIGHT_THEME ? 'assets/fl-logo/community-logo-text-black.svg' :
       'assets/fl-logo/community-logo-text-white.svg';
   }
 
+  protected readonly ClSupportedLanguage = ClSupportedLanguage;
 }

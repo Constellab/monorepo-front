@@ -11,7 +11,6 @@ export class HaTopicService {
   private readonly route: string = 'topic';
 
   constructor(private apiService: FlApiService) {
-
   }
 
   public getAll(): Observable<HaTopicDto[]> {

@@ -74,26 +74,6 @@ export class HaStoryService {
   }
 
   /**
-   * Call http get to get all stories paginated
-   * @param page page number
-   * @param size page size
-   * @param topicId topic id
-   * return a list of stories paginated
-   */
-  private getAllByTopicId(page: number, size: number, topicId: string): Observable<ClPage<HaStory>> {
-    return this.apiService.get(this.route + '/topic/' + topicId, HaStory, {
-      page: page,
-      pageSize: size,
-      resultIsPaginated: true
-    });
-  }
-
-  public getAllByTopicIdPaginated(topicId: string): HaStoryDatasourcePaginated {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAllByTopicId(page, size, topicId), 10);
-  }
-
-  /**
    * Call http put to update the title of a story
    * @param id id of the story
    * @param title new title

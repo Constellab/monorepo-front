@@ -4,14 +4,6 @@
     <div class="left-panel" *ngIf="brick">
       <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
       <ha-public-sidenav [brick]="brick"></ha-public-sidenav>
-      <div class="sidenav-div">
-        <p>{{'related_tags' | translate}} :</p>
-        <mat-chip-listbox>
-          <mat-chip>Gencovery data</mat-chip>
-          <mat-chip>Analysis</mat-chip>
-          <mat-chip>Verified</mat-chip>
-        </mat-chip-listbox>
-      </div>
     </div>
     <div class="main-panel">
       <div class="brick-content-div">

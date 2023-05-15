@@ -45,25 +45,10 @@ export class HaBrickService {
   }
 
   /**
-   * Call http get to get the brick first doc
-   */
-  public getFirstDoc(brickName: string, version: string): Observable<HaDocumentation> {
-    return this.apiService.get(`${this.route}/first-doc/${brickName}/${version}`);
-  }
-
-  /**
    * Call http get
    */
   public get(): Observable<HaBrick[]> {
     return this.apiService.get(this.route, HaBrick);
-  }
-
-  /**
-   * Call http get
-   * @param id id of the entity
-   */
-  public getById(id: string): Observable<HaBrick> {
-    return this.apiService.get(`${this.route}/${id}`, HaBrick);
   }
 
   /**

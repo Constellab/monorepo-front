@@ -55,7 +55,15 @@
   cursor: pointer;
 }
 
+.span-initials{
+  min-width: 170px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
 .span-initials:hover{
+
   cursor: pointer;
 }
 
@@ -69,7 +77,6 @@
   height: 100%;
   padding-bottom: 8px;
   width: 240px;
-  //width: 212px;
 }
 
 .doc-nav-div h5{
@@ -97,11 +104,15 @@
   .nav-bar{
     padding: 16px 50px 0 50px;
   }
+
+  .span-initials{
+    min-width: 0;
+  }
 }
 
 @media (max-width: 900px) {
   .nav-bar{
-    padding: 16px 0px 0 0px;
+    padding: 16px 0 0 0;
   }
 
   .nav-bar{

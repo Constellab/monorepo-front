@@ -7,6 +7,9 @@
         <mat-icon *ngIf="brick.visibility === 'public'" class="icon" matTooltip="{{'public_brick' | translate}}">
           public
         </mat-icon>
+        <mat-icon *ngIf="brick.visibility === 'private'" class="icon" matTooltip="{{'private_brick' | translate}}">
+          lock
+        </mat-icon>
         <mat-icon class="mat-primary icon check-icon">check</mat-icon>
         <button mat-stroked-button type="button" (click)="createEditBrickDialog()" class="edit-brick-button" *haIsAdmin>{{'edit' | translate}}</button>
       </div>
@@ -48,8 +51,6 @@
         </p>
       </div>
     </div>
-
-
   </div>
 <!--  <div class="right-side-div g-scrollable-element" *ngIf="brick && lastVersion">-->
 <!--    <ha-public-brick-right-panel [brickName]="brick.name" [brickVersion]="lastVersion.toString()" [currentPage]="'introduction'"-->

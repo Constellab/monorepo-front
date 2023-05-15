@@ -156,5 +156,10 @@
   "ha.versions.brick.description": "List of versions of the brick {{brickTitle}}",
 
   "light_theme": "Light theme",
-  "dark_theme": "Dark theme"
+  "dark_theme": "Dark theme",
+
+  "switch_fr": "Switch to French",
+  "switch_en": "Switch to English"
+
+
 }

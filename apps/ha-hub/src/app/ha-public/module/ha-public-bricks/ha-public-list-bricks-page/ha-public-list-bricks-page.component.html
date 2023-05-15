@@ -18,7 +18,8 @@
              [style.background-size]="b.imageLink ? '70%' : '100%'"></div>
         <div class="brick-info">
           <div class="brick-name-line">
-            {{b.name}}
+            <span>{{b.name}} <mat-icon *ngIf="b.visibility === 'private'" class="g-icon-small">lock</mat-icon></span>
+
           </div>
           <div class="brick-description small-text">
             {{b.description.substring(0, 100) + (b.description.length > 100 ? '...' : '')}}

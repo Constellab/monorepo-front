@@ -1,4 +1,4 @@
-import {BrowserModule, BrowserTransferStateModule, TransferState} from '@angular/platform-browser';
+import {BrowserModule, TransferState} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HaAppComponent} from './ha-app.component';
@@ -11,7 +11,8 @@ import {
   flIconsDefault,
   FlPortalModule,
   FlSnackBarModule,
-  FlTextEditorModule, FlThemeService,
+  FlTextEditorModule,
+  FlThemeService,
   FlTranslateModule,
   FlUserModule
 } from '@monorepo/front-core-lib';
@@ -57,7 +58,7 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
     // Setup translate module
     FlTranslateModule.forRoot({
       defaultLang: ClSupportedLanguage.en,
-      availableLang: [ClSupportedLanguage.en],
+      availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
       filenames: ['global-'],
     }),
 

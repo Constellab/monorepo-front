@@ -20,10 +20,10 @@
   <p class="left-side-div-title">{{'popular_topics' | translate}} :</p>
 
   <mat-chip-listbox selectable multiple *ngIf="popularTopics$">
-    <mat-chip *ngFor="let topic of popularTopics$ | async" [value]="isSelected(topic)" (click)="selectTopic(topic)"
+    <mat-chip-option *ngFor="let topic of popularTopics$ | async" [value]="isSelected(topic)" (click)="selectTopic(topic)"
               style="cursor: pointer">
       {{topic.name}}
-    </mat-chip>
+    </mat-chip-option>
   </mat-chip-listbox>
 </div>
 
@@ -40,9 +40,9 @@
             <span class="g-text-small date-info">{{(story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt) | flDate:'DATETIME_MED'}}</span>
           </p>
           <mat-chip-listbox>
-            <mat-chip *ngFor="let storyTopic of story.topics">
+            <mat-chip-option *ngFor="let storyTopic of story.topics">
               {{storyTopic.name}}
-            </mat-chip>
+            </mat-chip-option>
           </mat-chip-listbox>
         </div>
         <div *ngIf="story.mainPicture && story.mainPicture.length > 0" [style.background-image]="'url(\'' + getStoryImageLink(story.mainPicture) + '\')'" class="story-image"></div>

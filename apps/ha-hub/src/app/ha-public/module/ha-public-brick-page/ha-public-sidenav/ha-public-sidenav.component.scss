@@ -1,9 +1,14 @@
+.div-sidenav{
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 110px);
+}
+
 .sidenav {
   padding: 8px;
   border-radius: 18px;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 130px);
   background-color: var(--card-background);
 }
 
@@ -36,6 +41,7 @@
   padding: 7px 8px;
   border-radius: 10px;
   background-color: var(--main-background);
+  font-weight: 500;
 }
 
 .sidenav-item-selected{
@@ -62,6 +68,7 @@
   border-radius: 10px !important;
   background-color: var(--card-background);
   height: 56px;
+  min-height: 56px;
   padding: 8px;
 }
 
