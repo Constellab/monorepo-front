@@ -28,6 +28,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
+import {FlCardModule} from '../fl-card/fl-card.module';
 
 
 /**
@@ -74,6 +75,7 @@ import {MatButtonModule} from '@angular/material/button';
     FlCorePipeModule,
     FlFormModule,
     FlSectionModule,
+    FlCardModule,
   ],
 })
 export class FlDynamicFieldModule {
