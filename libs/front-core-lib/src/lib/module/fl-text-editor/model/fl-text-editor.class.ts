@@ -30,10 +30,11 @@ export class FlQuillConfig {
    */
   public static completeToolbarConfig: any[] = [
     ['bold', 'italic', 'underline', 'strike'],
+    ['clean'],
     [{list: 'ordered'}, {list: 'bullet'}],
-    [{header: [2, 3, 4, false]}],
+    [{header: [2, 3, false]}],
     [{align: []}, {indent: '-1'}, {indent: '+1'}],
-    ['link', 'blockquote', 'code', 'clean'],
+    ['link', 'blockquote', 'code'],
   ];
 
   public static simpleToolbarConfig: any[] = [

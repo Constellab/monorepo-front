@@ -157,6 +157,10 @@
     text-decoration: none;
   }
 
+  a:hover {
+    text-decoration: underline;
+  }
+
   // Code block
   pre.ql-syntax {
     background-color: var(--main-background);
