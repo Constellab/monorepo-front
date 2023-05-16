@@ -7,28 +7,23 @@ import {
 } from './component/lab-configure-specs-form-dialog/lab-configure-specs-form-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LabTagDynamicFieldComponent} from './component/lab-tag-dynamic-field/lab-tag-dynamic-field.component';
-import {
-  LabCodeEditorDynamicFieldComponent
-} from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
-
+import {LabOpenAiCoreModule} from '../lab-open-ai-core/lab-open-ai-core.module';
 
 @NgModule({
   declarations: [
     LabConfigureSpecsFormComponent,
     LabConfigureSpecsFormDialogComponent,
     LabTagDynamicFieldComponent,
-    LabCodeEditorDynamicFieldComponent,
   ],
   exports: [
     LabConfigureSpecsFormComponent,
-    LabCodeEditorDynamicFieldComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-
     LabCoreModule,
+    LabOpenAiCoreModule,
   ],
 })
 export class LabConfigCoreModule {

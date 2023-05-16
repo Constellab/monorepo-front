@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FlDynamicFieldAbstractDirective} from '@monorepo/front-core-lib';
 
 /**
@@ -10,16 +10,7 @@ import {FlDynamicFieldAbstractDirective} from '@monorepo/front-core-lib';
   templateUrl: './lab-tag-dynamic-field.component.html',
   styleUrls: ['./lab-tag-dynamic-field.component.scss']
 })
-export class LabTagDynamicFieldComponent extends FlDynamicFieldAbstractDirective
-  implements OnInit, OnDestroy {
+export class LabTagDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
 
-
-  ngOnInit(): void {
-    console.log("LabTagDynamicFieldComponent.ngOnInit");
-  }
-
-  ngOnDestroy(): void {
-    console.log("LabTagDynamicFieldComponent.ngOnDestroy");
-  }
 
 }

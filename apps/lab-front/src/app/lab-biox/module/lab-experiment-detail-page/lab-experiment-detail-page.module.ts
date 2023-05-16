@@ -53,7 +53,6 @@ import {LabProjectCoreModule} from '../../../lab-core/entity-module/lab-project-
 import {
   LabWorkflowNodeDashboardComponent
 } from './component/lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
-import {LabWorkflowNodeIoComponent} from './component/lab-workflow-node-io/lab-workflow-node-io.component';
 import {
   LabWorkflowNodeIoPanelComponent
 } from './component/lab-workflow-node-io-panel/lab-workflow-node-io-panel.component';
@@ -80,7 +79,6 @@ import {
     LabTaskViewerConfigComponent,
     LabTaskViewerShowConfigComponent,
     LabWorkflowNodeDashboardComponent,
-    LabWorkflowNodeIoComponent,
     LabWorkflowNodeIoPanelComponent,
   ],
   imports: [
@@ -102,4 +100,5 @@ import {
     LabProjectCoreModule,
   ],
 })
-export class LabExperimentDetailPageModule {}
+export class LabExperimentDetailPageModule {
+}

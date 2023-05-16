@@ -57,5 +57,9 @@ export class LabAuthenticatedUserService implements FlCleanableService {
     this.userSubject$.next(null);
   }
 
+  public getCurrentUser(): LabUser | null {
+    return this.userSubject$.value;
+  }
+
 
 }

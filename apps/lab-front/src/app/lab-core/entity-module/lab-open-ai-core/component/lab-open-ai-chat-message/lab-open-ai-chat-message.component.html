@@ -1,0 +1,32 @@
+<div [ngClass]="role" class="content" fxLayout="row" fxLayoutAlign="start start">
+
+  <div class="icon">
+    <mat-icon>{{icon}}</mat-icon>
+  </div>
+
+  <div class="text-content">
+    <div *ngIf="role === 'system'"><strong>{{'open_ai_context' | translate}}</strong></div>
+    <div *ngIf="role === 'assistant' else normal" [innerHTML]="message.content | tdMarkdown"></div>
+    <ng-template #normal>
+      <div>{{message.content}}</div>
+    </ng-template>
+  </div>
+
+  <div class="edit-button" *ngIf="role !== 'system'">
+    <button mat-icon-button [matMenuTriggerFor]="menu" type="button"
+            class="g-button-icon-small">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item type="button" (click)="onAction('delete')">
+        <mat-icon color="warn">delete</mat-icon>
+        <span class="g-warn-text">{{'open_ai_delete_message' | translate}}</span>
+      </button>
+
+      <button mat-menu-item type="button" (click)="onAction('delete-all')">
+        <mat-icon color="warn">delete_forever</mat-icon>
+        <span class="g-warn-text">{{'open_ai_delete_all_messages' | translate}}</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>

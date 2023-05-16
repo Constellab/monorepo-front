@@ -2,7 +2,14 @@ import {Pipe, PipeTransform, SecurityContext} from '@angular/core';
 import {marked} from 'marked';
 import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
 import {ClStringHelper, ClYoutubeHelper} from '@monorepo/core-lib';
+import hljs from 'highlight.js';
 
+// configure marked to use highlight.js
+marked.setOptions({
+  highlight: function(code, lang) {
+    return hljs.highlight(code, {language: lang || 'python'}).value;
+  }
+});
 @Pipe({
   name: 'tdMarkdown'
 })

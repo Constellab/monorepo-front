@@ -1,20 +1,20 @@
-import {
-  FlDynamicFieldAbstractDirective,
-  FlDynamicFieldBooleanComponent,
-  FlDynamicFieldConfig,
-  FlDynamicFieldConfigBase,
-  FlDynamicFieldConfigInput,
-  FlDynamicFieldConfigList,
-  FlDynamicFieldConfigSelect,
-  FlDynamicFieldInputComponent,
-  FlDynamicFieldListComponent,
-  FlDynamicFieldSelectComponent
-} from '@monorepo/front-core-lib';
 import {ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {
   FlDynamicFieldTextareaComponent
 } from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
+import {
+  FlDynamicFieldConfig,
+  FlDynamicFieldConfigBase,
+  FlDynamicFieldConfigInput,
+  FlDynamicFieldConfigList,
+  FlDynamicFieldConfigSelect
+} from './fl-dynamic-field-config.class';
+import {FlDynamicFieldAbstractDirective} from './fl-dynamic-field-abstract.directive';
+import {FlDynamicFieldInputComponent} from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
+import {FlDynamicFieldSelectComponent} from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
+import {FlDynamicFieldListComponent} from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
+import {FlDynamicFieldBooleanComponent} from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent}
@@ -25,6 +25,11 @@ import {
 })
 export class FlDynamicFieldConfigService {
 
+  /**
+   * return custom additional config for the field.
+   * Key = type {@link FlDynamicFieldConfig}
+   * @protected
+   */
   protected getAdditionalConfig(): Record<string, FlDynamicFieldAdditionalConfig> {
     return {};
   }

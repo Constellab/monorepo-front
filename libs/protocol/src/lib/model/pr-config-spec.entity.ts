@@ -90,7 +90,12 @@ export class PrConfigSpecs extends ClRecordWrapper<TdParamSpec> {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
       config.type = 'tags';
       return config;
-    } else if (tdCodeParamSpecTypeList.includes(spec.type)) {
+    } else if (spec.type === 'open_ai_chat_param') {
+      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+      config.type = 'open_ai_chat';
+      return config;
+    }
+    else if (tdCodeParamSpecTypeList.includes(spec.type)) {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
       config.type = spec.type;
       config.fullWidth = true;

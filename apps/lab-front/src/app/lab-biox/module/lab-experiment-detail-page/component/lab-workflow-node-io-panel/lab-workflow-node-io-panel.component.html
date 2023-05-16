@@ -1,10 +1,21 @@
 <div [fxLayout]="layout" fxLayoutAlign="start stretch" class="g-full-height">
   <div>
-    <div *ngFor="let resource of resources$">
+    <div *ngFor="let port$ of ports">
 
-      <lab-workflow-node-io [resource$]="resource"
-                                  [mode]="mode"
-                                  (selectPort)="onResourceClick($event)"></lab-workflow-node-io>
+      <div *ngIf="port$ | async as port" class="port-name"
+           fxLayout="column" fxLayoutAlign="start center"
+           (click)="onPortClick(port.port.name)"
+           [ngClass]="{'selected-port': (portIsSelected(port.port.name) | async),
+                       'port-input': mode === 'input',
+                       'port-output': mode === 'output'}">
+
+        <div class="port-color" [style.background-color]="port.port.getDefaultColor()"></div>
+        <div class="text">
+          {{ port.text | flTranslatableText}}
+        </div>
+
+      </div>
+
     </div>
   </div>
 

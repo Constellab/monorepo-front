@@ -11,7 +11,8 @@ export type TdParamSpecType =
   | 'param_set'
   | 'tags_param'
   | 'python_code_param' | 'r_code_param' | 'julia_code_param'
-  | 'bash_code_param' | 'perl_code_param' | 'yaml_code_param' | 'json_code_param';
+  | 'bash_code_param' | 'perl_code_param' | 'yaml_code_param' | 'json_code_param'
+  | 'open_ai_chat_param';
 
 /**
  * Visibility of the param spec
@@ -84,7 +85,8 @@ export type TdParamSpecSimple =
   | TdParamSpecList
   | TdParamSpecBoolean
   | TdParamSpecTags
-  | TdParamSpecCode;
+  | TdParamSpecCode
+  | TdParamOpenAiChat;
 
 /**
  * Param for short string
@@ -127,6 +129,10 @@ export interface TdParamSpecList extends TdParamSpecBase {
 
 export interface TdParamSpecTags extends TdParamSpecBase {
   type: 'tags_param';
+}
+
+export interface TdParamOpenAiChat extends TdParamSpecBase {
+  type: 'open_ai_chat_param';
 }
 
 export interface TdParamSpecCode extends TdParamSpecBase {

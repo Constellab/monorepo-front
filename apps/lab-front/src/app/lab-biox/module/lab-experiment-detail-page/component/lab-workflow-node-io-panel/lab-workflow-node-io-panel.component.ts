@@ -1,10 +1,18 @@
 import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
-import {PrWorkflowNodeProcess, PrWorkflowResourcesState} from '@monorepo/protocol';
+import {PrWorkflowNodeProcess, PrWorkflowPort, PrWorkflowResourcesState} from '@monorepo/protocol';
 import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
 import {LabResource} from '../../../../../lab-core/model/entities/resource/lab-resource.entity';
-import {LabWorkflowPortResource} from '../../model/lab-workflow-port-resource.class';
 import {map} from 'rxjs/operators';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
+
+/**
+ * Object that include port and resource
+ */
+interface LabWorkflowPortResource {
+  port: PrWorkflowPort;
+  text: string;
+}
+
 
 /**
  * Component inside the node dashboard to display the input or output resources
@@ -23,7 +31,7 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
   @HostBinding('class.is-opened')
   isOpened: boolean = false;
 
-  resources$: Observable<LabWorkflowPortResource>[];
+  ports: Observable<LabWorkflowPortResource>[];
 
   // observable to retrieve the id of the resource of the selected port
   selectedResourceId$: Observable<string>;
@@ -52,7 +60,7 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
         resources.push(this.portToPortResource(port.name, nodeProcess));
       }
 
-      this.resources$ = resources;
+      this.ports = resources;
     });
   }
 
@@ -81,20 +89,20 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
         if (resourceId == null) {
           return of({
             port: port,
-            resource: null
+            text: port.humanName
           });
         } else {
           return this.resourceState.getResource(resourceId).pipe(
             map(resource => ({
-              resource: resource,
-              port: port
+              port: port,
+              text: resource.status === 'success' ? resource.object.name : port.humanName
             })));
         }
       })
     );
   }
 
-  onResourceClick(portName: string): void {
+  onPortClick(portName: string): void {
     // close the resource if it is already open
     if (portName === this.selectedPort$.value) {
       this.selectedPort$.next(null);
@@ -108,6 +116,10 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
   // useful to set the resource on the left or right side of the node
   get layout(): string {
     return this.mode === 'input' ? 'row' : 'row-reverse';
+  }
+
+  portIsSelected(portName: string): Observable<boolean> {
+    return this.selectedPort$.pipe(map(selectedPort => selectedPort === portName));
   }
 
   ngOnDestroy(): void {

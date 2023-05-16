@@ -1,0 +1,48 @@
+
+.icon {
+  flex-shrink: 0;
+  padding-right: 1em;
+}
+
+.content {
+  padding: 1em;
+}
+
+::ng-deep lab-open-ai-chat-message{
+  .content code {
+    background-color: var(--main-background);
+    white-space: pre-line;
+    padding: 0.2em;
+  }
+
+  .content pre code {
+    display: block;
+    padding: 0.5em;
+  }
+}
+
+.user {
+  background-color: var(--card-background);
+}
+
+.system, .assistant {
+  background-color: var(--hover-color);
+}
+
+.text-content {
+  flex: 1;
+  white-space: pre-line;
+  min-width: 0;
+}
+
+.edit-button {
+  flex-shrink: 0;
+  padding-left: 0.5em;
+  opacity: 0;
+}
+
+.content:hover {
+  .edit-button {
+    opacity: 1;
+  }
+}

@@ -10,6 +10,9 @@ import {
   LabCodeEditorDynamicFieldComponent
 } from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
 import {tdCodeParamSpecTypeList, TdParamSpecType} from '@monorepo/technical-doc';
+import {
+  LabOpenAiChatDynamicFieldComponent
+} from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
@@ -21,6 +24,7 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
   protected getAdditionalConfig(): Record<string, FlDynamicFieldAdditionalConfig> {
     const config: Record<string, FlDynamicFieldAdditionalConfig> = {
       'tags': this.buildTagField,
+      'open_ai_chat': this.buildOpenAiChatField
     }
 
     // for each code spec type, set the code editor component
@@ -39,6 +43,10 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
     const component = viewContainer.createComponent(LabCodeEditorDynamicFieldComponent);
     component.instance.specType = config.type as TdParamSpecType;
     return component;
+  }
+
+  private buildOpenAiChatField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+    return viewContainer.createComponent(LabOpenAiChatDynamicFieldComponent);
   }
 
 

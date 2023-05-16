@@ -1,3 +1,8 @@
+
+.selected-port{
+  background-color: var(--hover-color);
+}
+
 .view-container{
   min-width: 0; // prevent width overflow
   flex: 1;
@@ -7,4 +12,49 @@
   display: block;
   padding-left: 1em;
   padding-right: 1em;
+}
+
+//////// PORT SECTION ////////
+
+
+.port-name {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border: 1px solid var(--hover-color);
+  cursor: pointer;
+}
+
+.port-name:hover {
+  background-color: var(--hover-color);
+}
+
+.text{
+  writing-mode: vertical-lr;
+  user-select: none;
+
+}
+
+
+.port-input {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: 0;
+  padding-right: 0.5em;
+  padding-left: 5px;
+}
+
+.port-output {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-right: 0;
+  padding-left: 0.5em;
+  padding-right: 5px;
+}
+
+.port-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-bottom: 5px;
 }
