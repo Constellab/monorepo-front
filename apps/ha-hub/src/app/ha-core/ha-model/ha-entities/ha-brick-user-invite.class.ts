@@ -1,11 +1,10 @@
-import {HaStory} from './ha-story.class';
-import {Type} from 'class-transformer';
-import {HaUser} from './ha-user';
 import {HaInviteStatus} from './ha-invite';
+import {Type} from 'class-transformer';
+import {HaStory} from './ha-story.class';
+import {HaUser} from './ha-user';
+import {HaBrick} from './ha-brick.class';
 
-
-
-export class HaStoryAuthorInvite{
+export class HaBrickUserInvite{
   id: number;
 
   email: string;
@@ -13,7 +12,7 @@ export class HaStoryAuthorInvite{
   status: HaInviteStatus;
 
   @Type(() => HaStory)
-  story: HaStory;
+  brick: HaBrick;
 
   @Type(() => HaUser)
   createdBy: HaUser;

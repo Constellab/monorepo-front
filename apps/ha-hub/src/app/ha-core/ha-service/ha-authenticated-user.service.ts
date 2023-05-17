@@ -5,6 +5,7 @@ import {HaUser, HaUserCategory} from '../ha-model/ha-entities/ha-user';
 import {HaAuthService} from './ha-auth.service';
 import {map, tap} from 'rxjs/operators';
 import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
+import {HaBrick} from '../ha-model/ha-entities/ha-brick.class';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,18 @@ export class HaAuthenticatedUserService implements FlCleanableService{
     return this.getUser().pipe(
       map(user => user != null && user.category === HaUserCategory.ADMIN)
     );
+  }
+
+  public isAdminOrBrickUser(brick: HaBrick): Observable<boolean>{
+    return this.getUser().pipe(
+      map(user => user != null && (user.category === HaUserCategory.ADMIN || brick?.brickUsers?.find(bU => bU.user.id == user.id) != null))
+    )
+  }
+
+  public isAdminOrBrickOwner(brick: HaBrick): Observable<boolean>{
+    return this.getUser().pipe(
+      map(user => user != null && (user.category === HaUserCategory.ADMIN || brick?.createdBy?.id == user.id))
+    )
   }
 
   public changeTheme(theme: ClTheme): Observable<void> {

@@ -11,7 +11,7 @@
     <div class="doc-div-content g-max-article-width">
       <div class="doc-title-div">
         <h3>{{documentation.title}}</h3>
-        <button mat-icon-button type="button" (click)="onClickMenu($event)" *ngIf="isAdmin | async">
+        <button mat-icon-button type="button" (click)="onClickMenu($event)" *ngIf="isAdminOrBrickUser | async">
           <mat-icon>
             more_vert
           </mat-icon>
