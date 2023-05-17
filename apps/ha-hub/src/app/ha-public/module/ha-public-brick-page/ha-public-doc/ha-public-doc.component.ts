@@ -46,7 +46,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   titles: any[] = [];
   richText: CmRichText;
   lastUrl: string = null;
-  isAdmin: Observable<boolean> = this.authUserService.isAdmin();
+  isAdminOrBrickUser: Observable<boolean>;
   isCheck: boolean = false;
   isLoading: boolean = false;
   textEditorConfig: HaDocTextEditorConfig;
@@ -98,6 +98,9 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   private init(brickName: string, brickVersion: string): void{
     this.brickName = brickName;
     this.brickVersion = brickVersion;
+    this.brickService.getByName(this.brickName).subscribe(brick => {
+      this.isAdminOrBrickUser = this.authUserService.isAdminOrBrickUser(brick);
+    });
     this.getActiveDoc();
   }
 
@@ -197,7 +200,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   private saveContent(value: CmRichTextI): void {
 
     this.formGp.value.content = value as CmRichTextI;
-    this.isAdmin.subscribe(isAdmin => {
+    this.isAdminOrBrickUser.subscribe(isAdmin => {
       if (isAdmin) {
         this.documentationService.updateContent(this.formGp.value as HaDocumentationContentFormDTO).subscribe();
       }
@@ -206,7 +209,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   }
 
   onClickMenu(event: MouseEvent): void {
-    this.isAdmin.subscribe(isAdmin => {
+    this.isAdminOrBrickUser.subscribe(isAdmin => {
       if (isAdmin) {
         event.preventDefault();
         event.stopPropagation();

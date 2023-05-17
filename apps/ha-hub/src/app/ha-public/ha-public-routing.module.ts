@@ -17,6 +17,10 @@ import {
   HaPublicBrickPageComponent
 } from './module/ha-public-brick-page/ha-public-brick-page/ha-public-brick-page.component';
 import {HaAdminGuard} from '../ha-core/ha-guard/ha-admin.guard';
+import {
+  HaPublicBrickUserInvitePageComponent
+} from './module/ha-public-brick-page/ha-public-brick-user-invite-page/ha-public-brick-user-invite-page.component';
+import {HaLoginGuard} from '../ha-core/ha-guard/ha-login.guard';
 
 
 const routes: Route[] = [
@@ -28,6 +32,11 @@ const routes: Route[] = [
     path: 'edit',
     component: HaPublicEditBrickPageComponent,
     canActivate: [HaAdminGuard],
+  },
+  {
+    path: 'invite/:token',
+    component: HaPublicBrickUserInvitePageComponent,
+    canActivate: [HaLoginGuard]
   },
   {
     component: HaPublicBrickPageComponent,

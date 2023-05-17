@@ -13,6 +13,8 @@ import {
 } from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
 import {HaNodeDTO} from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
+import {Observable} from 'rxjs';
+import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 
 @Component({
   selector: 'ha-public-versions-page',
@@ -24,6 +26,7 @@ export class HaPublicVersionsComponent implements OnInit {
   brickVersions: HaBrickVersionDataSource;
   brickId: string;
   displayedColumns: FlTableColumn<HaBrickVersion>[] = ['version', 'repoType', 'lastModified', 'informations'];
+  isAdminOrBrickUser$: Observable<boolean>;
 
   constructor(
     private brickVersionService: HaBrickVersionService,
@@ -31,7 +34,8 @@ export class HaPublicVersionsComponent implements OnInit {
     private brickService: HaBrickService,
     private dialogService: FlDialogService,
     private router: Router,
-    private metadataService: HaMetadataService
+    private metadataService: HaMetadataService,
+    private authUserService: HaAuthenticatedUserService
   ) {
   }
 
@@ -49,6 +53,7 @@ export class HaPublicVersionsComponent implements OnInit {
     this.metadataService.setPageTitle('ha.versions.brick.title', true, {brickTitle: brickName});
     this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true,{brickTitle: brickName});
     this.brickService.getByName(brickName).subscribe(brick => {
+      this.isAdminOrBrickUser$ = this.authUserService.isAdminOrBrickUser(brick);
       this.brickId = brick.id;
       this.setDataSource();
     });

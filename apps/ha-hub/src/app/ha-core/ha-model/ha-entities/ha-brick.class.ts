@@ -1,6 +1,8 @@
 import {HaEntity} from './ha-entity.class';
 import {CmVersion} from '@monorepo/common-model';
 import {HaReferenceDTO, HaRepoType, HaVersionType} from './ha-version.class';
+import {HaBrickUser} from './ha-brick-user';
+import {Type} from 'class-transformer';
 
 export enum HaBrickVisibility{
   PRIVATE = 'private',
@@ -21,6 +23,8 @@ export class HaBrick extends HaEntity {
   visibility: HaBrickVisibility;
 
   lastVersion: CmVersion;
+
+  brickUsers: HaBrickUser[];
 
   imageLink?: string;
 

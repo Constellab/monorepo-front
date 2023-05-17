@@ -34,12 +34,12 @@
         <p class="g-scrollable-element tech-info">{{latestBrickVersion.repoType}}</p>
       </div>
 
-      <div class="tech-info-div" *ngIf="brick.gitRepo && isAdmin">
+      <div class="tech-info-div" *ngIf="brick.gitRepo && isAdminOrBrickUser$ | async">
         {{'repo_git' | translate}} :
         <p class="g-scrollable-element tech-info">{{brick.gitRepo}}</p>
       </div>
 
-      <div class="tech-info-div" *ngIf="brick.pipRepo && isAdmin">
+      <div class="tech-info-div" *ngIf="brick.pipRepo && isAdminOrBrickUser$ | async">
         {{'repo_pip' | translate}} :
         <p class="g-scrollable-element tech-info">{{brick.pipRepo}}</p>
       </div>
@@ -52,8 +52,7 @@
       </div>
     </div>
   </div>
-<!--  <div class="right-side-div g-scrollable-element" *ngIf="brick && lastVersion">-->
-<!--    <ha-public-brick-right-panel [brickName]="brick.name" [brickVersion]="lastVersion.toString()" [currentPage]="'introduction'"-->
-<!--                                 [currentPageAsTranslation]="true"></ha-public-brick-right-panel>-->
-<!--  </div>-->
+  <div class="right-side-div g-scrollable-element" *ngIf="brick && lastVersion && isAdminOrBrickUser$ | async">
+    <ha-public-brick-users [brick]="brick" ></ha-public-brick-users>
+  </div>
 </div>

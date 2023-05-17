@@ -25,8 +25,7 @@ export class HaPublicBrickVersionDetailDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private input: HaBrickVersion,
-    private brickVersionService: HaBrickVersionService,
-    private authUserService: HaAuthenticatedUserService
+    private brickVersionService: HaBrickVersionService
   ) {
   }
 
@@ -40,10 +39,5 @@ export class HaPublicBrickVersionDetailDialogComponent implements OnInit {
       }
     });
   }
-
-  isAdmin$(): Observable<boolean>{
-    return this.authUserService.isAdmin();
-  }
-
 
 }

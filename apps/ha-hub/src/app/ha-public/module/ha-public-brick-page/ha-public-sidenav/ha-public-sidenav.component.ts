@@ -57,7 +57,7 @@ export class HaPublicSidenavComponent implements OnInit {
 
   @Input() brick: HaBrick;
   searchTechDocControl = new FormControl<string>('');
-  isAdmin$: Observable<boolean> = this.authenticatedUserService.isAdmin();
+  isAdminOrBrickUser$: Observable<boolean>;
   brickId: string;
   brickName: string;
   brickVersion: string;
@@ -161,6 +161,8 @@ export class HaPublicSidenavComponent implements OnInit {
   ngOnInit(): void {
     this.DOCUMENTATIONS_KEY = makeStateKey<object>('DOCUMENTATIONS_KEY');
     this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
+
+    this.isAdminOrBrickUser$ = this.authenticatedUserService.isAdminOrBrickUser(this.brick);
 
     this.mediaSubscription = this.mediaObserver
       .asObservable()

@@ -40,9 +40,9 @@
         <span class="round" [ngClass]="currentTheme === theme.DARK_THEME ? 'round-light' : 'round-dark'"></span>
         <span>{{currentTheme === theme.DARK_THEME ? ('light_theme' | translate) : ('dark_theme' | translate)}}</span>
       </button>
-      <button mat-menu-item (click)="selectLanguage(currentLanguage === lang.en ? lang.fr : lang.en)">
-        {{ currentLanguage === lang.en ? ('switch_fr' | translate) : ('switch_en' | translate)}}
-      </button>
+<!--      <button mat-menu-item (click)="selectLanguage(currentLanguage === lang.en ? lang.fr : lang.en)">-->
+<!--        {{ currentLanguage === lang.en ? ('switch_fr' | translate) : ('switch_en' | translate)}}-->
+<!--      </button>-->
       <button mat-menu-item (click)="logout()">{{'logout' |translate}}</button>
     </mat-menu>
   </mat-toolbar>

@@ -8,6 +8,8 @@ import {HaNewVersionDTO, HaReferenceDTO} from '../ha-model/ha-entities/ha-versio
 import {HaBrickVersion} from '../ha-model/ha-entities/ha-brick-version.class';
 import {CmVersion} from '@monorepo/common-model';
 import {TdTypeEntity} from '@monorepo/technical-doc';
+import {HaBrickUser} from '../ha-model/ha-entities/ha-brick-user';
+import {HaBrickUserInvite} from '../ha-model/ha-entities/ha-brick-user-invite.class';
 
 @Injectable({
   providedIn: 'root'
@@ -116,6 +118,22 @@ export class HaBrickService {
 
   public findDocumentationByLink(link: string): Observable<HaDocumentationSearchDTO> {
     return this.apiService.post(`${this.route}/get-doc-by-link`, {link: link});
+  }
+
+  public getBrickUsers(brickId: string): Observable<HaBrickUser[]> {
+    return this.apiService.get(`${this.route}/${brickId}/users`);
+  }
+
+  public inviteUser(brickId: string, email: string): Observable<any> {
+    return this.apiService.put(`${this.route}/${brickId}/invite-user`, {email: email});
+  }
+
+  public isBrickUserInviteValid(token: string): Observable<HaBrickUserInvite> {
+    return this.apiService.get(`${this.route}/invite/${token}/is-valid`);
+  }
+
+  public acceptInvite(token: string): Observable<HaBrick> {
+    return this.apiService.put(`${this.route}/invite/${token}/accept`, {});
   }
 
 }

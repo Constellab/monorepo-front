@@ -25,7 +25,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   latestBrickVersion: HaBrickVersion;
   lastVersion: CmVersion;
   references: HaReferenceDTO[];
-  isAdmin: boolean;
+  isAdminOrBrickUser$: Observable<boolean>;
 
   BRICK_DESCRIPTION_VERSION_KEY: StateKey<object>;
   BRICK_DESCRIPTION_KEY: StateKey<object>;
@@ -56,8 +56,6 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
         this.setBrick(params.brickName);
       });
     }
-
-    this.isAdmin$().subscribe(admin => this.isAdmin = admin);
   }
 
   private setBrick(brickName: string): void {
@@ -70,6 +68,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
         this.transferState.set(this.BRICK_DESCRIPTION_KEY, brick);
       }
       this.onBrick(brick);
+      this.isAdminOrBrickUser$ = this.authUserService.isAdminOrBrickOwner(brick);
     });
   }
 
@@ -132,9 +131,5 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
         }
       }
     );
-  }
-
-  isAdmin$(): Observable<boolean>{
-    return this.authUserService.isAdmin()
   }
 }

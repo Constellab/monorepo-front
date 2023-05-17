@@ -159,7 +159,12 @@
   "dark_theme": "Dark theme",
 
   "switch_fr": "Switch to French",
-  "switch_en": "Switch to English"
+  "switch_en": "Switch to English",
+
+  "brick_user_invited": "User invited",
+  "add_brick_user": "Add user",
+
+  "brick_invite_text": "You have been invited to become a co-author of the brick"
 
 
 }

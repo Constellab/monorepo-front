@@ -51,8 +51,10 @@ export class HaAddVersionInput{
     }
     this.technicalInfo = technicalInfo;
     this.brickVersionReferences = [];
-    for(const b of environment.bricks){
-      this.brickVersionReferences.push({name: b.name, version: b.version});
+    if(environment.bricks){
+      for(const b of environment.bricks){
+        this.brickVersionReferences.push({name: b.name, version: b.version});
+      }
     }
     for(const d of environment.pip){
       for(const p of d.packages){
