@@ -107,6 +107,8 @@
   "brick_technical_info": "Informations techniques",
   "brick_version_view_detail": "Voir le détail",
   "brick_versions": "Versions des briques",
+  "lab_instance_remove_brick": "Supprimer la brique",
+  "lab_instance_remove_brick_confirmation": "Êtes-vous sûr de vouloir supprimer la brique du lab ? Ceci n'est pas recommandé, toutes les expériences utilisant cette brique ne seront plus exécutables. Les ressources utilisant des types de cette brique ne seront plus utilisables ni visibles",
   "lab_user_role_OWNER": "Propriétaire",
   "lab_user_role_USER": "Utilisateur",
   "lab_added_by": "Ajouté par",

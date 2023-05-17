@@ -30,9 +30,16 @@
             <mat-icon>info</mat-icon>
           </button>
 
-          <button mat-icon-button type="button" class="g-button-icon-small button" (click)="openBrickVersionForm(brickVersion)"
+          <button mat-icon-button type="button" class="g-button-icon-small button"
+                  (click)="openBrickVersionForm(brickVersion)"
                   [matTooltip]="'lab_instance_update_brick' | translate">
             <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-icon-button type="button" class="g-button-icon-small button"
+                  (click)="openDeleteBrickConfirmDialog(brickVersion)"
+                  [matTooltip]="'lab_instance_remove_brick' | translate">
+            <mat-icon>clear</mat-icon>
           </button>
         </div>
       </mat-list-item>

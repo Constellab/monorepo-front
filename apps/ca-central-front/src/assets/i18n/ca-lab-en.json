@@ -106,6 +106,8 @@
   "brick_version_type": "Version type",
   "brick_technical_info": "Technical info",
   "brick_version_view_detail": "View details",
+  "lab_instance_remove_brick": "Remove brick",
+  "lab_instance_remove_brick_confirmation": "Are you sure you want to remove the brick from the lab ? This is not recommended, all the experiments using this brick will not be runnable. The resources using types from this brick will not be usable nor viewable",
   "brick_versions": "Brick versions",
   "lab_user_role_OWNER": "Owner",
   "lab_user_role_USER": "User",

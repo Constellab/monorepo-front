@@ -1,6 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
-import {FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlSnackBarService
+} from '@monorepo/front-core-lib';
 import {
   CaLabManagerBrickVersionDTO,
   CaLabManagerConfig
@@ -61,8 +66,7 @@ export class CaLabInstanceConfigFormComponent implements OnInit {
     );
   }
 
-
-  private onBrickDialogClosed(mode: 'add' | 'update', brickVersionDTO?: CaLabManagerBrickVersionDTO,): void {
+  private onBrickDialogClosed(mode: 'add' | 'update', brickVersionDTO?: CaLabManagerBrickVersionDTO): void {
     if (!brickVersionDTO) return;
 
     const brick = this.labConfig.brickVersions.find(brickVersion => brickVersion.name === brickVersionDTO.name);
@@ -85,6 +89,26 @@ export class CaLabInstanceConfigFormComponent implements OnInit {
     this.configChanged = true;
   }
 
+  openDeleteBrickConfirmDialog(brickVersionDTO: CaLabManagerBrickVersionDTO): void {
+    const data: FlConfirmDialogInput = {
+      title: 'lab_instance_remove_brick',
+      content: 'lab_instance_remove_brick_confirmation',
+      translateTitleAndContent: true,
+    };
+
+    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
+      result => this.onDeleteBrickConfirmClosed(result, brickVersionDTO)
+    );
+  }
+
+  private onDeleteBrickConfirmClosed(result: FlConfirmDialogResult, brickVersionDTO: CaLabManagerBrickVersionDTO): void {
+    if (result.choice) {
+      this.labConfig.brickVersions = this.labConfig.brickVersions.filter(brick => brick.name !== brickVersionDTO.name);
+      this.resetGlabTagToDefault();
+      this.configChanged = true;
+    }
+  }
+
   save(): void {
     if (!this.isLoading) {
       this.updateConfig(this.labConfig);
@@ -104,7 +128,10 @@ export class CaLabInstanceConfigFormComponent implements OnInit {
     if (this.labType === 'CLOUD') {
       this.snackBarService.openSuccessMessage({text: 'lab_instance_cloud_config_updated', translateText: true}, 10000);
     } else {
-      this.snackBarService.openSuccessMessage({text: 'lab_instance_on_premise_config_updated', translateText: true}, 10000);
+      this.snackBarService.openSuccessMessage({
+        text: 'lab_instance_on_premise_config_updated',
+        translateText: true
+      }, 10000);
     }
     this.configChanged = false;
     this.labConfigured.emit();
