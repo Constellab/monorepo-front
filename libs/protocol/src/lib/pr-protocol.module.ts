@@ -40,7 +40,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
-import {PrWorkflowResourcesState} from './state/pr-workflow-resources.state';
+import {PrWorkflowEmptyResourcesState, PrWorkflowResourcesState} from './state/pr-workflow-resources.state';
 
 
 @NgModule({
@@ -118,7 +118,8 @@ export class PrProtocolModule {
     translateService.addModuleTranslation('PrProtocolModule', prProtocolI18n);
   }
 
-  public static forRoot(resourceState: Type<PrWorkflowResourcesState>): ModuleWithProviders<PrProtocolModule> {
+  public static forRoot(resourceState: Type<PrWorkflowResourcesState> = PrWorkflowEmptyResourcesState)
+    : ModuleWithProviders<PrProtocolModule> {
     return {
       ngModule: PrProtocolModule,
       providers: [

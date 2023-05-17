@@ -6,14 +6,14 @@ import {
 import {
   PrProcess,
   prProcessStatusDict,
-  PrResource,
   PrWorkflow,
   PrWorkflowLayer,
   PrWorkflowNodeOutput,
   PrWorkflowNodeProcess,
   PrWorkflowNodeProtocol,
   PrWorkflowNodeSource,
-  PrWorkflowNodeViewer
+  PrWorkflowNodeViewer,
+  PrWorkflowResourcesState
 } from '@monorepo/protocol';
 import {Observable, of} from 'rxjs';
 import {TdTypingName} from '@monorepo/technical-doc';
@@ -25,7 +25,8 @@ import {FlCoord} from '@monorepo/front-core-lib';
 export class CaWorkflowFactory {
 
   constructor(private graph: CaTechnicalReportGraph, private id: string,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private resourceState: PrWorkflowResourcesState) {
   }
 
   public createWorkflow(): PrWorkflow {
@@ -82,19 +83,18 @@ export class CaWorkflowFactory {
                                    layout?: FlCoord): PrWorkflowNodeProcess {
     const prProcess = this.caProcessToPrProcess(caProcess, name, protocolId);
 
-    const getResource = (): Observable<PrResource> => of(null);
     let processNode: PrWorkflowNodeProcess;
     if (caProcess.process_typing_name === TdTypingName.task.source) {
-      processNode = new PrWorkflowNodeSource(prProcess, getResource);
+      processNode = new PrWorkflowNodeSource(prProcess, this.resourceState);
     } else if (caProcess.process_typing_name === TdTypingName.task.output.typingName) {
-      processNode = new PrWorkflowNodeOutput(prProcess, getResource);
+      processNode = new PrWorkflowNodeOutput(prProcess, this.resourceState);
     } else if (caProcess.process_typing_name === TdTypingName.task.viewer) {
-      processNode = new PrWorkflowNodeViewer(prProcess, getResource);
+      processNode = new PrWorkflowNodeViewer(prProcess, this.resourceState);
     } else if (caProcess.graph != null) {
       const layer$: Observable<PrWorkflowLayer> = of(this.createLayer(caProcess.graph, false, prProcess.id, name));
-      processNode = new PrWorkflowNodeProtocol(prProcess, layer$);
+      processNode = new PrWorkflowNodeProtocol(prProcess, layer$, this.resourceState);
     } else {
-      processNode = new PrWorkflowNodeProcess(prProcess);
+      processNode = new PrWorkflowNodeProcess(prProcess, this.resourceState);
     }
 
     if (layout) {

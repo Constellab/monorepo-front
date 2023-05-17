@@ -8,7 +8,8 @@ import {
   PrWorkflowActionSelectNode,
   PrWorkflowActionState,
   PrWorkflowMode,
-  PrWorkflowNodeProcess
+  PrWorkflowNodeProcess,
+  PrWorkflowResourcesState
 } from '@monorepo/protocol';
 import {filter, Observable, of, tap} from 'rxjs';
 import {MatDrawer} from '@angular/material/sidenav';
@@ -47,7 +48,8 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
               private dialogService: FlDialogService,
               private actionState: PrWorkflowActionState,
               private labInstanceService: CaLabInstanceService,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private workflowResourcesState: PrWorkflowResourcesState) {
   }
 
   ngOnInit(): void {
@@ -74,7 +76,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
   private onTechnicalReportSuccess(technicalReport: CaTechnicalReport): void {
     this.technicalReport = technicalReport;
     const factory = new CaWorkflowFactory(technicalReport.data.graph, ClStringHelper.generateUUID(),
-      this.ngZone);
+      this.ngZone, this.workflowResourcesState);
     this.workflow = factory.createWorkflow();
   }
 
