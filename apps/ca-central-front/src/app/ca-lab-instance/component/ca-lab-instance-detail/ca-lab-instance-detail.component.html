@@ -45,7 +45,7 @@
     <fl-text-icon *ngIf="labInstance.onPremisePlatform">
       <mat-icon>info</mat-icon>
       <fl-key-value>
-        <fl-key>{{'lab_on_premise_platform' | translate}}</fl-key>
+        <fl-key>{{'lab_desktop_platform' | translate}}</fl-key>
         {{labInstance.onPremisePlatform}}
       </fl-key-value>
     </fl-text-icon>
@@ -53,7 +53,7 @@
     <fl-text-icon *ngIf="labInstance.isOnPremise">
       <mat-icon>help</mat-icon>
       <a [href]="onPremiseDocUrl" target="_blank" class="g-text-link">
-        {{'lab_on_premise_how_to_link' | translate}}
+        {{'lab_desktop_how_to_link' | translate}}
       </a>
     </fl-text-icon>
 
@@ -79,7 +79,7 @@
       <button mat-stroked-button (click)="getOnPremiseConfigDownloadUrl(labInstance)"
               type="button">
         <mat-icon>cloud_download</mat-icon>
-        <span>{{'download_on_premise_config' | translate}}</span>
+        <span>{{'download_desktop_config' | translate}}</span>
       </button>
     </ng-template>
 

@@ -129,7 +129,7 @@ export class CaLabInstanceConfigFormComponent implements OnInit {
       this.snackBarService.openSuccessMessage({text: 'lab_instance_cloud_config_updated', translateText: true}, 10000);
     } else {
       this.snackBarService.openSuccessMessage({
-        text: 'lab_instance_on_premise_config_updated',
+        text: 'lab_instance_desktop_config_updated',
         translateText: true
       }, 10000);
     }

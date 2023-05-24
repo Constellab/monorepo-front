@@ -21,7 +21,7 @@ export type CaLabInstanceStatus =
   | 'SERVER_RUNNING';
 export type CaLabInstanceBillingMode = 'HOURLY' | 'MONTHLY';
 export type CaLabInstanceVolumeType = 'CLASSIC' | 'HIGH_SPEED';
-export type CaLabInstanceType = 'CLOUD' | 'ON_PREMISE';
+export type CaLabInstanceType = 'CLOUD' | 'DESKTOP';
 export type CaLabOnPromisePlatform = 'WINDOWS' | 'LINUX' | 'MAC';
 
 
@@ -94,7 +94,7 @@ export class CaLabInstance extends CaBaseEntity {
   }
 
   get isOnPremise(): boolean {
-    return this.type === 'ON_PREMISE';
+    return this.type === 'DESKTOP';
   }
 
   get typeIcon(): string {

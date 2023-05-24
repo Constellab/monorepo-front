@@ -1,5 +1,6 @@
 :host{
   display: flex;
+  cursor: pointer;
 }
 
 .radio-button {
@@ -18,4 +19,5 @@
   width: 100%;
   white-space: normal;
   padding-left: 0.5em;
+  cursor: pointer;
 }

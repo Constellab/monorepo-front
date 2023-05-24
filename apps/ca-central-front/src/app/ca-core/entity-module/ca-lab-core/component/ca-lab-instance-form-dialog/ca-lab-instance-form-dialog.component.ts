@@ -97,7 +97,7 @@ export class CaLabInstanceFormDialogComponent extends FlFormDialogAbstractDirect
   }
 
   create(formValue: CaLabInstanceForm): Observable<any> {
-    if (formValue.type === 'ON_PREMISE') {
+    if (formValue.type === 'DESKTOP') {
       return this.createOnPremiseLab(formValue);
     } else {
       return this.requestCloudLab(formValue);

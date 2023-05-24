@@ -17,20 +17,20 @@
           <div>{{'lab_instance_type_CLOUD' | translate}}</div>
         </div>
 
-        <div class="g-text-small radio-description">
+        <div class="g-text-small g-text-light radio-description">
           {{'lab_instance_type_CLOUD_desc' | translate}}
         </div>
       </fl-radio-button-big>
 
-      <fl-radio-button-big value="ON_PREMISE" fxFlex="49%">
+      <fl-radio-button-big value="DESKTOP" fxFlex="49%">
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em"
              class="radio-text">
           <mat-icon>computer</mat-icon>
-          <div>{{'lab_instance_type_ON_PREMISE' | translate}}</div>
+          <div>{{'lab_instance_type_DESKTOP' | translate}}</div>
         </div>
 
-        <div class="g-text-small radio-description">
-          {{'lab_instance_type_ON_PREMISE_desc' | translate}}
+        <div class="g-text-small g-text-light radio-description">
+          {{'lab_instance_type_DESKTOP_desc' | translate}}
         </div>
       </fl-radio-button-big>
     </mat-radio-group>
@@ -100,7 +100,7 @@
 
       <!--  On Premise Platform  -->
       <div class="on-premise-platform">
-        {{'lab_on_premise_platform' | translate}}
+        {{'lab_desktop_platform' | translate}}
         <mat-radio-group formControlName="onPremisePlatform" required>
           <mat-radio-button value="WINDOWS" color="primary">Windows</mat-radio-button>
           <mat-radio-button value="MAC" color="primary">Mac OS</mat-radio-button>

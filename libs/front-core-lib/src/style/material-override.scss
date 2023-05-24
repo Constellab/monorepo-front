@@ -10,6 +10,8 @@ body {
   @include mat.private-form-field-density(-2);
   // reduce the default height of the checkbox
   @include mat.checkbox-density(-3);
+  // reduce the default height of the radio button
+  @include mat.radio-density(-3);
 }
 
 //////////////////////////////////// FORM FIELD //////////////////////////////////
