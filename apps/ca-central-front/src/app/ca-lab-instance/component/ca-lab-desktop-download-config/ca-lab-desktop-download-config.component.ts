@@ -4,25 +4,25 @@ import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance
 import {FlFileHelper} from '@monorepo/front-core-lib';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
-export interface CaLabOnPremiseDownloadConfigInput {
+export interface CaLabDesktopDownloadConfigInput {
   labInstanceId: string;
 }
 
 @Component({
-  selector: 'ca-lab-on-premise-download-config',
-  templateUrl: './ca-lab-on-premise-download-config.component.html',
-  styleUrls: ['./ca-lab-on-premise-download-config.component.scss']
+  selector: 'ca-lab-desktop-download-config',
+  templateUrl: './ca-lab-desktop-download-config.component.html',
+  styleUrls: ['./ca-lab-desktop-download-config.component.scss']
 })
-export class CaLabOnPremiseDownloadConfigComponent implements OnInit {
+export class CaLabDesktopDownloadConfigComponent implements OnInit {
 
   formGp: FormGroup;
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: CaLabOnPremiseDownloadConfigInput,
+  constructor(@Inject(MAT_DIALOG_DATA) private data: CaLabDesktopDownloadConfigInput,
               private formBuilder: FormBuilder,
               private labInstanceService: CaLabInstanceService,
-              private dialogRef: MatDialogRef<CaLabOnPremiseDownloadConfigComponent>) {
+              private dialogRef: MatDialogRef<CaLabDesktopDownloadConfigComponent>) {
   }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class CaLabOnPremiseDownloadConfigComponent implements OnInit {
 
   private downloadConfig(): void {
     this.isLoading = true;
-    this.labInstanceService.getOnPremiseConfigDownloadUrl(this.data.labInstanceId, this.formGp.getRawValue())
+    this.labInstanceService.getDesktopConfigDownloadUrl(this.data.labInstanceId, this.formGp.getRawValue())
       .subscribe({
         next: (result) => this.downloadConfigSuccess(result),
         error: () => this.isLoading = false
@@ -47,7 +47,7 @@ export class CaLabOnPremiseDownloadConfigComponent implements OnInit {
   }
 
   private downloadConfigSuccess(result: Blob): void {
-    FlFileHelper.downloadBlob(result, 'constellab-on-premise.zip');
+    FlFileHelper.downloadBlob(result, 'constellab-desktop.zip');
     this.dialogRef.close();
     this.isLoading = false;
   }

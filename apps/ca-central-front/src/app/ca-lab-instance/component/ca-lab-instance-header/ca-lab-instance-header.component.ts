@@ -51,7 +51,7 @@ export class CaLabInstanceHeaderComponent implements OnInit {
     const input: LabInstanceUpdateDialogInput = {
       id: labInstance.id,
       name: labInstance.name,
-      onPremisePlatform: labInstance.onPremisePlatform
+      desktopPlatform: labInstance.desktopPlatform
     };
     this.dialogService.openSmallDialog(CaLabInstanceUpdateDialogComponent, {data: input}).afterClosed().subscribe(
       labInstance => this.onUpdateClosed(labInstance)

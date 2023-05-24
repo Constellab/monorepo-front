@@ -2,11 +2,11 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FlSnackBarService} from '@monorepo/front-core-lib';
 import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CaLabInstance, CaLabInstanceOnPremiseForm} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
+import {CaLabInstance, CaLabInstanceDesktopForm} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CaLabInstanceValidator} from '../../../ca-core/model/entities/lab/ca-lab-instance.validator';
 
-export type LabInstanceUpdateDialogInput = CaLabInstanceOnPremiseForm;
+export type LabInstanceUpdateDialogInput = CaLabInstanceDesktopForm;
 
 /**
  * Accessible by lab owner to update lab information
@@ -39,7 +39,7 @@ export class CaLabInstanceUpdateDialogComponent implements OnInit {
     this.formGp = this.formBuilder.group({
       id: [this.input.id, Validators.required],
       name: [this.input.name, [Validators.required, CaLabInstanceValidator.nameValidator()]],
-      onPremisePlatform: [this.input.onPremisePlatform],
+      desktopPlatform: [this.input.desktopPlatform],
     });
   }
 
@@ -59,7 +59,7 @@ export class CaLabInstanceUpdateDialogComponent implements OnInit {
     this.dialogRef.close(labInstance);
   }
 
-  isOnPremise(): boolean {
-    return !!this.input.onPremisePlatform;
+  isDesktop(): boolean {
+    return !!this.input.desktopPlatform;
   }
 }

@@ -12,9 +12,9 @@ import {
 } from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
 import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
 import {
-  CaLabOnPremiseDownloadConfigComponent,
-  CaLabOnPremiseDownloadConfigInput
-} from '../ca-lab-on-premise-download-config/ca-lab-on-premise-download-config.component';
+  CaLabDesktopDownloadConfigComponent,
+  CaLabDesktopDownloadConfigInput
+} from '../ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
 import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
 
 @Component({
@@ -29,7 +29,7 @@ export class CaLabInstanceDetailComponent implements OnInit {
   labIsRunning$: Observable<boolean> = this.state.labIsRunning$();
   isLoading: boolean = false;
 
-  onPremiseDocUrl: string = CaCommunityHelper.getOnPremiseDocUrl();
+  desktopDocUrl: string = CaCommunityHelper.getDesktopDocUrl();
 
   constructor(private state: CaLabInstanceDetailPageState,
               private dialogService: FlDialogService,
@@ -50,11 +50,11 @@ export class CaLabInstanceDetailComponent implements OnInit {
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, {data: input});
   }
 
-  getOnPremiseConfigDownloadUrl(labInstance: CaLabInstance): void {
-    const input: CaLabOnPremiseDownloadConfigInput = {
+  getDesktopConfigDownloadUrl(labInstance: CaLabInstance): void {
+    const input: CaLabDesktopDownloadConfigInput = {
       labInstanceId: labInstance.id,
     }
-    this.dialogService.openSmallDialog(CaLabOnPremiseDownloadConfigComponent, {data: input});
+    this.dialogService.openSmallDialog(CaLabDesktopDownloadConfigComponent, {data: input});
   }
 
 }

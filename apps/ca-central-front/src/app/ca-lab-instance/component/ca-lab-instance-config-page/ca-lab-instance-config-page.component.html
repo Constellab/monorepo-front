@@ -1,7 +1,7 @@
 <!--   Owner section      -->
 <ng-container *ngIf="isOwner$ | async">
 
-  <ng-container *ngIf="(isCloud$ | async); else onPremise">
+  <ng-container *ngIf="(isCloud$ | async); else desktop">
 
 
     <ca-lab-instance-global-status class="g-section"></ca-lab-instance-global-status>
@@ -13,7 +13,7 @@
     <ca-lab-instance-manage-backup class="g-section"></ca-lab-instance-manage-backup>
   </ng-container>
 
-  <ng-template #onPremise>
-    <ca-lab-on-premise-config class="g-section"></ca-lab-on-premise-config>
+  <ng-template #desktop>
+    <ca-lab-desktop-config class="g-section"></ca-lab-desktop-config>
   </ng-template>
 </ng-container>

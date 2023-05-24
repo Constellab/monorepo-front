@@ -22,7 +22,7 @@ export type CaLabInstanceStatus =
 export type CaLabInstanceBillingMode = 'HOURLY' | 'MONTHLY';
 export type CaLabInstanceVolumeType = 'CLASSIC' | 'HIGH_SPEED';
 export type CaLabInstanceType = 'CLOUD' | 'DESKTOP';
-export type CaLabOnPromisePlatform = 'WINDOWS' | 'LINUX' | 'MAC';
+export type CaLabDesktopPlatform = 'WINDOWS' | 'LINUX' | 'MAC';
 
 
 export const caLabInstanceStatusDict: FlStatusDict<CaLabInstanceStatus> = {
@@ -79,7 +79,7 @@ export class CaLabInstance extends CaBaseEntity {
   serverVolumeId?: string;
   gwsCoreProdDbPassword?: string;
   gwsCoreDevDbPassword?: string;
-  onPremisePlatform?: CaLabOnPromisePlatform;
+  desktopPlatform?: CaLabDesktopPlatform;
 
   public isRunning(): boolean {
     return this.currentStatus.status.value === 'LAB_RUNNING';
@@ -93,7 +93,7 @@ export class CaLabInstance extends CaBaseEntity {
     return this.type === 'CLOUD';
   }
 
-  get isOnPremise(): boolean {
+  get isDesktop(): boolean {
     return this.type === 'DESKTOP';
   }
 
@@ -137,13 +137,13 @@ export class CaLabInstanceAdminForm {
 
   @Type(() => CaSpace)
   space?: CaSpace;
-  onPremisePlatform?: CaLabOnPromisePlatform;
+  desktopPlatform?: CaLabDesktopPlatform;
 }
 
-export class CaLabInstanceOnPremiseForm {
+export class CaLabInstanceDesktopForm {
   id: string;
   name: string;
-  onPremisePlatform: CaLabOnPromisePlatform;
+  desktopPlatform: CaLabDesktopPlatform;
 }
 
 
@@ -178,6 +178,6 @@ export interface CaRequestLabInstance {
   additionalInfo?: string;
 }
 
-export interface CaLabInstanceOnPremiseConfig {
+export interface CaLabInstanceDesktopConfig {
   glabTag: 'beta' | 'latest' | string;
 }

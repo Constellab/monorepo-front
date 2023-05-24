@@ -57,10 +57,10 @@
       </mat-error>
     </fl-form-field>
 
-    <!--  On Premise Platform  -->
-    <div *ngIf="!isCloud()" class="on-premise-platform">
+    <!--  Desktop Platform  -->
+    <div *ngIf="!isCloud()" class="desktop-platform">
       {{'lab_desktop_platform' | translate}}
-      <mat-radio-group formControlName="onPremisePlatform" required>
+      <mat-radio-group formControlName="desktopPlatform" required>
         <mat-radio-button value="WINDOWS" color="primary">Windows</mat-radio-button>
         <mat-radio-button value="MAC" color="primary">Mac OS</mat-radio-button>
         <mat-radio-button value="LINUX" color="primary">Linux</mat-radio-button>

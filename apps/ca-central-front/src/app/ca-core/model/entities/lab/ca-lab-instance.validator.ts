@@ -15,8 +15,8 @@ export class CaLabInstanceValidator {
       }
 
 
-      // check that name is only alphanumeric characters and '-' and '_'. Also check that it doesn't start or end with '-' or '_'.
-      if (!/^[a-zA-Z0-9_-]+$/.test(value) || /^[-_]|[-_]$/.test(value)) {
+      // check that name is only alphanumeric characters and '-'. Also check that it doesn't start or end with '-'.
+      if (!/^[a-zA-Z0-9-]+$/.test(value) || /^-|-$/.test(value)) {
         return {pattern: true};
       }
 

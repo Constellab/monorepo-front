@@ -42,17 +42,17 @@
     </fl-text-icon>
 
     <!--   Platform   -->
-    <fl-text-icon *ngIf="labInstance.onPremisePlatform">
+    <fl-text-icon *ngIf="labInstance.desktopPlatform">
       <mat-icon>info</mat-icon>
       <fl-key-value>
         <fl-key>{{'lab_desktop_platform' | translate}}</fl-key>
-        {{labInstance.onPremisePlatform}}
+        {{labInstance.desktopPlatform}}
       </fl-key-value>
     </fl-text-icon>
 
-    <fl-text-icon *ngIf="labInstance.isOnPremise">
+    <fl-text-icon *ngIf="labInstance.isDesktop">
       <mat-icon>help</mat-icon>
-      <a [href]="onPremiseDocUrl" target="_blank" class="g-text-link">
+      <a [href]="desktopDocUrl" target="_blank" class="g-text-link">
         {{'lab_desktop_how_to_link' | translate}}
       </a>
     </fl-text-icon>
@@ -61,7 +61,7 @@
 
   <fl-card-footer layoutGap="0.5em">
 
-    <ng-container *ngIf="labInstance.isCloud; else onPremise">
+    <ng-container *ngIf="labInstance.isCloud; else desktop">
 
       <ca-lab-login-button [labInstanceId]="labInstance.id" [isRunning]="labIsRunning$ | async"></ca-lab-login-button>
 
@@ -75,8 +75,8 @@
 
     </ng-container>
 
-    <ng-template #onPremise>
-      <button mat-stroked-button (click)="getOnPremiseConfigDownloadUrl(labInstance)"
+    <ng-template #desktop>
+      <button mat-stroked-button (click)="getDesktopConfigDownloadUrl(labInstance)"
               type="button">
         <mat-icon>cloud_download</mat-icon>
         <span>{{'download_desktop_config' | translate}}</span>

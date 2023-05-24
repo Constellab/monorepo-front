@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {
+  CaLabDesktopPlatform,
   CaLabInstance,
   CaLabInstanceType,
-  CaLabInstanceWithSpace,
-  CaLabOnPromisePlatform
+  CaLabInstanceWithSpace
 } from '../../../../model/entities/lab/ca-lab-instance.class';
 import {
   FlFormDialogAbstractDirective,
@@ -27,7 +27,7 @@ interface CaLabInstanceForm {
   id: string;
   name: string;
   type: CaLabInstanceType;
-  onPremisePlatform?: CaLabOnPromisePlatform;
+  desktopPlatform?: CaLabDesktopPlatform;
 
   cloudProvider?: string;
   cpuCount?: string;
@@ -77,17 +77,17 @@ export class CaLabInstanceFormDialogComponent extends FlFormDialogAbstractDirect
       storageSize: [null],
       labNeed: [null],
       additionalInfo: [null],
-      onPremisePlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]],
+      desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]],
     });
   }
 
   onTypeChange(type: CaLabInstanceType): void {
     if (type === 'CLOUD') {
       this.formGp.get('name').disable();
-      this.formGp.get('onPremisePlatform').disable();
+      this.formGp.get('desktopPlatform').disable();
     } else {
       this.formGp.get('name').enable();
-      this.formGp.get('onPremisePlatform').enable();
+      this.formGp.get('desktopPlatform').enable();
     }
     this.formGp.updateValueAndValidity();
   }
@@ -98,17 +98,17 @@ export class CaLabInstanceFormDialogComponent extends FlFormDialogAbstractDirect
 
   create(formValue: CaLabInstanceForm): Observable<any> {
     if (formValue.type === 'DESKTOP') {
-      return this.createOnPremiseLab(formValue);
+      return this.createDesktopLab(formValue);
     } else {
       return this.requestCloudLab(formValue);
     }
   }
 
-  private createOnPremiseLab(formValue: CaLabInstanceForm): Observable<CaLabInstance> {
-    return this.labInstanceService.createOnPremiseLab({
+  private createDesktopLab(formValue: CaLabInstanceForm): Observable<CaLabInstance> {
+    return this.labInstanceService.createDesktopLab({
       id: formValue.id,
       name: formValue.name,
-      onPremisePlatform: formValue.onPremisePlatform,
+      desktopPlatform: formValue.desktopPlatform,
     });
   }
 

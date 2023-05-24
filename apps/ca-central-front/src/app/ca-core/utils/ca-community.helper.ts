@@ -24,7 +24,7 @@ export class CaCommunityHelper {
     return this.getTechDocUrl() + '/doc/developer-guide/dev-environment/getting-started';
   }
 
-  public static getOnPremiseDocUrl(): string {
+  public static getDesktopDocUrl(): string {
     return this.getProductDocUrl() + '/doc/digital-lab/digital-lab-for-desktop';
   }
 

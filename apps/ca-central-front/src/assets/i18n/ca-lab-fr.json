@@ -211,11 +211,11 @@
   "lab_instance_type": "Type de lab",
   "lab_instance_type_CLOUD": "Cloud",
   "lab_instance_type_CLOUD_desc": "Le lab est hébergé sur le cloud, sécurisé, accessible de partout, sauvegardé automatiquement et inclut des supports",
-  "lab_instance_type_DESKTOP": "On premise",
+  "lab_instance_type_DESKTOP": "Desktop",
   "lab_instance_type_DESKTOP_desc": "Le lab est hébergé sur votre ordinateur, accessible uniquement depuis votre ordinateur, non sauvegardé et ne comprend pas de supports.",
   "download_desktop_config": "Télécharger la configuration",
   "lab_desktop_platform": "Plateforme",
-  "lab_desktop_how_to_link": "Comment configurer et démarrer le lab On Premises ?",
+  "lab_desktop_how_to_link": "Comment configurer et démarrer le lab Desktop ?",
   "lab_instance_request_help": "Une demande de nouveau lab sera envoyée à l'équipe de support. Nous vous recontacterons dans les plus brefs délais. Veuillez répondre aux questions suivantes.",
   "lab_instance_request_cloud_provider": "De quel fournisseur de cloud avez-vous besoin ?",
   "lab_instance_request_cpu_count": "De combien de coeurs CPU avez-vous besoin ?",
@@ -229,5 +229,5 @@
   "lab_global_info": "Informations générales",
   "lab_virtual_host_domain_error": "Le virtual host doit être un sous domain de {{domain}}",
   "lab_virtual_host_pattern_error": "Le nom de domaine doit uniquement contenir des lettres minuscules, des chiffres et des tirets",
-  "lab_name_invalid": "Le nom du lab ne peut contenir que des caractères alphanumériques, - ou _. Il ne peut pas commencer ou finir par un - ou _"
+  "lab_name_invalid": "Le nom du lab ne peut contenir que des caractères alphanumériques and '-'. Il ne peut pas commencer ou finir par un '-'."
 }

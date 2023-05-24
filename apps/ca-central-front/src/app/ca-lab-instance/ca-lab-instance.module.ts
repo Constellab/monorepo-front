@@ -88,12 +88,22 @@ import {
   CaLabInstanceServerStatusComponent
 } from './component/ca-lab-instance-server-status/ca-lab-instance-server-status.component';
 import {CaLabServerInfoCardComponent} from './component/ca-lab-server-info-card/ca-lab-server-info-card.component';
-import {CaLabOnPremiseConfigComponent} from './component/ca-lab-on-premise-config/ca-lab-on-premise-config.component';
-import { CaLabOnPremiseDownloadConfigComponent } from './component/ca-lab-on-premise-download-config/ca-lab-on-premise-download-config.component';
-import { CaLabManagerUpdateDialogComponent } from './component/ca-lab-manager-update-dialog/ca-lab-manager-update-dialog.component';
-import { CaLabPullBiotaFormDialogComponent } from './component/ca-lab-pull-biota-form-dialog/ca-lab-pull-biota-form-dialog.component';
-import { CaLabInstanceManagerAdvancedComponent } from './component/ca-lab-instance-manager-advanced/ca-lab-instance-manager-advanced.component';
-import { CaLabInstanceGlobalStatusComponent } from './component/ca-lab-instance-global-status/ca-lab-instance-global-status.component';
+import {CaLabDesktopConfigComponent} from './component/ca-lab-desktop-config/ca-lab-desktop-config.component';
+import {
+  CaLabDesktopDownloadConfigComponent
+} from './component/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
+import {
+  CaLabManagerUpdateDialogComponent
+} from './component/ca-lab-manager-update-dialog/ca-lab-manager-update-dialog.component';
+import {
+  CaLabPullBiotaFormDialogComponent
+} from './component/ca-lab-pull-biota-form-dialog/ca-lab-pull-biota-form-dialog.component';
+import {
+  CaLabInstanceManagerAdvancedComponent
+} from './component/ca-lab-instance-manager-advanced/ca-lab-instance-manager-advanced.component';
+import {
+  CaLabInstanceGlobalStatusComponent
+} from './component/ca-lab-instance-global-status/ca-lab-instance-global-status.component';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -132,8 +142,8 @@ import { CaLabInstanceGlobalStatusComponent } from './component/ca-lab-instance-
     CaLabInstanceStartStopComponent,
     CaLabInstanceServerStatusComponent,
     CaLabServerInfoCardComponent,
-    CaLabOnPremiseConfigComponent,
-    CaLabOnPremiseDownloadConfigComponent,
+    CaLabDesktopConfigComponent,
+    CaLabDesktopDownloadConfigComponent,
     CaLabManagerUpdateDialogComponent,
     CaLabPullBiotaFormDialogComponent,
     CaLabInstanceManagerAdvancedComponent,

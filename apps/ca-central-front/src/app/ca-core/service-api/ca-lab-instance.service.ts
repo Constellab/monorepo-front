@@ -4,9 +4,9 @@ import {
   CaLabInstance,
   CaLabInstanceAdminForm,
   CaLabInstanceDatasource,
+  CaLabInstanceDesktopConfig,
+  CaLabInstanceDesktopForm,
   CaLabInstanceFindOneDto,
-  CaLabInstanceOnPremiseConfig,
-  CaLabInstanceOnPremiseForm,
   CaLabInstanceStatusDTO,
   CaLabInstanceStatusHistory,
   CaLabInstanceWithSpace,
@@ -27,8 +27,10 @@ import {
   CaLabComposeRestartOptions,
   CaLabComposeUpOptions,
   CaLabDockerPs,
-  CaLabManagerConfig, CaLabManagerRecommendedVersion,
-  CaLabManagerStatus, CaLabPullBiotaOptions,
+  CaLabManagerConfig,
+  CaLabManagerRecommendedVersion,
+  CaLabManagerStatus,
+  CaLabPullBiotaOptions,
   CaLabTaskStatusInfo
 } from '../model/entities/lab/ca-lab-manager.class';
 import {CaLabInstanceUser, CaLabInstanceUserRole} from '../model/entities/lab/ca-lab-instance-user.class';
@@ -59,8 +61,8 @@ export class CaLabInstanceService {
     return this.apiService.put(`${this.route}/admin`, entity, CaLabInstanceWithSpace, {serialization: CaLabInstanceAdminForm});
   }
 
-  public createOnPremiseLab(entity: CaLabInstanceOnPremiseForm): Observable<CaLabInstance> {
-    return this.apiService.post(`${this.route}/on-premise`, entity, CaLabInstance);
+  public createDesktopLab(entity: CaLabInstanceDesktopForm): Observable<CaLabInstance> {
+    return this.apiService.post(`${this.route}/desktop`, entity, CaLabInstance);
   }
 
   public updateLab(entity: CaLabInstanceAdminForm): Observable<CaLabInstance> {
@@ -310,11 +312,11 @@ export class CaLabInstanceService {
     return this.apiService.put(`${this.route}/${id}/dockerlab/update`, null, CaLabInstanceStatusDTO);
   }
 
-  //////////////////////////// ON PREMISE ////////////////////////////////
+  //////////////////////////// Desktop ////////////////////////////////
 
-  public getOnPremiseConfigDownloadUrl(id: string, config: CaLabInstanceOnPremiseConfig): Observable<Blob> {
+  public getDesktopConfigDownloadUrl(id: string, config: CaLabInstanceDesktopConfig): Observable<Blob> {
     return this.apiService.post(
-      `${this.route}/${id}/on-premise/generate-config`, config, null,
+      `${this.route}/${id}/desktop/generate-config`, config, null,
       {responseType: 'blob'});
   }
 }

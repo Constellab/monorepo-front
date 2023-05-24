@@ -8,11 +8,11 @@ import {CaLabInstanceDetailPageState} from '../../state/ca-lab-instance-detail-p
 import {FlServerError, FlSnackBarService} from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'ca-lab-on-premise-config',
-  templateUrl: './ca-lab-on-premise-config.component.html',
-  styleUrls: ['./ca-lab-on-premise-config.component.scss']
+  selector: 'ca-lab-desktop-config',
+  templateUrl: './ca-lab-desktop-config.component.html',
+  styleUrls: ['./ca-lab-desktop-config.component.scss']
 })
-export class CaLabOnPremiseConfigComponent implements OnInit {
+export class CaLabDesktopConfigComponent implements OnInit {
 
   labInstanceId: string = this.state.getLabInstanceId();
 

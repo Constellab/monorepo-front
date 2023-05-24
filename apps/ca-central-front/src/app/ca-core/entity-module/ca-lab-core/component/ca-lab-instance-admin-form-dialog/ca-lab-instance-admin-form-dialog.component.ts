@@ -83,7 +83,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       gwsCoreDevDbPassword: [null],
       region: [null, Validators.required],
       space: [null, Validators.required],
-      onPremisePlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]]
+      desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]]
     });
   }
 
@@ -100,7 +100,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       this.formGp.get('serverVolumeId').enable();
       this.formGp.get('region').enable();
 
-      this.formGp.get('onPremisePlatform').disable();
+      this.formGp.get('desktopPlatform').disable();
 
     } else {
       this.formGp.get('virtualHost').disable();
@@ -114,7 +114,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       this.formGp.get('serverVolumeId').disable();
       this.formGp.get('region').disable();
 
-      this.formGp.get('onPremisePlatform').enable();
+      this.formGp.get('desktopPlatform').enable();
     }
     this.formGp.updateValueAndValidity();
   }
