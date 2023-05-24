@@ -7,7 +7,7 @@
     <span>{{'stop_lab' | translate}}</span>
   </button>
   <ng-template #stopped>
-    <span [matTooltip]="'start_lab_disabled' | translate" [matTooltipDisabled]="serverIsReady$ | async">
+    <span [matTooltip]="'start_lab_disabled' | translate" [matTooltipDisabled]="serverIsReady$ | async" class="container">
       <button mat-stroked-button color="primary" type="button"
               (click)="startLab()" class="g-button-small"
               [disabled]="(serverIsReady$ | async) === false">

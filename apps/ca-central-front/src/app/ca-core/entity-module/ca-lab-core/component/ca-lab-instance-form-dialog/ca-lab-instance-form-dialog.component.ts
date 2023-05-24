@@ -19,6 +19,7 @@ import {
   CaLabInstanceAdminFormDialogInput
 } from '../ca-lab-instance-admin-form-dialog/ca-lab-instance-admin-form-dialog.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {CaLabInstanceValidator} from '../../../../model/entities/lab/ca-lab-instance.validator';
 
 export type CaLabInstanceFormDialogInput = FlFormDialogInput<CaLabInstanceForm>;
 
@@ -69,7 +70,7 @@ export class CaLabInstanceFormDialogComponent extends FlFormDialogAbstractDirect
   buildForm(): FormGroup<CaLabInstanceForm> {
     return new FormBuilder().group({
       id: [null],
-      name: [null, [Validators.required]],
+      name: [null, [Validators.required, CaLabInstanceValidator.nameValidator()]],
       type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
       cloudProvider: [null],
       cpuCount: [null],

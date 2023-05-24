@@ -2,13 +2,12 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {
   CaLabInstanceAdminForm,
   CaLabInstanceType,
-  CaLabInstanceWithSpace,
-  CaLabSupportedDomains
+  CaLabInstanceWithSpace
 } from '../../../../model/entities/lab/ca-lab-instance.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
-import {AbstractControl, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {Validators} from '@angular/forms';
 import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
@@ -19,6 +18,7 @@ import {
 import {CaCountryService} from '../../../../service-api/ca-country.service';
 import {CaCountry} from '../../../../model/entities/ca-country.entity';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {CaLabInstanceValidator} from '../../../../model/entities/lab/ca-lab-instance.validator';
 
 export type CaLabInstanceAdminFormDialogInput = FlFormDialogInput<CaLabInstanceAdminForm>;
 
@@ -37,8 +37,8 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
 
   maxNameLength = CaLabInstanceWithSpace.MAX_NAME_LENGTH;
 
-  supportedDomains = CaLabSupportedDomains;
-  supportedDomainsText = CaLabSupportedDomains.join(', ');
+  supportedDomains = CaLabInstanceValidator.SUPPORTED_DOMAINS;
+  supportedDomainsText = CaLabInstanceValidator.SUPPORTED_DOMAINS.join(', ');
 
   constructor(snackBarService: FlSnackBarService,
               dialogRef: MatDialogRef<CaLabInstanceAdminFormDialogComponent>,
@@ -67,9 +67,9 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
 
     return new FormBuilder().group({
       id: [null],
-      name: [null, [Validators.required]],
+      name: [null, [Validators.required, CaLabInstanceValidator.nameValidator()]],
       type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
-      virtualHost: [null, [Validators.required, this.virtualHostDomainValidator()]],
+      virtualHost: [null, [Validators.required, CaLabInstanceValidator.virtualHostDomainValidator()]],
       serverInfo: [null, [Validators.required]],
       billingMode: [null, [Validators.required]],
       volumeSize: [null, [Validators.required, FlGlobalValidators.isInteger, Validators.min(50)]],
@@ -137,34 +137,6 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
 
   getUpdateSuccessMessage(): string {
     return 'lab_instance_updated';
-  }
-
-  public virtualHostDomainValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value: any = control.value;
-      if (value == null || value.length === 0) {
-        return null;  // don't validate empty values to allow optional controls
-      }
-
-      // check that the value is a subdomain of one of supportedDomains
-      const subDomain = value.split('.')[0];
-      if (subDomain.length === 0) {
-        return {invalid: true};
-      }
-
-      const mainDomain = value.substring(subDomain.length + 1);
-      if (this.supportedDomains.indexOf(mainDomain) === -1) {
-        return {invalid: true};
-      }
-
-      // check that subdomain is only lowercase letters, numbers and '-'
-      if (!subDomain.match(/^[a-z0-9-]+$/)) {
-        return {pattern: true};
-      }
-
-      return null;
-
-    };
   }
 
 }

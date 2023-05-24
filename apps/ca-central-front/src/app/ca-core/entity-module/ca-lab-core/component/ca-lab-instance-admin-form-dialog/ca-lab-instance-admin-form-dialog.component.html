@@ -43,6 +43,9 @@
       <mat-error *ngIf="formGp.get('name').hasError('required')">
         {{'name' | flErrorRequired}}
       </mat-error>
+      <mat-error *ngIf="formGp.get('name').hasError('pattern')">
+        {{'lab_name_invalid' | translate}}
+      </mat-error>
     </mat-form-field>
 
     <!--  Space  -->

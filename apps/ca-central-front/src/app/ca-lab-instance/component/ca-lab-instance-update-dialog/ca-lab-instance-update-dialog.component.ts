@@ -4,6 +4,7 @@ import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CaLabInstance, CaLabInstanceOnPremiseForm} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {CaLabInstanceValidator} from '../../../ca-core/model/entities/lab/ca-lab-instance.validator';
 
 export type LabInstanceUpdateDialogInput = CaLabInstanceOnPremiseForm;
 
@@ -37,7 +38,7 @@ export class CaLabInstanceUpdateDialogComponent implements OnInit {
   private initForm(): void {
     this.formGp = this.formBuilder.group({
       id: [this.input.id, Validators.required],
-      name: [this.input.name, Validators.required],
+      name: [this.input.name, [Validators.required, CaLabInstanceValidator.nameValidator()]],
       onPremisePlatform: [this.input.onPremisePlatform],
     });
   }
