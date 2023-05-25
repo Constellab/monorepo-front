@@ -20,6 +20,13 @@
           (click)="stopExperiment()" [matTooltip]="'biox.stop_experiment' | translate">
     <mat-icon>stop</mat-icon>
   </button>
+
+  <button mat-icon-button type="button" color="warn"
+          *ngIf="experiment.pidStatus === 'UNEXPECTED_STOPPED'"
+          [matTooltip]="'biox.experiment_pid_stopped' | translate"
+          (click)="stopExperiment()">
+    <mat-icon>error</mat-icon>
+  </button>
 </div>
 
 <!--  Add object menu  -->

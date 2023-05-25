@@ -17,6 +17,7 @@ import {LabRunningProcessInfo} from './process/lab-process.entity';
 
 export type LabExperimentStatus = 'DRAFT' | 'IN_QUEUE' | 'WAITING_FOR_CLI_PROCESS'
   | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN';
+export type LabExperimentPidStatus = 'NONE' | 'RUNNING' | 'UNEXPECTED_STOPPED';
 
 // const to list the experiment status translation texts
 export const labExperimentStatusDict: FlStatusDict<LabExperimentStatus> = {
@@ -86,6 +87,9 @@ export class LabExperiment extends LabEntityWithTag implements LabProjectObject 
 
   @Type(() => LabProject)
   project: LabProject;
+
+  @Expose({name: 'pid_status'})
+  pidStatus: LabExperimentPidStatus;
 
   isEditable(): boolean {
     return !this.isArchived && !this.isValidated && !this.isRunning() && this.status.value !== 'IN_QUEUE';

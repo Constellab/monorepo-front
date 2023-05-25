@@ -278,6 +278,7 @@
     "no_input_resource": "No input resource, the previous processes was not executed or not connected",
     "no_output_resource": "No output resource, the process was not executed or is in error",
     "resource_loading_error": "Error while loading the resource",
-    "no_config_for_task": "This task does not have any configuration"
+    "no_config_for_task": "This task does not have any configuration",
+    "experiment_pid_stopped": "The linux process of the experiment has been stopped unexpectedly. Please stop the experiment manually as it is not running anymore."
   }
 }
