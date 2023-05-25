@@ -28,6 +28,11 @@
       {{'biox.create_report' | translate}}
     </button>
 
+    <button mat-menu-item type="button" (click)="openCreateProtocolTemplate()">
+      <mat-icon flIcon="protocol_template"></mat-icon>
+      {{'biox.create_protocol_template' | translate}}
+    </button>
+
     <!--  Update buttons  -->
     <ng-container *ngIf="experiment.isEditable()">
       <button mat-menu-item type="button" (click)="openUpdateDialog()">

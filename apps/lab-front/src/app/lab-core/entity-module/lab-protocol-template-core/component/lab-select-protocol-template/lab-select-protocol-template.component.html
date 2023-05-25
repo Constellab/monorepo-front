@@ -1,0 +1,18 @@
+<fl-input-search [selectedItem]="selectedTemplate"
+                 (selectedItemChange)="setAndEmitValue($event)"
+                 [datasource]="datasource"
+                 [placeholder]="placeholder"
+                 [required]="required"
+                 [disabled]="disabled"
+                 [advancedButton]="advancedButton">
+
+  <div class="photo" *flInputSearchPrefix="let protocolTemplate">
+    <fl-user-profile-picture *ngIf="protocolTemplate" [user]="protocolTemplate.createdBy"
+                             size="small"></fl-user-profile-picture>
+
+  </div>
+
+
+  <lab-protocol-template-inline *flInputSearchOption="let protocolTemplate" [protocolTemplate]="protocolTemplate">
+  </lab-protocol-template-inline>
+</fl-input-search>

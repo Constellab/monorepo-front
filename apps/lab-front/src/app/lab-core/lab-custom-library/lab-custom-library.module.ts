@@ -19,6 +19,7 @@ import {
   FlIconModule,
   FlInfiniteScrollModule,
   FlInputFileModule,
+  FlInputSearchModule,
   FlJsonEditorModule,
   FlKeyValueModule,
   FlLoaderModule,
@@ -88,6 +89,7 @@ import {ChChartModule} from '@monorepo/chart';
     FlAutocompleteMultipleModule,
     FlThemeModule,
     FlUserModule,
+    FlInputSearchModule,
 
     //  Other lib
     BnBioNetworkModule,

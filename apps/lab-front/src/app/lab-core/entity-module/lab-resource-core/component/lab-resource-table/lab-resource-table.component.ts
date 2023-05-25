@@ -13,7 +13,7 @@ import {
   FlDialogService,
   FlDropEvent,
   FlEntityArrayObs,
-  FlTableColumn,
+  FlTableColumnStatic,
   FlTag,
   FlTagSelectedEvent
 } from '@monorepo/front-core-lib';
@@ -38,7 +38,7 @@ export class LabResourceTableComponent implements OnInit {
 
   @Input() datasource: FlArrayObs<LabResource>;
 
-  @Input() columns: FlTableColumn<LabResource>[];
+  @Input() columns: FlTableColumnStatic<LabResource>[];
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() selectableRow: boolean = false;
@@ -50,7 +50,7 @@ export class LabResourceTableComponent implements OnInit {
   @Output() tagSelected: EventEmitter<FlTag> = new EventEmitter();
 
   // column used in the sub table (for resource set)
-  subTableColumns: FlTableColumn<LabResource>[];
+  subTableColumns: FlTableColumnStatic<LabResource>[];
 
   // enable drop tags
   supportedDropType: LabDragType = LabDragType.TAG;

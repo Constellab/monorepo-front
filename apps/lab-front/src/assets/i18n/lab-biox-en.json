@@ -279,6 +279,15 @@
     "no_output_resource": "No output resource, the process was not executed or is in error",
     "resource_loading_error": "Error while loading the resource",
     "no_config_for_task": "This task does not have any configuration",
-    "experiment_pid_stopped": "The linux process of the experiment has been stopped unexpectedly. Please stop the experiment manually as it is not running anymore."
+    "experiment_pid_stopped": "The linux process of the experiment has been stopped unexpectedly. Please stop the experiment manually as it is not running anymore.",
+    "create_protocol_template": "Create protocol template",
+    "update_protocol_template": "Update protocol template",
+    "protocol_template_created": "Protocol template created",
+    "protocol_template_updated": "Protocol template updated",
+    "delete_protocol_template": "Delete protocol template",
+    "delete_protocol_template_confirmation": "Are you sure you want to delete this protocol template ?",
+    "protocol_template_deleted": "Protocol template deleted",
+    "protocol_template": "Protocol template",
+    "select_protocol_template": "Select a protocol template"
   }
 }

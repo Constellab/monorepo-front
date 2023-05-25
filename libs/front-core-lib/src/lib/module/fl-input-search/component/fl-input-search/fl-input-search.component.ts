@@ -15,8 +15,12 @@ import {FormControl} from '@angular/forms';
 import {FlInputSearchOptionDirective} from '../../directive/fl-input-search-option.directive';
 import {FlViewContext} from '../../../../model/fl-view-context.class';
 import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
-import {clRxjsElasticSearch} from '@monorepo/core-lib';
+import {ClHelpService, clRxjsElasticSearch} from '@monorepo/core-lib';
 import {FlInputSearchPrefixDirective} from '../../directive/fl-input-search-prefix.directive';
+
+export interface FlInputSearchAdvancedButton<T>{
+  onClick: () => Observable<T | null>
+}
 
 /**
  * Input/Select component to search for a entity and select one.
@@ -56,6 +60,8 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
       this.inputControl.enable();
     }
   }
+
+  @Input() advancedButton?: FlInputSearchAdvancedButton<T>;
 
   /**
    * Event emitted when the input is focused, this is useful to init the list of items
@@ -191,6 +197,18 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
       this.initSubscription = undefined;
     }
     this.initIsLoading = false;
+  }
+
+  callAdvancedButton(event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    if (this.advancedButton) {
+      this.advancedButton.onClick().subscribe(item => {
+        if (item) {
+          this.setSelectedItemAndEmit(item);
+          this.refreshInputCtrl();
+        }
+      });
+    }
   }
 
   ngOnDestroy(): void {

@@ -1,0 +1,75 @@
+import {
+  FlFormInputsManagerConfig,
+  FlSearchConverter,
+  FlSearchCriteriaConverter,
+  FlSearchDateInterval,
+  FlTag,
+  FlTagHelper
+} from '@monorepo/front-core-lib';
+import {Type} from 'class-transformer';
+import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+
+
+export class LabProtocolTemplateSearchFields {
+  name: string;
+
+  tags: FlTag[];
+
+  @Type(() => FlSearchDateInterval)
+  createdAt: FlSearchDateInterval;
+
+  createdBy: string[];
+
+  @Type(() => FlSearchDateInterval)
+  lastModifiedAt: FlSearchDateInterval;
+
+  id: string;
+}
+
+export class LabProtocolTemplateSearch {
+  /**
+   * Const to configure Form Input Manager for advanced search
+   */
+  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabProtocolTemplateSearchFields> = {
+    name: 'name',
+    tags: 'flTag.tags',
+    // group the creation date into one chip
+    createdAt: 'creation_date',
+    createdBy: 'created_by',
+    lastModifiedAt: 'last_modified_date',
+  };
+
+
+  /**
+   * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
+   */
+  public static advancedSearchConverter: FlSearchCriteriaConverter<LabProtocolTemplateSearchFields> = {
+    name: {key: 'text', operator: 'CONTAINS'},
+    tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
+    // Date
+    createdBy: {key: 'created_by', operator: 'IN'},
+    createdAt: FlSearchConverter.dateInterval('created_at'),
+    lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
+    id: {key: 'id', operator: 'EQ'},
+  };
+
+  public static getAdvancedSearchForm(): FormGroup<LabProtocolTemplateSearchFields> {
+    return new FormBuilder().group(
+      {
+        name: [null],
+        tags: [null],
+        createdBy: [],
+        createdAt: new FormBuilder().group<FlSearchDateInterval>({
+          from: [null],
+          to: [null],
+        }),
+        lastModifiedAt: new FormBuilder().group<FlSearchDateInterval>({
+          from: [null],
+          to: [null],
+        }),
+        id: [null],
+      }
+    );
+  }
+
+}

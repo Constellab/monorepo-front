@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {
   FlAdvancedSearchInput,
   FlApiService,
-  FlEntityPaginatedDatasource,
   FlQuillJson,
   FlSearchConverter,
   FLSearchFunction,
@@ -11,11 +10,10 @@ import {
 import {Observable} from 'rxjs';
 import {
   LabExperiment,
-  LabExperimentDatasource,
   LabExperimentSimpleForm,
   LabRunningExperimentInfo
 } from '../model/entities/lab-experiment.entity';
-import {ClGetPageFunction, ClPageI} from '@monorepo/core-lib';
+import {ClPageI} from '@monorepo/core-lib';
 import {LabTag} from '../model/entities/lab-tag.entity';
 import {
   LabExperimentSearch,
@@ -31,20 +29,6 @@ export class LabExperimentService {
   private route: string = 'experiment';
 
   constructor(private apiService: FlApiService) {
-  }
-
-  public getExperiments(page: number, pageSize: number): Observable<ClPageI<LabExperiment>> {
-    return this.apiService.get(this.route, LabExperiment,
-      {resultIsPaginated: true, page: page, pageSize: pageSize});
-  }
-
-
-  public getExperimentsDatasource(): LabExperimentDatasource {
-    return new FlEntityPaginatedDatasource(this.getExperimentsMethod(), 20, true);
-  }
-
-  private getExperimentsMethod(): ClGetPageFunction<LabExperiment> {
-    return (page: number, pageSize: number): Observable<ClPageI<LabExperiment>> => this.getExperiments(page, pageSize);
   }
 
   public getExperiment(id: string): Observable<LabExperiment> {
@@ -64,10 +48,11 @@ export class LabExperimentService {
     return this.apiService.put(`${this.route}/${experimentId}/project`, {project_id: projectId}, LabExperiment);
   }
 
-  private experimentFormToBody(experiment: LabExperimentSimpleForm): { title: string, project_id: string } {
+  private experimentFormToBody(experiment: LabExperimentSimpleForm): any {
     return {
       title: experiment.title,
-      project_id: experiment.project?.id ?? null
+      project_id: experiment.project?.id ?? null,
+      protocol_template_id: experiment.protocolTemplate?.id ?? null
     };
   }
 

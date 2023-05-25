@@ -9,17 +9,25 @@
     <mat-form-field class="g-form-input">
       <mat-label>{{'title' | translate}}</mat-label>
       <input matInput formControlName="title" required flInputMaxLength="50"
-             placeholder="{{'title' | translate}}">
+             [placeholder]="'title' | translate">
       <mat-error *ngIf="formGp.get('title').hasError('required')">
         {{'title' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
 
-    <!--    Project      -->
-    <p class="g-text-light helper-text">{{'biox.select_project_help' | translate}}</p>
-    <div class="g-text-centered">
-      <lab-project-select-button formControlName="project"></lab-project-select-button>
-    </div>
+    <!--  Protocol template  -->
+    <fl-form-field class="g-form-input">
+      <lab-select-protocol-template formControlName="protocolTemplate"
+                                    [placeholder]="'biox.protocol_template' | translate">
+      </lab-select-protocol-template>
+    </fl-form-field>
+
+      <!--    Project      -->
+      <p class="g-text-light helper-text">{{'biox.select_project_help' | translate}}</p>
+      <div class="g-text-centered">
+        <lab-project-select-button formControlName="project"></lab-project-select-button>
+      </div>
+
 
   </form>
 </mat-dialog-content>

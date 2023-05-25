@@ -37,7 +37,8 @@ export class LabExperimentFormDialogComponent extends FlFormDialogAbstractDirect
   buildForm(): FormGroup<LabExperimentSimpleForm> {
     const formGroup: FormGroup<LabExperimentSimpleForm> = new FormBuilder().group({
       title: [null, Validators.required],
-      project: [null]
+      project: [null],
+      protocolTemplate: [null],
     });
 
     if (this.isUpdateMode() && this.dialogInput.disabledProject) {

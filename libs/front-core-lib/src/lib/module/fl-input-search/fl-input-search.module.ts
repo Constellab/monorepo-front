@@ -9,6 +9,8 @@ import {FlInputSearchOptionDirective} from './directive/fl-input-search-option.d
 import {ReactiveFormsModule} from '@angular/forms';
 import {FlLoaderModule} from '../fl-loader/fl-loader.module';
 import {FlInputSearchPrefixDirective} from './directive/fl-input-search-prefix.directive';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import {FlInputSearchPrefixDirective} from './directive/fl-input-search-prefix.d
     MatInputModule,
     MatAutocompleteModule,
     MatOptionModule,
+    MatButtonModule,
+    MatIconModule,
 
     FlInfiniteScrollModule,
     FlLoaderModule,

@@ -39,6 +39,10 @@ import {
   LabMonitorBetweenDatesDialogInput
 } from '../../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import {LabProcessService} from '../../../../../lab-core/entity-service/lab-process.service';
+import {
+  LabProtocolTemplateFormDialogComponent,
+  LabProtocolTemplateFormDialogInput
+} from '../../../../../lab-core/entity-module/lab-protocol-template-core/component/lab-protocol-template-form-dialog/lab-protocol-template-form-dialog.component';
 
 /**
  * Header for the experiment detail page
@@ -179,7 +183,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
     const input: LabReportFormDialogInput = {
       mode: 'create',
-      experimentId: this.experimentState.currentExperiment.id,
+      experimentId: experiment.id,
       project: experiment.project
     };
 
@@ -192,6 +196,19 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     if (report) {
       this.routerService.navigateToReportDetail(report.id);
     }
+  }
+
+  openCreateProtocolTemplate(): void {
+    const experiment = this.experimentState.currentExperiment;
+
+    const input: LabProtocolTemplateFormDialogInput = {
+      mode: 'create',
+      protocolId: experiment.protocol.id,
+      defaultName: experiment.title
+    };
+
+    this.dialogService.openSmallDialog(LabProtocolTemplateFormDialogComponent,
+      {data: input}).afterClosed().subscribe();
   }
 
   resetExperiment(): void {

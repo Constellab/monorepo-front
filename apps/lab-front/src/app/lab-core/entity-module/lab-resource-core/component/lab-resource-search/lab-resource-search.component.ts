@@ -8,7 +8,7 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
+  FlTableColumnStatic,
   FlTag,
   FlThemeService
 } from '@monorepo/front-core-lib';
@@ -59,7 +59,7 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
   datasource: FlDatasourcePaginated<LabResource>;
 
-  columns: FlTableColumn<LabResource>[];
+  columns: FlTableColumnStatic<LabResource>[];
 
   files: File[];
 

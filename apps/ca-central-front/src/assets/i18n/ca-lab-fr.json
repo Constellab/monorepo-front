@@ -229,6 +229,5 @@
   "lab_global_info": "Informations générales",
   "lab_virtual_host_domain_error": "Le virtual host doit être un sous domain de {{domain}}",
   "lab_virtual_host_pattern_error": "Le nom de domaine doit uniquement contenir des lettres minuscules, des chiffres et des tirets",
-  "lab_name_invalid": "Le nom du lab ne peut contenir que des caractères alphanumériques and '-'. Il ne peut pas commencer ou finir par un '-'.",
-  "experiment_pid_stopped_fr": "Le processus linux de l'expérience a été arrêté de manière inattendue. Veuillez arrêter l'expérience manuellement car elle ne fonctionne plus."
+  "lab_name_invalid": "Le nom du lab ne peut contenir que des caractères alphanumériques and '-'. Il ne peut pas commencer ou finir par un '-'."
 }

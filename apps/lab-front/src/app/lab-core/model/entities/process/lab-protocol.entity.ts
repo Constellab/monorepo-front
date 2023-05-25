@@ -40,8 +40,6 @@ export class LabProtocolLayout {
 
 export class LabProtocolGraph extends LabEntity {
 
-  title: string;
-
   @ClRecordTransform(LabProtocolIOFace)
   interfaces: Record<string, LabProtocolIOFace>;
 

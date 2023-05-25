@@ -1,5 +1,6 @@
 import {LabEntity} from '../global/lab-entity.entity';
 import {
+  FlEntity,
   FlEntityPaginatedDatasource,
   FlQuillJson,
   FlStatus,
@@ -110,6 +111,7 @@ export type LabExperimentDatasource = FlEntityPaginatedDatasource<LabExperiment>
 export interface LabExperimentSimpleForm {
   title: string;
   project: LabEntity;
+  protocolTemplate?: FlEntity;
 }
 
 export class LabRunningExperimentInfo extends LabEntity {

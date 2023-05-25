@@ -1,0 +1,43 @@
+<mat-table fxFlex="100" mat-table [dataSource]="datasource" multiTemplateDataRows>
+
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{'name' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let template">
+      {{template.name}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Created -->
+  <ng-container matColumnDef="created">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{'creation_info' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let template">
+      <fl-user-with-date [user]="template.createdBy" [date]="template.createdAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Tags -->
+  <ng-container matColumnDef="tags">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{'tags' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let template" class="tags">
+      <fl-tag-list [tags]="template.tags"></fl-tag-list>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+
+  <!-- Mode selectable -->
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
+           (click)="rowClicked(row)"></mat-row>
+
+
+</mat-table>
+

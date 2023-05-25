@@ -20,6 +20,13 @@
   </mat-autocomplete>
 
   <!-- loader suffix -->
-  <fl-loader matSuffix *ngIf="datasource.isLoading || initIsLoading" [size]="20"
+  <fl-loader matSuffix *ngIf="datasource.isLoading || initIsLoading; else noLoader" [size]="20"
              class="loader"></fl-loader>
+
+  <ng-template #noLoader>
+    <button mat-icon-button type="button" matSuffix *ngIf="advancedButton"
+            (click)="callAdvancedButton($event)">
+      <mat-icon>search</mat-icon>
+    </button>
+  </ng-template>
 </mat-form-field>

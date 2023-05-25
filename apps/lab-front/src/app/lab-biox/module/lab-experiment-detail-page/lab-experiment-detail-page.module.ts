@@ -56,6 +56,9 @@ import {
 import {
   LabWorkflowNodeIoPanelComponent
 } from './component/lab-workflow-node-io-panel/lab-workflow-node-io-panel.component';
+import {
+  LabProtocolTemplateCoreModule
+} from '../../../lab-core/entity-module/lab-protocol-template-core/lab-protocol-template-core.module';
 
 @NgModule({
   declarations: [
@@ -98,6 +101,7 @@ import {
     LabMonitorCoreModule,
     LabProgressBarCoreModule,
     LabProjectCoreModule,
+    LabProtocolTemplateCoreModule,
   ],
 })
 export class LabExperimentDetailPageModule {

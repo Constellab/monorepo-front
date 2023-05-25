@@ -1,6 +1,6 @@
 import {Component, OnInit, Optional} from '@angular/core';
 import {LabResourceViewResourcesList} from '../../../../model/entities/resource/lab-resource-view.entity';
-import {FlArrayObs, FlEntityArrayObs, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlArrayObs, FlEntityArrayObs, FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
 import {ClCoreJsonConvert} from '@monorepo/core-lib';
 import {RvResourceViewDirective} from '@monorepo/resource-view';
@@ -19,7 +19,7 @@ export class LabResourceViewListComponent extends RvResourceViewDirective<LabRes
 
   datasource: FlArrayObs<LabResource>;
 
-  columns: FlTableColumn<LabResource>[] = ['name', 'type', 'tags', 'preview', 'openInNewTab'];
+  columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'tags', 'preview', 'openInNewTab'];
 
   selectableRow: boolean;
 

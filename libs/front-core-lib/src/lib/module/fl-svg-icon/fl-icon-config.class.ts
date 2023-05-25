@@ -48,6 +48,7 @@ export const FL_ICON_MODULE =
 export const flIconsDefault: FlIcon[] = [
   {name: 'experiment', filename: 'flask-solid.svg'},
   {name: 'protocol', filename: 'cogs-solid.svg'},
+  {name: 'protocol_template', matIconName: 'description'},
   {name: 'process', filename: 'cogs-solid.svg'},
   {name: 'lab', filename: 'microscope-solid.svg'},
   {name: 'project', filename: 'briefcase-solid.svg'},

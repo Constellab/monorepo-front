@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {FlArrayObs, FlEntityArrayObs, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlArrayObs, FlEntityArrayObs, FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
 import {LabResourceDetailTabsState} from '../../state/lab-resource-detail-tabs-state.service';
 
@@ -18,7 +18,7 @@ export class LabResourceChildrenListComponent implements OnInit {
 
   resources$: FlArrayObs<LabResource>;
 
-  columns: FlTableColumn<LabResource>[] = ['name', 'type', 'preview'];
+  columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'preview'];
 
 
   constructor(private resourceService: LabResourceService,
