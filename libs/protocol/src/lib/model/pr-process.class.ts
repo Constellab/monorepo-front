@@ -1,6 +1,7 @@
 import {FlStatus, FlStatusDict, FlStatusHelper} from '@monorepo/front-core-lib';
 import {PrIO} from './pr-io.class';
 import {PrConfig} from './pr-config.class';
+import {TdTypeObjectStatus} from '@monorepo/technical-doc';
 
 export type PrProcessStatus = 'DRAFT' | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN';
 
@@ -36,4 +37,6 @@ export interface PrProcess {
   outputs: Record<string, PrIO>;
 
   parentProtocolId: string;
+
+  typeStatus?: TdTypeObjectStatus;
 }

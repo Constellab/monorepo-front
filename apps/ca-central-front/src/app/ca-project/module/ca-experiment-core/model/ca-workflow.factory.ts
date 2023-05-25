@@ -115,6 +115,7 @@ export class CaWorkflowFactory {
       inputs: caProcess.inputs,
       processTypingName: caProcess.process_typing_name,
       status: prProcessStatusDict[caProcess.status],
+      typeStatus: null,
     };
   }
 

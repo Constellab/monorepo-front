@@ -13,6 +13,11 @@
 
     <!--  actions -->
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
+      <mat-icon *ngIf="(typeStatus$ | async) === 'UNAVAILABLE'" color="warn"
+                class="type-unavailable" [matTooltip]="'pr.process_not_available' | translate">
+        error
+      </mat-icon>
+
       <!--   Only for protocol, possibility to zoom in   -->
       <button *ngIf="isProtocol" (click)="zoomInProtocol()"
               mat-icon-button type="button" [disabled]="layerIsLoading$ | async">

@@ -3,7 +3,7 @@ import {Expose, Type} from 'class-transformer';
 import {LabProgressBar, LabProgressMessage} from '../lab-progress-bar.entity';
 import {FlStatus, FlStatusTransform} from '@monorepo/front-core-lib';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
-import {TdTypingName} from '@monorepo/technical-doc';
+import {TdTypeObjectStatus, TdTypingName} from '@monorepo/technical-doc';
 import {PrConfigValues, PrIO, PrProcess, PrProcessStatus, prProcessStatusDict} from '@monorepo/protocol';
 import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
@@ -18,7 +18,6 @@ export interface LabProcessData {
 
   graph?: any;
 }
-
 
 
 /**
@@ -71,6 +70,8 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   @ClLuxonDateTimeTransform()
   endedAt?: DateTime;
 
+  @Expose({name: 'type_status'})
+  typeStatus: TdTypeObjectStatus;
 
   public hasConfig(): boolean {
     return this.config?.specs.hasProperties() ?? false;
@@ -115,7 +116,7 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   }
 }
 
-export class LabRunningProcessInfo extends LabEntity{
+export class LabRunningProcessInfo extends LabEntity {
 
   title: string;
 

@@ -37,7 +37,6 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
 
   maxNameLength = CaLabInstanceWithSpace.MAX_NAME_LENGTH;
 
-  supportedDomains = CaLabInstanceValidator.SUPPORTED_DOMAINS;
   supportedDomainsText = CaLabInstanceValidator.SUPPORTED_DOMAINS.join(', ');
 
   constructor(snackBarService: FlSnackBarService,
