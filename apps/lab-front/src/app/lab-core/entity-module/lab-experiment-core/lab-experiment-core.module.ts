@@ -31,6 +31,7 @@ import {
 } from './component/lab-running-experiment-table/lab-running-experiment-table.component';
 import {LabProcessCoreModule} from '../lab-process-core/lab-process-core.module';
 import {LabProtocolTemplateCoreModule} from '../lab-protocol-template-core/lab-protocol-template-core.module';
+import {LabExperimentInlineComponent} from './component/lab-experiment-inline/lab-experiment-inline.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import {LabProtocolTemplateCoreModule} from '../lab-protocol-template-core/lab-p
     LabSelectExperimentDialogComponent,
     LabSelectExperimentComponent,
     LabRunningExperimentTableComponent,
+    LabExperimentInlineComponent,
   ],
   exports: [
     LabExperimentTableComponent,

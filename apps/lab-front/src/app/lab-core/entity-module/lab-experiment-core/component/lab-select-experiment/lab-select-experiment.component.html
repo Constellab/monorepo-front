@@ -1,14 +1,18 @@
-<button mat-stroked-button type="button" (click)="openExperimentSelection()"
-        class="g-full g-button-text-ellipsis" [disabled]="disabled">
-  <mat-icon flIcon="experiment"></mat-icon>
+<fl-input-search [selectedItem]="selectedExperiment"
+                 (selectedItemChange)="setAndEmitValue($event)"
+                 [datasource]="datasource"
+                 [placeholder]="'biox.experiment_select' | translate"
+                 [required]="required"
+                 [disabled]="disabled"
+                 [minInputSearchLength]="0"
+                 [advancedButton]="advancedButton">
 
-  <ng-container *ngIf="value && value.title; else noSelection">
-    {{value.title}}
-  </ng-container>
+  <div class="photo" *flInputSearchPrefix="let experiment">
+    <fl-user-profile-picture *ngIf="experiment" [user]="experiment.createdBy"
+                             size="small"></fl-user-profile-picture>
 
-  <ng-template #noSelection>
-    {{'biox.experiment_select' | translate}}
-  </ng-template>
+  </div>
 
-  <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-</button>
+  <lab-experiment-inline *flInputSearchOption="let experiment" [experiment]="experiment">
+  </lab-experiment-inline>
+</fl-input-search>

@@ -2,19 +2,20 @@ import {Injectable} from '@angular/core';
 import {
   FlAdvancedSearchInput,
   FlApiService,
+  FlEntityPaginatedDatasource,
   FlFileHelper,
   FlQuillJson,
   FlSearchConverter,
-  FLSearchFunction,
   FlTag
 } from '@monorepo/front-core-lib';
 import {Observable, of, switchMap} from 'rxjs';
 import {
   LabExperiment,
+  LabExperimentDatasource,
   LabExperimentSimpleForm,
   LabRunningExperimentInfo
 } from '../model/entities/lab-experiment.entity';
-import {ClPageI} from '@monorepo/core-lib';
+import {ClHelpService, ClPageI} from '@monorepo/core-lib';
 import {LabTag} from '../model/entities/lab-tag.entity';
 import {
   LabExperimentSearch,
@@ -107,8 +108,12 @@ export class LabExperimentService {
     return this.apiService.put(`${this.route}/${id}/clone`, null, LabExperiment);
   }
 
-  public getAdvancedSearchFunction(): FLSearchFunction<LabExperiment> {
-    return (page: number, pageSize: number, filters?: LabExperimentSearchFields) => this.advancedSearch(page, pageSize, filters);
+
+  public searchDatasource(): LabExperimentDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number, filters?: LabExperimentSearchFields) => this.advancedSearch(page, pageSize, filters),
+      20, false
+    );
   }
 
   public advancedSearch(page: number, pageSize: number, filters?: LabExperimentSearchFields): Observable<ClPageI<LabExperiment>> {
@@ -117,6 +122,23 @@ export class LabExperimentService {
       sortsCriteria: null
     };
     return this.apiService.post(`${this.route}/advanced-search`, data, LabExperiment, {
+      page: page, pageSize: pageSize, resultIsPaginated: true
+    });
+  }
+
+  public searchByTitleDatasource(): LabExperimentDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number, name: string) => this.searchByTitle(page, pageSize, name),
+      20, false
+    );
+  }
+
+  public searchByTitle(page: number, pageSize: number, title: string): Observable<ClPageI<LabExperiment>> {
+    // if empty search, return all
+    if (ClHelpService.isNullOrEmpty(title)) {
+      return this.advancedSearch(page, pageSize);
+    }
+    return this.apiService.get(`${this.route}/search-title/${title}`, LabExperiment, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }

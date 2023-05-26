@@ -103,6 +103,10 @@ export class LabExperiment extends LabEntityWithTag implements LabProjectObject 
   isFinished(): boolean {
     return this.status.value === 'SUCCESS' || this.status.value === 'ERROR';
   }
+
+  toString(): string {
+    return this.title;
+  }
 }
 
 export type LabExperimentDatasource = FlEntityPaginatedDatasource<LabExperiment>;

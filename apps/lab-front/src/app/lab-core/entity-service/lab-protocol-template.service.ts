@@ -66,6 +66,7 @@ export class LabProtocolTemplateService {
   }
 
   public searchByName(page: number, pageSize: number, name: string): Observable<ClPageI<LabProtocolTemplate>> {
+    // if empty search, return all
     if (ClHelpService.isNullOrEmpty(name)) {
       return this.search(page, pageSize);
     }

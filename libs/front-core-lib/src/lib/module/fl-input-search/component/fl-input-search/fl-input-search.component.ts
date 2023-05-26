@@ -66,7 +66,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     }
   }
 
-  @Input() advancedButton?: FlInputSearchAdvancedButton<T>;
+  @Input() advancedButton?: FlInputSearchAdvancedButton<any>;
 
   /**
    * Min length of the input before the search is triggered
