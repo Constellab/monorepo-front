@@ -1,0 +1,11 @@
+<div class="g-page-fixed">
+
+  <fl-async-section [object]="template$" fxFlex="auto">
+
+    <ng-container *flSectionBody="let template">
+      <lab-protocol-template-detail [template]="template" class="detail"></lab-protocol-template-detail>
+    </ng-container>
+
+  </fl-async-section>
+
+</div>

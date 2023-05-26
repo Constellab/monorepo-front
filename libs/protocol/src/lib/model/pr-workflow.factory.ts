@@ -1,30 +1,24 @@
-import {
-  CaTechnicalReportGraph,
-  CaTechnicalReportProcess,
-  ProtocolLayout
-} from '../../../../ca-core/model/entities/project/ca-technical-report.class';
-import {
-  PrProcess,
-  prProcessStatusDict,
-  PrWorkflow,
-  PrWorkflowLayer,
-  PrWorkflowNodeOutput,
-  PrWorkflowNodeProcess,
-  PrWorkflowNodeProtocol,
-  PrWorkflowNodeSource,
-  PrWorkflowNodeViewer,
-  PrWorkflowResourcesState
-} from '@monorepo/protocol';
 import {Observable, of} from 'rxjs';
 import {TdTypingName} from '@monorepo/technical-doc';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {NgZone} from '@angular/core';
 import {FlCoord} from '@monorepo/front-core-lib';
+import {PrProtocolGraph, PrProtocolLayout, PrProtocolProcess} from './pr-protocol.class';
+import {PrWorkflowResourcesState} from '../state/pr-workflow-resources.state';
+import {PrWorkflow} from './pr-workflow.class';
+import {PrWorkflowLayer} from './pr-workflow-layer.class';
+
+import {PrWorkflowNodeProcess} from './node/pr-workflow-node-process.class';
+import {PrWorkflowNodeSource} from './node/pr-workflow-node-source.class';
+import {PrWorkflowNodeOutput} from './node/pr-workflow-node-output.class';
+import {PrWorkflowNodeViewer} from './node/pr-workflow-node-viewer.class';
+import {PrWorkflowNodeProtocol} from './node/pr-workflow-node-protocol.class';
+import {PrProcess, prProcessStatusDict} from './pr-process.class';
 
 
-export class CaWorkflowFactory {
+export class PrWorkflowFactory {
 
-  constructor(private graph: CaTechnicalReportGraph, private id: string,
+  constructor(private graph: PrProtocolGraph, private id: string,
               private ngZone: NgZone,
               private resourceState: PrWorkflowResourcesState) {
   }
@@ -34,7 +28,7 @@ export class CaWorkflowFactory {
     return new PrWorkflow(layer, 'readOnly', this.ngZone);
   }
 
-  private createLayer(graph: CaTechnicalReportGraph, rootLayer: boolean,
+  private createLayer(graph: PrProtocolGraph, rootLayer: boolean,
                       id: string, title?: string): PrWorkflowLayer {
 
     let layer: PrWorkflowLayer;
@@ -44,12 +38,12 @@ export class CaWorkflowFactory {
       layer = new PrWorkflowLayer(id, id, title);
     }
 
-    const layout: ProtocolLayout = graph.layout;
+    const layout: PrProtocolLayout = graph.layout;
 
     for (const key of Object.keys(graph.nodes)) {
       const caProcess = graph.nodes[key];
       const nodeLayout = layout?.process_layouts[key] ?? null;
-      const node = this.caProcessToPrProcessNode(caProcess, key, id, nodeLayout);
+      const node = this.createProcessNode(caProcess, key, id, nodeLayout);
       layer.addNode(node);
     }
 
@@ -79,8 +73,8 @@ export class CaWorkflowFactory {
     return layer;
   }
 
-  private caProcessToPrProcessNode(caProcess: CaTechnicalReportProcess, name: string, protocolId: string,
-                                   layout?: FlCoord): PrWorkflowNodeProcess {
+  private createProcessNode(caProcess: PrProtocolProcess, name: string, protocolId: string,
+                            layout?: FlCoord): PrWorkflowNodeProcess {
     const prProcess = this.caProcessToPrProcess(caProcess, name, protocolId);
 
     let processNode: PrWorkflowNodeProcess;
@@ -104,7 +98,7 @@ export class CaWorkflowFactory {
     return processNode;
   }
 
-  private caProcessToPrProcess(caProcess: CaTechnicalReportProcess, name: string, protocolId: string): PrProcess {
+  private caProcessToPrProcess(caProcess: PrProtocolProcess, name: string, protocolId: string): PrProcess {
     return {
       id: ClStringHelper.generateUUID(),
       instanceName: name,

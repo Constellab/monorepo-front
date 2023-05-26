@@ -28,7 +28,7 @@ export class LabProtocolTemplateSearchComponent implements OnInit {
 
   datasource: FlDatasourcePaginated<LabProtocolTemplate>;
 
-  columns: FlTableColumnStatic<LabProtocolTemplate>[] = ['name', 'tags', 'created'];
+  columns: FlTableColumnStatic<LabProtocolTemplate>[] = ['name', 'tags', 'created', 'openInNewTab'];
 
   constructor(private searchState: FlSearchState<any>,
               private protocolTemplateService: LabProtocolTemplateService,

@@ -38,6 +38,10 @@ export class LabRouterService {
     return `${labConstBioxFullRoute}/experiment/${id}`;
   }
 
+  public static getProtocolTemplateDetailRoute(id: string): string {
+    return `${labConstBioxFullRoute}/protocol-template/${id}`;
+  }
+
   public static getResourceDetailRoute(id: string): string {
     return `${labConstDataboxFullRoute}/resource/${id}`;
   }

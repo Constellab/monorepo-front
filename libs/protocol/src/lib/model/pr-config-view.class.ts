@@ -14,3 +14,15 @@ export abstract class PrConfigView {
                          workflowMode: PrWorkflowMode): FlMenuDynamicButton[];
 
 }
+
+export class PrConfigViewEmpty extends PrConfigView {
+
+  getInputMenu(): FlMenuDynamicButton[] {
+    return [];
+  }
+
+  getOutputMenu(): FlMenuDynamicButton[] {
+    return [];
+  }
+
+}

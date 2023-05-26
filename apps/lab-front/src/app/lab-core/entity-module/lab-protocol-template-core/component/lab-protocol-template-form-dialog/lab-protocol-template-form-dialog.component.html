@@ -5,6 +5,10 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="protocol-template-form" [formGroup]="formGp">
 
+    <p class="g-text-light help-text" *ngIf="isCreateMode()">
+      {{'biox.protocol_template_explication' | translate}}
+    </p>
+
     <!--  name  -->
     <mat-form-field class="g-form-input">
       <mat-label>{{'name' | translate}}</mat-label>
@@ -14,6 +18,11 @@
         {{'name' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
+
+    <!--  Description-->
+    <fl-text-editor [config]="textEditorConfig" formControlName="description"
+                    mode="JSON" class="text-editor"
+                    [placeholder]="'description' | translate"></fl-text-editor>
 
   </form>
 </mat-dialog-content>

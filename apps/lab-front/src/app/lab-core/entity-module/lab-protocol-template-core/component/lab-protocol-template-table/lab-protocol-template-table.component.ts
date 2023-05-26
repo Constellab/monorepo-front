@@ -18,4 +18,9 @@ export class LabProtocolTemplateTableComponent {
   rowClicked(template: LabProtocolTemplate): void {
     this.templateSelected.emit(template);
   }
+
+  openInNewTab(event: MouseEvent): void {
+    event.stopPropagation();
+  }
+
 }

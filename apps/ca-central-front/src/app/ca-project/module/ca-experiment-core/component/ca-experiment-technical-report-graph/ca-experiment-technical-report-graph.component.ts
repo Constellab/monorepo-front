@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CaTechnicalReportGraph} from '../../../../../ca-core/model/entities/project/ca-technical-report.class';
+import {PrProtocolGraph} from '@monorepo/protocol';
 
 @Component({
   selector: 'ca-experiment-technical-report-graph',
@@ -8,13 +8,12 @@ import {CaTechnicalReportGraph} from '../../../../../ca-core/model/entities/proj
 })
 export class CaExperimentTechnicalReportGraphComponent implements OnInit {
 
-  @Input()
-  graph: CaTechnicalReportGraph;
+  @Input() graph: PrProtocolGraph;
 
-  @Input()
-  protocolName?: string;
+  @Input() protocolName?: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

@@ -164,7 +164,7 @@
     "process_sub_type_TRANSFORMER": "Transformer",
     "process_sub_type_Resource": "Resource",
     "open_resource_page": "Open resource",
-    "open_resource_in_new_tab": "Open in new tab",
+    "open_in_new_tab": "Open in new tab",
     "update_resource_type": "Update resource type",
     "update_resource_type_help": "You can update the type of the resource only if the resource is not used in an experiment",
     "resource_type_updated": "Resource type updated",
@@ -288,6 +288,8 @@
     "delete_protocol_template_confirmation": "Are you sure you want to delete this protocol template ?",
     "protocol_template_deleted": "Protocol template deleted",
     "protocol_template": "Protocol template",
-    "select_protocol_template": "Select a protocol template"
+    "select_protocol_template": "Select a protocol template",
+    "protocol_template_explication": "This will create a protocol template. A protocol template can be used during the experiment creation to pre-configure it.",
+    "protocol_template_beta_warning": "The protocol template feature is in beta. It is not yet possible to update a protocol template. If you want to update it, please create a new one from an experiment."
   }
 }

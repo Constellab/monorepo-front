@@ -10,7 +10,7 @@ import {
   LabProtocolTemplateDatasource
 } from '../model/entities/process/lab-protocol-template.entity';
 import {Observable} from 'rxjs';
-import {ClPageI} from '@monorepo/core-lib';
+import {ClHelpService, ClPageI} from '@monorepo/core-lib';
 import {
   LabProtocolTemplateSearch,
   LabProtocolTemplateSearchFields
@@ -30,6 +30,10 @@ export class LabProtocolTemplateService {
 
   public getProtocolTemplate(id: string): Observable<LabProtocolTemplate> {
     return this.apiService.get(`${this.route}/${id}`, LabProtocolTemplate);
+  }
+
+  public updateProtocolTemplate(id: string, data: Partial<LabProtocolTemplate>): Observable<LabProtocolTemplate> {
+    return this.apiService.put(`${this.route}/${id}`, data, LabProtocolTemplate);
   }
 
   public deleteProtocolTemplate(id: string): Observable<void> {
@@ -57,11 +61,14 @@ export class LabProtocolTemplateService {
   public searchByNameDatasource(): LabProtocolTemplateDatasource {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, name: string) => this.searchByName(page, pageSize, name),
-      20
+      20, false
     );
   }
 
   public searchByName(page: number, pageSize: number, name: string): Observable<ClPageI<LabProtocolTemplate>> {
+    if (ClHelpService.isNullOrEmpty(name)) {
+      return this.search(page, pageSize);
+    }
     return this.apiService.get(`${this.route}/search-name/${name}`, LabProtocolTemplate, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });

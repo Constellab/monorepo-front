@@ -1,0 +1,62 @@
+import {FlCoord} from '@monorepo/front-core-lib';
+import {PrIO} from './pr-io.class';
+import {PrProcessStatus} from './pr-process.class';
+import {PrConfig} from './pr-config.class';
+
+export interface PrProtocolLayout {
+  process_layouts: Record<string, FlCoord>;
+  interface_layouts: Record<string, FlCoord>;
+  outerface_layouts: Record<string, FlCoord>;
+}
+
+export interface PrProtocolGraph {
+  nodes: Record<string, PrProtocolProcess>;
+
+  links: PrProtocolLink[];
+
+  interfaces: Record<string, PrProtocolIntOut>;
+
+  outerfaces: Record<string, PrProtocolIntOut>;
+
+  layout?: PrProtocolLayout;
+}
+
+export interface PrProtocolProcess {
+  brick_version: string;
+
+  human_name: string;
+
+  instance_name: string;
+
+  process_typing_name: string;
+
+  short_description: string;
+
+  config: PrConfig;
+
+  inputs: Record<string, PrIO>;
+
+  outputs: Record<string, PrIO>;
+
+  // if this is a sub-protocol, this is the graph of the sub-protocol
+  graph?: PrProtocolGraph;
+
+  status: PrProcessStatus;
+}
+
+
+export interface PrProtocolLink {
+  from: PrProtocolLinkPart;
+
+  to: PrProtocolLinkPart;
+}
+
+export interface PrProtocolIntOut extends PrProtocolLink {
+  name: string;
+}
+
+export interface PrProtocolLinkPart {
+  node: string;
+
+  port: string;
+}

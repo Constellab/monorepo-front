@@ -25,6 +25,7 @@ import {
 import {
   LabSelectProtocolTemplateDialogComponent
 } from './component/lab-select-protocol-template-dialog/lab-select-protocol-template-dialog.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
 
     LabCoreModule,
     LabTagCoreModule,

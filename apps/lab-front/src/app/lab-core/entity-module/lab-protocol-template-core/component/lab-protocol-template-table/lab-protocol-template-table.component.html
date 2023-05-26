@@ -31,6 +31,19 @@
     </mat-cell>
   </ng-container>
 
+  <!-- Open in new tab -->
+  <ng-container matColumnDef="openInNewTab">
+    <mat-header-cell *matHeaderCellDef>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let template">
+      <a mat-stroked-button [routerLink]="template | labDetailRoute"
+         target="_blank" class="g-button-small" (click)="openInNewTab($event)">
+        {{'biox.open_in_new_tab' | translate}}
+        <mat-icon>open_in_new</mat-icon>
+      </a>
+    </mat-cell>
+  </ng-container>
+
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 

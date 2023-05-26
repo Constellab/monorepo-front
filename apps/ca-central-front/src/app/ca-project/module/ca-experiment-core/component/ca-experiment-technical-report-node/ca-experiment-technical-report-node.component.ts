@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CaTechnicalReportProcess} from '../../../../../ca-core/model/entities/project/ca-technical-report.class';
 import {TdTypeEntity, TdTypingName} from '@monorepo/technical-doc';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {HttpClient} from '@angular/common/http';
@@ -7,6 +6,7 @@ import {
   CaExperimentTechnicalReportProcessDocDialogComponent
 } from '../ca-experiment-technical-report-process-doc-dialog/ca-experiment-technical-report-process-doc-dialog.component';
 import {CaCommunityHelper} from '../../../../../ca-core/utils/ca-community.helper';
+import {PrProtocolProcess} from '@monorepo/protocol';
 
 @Component({
   selector: 'ca-experiment-technical-report-node',
@@ -15,14 +15,12 @@ import {CaCommunityHelper} from '../../../../../ca-core/utils/ca-community.helpe
 })
 export class CaExperimentTechnicalReportNodeComponent implements OnInit {
 
-  @Input() node: CaTechnicalReportProcess;
+  @Input() node: PrProtocolProcess;
 
   typingName: TdTypingName;
 
-  constructor(
-    private dialogService: FlDialogService,
-    private http: HttpClient
-  ) {
+  constructor(private dialogService: FlDialogService,
+              private http: HttpClient) {
   }
 
   ngOnInit(): void {

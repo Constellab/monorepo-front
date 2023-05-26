@@ -111,6 +111,10 @@ export class LabExperimentDetailPageState {
     return this.experimentDescription$.asObservable();
   }
 
+  public get currentDescription(): FlQuillJson {
+    return this.experimentDescription$.value;
+  }
+
   public updateDescription(description: FlQuillJson): void {
     this.experimentDescription$.next(description);
   }

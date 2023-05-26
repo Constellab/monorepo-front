@@ -81,6 +81,9 @@ export class FlSearchConverter {
                                                            converter: FlSearchCriteriaConverter<T>)
     : FlSearchCriteria[] {
     const criteria: FlSearchCriteria[] = [];
+
+    if (object == null) return criteria;
+
     for (const key of Object.keys(object)) {
       const fieldValue: any = object[key];
 

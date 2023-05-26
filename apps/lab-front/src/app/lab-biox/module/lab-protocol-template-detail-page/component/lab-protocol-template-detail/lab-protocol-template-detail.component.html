@@ -1,0 +1,35 @@
+<fl-card class="g-full-height">
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon flIcon="protocol_template"></mat-icon>
+      <h2>{{template.name | translate}}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <button mat-icon-button type="button" (click)="openUpdateDialog()"
+              [matTooltip]="'biox.update_protocol_template' | translate">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button type="button" (click)="openDeleteDialog()" color="warn"
+              [matTooltip]="'biox.update_protocol_template' | translate">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </fl-card-actions>
+  </fl-card-header>
+
+  <fl-card-body>
+
+    <fl-text-icon class="g-text-light help-text">
+      <mat-icon>warning</mat-icon>
+      <div>{{'biox.protocol_template_beta_warning' | translate}}</div>
+    </fl-text-icon>
+
+    <fl-text-editor [config]="textEditorConfig"
+                    [(ngModel)]="template.description" mode="JSON" class="text-editor"
+                    [placeholder]="'description' | translate"
+                    (textChange)="onDescriptionChanged($event)"></fl-text-editor>
+
+    <pr-workflow [workflow]="workflow" [mode$]="workflowMode$" [viewConfig]="viewConfig"
+                 class="workflow"></pr-workflow>
+  </fl-card-body>
+</fl-card>

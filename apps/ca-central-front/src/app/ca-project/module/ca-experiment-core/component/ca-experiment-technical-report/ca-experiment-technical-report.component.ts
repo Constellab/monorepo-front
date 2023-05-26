@@ -7,6 +7,7 @@ import {
   PrWorkflow,
   PrWorkflowActionSelectNode,
   PrWorkflowActionState,
+  PrWorkflowFactory,
   PrWorkflowMode,
   PrWorkflowNodeProcess,
   PrWorkflowResourcesState
@@ -17,7 +18,6 @@ import {CaWorkflowConfig} from '../../model/ca-workflow-config.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {map} from 'rxjs/operators';
 import {CaLabInstanceService} from '../../../../../ca-core/service-api/ca-lab-instance.service';
-import {CaWorkflowFactory} from '../../model/ca-workflow.factory';
 import {
   CaLabConfigDialogComponent,
   CaLabConfigDialogInput
@@ -75,7 +75,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
 
   private onTechnicalReportSuccess(technicalReport: CaTechnicalReport): void {
     this.technicalReport = technicalReport;
-    const factory = new CaWorkflowFactory(technicalReport.data.graph, ClStringHelper.generateUUID(),
+    const factory = new PrWorkflowFactory(technicalReport.data.graph, ClStringHelper.generateUUID(),
       this.ngZone, this.workflowResourcesState);
     this.workflow = factory.createWorkflow();
   }

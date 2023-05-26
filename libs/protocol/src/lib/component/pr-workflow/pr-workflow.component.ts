@@ -35,6 +35,10 @@ export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
       console.error('[PrWorkflowComponent] the view config was not provided');
       return;
     }
+    if(this.workflow == null){
+      console.error('[PrWorkflowComponent] the workflow was not provided');
+      return;
+    }
   }
 
   ngAfterViewInit(): void {

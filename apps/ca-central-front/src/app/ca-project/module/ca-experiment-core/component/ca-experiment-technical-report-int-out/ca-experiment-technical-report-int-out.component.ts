@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CaTechnicalReportIntOut} from '../../../../../ca-core/model/entities/project/ca-technical-report.class';
+import {PrProtocolIntOut} from '@monorepo/protocol';
 
 @Component({
   selector: 'ca-experiment-technical-report-int-out',
@@ -8,13 +8,12 @@ import {CaTechnicalReportIntOut} from '../../../../../ca-core/model/entities/pro
 })
 export class CaExperimentTechnicalReportIntOutComponent implements OnInit {
 
-  @Input()
-  intOut: CaTechnicalReportIntOut;
+  @Input() intOut: PrProtocolIntOut;
 
-  @Input()
-  isInterface: boolean;
+  @Input() isInterface: boolean;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

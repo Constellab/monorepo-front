@@ -2,6 +2,7 @@ import {PrConfigView, PrWorkflowMode, PrWorkflowNodeProcess, PrWorkflowPort} fro
 import {FlMenuDynamicButton} from '@monorepo/front-core-lib';
 import {ClHelpService} from '@monorepo/core-lib';
 import {CaLabInstance} from '../../../../ca-core/model/entities/lab/ca-lab-instance.class';
+import {CaLabHelper} from '../../../../ca-core/utils/ca-lab.helper';
 
 export class CaWorkflowConfig extends PrConfigView {
 
@@ -10,7 +11,6 @@ export class CaWorkflowConfig extends PrConfigView {
   ) {
     super();
   }
-
 
 
   getInputMenu(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
@@ -42,8 +42,8 @@ export class CaWorkflowConfig extends PrConfigView {
   }
 
   private openResourceDetail(resourceId: string): void {
-    if(this.labInstance.isRunning()){
-      window.location.href = `${this.labInstance.frontUrl}/app/databox/resource/${resourceId}`;
+    if (this.labInstance.isRunning()) {
+      window.location.href = CaLabHelper.getResourceUrl(this.labInstance.frontUrl, resourceId);
     }
   }
 

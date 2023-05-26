@@ -44,7 +44,7 @@ export class LabProtocolTemplateSearch {
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
   public static advancedSearchConverter: FlSearchCriteriaConverter<LabProtocolTemplateSearchFields> = {
-    name: {key: 'text', operator: 'CONTAINS'},
+    name: {key: 'name', operator: 'CONTAINS'},
     tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
     // Date
     createdBy: {key: 'created_by', operator: 'IN'},

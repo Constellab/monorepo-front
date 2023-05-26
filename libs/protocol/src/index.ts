@@ -1,29 +1,33 @@
 export * from './lib/pr-protocol.module';
 
 
-// model
+// model node
 export * from './lib/model/node/pr-workflow-node.class';
-export * from './lib/model/pr-workflow-connection.class';
-export * from './lib/model/pr-workflow-layer.class';
-export * from './lib/model/pr-workflow-port.class';
-export * from './lib/model/pr-workflow.class';
-export * from './lib/model/pr-interface.class';
 export * from './lib/model/node/pr-workflow-node-io.class';
-export * from './lib/model/pr-io.class';
 export * from './lib/model/node/pr-workflow-node-interface.class';
 export * from './lib/model/node/pr-workflow-node-outerface.class';
 export * from './lib/model/node/pr-workflow-node-process.class';
-export * from './lib/model/pr-process.class';
-export * from './lib/model/pr-config.class';
-export * from './lib/model/pr-config-spec.entity';
-export * from './lib/model/pr-workflow-action.class';
-export * from './lib/model/pr-workflow-drawer-event.class';
 export * from './lib/model/node/pr-workflow-node-output.class';
 export * from './lib/model/node/pr-workflow-node-source.class';
 export * from './lib/model/node/pr-workflow-node-viewer.class';
 export * from './lib/model/node/pr-workflow-node-protocol.class';
+
+// model
+export * from './lib/model/pr-config.class';
+export * from './lib/model/pr-config-spec.entity';
 export * from './lib/model/pr-config-view.class';
+export * from './lib/model/pr-interface.class';
+export * from './lib/model/pr-io.class';
+export * from './lib/model/pr-process.class';
+export * from './lib/model/pr-protocol.class';
 export * from './lib/model/pr-resource.class';
+export * from './lib/model/pr-workflow.class';
+export * from './lib/model/pr-workflow.factory';
+export * from './lib/model/pr-workflow-action.class';
+export * from './lib/model/pr-workflow-connection.class';
+export * from './lib/model/pr-workflow-drawer-event.class';
+export * from './lib/model/pr-workflow-layer.class';
+export * from './lib/model/pr-workflow-port.class';
 
 // state
 export * from './lib/state/pr-workflow-action-state';

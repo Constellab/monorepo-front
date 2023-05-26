@@ -204,7 +204,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const input: LabProtocolTemplateFormDialogInput = {
       mode: 'create',
       protocolId: experiment.protocol.id,
-      defaultName: experiment.title
+      defaultName: experiment.title,
+      defaultDescription: this.experimentState.currentDescription,
     };
 
     this.dialogService.openSmallDialog(LabProtocolTemplateFormDialogComponent,

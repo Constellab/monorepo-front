@@ -164,7 +164,7 @@
     "process_sub_type_TRANSFORMER": "Transformeur",
     "biox.process_sub_type_RESOURCE": "Ressource",
     "open_resource_page": "Ouvrir la ressource",
-    "open_resource_in_new_tab": "Ouvrir dans un nouvel onglet",
+    "open_in_new_tab": "Ouvrir dans un nouvel onglet",
     "update_resource_type": "Modifier le type de la ressource",
     "update_resource_type_help": "Vous pouvez modifier le type de la ressource seulement si cette ressource n'est pas utilisée dans une expérience",
     "resource_type_updated": "Type de la ressource modifié",
@@ -288,6 +288,8 @@
     "delete_protocol_template_confirmation": "Êtes-vous sûr de vouloir supprimer ce modèle de protocole ?",
     "protocol_template_deleted": "Modèle de protocole supprimé",
     "protocol_template": "Modèle de protocole",
-    "select_protocol_template": "Sélectionner un modèle de protocole"
+    "select_protocol_template": "Sélectionner un modèle de protocole",
+    "protocol_template_explication": "Cela va créer un modèle de protocole. Un modèle de protocole peut être utilisé lors de la création d'une expérience pour le pré-configurer.",
+    "protocol_template_beta_warning": "La fonctionnalité de modèle de protocole est en beta. Il n'est pas encore possible de mettre à jour un modèle de protocole. Si vous voulez le modifier, veuillez en créer un nouveau depuis une expérience.",
   }
 }

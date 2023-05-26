@@ -18,6 +18,11 @@ import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-
 import {ClHelpService, clRxjsElasticSearch} from '@monorepo/core-lib';
 import {FlInputSearchPrefixDirective} from '../../directive/fl-input-search-prefix.directive';
 
+/**
+ * Additional config, if provided, a button is showed in the input
+ * to open an advanced search dialog.
+ * The dialog must return the selected item.
+ */
 export interface FlInputSearchAdvancedButton<T>{
   onClick: () => Observable<T | null>
 }
@@ -64,6 +69,11 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
   @Input() advancedButton?: FlInputSearchAdvancedButton<T>;
 
   /**
+   * Min length of the input before the search is triggered
+   */
+  @Input() minInputSearchLength: number = 2;
+
+  /**
    * Event emitted when the input is focused, this is useful to init the list of items
    */
   @Output() focused: EventEmitter<T | null> = new EventEmitter();
@@ -96,7 +106,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     this.items$ = this.datasource.connect();
 
     this.inputControl.valueChanges.pipe(
-      clRxjsElasticSearch(350, 2)
+      clRxjsElasticSearch(350, this.minInputSearchLength)
     ).subscribe(value => {
       this.datasource.getFirstPage(value);
     });
@@ -200,6 +210,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
   }
 
   callAdvancedButton(event: MouseEvent): void {
+    // stop the event propagation to avoid the focus event on the input which open the autocomplete
     ClHelpService.stopEventPropagation(event);
     if (this.advancedButton) {
       this.advancedButton.onClick().subscribe(item => {

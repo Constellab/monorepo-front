@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CaTechnicalReportLink} from '../../../../../ca-core/model/entities/project/ca-technical-report.class';
+import {PrProtocolLink} from '@monorepo/protocol';
 
 @Component({
   selector: 'ca-experiment-technical-report-link',
@@ -8,10 +8,10 @@ import {CaTechnicalReportLink} from '../../../../../ca-core/model/entities/proje
 })
 export class CaExperimentTechnicalReportLinkComponent implements OnInit {
 
-  @Input()
-  link: CaTechnicalReportLink;
+  @Input() link: PrProtocolLink;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

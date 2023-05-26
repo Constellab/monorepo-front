@@ -1,5 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {
+  FlFormDialogAbstractDirective,
+  FlFormDialogInput,
+  FlQuillJson,
+  FlSnackBarService,
+  FlTextEditorBasicConfig,
+  FlTextEditorConfig
+} from '@monorepo/front-core-lib';
 import {
   LabCreateProtocolTemplateDTO,
   LabProtocolTemplate
@@ -9,10 +16,12 @@ import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {LabProtocolService} from '../../../../entity-service/lab-protocol.service';
+import {LabProtocolTemplateService} from '../../../../entity-service/lab-protocol-template.service';
 
 export interface LabProtocolTemplateFormDialogInput extends FlFormDialogInput<LabProtocolTemplate> {
   protocolId?: string;
-  defaultName: string;
+  defaultName?: string;
+  defaultDescription?: FlQuillJson;
 }
 
 @Component({
@@ -23,8 +32,11 @@ export interface LabProtocolTemplateFormDialogInput extends FlFormDialogInput<La
 export class LabProtocolTemplateFormDialogComponent extends FlFormDialogAbstractDirective<LabCreateProtocolTemplateDTO>
   implements OnInit {
 
+  textEditorConfig: FlTextEditorConfig = new FlTextEditorBasicConfig();
+
   constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: LabProtocolTemplateFormDialogInput,
               private protocolService: LabProtocolService,
+              private protocolTemplateService: LabProtocolTemplateService,
               snackBarService: FlSnackBarService,
               dialogRef: MatDialogRef<LabProtocolTemplateFormDialogComponent>) {
     super(dialogInput, snackBarService, dialogRef);
@@ -37,6 +49,7 @@ export class LabProtocolTemplateFormDialogComponent extends FlFormDialogAbstract
   buildForm(): FormGroup<LabCreateProtocolTemplateDTO> {
     return new FormBuilder().group({
       name: [this.dialogInput.defaultName, Validators.required],
+      description: [this.dialogInput.defaultDescription],
     });
   }
 
@@ -44,8 +57,8 @@ export class LabProtocolTemplateFormDialogComponent extends FlFormDialogAbstract
     return this.protocolService.createProtocolTemplate(this.dialogInput.protocolId, formValue);
   }
 
-  update(): Observable<LabCreateProtocolTemplateDTO> {
-    return null;
+  update(formValue: LabCreateProtocolTemplateDTO): Observable<LabCreateProtocolTemplateDTO> {
+    return this.protocolTemplateService.updateProtocolTemplate(this.dialogInput.object.id, formValue);
   }
 
   get title(): string {
