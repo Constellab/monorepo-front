@@ -28,9 +28,9 @@
       {{'biox.create_report' | translate}}
     </button>
 
-    <button mat-menu-item type="button" (click)="openCreateProtocolTemplate()">
-      <mat-icon flIcon="protocol_template"></mat-icon>
-      {{'biox.create_protocol_template' | translate}}
+    <button mat-menu-item [matMenuTriggerFor]="protocol">
+      <mat-icon flIcon="protocol"></mat-icon>
+      {{'biox.protocol' | translate}}
     </button>
 
     <!--  Update buttons  -->
@@ -78,6 +78,19 @@
       <span class="g-warn-text">{{'biox.delete_experiment' | translate}}</span>
     </button>
 
+  </mat-menu>
+
+  <!-- Protocol menu -->
+  <mat-menu #protocol>
+    <button mat-menu-item type="button" (click)="openCreateProtocolTemplate()">
+      <mat-icon flIcon="protocol_template"></mat-icon>
+      {{'biox.create_protocol_template' | translate}}
+    </button>
+
+    <a mat-menu-item [href]="downloadProtocolTemplateUrl$ | async" download>
+      <mat-icon>cloud_download</mat-icon>
+      {{'biox.download_protocol_template' | translate}}
+    </a>
   </mat-menu>
 
   <!-- Monitoring menu -->

@@ -74,4 +74,8 @@ export class LabProtocolTemplateService {
     });
   }
 
+  public getProtocolTemplateDownloadUrl(id: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${id}/download`);
+  }
+
 }

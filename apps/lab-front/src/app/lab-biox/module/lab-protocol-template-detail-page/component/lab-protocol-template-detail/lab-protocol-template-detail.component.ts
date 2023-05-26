@@ -37,10 +37,10 @@ export class LabProtocolTemplateDetailComponent implements OnInit, OnDestroy {
   @Input() template: LabProtocolTemplate;
 
   viewConfig = new PrConfigViewEmpty();
-
   workflow: PrWorkflow;
-
   workflowMode$: Observable<PrWorkflowMode> = of('readOnly');
+
+  downloadUrl: string
 
   textEditorConfig: FlTextEditorConfig = new FlTextEditorBasicConfig();
   private descriptionDebouncer: FlDebouncer<FlQuillJson>;
@@ -56,6 +56,7 @@ export class LabProtocolTemplateDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.downloadUrl = this.protocolTemplateService.getProtocolTemplateDownloadUrl(this.template.id);
     this.actionState.init();
     const factory = new PrWorkflowFactory(this.template.data, ClStringHelper.generateUUID(),
       this.ngZone, this.workflowResourcesState);

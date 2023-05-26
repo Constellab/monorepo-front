@@ -152,4 +152,8 @@ export class LabProtocolService {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/template`, template, LabProtocolTemplate);
   }
 
+  public getProtocolTemplateDownloadUrl(protocolId: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.baseRoute}/${protocolId}/template/download`);
+  }
+
 }

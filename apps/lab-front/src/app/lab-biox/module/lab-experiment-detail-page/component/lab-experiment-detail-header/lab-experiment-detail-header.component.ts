@@ -43,6 +43,7 @@ import {
   LabProtocolTemplateFormDialogComponent,
   LabProtocolTemplateFormDialogInput
 } from '../../../../../lab-core/entity-module/lab-protocol-template-core/component/lab-protocol-template-form-dialog/lab-protocol-template-form-dialog.component';
+import {LabProtocolService} from '../../../../../lab-core/entity-service/lab-protocol.service';
 
 /**
  * Header for the experiment detail page
@@ -56,6 +57,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
   experiment$: Observable<LabExperiment>;
 
+  downloadProtocolTemplateUrl$: Observable<string>;
+
   syncObjectFunc: (id: string) => Observable<LabExperiment>;
 
 
@@ -66,11 +69,15 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
               private routerService: LabRouterService,
               private queueService: LabQueueService,
               private translateService: FlTranslateService,
-              private processService: LabProcessService) {
+              private processService: LabProcessService,
+              private protocolService: LabProtocolService) {
   }
 
   ngOnInit(): void {
     this.experiment$ = this.experimentState.getExperiment$();
+    this.downloadProtocolTemplateUrl$ = this.experiment$.pipe(
+      map(experiment => this.protocolService.getProtocolTemplateDownloadUrl(experiment.protocol.id))
+    );
     this.syncObjectFunc = (id: string) => this.experimentService.syncWithSpace(id);
   }
 

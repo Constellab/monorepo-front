@@ -39,6 +39,7 @@ export class LabExperimentFormDialogComponent extends FlFormDialogAbstractDirect
       title: [null, Validators.required],
       project: [null],
       protocolTemplate: [null],
+      protocolTemplateJsonFile: [null],
     });
 
     if (this.isUpdateMode() && this.dialogInput.disabledProject) {

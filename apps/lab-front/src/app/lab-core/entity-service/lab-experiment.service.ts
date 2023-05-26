@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {
   FlAdvancedSearchInput,
   FlApiService,
+  FlFileHelper,
   FlQuillJson,
   FlSearchConverter,
   FLSearchFunction,
   FlTag
 } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import {Observable, of, switchMap} from 'rxjs';
 import {
   LabExperiment,
   LabExperimentSimpleForm,
@@ -19,6 +20,7 @@ import {
   LabExperimentSearch,
   LabExperimentSearchFields
 } from '../entity-module/lab-experiment-core/model/lab-experiment-advanced-search.class';
+import {map} from 'rxjs/operators';
 
 
 @Injectable({
@@ -36,24 +38,38 @@ export class LabExperimentService {
   }
 
   public create(experiment: LabExperimentSimpleForm): Observable<LabExperiment> {
-    return this.apiService.post(this.route, this.experimentFormToBody(experiment), LabExperiment);
+    return this.experimentFormToBody(experiment).pipe(
+      switchMap((body: any) => this.apiService.post(this.route, body, LabExperiment))
+    );
   }
 
   // update the experiment
   public update(experimentId: string, experiment: LabExperimentSimpleForm): Observable<LabExperiment> {
-    return this.apiService.put(`${this.route}/${experimentId}`, this.experimentFormToBody(experiment), LabExperiment);
+    return this.experimentFormToBody(experiment).pipe(
+      switchMap((body: any) => this.apiService.put(`${this.route}/${experimentId}`, body, LabExperiment))
+    );
   }
 
   public updateProject(experimentId: string, projectId: string): Observable<LabExperiment> {
     return this.apiService.put(`${this.route}/${experimentId}/project`, {project_id: projectId}, LabExperiment);
   }
 
-  private experimentFormToBody(experiment: LabExperimentSimpleForm): any {
-    return {
+  private experimentFormToBody(experiment: LabExperimentSimpleForm): Observable<any> {
+    // extract json from file if it exists
+    if (experiment.protocolTemplateJsonFile) {
+      return FlFileHelper.readBlobContent(experiment.protocolTemplateJsonFile, true).pipe(
+        map((json: any) => ({
+          title: experiment.title,
+          project_id: experiment.project?.id ?? null,
+          protocol_template_id: experiment.protocolTemplate?.id ?? null,
+          protocol_template_json: json
+        })));
+    }
+    return of({
       title: experiment.title,
       project_id: experiment.project?.id ?? null,
       protocol_template_id: experiment.protocolTemplate?.id ?? null
-    };
+    });
   }
 
   public updateDescription(experimentId: string, description: FlQuillJson): Observable<LabExperiment> {

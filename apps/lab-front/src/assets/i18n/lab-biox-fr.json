@@ -291,5 +291,8 @@
     "select_protocol_template": "Sélectionner un modèle de protocole",
     "protocol_template_explication": "Cela va créer un modèle de protocole. Un modèle de protocole peut être utilisé lors de la création d'une expérience pour le pré-configurer.",
     "protocol_template_beta_warning": "La fonctionnalité de modèle de protocole est en beta. Il n'est pas encore possible de mettre à jour un modèle de protocole. Si vous voulez le modifier, veuillez en créer un nouveau depuis une expérience.",
+    "download_protocol_template": "Télécharger le modèle de protocole",
+    "protocol": "Protocole",
+    "import_protocol_template": "Importer un modèle de protocole"
   }
 }

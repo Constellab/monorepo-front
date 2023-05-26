@@ -6,6 +6,11 @@
     </fl-text-icon>
 
     <fl-card-actions>
+      <a mat-icon-button [href]="downloadUrl" download
+              [matTooltip]="'biox.download_protocol_template' | translate">
+        <mat-icon>cloud_download</mat-icon>
+      </a>
+
       <button mat-icon-button type="button" (click)="openUpdateDialog()"
               [matTooltip]="'biox.update_protocol_template' | translate">
         <mat-icon>edit</mat-icon>

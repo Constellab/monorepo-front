@@ -112,6 +112,7 @@ export interface LabExperimentSimpleForm {
   title: string;
   project: LabEntity;
   protocolTemplate?: FlEntity;
+  protocolTemplateJsonFile?: File;
 }
 
 export class LabRunningExperimentInfo extends LabEntity {
