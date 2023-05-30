@@ -10,7 +10,6 @@ import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LabReportFormDialogComponent} from './component/lab-report-form-dialog/lab-report-form-dialog.component';
 import {LabSelectReportDialogComponent} from './component/lab-select-report-dialog/lab-select-report-dialog.component';
-import {LabUserCoreModule} from '../lab-user-core/lab-user-core.module';
 import {LabEntityCoreModule} from '../lab-entity-core/lab-entity-core.module';
 import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module';
 
@@ -36,7 +35,6 @@ import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module'
     FormsModule,
 
     LabCoreModule,
-    LabUserCoreModule,
     LabEntityCoreModule,
     LabProjectCoreModule,
   ],

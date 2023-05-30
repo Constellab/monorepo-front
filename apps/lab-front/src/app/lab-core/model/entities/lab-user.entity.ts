@@ -1,4 +1,4 @@
-import {FlUser} from '@monorepo/front-core-lib';
+import {FlDatasourcePaginated, FlUser} from '@monorepo/front-core-lib';
 import {Expose, Type} from 'class-transformer';
 import {LabBaseEntity} from '../global/lab-entity.entity';
 import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
@@ -38,3 +38,5 @@ export class LabBaseEntityWithUser extends LabBaseEntity {
   lastModifiedBy: LabUser;
 }
 
+
+export type LabUserDatasourcePaginated = FlDatasourcePaginated<LabUser>

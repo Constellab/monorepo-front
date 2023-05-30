@@ -8,6 +8,7 @@ import {
 import {LabSearchConverter} from '../../../model/global/lab-search-converter.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabProject} from '../../../model/entities/lab-project.class';
+import {LabUser} from '../../../model/entities/lab-user.entity';
 
 
 export class LabReportSearchFields {
@@ -15,7 +16,8 @@ export class LabReportSearchFields {
   @Type(() => LabProject)
   project: LabProject[];
 
-  createdBy: string[];
+  @Type(() => LabUser)
+  createdBy: LabUser;
 
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
@@ -25,6 +27,8 @@ export class LabReportSearchFields {
 
   isValidated: boolean;
   isArchived: boolean;
+
+  id: string;
 
 }
 
@@ -51,11 +55,12 @@ export class LabReportSearch {
     title: {key: 'title', operator: 'CONTAINS'},
     project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
     // Date
-    createdBy: {key: 'created_by', operator: 'IN'},
+    createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
     isArchived: {key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
     isValidated: {key: 'is_validated', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
+    id: {key: 'id', operator: 'EQ'},
   };
 
 
@@ -75,6 +80,7 @@ export class LabReportSearch {
         }),
         isArchived: [null],
         isValidated: [null],
+        id: [null],
       }
     );
   }

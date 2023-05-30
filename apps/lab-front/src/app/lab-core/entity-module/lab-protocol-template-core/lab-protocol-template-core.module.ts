@@ -18,7 +18,6 @@ import {
   LabProtocolTemplateInlineComponent
 } from './component/lab-protocol-template-inline/lab-protocol-template-inline.component';
 import {LabTagCoreModule} from '../lab-tag-core/lab-tag-core.module';
-import {LabUserCoreModule} from '../lab-user-core/lab-user-core.module';
 import {
   LabProtocolTemplateTableComponent
 } from './component/lab-protocol-template-table/lab-protocol-template-table.component';
@@ -54,7 +53,6 @@ import {RouterModule} from '@angular/router';
 
     LabCoreModule,
     LabTagCoreModule,
-    LabUserCoreModule,
   ],
 })
 export class LabProtocolTemplateCoreModule {

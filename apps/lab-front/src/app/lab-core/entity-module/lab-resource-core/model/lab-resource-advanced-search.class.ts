@@ -12,6 +12,7 @@ import {Type} from 'class-transformer';
 import {LabResourceOrigin} from '../../../model/entities/resource/lab-resource.entity';
 import {LabExperiment} from '../../../model/entities/lab-experiment.entity';
 import {LabProject} from '../../../model/entities/lab-project.class';
+import {LabUser} from '../../../model/entities/lab-user.entity';
 
 /**
  * Format of the data for the Advanced search form of the resource
@@ -27,7 +28,8 @@ export class LabResourceSearchFields {
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
 
-  createdBy: string[];
+  @Type(() => LabUser)
+  createdBy: LabUser;
   project: LabProject[];
 
   isArchived: boolean;
@@ -71,7 +73,7 @@ export class LabResourceSearch {
     experiment: {key: 'experiment', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     // Date
     createdAt: FlSearchConverter.dateInterval('created_at'),
-    createdBy: {key: 'created_by', operator: 'IN'},
+    createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
     isArchived: {key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
     includeChildrenResource: {

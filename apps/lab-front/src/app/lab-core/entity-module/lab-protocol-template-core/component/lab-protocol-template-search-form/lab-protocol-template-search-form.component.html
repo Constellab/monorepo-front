@@ -25,18 +25,15 @@
     <div fxLayout="row wrap" fxLayoutAlign="space-between center"
          class="g-full g-form-field-compact">
 
+      <!--  Created by  -->
+      <fl-form-field class="g-search-field">
+        <fl-select-user formControlName="createdBy" [placeholder]="'created_by' | translate"></fl-select-user>
+      </fl-form-field>
+
       <!--  Id -->
       <mat-form-field class="g-search-field">
         <mat-label>{{'id' | translate }}</mat-label>
         <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
-      </mat-form-field>
-
-      <!--  Created by  -->
-      <mat-form-field class="g-search-field">
-        <mat-label>{{'created_by' | translate }}</mat-label>
-        <mat-select formControlName="createdBy" [placeholder]="'created_by' | translate" [multiple]="true">
-          <lab-user-select-options></lab-user-select-options>
-        </mat-select>
       </mat-form-field>
 
       <!--  Creation date  -->

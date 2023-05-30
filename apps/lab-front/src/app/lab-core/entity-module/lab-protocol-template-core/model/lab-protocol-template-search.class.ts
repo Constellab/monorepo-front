@@ -8,6 +8,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import {LabUser} from '../../../model/entities/lab-user.entity';
 
 
 export class LabProtocolTemplateSearchFields {
@@ -18,7 +19,8 @@ export class LabProtocolTemplateSearchFields {
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
 
-  createdBy: string[];
+  @Type(() => LabUser)
+  createdBy: LabUser;
 
   @Type(() => FlSearchDateInterval)
   lastModifiedAt: FlSearchDateInterval;
@@ -47,7 +49,7 @@ export class LabProtocolTemplateSearch {
     name: {key: 'name', operator: 'CONTAINS'},
     tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
     // Date
-    createdBy: {key: 'created_by', operator: 'IN'},
+    createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
     id: {key: 'id', operator: 'EQ'},
@@ -58,7 +60,7 @@ export class LabProtocolTemplateSearch {
       {
         name: [null],
         tags: [null],
-        createdBy: [],
+        createdBy: [null],
         createdAt: new FormBuilder().group<FlSearchDateInterval>({
           from: [null],
           to: [null],

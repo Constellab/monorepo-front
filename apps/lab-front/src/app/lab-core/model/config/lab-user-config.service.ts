@@ -3,13 +3,16 @@ import {LabEnvironmentHelper} from '../../utils/lab-environment.helper';
 import {FlDatasourcePaginated, FlUserConfig} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {LabUser} from '../entities/lab-user.entity';
+import {LabUserService} from '../../entity-service/lab-user.service';
+import {LabAuthenticatedUserService} from '../../service/lab-authenticated-user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LabUserConfig extends FlUserConfig {
 
-  constructor() {
+  constructor(private userService: LabUserService,
+              private authenticatedUserService: LabAuthenticatedUserService) {
     super();
   }
 
@@ -17,21 +20,21 @@ export class LabUserConfig extends FlUserConfig {
     return LabEnvironmentHelper.getSpaceApiUrl() + '/users/photo-v2/' + photo;
   }
 
-  getUserDetailRoute(userId: string): string {
+  getUserDetailRoute(): string {
     // disabled user detail route
     return null;
   }
 
   getUserById(userId: string): Observable<LabUser> {
-    throw new Error('Method not implemented.');
+    return this.userService.getUserById(userId);
   }
 
   getSearchByNamesDatasource(): FlDatasourcePaginated<LabUser> {
-    throw new Error('Method not implemented.');
+    return this.userService.searchByNameDatasource();
   }
 
   getAuthenticatedUser(): LabUser {
-    throw new Error('Method not implemented.');
+    return this.authenticatedUserService.getCurrentUser();
   }
 
 }

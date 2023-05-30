@@ -11,6 +11,7 @@ import {Type} from 'class-transformer';
 import {LabProject} from '../../../model/entities/lab-project.class';
 import {LabSearchConverter} from '../../../model/global/lab-search-converter.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import {LabUser} from '../../../model/entities/lab-user.entity';
 
 
 export class LabExperimentSearchFields {
@@ -26,7 +27,8 @@ export class LabExperimentSearchFields {
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
 
-  createdBy: string[];
+  @Type(() => LabUser)
+  createdBy: LabUser;
 
   @Type(() => FlSearchDateInterval)
   lastModifiedAt: FlSearchDateInterval;
@@ -65,7 +67,7 @@ export class LabExperimentSearch {
     tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
     project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
     // Date
-    createdBy: {key: 'created_by', operator: 'IN'},
+    createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
     isArchived: {key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
@@ -81,7 +83,7 @@ export class LabExperimentSearch {
         status: [null],
         tags: [null],
         project: [null],
-        createdBy: [],
+        createdBy: [null],
         createdAt: new FormBuilder().group<FlSearchDateInterval>({
           from: [null],
           to: [null],

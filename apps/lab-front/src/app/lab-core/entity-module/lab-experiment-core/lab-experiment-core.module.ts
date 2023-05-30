@@ -21,7 +21,6 @@ import {
 import {
   LabSelectExperimentDialogComponent
 } from './component/lab-select-experiment-dialog/lab-select-experiment-dialog.component';
-import {LabUserCoreModule} from '../lab-user-core/lab-user-core.module';
 import {LabSelectExperimentComponent} from './component/lab-select-experiment/lab-select-experiment.component';
 import {LabTagCoreModule} from '../lab-tag-core/lab-tag-core.module';
 import {LabEntityCoreModule} from '../lab-entity-core/lab-entity-core.module';
@@ -68,7 +67,6 @@ import {LabExperimentInlineComponent} from './component/lab-experiment-inline/la
 
     LabCoreModule,
     LabEntityCoreModule,
-    LabUserCoreModule,
     LabTagCoreModule,
     LabProjectCoreModule,
     LabProcessCoreModule,
