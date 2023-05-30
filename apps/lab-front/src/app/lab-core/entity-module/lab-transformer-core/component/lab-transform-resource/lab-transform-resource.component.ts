@@ -139,7 +139,7 @@ export class LabTransformResourceComponent implements OnInit {
 
     this.loadingProcessType = true;
     this.typeService.getTyping(processType.typingName).subscribe({
-      next: processType => {
+      next: (processType: LabProcessType) => {
         this.loadingProcessType = false;
         this.addTransformer(processType);
       },

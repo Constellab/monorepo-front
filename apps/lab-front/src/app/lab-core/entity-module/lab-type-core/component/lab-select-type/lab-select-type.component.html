@@ -1,0 +1,12 @@
+<fl-input-search [selectedItem]="selectedType"
+                 (selectedItemChange)="setAndEmitValue($event)"
+                 [datasource]="datasource"
+                 [placeholder]="placeholder"
+                 [required]="required"
+                 [disabled]="disabled"
+                 [minInputSearchLength]="0">
+
+
+  <lab-type-inline *flInputSearchOption="let type" [type]="type">
+  </lab-type-inline>
+</fl-input-search>

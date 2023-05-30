@@ -16,6 +16,13 @@ export interface FlSearchUrlObject {
   timestamp: string;
 }
 
+/**
+ * Implement to class to specify how to convert the object to url for the search
+ */
+export interface FlSearchObjectToUrl{
+  toUrlJson(): Record<string, any>;
+}
+
 export class FlSearchPageUrlHelper {
 
   /**
@@ -55,6 +62,11 @@ export class FlSearchPageUrlHelper {
   private static advancedSearchObjectToString(obj: Record<any, any>): Record<any, any> {
     // skip object where all values are null
     if (!ClHelpService.objectHasNonNullProperties(obj)) return obj;
+
+    // check if object has method toTest()
+    if (obj.toUrlJson && typeof obj.toUrlJson === 'function') {
+      return (obj as FlSearchObjectToUrl).toUrlJson();
+    }
 
     if (obj.id !== undefined) {
       return {id: obj.id};

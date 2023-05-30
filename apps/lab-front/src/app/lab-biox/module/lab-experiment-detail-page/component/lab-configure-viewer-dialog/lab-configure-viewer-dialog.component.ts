@@ -4,6 +4,7 @@ import {labConvertTransformersWithConfigToParams} from '../../../../../lab-core/
 import {ClHelpService} from '@monorepo/core-lib';
 import {TdTaskViewerConfig} from '@monorepo/technical-doc';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {LabTypeEntity} from '../../../../../lab-core/model/entities/lab-type/lab-type.entity';
 
 
 export type LabConfigureViewerDialogInput = TdTaskViewerConfig;
@@ -20,16 +21,22 @@ export class LabConfigureViewerDialogComponent implements OnInit {
 
   taskConfig: TdTaskViewerConfig;
 
+  resourceType: Partial<LabTypeEntity>;
+
   constructor(@Inject(MAT_DIALOG_DATA) private input: LabConfigureViewerDialogInput,
               private dialogRef: MatDialogRef<LabConfigureViewerDialogComponent>) {
     this.taskConfig = ClHelpService.deepClone(input);
+    this.resourceType = {
+      typingName: input.resource_typing_name
+    };
   }
 
   ngOnInit(): void {
   }
 
-  onResourceTypingChange(): void {
+  onResourceTypingChange(resourceType: LabTypeEntity): void {
     this.taskConfig.view_config = null;
+    this.taskConfig.resource_typing_name = resourceType?.typingName ?? null;
   }
 
   onViewConfigured(configuration: LabResourceViewSpecWithConfig): void {

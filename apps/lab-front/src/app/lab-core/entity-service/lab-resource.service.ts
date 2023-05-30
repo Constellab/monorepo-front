@@ -11,7 +11,6 @@ import {Observable, of} from 'rxjs';
 import {LabResource} from '../model/entities/resource/lab-resource.entity';
 import {ClPageI} from '@monorepo/core-lib';
 import {map} from 'rxjs/operators';
-import {LabTypeEntity} from '../model/entities/lab-type/lab-type.entity';
 import {
   LabResourceView,
   LabResourceViewData,
@@ -102,12 +101,6 @@ export class LabResourceService {
 
   //////////////////////////////////////// RESOURCE TYPE ///////////////////////////////////////
 
-
-  // get the list of resource types
-  public getResourceTypes(): Observable<LabTypeEntity[]> {
-    return this.apiService.get(this.resourceTypeRoute, LabTypeEntity);
-  }
-
   // get the view specs for a resource type
   public getResourceTypeViewSpecsDetail(resourceTypingName: string, viewName: string): Observable<LabResourceViewSpecComplete> {
     return this.apiService.get(`${this.resourceTypeRoute}/${resourceTypingName}/views/${viewName}/specs`, LabResourceViewSpecComplete);
@@ -119,7 +112,6 @@ export class LabResourceService {
         views.sort(view => view.defaultView ? -1 : 1))
     );
   }
-
 
   //////////////////////////////////////// RESOURCE VIEWS  ///////////////////////////////////////
 

@@ -13,12 +13,17 @@ import {LabResourceOrigin} from '../../../model/entities/resource/lab-resource.e
 import {LabExperiment} from '../../../model/entities/lab-experiment.entity';
 import {LabProject} from '../../../model/entities/lab-project.class';
 import {LabUser} from '../../../model/entities/lab-user.entity';
+import {LabTypeEntity} from '../../../model/entities/lab-type/lab-type.entity';
 
 /**
  * Format of the data for the Advanced search form of the resource
  */
 export class LabResourceSearchFields {
-  resourceTypingName: string[];
+  @Type(() => LabTypeEntity)
+  resourceTypingName: LabTypeEntity;
+
+  // hidden field to search for multiple resource types
+  resourceTypingNames: string[];
   name: string;
   tags: FlTag[];
   origin: LabResourceOrigin;
@@ -47,6 +52,7 @@ export class LabResourceSearch {
    */
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabResourceSearchFields> = {
     resourceTypingName: 'resource_type',
+    resourceTypingNames: 'resource_type',
     tags: 'flTag.tags',
     origin: 'resource_origin',
     data: 'resource_data',
@@ -65,7 +71,12 @@ export class LabResourceSearch {
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
   public static advancedSearchConverter: FlSearchCriteriaConverter<LabResourceSearchFields> = {
-    resourceTypingName: {key: 'resource_typing_name', operator: 'IN'},
+    resourceTypingName: {
+      key: 'resource_typing_name',
+      operator: 'EQ',
+      convertValue: (value: LabTypeEntity) => value?.typingName
+    },
+    resourceTypingNames: {key: 'resource_typing_names', operator: 'IN'},
     name: {key: 'name', operator: 'CONTAINS'},
     tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
     origin: {key: 'origin', operator: 'EQ'},
@@ -97,6 +108,7 @@ export class LabResourceSearch {
     return new FormBuilder().group(
       {
         resourceTypingName: [null],
+        resourceTypingNames: [null],
         name: [null],
         tags: [null],
         origin: [null],

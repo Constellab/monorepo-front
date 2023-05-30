@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {
   FlAdvancedSearchInput,
   FlApiWithCacheService,
+  FlEntityPaginatedDatasource,
   FlSearchConverter,
   FLSearchFunction
 } from '@monorepo/front-core-lib';
-import {LabTypeEntity} from '../model/entities/lab-type/lab-type.entity';
+import {LabTypeEntity, LabTypeEntityDatasource} from '../model/entities/lab-type/lab-type.entity';
 import {Observable} from 'rxjs';
-import {ClCoreJsonConvert, ClPageI} from '@monorepo/core-lib';
+import {ClCoreJsonConvert, ClHelpService, ClPage, ClPageI} from '@monorepo/core-lib';
 import {LabTypeSearch, LabTypeSearchFields} from '../entity-module/lab-type-core/model/lab-type-advanced-search.class';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
 import {TdTypeObjectType} from '@monorepo/technical-doc';
@@ -35,9 +36,10 @@ export class LabTypeService {
     }
   }
 
-  public getTyping(typingName: string): Observable<LabProcessType> {
+  public getTyping(typingName: string): Observable<LabTypeEntity> {
     return this.apiService.getWithCache(`${this.route}/${typingName}`, LabTypeService.deserializeTyping).getObs();
   }
+
 
   public getAdvancedSearchFunction(): FLSearchFunction<LabTypeEntity> {
     return (page: number, pageSize: number, filters?: LabTypeSearchFields) =>
@@ -106,11 +108,32 @@ export class LabTypeService {
   }
 
   public deleteUnavailableTypings(brickName?: string): Observable<void> {
-    if(brickName) {
+    if (brickName) {
       return this.apiService.delete(`${this.route}/unavailable/${brickName}`);
-    }
-    else{
+    } else {
       return this.apiService.delete(`${this.route}/unavailable`);
     }
   }
+
+  public searchTypeByName(objectType: TdTypeObjectType, name: string,
+                          page: number, size: number): Observable<ClPage<LabTypeEntity>> {
+    if (ClHelpService.isNullOrEmpty(name)) {
+      return this.getByObjectType(objectType, page, size);
+    }
+    return this.apiService.get(`${this.route}/object-type/${objectType}/name-search/${name}`, LabTypeService.deserializeTyping,
+      {page: page, pageSize: size, resultIsPaginated: true});
+  }
+
+  public searchTypeByNameDatasource(objectType: TdTypeObjectType): LabTypeEntityDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page, size, name) => this.searchTypeByName(objectType, name, page, size),
+      20, false);
+  }
+
+  public getByObjectType(objectType: TdTypeObjectType,
+                         page: number, size: number): Observable<ClPage<LabTypeEntity>> {
+    return this.apiService.get(`${this.route}/object-type/${objectType}`, LabTypeService.deserializeTyping,
+      {page: page, pageSize: size, resultIsPaginated: true});
+  }
+
 }

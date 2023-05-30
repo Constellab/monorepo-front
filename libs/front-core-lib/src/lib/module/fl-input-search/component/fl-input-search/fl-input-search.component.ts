@@ -135,9 +135,9 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     }
 
     this.refreshInputCtrl();
-    if (this._selectedItem) {
+    if (this._selectedItem && this.input.nativeElement.value) {
       // select the input value with caret
-      this.input.nativeElement.setSelectionRange(0, this._selectedItem.toString().length);
+      this.input.nativeElement.setSelectionRange(0, this.input.nativeElement.value.length);
     }
 
     this.focused.emit(this._selectedItem);

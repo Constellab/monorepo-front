@@ -90,7 +90,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
   private openResourceSelection(port: PrWorkflowPort, node: PrWorkflowNodeProcess): void {
     // add a default search filtered by resource type
     const filter: Partial<LabResourceSearchFields> = {
-      resourceTypingName: port.specs.resource_types.map((type) => type.typing_name)
+      resourceTypingNames: port.specs.resource_types.map((type) => type.typing_name)
     };
     const savedSearch: FlSavedSearch = {
       searchName: labResourceSearchName,

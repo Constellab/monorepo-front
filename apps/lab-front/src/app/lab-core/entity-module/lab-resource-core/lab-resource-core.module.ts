@@ -3,9 +3,6 @@ import {CommonModule} from '@angular/common';
 import {LabCoreModule} from '../../lab-core.module';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {
-  LabResourceTypeSelectOptionsComponent
-} from './component/lab-resource-type-select-options/lab-resource-type-select-options.component';
 import {LabResourceViewPortalComponent} from './component/lab-resource-view-portal/lab-resource-view-portal.component';
 import {LabResourceTableComponent} from './component/lab-resource-table/lab-resource-table.component';
 import {LabResourceSearchComponent} from './component/lab-resource-search/lab-resource-search.component';
@@ -96,7 +93,6 @@ import {
   declarations: [
     LabResourceViewSpreadsheetComponent,
     LabResourceViewTextComponent,
-    LabResourceTypeSelectOptionsComponent,
     LabResourceViewPortalComponent,
     LabResourceTableComponent,
     LabResourceSearchComponent,
@@ -130,7 +126,6 @@ import {
     LabResourceDefaultViewComponent,
   ],
   exports: [
-    LabResourceTypeSelectOptionsComponent,
     LabResourceViewPortalComponent,
     LabResourceTableComponent,
     LabResourceSearchComponent,

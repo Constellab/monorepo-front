@@ -1,9 +1,9 @@
 import {LabBaseEntity} from '../../global/lab-entity.entity';
 import {Expose} from 'class-transformer';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
+import {FlDatasourcePaginated, FlSearchObjectToUrl} from '@monorepo/front-core-lib';
 import {TdTypeEntity, TdTypeObjectStatus, TdTypeObjectSubType, TdTypeObjectType} from '@monorepo/technical-doc';
 
-export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity {
+export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSearchObjectToUrl {
   @Expose({name: 'object_type'})
   objectType: TdTypeObjectType;
 
@@ -58,6 +58,16 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity {
   get parentVersion(): string {
     return this.parent?.brick_version ?? null;
   }
+
+  toString(): string {
+    return this.name;
+  }
+
+  toUrlJson(): Record<string, any> {
+    return {typing_name: this.typingName}
+  }
+
+
 }
 
 export type LabTypeEntityDatasource = FlDatasourcePaginated<LabTypeEntity>;

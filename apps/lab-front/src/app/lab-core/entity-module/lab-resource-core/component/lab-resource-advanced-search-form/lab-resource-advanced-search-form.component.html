@@ -44,12 +44,10 @@
          class="g-full g-form-field-compact">
 
       <!--  Resource Type  -->
-      <mat-form-field class="g-search-field">
-        <mat-label>{{'resource_type' | translate }}</mat-label>
-        <mat-select formControlName="resourceTypingName" multiple [placeholder]="'resource_type' | translate">
-          <lab-resource-type-select-options></lab-resource-type-select-options>
-        </mat-select>
-      </mat-form-field>
+      <fl-form-field class="g-search-field">
+        <lab-select-type objectType="RESOURCE" [placeholder]="'resource_type' | translate"
+                         formControlName="resourceTypingName"></lab-select-type>
+      </fl-form-field>
 
 
       <!--  Origin  -->

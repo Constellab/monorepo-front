@@ -15,6 +15,8 @@ import {
 import {LabTypeDialogComponent} from './component/lab-type-dialog/lab-type-dialog.component';
 import {LabProcessTypeTableComponent} from './component/lab-process-type-table/lab-process-type-table.component';
 import {RouterModule} from '@angular/router';
+import {LabTypeInlineComponent} from './component/lab-type-inline/lab-type-inline.component';
+import {LabSelectTypeComponent} from './component/lab-select-type/lab-select-type.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import {RouterModule} from '@angular/router';
     LabTypeDialogComponent,
     LabTypeShowDetailButtonComponent,
     LabProcessTypeTableComponent,
+    LabTypeInlineComponent,
+    LabSelectTypeComponent,
   ],
   exports: [
     LabTypeAdvancedSearchFormComponent,
@@ -34,6 +38,8 @@ import {RouterModule} from '@angular/router';
     LabTypeDialogComponent,
     LabTypeShowDetailButtonComponent,
     LabProcessTypeTableComponent,
+    LabTypeInlineComponent,
+    LabSelectTypeComponent,
   ],
   imports: [
     CommonModule,

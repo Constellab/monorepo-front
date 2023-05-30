@@ -92,7 +92,7 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
     // timeout is useful to let the page refresh to the is recreated even if
     // the observable finished quickly
     setTimeout(() => this.typingService.getTyping(importerTypingName).subscribe({
-      next: importer => this.selectImporter(importer),
+      next: (importer: LabProcessType) => this.selectImporter(importer),
       error: () => this.processTypeIsLoading = false
     }), 0);
   }
