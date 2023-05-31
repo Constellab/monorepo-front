@@ -7,18 +7,18 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {LabRouterService} from '../../../../service/lab-router.service';
 
 /**
- * Import a resource from another lab with the share link
+ * Import a resource from a link
  */
 @Component({
-  selector: 'lab-import-resource-from-lab',
-  templateUrl: './lab-import-resource-from-lab.component.html',
-  styleUrls: ['./lab-import-resource-from-lab.component.scss']
+  selector: 'lab-import-resource-from-link',
+  templateUrl: './lab-import-resource-from-link.component.html',
+  styleUrls: ['./lab-import-resource-from-link.component.scss']
 })
-export class LabImportResourceFromLabComponent implements OnInit {
+export class LabImportResourceFromLinkComponent implements OnInit {
 
   formCtrl: FormControl;
 
-  constructor(private dialogRef: MatDialogRef<LabImportResourceFromLabComponent>,
+  constructor(private dialogRef: MatDialogRef<LabImportResourceFromLinkComponent>,
               private shareService: LabShareService,
               private snackBarService: FlSnackBarService,
               private actionService: FlPortalActionsService) {

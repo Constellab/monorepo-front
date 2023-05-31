@@ -26,8 +26,8 @@ import {Subscription} from 'rxjs';
 import {LabFileResourceService} from '../../../../entity-service/lab-file-resource.service';
 import {LabRouterService} from '../../../../service/lab-router.service';
 import {
-  LabImportResourceFromLabComponent
-} from '../lab-import-resource-from-lab/lab-import-resource-from-lab.component';
+  LabImportResourceFromLinkComponent
+} from '../lab-import-resource-from-link/lab-import-resource-from-link.component';
 
 export const labResourceSearchName: string = 'biox-resource';
 
@@ -219,7 +219,7 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
   }
 
   openImportFromUrlDialog(): void {
-    this.dialogService.openSmallDialog(LabImportResourceFromLabComponent);
+    this.dialogService.openSmallDialog(LabImportResourceFromLinkComponent);
   }
 
   ngOnDestroy(): void {

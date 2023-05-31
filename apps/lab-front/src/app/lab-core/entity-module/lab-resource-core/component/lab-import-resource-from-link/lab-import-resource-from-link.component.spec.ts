@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LabImportResourceFromLabComponent} from './lab-import-resource-from-lab.component';
+import {LabImportResourceFromLinkComponent} from './lab-import-resource-from-link.component';
 
 describe('LabImportResourceFromLabComponent', () => {
-  let component: LabImportResourceFromLabComponent;
-  let fixture: ComponentFixture<LabImportResourceFromLabComponent>;
+  let component: LabImportResourceFromLinkComponent;
+  let fixture: ComponentFixture<LabImportResourceFromLinkComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabImportResourceFromLabComponent ]
+      declarations: [ LabImportResourceFromLinkComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LabImportResourceFromLabComponent);
+    fixture = TestBed.createComponent(LabImportResourceFromLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

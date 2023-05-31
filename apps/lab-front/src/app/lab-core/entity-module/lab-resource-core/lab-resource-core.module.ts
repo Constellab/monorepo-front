@@ -80,8 +80,8 @@ import {
 } from './component/lab-resource-children-list/lab-resource-children-list.component';
 import {LabShareCoreModule} from '../lab-share-core/lab-share-core.module';
 import {
-  LabImportResourceFromLabComponent
-} from './component/lab-import-resource-from-lab/lab-import-resource-from-lab.component';
+  LabImportResourceFromLinkComponent
+} from './component/lab-import-resource-from-link/lab-import-resource-from-link.component';
 import {
   LabResourceUpdateProjectDialogComponent
 } from './component/lab-resource-update-project-dialog/lab-resource-update-project-dialog.component';
@@ -121,7 +121,7 @@ import {
     LabResourcePreviewButtonComponent,
     LabResourceViewDetailDialogComponent,
     LabResourceChildrenListComponent,
-    LabImportResourceFromLabComponent,
+    LabImportResourceFromLinkComponent,
     LabResourceUpdateProjectDialogComponent,
     LabResourceDefaultViewComponent,
   ],
@@ -145,7 +145,7 @@ import {
     LabResourcePreviewButtonComponent,
     LabResourceViewDetailDialogComponent,
     LabResourceViewSpecListComponent,
-    LabImportResourceFromLabComponent,
+    LabImportResourceFromLinkComponent,
     LabResourceUpdateProjectDialogComponent,
     LabResourceDefaultViewComponent,
   ],
