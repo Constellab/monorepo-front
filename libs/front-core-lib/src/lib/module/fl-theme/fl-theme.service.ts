@@ -58,9 +58,7 @@ export class FlThemeService {
   public changeTheme(theme: ClTheme): void {
     if (this.checkTheme(theme) && theme !== this.getCurrentTheme()) {
       this.loadTheme(theme);
-
       this.storeTheme(theme);
-
     }
 
     // set the class theme in the body element to be able to use it in the css

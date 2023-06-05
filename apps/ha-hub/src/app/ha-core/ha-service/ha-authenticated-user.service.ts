@@ -1,11 +1,19 @@
-import {Injectable} from '@angular/core';
-import {FlApiService, FlCleanableService, FlCleanerService, FlTranslateService} from '@monorepo/front-core-lib';
+import {Inject, Injectable, Optional, PLATFORM_ID} from '@angular/core';
+import {
+  FlApiService,
+  flAuthExpiredCookie,
+  FlCleanableService,
+  FlCleanerService,
+  FlTranslateService
+} from '@monorepo/front-core-lib';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HaUser, HaUserCategory} from '../ha-model/ha-entities/ha-user';
 import {HaAuthService} from './ha-auth.service';
 import {map, tap} from 'rxjs/operators';
 import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 import {HaBrick} from '../ha-model/ha-entities/ha-brick.class';
+import {REQUEST} from '@nguniversal/express-engine/tokens';
+import {isPlatformServer} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +23,21 @@ export class HaAuthenticatedUserService implements FlCleanableService{
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
   public userSubject: BehaviorSubject<HaUser> = new BehaviorSubject<HaUser>(null);
-
+  private request: any;
   constructor(private apiService: FlApiService,
               private authService: HaAuthService,
-              private translateService: FlTranslateService) {
+              private translateService: FlTranslateService,
+              @Inject(PLATFORM_ID) private platformId: any,
+              @Optional() @Inject(REQUEST) request: any
+  ) {
     FlCleanerService.getInstance().registerService(this);
+    if(isPlatformServer(this.platformId)) {
+      this.request = request;
+    }
   }
 
   public init(): void {
-    if (this.authService.hasAuthorizationCookie()) {
+    if (this.hasAuthCookie()) {
       this.apiService.get(this.userRoute).subscribe((user: HaUser) => {
         this.translateService.changeAppLanguage(user.lang);
         this.userAuthenticated = user;
@@ -32,6 +46,13 @@ export class HaAuthenticatedUserService implements FlCleanableService{
     } else {
       this.userSubject.next(null);
     }
+  }
+
+  private hasAuthCookie(): boolean {
+    if(isPlatformServer(this.platformId)) {
+      return this.request.cookies[flAuthExpiredCookie] != null;
+    }
+    return this.authService.hasAuthorizationCookie();
   }
 
   public getUser(): Observable<HaUser> {

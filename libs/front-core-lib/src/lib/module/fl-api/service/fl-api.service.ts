@@ -15,6 +15,7 @@ import {FlApiErrorService} from './fl-api-error.service';
 @Injectable()
 export class FlApiService {
 
+
   constructor(protected http: HttpClient,
               private configService: FlApiServiceConfig,
               private flErrorService: FlApiErrorService) {
@@ -48,8 +49,12 @@ export class FlApiService {
              options: FlHttpOption = {}): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
     return this.http.get(this.getUrl(route, options), options).pipe(
-      catchError(err => this.catchError(err, options)),
-      map(result => this.deserialize(result, classReference, options.resultIsPaginated))
+      catchError(err =>
+        this.catchError(err, options)
+      ),
+      map(result => {
+        return this.deserialize(result, classReference, options.resultIsPaginated)
+      })
     );
   }
 

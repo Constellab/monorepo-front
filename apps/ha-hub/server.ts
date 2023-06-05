@@ -9,9 +9,8 @@ import {join} from 'path';
 import {AppServerModule} from './src/main.server';
 import {environment} from './src/environments/ha-environment';
 import {EnumChangefreq, SitemapItem, SitemapStream, streamToPromise} from 'sitemap';
-import {createGzip} from 'zlib';
 import axios from 'axios';
-import { Readable } from 'stream';
+import * as cookieParser from 'cookie-parser';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -57,6 +56,7 @@ export function app(): express.Express {
 
 
   server.use(securityHeadersMiddleware);
+  server.use(cookieParser());
 
   server.get('/robots.txt', (req, res) => {
     res.type('text/plain');

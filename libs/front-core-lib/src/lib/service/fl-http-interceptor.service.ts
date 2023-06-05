@@ -16,8 +16,8 @@ export class FlHttpInterceptorService implements HttpInterceptor {
 
     req = req.clone({
       withCredentials: true,
-      headers: new HttpHeaders({
-        lang: lang,
+      headers: req.headers ? req.headers.append('lang', lang) : new HttpHeaders({
+        lang: lang
       })
     });
     return next.handle(req);

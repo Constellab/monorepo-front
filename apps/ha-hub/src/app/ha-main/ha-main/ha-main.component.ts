@@ -45,6 +45,10 @@ export class HaMainComponent implements OnInit {
     });
     this.currentTheme = this.themeService.getCurrentTheme();
     this.authUserService.getUser().subscribe(user => {
+      if(user != null){
+        this.themeService.changeTheme(user.theme);
+        this.currentTheme = user.theme;
+      }
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
     });
   }
@@ -94,5 +98,6 @@ export class HaMainComponent implements OnInit {
       'assets/fl-logo/community-logo-text-white.svg';
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   protected readonly ClSupportedLanguage = ClSupportedLanguage;
 }

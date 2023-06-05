@@ -28,6 +28,8 @@ import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {HaTdServiceConfig} from './ha-core/ha-model/ha-config/ha-td-service.config';
 import {HaUserConfig} from './ha-core/ha-model/ha-config/ha-user-config.config';
 import {HaMainModule} from './ha-main/ha-main.module';
+import {REQUEST} from '@nguniversal/express-engine/tokens';
+import {HaHttpInterceptorSsrService} from './ha-core/ha-service/ha-http-interceptor-ssr.service';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -84,6 +86,11 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FlHttpInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HaHttpInterceptorSsrService,
       multi: true,
     },
     {
