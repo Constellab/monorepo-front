@@ -12,7 +12,7 @@
     <!--  Level status  -->
     <mat-radio-group aria-label="Select an option" formControlName="levelStatus"
                      fxLayout="row" fxLayoutAlign="space-between stretch">
-      <fl-radio-button-big [value]="levelStatus.LEAF" fxFlex="49%">
+      <mat-radio-button [value]="levelStatus.LEAF" fxFlex="49%" flRadioButtonBig>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
           <ca-project-icon [type]="levelStatus.LEAF"></ca-project-icon>
           <div>{{'modern_project' | translate}}</div>
@@ -21,9 +21,9 @@
         <div class="g-text-small radio-description">
           {{'modern_project_description' | translate}}
         </div>
-      </fl-radio-button-big>
+      </mat-radio-button>
 
-      <fl-radio-button-big [value]="levelStatus.PARENT" fxFlex="49%">
+      <mat-radio-button [value]="levelStatus.PARENT" fxFlex="49%" flRadioButtonBig>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
           <ca-project-icon [type]="levelStatus.PARENT"></ca-project-icon>
           <div>{{'classic_project' | translate}}</div>
@@ -32,7 +32,7 @@
         <div class="g-text-small radio-description">
           {{'classic_project_description' | translate}}
         </div>
-      </fl-radio-button-big>
+      </mat-radio-button>
     </mat-radio-group>
 
     <!--  Code  -->

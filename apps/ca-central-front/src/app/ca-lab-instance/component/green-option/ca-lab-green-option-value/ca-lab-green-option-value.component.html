@@ -1,0 +1,12 @@
+<ng-container *ngIf="greenOption.hasValue()">
+  <div [ngSwitch]="greenOption.type">
+
+    <ng-container *ngSwitchCase="afterTime">
+      {{afterTimeValue.hours | number:'2.0-0'}}:{{afterTimeValue.minutes | number:'2.0-0'}} ({{afterTimeValue.timezone}})
+    </ng-container>
+
+    <ng-container *ngSwitchCase="afterInactivity">
+      {{afterInactivityValue.inactivityDuration}} {{'lab_green_option_minutes' | translate}}
+    </ng-container>
+  </div>
+</ng-container>

@@ -11,99 +11,118 @@ import {CaServerInfoCoreModule} from '../ca-core/entity-module/ca-server-info-co
 import {CaMyLabInstancesPageComponent} from './component/ca-my-lab-instances-page/ca-my-lab-instances-page.component';
 import {
   CaLabInstanceUsersListComponent
-} from './component/ca-lab-instance-users-list/ca-lab-instance-users-list.component';
+} from './component/user/ca-lab-instance-users-list/ca-lab-instance-users-list.component';
 import {
   CaLabInstanceUsersTableComponent
-} from './component/ca-lab-instance-users-table/ca-lab-instance-users-table.component';
+} from './component/user/ca-lab-instance-users-table/ca-lab-instance-users-table.component';
 import {
   CaLabInstanceUserFormDialogComponent
-} from './component/ca-lab-instance-user-form-dialog/ca-lab-instance-user-form-dialog.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+} from './component/user/ca-lab-instance-user-form-dialog/ca-lab-instance-user-form-dialog.component';
 import {
   CaLabInstanceUpdateDialogComponent
 } from './component/ca-lab-instance-update-dialog/ca-lab-instance-update-dialog.component';
-import {CaLabInstanceManagerComponent} from './component/ca-lab-instance-manager/ca-lab-instance-manager.component';
+import {
+  CaLabInstanceManagerComponent
+} from './component/manager/ca-lab-instance-manager/ca-lab-instance-manager.component';
 import {
   CaLabDockerContainersListComponent
-} from './component/ca-lab-docker-containers-list/ca-lab-docker-containers-list.component';
+} from './component/manager/ca-lab-docker-containers-list/ca-lab-docker-containers-list.component';
 import {
   CaLabDockerContainerLogsComponent
-} from './component/ca-lab-docker-container-logs/ca-lab-docker-container-logs.component';
+} from './component/manager/ca-lab-docker-container-logs/ca-lab-docker-container-logs.component';
 import {
   CaLabInstanceManagerStatusComponent
-} from './component/ca-lab-instance-manager-status/ca-lab-instance-manager-status.component';
+} from './component/manager/ca-lab-instance-manager-status/ca-lab-instance-manager-status.component';
 import {
   CaLabInstanceDockerUpFormComponent
-} from './component/ca-lab-instance-docker-up-form/ca-lab-instance-docker-up-form.component';
+} from './component/manager/ca-lab-instance-docker-up-form/ca-lab-instance-docker-up-form.component';
 import {
   CaLabInstanceManagerConfigComponent
-} from './component/ca-lab-instance-manager-config/ca-lab-instance-manager-config.component';
+} from './component/manager/ca-lab-instance-manager-config/ca-lab-instance-manager-config.component';
 import {
   CaLabInstanceConfigFormComponent
 } from './component/ca-lab-instance-config-form/ca-lab-instance-config-form.component';
 import {
   CaLabInstanceConfigBrickComponent
 } from './component/ca-lab-instance-config-brick/ca-lab-instance-config-brick.component';
-import {CaBrickCoreModule} from '../ca-core/entity-module/ca-brick-core/ca-brick-core.module';
-import {CaLabDockerContainersComponent} from './component/ca-lab-docker-containers/ca-lab-docker-containers.component';
+import {
+  CaLabDockerContainersComponent
+} from './component/manager/ca-lab-docker-containers/ca-lab-docker-containers.component';
 import {
   CaLabInstanceProjectsListComponent
-} from './component/ca-lab-instance-projects-list/ca-lab-instance-projects-list.component';
+} from './component/project/ca-lab-instance-projects-list/ca-lab-instance-projects-list.component';
 import {
   CaLabInstanceProjectsTableComponent
-} from './component/ca-lab-instance-projects-table/ca-lab-instance-projects-table.component';
-import {CaProjectCoreModule} from '../ca-core/entity-module/ca-project-core/ca-project-core.module';
+} from './component/project/ca-lab-instance-projects-table/ca-lab-instance-projects-table.component';
 import {
   CaLabInstanceAddProjectDialogComponent
-} from './component/ca-lab-instance-add-project-dialog/ca-lab-instance-add-project-dialog.component';
+} from './component/project/ca-lab-instance-add-project-dialog/ca-lab-instance-add-project-dialog.component';
 import {
   CaLabInstanceCodelabInfoComponent
 } from './component/ca-lab-instance-codelab-info/ca-lab-instance-codelab-info.component';
 import {CaLabInstanceHeaderComponent} from './component/ca-lab-instance-header/ca-lab-instance-header.component';
 import {
   CaLabInstanceManageBackupComponent
-} from './component/ca-lab-instance-manage-backup/ca-lab-instance-manage-backup.component';
-import {CaLabInstanceBackupComponent} from './component/ca-lab-instance-backup/ca-lab-instance-backup.component';
+} from './component/manager/ca-lab-instance-manage-backup/ca-lab-instance-manage-backup.component';
+import {
+  CaLabInstanceBackupComponent
+} from './component/manager/ca-lab-instance-backup/ca-lab-instance-backup.component';
 import {
   CaLabBackupHistoryDialogComponent
-} from './component/ca-lab-backup-history-dialog/ca-lab-backup-history-dialog.component';
-import {CaConfigCoreModule} from '../ca-core/entity-module/ca-config-core/ca-config-core.module';
+} from './component/manager/ca-lab-backup-history-dialog/ca-lab-backup-history-dialog.component';
 import {
   CaLabInstanceDashboardPageComponent
 } from './component/ca-lab-instance-dashboard-page/ca-lab-instance-dashboard-page.component';
 import {
   CaLabInstanceConfigPageComponent
 } from './component/ca-lab-instance-config-page/ca-lab-instance-config-page.component';
-import {CaLabInstanceServerComponent} from './component/ca-lab-instance-server/ca-lab-instance-server.component';
+import {CaLabInstanceServerComponent} from './component/server/ca-lab-instance-server/ca-lab-instance-server.component';
 import {
   CaLabServerCompleteInfoComponent
-} from './component/ca-lab-server-complete-info/ca-lab-server-complete-info.component';
+} from './component/server/ca-lab-server-complete-info/ca-lab-server-complete-info.component';
 import {
   CaLabServerCompleteInfoDialogComponent
-} from './component/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
+} from './component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
 import {
   CaLabInstanceStartStopComponent
 } from './component/ca-lab-instance-start-stop/ca-lab-instance-start-stop.component';
 import {
   CaLabInstanceServerStatusComponent
-} from './component/ca-lab-instance-server-status/ca-lab-instance-server-status.component';
-import {CaLabServerInfoCardComponent} from './component/ca-lab-server-info-card/ca-lab-server-info-card.component';
-import {CaLabDesktopConfigComponent} from './component/ca-lab-desktop-config/ca-lab-desktop-config.component';
+} from './component/server/ca-lab-instance-server-status/ca-lab-instance-server-status.component';
+import {
+  CaLabServerInfoCardComponent
+} from './component/server/ca-lab-server-info-card/ca-lab-server-info-card.component';
+import {CaLabDesktopConfigComponent} from './component/desktop/ca-lab-desktop-config/ca-lab-desktop-config.component';
 import {
   CaLabDesktopDownloadConfigComponent
-} from './component/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
+} from './component/desktop/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
 import {
   CaLabManagerUpdateDialogComponent
-} from './component/ca-lab-manager-update-dialog/ca-lab-manager-update-dialog.component';
+} from './component/manager/ca-lab-manager-update-dialog/ca-lab-manager-update-dialog.component';
 import {
   CaLabPullBiotaFormDialogComponent
-} from './component/ca-lab-pull-biota-form-dialog/ca-lab-pull-biota-form-dialog.component';
+} from './component/manager/ca-lab-pull-biota-form-dialog/ca-lab-pull-biota-form-dialog.component';
 import {
   CaLabInstanceManagerAdvancedComponent
-} from './component/ca-lab-instance-manager-advanced/ca-lab-instance-manager-advanced.component';
+} from './component/manager/ca-lab-instance-manager-advanced/ca-lab-instance-manager-advanced.component';
 import {
   CaLabInstanceGlobalStatusComponent
 } from './component/ca-lab-instance-global-status/ca-lab-instance-global-status.component';
+import {CaLabGreenOptionsComponent} from './component/green-option/ca-lab-green-options/ca-lab-green-options.component';
+import {
+  CaLabGreenOptionFormDialogComponent
+} from './component/green-option/ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CaBrickCoreModule} from '../ca-core/entity-module/ca-brick-core/ca-brick-core.module';
+import {CaProjectCoreModule} from '../ca-core/entity-module/ca-project-core/ca-project-core.module';
+import {CaConfigCoreModule} from '../ca-core/entity-module/ca-config-core/ca-config-core.module';
+import {
+  CaLabGreenOptionTableComponent
+} from './component/green-option/ca-lab-green-option-table/ca-lab-green-option-table.component';
+import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space-core.module';
+import {
+  CaLabGreenOptionValueComponent
+} from './component/green-option/ca-lab-green-option-value/ca-lab-green-option-value.component';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -148,6 +167,10 @@ import {
     CaLabPullBiotaFormDialogComponent,
     CaLabInstanceManagerAdvancedComponent,
     CaLabInstanceGlobalStatusComponent,
+    CaLabGreenOptionsComponent,
+    CaLabGreenOptionFormDialogComponent,
+    CaLabGreenOptionTableComponent,
+    CaLabGreenOptionValueComponent,
   ],
   imports: [
     CommonModule,
@@ -162,7 +185,7 @@ import {
     CaConfigCoreModule,
 
     CaLabInstanceRoutingModule,
-  ]
+    CaSpaceCoreModule,
+  ],
 })
-export class CaLabInstanceModule {
-}
+export class CaLabInstanceModule {}

@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FlRadioButtonBigComponent} from './component/fl-radio-button-big/fl-radio-button-big.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatRadioModule} from '@angular/material/radio';
+import {FlRadioButtonBigDirective} from './directive/fl-radio-button-big.directive';
 
 
 @NgModule({
   declarations: [
-    FlRadioButtonBigComponent,
+    FlRadioButtonBigDirective,
   ],
   exports: [
-    FlRadioButtonBigComponent,
+    FlRadioButtonBigDirective,
   ],
   imports: [
     CommonModule,

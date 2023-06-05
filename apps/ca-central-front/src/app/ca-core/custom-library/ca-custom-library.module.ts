@@ -11,6 +11,7 @@ import {
   FlDateModule,
   FlDialogModule,
   FlDrawerModule,
+  FlDynamicFieldModule,
   FlEmojiPickerModule,
   FlExpansionMenuModule,
   FlFormModule,
@@ -82,6 +83,7 @@ import {PrProtocolModule} from '@monorepo/protocol';
     FlRadioButtonBigModule,
     FlExpansionMenuModule,
     FlInputSearchModule,
+    FlDynamicFieldModule,
 
 
     RvResourceViewModule,

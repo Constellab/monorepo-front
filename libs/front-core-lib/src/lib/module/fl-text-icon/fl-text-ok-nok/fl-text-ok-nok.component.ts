@@ -17,10 +17,18 @@ export class FlTextOkNokComponent implements OnInit {
 
   @Input() nokText: string;
 
+  @Input() okTooltip: string;
+
+  @Input() nokTooltip: string;
+
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  get tooltip(): string {
+    return this.value ? this.okTooltip : this.nokTooltip;
   }
 
 }

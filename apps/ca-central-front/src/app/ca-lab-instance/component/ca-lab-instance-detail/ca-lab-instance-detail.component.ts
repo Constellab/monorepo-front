@@ -14,7 +14,7 @@ import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance
 import {
   CaLabDesktopDownloadConfigComponent,
   CaLabDesktopDownloadConfigInput
-} from '../ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
+} from '../desktop/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
 import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
 
 @Component({

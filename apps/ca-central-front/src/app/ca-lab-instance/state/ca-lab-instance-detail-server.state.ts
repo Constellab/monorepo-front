@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CaLabInstanceService} from '../../ca-core/service-api/ca-lab-instance.service';
 import {
   CaLabServerCompleteInfoDialogComponent
-} from '../component/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
+} from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
 import {CaLabInstanceDetailPageState} from './ca-lab-instance-detail-page.state';
 import {
   FlConfirmDialogInput,
@@ -14,7 +14,7 @@ import {Observable} from 'rxjs';
 import {
   CaLabManagerUpdateDialogComponent,
   CaLabManagerUpdateDialogInput
-} from '../component/ca-lab-manager-update-dialog/ca-lab-manager-update-dialog.component';
+} from '../component/manager/ca-lab-manager-update-dialog/ca-lab-manager-update-dialog.component';
 
 /**
  * State in the lab instance detail page to manage the server status.

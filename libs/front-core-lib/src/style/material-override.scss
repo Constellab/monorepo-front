@@ -202,7 +202,7 @@ body {
 /***************************** Table *****************************/
 
 // set the border to the table because last line does not have it
-mat-table.mat-mdc-table{
+mat-table.mat-mdc-table {
   border-bottom: 1px solid var(--hover-color);
 }
 
@@ -318,7 +318,7 @@ mat-tree {
 
 /************************************* MAT TAB ***********************************/
 
-.mat-mdc-tab-header{
+.mat-mdc-tab-header {
   border-bottom: 1px solid var(--hover-color);
 }
 
@@ -359,11 +359,28 @@ mat-tree {
 }
 
 /************************************* MAT RADIO BUTTON ***********************************/
-// to place on a mat-checkbox to include the bottom section of it to avoid overflow
-.g-mat-radio-include-bottom {
-  padding-bottom: 12px;
-  padding-right: 12px;
+
+// to place on a mat-radio-button make it a big button
+.g-mat-radio-button-big {
+  & {
+    border: 1px solid var(--hover-color);
+    border-radius: var(--card-radius);
+    padding: 1em;
+    cursor: pointer;
+    display: flex;
+  }
+
+  label {
+    cursor: pointer;
+    line-height: 1.2em;
+  }
+
+  // primary color for selected radio button
+  &.mat-mdc-radio-checked {
+    border-color: var(--primary-color);
+  }
 }
+
 
 /************************************* MAT BUTTON TOGGLE ***********************************/
 .g-mat-button-toggle-small .mat-button-toggle-label-content {
@@ -384,7 +401,7 @@ mat-tree {
 
 // class to place on fl-infinite-scroll component to make it work on portal for
 // mat-select or mat-autocomplete
-fl-infinite-scroll.g-mat-option-infinite-scroll{
+fl-infinite-scroll.g-mat-option-infinite-scroll {
   max-height: 100%;
   width: 100%;
   display: flex;
@@ -431,7 +448,7 @@ fl-infinite-scroll.g-mat-option-infinite-scroll{
 }
 
 /************************************* MAT SLIDER ***********************************/
-mat-slider.g-slider-full-width{
+mat-slider.g-slider-full-width {
   // reduce size because of margin of the slider
   width: calc(100% - 18px);
 }

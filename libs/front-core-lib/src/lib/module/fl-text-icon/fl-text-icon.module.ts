@@ -4,6 +4,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FlTextIconComponent} from './fl-text-icon/fl-text-icon.component';
 import {FlTextOkNokComponent} from './fl-text-ok-nok/fl-text-ok-nok.component';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 /**
  * Module that contain the TextIconComponent to align text with icon
@@ -22,6 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
 
     FlexLayoutModule,
     MatIconModule,
+    MatTooltipModule,
   ]
 })
 export class FlTextIconModule {

@@ -41,6 +41,7 @@ import {
 } from '../entity-module/ca-lab-core/model/ca-lab-instance-search.class';
 import {CaServerCompleteInfo} from '../model/entities/lab/ca-lab-server.class';
 import {CaLabConfig} from '../model/entities/lab/ca-lab-config.class';
+import {CaLabGreenOption, CaLabGreenOptionFormDto} from '../model/entities/lab/ca-lab-green-option.class';
 
 @Injectable({
   providedIn: 'root'
@@ -312,7 +313,25 @@ export class CaLabInstanceService {
     return this.apiService.put(`${this.route}/${id}/dockerlab/update`, null, CaLabInstanceStatusDTO);
   }
 
-  //////////////////////////// Desktop ////////////////////////////////
+  //////////////////////////// STATUS RULE  ////////////////////////////////
+
+  public createGreenOption(labId: string, greenOption: CaLabGreenOptionFormDto): Observable<CaLabGreenOption> {
+    return this.apiService.post(`${this.route}/${labId}/green-options`, greenOption, CaLabGreenOption);
+  }
+
+  public updateGreenOption(greenOptionId: string, greenOption: CaLabGreenOptionFormDto): Observable<CaLabGreenOption> {
+    return this.apiService.put(`${this.route}/green-options/${greenOptionId}`, greenOption, CaLabGreenOption);
+  }
+
+  public deleteGreenOption(greenOptionId: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/green-options/${greenOptionId}`);
+  }
+
+  public getGreenOptions(labId: string): Observable<CaLabGreenOption[]> {
+    return this.apiService.get(`${this.route}/${labId}/green-options`, CaLabGreenOption);
+  }
+
+  //////////////////////////// DESKTOP ////////////////////////////////
 
   public getDesktopConfigDownloadUrl(id: string, config: CaLabInstanceDesktopConfig): Observable<Blob> {
     return this.apiService.post(

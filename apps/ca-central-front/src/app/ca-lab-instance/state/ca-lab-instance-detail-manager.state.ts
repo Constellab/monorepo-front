@@ -18,10 +18,10 @@ import {map} from 'rxjs/operators';
 import {
   CaLabInstanceDockerUpFormComponent,
   CaLabInstanceDockerUpFormInput
-} from '../component/ca-lab-instance-docker-up-form/ca-lab-instance-docker-up-form.component';
+} from '../component/manager/ca-lab-instance-docker-up-form/ca-lab-instance-docker-up-form.component';
 import {
   CaLabPullBiotaFormDialogComponent
-} from '../component/ca-lab-pull-biota-form-dialog/ca-lab-pull-biota-form-dialog.component';
+} from '../component/manager/ca-lab-pull-biota-form-dialog/ca-lab-pull-biota-form-dialog.component';
 
 /**
  * State in the lab instance detail page for the lab manager.
