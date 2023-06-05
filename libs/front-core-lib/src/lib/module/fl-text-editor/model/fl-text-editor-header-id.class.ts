@@ -26,8 +26,8 @@ export class FlTextEditorHeaderId extends FlQuillHeader {
   //Format the title values as a rich text header
   static formats(domNode: HTMLElement): FlRichTextHeader {
     const result = super.formats(domNode);
+    if(domNode.innerText.trim() == '') return null;
     const id = ClStringHelper.toKebabCase(domNode.innerText);
-
     //Set idea before the first reload
     if (!domNode.id) {
       domNode.id = id;
