@@ -8,6 +8,7 @@ import {HaApiServiceConfig} from '../../ha-core/ha-model/ha-config/ha-api-module
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
 import {ActivatedRoute, UrlSegment} from '@angular/router';
 import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
+import {HaEnvironmentHelper} from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 
 @Component({
   selector: 'ha-main',
@@ -48,6 +49,7 @@ export class HaMainComponent implements OnInit {
       if(user != null){
         this.themeService.changeTheme(user.theme);
         this.currentTheme = user.theme;
+
       }
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
     });

@@ -50,7 +50,7 @@ export class HaAuthenticatedUserService implements FlCleanableService{
 
   private hasAuthCookie(): boolean {
     if(isPlatformServer(this.platformId)) {
-      return this.request.cookies[flAuthExpiredCookie] != null;
+      return this.request?.cookies[flAuthExpiredCookie] != null;
     }
     return this.authService.hasAuthorizationCookie();
   }

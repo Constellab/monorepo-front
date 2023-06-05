@@ -1,10 +1,12 @@
-import {Inject, Injectable, PLATFORM_ID, Renderer2, RendererFactory2} from '@angular/core';
+import {Inject, Injectable, Optional, PLATFORM_ID, Renderer2, RendererFactory2} from '@angular/core';
 import {FlPlatformService} from '../../service/fl-plateform.service';
 import {FlLocalStorageService} from '../../service/fl-local-storage.service';
-import {DOCUMENT, isPlatformBrowser} from '@angular/common';
+import {DOCUMENT, isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {clDefaultTheme, ClTheme, clThemeIsSupported} from '@monorepo/core-lib';
 import {FlThemeDetail, flThemeDetailDark, flThemeDetailLight} from './model/fl-theme-detail.class';
 import {flRootInjector} from '../../utils/fl-root-injector';
+import {FlCookieService} from '../../service/fl-cookie.service';
+import {REQUEST} from '@nguniversal/express-engine/tokens';
 
 /**
  * Service to manage light and dark theme
@@ -18,13 +20,17 @@ export class FlThemeService {
 
   private renderer: Renderer2;
 
+  private request: any;
+
   constructor(private platformService: FlPlatformService,
-              private localStorageService: FlLocalStorageService,
+              private cookieService: FlCookieService,
               @Inject(DOCUMENT) private document: Document,
               // eslint-disable-next-line @typescript-eslint/ban-types
               @Inject(PLATFORM_ID) private platformId: Object,
+              @Optional() @Inject(REQUEST) request: any,
               rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
+    this.request = request;
   }
 
   public static getInstance(): FlThemeService {
@@ -39,13 +45,34 @@ export class FlThemeService {
    * Return the current theme or the default
    */
   public getCurrentTheme(): ClTheme {
-    let theme: ClTheme = this.localStorageService.getItem(this.themeKey) as ClTheme;
+    let theme = this.getCookieTheme();
 
     if (!this.checkTheme(theme)) {
       theme = this.getBrowserTheme();
+      this.setCookieTheme(theme);
     }
 
     return theme;
+  }
+
+  private getCookieTheme(): ClTheme{
+    if(isPlatformServer(this.platformId)) {
+      return this.request?.cookies[this.themeKey] as ClTheme;
+    }
+    return this.cookieService.getStringCookie(this.themeKey) as ClTheme;
+  }
+
+  private setCookieTheme(theme: ClTheme): void {
+    // set the cookie for 60 days
+    const date = new Date(new Date().getTime() +  5184000000);
+    // clear the millisecond to get closer to real expiration
+    date.setMilliseconds(0);
+    this.cookieService.setCookie(this.themeKey, theme, {
+      expires: date,
+      sameSite: 'Lax',
+      secure: true,
+      path: '/'
+    });
   }
 
   public isDarkTheme(): boolean {
@@ -56,9 +83,9 @@ export class FlThemeService {
    * change the current app theme and save it in the local storage
    */
   public changeTheme(theme: ClTheme): void {
-    if (this.checkTheme(theme) && theme !== this.getCurrentTheme()) {
-      this.loadTheme(theme);
+    if (this.checkTheme(theme) && (theme !== this.getCurrentTheme() || this.cookieService.getStringCookie(this.themeKey) != theme)) {
       this.storeTheme(theme);
+      this.loadTheme(theme);
     }
 
     // set the class theme in the body element to be able to use it in the css
@@ -75,7 +102,7 @@ export class FlThemeService {
   }
 
   private storeTheme(theme: ClTheme): void {
-    this.localStorageService.setItem(this.themeKey, theme);
+    this.setCookieTheme(theme);
   }
 
 

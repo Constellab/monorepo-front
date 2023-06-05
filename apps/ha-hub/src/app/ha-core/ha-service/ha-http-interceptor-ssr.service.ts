@@ -20,7 +20,7 @@ export class HaHttpInterceptorSsrService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add lang to the headers
-    if (isPlatformServer(this.platformId)) {
+    if (isPlatformServer(this.platformId) && this.request.cookies['Authorization'] != null) {
       req = req.clone({
         withCredentials: true,
         headers: req.headers ? req.headers.append('authorization', this.request.cookies['Authorization']) :
