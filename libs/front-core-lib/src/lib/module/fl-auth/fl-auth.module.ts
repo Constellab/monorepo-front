@@ -29,6 +29,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {FlSignupPageComponent} from './component/fl-signup-page/fl-signup-page.component';
+import {FlCaptchaModule} from '../fl-captcha/fl-captcha.module';
 
 /**
  * Module containing component for authentication, sign up, password reset
@@ -74,6 +75,7 @@ import {FlSignupPageComponent} from './component/fl-signup-page/fl-signup-page.c
     FlTranslateModule,
     FlLoaderModule,
     FlCardModule,
+    FlCaptchaModule,
   ],
 })
 export class FlAuthModule {
@@ -98,7 +100,7 @@ export class FlAuthModule {
 
     return {
       ngModule: FlAuthModule,
-      providers: providers
+      providers: providers,
     };
   }
 }

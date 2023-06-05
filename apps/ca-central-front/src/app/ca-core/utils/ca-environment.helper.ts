@@ -26,4 +26,8 @@ export class CaEnvironmentHelper{
   public static getFrontDomain(): string {
     return CaEnvironmentHelper.getEnv().settings.frontDomain;
   }
+
+  public static getRecaptchaSiteKey(): string {
+    return CaEnvironmentHelper.getEnv().settings.recaptchaSiteKey;
+  }
 }

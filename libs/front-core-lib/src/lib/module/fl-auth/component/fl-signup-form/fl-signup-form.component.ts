@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {FlSignUpUser} from '../../model/fl-sign-up-user.class';
 import {Validators} from '@angular/forms';
 import {FlGlobalValidators} from '../../../../utils/fl-global.validators';
+import {FlCaptchaService} from '../../../fl-captcha/fl-captcha.service';
 
 /**
  * Component that contains the form to create a new user
@@ -17,7 +18,7 @@ export class FlSignupFormComponent implements OnInit {
   @Input() formGp: FormGroup<FlSignUpUser>;
 
 
-  constructor() {
+  constructor(private captchaService: FlCaptchaService) {
   }
 
   public static buildFormGroup(): FormGroup<FlSignUpUser> {
@@ -30,11 +31,15 @@ export class FlSignupFormComponent implements OnInit {
         FlGlobalValidators.repeatPasswordValidator('password')]],
       category: [null, Validators.required],
       validateCGU: [false, FlGlobalValidators.isValue(true)],
-      phone: [null]
+      phone: [null],
+      captcha: [null]
     });
   }
 
   ngOnInit(): void {
+    this.captchaService.executeCaptcha('signup')
+      .subscribe((token) => this.formGp.get('captcha').setValue(token));
+
   }
 
   // update the repeat password validity on password change

@@ -11,6 +11,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {
   FlApiModule,
   FlAuthModule,
+  FlCaptchaModule,
   FlDialogModule,
   FlHttpInterceptorService,
   FlIconModule,
@@ -40,6 +41,7 @@ import {PrProtocolModule} from '@monorepo/protocol';
 import {CaUserConfig} from './ca-core/model/config/ca-user-config.service';
 import {CaSpaceInterceptor} from './ca-core/interceptor/ca-space-interceptor.service';
 import {BnBioNetworkModule} from '@monorepo/bio-network';
+import {CaEnvironmentHelper} from './ca-core/utils/ca-environment.helper';
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
@@ -82,6 +84,10 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
     FlDialogModule.forRoot(),
     FlSnackBarModule.forRoot(),
     FlPortalModule.forRoot(),
+    FlCaptchaModule.forRoot({
+      siteKey: CaEnvironmentHelper.getRecaptchaSiteKey(),
+      isLocal: !CaEnvironmentHelper.isProduction()
+    }),
     FlAuthModule.forRoot(CaAuthService, CaUserAccountsService),
     FlPortalActionsModule.forRoot(),
     FlTextEditorModule.forRoot({

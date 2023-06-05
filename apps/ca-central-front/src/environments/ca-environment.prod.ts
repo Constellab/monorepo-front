@@ -14,6 +14,7 @@ export const environment: CaEnvironment = {
     communityApiUrl: '',
     communityFrontUrl: '',
     frontDomain: '',
+    recaptchaSiteKey: '',
   }
 };
 

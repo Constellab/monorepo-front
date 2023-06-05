@@ -9,4 +9,5 @@ export interface FlSignUpUser {
   repeatPassword: string;
   validateCGU: boolean;
   phone ?: string;
+  captcha ?: string;
 }

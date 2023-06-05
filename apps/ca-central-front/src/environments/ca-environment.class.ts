@@ -25,6 +25,9 @@ export interface CaEnvironmentSettings {
   // domain name of the server
   frontDomain: string;
 
+  // recaptcha site key
+  recaptchaSiteKey: string;
+
 }
 
 // Path of the environment json file created during the docker run (used in production)
