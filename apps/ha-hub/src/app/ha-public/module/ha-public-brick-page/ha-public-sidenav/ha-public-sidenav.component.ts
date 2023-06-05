@@ -556,8 +556,9 @@ export class HaPublicSidenavComponent implements OnInit {
     if (data) {
       this.technicalDataSource.data = [data];
       this.technicalDataSource$ = of(this.technicalDataSource);
-      this.technicalDocResources = data.children[0].children;
-      this.technicalDocTasks = data.children[1].children;
+      this.technicalDocResources = data.children.find(td => td?.id.includes('ressource'))?.children;
+      this.technicalDocTasks = data.children.find(td => td?.id.includes('task'))?.children;
+      this.technicalDocProtocols = data.children.find(td => td?.id.includes('protocol'))?.children;
       this.updateTechDataSource();
     }
   }
