@@ -20,6 +20,16 @@ if (environment.production) {
   });
 
 } else {
+
+  // set the environment here to simulate the production mode
+  // (environment is not loaded before bootstraping the app)
+  environment.settings = {
+    apiUrl: 'http://localhost:3001',
+    communityApiUrl: 'http://localhost:3333',
+    communityFrontUrl: 'http://localhost:4200',
+    frontDomain: 'localhost',
+    captchaSiteKey: '123456'
+  };
   // in dev no environment loading
   platformBrowserDynamic()
     .bootstrapModule(CaAppModule)

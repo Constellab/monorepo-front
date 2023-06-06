@@ -9,9 +9,11 @@ import {CaMainModule} from './ca-main/ca-main.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {
+  FL_CAPTCHA_MODULE_CONFIG,
   FlApiModule,
   FlAuthModule,
   FlCaptchaModule,
+  FlCaptchaModuleConfig,
   FlDialogModule,
   FlHttpInterceptorService,
   FlIconModule,
@@ -46,6 +48,14 @@ import {CaEnvironmentHelper} from './ca-core/utils/ca-environment.helper';
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
 }
+
+function configureCaptcha(): FlCaptchaModuleConfig {
+  return {
+    siteKey: CaEnvironmentHelper.getRecaptchaSiteKey(),
+    isLocal: !CaEnvironmentHelper.isProduction()
+  };
+}
+
 
 @NgModule({
   declarations: [
@@ -84,10 +94,7 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
     FlDialogModule.forRoot(),
     FlSnackBarModule.forRoot(),
     FlPortalModule.forRoot(),
-    FlCaptchaModule.forRoot({
-      siteKey: CaEnvironmentHelper.getRecaptchaSiteKey(),
-      isLocal: !CaEnvironmentHelper.isProduction()
-    }),
+    FlCaptchaModule,
     FlAuthModule.forRoot(CaAuthService, CaUserAccountsService),
     FlPortalActionsModule.forRoot(),
     FlTextEditorModule.forRoot({
@@ -115,6 +122,7 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
       multi: true
     },
     {provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true},
+    {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha},
     CookieService,
   ],
   bootstrap: [CaAppComponent]

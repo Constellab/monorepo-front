@@ -4,12 +4,11 @@ import {Observable, of} from 'rxjs';
 import {FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig} from './fl-captcha.class';
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FlCaptchaService {
 
   constructor(private injector: Injector,
               @Inject(FL_CAPTCHA_MODULE_CONFIG) private config: FlCaptchaModuleConfig) {
-
   }
 
   public executeCaptcha(action: string): Observable<string> {
