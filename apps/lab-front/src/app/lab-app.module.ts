@@ -7,8 +7,11 @@ import {LabCoreModule} from './lab-core/lab-core.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {
+  FL_CAPTCHA_MODULE_CONFIG,
   FlApiModule,
   FlAuthModule,
+  FlCaptchaModule,
+  FlCaptchaModuleConfig,
   FlDialogModule,
   FlHttpInterceptorService,
   FlIconModule,
@@ -45,10 +48,18 @@ import {BnBioNetworkModule} from '@monorepo/bio-network';
 import {
   LabWorkflowResourcesState
 } from './lab-biox/module/lab-experiment-detail-page/state/lab-workflow-resources.state';
+import {LabEnvironmentHelper} from './lab-core/utils/lab-environment.helper';
 
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
+}
+
+function configureCaptcha(): FlCaptchaModuleConfig {
+  return {
+    siteKey: LabEnvironmentHelper.getRecaptchaSiteKey(),
+    isLocal: !LabEnvironmentHelper.isProduction()
+  };
 }
 
 @NgModule({
@@ -97,6 +108,7 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
     RvResourceViewModule.forRoot({availableViews: labConstResourceViewTypeInfos}),
     TdTechnicalDocModule.forRoot(LabTdServiceConfig),
     FlUserModule.forRoot(LabUserConfig),
+    FlCaptchaModule,
 
     PrProtocolModule.forRoot(LabWorkflowResourcesState),
 
@@ -110,6 +122,7 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
       multi: true
     },
     {provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true},
+    {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha},
   ],
   bootstrap: [LabAppComponent],
 })

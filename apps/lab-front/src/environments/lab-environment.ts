@@ -1,25 +1,23 @@
 import {LabEnvironment} from './lab-environment.class';
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
 
 /**
- * File for local environment,
+ * File for local environment, env is defined in main file.
+ * The environment is not accessible in forRoot method of the module, need to use provider
  *
  * NEVER IMPORT ENVIRONMENT DIRECTLY FORM HERE, USE ENVIRONMENT HELPER INSTEAD
  */
-const apiBaseUrl: string = 'http://localhost:3000';
 export const environment: LabEnvironment = {
   production: false,
   settings: {
-    apiBaseUrl: apiBaseUrl,
-    devApiBaseUrl: apiBaseUrl,
-    codelabUrl: 'http://localhost:80',
-    virtualHost: 'localhost',
-    spaceFrontUrl: 'http://localhost:4200',
-    spaceApiUrl: 'http://localhost:3001',
-    communityFrontUrl: 'https://hub-pre-prod.gencovery.com',
-    communityApiUrl: 'https://hub-back-pre-prod.constellab-pre-prod.gencovery.com',
+    apiBaseUrl: '',
+    devApiBaseUrl: '',
+    codelabUrl: '',
+    virtualHost: '',
+    spaceFrontUrl: '',
+    spaceApiUrl: '',
+    communityFrontUrl: '',
+    communityApiUrl: '',
+    captchaSiteKey: '',
   },
 };
 

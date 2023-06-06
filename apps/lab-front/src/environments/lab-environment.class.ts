@@ -36,6 +36,9 @@ export interface LabEnvironmentSettings {
 
   // url of the community api
   communityApiUrl: string;
+
+  // captcha site key
+  captchaSiteKey: string;
 }
 
 // Path of the environment json file created during the docker run (used in production)

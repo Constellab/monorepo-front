@@ -10,6 +10,14 @@ export class LabEnvironmentHelper {
 
   public static readonly coreApiRoute: string = 'core-api';
 
+  public static getEnv(): LabEnvironment {
+    return environment;
+  }
+
+  public static isProduction(): boolean {
+    return LabEnvironmentHelper.getEnv().production;
+  }
+
   public static getCoreApiUrl(): string {
     return `${LabEnvironmentHelper.getBaseApiUrl()}/${LabEnvironmentHelper.coreApiRoute}/`;
   }
@@ -60,7 +68,7 @@ export class LabEnvironmentHelper {
     return `${LabEnvironmentHelper.getSpaceFrontAppUrl()}/labs/${labId}/config`;
   }
 
-  public static getEnv(): LabEnvironment {
-    return environment;
+  public static getRecaptchaSiteKey(): string {
+    return LabEnvironmentHelper.getEnv().settings.captchaSiteKey;
   }
 }
