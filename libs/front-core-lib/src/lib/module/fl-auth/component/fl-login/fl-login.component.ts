@@ -1,8 +1,10 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {CmCredentials} from '@monorepo/common-model';
 import {FlAuthLoginResponse, FlAuthService} from '../../service/fl-auth.service';
 import {Validators} from '@angular/forms';
+import {FlCaptchaService} from '../../../fl-captcha/fl-captcha.service';
+import {Subscription} from 'rxjs';
 
 /**
  * Form to call a login request using FlAuthService
@@ -12,7 +14,7 @@ import {Validators} from '@angular/forms';
   templateUrl: './fl-login.component.html',
   styleUrls: ['./fl-login.component.scss']
 })
-export class FlLoginComponent implements OnInit {
+export class FlLoginComponent implements OnInit, OnDestroy {
 
 
   @Output() loginSuccess: EventEmitter<FlAuthLoginResponse> = new EventEmitter<FlAuthLoginResponse>();
@@ -20,18 +22,25 @@ export class FlLoginComponent implements OnInit {
   formGp: FormGroup<CmCredentials>;
   isLoading = false;
 
-  constructor(private authService: FlAuthService) {
+  private subscription: Subscription;
+
+  constructor(private authService: FlAuthService,
+              private captchaService: FlCaptchaService) {
   }
 
   ngOnInit(): void {
     this.initForm();
+    this.subscription = this.captchaService.executeCaptcha('action-2').subscribe(
+      (token) => this.formGp.get('captcha').setValue(token)
+    );
   }
 
   // Init the html form
   private initForm(): void {
     this.formGp = new FormBuilder().group({
       email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required]
+      password: [null, Validators.required],
+      captcha: [null]
     });
   }
 
@@ -56,6 +65,10 @@ export class FlLoginComponent implements OnInit {
   private error(): void {
     this.isLoading = false;
     this.formGp.get('password').reset();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
 }

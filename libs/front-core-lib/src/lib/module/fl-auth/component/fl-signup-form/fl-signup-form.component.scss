@@ -14,11 +14,17 @@ mat-form-field {
 }
 
 // style the link inside the innerHTML
-::ng-deep .fl-signup-cgu a {
-  text-decoration: underline;
-  cursor: pointer;
+::ng-deep {
+  .fl-signup-text-link a {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
-.cgu{
+.cgu {
   margin-left: 1em;
+}
+
+.captcha{
+  margin-bottom: 1em;
 }

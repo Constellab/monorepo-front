@@ -85,7 +85,7 @@
     <div fxLayout="row" fxLayoutAlign="start center" class="cgu-container">
       <mat-checkbox formControlName="validateCGU" [disableRipple]="true">
       </mat-checkbox>
-      <div class="fl-signup-cgu" fxFlex="auto" [innerHTML]="'flAuth.accept_cgu_cgv_text' | translate"></div>
+      <div class="fl-signup-text-link" fxFlex="auto" [innerHTML]="'flAuth.accept_cgu_cgv_text' | translate"></div>
     </div>
 
     <div *ngIf="formGp.get('validateCGU').hasError('differentValue') && formGp.get('validateCGU').touched"
@@ -93,4 +93,7 @@
       {{'flAuth.accept_cgu_cgv_error' | translate}}
     </div>
   </div>
+
+  <div class="g-text-light g-text-small fl-signup-text-link captcha"
+       [innerHTML]="'flAuth.captcha_protection' | translate"></div>
 </div>

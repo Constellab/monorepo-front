@@ -46,6 +46,7 @@
     "ha-hub:serve-ssr": "nx run ha-hub:serve-ssr",
     "ha-hub:build-ssr": "npx nx run ha-hub:build:production | npx nx run ha-hub:server:production",
     "ha-hub:build-prod": "nx build ha-hub --prod",
+    "ha-hub:build-prod-ssr": "nx build ha-hub:server:production",
     "ha-hub:build-dev": "nx build ha-hub --configuration=devevelopment",
     "ha-hub:build-image": "docker build -f apps/ha-hub/Dockerfile -t ha-hub .",
     "ha-hub:caprover-deploy-pre-prod": "deploy.cmd https://captain.constellab-pre-prod.gencovery.com hub-front-pre-prod registry.gitlab.com/constellab/core/monorepo-front/community-front",

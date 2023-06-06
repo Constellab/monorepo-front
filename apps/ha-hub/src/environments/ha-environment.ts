@@ -5,17 +5,19 @@
 import {HaEnvironment} from './ha-environment.class';
 
 /**
- * File for local environment,
+ * File for local environment,env is defined in main file.
+ * The environment is not accessible in forRoot method of the module, need to use provider
  *
  * NEVER IMPORT ENVIRONMENT DIRECTLY FORM HERE, USE ENVIRONMENT HELPER INSTEAD
  */
 export const environment: HaEnvironment = {
   production: false,
   settings: {
-    apiUrl: 'http://localhost:3333',
-    constellabApiUrl: 'https://api.preconstellab.com',
-    constellabFrontUrl: 'https://preconstellab.com',
-    communityFrontUrl: 'http://localhost:4200',
+    apiUrl: '',
+    constellabApiUrl: '',
+    constellabFrontUrl: '',
+    communityFrontUrl: '',
+    captchaSiteKey: ''
   },
 };
 

@@ -27,4 +27,8 @@ export class HaEnvironmentHelper{
   public static getCommunityFrontUrl(): string {
     return HaEnvironmentHelper.getEnv().settings.communityFrontUrl;
   }
+
+  public static getRecaptchaSiteKey(): string {
+    return HaEnvironmentHelper.getEnv().settings.captchaSiteKey;
+  }
 }

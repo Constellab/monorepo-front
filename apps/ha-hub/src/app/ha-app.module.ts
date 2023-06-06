@@ -3,8 +3,11 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HaAppComponent} from './ha-app.component';
 import {
+  FL_CAPTCHA_MODULE_CONFIG,
   FlApiModule,
   FlAuthModule,
+  FlCaptchaModule,
+  FlCaptchaModuleConfig,
   FlDialogModule,
   FlHttpInterceptorService,
   FlIconModule,
@@ -28,7 +31,7 @@ import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {HaTdServiceConfig} from './ha-core/ha-model/ha-config/ha-td-service.config';
 import {HaUserConfig} from './ha-core/ha-model/ha-config/ha-user-config.config';
 import {HaMainModule} from './ha-main/ha-main.module';
-import {REQUEST} from '@nguniversal/express-engine/tokens';
+import {HaEnvironmentHelper} from './ha-core/ha-model/ha-config/ha-environment.helper';
 import {HaHttpInterceptorSsrService} from './ha-core/ha-service/ha-http-interceptor-ssr.service';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
@@ -39,10 +42,17 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
 }
 
+function configureCaptcha(): FlCaptchaModuleConfig {
+  return {
+    siteKey: HaEnvironmentHelper.getRecaptchaSiteKey(),
+    isLocal: !HaEnvironmentHelper.isProduction()
+  };
+}
+
 @NgModule({
   declarations: [HaAppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
     BrowserAnimationsModule,
     HttpClientModule,
 
@@ -71,6 +81,7 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
     FlDialogModule.forRoot(),
 
     FlPortalModule.forRoot(),
+    FlCaptchaModule,
 
     FlIconModule.forRoot({
       iconFolder: 'assets/fl-mat-icons/',
@@ -100,6 +111,7 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
       multi: true,
     },
     {provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true},
+    {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha},
   ],
   bootstrap: [HaAppComponent],
 })

@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {FlSignUpUser} from '../../model/fl-sign-up-user.class';
 import {Validators} from '@angular/forms';
 import {FlGlobalValidators} from '../../../../utils/fl-global.validators';
 import {FlCaptchaService} from '../../../fl-captcha/fl-captcha.service';
+import {Subscription} from 'rxjs';
 
 /**
  * Component that contains the form to create a new user
@@ -13,10 +14,11 @@ import {FlCaptchaService} from '../../../fl-captcha/fl-captcha.service';
   templateUrl: './fl-signup-form.component.html',
   styleUrls: ['./fl-signup-form.component.scss']
 })
-export class FlSignupFormComponent implements OnInit {
+export class FlSignupFormComponent implements OnInit, OnDestroy {
 
   @Input() formGp: FormGroup<FlSignUpUser>;
 
+  private subscription: Subscription;
 
   constructor(private captchaService: FlCaptchaService) {
   }
@@ -37,7 +39,7 @@ export class FlSignupFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.captchaService.executeCaptcha('signup')
+    this.subscription = this.captchaService.executeCaptcha('action-1')
       .subscribe((token) => this.formGp.get('captcha').setValue(token));
 
   }
@@ -46,4 +48,10 @@ export class FlSignupFormComponent implements OnInit {
   updateRepeatPasswordValidity(): void {
     this.formGp.get('repeatPassword').updateValueAndValidity();
   }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
+
 }

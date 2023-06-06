@@ -30,7 +30,6 @@ if (environment.production) {
     frontDomain: 'localhost',
     captchaSiteKey: '123456'
   };
-  // in dev no environment loading
   platformBrowserDynamic()
     .bootstrapModule(CaAppModule)
     .catch((err) => console.error(err));

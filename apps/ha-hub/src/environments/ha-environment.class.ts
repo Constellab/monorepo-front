@@ -25,6 +25,8 @@ export interface HaEnvironmentSettings {
   // front url
   communityFrontUrl: string;
 
+  // recaptcha site key
+  captchaSiteKey: string;
 }
 
 // Path of the environment json file created during the docker run (used in production)

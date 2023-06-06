@@ -17,6 +17,17 @@ function bootstrap(): void {
         .catch((err) => console.error(err));
     });
   } else {
+
+    // set the environment here to simulate the production mode
+    // (environment is not loaded before bootstraping the app)
+    environment.settings = {
+      apiUrl: 'http://localhost:3333',
+      constellabApiUrl: 'https://api.preconstellab.com',
+      constellabFrontUrl: 'https://preconstellab.com',
+      communityFrontUrl: 'http://localhost:4200',
+      captchaSiteKey: '123456'
+    };
+
     platformBrowserDynamic()
       .bootstrapModule(HaAppModule)
       .catch((err) => console.error(err));

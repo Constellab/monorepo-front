@@ -195,7 +195,8 @@ function run(): void {
     apiUrl: process.env['API_URL'] || 'http://localhost:3333',
     constellabApiUrl: process.env['CONSTELLAB_API_URL'] || 'https://api.preconstellab.com',
     constellabFrontUrl: process.env['CONSTELLAB_FRONT_URL'] || 'https://preconstellab.com',
-    communityFrontUrl: process.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200'
+    communityFrontUrl: process.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200',
+    captchaSiteKey: process.env['CAPTCHA_SITE_KEY'] || '123465',
   };
 
 
