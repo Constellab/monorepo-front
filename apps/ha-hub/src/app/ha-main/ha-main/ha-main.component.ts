@@ -71,7 +71,7 @@ export class HaMainComponent implements OnInit {
   }
 
   getProductDocRoute(): string {
-    return HaRouterService.getProducDocRoute();
+    return HaRouterService.getProductDocRoute();
   }
 
   getTechDocRoute(): string {

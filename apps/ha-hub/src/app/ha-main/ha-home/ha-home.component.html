@@ -23,10 +23,10 @@
         <div class="portal-div-content">
           <h4>{{'documentation' | translate}}</h4>
           <div class="different-doc-links">
-            <a class="g-text-link" [routerLink]="'/product-doc'">
+            <a class="g-text-link" [routerLink]="getProductDocRoute()">
               {{'product_doc' | translate}}
             </a>
-            <a class="g-text-link" [routerLink]="'/tech-doc'">
+            <a class="g-text-link" [routerLink]="getTechDocRoute()">
               {{'tech_doc' | translate}}
             </a>
           </div>
