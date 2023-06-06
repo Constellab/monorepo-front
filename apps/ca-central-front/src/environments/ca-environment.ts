@@ -16,7 +16,7 @@ export const environment: CaEnvironment = {
     communityApiUrl: 'http://localhost:3333',
     communityFrontUrl: 'http://localhost:4200',
     frontDomain: 'localhost',
-    recaptchaSiteKey: ''
+    captchaSiteKey: ''
   }
 };
 

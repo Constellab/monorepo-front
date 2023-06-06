@@ -26,7 +26,7 @@ export interface CaEnvironmentSettings {
   frontDomain: string;
 
   // recaptcha site key
-  recaptchaSiteKey: string;
+  captchaSiteKey: string;
 
 }
 

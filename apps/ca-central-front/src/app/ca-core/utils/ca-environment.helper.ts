@@ -28,6 +28,6 @@ export class CaEnvironmentHelper{
   }
 
   public static getRecaptchaSiteKey(): string {
-    return CaEnvironmentHelper.getEnv().settings.recaptchaSiteKey;
+    return CaEnvironmentHelper.getEnv().settings.captchaSiteKey;
   }
 }
