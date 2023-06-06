@@ -15,7 +15,7 @@
       <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
       <span class="g-text-small date-info">{{story.createdAt | flDate:'DATETIME_MED'}}</span>
     </p>
-    <fl-key-value class="g-text-small co-author-key-val user-date-info">
+    <fl-key-value class="g-text-small co-author-key-val user-date-info" *ngIf="story.getCoAuthors().length > 0">
       <fl-key>{{'coauthors' | translate}}</fl-key>
       <span class="co-author-span">
         <fl-user-inline *ngFor="let coAuthor of story.getCoAuthors()" [user]="coAuthor"

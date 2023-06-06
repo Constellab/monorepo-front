@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {HaUser} from '../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
 import {FlDialogService, FlThemeService} from '@monorepo/front-core-lib';
@@ -31,6 +31,8 @@ export class HaMainComponent implements OnInit {
 
   lang = ClSupportedLanguage;
 
+  isDarkTheme: boolean;
+
 
   constructor(private authUserService: HaAuthenticatedUserService,
               private authService: HaAuthService,
@@ -45,11 +47,12 @@ export class HaMainComponent implements OnInit {
       this.currentUrlSegment = url;
     });
     this.currentTheme = this.themeService.getCurrentTheme();
+    this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
     this.authUserService.getUser().subscribe(user => {
       if(user != null){
         this.themeService.changeTheme(user.theme);
         this.currentTheme = user.theme;
-
+        this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
       }
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
     });
@@ -82,8 +85,9 @@ export class HaMainComponent implements OnInit {
   selectTheme(theme: ClTheme): void {
     if(this.currentTheme !== theme) {
       this.themeService.changeTheme(theme);
-      this.authUserService.changeTheme(theme).subscribe();
       this.currentTheme = theme;
+      this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
+      this.authUserService.changeTheme(theme).subscribe();
     }
   }
 

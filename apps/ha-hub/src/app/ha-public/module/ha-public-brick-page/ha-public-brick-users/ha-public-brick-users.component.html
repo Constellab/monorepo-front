@@ -8,7 +8,7 @@
   <ng-container *ngFor="let brickUser of brickUsers">
     <div class="brick-user-line">
       <fl-user-inline [portalOnHover]="false" [user]="brickUser.user"></fl-user-inline>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="removeBrickUser(brickUser)">
         <mat-icon>do_not_disturb_on</mat-icon>
       </button>
     </div>

@@ -128,6 +128,10 @@ export class HaBrickService {
     return this.apiService.put(`${this.route}/${brickId}/invite-user`, {email: email});
   }
 
+  public removeBrickUser(brickUser: HaBrickUser): Observable<any> {
+    return this.apiService.delete(`${this.route}/remove-brick-user/${brickUser.id}`);
+  }
+
   public isBrickUserInviteValid(token: string): Observable<HaBrickUserInvite> {
     return this.apiService.get(`${this.route}/invite/${token}/is-valid`);
   }
@@ -135,5 +139,6 @@ export class HaBrickService {
   public acceptInvite(token: string): Observable<HaBrick> {
     return this.apiService.put(`${this.route}/invite/${token}/accept`, {});
   }
+
 
 }

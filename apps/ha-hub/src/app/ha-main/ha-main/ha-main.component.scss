@@ -60,11 +60,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-}
-
-.span-initials:hover{
-
-  cursor: pointer;
+  align-items: center;
 }
 
 .doc-menu-item{
@@ -139,4 +135,10 @@
     margin: auto 0.5em;
   }
 
+}
+
+@media (max-width: 550px) {
+  .doc-nav-div{
+    width: fit-content;
+  }
 }

@@ -8,18 +8,20 @@ import {HaLoginPageComponent} from './ha-login-page/ha-login-page.component';
 import { HaHomeComponent } from './ha-home/ha-home.component';
 import {HaPublicModule} from '../ha-public/ha-public.module';
 import {HaStoryModule} from '../ha-story/ha-story.module';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 @NgModule({
   declarations: [HaMainComponent, HaLoginPageComponent, HaHomeComponent],
-  imports: [
-    CommonModule,
-    HaMainRoutingModule,
-    TranslateModule,
-    HaCoreModule,
-    HaPublicModule,
-    HaStoryModule
-  ]
+    imports: [
+        CommonModule,
+        HaMainRoutingModule,
+        TranslateModule,
+        HaCoreModule,
+        HaPublicModule,
+        HaStoryModule,
+        MatSlideToggleModule
+    ]
 })
 export class HaMainModule {
 }

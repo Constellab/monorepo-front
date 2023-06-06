@@ -23,9 +23,16 @@
 
 
     <span class="span-initials">
+      <button mat-icon-button [style.color]="'white'"
+              (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme" class="theme-button">
+        <mat-icon>light_mode</mat-icon>
+      </button>
+      <button mat-icon-button [style.color]="'black'"
+              (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme" class="theme-button">
+        <mat-icon>dark_mode</mat-icon>
+      </button>
       <ng-container *ngIf="(userConnected$ | async) == null">
-      <a [routerLink]="loginRoute" mat-flat-button
-         class="g-centered-forced">
+      <a [routerLink]="loginRoute" mat-flat-button>
         {{'login' | translate}}
       </a>
       </ng-container>
@@ -35,11 +42,6 @@
     </span>
     <mat-menu #userMenu="matMenu">
       <button mat-menu-item [routerLink]="'/admin'" *haIsAdmin>{{'admin_dashboard' | translate}}</button>
-      <button mat-menu-item  type="button"
-              (click)="selectTheme(currentTheme === theme.DARK_THEME ? theme.LIGHT_THEME : theme.DARK_THEME)">
-        <span class="round" [ngClass]="currentTheme === theme.DARK_THEME ? 'round-light' : 'round-dark'"></span>
-        <span>{{currentTheme === theme.DARK_THEME ? ('light_theme' | translate) : ('dark_theme' | translate)}}</span>
-      </button>
 <!--      <button mat-menu-item (click)="selectLanguage(currentLanguage === lang.en ? lang.fr : lang.en)">-->
 <!--        {{ currentLanguage === lang.en ? ('switch_fr' | translate) : ('switch_en' | translate)}}-->
 <!--      </button>-->

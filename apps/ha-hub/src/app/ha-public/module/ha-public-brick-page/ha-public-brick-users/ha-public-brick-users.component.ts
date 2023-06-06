@@ -34,8 +34,12 @@ export class HaPublicBrickUsersComponent implements OnInit {
       object: this.brick
     }
 
-    this.dialogService.openSmallDialog(HaPublicInviteBrickUserDialogComponent, {data: input}).afterClosed().subscribe(() =>{
-      console.log('CLOSED')
+    this.dialogService.openSmallDialog(HaPublicInviteBrickUserDialogComponent, {data: input}).afterClosed().subscribe(() =>{});
+  }
+
+  removeBrickUser(brickUser: HaBrickUser): void {
+    this.brickService.removeBrickUser(brickUser).subscribe(() => {
+      this.brickUsers = this.brickUsers.filter(bu => bu.id !== brickUser.id);
     });
   }
 }

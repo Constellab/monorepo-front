@@ -21,6 +21,7 @@ import {FlLuxonDateAdapter, flLuxonDateFormat, flMatFormFieldConfig} from '@mono
 import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   exports: [
@@ -44,6 +45,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatAutocompleteModule,
     MatTableModule,
     MatRadioModule,
+    MatSlideToggleModule
   ],
 
   providers: [
