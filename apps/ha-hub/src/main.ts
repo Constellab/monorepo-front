@@ -25,7 +25,8 @@ function bootstrap(): void {
       constellabApiUrl: 'https://api.preconstellab.com',
       constellabFrontUrl: 'https://preconstellab.com',
       communityFrontUrl: 'http://localhost:4200',
-      captchaSiteKey: '123456'
+      captchaSiteKey: '123456',
+      googleAnalyticsId: 'eazeaze'
     };
 
     platformBrowserDynamic()

@@ -17,7 +17,8 @@ export const environment: HaEnvironment = {
     constellabApiUrl: '',
     constellabFrontUrl: '',
     communityFrontUrl: '',
-    captchaSiteKey: ''
+    captchaSiteKey: '',
+    googleAnalyticsId: '',
   },
 };
 

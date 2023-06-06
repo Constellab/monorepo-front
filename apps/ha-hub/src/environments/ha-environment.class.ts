@@ -27,6 +27,9 @@ export interface HaEnvironmentSettings {
 
   // recaptcha site key
   captchaSiteKey: string;
+
+  //google analytics id
+  googleAnalyticsId: string;
 }
 
 // Path of the environment json file created during the docker run (used in production)

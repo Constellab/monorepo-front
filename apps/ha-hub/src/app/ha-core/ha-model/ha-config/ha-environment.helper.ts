@@ -31,4 +31,8 @@ export class HaEnvironmentHelper{
   public static getRecaptchaSiteKey(): string {
     return HaEnvironmentHelper.getEnv().settings.captchaSiteKey;
   }
+
+  public static getGoogleAnalyticsId(): string {
+    return HaEnvironmentHelper.getEnv().settings.googleAnalyticsId;
+  }
 }

@@ -198,6 +198,7 @@ function run(): void {
     constellabFrontUrl: process.env['CONSTELLAB_FRONT_URL'] || 'https://preconstellab.com',
     communityFrontUrl: process.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200',
     captchaSiteKey: process.env['CAPTCHA_SITE_KEY'] || '123465',
+    googleAnalyticsId: process.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
   };
 
 
