@@ -46,7 +46,7 @@ export function app(): express.Express {
       const scriptSrc = "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.constellab.community https://www.google.com https://www.gstatic.com data:";
       // frame-src https://www.google.com/' is for the recaptcha
       // eslint-disable-next-line max-len
-      const frameSrc = "frame-src 'self' *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com'";
+      const frameSrc = "frame-src 'self' *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com";
       const workerSrc = "worker-src  *.constellab.community data: 'self' blob:";
       const styleSrc = "style-src 'self' 'unsafe-inline'  *.constellab.community https://fonts.googleapis.com";
       const imgSrc = "img-src 'self' blob: data: http: https:  *.constellab.community";
