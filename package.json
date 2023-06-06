@@ -42,6 +42,7 @@
     "lab-front:view-stats": "webpack-bundle-analyzer.cmd dist/apps/lab-front/stats.json",
     "lab-front:lint": "nx run lab-front:lint",
     "lab-front:build-image": "docker build -f apps/lab-front/Dockerfile -t lab-front .",
+    "lab-front:run-image-dev": "docker run --rm -p 81:81 -e API_URL=http://localhost:3000 -e CAPTCHA_SITE_KEY=123456789 lab-front",
     "ha-hub:serve": "nx serve ha-hub",
     "ha-hub:serve-ssr": "nx run ha-hub:serve-ssr",
     "ha-hub:build-ssr": "npx nx run ha-hub:build:production | npx nx run ha-hub:server:production",

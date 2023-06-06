@@ -39,10 +39,21 @@ export function app(): express.Express {
     res.setHeader("X-Xss-Protection", "1; mode=block");
     if(environment.production) {
       // TODO: CHECK IF THERE IS A BETTER WAY
+      const defaultSrc = "default-src 'self' *.constellab.community";
       //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' is for the inline script in the index.html
-      // script-src : *.google.com is for the recaptcha
+      // script-src : https://www.google.com, https://www.gstatic.com
       // eslint-disable-next-line max-len
-      res.setHeader("Content-Security-Policy", "default-src 'self' *.gencovery.com *.constellab.community; script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.gencovery.com *.constellab.community *.google.com *.gstatic.com data:; frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com; worker-src *.gencovery.com *.constellab.community data: 'self' blob:; style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community https://fonts.googleapis.com; img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community; font-src 'self' data: http: https: fonts.googleapis.com; connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com");
+      const scriptSrc = "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.constellab.community https://www.google.com https://www.gstatic.com data:";
+      // frame-src https://www.google.com/' is for the recaptcha
+      // eslint-disable-next-line max-len
+      const frameSrc = "frame-src 'self' *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com'";
+      const workerSrc = "worker-src  *.constellab.community data: 'self' blob:";
+      const styleSrc = "style-src 'self' 'unsafe-inline'  *.constellab.community https://fonts.googleapis.com";
+      const imgSrc = "img-src 'self' blob: data: http: https:  *.constellab.community";
+      const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com";
+      const connectSrc = "connect-src 'self'  *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com";
+      // eslint-disable-next-line max-len
+      res.setHeader("Content-Security-Policy", `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`);
     }
     res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
 
