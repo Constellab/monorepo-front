@@ -1,9 +1,11 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig} from './fl-captcha.class';
 import {FlCaptchaService} from './fl-captcha.service';
-import {RECAPTCHA_V3_SITE_KEY} from 'ng-recaptcha';
+import {RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module} from 'ng-recaptcha';
 
-@NgModule({})
+@NgModule({
+  imports: [RecaptchaV3Module],
+})
 export class FlCaptchaModule {
 
   constructor() {
