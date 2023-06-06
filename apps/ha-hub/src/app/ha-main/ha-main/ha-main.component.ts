@@ -50,8 +50,7 @@ export class HaMainComponent implements OnInit {
     this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
     this.authUserService.getUser().subscribe(user => {
       if(user != null){
-        this.themeService.changeTheme(user.theme);
-        this.currentTheme = user.theme;
+        this.authUserService.changeTheme(this.currentTheme).subscribe();
         this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
       }
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
@@ -87,7 +86,6 @@ export class HaMainComponent implements OnInit {
       this.themeService.changeTheme(theme);
       this.currentTheme = theme;
       this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
-      this.authUserService.changeTheme(theme).subscribe();
     }
   }
 

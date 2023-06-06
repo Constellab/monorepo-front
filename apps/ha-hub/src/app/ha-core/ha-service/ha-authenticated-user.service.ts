@@ -97,7 +97,6 @@ export class HaAuthenticatedUserService implements FlCleanableService{
 
   private changeThemeSuccess(theme: ClTheme): void {
     this.userAuthenticated.theme = theme;
-    this.notifyUserChange();
   }
 
   private notifyUserChange(): void {
