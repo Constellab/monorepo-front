@@ -18,5 +18,6 @@ export const environment: LabEnvironment = {
     spaceApiUrl: '',
     communityFrontUrl: '',
     communityApiUrl: '',
+    captchaSiteKey: '',
   }
 };
