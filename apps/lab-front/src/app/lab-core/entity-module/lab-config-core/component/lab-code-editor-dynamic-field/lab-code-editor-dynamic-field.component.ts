@@ -9,10 +9,11 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {FlDynamicFieldAbstractDirective} from '@monorepo/front-core-lib';
+
+import {TdParamSpecType} from '@monorepo/technical-doc';
 import {
   FlCodeEditorLanguage
-} from '../../../../../../../../../libs/front-core-lib/src/lib/standalone-component/fl-code-editor/fl-code-editor.class';
-import {TdParamSpecType} from '@monorepo/technical-doc';
+} from 'libs/front-core-lib/src/lib/standalone-component/fl-code-editor/fl-code-editor.class';
 
 /**
  * Component used under {@link FlDynamicFieldComponent} to show

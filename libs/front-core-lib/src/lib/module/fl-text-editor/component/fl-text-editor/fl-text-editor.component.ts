@@ -37,8 +37,7 @@ import {FlHtmlHelper} from '../../../../utils/fl-html.helper';
 import {FlQuillScrollContainer, FlQuillSetup} from '../../model/fl-quill-setup.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 import BlockBlot from 'parchment/dist/src/blot/block';
-import {GroupType, QuillDeltaToHtmlConverter} from 'quill-delta-to-html';
-import {TDataGroup} from 'quill-delta-to-html/dist/commonjs/grouper/group-types';
+import {QuillDeltaToHtmlConverter} from 'quill-delta-to-html';
 //import "quill-mention"; //TODO: check how to import this
 
 hljs.registerLanguage('python', python);
@@ -176,7 +175,6 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
       if (ClStringHelper.isHttpLink(node.nodeValue)) {
         delta = FlQuillSetup.addMatcherLink(this.state.getCurrentSelectionIndex(), node.nodeValue, delta, this.state);
       }
-      console.log('RETURN', this.state.quill.getContents());
       return delta;
     });
 
