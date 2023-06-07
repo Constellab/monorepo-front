@@ -39,7 +39,7 @@ export class FlSignupFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.captchaService.executeCaptcha('action-1')
+    this.subscription = this.captchaService.executeCaptcha('action_one')
       .subscribe((token) => this.formGp.get('captcha').setValue(token));
 
   }
