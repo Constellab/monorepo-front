@@ -127,6 +127,21 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
     event.stopImmediatePropagation();
 
     const menuDynamic: FlMenuDynamic[] = [];
+
+    //TODO : this only work when the view is under tabs state
+    if (!node.isFolder && this.tabsState) {
+      // button to extract the node
+      menuDynamic.push({
+        type: 'button',
+        text: {
+          text: 'biox.folder_view_sub_files',
+          translateText: true
+        },
+        onClick: () => this.callFileView(node),
+        icon: 'visibility'
+      });
+    }
+
     if (node.resource_model_id) {
       menuDynamic.push({
         type: 'link',
@@ -145,23 +160,7 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
         onClick: () => this.extractNode(node),
         icon: 'drive_file_move'
       });
-
-      // TODO : this only work when the view is under tabs state
-      if (!node.isFolder && this.tabsState) {
-        // button to extract the node
-        menuDynamic.push({
-          type: 'button',
-          text: {
-            text: 'biox.folder_view_sub_files',
-            translateText: true
-          },
-          onClick: () => this.callFileView(node),
-          icon: 'visibility'
-        });
-      }
-
     }
-
 
     this.menuDynamicService.openDynamicMenuAbsolute(menuDynamic, event);
   }
