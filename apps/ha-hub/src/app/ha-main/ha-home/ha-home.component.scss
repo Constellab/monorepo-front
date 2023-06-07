@@ -16,6 +16,13 @@
 .home-main-div{
   padding: 0 var(--margin-side);
   margin-top: 10vh;
+  max-width: calc(100% - 15px);
+}
+
+@media (max-width: 1505px){
+  .home-main-div{
+    padding-left: 15px;
+  }
 }
 
 .section-div{

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {ComponentType} from '@angular/cdk/overlay';
 import {
   FlSnackBarAdditionalConfig,
@@ -8,6 +8,7 @@ import {
 import {FlSnackBarInfoComponent} from './component/fl-snack-bar-info/fl-snack-bar-info.component';
 import {FlTranslatableText} from '../fl-translate/model/fl-translate-param';
 import {MatSnackBar, MatSnackBarConfig, MatSnackBarRef} from '@angular/material/snack-bar';
+import {isPlatformServer} from '@angular/common';
 
 /**
  * Snack bar service to create snack bar
@@ -15,7 +16,8 @@ import {MatSnackBar, MatSnackBarConfig, MatSnackBarRef} from '@angular/material/
 @Injectable()
 export class FlSnackBarService {
 
-  constructor(private matSnackBar: MatSnackBar) {
+  constructor(private matSnackBar: MatSnackBar,
+              @Inject(PLATFORM_ID) private platformId: any) {
   }
 
 
@@ -53,6 +55,11 @@ export class FlSnackBarService {
 
   private openSnackBarInfo(data: FlSnackBarInfoInput, panelClass: string, duration: number)
     : MatSnackBarRef<FlSnackBarInfoComponent> {
+
+    if (isPlatformServer(this.platformId)) {
+      return null;
+    }
+
     return this.openSnackBar(FlSnackBarInfoComponent, {
       data: data,
       duration: duration,
