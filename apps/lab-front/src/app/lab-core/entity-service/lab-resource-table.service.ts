@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {FlApiService} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {LabResourceView} from '../model/entities/resource/lab-resource-view.entity';
-import {RvResourceViewTable, RvTransformerParams} from '@monorepo/resource-view';
+import {RvResourceViewTable} from '@monorepo/resource-view';
 import {LabResourceService} from './lab-resource.service';
 import {PrConfigValues} from '@monorepo/protocol';
 
@@ -32,13 +32,11 @@ export class LabResourceTableService {
    * Method used by the Table view to call a Chart view on it
    */
   public callChartOnTable(resourceId: string, tableViewMethodName: string, tableViewConfig: PrConfigValues,
-                          tableViewTransformers: RvTransformerParams[],
                           chartType: LabTableChartType, chartConfig: PrConfigValues): Observable<LabResourceView> {
 
     const data = {
       table_view_name: tableViewMethodName,
       table_config_values: tableViewConfig,
-      table_transformers: tableViewTransformers,
       chart_type: chartType,
       chart_config_values: chartConfig
     };
@@ -51,18 +49,16 @@ export class LabResourceTableService {
    * @param id
    * @param viewMethodName
    * @param config
-   * @param transformers
    * @param fromRow the first row to load (including)
    */
   public callNextPage(id: string, viewMethodName: string, config: PrConfigValues,
-                      transformers: RvTransformerParams[],
                       fromRow: number): Observable<RvResourceViewTable> {
     // merge config with pagination config,
     // add 1 to the fromRow because communication are made using 1-based index
     const viewConfig = Object.assign(config, {[this.tableViewFromRowParam]: fromRow + 1});
 
     return this.resourceService.callResourceViewData(id, viewMethodName,
-      viewConfig, transformers) as Observable<RvResourceViewTable>;
+      viewConfig) as Observable<RvResourceViewTable>;
   }
 
   /**
@@ -70,11 +66,9 @@ export class LabResourceTableService {
    * @param id
    * @param viewMethodName
    * @param config
-   * @param transformers
    * @param toRow the last row to load (excluding)
    */
   public callPreviousPage(id: string, viewMethodName: string, config: PrConfigValues,
-                          transformers: RvTransformerParams[],
                           toRow: number): Observable<RvResourceViewTable> {
     let pageSize = config[this.tableViewNbOfRowsPerPageParam] ?? this.tableDefaultPageSize;
     let fromRow = toRow - pageSize;
@@ -94,6 +88,6 @@ export class LabResourceTableService {
     });
 
     return this.resourceService.callResourceViewData(id, viewMethodName,
-      viewConfig, transformers) as Observable<RvResourceViewTable>;
+      viewConfig) as Observable<RvResourceViewTable>;
   }
 }

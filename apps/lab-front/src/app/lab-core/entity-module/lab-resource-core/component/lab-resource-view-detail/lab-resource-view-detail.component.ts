@@ -22,7 +22,6 @@ export class LabResourceViewDetailComponent implements OnInit {
     this.rvViewConfig = {
       methodName: this.labView.viewConfig.viewName,
       configValues: this.labView.viewConfig.configValues,
-      transformers: this.labView.viewConfig.transformers
     };
   }
 

@@ -17,8 +17,7 @@ export class LabResourceSpreadsheetPageLoader implements SpSpreadsheetPageLoader
 
   loadRows(fromRow: number): Observable<SpSpreadsheetPage> {
     return this.resourceTableService.callNextPage(this.resourceId,
-      this.viewConfig.methodName, this.viewConfig.configValues, this.viewConfig.transformers,
-      fromRow)
+      this.viewConfig.methodName, this.viewConfig.configValues, fromRow)
       .pipe(map(
         view => this.convertToSpSpreadPaginationResult(view)
       ));
@@ -26,8 +25,7 @@ export class LabResourceSpreadsheetPageLoader implements SpSpreadsheetPageLoader
 
   loadPreviousRows(toRow: number): Observable<SpSpreadsheetPage> {
     return this.resourceTableService.callPreviousPage(this.resourceId,
-      this.viewConfig.methodName, this.viewConfig.configValues, this.viewConfig.transformers,
-      toRow)
+      this.viewConfig.methodName, this.viewConfig.configValues, toRow)
       .pipe(map(
         view => this.convertToSpSpreadPaginationResult(view)
       ));

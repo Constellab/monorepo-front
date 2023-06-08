@@ -33,7 +33,6 @@ export class LabResourceViewPortalComponent implements OnInit {
     this.rvConfig = {
       methodName: input.labView.viewConfig.viewName,
       configValues: input.labView.viewConfig.configValues,
-      transformers: input.labView.viewConfig.transformers
     };
     this.contextMenuItems = input.contextMenuItems;
 

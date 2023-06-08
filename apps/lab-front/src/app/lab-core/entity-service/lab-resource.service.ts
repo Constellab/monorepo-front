@@ -25,9 +25,9 @@ import {LabResourceImporterType} from '../model/entities/resource/lab-resource.d
 import {LabTypeService} from './lab-type.service';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
 import {LabTag} from '../model/entities/lab-tag.entity';
-import {RvTransformerParams} from '@monorepo/resource-view';
 import {PrConfigValues} from '@monorepo/protocol';
 import {LabSharedEntity} from '../model/entities/lab-share.entity';
+import {LabTransformerParams} from '../model/global/lab-transformer.class';
 
 
 @Injectable({
@@ -126,18 +126,17 @@ export class LabResourceService {
    * @param id
    * @param viewMethodName
    * @param config
-   * @param transformers
    * @param saveViewConfig if true the config is saved in the historic
    */
   public callResourceViewData(id: string, viewMethodName: string, config: PrConfigValues,
-                              transformers: RvTransformerParams[], saveViewConfig: boolean = false): Observable<LabResourceViewData> {
-    return this.callResourceView(id, viewMethodName, config, transformers, saveViewConfig).pipe(
+                              saveViewConfig: boolean = false): Observable<LabResourceViewData> {
+    return this.callResourceView(id, viewMethodName, config, saveViewConfig).pipe(
       map(labView => labView.view)
     );
   }
 
   public callResourceView(id: string, viewMethodName: string, configValue: PrConfigValues,
-                          transformers: RvTransformerParams[], saveViewConfig: boolean = false): Observable<LabResourceView> {
+                          saveViewConfig: boolean = false): Observable<LabResourceView> {
     for (const key in configValue) {
       if (configValue[key] == null) {
         delete configValue[key];
@@ -145,13 +144,12 @@ export class LabResourceService {
     }
     return this.apiService.post(`${this.route}/${id}/views/${viewMethodName}`, {
       values: configValue,
-      transformers: transformers,
       save_view_config: saveViewConfig
     }, LabResourceView);
   }
 
   public callResourceDefaultView(id: string, saveViewConfig: boolean = false): Observable<LabResourceView> {
-    return this.callResourceView(id, LabResourceService.defaultViewName, {}, [], saveViewConfig);
+    return this.callResourceView(id, LabResourceService.defaultViewName, {}, saveViewConfig);
   }
 
   //////////////////////////////////////// TRANSFORMERS  ///////////////////////////////////////
@@ -160,7 +158,7 @@ export class LabResourceService {
    * @param transformers
    * @param resourceId
    */
-  public transformResource(transformers: RvTransformerParams[], resourceId: string): Observable<LabResource> {
+  public transformResource(transformers: LabTransformerParams[], resourceId: string): Observable<LabResource> {
     return this.apiService.post(`${this.route}/${resourceId}/transform`, transformers, LabResource);
   }
 

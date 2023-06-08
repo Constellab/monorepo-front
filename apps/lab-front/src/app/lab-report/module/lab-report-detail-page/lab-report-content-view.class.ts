@@ -1,7 +1,6 @@
 import {LabReportContentViewComponent} from './component/lab-report-content-view/lab-report-content-view.component';
 import {ClHelpService} from '@monorepo/core-lib';
 import {FlQuillEmbed} from '@monorepo/front-core-lib';
-import {RvTransformerParams} from '@monorepo/resource-view';
 import {PrConfigValues} from '@monorepo/protocol';
 
 
@@ -11,14 +10,13 @@ export interface LabReportContentView {
   experiment_id?: string;
   view_method_name: string;
   view_config: PrConfigValues;
-  transformers: RvTransformerParams[];
   title: string;
   caption: string;
 }
 
 export class LabReportContentViewBlot extends FlQuillEmbed {
 
-  static blotName: 'resource_view' = 'resource_view';
+  static blotName = 'resource_view' as const;
   static tagName = 'lab-report-content-view';
   static className = 'g-quill-block';
 
@@ -37,7 +35,6 @@ export class LabReportContentViewBlot extends FlQuillEmbed {
     component.viewConfig = {
       methodName: value.view_method_name,
       configValues: ClHelpService.deepClone(value.view_config),
-      transformers: ClHelpService.deepClone(value.transformers)
     };
 
     return node;

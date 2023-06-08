@@ -77,7 +77,6 @@ export class LabReportTextEditorConfig extends FlTextEditorConfig implements FlT
       experiment_id: viewConfig.experiment?.id,
       view_method_name: viewConfig.viewName,
       view_config: viewConfig.configValues,
-      transformers: viewConfig.transformers,
       title: viewConfig.title,
       caption: null
     };

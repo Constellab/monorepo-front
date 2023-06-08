@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
 import {Observable} from 'rxjs';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {RvTransformerParams} from '@monorepo/resource-view';
 import {PrConfigValues} from '@monorepo/protocol';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
@@ -18,7 +17,6 @@ export type LabResourceViewDetailDialogInput = {
   viewMethodName: string;
   saveViewConfig: boolean;
   config: PrConfigValues;
-  transformers: RvTransformerParams[];
 }
 
 @Component({
@@ -42,7 +40,7 @@ export class LabResourceViewDetailDialogComponent implements OnInit {
       this.labView$ = this.resourceService.callResourceDefaultView(this.input.resourceId, this.input.saveViewConfig);
     } else {
       this.labView$ = this.resourceService.callResourceView(this.input.resourceId, this.input.viewMethodName,
-        this.input.config, this.input.transformers, this.input.saveViewConfig);
+        this.input.config, this.input.saveViewConfig);
     }
   }
 

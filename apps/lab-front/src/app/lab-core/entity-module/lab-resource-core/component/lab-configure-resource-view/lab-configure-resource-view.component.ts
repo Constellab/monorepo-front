@@ -7,14 +7,9 @@ import {
 import {Validators} from '@angular/forms';
 import {LabConfig, LabConfigureSpecsForm} from '../../../../model/entities/lab-config.entity';
 import {FL_PORTAL_DATA, FlFormHelper, FlOverlayRef} from '@monorepo/front-core-lib';
-import {LabTransformerWithConfig} from '../../../../model/global/lab-transformer.class';
 import {
   LabConfigureSpecsFormComponent
 } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
-import {
-  LabTransformResourceComponent,
-  LabTransformResourceForm
-} from '../../../lab-transformer-core/component/lab-transform-resource/lab-transform-resource.component';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
 import {RvViewDisplayMode} from '@monorepo/resource-view';
 import {Observable} from 'rxjs';
@@ -34,14 +29,12 @@ export interface LabConfigureResourceViewOutput {
   viewMethodName: string;
   viewConfigValues: PrConfigValues;
   displayMode: RvViewDisplayMode;
-  transformersWithConfig: LabTransformerWithConfig[];
 }
 
 
 export interface LabConfigureResourceViewForm {
   displayMode: RvViewDisplayMode;
   viewConfig: LabConfigureSpecsForm;
-  transformers: LabTransformResourceForm[];
 }
 
 
@@ -105,7 +98,6 @@ export class LabConfigureResourceViewComponent implements OnInit {
     this.formGp = new FormBuilder().group({
       displayMode: [displayMode, Validators.required],
       viewConfig: LabConfigureSpecsFormComponent.buildFormGroup(this.configs),
-      transformers: LabTransformResourceComponent.buildFormArray(this.input.preConfiguration?.transformersWithConfig ?? []),
     });
 
     this.isLoading = false;
@@ -123,21 +115,11 @@ export class LabConfigureResourceViewComponent implements OnInit {
   }
 
   private convertFormValueToResult(formValue: LabConfigureResourceViewForm): LabConfigureResourceViewOutput {
-    const transformers: LabTransformerWithConfig[] = formValue.transformers.map(transformer => ({
-      transformer: transformer.transformer,
-      config: {...transformer.config.public, ...transformer.config.protected}
-    }));
 
     return {
       viewMethodName: this.input.viewMethodName,
       viewConfigValues: {...formValue.viewConfig.public, ...formValue.viewConfig.protected},
       displayMode: formValue.displayMode,
-      transformersWithConfig: transformers
     };
   }
-
-  get numberOfTransformers(): number {
-    return this.formGp.value.transformers.length;
-  }
-
 }

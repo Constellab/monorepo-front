@@ -15,17 +15,6 @@
 
           <mat-divider class="divider"></mat-divider>
 
-          <!--  Transformers -->
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              {{'biox.transformers' | translate}} ({{numberOfTransformers}})
-            </mat-expansion-panel-header>
-
-            <lab-transform-resource class="transformers g-scrollable-element" formArrayName="transformers"
-                                    [resourceTypingName]="resourceTypingName"></lab-transform-resource>
-          </mat-expansion-panel>
-          <mat-divider class="divider"></mat-divider>
-
           <!--  Full screen or dialog   -->
           <div *ngIf="showDisplayModeControl" class="display-mode">
             <label>{{'biox.resource_view_display_mode' | translate}}</label>

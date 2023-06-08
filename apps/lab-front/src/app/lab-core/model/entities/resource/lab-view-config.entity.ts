@@ -1,6 +1,5 @@
 import {Expose} from 'class-transformer';
 import {LabResourceViewType} from './lab-resource-view.entity';
-import {RvTransformerParams} from '@monorepo/resource-view';
 import {LabEntityWithTag} from '../lab-entity-with-tag.entity';
 import {LabFlaggedEntity} from '../../global/lab-flagged-entity.class';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
@@ -23,8 +22,6 @@ export class LabViewConfig extends LabEntityWithTag implements LabFlaggedEntity 
   configValues: PrConfigValues;
 
   flagged: boolean;
-
-  transformers: RvTransformerParams[];
 
   resource: {
     id: string;

@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FL_PORTAL_DATA, FlFormHelper, FlOverlayRef} from '@monorepo/front-core-lib';
 import {
   labConvertTransformFormToParams,
+  LabTransformerParams,
   LabTransformerWithConfig,
   LabTransformForm
 } from '../../../../model/global/lab-transformer.class';
@@ -13,7 +14,6 @@ import {
   LabTransformResourceForm
 } from '../lab-transform-resource/lab-transform-resource.component';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {RvTransformerParams} from '@monorepo/resource-view';
 
 export interface LabTransformResourcePortalInput {
   resourceTypingName: string;
@@ -68,7 +68,7 @@ export class LabTransformResourcePortalComponent implements OnInit {
   }
 
   private callTransformer(formValue: LabTransformForm[]): void {
-    const transformers: RvTransformerParams[] = labConvertTransformFormToParams(formValue);
+    const transformers: LabTransformerParams[] = labConvertTransformFormToParams(formValue);
     this.isLoading = true;
     this.resourceService.transformResource(transformers, this.input.resourceId).subscribe(
       experiment => this.onTransformSuccess(experiment),

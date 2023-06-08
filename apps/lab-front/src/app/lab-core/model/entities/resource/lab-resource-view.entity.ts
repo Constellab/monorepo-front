@@ -1,12 +1,5 @@
 import {Expose, Type} from 'class-transformer';
-import {LabTransformerWithConfig} from '../../global/lab-transformer.class';
-import {
-  RvResourceView,
-  RvResourceViewBase,
-  RvResourceViewType,
-  RvTransformerParams,
-  RvViewDisplayMode
-} from '@monorepo/resource-view';
+import {RvResourceView, RvResourceViewBase, RvResourceViewType, RvViewDisplayMode} from '@monorepo/resource-view';
 import {LabResourceViewFolder} from './lab-resource-view-folder.class';
 import {LabViewConfig} from './lab-view-config.entity';
 import {ClRecordWrapperTransform} from '@monorepo/core-lib';
@@ -32,6 +25,10 @@ export class LabResourceViewSpec {
   @Expose({name: 'default_view'})
   defaultView: boolean;
 
+  // true if the view has config specs
+  @Expose({name: 'has_config_specs'})
+  hasConfigSpecs: boolean
+
   getName(): string {
     return this.humanName ?? this.methodName;
   }
@@ -52,14 +49,8 @@ export interface LabResourceViewSpecWithConfig {
   viewMethodName: string;
   viewConfigValues: PrConfigValues;
   displayMode: RvViewDisplayMode;
-  transformersWithConfig: LabTransformerWithConfig[];
 }
 
-export interface LabResourceViewConfig {
-  methodName: string;
-  configValues: PrConfigValues;
-  transformers: RvTransformerParams[];
-}
 
 /**
  * View that list other resources

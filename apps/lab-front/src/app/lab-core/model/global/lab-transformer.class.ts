@@ -1,6 +1,5 @@
 import {LabConfigureSpecsForm} from '../entities/lab-config.entity';
 import {LabProcessType} from '../entities/lab-type/lab-process-type.entity';
-import {RvTransformerParams} from '@monorepo/resource-view';
 import {PrConfigValues} from '@monorepo/protocol';
 
 
@@ -14,8 +13,14 @@ export interface LabTransformerWithConfig {
   config: PrConfigValues;
 }
 
-export function labConvertTransformFormToParams(formValue: LabTransformForm[]): RvTransformerParams[] {
-  const transformers: RvTransformerParams[] = [];
+export interface LabTransformerParams {
+  typing_name: string;
+  config_values: PrConfigValues;
+}
+
+
+export function labConvertTransformFormToParams(formValue: LabTransformForm[]): LabTransformerParams[] {
+  const transformers: LabTransformerParams[] = [];
   for (const form of formValue) {
     transformers.push({
       typing_name: form.transformer.typingName,
@@ -25,9 +30,3 @@ export function labConvertTransformFormToParams(formValue: LabTransformForm[]): 
   return transformers;
 }
 
-export function labConvertTransformersWithConfigToParams(transformers: LabTransformerWithConfig[]): RvTransformerParams[] {
-  return transformers.map(transformer => ({
-    typing_name: transformer.transformer.typingName,
-    config_values: transformer.config
-  }));
-}

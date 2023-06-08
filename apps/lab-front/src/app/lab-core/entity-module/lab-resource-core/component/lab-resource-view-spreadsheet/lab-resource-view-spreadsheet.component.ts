@@ -41,23 +41,23 @@ export class LabResourceViewSpreadsheetComponent extends RvResourceViewDirective
   ngOnInit(): void {
     // list all available charts
     this.chartConfig = [
-      new LabTableChartConfigLinePlot(this.resourceId, this.config.methodName, this.config.configValues, this.config.transformers,
+      new LabTableChartConfigLinePlot(this.resourceId, this.config.methodName, this.config.configValues,
         this.resourceTableService, this.portalService),
-      new LabTableChartConfigScatterPlot(this.resourceId, this.config.methodName, this.config.configValues, this.config.transformers,
+      new LabTableChartConfigScatterPlot(this.resourceId, this.config.methodName, this.config.configValues,
         this.resourceTableService, this.portalService),
-      new LabTableChartConfigVulcanoPlot(this.resourceId, this.config.methodName, this.config.configValues, this.config.transformers,
+      new LabTableChartConfigVulcanoPlot(this.resourceId, this.config.methodName, this.config.configValues,
         this.resourceTableService, this.portalService),
-      new LabTableChartConfigBarPlot(this.resourceId, this.config.methodName, this.config.configValues, this.config.transformers,
+      new LabTableChartConfigBarPlot(this.resourceId, this.config.methodName, this.config.configValues,
         this.resourceTableService, this.portalService),
-      new LabTableChartConfigStackedBarPlot(this.resourceId, this.config.methodName, this.config.configValues, this.config.transformers,
+      new LabTableChartConfigStackedBarPlot(this.resourceId, this.config.methodName, this.config.configValues,
         this.resourceTableService, this.portalService),
-      new LabTableChartConfigHistogram(this.resourceId, this.config.methodName, this.config.configValues, this.config.transformers,
+      new LabTableChartConfigHistogram(this.resourceId, this.config.methodName, this.config.configValues,
         this.resourceTableService, this.portalService),
-      new LabTableChartConfigBoxPlot(this.resourceId, this.config.methodName, this.config.configValues, this.config.transformers,
+      new LabTableChartConfigBoxPlot(this.resourceId, this.config.methodName, this.config.configValues,
         this.resourceTableService, this.portalService),
-      new LabTableChartConfigHeatMap(this.resourceId, this.config.methodName, this.config.configValues, this.config.transformers,
+      new LabTableChartConfigHeatMap(this.resourceId, this.config.methodName, this.config.configValues,
         this.resourceTableService, this.portalService),
-      new LabTableChartConfigVennDiagram(this.resourceId, this.config.methodName, this.config.configValues, this.config.transformers,
+      new LabTableChartConfigVennDiagram(this.resourceId, this.config.methodName, this.config.configValues,
         this.resourceTableService, this.portalService),
     ];
 

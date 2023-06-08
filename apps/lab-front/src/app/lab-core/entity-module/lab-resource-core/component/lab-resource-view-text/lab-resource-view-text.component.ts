@@ -83,8 +83,7 @@ export class LabResourceViewTextComponent extends RvResourceViewDirective<RvReso
     const viewConfig = Object.assign(this.config.configValues, {[labResourceViewTextSpecPage]: page});
 
     return this.resourceService.callResourceViewData(this.resourceId, this.config.methodName,
-      viewConfig,
-      this.config.transformers) as Observable<RvResourceViewText>;
+      viewConfig) as Observable<RvResourceViewText>;
   }
 
   private loadPreviousPageSuccess(view: RvResourceViewText): void {

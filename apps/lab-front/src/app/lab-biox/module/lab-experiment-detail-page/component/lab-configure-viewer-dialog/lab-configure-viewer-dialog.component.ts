@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {LabResourceViewSpecWithConfig} from '../../../../../lab-core/model/entities/resource/lab-resource-view.entity';
-import {labConvertTransformersWithConfigToParams} from '../../../../../lab-core/model/global/lab-transformer.class';
 import {ClHelpService} from '@monorepo/core-lib';
 import {TdTaskViewerConfig} from '@monorepo/technical-doc';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
@@ -43,7 +42,6 @@ export class LabConfigureViewerDialogComponent implements OnInit {
     this.taskConfig.view_config = {
       view_method_name: configuration.viewMethodName,
       config_values: configuration.viewConfigValues,
-      transformers: labConvertTransformersWithConfigToParams(configuration.transformersWithConfig)
     };
   }
 

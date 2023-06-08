@@ -57,7 +57,6 @@ export class LabResourceViewSpecListComponent implements OnInit, OnDestroy {
     this.viewConfigured.next({
       viewName: 'Default view',
       viewMethodName: LabResourceService.defaultViewName,
-      transformersWithConfig: [],
       viewConfigValues: {},
       displayMode: 'fullScreen'
     });
@@ -67,18 +66,26 @@ export class LabResourceViewSpecListComponent implements OnInit, OnDestroy {
   openConfigPortal(view: LabResourceViewSpec): void {
     const viewTypeInfo: RvResourceViewTypeInfo = labConstResourceViewTypeInfos[view.viewType];
 
+    // if the view doesn't have a config, don't show the config portal, create the view directly
+    if(!view.hasConfigSpecs){
+      this.callView({
+        displayMode: viewTypeInfo.defaultDisplayMode,
+        viewConfigValues: {}, // empty config
+        viewMethodName: view.methodName,
+      }, view.getName());
+      return;
+    }
+
     const specWithConfig: LabResourceViewSpecWithConfig = {
       viewName: view.getName(),
       viewMethodName: view.methodName,
       displayMode: viewTypeInfo.defaultDisplayMode,
       viewConfigValues: {},
-      transformersWithConfig: [],
     };
 
-    // if this view was previously selected, pre fill the config and transformer with previous values
+    // if this view was previously selected, prefill the config with previous values
     if (this.lastView && this.lastView.viewMethodName === view.methodName) {
       specWithConfig.viewConfigValues = this.lastView.viewConfigValues;
-      specWithConfig.transformersWithConfig = this.lastView.transformersWithConfig;
     }
 
     const data: LabConfigureResourceViewInput = {
@@ -98,18 +105,17 @@ export class LabResourceViewSpecListComponent implements OnInit, OnDestroy {
       });
 
     this.portalService.createPortal(LabConfigureResourceViewComponent, portalConfig, data).detachments().subscribe(
-      config => this.onConfigDialogClosed(config, view.getName())
+      config => this.callView(config, view.getName())
     );
   }
 
-  private onConfigDialogClosed(config: LabConfigureResourceViewOutput, viewName: string): void {
+  private callView(config: LabConfigureResourceViewOutput, viewName: string): void {
     if (config == null) return;
 
     const fullConfig: LabResourceViewSpecWithConfig = {
       displayMode: config.displayMode,
       viewConfigValues: config.viewConfigValues,
       viewMethodName: config.viewMethodName,
-      transformersWithConfig: config.transformersWithConfig,
       viewName: viewName
     };
 

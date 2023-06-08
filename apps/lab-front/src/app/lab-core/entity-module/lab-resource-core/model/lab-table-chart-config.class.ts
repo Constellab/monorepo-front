@@ -1,9 +1,4 @@
-import {
-  FlMenuDynamic,
-  FlOverlayRef,
-  FlPortalConfig,
-  FlPortalService,
-} from '@monorepo/front-core-lib';
+import {FlMenuDynamic, FlOverlayRef, FlPortalConfig, FlPortalService,} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {LabResourceTableService, LabTableChartType} from '../../../entity-service/lab-resource-table.service';
@@ -12,15 +7,16 @@ import {
   LabResourceViewPortalComponent,
   LabResourceViewPortalInput
 } from '../component/lab-resource-view-portal/lab-resource-view-portal.component';
-import {RvTransformerParams} from '@monorepo/resource-view';
 import {PrConfigValues} from '@monorepo/protocol';
 import {
   SpSheet,
   SpSheetChart2dSerieSelectionForm,
   SpSheetChartConfig,
-  SpSheetChartSelectionFormAdditional, SpSheetSelectionRange, SpSpreadsheetChartSerieSelectionInput
+  SpSheetChartSelectionFormAdditional,
+  SpSheetSelectionRange,
+  SpSpreadsheetChartSerieSelectionInput
 } from '@monorepo/spreadsheet';
-import { ChChartType } from '@monorepo/chart';
+import {ChChartType} from '@monorepo/chart';
 
 /**
  * Main config class to generate chart from the sheet by calling the resource service
@@ -28,7 +24,7 @@ import { ChChartType } from '@monorepo/chart';
 export abstract class LabTableChartConfig extends SpSheetChartConfig {
 
   constructor(private resourceId: string, private tableViewMethodName: string,
-              private tableViewConfig: PrConfigValues, private tableTransformers: RvTransformerParams[],
+              private tableViewConfig: PrConfigValues,
               private resourceTableService: LabResourceTableService, private portalService: FlPortalService) {
     super();
   }
@@ -36,7 +32,7 @@ export abstract class LabTableChartConfig extends SpSheetChartConfig {
   protected callChartOnTable(chartType: LabTableChartType, chartConfig: PrConfigValues,
                              contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
     return this.resourceTableService.callChartOnTable(this.resourceId, this.tableViewMethodName,
-      this.tableViewConfig, this.tableTransformers, chartType, chartConfig).pipe(
+      this.tableViewConfig, chartType, chartConfig).pipe(
       map((view) => this.openChartPortal(view, contextMenuItems)),
     );
   }

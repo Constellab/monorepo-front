@@ -110,7 +110,6 @@ export class LabWorkflowNodeDetailState {
       resourceName: event.resourceName,
       viewMethodName: event.config.view_config.view_method_name,
       config: event.config.view_config.config_values,
-      transformers: event.config.view_config.transformers,
       saveViewConfig: true,
     };
     this.dialogService.openBigDialog(LabResourceViewDetailDialogComponent, {data: data});

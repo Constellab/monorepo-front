@@ -10,10 +10,6 @@ import {
 import {filter} from 'rxjs/operators';
 import {FlPortalActionResult, FlPortalActionsService, FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
 import {
-  labConvertTransformersWithConfigToParams,
-  LabTransformerWithConfig
-} from '../../../model/global/lab-transformer.class';
-import {
   LabResourceViewPortalComponent,
   LabResourceViewPortalInput
 } from '../component/lab-resource-view-portal/lab-resource-view-portal.component';
@@ -81,7 +77,7 @@ export class LabResourceDetailTabsState implements OnDestroy {
   public addView(resourceId: string, config: LabResourceViewSpecWithConfig): void {
     if (config.displayMode === 'fullScreen') {
       this.addFullScreenView(this.callResourceView(resourceId,
-        config.viewMethodName, config.viewConfigValues, config.transformersWithConfig));
+        config.viewMethodName, config.viewConfigValues));
     } else {
       this.loadViewInPortal(resourceId, config);
     }
@@ -95,10 +91,8 @@ export class LabResourceDetailTabsState implements OnDestroy {
     });
   }
 
-  private callResourceView(resourceId: string, methodName: string, configValues: PrConfigValues,
-                           transformers: LabTransformerWithConfig[]): Observable<LabResourceView> {
-    return this.resourceService.callResourceView(resourceId, methodName, configValues,
-      labConvertTransformersWithConfigToParams(transformers), true);
+  private callResourceView(resourceId: string, methodName: string, configValues: PrConfigValues): Observable<LabResourceView> {
+    return this.resourceService.callResourceView(resourceId, methodName, configValues, true);
   }
 
   ////////////////////////////////////// VIEWS PORTAL /////////////////////////////////////
@@ -112,7 +106,7 @@ export class LabResourceDetailTabsState implements OnDestroy {
         type: this.actionType,
         text: viewSpecConfigured.viewName,
         action: this.callResourceView(resourceId, viewSpecConfigured.viewMethodName,
-          viewSpecConfigured.viewConfigValues, viewSpecConfigured.transformersWithConfig),
+          viewSpecConfigured.viewConfigValues),
       },
       true);
   }

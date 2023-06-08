@@ -1,11 +1,9 @@
 import {Component, ElementRef, HostBinding, Input, OnInit} from '@angular/core';
 import {LabResourceService} from '../../../../../lab-core/entity-service/lab-resource.service';
-import {
-  LabResourceViewConfig,
-  LabResourceViewData
-} from '../../../../../lab-core/model/entities/resource/lab-resource-view.entity';
+import {LabResourceViewData} from '../../../../../lab-core/model/entities/resource/lab-resource-view.entity';
 import {FlTextEditorElementDirective, FlTextEditorsManagerState} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
+import {RvViewConfig} from '@monorepo/resource-view';
 
 /**
  * Component used in the Text editor to show a resource view
@@ -19,7 +17,7 @@ export class LabReportContentViewComponent extends FlTextEditorElementDirective 
 
   @Input() resourceId: string;
 
-  @Input() viewConfig: LabResourceViewConfig;
+  @Input() viewConfig: RvViewConfig;
 
   @HostBinding('attr.view-title')
   @Input() viewTitle: string;
@@ -40,7 +38,7 @@ export class LabReportContentViewComponent extends FlTextEditorElementDirective 
 
   ngOnInit(): void {
     this.view$ = this.resourceService.callResourceViewData(this.resourceId, this.viewConfig.methodName,
-      this.viewConfig.configValues, this.viewConfig.transformers);
+      this.viewConfig.configValues);
 
     this.disabled$ = this.getDisabled$();
   }
