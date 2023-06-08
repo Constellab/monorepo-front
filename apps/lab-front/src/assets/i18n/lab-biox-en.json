@@ -13,7 +13,6 @@
     "experiment_saved": "Experiment saved",
     "experiment_start": "Run experiment",
     "experiment_started": "Experiment started",
-    "experiment_text": "Title and description",
     "experiment_type": "Type",
     "experiment_type_experiment": "Experiment",
     "experiment_type_transformer": "Transformer",
@@ -293,6 +292,7 @@
     "protocol_template_beta_warning": "The protocol template feature is in beta. It is not yet possible to update a protocol template. If you want to update it, please create a new one from an experiment.",
     "download_protocol_template": "Download protocol template",
     "protocol": "Protocol",
-    "import_protocol_template": "Import protocol template"
+    "import_protocol_template": "Import protocol template",
+    "experiment_with_same_name_exist": "{{count}} experiment(s) with the same name exist"
   }
 }

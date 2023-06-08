@@ -20,7 +20,7 @@ import {LabTag} from '../model/entities/lab-tag.entity';
 import {
   LabExperimentSearch,
   LabExperimentSearchFields
-} from '../entity-module/lab-experiment-core/model/lab-experiment-advanced-search.class';
+} from '../entity-module/lab-experiment-core/model/lab-experiment-search.class';
 import {map} from 'rxjs/operators';
 
 
@@ -131,6 +131,11 @@ export class LabExperimentService {
       (page: number, pageSize: number, name: string) => this.searchByTitle(page, pageSize, name),
       20, false
     );
+  }
+
+  public countByTitle(title: string): Observable<{ count: number }> {
+    return this.apiService.get(`${this.route}/title/${title}/count`, null,
+      {hideSnackBarError: true});
   }
 
   public searchByTitle(page: number, pageSize: number, title: string): Observable<ClPageI<LabExperiment>> {

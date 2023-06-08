@@ -15,7 +15,7 @@ import {LabUser} from '../../../model/entities/lab-user.entity';
 
 
 export class LabExperimentSearchFields {
-  text: string;
+  title: string;
 
   type: LabExperimentType;
   status: LabExperimentStatus;
@@ -44,7 +44,6 @@ export class LabExperimentSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabExperimentSearchFields> = {
-    text: 'biox.experiment_text',
     type: 'biox.experiment_type',
     tags: 'flTag.tags',
     project: 'biox.project',
@@ -61,7 +60,7 @@ export class LabExperimentSearch {
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
   public static advancedSearchConverter: FlSearchCriteriaConverter<LabExperimentSearchFields> = {
-    text: {key: 'text', operator: 'MATCH'},
+    title: {key: 'title', operator: 'CONTAINS'},
     type: {key: 'type', operator: 'EQ'},
     status: {key: 'status', operator: 'IN'},
     tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
@@ -78,7 +77,7 @@ export class LabExperimentSearch {
   public static getAdvancedSearchForm(): FormGroup<LabExperimentSearchFields> {
     return new FormBuilder().group(
       {
-        text: [null],
+        title: [null],
         type: [null],
         status: [null],
         tags: [null],

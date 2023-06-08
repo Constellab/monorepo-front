@@ -13,7 +13,6 @@
     "experiment_saved": "Expérience modifié",
     "experiment_start": "Lancer l'expérience",
     "experiment_started": "Expérience lancée",
-    "experiment_text": "Titre et description",
     "experiment_type": "Type",
     "experiment_type_experiment": "Expérience",
     "experiment_type_transformer": "Transformeur",
@@ -293,6 +292,7 @@
     "protocol_template_beta_warning": "La fonctionnalité de modèle de protocole est en beta. Il n'est pas encore possible de mettre à jour un modèle de protocole. Si vous voulez le modifier, veuillez en créer un nouveau depuis une expérience.",
     "download_protocol_template": "Télécharger le modèle de protocole",
     "protocol": "Protocole",
-    "import_protocol_template": "Importer un modèle de protocole"
+    "import_protocol_template": "Importer un modèle de protocole",
+    "experiment_with_same_name_exist": "{{count}} expérience avec le même nom existe"
   }
 }

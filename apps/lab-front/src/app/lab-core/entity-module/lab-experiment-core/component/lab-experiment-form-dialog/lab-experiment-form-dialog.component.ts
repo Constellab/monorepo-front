@@ -2,10 +2,12 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabExperiment, LabExperimentSimpleForm} from '../../../../model/entities/lab-experiment.entity';
 import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {LabExperimentService} from '../../../../entity-service/lab-experiment.service';
 import {Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {catchError, map} from 'rxjs/operators';
+import {ClHelpService} from '@monorepo/core-lib';
 
 export interface LabExperimentFormDialogInput extends FlFormDialogInput<LabExperimentSimpleForm> {
   experimentId?: string;
@@ -23,6 +25,11 @@ export interface LabExperimentFormDialogInput extends FlFormDialogInput<LabExper
 export class LabExperimentFormDialogComponent extends FlFormDialogAbstractDirective<LabExperimentSimpleForm, LabExperiment>
   implements OnInit {
 
+  sameTitleCount$: Observable<number>;
+
+  // only provided in update mode
+  private originalName: string;
+
   constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: LabExperimentFormDialogInput,
               private experimentService: LabExperimentService,
               snackBarService: FlSnackBarService,
@@ -32,6 +39,7 @@ export class LabExperimentFormDialogComponent extends FlFormDialogAbstractDirect
 
   ngOnInit(): void {
     this.init();
+    this.originalName = this.dialogInput.object?.title;
   }
 
   buildForm(): FormGroup<LabExperimentSimpleForm> {
@@ -67,6 +75,19 @@ export class LabExperimentFormDialogComponent extends FlFormDialogAbstractDirect
 
   getUpdateSuccessMessage(): string {
     return 'biox.experiment_updated';
+  }
+
+  onTitleChange(): void {
+    const title = this.formGp.get('title').value;
+
+    if (ClHelpService.isNullOrEmpty(title) || title === this.originalName) {
+      this.sameTitleCount$ = of(0);
+    } else {
+      this.sameTitleCount$ = this.experimentService.countByTitle(title).pipe(
+        map(result => result.count),
+        catchError(() => of(0))
+      );
+    }
   }
 
 

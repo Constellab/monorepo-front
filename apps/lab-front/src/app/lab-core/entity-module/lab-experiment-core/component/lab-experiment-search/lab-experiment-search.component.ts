@@ -10,7 +10,7 @@ import {
   FlTag,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabExperimentSearch, LabExperimentSearchFields} from '../../model/lab-experiment-advanced-search.class';
+import {LabExperimentSearch, LabExperimentSearchFields} from '../../model/lab-experiment-search.class';
 import {LabExperimentService} from '../../../../entity-service/lab-experiment.service';
 import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
 import {LabExperimentFormDialogComponent} from '../lab-experiment-form-dialog/lab-experiment-form-dialog.component';

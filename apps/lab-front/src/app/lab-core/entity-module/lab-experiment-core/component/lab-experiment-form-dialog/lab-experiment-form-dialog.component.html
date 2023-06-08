@@ -9,10 +9,13 @@
     <mat-form-field class="g-form-input">
       <mat-label>{{'title' | translate}}</mat-label>
       <input matInput formControlName="title" required flInputMaxLength="50"
-             [placeholder]="'title' | translate">
+             [placeholder]="'title' | translate" (change)="onTitleChange()">
       <mat-error *ngIf="formGp.get('title').hasError('required')">
         {{'title' | flErrorRequired}}
       </mat-error>
+      <mat-hint class="g-warning-text" *ngIf="sameTitleCount$ | async as count">
+        {{'biox.experiment_with_same_name_exist' | translate:{count: count} }}
+      </mat-hint>
     </mat-form-field>
 
 
