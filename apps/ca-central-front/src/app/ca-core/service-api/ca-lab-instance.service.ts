@@ -280,7 +280,7 @@ export class CaLabInstanceService {
   }
 
   public getBackupCurrentStatus(id: string): Observable<CaExternalLabBackup> {
-    return this.apiService.get(`${this.route}/${id}/backup/current-status`, CaExternalLabBackup);
+    return this.apiService.get(`${this.route}/${id}/backup/last-status`, CaExternalLabBackup);
   }
 
   public getBackupHistory(id: string): Observable<CaExternalLabBackupHistory> {
