@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@ngneat/reactive-forms';
-import {FlSignupFormComponent, FlSignUpUser, FlSnackBarService} from '@monorepo/front-core-lib';
+import {FlCaptchaService, FlSignupFormComponent, FlSignUpUser, FlSnackBarService} from '@monorepo/front-core-lib';
 import {CaSpaceInvitService} from '../../../ca-core/service-api/ca-space-invit.service';
 import {ActivatedRoute} from '@angular/router';
 import {CaRouterService} from '../../../ca-core/service/ca-router.service';
 import {CaSpaceInvitReadDTO} from '../../../ca-core/model/entities/space/ca-space-invit.class';
-import {Observable, tap} from 'rxjs';
+import {Observable, switchMap, tap} from 'rxjs';
 import {CaUserAccountsService} from '../../../ca-core/service-api/ca-user-accounts.service';
 import {CaAuthService} from '../../service/ca-auth.service';
 
@@ -32,7 +32,8 @@ export class CaSignupToSpacePageComponent implements OnInit {
               private snackBarService: FlSnackBarService,
               private routerService: CaRouterService,
               private userAccountService: CaUserAccountsService,
-              private authService: CaAuthService) {
+              private authService: CaAuthService,
+              private captchaService: FlCaptchaService) {
   }
 
   ngOnInit(): void {
@@ -65,10 +66,20 @@ export class CaSignupToSpacePageComponent implements OnInit {
 
   private signup(user: FlSignUpUser): void {
     this.isLoading = true;
-    this.userAccountService.createUserAndJoinSpace(this.invitationCode, user).subscribe({
+
+    this.generateCaptcha().pipe(
+      switchMap((token) => {
+        user.captcha = token;
+        return this.userAccountService.createUserAndJoinSpace(this.invitationCode, user);
+      })
+    ).subscribe({
       next: () => this.signupSuccess(),
       error: () => this.isLoading = false
     });
+  }
+
+  private generateCaptcha(): Observable<string> {
+    return this.captchaService.executeCaptcha('action_two');
   }
 
   private signupSuccess(): void {

@@ -52,7 +52,8 @@
           "quill",
           "drawflow",
           "luxon",
-          "lodash.throttle"
+          "lodash.throttle",
+          "quill-delta-to-html"
         ]
       },
       "configurations": {

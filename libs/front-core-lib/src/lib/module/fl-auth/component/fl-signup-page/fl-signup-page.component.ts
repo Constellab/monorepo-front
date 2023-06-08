@@ -6,6 +6,8 @@ import {FlThemeService} from '../../../fl-theme/fl-theme.service';
 import {FlUserAccountService} from '../../service/fl-user-account.service';
 import {FlSnackBarService} from '../../../fl-snack-bar/fl-snack-bar.service';
 import {FlSignupFormComponent} from '../fl-signup-form/fl-signup-form.component';
+import {FlCaptchaService} from '../../../fl-captcha/fl-captcha.service';
+import {Observable, switchMap} from 'rxjs';
 
 @Component({
   selector: 'fl-signup-page',
@@ -32,7 +34,9 @@ export class FlSignupPageComponent implements OnInit {
   constructor(private themeService: FlThemeService,
               private userAccountService: FlUserAccountService,
               private snackBarService: FlSnackBarService,
-              private router: Router) { }
+              private router: Router,
+              private captchaService: FlCaptchaService) {
+  }
 
   ngOnInit(): void {
     this.logo = this.themeService.isDarkTheme() ? this.darkThemeLogo :
@@ -55,10 +59,21 @@ export class FlSignupPageComponent implements OnInit {
 
   private signupUser(user: FlSignUpUser): void {
     this.isLoading = true;
-    this.userAccountService.signup(user).subscribe({
+
+    this.generateCaptcha().pipe(
+      switchMap((token) => {
+        user.captcha = token;
+
+        return this.userAccountService.signup(user);
+      })
+    ).subscribe({
       next: () => this.onSignupSuccess(),
       error: () => this.isLoading = false
     });
+  }
+
+  private generateCaptcha(): Observable<string> {
+    return this.captchaService.executeCaptcha('action_one');
   }
 
   private onSignupSuccess(): void {
