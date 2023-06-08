@@ -1,12 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LabMonitor, LabMonitorBetweenDates} from '../../../model/entities/lab-monitor.entity';
-import {
-  FlFileHelper,
-  FlTranslateService
-} from '@monorepo/front-core-lib';
+import {FlFileHelper, FlTranslateService} from '@monorepo/front-core-lib';
 import {DateTime} from 'luxon';
-import {ChChart2dDatum, ChChartSerie, ChChartLine2d, ChChartLabelFormatter} from '@monorepo/chart';
-import {ChChart2dMultiSerie} from '@monorepo/chart';
+import {ChChart2dDatum, ChChart2dMultiSerie, ChChartLabelFormatter, ChChartLine2d, ChChartSerie} from '@monorepo/chart';
 
 @Component({
   selector: 'lab-monitor-between-dates',
@@ -25,16 +21,22 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
 
   networkChart: ChChartLine2d;
 
+  gpuTemperature: ChChartLine2d;
+
   constructor(private translateService: FlTranslateService) {
   }
 
   ngOnInit(): void {
+    if (this.monitor.monitors.length > 0) {
+      this.lastMonitor = this.monitor.monitors[this.monitor.monitors.length - 1];
+    }
+
     this.initMainChart();
     this.initAllCpuChart();
     this.initNetworkChart();
 
-    if (this.monitor.monitors.length > 0) {
-      this.lastMonitor = this.monitor.monitors[this.monitor.monitors.length - 1];
+    if(this.gpuEnabled()){
+      this.initGPuTemp();
     }
   }
 
@@ -46,6 +48,11 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
     series.addSerie(this.getLabDiskPercentSeries());
     series.addSerie(this.getRamPercentSeries());
     series.addSerie(this.getSwapPercentSeries());
+
+    if (this.gpuEnabled()) {
+      series.addSerie(this.getGpuPercentSeries());
+      series.addSerie(this.getGpuRamPercentSeries());
+    }
 
     // Set x ticks to date format
     series.axisXLabelTicksFormatter = this.getXAxisTickFormat();
@@ -86,6 +93,22 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
       return new ChChart2dDatum(monitor.createdAt.valueOf(), monitor.swapMemoryPercent);
     });
     return new ChChartSerie(data, this.translateService.translate('monitoring.swap_usage'));
+  }
+
+  private getGpuPercentSeries(): ChChartSerie<ChChart2dDatum> {
+    const data = this.monitor.monitors.map((monitor) => {
+      return new ChChart2dDatum(monitor.createdAt.valueOf(),
+        monitor.gpuPercent);
+    });
+    return new ChChartSerie(data, this.translateService.translate('monitoring.gpu_usage'));
+  }
+
+  private getGpuRamPercentSeries(): ChChartSerie<ChChart2dDatum> {
+    const data = this.monitor.monitors.map((monitor) => {
+      return new ChChart2dDatum(monitor.createdAt.valueOf(),
+        monitor.gpuMemoryPercent);
+    });
+    return new ChChartSerie(data, this.translateService.translate('monitoring.gpu_ram_usage'));
   }
 
   private initAllCpuChart(): void {
@@ -145,6 +168,22 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
     this.networkChart = new ChChartLine2d(series);
   }
 
+  private initGPuTemp(): void {
+    const series: ChChart2dMultiSerie<ChChart2dDatum> = new ChChart2dMultiSerie();
+
+    const data = this.monitor.monitors.map((monitor) => {
+      return new ChChart2dDatum(monitor.createdAt.valueOf(), monitor.gpuTemperature);
+    });
+    series.addSerie(new ChChartSerie(data,
+      this.translateService.translate('monitoring.gpu_temperature')));
+
+
+    // Set tick formatter
+    series.axisXLabelTicksFormatter = this.getXAxisTickFormat();
+
+    this.gpuTemperature = new ChChartLine2d(series);
+  }
+
 
   private getXAxisTickFormat(): ChChartLabelFormatter {
     return new ChChartLabelFormatter(
@@ -152,6 +191,10 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
       8,
       (value: number) => DateTime.fromMillis(value).toFormat('yyyy-MM-dd HH:mm:ss')
     );
+  }
+
+  gpuEnabled(): boolean {
+    return this.lastMonitor?.gpuEnabled ?? false;
   }
 
 }

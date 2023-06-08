@@ -72,9 +72,33 @@ export class LabMonitor extends LabBaseEntity{
   @Expose({name: 'ram_usage_percent'})
   ramUsagePercent: number;
 
+  // GPU
+  @Expose({name: 'gpu_percent'})
+  gpuPercent: number;
+
+  @Expose({name: 'gpu_temperature'})
+  gpuTemperature: number;
+
+  @Expose({name: 'gpu_memory_total'})
+  gpuMemoryTotal: number;
+
+  @Expose({name: 'gpu_memory_used'})
+  gpuMemoryUsed: number;
+
+  @Expose({name: 'gpu_memory_free'})
+  gpuMemoryFree: number;
+
+  @Expose({name: 'gpu_memory_percent'})
+  gpuMemoryPercent: number;
+
+  @Expose({name: 'gpu_enabled'})
+  gpuEnabled: boolean;
+
   @Expose({name: 'data'})
   @Type(() => LabMonitorData)
   data: LabMonitorData;
+
+
 }
 
 export class LabMonitorBetweenDates{

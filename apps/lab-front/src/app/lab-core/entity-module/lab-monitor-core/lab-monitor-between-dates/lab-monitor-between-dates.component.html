@@ -22,6 +22,13 @@
         <fl-key>{{'monitoring.total_memory' | translate}}</fl-key>
         {{lastMonitor.ramUsageTotal | flByteText}}
       </fl-key-value>
+
+      <ng-container *ngIf="gpuEnabled()">
+        <fl-key-value>
+          <fl-key>{{'monitoring.gpu_ram_total' | translate}}</fl-key>
+          {{lastMonitor.gpuMemoryTotal | flByteText}}
+        </fl-key-value>
+      </ng-container>
     </ng-container>
 
     <div class="date">
@@ -52,4 +59,11 @@
       <ch-chart [chart]="networkChart" class="chart"></ch-chart>
     </div>
   </div>
+
+  <div>
+    <h2>{{'monitoring.gpu_temperature' | translate}}</h2>
+    <ch-chart [chart]="gpuTemperature" class="chart"></ch-chart>
+  </div>
+
+
 </div>
