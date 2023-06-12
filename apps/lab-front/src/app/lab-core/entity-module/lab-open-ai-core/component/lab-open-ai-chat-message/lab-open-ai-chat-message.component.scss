@@ -11,7 +11,7 @@
 ::ng-deep lab-open-ai-chat-message{
   .content code {
     background-color: var(--main-background);
-    white-space: pre;
+    white-space: pre-wrap;
     padding: 0.2em;
   }
 
@@ -31,7 +31,7 @@
 
 .text-content {
   flex: 1;
-  white-space: pre-line;
+  white-space: pre-wrap;
   min-width: 0;
 }
 
