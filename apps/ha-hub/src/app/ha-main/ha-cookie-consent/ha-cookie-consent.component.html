@@ -1,8 +1,20 @@
-<div class="cookie-consent-div">
-  <h2>{{'your_privacy' | translate}}</h2>
-  <p>{{'your_privacy_text' | translate}}</p>
-  <div class="cookie-consent-bt-div">
-    <button mat-flat-button (click)="closeDialog(true)">{{'ok' | translate}}</button>
-    <button mat-flat-button (click)="closeDialog(false)">{{'only_necessary_cookies' | translate}}</button>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="g-full-height">
+  <div class="content">
+    <h5>{{'your_privacy' | translate}}</h5>
+    <div>
+      <p>{{'your_privacy_text' | translate}}</p>
+    </div>
+  </div>
+
+  <div class="bt-div">
+    <button class="button"
+            mat-button type="button" (click)="closeSnackBar(false)">
+      {{'only_necessary' | translate}}
+    </button>
+
+    <button class="button"
+            mat-button type="button" (click)="closeSnackBar(true)">
+      {{'ok' | translate}}
+    </button>
   </div>
 </div>

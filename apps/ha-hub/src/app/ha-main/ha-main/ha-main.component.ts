@@ -65,7 +65,7 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     if(isPlatformBrowser(this.platformId)) {
       this.cookieService.checkCookiesAcceptance({
         version: 1,
-        displayMode: 'dialog',
+        displayMode: 'snackbar',
         component: HaCookieConsentComponent,
       })?.subscribe(res => {
         if(res) {

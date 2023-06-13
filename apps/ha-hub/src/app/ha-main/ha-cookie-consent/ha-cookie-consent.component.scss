@@ -1,34 +1,35 @@
-.cookie-consent-div{
-  width: 100%;
-  height: 100%;
+.content{
+  max-width: 50%;
+}
+
+.bt-div{
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.cookie-consent-bt-div{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
+@media (max-width: 960px) {
+  .content {
+    max-width: 100%;
+  }
 
-
-@media (max-width: 500px){
-  .cookie-consent-bt-div{
+  .bt-div{
+    display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 
+
 @media (max-width: 359px) {
-  .cookie-consent-bt-div button{
+  button{
     font-size: 0.6em;
   }
 }
 
 @media (max-width: 279px) {
-  .cookie-consent-bt-div button{
+  button{
     font-size: 0.5em;
   }
 }

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {FlSnackBarMode, FlTranslatableText} from '@monorepo/front-core-lib';
+import {MatSnackBarRef} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'ha-cookie-consent',
@@ -8,12 +9,19 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class HaCookieConsentComponent {
 
+  mode: FlSnackBarMode;
+  text: FlTranslatableText;
+
   constructor(
-    private dialogRef: MatDialogRef<HaCookieConsentComponent>,
+    private snackBarRef: MatSnackBarRef<HaCookieConsentComponent>
   ) {
   }
 
-  closeDialog(choice: boolean): void {
-    this.dialogRef.close(choice);
+  closeSnackBar(choice: boolean): void {
+    if(choice) {
+      this.snackBarRef.dismissWithAction();
+    } else {
+      this.snackBarRef.dismiss();
+    }
   }
 }

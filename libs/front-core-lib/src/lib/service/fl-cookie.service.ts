@@ -57,10 +57,11 @@ export class FlCookieService {
     } else {
       return this.snackBar.openFromComponent(config.component, {duration: -1}).afterDismissed().pipe(
         map((value) => {
-          if(value?.dismissedByAction?.valueOf() != undefined){
-            this.setCookieAcceptance(config.version, value.dismissedByAction.valueOf());
-            return value.dismissedByAction.valueOf();
+          if(value?.dismissedByAction?.valueOf()){
+            this.setCookieAcceptance(config.version, true);
+            return true;
           }
+          this.setCookieAcceptance(config.version, false);
           return false;
         })
       );
