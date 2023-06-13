@@ -64,10 +64,12 @@ export class LabResourceViewSpecListComponent implements OnInit, OnDestroy {
 
   // prepare the data and open the view configuration portal
   openConfigPortal(view: LabResourceViewSpec): void {
+    this.overlay?.dispose();
+
     const viewTypeInfo: RvResourceViewTypeInfo = labConstResourceViewTypeInfos[view.viewType];
 
     // if the view doesn't have a config, don't show the config portal, create the view directly
-    if(!view.hasConfigSpecs){
+    if (!view.hasConfigSpecs) {
       this.callView({
         displayMode: viewTypeInfo.defaultDisplayMode,
         viewConfigValues: {}, // empty config
@@ -104,7 +106,9 @@ export class LabResourceViewSpecListComponent implements OnInit, OnDestroy {
         disposeOnNavigation: true,
       });
 
-    this.portalService.createPortal(LabConfigureResourceViewComponent, portalConfig, data).detachments().subscribe(
+    this.overlay = this.portalService.createPortal(LabConfigureResourceViewComponent, portalConfig, data);
+
+    this.overlay.detachments().subscribe(
       config => this.callView(config, view.getName())
     );
   }
