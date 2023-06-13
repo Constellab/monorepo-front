@@ -136,7 +136,7 @@ export class CaSpaceService extends FlApiCrudService<CaSpace, CaSaveSpaceDTO> {
 
   public searchSpaceUsersByNameDatasource(spaceId: string): CaUserDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size, name) => this.searchSpaceUsersByName(spaceId, name, page, size), 20);
+      (page, size, name) => this.searchSpaceUsersByName(spaceId, name, page, size), 20, false);
   }
 
 
