@@ -116,8 +116,12 @@ export class HaMainComponent implements OnInit, AfterContentInit {
   protected readonly ClSupportedLanguage = ClSupportedLanguage;
 
   private setGoogleAnalytics(): void{
+    if(document.getElementById('google-analytics-script') != null){
+      return;
+    }
     const script = document.createElement('script');
     script.async = true;
+    script.id = 'google-analytics-script';
     script.src = `https://www.googletagmanager.com/gtag/js?id=${HaEnvironmentHelper.getGoogleAnalyticsId()}`;
     document.head.appendChild(script);
 
