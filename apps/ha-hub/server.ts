@@ -43,7 +43,7 @@ export function app(): express.Express {
       //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' is for the inline script in the index.html
       // script-src : https://www.google.com, https://www.gstatic.com
       // eslint-disable-next-line max-len
-      const scriptSrc = "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.constellab.community https://www.google.com https://www.gstatic.com https://www.googletagmanager.com data:";
+      const scriptSrc = "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com data:";
       // frame-src https://www.google.com/' is for the recaptcha
       // eslint-disable-next-line max-len
       const frameSrc = "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com";
@@ -52,7 +52,7 @@ export function app(): express.Express {
       const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com";
       const imgSrc = "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community";
       // eslint-disable-next-line max-len
-      const connectSrc = "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com https://www.google-analytics.com https://www.googletagmanager.com";
+      const connectSrc = "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com";
       // eslint-disable-next-line max-len
       res.setHeader("Content-Security-Policy", `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`);
     }
