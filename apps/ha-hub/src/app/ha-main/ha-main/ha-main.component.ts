@@ -69,7 +69,6 @@ export class HaMainComponent implements OnInit, AfterContentInit {
         component: HaCookieConsentComponent,
       })?.subscribe(res => {
         if(res) {
-          console.log('GOOGLE ANALYTICS ID : ' + HaEnvironmentHelper.getGoogleAnalyticsId());
           this.setGoogleAnalytics();
         }
       });
