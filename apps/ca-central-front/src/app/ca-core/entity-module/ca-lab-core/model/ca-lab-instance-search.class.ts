@@ -37,6 +37,8 @@ export class CaLabInstanceSearchFields {
   space: CaSpace;
 
   type: CaLabInstanceType;
+
+  id: string;
 }
 
 export class CaLabInstanceSearch {
@@ -63,6 +65,7 @@ export class CaLabInstanceSearch {
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     type: {key: 'type', operator: 'EQ'},
+    id: {key: 'id', operator: 'EQ'},
   };
 
   public static getAdvancedSearchForm(): FormGroup<CaLabInstanceSearchFields> {
@@ -79,6 +82,7 @@ export class CaLabInstanceSearch {
       }),
       space: null,
       type: null,
+      id: null,
     });
   }
 }

@@ -35,6 +35,12 @@
       <input matInput formControlName="email" [placeholder]="'email' | translate" autocomplete="off">
     </mat-form-field>
 
+    <!--  Id -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{'id' | translate }}</mat-label>
+      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
+    </mat-form-field>
+
     <!--  Creation date  -->
     <div class="g-form-field-no-hint g-full">
       <p class="g-text-small">{{'creation_date' | translate}}</p>
@@ -48,6 +54,7 @@
       <fl-search-date-interval formGroupName="lastLoginSuccess">
       </fl-search-date-interval>
     </div>
+
 
   </div>
 

@@ -31,6 +31,11 @@
                       mode="all"></fl-select-user>
     </fl-form-field>
 
+    <!--  Id -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{'id' | translate }}</mat-label>
+      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
+    </mat-form-field>
 
     <!--  Creation date  -->
     <div class="g-form-field-no-hint g-full">
@@ -38,6 +43,7 @@
       <fl-search-date-interval formGroupName="createdAt">
       </fl-search-date-interval>
     </div>
+
 
   </div>
 

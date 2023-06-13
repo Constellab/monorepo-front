@@ -26,6 +26,8 @@ export class CaUserSearchFields {
 
   @Type(() => FlSearchDateInterval)
   lastLoginSuccess: FlSearchDateInterval;
+
+  id: string;
 }
 
 export class CaUserSearch {
@@ -48,6 +50,7 @@ export class CaUserSearch {
     company: {key: 'company', operator: 'MATCH'},
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     lastLoginSuccess: FlSearchConverter.dateInterval('lastLoginSuccess'),
+    id: {key: 'id', operator: 'EQ'},
   };
 
   public static getAdvancedSearchForm(): FormGroup<CaUserSearchFields> {
@@ -65,6 +68,7 @@ export class CaUserSearch {
         from: [null],
         to: [null],
       }),
+      id: null,
     });
   }
 }

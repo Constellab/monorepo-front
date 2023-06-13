@@ -22,6 +22,8 @@ export class CaSpaceSearchFields {
 
   @Type(() => CaUser)
   createdBy: CaUser;
+
+  id: string;
 }
 
 export class CaSpaceSearch {
@@ -40,6 +42,7 @@ export class CaSpaceSearch {
     type: {key: 'type', operator: 'EQ'},
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     createdBy: {key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    id: {key: 'id', operator: 'EQ'},
   };
 
   public static getAdvancedSearchForm(): FormGroup<CaSpaceSearchFields> {
@@ -52,6 +55,7 @@ export class CaSpaceSearch {
         to: [null],
       }),
       createdBy: null,
+      id: null,
     });
   }
 }

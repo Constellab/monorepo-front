@@ -30,6 +30,8 @@ export class CaProjectSearchFields {
   createdAt: FlSearchDateInterval;
 
   includeSubProjects: boolean;
+
+  id: string;
 }
 
 export class CaProjectSearch {
@@ -54,6 +56,7 @@ export class CaProjectSearch {
     leader: {key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     includeSubProjects: {key: 'includeSubProjects', operator: 'EQ'},
+    id: {key: 'id', operator: 'EQ'},
   };
 
   public static getAdvancedSearchForm(): FormGroup<CaProjectSearchFields> {
@@ -75,6 +78,7 @@ export class CaProjectSearch {
         to: [null],
       }),
       includeSubProjects: null,
+      id: null,
     });
   }
 }
