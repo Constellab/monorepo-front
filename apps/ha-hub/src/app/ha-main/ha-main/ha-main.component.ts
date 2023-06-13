@@ -126,5 +126,6 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     window['gtag'] = function(){(window['dataLayer']).push(arguments);}
     window['gtag']('js', new Date());
     window['gtag']('config', HaEnvironmentHelper.getGoogleAnalyticsId());
+    console.log('TEST', window['dataLayer'], window['gtag']);
   }
 }

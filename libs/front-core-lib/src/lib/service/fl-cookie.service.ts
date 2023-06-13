@@ -6,7 +6,7 @@ import {FlAcceptanceCookie, FlAcceptanceCookiesConfig, FlCookieOptions} from './
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 
 /**
  * Service to manage browser cookies.
@@ -31,14 +31,14 @@ export class FlCookieService {
    */
   public checkCookiesAcceptance(config: FlAcceptanceCookiesConfig): Observable<boolean> {
     if (config == null || !this.canAccessCookies()) {
-      return null;
+      return of(false);
     }
 
     const acceptanceCookie: FlAcceptanceCookie = this.getParsedCookie(this.ACCEPTANCE_COOKIE_KEY);
 
     // check if the cookie exist and if the version has been accepted
     if (acceptanceCookie != null && acceptanceCookie.version >= config.version) {
-      return null;
+      return of(true);
     }
 
     // if we need to ask the permissions
