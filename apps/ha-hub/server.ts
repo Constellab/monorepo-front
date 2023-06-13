@@ -49,9 +49,10 @@ export function app(): express.Express {
       const frameSrc = "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com";
       const workerSrc = "worker-src  *.gencovery.com *.constellab.community data: 'self' blob:";
       const styleSrc = "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community https://fonts.googleapis.com";
-      const imgSrc = "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community";
       const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com";
-      const connectSrc = "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com";
+      const imgSrc = "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community";
+      // eslint-disable-next-line max-len
+      const connectSrc = "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com https://www.google-analytics.com https://www.googletagmanager.com";
       // eslint-disable-next-line max-len
       res.setHeader("Content-Security-Policy", `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`);
     }

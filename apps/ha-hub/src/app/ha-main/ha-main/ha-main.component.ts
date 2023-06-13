@@ -126,10 +126,11 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     document.head.appendChild(script);
 
     window['dataLayer'] = window['dataLayer'] || [];
-    // eslint-disable-next-line prefer-rest-params
-    window['gtag'] = function(){(window['dataLayer']).push(arguments);}
+    window['gtag'] = function(){
+      // eslint-disable-next-line prefer-rest-params
+      (window['dataLayer']).push(arguments);
+    }
     window['gtag']('js', new Date());
     window['gtag']('config', HaEnvironmentHelper.getGoogleAnalyticsId());
-    console.log('TEST', window['dataLayer'], window['gtag']);
   }
 }
