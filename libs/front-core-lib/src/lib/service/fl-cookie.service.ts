@@ -5,6 +5,8 @@ import {ClDateHelper} from '@monorepo/core-lib';
 import {FlAcceptanceCookie, FlAcceptanceCookiesConfig, FlCookieOptions} from './model/fl-cookie.class';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 /**
  * Service to manage browser cookies.
@@ -27,26 +29,40 @@ export class FlCookieService {
    * Check the cookies acceptances
    * @param config config to check the user cookies acceptance
    */
-  public checkCookiesAcceptance(config: FlAcceptanceCookiesConfig): void {
+  public checkCookiesAcceptance(config: FlAcceptanceCookiesConfig): Observable<boolean> {
     if (config == null || !this.canAccessCookies()) {
-      return;
+      return null;
     }
 
     const acceptanceCookie: FlAcceptanceCookie = this.getParsedCookie(this.ACCEPTANCE_COOKIE_KEY);
 
     // check if the cookie exist and if the version has been accepted
     if (acceptanceCookie != null && acceptanceCookie.version >= config.version) {
-      return;
+      return null;
     }
 
     // if we need to ask the permissions
-    if (config.displayMode === 'dialog') {
-      this.dialog.open(config.component).afterClosed().subscribe(
-        () => this.setCookieAcceptance(config.version)
+    if (config.displayMode === 'dialog'){
+      return this.dialog.open(config.component, {
+        hasBackdrop: false
+      }).afterClosed().pipe(
+        map((response: boolean) => {
+          if(response != undefined){
+            this.setCookieAcceptance(config.version, response);
+            return response;
+          }
+          return false;
+        })
       );
     } else {
-      this.snackBar.openFromComponent(config.component, {duration: -1}).afterDismissed().subscribe(
-        () => this.setCookieAcceptance(config.version)
+      return this.snackBar.openFromComponent(config.component, {duration: -1}).afterDismissed().pipe(
+        map((value) => {
+          if(value?.dismissedByAction?.valueOf() != undefined){
+            this.setCookieAcceptance(config.version, value.dismissedByAction.valueOf());
+            return value.dismissedByAction.valueOf();
+          }
+          return false;
+        })
       );
     }
   }
@@ -54,9 +70,11 @@ export class FlCookieService {
   /**
    * Set the cookie acceptance in the cookies
    * @param version of the acceptance
+   * @param choice
    */
-  public setCookieAcceptance(version: number): void {
+  public setCookieAcceptance(version: number, choice: boolean = false): void {
     const acceptanceCookie: FlAcceptanceCookie = {
+      choice: choice,
       version: version,
       date: new Date().getTime()
     };

@@ -33,12 +33,6 @@ import {HaUserConfig} from './ha-core/ha-model/ha-config/ha-user-config.config';
 import {HaMainModule} from './ha-main/ha-main.module';
 import {HaEnvironmentHelper} from './ha-core/ha-model/ha-config/ha-environment.helper';
 import {HaHttpInterceptorSsrService} from './ha-core/ha-service/ha-http-interceptor-ssr.service';
-import {environment} from '../environments/ha-environment';
-import {
-  NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN,
-  NgxGoogleAnalyticsModule,
-  NgxGoogleAnalyticsRouterModule
-} from 'ngx-google-analytics';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -55,21 +49,12 @@ function configureCaptcha(): FlCaptchaModuleConfig {
   };
 }
 
-function configureGoogleAnalytics(): any {
-  return {
-    trackingCode: HaEnvironmentHelper.getGoogleAnalyticsId(),
-  };
-}
-
 @NgModule({
   declarations: [HaAppComponent],
   imports: [
     BrowserModule.withServerTransition({appId: 'serverApp'}),
     BrowserAnimationsModule,
     HttpClientModule,
-    NgxGoogleAnalyticsModule,
-
-    NgxGoogleAnalyticsRouterModule,
 
     HaAppRoutingModule,
     HaCoreModule,
@@ -126,8 +111,7 @@ function configureGoogleAnalytics(): any {
       multi: true,
     },
     {provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true},
-    {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha},
-    {provide: NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN, useFactory: configureGoogleAnalytics}
+    {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha}
   ],
   bootstrap: [HaAppComponent],
 })

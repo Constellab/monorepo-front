@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {HaConstellabHelper} from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 import {HaMetadataService} from '../../ha-core/ha-service/ha-metadata.service';
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
+import {FlDialogService} from '@monorepo/front-core-lib';
+import {HaEnvironmentHelper} from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 
 @Component({
   selector: 'ha-ha-home',
@@ -13,9 +15,9 @@ export class HaHomeComponent implements OnInit {
   constellabUrl: string = HaConstellabHelper.getConstellabUrl();
 
 
-
   constructor(private metadataService: HaMetadataService,
-              private haRouterService: HaRouterService) {
+              private dialogService: FlDialogService){
+
   }
 
   ngOnInit(): void {
@@ -24,10 +26,11 @@ export class HaHomeComponent implements OnInit {
   }
 
   getTechDocRoute(): string {
-    return HaRouterService.getTechDocRoute();
+    return HaRouterService.getSimpleTechDocRoute();
   }
 
   getProductDocRoute(): string {
-    return HaRouterService.getProductDocRoute();
+    return HaRouterService.getSimpleProductDocRoute();
   }
+
 }

@@ -1,7 +1,8 @@
 <span class="container g-text-light g-text-small">
   <span *ngIf="title || caption">
     <strong>{{title}}</strong>
-    <ng-container *ngIf="title && caption">|</ng-container>
+<!--    TODO: I replaced | by a .-->
+    <ng-container *ngIf="title && caption">.</ng-container>
     {{caption}}
   </span>
   <button mat-icon-button type="button" *ngIf="editable"

@@ -41,6 +41,9 @@ const routes: Route[] = [
   {
     component: HaPublicBrickPageComponent,
     matcher: (url: UrlSegment[]) => {
+      if(url.length === 1) {
+        url.push(new UrlSegment('latest', {}));
+      }
       return url.length >= 2 && (url[1].path.match(/^v\d+$/g) || url[1].path.match(/^latest$/g))
         ? {
           consumed: url.slice(0,2),
@@ -71,6 +74,10 @@ const routes: Route[] = [
       {
         path: '',
         component: HaPublicBrickDescriptionComponent
+      },
+      {
+        path: '**',
+        redirectTo: ''
       }
     ]
   },

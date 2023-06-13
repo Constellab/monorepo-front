@@ -1,21 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {AfterContentInit, AfterViewInit, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Observable} from 'rxjs';
 import {HaUser} from '../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
-import {FlDialogService, FlThemeService} from '@monorepo/front-core-lib';
+import {FlCookieService, FlDialogService, FlThemeService} from '@monorepo/front-core-lib';
 import {HaAuthService} from '../../ha-core/ha-service/ha-auth.service';
 import {HaApiServiceConfig} from '../../ha-core/ha-model/ha-config/ha-api-module.config';
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
 import {ActivatedRoute, UrlSegment} from '@angular/router';
-import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
+import {ClDateHelper, ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 import {HaEnvironmentHelper} from '../../ha-core/ha-model/ha-config/ha-environment.helper';
+import {isPlatformBrowser} from '@angular/common';
+import {HaCookieConsentComponent} from '../ha-cookie-consent/ha-cookie-consent.component';
 
 @Component({
   selector: 'ha-main',
   templateUrl: './ha-main.component.html',
   styleUrls: ['./ha-main.component.scss']
 })
-export class HaMainComponent implements OnInit {
+export class HaMainComponent implements OnInit, AfterContentInit {
 
   userConnected$: Observable<HaUser> = this.authUserService.getUser();
 
@@ -39,7 +41,9 @@ export class HaMainComponent implements OnInit {
               private dialogService: FlDialogService,
               private apiService: HaApiServiceConfig,
               private activatedRoute: ActivatedRoute,
-              private themeService: FlThemeService) {
+              private themeService: FlThemeService,
+              private cookieService: FlCookieService,
+              @Inject(PLATFORM_ID) private platformId: any) {
   }
 
   ngOnInit(): void {
@@ -57,6 +61,20 @@ export class HaMainComponent implements OnInit {
     });
   }
 
+  ngAfterContentInit(): void{
+    if(isPlatformBrowser(this.platformId)) {
+      this.cookieService.checkCookiesAcceptance({
+        version: 1,
+        displayMode: 'dialog',
+        component: HaCookieConsentComponent,
+      }).subscribe(accepted => {
+        if(accepted) {
+          this.setGoogleAnalytics();
+        }
+      });
+    }
+  }
+
   logout(): void {
     this.authService.logout().subscribe();
   }
@@ -70,11 +88,11 @@ export class HaMainComponent implements OnInit {
   }
 
   getProductDocRoute(): string {
-    return HaRouterService.getProductDocRoute();
+    return HaRouterService.getSimpleProductDocRoute();
   }
 
   getTechDocRoute(): string {
-    return HaRouterService.getTechDocRoute();
+    return HaRouterService.getSimpleTechDocRoute();
   }
 
   isHome(): boolean {
@@ -89,14 +107,6 @@ export class HaMainComponent implements OnInit {
     }
   }
 
-  selectLanguage(event: ClSupportedLanguage): void {
-    const lang = event;
-    if(this.currentLanguage !== lang) {
-      this.authUserService.changeLang(lang).subscribe();
-      this.currentLanguage = lang;
-    }
-  }
-
   getCommunityLogo(): string {
     return this.currentTheme === this.theme.LIGHT_THEME ? 'assets/fl-logo/community-logo-text-black.svg' :
       'assets/fl-logo/community-logo-text-white.svg';
@@ -104,4 +114,17 @@ export class HaMainComponent implements OnInit {
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   protected readonly ClSupportedLanguage = ClSupportedLanguage;
+
+  private setGoogleAnalytics(): void{
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${HaEnvironmentHelper.getGoogleAnalyticsId()}`;
+    document.head.appendChild(script);
+
+    window['dataLayer'] = window['dataLayer'] || [];
+    // eslint-disable-next-line prefer-rest-params
+    window['gtag'] = function(){(window['dataLayer']).push(arguments);}
+    window['gtag']('js', new Date());
+    window['gtag']('config', HaEnvironmentHelper.getGoogleAnalyticsId());
+  }
 }

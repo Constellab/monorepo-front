@@ -87,6 +87,11 @@ export interface FlAcceptanceCookie {
    * Date of acceptance as a time
    */
   date: number;
+
+  /**
+   * User choice
+   */
+  choice?: boolean;
 }
 
 export const COOKIE_MODULE_CONFIG =

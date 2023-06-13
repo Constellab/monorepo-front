@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {HaBrickUser} from '../../../../ha-core/ha-model/ha-entities/ha-brick-user';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import {FlConfirmDialogInput, FlDialogService} from '@monorepo/front-core-lib';
 import {
   HaPublicInviteBrickUserDialogComponent
 } from '../ha-public-invite-brick-user-dialog/ha-public-invite-brick-user-dialog.component';
@@ -38,8 +38,21 @@ export class HaPublicBrickUsersComponent implements OnInit {
   }
 
   removeBrickUser(brickUser: HaBrickUser): void {
-    this.brickService.removeBrickUser(brickUser).subscribe(() => {
-      this.brickUsers = this.brickUsers.filter(bu => bu.id !== brickUser.id);
-    });
+    const input: FlConfirmDialogInput = {
+      title: 'remove_user_confirmation',
+      content: 'remove_user_confirmation_message',
+      translateTitleAndContent: true,
+      successMessage: 'user_removed',
+      translateMessage: true
+    };
+
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(result => {
+      if (result.choice) {
+        this.brickService.removeBrickUser(brickUser).subscribe(() => {
+          this.brickUsers = this.brickUsers.filter(bu => bu.id !== brickUser.id);
+        });
+      }
+    })
+
   }
 }

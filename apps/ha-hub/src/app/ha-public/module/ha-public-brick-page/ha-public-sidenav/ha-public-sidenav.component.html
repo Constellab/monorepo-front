@@ -1,5 +1,5 @@
 <div class="div-sidenav">
-  <button mat-flat-button type="button" class="bt" (click)="onClickMenu($event, true)" *haIsAuthenticated>
+  <button mat-flat-button type="button" class="bt" (click)="onClickMenu($event, true)" *ngIf="(isAdminOrBrickUser$ | async)">
     <mat-icon >add_circle</mat-icon>
     {{'create_element' | translate}}
   </button>

@@ -29,12 +29,20 @@ export class HaRouterService {
     return '/login';
   }
 
+  public static getSimpleProductDocRoute(): string {
+    return '/product-doc';
+  }
+
+  public static getSimpleTechDocRoute(): string {
+    return '/tech-doc';
+  }
+
   public static getProductDocRoute(): string {
-    return '/bricks/gws_academy/latest/';
+    return '/bricks/gws_academy/latest';
   }
 
   public static getTechDocRoute(): string {
-    return '/bricks/gws_core/latest/';
+    return '/bricks/gws_core/latest';
   }
 
   public static getBrickPageRoute(brickName: string, brickMajor?: string): string {
