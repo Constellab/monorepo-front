@@ -105,7 +105,7 @@ export class CaSpaceService extends FlApiCrudService<CaSpace, CaSaveSpaceDTO> {
   }
 
   /**
-   * Return the list of user for an space (not SpaceUser)
+   * Return the list of user for a space (not SpaceUser)
    */
   public getSpaceSimpleUsers(spaceId: string, page: number, size: number): Observable<ClPage<CaUser>> {
     return this.apiService.get(`${this.route}/${spaceId}/user-simple`, CaUser,

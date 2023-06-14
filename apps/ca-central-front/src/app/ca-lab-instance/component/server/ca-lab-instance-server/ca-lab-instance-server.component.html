@@ -10,18 +10,22 @@
   <fl-card-body>
 
     <ng-container *ngIf="status$ | async as status">
-      <div *ngIf="status.labStatus.value === 'SERVER_STARTING' || status.labStatus.value === 'SERVER_STOPPING'"
+      <div *ngIf="status.serverTaskStatus.value === 'RUNNING'; else notRunning"
            fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
 
         <fl-loader size="small"></fl-loader>
-        <p>{{(status.labStatus.value === 'SERVER_STARTING' ? 'lab_is_starting' : 'lab_is_stopping') | translate}}</p>
+        <p>{{getStatusRunningMessage(status) | translate}}</p>
       </div>
-    </ng-container>
 
-    <fl-key-value *ngIf="status$ | async as status">
-      <fl-key>{{'lab_server_current_progress' | translate}}</fl-key>
-      {{status.serverProgressText}}
-    </fl-key-value>
+      <ng-template #notRunning>
+        <fl-status-chip [status]="status.serverTaskStatus" size="small"></fl-status-chip>
+      </ng-template>
+
+      <fl-key-value>
+        <fl-key>{{(status.serverTaskStatus.value === 'RUNNING' ? 'lab_server_current_task' : 'lab_server_last_task') | translate}}</fl-key>
+        {{status.serverTaskText}}
+      </fl-key-value>
+    </ng-container>
 
     <ca-lab-instance-server-status class="status"></ca-lab-instance-server-status>
 

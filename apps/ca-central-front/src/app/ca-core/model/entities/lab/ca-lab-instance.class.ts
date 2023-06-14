@@ -13,18 +13,19 @@ import {CaSpace} from '../space/ca-space.class';
 import {CaLabInstanceUserRole} from './ca-lab-instance-user.class';
 import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
 
-export type CaLabInstanceStatus =
-  'LAB_RUNNING'
-  | 'SERVER_STOPPED'
-  | 'SERVER_STARTING'
-  | 'SERVER_STOPPING'
-  | 'SERVER_RUNNING';
 export type CaLabInstanceBillingMode = 'HOURLY' | 'MONTHLY';
 export type CaLabInstanceVolumeType = 'CLASSIC' | 'HIGH_SPEED';
 export type CaLabInstanceType = 'CLOUD' | 'DESKTOP';
 export type CaLabDesktopPlatform = 'WINDOWS' | 'LINUX' | 'MAC';
 
 
+
+export type CaLabInstanceStatus =
+  'LAB_RUNNING'
+  | 'SERVER_STOPPED'
+  | 'SERVER_STARTING'
+  | 'SERVER_STOPPING'
+  | 'SERVER_RUNNING';
 export const caLabInstanceStatusDict: FlStatusDict<CaLabInstanceStatus> = {
   LAB_RUNNING: FlStatusHelper.getRunningStatus('LAB_RUNNING'),
   SERVER_STOPPED: FlStatusHelper.getStoppedStatus('SERVER_STOPPED'),
@@ -32,6 +33,14 @@ export const caLabInstanceStatusDict: FlStatusDict<CaLabInstanceStatus> = {
   SERVER_STOPPING: FlStatusHelper.getWarningStatus('SERVER_STOPPING', 'lab_stopping'),
   SERVER_RUNNING: FlStatusHelper.getWarningStatus('SERVER_RUNNING', 'lab_server_running'),
 };
+
+export type CaLabInstanceServerTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR' | 'NONE';
+export const caLabInstanceServerTaskStatusDict: FlStatusDict<CaLabInstanceServerTaskStatus> = {
+  RUNNING: FlStatusHelper.getRunningStatus('RUNNING'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  NONE: FlStatusHelper.getInfoStatus('NONE'),
+}
 
 export class CaLabInstanceStatusHistory extends CaStatusHistory<CaLabInstanceStatus> {
 
@@ -163,7 +172,11 @@ export class CaLabInstanceStatusDTO {
 
   hasServerInstanceId: boolean;
   hasServerVolumeId: boolean;
-  serverProgressText: string;
+  serverTaskText: string;
+
+  @FlStatusTransform(caLabInstanceServerTaskStatusDict)
+  serverTaskStatus: FlStatus<CaLabInstanceServerTaskStatus>;
+
 }
 
 /**
