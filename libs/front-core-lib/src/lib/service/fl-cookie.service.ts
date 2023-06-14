@@ -28,8 +28,9 @@ export class FlCookieService {
   /**
    * Check the cookies acceptances
    * @param config config to check the user cookies acceptance
+   * @param panelClass
    */
-  public checkCookiesAcceptance(config: FlAcceptanceCookiesConfig): Observable<boolean> {
+  public checkCookiesAcceptance(config: FlAcceptanceCookiesConfig, panelClass = ''): Observable<boolean> {
     if (config == null || !this.canAccessCookies()) {
       return of(false);
     }
@@ -55,7 +56,7 @@ export class FlCookieService {
         })
       );
     } else {
-      return this.snackBar.openFromComponent(config.component, {duration: -1}).afterDismissed().pipe(
+      return this.snackBar.openFromComponent(config.component, {duration: -1, panelClass: panelClass}).afterDismissed().pipe(
         map((value) => {
           if(value?.dismissedByAction?.valueOf()){
             this.setCookieAcceptance(config.version, true);

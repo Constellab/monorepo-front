@@ -9,6 +9,7 @@ import {CmRichText, CmRichTextI} from '@monorepo/common-model';
 import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
+import {ClStringHelper} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-story-page',
@@ -73,5 +74,10 @@ export class HaStoryPageComponent implements OnInit {
     }
     this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
     this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
+    this.metadataService.addMetaTag('og:image', this.getStoryImageLink(this.story.mainPicture), false);
+  }
+
+  getStoryImageLink(imageName: string): string {
+    return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
   }
 }

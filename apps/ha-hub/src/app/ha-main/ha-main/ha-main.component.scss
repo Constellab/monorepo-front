@@ -3,6 +3,11 @@
   margin: 0;
 }
 
+.gencovery-logo-small{
+  height: 80%;
+  margin: 0;
+}
+
 .main{
   min-height: 100%;
 }
@@ -39,6 +44,15 @@
   width: auto; //9rem;
   margin: auto 3rem;
   text-align: center;
+}
+
+.option-icon{
+  width: 30px;
+  margin-top: 7.5px;
+}
+
+.brick-icon{
+  margin-top: 5px;
 }
 
 .body{
