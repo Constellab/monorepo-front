@@ -11,6 +11,13 @@
   padding: 0 9px 0 9px;
 }
 
+
+@media (max-width: 900px) {
+  .doc-div{
+    padding: 0px;
+  }
+}
+
 .doc-div-content{
   min-height: 90vh;
   display: flex;

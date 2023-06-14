@@ -94,3 +94,14 @@
   display: flex;
   flex-direction: column;
 }
+
+
+@media (max-width: 500px) {
+  .titles-div h1{
+    font-size: 2em;
+  }
+
+  .titles-div h4{
+    font-size: 1.2em;
+  }
+}
