@@ -313,6 +313,10 @@ export class CaLabInstanceService {
     return this.apiService.put(`${this.route}/${id}/dockerlab/update`, null, CaLabInstanceStatusDTO);
   }
 
+  public stopCurrentServerTask(id: string): Observable<CaLabInstanceStatusDTO> {
+    return this.apiService.put(`${this.route}/${id}/server/task/stop`, null, CaLabInstanceStatusDTO);
+  }
+
   //////////////////////////// STATUS RULE  ////////////////////////////////
 
   public createGreenOption(labId: string, greenOption: CaLabGreenOptionFormDto): Observable<CaLabGreenOption> {

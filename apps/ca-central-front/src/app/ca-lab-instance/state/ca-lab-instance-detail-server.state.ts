@@ -102,6 +102,16 @@ export class CaLabInstanceDetailServerState {
     this.openDialog(input, this.labInstanceService.deleteServer(this.state.getLabInstanceId()));
   }
 
+  stopCurrentServerTask(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'lab_stop_current_task',
+      content: 'lab_stop_current_task_confirmation',
+      translateTitleAndContent: true,
+    };
+
+    this.openDialog(input, this.labInstanceService.stopCurrentServerTask(this.state.getLabInstanceId()));
+  }
+
   private openDialog(input: FlConfirmDialogInput, action: Observable<any>): void {
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
       (result: FlConfirmDialogResult) => this.onDialogClosed(result, input.title, action)

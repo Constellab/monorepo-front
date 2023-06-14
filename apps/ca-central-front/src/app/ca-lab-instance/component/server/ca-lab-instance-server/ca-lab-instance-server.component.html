@@ -73,6 +73,11 @@
       </button>
 
       <button mat-stroked-button type="button" class="g-button-small actions-button"
+              color="warn" (click)="stopCurrentServerTask()">
+        {{'lab_stop_current_task' | translate}}
+      </button>
+
+      <button mat-stroked-button type="button" class="g-button-small actions-button"
               color="warn" (click)="deleteServer()" *caIsAdmin>
         {{'lab_delete_server' | translate}}
       </button>

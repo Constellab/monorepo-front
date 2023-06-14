@@ -46,6 +46,10 @@ export class CaLabInstanceServerComponent implements OnInit {
     this.serverState.deleteServer();
   }
 
+  stopCurrentServerTask(): void {
+    this.serverState.stopCurrentServerTask();
+  }
+
   getStatusRunningMessage(status: CaLabInstanceStatusDTO): string {
     if (status.labStatus.value === 'SERVER_STARTING') {
       return 'lab_is_starting';
@@ -55,4 +59,5 @@ export class CaLabInstanceServerComponent implements OnInit {
     return 'lab_task_is_running';
   }
 
+  protected readonly stop = stop;
 }
