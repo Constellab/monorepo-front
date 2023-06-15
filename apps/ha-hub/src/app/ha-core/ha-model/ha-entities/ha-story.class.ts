@@ -62,6 +62,11 @@ export class HaStory{
     Object.assign(this, story);
   }
 
+  getTopics(): HaTopic[]{
+    return this.topics.sort((a, b) => a.popularity - b.popularity);
+  }
+
+
   getAuthor(): HaUser{
     return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
   }
@@ -95,6 +100,10 @@ export class HaListStoryDto{
   publishedAt: DateTime;
   lastModifiedAt: DateTime;
 
+  getTopics(): HaTopic[]{
+    return this.topics.sort((a, b) => a.popularity - b.popularity);
+  }
+
   getAuthor(): HaUser{
     return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
   }
@@ -116,6 +125,11 @@ export class HaStoryDataSourceDataDto{
   lastModifiedAt: DateTime;
 
   topics?: HaTopic[];
+
+  getTopics(): HaTopic[]{
+    return this.topics.sort((a, b) => a.popularity - b.popularity);
+  }
+
 
   getAuthor(): HaUser{
     return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;

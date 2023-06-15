@@ -56,7 +56,7 @@ export class FlCookieService {
         })
       );
     } else {
-      return this.snackBar.openFromComponent(config.component, {duration: -1, panelClass: panelClass}).afterDismissed().pipe(
+      return this.snackBar.openFromComponent(config.component, {duration: -1, panelClass: 'g-snackbar-primary'}).afterDismissed().pipe(
         map((value) => {
           if(value?.dismissedByAction?.valueOf()){
             this.setCookieAcceptance(config.version, true);

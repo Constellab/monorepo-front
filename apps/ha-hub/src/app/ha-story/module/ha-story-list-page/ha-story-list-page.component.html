@@ -40,7 +40,7 @@
             <span class="g-text-small date-info">{{(story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt) | flDate:'DATETIME_MED'}}</span>
           </p>
           <mat-chip-listbox>
-            <mat-chip-option *ngFor="let storyTopic of story.topics">
+            <mat-chip-option *ngFor="let storyTopic of story.getTopics()">
               {{storyTopic.name}}
             </mat-chip-option>
           </mat-chip-listbox>
