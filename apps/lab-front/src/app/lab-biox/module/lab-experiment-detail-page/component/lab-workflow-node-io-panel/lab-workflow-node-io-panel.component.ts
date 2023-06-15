@@ -114,8 +114,8 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
   }
 
   // useful to set the resource on the left or right side of the node
-  get layout(): string {
-    return this.mode === 'input' ? 'row' : 'row-reverse';
+  get layoutClass(): string {
+    return this.mode === 'input' ? 'g-layout-row' : 'g-layout-row-reverse';
   }
 
   portIsSelected(portName: string): Observable<boolean> {

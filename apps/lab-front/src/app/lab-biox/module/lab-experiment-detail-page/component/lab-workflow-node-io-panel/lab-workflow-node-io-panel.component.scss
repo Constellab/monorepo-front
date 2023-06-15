@@ -1,3 +1,14 @@
+.port-list-container{
+  min-height: 0;
+  min-width: 0;
+}
+
+.port-container{
+  margin-bottom: 0.5em;
+  // prevent text to be too long
+  flex-shrink: 1;
+  overflow: hidden;
+}
 
 .selected-port{
   background-color: var(--hover-color);
@@ -15,14 +26,14 @@
 }
 
 //////// PORT SECTION ////////
-
-
 .port-name {
   padding-top: 1em;
   padding-bottom: 1em;
-  margin-bottom: 1em;
   border: 1px solid var(--hover-color);
   cursor: pointer;
+  max-height: 100%;
+  place-content: center flex-start;
+  align-items: center;
 }
 
 .port-name:hover {
@@ -32,7 +43,9 @@
 .text{
   writing-mode: vertical-lr;
   user-select: none;
-
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 
@@ -57,4 +70,5 @@
   height: 10px;
   border-radius: 50%;
   margin-bottom: 5px;
+  flex-shrink: 0;
 }
