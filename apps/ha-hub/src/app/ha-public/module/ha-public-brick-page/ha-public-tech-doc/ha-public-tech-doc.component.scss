@@ -6,13 +6,16 @@
   border-radius: 18px;
   padding: 0 8px 0 8px;
   width: calc(60rem + 16px);
-  background-color: var(--main-background);
+  max-width: calc(100vw - 30px);
   overflow: hidden;
+  background-color: var(--main-background);
 }
 
 .doc-div-content{
   max-height: 80vh;
   width: 60rem;
+  max-width: calc(100vw - 30px);
+  overflow: hidden;
 }
 
 .doc-title-div{

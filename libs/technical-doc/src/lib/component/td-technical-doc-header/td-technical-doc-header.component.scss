@@ -27,3 +27,16 @@
   flex-direction: row;
   align-items: center;
 }
+
+@media (max-width: 850px) {
+  .doc-title-div{
+    width: calc(100vw - 30px);
+  }
+}
+
+
+@media (max-width: 500px) {
+  .doc-title{
+    font-size: 1.25em;
+  }
+}

@@ -61,6 +61,10 @@
     font-size: 1em;
   }
 
+  .story-content{
+    width: calc(100% - 103px) !important;
+  }
+
   .story-image{
     height: 84px;
     width: 87px;

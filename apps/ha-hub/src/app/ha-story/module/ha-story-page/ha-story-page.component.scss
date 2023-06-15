@@ -61,6 +61,12 @@
   margin: 19px auto 8px auto;
 }
 
+@media (max-width: 900px) {
+  .story-content{
+    padding: 16px 0 !important;
+  }
+}
+
 .text-editor{
   border: none;
   width: 60rem;
