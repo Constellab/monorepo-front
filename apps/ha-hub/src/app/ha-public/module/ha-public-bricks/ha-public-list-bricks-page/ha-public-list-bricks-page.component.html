@@ -21,7 +21,7 @@
             <span>{{b.name}} <mat-icon *ngIf="b.visibility === 'private'" class="g-icon-small">lock</mat-icon></span>
 
           </div>
-          <div class="brick-description small-text">
+          <div class="brick-description small-text" fxHide.lt-sm>
             {{b.description.substring(0, 100) + (b.description.length > 100 ? '...' : '')}}
           </div>
           <div class="brick-version small-text">

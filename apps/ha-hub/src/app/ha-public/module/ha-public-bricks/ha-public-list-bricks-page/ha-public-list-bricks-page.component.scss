@@ -24,6 +24,16 @@
   flex-direction: row;
 }
 
+@media (max-width: 450px) {
+  .bricks-list{
+    flex-direction: column;
+  }
+
+  .brick{
+    width: calc(100% - 20px);
+  }
+}
+
 .brick-logo{
   width: 50px;
   height: 50px;

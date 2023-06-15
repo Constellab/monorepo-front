@@ -52,6 +52,22 @@
   background-repeat: no-repeat;
 }
 
+@media (max-width: 600px) {
+  .story{
+    min-height: 100px;
+  }
+
+  .story h5{
+    font-size: 1em;
+  }
+
+  .story-image{
+    height: 84px;
+    width: 87px;
+    margin: 8px 8px 8px auto;
+  }
+}
+
 h1{
   font-size: 67.3px;
   font-stretch: normal;

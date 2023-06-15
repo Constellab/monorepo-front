@@ -447,6 +447,10 @@ fl-infinite-scroll.g-mat-option-infinite-scroll {
   --mdc-snackbar-container-color: var(--warn-color);
 }
 
+.g-snackbar-card {
+  --mdc-snackbar-container-color: var(--card-background);
+}
+
 /************************************* MAT SLIDER ***********************************/
 mat-slider.g-slider-full-width {
   // reduce size because of margin of the slider
