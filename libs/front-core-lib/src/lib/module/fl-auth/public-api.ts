@@ -2,8 +2,10 @@
 export * from './fl-auth.module';
 
 // Components
+export * from './component/fl-check-credentials-dialog/fl-check-credentials-dialog.component';
 export * from './component/fl-complete-login/fl-complete-login.component';
 export * from './component/fl-login/fl-login.component';
+export * from './component/fl-login-form/fl-login-form.component';
 export * from './component/fl-login-page/fl-login-page.component';
 export * from './component/fl-login-two-f-a/fl-login-two-f-a.component';
 export * from './component/fl-password-forgotten/fl-password-forgotten.component';

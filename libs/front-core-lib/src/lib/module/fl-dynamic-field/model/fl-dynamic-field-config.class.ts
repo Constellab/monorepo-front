@@ -92,6 +92,9 @@ export interface FlDynamicFieldConfigTextArea extends FlDynamicFieldConfigBase {
 // use for additional type configured outside the library
 export interface FlDynamicFieldConfigUnknown extends FlDynamicFieldConfigBase {
   type: string;
+  // use to pass additional information to the component
+  additionalInfo?: any;
+
 }
 
 

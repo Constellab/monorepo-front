@@ -21,6 +21,9 @@ import {
 import {
   LabMonitoringBrickDataPageComponent
 } from './lab-monitoring-page/component/lab-monitoring-brick-data-page/lab-monitoring-brick-data-page.component';
+import {
+  LabMonitoringCredentialsPageComponent
+} from './lab-monitoring-page/component/lab-monitoring-credentials-page/lab-monitoring-credentials-page.component';
 
 const routes: Routes = [
   {
@@ -30,7 +33,8 @@ const routes: Routes = [
       {path: 'venvs', component: LabMonitoringVenvsPageComponent},
       {path: 'bricks-data', component: LabMonitoringBrickDataPageComponent},
       {path: 'logs', component: LabMonitoringLogsPageComponent},
-      {path: 'share-links', component: LabMonitoringShareLinksPageComponent}
+      {path: 'share-links', component: LabMonitoringShareLinksPageComponent},
+      {path: 'credentials', component: LabMonitoringCredentialsPageComponent}
     ]
   },
 ];

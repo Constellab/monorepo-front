@@ -38,6 +38,11 @@
       <mat-icon>share</mat-icon>
       {{'biox.share_links' | translate}}
     </a>
+
+    <a mat-button [routerLink]="credentialsRoute" routerLinkActive="menu-active">
+      <mat-icon>key</mat-icon>
+      {{'biox.credentials' | translate}}
+    </a>
   </div>
 
   <router-outlet></router-outlet>

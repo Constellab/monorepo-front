@@ -293,6 +293,21 @@
     "download_protocol_template": "Télécharger le modèle de protocole",
     "protocol": "Protocole",
     "import_protocol_template": "Importer un modèle de protocole",
-    "experiment_with_same_name_exist": "{{count}} expérience avec le même nom existe"
+    "experiment_with_same_name_exist": "{{count}} expérience avec le même nom existe",
+    "credentials": "Identifiants",
+    "create_credentials": "Créez des identifiants",
+    "credentials_created": "Identifiants créés",
+    "update_credentials": "Modifier les identifiants",
+    "credentials_updated": "Identifiants modifié",
+    "credentials_with_same_name_exist": "Des identifiants avec le même nom existent",
+    "delete_credentials": "Supprimer les identifiants",
+    "delete_credentials_confirmation": "Êtes-vous sûr de vouloir supprimer ces identifiants ?",
+    "credentials_deleted": "Identifiants supprimés",
+    "select_credentials": "Sélectionner des identifiants",
+    "credentials_type_BASIC": "Utilisateur / Mot de passe",
+    "credentials_type_S3": "S3",
+    "credentials_type_OTHER": "Autre",
+    "credentials_data": "Données d'identifiants",
+    "manage_credentials": "Cliquer ici pour gérer les identifiants"
   }
 }

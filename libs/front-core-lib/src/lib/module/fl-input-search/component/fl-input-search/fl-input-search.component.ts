@@ -24,7 +24,8 @@ import {FlInputSearchPrefixDirective} from '../../directive/fl-input-search-pref
  * The dialog must return the selected item.
  */
 export interface FlInputSearchAdvancedButton<T>{
-  onClick: () => Observable<T | null>
+  onClick: () => Observable<T | null>;
+
 }
 
 /**

@@ -293,6 +293,22 @@
     "download_protocol_template": "Download protocol template",
     "protocol": "Protocol",
     "import_protocol_template": "Import protocol template",
-    "experiment_with_same_name_exist": "{{count}} experiment(s) with the same name exist"
+    "experiment_with_same_name_exist": "{{count}} experiment(s) with the same name exist",
+    "credentials": "Credentials",
+    "create_credentials": "Create credentials",
+    "credentials_created": "Credentials created",
+    "update_credentials": "Update credentials",
+    "credentials_updated": "Credentials updated",
+    "credentials_with_same_name_exist": "Some credentials with the same name exist",
+    "delete_credentials": "Delete credentials",
+    "delete_credentials_confirmation": "Are you sure you want to delete this credentials ?",
+    "credentials_deleted": "Credentials deleted",
+    "select_credentials": "Select credentials",
+    "credentials_type": "Credentials type",
+    "credentials_type_BASIC": "Username / password",
+    "credentials_type_S3": "S3",
+    "credentials_type_OTHER": "Other",
+    "credentials_data": "Credentials data",
+    "manage_credentials": "Click here to manage your credentials"
   }
 }

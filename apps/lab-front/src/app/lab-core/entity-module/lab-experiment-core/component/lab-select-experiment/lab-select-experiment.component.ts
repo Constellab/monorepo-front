@@ -19,8 +19,6 @@ export class LabSelectExperimentComponent extends FlFormFieldDirective<LabExperi
 
   @Output() experimentChange: EventEmitter<LabExperiment> = new EventEmitter();
 
-  isLoading: boolean = false;
-
   selectedExperiment: LabExperiment | Observable<LabExperiment>;
 
   datasource: LabExperimentDatasource;

@@ -100,6 +100,10 @@ export class LabRouterService {
     return `${LabRouterService.getMonitoringRoute()}/share-links`;
   }
 
+  public static getMonitoringCredentialsRoute(): string {
+    return `${LabRouterService.getMonitoringRoute()}/credentials`;
+  }
+
   /////////////////// NAVIGATE METHODS ///////////////////
   public navigateToAppRoute(): void {
     this.router.navigate([LabRouterService.getAppRoute()]);

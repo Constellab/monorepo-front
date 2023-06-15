@@ -13,6 +13,9 @@ import {tdCodeParamSpecTypeList, TdParamSpecType} from '@monorepo/technical-doc'
 import {
   LabOpenAiChatDynamicFieldComponent
 } from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
+import {
+  LabSelectCredentialsDynamicFieldComponent
+} from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
@@ -24,11 +27,12 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
   protected getAdditionalConfig(): Record<string, FlDynamicFieldAdditionalConfig> {
     const config: Record<string, FlDynamicFieldAdditionalConfig> = {
       'tags': this.buildTagField,
-      'open_ai_chat': this.buildOpenAiChatField
-    }
+      'open_ai_chat': this.buildOpenAiChatField,
+      'select_credentials': this.buildSelectCredentialsField,
+    };
 
     // for each code spec type, set the code editor component
-    for(const codeSpec of tdCodeParamSpecTypeList){
+    for (const codeSpec of tdCodeParamSpecTypeList) {
       config[codeSpec] = this.buildCodeEditorField;
     }
     return config;
@@ -49,5 +53,12 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
     return viewContainer.createComponent(LabOpenAiChatDynamicFieldComponent);
   }
 
+  private buildSelectCredentialsField(viewContainer: ViewContainerRef,
+                                      config: FlDynamicFieldConfigUnknown): ComponentRef<FlDynamicFieldAbstractDirective> {
+    const component = viewContainer.createComponent(LabSelectCredentialsDynamicFieldComponent);
+    // the additional info is the type of credentials to select (can be null)
+    component.instance.type = config.additionalInfo?.credentialsType ?? null;
+    return component;
+  }
 
 }

@@ -30,6 +30,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {FlSignupPageComponent} from './component/fl-signup-page/fl-signup-page.component';
 import {FlCaptchaModule} from '../fl-captcha/fl-captcha.module';
+import {
+  FlCheckCredentialsDialogComponent
+} from './component/fl-check-credentials-dialog/fl-check-credentials-dialog.component';
+import {FlLoginFormComponent} from './component/fl-login-form/fl-login-form.component';
 
 /**
  * Module containing component for authentication, sign up, password reset
@@ -44,6 +48,8 @@ import {FlCaptchaModule} from '../fl-captcha/fl-captcha.module';
     FlLoginTwoFAComponent,
     FlLoginPageComponent,
     FlSignupPageComponent,
+    FlCheckCredentialsDialogComponent,
+    FlLoginFormComponent,
   ],
   exports: [
     FlPasswordForgottenComponent,
@@ -79,7 +85,6 @@ import {FlCaptchaModule} from '../fl-captcha/fl-captcha.module';
   ],
 })
 export class FlAuthModule {
-
   constructor(translateService: FlTranslateService) {
     translateService.addModuleTranslation('FlAuthModule', flAuthI18n);
   }
@@ -90,12 +95,19 @@ export class FlAuthModule {
    * @param userAccountService (optional) provide a service for signup and user password routes
    *                            (if not provided, the footer of the FlLoginComponent must be disabled)
    */
-  public static forRoot(authService: Type<FlAuthService>,
-                        userAccountService?: Type<FlUserAccountService>): ModuleWithProviders<FlAuthModule> {
-    const providers: Provider[] = [{provide: FlAuthService, useExisting: authService}];
+  public static forRoot(
+    authService: Type<FlAuthService>,
+    userAccountService?: Type<FlUserAccountService>
+  ): ModuleWithProviders<FlAuthModule> {
+    const providers: Provider[] = [
+      { provide: FlAuthService, useExisting: authService },
+    ];
 
     if (userAccountService) {
-      providers.push({provide: FlUserAccountService, useExisting: userAccountService});
+      providers.push({
+        provide: FlUserAccountService,
+        useExisting: userAccountService,
+      });
     }
 
     return {

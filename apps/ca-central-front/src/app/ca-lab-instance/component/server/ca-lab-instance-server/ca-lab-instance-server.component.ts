@@ -59,5 +59,4 @@ export class CaLabInstanceServerComponent implements OnInit {
     return 'lab_task_is_running';
   }
 
-  protected readonly stop = stop;
 }

@@ -33,7 +33,10 @@ import {
 } from './component/lab-monitoring-brick-data-page/lab-monitoring-brick-data-page.component';
 import {LabBrickCoreModule} from '../../lab-core/entity-module/lab-brick-core/lab-brick-core.module';
 import {LabSynchroDialogComponent} from './component/lab-synchro-dialog/lab-synchro-dialog.component';
-
+import {
+  LabMonitoringCredentialsPageComponent
+} from './component/lab-monitoring-credentials-page/lab-monitoring-credentials-page.component';
+import {LabCredentialsCoreModule} from '../../lab-core/entity-module/lab-credentials-core/lab-credentials-core.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import {LabSynchroDialogComponent} from './component/lab-synchro-dialog/lab-sync
     LabMonitoringUsagePageComponent,
     LabMonitoringShareLinksPageComponent,
     LabMonitoringBrickDataPageComponent,
-    LabSynchroDialogComponent
+    LabSynchroDialogComponent,
+    LabMonitoringCredentialsPageComponent,
   ],
   imports: [
     CommonModule,
@@ -63,7 +67,7 @@ import {LabSynchroDialogComponent} from './component/lab-synchro-dialog/lab-sync
     LabMonitorCoreModule,
     LabShareCoreModule,
     LabBrickCoreModule,
-  ]
+    LabCredentialsCoreModule,
+  ],
 })
-export class LabMonitoringPageModule {
-}
+export class LabMonitoringPageModule {}

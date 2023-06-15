@@ -1,10 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import {FormGroup} from '@ngneat/reactive-forms';
 import {CmCredentials} from '@monorepo/common-model';
 import {FlAuthLoginResponse, FlAuthService} from '../../service/fl-auth.service';
-import {Validators} from '@angular/forms';
 import {FlCaptchaService} from '../../../fl-captcha/fl-captcha.service';
 import {Observable, switchMap} from 'rxjs';
+import {FlLoginFormComponent} from '../fl-login-form/fl-login-form.component';
 
 /**
  * Form to call a login request using FlAuthService
@@ -32,10 +32,7 @@ export class FlLoginComponent implements OnInit {
 
   // Init the html form
   private initForm(): void {
-    this.formGp = new FormBuilder().group({
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required],
-    });
+    this.formGp = FlLoginFormComponent.buildForm();
   }
 
   login(): void {

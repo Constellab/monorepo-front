@@ -33,6 +33,8 @@ const flAuthI18nFr: FlLangTranslation = {
     two_fa_invalid_code: 'Code invalide',
     phone_number: 'Numéro de téléphone',
     captcha_protection : `Ce site est protégé par reCAPTCHA et la <a href="https://policies.google.com/privacy" target="_blank">Politique de confidentialité</a> et les <a href="https://policies.google.com/terms" target="_blank">Conditions d'utilisation</a> de Google s'appliquent.`,
+    please_enter_you_credentials: 'Veuillez entrer vos identifiants',
+    validate: 'Valider',
   }
 };
 
@@ -62,7 +64,9 @@ const flAuthI18nEn: FlLangTranslation = {
     two_fa_cancel: 'Cancel',
     two_fa_invalid_code: 'Invalid code',
     phone_number: 'Phone number',
-    captcha_protection : `This site is protected by reCAPTCHA and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.`
+    captcha_protection : `This site is protected by reCAPTCHA and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.`,
+    please_enter_you_credentials: 'Please enter your credentials',
+    validate: 'Validate',
   }
 };
 
