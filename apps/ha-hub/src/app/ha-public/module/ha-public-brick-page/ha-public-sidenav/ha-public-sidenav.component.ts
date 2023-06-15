@@ -159,6 +159,7 @@ export class HaPublicSidenavComponent implements OnInit {
   hasChild = (_: number, node: FlatNode): boolean => node.expandable;
 
   ngOnInit(): void {
+
     this.DOCUMENTATIONS_KEY = makeStateKey<object>('DOCUMENTATIONS_KEY');
     this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
 
@@ -172,15 +173,11 @@ export class HaPublicSidenavComponent implements OnInit {
       });
 
 
-    if(this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')){
-      this.init( 'latest');
-      this.initCurrentCompletePath('-doc');
-    } else {
-      this.route.params.subscribe(params => {
-        this.init(params['version']);
-        this.initCurrentCompletePath(params['version']);
-      });
-    }
+    this.route.params.subscribe(params => {
+
+      this.initCurrentCompletePath(params['version']);
+      this.init(params['brickName'], params['version']);
+    });
   }
 
   private initCurrentCompletePath(separator: string): void{
@@ -192,14 +189,15 @@ export class HaPublicSidenavComponent implements OnInit {
       });
   }
 
-  private init(brickVersion: string): void {
-
-    this.brickId = this.brick.id;
-    this.brickName = this.brick.name
-    this.brickVersion = brickVersion;
-
-    this.getTechnicalDocumentations();
-    this.getDocumentations();
+  private init(brickName: string, brickVersion: string): void {
+    this.brickService.getByName(brickName).subscribe(brick => {
+      this.brick = brick;
+      this.brickId = brick.id;
+      this.brickName = brickName;
+      this.brickVersion = brickVersion;
+      this.getTechnicalDocumentations();
+      this.getDocumentations();
+    });
   }
 
   private getTechnicalDocumentations(): void{
@@ -560,6 +558,9 @@ export class HaPublicSidenavComponent implements OnInit {
       this.technicalDocTasks = data.children.find(td => td?.id.includes('task'))?.children;
       this.technicalDocProtocols = data.children.find(td => td?.id.includes('protocol'))?.children;
       this.updateTechDataSource();
+    } else {
+      this.technicalDataSource.data = [];
+      this.technicalDataSource$ = of(this.technicalDataSource);
     }
   }
 
