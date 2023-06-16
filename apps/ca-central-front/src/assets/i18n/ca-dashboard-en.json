@@ -110,5 +110,6 @@
   "document_created": "Document created",
   "rename_document": "Rename document",
   "document_renamed": "Document renamed",
-  "print_document": "Print"
+  "print_document": "Print",
+  "user_group_added_by": "Added by"
 }

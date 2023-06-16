@@ -1,0 +1,35 @@
+<fl-card class="g-full-height">
+  <fl-card-header>
+    <!--  Center header  -->
+    <fl-search-header>
+      <fl-text-icon>
+        <mat-icon flIcon="group"></mat-icon>
+        <h2>{{'teams' | translate}}</h2>
+      </fl-text-icon>
+
+      <fl-search-header-actions>
+        <button mat-icon-button type="button"
+                (click)="createTeam()" [matTooltip]="'create_team' | translate">
+          <mat-icon>add</mat-icon>
+        </button>
+      </fl-search-header-actions>
+    </fl-search-header>
+
+  </fl-card-header>
+
+  <fl-card-body class="g-full-height">
+    <fl-search>
+
+      <!-- Advanced section in the right in a drawer -->
+      <fl-search-advanced-form>
+        <ca-team-search-form class="form"></ca-team-search-form>
+      </fl-search-advanced-form>
+
+
+      <fl-search-result>
+        <ca-team-table [datasource]="datasource" [columns]="columns"></ca-team-table>
+      </fl-search-result>
+
+    </fl-search>
+  </fl-card-body>
+</fl-card>

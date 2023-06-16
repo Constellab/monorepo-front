@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CaUser, CaUserDatasourcePaginated} from '../../../../ca-core/model/entities/ca-user.class';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlDialogService} from '@monorepo/front-core-lib';
 import {
   CaGroupAddUserDialogComponent,
   CaGroupAddUserDialogInput
 } from '../../../../ca-core/entity-module/ca-group-core/component/ca-group-add-user-dialog/ca-group-add-user-dialog.component';
 import {CaGroupService} from '../../../../ca-core/service-api/ca-group.service';
+import {CaUserGroup, CaUserGroupDatasource} from '../../../../ca-core/model/entities/ca-group.entity';
 
 /**
  * Component to list the users of a team
@@ -20,16 +20,17 @@ export class CaTeamUsersListComponent implements OnInit {
 
   @Input() groupId: string;
 
-  users: CaUserDatasourcePaginated;
-
-  displayedColumns: FlTableColumn<CaUser>[] = ['fullname', 'customTemplate'];
+  datasource: CaUserGroupDatasource;
 
   constructor(private groupService: CaGroupService,
               private dialogService: FlDialogService) {
   }
 
   ngOnInit(): void {
-    this.users = this.groupService.getUsersOfTeamDatasource(this.groupId);
+    this.datasource = new CaUserGroupDatasource(
+      (page, size) => this.groupService.getUsersOfTeam(this.groupId, page, size),
+      20, true);
+
   }
 
   openAddUserDialog(): void {
@@ -44,36 +45,10 @@ export class CaTeamUsersListComponent implements OnInit {
     );
   }
 
-  private onAddUserClosed(user?: CaUser): void {
-    if (user) {
-      this.users.addItem(user, () => true);
+  private onAddUserClosed(userGroup?: CaUserGroup): void {
+    if (userGroup) {
+      this.datasource.addItem(userGroup, () => true);
     }
   }
-
-  openRemoveUserDialog(user: CaUser): void {
-    const data: FlConfirmDialogInput = {
-      title: 'team_remove_user',
-      content: 'team_remove_user_confirmation',
-      translateTitleAndContent: true,
-      observable: this.groupService.removeUserFromTeam(this.groupId, user.id),
-      successMessage: 'team_user_removed',
-      translateMessage: true
-    };
-
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onRemoveUserClosed(result, user)
-    );
-  }
-
-  private onRemoveUserClosed(result: FlConfirmDialogResult, user: CaUser): void {
-    if (result.choice) {
-      this.users.removeItem(user);
-    }
-  }
-
-  loadMoreResults(): void {
-    this.users.getNextPage();
-  }
-
 
 }

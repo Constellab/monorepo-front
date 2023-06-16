@@ -168,6 +168,10 @@ export class CaRouterService {
     return `${CaRouterService.getCurrentSpaceRoute()}/projects`;
   }
 
+  public static getCurrentSpaceTeamsRoute(): string {
+    return `${CaRouterService.getCurrentSpaceRoute()}/teams`;
+  }
+
   ////////////////////////// ADMIN ///////////////////////
 
   public static getAdminRoute(): string {

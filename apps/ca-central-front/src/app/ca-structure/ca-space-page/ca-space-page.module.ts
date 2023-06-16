@@ -21,9 +21,6 @@ import {
 } from './component/ca-current-space-invit-list/ca-current-space-invit-list.component';
 import {CaLabCoreModule} from '../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
 import {CaProjectCoreModule} from '../../ca-core/entity-module/ca-project-core/ca-project-core.module';
-import {
-  CaCurrentSpaceTeamsListComponent
-} from './component/ca-current-space-teams-list/ca-current-space-teams-list.component';
 import {CaRequestNewLicensesComponent} from './component/ca-request-new-licenses/ca-request-new-licenses.component';
 import {RouterModule} from '@angular/router';
 import {
@@ -38,7 +35,9 @@ import {
 import {
   CaCurrentSpaceProjectsPageComponent
 } from './component/ca-current-space-projects-page/ca-current-space-projects-page.component';
-
+import {
+  CaCurrentSpaceTeamsPageComponent
+} from './component/ca-current-space-teams-page/ca-current-space-teams-page.component';
 
 @NgModule({
   declarations: [
@@ -49,12 +48,17 @@ import {
     CaSpaceInvitTableComponent,
     CaSpaceInvitFormDialogComponent,
     CaCurrentSpaceInvitListComponent,
-    CaCurrentSpaceTeamsListComponent,
     CaRequestNewLicensesComponent,
     CaCurrentSpaceUsersPageComponent,
     CaCurrentSpaceDashboardPageComponent,
     CaCurrentSpaceLabInstancesPageComponent,
     CaCurrentSpaceProjectsPageComponent,
+    CaCurrentSpaceTeamsPageComponent,
+  ],
+  exports: [
+    CaSpaceInvitFormDialogComponent,
+    CaCurrentSpaceInvitListComponent,
+    CaRequestNewLicensesComponent,
   ],
   imports: [
     CommonModule,
@@ -68,12 +72,6 @@ import {
     CaLabCoreModule,
     CaProjectCoreModule,
   ],
-  exports: [
-    CaSpaceInvitFormDialogComponent,
-    CaCurrentSpaceInvitListComponent,
-    CaCurrentSpaceTeamsListComponent,
-    CaRequestNewLicensesComponent
-  ]
 })
 export class CaSpacePageModule {
 }

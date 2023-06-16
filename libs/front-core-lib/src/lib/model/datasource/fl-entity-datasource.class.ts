@@ -13,8 +13,6 @@ export class FlEntityPaginatedDatasource<T extends FlEntity> extends FlDatasourc
   protected equals(a: T, b: T): boolean {
     return ClHelpService.compareFnIds(a, b);
   }
-
-
 }
 
 /**

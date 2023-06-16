@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
+import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
 
 /**
  * Layout component to wrap a table in an infinite scroll container with loader
