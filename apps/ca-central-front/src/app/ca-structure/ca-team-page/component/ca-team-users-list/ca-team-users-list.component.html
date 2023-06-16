@@ -1,30 +1,26 @@
-<fl-async-section [arrayObs]="datasource">
-
-  <fl-section-header class="g-page-title">
+<fl-card>
+  <fl-card-header>
     <fl-text-icon>
       <mat-icon class="g-icon-big">people</mat-icon>
       <h2>{{'team_users' | translate}}</h2>
     </fl-text-icon>
 
-    <fl-section-actions>
+    <fl-card-actions>
       <button mat-stroked-button type="button"
               class="g-button-small" (click)="openAddUserDialog()">
         <mat-icon>add</mat-icon>
         {{'team_add_user' | translate}}
       </button>
-    </fl-section-actions>
+    </fl-card-actions>
 
-  </fl-section-header>
+  </fl-card-header>
 
-  <ng-container *flSectionBody>
-    <fl-card>
-      <fl-card-body class="limit-height">
-        <fl-infinite-table-container [datasource]="datasource">
-          <ca-user-group-table [datasource]="datasource"></ca-user-group-table>
-        </fl-infinite-table-container>
-      </fl-card-body>
-    </fl-card>
-  </ng-container>
+  <fl-card-body class="limit-height">
+    <fl-infinite-table-container [datasource]="datasource">
+      <ca-user-group-table [datasource]="datasource"></ca-user-group-table>
+    </fl-infinite-table-container>
+  </fl-card-body>
+</fl-card>
 
 
-</fl-async-section>
+
