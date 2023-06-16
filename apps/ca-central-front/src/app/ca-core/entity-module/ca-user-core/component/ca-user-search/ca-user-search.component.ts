@@ -4,7 +4,7 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
+  FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
 import {CaUser, CaUserDatasourcePaginated} from '../../../../model/entities/ca-user.class';
@@ -21,7 +21,7 @@ export class CaUserSearchComponent implements OnInit {
 
   datasource: CaUserDatasourcePaginated;
 
-  columns: FlTableColumn<CaUser>[] = ['fullname', 'email', 'phone', 'category', 'lastLogin', 'createdAt'];
+  columns: FlTableColumnStatic<CaUser>[] = ['fullname', 'email', 'phone', 'category', 'lastLogin', 'createdAt', 'adminActions'];
 
   constructor(private searchState: FlSearchState<any>,
               private userService: CaUsersService,

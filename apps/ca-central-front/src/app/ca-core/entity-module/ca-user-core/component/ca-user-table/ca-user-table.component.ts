@@ -1,6 +1,6 @@
-import {Component, ContentChild, OnInit, TemplateRef} from '@angular/core';
-import {CaUser} from '../../../../model/entities/ca-user.class';
-import {FlTableAbstractDirective, FlViewContext} from '@monorepo/front-core-lib';
+import {Component, ContentChild, Input, TemplateRef} from '@angular/core';
+import {CaUser, CaUserDatasourcePaginated} from '../../../../model/entities/ca-user.class';
+import {FlTableColumnStatic, FlViewContext} from '@monorepo/front-core-lib';
 
 /**
  * Table to display users
@@ -11,16 +11,14 @@ import {FlTableAbstractDirective, FlViewContext} from '@monorepo/front-core-lib'
   templateUrl: './ca-user-table.component.html',
   styleUrls: ['./ca-user-table.component.scss']
 })
-export class CaUserTableComponent extends FlTableAbstractDirective<CaUser> implements OnInit {
+export class CaUserTableComponent {
+
+  @Input() datasource: CaUserDatasourcePaginated;
+
+  @Input() columns: FlTableColumnStatic<CaUser>[] = ['fullname', 'email', 'phone', 'category', 'lastLogin', 'createdAt', 'adminActions'];
 
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
-  constructor() {
-    super(['fullname', 'createdAt', 'category', 'phone', 'lastLogin', 'customTemplate']);
-  }
-
-  ngOnInit(): void {
-  }
 
   getUserViewContext(user: CaUser): FlViewContext<CaUser> {
     return {$implicit: user};

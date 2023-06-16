@@ -25,6 +25,7 @@ import {
 } from './component/ca-dashboard-last-experiments/ca-dashboard-last-experiments.component';
 import {CaDashboardListLayoutComponent} from './component/ca-dashboard-list-layout/ca-dashboard-list-layout.component';
 import {CaDashboardRoutingModule} from './ca-dashboard-routing.module';
+import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
 
 /**
  * Module for the dashboard page
@@ -51,6 +52,7 @@ import {CaDashboardRoutingModule} from './ca-dashboard-routing.module';
     CaLabCoreModule,
     CaSmartDbCoreModule,
     CaGroupCoreModule,
+    CaUserCoreModule,
 
     CaDashboardRoutingModule,
   ]

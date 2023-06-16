@@ -6,7 +6,7 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
+  FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
@@ -28,7 +28,7 @@ export class CaSpaceSearchComponent implements OnInit {
 
   datasource: CaSpaceDatasource;
 
-  columns: FlTableColumn<CaSpace>[] = ['name', 'created', 'lastModified', 'type', 'detail'];
+  columns: FlTableColumnStatic<CaSpace>[] = ['name', 'created', 'lastModified', 'type', 'detail'];
 
 
   constructor(private searchState: FlSearchState<any>,

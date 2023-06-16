@@ -10,6 +10,16 @@
     </mat-cell>
   </ng-container>
 
+  <!-- type -->
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef>
+      {{'type' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let space">
+      {{space.type}}
+    </mat-cell>
+  </ng-container>
+
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>
@@ -45,21 +55,7 @@
     </mat-cell>
   </ng-container>
 
-
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let item">
-      <div>
-        <span>{{item[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
-
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: _columns;"></mat-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 </mat-table>
 

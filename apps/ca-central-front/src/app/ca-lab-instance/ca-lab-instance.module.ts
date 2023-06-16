@@ -123,6 +123,7 @@ import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space
 import {
   CaLabGreenOptionValueComponent
 } from './component/green-option/ca-lab-green-option-value/ca-lab-green-option-value.component';
+import {CaStatusModule} from '../ca-core/module/ca-status/ca-status.module';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -186,6 +187,7 @@ import {
 
     CaLabInstanceRoutingModule,
     CaSpaceCoreModule,
+    CaStatusModule,
   ],
 })
 export class CaLabInstanceModule {}

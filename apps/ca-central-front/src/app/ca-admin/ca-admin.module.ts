@@ -34,6 +34,7 @@ import {CaAdminUsersPageComponent} from './component/ca-admin-users-page/ca-admi
 import {
   CaAdminLabInstancesPageComponent
 } from './component/ca-admin-lab-instances-page/ca-admin-lab-instances-page.component';
+import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
 
 /**
  * Module only accessible by the admins
@@ -63,6 +64,7 @@ import {
     CaSpaceCoreModule,
     CaCloudProviderCoreModule,
     CaObjectStorageCoreModule,
+    CaUserCoreModule,
 
     CaAdminRoutingModule,
   ],

@@ -17,9 +17,9 @@
             {{user.activity}}
           </fl-text-icon>
         </div>
-        <button class="button-settings"  mat-stroked-button type="button"
+        <button class="button-settings" mat-stroked-button type="button"
                 *ngIf="currentUser.id === user.id" (click)="openSettings()" ngClass.lt-sm="g-button-small">
-          <fl-text-icon iconPosition="start" >
+          <fl-text-icon iconPosition="start">
             <mat-icon flIcon="settings" ngClass.lt-sm="g-button-icon-small"></mat-icon>
             {{'Settings' | translate}}
           </fl-text-icon>
@@ -35,3 +35,6 @@
 
   </ng-container>
 </fl-async-section>
+
+
+<ca-user-spaces-list *caIsAdmin class="g-section" [userId]="id"></ca-user-spaces-list>

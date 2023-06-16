@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FlTableAbstractDirective} from '@monorepo/front-core-lib';
+import {Component, Input} from '@angular/core';
+import {FlDatasource, FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {CaSpace} from '../../../../model/entities/space/ca-space.class';
 import {CaRouterService} from '../../../../service/ca-router.service';
 
@@ -8,15 +8,12 @@ import {CaRouterService} from '../../../../service/ca-router.service';
   templateUrl: './ca-space-table.component.html',
   styleUrls: ['./ca-space-table.component.scss']
 })
-export class CaSpaceTableComponent extends FlTableAbstractDirective<CaSpace>
-  implements OnInit {
+export class CaSpaceTableComponent {
+
+  @Input() datasource: FlDatasource<CaSpace>;
+
+  @Input() columns: FlTableColumnStatic<CaSpace>[] = [];
 
   currentSpaceRoute = CaRouterService.getCurrentSpaceRoute();
 
-  constructor() {
-    super(['name', 'created', 'lastModified', 'detail']);
-  }
-
-  ngOnInit(): void {
-  }
 }

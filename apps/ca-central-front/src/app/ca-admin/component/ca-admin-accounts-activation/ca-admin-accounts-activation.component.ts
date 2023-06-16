@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CaUser, CaUserDatasourcePaginated} from '../../../ca-core/model/entities/ca-user.class';
 import {CaUserAccountsService} from '../../../ca-core/service-api/ca-user-accounts.service';
-import {FlTableColumn} from '@monorepo/front-core-lib';
+import {FlTableColumnStatic} from '@monorepo/front-core-lib';
 
 /**
  * admin component to activate user accounts
@@ -15,7 +15,7 @@ export class CaAdminAccountsActivationComponent implements OnInit {
 
   users: CaUserDatasourcePaginated = this.accountService.findUsersToAdminActivateDatasource();
 
-  displayedColumns: FlTableColumn<CaUser>[] = ['fullname', 'email', 'createdAt', 'customTemplate'];
+  displayedColumns: FlTableColumnStatic<CaUser>[] = ['fullname', 'email', 'createdAt', 'customTemplate'];
 
   constructor(private accountService: CaUserAccountsService) {
   }

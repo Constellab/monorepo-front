@@ -28,7 +28,6 @@ import {
 import {CaLabCoreModule} from '../../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
 import {CaProjectCommentsComponent} from './component/ca-project-comments/ca-project-comments.component';
 import {CaCommentModule} from '../../../ca-comment/ca-comment.module';
-import {PickerModule} from '@ctrl/ngx-emoji-mart';
 import {CaProjectSettingsComponent} from './component/ca-project-settings/ca-project-settings.component';
 import {
   CaProjectStorageSettingsComponent
@@ -46,7 +45,7 @@ import {
   CaProjectDocumentsListComponent
 } from './component/ca-project-documents-list/ca-project-documents-list.component';
 import {CaDocumentCoreModule} from '../ca-document-core/ca-document-core.module';
-import {MatBadgeModule} from "@angular/material/badge";
+import {CaUserCoreModule} from '../../../ca-core/entity-module/ca-user-core/ca-user-core.module';
 
 /**
  * Module for the project detail page
@@ -68,26 +67,25 @@ import {MatBadgeModule} from "@angular/material/badge";
     CaProjectConfigureStorageComponent,
     CaProjectDocumentsListComponent,
   ],
-    imports: [
-        CommonModule,
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
-        PickerModule,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
 
-        CaCoreModule,
-        CaProjectObjectCoreModule,
-        CaProjectCoreModule,
-        CaExperimentCoreModule,
-        CaReportCoreModule,
-        CaDocumentCoreModule,
-        CaGroupCoreModule,
-        CaLabCoreModule,
-        CaCommentModule,
-        CaObjectStorageCoreModule,
-        CaCloudProviderCoreModule,
-        MatBadgeModule,
-    ]
+    CaCoreModule,
+    CaProjectObjectCoreModule,
+    CaProjectCoreModule,
+    CaExperimentCoreModule,
+    CaReportCoreModule,
+    CaDocumentCoreModule,
+    CaGroupCoreModule,
+    CaLabCoreModule,
+    CaCommentModule,
+    CaObjectStorageCoreModule,
+    CaCloudProviderCoreModule,
+    CaUserCoreModule,
+  ]
 })
 export class CaProjectDetailPageModule {
 }

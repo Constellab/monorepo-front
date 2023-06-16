@@ -6,6 +6,8 @@ import {
 } from './component/ca-user-complete-info-page/ca-user-complete-info-page.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CaUserCompleteInfoPageRoutingModule} from './ca-user-complete-info-page-routing.module';
+import {CaUserSpacesListComponent} from './component/ca-user-spaces-list/ca-user-spaces-list.component';
+import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space-core.module';
 
 /**
  * Page used when the user logged for the first time
@@ -15,6 +17,7 @@ import {CaUserCompleteInfoPageRoutingModule} from './ca-user-complete-info-page-
 @NgModule({
   declarations: [
     CaUserCompleteInfoPageComponent,
+    CaUserSpacesListComponent
   ],
   imports: [
     CommonModule,
@@ -22,9 +25,10 @@ import {CaUserCompleteInfoPageRoutingModule} from './ca-user-complete-info-page-
     ReactiveFormsModule,
 
     CaCoreModule,
+    CaSpaceCoreModule,
 
-    CaUserCompleteInfoPageRoutingModule
-  ]
+    CaUserCompleteInfoPageRoutingModule,
+  ],
 })
 export class CaUserCompleteInfoPageModule {
 }

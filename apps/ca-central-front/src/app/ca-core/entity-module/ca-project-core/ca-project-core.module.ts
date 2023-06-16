@@ -15,6 +15,7 @@ import {CaProjectActionsMenuComponent} from './component/ca-project-actions-menu
 import {CaProjectIconComponent} from './component/ca-project-icon/ca-project-icon.component';
 import {CaProjectSearchComponent} from './component/ca-project-search/ca-project-search.component';
 import {CaProjectSearchFormComponent} from './component/ca-project-search-form/ca-project-search-form.component';
+import {CaStatusModule} from '../../module/ca-status/ca-status.module';
 
 /**
  * Importable module to get project components and pipe
@@ -53,6 +54,7 @@ import {CaProjectSearchFormComponent} from './component/ca-project-search-form/c
     RouterModule,
 
     CaCoreModule,
+    CaStatusModule,
   ]
 })
 export class CaProjectCoreModule {
