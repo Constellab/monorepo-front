@@ -12,7 +12,7 @@
         <ca-group-inline [group]="group"></ca-group-inline>
 
         <button mat-icon-button type="button" (click)="openUnshareDialog(group)"
-                [matTooltip]="'unshare' | translate" *ngIf="canEdit$ | async">
+                [matTooltip]="'unshare' | translate" *ngIf="canEdit$ | async" color="warn">
           <mat-icon>delete</mat-icon>
         </button>
       </div>

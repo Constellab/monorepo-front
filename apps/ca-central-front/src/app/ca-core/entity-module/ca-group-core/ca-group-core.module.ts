@@ -1,9 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CaGroupSelectOptionsComponent} from './component/ca-group-select-options/ca-group-select-options.component';
 import {CaCoreModule} from '../../ca-core.module';
 import {CaGroupInlineComponent} from './component/ca-group-inline/ca-group-inline.component';
-import {CaGroupTypeIconPipe} from './pipe/ca-group-type-icon.pipe';
 import {CaGroupShareDialogComponent} from './component/ca-group-share-dialog/ca-group-share-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CaTeamCardComponent} from './component/ca-team-card/ca-team-card.component';
@@ -16,12 +14,11 @@ import {CaTeamSearchComponent} from './component/ca-team-search/ca-team-search.c
 import {CaTeamSearchFormComponent} from './component/ca-team-search-form/ca-team-search-form.component';
 import {CaProjectCoreModule} from '../ca-project-core/ca-project-core.module';
 import {CaUserGroupTableComponent} from './component/ca-user-group-table/ca-user-group-table.component';
+import {CaSelectGroupComponent} from './component/ca-select-group/ca-select-group.component';
 
 @NgModule({
   declarations: [
-    CaGroupSelectOptionsComponent,
     CaGroupInlineComponent,
-    CaGroupTypeIconPipe,
     CaGroupShareDialogComponent,
     CaTeamCardComponent,
     CaGroupAddUserDialogComponent,
@@ -31,11 +28,10 @@ import {CaUserGroupTableComponent} from './component/ca-user-group-table/ca-user
     CaTeamSearchComponent,
     CaTeamSearchFormComponent,
     CaUserGroupTableComponent,
+    CaSelectGroupComponent,
   ],
   exports: [
-    CaGroupSelectOptionsComponent,
     CaGroupInlineComponent,
-    CaGroupTypeIconPipe,
     CaGroupShareDialogComponent,
     CaTeamCardComponent,
     CaGroupAddUserDialogComponent,
@@ -45,6 +41,7 @@ import {CaUserGroupTableComponent} from './component/ca-user-group-table/ca-user
     CaTeamSearchComponent,
     CaTeamSearchFormComponent,
     CaUserGroupTableComponent,
+    CaSelectGroupComponent,
   ],
   imports: [
     CommonModule,
@@ -56,4 +53,5 @@ import {CaUserGroupTableComponent} from './component/ca-user-group-table/ca-user
     CaProjectCoreModule,
   ],
 })
-export class CaGroupCoreModule {}
+export class CaGroupCoreModule {
+}

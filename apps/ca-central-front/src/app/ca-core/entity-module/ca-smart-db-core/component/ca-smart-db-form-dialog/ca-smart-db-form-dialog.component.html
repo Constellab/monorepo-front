@@ -27,15 +27,12 @@
     </div>
 
     <!--  Group  -->
-    <mat-form-field class="g-form-input">
-      <mat-label>{{'group' | translate}}</mat-label>
-      <mat-select [placeholder]="'group' | translate" formControlName="group">
-        <ca-group-select-options></ca-group-select-options>
-      </mat-select>
+    <fl-form-field class="g-form-input">
+      <ca-select-group formControlName="group" [required]="true"></ca-select-group>
       <mat-error *ngIf="formGp.get('group').hasError('required')">
         {{'group' | flErrorRequired}}
       </mat-error>
-    </mat-form-field>
+    </fl-form-field>
 
   </form>
 </mat-dialog-content>

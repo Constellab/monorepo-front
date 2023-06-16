@@ -22,13 +22,17 @@ export class CaGroupService {
   }
 
   public getAllCurrentGroups(page: number, size: number): Observable<ClPageI<CaGroup>> {
-    return this.apiService.get(`${this.route}/all-current`, CaGroup,
+    return this.apiService.get(`${this.route}/current`, CaGroup,
       {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public getAllCurrentGroupsDatasource(): CaGroupDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAllCurrentGroups(page, size), 20);
+  public searchGroupInCurrentSpaceByLabel(label: string, page: number, size: number): Observable<ClPageI<CaGroup>> {
+    return this.apiService.get(`${this.route}/current/search/label/${label}`, CaGroup,
+      {page: page, pageSize: size, resultIsPaginated: true});
+  }
+
+  public getById(id: string): Observable<CaGroup> {
+    return this.apiService.getById(this.route, id, CaGroup);
   }
 
 

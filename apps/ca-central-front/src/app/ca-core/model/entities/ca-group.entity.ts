@@ -10,18 +10,20 @@ export enum CaGroupType {
   TEAM = 'TEAM',
 }
 
-
-export const caGroupTypeIcons: { [K in CaGroupType]: string } = {
-  [CaGroupType.SINGLE_USER]: 'person',
-  [CaGroupType.TEAM]: 'group'
-};
-
 export class CaGroup extends CaBaseEntity {
   label: string;
 
   type: CaGroupType;
 
   spaceId: string;
+
+  // provided only for SingleUser groups
+  @Type(() => CaUser)
+  user?: CaUser
+
+  toString(): string{
+    return this.label;
+  }
 }
 
 export type CaGroupDatasource = FlEntityPaginatedDatasource<CaGroup>;

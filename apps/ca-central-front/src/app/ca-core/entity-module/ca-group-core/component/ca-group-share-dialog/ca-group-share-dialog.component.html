@@ -6,20 +6,13 @@
   <form (ngSubmit)="submit()" id="group-share-form">
 
     <!--  Group  -->
-    <mat-form-field class="g-form-input">
-      <mat-label>{{'group' | translate}}</mat-label>
-      <mat-select [formControl]="formControl" [placeholder]="'group' | translate"
-                  required>
-        <ca-group-select-options></ca-group-select-options>
-
-        <mat-select-trigger *ngIf="formControl.value">
-          <ca-group-inline [group]="formControl.value" [disableLink]="true"></ca-group-inline>
-        </mat-select-trigger>
-      </mat-select>
+    <fl-form-field class="g-form-input">
+      <ca-select-group [formControl]="formControl"
+                       [required]="true"></ca-select-group>
       <mat-error *ngIf="formControl.hasError('required')">
         {{'group' | flErrorRequired}}
       </mat-error>
-    </mat-form-field>
+    </fl-form-field>
 
   </form>
 </mat-dialog-content>
