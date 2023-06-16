@@ -1,13 +1,21 @@
 import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
+import {
+  FlAdvancedSearchInput,
+  FlApiService,
+  FlEntityPaginatedDatasource,
+  FlSearchConverter
+} from '@monorepo/front-core-lib';
 import {
   CaBucketCredentialsFull,
   CaBucketCredentialsFullDatasource,
-  CaBucketFull,
-  CaBucketFullDatasource
+  CaBucketFull
 } from '../model/entities/ca-object-storage.class';
 import {Observable} from 'rxjs';
 import {ClPageI} from '@monorepo/core-lib';
+import {
+  CaBucketSearch,
+  CaBucketSearchFields
+} from '../entity-module/ca-object-storage-core/model/ca-bucket-search.class';
 
 
 @Injectable({
@@ -36,16 +44,14 @@ export class CaObjectStorageService {
     return this.apiService.deleteById(this.bucketRoute, id);
   }
 
-  public getAllBuckets(page: number, size: number): Observable<ClPageI<CaBucketFull>> {
-    return this.apiService.get(this.bucketRoute, CaBucketFull, {
-      page: page, pageSize: size, resultIsPaginated: true
+  public searchBucket(page: number, pageSize: number, filters?: CaBucketSearchFields): Observable<ClPageI<CaBucketFull>> {
+    const data: FlAdvancedSearchInput = {
+      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaBucketSearch.advancedSearchConverter),
+      sortsCriteria: null
+    };
+    return this.apiService.post(`${this.route}/buckets/search`, data, CaBucketFull, {
+      page: page, pageSize: pageSize, resultIsPaginated: true
     });
-  }
-
-  public getAllBucketsDatasource(): CaBucketFullDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.getAllBuckets(page, pageSize), 20
-    );
   }
 
 

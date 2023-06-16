@@ -20,7 +20,8 @@ import {
   CaBucketCredentialsInlineComponent
 } from './component/ca-bucket-credentials-inline/ca-bucket-credentials-inline.component';
 import {CaBucketInfoComponent} from './component/ca-bucket-info/ca-bucket-info.component';
-
+import {CaBucketSearchComponent} from './component/ca-bucket-search/ca-bucket-search.component';
+import {CaBucketSearchFormComponent} from './component/ca-bucket-search-form/ca-bucket-search-form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import {CaBucketInfoComponent} from './component/ca-bucket-info/ca-bucket-info.c
     CaBucketFormDialogComponent,
     CaBucketTableComponent,
     CaBucketCredentialsInlineComponent,
-    CaBucketInfoComponent
+    CaBucketInfoComponent,
+    CaBucketSearchComponent,
+    CaBucketSearchFormComponent,
   ],
   exports: [
     CaBucketCredentialsTableComponent,
@@ -39,7 +42,8 @@ import {CaBucketInfoComponent} from './component/ca-bucket-info/ca-bucket-info.c
     CaBucketFormDialogComponent,
     CaBucketTableComponent,
     CaBucketCredentialsInlineComponent,
-    CaBucketInfoComponent
+    CaBucketInfoComponent,
+    CaBucketSearchComponent,
   ],
   imports: [
     CommonModule,

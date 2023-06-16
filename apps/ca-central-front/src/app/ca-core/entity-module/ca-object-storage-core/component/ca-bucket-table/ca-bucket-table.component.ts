@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaBucketFull, CaBucketFullDatasource} from '../../../../model/entities/ca-object-storage.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {CaObjectStorageService} from '../../../../service-api/ca-object-storage.service';
 import {
@@ -17,17 +17,14 @@ import {
   templateUrl: './ca-bucket-table.component.html',
   styleUrls: ['./ca-bucket-table.component.scss']
 })
-export class CaBucketTableComponent extends FlTableAbstractDirective<CaBucketFull>
-  implements OnInit {
+export class CaBucketTableComponent {
 
   @Input() datasource: CaBucketFullDatasource;
 
+  @Input() columns: FlTableColumnStatic<CaBucketFull>[] = [];
+
   constructor(private dialogService: FlDialogService,
               private objectStorageService: CaObjectStorageService) {
-    super(['contentType', 'region', 'credentials', 'space', 'created', 'lastModified', 'actions']);
-  }
-
-  ngOnInit(): void {
   }
 
   updateBucket(bucket: CaBucketFull): void {

@@ -1,5 +1,15 @@
 <mat-table fxFlex="100" mat-table [dataSource]="datasource">
 
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+      {{'name' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{row.name}}
+    </mat-cell>
+  </ng-container>
+
   <!-- Content type -->
   <ng-container matColumnDef="contentType">
     <mat-header-cell *matHeaderCellDef>
@@ -89,20 +99,9 @@
   </ng-container>
 
 
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let user">
-      <div>
-        <span>{{user[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
 
 
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: _columns;"></mat-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 </mat-table>
 

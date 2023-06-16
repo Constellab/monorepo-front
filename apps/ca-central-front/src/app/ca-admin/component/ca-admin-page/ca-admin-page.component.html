@@ -32,6 +32,11 @@
       <mat-icon>dns</mat-icon>
       {{'admin_servers_page' | translate}}
     </a>
+
+    <a mat-button [routerLink]="adminBucketsRoute" routerLinkActive="menu-active">
+      <mat-icon>folder</mat-icon>
+      {{'bucket_list' | translate}}
+    </a>
   </div>
 
   <router-outlet></router-outlet>

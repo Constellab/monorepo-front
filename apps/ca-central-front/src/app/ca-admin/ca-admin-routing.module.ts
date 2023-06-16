@@ -8,6 +8,7 @@ import {CaAdminUsersPageComponent} from './component/ca-admin-users-page/ca-admi
 import {
   CaAdminLabInstancesPageComponent
 } from './component/ca-admin-lab-instances-page/ca-admin-lab-instances-page.component';
+import {CaAdminBucketsPageComponent} from './component/ca-admin-buckets-page/ca-admin-buckets-page.component';
 
 const routes: Route[] = [
   {
@@ -17,6 +18,7 @@ const routes: Route[] = [
       {path: 'users', component: CaAdminUsersPageComponent},
       {path: 'labs', component: CaAdminLabInstancesPageComponent},
       {path: 'servers', component: CaAdminServersPageComponent},
+      {path: 'buckets', component: CaAdminBucketsPageComponent},
     ]
   },
 ];

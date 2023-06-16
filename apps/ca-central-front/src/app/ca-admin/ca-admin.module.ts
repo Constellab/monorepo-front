@@ -28,13 +28,13 @@ import {CaObjectStorageCoreModule} from '../ca-core/entity-module/ca-object-stor
 import {
   CaAdminCloudProviderRegionsListComponent
 } from './component/ca-admin-cloud-provider-regions-list/ca-admin-cloud-provider-regions-list.component';
-import {CaAdminBucketListComponent} from './component/ca-admin-bucket-list/ca-admin-bucket-list.component';
 import {CaAdminSpacesPageComponent} from './component/ca-admin-spaces-page/ca-admin-spaces-page.component';
 import {CaAdminUsersPageComponent} from './component/ca-admin-users-page/ca-admin-users-page.component';
 import {
   CaAdminLabInstancesPageComponent
 } from './component/ca-admin-lab-instances-page/ca-admin-lab-instances-page.component';
 import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
+import {CaAdminBucketsPageComponent} from './component/ca-admin-buckets-page/ca-admin-buckets-page.component';
 
 /**
  * Module only accessible by the admins
@@ -50,10 +50,10 @@ import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-co
     CaAdminCloudProvidersListComponent,
     CaAdminBucketCredentialsListComponent,
     CaAdminCloudProviderRegionsListComponent,
-    CaAdminBucketListComponent,
     CaAdminSpacesPageComponent,
     CaAdminUsersPageComponent,
     CaAdminLabInstancesPageComponent,
+    CaAdminBucketsPageComponent,
   ],
   imports: [
     CommonModule,
@@ -68,9 +68,7 @@ import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-co
 
     CaAdminRoutingModule,
   ],
-  exports: [
-    CaAdminUsersPageComponent
-  ]
+  exports: [CaAdminUsersPageComponent],
 })
 export class CaAdminModule {
 }

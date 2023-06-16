@@ -17,6 +17,7 @@ export class CaAdminPageComponent implements OnInit {
   adminUsersRoute = CaRouterService.getAdminUsersRoute();
   adminLabsRoute = CaRouterService.getAdminLabsRoute();
   adminServersRoute = CaRouterService.getAdminServersRoute();
+  adminBucketsRoute = CaRouterService.getAdminBucketsRoute();
 
   constructor() {
   }
