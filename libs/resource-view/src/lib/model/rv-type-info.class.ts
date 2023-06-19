@@ -21,7 +21,11 @@ export interface RvResourceViewTypeInfo {
   // if true the default display mode can be modified
   forceDefaultDisplayMode: boolean;
 
-  viewComponent: ComponentType<RvResourceViewDirective>;
+  viewComponent: ComponentType<RvResourceViewDirective> |
+    // Lazy load the component
+    {
+      load: () => Promise<ComponentType<RvResourceViewDirective>>;
+    };
 }
 
 /**
@@ -211,5 +215,16 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
       darkTheme: 'assets/views/dark/heatmap.svg',
     }
   },
+  'plotly-view': {
+    icon: 'multiline_chart',
+    text: 'rvResourceView.resource_view_plotly',
+    defaultDisplayMode: 'portal',
+    forceDefaultDisplayMode: false,
+    viewComponent: {
+      load: () =>
+        import('../component/rv-view-plotly/rv-view-plotly.component').then(m => m.RvViewPlotlyComponent),
+    },
+    image: null
+  }
 };
 

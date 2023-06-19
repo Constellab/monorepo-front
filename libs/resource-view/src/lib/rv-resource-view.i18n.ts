@@ -24,6 +24,7 @@ const rvResourceViewI18nFr: FlLangTranslation = {
     resource_view_heatmap: 'Heatmap',
     resource_view_vulcano_plot: 'Diagramme en volcan',
     resource_view_html: 'HTML',
+    resource_view_plotly: 'Auto-plot',
   }
 };
 
@@ -47,6 +48,7 @@ const rvResourceViewI18nEn: FlLangTranslation = {
     resource_view_heatmap: 'Heatmap',
     resource_view_vulcano_plot: 'Vulcano plot',
     resource_view_html: 'HTML',
+    resource_view_plotly: 'Auto-plot',
   }
 };
 

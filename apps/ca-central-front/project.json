@@ -53,7 +53,8 @@
           "drawflow",
           "luxon",
           "lodash.throttle",
-          "quill-delta-to-html"
+          "quill-delta-to-html",
+          "plotly.js-dist-min"
         ]
       },
       "configurations": {

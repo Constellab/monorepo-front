@@ -55,7 +55,7 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
 
   private initView(view: RvResourceViewBase): void {
     // wait for other input to be set
-    setTimeout(() => {
+    setTimeout(async () => {
       this.destroyViewComponentRef();
 
       const viewTypeInfo: RvResourceViewTypeInfo = this.getViewInfo(view.type);
@@ -66,7 +66,13 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
       }
 
       this.viewNotSupportedError = false;
-      this.viewComponentRef = this.viewContainer.createComponent(viewTypeInfo.viewComponent);
+
+      if (typeof viewTypeInfo.viewComponent === 'object') {
+        const componentType = await viewTypeInfo.viewComponent.load();
+        this.viewComponentRef = this.viewContainer.createComponent(componentType);
+      } else {
+        this.viewComponentRef = this.viewContainer.createComponent(viewTypeInfo.viewComponent);
+      }
       this.viewComponentRef.instance.view = view;
       this.viewComponentRef.instance.resourceId = this.resourceId;
       this.viewComponentRef.instance.config = ClHelpService.deepClone(this.config);

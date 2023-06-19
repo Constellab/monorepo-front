@@ -20,7 +20,8 @@ export type RvResourceViewType =
   | 'multi-view'
   | 'venn-diagram-view'
   | 'heatmap-view'
-  | 'html-view';
+  | 'html-view'
+  | 'plotly-view'
 
 // Mode to where display the view
 export type RvViewDisplayMode = 'fullScreen' | 'portal';
@@ -71,7 +72,7 @@ export interface RvResourceViewHTML extends RvResourceViewBase {
   type: 'html-view';
   data: {
     html: string;
-  }
+  };
 }
 
 export interface RvResourceViewMulti extends RvResourceViewBase {
@@ -88,6 +89,14 @@ export interface RvResourceViewMultiData {
   }[];
 }
 
+export interface RvResourceViewPlotly extends RvResourceViewBase {
+  type: 'plotly-view';
+  data: {
+    data: any[];
+    layout: any;
+  };
+}
+
 //////////////////////////// TYPE THAT GROUP ALL VIEW TYPES /////////////////////////////
 export type RvResourceView =
   RvResourceViewJson
@@ -97,7 +106,8 @@ export type RvResourceView =
   | RvResourceViewNetwork
   | RvResourceViewText
   | RvResourceViewTable
-  | RvResourceViewHTML;
+  | RvResourceViewHTML
+  | RvResourceViewPlotly;
 
 export type RvViewChartType =
   RvResourceViewBasicPlot2d
