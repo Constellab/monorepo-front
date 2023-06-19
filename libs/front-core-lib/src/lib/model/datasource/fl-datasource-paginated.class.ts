@@ -85,10 +85,10 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
 
   private callGetPageFunction(pageNumber: number): void {
     this.isLoading = true;
-    this.getPageFunction(pageNumber, this.pageSize, this.requestData).subscribe(
-      result => this.onSuccess(result),
-      error => this.onError(error)
-    );
+    this.getPageFunction(pageNumber, this.pageSize, this.requestData).subscribe({
+      next: result => this.onSuccess(result),
+      error: error => this.onError(error)
+    });
   }
 
   // add results to current array and save page

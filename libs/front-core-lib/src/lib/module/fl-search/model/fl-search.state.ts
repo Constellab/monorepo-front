@@ -117,6 +117,15 @@ export class FlSearchState<T> implements OnDestroy {
     return {filtersCriteria: filtersCriteria};
   }
 
+  public getFiltersCriteria(): T {
+    let filtersCriteria = this.advancedSearchFormGroup.getRawValue();
+    // add the hidden filters
+    if (this.hiddenFilters) {
+      filtersCriteria = {...filtersCriteria, ...this.hiddenFilters};
+    }
+    return filtersCriteria;
+  }
+
   /////////////////////////////////////////////////// URL ///////////////////////////////////////////////////
 
   // subscribe to navigation to call advanced search if it is a navigation back

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
+  FlFileHelper,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
@@ -22,6 +23,8 @@ export class CaUserSearchComponent implements OnInit {
   datasource: CaUserDatasourcePaginated;
 
   columns: FlTableColumnStatic<CaUser>[] = ['fullname', 'email', 'phone', 'category', 'lastLogin', 'createdAt', 'adminActions'];
+
+  exportIsLoading: boolean = false;
 
   constructor(private searchState: FlSearchState<any>,
               private userService: CaUsersService,
@@ -56,5 +59,19 @@ export class CaUserSearchComponent implements OnInit {
       default: true,
       filtersCriteria: {} as Partial<CaUserSearchFields>
     }];
+  }
+
+  exportSearch(): void {
+    this.exportIsLoading = true;
+    this.userService.exportSearch(this.searchState.getFiltersCriteria())
+      .subscribe({
+        next: blob => this.exportSearchSuccess(blob),
+        error: () => this.exportIsLoading = false,
+      });
+  }
+
+  private exportSearchSuccess(result: Blob): void {
+    FlFileHelper.downloadBlob(result, 'users.csv');
+    this.exportIsLoading = false;
   }
 }

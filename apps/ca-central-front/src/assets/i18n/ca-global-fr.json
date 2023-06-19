@@ -230,5 +230,6 @@
   "project_comment_mention_notification_text": "{{firstname}} vous a mentionné dans un commentaire",
   "reduce_menu": "Réduire",
   "notifications": "Notifications",
-  "phone_number": "Numéro de téléphone"
+  "phone_number": "Numéro de téléphone",
+  "export_search_to_csv": "Exporter la recherche en CSV"
 }

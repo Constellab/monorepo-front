@@ -7,7 +7,7 @@ import {
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {ClPage, ClPageI} from '@monorepo/core-lib';
+import {ClPage} from '@monorepo/core-lib';
 import {CaUserSearch, CaUserSearchFields} from '../entity-module/ca-user-core/model/ca-user-search.class';
 
 /**
@@ -27,11 +27,6 @@ export class CaUsersService {
     return this.apiService.getBaseRouteUrl(`${this.route}/photo-v2/${photo}`);
   }
 
-  public findAll(page: number, pageSize: number): Observable<ClPageI<CaUser>> {
-    return this.apiService.get(`${this.route}`, CaUser,
-      {page: page, pageSize: pageSize, resultIsPaginated: true});
-  }
-
   public search(page: number, pageSize: number, filters?: CaUserSearchFields): Observable<ClPage<CaUser>> {
     const data: FlAdvancedSearchInput = {
       filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaUserSearch.advancedSearchConverter),
@@ -40,6 +35,14 @@ export class CaUsersService {
     return this.apiService.post(`${this.route}/search`, data, CaUser, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
+  }
+
+  public exportSearch(filters?: CaUserSearchFields): Observable<Blob> {
+    const data: FlAdvancedSearchInput = {
+      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaUserSearch.advancedSearchConverter),
+      sortsCriteria: null
+    };
+    return this.apiService.post(`${this.route}/search/export`, data, null, {responseType: 'blob'});
   }
 
   public searchByNames(name: string, page: number, pageSize: number): Observable<ClPage<CaUser>> {

@@ -7,6 +7,13 @@
         <h2>{{'users' | translate}}</h2>
       </fl-text-icon>
 
+      <fl-search-header-actions>
+        <button mat-icon-button type="button" (click)="exportSearch()"
+                [matTooltip]="'export_search_to_csv' | translate">
+          <mat-icon>cloud_download</mat-icon>
+          <fl-button-loader *ngIf="exportIsLoading" position="override"></fl-button-loader>
+        </button>
+      </fl-search-header-actions>
     </fl-search-header>
 
   </fl-card-header>
