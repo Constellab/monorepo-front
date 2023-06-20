@@ -150,9 +150,11 @@ export class SpSpreadsheetScrollState {
    */
   private recalculateScrollerHeight(rowCount: number): void {
     // define the height of the spreadsheet
-    // + 2 is to include to header row and the last row
+    // + 4 is to include to header row and the last row
+    // and a little more to be sure the last line is always visible
+    // because horizontal scroll bar can hide it
     this.renderer.setStyle(this.heightSimulator, 'height',
-      (this.cellHeight * (rowCount + 2)) + 'px');
+      (this.cellHeight * (rowCount + 4)) + 'px');
   }
 
 

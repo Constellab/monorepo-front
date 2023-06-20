@@ -48,16 +48,16 @@ import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-prov
     CaProjectSearchComponent,
     CaProjectSearchFormComponent,
   ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        RouterModule,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule,
 
-        CaCoreModule,
-        CaStatusModule,
-        CaCloudProviderCoreModule,
-    ]
+    CaCoreModule,
+    CaStatusModule,
+    CaCloudProviderCoreModule,
+  ]
 })
 export class CaProjectCoreModule {
 }
