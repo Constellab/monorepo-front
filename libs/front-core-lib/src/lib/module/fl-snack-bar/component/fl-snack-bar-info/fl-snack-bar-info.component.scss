@@ -8,10 +8,16 @@
   flex-shrink: 0;
 }
 
-.button-success{
+.button-success {
   --mdc-text-button-label-text-color: var(--primary-color-contrast);
 }
 
-.button-warn{
+.button-warn {
   --mdc-text-button-label-text-color: var(--warn-color-contrast);
+}
+
+::ng-deep {
+  fl-snack-bar-info .message a {
+    text-decoration: underline;
+  }
 }
