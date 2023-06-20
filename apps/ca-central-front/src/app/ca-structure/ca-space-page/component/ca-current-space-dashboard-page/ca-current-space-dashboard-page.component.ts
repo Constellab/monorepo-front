@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {CaSpace} from '../../../../ca-core/model/entities/space/ca-space.class';
-import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-space.service';
+import {CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-space.class';
+import {CaSpaceService} from '../../../../ca-core/service-api/ca-space.service';
 
 @Component({
   selector: 'ca-current-space-dashboard-page',
@@ -10,9 +10,9 @@ import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-
 })
 export class CaCurrentSpaceDashboardPageComponent implements OnInit {
 
-  space$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
+  spaceSettings$: Observable<CaSpaceSettingsDto> = this.spaceService.getCurrentSpaceSettings();
 
-  constructor(private currentSpaceService: CaCurrentSpaceService) {
+  constructor(private spaceService: CaSpaceService) {
   }
 
   ngOnInit(): void {

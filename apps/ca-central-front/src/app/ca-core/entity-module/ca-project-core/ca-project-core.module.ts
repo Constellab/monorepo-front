@@ -16,6 +16,7 @@ import {CaProjectIconComponent} from './component/ca-project-icon/ca-project-ico
 import {CaProjectSearchComponent} from './component/ca-project-search/ca-project-search.component';
 import {CaProjectSearchFormComponent} from './component/ca-project-search-form/ca-project-search-form.component';
 import {CaStatusModule} from '../../module/ca-status/ca-status.module';
+import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-provider-core.module';
 
 /**
  * Importable module to get project components and pipe
@@ -47,15 +48,16 @@ import {CaStatusModule} from '../../module/ca-status/ca-status.module';
     CaProjectSearchComponent,
     CaProjectSearchFormComponent,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    RouterModule,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        RouterModule,
 
-    CaCoreModule,
-    CaStatusModule,
-  ]
+        CaCoreModule,
+        CaStatusModule,
+        CaCloudProviderCoreModule,
+    ]
 })
 export class CaProjectCoreModule {
 }

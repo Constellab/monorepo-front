@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
-import {CaSaveSpaceDTO, CaSpace} from '../../../../model/entities/space/ca-space.class';
+import {CaSaveSpaceDTO, CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -14,7 +14,7 @@ export type CaSpaceFormDialogInput = FlFormDialogInput<CaSaveSpaceDTO>;
   templateUrl: './ca-space-form-dialog.component.html',
   styleUrls: ['./ca-space-form-dialog.component.scss']
 })
-export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<CaSaveSpaceDTO, CaSpace>
+export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<CaSaveSpaceDTO, CaSpaceSettingsDto>
   implements OnInit {
 
   constructor(snackBarService: FlSnackBarService,
@@ -37,15 +37,16 @@ export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<Ca
     return new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required]],
-      nbLicenses: [0, [Validators.required]]
+      defaultStorageRegion: [null, [Validators.required]],
+      nbLicenses: [0, [Validators.required]],
     });
   }
 
-  create(formValue: CaSaveSpaceDTO): Observable<CaSpace> {
+  create(formValue: CaSaveSpaceDTO): Observable<CaSpaceSettingsDto> {
     return this.spaceService.create(formValue);
   }
 
-  update(formValue: CaSaveSpaceDTO): Observable<CaSpace> {
+  update(formValue: CaSaveSpaceDTO): Observable<CaSpaceSettingsDto> {
     return this.spaceService.update(formValue);
   }
 

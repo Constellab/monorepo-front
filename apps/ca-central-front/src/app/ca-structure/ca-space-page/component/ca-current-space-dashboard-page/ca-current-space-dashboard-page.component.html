@@ -1,6 +1,6 @@
-<fl-async-section [object]="space$">
+<fl-async-section [object]="spaceSettings$">
 
-  <ng-container *flSectionBody="let space">
-    <ca-current-space-detail></ca-current-space-detail>
+  <ng-container *flSectionBody="let spaceSettings">
+    <ca-current-space-detail [spaceSettings]="spaceSettings"></ca-current-space-detail>
   </ng-container>
 </fl-async-section>

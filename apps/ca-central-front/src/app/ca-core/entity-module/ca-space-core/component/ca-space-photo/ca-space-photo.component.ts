@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CaSpace} from '../../../../model/entities/space/ca-space.class';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
 import {ClHelpService} from '@monorepo/core-lib';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 export type CaSpacePhotoSize = 'small' | 'medium' | 'big';
 
@@ -15,7 +15,7 @@ export type CaSpacePhotoSize = 'small' | 'medium' | 'big';
   templateUrl: './ca-space-photo.component.html',
   styleUrls: ['./ca-space-photo.component.scss']
 })
-export class CaSpacePhotoComponent implements OnInit {
+export class CaSpacePhotoComponent implements OnInit, OnDestroy {
 
   @Input() space: CaSpace | Observable<CaSpace>;
 
@@ -29,12 +29,14 @@ export class CaSpacePhotoComponent implements OnInit {
   photo: string;
   initial: string;
 
+  private subscription: Subscription;
+
   constructor(private spaceService: CaSpaceService) {
   }
 
   ngOnInit(): void {
     if (this.space instanceof Observable) {
-      this.space.subscribe(space => this.initSpace(space));
+      this.subscription = this.space.subscribe(space => this.initSpace(space));
     } else {
       this.initSpace(this.space);
     }
@@ -61,5 +63,9 @@ export class CaSpacePhotoComponent implements OnInit {
         this.sizeNumber = +this.size;
     }
     this.fontSize = this.sizeNumber / 4;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

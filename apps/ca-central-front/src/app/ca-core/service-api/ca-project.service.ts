@@ -6,7 +6,8 @@ import {
   CaProjectDatasource,
   CaProjectStatus,
   CaProjectStatusHistory,
-  CaProjectTreeDto
+  CaProjectTreeDto,
+  CnSaveProjectDTO
 } from '../model/entities/project/ca-project.class';
 import {Observable} from 'rxjs';
 import {
@@ -42,18 +43,18 @@ export class CaProjectService {
   constructor(private apiService: FlApiService) {
   }
 
-  public createProject(project: Partial<CaProject>): Observable<CaProject> {
+  public createProject(project: CnSaveProjectDTO): Observable<CaProject> {
     return this.apiService.post(this.route, project, CaProject, {serialization: CaProject});
   }
 
-  public createSubProject(subProject: Partial<CaProject>, parentProjectId: string): Observable<CaProject> {
+  public createSubProject(subProject: CnSaveProjectDTO, parentProjectId: string): Observable<CaProject> {
     return this.apiService.post(`${this.route}/${parentProjectId}/sub-project`, subProject, CaProject,
-      {serialization: CaProject});
+      {serialization: CnSaveProjectDTO});
   }
 
 
-  public update(object: Partial<CaProject>): Observable<CaProject> {
-    return this.apiService.put(this.route, object, CaProject, {serialization: CaProject});
+  public update(id: string, object: CnSaveProjectDTO): Observable<CaProject> {
+    return this.apiService.put(`${this.route}/${id}`, object, CaProject, {serialization: CnSaveProjectDTO});
   }
 
   public delete(id: string): Observable<void> {

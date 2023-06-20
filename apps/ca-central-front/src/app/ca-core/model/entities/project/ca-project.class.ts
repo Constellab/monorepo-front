@@ -12,6 +12,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
 import {CaUser} from '../ca-user.class';
+import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
 
 export type CaProjectStatus = 'ACTIVE' | 'IN_PROGRESS' | 'ARCHIVED';
 
@@ -72,6 +73,7 @@ export class CaProject extends CaBaseEntity {
   leader: CaUser;
 
   parentId?: string;
+
   isLeaf(): boolean {
     return this.levelStatus === CaProjectLevelStatus.LEAF;
   }
@@ -104,6 +106,18 @@ export class CaProject extends CaBaseEntity {
 
 export type CaProjectDatasource = FlEntityPaginatedDatasource<CaProject>;
 
+export class CnSaveProjectDTO {
+  code: string;
+  title: string;
+  levelStatus: CaProjectLevelStatus;
+  @ClLuxonDateTransform()
+  startingDate: DateTime;
+  @ClLuxonDateTransform()
+  endingDate: DateTime;
+  // only for project level in creation
+  @Type(() => CaCloudProviderRegion)
+  storageRegion?: CaCloudProviderRegion;
+}
 
 /**
  * Interface representing an object inside a project that can be validated and synchronized with central

@@ -1,6 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {CaProject, CaProjectLevel, CaProjectLevelStatus} from '../../../../model/entities/project/ca-project.class';
+import {
+  CaProject,
+  CaProjectLevel,
+  CaProjectLevelStatus,
+  CnSaveProjectDTO
+} from '../../../../model/entities/project/ca-project.class';
 import {CaProjectService} from '../../../../service-api/ca-project.service';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
@@ -12,6 +17,7 @@ import {
   FlTextEditorConfig
 } from '@monorepo/front-core-lib';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {CaSpaceService} from '../../../../service-api/ca-space.service';
 
 export interface CaProjectFormDialogInput extends FlFormDialogInput<CaProject> {
   level: CaProjectLevel;
@@ -27,9 +33,9 @@ export interface CaProjectFormDialogInput extends FlFormDialogInput<CaProject> {
   templateUrl: './ca-project-form-dialog.component.html',
   styleUrls: ['./ca-project-form-dialog.component.scss']
 })
-export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<Partial<CaProject>, CaProject> implements OnInit {
+export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<CnSaveProjectDTO, CaProject> implements OnInit {
 
-  formGp: FormGroup<Partial<CaProject>>;
+  formGp: FormGroup<CnSaveProjectDTO>;
 
   isLoading: boolean = false;
 
@@ -40,31 +46,41 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
   constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: CaProjectFormDialogInput,
               private projectService: CaProjectService,
               snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<CaProjectFormDialogComponent>) {
+              dialogRef: MatDialogRef<CaProjectFormDialogComponent>,
+              private spaceService: CaSpaceService) {
     super(dialogInput, snackBarService, dialogRef);
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.init();
+
+    if (this.showStorageRegion) {
+      this.spaceService.getCurrentSpaceSettings().subscribe(
+        spaceSettings => {
+          this.formGp.get('storageRegion').setValue(spaceSettings.defaultStorageRegion);
+        }
+      );
+    }
   }
 
-  buildForm(): FormGroup<Partial<CaProject>> {
+  buildForm(): FormGroup<CnSaveProjectDTO> {
     return new FormBuilder().group({
-      id: [null],
       levelStatus: [
         {
           value: CaProjectLevelStatus.LEAF,
           // when work package we force the children to be leaf to limit hierarchy depth
-          disabled: this.isUpdateMode() || this.parentIsWorkPackage}
+          disabled: this.isUpdateMode() || this.parentIsWorkPackage
+        }
         , Validators.required],
       code: [null, Validators.required],
       title: [null, Validators.required],
       startingDate: [null, Validators.required],
       endingDate: [null],
+      storageRegion: [null, this.showStorageRegion ? Validators.required : null],
     });
   }
 
-  create(formValue: Partial<CaProject>): Observable<CaProject> {
+  create(formValue: CnSaveProjectDTO): Observable<CaProject> {
     if (this.dialogInput.level === CaProjectLevel.PROJECT) {
       return this.projectService.createProject(formValue);
     } else {
@@ -72,8 +88,8 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
     }
   }
 
-  update(formValue: Partial<CaProject>): Observable<CaProject> {
-    return this.projectService.update(formValue);
+  update(formValue: CnSaveProjectDTO): Observable<CaProject> {
+    return this.projectService.update(this.dialogInput.object.id, formValue);
   }
 
 
@@ -103,5 +119,9 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
 
   get parentIsWorkPackage(): boolean {
     return this.dialogInput.parentLevel === CaProjectLevel.WORK_PACKAGE;
+  }
+
+  get showStorageRegion(): boolean {
+    return this.dialogInput.level === CaProjectLevel.PROJECT && this.isCreateMode();
   }
 }

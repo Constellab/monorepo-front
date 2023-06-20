@@ -11,7 +11,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
 import {CaSpaceSearch, CaSpaceSearchFields} from '../../model/ca-space-search.class';
-import {CaSpace, CaSpaceDatasource} from '../../../../model/entities/space/ca-space.class';
+import {CaSpace, CaSpaceDatasource, CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space.class';
 import {
   CaSpaceFormDialogComponent,
   CaSpaceFormDialogInput
@@ -77,9 +77,9 @@ export class CaSpaceSearchComponent implements OnInit {
     );
   }
 
-  private onCreateClosed(space?: CaSpace): void {
-    if (space) {
-      this.datasource.addItem(space, () => true);
+  private onCreateClosed(spaceSettings?: CaSpaceSettingsDto): void {
+    if (spaceSettings) {
+      this.datasource.addItem(spaceSettings.space, () => true);
     }
   }
 

@@ -1,12 +1,17 @@
 import {Injectable} from '@angular/core';
 import {
   FlAdvancedSearchInput,
-  FlApiCrudService,
   FlApiService,
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {CaSaveSpaceDTO, CaSpace, CaSpaceDatasource, CaSpaceInfoDto,} from '../model/entities/space/ca-space.class';
+import {
+  CaSaveSpaceDTO,
+  CaSpace,
+  CaSpaceDatasource,
+  CaSpaceInfoDto,
+  CaSpaceSettingsDto,
+} from '../model/entities/space/ca-space.class';
 import {Observable} from 'rxjs';
 import {ClPage} from '@monorepo/core-lib';
 import {CaRequestNewLicensesDto} from '../model/dto/ca-space.dto';
@@ -21,15 +26,36 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class CaSpaceService extends FlApiCrudService<CaSpace, CaSaveSpaceDTO> {
+export class CaSpaceService {
+
+  private readonly route: string = 'spaces';
+
+  constructor(private apiService: FlApiService) {
+  }
 
 
-  constructor(apiService: FlApiService) {
-    super('spaces', CaSpace, apiService);
+  create(object: CaSaveSpaceDTO): Observable<CaSpaceSettingsDto> {
+    return this.apiService.post(this.route, object, CaSpaceSettingsDto);
+  }
+
+  update(object: CaSaveSpaceDTO): Observable<CaSpaceSettingsDto> {
+    return this.apiService.put(this.route, object, CaSpaceSettingsDto);
+  }
+
+  getById(id: string): Observable<CaSpace> {
+    return this.apiService.getById(this.route, id, CaSpace);
+  }
+
+  deleteById(id: string): Observable<void> {
+    return this.apiService.deleteById(this.route, id);
   }
 
   public getCurrentInfo(): Observable<CaSpaceInfoDto> {
     return this.apiService.get(`${this.route}/current-info`, CaSpaceInfoDto);
+  }
+
+  public getCurrentSpaceSettings(): Observable<CaSpaceSettingsDto> {
+    return this.apiService.get(`${this.route}/current-space/settings`, CaSpaceSettingsDto);
   }
 
   public getMySpaces(): Observable<CaSpace[]> {

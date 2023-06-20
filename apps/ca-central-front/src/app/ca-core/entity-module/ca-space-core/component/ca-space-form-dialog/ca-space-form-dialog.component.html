@@ -15,6 +15,21 @@
       </mat-error>
     </mat-form-field>
 
+    <!--  Default storage region  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'space_default_storage_region' | translate}}</mat-label>
+      <mat-select formControlName="defaultStorageRegion"
+                  [placeholder]="'space_default_storage_region' | translate">
+        <ca-select-cloud-provider-region-options mode="s3"></ca-select-cloud-provider-region-options>
+      </mat-select>
+      <mat-hint>
+        {{'space_default_storage_region_help' | translate}}
+      </mat-hint>
+      <mat-error *ngIf="formGp.get('defaultStorageRegion').hasError('required')">
+        {{'space_default_storage_region' | flErrorRequired}}
+      </mat-error>
+    </mat-form-field>
+
     <!--  Nb of licences  -->
     <mat-form-field class="g-form-input" *caIsAdmin>
       <mat-label>{{'nb_of_licenses' | translate}}</mat-label>
@@ -24,6 +39,7 @@
         {{'nb_of_licenses' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
+
 
   </form>
 </mat-dialog-content>

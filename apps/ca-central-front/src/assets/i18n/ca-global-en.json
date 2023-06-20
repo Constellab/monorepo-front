@@ -121,6 +121,8 @@
   "space_domain": "Space domain",
   "nb_of_licenses": "Number of licenses",
   "invalid_domain_name": "Invalid domain name, only alphanumeric characters and dash are allowed",
+  "space_default_storage_region": "Default storage region",
+  "space_default_storage_region_help": "The default storage region is used for new projects.",
   "role": "Role",
   "active_license": "Active license",
   "space_activate_license": "Activate license",

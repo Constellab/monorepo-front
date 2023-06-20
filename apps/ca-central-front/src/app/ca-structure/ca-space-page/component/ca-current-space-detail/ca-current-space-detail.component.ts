@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {CaSaveSpaceDTO, CaSpace} from '../../../../ca-core/model/entities/space/ca-space.class';
+import {Component, Input, OnInit} from '@angular/core';
+import {CaSaveSpaceDTO, CaSpace, CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-space.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -18,9 +18,10 @@ import {
 import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-space.service';
 import {Observable} from 'rxjs';
 import {CaRequestNewLicensesComponent} from '../ca-request-new-licenses/ca-request-new-licenses.component';
+import {clRxjsDebug} from '@monorepo/core-lib';
 
 /**
- * Show all the information about an space
+ * Show all the information about a space
  */
 @Component({
   selector: 'ca-current-space-detail',
@@ -28,6 +29,8 @@ import {CaRequestNewLicensesComponent} from '../ca-request-new-licenses/ca-reque
   styleUrls: ['./ca-current-space-detail.component.scss']
 })
 export class CaCurrentSpaceDetailComponent implements OnInit {
+
+  @Input() spaceSettings: CaSpaceSettingsDto;
 
   space$: Observable<CaSpace>;
 
@@ -38,7 +41,7 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.space$ = this.currentSpaceService.getCurrentSpace$();
+    this.space$ = this.currentSpaceService.getCurrentSpace$().pipe(clRxjsDebug());
   }
 
   openUploadPhotoDialog(space: CaSpace): void {
@@ -63,7 +66,8 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
       object: {
         id: space.id,
         name: space.name,
-        nbLicenses: space.nbLicenses
+        defaultStorageRegion: this.spaceSettings.defaultStorageRegion,
+        nbLicenses: this.spaceSettings.nbLicenses
       }
     };
 
@@ -72,9 +76,10 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
     );
   }
 
-  private onUpdateClosed(space?: CaSpace): void {
-    if (space) {
-      this.currentSpaceService.setCurrentSpace(space);
+  private onUpdateClosed(spaceSettingsDto?: CaSpaceSettingsDto): void {
+    if (spaceSettingsDto) {
+      this.currentSpaceService.setCurrentSpace(spaceSettingsDto.space);
+      this.spaceSettings = spaceSettingsDto;
     }
   }
 

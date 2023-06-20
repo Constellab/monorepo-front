@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CaSpaceService} from '../../../ca-core/service-api/ca-space.service';
 import {combineLatestWith, Observable} from 'rxjs';
-import {CaSpace} from '../../../ca-core/model/entities/space/ca-space.class';
+import {CaSpace, CaSpaceSettingsDto} from '../../../ca-core/model/entities/space/ca-space.class';
 import {map} from 'rxjs/operators';
 import {CaCurrentSpaceService} from '../../../ca-core/service-api/ca-current-space.service';
 import {CaRouterService} from '../../../ca-core/service/ca-router.service';
@@ -55,12 +55,12 @@ export class CaMySpacesPortalComponent implements OnInit {
     );
   }
 
-  private onCreateSpaceClosed(space?: CaSpace): void {
-    if (space) {
+  private onCreateSpaceClosed(spaceSettingsDto?: CaSpaceSettingsDto): void {
+    if (spaceSettingsDto) {
       if (!CaEnvironmentHelper.isProduction()) {
-        this.currentSpaceService.setCurrentSpaceDomainDev(space.domain);
+        this.currentSpaceService.setCurrentSpaceDomainDev(spaceSettingsDto.space.domain);
       }
-      window.location.href = CaRouterService.getSpaceDomainUrl(space.domain, CaRouterService.getAppRoute());
+      window.location.href = CaRouterService.getSpaceDomainUrl(spaceSettingsDto.space.domain, CaRouterService.getAppRoute());
     }
   }
 
