@@ -309,6 +309,9 @@
     "credentials_type_S3": "S3",
     "credentials_type_OTHER": "Other",
     "credentials_data": "Credentials data",
-    "manage_credentials": "Click here to manage your credentials"
+    "manage_credentials": "Click here to manage your credentials",
+    "experiment_is_running": "The experiment is running",
+    "experiment_is_in_queue": "The experiment is in execution queue",
+    "save_config_and_run_experiment": "Save configuration and run experiment"
   }
 }

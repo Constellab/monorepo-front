@@ -104,6 +104,10 @@ export class LabExperiment extends LabEntityWithTag implements LabProjectObject 
     return this.status.value === 'SUCCESS' || this.status.value === 'ERROR';
   }
 
+  isWaiting(): boolean{
+    return this.status.value === 'IN_QUEUE';
+  }
+
   toString(): string {
     return this.title;
   }

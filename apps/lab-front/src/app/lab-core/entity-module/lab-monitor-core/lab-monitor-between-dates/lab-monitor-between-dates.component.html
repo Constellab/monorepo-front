@@ -60,7 +60,7 @@
     </div>
   </div>
 
-  <div>
+  <div *ngIf="gpuTemperature">
     <h2>{{'monitoring.gpu_temperature' | translate}}</h2>
     <ch-chart [chart]="gpuTemperature" class="chart"></ch-chart>
   </div>

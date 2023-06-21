@@ -22,6 +22,7 @@ import {
   LabMonitorBetweenDatesDialogInput
 } from '../../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import {LabProcessService} from '../../../../../lab-core/entity-service/lab-process.service';
+import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
 
 /**
  * Complete dashboard to edit, view and run a workflow node
@@ -30,6 +31,7 @@ import {LabProcessService} from '../../../../../lab-core/entity-service/lab-proc
   selector: 'lab-workflow-node-dashboard',
   templateUrl: './lab-workflow-node-dashboard.component.html',
   styleUrls: ['./lab-workflow-node-dashboard.component.scss'],
+  providers: [LabWorkflowNodeDashboardState]
 })
 export class LabWorkflowNodeDashboardComponent implements OnInit {
 
@@ -37,11 +39,18 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
   nodeProcess$ = this.nodeState.getNode$();
 
   isEditable$ = this.experimentState.isEditable$();
+  isRunning$ = this.experimentState.getExperiment$().pipe(
+    map(experiment => experiment.isRunning())
+  );
+  isWaiting$ = this.experimentState.getExperiment$().pipe(
+    map(experiment => experiment.isWaiting())
+  );
 
   constructor(private nodeState: LabWorkflowNodeDetailState,
               private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService,
-              private processService: LabProcessService) {
+              private processService: LabProcessService,
+              private dashboardState: LabWorkflowNodeDashboardState) {
   }
 
   ngOnInit(): void {
@@ -54,8 +63,14 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
     this.dialogService.openMediumDialog(LabTypeDialogComponent, {data: data});
   }
 
-  startExperiment(): void {
-    this.experimentState.start();
+  saveConfigAndStartExperiment(): void {
+    this.dashboardState.saveCurrentTaskConfig().subscribe(
+      (result) => {
+        if (result && result.status === 'success') {
+          this.experimentState.start();
+        }
+      }
+    );
   }
 
   openProgressDetails(): void {

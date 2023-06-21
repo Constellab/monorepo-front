@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, switchMap} from 'rxjs';
 import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 import {filter, map} from 'rxjs/operators';
 
@@ -18,7 +18,7 @@ export class LabConfigureProtocolComponent implements OnInit {
 
   selectedProcess$: Observable<LabProcess>;
 
-  private selectedProcessSubject: BehaviorSubject<LabProcess> = new BehaviorSubject(null);
+  private selectedProcessId: BehaviorSubject<string> = new BehaviorSubject(null);
 
   processes$: Observable<LabProcess[]>;
 
@@ -30,12 +30,19 @@ export class LabConfigureProtocolComponent implements OnInit {
       map(layer => layer.getProcessNodes().map(node => node.currentObject) as LabProcess[])
     );
 
-    this.selectedProcess$ = this.selectedProcessSubject.asObservable().pipe(filter(process => process != null));
+    this.selectedProcess$ = this.selectedProcessId.asObservable().pipe(
+      filter(processName => processName != null),
+      switchMap(processName => this.processes$.pipe()
+        .pipe(
+          map(processes => processes.find(process => process.instanceName === processName))
+        )
+      )
+    );
   }
 
 
   selectProcess(process: LabProcess): void {
-    if (this.selectedProcessSubject.value?.id === process.id) return;
-    this.selectedProcessSubject.next(process);
+    if (this.selectedProcessId.value === process.instanceName) return;
+    this.selectedProcessId.next(process.instanceName);
   }
 }

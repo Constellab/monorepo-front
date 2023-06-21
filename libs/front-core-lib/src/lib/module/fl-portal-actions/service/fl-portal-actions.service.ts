@@ -32,13 +32,13 @@ export class FlPortalActionsService {
   /**
    * Add an action or multiple actions to the action portal
    * If portal is closed, it opens it
-   * @param actions
+   * @param action
    * @param autoClose if true, the portal is close after all the action finished (with a small delay)
-   * @param openPortal when false the portal is not opened if it doesn't exists
+   * @param openPortal when false the portal is not opened if it doesn't exist
    */
-  public addAction(actions: FlPortalAction | FlPortalAction[], autoClose?: boolean,
-                   openPortal: boolean = true): void {
-    if(actions == null) return;
+  public addAction(action: FlPortalAction, autoClose?: boolean,
+                   openPortal: boolean = true): Observable<FlPortalActionResult> {
+    if(action == null) return null;
     // clear the auto close timer if it exists
     this.clearAutoCloseTimer();
 
@@ -48,19 +48,19 @@ export class FlPortalActionsService {
     }
 
     if (this.currentOverlay != null) {
-      this.actionsState.appendActions(actions);
+      return this.actionsState.appendAction(action);
     } else if (!openPortal) {
       // if we don't open the portal, only set actions
-      this.actionsState.setActions(actions);
+      return this.actionsState.setAction(action);
     } else {
-      this.openPortal(actions);
+      return this.openPortal(action);
     }
   }
 
 
-  private openPortal(actions: FlPortalAction | FlPortalAction[]): void {
+  private openPortal(action: FlPortalAction): Observable<FlPortalActionResult> {
     // clear the action list
-    this.actionsState.setActions(actions);
+    const obs = this.actionsState.setAction(action);
 
     // set portal on bottom right
     const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
@@ -72,6 +72,8 @@ export class FlPortalActionsService {
     this.currentOverlay.detachments().subscribe(
       () => this.onPortalClosed()
     );
+
+    return obs;
   }
 
   private onPortalClosed(): void {

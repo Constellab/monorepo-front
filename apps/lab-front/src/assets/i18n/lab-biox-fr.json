@@ -308,6 +308,9 @@
     "credentials_type_S3": "S3",
     "credentials_type_OTHER": "Autre",
     "credentials_data": "Données d'identifiants",
-    "manage_credentials": "Cliquer ici pour gérer les identifiants"
+    "manage_credentials": "Cliquer ici pour gérer les identifiants",
+    "experiment_is_running": "L'expérience est en cours d'exécution",
+    "experiment_is_in_queue": "L'expérience est dans la file d'attente d'exécution",
+    "save_config_and_run_experiment": "Sauvegarder la configuration et lancer l'expérience"
   }
 }

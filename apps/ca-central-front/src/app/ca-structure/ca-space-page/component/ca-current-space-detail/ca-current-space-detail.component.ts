@@ -18,7 +18,6 @@ import {
 import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-space.service';
 import {Observable} from 'rxjs';
 import {CaRequestNewLicensesComponent} from '../ca-request-new-licenses/ca-request-new-licenses.component';
-import {clRxjsDebug} from '@monorepo/core-lib';
 
 /**
  * Show all the information about a space
@@ -41,7 +40,7 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.space$ = this.currentSpaceService.getCurrentSpace$().pipe(clRxjsDebug());
+    this.space$ = this.currentSpaceService.getCurrentSpace$();
   }
 
   openUploadPhotoDialog(space: CaSpace): void {

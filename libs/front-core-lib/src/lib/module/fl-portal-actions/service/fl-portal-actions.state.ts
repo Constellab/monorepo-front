@@ -24,31 +24,31 @@ export class FlPortalActionsState implements FlCleanableService {
 
   /**
    * Override current actions
-   * @param actions
+   * @param action
    */
-  public setActions(actions: FlPortalAction | FlPortalAction[]): void {
+  public setAction(action: FlPortalAction): Observable<FlPortalActionResult> {
     this.actions$.next([]);
-    this.appendActions(actions);
+    return this.appendAction(action);
   }
 
   /**
    * Add actions to the current ones
-   * @param actions
+   * @param action
    */
-  public appendActions(actions: FlPortalAction | FlPortalAction[]): void {
-    const newActions: FlPortalActionDetail[] = this.toActionDetails(actions);
+  public appendAction(action: FlPortalAction): Observable<FlPortalActionResult> {
+    const actionDetail: FlPortalActionDetail = new FlPortalActionDetail(action);
 
     // subscribe to the action on add
-    for (const action of newActions) {
-      action.callAction().subscribe(
-        result => this.emitResult(result)
-      );
-    }
+    actionDetail.callAction().subscribe(
+      result => this.emitResult(result)
+    );
 
     // append new actions to current actions
-    const allActions: FlPortalActionDetail[] = [...newActions, ...this.currentActions];
+    const allActions: FlPortalActionDetail[] = [actionDetail, ...this.currentActions];
 
     this.actions$.next(allActions);
+
+    return actionDetail.getResult$();
   }
 
   private get currentActions(): FlPortalActionDetail[] {
@@ -59,12 +59,6 @@ export class FlPortalActionsState implements FlCleanableService {
     return this.actions$.asObservable();
   }
 
-  // convert FlPortalAction to FlPortalActionDetail
-  private toActionDetails(actions: FlPortalAction | FlPortalAction[]): FlPortalActionDetail[] {
-    const actionsArray: FlPortalAction[] = ClHelpService.convertObjectOrArrayToArray(actions);
-
-    return actionsArray.map(action => new FlPortalActionDetail(action));
-  }
 
   public emitResult(result: FlPortalActionResult): void {
     this.results$.next(result);
@@ -85,7 +79,6 @@ export class FlPortalActionsState implements FlCleanableService {
       filter(result => types.length === 0 || types.includes(result.action.type))
     );
   }
-
 
   clean(): void {
     this.actions$.next([]);

@@ -66,10 +66,10 @@ export class FlPortalActionDetail {
 
   public callAction(): Observable<FlPortalActionResult> {
     this.emitLoading();
-    this.action.action.subscribe(
-      result => this.onSuccess(result),
-      error => this.emitError(error)
-    );
+    this.action.action.subscribe({
+      next: result => this.onSuccess(result),
+      error: error => this.emitError(error)
+    });
     return this.getResult$();
   }
 

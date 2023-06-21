@@ -11,7 +11,7 @@ import {
   PrWorkflowNodeOuterface,
   PrWorkflowNodeProcess
 } from '@monorepo/protocol';
-import {Observable, Subscription} from 'rxjs';
+import {Observable, of, share, Subscription, switchMap} from 'rxjs';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
 import {Injectable, OnDestroy} from '@angular/core';
 import {
@@ -210,9 +210,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
     this.executeUpdateAction(action, process);
   }
 
-  public updateProcessConfig(protocolId: string, processInstanceName: string, config: PrConfigValues): void {
+  public updateProcessConfig(protocolId: string, processInstanceName: string,
+                             config: PrConfigValues): Observable<FlPortalActionResult | null> {
     const node = this.getAndCheckProcessNode(protocolId, processInstanceName);
-    if (node == null) return;
+    if (node == null) return of(null);
 
     const obs = this.protocolService.saveProcessConfig(protocolId, processInstanceName, config);
     const action: FlPortalAction = {
@@ -220,7 +221,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
       action: obs,
       text: {text: 'biox.saving_config', translateText: true},
     };
-    this.executeUpdateAction(action, node.currentObject as LabProcess, true);
+    return this.executeUpdateAction(action, node.currentObject as LabProcess, true);
   }
 
   public resetProcess(protocolId: string, processInstanceName: string): void {
@@ -512,7 +513,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
   private executeUpdateAction(action: FlPortalAction, process: LabProcess,
-                              revertIfRefuse: boolean = false): void {
+                              revertIfRefuse: boolean = false): Observable<FlPortalActionResult | null> {
     let dialogInput: FlConfirmDialogInput;
 
     // if the action is not attached to a node
@@ -535,19 +536,28 @@ export class LabWorkflowEditConfig implements OnDestroy {
     }
 
     if (dialogInput) {
-      this.dialogService.openConfirmDialog(dialogInput).afterClosed()
-        .subscribe((result: FlConfirmDialogResult) => {
-          if (result.choice) {
-            this.actionsService.addAction(action, true);
-          } else {
-            // revert the action if the user refuse
-            if (revertIfRefuse) {
-              this.revertWorkflowEvent(action.type as any, action.additionalInformation);
+      const obs: Observable<FlPortalActionResult | null> = this.dialogService.openConfirmDialog(dialogInput).afterClosed().pipe(
+        switchMap(
+          (result: FlConfirmDialogResult) => {
+            if (result.choice) {
+              return this.actionsService.addAction(action, true);
+            } else {
+              // revert the action if the user refuse
+              if (revertIfRefuse) {
+                this.revertWorkflowEvent(action.type as any, action.additionalInformation);
+              }
+              return of(null);
             }
           }
-        });
+        ),
+        share()); // share prevent the switchMap to be executed twice
+
+      // directly subscribe to call the action
+      obs.subscribe();
+      // return obs to be able to subscribe to the result
+      return obs;
     } else {
-      this.actionsService.addAction(action, true);
+      return this.actionsService.addAction(action, true);
     }
   }
 
@@ -557,7 +567,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
     if (protocolUpdate.protocolUpdated && protocolUpdate.protocol) {
       this.experimentState.refreshProtocolAndParents(protocolUpdate.protocol);
-    // if the protocol has not been updated, we check if the process has been updated
+      // if the protocol has not been updated, we check if the process has been updated
     } else if (protocolUpdate.process) {
       this.experimentState.refreshProcess(protocolUpdate.process);
     }

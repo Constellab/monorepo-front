@@ -1,15 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 import {UntypedFormGroup} from '@angular/forms';
-import {LabConfigureSpecsForm} from '../../../../../lab-core/model/entities/lab-config.entity';
 import {
   LabConfigureSpecsFormComponent
 } from '../../../../../lab-core/entity-module/lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
-import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class';
-import {FlDynamicFieldConfigService, FlFormHelper} from '@monorepo/front-core-lib';
+import {FlDynamicFieldConfigService} from '@monorepo/front-core-lib';
 import {
   LabConfigureProcessDynamicField
 } from '../../../../../lab-core/entity-module/lab-config-core/lab-configure-process-dynamic-field.service';
+import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
 
 @Component({
   selector: 'lab-configure-task',
@@ -24,27 +23,18 @@ export class LabConfigureTaskComponent implements OnInit {
 
   @Input() task: LabProcess;
 
-  formGp: UntypedFormGroup = new UntypedFormGroup({});
+  formGp: UntypedFormGroup;
 
-
-  constructor(private workflowEditConfig: LabWorkflowEditConfig) {
+  constructor(private dashboardState: LabWorkflowNodeDashboardState) {
   }
 
   ngOnInit(): void {
     this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.task.config);
+    this.dashboardState.setCurrentTask(this.task, this.formGp);
   }
 
   submit(): void {
-    if (this.formGp.valid) {
-      this.saveConfig(this.formGp.getRawValue());
-    } else {
-      FlFormHelper.markAllAsTouched(this.formGp);
-    }
-  }
-
-  private saveConfig(config: LabConfigureSpecsForm): void {
-    const configValue = {...config.public, ...config.protected};
-    this.workflowEditConfig.updateProcessConfig(this.task.parentProtocolId, this.task.instanceName, configValue);
+    this.dashboardState.saveCurrentTaskConfig();
   }
 
 }

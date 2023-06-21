@@ -19,6 +19,13 @@ export interface LabProcessData {
   graph?: any;
 }
 
+export interface LabProcessErrorInfo {
+  context: string;
+  detail: string;
+  instance_id: string;
+  unique_code: string;
+}
+
 
 /**
  * Task or protocol inside a flow
@@ -73,7 +80,11 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   @Expose({name: 'type_status'})
   typeStatus: TdTypeObjectStatus;
 
-  public hasConfig(): boolean {
+  @Expose({name: 'error_info'})
+  errorInfo: LabProcessErrorInfo;
+
+
+  hasConfig(): boolean {
     return this.config?.specs.hasProperties() ?? false;
   }
 
@@ -109,6 +120,10 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
 
   isRunning(): boolean {
     return this.status.value === 'RUNNING';
+  }
+
+  isError(): boolean {
+    return this.status.value === 'ERROR';
   }
 
   getProcessType(): LabProcessClass {

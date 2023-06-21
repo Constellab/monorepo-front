@@ -14,6 +14,20 @@
   border-bottom: 1px solid var(--hover-color);
 }
 
+.process-error{
+  color: var(--warn-color);
+  margin-bottom: 0.2em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  cursor: pointer;
+}
+
+.process-error:hover{
+  text-decoration: underline;
+}
+
 .section-container {
   flex: 1;
   min-height: 0; // limit max height
@@ -37,3 +51,4 @@
   border-left: 1px solid var(--hover-color);
   flex: 1;
 }
+
