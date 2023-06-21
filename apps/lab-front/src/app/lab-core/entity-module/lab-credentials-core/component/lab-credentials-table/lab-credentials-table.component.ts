@@ -47,6 +47,7 @@ export class LabCredentialsTableComponent {
   }
 
   private openUpdateCredentials(credentials: LabCredentials, credentialsData: LabCredentialsData): void {
+    if(credentialsData == null) return;
 
     const dialogInput: LabCredentialsFormDialogInput = {
       mode: 'update',
