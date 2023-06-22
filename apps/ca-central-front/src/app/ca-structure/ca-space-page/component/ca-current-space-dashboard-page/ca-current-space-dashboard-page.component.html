@@ -2,5 +2,9 @@
 
   <ng-container *flSectionBody="let spaceSettings">
     <ca-current-space-detail [spaceSettings]="spaceSettings"></ca-current-space-detail>
+
+    <!--  Admin section    -->
+    <ca-current-space-invit-list class="g-section" *caIsSpaceAdmin>
+    </ca-current-space-invit-list>
   </ng-container>
 </fl-async-section>
