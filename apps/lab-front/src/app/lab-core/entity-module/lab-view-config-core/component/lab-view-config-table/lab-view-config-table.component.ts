@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlArrayObs, FlDropEvent, FlTableAbstractDirective, FlTag, FlTagSelectedEvent} from '@monorepo/front-core-lib';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FlArrayObs, FlDropEvent, FlTableColumnStatic, FlTag, FlTagSelectedEvent} from '@monorepo/front-core-lib';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
 import {ClHelpService} from '@monorepo/core-lib';
 import {LabTag} from '../../../../model/entities/lab-tag.entity';
@@ -11,9 +11,11 @@ import {LabViewConfigService} from '../../../../entity-service/lab-view-config.s
   templateUrl: './lab-view-config-table.component.html',
   styleUrls: ['./lab-view-config-table.component.scss']
 })
-export class LabViewConfigTableComponent extends FlTableAbstractDirective<LabViewConfig> implements OnInit {
+export class LabViewConfigTableComponent {
 
   @Input() datasource: FlArrayObs<LabViewConfig>;
+
+  @Input() columns: FlTableColumnStatic<LabViewConfig>[];
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() selectableRow: boolean = false;
@@ -29,10 +31,6 @@ export class LabViewConfigTableComponent extends FlTableAbstractDirective<LabVie
 
 
   constructor(private viewConfigService: LabViewConfigService) {
-    super(['title', 'createdAt', 'preview', 'resource', 'action', 'tags', 'flagged']);
-  }
-
-  ngOnInit(): void {
   }
 
   rowClicked(viewConfig: LabViewConfig): void {

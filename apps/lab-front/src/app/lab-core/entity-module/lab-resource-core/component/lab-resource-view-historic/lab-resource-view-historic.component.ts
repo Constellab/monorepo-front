@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
-import {FlEntityPaginatedDatasource, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlEntityPaginatedDatasource, FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {LabViewConfig, LabViewConfigDatasource} from '../../../../model/entities/resource/lab-view-config.entity';
 import {LabResourceDetailTabsState} from '../../state/lab-resource-detail-tabs-state.service';
 
@@ -18,7 +18,7 @@ export class LabResourceViewHistoricComponent implements OnInit {
 
   datasource: LabViewConfigDatasource;
 
-  columns: FlTableColumn<LabViewConfig>[] = ['title', 'preview', 'flagged'];
+  columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'preview', 'flagged'];
 
   constructor(private viewConfigService: LabViewConfigService,
               private resourceTabState: LabResourceDetailTabsState) {

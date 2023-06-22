@@ -4,7 +4,7 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
+  FlTableColumnStatic,
   FlTag,
   FlThemeService
 } from '@monorepo/front-core-lib';
@@ -32,7 +32,7 @@ export class LabViewConfigSearchComponent implements OnInit {
 
   datasource: LabViewConfigDatasource;
 
-  columns: FlTableColumn<LabViewConfig>[];
+  columns: FlTableColumnStatic<LabViewConfig>[];
 
   constructor(private searchState: FlSearchState<any>,
               private viewConfigService: LabViewConfigService,
@@ -57,7 +57,7 @@ export class LabViewConfigSearchComponent implements OnInit {
 
     this.searchState.init(config, this.datasource);
 
-    this.columns = ['title', 'resource', 'tags', 'preview', 'flagged'];
+    this.columns = ['title', 'resource', 'lastModifiedAt', 'tags', 'preview', 'flagged'];
     // add the action column only when the search is in full page (view box)
     if (this.fullPageSearch) {
       this.columns.push('action');

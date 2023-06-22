@@ -43,12 +43,12 @@
   </ng-container>
 
   <!-- Datetime -->
-  <ng-container matColumnDef="createdAt">
+  <ng-container matColumnDef="lastModifiedAt">
     <mat-header-cell *matHeaderCellDef>
       <span>{{'biox.view_config_date' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig">
-      <fl-from-now [date]="viewConfig.createdAt"></fl-from-now>
+      <fl-user-with-date [user]="viewConfig.lastModifiedBy" [date]="viewConfig.lastModifiedAt"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 
@@ -84,25 +84,12 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let obj">
-      <div>
-        <span>{{obj[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
-
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
 
   <!-- Mode selectable -->
   <ng-container *ngIf="selectableRow; else notSelectable">
-    <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
+    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
              (click)="rowClicked(row)"
              flDragHover="drag-element" [flDragHoverMode]="supportedDropType" (flDrop)="onDrop(row, $event)">
     </mat-row>
@@ -110,7 +97,7 @@
 
   <!-- Mode link -->
   <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
+    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
              [routerLink]="row | labDetailRoute"
              flDragHover="drag-element" [flDragHoverMode]="supportedDropType" (flDrop)="onDrop(row, $event)">
     </mat-row>

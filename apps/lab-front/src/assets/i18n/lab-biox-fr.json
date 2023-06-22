@@ -175,7 +175,7 @@
     "extract_fs_node_help": "L'extraction va créer une nouvelle ressource (fichier ou dossier) qui référence le fichier ou dossier que vous avez sélectionné. Cette ressource pourra ensuite être utilisée dans une expérience.",
     "folder_view_sub_files": "View file",
     "view_type": "Type de vue",
-    "view_config_date": "Viewed",
+    "view_config_date": "Dernière vue",
     "view_config_select": "Sélectionner une config de vue",
     "view_config_select_help": "Voici l'historique des vues que vous avez généré. Vous pouvez seulement rechercher les vues des ressources qui on été générées ou utilisées par une des expériences associées à ce rapport. \nSi vous ne trouvez pas la vues souhaitez, re-générer la depuis la page de la ressource et re-lancer la recherche, la vues devrait apparaître en première.",
     "update_view_config_title": "Modifier le titre",
