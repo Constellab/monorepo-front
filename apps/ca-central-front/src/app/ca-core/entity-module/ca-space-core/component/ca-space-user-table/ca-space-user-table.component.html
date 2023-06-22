@@ -40,6 +40,18 @@
     </mat-cell>
   </ng-container>
 
+  <!-- Last login success -->
+  <ng-container matColumnDef="lastLogin">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{'last_login' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-from-now *ngIf="row.user.lastLoginSuccess" [date]="row.user.lastLoginSuccess"></fl-from-now>
+      <fl-text-ok-nok *ngIf="row.user.statusMailNotValidated()" [value]="false"
+                      [nokText]="'mail_not_validated' | translate"></fl-text-ok-nok>
+    </mat-cell>
+  </ng-container>
+
   <!-- Actions -->
   <ng-container matColumnDef="actions">
     <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
@@ -81,21 +93,7 @@
     </mat-cell>
   </ng-container>
 
-
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let user">
-      <div>
-        <span>{{user[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
-
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: _columns;"></mat-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 </mat-table>
 

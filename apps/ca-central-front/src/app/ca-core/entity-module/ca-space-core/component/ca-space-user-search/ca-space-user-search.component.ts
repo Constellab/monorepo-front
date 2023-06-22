@@ -6,7 +6,7 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
+  FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
 import {CaSpaceRole, CaSpaceUser, CaSpaceUserDatasource} from '../../../../model/entities/space/ca-space-user.class';
@@ -33,7 +33,7 @@ export class CaSpaceUserSearchComponent implements OnInit {
 
   datasource: CaSpaceUserDatasource;
 
-  columns: FlTableColumn<CaSpaceUser>[] = ['user', 'role', 'active', 'addedInfo'];
+  columns: FlTableColumnStatic<CaSpaceUser>[] = ['user', 'role', 'active', 'lastLogin', 'addedInfo'];
 
   constructor(private searchState: FlSearchState<any>,
               private currentSpaceService: CaCurrentSpaceService,
