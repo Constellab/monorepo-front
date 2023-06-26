@@ -31,6 +31,8 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
   node$: Observable<PrWorkflowNodeProcess>;
 
   configMode$: Observable<ConfigMode>;
+  showDashboard$: Observable<boolean>;
+  showProgress$: Observable<boolean>;
 
   showInputs$: Observable<boolean>;
   showOutput$: Observable<boolean>;
@@ -48,6 +50,12 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
 
     this.configMode$ = this.nodeDetailState.getProcess$().pipe(map(
       process => this.getConfigMode(process)
+    ));
+    this.showDashboard$ = this.configMode$.pipe(map(
+      mode => mode !== 'source' && mode !== 'view-task'
+    ));
+    this.showProgress$ = this.configMode$.pipe(map(
+      mode => mode !== 'source' && mode !== 'view-task'
     ));
     this.isEditable$ = this.experimentState.isEditable$();
 
@@ -102,6 +110,7 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
 
   openProcessDashboard(): void {
     this.dialogService.openBigDialog(LabWorkflowNodeDashboardComponent, {
-      panelClass: ['g-dialog-no-padding'], viewContainerRef: this.viewContainerRef});
+      panelClass: ['g-dialog-no-padding'], viewContainerRef: this.viewContainerRef
+    });
   }
 }

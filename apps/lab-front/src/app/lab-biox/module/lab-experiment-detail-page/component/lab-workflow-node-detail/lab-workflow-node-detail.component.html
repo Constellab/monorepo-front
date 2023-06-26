@@ -13,7 +13,7 @@
       </button>
 
       <button mat-stroked-button type="button" class="g-button-small doc-button"
-              (click)="openProcessDashboard()">
+              (click)="openProcessDashboard()" *ngIf="showDashboard$ | async">
         {{'biox.process_dashboard' | translate}}
         <mat-icon>dashboard</mat-icon>
       </button>
@@ -23,7 +23,8 @@
   </ng-container>
 
   <!---------------------------- Progress ---------------------------->
-  <lab-workflow-node-progress [process$]="labProcess$"></lab-workflow-node-progress>
+  <lab-workflow-node-progress [process$]="labProcess$"
+                              *ngIf="showProgress$ | async"></lab-workflow-node-progress>
 
 
   <!---------------------------- Config ---------------------------->
