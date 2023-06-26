@@ -24,7 +24,6 @@ export abstract class FlTextEditorConfig {
   public abstract onPasteImage(imgFile: File, state: FlTextEditorState): any;
 
 
-
   protected getCodeBlockAddButton(state: FlTextEditorState): FlTextEditorBlockAddButton {
     return {
       icon: 'code',

@@ -11,9 +11,12 @@ import {CaAuthenticatedUserService} from '../../../../../ca-core/service-api/ca-
 import {CaCommentTextEditorConfig} from '../../../../../ca-core/model/config/ca-comment-text-editor.config';
 import {FormControl, Validators} from '@angular/forms';
 import {CmRichText} from '@monorepo/common-model';
-import {FlConfirmDialogInput, FlDialogService, FlOverlayRef, FlPortalService} from '@monorepo/front-core-lib';
 import {
-  FlEmojiPickerPortalComponent
+  FlConfirmDialogInput,
+  FlDialogService,
+  FlEmojiPickerPortalComponent,
+  FlOverlayRef,
+  FlPortalService
 } from '@monorepo/front-core-lib';
 import {CaNotificationState} from '../../../../../ca-core/state/ca-notification.state';
 import {Router} from '@angular/router';
@@ -27,8 +30,6 @@ import {CaNotificationType} from '../../../../../ca-core/model/entities/ca-notif
 })
 export class CaProjectCommentsComponent implements OnInit, OnDestroy {
 
-  isEmojiPickerVisible: boolean;
-  openEmojiPicker: boolean = false;
   project$: Observable<CaProject>;
   comments: CaProjectCommentDatasourcePaginated;
   currentUserId: string;
@@ -71,7 +72,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
 
     this.textEditorConfig.sendEmojiButtonEvent$.subscribe(btEmoji => {
       if (btEmoji) {
-        this.openEmojiPannel(btEmoji);
+        this.openEmojiPanel(btEmoji);
       }
     })
   }
@@ -131,7 +132,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  private openEmojiPannel(btEmoji: HTMLElement): void {
+  private openEmojiPanel(btEmoji: HTMLElement): void {
     const config = this.portalService.configureRelativePortal(btEmoji, ['top', 'bottom', 'left', 'right'],
       {
         hasBackdrop: true,

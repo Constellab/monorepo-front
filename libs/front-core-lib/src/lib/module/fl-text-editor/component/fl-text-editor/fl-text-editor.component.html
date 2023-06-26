@@ -1,9 +1,11 @@
-<div class="{{theme === 'OVERRIDE_BUTTON' ? 'editor' : 'editor-snow'}} g-styled-scrollbar" #editor (flOutsideClick)="outsideClick($event)">
+<div class="{{theme === 'OVERRIDE_BUTTON' ? 'editor' : 'editor-snow'}} g-styled-scrollbar" #editor
+     (flOutsideClick)="outsideClick($event)">
 
 </div>
-<div *ngIf="theme !== 'OVERRIDE_BUTTON'" class="snow-menu-div">
-  <fl-text-editor-snow-button></fl-text-editor-snow-button>
-</div>
+<ng-container *ngIf="isReady">
+  <div *ngIf="theme !== 'OVERRIDE_BUTTON'" class="snow-menu-div mat-elevation-z0">
+    <fl-text-editor-snow-button></fl-text-editor-snow-button>
+  </div>
 
-<fl-text-editor-drag-buttons *ngIf="leftButtons"></fl-text-editor-drag-buttons>
-
+  <fl-text-editor-drag-buttons *ngIf="leftButtons"></fl-text-editor-drag-buttons>
+</ng-container>

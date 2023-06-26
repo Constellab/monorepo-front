@@ -38,7 +38,6 @@ import {FlQuillScrollContainer, FlQuillSetup} from '../../model/fl-quill-setup.c
 import {ClStringHelper} from '@monorepo/core-lib';
 import BlockBlot from 'parchment/dist/src/blot/block';
 import {QuillDeltaToHtmlConverter} from 'quill-delta-to-html';
-//import "quill-mention"; //TODO: check how to import this
 
 hljs.registerLanguage('python', python);
 
@@ -96,6 +95,9 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
   private blockAddButtonOverlay?: FlOverlayRef;
 
   private testBrowser: boolean;
+
+  // as the onInit is async, this assure that onInit was called before subcomponents onInit
+  isReady: boolean = false;
 
   constructor(@Optional() @Self() ngControl: NgControl,
               private sanitizer: DomSanitizer,
@@ -193,6 +195,7 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
 
     this.quill.on('text-change', () => this.setAndEmitValue(this.getQuillValue()));
     this.quill.on('editor-change', (changeEvent: any, obj: any) => this.onEditorChange(changeEvent, obj));
+    this.isReady = true;
   }
 
   callChangeEvent(value: string): void {
