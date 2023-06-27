@@ -5,9 +5,15 @@
 
       <div fxLayout="row" fxLayoutAlign="start center">
         <mat-icon [matTooltip]="'biox.report_validated' | translate"
-                  class="g-icon-big verified-icon" *ngIf="report.isValidated"
+                  class="g-icon-big status-icon" *ngIf="report.isValidated"
                   flIcon="validated">
         </mat-icon>
+
+        <mat-icon [matTooltip]="'biox.report_archived' | translate"
+                  class="g-icon-big status-icon" *ngIf="report.isArchived"
+                  flIcon="archive">
+        </mat-icon>
+
         <h2 fxFlex="auto">{{report.title}}</h2>
 
         <lab-sync-object-button [object]="report" [syncObjectFunc]="syncObjectFunc"
@@ -31,6 +37,11 @@
             <mat-icon>print</mat-icon>
           </button>
 
+
+          <button mat-icon-button type="button" (click)="archiveReport()"
+                  [matTooltip]="(report.isArchived ? 'biox.unarchive_report' : 'biox.archive_report') | translate">
+            <mat-icon color="warn" [flIcon]="report.isArchived ? 'unarchive': 'archive'"></mat-icon>
+          </button>
 
           <button mat-icon-button type="button" [matTooltip]="'biox.delete_report' | translate"
                   color="warn" (click)="delete()">

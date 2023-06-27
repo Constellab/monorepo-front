@@ -160,4 +160,13 @@ export class LabExperimentService {
     return this.apiService.get(`${this.route}/input-resource/${resourceId}`, LabExperiment,
       {resultIsPaginated: true, page: page, pageSize: pageSize});
   }
+
+  ////////////////////////////////////// ARCHIVE //////////////////////////////////////
+  public archiveExperiment(id: string): Observable<LabExperiment> {
+    return this.apiService.put(`${this.route}/${id}/archive`, null, LabExperiment);
+  }
+
+  public unarchiveExperiment(id: string): Observable<LabExperiment> {
+    return this.apiService.put(`${this.route}/${id}/unarchive`, null, LabExperiment);
+  }
 }

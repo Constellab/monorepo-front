@@ -5,6 +5,12 @@
               [matTooltip]="'biox.experiment_validated' | translate"
               flIcon="validated">
     </mat-icon>
+
+    <mat-icon *ngIf="experiment.isArchived" class="g-icon-big"
+              [matTooltip]="'biox.experiment_archived' | translate"
+              flIcon="archive">
+    </mat-icon>
+
     <h1>{{experiment.title}}</h1>
   </fl-text-icon>
 
@@ -70,6 +76,14 @@
             class="g-warn-text" *ngIf="experiment.status.value === 'IN_QUEUE'">
       <mat-icon color="warn">stop</mat-icon>
       {{'biox.remove_experiment_from_queue' | translate}}
+    </button>
+
+    <button mat-menu-item type="button" (click)="archiveExperiment()"
+            *ngIf="!experiment.isRunning()">
+      <mat-icon color="warn" [flIcon]="experiment.isArchived ? 'unarchive': 'archive'"></mat-icon>
+      <span class="g-warn-text">
+        {{(experiment.isArchived ? 'biox.unarchive_experiment' : 'biox.archive_experiment') | translate}}
+      </span>
     </button>
 
     <button mat-menu-item type="button" (click)="deleteExperiment()"

@@ -157,6 +157,41 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  archiveReport(): void {
+    const report = this.state.currentReport;
+
+    let input: FlConfirmDialogInput = null;
+    if (report.isArchived) {
+      input = {
+        title: 'biox.unarchive_report',
+        content: 'biox.unarchive_report_confirmation',
+        translateTitleAndContent: true,
+        observable: this.reportService.unarchive(report.id),
+        successMessage: 'biox.report_unarchived',
+        translateMessage: true
+      };
+    } else {
+      input = {
+        title: 'biox.archive_report',
+        content: 'biox.archive_report_confirmation',
+        translateTitleAndContent: true,
+        observable: this.reportService.archive(report.id),
+        successMessage: 'biox.report_archived',
+        translateMessage: true
+      };
+    }
+
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
+      result => this.onArchiveClosed(result)
+    );
+  }
+
+  private onArchiveClosed(result: FlConfirmDialogResult<LabReport>): void {
+    if (result.choice) {
+      this.state.updateReport(result.result);
+    }
+  }
+
   ngOnDestroy(): void {
     this.contentDebouncer.complete();
   }

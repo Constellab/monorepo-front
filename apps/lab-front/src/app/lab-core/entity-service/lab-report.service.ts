@@ -151,4 +151,13 @@ export class LabReportService {
     return this.getFilePath(filename);
   }
 
+  ///////////////////////////////////////////// ARCHIVE /////////////////////////////////////////////
+  public archive(id: string): Observable<LabReport> {
+    return this.apiService.put(`${this.route}/${id}/archive`, null, LabReport);
+  }
+
+  public unarchive(id: string): Observable<LabReport> {
+    return this.apiService.put(`${this.route}/${id}/unarchive`, null, LabReport);
+  }
+
 }

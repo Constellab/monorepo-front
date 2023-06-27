@@ -21,6 +21,11 @@
         <div class="cell-left-padding"></div>
       </ng-template>
 
+      <mat-icon *ngIf="resource.isArchived"
+                [matTooltip]="'biox.resource_archived' | translate"
+                class="archived-icon" flIcon="archive">
+      </mat-icon>
+
       <mat-icon *ngIf="resource.typeStatus === 'UNAVAILABLE'" color="warn"
                 class="type-unavailable" [matTooltip]="'biox.resource_type_unavailable_error' | translate"
                 fxHide.xs>

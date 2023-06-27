@@ -270,6 +270,41 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     }
   }
 
+  archiveExperiment(): void {
+    const experiment = this.experimentState.currentExperiment;
+
+    let input: FlConfirmDialogInput = null;
+    if (experiment.isArchived) {
+      input = {
+        title: 'biox.unarchive_experiment',
+        content: 'biox.unarchive_experiment_confirmation',
+        translateTitleAndContent: true,
+        observable: this.experimentService.unarchiveExperiment(experiment.id),
+        successMessage: 'biox.experiment_unarchived',
+        translateMessage: true
+      };
+    } else {
+      input = {
+        title: 'biox.archive_experiment',
+        content: 'biox.archive_experiment_confirmation',
+        translateTitleAndContent: true,
+        observable: this.experimentService.archiveExperiment(experiment.id),
+        successMessage: 'biox.experiment_archived',
+        translateMessage: true
+      };
+    }
+
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
+      result => this.onArchiveClosed(result)
+    );
+  }
+
+  private onArchiveClosed(result: FlConfirmDialogResult<LabExperiment>): void {
+    if (result.choice) {
+      this.experimentState.updateExperiment(result.result);
+    }
+  }
+
   openProgressInformation(): void {
     this.dialogService.openMediumDialog(LabProgressBarInfoDialogComponent,
       {

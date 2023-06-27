@@ -311,6 +311,19 @@
     "manage_credentials": "Cliquer ici pour gérer les identifiants",
     "experiment_is_running": "L'expérience est en cours d'exécution",
     "experiment_is_in_queue": "L'expérience est dans la file d'attente d'exécution",
-    "save_config_and_run_experiment": "Sauvegarder la configuration et lancer l'expérience"
+    "save_config_and_run_experiment": "Sauvegarder la configuration et lancer l'expérience",
+    "archive_experiment_fr": "Archiver l'expérience",
+    "archive_experiment_confirmation_fr": "Êtes-vous sûr de vouloir archiver cette expérience ? Les ressources générées par cette expérience seront archivées également.",
+    "experiment_archived_fr": "Expérience archivée",
+    "unarchive_experiment_fr": "Désarchiver l'expérience",
+    "unarchive_experiment_confirmation_fr": "Êtes-vous sûr de vouloir désarchiver cette expérience ? Les ressources générées par cette expérience seront désarchivées également.",
+    "experiment_unarchived_fr": "Expérience désarchivée",
+    "resource_archived": "Ressource archivée",
+    "archive_report": "Archiver le rapport",
+    "archive_report_confirmation": "Êtes-vous sûr de vouloir archiver ce rapport ?",
+    "report_archived": "Rapport archivé",
+    "unarchive_report": "Désarchiver le rapport",
+    "unarchive_report_confirmation": "Êtes-vous sûr de vouloir désarchiver ce rapport ?",
+    "report_unarchived": "Rapport désarchivé"
   }
 }

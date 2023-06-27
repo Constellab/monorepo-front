@@ -17,8 +17,12 @@
         </fl-text-icon>
       </div>
 
-      <mat-icon class="validated-icon" *ngIf="report.isValidated"
+      <mat-icon class="status-icon" *ngIf="report.isValidated"
                 [matTooltip]="'biox.report_validated' | translate" flIcon="validated">
+      </mat-icon>
+
+      <mat-icon class="status-icon" *ngIf="report.isArchived"
+                [matTooltip]="'biox.report_archived' | translate" flIcon="archive">
       </mat-icon>
 
     </mat-cell>
