@@ -44,6 +44,11 @@ export class LabMonitoringPageComponent {
       label: {text: 'biox.credentials', translateText: true},
       icon: 'key',
       route: LabRouterService.getMonitoringCredentialsRoute()
+    },
+    {
+      label: {text: 'monitoring.activities', translateText: true},
+      icon: 'task',
+      route: LabRouterService.getMonitoringActivityRoute()
     }
   ];
 

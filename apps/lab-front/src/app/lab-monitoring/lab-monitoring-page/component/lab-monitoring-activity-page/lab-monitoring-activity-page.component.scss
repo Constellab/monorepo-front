@@ -1,0 +1,20 @@
+:host{
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+  padding-bottom: 1em;
+  flex-direction: column;
+  // use grid to make card full height
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.card{
+  background-color: var(--card-background);
+  border-radius: var(--card-radius);
+}
+
+.card-body{
+  padding-top: 0;
+  height: 100%;
+}

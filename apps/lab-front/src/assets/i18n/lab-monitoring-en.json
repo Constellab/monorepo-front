@@ -83,6 +83,12 @@
     "brick_data_deleted": "Brick data deleted",
     "delete_all_brick_data": "Delete all brick data",
     "delete_all_brick_data_confirmation": "Are you sure you want to delete all bricks data ?",
-    "all_brick_data_deleted": "All bricks data have been deleted"
+    "all_brick_data_deleted": "All bricks data have been deleted",
+    "activities": "Activities",
+    "activity_type": "Activity type",
+    "activity_object_type": "Object type",
+    "activity_object_id": "Object ID",
+    "activity_date": "Date",
+    "activity_user": "User"
   }
 }

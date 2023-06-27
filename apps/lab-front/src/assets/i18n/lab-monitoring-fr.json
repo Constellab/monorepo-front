@@ -83,6 +83,12 @@
     "brick_data_deleted": "Donnée de brique supprimée",
     "delete_all_brick_data": "Supprimer toutes les données de brique",
     "delete_all_brick_data_confirmation": "Êtes-vous sûr de vouloir supprimer toutes les données de brique ?",
-    "all_brick_data_deleted": "Toutes les données de brique ont été supprimées"
+    "all_brick_data_deleted": "Toutes les données de brique ont été supprimées",
+    "activities": "Activités",
+    "activity_type": "Type d'activité",
+    "activity_object_type": "Type d'objet",
+    "activity_object_id": "ID de l'objet",
+    "activity_date": "Date",
+    "activity_user": "Utilisateur"
   }
 }
