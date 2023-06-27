@@ -16,6 +16,7 @@ import {
   FlExpansionMenuModule,
   FlFormInputsManagerModule,
   FlFormModule,
+  FlHorizontalNavBarModule,
   FlIconModule,
   FlInfiniteScrollModule,
   FlInputFileModule,
@@ -90,6 +91,7 @@ import {ChChartModule} from '@monorepo/chart';
     FlThemeModule,
     FlUserModule,
     FlInputSearchModule,
+    FlHorizontalNavBarModule,
 
     //  Other lib
     BnBioNetworkModule,

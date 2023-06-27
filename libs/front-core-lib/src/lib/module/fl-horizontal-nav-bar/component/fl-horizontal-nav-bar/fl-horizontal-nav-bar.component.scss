@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+.nav-bar {
+  border-radius: var(--card-radius);
+  background-color: var(--card-background);
+  padding: 1em;
+}
+
+.title-container {
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  padding: 0.1em 0.5em;
+}
+
+////////////////// BIG MENU //////////////////
+.menu-active {
+  color: var(--primary-color);
+}
+
+.item-text {
+  margin-right: 0.5em;
+}
+
+////////////////// SMALL MENU //////////////////
+
+.title-container-small {
+  cursor: pointer;
+}
+
+.title-container-small:hover {
+  background-color: var(--hover-color);
+}
+
+.expand-icon {
+  margin-left: 0.5em;
+}
+
+.small-menu-active {
+  .menu-icon {
+    color: var(--primary-color);
+  }
+}
