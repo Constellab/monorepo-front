@@ -17,7 +17,7 @@
         <lab-biota-database-table class="table" fxFlex="auto" [datasource]="biotaDatasource" [columns]="columns"
                                   (showDetail)="openDetail($event)"></lab-biota-database-table>
 
-        <div fxFlex="30%" fxHide.xs class="max-height g-scrollable-element">
+        <div fxFlex="30%" flHide.xs class="max-height g-scrollable-element">
           <lab-biota-data-card class="g-full" *ngIf="selectedData" [biotaData]="selectedData"></lab-biota-data-card>
         </div>
       </div>

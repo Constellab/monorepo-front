@@ -34,12 +34,12 @@
       <a class="story" *ngFor="let story of stories?.connect() | async" [routerLink]="story.id">
         <div class="story-content">
           <h5>{{story.title}}</h5>
-          <p class="small-text" fxHide.lt-sm>{{story.firstParagraph.length >= 100 ? (story.firstParagraph + '...') : story.firstParagraph}}</p>
+          <p class="small-text" flHide.lt-sm>{{story.firstParagraph.length >= 100 ? (story.firstParagraph + '...') : story.firstParagraph}}</p>
           <p class="small-text user-info">
             <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
             <span class="g-text-small date-info">{{(story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt) | flDate:'DATETIME_MED'}}</span>
           </p>
-          <mat-chip-listbox fxHide.lt-sm>
+          <mat-chip-listbox flHide.lt-sm>
             <mat-chip-option *ngFor="let storyTopic of story.getTopics()">
               {{storyTopic.name}}
             </mat-chip-option>

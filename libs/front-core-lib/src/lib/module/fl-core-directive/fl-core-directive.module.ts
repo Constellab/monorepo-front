@@ -11,6 +11,7 @@ import {FlElasticSearchDirective} from './fl-elastic-search/fl-elastic-search.di
 import {FlAutoScrollToAnchorDirective} from './fl-auto-scroll-to-anchor/fl-auto-scroll-to-anchor.directive';
 import {FlBackupImageDirective} from './fl-backup-image/fl-backup-image.directive';
 import {FlActiveRouteDirective} from './fl-active-route/fl-active-route.directive';
+import {FlHideDirective} from './fl-hide/fl-hide.directive';
 
 
 /**
@@ -28,6 +29,7 @@ import {FlActiveRouteDirective} from './fl-active-route/fl-active-route.directiv
     FlAutoScrollToAnchorDirective,
     FlBackupImageDirective,
     FlActiveRouteDirective,
+    FlHideDirective,
   ],
   exports: [
     FlInputMaxLengthDirective,
@@ -40,6 +42,7 @@ import {FlActiveRouteDirective} from './fl-active-route/fl-active-route.directiv
     FlAutoScrollToAnchorDirective,
     FlBackupImageDirective,
     FlActiveRouteDirective,
+    FlHideDirective,
   ],
   imports: [
     CommonModule,

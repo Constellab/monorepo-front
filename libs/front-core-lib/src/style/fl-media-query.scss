@@ -1,0 +1,69 @@
+/**************************** Print media query *****************************/
+
+// classes to focus the print on a single element marked with g-section-to-print
+@media print {
+
+  .g-print-section {
+    border: none !important;
+    height: initial;
+    max-height: initial;
+    color: black;
+  }
+
+  // Class to add to element that should be hidden in print
+  .g-print-hide {
+    display: none !important;
+  }
+
+
+  // force light mode texts
+  .mat-drawer-container {
+    color: black;
+  }
+
+  .g-text-light {
+    color: #434546;
+  }
+}
+
+.g-hide {
+  display: none;
+}
+
+@media (max-width: 599px) {
+  .g-hide-xs,
+  .g-hide-lt-sm, .g-hide-lt-md, .g-hide-lt-lg, .g-hide-lt-xl {
+    display: none;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 959px) {
+  .g-hide-sm,
+  .g-hide-lt-md, .g-hide-lt-lg, .g-hide-lt-xl,
+  .g-hide-gt-xs {
+    display: none;
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1279px) {
+  .g-hide-md,
+  .g-hide-lt-lg, .g-hide-lt-xl,
+  .g-hide-gt-xs, .g-hide-gt-sm {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1919px) {
+  .g-hide-lg,
+  .g-hide-lt-xl,
+  .g-hide-gt-xs, .g-hide-gt-sm, .g-hide-gt-md {
+    display: none;
+  }
+}
+
+@media (min-width: 1920px) {
+  .g-hide-xl,
+  .g-hide-gt-xs, .g-hide-gt-sm, .g-hide-gt-md, .g-hide-gt-lg {
+    display: none;
+  }
+}

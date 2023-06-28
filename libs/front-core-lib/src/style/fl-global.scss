@@ -19,28 +19,28 @@ html {
 
 @font-face {
   font-family: "Poppins";
-  src: url("/assets/fl-font/Poppins-Regular.ttf")  format("truetype");
+  src: url("/assets/fl-font/Poppins-Regular.ttf") format("truetype");
   font-style: normal;
   font-weight: normal;
 }
 
 @font-face {
   font-family: "Poppins";
-  src: url("/assets/fl-font/Poppins-Medium.ttf")  format("truetype");
+  src: url("/assets/fl-font/Poppins-Medium.ttf") format("truetype");
   font-style: normal;
   font-weight: 500;
 }
 
 @font-face {
   font-family: "Poppins";
-  src: url("/assets/fl-font/Poppins-Light.ttf")  format("truetype");
+  src: url("/assets/fl-font/Poppins-Light.ttf") format("truetype");
   font-style: normal;
   font-weight: 100;
 }
 
 @font-face {
   font-family: "Poppins";
-  src: url("/assets/fl-font/Poppins-SemiBold.ttf")  format("truetype");
+  src: url("/assets/fl-font/Poppins-SemiBold.ttf") format("truetype");
   font-style: normal;
   font-weight: bold;
 }
@@ -262,33 +262,4 @@ figure {
 // Class to limit width of an element to keep it readable event it wide screes
 .g-max-article-width {
   max-width: 60rem;
-}
-
-
-/**************************** Print media query *****************************/
-
-// classes to focus the print on a single element marked with g-section-to-print
-@media print {
-
-  .g-print-section {
-    border: none !important;
-    height: initial;
-    max-height: initial;
-    color: black;
-  }
-
-  // Class to add to element that should be hidden in print
-  .g-print-hide{
-    display: none !important;
-  }
-
-
-  // force light mode texts
-  .mat-drawer-container{
-    color: black;
-  }
-
-  .g-text-light{
-    color: #434546;
-  }
 }

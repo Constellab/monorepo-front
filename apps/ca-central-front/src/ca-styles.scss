@@ -3,20 +3,22 @@
 // Import theme for material
 @import "libs/front-core-lib/src/style/theme/theme";
 // Import the style for the library
-@import "libs/front-core-lib/src/style/global";
+@import "libs/front-core-lib/src/style/fl-global";
+@import "libs/front-core-lib/src/style/fl-media-query";
+
 
 // Import the style for material
-@import "libs/front-core-lib/src/style/material-override";
-@import "libs/front-core-lib/src/style/dialog";
-@import "libs/front-core-lib/src/style/icon";
+@import "libs/front-core-lib/src/style/fl-material-override";
+@import "libs/front-core-lib/src/style/fl-dialog";
+@import "libs/front-core-lib/src/style/fl-icon";
 
 // Import quill style
-@import "libs/front-core-lib/src/style/quill";
+@import "libs/front-core-lib/src/style/fl-quill";
 
 // Style to highlight code in text editor
 @import 'highlight.js/styles/monokai-sublime.css';
 
-@import "libs/front-core-lib/src/style/emoji-mart";
+@import "libs/front-core-lib/src/style/fl-emoji-mart";
 
 :root{
   // margin on top and bottom of the main menu

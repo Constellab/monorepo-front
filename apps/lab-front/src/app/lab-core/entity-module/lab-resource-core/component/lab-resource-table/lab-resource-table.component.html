@@ -12,7 +12,7 @@
               (click)="toggleResourceChildren(resource, $event)"
               [matTooltip]="'databox.resource_see_children' | translate"
               [matTooltipDisabled]="expandedResource === resource"
-              class="expand-button g-button-icon-small" fxHide.xs>
+              class="expand-button g-button-icon-small" flHide.xs>
         <mat-icon>{{expandedResource === resource ? 'expand_less' : 'expand_more'}}</mat-icon>
       </button>
 
@@ -28,7 +28,7 @@
 
       <mat-icon *ngIf="resource.typeStatus === 'UNAVAILABLE'" color="warn"
                 class="type-unavailable" [matTooltip]="'biox.resource_type_unavailable_error' | translate"
-                fxHide.xs>
+                flHide.xs>
         error
       </mat-icon>
       <div class="name-container g-text-dense-height">
@@ -37,7 +37,7 @@
           {{resource.name}}
         </div>
         <fl-text-icon class="g-text-tiny g-text-light" *ngIf="resource.experiment"
-                      gap="0" fxHide.xs>
+                      gap="0" flHide.xs>
           <mat-icon flIcon="experiment" class="g-icon-tiny"></mat-icon>
           {{resource.experiment.title}}
         </fl-text-icon>
