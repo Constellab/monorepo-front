@@ -1,10 +1,9 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {FlHorizontalNavBarItem} from '../../fl-horizontal-nav-bar.class';
-import {MediaObserver} from '@angular/flex-layout';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {FlMediaAlias} from '../../../../model/fl-media-alias.class';
 import {MatMenuTrigger} from '@angular/material/menu';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 /**
  * Horizontal navigation bar that takes full width of the screen
@@ -21,20 +20,17 @@ export class FlHorizontalNavBarComponent {
 
   @ViewChild(MatMenuTrigger, {static: false}) trigger: MatMenuTrigger;
 
-  showSmallMenu$: Observable<boolean> = this.media.asObservable().pipe(
-    map(() => this.showSmallMenu())
+  private smallScreenMatches = [Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium];
+
+  showSmallMenu$: Observable<boolean> = this.breakpointObserver.observe(this.smallScreenMatches).pipe(
+    map((state) => state.matches)
   );
 
-
-  constructor(private media: MediaObserver) {
-  }
-
-  showSmallMenu(): boolean {
-    return this.media.isActive('lt-lg' as FlMediaAlias);
+  constructor(private breakpointObserver: BreakpointObserver) {
   }
 
   openMenu(): void {
-    if (this.showSmallMenu() && this.trigger) {
+    if (this.breakpointObserver.isMatched(this.smallScreenMatches) && this.trigger) {
       this.trigger.openMenu();
     }
   }

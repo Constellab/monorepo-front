@@ -7,6 +7,7 @@ import {FlTranslateModule} from '../fl-translate/fl-translate.module';
 import {RouterModule} from '@angular/router';
 import {FlIconModule} from '../fl-svg-icon/fl-icon.module';
 import {MatMenuModule} from '@angular/material/menu';
+import {LayoutModule} from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,11 @@ import {MatMenuModule} from '@angular/material/menu';
     MatButtonModule,
     RouterModule,
     MatMenuModule,
+    LayoutModule,
 
     FlTranslateModule,
     FlIconModule,
+
   ],
 })
 export class FlHorizontalNavBarModule {

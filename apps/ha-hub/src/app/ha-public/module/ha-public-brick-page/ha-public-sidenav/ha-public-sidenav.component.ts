@@ -27,13 +27,11 @@ import {
 import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 import {SelectionModel} from '@angular/cdk/collections';
-import {filter, Observable, of, startWith, Subscription, tap} from 'rxjs';
-import {MediaChange, MediaObserver} from '@angular/flex-layout';
+import {filter, Observable, of, startWith, tap} from 'rxjs';
 import {FormControl} from '@ngneat/reactive-forms';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {map} from 'rxjs/operators';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import {HaAuthService} from '../../../../ha-core/ha-service/ha-auth.service';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
@@ -87,8 +85,6 @@ export class HaPublicSidenavComponent implements OnInit {
   technicalDocTasks: HaNode[];
   technicalDocProtocols: HaNode[];
 
-  private mediaSubscription!: Subscription;
-  isSmallScreen: boolean = false;
   activatedRoute: ActivatedRoute = this.route;
 
   //TRANSFERSTATE
@@ -141,14 +137,12 @@ export class HaPublicSidenavComponent implements OnInit {
 
   constructor(
     private brickService: HaBrickService,
-    private loginService: HaAuthService,
     private route: ActivatedRoute,
     private router: Router,
     private contextMenuService: FlMenuDynamicService,
     private documentationService: HaDocumentationService,
     private folderService: HaFolderService,
     private dialogService: FlDialogService,
-    private mediaObserver: MediaObserver,
     private changeDetectorRefs: ChangeDetectorRef,
     private authenticatedUserService: HaAuthenticatedUserService,
     @Inject(PLATFORM_ID) private platformId: object,
@@ -165,14 +159,6 @@ export class HaPublicSidenavComponent implements OnInit {
 
     this.isAdminOrBrickUser$ = this.authenticatedUserService.isAdminOrBrickUser(this.brick);
 
-    this.mediaSubscription = this.mediaObserver
-      .asObservable()
-      .pipe()
-      .subscribe((change) => {
-        this.setIsSmallScreen(change);
-      });
-
-
     this.route.params.subscribe(params => {
 
       this.initCurrentCompletePath(params['version']);
@@ -180,7 +166,7 @@ export class HaPublicSidenavComponent implements OnInit {
     });
   }
 
-  private initCurrentCompletePath(separator: string): void{
+  private initCurrentCompletePath(separator: string): void {
     this.currentCompletePath = this.router.url.split(separator)[1];
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -200,8 +186,8 @@ export class HaPublicSidenavComponent implements OnInit {
     });
   }
 
-  private getTechnicalDocumentations(): void{
-    if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.TECH_DOCUMENTATION_KEY)){
+  private getTechnicalDocumentations(): void {
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.TECH_DOCUMENTATION_KEY)) {
       const data = this.transferState.get(this.TECH_DOCUMENTATION_KEY, null) as HaNode;
       this.transferState.remove(this.TECH_DOCUMENTATION_KEY);
       this.onTechDocumentationsData(data);
@@ -215,7 +201,7 @@ export class HaPublicSidenavComponent implements OnInit {
     });
   }
 
-  private getDocumentations(): void{
+  private getDocumentations(): void {
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
       const data = this.transferState.get(this.DOCUMENTATIONS_KEY, null) as HaNode;
       this.transferState.remove(this.DOCUMENTATIONS_KEY);
@@ -230,7 +216,7 @@ export class HaPublicSidenavComponent implements OnInit {
     });
   }
 
-  private onDocumentationsData(data: HaNode): void{
+  private onDocumentationsData(data: HaNode): void {
     this.rebuildTreeForData(data.children);
     if (this.dataSource.data.length > 0) {
       this.dataSource$ = of(this.dataSource);
@@ -238,11 +224,6 @@ export class HaPublicSidenavComponent implements OnInit {
       this.changeDetectorRefs.detectChanges();
     }
   }
-
-  setIsSmallScreen(mediaChanges: MediaChange[]): void {
-    this.isSmallScreen = mediaChanges.find(m => m.mqAlias == 'lt-md') != null
-  }
-
 
 
   onClickMenu(event: MouseEvent, isFolder: boolean, hasChild: boolean = false, id?: string): void {
@@ -257,7 +238,7 @@ export class HaPublicSidenavComponent implements OnInit {
       });
     } else {
       this.openedMenu =
-            this.contextMenuService.openDynamicMenuFromMouseEvent(this.getContextMenuConfig(isFolder, id, hasChild), event);
+        this.contextMenuService.openDynamicMenuFromMouseEvent(this.getContextMenuConfig(isFolder, id, hasChild), event);
       this.menuOpen = true;
     }
   }
@@ -344,7 +325,7 @@ export class HaPublicSidenavComponent implements OnInit {
     this.dialogService.openSmallDialog(HaPublicSidenavCreateFormDialogComponent, {data: input}).afterClosed().subscribe(
       (res) => {
         if (res != null) {
-          if(res[1] == HaNodeType.TEC){
+          if (res[1] == HaNodeType.TEC) {
             this.brickService.importTechnicalDocumentation({
               brickName: this.brickName,
               importFile: res[0]
@@ -550,7 +531,7 @@ export class HaPublicSidenavComponent implements OnInit {
     );
   }
 
-  private onTechDocumentationsData(data: HaNode): void{
+  private onTechDocumentationsData(data: HaNode): void {
     if (data) {
       this.technicalDataSource.data = [data];
       this.technicalDataSource$ = of(this.technicalDataSource);
@@ -564,16 +545,16 @@ export class HaPublicSidenavComponent implements OnInit {
     }
   }
 
-  isDocNodeSelected(node: HaNode): boolean{
-    if(!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
+  isDocNodeSelected(node: HaNode): boolean {
+    if (!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
     const completePath: string = this.currentCompletePath.split('doc/')[1] + '/';
     return completePath == node.completePath;
   }
 
-  isFolderNodeSelected(node: HaNode): boolean{
-    if(!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
+  isFolderNodeSelected(node: HaNode): boolean {
+    if (!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
     const completePath: string = this.currentCompletePath.split('doc/')[1] + '/';
-    if(completePath.includes(node.completePath)){
+    if (completePath.includes(node.completePath)) {
       if (completePath.includes('technical-folder/'))
         this.expandTechNode(node);
       else

@@ -3,8 +3,8 @@ import {LabBiotaDatabaseSearch} from '../../../../model/lab-biota-database.class
 import {LabBiotaDatabaseService} from '../../../../service/lab-biota-database.service';
 import {LabBiotaData, LabBiotaDataDatasource} from '../../../../model/lab-biota-data.class';
 import {FlDialogService} from '@monorepo/front-core-lib';
-import {MediaObserver} from '@angular/flex-layout';
 import {LabBiotaDataCardDialogComponent} from '../lab-biota-data-card-dialog/lab-biota-data-card-dialog.component';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 @Component({
   selector: 'lab-biota-databases',
@@ -18,11 +18,11 @@ export class LabBiotaDatabasesComponent implements OnInit {
 
   selectedData: LabBiotaData;
 
-  private readonly hideCardScreenSize: string = 'xs';
+  private readonly hideCardScreenSize: string[] = [Breakpoints.XSmall];
 
   constructor(private biotaDatabaseService: LabBiotaDatabaseService,
               private dialogService: FlDialogService,
-              private mediaObserver: MediaObserver) {
+              private breakpointObserver: BreakpointObserver) {
   }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class LabBiotaDatabasesComponent implements OnInit {
   openDetail(biotaData: LabBiotaData): void {
     this.selectedData = biotaData;
     // if the screen is too small, open detail in dialog
-    if (this.mediaObserver.isActive(this.hideCardScreenSize)) {
+    if (this.breakpointObserver.isMatched(this.hideCardScreenSize)) {
       this.openDetailDialog(biotaData);
     }
   }
