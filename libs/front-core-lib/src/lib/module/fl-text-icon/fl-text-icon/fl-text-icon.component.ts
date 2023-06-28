@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 
 /**
  * Component to display and icon along with a text.
- * This component uses the flex display with the FlexLayoutModule
  *
  * The icon should be wrap in a mat-icon tag.
  *
@@ -35,6 +34,14 @@ export class FlTextIconComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  get leftMargin(): string {
+    return this.iconPosition === 'start' ? this.gap : '0';
+  }
+
+  get rightMargin(): string {
+    return this.iconPosition === 'end' ? this.gap : '0';
   }
 
 }

@@ -10,7 +10,7 @@
 
 <div class="main-div">
   <div class="my-stories-table">
-    <mat-table mat-table fxFlex="100" [dataSource]="myStories">
+    <mat-table mat-table class="g-flex-grow" [dataSource]="myStories">
 
       <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef> {{'category' | translate}} </mat-header-cell>

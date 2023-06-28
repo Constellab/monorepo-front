@@ -4,7 +4,8 @@
 }
 
 .dashboard-left {
-  padding: var(--main-menu-margin) 0.5em var(--main-menu-margin) 1em
+  padding: var(--main-menu-margin) 0.5em var(--main-menu-margin) 1em;
+  width: 100%;
 }
 
 .dashboard-right {
@@ -26,8 +27,6 @@
 
 .link-button {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: var(--card-background);
   border-radius: var(--card-radius);
   padding: 10px;

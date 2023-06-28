@@ -1,13 +1,13 @@
-<mat-dialog-content class="content" fxLayout="column">
+<mat-dialog-content class="content">
 
   <div *ngIf="process$ | async as process" class="header">
-    <div fxLayout="row" fxLayoutAlign="space-between start">
+    <div class="g-layout-row g-layout-between-start">
       <div>
         <h2>{{process.instanceName}}</h2>
         <p *ngIf="process.data.description">{{process.data.description}}</p>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
+      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
         <fl-status-chip [status]="process.status"></fl-status-chip>
 
         <button *ngIf="isEditable$ | async" mat-icon-button type="button" (click)="saveConfigAndStartExperiment()"
@@ -75,7 +75,7 @@
   </div>
 
 
-  <div fxLayout="row" fxLayoutAlign="start stretch" class="section-container">
+  <div class="g-layout-row g-layout-start-stretch section-container">
 
     <lab-workflow-node-io-panel [nodeProcess$]="nodeProcess$" mode="input"
                                 class="section input-section"></lab-workflow-node-io-panel>

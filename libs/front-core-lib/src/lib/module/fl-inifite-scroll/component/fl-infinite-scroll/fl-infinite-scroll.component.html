@@ -2,8 +2,7 @@
      [flInfiniteMode]="infiniteMode" [flInfiniteAfterDebounce]="infiniteAfterDebounce"
      [flInfiniteCheckOnInit]="infiniteCheckOnInit" [flInfiniteTriggerDistance]="infiniteTriggerDistance"
      [flReverseMode]="reverseMode"
-     [ngClass]="{'g-scrollable-element': infiniteMode === 'container'}"
-     fxLayout="{{reverseMode ? 'column-reverse' : 'column'}}"
+     [ngClass]="{'g-scrollable-element': infiniteMode === 'container', 'g-layout-col': !reverseMode, 'g-layout-col-reverse': reverseMode}"
      class="container">
   <ng-content></ng-content>
 

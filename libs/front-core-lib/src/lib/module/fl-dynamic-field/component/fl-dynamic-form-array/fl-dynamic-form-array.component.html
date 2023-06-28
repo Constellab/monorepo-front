@@ -17,8 +17,8 @@
   <ng-container *flSectionBody>
     <div *ngIf="hasValue(); else noValue">
       <div *ngFor="let formGp of control.controls; let i = index; let last = last" class="group">
-        <div fxLayout="row">
-          <fl-dynamic-abstract-form [control]="formGp" [config]="config.formGpConfig" fxFlex="auto">
+        <div class="g-layout-row">
+          <fl-dynamic-abstract-form [control]="formGp" [config]="config.formGpConfig" class="g-flex-auto">
           </fl-dynamic-abstract-form>
           <div>
             <div [matTooltip]="removeTooltip">

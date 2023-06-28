@@ -2,7 +2,7 @@ import {Directive, HostBinding, Input, OnInit} from '@angular/core';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 
 /**
- * Directive similare to fxHide from flex-layout to hide element based on media query
+ * Directive similar to fxHide from flex-layout to hide element based on media query
  */
 @Directive({
   selector: '[flHide], [flHide.xs], [flHide.sm], [flHide.md], [flHide.lg], [flHide.xl] ' +

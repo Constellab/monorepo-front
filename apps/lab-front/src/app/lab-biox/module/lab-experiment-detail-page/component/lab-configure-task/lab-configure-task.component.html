@@ -1,9 +1,8 @@
-<form (ngSubmit)="submit()" id="process-config-form" [formGroup]="formGp" class="form"
-      fxLayout="column">
+<form (ngSubmit)="submit()" id="process-config-form" [formGroup]="formGp" class="form g-layout-col">
   <fl-error-text *ngIf="!task.hasConfig()" [errorMessage]="'biox.no_config_for_task' | translate">
   </fl-error-text>
 
-  <div fxFlex="auto">
+  <div class="g-flex-auto">
     <lab-configure-specs-form [configData]="task.config"></lab-configure-specs-form>
   </div>
 

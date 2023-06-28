@@ -1,8 +1,8 @@
-<div fxLayout="column" class="g-full-height" *ngIf="!error; else showError">
+<div class="g-full-height g-layout-col" *ngIf="!error; else showError">
 
   <!--  Workflow header  -->
-  <div class="header" fxLayout="row" fxLayoutAlign="start center"
-       fxLayoutGap="1em" *ngIf="!flowIsLoading">
+  <div class="header g-layout-row g-layout-start-center g-layout-gap-1em"
+       *ngIf="!flowIsLoading">
     <ng-content></ng-content>
 
     <div class="divider"></div>
@@ -12,7 +12,7 @@
   </div>
 
   <!--  Workflow zone  -->
-  <div class="workflow" #workflow fxFlex="auto">
+  <div class="workflow g-flex-auto" #workflow>
 
     <div class="g-text-centered" *ngIf="flowIsLoading">
       <fl-loader></fl-loader>

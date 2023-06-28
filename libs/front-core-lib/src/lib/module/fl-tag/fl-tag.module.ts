@@ -17,17 +17,17 @@ import {FlCoreDirectiveModule} from '../fl-core-directive/fl-core-directive.modu
 import {FlTagListComponent} from './component/fl-tag-list/fl-tag-list.component';
 import {FlTagsSelectColorsComponent} from './component/fl-tags-select-colors/fl-tags-select-colors.component';
 import {FlCorePipeModule} from '../fl-core-pipe/fl-core-pipe.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {FlCoreComponentModule} from '../fl-core-component/fl-core-component.module';
 import {FlColorModule} from '../fl-color/fl-color.module';
 import {FlTagColorPipe} from './pipe/fl-tag-color.pipe';
 import {MatRippleModule} from '@angular/material/core';
 import {FlTagsToListPipe} from './pipe/fl-tags-to-list.pipe';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatInputModule } from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -60,7 +60,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     DragDropModule,
     MatButtonModule,
-    FlexLayoutModule,
     MatTooltipModule,
     MatRippleModule,
 

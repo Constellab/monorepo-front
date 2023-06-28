@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {FlTextIconComponent} from './fl-text-icon/fl-text-icon.component';
 import {FlTextOkNokComponent} from './fl-text-ok-nok/fl-text-ok-nok.component';
 import {MatIconModule} from '@angular/material/icon';
@@ -21,7 +21,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   imports: [
     CommonModule,
 
-    FlexLayoutModule,
     MatIconModule,
     MatTooltipModule,
   ]

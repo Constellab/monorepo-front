@@ -1,7 +1,6 @@
-<div [formGroup]="formGp" fxLayout="row wrap" fxLayoutAlign="start"
-     fxLayoutGap="1%">
+<div [formGroup]="formGp"  class="g-layout-row-wrap form">
   <!--  Firstname  -->
-  <mat-form-field fxFlex="49%">
+  <mat-form-field>
     <mat-label>{{'firstname' | translate}}</mat-label>
     <input matInput formControlName="firstname" required flInputMaxLength="50"
            [placeholder]="'firstname' | translate">
@@ -11,7 +10,7 @@
   </mat-form-field>
 
   <!--  Lastname  -->
-  <mat-form-field fxFlex="49%">
+  <mat-form-field>
     <mat-label>{{'lastname' | translate}}</mat-label>
     <input matInput formControlName="lastname" required flInputMaxLength="50"
            [placeholder]="'lastname' | translate">
@@ -21,7 +20,7 @@
   </mat-form-field>
 
   <!--  Email  -->
-  <mat-form-field fxFlex="49%">
+  <mat-form-field>
     <mat-label>{{'email' | translate}}</mat-label>
     <input matInput type="email" formControlName="email" required
            [placeholder]="'email' | translate" autocomplete="username">
@@ -34,7 +33,7 @@
   </mat-form-field>
 
   <!--  Category  -->
-  <mat-form-field fxFlex="49%">
+  <mat-form-field>
     <mat-label>{{'user_category' | translate}}</mat-label>
     <mat-select formControlName="category" [placeholder]="'user_category' | translate"
                 required>
@@ -46,7 +45,7 @@
   </mat-form-field>
 
   <!--  Password -->
-  <mat-form-field fxFlex="49%">
+  <mat-form-field>
     <mat-label>{{'flAuth.password' | translate}}</mat-label>
     <input matInput type="password" formControlName="password" required
            [placeholder]="'flAuth.password' | translate" autocomplete="new-password"
@@ -60,7 +59,7 @@
   </mat-form-field>
 
   <!--  Repeat Password -->
-  <mat-form-field fxFlex="49%">
+  <mat-form-field>
     <mat-label>{{'flAuth.repeat_password' | translate}}</mat-label>
     <input matInput type="password" formControlName="repeatPassword" required
            [placeholder]="'flAuth.repeat_password' | translate" autocomplete="off">
@@ -73,7 +72,7 @@
   </mat-form-field>
 
   <!--  Phone  -->
-  <mat-form-field fxFlex="49%">
+  <mat-form-field>
     <mat-label>{{'flAuth.phone_number' | translate}}</mat-label>
     <input matInput formControlName="phone" flInputMaxLength="50"
            [placeholder]="'flAuth.phone_number' | translate">
@@ -82,10 +81,10 @@
 
   <!--   CGU/CGV  -->
   <div class="cgu">
-    <div fxLayout="row" fxLayoutAlign="start center" class="cgu-container">
+    <div class="g-layout-row g-layout-start-center cgu-container">
       <mat-checkbox formControlName="validateCGU" [disableRipple]="true">
       </mat-checkbox>
-      <div class="fl-signup-text-link" fxFlex="auto" [innerHTML]="'flAuth.accept_cgu_cgv_text' | translate"></div>
+      <div class="fl-signup-text-link g-flex-auto" [innerHTML]="'flAuth.accept_cgu_cgv_text' | translate"></div>
     </div>
 
     <div *ngIf="formGp.get('validateCGU').hasError('differentValue') && formGp.get('validateCGU').touched"

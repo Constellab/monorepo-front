@@ -1,6 +1,6 @@
 <fl-card class="card" matRipple>
   <fl-card-header>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
       <ca-project-icon [project]="project"></ca-project-icon>
       <h2>{{project.code}}</h2>
     </div>
@@ -12,7 +12,7 @@
       <p>{{project.title}}</p>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" class="project-leader">
+    <div class="g-layout-row g-layout-start-center project-leader">
       <span class="g-text-light project-leader-title">{{'project_leader' | translate}} : &nbsp;</span>
       <fl-user-inline [user]="project.leader" class="project-leader-user"
                       [showName]="false"></fl-user-inline>

@@ -13,7 +13,7 @@ import {
   FlTranslateModule,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {PrWorkflowNodeComponent} from './component/pr-workflow-node/pr-workflow-node.component';
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {MatIconModule} from '@angular/material/icon';
@@ -46,7 +46,6 @@ import {PrWorkflowEmptyResourcesState, PrWorkflowResourcesState} from './state/p
 @NgModule({
   imports: [
     CommonModule,
-    FlexLayoutModule,
 
     MatIconModule,
     MatTooltipModule,

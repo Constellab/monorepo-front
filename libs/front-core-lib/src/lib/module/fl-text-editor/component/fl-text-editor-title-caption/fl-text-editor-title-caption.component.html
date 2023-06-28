@@ -15,7 +15,7 @@
 <ng-template #templatePortalContent>
   <mat-dialog-content>
     <form (ngSubmit)="closeDialog()">
-      <div fxLayout="column">
+      <div class="g-layout-col">
         <mat-form-field>
           <mat-label>{{'flTextEditor.title' | translate}}</mat-label>
           <input matInput [(ngModel)]="title" [placeholder]="'flTextEditor.title' | translate"

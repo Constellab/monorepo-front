@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 /**
  * Footer for the card
@@ -9,8 +9,6 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./fl-card-footer.component.scss']
 })
 export class FlCardFooterComponent implements OnInit {
-
-  @Input() layoutGap: string = '0';
 
   constructor() {
   }

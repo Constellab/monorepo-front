@@ -17,9 +17,10 @@
           </fl-text-icon>
         </div>
         <button class="button-settings" mat-stroked-button type="button"
-                *ngIf="currentUser.id === user.id" (click)="openSettings()">
+                *ngIf="currentUser.id === user.id" (click)="openSettings()"
+                flClass.xs="g-button-small">
           <fl-text-icon iconPosition="start">
-            <mat-icon flIcon="settings"></mat-icon>
+            <mat-icon flIcon="settings" flClass.xs="g-button-icon-small"></mat-icon>
             {{'Settings' | translate}}
           </fl-text-icon>
         </button>

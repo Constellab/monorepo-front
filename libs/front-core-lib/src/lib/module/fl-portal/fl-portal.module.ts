@@ -8,7 +8,7 @@ import {FlTooltipService} from './service/fl-tooltip.service';
 import {FlPortalCloseDirective} from './directive/fl-portal-close.directive';
 import {FlPortalHeaderComponent} from './component/fl-portal-header/fl-portal-header.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {MatIconModule} from '@angular/material/icon';
 import {FlPortalComponent} from './component/fl-portal/fl-portal.component';
 import {FlPortalContentComponent} from './component/fl-portal-content/fl-portal-content.component';
@@ -47,7 +47,6 @@ import {MatButtonModule} from '@angular/material/button';
     // Material
     PortalModule,
     DragDropModule,
-    FlexLayoutModule,
     MatButtonModule,
     MatIconModule,
   ]

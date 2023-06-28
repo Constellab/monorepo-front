@@ -8,11 +8,10 @@
 
     <!--  Type  -->
     <mat-radio-group aria-label="Select an option" formControlName="type"
-                     fxLayout="row" fxLayoutAlign="space-between stretch"
+                     class="g-layout-row g-layout-between-stretch"
                      (change)="onTypeChange($event.value)">
-      <mat-radio-button value="CLOUD" fxFlex="49%" flRadioButtonBig>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em"
-             class="radio-text">
+      <mat-radio-button value="CLOUD" class="radio-button" flRadioButtonBig>
+        <div class="radio-text g-layout-row g-layout-start-center g-layout-gap-05em">
           <mat-icon>cloud</mat-icon>
           <div>{{'lab_instance_type_CLOUD' | translate}}</div>
         </div>
@@ -22,9 +21,8 @@
         </div>
       </mat-radio-button>
 
-      <mat-radio-button value="DESKTOP" fxFlex="49%" flRadioButtonBig>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em"
-             class="radio-text">
+      <mat-radio-button value="DESKTOP" class="radio-button" flRadioButtonBig>
+        <div class="radio-text g-layout-row g-layout-start-center g-layout-gap-05em">
           <mat-icon>computer</mat-icon>
           <div>{{'lab_instance_type_DESKTOP' | translate}}</div>
         </div>

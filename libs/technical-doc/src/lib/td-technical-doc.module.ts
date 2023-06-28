@@ -15,7 +15,6 @@ import {
 } from '@monorepo/front-core-lib';
 import {TdIoDocsComponent} from './component/td-io-docs/td-io-docs.component';
 import {MatDividerModule} from '@angular/material/divider';
-import {FlexModule} from '@angular/flex-layout';
 import {TdIoResourceComponent} from './component/td-io-resource/td-io-resource.component';
 import {tdTechnicalDocI18n} from './td-technical-doc.i18n';
 import {TdServiceConfig} from './service/td-service-config.config';
@@ -38,7 +37,6 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatChipsModule,
     FlKeyValueModule,
     MatDividerModule,
-    FlexModule,
     FlCoreComponentModule,
     FlTranslateModule,
     MatTooltipModule
@@ -58,22 +56,22 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     TdTypeUnavailableComponent,
     TdTypingNamePipe
   ],
-    exports: [
-        TdTechnicalDocComponent,
-        TdResourceDocComponent,
-        TdMainDocComponent,
-        TdTechnicalDocHeaderComponent,
-        TdIoDocsComponent,
-        TdDocIoComponent,
-        TdTypeUnavailableComponent,
-        TdTypingNamePipe,
-        TdMarkdownPipe
-    ]
+  exports: [
+    TdTechnicalDocComponent,
+    TdResourceDocComponent,
+    TdMainDocComponent,
+    TdTechnicalDocHeaderComponent,
+    TdIoDocsComponent,
+    TdDocIoComponent,
+    TdTypeUnavailableComponent,
+    TdTypingNamePipe,
+    TdMarkdownPipe
+  ]
 })
 export class TdTechnicalDocModule {
 
   constructor(translateService: FlTranslateService) {
-    translateService.addModuleTranslation('TdTechnicalDocModule', tdTechnicalDocI18n)
+    translateService.addModuleTranslation('TdTechnicalDocModule', tdTechnicalDocI18n);
   }
 
   public static forRoot(apiServiceConfig: Type<TdServiceConfig>): ModuleWithProviders<TdTechnicalDocModule> {

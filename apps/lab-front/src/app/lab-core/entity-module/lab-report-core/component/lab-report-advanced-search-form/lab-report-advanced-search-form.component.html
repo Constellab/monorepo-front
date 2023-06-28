@@ -1,7 +1,6 @@
-<div fxLayout="column" class="form" [formGroup]="formGp">
+<div class="form g-layout-col" [formGroup]="formGp">
 
-  <div fxLayout="row wrap" fxLayoutGap="1em" fxLayoutAlign="space-between center"
-       class="g-full">
+  <div class="g-full g-layout-gap-1em g-layout-row-wrap g-layout-between-center">
 
     <!--  Title  -->
     <mat-form-field class="g-full">
@@ -46,11 +45,11 @@
     </div>
 
 
-    <mat-checkbox formControlName="isValidated" fxFlex="100%"
-                  class="checkbox">{{'biox.report_include_validated' | translate }}</mat-checkbox>
+    <mat-checkbox formControlName="isValidated"
+                  class="checkbox g-full">{{'biox.report_include_validated' | translate }}</mat-checkbox>
 
-    <mat-checkbox formControlName="isArchived" fxFlex="100%"
-                  class="checkbox">{{'biox.report_include_archived' | translate }}</mat-checkbox>
+    <mat-checkbox formControlName="isArchived"
+                  class="checkbox g-full">{{'biox.report_include_archived' | translate }}</mat-checkbox>
   </div>
 </div>
 

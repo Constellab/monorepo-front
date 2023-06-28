@@ -1,7 +1,7 @@
 <!--  Select the pathway  -->
 <h2>{{'bnBioNetwork.select_clusters' | translate}}</h2>
 
-<div fxLayout="row" fxLayoutAlign="start center">
+<div class="g-layout-row g-layout-start-center">
   <button mat-icon-button class="highlight-icon g-button-icon-tiny"
           (click)="toggleAllClusterColors()"
           [color]="clustersAllColored ? 'primary' : null"
@@ -15,7 +15,7 @@
   </mat-checkbox>
 </div>
 
-<div *ngFor="let cluster of clusters$ | async" fxLayout="row" fxLayoutAlign="start center">
+<div *ngFor="let cluster of clusters$ | async" class="g-layout-row g-layout-start-center">
   <button mat-icon-button class="highlight-icon g-button-icon-tiny"
           (click)="toggleClusterColor(cluster)" [disabled]="!cluster.selected"
           [matTooltip]="'bnBioNetwork.highlight_pathway' | translate">

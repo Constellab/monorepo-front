@@ -4,7 +4,7 @@ import {FlSearchComponent} from './component/fl-search/fl-search.component';
 import {FlInfiniteScrollModule} from '../fl-inifite-scroll/fl-infinite-scroll.module';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {FlLoaderModule} from '../fl-loader/fl-loader.module';
 import {FlDrawerModule} from '../fl-drawer/fl-drawer.module';
 import {FlSearchAdvancedFormComponent} from './component/fl-search-advanced-form/fl-search-advanced-form.component';
@@ -54,7 +54,6 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,

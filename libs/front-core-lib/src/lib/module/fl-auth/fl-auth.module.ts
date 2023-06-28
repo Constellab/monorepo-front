@@ -13,7 +13,6 @@ import {FlPasswordForgottenComponent} from './component/fl-password-forgotten/fl
 import {FlResetPasswordPageComponent} from './component/fl-reset-password-page/fl-reset-password-page.component';
 import {FlCorePipeModule} from '../fl-core-pipe/fl-core-pipe.module';
 import {FlLoaderModule} from '../fl-loader/fl-loader.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {FlCardModule} from '../fl-card/fl-card.module';
 import {RouterModule} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
@@ -68,7 +67,6 @@ import {FlLoginFormComponent} from './component/fl-login-form/fl-login-form.comp
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    FlexLayoutModule,
     MatIconModule,
     MatSelectModule,
     MatCheckboxModule,

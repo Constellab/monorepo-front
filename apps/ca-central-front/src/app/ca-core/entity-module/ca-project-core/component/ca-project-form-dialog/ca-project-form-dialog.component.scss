@@ -4,6 +4,10 @@
   margin-bottom: 0.5em;
 }
 
+.radio-button{
+  width: 49%;
+  box-sizing: border-box;
+}
 
 .radio-description{
   margin-top: 0.5em;
@@ -15,4 +19,8 @@
 
 .centered {
   margin: auto;
+}
+
+.half-input{
+  width: 49%;
 }

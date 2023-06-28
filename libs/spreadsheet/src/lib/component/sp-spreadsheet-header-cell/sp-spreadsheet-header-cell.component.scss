@@ -58,6 +58,10 @@ $cell-selected-border-color: #058989;
   height: 10px;
 }
 
+.colors-container > *:not(:last-child) {
+  margin-right: 2px;
+}
+
 .color {
   width: 10px;
   height: 10px;

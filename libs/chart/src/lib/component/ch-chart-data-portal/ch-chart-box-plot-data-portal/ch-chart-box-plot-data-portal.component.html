@@ -2,7 +2,7 @@
   <fl-portal-content>
 
     <!-- Lower Whisker -->
-    <div fxLayout="row">
+    <div class="g-layout-row">
       <span class="text g-text-light">{{'chChart.lower_whisker' | translate}}</span>
       <span class="value" [matTooltip]="boxPlotData.lowerWhisker | number" matTooltipPosition="after">
         {{boxPlotData.lowerWhisker | number:'1.2-2'}}
@@ -10,7 +10,7 @@
     </div>
 
     <!-- Q1 -->
-    <div fxLayout="row">
+    <div class="g-layout-row">
       <span class="text g-text-light">{{'chChart.quartile_1' | translate}}</span>
       <span class="value" [matTooltip]="boxPlotData.q1 | number" matTooltipPosition="after">
         {{boxPlotData.q1 | number:'1.2-2'}}
@@ -18,7 +18,7 @@
     </div>
 
     <!-- Median -->
-    <div fxLayout="row">
+    <div class="g-layout-row">
       <span class="text g-text-light">{{'chChart.median' | translate}}</span>
       <span class="value" [matTooltip]="boxPlotData.median | number" matTooltipPosition="after">
         {{boxPlotData.median | number:'1.2-2'}}
@@ -26,7 +26,7 @@
     </div>
 
     <!-- Q3 -->
-    <div fxLayout="row">
+    <div class="g-layout-row">
       <span class="text g-text-light">{{'chChart.quartile_3' | translate}}</span>
       <span class="value" [matTooltip]="boxPlotData.q3 | number" matTooltipPosition="after">
         {{boxPlotData.q3 | number:'1.2-2'}}
@@ -35,7 +35,7 @@
 
 
     <!-- Upper Whisker -->
-    <div fxLayout="row">
+    <div class="g-layout-row">
       <span class="text g-text-light">{{'chChart.upper_whisker' | translate}}</span>
       <span class="value" [matTooltip]="boxPlotData.upperWhisker | number" matTooltipPosition="after">
         {{boxPlotData.upperWhisker | number:'1.2-2'}}
@@ -45,7 +45,7 @@
     <mat-divider class="divider"></mat-divider>
 
     <!-- Min -->
-    <div fxLayout="row">
+    <div class="g-layout-row">
       <span class="text g-text-light">{{'chChart.min' | translate}}</span>
       <span class="value" [matTooltip]="boxPlotData.min | number" matTooltipPosition="after">
         {{boxPlotData.min | number:'1.2-2'}}
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Max -->
-    <div fxLayout="row">
+    <div class="g-layout-row">
       <span class="text g-text-light">{{'chChart.max' | translate}}</span>
       <span class="value" [matTooltip]="boxPlotData.max | number" matTooltipPosition="after">
         {{boxPlotData.max | number:'1.2-2'}}
@@ -61,7 +61,7 @@
     </div>
 
     <!-- Nb of Data -->
-    <!--  <div fxLayout="row">-->
+    <!--  <div class="g-layout-row"-->
     <!--    <span class="text g-text-light">{{'chChart.number_of_data' | translate}}</span>-->
     <!--    <span class="value">{{boxPlotData.nbOfData}}</span>-->
     <!--  </div>-->

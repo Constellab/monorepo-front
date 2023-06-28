@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FlExpansionMenuComponent} from './fl-expansion-menu/fl-expansion-menu.component';
 import {MatIconModule} from '@angular/material/icon';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {FlExpansionMenuButtonDirective} from './fl-expansion-menu-button/fl-expansion-menu-button.directive';
 import {
   FlExpansionMenuButtonToggleDirective
@@ -26,8 +25,6 @@ import {MatButtonModule} from '@angular/material/button';
 
     MatButtonModule,
     MatIconModule,
-    FlexLayoutModule,
-
   ],
 })
 export class FlExpansionMenuModule {

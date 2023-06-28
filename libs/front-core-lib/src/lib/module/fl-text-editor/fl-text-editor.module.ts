@@ -45,7 +45,7 @@ import {
   FlTextEditorTitleCaptionComponent
 } from './component/fl-text-editor-title-caption/fl-text-editor-title-caption.component';
 import {FlTranslateModule} from '../fl-translate/fl-translate.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {FlTextEditorFigureComponent} from './component/fl-text-editor-figure/fl-text-editor-figure.component';
 
 
@@ -79,7 +79,6 @@ import {FlTextEditorFigureComponent} from './component/fl-text-editor-figure/fl-
     MatInputModule,
     MatTooltipModule,
     MatFormFieldModule,
-    FlexLayoutModule,
 
     FlPortalModule,
     FlInputFileModule,

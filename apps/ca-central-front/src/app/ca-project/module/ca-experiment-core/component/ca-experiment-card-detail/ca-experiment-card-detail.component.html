@@ -4,7 +4,7 @@
     <ca-experiment-info [experiment]="experiment"></ca-experiment-info>
   </fl-card-body>
 
-  <fl-card-footer layoutGap="1em">
+  <fl-card-footer>
     <a *ngIf="experimentRoute" [href]="experimentRoute" mat-button>
       {{'open_experiment_in_lab' | translate}}
       <mat-icon>arrow_forward_ios</mat-icon>

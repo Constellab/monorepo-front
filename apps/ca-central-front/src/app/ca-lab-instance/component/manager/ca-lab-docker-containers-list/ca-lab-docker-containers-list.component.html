@@ -2,9 +2,9 @@
   <mat-expansion-panel *ngFor="let container of containers">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <div fxLayout="row" fxLayoutAlign="space-between" class="g-full">
+        <div class="g-layout-row g-layout-between g-full">
 
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+          <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
             <fl-status-chip [status]="container.state"></fl-status-chip>
             <span>{{container.names}}</span>
           </div>

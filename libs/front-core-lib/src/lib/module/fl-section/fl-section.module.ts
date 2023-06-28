@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FlSectionComponent} from './fl-section/fl-section.component';
 import {FlSectionHeaderComponent} from './fl-section-header/fl-section-header.component';
 import {FlSectionActionsComponent} from './fl-section-actions/fl-section-actions.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {MatIconModule} from '@angular/material/icon';
 import {FlSectionBodyDirective} from './fl-section-body';
 import {PortalModule} from '@angular/cdk/portal';
@@ -35,7 +35,6 @@ import {FlCoreComponentModule} from '../fl-core-component/fl-core-component.modu
 
     MatIconModule,
     PortalModule,
-    FlexLayoutModule,
 
     FlLoaderModule,
     FlTranslateModule,

@@ -1,6 +1,7 @@
-<div *ngIf="experiment$ | async as experiment" fxLayout="row" fxLayoutAlign="start center">
+<div *ngIf="experiment$ | async as experiment"
+     class="g-layout-row g-layout-start-center">
 
-  <fl-text-icon fxFlex="auto">
+  <fl-text-icon class="g-flex-auto">
     <mat-icon *ngIf="experiment.isValidated" class="g-icon-big"
               [matTooltip]="'biox.experiment_validated' | translate"
               flIcon="validated">

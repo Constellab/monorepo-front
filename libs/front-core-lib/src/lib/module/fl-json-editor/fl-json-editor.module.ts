@@ -7,7 +7,7 @@ import {FlDialogModule} from '../fl-dialog/fl-dialog.module';
 import {FlPrettyJsonComponent} from './fl-pretty-json/fl-pretty-json.component';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {FlTextIconModule} from '../fl-text-icon/fl-text-icon.module';
 import {FlTranslateService} from '../fl-translate/service/fl-translate.service';
 import {flJsonEditorI18n} from './i18n/fl-json-editor.i18n';
@@ -32,7 +32,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule,
     MatTreeModule,
     MatIconModule,
-    FlexLayoutModule,
     FlTextIconModule,
 
     FlDialogModule,

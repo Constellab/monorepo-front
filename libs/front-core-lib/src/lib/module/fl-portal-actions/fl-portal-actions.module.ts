@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FlPortalActionsComponent} from './component/fl-portal-actions/fl-portal-actions.component';
 import {FlPortalActionLineComponent} from './component/fl-portal-action-line/fl-portal-action-line.component';
 import {FlPortalModule} from '../fl-portal/fl-portal.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {MatIconModule} from '@angular/material/icon';
 import {FlLoaderModule} from '../fl-loader/fl-loader.module';
 import {FlPortalActionsService} from './service/fl-portal-actions.service';
@@ -29,7 +29,6 @@ import {MatButtonModule} from '@angular/material/button';
     CommonModule,
     RouterModule,
 
-    FlexLayoutModule,
     MatIconModule,
     MatButtonModule,
     MatDividerModule,

@@ -6,7 +6,6 @@ import {RouterModule} from '@angular/router';
 import {FlLimitHeightComponent} from './component/fl-limit-height/fl-limit-height.component';
 import {FlNewWebsiteVersionComponent} from './component/fl-new-website-version/fl-new-website-version.component';
 import {FlChipComponent} from './component/fl-chip/fl-chip.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatIconModule} from '@angular/material/icon';
 import {FlCoreDirectiveModule} from '../fl-core-directive/fl-core-directive.module';
 import {FlCorePipeModule} from '../fl-core-pipe/fl-core-pipe.module';
@@ -64,7 +63,6 @@ import {MatButtonModule} from '@angular/material/button';
     FlCoreDirectiveModule,
 
     // Material
-    FlexLayoutModule,
     MatTooltipModule,
     MatIconModule,
     MatButtonModule,

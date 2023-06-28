@@ -14,8 +14,8 @@
 
           <mat-expansion-panel-header>
             <!--    Force text color to override disable color    -->
-            <div class="g-full g-text-normal-color" fxLayout="row" fxLayoutAlign="start center">
-              <div class="transform-name" fxFlex="auto">{{transformer.transformer.name}}</div>
+            <div class="g-full g-text-normal-color g-layout-row g-layout-start-center">
+              <div class="transform-name g-flex-auto">{{transformer.transformer.name}}</div>
 
               <div class="g-text-light"
                    *ngIf="!transformer.hasConfig">{{'biox.transformer_no_config' | translate}}</div>

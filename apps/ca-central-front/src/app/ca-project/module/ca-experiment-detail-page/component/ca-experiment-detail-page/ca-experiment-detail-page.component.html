@@ -5,13 +5,13 @@
   <fl-section [isLoading]="isLoading" [object]="experiment">
 
     <ng-template flSectionBody>
-      <div fxLayout="row" fxLayoutAlign="space-between center" class="header">
+      <div class="header g-layout-row g-layout-between-center">
         <fl-text-icon>
           <mat-icon class="g-icon-big" flIcon="experiment"></mat-icon>
           <h1>{{experiment.title}}</h1>
         </fl-text-icon>
 
-        <div fxLayout="row" fxLayoutAlign="start center">
+        <div class="g-layout-row g-layout-start-center">
           <fl-status-chip [status]="experiment.status"
                           class="g-text-big">
           </fl-status-chip>
@@ -19,9 +19,10 @@
       </div>
 
 
-      <div fxLayout="row" fxLayoutAlign="start stretch" fxLayout.lt-md="column" fxLayoutGap="2em">
+      <div class="g-layout-start-stretch"
+           flClass.gt-sm="g-layout-row" flClass.lt-md="g-layout-col">
         <ca-experiment-card-detail [experiment]="experiment" (update)="onExperimentUpdate($event)"
-                                   class="flex">
+                                   class="flex experiment-card">
         </ca-experiment-card-detail>
 
         <!--  Lab instance   -->

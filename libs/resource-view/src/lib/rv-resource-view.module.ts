@@ -24,7 +24,7 @@ import {RvTechnicalInfoButtonComponent} from './component/rv-technical-info-butt
 import {RvTechnicalInfoDialogComponent} from './component/rv-technical-info-dialog/rv-technical-info-dialog.component';
 import {RvReportResourceViewComponent} from './component/rv-report-resource-view/rv-report-resource-view.component';
 import {MatIconModule} from '@angular/material/icon';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {RvViewImageComponent} from './component/rv-view-image/rv-view-image.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
@@ -41,7 +41,6 @@ import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
     MatTooltipModule,
     MatIconModule,
     MatButtonModule,
-    FlexLayoutModule,
 
     FlJsonEditorModule,
     FlCoreComponentModule,

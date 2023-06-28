@@ -1,5 +1,5 @@
-<div class="container" fxLayout="column">
-  <div fxLayout="row" fxLayoutAlign="space-between center">
+<div class="container g-layout-col">
+  <div class="g-layout-row g-layout-between-center">
 
     <fl-text-icon>
       <mat-icon flIcon="view"></mat-icon>
@@ -15,13 +15,13 @@
 
   <ng-content></ng-content>
 
-  <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex="grow" class="view-list g-scrollable-element">
-    <fl-card *ngFor="let viewSpec of viewSpecs$ | async" class="view-spec" fxFlexAlign="stretch"
+  <div class="g-flex-grow g-layout-row-wrap g-layout-start-start view-list g-scrollable-element">
+    <fl-card *ngFor="let viewSpec of viewSpecs$ | async" class="view-spec"
              (click)="openConfigPortal(viewSpec)"
              [ngClass]="{'default-view-spec' : viewSpec.defaultView}">
       <fl-card-body class="g-scrollable-element">
 
-        <div fxLayout="row" fxLayoutAlign="center">
+        <div class="g-layout-row g-layout-center">
           <lab-view-type-image [viewType]="viewSpec.viewType" size="4em">
           </lab-view-type-image>
         </div>

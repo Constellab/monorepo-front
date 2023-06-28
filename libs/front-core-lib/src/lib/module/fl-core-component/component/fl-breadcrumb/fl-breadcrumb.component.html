@@ -1,4 +1,4 @@
-<div fxLayout="row" class="g-text-light">
+<div class="g-layout-row g-text-light">
   <ng-container *ngFor="let breadcrumb of breadcrumbs; let last = last">
     <a [routerLink]="breadcrumb.url" class="g-text-link">
       {{breadcrumb.name | translate}}

@@ -4,13 +4,12 @@
     <ng-container *ngIf="required"> *</ng-container>
   </p>
 
-  <div fxLayout="row wrap">
+  <div class="g-layout-row-wrap">
     <div *ngFor="let color of availableColor"
          class="color-square g-text-not-selectable"
          (click)="selectColor(color)"
-         [style.backgroundColor]="color"
-         [style.borderColor]="boxBorderColor"
-         fxLayoutAlign="center center"
+         [style.background-color]="color"
+         [style.border-color]="boxBorderColor"
          [ngClass]="{'disable': disabled}">
       <mat-icon *ngIf="isSelected(color)" [style.color]="checkSelectedColor"
                 class="g-icon-small">

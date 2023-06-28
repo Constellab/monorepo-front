@@ -24,7 +24,6 @@ import {MatRadioModule} from '@angular/material/radio';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
-import {FlexLayoutModule} from '@angular/flex-layout';
 
 /**
  * Regrouped all the needed import for this app from material
@@ -58,8 +57,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatRippleModule,
 
     DragDropModule,
-
-    FlexLayoutModule,
   ],
   providers: [
     // form field default config

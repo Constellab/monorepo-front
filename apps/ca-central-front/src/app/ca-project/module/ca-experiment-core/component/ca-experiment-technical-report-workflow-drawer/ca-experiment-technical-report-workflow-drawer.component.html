@@ -1,8 +1,8 @@
-<div fxLayout="column" class="g-full-height drawer"
+<div class="g-full-height drawer g-layout-col"
      *ngIf="nodeSelected$ | async as nodeSelected">
 
 
-  <div fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="g-layout-row g-layout-between-center">
     <div class="g-text-big title">
       {{nodeSelected.getTitle$() | async}}
     </div>
@@ -14,7 +14,7 @@
   </div>
 
 
-  <div fxFlex="auto">
+  <div class="g-flex-auto">
 
     <div *ngIf="nodeSelected.getObject$() | async as object">
       <fl-key-value class="kv">

@@ -20,7 +20,7 @@
 
 
 
-  <form (ngSubmit)="submit()" id="add-version-form" [formGroup]="formGp" fxLayout="column" *ngIf="inputFile">
+  <form (ngSubmit)="submit()" id="add-version-form" [formGroup]="formGp" class="g-layout-col" *ngIf="inputFile">
     <p *ngIf="isUpdate">{{'replace_version_text' | translate}}</p>
     <p>{{'import_new_version_text2' | translate}}</p>
     <fl-key-value class="kv">

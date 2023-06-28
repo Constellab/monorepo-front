@@ -1,10 +1,10 @@
 <!-- The element is draggable withing the tag dashboard component-->
 <div class="g-drag-hide-placeholder container" cdkDrag cdkDragPreviewClass="g-drag-elevate">
 
-  <div fxLayout="row" fxLayoutAlign="start center" class="element key"
+  <div class="element key g-layout-row g-layout-start-center"
        (click)="toggleExpanded()">
     <mat-icon class="g-icon-small">{{icon}}</mat-icon>
-    <div class="key-text" fxFlex="auto">{{tagEntity.key}}</div>
+    <div class="key-text g-flex-auto">{{tagEntity.key}}</div>
 
 
     <div class="action-buttons">
@@ -25,14 +25,14 @@
   <div *ngIf="isExpanded" class="g-text-small g-drag-anim-order"
        cdkDropList (cdkDropListDropped)="reorderValues($event)">
 
-    <div *ngFor="let value of tagEntity.values" class="value element g-drag-hide-placeholder"
+    <div *ngFor="let value of tagEntity.values"
+         class="value element g-drag-hide-placeholder g-layout-row g-layout-start-center g-layout-gap-05em"
          (click)="selectTag(value)" #dragElement
          [ngClass]="{'selected': isSelected(value)}"
-         fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em"
          cdkDrag cdkDragPreviewClass="g-drag-elevate">
 
       <div class="color" [style.background-color]="getFlTag(value) | flTagColor | async"></div>
-      <div fxFlex="auto">
+      <div class="g-flex-auto">
         {{value}}
       </div>
 

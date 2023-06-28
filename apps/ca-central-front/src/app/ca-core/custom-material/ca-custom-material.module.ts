@@ -22,7 +22,6 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatBadgeModule} from '@angular/material/badge';
 
 
@@ -58,7 +57,6 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatTreeModule,
 
     MatRippleModule,
-    FlexLayoutModule,
   ],
   providers: [
     // form field default config

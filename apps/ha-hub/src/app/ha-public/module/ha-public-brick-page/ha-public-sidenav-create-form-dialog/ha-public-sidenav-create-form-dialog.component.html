@@ -3,7 +3,7 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <form (ngSubmit)="submit()" id="edit-form" [formGroup]="formGp" fxLayout="column" class="form">
+  <form (ngSubmit)="submit()" id="edit-form" [formGroup]="formGp" class="form g-layout-col">
 
     <!--  type  -->
     <mat-radio-group formControlName="type" name="type" class="radio-button-zone" *ngIf="!isUpdate">

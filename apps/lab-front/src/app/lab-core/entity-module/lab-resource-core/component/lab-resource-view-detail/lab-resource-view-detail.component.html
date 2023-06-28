@@ -1,12 +1,12 @@
 <fl-section [object]="labView" class="g-full-height">
   <fl-section-header class="header">
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
       <lab-view-type-image [viewType]="labView.viewConfig.viewType" size="2em"></lab-view-type-image>
       <h1 class="header-title">{{labView.viewConfig.title}}</h1>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
+    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
       <a [routerLink]="labView.viewConfig.resource.id | labDetailRoute:'resource'"
          *ngIf="labView.viewConfig.resource" class="g-text-link">
         <fl-text-icon class="g-text-tiny g-text-light"

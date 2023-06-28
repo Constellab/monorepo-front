@@ -42,17 +42,27 @@ import {SpSpreadsheetCellInfoComponent} from './component/sp-spreadsheet-cell-in
 import {SpSheetRangesInputComponent} from './component/sp-sheet-ranges-input/sp-sheet-ranges-input.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDividerModule} from '@angular/material/divider';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {
   FlAutocompleteMultipleModule,
   FlCoreComponentModule,
   FlCoreDirectiveModule,
-  FlCorePipeModule, FlDrawerModule,
-  FlIconModule, FlKeyValueModule, FlLoaderModule, FlMenuDynamicModule, FlPortalActionsModule,
-  FlPortalModule, FlResizeModule, FlSectionModule, FlTagModule, FlTextIconModule,
-  FlTranslateModule, FlTranslateService
+  FlCorePipeModule,
+  FlDrawerModule,
+  FlIconModule,
+  FlKeyValueModule,
+  FlLoaderModule,
+  FlMenuDynamicModule,
+  FlPortalActionsModule,
+  FlPortalModule,
+  FlResizeModule,
+  FlSectionModule,
+  FlTagModule,
+  FlTextIconModule,
+  FlTranslateModule,
+  FlTranslateService
 } from '@monorepo/front-core-lib';
-import { ChChartModule } from '@monorepo/chart';
+import {ChChartModule} from '@monorepo/chart';
 
 
 @NgModule({
@@ -102,7 +112,6 @@ import { ChChartModule } from '@monorepo/chart';
     MatMenuModule,
     MatIconModule,
     DragDropModule,
-    FlexLayoutModule,
     MatTooltipModule,
     MatButtonModule,
     MatInputModule,

@@ -1,4 +1,4 @@
-<div [formGroup]="control" fxLayout="row wrap" [fxLayoutGap]="inputFlexGap" class="g-full">
+<div [formGroup]="control" class="g-layout-row-wrap g-full container">
   <ng-container *ngFor="let controlName of config.subConfigs | flObjectKeys">
 
     <div [ngClass]="getControlClass(config.subConfigs[controlName])">

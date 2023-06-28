@@ -5,6 +5,11 @@
 
 .dialog-title{
   padding: 0 0 20px 0;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: stretch space-between;
+  align-items: stretch;
 }
 
 .fake-icon {

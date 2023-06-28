@@ -28,13 +28,13 @@
         <ng-container formArrayName="files">
           <div *ngFor="let control of formArray.controls; index as i" [formGroupName]="i">
 
-            <div fxLayout="row" fxLayoutAlign="space-between">
+            <div class="g-layout-row g-layout-between">
 
 
-              <p fxFlex="40%" class="filename" *ngIf="control.get('filename').value">{{control.get('filename').value}}</p>
+              <p class="filename" *ngIf="control.get('filename').value">{{control.get('filename').value}}</p>
 
               <!--  File type  -->
-              <mat-form-field fxFlex="auto">
+              <mat-form-field class="g-flex-auto">
                 <mat-label>{{typePlaceholder | translate}}</mat-label>
                 <mat-select formControlName="typingName" placeholder="{{typePlaceholder | translate}}"
                             required>

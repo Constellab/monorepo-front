@@ -1,13 +1,13 @@
 <div *ngIf="isLoading; else notLoading"
-     fxLayout="row" fxLayoutAlign="start center">
+     class="g-layout-row g-layout-start-center">
   {{'biox.resource_tab_loading' | translate}}
   <fl-loader [size]="20" class="loader"></fl-loader>
 </div>
 
 <ng-template #notLoading>
 
-  <div (auxclick)="onTabClick($event)" fxLayout="row"
-       fxLayoutAlign="start center" fxLayoutGap="10px">
+  <div (auxclick)="onTabClick($event)"
+       class="parent g-layout-row g-layout-start-center">
     <ng-container *ngIf="isError; else notError">{{'biox.resource_tab_error' | translate}}</ng-container>
     <ng-template #notError>
       <mat-icon [flIcon]="icon"></mat-icon>

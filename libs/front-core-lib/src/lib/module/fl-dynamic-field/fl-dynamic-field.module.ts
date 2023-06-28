@@ -4,7 +4,6 @@ import {FlDynamicFieldComponent} from './component/fl-dynamic-field/fl-dynamic-f
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlTranslateModule} from '../fl-translate/fl-translate.module';
 import {FlDynamicFormGroupComponent} from './component/fl-dynamic-form-group/fl-dynamic-form-group.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {FlCorePipeModule} from '../fl-core-pipe/fl-core-pipe.module';
 import {FlTranslateService} from '../fl-translate/service/fl-translate.service';
 import {flDynamicFieldI18n} from './i18n/fl-dynamic-field.i18n';
@@ -65,7 +64,6 @@ import {FlCardModule} from '../fl-card/fl-card.module';
     MatInputModule,
     MatCheckboxModule,
     MatSelectModule,
-    FlexLayoutModule,
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,

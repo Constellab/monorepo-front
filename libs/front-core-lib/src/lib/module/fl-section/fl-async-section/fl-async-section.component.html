@@ -1,11 +1,11 @@
-<div *ngIf="inputIsProvided" fxLayout="column" fxFlex="grow">
+<div *ngIf="inputIsProvided" class="g-flex-grow g-layout-col">
   <div>
     <ng-content select="fl-section-header">
     </ng-content>
   </div>
 
-  <div class="content" fxFlex="grow">
-    <div *ngIf="isLoading; else notLoading" fxLayoutAlign="center center">
+  <div class="g-flex-grow content">
+    <div *ngIf="isLoading; else notLoading" class="g-layout-row g-layout-center-center">
       <fl-loader size="medium"></fl-loader>
     </div>
 

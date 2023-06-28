@@ -5,7 +5,7 @@
 
 <mat-dialog-content>
 
-  <form (ngSubmit)="submit()" id="edit-user-form" [formGroup]="formGp" fxLayout="column">
+  <form (ngSubmit)="submit()" id="edit-user-form" [formGroup]="formGp" class="g-layout-col">
 
     <div class="g-centered-forced photo" (click)="activeInput($event)">
 
@@ -19,8 +19,8 @@
       </fl-user-profile-picture>
     </div>
 
-    <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="1%">
-      <mat-form-field fxFlex="49%">
+    <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+      <mat-form-field class="half-input">
         <mat-label>{{'firstname' | translate}}</mat-label>
         <input matInput type="text" formControlName="firstname" required flInputMaxLength="50"
                [placeholder]="'firstname' | translate">
@@ -29,7 +29,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field  fxFlex="49%">
+      <mat-form-field class="half-input">
         <mat-label>{{'lastname' | translate}}</mat-label>
         <input matInput type="text" formControlName="lastname" required flInputMaxLength="50"
                [placeholder]="'lastname' | translate">
@@ -38,12 +38,12 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field  fxFlex="49%">
+      <mat-form-field class="half-input">
         <mat-label>{{'phone_number' | translate}}</mat-label>
         <input matInput formControlName="phone" flInputMaxLength="50">
       </mat-form-field>
 
-      <mat-form-field  fxFlex="49%">
+      <mat-form-field class="half-input">
         <mat-label>{{'company' | translate}}</mat-label>
         <input matInput type="text" formControlName="company" flInputMaxLength="100">
       </mat-form-field>

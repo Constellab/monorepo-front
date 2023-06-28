@@ -21,8 +21,6 @@ export class FlDynamicFormGroupComponent implements OnInit, FlDynamicAbstractFor
 
   @Input() config: FlDynamicFormGroupConfig;
 
-  @Input() inputFlexGap: string = '0.3em';
-
   constructor() {
   }
 

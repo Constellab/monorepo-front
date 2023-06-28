@@ -1,12 +1,13 @@
-<div [fxLayout]="iconPosition === 'start' ? 'row' : 'row-reverse'" fxLayoutAlign="start center"
-     [fxLayoutGap]="gap">
+<div [ngClass]="iconPosition === 'start' ? 'g-layout-row' : 'g-layout-row-reverse'"
+     class="g-layout-start-center">
 
   <div class="icon-container" *ngIf="showIcon">
     <!-- Mat icon-->
     <ng-content select="mat-icon"></ng-content>
   </div>
 
-  <div>
+  <div [style.margin-right]="rightMargin"
+       [style.margin-left]="leftMargin">
     <!-- Text to display -->
     <ng-content></ng-content>
   </div>

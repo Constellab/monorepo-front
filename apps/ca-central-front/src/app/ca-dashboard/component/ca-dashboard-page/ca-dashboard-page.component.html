@@ -1,10 +1,9 @@
-<div fxLayout="column" fxLayout.gt-sm="row">
+<div flClass.gt-sm="g-layout-row" flClass.lt-md="g-layout-col">
 
-  <div class="dashboard-left" fxFill fxFlex="nogrow">
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em"
-         class="g-page-title">
+  <div class="dashboard-left">
+    <div class="g-page-title g-layout-row g-layout-start-center g-layout-gap-1em">
 
-      <div fxLayout="row" fxLayoutAlign="start end">
+      <div class="g-layout-row g-layout-start-end">
         <h1 *ngIf="currentSpace$ | async as currentSpace">
           {{'welcome_message' | translate:{name: currentSpace.name} }}
         </h1>
@@ -14,7 +13,7 @@
         </div>
 
       </div>
-      <div fxFlex="auto">
+      <div class="g-flex-auto">
         <ca-user-list-inline [userDatasource]="spaceUsers" [disabled]="true"></ca-user-list-inline>
       </div>
     </div>
@@ -42,9 +41,9 @@
   </div>
 
 
-  <div class="dashboard-right" fxFlex>
+  <div class="dashboard-right">
 
-    <div class="g-full" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+    <div class="g-full g-layout-row g-layout-start-center g-layout-gap-1em">
 
       <a class="link-button" href="mailto:clientsuccess@gencovery.com" matRipple>
         <fl-text-icon class="support">
@@ -53,8 +52,8 @@
         </fl-text-icon>
       </a>
 
-      <a [href]="hubLink" target="_blank" class="link-button" matRipple
-         fxLayout="row" fxLayoutAlign="start center">
+      <a [href]="hubLink" target="_blank"
+         class="link-button g-layout-row g-layout-start-center" matRipple>
         <img src="assets/fl-logo/community_logo.svg" alt="Community logo"
              class="community-logo"/>
         <span class="community-text">Community</span>

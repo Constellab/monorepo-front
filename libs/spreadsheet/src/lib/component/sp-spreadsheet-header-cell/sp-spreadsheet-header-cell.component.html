@@ -2,9 +2,9 @@
      flMouseHover [flMouseEnterDelay]="500" (flMouseEnter)="openHeaderPortal()" (flMouseLeave)="closePortal()">
   <div class="index">{{index | SpCellHeader:type | async}}</div>
 
-  <div fxLayout="column" class="grid-right">
+  <div class="grid-right g-layout-col">
     <div class="g-text-tiny g-text-light header-name">{{header.name}}</div>
-    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px" class="colors-container">
+    <div class="g-layout-row g-layout-center colors-container">
       <div *ngFor="let color of colors$ | async" [style.background-color]="color"
            class="color">
       </div>

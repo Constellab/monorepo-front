@@ -7,7 +7,7 @@ import {FlUserWithDateComponent} from './component/fl-user-with-date/fl-user-wit
 import {
   FlUserMouseHoverPortalDirective
 } from './directive/fl-user-mouse-hover-portal/fl-user-mouse-hover-portal.directive';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {FlUserInfoPortalComponent} from './component/fl-user-info-portal/fl-user-info-portal.component';
 import {FlTextIconModule} from '../fl-text-icon/fl-text-icon.module';
 import {MatIconModule} from '@angular/material/icon';
@@ -52,7 +52,6 @@ import {FlInputSearchModule} from '../fl-input-search/fl-input-search.module';
 
     MatIconModule,
     MatButtonModule,
-    FlexLayoutModule,
 
     FlTextIconModule,
     FlTranslateModule,

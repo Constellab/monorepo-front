@@ -1,4 +1,4 @@
-<div class="g-page-fixed" fxLayout="column">
+<div class="g-page-fixed g-layout-col">
 
   <fl-async-section [object]="smartDb$">
 
@@ -7,8 +7,8 @@
       <!--  Header with the search -->
       <div>
 
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+        <div class="g-layout-row g-layout-between-center">
+          <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
             <h1>{{'smart_db.smart_db' | translate}} : {{smartDb.name}}</h1>
             <fl-status-chip [status]="smartDb.type" mode="iconText"></fl-status-chip>
           </div>
@@ -22,10 +22,10 @@
         </div>
 
         <form (ngSubmit)="submit()"
-              fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="1em">
+              class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
 
           <!--    Search      -->
-          <mat-form-field fxFlex="auto" class="g-form-field-no-hint">
+          <mat-form-field class="g-flex-auto g-form-field-no-hint">
             <mat-label>{{'smart_db.search_field' | translate}}</mat-label>
             <input matInput [formControl]="formControl" [flAutofocus]="0"
                    placeholder="{{'smart_db.search_field' | translate}}">
@@ -43,9 +43,9 @@
 
 
       <!-- Result  -->
-      <div fxFlex="auto" class="g-grow-max-height g-scrollable-element" fxLayout="row" fxLayoutGap="1em">
+      <div class="g-flex-auto g-grow-max-height g-scrollable-element g-layout-row g-layout-gap-1em">
 
-        <fl-infinite-scroll [datasource]="datasource" fxFlex="60%">
+        <fl-infinite-scroll [datasource]="datasource" class="left-section">
           <!--   Number of results   -->
           <p class="g-text-small g-text-light">
             <ng-container *ngIf="datasource.page?.totalElements > 0">
@@ -59,7 +59,7 @@
           </div>
         </fl-infinite-scroll>
 
-        <div fxFlex="40%">
+        <div class="right-section">
           <ca-smart-db-doc-card [smartDbId]="smartDbId" [doc]="selectedDoc$ | async"
                                 [showDetailPageLink]="true"></ca-smart-db-doc-card>
         </div>

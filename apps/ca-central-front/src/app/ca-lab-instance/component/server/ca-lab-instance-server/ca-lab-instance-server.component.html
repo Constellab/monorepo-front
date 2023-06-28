@@ -11,7 +11,7 @@
 
     <ng-container *ngIf="status$ | async as status">
       <div *ngIf="status.serverTaskStatus.value === 'RUNNING'; else notRunning"
-           fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em">
+           class="g-layout-row g-layout-start-center g-layout-gap-1em">
 
         <fl-loader size="small"></fl-loader>
         <p>{{getStatusRunningMessage(status) | translate}}</p>
@@ -30,7 +30,7 @@
     <ca-lab-instance-server-status class="status"></ca-lab-instance-server-status>
 
 
-    <div class="g-section" fxLayout="row">
+    <div class="g-section g-layout-row">
 
       <ca-lab-instance-start-stop *ngIf="isOwner$ | async" class="g-button-action actions-button">
       </ca-lab-instance-start-stop>

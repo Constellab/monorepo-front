@@ -10,6 +10,8 @@
 @media (max-width: 599px) {
   .page {
     padding: 1em 1em 0 1em;
+    place-content: flex-start center;
+    align-items: flex-start;
   }
 }
 
@@ -20,7 +22,11 @@
   box-sizing: border-box;
 }
 
-.login{
+.card-xs {
+  width: 100%
+}
+
+.login {
   padding-left: 1em;
   padding-right: 1em;
   display: block;

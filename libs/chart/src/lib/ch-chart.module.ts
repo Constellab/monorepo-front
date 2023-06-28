@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatIconModule} from '@angular/material/icon';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {CommonModule} from '@angular/common';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
@@ -45,11 +44,16 @@ import {ChChartColorFunctionPipe} from './pipe/ch-chart-color-function.pipe';
 import {ChChartValueComponent} from './component/ch-chart-data-portal/ch-chart-value/ch-chart-value.component';
 import {ChChartValueFormatterPipe} from './pipe/ch-chart-value-formatter.pipe';
 import {
-  FlCoreDirectiveModule, FlCorePipeModule,
-  FlIconModule, FlKeyValueModule,
+  FlCoreDirectiveModule,
+  FlCorePipeModule,
+  FlIconModule,
+  FlKeyValueModule,
   FlMenuDynamicModule,
-  FlPortalModule, FlResizeModule, FlTagModule,
-  FlTranslateModule, FlTranslateService
+  FlPortalModule,
+  FlResizeModule,
+  FlTagModule,
+  FlTranslateModule,
+  FlTranslateService
 } from '@monorepo/front-core-lib';
 import {ChChartPortalService} from './service/ch-chart-portal.service';
 import {chChartI18n} from './i18n/ch-chart.i18n';
@@ -107,7 +111,6 @@ import {chChartI18n} from './i18n/ch-chart.i18n';
     DragDropModule,
     MatButtonModule,
     MatIconModule,
-    FlexLayoutModule,
     MatOptionModule,
     MatTooltipModule,
     MatDividerModule,

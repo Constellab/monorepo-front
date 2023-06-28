@@ -1,9 +1,8 @@
 <div>
-  <div fxLayout="row wrap" fxLayoutGap="1%">
+  <div class="g-layout-row-wrap g-layout-gap-05em">
     <ca-project-card *ngFor="let project of projects$ | async"
                      (click)="selectCard(project)" [project]="project"
-                     class="card" [ngClass]="{'selected-card': isSelected(project)}"
-                     fxFlex="15em"></ca-project-card>
+                     class="card" [ngClass]="{'selected-card': isSelected(project)}"></ca-project-card>
   </div>
 
   <fl-infinite-load-more-result [datasource]="projectsDatasource"></fl-infinite-load-more-result>

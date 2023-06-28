@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FlInputFileContainerComponent} from './fl-input-file-container/fl-input-file-container.component';
 import {FlInputFileDirective} from './fl-input-file.directive';
 import {MatIconModule} from '@angular/material/icon';
-import {FlexLayoutModule} from '@angular/flex-layout';
+
 import {FlTranslateModule} from '../fl-translate/fl-translate.module';
 import {FlTranslateService} from '../fl-translate/service/fl-translate.service';
 import {flFileInputI18n} from './i18n/fl-input-file.i18n';
@@ -35,7 +35,6 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule,
     MatTooltipModule,
     MatRippleModule,
-    FlexLayoutModule,
 
     FlDragModule,
     FlTranslateModule,

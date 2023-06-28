@@ -9,14 +9,13 @@
 
     <!--  Type   -->
     <p class="subtitle"><strong>{{'lab_green_option_type' | translate}}</strong></p>
-    <mat-radio-group formControlName="type" fxLayout="row wrap"
-                     fxLayoutAlign="space-between stretch"
-                     required
+    <mat-radio-group formControlName="type" required
+                     class="g-layout-row-wrap g-layout-between-stretch"
                      (change)="onGreenOptionTypeChange($event)">
 
       <mat-radio-button *ngFor="let key of greenOptionType | flObjectKeys" required
-                        [value]="greenOptionType[key]" fxFlex="49%" flRadioButtonBig
-                        class="type-button">
+                        [value]="greenOptionType[key]" flRadioButtonBig
+                        class="type-button radio-button">
         <div>{{('lab_green_option_' + greenOptionType[key]) | translate}}</div>
 
         <div class="g-text-small g-text-light radio-description">
@@ -31,11 +30,11 @@
 
     <!--  Persistent   -->
     <p class="subtitle"><strong>{{'lab_green_option_persistent' | translate}}</strong></p>
-    <mat-radio-group formControlName="isPersistent" fxLayout="row"
-                     fxLayoutAlign="space-between stretch"
+    <mat-radio-group formControlName="isPersistent"
+                     class="g-layout-row g-layout-between-stretch"
                      required>
 
-      <mat-radio-button [value]="true" fxFlex="49%" flRadioButtonBig>
+      <mat-radio-button [value]="true" class="radio-button" flRadioButtonBig>
         <div>{{'lab_green_option_persistent' | translate}}</div>
 
         <div class="g-text-small g-text-light radio-description">
@@ -43,7 +42,7 @@
         </div>
       </mat-radio-button>
 
-      <mat-radio-button [value]="false" fxFlex="49%" flRadioButtonBig>
+      <mat-radio-button [value]="false" class="radio-button" flRadioButtonBig>
         <div>{{'lab_green_option_not_persistent' | translate}}</div>
 
         <div class="g-text-small g-text-light radio-description">

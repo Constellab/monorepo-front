@@ -1,36 +1,147 @@
 
-.g-layout-column{
+.g-layout-col {
   flex-direction: column;
   box-sizing: border-box;
   display: flex;
 }
 
-.g-layout-column-reverse{
+.g-layout-col-wrap {
+  flex-direction: column;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.g-layout-col-reverse {
   flex-direction: column-reverse;
   box-sizing: border-box;
   display: flex;
 }
 
-.g-layout-row{
+.g-layout-row {
   flex-direction: row;
   box-sizing: border-box;
   display: flex;
 }
 
-.g-layout-row-wrap{
+.g-layout-row-wrap {
   flex-direction: row;
   flex-wrap: wrap;
   box-sizing: border-box;
   display: flex;
 }
 
-.g-layout-row-reverse{
+.g-layout-row-reverse {
   flex-direction: row-reverse;
   box-sizing: border-box;
   display: flex;
 }
 
-.g-layout-start-center{
+/////////////////////////// CHILDREN ///////////////////////////
+
+// START
+.g-layout-start-center {
   place-content: center flex-start;
   align-items: center;
+}
+
+.g-layout-start-stretch {
+  place-content: stretch flex-start;
+  align-items: stretch;
+}
+
+.g-layout-start-start{
+  place-content: flex-start flex-start;
+  align-items: flex-start;
+}
+
+.g-layout-start-end {
+  place-content: flex-end flex-start;
+  align-items: flex-end;
+}
+
+// CENTER
+.g-layout-center {
+  place-content: stretch center;
+  align-items: stretch;
+}
+
+.g-layout-center-center {
+  place-content: center center;
+  align-items: center;
+}
+
+.g-layout-center-start {
+  place-content: flex-start center;
+  align-items: flex-start;
+}
+
+// BETWEEN
+.g-layout-between{
+  place-content: stretch space-between;
+  align-items: stretch;
+}
+
+.g-layout-between-center {
+  place-content: center space-between;
+  align-items: center;
+}
+
+.g-layout-between-start {
+  place-content: flex-start space-between;
+  align-items: flex-start;
+}
+
+.g-layout-between-stretch {
+  place-content: stretch space-between;
+  align-items: stretch;
+}
+
+// EVENLY
+.g-layout-evenly{
+  place-content: stretch space-evenly;
+  align-items: stretch;
+}
+
+.g-layout-evenly-center{
+  place-content: center space-evenly;
+  align-items: center;
+}
+
+// END
+.g-layout-end{
+  place-content: stretch flex-end;
+  align-items: stretch;
+}
+
+.g-layout-end-center{
+  place-content: center flex-end;
+  align-items: center;
+}
+
+.g-layout-end-evenly{
+  place-content: space-evenly flex-end;
+  align-items: stretch;
+}
+
+//////////////////////////////// FLEX ////////////////////////////////
+.g-flex-grow{
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.g-flex-auto{
+  flex: 1 1 auto;
+  box-sizing: border-box;
+}
+
+/////////////////////////////// GAP ///////////////////////////////
+// for row layout, the gap is between columns
+.g-layout-gap-1em > *:not(:last-child) {
+  margin-right: 1em;
+}
+
+.g-layout-gap-05em > *:not(:last-child) {
+  margin-right: 0.5em;
 }

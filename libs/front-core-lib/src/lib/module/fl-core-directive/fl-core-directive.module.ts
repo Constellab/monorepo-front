@@ -12,6 +12,7 @@ import {FlAutoScrollToAnchorDirective} from './fl-auto-scroll-to-anchor/fl-auto-
 import {FlBackupImageDirective} from './fl-backup-image/fl-backup-image.directive';
 import {FlActiveRouteDirective} from './fl-active-route/fl-active-route.directive';
 import {FlHideDirective} from './fl-hide/fl-hide.directive';
+import {FlClassDirective} from './fl-class/fl-class.directive';
 
 
 /**
@@ -30,6 +31,7 @@ import {FlHideDirective} from './fl-hide/fl-hide.directive';
     FlBackupImageDirective,
     FlActiveRouteDirective,
     FlHideDirective,
+    FlClassDirective,
   ],
   exports: [
     FlInputMaxLengthDirective,
@@ -43,6 +45,7 @@ import {FlHideDirective} from './fl-hide/fl-hide.directive';
     FlBackupImageDirective,
     FlActiveRouteDirective,
     FlHideDirective,
+    FlClassDirective,
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@
     <ng-content select="fl-search-advanced-form"></ng-content>
   </mat-drawer>
 
-  <mat-drawer-content class="content" fxLayout="column">
+  <mat-drawer-content class="content g-layout-col">
 
     <ng-content select="fl-search-header"></ng-content>
 
@@ -19,7 +19,7 @@
       </ng-container>
     </p>
 
-    <fl-infinite-table-container fxFlex="grow" [datasource]="datasource" class="table-container">
+    <fl-infinite-table-container [datasource]="datasource" class="g-flex-grow table-container">
       <ng-content select="fl-search-result"></ng-content>
     </fl-infinite-table-container>
 

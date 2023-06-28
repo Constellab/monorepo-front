@@ -1,6 +1,6 @@
 <!-- user reverse so the first displayed element is on top of others-->
 <ng-container *ngIf="value">
-  <div fxLayout="row-reverse" class="user-list">
+  <div class="g-layout-row-reverse user-list">
     <div class="additional-user-count-externe" *ngIf="additionalUserLength > 0"
          (click)="openAdditionalUsersPortal($event)" [ngClass]="{'selected': selectionAdditionalUser()}">
       <div class="additional-user-count-interne g-text-not-selectable">

@@ -6,7 +6,7 @@
       <lab-resource-detail-tab-header [tab]="tab" [showCloseButton]="!first"></lab-resource-detail-tab-header>
     </ng-template>
 
-    <fl-async-section [object]="$any(tab.obs)" fxLayout="column"
+    <fl-async-section [object]="$any(tab.obs)" class="g-layout-col"
                       [ngClass]="{'fixed-height': tab.type === 'view', 'min-height': tab.type === 'resource'}">
 
       <ng-container *flSectionBody="let result">

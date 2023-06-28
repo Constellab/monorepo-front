@@ -5,12 +5,12 @@
       <h2>{{type.name}}</h2>
     </fl-dialog-header>
 
-    <mat-dialog-content fxLayout="column">
+    <mat-dialog-content class="g-layout-col">
       <a mat-stroked-button type="button" class="g-button-small detail-link" [routerLink]="detailRoute">
         {{'biox.open_type_in_page' | translate}}
         <mat-icon>chevron_right</mat-icon>
       </a>
-      <lab-type-detail [type]="type" fxFlex="auto"></lab-type-detail>
+      <lab-type-detail [type]="type" class="g-flex-auto"></lab-type-detail>
     </mat-dialog-content>
   </ng-container>
 </fl-async-section>

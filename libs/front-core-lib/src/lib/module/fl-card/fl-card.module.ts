@@ -2,14 +2,13 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FlCardComponent} from './fl-card/fl-card.component';
 import {FlCardImageComponent} from './fl-card-image/fl-card-image.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {FlCardActionsComponent} from './fl-card-actions/fl-card-actions.component';
 import {FlCardBodyComponent} from './fl-card-body/fl-card-body.component';
 import {FlCardHeaderComponent} from './fl-card-header/fl-card-header.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {FlCardFooterComponent} from './fl-card-footer/fl-card-footer.component';
 import {FlImageModule} from '../fl-image/fl-image.module';
-import { FlLoadingCardComponent } from './fl-loading-card/fl-loading-card.component';
+import {FlLoadingCardComponent} from './fl-loading-card/fl-loading-card.component';
 
 /**
  * Custom card with colored header
@@ -36,7 +35,6 @@ import { FlLoadingCardComponent } from './fl-loading-card/fl-loading-card.compon
   imports: [
     CommonModule,
     FlImageModule,
-    FlexLayoutModule,
     ScrollingModule,
   ]
 })

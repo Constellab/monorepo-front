@@ -74,7 +74,6 @@ import {
 import {
   BnBioNetworkActionBarComponent
 } from './component/bn-bio-network-action-bar/bn-bio-network-action-bar.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {
   FlCoreComponentModule,
   FlCoreDirectiveModule,
@@ -128,7 +127,6 @@ import {
     ReactiveFormsModule,
 
     MatSidenavModule,
-    FlexLayoutModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,

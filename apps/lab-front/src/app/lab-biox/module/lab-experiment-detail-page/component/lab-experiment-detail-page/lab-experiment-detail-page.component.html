@@ -1,15 +1,15 @@
 <mat-drawer-container class="g-page-fixed page" [hasBackdrop]="false">
 
   <!-- content of the page -->
-  <mat-drawer-content fxFlex="auto">
-    <fl-async-section [object]="experiment$" fxFlex="auto" class="section">
+  <mat-drawer-content class="g-flex-auto">
+    <fl-async-section [object]="experiment$" class="section g-flex-auto">
 
       <ng-container *flSectionBody="let experiment">
-        <div fxLayout="column" class="g-full-height">
+        <div class="g-full-height g-layout-col">
 
           <lab-experiment-detail-header class="g-card-background"></lab-experiment-detail-header>
 
-          <mat-tab-group fxFlex="auto" class="g-mat-tab-full-height g-mat-tab-header-card-background"
+          <mat-tab-group class="g-flex-auto g-mat-tab-full-height g-mat-tab-header-card-background"
                          [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="tabIndexChange($event)">
             <mat-tab [label]="'biox.experiment_workflow' | translate">
               <ng-template matTabContent>

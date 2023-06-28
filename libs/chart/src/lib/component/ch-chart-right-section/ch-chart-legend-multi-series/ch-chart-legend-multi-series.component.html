@@ -1,6 +1,6 @@
 <div class="g-scrollable-element">
   <div *ngFor="let serie of data.series" class="g-text-tiny">
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
+    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
       <div class="color" [style.background-color]="serie.key | chChartScale:data.seriesColorScale" [ngClass]="{'disable-color': disableLegends}"></div>
       <div class="text">
         {{serie.name}}

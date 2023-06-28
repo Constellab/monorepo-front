@@ -11,9 +11,9 @@
 
     <!--  Level status  -->
     <mat-radio-group aria-label="Select an option" formControlName="levelStatus"
-                     fxLayout="row" fxLayoutAlign="space-between stretch">
-      <mat-radio-button [value]="levelStatus.LEAF" fxFlex="49%" flRadioButtonBig>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
+                     class="g-layout-row g-layout-between-stretch">
+      <mat-radio-button [value]="levelStatus.LEAF" class="radio-button" flRadioButtonBig>
+        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
           <ca-project-icon [type]="levelStatus.LEAF"></ca-project-icon>
           <div>{{'modern_project' | translate}}</div>
         </div>
@@ -23,8 +23,8 @@
         </div>
       </mat-radio-button>
 
-      <mat-radio-button [value]="levelStatus.PARENT" fxFlex="49%" flRadioButtonBig>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
+      <mat-radio-button [value]="levelStatus.PARENT" class="radio-button" flRadioButtonBig>
+        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
           <ca-project-icon [type]="levelStatus.PARENT"></ca-project-icon>
           <div>{{'classic_project' | translate}}</div>
         </div>
@@ -36,7 +36,7 @@
     </mat-radio-group>
 
     <!--  Code  -->
-    <mat-form-field class="g-form-input code" appearance="outline">
+    <mat-form-field class="g-form-input code">
       <mat-label>{{'code' | translate}}</mat-label>
       <input matInput formControlName="code" required flInputMaxLength="20"
              placeholder="{{'code' | translate}}">
@@ -46,7 +46,7 @@
     </mat-form-field>
 
     <!--  Title  -->
-    <mat-form-field class="g-form-input" appearance="outline">
+    <mat-form-field class="g-form-input">
       <mat-label>{{'title' | translate}}</mat-label>
       <input matInput formControlName="title" required flInputMaxLength="50"
              placeholder="{{'title' | translate}}">
@@ -56,10 +56,10 @@
     </mat-form-field>
 
 
-    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+    <div class="g-layout-row-wrap g-layout-between-center">
 
       <!--    Start Date      -->
-      <mat-form-field fxFlex="49" class="g-form-input" appearance="outline">
+      <mat-form-field class="g-form-input half-input">
         <mat-label>{{'starting_date' | translate}}</mat-label>
         <input matInput formControlName="startingDate" required
                [matDatepicker]="startingPicker" placeholder="{{'starting_date' | translate}}">
@@ -71,7 +71,7 @@
       </mat-form-field>
 
       <!--    End Date      -->
-      <mat-form-field fxFlex="49" class="g-form-input" appearance="outline">
+      <mat-form-field class="g-form-input half-input">
         <mat-label>{{'ending_date' | translate}}</mat-label>
         <input matInput formControlName="endingDate" [min]="formGp.get('startingDate').value"
                [matDatepicker]="endingPicker" placeholder="{{'ending_date' | translate}}">

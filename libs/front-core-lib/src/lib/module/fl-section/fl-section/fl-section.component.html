@@ -1,12 +1,12 @@
 
-<div fxLayout="column" fxFlex="grow">
-  <div fxFlex="auto">
+<div class="g-flex-grow g-layout-col">
+  <div class="g-flex-auto">
     <ng-content select="fl-section-header">
     </ng-content>
   </div>
 
-  <div class="content" fxFlex="grow">
-    <div *ngIf="_isLoading; else notLoading" fxLayoutAlign="center center">
+  <div class="g-flex-grow content">
+    <div *ngIf="_isLoading; else notLoading" class="g-layout-row g-layout-center-center">
       <fl-loader size="medium"></fl-loader>
     </div>
 

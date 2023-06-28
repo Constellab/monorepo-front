@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {FlRoundImageComponent} from './fl-round-image/fl-round-image.component';
 
 
@@ -18,7 +17,6 @@ import {FlRoundImageComponent} from './fl-round-image/fl-round-image.component';
   ],
   imports: [
     CommonModule,
-    FlexLayoutModule,
   ]
 })
 export class FlImageModule {

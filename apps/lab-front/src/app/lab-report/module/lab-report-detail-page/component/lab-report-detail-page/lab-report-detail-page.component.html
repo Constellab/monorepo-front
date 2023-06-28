@@ -1,9 +1,9 @@
 <div class="g-page">
-  <fl-async-section fxFlex="auto" [object]="report$">
+  <fl-async-section class="g-flex-auto" [object]="report$">
 
     <ng-container *flSectionBody="let report">
 
-      <div fxLayout="row" fxLayoutAlign="start center">
+      <div class="g-layout-row g-layout-start-center">
         <mat-icon [matTooltip]="'biox.report_validated' | translate"
                   class="g-icon-big status-icon" *ngIf="report.isValidated"
                   flIcon="validated">
@@ -14,7 +14,7 @@
                   flIcon="archive">
         </mat-icon>
 
-        <h2 fxFlex="auto">{{report.title}}</h2>
+        <h2 class="g-flex-auto">{{report.title}}</h2>
 
         <lab-sync-object-button [object]="report" [syncObjectFunc]="syncObjectFunc"
                                 additionalConfirmText="biox.sync_report_confirmation"

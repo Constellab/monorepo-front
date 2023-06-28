@@ -57,11 +57,11 @@
           </mat-checkbox>
 
           <!--    Vulcano plot      -->
-          <div fxLayout="row" fxLayoutAlign="space-between">
+          <div class="g-layout-row g-layout-between">
 
             <!-- X Threshold -->
-            <mat-form-field appearance="outline" fxFlex="49%" *ngIf="showAdditionalField('xThreshold')"
-                            class="g-form-input-bottom">
+            <mat-form-field *ngIf="showAdditionalField('xThreshold')"
+                            class="g-form-input-bottom half-input">
               <mat-label>{{'spSpreadsheet.chart_x_threshold' | translate}}</mat-label>
               <input matInput formControlName="xThreshold" required
                      placeholder="{{'spSpreadsheet.chart_x_threshold' | translate}}" type="number">
@@ -72,8 +72,8 @@
 
 
             <!-- Y Threshold -->
-            <mat-form-field appearance="outline" fxFlex="49%" *ngIf="showAdditionalField('yThreshold')"
-                            class="g-form-input-bottom">
+            <mat-form-field *ngIf="showAdditionalField('yThreshold')"
+                            class="g-form-input-bottom half-input">
               <mat-label>{{'spSpreadsheet.chart_y_threshold' | translate}}</mat-label>
               <input matInput formControlName="yThreshold" required
                      placeholder="{{'spSpreadsheet.chart_y_threshold' | translate}}" type="number">
@@ -85,14 +85,14 @@
 
 
           <!-- X and Y labels -->
-          <div fxLayout="row" fxLayoutAlign="space-between">
-            <mat-form-field appearance="outline" fxFlex="49%" *ngIf="showAdditionalField('xAxisLabel')">
+          <div class="g-layout-row g-layout-between">
+            <mat-form-field class="half-input" *ngIf="showAdditionalField('xAxisLabel')">
               <mat-label>{{'spSpreadsheet.chart_x_axis_label' | translate}}</mat-label>
               <input matInput formControlName="xAxisLabel"
                      placeholder="{{'spSpreadsheet.chart_x_axis_label' | translate}}">
             </mat-form-field>
 
-            <mat-form-field appearance="outline" fxFlex="49%" *ngIf="showAdditionalField('yAxisLabel')">
+            <mat-form-field class="half-input" *ngIf="showAdditionalField('yAxisLabel')">
               <mat-label>{{'spSpreadsheet.chart_y_axis_label' | translate}}</mat-label>
               <input matInput formControlName="yAxisLabel"
                      placeholder="{{'spSpreadsheet.chart_y_axis_label' | translate}}">
@@ -107,7 +107,7 @@
         <mat-divider class="divider"></mat-divider>
 
 
-        <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="g-layout-row g-layout-between-center">
           <h2>{{'spSpreadsheet.chart_series' | translate}}</h2>
 
           <button mat-icon-button type="button" (click)="addSerie()"
@@ -117,7 +117,7 @@
           </button>
         </div>
 
-        <div *ngFor="let serie of series; let i = index" fxLayout="row" fxLayoutAlign="space-between center">
+        <div *ngFor="let serie of series; let i = index" class="g-layout-row g-layout-between-center">
           <div>{{serie.name}}</div>
           <div>
             <button mat-icon-button type="button" class="g-button-icon-small"
@@ -144,7 +144,7 @@
         </div>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="space-evenly">
+      <div class="g-layout-row g-layout-evenly">
         <button mat-flat-button color="primary" type="submit">
           {{submitTextButton | translate}}
         </button>

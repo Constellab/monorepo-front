@@ -5,10 +5,10 @@
     <fl-expansion-menu [(expanded)]="menuExpanded">
 
 
-      <div fxLayout="column" class="g-scrollable-element column-container">
+      <div class="g-scrollable-element g-layout-col column-container">
 
         <a class="align-container logo-div" [ngClass]="{'align-container-center': menuExpanded}">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em">
+          <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
             <a [routerLink]="appRoute">
               <img [src]="logo" alt="Space logo" class="logo"  [ngClass]="{'logo-expanded': menuExpanded}"
                    flBackupImage="assets/fl-logo/constellab-logo.svg"/>
@@ -22,7 +22,7 @@
         </a>
 
         <!-- List of main menu links   -->
-        <div fxFlex="auto" class="menu" fxLayout="column">
+        <div class="g-flex-auto menu g-layout-col">
           <ng-container *ngFor="let link of accessibleLinks">
             <mat-divider *ngIf="link.divider" class="divider"></mat-divider>
             <a mat-button [routerLink]="link.route" class="menu-button"

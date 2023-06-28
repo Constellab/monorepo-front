@@ -1,7 +1,7 @@
 <fl-portal class="portal">
   <fl-portal-content>
-    <div class="current-space" *ngIf="currentSpace$ | async as currentSpace"
-         fxLayout="column" fxLayoutAlign="start center">
+    <div class="current-space g-layout-col g-layout-start-center"
+         *ngIf="currentSpace$ | async as currentSpace">
       <a [routerLink]="currentSpaceRoute" class="current-space-photo">
         <ca-space-photo [space]="currentSpace" size="big"></ca-space-photo>
       </a>

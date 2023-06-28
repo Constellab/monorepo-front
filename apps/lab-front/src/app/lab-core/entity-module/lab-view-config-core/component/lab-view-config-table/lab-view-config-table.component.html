@@ -1,4 +1,4 @@
-<mat-table fxFlex="100" mat-table [dataSource]="datasource">
+<mat-table mat-table [dataSource]="datasource">
 
   <!-- Title -->
   <ng-container matColumnDef="title">
@@ -6,7 +6,7 @@
       <span> {{'title' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig">
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+      <div class="g-layout-row g-layout-start-center">
         <lab-view-type-image [viewType]="viewConfig.viewType" size="2em"
                              class="view-image"></lab-view-type-image>
         <div>{{viewConfig.title}}</div>

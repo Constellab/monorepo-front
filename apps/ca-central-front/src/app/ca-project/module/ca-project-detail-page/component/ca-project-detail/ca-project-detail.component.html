@@ -1,15 +1,15 @@
 <div *ngIf="project$ | async; let project">
 
-  <div fxLayout="row" fxLayoutAlign="space-between start">
+  <div class="g-layout-row g-layout-between-start">
 
-    <div fxLayout="row wrap" fxLayoutAlign="start center">
+    <div class="g-layout-row-wrap g-layout-start-center">
       <ca-project-icon [project]="project"></ca-project-icon>
       <h1 class="project-code">{{project.code}}</h1>
       <div class="project-title g-text-big">{{project.title}}</div>
     </div>
 
     <!--   Settings menu   -->
-    <div fxLayout="row" fxLayoutGap="1em">
+    <div class="g-layout-row g-layout-gap-1em">
       <button mat-icon-button (click)="openShareDialog(project)" class="g-button-shadow"
               *ngIf="isRootProject$ | async" [matTooltip]="'project_shared_groups' | translate">
         <mat-icon>share</mat-icon>
@@ -25,7 +25,7 @@
 
 
   <div class="project-info">
-    <div fxLayout="row" fxLayoutAlign="start center" class="project-leader">
+    <div class="g-layout-row g-layout-start-center project-leader">
       <span class="g-text-light project-leader-title">{{'project_leader' | translate}} : &nbsp;</span>
       <fl-user-inline [user]="project.leader" class="project-leader-user"></fl-user-inline>
     </div>
@@ -36,7 +36,7 @@
   </div>
 
 
-  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1em" class="g-section">
+  <div class="g-section g-layout-row g-layout-start-center g-layout-gap-1em">
 
     <ca-project-users [projectId$]="projectId$"></ca-project-users>
 

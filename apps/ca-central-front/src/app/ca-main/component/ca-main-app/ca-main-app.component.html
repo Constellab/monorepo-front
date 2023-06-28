@@ -10,11 +10,11 @@
     <fl-expansion-menu [(expanded)]="menuExpanded" class="expansion-menu">
 
 
-      <div fxLayout="column" class="column-container g-scrollable-element">
+      <div class="column-container g-scrollable-element g-layout-col">
 
         <div class="align-container logo-div" [ngClass]="{'align-container-center': menuExpanded}"
              (click)="openMySpacesPortal()" >
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px"
+          <div class="g-layout-row g-layout-start-center"
                [ngClass]="{'logo-expanded': menuExpanded}">
             <div [matBadge]="otherSpaceNotificationsNumber$ | async" matBadgeColor="warn"
                  class="logo-container">
@@ -29,7 +29,7 @@
 
 
         <!-- List of main menu links   -->
-        <div fxFlex="auto" fxLayout="column" fxLayoutAlign="start center">
+        <div class="g-flex-auto g-layout-col g-layout-start-center">
           <div class="buttons">
             <div *ngFor="let link of accessibleLinks">
               <a mat-button [routerLink]="link.route" flExpansionMenuButton

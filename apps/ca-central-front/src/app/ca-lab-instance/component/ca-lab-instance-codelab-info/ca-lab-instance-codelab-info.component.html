@@ -17,7 +17,7 @@
     codelab
   </fl-key-value>
 
-  <div fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="g-layout-row g-layout-between-center">
     <div>
       <span class="g-text-link" (click)="copyToTokenToClipboard()">{{'codelab_token_click_to_copy' | translate}}</span>
       <span *ngIf="showCodeLabToken"> : {{labInstance.codelabToken}}</span>

@@ -1,7 +1,7 @@
 .content {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
   // make the grid fill the whole container
   height: 100%;
 }

@@ -37,7 +37,6 @@
           }
         ],
         "styles": [
-          "apps/lab-front/src/lab-styles.scss",
           {
             "input": "apps/lab-front/src/theme/lab-light-theme.scss",
             "bundleName": "light-theme",
@@ -47,7 +46,8 @@
             "input": "apps/lab-front/src/theme/lab-dark-theme.scss",
             "bundleName": "dark-theme",
             "inject": false
-          }
+          },
+          "apps/lab-front/src/lab-styles.scss"
         ],
         "scripts": [],
         "allowedCommonJsDependencies": [

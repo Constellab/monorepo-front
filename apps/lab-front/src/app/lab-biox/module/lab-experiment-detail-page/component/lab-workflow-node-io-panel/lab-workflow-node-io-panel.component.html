@@ -1,8 +1,8 @@
 <div [ngClass]="layoutClass" class="g-full-height">
-  <div class="port-list-container g-layout-column">
+  <div class="port-list-container g-layout-col">
     <div *ngFor="let port$ of ports" class="port-container">
 
-      <div *ngIf="port$ | async as port" class="port-name g-layout-column"
+      <div *ngIf="port$ | async as port" class="port-name g-layout-col"
            (click)="onPortClick(port.port.name)"
            [ngClass]="{'selected-port': (portIsSelected(port.port.name) | async),
                        'port-input': mode === 'input',

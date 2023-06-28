@@ -6,7 +6,6 @@ import {
   FlInfiniteLoadMoreResultComponent
 } from './component/fl-infinite-load-more-result/fl-infinite-load-more-result.component';
 import {FlTranslateModule} from '../fl-translate/fl-translate.module';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatIconModule} from '@angular/material/icon';
 import {FlLoaderModule} from '../fl-loader/fl-loader.module';
 import {
@@ -35,7 +34,6 @@ import {MatButtonModule} from '@angular/material/button';
     FlLoaderModule,
 
     MatButtonModule,
-    FlexLayoutModule,
     MatIconModule,
   ],
 })

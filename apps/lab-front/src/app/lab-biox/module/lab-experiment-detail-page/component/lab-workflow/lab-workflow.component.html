@@ -1,7 +1,7 @@
-<div fxLayout="column" class="g-full-height container" *ngIf="!error; else showError">
+<div class="g-full-height container g-layout-col" *ngIf="!error; else showError">
 
   <!--  Workflow zone  -->
-  <div class="experiment-workflow" fxFlex="auto">
+  <div class="experiment-workflow g-flex-auto">
     <pr-workflow *ngIf="workflow" [workflow]="workflow"
                  [mode$]="mode$"
                  [viewConfig]="viewConfig">

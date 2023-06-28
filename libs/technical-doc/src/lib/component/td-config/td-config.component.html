@@ -1,5 +1,5 @@
 <div *ngFor="let c of configSpecs | flObjectKeys" class="config-spec">
-  <div class="config-spec-head" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="g-layout-row g-layout-between-center config-spec-head">
     <h4>{{c}}</h4>
     <div class="chip-div">
       <fl-chip class="g-primary-background chip" *ngIf="configSpecs[c].optional">{{'td.optional' |translate}}</fl-chip>

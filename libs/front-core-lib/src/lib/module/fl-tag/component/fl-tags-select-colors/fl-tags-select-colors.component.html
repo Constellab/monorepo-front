@@ -1,7 +1,7 @@
-<div [fxLayout]="groupLayout" fxLayoutGap="1em" *ngIf="tagGroups?.length > 0; else noTag">
+<div class="g-layout-col container" *ngIf="tagGroups?.length > 0; else noTag">
   <div *ngFor="let tagGroup of tagGroups; trackBy:trackByGroupKey" class="group">
 
-    <div class="g-full" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="0.5em">
+    <div class="g-full g-layout-row g-layout-between-center g-layout-gap-05em">
       <div>{{tagGroup.key}}</div>
 
       <button type="button" mat-icon-button class="g-button-icon-small"
@@ -11,8 +11,7 @@
     </div>
     <div class="g-text-small value-list g-styled-scrollbar">
       <fl-chip *ngFor="let tagValue of tagGroup.tags; trackBy:trackByTag"
-               fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="0.5em"
-               size="small" class="tag"
+               size="small" class="tag g-layout-row g-layout-between-center g-layout-gap-05em"
                (click)="toggleTagColor(tagValue)"
                [matTooltip]="tagValue.value" matTooltipPosition="below">
         <div class="tag-value">{{tagValue.value}}</div>

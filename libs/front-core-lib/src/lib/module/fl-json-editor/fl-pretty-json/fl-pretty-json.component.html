@@ -18,8 +18,7 @@
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding
                    [matTreeNodePaddingIndent]="paddingIndent"
                    class="tree-node-preview" [ngClass]="node.className">
-      <div matTreeNodeToggle class="clickable tree-container node-selectable" fxLayout="row"
-           fxLayoutAlign="start center"
+      <div matTreeNodeToggle class="clickable tree-container node-selectable g-layout-row g-layout-start-center"
            [ngClass]="{'selected-node' : selectedNode === node }" (click)="selectNode(node)">
         <div class="text-icon">
           <!--      Arrow icon      -->

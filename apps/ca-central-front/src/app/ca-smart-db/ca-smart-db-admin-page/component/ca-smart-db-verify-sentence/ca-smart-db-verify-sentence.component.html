@@ -1,19 +1,19 @@
-<div fxLayout="row" fxLayoutAlign="start center" class="sentence">
-  <p fxFlex class="g-text-small">{{sentence.sentence}}</p>
+<div class="g-layout-row g-layout-start-center sentence">
+  <p class="g-text-small">{{sentence.sentence}}</p>
   <button mat-icon-button type="button" (click)="deleteSentence()"
           [matTooltip]="'smart_db.delete' | translate">
     <mat-icon>clear</mat-icon>
   </button>
 </div>
 
-<div *ngFor="let part of sentence.parts; let index = index" class="g-form-field-compact"
-     fxLayout="row" fxLayoutAlign="start center">
+<div *ngFor="let part of sentence.parts; let index = index"
+     class="g-layout-row g-layout-start-center g-form-field-compact">
 
   <div class="part-section subject">
     <div *ngFor="let subject of part.subject">{{subject}}</div>
   </div>
 
-  <div class="part-section verb" fxLayout="column">
+  <div class="part-section verb g-layout-col">
     {{part.verb}}
 
     <mat-form-field class="g-form-field-no-hint">

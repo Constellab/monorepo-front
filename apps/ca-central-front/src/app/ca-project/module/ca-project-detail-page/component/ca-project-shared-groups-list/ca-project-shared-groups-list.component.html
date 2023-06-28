@@ -8,7 +8,7 @@
     <ng-container *flSectionBody="let groups">
 
 
-      <div *ngFor="let group of groups" fxLayout="row" fxLayoutAlign="space-between center">
+      <div *ngFor="let group of groups" class="g-layout-row g-layout-between-center">
         <ca-group-inline [group]="group"></ca-group-inline>
 
         <button mat-icon-button type="button" (click)="openUnshareDialog(group)"

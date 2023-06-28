@@ -2,37 +2,37 @@
 <div class="action-bar" *ngIf="isReady; else notReady">
 
 
-  <div fxLayout="row">
-    <bn-bio-network-compartments fxFlex="50%"></bn-bio-network-compartments>
+  <div class="g-layout-row">
+    <bn-bio-network-compartments class="half-section"></bn-bio-network-compartments>
 
-    <bn-bio-network-selection-info fxFlex="50%"></bn-bio-network-selection-info>
+    <bn-bio-network-selection-info class="half-section"></bn-bio-network-selection-info>
   </div>
 
   <p>{{'bnBioNetwork.options' | translate}}</p>
 
 
-  <div fxLayout="row wrap" class="g-mat-checkbox-include-bottom">
+  <div class="g-layout-row-wrap g-mat-checkbox-include-bottom">
 
-    <mat-checkbox [(ngModel)]="showMinors" (change)="toggleShowMinors()" color="primary" fxFlex="50%">
+    <mat-checkbox [(ngModel)]="showMinors" (change)="toggleShowMinors()" color="primary" class="checkbox">
       {{'bnBioNetwork.toggle_show_minor' | translate}}
     </mat-checkbox>
 
-    <mat-checkbox [(ngModel)]="showText" (change)="toggleShowTexts()" color="primary" fxFlex="50%">
+    <mat-checkbox [(ngModel)]="showText" (change)="toggleShowTexts()" color="primary" class="checkbox">
       {{'bnBioNetwork.toggle_show_texts' | translate}}
     </mat-checkbox>
 
-    <mat-checkbox [(ngModel)]="showGrid" (change)="toggleShowGrid()" color="primary" fxFlex="50%">
+    <mat-checkbox [(ngModel)]="showGrid" (change)="toggleShowGrid()" color="primary" class="checkbox">
       {{'bnBioNetwork.toggle_show_grid' | translate}}
     </mat-checkbox>
 
-    <mat-checkbox [(ngModel)]="showArrows" (change)="toggleShowArrows()" color="primary" fxFlex="50%">
+    <mat-checkbox [(ngModel)]="showArrows" (change)="toggleShowArrows()" color="primary" class="checkbox">
       {{'bnBioNetwork.toggle_show_link_arrow' | translate}}
     </mat-checkbox>
 
   </div>
 
 
-  <div *ngIf="maxFluxValue > 0" fxLayout="column">
+  <div *ngIf="maxFluxValue > 0" class="g-layout-col">
     <p>{{'bnBioNetwork.flux_options' | translate}}</p>
 
     <mat-checkbox [(ngModel)]="showParticles" (change)="toggleShowParticles()"
@@ -40,8 +40,7 @@
       {{'bnBioNetwork.toggle_show_link_particles' | translate}}
     </mat-checkbox>
 
-    <div fxLayout="row wrap" fxLayoutAlign="start center"
-         class="g-full g-form-field-compact">
+    <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-start-center">
 
       <mat-form-field class="g-search-field input">
         <mat-label>{{'bnBioNetwork.particle_size' | translate}}</mat-label>
