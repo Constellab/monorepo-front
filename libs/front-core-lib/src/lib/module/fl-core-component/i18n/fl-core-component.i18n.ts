@@ -1,7 +1,6 @@
 import {ClSupportedLanguage} from '@monorepo/core-lib';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
-
 
 /* eslint-disable max-len */
 /**
@@ -18,7 +17,7 @@ const flCoreComponentI18nFr: FlLangTranslation = {
     tera_byte_symbole: 'To',
     pin: 'Épingler',
     unpin: 'Désépingler',
-  }
+  },
 };
 
 const flCoreComponentI18nEn: FlLangTranslation = {
@@ -32,10 +31,10 @@ const flCoreComponentI18nEn: FlLangTranslation = {
     tera_byte_symbole: 'TB',
     pin: 'Pin',
     unpin: 'Unpin',
-  }
+  },
 };
 
 export const flCoreComponentI18n: FlTranslateObject = {
   [ClSupportedLanguage.en]: flCoreComponentI18nEn,
-  [ClSupportedLanguage.fr]: flCoreComponentI18nFr
+  [ClSupportedLanguage.fr]: flCoreComponentI18nFr,
 };

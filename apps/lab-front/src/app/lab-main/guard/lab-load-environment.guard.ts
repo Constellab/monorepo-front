@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, UrlTree} from '@angular/router';
+import {UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {LabDevEnvironmentService} from '../../lab-core/service/lab-dev-environment.service';
 import {map} from 'rxjs/operators';
@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class LabLoadEnvironmentGuard implements CanActivate {
+export class LabLoadEnvironmentGuard  {
 
   constructor(private labEnvService: LabDevEnvironmentService) {
   }

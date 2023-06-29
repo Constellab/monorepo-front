@@ -79,7 +79,7 @@ export class FlTagHelper {
    * @param tagsList
    */
   public static groupTagsByKey(tagsList: Record<string, string>[]): Record<string, string[]> {
-    const tags = {};
+    const tags: Record<string, string[]> = {};
 
     if (tagsList) {
       for (const t of tagsList) {

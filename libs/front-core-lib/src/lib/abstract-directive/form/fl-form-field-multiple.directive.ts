@@ -29,7 +29,7 @@ export abstract class FlFormFieldMultipleDirective<T> extends FlFormFieldDirecti
     if (this.multiple) {
       return this._value;
     } else {
-      return this._value[0];
+      return (this._value as T[])[0];
     }
   }
 
@@ -42,7 +42,7 @@ export abstract class FlFormFieldMultipleDirective<T> extends FlFormFieldDirecti
     if (value == null) {
       this._value = [];
     } else if (!this.multiple) {
-      this._value[0] = values[0];
+      (this._value as T[])[0] = values[0];
     } else {
       this._value = values;
     }
@@ -53,7 +53,7 @@ export abstract class FlFormFieldMultipleDirective<T> extends FlFormFieldDirecti
     this.initValue();
     const values: T[] = this.convertToArray(value);
     if (!this.multiple) {
-      this._value[0] = values[0];
+      (this._value as T[])[0] = values[0];
     } else {
       (this._value as T[]).push(...values);
     }

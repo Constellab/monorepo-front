@@ -1,21 +1,12 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
-  "plugins": [
-    "@nrwl/nx"
-  ],
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nx"],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
             "enforceBuildableLibDependency": true,
@@ -31,14 +22,11 @@
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "extends": [
-        "plugin:@nrwl/nx/typescript",
-        "plugin:@nrwl/nx/angular",
-        "plugin:@nrwl/nx/angular",
+        "plugin:@nx/typescript",
+        "plugin:@nx/angular",
+        "plugin:@nx/angular",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "parserOptions": {
@@ -52,16 +40,12 @@
             "SwitchCase": 1,
             "FunctionDeclaration": {
               "parameters": "first",
-              // or an integer
               "body": 1
             },
             "FunctionExpression": {
               "parameters": "first",
-              // or an integer
               "body": 1
             },
-            // use to ignore error for properties (apply because decorators where not working)
-            // https://stackoverflow.com/questions/70642350/eslint-indent-rule-indents-decorated-members
             "ignoredNodes": ["PropertyDefinition"]
           }
         ],
@@ -87,22 +71,13 @@
       }
     },
     {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/angular-template"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@nx/angular-template"],
       "rules": {}
     },
     {

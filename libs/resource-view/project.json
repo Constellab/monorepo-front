@@ -6,7 +6,7 @@
   "prefix": "rv",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/resource-view"],
       "options": {
         "jestConfig": "libs/resource-view/jest.config.ts",

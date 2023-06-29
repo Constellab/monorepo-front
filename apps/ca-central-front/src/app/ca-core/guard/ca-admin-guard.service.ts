@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CanActivate, Router, UrlTree} from '@angular/router';
+import {Router, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
 import {CaAuthenticatedUserService} from '../service-api/ca-authenticated-user.service';
 import {CaRouterService} from '../service/ca-router.service';
@@ -10,7 +10,7 @@ import {CaRouterService} from '../service/ca-router.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CaAdminGuard implements CanActivate {
+export class CaAdminGuard  {
 
   constructor(private authenticatedUserService: CaAuthenticatedUserService,
               private router: Router) {

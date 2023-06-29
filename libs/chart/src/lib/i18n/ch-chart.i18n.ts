@@ -1,7 +1,6 @@
 import {ClSupportedLanguage} from '@monorepo/core-lib';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
-
 
 /**
  * Translation file for the Spreadsheet module
@@ -34,8 +33,8 @@ const chlChartI18nFr: FlLangTranslation = {
     venn_nb_data: 'Nb de données',
     venn_data: 'Donnée(s)',
     venn_no_data: 'Pas de données',
-    tags: 'Tags'
-  }
+    tags: 'Tags',
+  },
 };
 
 const chChartI18nEn: FlLangTranslation = {
@@ -66,11 +65,11 @@ const chChartI18nEn: FlLangTranslation = {
     venn_nb_data: 'Nb of data',
     venn_data: 'Data',
     venn_no_data: 'No data',
-    tags: 'Tags'
-  }
+    tags: 'Tags',
+  },
 };
 
 export const chChartI18n: FlTranslateObject = {
   [ClSupportedLanguage.en]: chChartI18nEn,
-  [ClSupportedLanguage.fr]: chlChartI18nFr
+  [ClSupportedLanguage.fr]: chlChartI18nFr,
 };

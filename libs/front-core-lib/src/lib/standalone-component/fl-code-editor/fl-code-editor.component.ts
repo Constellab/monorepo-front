@@ -1,5 +1,5 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+/* eslint-disable @nx/enforce-module-boundaries */
+import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild,} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {EditorState, Extension} from '@codemirror/state';
 import {EditorView, keymap} from '@codemirror/view';
@@ -7,7 +7,7 @@ import {basicSetup} from 'codemirror';
 import {defaultKeymap, indentWithTab} from '@codemirror/commands';
 import {FormControl} from '@angular/forms';
 import {FlThemeService} from '@monorepo/front-core-lib';
-import {HighlightStyle, StreamLanguage, syntaxHighlighting} from '@codemirror/language';
+import {HighlightStyle, StreamLanguage, syntaxHighlighting,} from '@codemirror/language';
 import {tags as t} from '@lezer/highlight';
 import {python} from '@codemirror/lang-python';
 import {json} from '@codemirror/lang-json';
@@ -17,7 +17,6 @@ import {yaml} from '@codemirror/legacy-modes/mode/yaml';
 import {julia} from '@codemirror/legacy-modes/mode/julia';
 import {perl} from '@codemirror/legacy-modes/mode/perl';
 import {FlCodeEditorLanguage} from './fl-code-editor.class';
-
 
 /**
  * Python IDE editor component using CodeMirror.
@@ -29,21 +28,19 @@ import {FlCodeEditorLanguage} from './fl-code-editor.class';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './fl-code-editor.component.html',
-  styleUrls: ['./fl-code-editor.component.scss']
+  styleUrls: ['./fl-code-editor.component.scss'],
 })
 export class FlCodeEditorComponent implements OnInit, OnDestroy {
-
   @Input() language: FlCodeEditorLanguage;
 
   @Input() formCtrl: FormControl;
 
-  @ViewChild('editor', {static: true}) editor: ElementRef<HTMLElement>;
+  @ViewChild('editor', { static: true }) editor: ElementRef<HTMLElement>;
 
   private editorState: EditorState;
   private editorView: EditorView;
 
-  constructor(private themeService: FlThemeService) {
-  }
+  constructor(private themeService: FlThemeService) {}
 
   ngOnInit(): void {
     this.editorState = EditorState.create({
@@ -57,7 +54,7 @@ export class FlCodeEditorComponent implements OnInit, OnDestroy {
           this.formCtrl.patchValue(update.state.doc.toString());
         }),
         EditorView.darkTheme.of(this.themeService.isDarkTheme()),
-        this.getTheme()
+        this.getTheme(),
       ],
     });
 
@@ -116,41 +113,63 @@ export class FlCodeEditorComponent implements OnInit, OnDestroy {
       regexp: '#C3E88D',
     };
 
-
     const materialDarkHighlightStyle = HighlightStyle.define([
-      {tag: t.keyword, color: config.keyword},
-      {tag: [t.name, t.deleted, t.character, t.macroName], color: config.variable},
-      {tag: [t.propertyName], color: config.function},
-      {tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)], color: config.string},
-      {tag: [t.function(t.variableName), t.labelName], color: config.function},
-      {tag: [t.color, t.constant(t.name), t.standard(t.name)], color: config.constant},
-      {tag: [t.definition(t.name), t.separator], color: config.variable},
-      {tag: [t.className], color: config.class},
-      {tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace], color: config.number},
-      {tag: [t.typeName], color: config.type, fontStyle: config.type},
-      {tag: [t.operator, t.operatorKeyword], color: config.keyword},
-      {tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp},
-      {tag: [t.meta, t.comment], color: config.comment},
-      {tag: t.strong, fontWeight: 'bold'},
-      {tag: t.emphasis, fontStyle: 'italic'},
-      {tag: t.link, textDecoration: 'underline'},
-      {tag: t.heading, fontWeight: 'bold', color: config.heading},
-      {tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
-      {tag: t.invalid, color: config.invalid},
-      {tag: t.strikethrough, textDecoration: 'line-through'},
+      { tag: t.keyword, color: config.keyword },
+      {
+        tag: [t.name, t.deleted, t.character, t.macroName],
+        color: config.variable,
+      },
+      { tag: [t.propertyName], color: config.function },
+      {
+        tag: [
+          t.processingInstruction,
+          t.string,
+          t.inserted,
+          t.special(t.string),
+        ],
+        color: config.string,
+      },
+      {
+        tag: [t.function(t.variableName), t.labelName],
+        color: config.function,
+      },
+      {
+        tag: [t.color, t.constant(t.name), t.standard(t.name)],
+        color: config.constant,
+      },
+      { tag: [t.definition(t.name), t.separator], color: config.variable },
+      { tag: [t.className], color: config.class },
+      {
+        tag: [
+          t.number,
+          t.changed,
+          t.annotation,
+          t.modifier,
+          t.self,
+          t.namespace,
+        ],
+        color: config.number,
+      },
+      { tag: [t.typeName], color: config.type, fontStyle: config.type },
+      { tag: [t.operator, t.operatorKeyword], color: config.keyword },
+      { tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp },
+      { tag: [t.meta, t.comment], color: config.comment },
+      { tag: t.strong, fontWeight: 'bold' },
+      { tag: t.emphasis, fontStyle: 'italic' },
+      { tag: t.link, textDecoration: 'underline' },
+      { tag: t.heading, fontWeight: 'bold', color: config.heading },
+      {
+        tag: [t.atom, t.bool, t.special(t.variableName)],
+        color: config.variable,
+      },
+      { tag: t.invalid, color: config.invalid },
+      { tag: t.strikethrough, textDecoration: 'line-through' },
     ]);
 
-    return [
-      syntaxHighlighting(materialDarkHighlightStyle),
-    ];
-
+    return [syntaxHighlighting(materialDarkHighlightStyle)];
   }
-
 
   ngOnDestroy(): void {
     this.editorView.destroy();
   }
-
-
 }
-

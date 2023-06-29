@@ -48,7 +48,7 @@ export type FlSearchAttributeFunctionCriteriaConverter<T> = (value ?: T) => FlSe
  * - a function to directly convert object info to SearchCriteria[] (for specific cases)
  */
 export type FlSearchCriteriaConverter<T> = {
-  [P in keyof T]: FlSearchAttributeCriteriaConverter<T[P]> | FlSearchAttributeFunctionCriteriaConverter<T[P]>
+  [P in keyof T]: FlSearchAttributeCriteriaConverter<T[P]> | FlSearchAttributeFunctionCriteriaConverter<T[P]>;
 };
 
 /**
@@ -77,29 +77,29 @@ export class FlSearchConverter {
    * @param object object containing the filtering values
    * @param converter object used to convert objects attributes to {@link FlSearchCriteria}
    */
-  public static convertObjectToSearchCriteriaList<T = any>(object: T,
-                                                           converter: FlSearchCriteriaConverter<T>)
+  public static convertObjectToSearchCriteriaList<T = Record<any, any>>(object: T,
+                                                                        converter: FlSearchCriteriaConverter<T>)
     : FlSearchCriteria[] {
     const criteria: FlSearchCriteria[] = [];
 
     if (object == null) return criteria;
 
     for (const key of Object.keys(object)) {
-      const fieldValue: any = object[key];
+      const fieldValue: any = (object as any)[key];
 
 
       // handle specific convert as function
       // for SearchAttributeFunctionCriteriaConverter
-      if (typeof converter[key] === 'function') {
+      if (typeof (converter as any)[key] === 'function') {
         // call the function to get the criteria
-        const newCriteria: FlSearchCriteria[] = converter[key](fieldValue);
+        const newCriteria: FlSearchCriteria[] = (converter as any)[key](fieldValue);
         if (newCriteria != null) {
           criteria.push(...newCriteria);
         }
         continue;
       }
 
-      const fieldConverter: FlSearchAttributeCriteriaConverter<T> = converter[key];
+      const fieldConverter: FlSearchAttributeCriteriaConverter<T> = (converter as any)[key];
 
       // check if the convert for this field exists
       if (fieldConverter == null) {

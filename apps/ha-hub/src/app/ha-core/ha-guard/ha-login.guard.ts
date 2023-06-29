@@ -2,7 +2,7 @@
  * Login page guard to redirect to app pages if a token exists
  */
 import {Injectable} from '@angular/core';
-import {CanActivate, Router, UrlTree} from '@angular/router';
+import {Router, UrlTree} from '@angular/router';
 import {HaAuthService} from '../ha-service/ha-auth.service';
 import {Observable} from 'rxjs';
 import {HaRouterService} from '../ha-service/ha-router.service';
@@ -10,7 +10,7 @@ import {HaRouterService} from '../ha-service/ha-router.service';
 @Injectable({
   providedIn: 'root'
 })
-export class HaLoginGuard implements CanActivate {
+export class HaLoginGuard  {
   constructor(private loginService: HaAuthService, private router: Router) {
   }
 

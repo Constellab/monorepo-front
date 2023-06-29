@@ -1,8 +1,7 @@
 import {ClSupportedLanguage} from '@monorepo/core-lib';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
 /* eslint max-len: 0 */
-
 
 /**
  * Translation file for the Spreadsheet module
@@ -26,7 +25,8 @@ const spSpreadsheetI18nFr: FlLangTranslation = {
     serie_name: 'Nom de la série',
     x_labels: 'Labels des abscisses',
     series_data_wrong_format: 'Format incorrect. Exemple:',
-    selection_out_of_bound: 'La sélection \'{{errorSelection}\' est en dehors des limites du tableau. La sélection maximale est: \'{{maxSelection}}\'',
+    selection_out_of_bound:
+      "La sélection '{{errorSelection}' est en dehors des limites du tableau. La sélection maximale est: '{{maxSelection}}'",
     chart_data_selection_tooltip: 'Cliquez pour sélection les cellules',
     chart_data_range: 'Plage de données du graphique',
     chart_add_serie: 'Ajouter une série',
@@ -38,13 +38,15 @@ const spSpreadsheetI18nFr: FlLangTranslation = {
     chart_nb_of_bins: 'Nombres de classes',
     chart_histo_density: 'Densité',
     chart_normalize: 'Normaliser les données',
-    chart_nb_of_bins_error: 'Le nombre de classes doit être un entier supérieur à 1',
+    chart_nb_of_bins_error:
+      'Le nombre de classes doit être un entier supérieur à 1',
     chart_serie_required_error: 'Vous devez définir au moins 1 série',
-    chart_too_many_series_error: 'Le type de graphique support au maximum {{maxSeries}} séries',
+    chart_too_many_series_error:
+      'Le type de graphique support au maximum {{maxSeries}} séries',
     chart_x_threshold: 'Seuil X',
     chart_y_threshold: 'Seuil Y',
-    chart_x_axis_label: 'Label de l\'axe des abscisses',
-    chart_y_axis_label: 'Label de l\'axe des ordonnées',
+    chart_x_axis_label: "Label de l'axe des abscisses",
+    chart_y_axis_label: "Label de l'axe des ordonnées",
     chart_update: 'Modifier la sélection',
     chart_close_all: 'Tous fermer',
     sheet_selection_range: 'Plage',
@@ -75,7 +77,7 @@ const spSpreadsheetI18nFr: FlLangTranslation = {
     header_type_FLOAT: 'Flottant',
     header_type_BOOLEAN: 'Booléen',
     header_type_OBJECT: 'Objet',
-  }
+  },
 };
 
 const spSpreadsheetI18nEn: FlLangTranslation = {
@@ -93,25 +95,28 @@ const spSpreadsheetI18nEn: FlLangTranslation = {
     chart_type: 'Chart',
     chart_serie_selection_x: 'X abscissa values of the serie',
     chart_serie_selection_y: 'Y ordinate values of the serie',
-    series_name: 'Series\' name',
-    serie_name: 'Serie\'s name',
-    x_labels: 'Abscissa\'s names',
+    series_name: "Series' name",
+    serie_name: "Serie's name",
+    x_labels: "Abscissa's names",
     series_data_wrong_format: 'Incorrect format. Example:',
-    selection_out_of_bound: 'The selection \'{{errorSelection}}\' is out of sheet bound. Max cell selection is: \'{{maxSelection}}\'',
+    selection_out_of_bound:
+      "The selection '{{errorSelection}}' is out of sheet bound. Max cell selection is: '{{maxSelection}}'",
     chart_data_selection_tooltip: 'Clic to select the cells',
     chart_data_range: 'Chart data range',
     chart_add_serie: 'Add serie',
     chart_update_serie: 'Update serie',
     chart_delete_serie: 'Delete serie',
-    chart_serie_selection: 'Serie\'s selection',
+    chart_serie_selection: "Serie's selection",
     chart_serie: 'Serie',
     chart_series: 'Séries',
     chart_nb_of_bins: 'Number of classes',
     chart_histo_density: 'Density',
     chart_normalize: 'Normalize data',
-    chart_nb_of_bins_error: 'The number of classes must be an integer higher than 1',
+    chart_nb_of_bins_error:
+      'The number of classes must be an integer higher than 1',
     chart_serie_required_error: 'You must define at least 1 serie',
-    chart_too_many_series_error: 'The chart type supports a maximum of {{maxSeries}} series',
+    chart_too_many_series_error:
+      'The chart type supports a maximum of {{maxSeries}} series',
     chart_x_threshold: 'X threshold',
     chart_y_threshold: 'Y threshold',
     chart_x_axis_label: 'X axis label',
@@ -146,10 +151,10 @@ const spSpreadsheetI18nEn: FlLangTranslation = {
     header_type_FLOAT: 'Float',
     header_type_BOOLEAN: 'Boolean',
     header_type_OBJECT: 'Object',
-  }
+  },
 };
 
 export const spSpreadsheetI18n: FlTranslateObject = {
   [ClSupportedLanguage.en]: spSpreadsheetI18nEn,
-  [ClSupportedLanguage.fr]: spSpreadsheetI18nFr
+  [ClSupportedLanguage.fr]: spSpreadsheetI18nFr,
 };

@@ -11,7 +11,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/common-model"],
       "options": {
         "jestConfig": "libs/common-model/jest.config.ts",

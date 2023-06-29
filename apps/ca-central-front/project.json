@@ -138,7 +138,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/ca-central-front"],
       "options": {
         "jestConfig": "apps/ca-central-front/jest.config.ts",

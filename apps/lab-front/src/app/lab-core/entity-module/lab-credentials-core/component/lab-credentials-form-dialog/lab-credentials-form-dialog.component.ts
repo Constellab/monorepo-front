@@ -46,7 +46,7 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
 
   sameNameExist$: Observable<boolean>;
 
-  credentialsTypes = LabCredentialsType;
+  credentialsTypes: any = LabCredentialsType;
 
   // only provided in update mode
   private originalName: string;
@@ -267,7 +267,7 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
     if (type !== LabCredentialsType.OTHER) return dataFormValue;
 
     const otherValue: LabCredentialsOtherFormData[] = dataFormValue;
-    const result = {};
+    const result: Record<string, string> = {};
     otherValue.forEach(item => {
       result[item.key] = item.value;
     });

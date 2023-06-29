@@ -141,7 +141,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/lab-front"],
       "options": {
         "jestConfig": "apps/lab-front/jest.config.ts",

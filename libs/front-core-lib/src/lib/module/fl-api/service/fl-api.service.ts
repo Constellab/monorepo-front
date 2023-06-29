@@ -297,7 +297,7 @@ export class FlApiService {
 
     if (headers != null) {
       // append the header of the request
-      headers.keys().map(key => headers[key] = headers.get(key));
+      headers.keys().map(key => ((headers as any)[key] = headers.get(key)));
     }
 
     if (Object.keys(headerObject).length === 0) return null;

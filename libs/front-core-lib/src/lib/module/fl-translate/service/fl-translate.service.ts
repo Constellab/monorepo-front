@@ -157,7 +157,7 @@ export class FlTranslateService {
    */
   public addTranslation(value: FlTranslateObject): void {
     for (const key of Object.keys(value)) {
-      this.translateService.setTranslation(key, value[key], true);
+      this.translateService.setTranslation(key, (value)[key as keyof typeof value], true);
     }
   }
 

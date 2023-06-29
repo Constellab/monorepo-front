@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, UrlTree} from '@angular/router';
+import {ActivatedRoute, ActivatedRouteSnapshot, Router, UrlTree} from '@angular/router';
 import {HaAuthenticatedUserService} from '../ha-service/ha-authenticated-user.service';
 import {HaStoryService} from '../ha-service/ha-story.service';
 import {mergeMap, Observable} from 'rxjs';
@@ -9,7 +9,7 @@ import {HaRouterService} from '../ha-service/ha-router.service';
 @Injectable({
   providedIn: 'root'
 })
-export class HaStoryGuard implements CanActivate {
+export class HaStoryGuard  {
   constructor(
     private storyService: HaStoryService,
     private activatedRoute: ActivatedRoute,

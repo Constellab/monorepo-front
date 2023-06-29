@@ -45,7 +45,12 @@
           }
         ],
         "scripts": [],
-        "allowedCommonJsDependencies": ["quill", "luxon", "lodash.throttle", "quill-delta-to-html"]
+        "allowedCommonJsDependencies": [
+          "quill",
+          "luxon",
+          "lodash.throttle",
+          "quill-delta-to-html"
+        ]
       },
       "configurations": {
         "development": {
@@ -127,7 +132,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/ha-hub"],
       "options": {
         "jestConfig": "apps/ha-hub/jest.config.ts",
@@ -154,7 +159,8 @@
         "development": {
           "optimization": false,
           "sourceMap": true,
-          "extractLicenses": false
+          "extractLicenses": false,
+          "buildOptimizer": false
         }
       },
       "defaultConfiguration": "production"

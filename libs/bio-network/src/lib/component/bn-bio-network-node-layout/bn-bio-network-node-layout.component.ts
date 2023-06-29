@@ -26,7 +26,7 @@ export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
 
   serviceIsEnabled: boolean;
 
-  metabolitesLevels = BnBioNetworkMetaboliteLevel;
+  metabolitesLevels: any = BnBioNetworkMetaboliteLevel;
 
   saveIsLoading: boolean = false;
 

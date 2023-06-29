@@ -71,7 +71,7 @@ export class FlDatePipe implements PipeTransform {
 
     const date = ClDateHelper.getDate(value);
 
-    const localDateOption = flDatePipeLocalFormatPreset[format];
+    const localDateOption = flDatePipeLocalFormatPreset[format as keyof typeof flDatePipeLocalFormatPreset];
 
     // if the string matched a local format preset, use it
     if (localDateOption) {

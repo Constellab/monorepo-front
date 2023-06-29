@@ -1,8 +1,7 @@
 import {ClSupportedLanguage} from '@monorepo/core-lib';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
 /* eslint-disable max-len */
-
 
 /**
  * Translation file for the Spreadsheet module
@@ -55,7 +54,7 @@ const bnBioNetworkI18nFr: FlLangTranslation = {
     flux_constraints: 'Contraintes de flux',
     flux_options: 'Options de flux',
     engine_config: 'Configuration du moteur',
-    engine_help_link: 'Plus d\'informations sur les paramètres du moteur',
+    engine_help_link: "Plus d'informations sur les paramètres du moteur",
     live_drawing: 'Dessin en direct',
     alpha_min: 'Alpha min',
     alpha_decay: 'Alpha decay',
@@ -66,11 +65,14 @@ const bnBioNetworkI18nFr: FlLangTranslation = {
     ignore_node_positions: 'Ignorer les positions des nodes',
     selection_info: 'Info de la sélection',
     options: 'Options',
-    select_pathway_help_text: 'Sélectionner un pathway pour voir les options ici',
+    select_pathway_help_text:
+      'Sélectionner un pathway pour voir les options ici',
     calculating_positions: 'Calcul des positions...',
     last_calculation_duration: 'Durée du dernier calcul',
-    metabolite_exists_in_multiple_pathways: 'Le métabolite existe dans plusieurs pathways',
-    reaction_exists_in_multiple_pathways: 'La réaction existe dans plusieurs pathways',
+    metabolite_exists_in_multiple_pathways:
+      'Le métabolite existe dans plusieurs pathways',
+    reaction_exists_in_multiple_pathways:
+      'La réaction existe dans plusieurs pathways',
     connected_reactions: 'Réactions connectées',
     reaction_products: 'Produits',
     reaction_substrate: 'Substrats',
@@ -78,21 +80,24 @@ const bnBioNetworkI18nFr: FlLangTranslation = {
     chebi_id: 'ChEBI ID',
     legend: 'Légende',
     legend_metabolite: 'Métabolite',
-    legend_metabolite_duplicated: 'Métabolite présent dans plusieurs pathway (dupliqué)',
+    legend_metabolite_duplicated:
+      'Métabolite présent dans plusieurs pathway (dupliqué)',
     legend_reaction: 'Réaction',
-    legend_reaction_duplicated: 'Réaction présente dans plusieurs pathway (dupliquée)',
+    legend_reaction_duplicated:
+      'Réaction présente dans plusieurs pathway (dupliquée)',
     legend_cofactor: 'Cofacteur',
     legend_link: 'Lien',
     legend_dotted_link: 'Lien entre les reaction dupliquées',
     node_positions: 'Positions du noeud',
-    save_positions_to_biota_help: 'Sauvegarder les positions et le niveau dans Biota. A utiliser seulement si vous avez accès à la brick biota en tant que développeur.',
+    save_positions_to_biota_help:
+      'Sauvegarder les positions et le niveau dans Biota. A utiliser seulement si vous avez accès à la brick biota en tant que développeur.',
     save_positions_to_biota: 'Sauvegarder',
     save_metabolite_success: 'Metabolite sauvegardées',
     metabolite_level: 'Niveau',
     metabolite_level_1: 'Majeur',
     metabolite_level_2: 'Mineur',
     metabolite_level_3: 'Cofacteur',
-  }
+  },
 };
 
 const bnBioNetworkI18nEn: FlLangTranslation = {
@@ -157,8 +162,10 @@ const bnBioNetworkI18nEn: FlLangTranslation = {
     select_pathway_help_text: 'Select a pathway to view options here',
     calculating_positions: 'Calculating positions...',
     last_calculation_duration: 'Last calculation duration',
-    metabolite_exists_in_multiple_pathways: 'The metabolite exists in several pathways',
-    reaction_exists_in_multiple_pathways: 'The reaction exists in several pathways',
+    metabolite_exists_in_multiple_pathways:
+      'The metabolite exists in several pathways',
+    reaction_exists_in_multiple_pathways:
+      'The reaction exists in several pathways',
     connected_reactions: 'Connected reactions',
     reaction_products: 'Products',
     reaction_substrate: 'Substrates',
@@ -166,24 +173,27 @@ const bnBioNetworkI18nEn: FlLangTranslation = {
     chebi_id: 'ChEBI ID',
     legend: 'Legend',
     legend_metabolite: 'Metabolite',
-    legend_metabolite_duplicated: 'Metabolite present in several pathways (duplicated)',
+    legend_metabolite_duplicated:
+      'Metabolite present in several pathways (duplicated)',
     legend_reaction: 'Reaction',
-    legend_reaction_duplicated: 'Reaction present in several pathways (duplicated)',
+    legend_reaction_duplicated:
+      'Reaction present in several pathways (duplicated)',
     legend_cofactor: 'Cofactor',
     legend_link: 'Link',
     legend_dotted_link: 'Link between duplicated reactions',
     node_positions: 'Node positions',
-    save_positions_to_biota_help: 'Save positions and level in Biota. Use only if you have access to the biota brick as a developer.',
+    save_positions_to_biota_help:
+      'Save positions and level in Biota. Use only if you have access to the biota brick as a developer.',
     save_positions_to_biota: 'Save',
     save_metabolite_success: 'Metabolite saved',
     metabolite_level: 'Level',
     metabolite_level_1: 'Major',
     metabolite_level_2: 'Minor',
     metabolite_level_3: 'Cofactor',
-  }
+  },
 };
 
 export const bnBioNetworkI18n: FlTranslateObject = {
   [ClSupportedLanguage.en]: bnBioNetworkI18nEn,
-  [ClSupportedLanguage.fr]: bnBioNetworkI18nFr
+  [ClSupportedLanguage.fr]: bnBioNetworkI18nFr,
 };

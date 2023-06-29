@@ -1,19 +1,11 @@
 {
-  "extends": [
-    "../../.eslintrc.json"
-  ],
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "extends": ["../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "libs/resource-view/tsconfig.*?.json"
-        ]
+        "project": ["libs/resource-view/tsconfig.*?.json"]
       },
       "rules": {
         "@angular-eslint/directive-selector": [

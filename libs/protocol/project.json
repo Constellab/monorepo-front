@@ -6,7 +6,7 @@
   "prefix": "pr",
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/protocol"],
       "options": {
         "jestConfig": "libs/protocol/jest.config.js",

@@ -132,7 +132,7 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
       // loop through nested control to check values
       for (const childKey of Object.keys((control as UntypedFormGroup).controls)) {
         // recursive call to check children
-        this.checkControlValue(childKey, control.get(childKey), config[childKey]);
+        this.checkControlValue(childKey, control.get(childKey), (config as any)[childKey]);
       }
     }
   }
