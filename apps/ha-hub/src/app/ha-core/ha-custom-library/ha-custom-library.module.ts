@@ -6,16 +6,19 @@ import {
   FlCoreComponentModule,
   FlCoreDirectiveModule,
   FlCorePipeModule,
+  FlDateModule,
   FlDialogModule,
   FlFormModule,
   FlIconModule,
+  FlKeyValueModule,
   FlLoaderModule,
   FlMenuDynamicModule,
   FlPortalModule,
   FlSectionModule,
   FlSnackBarModule,
   FlTextEditorModule,
-  FlTextIconModule, FlThemeModule,
+  FlTextIconModule,
+  FlThemeModule,
   FlTranslateModule,
   FlUserModule
 } from '@monorepo/front-core-lib';
@@ -42,6 +45,8 @@ import {TdTechnicalDocModule} from '@monorepo/technical-doc';
     FlCoreComponentModule,
     FlCardModule,
     FlThemeModule,
+    FlDateModule,
+    FlKeyValueModule,
 
     //-------------------
 

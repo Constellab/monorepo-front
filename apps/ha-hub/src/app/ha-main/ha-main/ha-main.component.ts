@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {AfterContentInit, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HaUser} from '../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
@@ -7,7 +7,7 @@ import {HaAuthService} from '../../ha-core/ha-service/ha-auth.service';
 import {HaApiServiceConfig} from '../../ha-core/ha-model/ha-config/ha-api-module.config';
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
 import {ActivatedRoute, UrlSegment} from '@angular/router';
-import {ClDateHelper, ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
+import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 import {HaEnvironmentHelper} from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import {isPlatformBrowser} from '@angular/common';
 import {HaCookieConsentComponent} from '../ha-cookie-consent/ha-cookie-consent.component';
@@ -53,7 +53,7 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     this.currentTheme = this.themeService.getCurrentTheme();
     this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
     this.authUserService.getUser().subscribe(user => {
-      if(user != null){
+      if (user != null) {
         this.authUserService.changeTheme(this.currentTheme).subscribe();
         this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
       }
@@ -61,14 +61,14 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     });
   }
 
-  ngAfterContentInit(): void{
-    if(isPlatformBrowser(this.platformId)) {
+  ngAfterContentInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
       this.cookieService.checkCookiesAcceptance({
         version: 1,
         displayMode: 'snackbar',
         component: HaCookieConsentComponent,
       })?.subscribe(res => {
-        if(res) {
+        if (res) {
           this.setGoogleAnalytics();
         }
       });
@@ -100,7 +100,7 @@ export class HaMainComponent implements OnInit, AfterContentInit {
   }
 
   selectTheme(theme: ClTheme): void {
-    if(this.currentTheme !== theme) {
+    if (this.currentTheme !== theme) {
       this.themeService.changeTheme(theme);
       this.currentTheme = theme;
       this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
@@ -115,8 +115,8 @@ export class HaMainComponent implements OnInit, AfterContentInit {
   // eslint-disable-next-line @typescript-eslint/member-ordering
   protected readonly ClSupportedLanguage = ClSupportedLanguage;
 
-  private setGoogleAnalytics(): void{
-    if(document.getElementById('google-analytics-script') != null){
+  private setGoogleAnalytics(): void {
+    if (document.getElementById('google-analytics-script') != null) {
       return;
     }
     const script = document.createElement('script');
@@ -125,12 +125,13 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     script.src = `https://www.googletagmanager.com/gtag/js?id=${HaEnvironmentHelper.getGoogleAnalyticsId()}`;
     document.head.appendChild(script);
 
-    window['dataLayer'] = window['dataLayer'] || [];
-    window['gtag'] = function(){
+    const windowObj = window as any;
+    windowObj['dataLayer'] = windowObj['dataLayer'] || [];
+    windowObj['gtag'] = function () {
       // eslint-disable-next-line prefer-rest-params
-      (window['dataLayer']).push(arguments);
-    }
-    window['gtag']('js', new Date());
-    window['gtag']('config', HaEnvironmentHelper.getGoogleAnalyticsId());
+      (windowObj['dataLayer']).push(arguments);
+    };
+    windowObj['gtag']('js', new Date());
+    windowObj['gtag']('config', HaEnvironmentHelper.getGoogleAnalyticsId());
   }
 }
