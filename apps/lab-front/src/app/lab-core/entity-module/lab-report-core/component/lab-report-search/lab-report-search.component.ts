@@ -65,15 +65,26 @@ export class LabReportSearchComponent implements OnInit {
   }
 
   private getSavedSearch(): FlSavedSearch[] {
-    return [{
-      searchName: 'lab-report',
-      id: null,
-      label: 'Reports',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {isValidated: false} as Partial<LabReportSearchFields>
-    }];
+    return [
+      {
+        searchName: 'lab-report',
+        id: 'current-reports',
+        label: 'Current reports',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {isValidated: false} as Partial<LabReportSearchFields>
+      },
+      {
+        searchName: 'lab-report',
+        id: 'all-reports',
+        label: 'ALl reports',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: false,
+        filtersCriteria: {isValidated: true} as Partial<LabReportSearchFields>
+      }
+    ];
   }
 
   openCreateReportFormDialog(): void {

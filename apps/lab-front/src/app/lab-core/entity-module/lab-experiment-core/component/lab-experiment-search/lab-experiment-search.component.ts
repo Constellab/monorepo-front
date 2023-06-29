@@ -63,15 +63,34 @@ export class LabExperimentSearchComponent implements OnInit {
 
   private getSavedSearch(): FlSavedSearch[] {
     // list of predefined search of the resources
-    return [{
-      searchName: 'lab-experiment',
-      id: null,
-      label: 'All experiments',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {type: 'EXPERIMENT', isValidated: false, isArchived: false} as Partial<LabExperimentSearchFields>
-    }];
+    return [
+      {
+        searchName: 'lab-experiment',
+        id: 'current-experiments',
+        label: 'Current experiments',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {
+          type: 'EXPERIMENT',
+          isValidated: false,
+          isArchived: false
+        } as Partial<LabExperimentSearchFields>
+      },
+      {
+        searchName: 'lab-experiment',
+        id: 'all-experiments',
+        label: 'All experiments',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: false,
+        filtersCriteria: {
+          type: 'EXPERIMENT',
+          isValidated: true,
+          isArchived: false
+        } as Partial<LabExperimentSearchFields>
+      },
+    ];
   }
 
   createExperiment(): void {
