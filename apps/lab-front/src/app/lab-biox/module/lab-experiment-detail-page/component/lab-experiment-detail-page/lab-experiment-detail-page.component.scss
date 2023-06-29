@@ -1,9 +1,13 @@
 // override padding to improve drawer style
 .page{
   padding: 0;
+  //display: flex;
+  //width: 100%;
+  //flex: 1 1 auto;
 }
 
 .section{
   margin-bottom: 0;
-  display: block;
+  //display: block;
+  height: 100%;
 }
