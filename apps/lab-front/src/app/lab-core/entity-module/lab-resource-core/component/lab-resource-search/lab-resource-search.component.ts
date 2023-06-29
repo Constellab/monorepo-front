@@ -209,13 +209,23 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
     // list of predefined search of the resources
     return [{
       searchName: labResourceSearchName,
-      id: null,
-      label: 'All',
+      id: 'flagged-resources',
+      label: 'Flagged resources',
       color: this.themeService.getCurrentThemeDetail().primary,
       version: 1,
       default: true,
       filtersCriteria: {} as Partial<LabResourceSearchFields>
-    }];
+    },
+    {
+      searchName: labResourceSearchName,
+      id: 'all-resources',
+      label: 'All resources',
+      color: this.themeService.getCurrentThemeDetail().primary,
+      version: 1,
+      default: false,
+      filtersCriteria: {includeNotFlagged: true} as Partial<LabResourceSearchFields>
+    }
+    ];
   }
 
   openImportFromUrlDialog(): void {

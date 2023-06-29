@@ -69,13 +69,22 @@ export class LabViewConfigSearchComponent implements OnInit {
     // list of predefined search of the resources
     return [{
       searchName: 'lab-view-config',
-      id: null,
-      label: 'All views',
+      id: 'flagged-views',
+      label: 'Flagged views',
       color: this.themeService.getCurrentThemeDetail().primary,
       version: 1,
       default: true,
       filtersCriteria: {} as Partial<LabViewConfigSearchFields>
-    }];
+    }, {
+      searchName: 'lab-view-config',
+      id: 'all-views',
+      label: 'All views',
+      color: this.themeService.getCurrentThemeDetail().primary,
+      version: 1,
+      default: false,
+      filtersCriteria: {includeNotFlagged: true} as Partial<LabViewConfigSearchFields>
+    }
+    ];
   }
 
   selectViewConfig(viewConfig: LabViewConfig): void {
