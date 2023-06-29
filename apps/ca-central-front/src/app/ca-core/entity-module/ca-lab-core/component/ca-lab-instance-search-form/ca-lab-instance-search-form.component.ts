@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, UntypedFormGroup} from '@angular/forms';
-import {FlSearchState, FlStatusDict, FlUserConfigSearchNameMode} from '@monorepo/front-core-lib';
-import {CaLabInstanceStatus, caLabInstanceStatusDict} from '../../../../model/entities/lab/ca-lab-instance.class';
+import {FlSearchState, FlUserConfigSearchNameMode} from '@monorepo/front-core-lib';
+import {caLabInstanceStatusDict} from '../../../../model/entities/lab/ca-lab-instance.class';
 
 export type CaLabInstanceSearchMode = 'all' | 'current-space';
 
@@ -16,7 +16,7 @@ export class CaLabInstanceSearchFormComponent implements OnInit {
 
   formGp: UntypedFormGroup;
 
-  status: FlStatusDict<CaLabInstanceStatus> = caLabInstanceStatusDict;
+  status: any = caLabInstanceStatusDict;
 
   selectUserMode: FlUserConfigSearchNameMode;
 

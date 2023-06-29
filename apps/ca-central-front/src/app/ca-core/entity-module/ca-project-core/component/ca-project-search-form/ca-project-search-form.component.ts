@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
-import {FlSearchState, FlStatusDict} from '@monorepo/front-core-lib';
-import {CaProjectStatus, caProjectStatusDict} from '../../../../model/entities/project/ca-project.class';
+import {FlSearchState} from '@monorepo/front-core-lib';
+import {caProjectStatusDict} from '../../../../model/entities/project/ca-project.class';
 
 @Component({
   selector: 'ca-project-search-form',
@@ -12,7 +12,7 @@ export class CaProjectSearchFormComponent implements OnInit {
 
   formGp: UntypedFormGroup;
 
-  status: FlStatusDict<CaProjectStatus> = caProjectStatusDict;
+  status: any = caProjectStatusDict;
 
 
   constructor(private searchState: FlSearchState<any>) {

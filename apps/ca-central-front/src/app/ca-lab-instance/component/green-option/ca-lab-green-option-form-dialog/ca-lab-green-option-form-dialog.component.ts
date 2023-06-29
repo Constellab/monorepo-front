@@ -39,7 +39,7 @@ export class CaLabGreenOptionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabGreenOptionFormDto, CaLabGreenOption>
   implements OnInit, OnDestroy {
 
-  greenOptionType = CaLabGreenOptionType;
+  greenOptionType: any = CaLabGreenOptionType;
 
 
   @ViewChild('subFormGroup', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;

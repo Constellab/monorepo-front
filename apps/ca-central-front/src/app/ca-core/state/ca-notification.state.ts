@@ -59,14 +59,14 @@ export class CaNotificationState {
     }));
   }
 
-  public getEntityNotificationsNumberByLink(link: string): Observable<number | string> {
+  public getEntityNotificationsNumberByLink(link: string): Observable<number> {
     return this.notifications$.asObservable().pipe(map((notifications: CaNotification[]) => {
       notifications = notifications.filter((notif: CaNotification) => notif.link === link &&
         notif.space != null && notif.space.id == this.currentSpaceId);
       if (notifications.length > 0) {
         return notifications.length;
       } else {
-        return '';
+        return 0;
       }
     }));
   }

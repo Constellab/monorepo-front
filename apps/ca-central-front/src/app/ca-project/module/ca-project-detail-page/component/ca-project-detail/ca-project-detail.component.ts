@@ -3,7 +3,7 @@ import {CaProject} from '../../../../../ca-core/model/entities/project/ca-projec
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {CaProjectDetailRightPanel, CaProjectDetailState} from '../../state/ca-project-detail.state';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {CaUser} from '../../../../../ca-core/model/entities/ca-user.class';
 import {
   CaProjectSharedGroupsListComponent,
@@ -11,7 +11,6 @@ import {
 } from '../ca-project-shared-groups-list/ca-project-shared-groups-list.component';
 import {map} from 'rxjs/operators';
 import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
-import {CaNotificationNumber, CaNotificationType} from '../../../../../ca-core/model/entities/ca-notification.class';
 import {Router} from '@angular/router';
 import {CaNotificationState} from '../../../../../ca-core/state/ca-notification.state';
 
@@ -61,12 +60,13 @@ export class CaProjectDetailComponent implements OnInit {
   }
 
   onProjectDeleted(project: CaProject): void {
-    if(project.parentId != null){
+    if (project.parentId != null) {
       this.routerService.navigateToProjectDetail(project.parentId);
-    }else{
-      this.routerService.navigateToDashboard()
+    } else {
+      this.routerService.navigateToDashboard();
     }
   }
+
   onChildCreated(project: CaProject): void {
     this.state.addChild(project);
   }
@@ -86,9 +86,11 @@ export class CaProjectDetailComponent implements OnInit {
     if (url.includes('?type')) {
       url = url.replace('description', 'comments').slice(1);
     } else {
-      url = url.slice(1) + '?type=comments'
+      url = url.slice(1) + '?type=comments';
     }
 
-    this.commentsNotifNumber$ = this.notificationState.getEntityNotificationsNumberByLink(url);
+    this.commentsNotifNumber$ = this.notificationState.getEntityNotificationsNumberByLink(url).pipe(
+      map((notifNumber) => notifNumber > 0 ? notifNumber : '')
+    );
   }
 }
