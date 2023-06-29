@@ -2,140 +2,145 @@
 
 // set the color of the text in dialog to default color
 // otherwise, material set light grey as color
-.mat-mdc-dialog-container{
-  --mdc-dialog-supporting-text-color: var(--color-foreground);
-}
 
-// remove padding of dialog content
-.mat-mdc-dialog-content.mdc-dialog__content{
-  padding: 10px 0 10px 0 !important;
-}
+// wrap with body to override material style
+// autocomplete not working in intellij for now : https://youtrack.jetbrains.com/issue/WEB-5970/SCSS-auto-autocomplete-is-broken-again-before-nested-declaration-block
 
-.mat-mdc-dialog-surface{
-  border-radius: var(--card-radius) !important;
-  padding: 24px;
-}
+body {
 
-// disable padding of dialog
-.g-dialog-no-padding .mat-mdc-dialog-surface{
-  padding: 0;
-}
-
-// Style the component inside the dialog to be full height of parent
-.mat-mdc-dialog-surface > *:first-child {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-// override the max height of the dialog content
-.mat-mdc-dialog-content {
-  max-height: none !important;
-}
-
-
-// Specific style to allow elements to overflow the dialog container and dialog content
-.g-dialog-allow-overflow {
-  .mat-mdc-dialog-container, mat-mdc-dialog-content {
-    overflow: initial;
+  .mat-mdc-dialog-container {
+    --mdc-dialog-supporting-text-color: var(--color-foreground);
   }
-}
 
-.g-dialog-main-background .mat-mdc-dialog-container{
-  --mdc-dialog-container-color: var(--main-background);
-}
+  // remove padding of dialog content
+  .mat-mdc-dialog-content.mdc-dialog__content {
+    padding: 10px 0 10px 0 !important;
+  }
+
+  .mat-mdc-dialog-surface {
+    border-radius: var(--card-radius) !important;
+    padding: 24px;
+  }
+
+  // disable padding of dialog
+  .g-dialog-no-padding .mat-mdc-dialog-surface {
+    padding: 0;
+  }
+
+  // Style the component inside the dialog to be full height of parent
+  .mat-mdc-dialog-surface > *:first-child {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  // override the max height of the dialog content
+  .mat-mdc-dialog-content {
+    max-height: none !important;
+  }
 
 
+  // Specific style to allow elements to overflow the dialog container and dialog content
+  .g-dialog-allow-overflow {
+    .mat-mdc-dialog-container, mat-mdc-dialog-content {
+      overflow: initial;
+    }
+  }
 
-/********************* SMALL DIALOG ***********************/
-.g-small-dialog {
-  width: 30vw;
-  max-height: 95vh;
-}
+  .g-dialog-main-background .mat-mdc-dialog-container {
+    --mdc-dialog-container-color: var(--main-background);
+  }
 
-@media (max-width: 1050px) and (min-width: 600px) {
+
+  /********************* SMALL DIALOG ***********************/
   .g-small-dialog {
+    width: 30vw;
+    max-height: 95vh;
+  }
+
+  @media (max-width: 1050px) and (min-width: 600px) {
+    .g-small-dialog {
+      width: 50vw;
+    }
+  }
+
+  @media (max-width: 599px) {
+    .g-small-dialog {
+      max-width: 100% !important;
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+    }
+  }
+
+  /************************ MEDIUM DIALOG **************************/
+  .g-medium-dialog {
     width: 50vw;
+    max-height: 95vh;
   }
-}
 
-@media (max-width: 599px) {
-  .g-small-dialog {
-    max-width: 100% !important;
-    width: 100%;
-    height: 100vh;
-    max-height: 100vh;
+  @media (max-width: 1050px) and (min-width: 600px) {
+    .g-medium-dialog {
+      width: 80vw;
+    }
   }
-}
 
-/************************ MEDIUM DIALOG **************************/
-.g-medium-dialog {
-  width: 50vw;
-  max-height: 95vh;
-}
-
-@media (max-width: 1050px) and (min-width: 600px) {
-  .g-medium-dialog {
-    width: 80vw;
+  @media (max-width: 599px) {
+    .g-medium-dialog {
+      max-width: 100% !important;
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+    }
   }
-}
 
-@media (max-width: 599px) {
-  .g-medium-dialog {
-    max-width: 100% !important;
-    width: 100%;
-    height: 100vh;
-    max-height: 100vh;
-  }
-}
-
-/*****************************  BIG DIALOG *******************************/
-.g-big-dialog {
-  width: 80vw;
-  height: 95vh;
-}
-
-@media (max-width: 599px) {
+  /*****************************  BIG DIALOG *******************************/
   .g-big-dialog {
-    max-width: none !important;
-    width: 100%;
-    height: 100vh;
+    width: 80vw;
+    height: 95vh;
   }
-}
 
-/*****************************  HUGE DIALOG *******************************/
-.g-huge-dialog {
-  max-width: 95vw !important;
-  width: 95vw;
-  height: 95vh;
-}
+  @media (max-width: 599px) {
+    .g-big-dialog {
+      max-width: none !important;
+      width: 100%;
+      height: 100vh;
+    }
+  }
 
-@media (max-width: 599px) {
+  /*****************************  HUGE DIALOG *******************************/
   .g-huge-dialog {
+    max-width: 95vw !important;
+    width: 95vw;
+    height: 95vh;
+  }
+
+  @media (max-width: 599px) {
+    .g-huge-dialog {
+      width: 100%;
+      height: 100vh;
+    }
+  }
+
+  /*****************************  FULL DIALOG *******************************/
+  .g-full-dialog {
+    max-width: 100vw !important;
     width: 100%;
     height: 100vh;
   }
-}
-
-/*****************************  FULL DIALOG *******************************/
-.g-full-dialog {
-  max-width: 100vw !important;
-  width: 100%;
-  height: 100vh;
-}
 
 
-/*******************************   PORTAL  *************************************/
+  /*******************************   PORTAL  *************************************/
 
-.g-portal-background {
-  background-color: var(--card-background);
-}
+  .g-portal-background {
+    background-color: var(--card-background);
+  }
 
 
-/* CSS for the Portal Arrow (Make it disappear on small screen) */
-@media (max-width: 599px) {
-  .g-arrow-overlay {
-    display: none !important;
+  /* CSS for the Portal Arrow (Make it disappear on small screen) */
+  @media (max-width: 599px) {
+    .g-arrow-overlay {
+      display: none !important;
+    }
   }
 }
-
