@@ -33,7 +33,7 @@ export class CaSpaceUserSearchComponent implements OnInit {
 
   datasource: CaSpaceUserDatasource;
 
-  columns: FlTableColumnStatic<CaSpaceUser>[] = ['user', 'role', 'active', 'lastLogin', 'addedInfo'];
+  columns: FlTableColumnStatic<CaSpaceUser>[] = ['user', 'role', 'active', 'addedInfo'];
 
   constructor(private searchState: FlSearchState<any>,
               private currentSpaceService: CaCurrentSpaceService,
@@ -46,7 +46,7 @@ export class CaSpaceUserSearchComponent implements OnInit {
 
     // only show the remove button if the user is an admin
     if (this.currentSpaceService.isSpaceAdmin()) {
-      this.columns.push('actions');
+      this.columns.push('lastLogin', 'actions');
     }
 
     const config: FlSearchConfig = {
