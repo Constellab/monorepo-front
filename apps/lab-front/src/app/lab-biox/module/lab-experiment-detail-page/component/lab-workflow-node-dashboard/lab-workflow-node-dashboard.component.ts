@@ -73,6 +73,10 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
     );
   }
 
+  saveConfig(): void{
+    this.dashboardState.saveCurrentTaskConfig();
+  }
+
   openProgressDetails(): void {
     const progressBar$: Observable<LabProgressBar> = this.process$.pipe(
       map(process => process.progressBar)

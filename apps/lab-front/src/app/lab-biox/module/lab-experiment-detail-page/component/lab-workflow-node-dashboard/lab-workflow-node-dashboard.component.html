@@ -10,12 +10,17 @@
       <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
         <fl-status-chip [status]="process.status"></fl-status-chip>
 
-        <button *ngIf="isEditable$ | async" mat-icon-button type="button" (click)="saveConfigAndStartExperiment()"
-                tabindex="-1"
-                [matTooltip]="'biox.save_config_and_run_experiment' | translate" matTooltipPosition="below">
-          <mat-icon>play_arrow</mat-icon>
-        </button>
+        <ng-container  *ngIf="isEditable$ | async">
+          <button mat-icon-button type="button" (click)="saveConfig()" tabindex="-1"
+                  [matTooltip]="'save' | translate" matTooltipPosition="below">
+            <mat-icon>save</mat-icon>
+          </button>
 
+          <button mat-icon-button type="button" (click)="saveConfigAndStartExperiment()" tabindex="-1"
+                  [matTooltip]="'biox.save_config_and_run_experiment' | translate" matTooltipPosition="below">
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+        </ng-container>
         <mat-icon *ngIf="isWaiting$ | async"
                   [matTooltip]="'biox.experiment_is_in_queue' | translate" matTooltipPosition="below">hourglass_empty
         </mat-icon>
