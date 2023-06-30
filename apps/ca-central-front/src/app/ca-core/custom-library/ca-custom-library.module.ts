@@ -15,6 +15,7 @@ import {
   FlEmojiPickerModule,
   FlExpansionMenuModule,
   FlFormModule,
+  FlHorizontalNavBarModule,
   FlIconModule,
   FlImageModule,
   FlInfiniteScrollModule,
@@ -84,6 +85,7 @@ import {PrProtocolModule} from '@monorepo/protocol';
     FlExpansionMenuModule,
     FlInputSearchModule,
     FlDynamicFieldModule,
+    FlHorizontalNavBarModule,
 
 
     RvResourceViewModule,

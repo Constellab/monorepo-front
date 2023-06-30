@@ -14,7 +14,7 @@
     <a mat-button *ngFor="let item of items"
        class="nav-item"
        [routerLink]="item.route" routerLinkActive="menu-active"
-       [routerLinkActiveOptions]="{exact: true}">
+       [routerLinkActiveOptions]="{exact: item.linkActiveExact}">
       <mat-icon [flIcon]="item.icon">dashboard</mat-icon>
       <span class="item-text">{{item.label | flTranslatableText}}</span>
     </a>

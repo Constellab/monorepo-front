@@ -13,7 +13,8 @@ export class LabMonitoringPageComponent {
     {
       label: {text: 'monitoring.dashboard', translateText: true},
       icon: 'dashboard',
-      route: LabRouterService.getMonitoringRoute()
+      route: LabRouterService.getMonitoringRoute(),
+      linkActiveExact: true
     },
     {
       label: {text: 'monitoring.monitoring', translateText: true},
