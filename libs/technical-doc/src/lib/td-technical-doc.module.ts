@@ -27,19 +27,22 @@ import {TdTypeUnavailableComponent} from './component/td-type-unavailable/td-typ
 import {TdTypingNamePipe} from './pipe/td-typing-name.pipe';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     MatIconModule,
-    FlCorePipeModule,
     MatChipsModule,
-    FlKeyValueModule,
     MatDividerModule,
+    MatTooltipModule,
+    MatButtonModule,
+
+    FlCorePipeModule,
     FlCoreComponentModule,
     FlTranslateModule,
-    MatTooltipModule
+    FlKeyValueModule,
   ],
   declarations: [
     TdResourceDocComponent,

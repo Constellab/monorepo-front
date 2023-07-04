@@ -95,10 +95,17 @@
           <mat-icon>login</mat-icon>
           {{'biox.node_inputs' | translate}}
         </fl-text-icon>
+
+        <button mat-icon-button type="button"
+                (click)="addInputPort()">
+          <mat-icon>add</mat-icon>
+        </button>
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <td-io-docs [ioSpecs]="node.getInputSpecs()" class="g-text-small"></td-io-docs>
+    <td-io-docs [ioSpecs]="node.getInputSpecs()" [readOnly]="false"
+                class="g-text-small"
+                (deleteSpec)="deleteInputPort($event)"></td-io-docs>
   </mat-expansion-panel>
 
 

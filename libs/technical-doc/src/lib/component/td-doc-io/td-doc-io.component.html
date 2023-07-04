@@ -1,24 +1,35 @@
-<div class="io-div-head">
+<div class="g-layout-row g-layout-between-center">
   <div>
-    <div class="io-human-name g-text-dense-height">{{ioSpec.human_name}}</div>
-    <div *ngIf="ioSpec.short_description" class="g-text-light g-text-dense-height">
-      {{ioSpec.short_description}}
+    <div class="io-div-head">
+      <div>
+        <div class="io-human-name g-text-dense-height">{{ioSpec.human_name}}</div>
+        <div *ngIf="ioSpec.short_description" class="g-text-light g-text-dense-height">
+          {{ioSpec.short_description}}
+        </div>
+      </div>
+      <div class="io-chip-div">
+        <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_optional"
+                 [matTooltip]="'td.optional_tooltip' | translate">
+          {{'td.optional' | translate}}
+        </fl-chip>
+        <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_constant"
+                 [matTooltip]="'td.constant_tooltip' | translate">
+          {{'td.constant' | translate}}
+        </fl-chip>
+      </div>
+    </div>
+
+
+    <div class="g-layout-row-wrap">
+      <td-io-resource *ngFor="let resourceType of ioSpec.resource_types" [resource]="resourceType"></td-io-resource>
     </div>
   </div>
-  <div class="io-chip-div">
-    <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_optional"
-             matTooltip="{{'td.optional_tooltip' | translate}}">
-      {{'td.optional' | translate}}
-    </fl-chip>
-    <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_constant"
-             matTooltip="{{'td.constant_tooltip' | translate}}">
-      {{'td.constant' | translate}}
-    </fl-chip>
+
+  <div *ngIf="showEditButton">
+    <button mat-icon-button [matTooltip]="'td.remove_port' | translate" (click)="removeSpecClicked()"
+            class="g-button-icon-small">
+      <mat-icon>clear</mat-icon>
+    </button>
   </div>
+
 </div>
-
-
-<div class="g-layout-row-wrap">
-  <td-io-resource *ngFor="let resourceType of ioSpec.resource_types" [resource]="resourceType"></td-io-resource>
-</div>
-

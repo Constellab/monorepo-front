@@ -241,7 +241,7 @@
     "share_object_help": "You can share an object with a link that will be valid for a limited time. Anyone with the share link will be able to view and download the object. You can delete the share link at any time.",
     "share_link_download": "Download link",
     "share_links": "Share links",
-    "import_resource_from_link": "Import from link",
+    "import_resource_from_link": "Upload from link",
     "import_from_link_help": "You can import resources from a link. You can provide link to a simple file or a share link from another lab. The resource will be imported in your lab and you will be able to use it like any other resource.",
     "resource_link": "Resource link",
     "share_origin_info": "Origin information",
@@ -325,6 +325,14 @@
     "report_archived": "Report archived",
     "unarchive_report": "Unarchive report",
     "unarchive_report_confirmation": "Are you sure you want to unarchive this report ?",
-    "report_unarchived": "Report unarchived"
+    "report_unarchived": "Report unarchived",
+    "add_input_port": "Create input",
+    "add_output_port": "Create output",
+    "remove_input_port": "Remove input",
+    "remove_output_port": "Remove output",
+    "adding_input_port": "Adding input",
+    "adding_output_port": "Adding output",
+    "removing_input_port": "Removing input",
+    "removing_output_port": "Removing output"
   }
 }

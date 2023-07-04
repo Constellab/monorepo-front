@@ -15,7 +15,7 @@ export class CaWorkflowConfig extends PrConfigView {
 
   getInputMenu(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
                workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
-    const resourceId: string = node.currentObject.inputs[port.name]?.resource_id ?? null;
+    const resourceId: string = node.currentObject.inputs.ports[port.name]?.resource_id ?? null;
 
     return [
       this.getResourceDetailContextButton(resourceId)
@@ -24,7 +24,7 @@ export class CaWorkflowConfig extends PrConfigView {
 
   getOutputMenu(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
                 workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
-    const resourceId: string = node.currentObject.outputs[port.name]?.resource_id ?? null;
+    const resourceId: string = node.currentObject.outputs.ports[port.name]?.resource_id ?? null;
 
     return [
       this.getResourceDetailContextButton(resourceId)

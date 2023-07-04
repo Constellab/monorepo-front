@@ -241,8 +241,8 @@
     "share_object_help": "Vous pouvez partager un objet avec un lien qui sera valide pour une durée limitée. Toute personne disposant du lien pourra visualiser et télécharger l'objet. Vous pouvez supprimer le lien de partage à tout moment.",
     "share_link_download": "Lien de téléchargement",
     "share_links": "Liens de partage",
-    "import_resource_from_link": "Importer depuis un lien",
-    "import_from_link_help" : "Vous pouvez importer des ressources depuis un lien. Vous pouvez fournir un lien vers un simple fichier ou un lien de partage depuis un autre lab. La ressource sera importée dans votre lab et vous pourrez l'utiliser comme n'importe quelle autre ressource.",
+    "import_resource_from_link": "Uploader depuis un lien",
+    "import_from_link_help": "Vous pouvez importer des ressources depuis un lien. Vous pouvez fournir un lien vers un simple fichier ou un lien de partage depuis un autre lab. La ressource sera importée dans votre lab et vous pourrez l'utiliser comme n'importe quelle autre ressource.",
     "resource_link": "Lien de la ressource",
     "share_origin_info": "Information d'origine",
     "share_origin_lab": "Lab d'origine",
@@ -304,6 +304,7 @@
     "delete_credentials_confirmation": "Êtes-vous sûr de vouloir supprimer ces identifiants ?",
     "credentials_deleted": "Identifiants supprimés",
     "select_credentials": "Sélectionner des identifiants",
+    "credentials_type": "Type d'identifiants",
     "credentials_type_BASIC": "Utilisateur / Mot de passe",
     "credentials_type_S3": "S3",
     "credentials_type_OTHER": "Autre",
@@ -324,6 +325,14 @@
     "report_archived": "Rapport archivé",
     "unarchive_report": "Désarchiver le rapport",
     "unarchive_report_confirmation": "Êtes-vous sûr de vouloir désarchiver ce rapport ?",
-    "report_unarchived": "Rapport désarchivé"
+    "report_unarchived": "Rapport désarchivé",
+    "add_input_port": "Ajouter une entrée",
+    "add_output_port": "Ajouter une sortie",
+    "remove_input_port": "Enlever l'entrée",
+    "remove_output_port": "Enlever la sortie",
+    "adding_input_port": "Ajout d'une entrée",
+    "adding_output_port": "Ajout d'une sortie",
+    "removing_input_port": "Suppression de l'entrée",
+    "removing_output_port": "Suppression de la sortie"
   }
 }

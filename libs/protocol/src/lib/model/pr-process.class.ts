@@ -1,5 +1,5 @@
 import {FlStatus, FlStatusDict, FlStatusHelper} from '@monorepo/front-core-lib';
-import {PrIO} from './pr-io.class';
+import {PrOI, PrPort} from './pr-io.class';
 import {PrConfig} from './pr-config.class';
 import {TdTypeObjectStatus} from '@monorepo/technical-doc';
 
@@ -32,9 +32,9 @@ export interface PrProcess {
 
   config: PrConfig;
 
-  inputs: Record<string, PrIO>;
+  inputs: PrOI;
 
-  outputs: Record<string, PrIO>;
+  outputs: PrOI;
 
   parentProtocolId: string;
 

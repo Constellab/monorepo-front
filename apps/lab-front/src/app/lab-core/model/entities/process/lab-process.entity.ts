@@ -4,7 +4,7 @@ import {LabProgressBar, LabProgressMessage} from '../lab-progress-bar.entity';
 import {FlStatus, FlStatusTransform} from '@monorepo/front-core-lib';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
 import {TdTypeObjectStatus, TdTypingName} from '@monorepo/technical-doc';
-import {PrConfigValues, PrIO, PrProcess, PrProcessStatus, prProcessStatusDict} from '@monorepo/protocol';
+import {PrConfigValues, PrOI, PrPort, PrProcess, PrProcessStatus, prProcessStatusDict} from '@monorepo/protocol';
 import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {LabEntity} from '../../global/lab-entity.entity';
@@ -52,9 +52,9 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   @Expose({name: 'instance_name'})
   instanceName: string;
 
-  inputs: Record<string, PrIO>;
+  inputs: PrOI;
 
-  outputs: Record<string, PrIO>;
+  outputs: PrOI;
 
   @Expose({name: 'progress_bar'})
   @Type(() => LabProgressBar)

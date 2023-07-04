@@ -39,6 +39,8 @@ enum LabWorkflowAction {
   DELETE_OUTERFACE = 'workflow-delete-outerface',
   UPDATE_PROCESS_CONFIG = 'workflow-update-process-config',
   RESET_PROCESS = 'reset-process',
+  ADD_DYNAMIC_PORT = 'workflow-add-dynamic-port',
+  DELETE_DYNAMIC_PORT = 'workflow-delete-dynamic-port',
 }
 
 interface LabWorkflowEventConnectionAdditionalInfo {
@@ -51,6 +53,7 @@ interface LabWorkflowEventNodeAdditionalInfo {
   node: PrWorkflowNode;
   connections: PrWorkflowConnection[];
 }
+
 
 @Injectable()
 export class LabWorkflowEditConfig implements OnDestroy {
@@ -246,6 +249,56 @@ export class LabWorkflowEditConfig implements OnDestroy {
       });
   }
 
+  public addDynamicInputPort(node: PrWorkflowNodeProcess): void {
+    this.addDynamicPort(
+      this.protocolService.createDynamicInputPort(node.parentLayerId, node.nodeName, null),
+      node,
+      'biox.adding_input_port');
+  }
+
+  public addDynamicOutputPort(node: PrWorkflowNodeProcess): void {
+    this.addDynamicPort(
+      this.protocolService.createDynamicOutputPort(node.parentLayerId, node.nodeName, null),
+      node,
+      'biox.adding_output_port');
+  }
+
+  private addDynamicPort(obs: Observable<LabProtocolUpdateDTO>, node: PrWorkflowNodeProcess,
+                         text: string): void {
+    const action: FlPortalAction = {
+      type: LabWorkflowAction.ADD_DYNAMIC_PORT,
+      action: obs,
+      text: {text: text, translateText: true},
+    };
+
+    this.executeUpdateAction(action, node.currentObject as LabProcess, false);
+  }
+
+  public removeDynamicInputPort(node: PrWorkflowNodeProcess, portName: string): void {
+    this.removeDynamicPort(
+      this.protocolService.deleteDynamicInputPort(node.parentLayerId, node.nodeName, portName),
+      node,
+      'biox.removing_input_port');
+  }
+
+  public removeDynamicOutputPort(node: PrWorkflowNodeProcess, portName: string): void {
+    this.removeDynamicPort(
+      this.protocolService.deleteDynamicOutputPort(node.parentLayerId, node.nodeName, portName),
+      node,
+      'biox.removing_output_port');
+  }
+
+  private removeDynamicPort(obs: Observable<LabProtocolUpdateDTO>, node: PrWorkflowNodeProcess,
+                            text: string): void {
+    const action: FlPortalAction = {
+      type: LabWorkflowAction.DELETE_DYNAMIC_PORT,
+      action: obs,
+      text: {text: text, translateText: true},
+    };
+
+    this.executeUpdateAction(action, node.currentObject as LabProcess, false);
+  }
+
   private getAndCheckProcessNode(protocolId: string, processInstanceName: string): PrWorkflowNodeProcess {
     const layer = this.workflow.findLayerWithId(protocolId);
     const node = layer.findNodeByName(processInstanceName);
@@ -389,6 +442,19 @@ export class LabWorkflowEditConfig implements OnDestroy {
         const info: LabWorkflowEventNodeAdditionalInfo = actionResult.additionalInformation;
         info.node.destroy();
       }
+      // else if (actionResult.action.type === LabWorkflowAction.ADD_DYNAMIC_INPUT_PORT) {
+      //   const protocolUpdate: LabProtocolUpdateDTO = actionResult.result;
+      //   const layer = this.workflow.findLayerWithId(protocolUpdate.process.parentProtocolId);
+      //
+      //   layer.addNodeInputPort(protocolUpdate.process.instanceName);
+      //   return;
+      // } else if (actionResult.action.type === LabWorkflowAction.DELETE_DYNAMIC_INPUT_PORT) {
+      //   const protocolUpdate: LabProtocolUpdateDTO = actionResult.result;
+      //   const layer = this.workflow.findLayerWithId(protocolUpdate.process.parentProtocolId);
+      //   const info: LabWorkflowPortAdditionalInfo = actionResult.additionalInformation;
+      //   layer.deleteInputNodePort(protocolUpdate.process.instanceName, info.portName);
+      //   return;
+      // }
       this.refreshProtocolAndParent(actionResult.result);
     } else {
       this.revertWorkflowEvent(actionResult.action.type as LabWorkflowAction, actionResult.additionalInformation);
@@ -509,7 +575,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
       LabWorkflowAction.DELETE_PROCESS,
       LabWorkflowAction.DELETE_INTERFACE, LabWorkflowAction.DELETE_OUTERFACE,
       LabWorkflowAction.DELETE_CONNECTION, LabWorkflowAction.ADD_CONNECTION,
-      LabWorkflowAction.UPDATE_PROCESS_CONFIG, LabWorkflowAction.RESET_PROCESS]);
+      LabWorkflowAction.UPDATE_PROCESS_CONFIG, LabWorkflowAction.RESET_PROCESS,
+      LabWorkflowAction.ADD_DYNAMIC_PORT, LabWorkflowAction.DELETE_DYNAMIC_PORT]);
   }
 
   private executeUpdateAction(action: FlPortalAction, process: LabProcess,

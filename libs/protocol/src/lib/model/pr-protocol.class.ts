@@ -1,5 +1,5 @@
 import {FlCoord} from '@monorepo/front-core-lib';
-import {PrIO} from './pr-io.class';
+import {PrOI} from './pr-io.class';
 import {PrProcessStatus} from './pr-process.class';
 import {PrConfig} from './pr-config.class';
 
@@ -10,7 +10,7 @@ export interface PrProtocolLayout {
 }
 
 export interface PrProtocolGraph {
-  nodes: Record<string, PrProtocolProcess>;
+  nodes: Record<string, PrProtocol>;
 
   links: PrProtocolLink[];
 
@@ -21,7 +21,7 @@ export interface PrProtocolGraph {
   layout?: PrProtocolLayout;
 }
 
-export interface PrProtocolProcess {
+export interface PrProtocol {
   brick_version: string;
 
   human_name: string;
@@ -34,9 +34,9 @@ export interface PrProtocolProcess {
 
   config: PrConfig;
 
-  inputs: Record<string, PrIO>;
+  inputs: PrOI;
 
-  outputs: Record<string, PrIO>;
+  outputs: PrOI;
 
   // if this is a sub-protocol, this is the graph of the sub-protocol
   graph?: PrProtocolGraph;

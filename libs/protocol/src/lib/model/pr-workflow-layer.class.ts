@@ -1,13 +1,15 @@
 import Drawflow, {ConnectionEvent, ConnectionStartEvent} from 'drawflow';
 import {PrWorkflowNode} from './node/pr-workflow-node.class';
 import {PrWorkflowConnection} from './pr-workflow-connection.class';
-import {PrWorkflowPort} from './pr-workflow-port.class';
+import {PrWorkflowPort, PrWorkflowPortType} from './pr-workflow-port.class';
 import {PrConnection} from './pr-workflow-action.class';
 import {PrWorkflowNodeProcess} from './node/pr-workflow-node-process.class';
 import {PrWorkflowNodeInterface} from './node/pr-workflow-node-interface.class';
 import {PrWorkflowNodeOuterface} from './node/pr-workflow-node-outerface.class';
 import {FlCoord} from '@monorepo/front-core-lib';
 import {PrWorkflowNodeProtocol} from './node/pr-workflow-node-protocol.class';
+import {PrProcess} from './pr-process.class';
+import {PrOI, PrPort} from './pr-io.class';
 
 export class PrWorkflowLayer {
 
@@ -95,6 +97,63 @@ export class PrWorkflowLayer {
       console.error('Couldn\'t find node with id ' + nodeId);
       return null;
     }
+  }
+
+  public updateProcessObject(process: PrProcess): void {
+    const node = this.findNodeByName(process.instanceName);
+    if (!node) return;
+
+    this.refreshPorts(node, node.inputPorts, process.inputs, 'input');
+    this.refreshPorts(node, node.outputPorts, process.outputs, 'output');
+
+    node.updateObject(process);
+  }
+
+  /**
+   * Method to refresh the input or output port of a node from a new PrOI object
+   * @private
+   */
+  private refreshPorts(node: PrWorkflowNode,
+                       currentPorts: PrWorkflowPort[],
+                       newPorts: PrOI,
+                       portType: PrWorkflowPortType): void {
+    for (const currentPort of currentPorts) {
+      // if a port is not in the object anymore, delete it
+      if (!newPorts.ports[currentPort.name]) {
+        this.deleteNodePort(node.nodeName, currentPort.name, portType);
+      } else {
+        currentPort.updateObject(newPorts.ports[currentPort.name]);
+      }
+    }
+
+    for (const oiName of Object.keys(newPorts.ports)) {
+      // if a port is in the object but not in the inputPorts, create it
+      if (!node.findPortByName(oiName, portType)) {
+        this.addNodePort(node.nodeName, oiName, newPorts.ports[oiName], portType);
+      }
+    }
+  }
+
+  private addNodePort(nodeName: string, portName: string, port: PrPort,
+                      portType: PrWorkflowPortType): void {
+    const node = this.findNodeByName(nodeName);
+
+    if (portType === 'input') {
+      this.editor.addNodeInput(node.drawflowId);
+    } else {
+      this.editor.addNodeOutput(node.drawflowId);
+    }
+    node.createPort(portName, port, portType);
+  }
+
+  private deleteNodePort(nodeName: string, portName: string, portType: PrWorkflowPortType): void {
+    const node = this.findNodeByName(nodeName);
+    if (portType === 'input') {
+      this.editor.removeNodeInput(node.drawflowId, node.getInputPortDrawflowName(portName));
+    } else {
+      this.editor.removeNodeOutput(node.drawflowId, node.getOutputPortDrawflowName(portName));
+    }
+    node.deletePort(portName, portType);
   }
 
   // return the nodes that do not have any inputs
@@ -200,7 +259,7 @@ export class PrWorkflowLayer {
       // append 'i_' to name to make it unique with outerface
       name: 'i_' + interfaceName,
       portName: port.name,
-      portType: port.specs
+      portType: port.currentSpecs
     }, this.id, interfaceName);
 
     if (coords == null) {
@@ -229,7 +288,7 @@ export class PrWorkflowLayer {
       // append 'o_' to name to make it unique with interface
       name: 'o_' + outerfaceName,
       portName: port.name,
-      portType: port.specs
+      portType: port.currentSpecs
     }, this.id, outerfaceName);
 
     if (coords == null) {
@@ -259,9 +318,18 @@ export class PrWorkflowLayer {
   }
 
   private createDrawflowConnection(connection: PrWorkflowConnection): void {
+    const outputPortDrawflowName = connection.outputNode.getOutputPortDrawflowName(connection.outputPort.name);
+    if (outputPortDrawflowName == null) {
+      console.error('[PrProtocol] can\'t find output port drawflow name for port ' + connection.outputPort.name);
+      return;
+    }
+    const inputPortDrawflowName = connection.inputNode.getInputPortDrawflowName(connection.inputPort.name);
+    if (inputPortDrawflowName == null) {
+      console.error('[PrProtocol] can\'t find input port drawflow name for port ' + connection.inputPort.name);
+      return;
+    }
     this.editor.addConnection(connection.outputNode.drawflowId, connection.inputNode.drawflowId,
-      connection.outputPort.drawFlowName,
-      connection.inputPort.drawFlowName);
+      outputPortDrawflowName, inputPortDrawflowName);
   }
 
   public addPrConnection(connection: PrConnection): PrWorkflowConnection {
@@ -316,8 +384,11 @@ export class PrWorkflowLayer {
     const removedConnection = this.saveUserConnectionRemoved(connection);
 
     if (removedConnection) {
-      this.editor.removeSingleConnection(removedConnection.outputNode.drawflowId, removedConnection.inputNode.drawflowId,
-        removedConnection.outputPort.drawFlowName, removedConnection.inputPort.drawFlowName);
+      this.editor.removeSingleConnection(
+        removedConnection.outputNode.drawflowId,
+        removedConnection.inputNode.drawflowId,
+        removedConnection.inputNode.getOutputPortDrawflowName(removedConnection.outputPort.name),
+        removedConnection.outputNode.getInputPortDrawflowName(removedConnection.inputPort.name));
       return removedConnection;
     }
     return null;

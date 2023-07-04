@@ -39,7 +39,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
 
   getInputMenu(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
                workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
-    const resourceId: string = node.currentObject.inputs[port.name]?.resource_id ?? null;
+    const resourceId: string = node.currentObject.inputs.ports[port.name]?.resource_id ?? null;
 
     return [
       {
@@ -48,7 +48,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
         icon: 'resource',
         onClick: () => this.openResourceSelection(port, node),
         // only activated if is editable and the port is not connected
-        disabled: workflowMode === 'readOnly' || node.inputPortIsConnected(port.drawFlowName)
+        disabled: workflowMode === 'readOnly' || node.inputPortIsConnected(port.name)
       },
       this.getProcessSuggestionButton(port, node, 'input', workflowMode),
       this.getResourceDetailContextButton(resourceId)
@@ -57,7 +57,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
 
   getOutputMenu(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
                 workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
-    const resourceId: string = node.currentObject.outputs[port.name]?.resource_id ?? null;
+    const resourceId: string = node.currentObject.outputs.ports[port.name]?.resource_id ?? null;
 
     return [
       {
@@ -90,7 +90,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
   private openResourceSelection(port: PrWorkflowPort, node: PrWorkflowNodeProcess): void {
     // add a default search filtered by resource type
     const filter: Partial<LabResourceSearchFields> = {
-      resourceTypingNames: port.specs.resource_types.map((type) => type.typing_name)
+      resourceTypingNames: port.currentSpecs.resource_types.map((type) => type.typing_name)
     };
     const savedSearch: FlSavedSearch = {
       searchName: labResourceSearchName,

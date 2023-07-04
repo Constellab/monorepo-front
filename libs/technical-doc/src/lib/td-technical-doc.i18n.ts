@@ -29,6 +29,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     type_unavailable_detail: 'Le type \'<strong>{typingName}</strong>\' de l\'objet n\'est pas disponible. Veuillez vérifiez que la brique \'<strong>{brickName}</strong>\' est correctement installé.',
     type_unavailable_detail_resource: 'Tant que le type est indisponible, les ressources de ce type ne pourront pas être utilisées dans des processus ni visualisées via les vues.',
     type_unavailable_detail_process: 'Tant que le type est indisponible, les processus de ce type ne pourront pas être utilisées dans des protocols.',
+    remove_port: 'Supprimer le port',
   }
 };
 
@@ -56,6 +57,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     type_unavailable_detail: 'The type \'<strong>{{typingName}}</strong>\' of the object is not available. Please check if the brick \'<strong>{{brickName}}</strong>\' is correctly installed.',
     type_unavailable_detail_resource: 'As long as the type is not available, the resources of this type cannot be used in any process nor visualized with views.',
     type_unavailable_detail_process: 'As long as the type is not available, the processes of this type cannot be used in protocols.',
+    remove_port: 'Remove port',
 
   }
 };

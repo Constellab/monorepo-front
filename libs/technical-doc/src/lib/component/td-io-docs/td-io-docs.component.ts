@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TdIOSpec} from '../../model/td-process-type.class';
 
 @Component({
@@ -6,16 +6,15 @@ import {TdIOSpec} from '../../model/td-process-type.class';
   templateUrl: './td-io-docs.component.html',
   styleUrls: ['./td-io-docs.component.scss']
 })
-export class TdIoDocsComponent implements OnInit {
+export class TdIoDocsComponent {
 
-  @Input()
-  ioSpecs: Record<string, TdIOSpec>;
+  @Input() ioSpecs: Record<string, TdIOSpec>;
+  @Input() readOnly: boolean = true;
 
-  constructor() {
+  @Output() deleteSpec: EventEmitter<string> = new EventEmitter();
+
+
+  deleteSpecClicked(specId: string): void {
+    this.deleteSpec.emit(specId);
   }
-
-  ngOnInit(): void {
-
-  }
-
 }

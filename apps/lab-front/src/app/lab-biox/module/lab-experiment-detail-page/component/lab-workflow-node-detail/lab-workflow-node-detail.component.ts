@@ -113,4 +113,12 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
       panelClass: ['g-dialog-no-padding'], viewContainerRef: this.viewContainerRef
     });
   }
+
+  addInputPort(): void {
+    this.nodeDetailState.createDynamicInputPort();
+  }
+
+  deleteInputPort(portName: string): void {
+    this.nodeDetailState.removeDynamicInputPort(portName);
+  }
 }

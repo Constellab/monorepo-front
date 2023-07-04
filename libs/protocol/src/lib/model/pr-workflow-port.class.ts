@@ -1,18 +1,50 @@
-import {TdIOSpec} from '@monorepo/technical-doc';
 import {FlColorHelper} from '@monorepo/front-core-lib';
+import {PrPort} from './pr-io.class';
+import {BehaviorSubject, map, Observable} from 'rxjs';
+import {TdIOSpec} from '@monorepo/technical-doc';
+
+export type PrWorkflowPortType = 'input' | 'output';
 
 export class PrWorkflowPort {
 
   private static readonly INPUT_NAME_PREFIX: string = 'input_';
   private static readonly OUTPUT_NAME_PREFIX: string = 'output_';
 
+  private object$: BehaviorSubject<PrPort>;
+
+
   constructor(public name: string,
-              public drawFlowName: string,
-              public specs: TdIOSpec) {
+              port: PrPort,
+              public type: PrWorkflowPortType) {
+    this.object$ = new BehaviorSubject(port);
+  }
+
+  /////////////////////////////// OBJECT //////////////////////////////
+
+  public get currentObject(): PrPort {
+    return this.object$.value;
+  }
+
+  public getObject$(): Observable<PrPort> {
+    return this.object$.asObservable();
+  }
+
+  public updateObject(object: PrPort): void {
+    this.object$.next(object);
+  }
+
+  public get currentSpecs(): TdIOSpec {
+    return this.currentObject.specs;
+  }
+
+  public getResourceId$(): Observable<string> {
+    return this.object$.asObservable().pipe(
+      map(port => port.resource_id)
+    );
   }
 
   get humanName(): string {
-    return this.specs.human_name;
+    return this.currentSpecs.human_name;
   }
 
   /**
@@ -37,9 +69,9 @@ export class PrWorkflowPort {
    * If one is null, it is compatible with anything
    */
   public isCompatible(port: PrWorkflowPort): boolean {
-    if (this.specs == null || port.specs == null) {
-      return true;
-    }
+    // if (this.port.specs == null || port.port.specs == null) {
+    //   return true;
+    // }
 
     return true;
     // for (const type of port.types) {
@@ -54,18 +86,22 @@ export class PrWorkflowPort {
    * return the port color base on first type
    */
   public getDefaultColor(): string {
-    if (this.specs == null || this.specs.resource_types.length === 0) {
+    if (this.currentSpecs == null || this.currentSpecs.resource_types.length === 0) {
       return '#ffffff';
     } else {
-      if (this.specs.resource_types[0].typing_name == null || this.specs.resource_types[0].typing_name.length === 0) {
+      if (this.currentSpecs.resource_types[0].typing_name == null || this.currentSpecs.resource_types[0].typing_name.length === 0) {
         return '#ffffff';
       } else {
-        return FlColorHelper.stringToRGBColor(this.specs.resource_types[0].typing_name);
+        return FlColorHelper.stringToRGBColor(this.currentSpecs.resource_types[0].typing_name);
       }
     }
   }
 
   public getResourceTypingNames(): string[] {
-    return this.specs.resource_types.map(spec => spec.typing_name);
+    return this.currentSpecs.resource_types.map(spec => spec.typing_name);
+  }
+
+  public destroy(): void {
+    this.object$.complete();
   }
 }

@@ -25,7 +25,7 @@ export abstract class PrWorkflowNodeIo extends PrWorkflowNodeProcess {
   private setPortColor(resource: PrResource): void {
     const port = this.getPort();
 
-    const portElement: HTMLElement = port ? this.getPortElement(port.drawFlowName) : null;
+    const portElement: HTMLElement = port ? this.getPortElement(port) : null;
 
     if (portElement == null) return;
 

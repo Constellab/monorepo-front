@@ -1,12 +1,12 @@
 import {PrWorkflowNode} from './pr-workflow-node.class';
 import {PrProcess, PrProcessStatus} from '../pr-process.class';
-import {PrWorkflowPort} from '../pr-workflow-port.class';
-import {PrIO} from '../pr-io.class';
+import {PrPort} from '../pr-io.class';
 import {PrConfigValues} from '../pr-config.class';
 import {map, Observable} from 'rxjs';
 import {FlStatus, FlTranslatableText} from '@monorepo/front-core-lib';
 import {TdTypingName} from '@monorepo/technical-doc';
 import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
+import {PrWorkflowPortType} from '../pr-workflow-port.class';
 
 export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
 
@@ -23,32 +23,18 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   }
 
   protected initPorts(object: PrProcess): void {
-    this.inputPorts = this.generatePorts(object.inputs, 'input');
-    this.outputPorts = this.generatePorts(object.outputs, 'output');
+    this.generatePorts(object.inputs.ports, 'input');
+    this.generatePorts(object.outputs.ports, 'output');
   }
 
   // generate ports base on input or output spec
-  private generatePorts(specs: Record<string, PrIO>, type: 'input' | 'output'): PrWorkflowPort[] {
-    const ports: PrWorkflowPort[] = [];
-    let i = 1;
+  private generatePorts(specs: Record<string, PrPort>, type: 'input' | 'output'): void {
     if (specs) {
       for (const property of Object.keys(specs)) {
-        // retrieve the drawflow port name based on index
-        let drawFlowName: string;
-        if (type === 'input') {
-          drawFlowName = PrWorkflowPort.getInputDrawflowName(i);
-        } else {
-          drawFlowName = PrWorkflowPort.getOutputDrawflowName(i);
-        }
-
-        // create the port
-        ports.push(new PrWorkflowPort(property, drawFlowName, specs[property].specs));
-        i++;
+        const port = specs[property];
+        this.createPort(property, port, type);
       }
     }
-
-
-    return ports;
   }
 
   getStatus$(): Observable<FlStatus<PrProcessStatus> | null> {
@@ -79,29 +65,29 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
     );
   }
 
-  updateConfigValues(configValues: PrConfigValues): void {
-    this.currentObject.config.values = configValues;
-    // refresh the current object
-    this.updateObject(this.currentObject);
-  }
-
   isSuccess$(): Observable<boolean> {
     return this.getStatus$().pipe(
       map(status => status?.value === 'SUCCESS')
     );
   }
 
-  getInputs$(): Observable<Record<string, PrIO>> {
+  public hasDynamicIOPorts$(type: PrWorkflowPortType): Observable<boolean> {
+    if (type === 'input') {
+      return this.hasDynamicInputPorts$();
+    } else {
+      return this.hasDynamicOutputPorts$();
+    }
+  }
+
+  public hasDynamicInputPorts$(): Observable<boolean> {
     return this.getObject$().pipe(
-      map((process: PrProcess) => process.inputs)
+      map(process => process.inputs.is_dynamic)
     );
   }
 
-  getOutputs$(): Observable<Record<string, PrIO>> {
+  public hasDynamicOutputPorts$(): Observable<boolean> {
     return this.getObject$().pipe(
-      map((process: PrProcess) => process.outputs)
+      map(process => process.outputs.is_dynamic)
     );
   }
-
-
 }

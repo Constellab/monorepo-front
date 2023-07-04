@@ -24,7 +24,7 @@ export class PrWorkflowPortActionPortalComponent implements OnInit {
 
   constructor(@Inject(FL_PORTAL_DATA) private data: PrWorkflowPortActionPortalInput,
               private overlayRef: FlOverlayRef) {
-    this.ioSpec = data.port.specs;
+    this.ioSpec = data.port.currentSpecs;
     this.menuDynamics = data.menuDynamics;
   }
 

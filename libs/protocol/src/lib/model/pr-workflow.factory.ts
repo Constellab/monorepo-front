@@ -3,7 +3,7 @@ import {TdTypingName} from '@monorepo/technical-doc';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {NgZone} from '@angular/core';
 import {FlCoord} from '@monorepo/front-core-lib';
-import {PrProtocolGraph, PrProtocolLayout, PrProtocolProcess} from './pr-protocol.class';
+import {PrProtocolGraph, PrProtocolLayout, PrProtocol} from './pr-protocol.class';
 import {PrWorkflowResourcesState} from '../state/pr-workflow-resources.state';
 import {PrWorkflow} from './pr-workflow.class';
 import {PrWorkflowLayer} from './pr-workflow-layer.class';
@@ -73,7 +73,7 @@ export class PrWorkflowFactory {
     return layer;
   }
 
-  private createProcessNode(caProcess: PrProtocolProcess, name: string, protocolId: string,
+  private createProcessNode(caProcess: PrProtocol, name: string, protocolId: string,
                             layout?: FlCoord): PrWorkflowNodeProcess {
     const prProcess = this.caProcessToPrProcess(caProcess, name, protocolId);
 
@@ -98,7 +98,7 @@ export class PrWorkflowFactory {
     return processNode;
   }
 
-  private caProcessToPrProcess(caProcess: PrProtocolProcess, name: string, protocolId: string): PrProcess {
+  private caProcessToPrProcess(caProcess: PrProtocol, name: string, protocolId: string): PrProcess {
     return {
       id: ClStringHelper.generateUUID(),
       instanceName: name,

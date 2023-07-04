@@ -6,7 +6,7 @@ import {
   CaExperimentTechnicalReportProcessDocDialogComponent
 } from '../ca-experiment-technical-report-process-doc-dialog/ca-experiment-technical-report-process-doc-dialog.component';
 import {CaCommunityHelper} from '../../../../../ca-core/utils/ca-community.helper';
-import {PrProtocolProcess} from '@monorepo/protocol';
+import {PrProtocol} from '@monorepo/protocol';
 
 @Component({
   selector: 'ca-experiment-technical-report-node',
@@ -15,7 +15,7 @@ import {PrProtocolProcess} from '@monorepo/protocol';
 })
 export class CaExperimentTechnicalReportNodeComponent implements OnInit {
 
-  @Input() node: PrProtocolProcess;
+  @Input() node: PrProtocol;
 
   typingName: TdTypingName;
 

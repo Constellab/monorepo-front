@@ -95,8 +95,14 @@ export class LabProtocol extends LabProcess {
 
   public static empty(): LabProtocol {
     const protocol: LabProtocol = new LabProtocol();
-    protocol.inputs = {};
-    protocol.outputs = {};
+    protocol.inputs = {
+      is_dynamic: false,
+      ports: {},
+    };
+    protocol.outputs = {
+      is_dynamic: false,
+      ports: {},
+    };
     protocol.data = LabProtocolData.empty();
     return protocol;
   }

@@ -95,6 +95,22 @@ export class LabWorkflowNodeDetailState {
     this.workflowEditConfig.resetProcess(node.parentLayerId, node.nodeName);
   }
 
+  public createDynamicInputPort(): void{
+    this.workflowEditConfig.addDynamicInputPort(this.node$.value);
+  }
+
+  public createDynamicOutputPort(): void{
+    this.workflowEditConfig.addDynamicOutputPort(this.node$.value);
+  }
+
+  public removeDynamicInputPort(portName: string): void{
+    this.workflowEditConfig.removeDynamicInputPort(this.node$.value, portName);
+  }
+
+  public removeDynamicOutputPort(portName: string): void{
+    this.workflowEditConfig.removeDynamicOutputPort(this.node$.value, portName);
+  }
+
   private openResourceDetail(resourceId: string): void {
     this.dialogService.openBigDialog(LabResourceDetailDialogComponent,
       {

@@ -1,5 +1,7 @@
 <div class="ios-div" *ngFor="let io of ioSpecs|  flObjectKeys">
-  <td-doc-io [ioSpec]="ioSpecs[io]" class="io-div"></td-doc-io>
+  <td-doc-io [ioSpec]="ioSpecs[io]" [showEditButton]="!readOnly"
+             class="io-div"
+             (removeSpec)="deleteSpecClicked(io)"></td-doc-io>
 </div>
 
 

@@ -293,7 +293,8 @@ export class PrWorkflow {
 
     // check if the input is available and if the port are compatible
     // refuse if there are more than one connection (the new one is counting)
-    if (inputNode.countInputConnections(connectionEvent.input_class) > 1 ||
+    const port = inputNode.findInputPortByDrawflowName(connectionEvent.input_class);
+    if (inputNode.countInputConnections(port.name) > 1 ||
       !inputPort.isCompatible(outputPort)) {
 
       // remove the connection

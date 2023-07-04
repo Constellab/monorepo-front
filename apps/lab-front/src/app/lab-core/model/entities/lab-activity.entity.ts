@@ -11,6 +11,7 @@ export enum ActivityType {
   VALIDATE = 'VALIDATE',
   HTTP_AUTHENTICATION = 'HTTP_AUTHENTICATION',
   RUN_EXPERIMENT = 'RUN_EXPERIMENT',
+  STOP_EXPERIMENT = 'STOP_EXPERIMENT',
 }
 
 export enum ActivityObjectType {

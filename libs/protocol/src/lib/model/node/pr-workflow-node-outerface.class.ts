@@ -28,11 +28,8 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNode<PrOuterface> {
 
 
   protected initPorts(object: PrOuterface): void {
-    this.inputPorts = [new PrWorkflowPort(object.portName,
-      PrWorkflowPort.getInputDrawflowName(1),
-      object.portType)];
-    // no input ports
-    this.outputPorts = [];
+    // TODO check null
+    this.createPort(object.portName, {specs: object.portType, resource_id: null}, 'input');
   }
 
   getStatus$(): Observable<FlStatus | null> {

@@ -8,6 +8,7 @@ import {
   LabCreateProtocolTemplateDTO,
   LabProtocolTemplate
 } from '../model/entities/process/lab-protocol-template.entity';
+import {TdIOSpec} from '@monorepo/technical-doc';
 
 @Injectable({
   providedIn: 'root'
@@ -146,6 +147,29 @@ export class LabProtocolService {
   public saveOuterfaceLayout(protocolId: string, outerfaceName: string, layout: LabProcessLayout): Observable<void> {
     return this.apiService.put(`${this.baseRoute}/${protocolId}/layout/outerface/${outerfaceName}`, layout);
   }
+
+  ///////////////////////////////////////////////// DYNAMIC PORT /////////////////////////////////////////////////
+
+  public createDynamicInputPort(protocolId: string, processName: string, ioSpec: TdIOSpec): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-input`, ioSpec,
+      LabProtocolUpdateDTO);
+  }
+
+  public createDynamicOutputPort(protocolId: string, processName: string, ioSpec: TdIOSpec): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-output`, ioSpec,
+      LabProtocolUpdateDTO);
+  }
+
+  public deleteDynamicInputPort(protocolId: string, processName: string, portName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.delete(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-input/${portName}`,
+      LabProtocolUpdateDTO);
+  }
+
+  public deleteDynamicOutputPort(protocolId: string, processName: string, portName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.delete(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-output/${portName}`,
+      LabProtocolUpdateDTO);
+  }
+
 
   ///////////////////////////////////////////////// PROTOCOL TEMPLATE /////////////////////////////////////////////////
   public createProtocolTemplate(protocolId: string, template: LabCreateProtocolTemplateDTO): Observable<LabProtocolTemplate> {

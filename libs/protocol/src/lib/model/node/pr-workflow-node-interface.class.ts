@@ -10,7 +10,7 @@ import {FlStatus} from '@monorepo/front-core-lib';
 export class PrWorkflowNodeInterface extends PrWorkflowNode<PrInterface> {
 
   // real name of the interface (the name might have been changed to make it unique)
-  public interfaceName: string
+  public interfaceName: string;
 
   constructor(interfaceNode: PrInterface, parentLayerId: string, interfaceName: string) {
     super(interfaceNode.name, parentLayerId, interfaceNode);
@@ -26,10 +26,11 @@ export class PrWorkflowNodeInterface extends PrWorkflowNode<PrInterface> {
   }
 
   protected initPorts(object: PrInterface): void {
-    // no input ports
-    this.inputPorts = [];
-    this.outputPorts = [new PrWorkflowPort(object.portName,
-      PrWorkflowPort.getOutputDrawflowName(1), object.portType)];
+    // TODO check null
+    this.createPort(object.portName, {
+      specs: object.portType,
+      resource_id: null,
+    }, 'output');
   }
 
   getStatus$(): Observable<FlStatus | null> {

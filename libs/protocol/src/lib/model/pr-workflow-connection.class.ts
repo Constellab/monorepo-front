@@ -5,31 +5,12 @@ import {PrWorkflowNodeOuterface} from './node/pr-workflow-node-outerface.class';
 
 export class PrWorkflowConnection {
 
-  private static readonly nodeInPrefix = 'node_in_node-';
-  private static readonly nodeOutPrefix = 'node_out_node-';
-
   constructor(public readonly outputNode: PrWorkflowNode,
               public readonly inputNode: PrWorkflowNode,
               public readonly outputPort: PrWorkflowPort,
               public readonly inputPort: PrWorkflowPort) {
   }
 
-  /**
-   * return the path html element of the connection based on classes
-   */
-  public getHTMLElement(): HTMLElement | null {
-    const element: HTMLElement = document.getElementsByClassName(
-      `${PrWorkflowConnection.nodeInPrefix}${this.inputNode.drawflowId}
-      ${PrWorkflowConnection.nodeOutPrefix}${this.outputNode.drawflowId}
-      ${this.inputPort.drawFlowName}
-      ${this.outputPort.drawFlowName}`)[0] as HTMLElement;
-
-    if (element == null) {
-      return null;
-    }
-
-    return element.children[0] as HTMLElement;
-  }
 
   public isInterfaceConnection(): boolean {
     return this.outputNode instanceof PrWorkflowNodeInterface;

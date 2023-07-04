@@ -15,7 +15,7 @@ import {
   FlSnackBarService
 } from '@monorepo/front-core-lib';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
-import {PrWorkflow, PrWorkflowLayer, PrWorkflowNode, PrWorkflowNodeProtocol} from '@monorepo/protocol';
+import {PrWorkflow, PrWorkflowLayer, PrWorkflowNodeProtocol} from '@monorepo/protocol';
 import {LabWorkflowFactory} from '../model/lab-workflow.factory';
 
 @Injectable()
@@ -206,10 +206,7 @@ export class LabExperimentDetailPageState {
   public refreshProcess(process: LabProcess): void {
     const layer = this.workflow.findLayerWithId(process.parentProtocolId);
     if (layer) {
-      const node: PrWorkflowNode = layer.findNodeByName(process.instanceName);
-      if (node) {
-        node.updateObject(process);
-      }
+      layer.updateProcessObject(process);
     }
   }
 
@@ -245,10 +242,7 @@ export class LabExperimentDetailPageState {
     const layer = this.workflow.findLayerWithId(protocol.id);
     if (layer) {
       for (const labProcess of Object.values(protocol.data.graph.nodes)) {
-        const node: PrWorkflowNode = layer.findNodeByName(labProcess.instanceName);
-
-        if (node == null) continue;
-        node.updateObject(labProcess);
+        layer.updateProcessObject(labProcess);
       }
     }
 
