@@ -150,13 +150,13 @@ export class LabProtocolService {
 
   ///////////////////////////////////////////////// DYNAMIC PORT /////////////////////////////////////////////////
 
-  public createDynamicInputPort(protocolId: string, processName: string, ioSpec: TdIOSpec): Observable<LabProtocolUpdateDTO> {
-    return this.apiService.post(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-input`, ioSpec,
+  public createDynamicInputPort(protocolId: string, processName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-input`, null,
       LabProtocolUpdateDTO);
   }
 
-  public createDynamicOutputPort(protocolId: string, processName: string, ioSpec: TdIOSpec): Observable<LabProtocolUpdateDTO> {
-    return this.apiService.post(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-output`, ioSpec,
+  public createDynamicOutputPort(protocolId: string, processName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-output`, null,
       LabProtocolUpdateDTO);
   }
 
@@ -168,6 +168,18 @@ export class LabProtocolService {
   public deleteDynamicOutputPort(protocolId: string, processName: string, portName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.delete(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-output/${portName}`,
       LabProtocolUpdateDTO);
+  }
+
+  public updateDynamicInputPort(protocolId: string, processName: string, portName: string,
+                                ioSpec: TdIOSpec): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-input/${portName}`,
+      ioSpec, LabProtocolUpdateDTO);
+  }
+
+  public updateDynamicOutputPort(protocolId: string, processName: string, portName: string,
+                                 ioSpec: TdIOSpec): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processName}/dynamic-output/${portName}`,
+      ioSpec, LabProtocolUpdateDTO);
   }
 
 

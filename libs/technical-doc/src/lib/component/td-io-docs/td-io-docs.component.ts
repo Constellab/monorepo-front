@@ -1,5 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {TdIOSpec} from '../../model/td-process-type.class';
+import {TdIOSpec, TdIOSpecs} from '../../model/td-process-type.class';
+
+export interface TdDocIOUpdateEvent {
+  eventType: 'create' | 'update' | 'delete';
+  spec?: TdIOSpec;
+  specName?: string;
+}
+
 
 @Component({
   selector: 'td-io-docs',
@@ -8,13 +15,30 @@ import {TdIOSpec} from '../../model/td-process-type.class';
 })
 export class TdIoDocsComponent {
 
-  @Input() ioSpecs: Record<string, TdIOSpec>;
+  @Input() ioSpecs: TdIOSpecs;
   @Input() readOnly: boolean = true;
 
-  @Output() deleteSpec: EventEmitter<string> = new EventEmitter();
+  @Output() specEvent: EventEmitter<TdDocIOUpdateEvent> = new EventEmitter();
 
+  addSpec(): void {
+    this.specEvent.emit({
+      eventType: 'create'
+    });
+  }
 
-  deleteSpecClicked(specId: string): void {
-    this.deleteSpec.emit(specId);
+  updateSpec(specName: string, spec: TdIOSpec): void {
+    this.specEvent.emit({
+      eventType: 'update',
+      spec: spec,
+      specName: specName
+    });
+  }
+
+  deleteSpec(specName: string, spec: TdIOSpec): void {
+    this.specEvent.emit({
+      eventType: 'delete',
+      specName: specName,
+      spec: spec
+    });
   }
 }

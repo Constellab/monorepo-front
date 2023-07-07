@@ -1,6 +1,10 @@
 .io-div-head{
-  display: flex;
+  //display: flex;
   margin-bottom: 1em;
+}
+
+.name-container{
+  flex: 1 1 auto;
 }
 
 .io-div-head span{

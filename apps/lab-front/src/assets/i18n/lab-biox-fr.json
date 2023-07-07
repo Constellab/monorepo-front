@@ -333,6 +333,9 @@
     "adding_input_port": "Ajout d'une entrée",
     "adding_output_port": "Ajout d'une sortie",
     "removing_input_port": "Suppression de l'entrée",
-    "removing_output_port": "Suppression de la sortie"
+    "removing_output_port": "Suppression de la sortie",
+    "configure_port": "Configurer le port",
+    "configure_port_help": "Vous pouvez configurez le port pour définir des types de Resource plus précis. Vous pouvez aussi définir un nom et une description pour le port.",
+    "configuring_port": "Configuration du port"
   }
 }

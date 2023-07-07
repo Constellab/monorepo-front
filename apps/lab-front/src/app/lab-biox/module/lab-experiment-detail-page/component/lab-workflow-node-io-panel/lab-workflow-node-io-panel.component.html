@@ -13,9 +13,9 @@
           {{ port.text | flTranslatableText}}
         </div>
 
-        <button mat-icon-button type="button" class="g-button-icon-tiny"
+        <button mat-icon-button type="button" class="g-button-icon-tiny delete-port"
                 [matTooltip]="removePortTooltip | translate" *ngIf="isDynamicPorts$ | async"
-                (click)="removePort(port.port.name, $event)">
+                [disabled]="(isEditable$ | async) === false" (click)="removePort(port.port.name, $event)">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
@@ -24,7 +24,7 @@
     <div class="g-text-centered">
       <button mat-icon-button type="button" class="g-button-icon-tiny"
               [matTooltip]="addPortTooltip | translate" *ngIf="isDynamicPorts$ | async"
-              (click)="addPort()">
+              [disabled]="(isEditable$ | async) === false" (click)="addPort()">
         <mat-icon>add</mat-icon>
       </button>
     </div>

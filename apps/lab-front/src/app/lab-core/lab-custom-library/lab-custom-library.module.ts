@@ -26,7 +26,7 @@ import {
   FlLoaderModule,
   FlMenuDynamicModule,
   FlPortalActionsModule,
-  FlPortalModule,
+  FlPortalModule, FlRadioButtonBigModule,
   FlResizeModule,
   FlSearchModule,
   FlSectionModule,
@@ -92,6 +92,7 @@ import {ChChartModule} from '@monorepo/chart';
     FlUserModule,
     FlInputSearchModule,
     FlHorizontalNavBarModule,
+    FlRadioButtonBigModule,
 
     //  Other lib
     BnBioNetworkModule,

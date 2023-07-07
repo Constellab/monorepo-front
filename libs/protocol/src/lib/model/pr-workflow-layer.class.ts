@@ -387,8 +387,9 @@ export class PrWorkflowLayer {
       this.editor.removeSingleConnection(
         removedConnection.outputNode.drawflowId,
         removedConnection.inputNode.drawflowId,
-        removedConnection.inputNode.getOutputPortDrawflowName(removedConnection.outputPort.name),
-        removedConnection.outputNode.getInputPortDrawflowName(removedConnection.inputPort.name));
+        removedConnection.outputNode.getOutputPortDrawflowName(removedConnection.outputPort.name),
+        removedConnection.inputNode.getInputPortDrawflowName(removedConnection.inputPort.name)
+      );
       return removedConnection;
     }
     return null;

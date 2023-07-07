@@ -18,6 +18,7 @@ import {
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {LabWorkflowEditConfig} from '../model/lab-workflow-edit-config.class';
+import {TdIOSpec} from '@monorepo/technical-doc';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -103,12 +104,20 @@ export class LabWorkflowNodeDetailState {
     this.workflowEditConfig.addDynamicOutputPort(this.node$.value);
   }
 
-  public removeDynamicInputPort(portName: string): void{
+  public deleteDynamicInputPort(portName: string): void{
     this.workflowEditConfig.removeDynamicInputPort(this.node$.value, portName);
   }
 
-  public removeDynamicOutputPort(portName: string): void{
+  public deleteDynamicOutputPort(portName: string): void{
     this.workflowEditConfig.removeDynamicOutputPort(this.node$.value, portName);
+  }
+
+  public updateDynamicInputPort(portName: string, ioSpec: TdIOSpec): void{
+    this.workflowEditConfig.updateDynamicInputPort(this.node$.value, portName, ioSpec);
+  }
+
+  public updateDynamicOutputPort(portName: string, ioSpec: TdIOSpec): void{
+    this.workflowEditConfig.updateDynamicOutputPort(this.node$.value, portName, ioSpec);
   }
 
   private openResourceDetail(resourceId: string): void {

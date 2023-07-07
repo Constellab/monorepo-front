@@ -95,17 +95,13 @@
           <mat-icon>login</mat-icon>
           {{'biox.node_inputs' | translate}}
         </fl-text-icon>
-
-        <button mat-icon-button type="button"
-                (click)="addInputPort()">
-          <mat-icon>add</mat-icon>
-        </button>
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <td-io-docs [ioSpecs]="node.getInputSpecs()" [readOnly]="false"
+    <td-io-docs [ioSpecs]="node.getInputSpecs$() | async"
+                [readOnly]="(isEditable$ | async) === false"
                 class="g-text-small"
-                (deleteSpec)="deleteInputPort($event)"></td-io-docs>
+                (specEvent)="inputSpecEvent($event)"></td-io-docs>
   </mat-expansion-panel>
 
 
@@ -119,7 +115,10 @@
         </fl-text-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <td-io-docs [ioSpecs]="node.getOutputSpecs()" class="g-text-small"></td-io-docs>
+    <td-io-docs [ioSpecs]="node.getOutputSpecs$()  | async"
+                [readOnly]="(isEditable$ | async) === false"
+                class="g-text-small"
+                (specEvent)="outputSpecEvent($event)"></td-io-docs>
   </mat-expansion-panel>
 
 </div>

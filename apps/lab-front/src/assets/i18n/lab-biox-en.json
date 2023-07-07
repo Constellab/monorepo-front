@@ -333,6 +333,9 @@
     "adding_input_port": "Adding input",
     "adding_output_port": "Adding output",
     "removing_input_port": "Removing input",
-    "removing_output_port": "Removing output"
+    "removing_output_port": "Removing output",
+    "configure_port": "Configure port",
+    "configure_port_help": "You can configure the port to set more precise Resource types. You can also set a name and a description for the port.",
+    "configuring_port": "Configuring port"
   }
 }

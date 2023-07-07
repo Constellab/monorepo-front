@@ -59,6 +59,9 @@ import {
 import {
   LabProtocolTemplateCoreModule
 } from '../../../lab-core/entity-module/lab-protocol-template-core/lab-protocol-template-core.module';
+import {
+  LabDynamicPortConfigDialogComponent
+} from './component/lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +86,7 @@ import {
     LabTaskViewerShowConfigComponent,
     LabWorkflowNodeDashboardComponent,
     LabWorkflowNodeIoPanelComponent,
+    LabDynamicPortConfigDialogComponent,
   ],
   imports: [
     CommonModule,

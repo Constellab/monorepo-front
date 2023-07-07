@@ -1,10 +1,16 @@
 import {TdTypeEntity} from './td-type.class';
 import {TdParamSpec} from './td-config-spec.class';
 
-export interface TdProcessType extends TdTypeEntity {
-  inputSpecs: Record<string, TdIOSpec>;
+export interface TdIOSpecs{
+  specs: Record<string, TdIOSpec>;
 
-  outputSpecs: Record<string, TdIOSpec>;
+  is_dynamic: boolean;
+}
+
+export interface TdProcessType extends TdTypeEntity {
+  inputSpecs: TdIOSpecs;
+
+  outputSpecs: TdIOSpecs;
 
   configSpecs: Record<string, TdParamSpec>;
 
@@ -26,6 +32,8 @@ export interface TdIOSpec {
   is_optional?: boolean;
 
   is_constant?: boolean;
+
+  sub_class?: boolean;
 }
 
 export interface TdResourceTypeDTO {

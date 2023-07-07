@@ -8,7 +8,7 @@ import {FlDialogService} from '@monorepo/front-core-lib';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
 import {MatExpansionPanel} from '@angular/material/expansion';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
-import {firstValueFrom, Observable} from 'rxjs';
+import {combineLatest, firstValueFrom, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 import {
@@ -17,6 +17,11 @@ import {
 } from '../../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import {PrWorkflowNodeIo, PrWorkflowNodeProcess} from '@monorepo/protocol';
 import {LabWorkflowNodeDashboardComponent} from '../lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
+import {TdDocIOUpdateEvent} from '@monorepo/technical-doc';
+import {
+  LabDynamicPortConfigDialogComponent,
+  LabDynamicPortConfigDialogInput
+} from '../lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
 
 type ConfigMode = 'config' | 'source' | 'view-task' | 'protocol' | null;
 
@@ -60,10 +65,10 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
     this.isEditable$ = this.experimentState.isEditable$();
 
     this.showInputs$ = this.nodeDetailState.getNode$().pipe(map(
-      node => node.hasInputs() && !(node instanceof PrWorkflowNodeIo)
+      node => node.currentObject.inputs.is_dynamic || (node.hasInputs() && !(node instanceof PrWorkflowNodeIo))
     ));
     this.showOutput$ = this.nodeDetailState.getNode$().pipe(map(
-      node => node.hasOutputs() && !(node instanceof PrWorkflowNodeIo)
+      node => node.currentObject.outputs.is_dynamic || (node.hasOutputs() && !(node instanceof PrWorkflowNodeIo))
     ));
   }
 
@@ -114,11 +119,52 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
     });
   }
 
-  addInputPort(): void {
-    this.nodeDetailState.createDynamicInputPort();
+  inputSpecEvent(specEvent: TdDocIOUpdateEvent): void {
+    switch (specEvent.eventType) {
+      case 'create':
+        this.nodeDetailState.createDynamicInputPort();
+        break;
+      case 'update':
+        this.openEditPortDialog({
+          portType: 'input',
+          portName: specEvent.specName,
+          spec: specEvent.spec
+        });
+        break;
+      case 'delete':
+        this.nodeDetailState.deleteDynamicInputPort(specEvent.specName);
+        break;
+    }
   }
 
-  deleteInputPort(portName: string): void {
-    this.nodeDetailState.removeDynamicInputPort(portName);
+  outputSpecEvent(specEvent: TdDocIOUpdateEvent): void {
+    switch (specEvent.eventType) {
+      case 'create':
+        this.nodeDetailState.createDynamicOutputPort();
+        break;
+      case 'update':
+        this.openEditPortDialog({
+          portType: 'output',
+          portName: specEvent.specName,
+          spec: specEvent.spec
+        });
+        break;
+      case 'delete':
+        this.nodeDetailState.deleteDynamicOutputPort(specEvent.specName);
+        break;
+    }
+  }
+
+  private openEditPortDialog(input: LabDynamicPortConfigDialogInput): void {
+    this.dialogService.openSmallDialog(LabDynamicPortConfigDialogComponent, {data: input}).afterClosed().subscribe(
+      config => {
+        if (config != null)
+          if (input.portType === 'input') {
+            this.nodeDetailState.updateDynamicInputPort(input.portName, config);
+          } else {
+            this.nodeDetailState.updateDynamicOutputPort(input.portName, config);
+          }
+      }
+    );
   }
 }

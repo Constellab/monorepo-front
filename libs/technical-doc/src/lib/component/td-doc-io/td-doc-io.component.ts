@@ -12,10 +12,15 @@ export class TdDocIoComponent {
 
   @Input() showEditButton: boolean = false;
 
-  @Output() removeSpec: EventEmitter<void> = new EventEmitter();
+  @Output() updateSpec: EventEmitter<void> = new EventEmitter();
+  @Output() deleteSpec: EventEmitter<void> = new EventEmitter();
 
-  removeSpecClicked(): void {
-    this.removeSpec.emit();
+  updateSpecClicked(): void {
+    this.updateSpec.emit();
+  }
+
+  deleteSpecClicked(): void {
+    this.deleteSpec.emit();
   }
 
 }

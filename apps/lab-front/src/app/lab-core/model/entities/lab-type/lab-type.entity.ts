@@ -1,7 +1,13 @@
 import {LabBaseEntity} from '../../global/lab-entity.entity';
 import {Expose} from 'class-transformer';
 import {FlDatasourcePaginated, FlSearchObjectToUrl} from '@monorepo/front-core-lib';
-import {TdTypeEntity, TdTypeObjectStatus, TdTypeObjectSubType, TdTypeObjectType} from '@monorepo/technical-doc';
+import {
+  TdResourceTypeDTO,
+  TdTypeEntity,
+  TdTypeObjectStatus,
+  TdTypeObjectSubType,
+  TdTypeObjectType
+} from '@monorepo/technical-doc';
 
 export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSearchObjectToUrl {
   @Expose({name: 'object_type'})
@@ -67,6 +73,25 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     return {typing_name: this.typingName}
   }
 
+  public static fromResourceType(resourceDto: TdResourceTypeDTO): LabTypeEntity{
+    const entity = new LabTypeEntity();
+    entity.typingName = resourceDto.typing_name;
+    entity.humanName = resourceDto.human_name;
+    entity.shortDescription = resourceDto.short_description;
+    entity.objectType = 'RESOURCE';
+    entity.objectSubType = 'RESOURCE';
+    entity.status = 'OK';
+    return entity;
+  }
+
+  public toResourceType(): TdResourceTypeDTO{
+    return {
+      typing_name: this.typingName,
+      human_name: this.humanName,
+      short_description: this.shortDescription,
+      brick_version: this.parentVersion
+    }
+  }
 
 }
 

@@ -1,8 +1,8 @@
 import {PrWorkflowPort, PrWorkflowPortType} from '../pr-workflow-port.class';
 import {DrawflowConnectionDetail, DrawflowNode} from 'drawflow';
-import {BehaviorSubject, Observable, Subscription} from 'rxjs';
+import {BehaviorSubject, combineLatest, map, Observable, of, Subscription} from 'rxjs';
 import {FlCoord, FlStatus, FlTranslatableText, FlTranslateService} from '@monorepo/front-core-lib';
-import {TdIOSpec} from '@monorepo/technical-doc';
+import {TdIOSpec, TdIOSpecs} from '@monorepo/technical-doc';
 import {PrPort} from '../pr-io.class';
 
 
@@ -136,8 +136,8 @@ export abstract class PrWorkflowNode<T = any> {
     return this.countInputs() > 0;
   }
 
-  public getInputSpecs(): Record<string, TdIOSpec> {
-    return this.getPortsSpecs(this.inputPorts);
+  public getInputSpecs$(): Observable<TdIOSpecs> {
+    return this.getPortsSpecs$('input');
   }
 
   public deleteInputPort(portName: string): void {
@@ -156,6 +156,10 @@ export abstract class PrWorkflowNode<T = any> {
 
   public getInputPorts$(): Observable<PrWorkflowPort[]> {
     return this.inputPortsChange$.asObservable();
+  }
+
+  public hasDynamicInputPorts$(): Observable<boolean> {
+    return of(false);
   }
 
   /////////////////////////////// OUTPUT //////////////////////////////
@@ -182,8 +186,8 @@ export abstract class PrWorkflowNode<T = any> {
     return this.countOutputs() > 0;
   }
 
-  public getOutputSpecs(): Record<string, TdIOSpec> {
-    return this.getPortsSpecs(this.outputPorts);
+  public getOutputSpecs$(): Observable<TdIOSpecs> {
+    return this.getPortsSpecs$('output');
   }
 
   public deleteOutputPort(portName: string): void {
@@ -204,6 +208,10 @@ export abstract class PrWorkflowNode<T = any> {
     return this.outputPortsChange$.asObservable();
   }
 
+  public hasDynamicOutputPorts$(): Observable<boolean> {
+    return of(false);
+  }
+
   /////////////////////////////// PORTS //////////////////////////////
   public createPort(portName: string, portObject: PrPort, type: PrWorkflowPortType): PrWorkflowPort {
     const port = new PrWorkflowPort(portName, portObject, type);
@@ -212,16 +220,17 @@ export abstract class PrWorkflowNode<T = any> {
 
     if (type === 'input') {
       this.inputPortsChange$.next(this.inputPorts);
-    }else{
+    } else {
       this.outputPortsChange$.next(this.outputPorts);
     }
+
     return port;
   }
 
   public deletePort(portName: string, type: PrWorkflowPortType): void {
     if (type === 'input') {
       this.deleteInputPort(portName);
-    }else{
+    } else {
       this.deleteOutputPort(portName);
     }
   }
@@ -279,6 +288,34 @@ export abstract class PrWorkflowNode<T = any> {
     return portType === 'input' ? this.findInputPortByName(name) : this.findOutputPortByName(name);
   }
 
+  public getPorts$(type: PrWorkflowPortType): Observable<PrWorkflowPort[]> {
+    return type === 'input' ? this.getInputPorts$() : this.getOutputPorts$();
+  }
+
+  public hasDynamicIOPorts$(type: PrWorkflowPortType): Observable<boolean> {
+    if (type === 'input') {
+      return this.hasDynamicInputPorts$();
+    } else {
+      return this.hasDynamicOutputPorts$();
+    }
+  }
+
+  private getPortsSpecs$(type: PrWorkflowPortType): Observable<TdIOSpecs> {
+    return combineLatest([this.getPorts$(type), this.hasDynamicIOPorts$(type)]).pipe(
+      map(([ports, isDynamic]) => {
+        const specs: Record<string, TdIOSpec> = {};
+
+        for (const port of ports) {
+          specs[port.name] = port.currentSpecs;
+        }
+
+        return {
+          specs,
+          is_dynamic: isDynamic
+        };
+      }));
+  }
+
   /////////////////////////////// OTHER //////////////////////////////
 
   private getDrawflowNode(): DrawflowNode {
@@ -321,15 +358,6 @@ export abstract class PrWorkflowNode<T = any> {
     const coord: FlCoord = this.getNodeCoord();
     this.x = coord.x;
     this.y = coord.y;
-  }
-
-  private getPortsSpecs(ports: PrWorkflowPort[]): Record<string, TdIOSpec> {
-    const specs: Record<string, TdIOSpec> = {};
-
-    for (const port of ports) {
-      specs[port.name] = port.currentSpecs;
-    }
-    return specs;
   }
 
   public getCurrentTitle(): string {

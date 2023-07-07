@@ -4,7 +4,8 @@
                  [placeholder]="placeholder"
                  [required]="required"
                  [disabled]="disabled"
-                 [minInputSearchLength]="0">
+                 [minInputSearchLength]="0"
+                 (inputBlur)="markAsTouched()">
 
 
   <lab-type-inline *flInputSearchOption="let type" [type]="type">

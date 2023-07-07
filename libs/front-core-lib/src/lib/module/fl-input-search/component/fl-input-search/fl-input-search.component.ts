@@ -79,6 +79,8 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
    */
   @Output() focused: EventEmitter<T | null> = new EventEmitter();
 
+  @Output() inputBlur: EventEmitter<void> = new EventEmitter();
+
   @ViewChild('input', {static: false, read: ElementRef}) input: ElementRef<HTMLInputElement>;
 
   // get the option template
@@ -151,6 +153,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
       this.setSelectedItemAndEmit(null);
     }
     this.refreshInputCtrl();
+    this.inputBlur.emit();
   }
 
   private setSelectedItemAndEmit(item: T): void {

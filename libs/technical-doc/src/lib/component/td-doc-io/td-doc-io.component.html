@@ -1,35 +1,46 @@
-<div class="g-layout-row g-layout-between-center">
-  <div>
-    <div class="io-div-head">
-      <div>
-        <div class="io-human-name g-text-dense-height">{{ioSpec.human_name}}</div>
-        <div *ngIf="ioSpec.short_description" class="g-text-light g-text-dense-height">
-          {{ioSpec.short_description}}
-        </div>
-      </div>
-      <div class="io-chip-div">
-        <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_optional"
-                 [matTooltip]="'td.optional_tooltip' | translate">
-          {{'td.optional' | translate}}
-        </fl-chip>
-        <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_constant"
-                 [matTooltip]="'td.constant_tooltip' | translate">
-          {{'td.constant' | translate}}
-        </fl-chip>
+<div>
+  <div class="g-layout-row">
+    <div class="name-container">
+      <div class="io-human-name g-text-dense-height">{{ioSpec.human_name}}</div>
+      <div *ngIf="ioSpec.short_description" class="g-text-light g-text-dense-height">
+        {{ioSpec.short_description}}
       </div>
     </div>
 
+    <div class="g-layout-row-wrap g-layout-start-start">
+      <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_optional"
+               [matTooltip]="'td.optional_tooltip' | translate" size="small">
+        {{'td.optional' | translate}}
+      </fl-chip>
+      <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_constant"
+               [matTooltip]="'td.constant_tooltip' | translate" size="small">
+        {{'td.constant' | translate}}
+      </fl-chip>
+    </div>
 
-    <div class="g-layout-row-wrap">
-      <td-io-resource *ngFor="let resourceType of ioSpec.resource_types" [resource]="resourceType"></td-io-resource>
+    <div *ngIf="showEditButton">
+      <button mat-icon-button [matMenuTriggerFor]="menu"
+              class="g-button-icon-small">
+        <mat-icon>more_vert</mat-icon>
+      </button>
     </div>
   </div>
 
-  <div *ngIf="showEditButton">
-    <button mat-icon-button [matTooltip]="'td.remove_port' | translate" (click)="removeSpecClicked()"
-            class="g-button-icon-small">
-      <mat-icon>clear</mat-icon>
-    </button>
-  </div>
 
+  <div class="g-layout-row-wrap">
+    <td-io-resource *ngFor="let resourceType of ioSpec.resource_types" [resource]="resourceType"></td-io-resource>
+  </div>
 </div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item type="button" (click)="updateSpecClicked()">
+    <mat-icon>edit</mat-icon>
+    <span>{{'td.update_port' | translate}}</span>
+  </button>
+
+  <button mat-menu-item type="button" (click)="deleteSpecClicked()">
+    <mat-icon color="warn">clear</mat-icon>
+    <span class="g-warn-text">{{'td.remove_port' | translate}}</span>
+  </button>
+
+</mat-menu>

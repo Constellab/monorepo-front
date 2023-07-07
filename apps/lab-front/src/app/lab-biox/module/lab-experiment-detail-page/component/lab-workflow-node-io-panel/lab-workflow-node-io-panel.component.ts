@@ -5,6 +5,7 @@ import {LabResource} from '../../../../../lab-core/model/entities/resource/lab-r
 import {map} from 'rxjs/operators';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 import {ClHelpService} from '@monorepo/core-lib';
+import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
 
 /**
  * Object that include port and resource
@@ -34,6 +35,7 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
   isOpened: boolean = false;
 
   isDynamicPorts$: Observable<boolean>;
+  isEditable$: Observable<boolean> = this.experimentState.isEditable$();
   ports: Observable<LabWorkflowPortResource>[];
 
   // observable to retrieve the id of the resource of the selected port
@@ -45,7 +47,8 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
 
 
   constructor(private nodeState: LabWorkflowNodeDetailState,
-              private resourceState: PrWorkflowResourcesState<LabResource>) {
+              private resourceState: PrWorkflowResourcesState<LabResource>,
+              private experimentState: LabExperimentDetailPageState) {
   }
 
   ngOnInit(): void {
@@ -144,9 +147,9 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
     ClHelpService.stopEventPropagation(event);
 
     if (this.mode === 'input') {
-      this.nodeState.removeDynamicInputPort(portName);
+      this.nodeState.deleteDynamicInputPort(portName);
     } else {
-      this.nodeState.removeDynamicOutputPort(portName);
+      this.nodeState.deleteDynamicOutputPort(portName);
     }
   }
 
