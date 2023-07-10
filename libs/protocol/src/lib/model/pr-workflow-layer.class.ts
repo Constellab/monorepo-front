@@ -478,7 +478,7 @@ export class PrWorkflowLayer {
    * Create the node in the editor and init those values
    */
   private createAndInitDrawflowNode(node: PrWorkflowNode): void {
-    const nodeId: number = this.editor.addNode(node.getCurrentTitle(),
+    const nodeId: number = this.editor.addNode(node.title(),
       node.countInputs(), node.countOutputs(), node.x ?? 0,
       node.y ?? 0, node.getClassName(), {}, node.getHTML(), false);
 

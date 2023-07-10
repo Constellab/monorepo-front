@@ -98,7 +98,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <td-io-docs [ioSpecs]="node.getInputSpecs$() | async"
+    <td-io-docs [ioSpecs]="node.inputSpecs()"
                 [readOnly]="(isEditable$ | async) === false"
                 class="g-text-small"
                 (specEvent)="inputSpecEvent($event)"></td-io-docs>
@@ -115,7 +115,7 @@
         </fl-text-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <td-io-docs [ioSpecs]="node.getOutputSpecs$()  | async"
+    <td-io-docs [ioSpecs]="node.outputSpecs()"
                 [readOnly]="(isEditable$ | async) === false"
                 class="g-text-small"
                 (specEvent)="outputSpecEvent($event)"></td-io-docs>

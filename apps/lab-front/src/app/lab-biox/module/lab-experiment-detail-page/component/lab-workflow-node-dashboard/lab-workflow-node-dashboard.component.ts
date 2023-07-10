@@ -36,7 +36,6 @@ import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashb
 export class LabWorkflowNodeDashboardComponent implements OnInit {
 
   process$ = this.nodeState.getProcess$();
-  nodeProcess$ = this.nodeState.getNode$();
 
   isEditable$ = this.experimentState.isEditable$();
   isRunning$ = this.experimentState.getExperiment$().pipe(

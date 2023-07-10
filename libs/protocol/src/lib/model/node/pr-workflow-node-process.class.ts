@@ -1,12 +1,11 @@
 import {PrWorkflowNode} from './pr-workflow-node.class';
 import {PrProcess, PrProcessStatus} from '../pr-process.class';
 import {PrPort} from '../pr-io.class';
-import {PrConfigValues} from '../pr-config.class';
-import {map, Observable} from 'rxjs';
-import {FlStatus, FlTranslatableText} from '@monorepo/front-core-lib';
+import {FlStatus} from '@monorepo/front-core-lib';
 import {TdTypingName} from '@monorepo/technical-doc';
 import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
 import {PrWorkflowPortType} from '../pr-workflow-port.class';
+import {computed, Signal} from '@angular/core';
 
 export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
 
@@ -37,57 +36,40 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
     }
   }
 
-  getStatus$(): Observable<FlStatus<PrProcessStatus> | null> {
-    return this.getObject$().pipe(
-      map((process: PrProcess) => process.status)
-    );
+  get status(): Signal<FlStatus<PrProcessStatus> | null> {
+    return computed(() => {
+      return this.objectSignal().status;
+    });
   }
 
-  getTitle$(): Observable<FlTranslatableText> {
-    return this.getObject$().pipe(
-      map((process: PrProcess) => process.title ?? process.instanceName)
-    );
+  get title(): Signal<string> {
+    return computed(() => {
+      const obj = this.objectSignal();
+      return obj.title ?? obj.instanceName;
+    });
+  }
+
+  get subTitle(): Signal<string> {
+    return computed(() => {
+      const typingName: TdTypingName = new TdTypingName(this.objectSignal().processTypingName);
+      return typingName.brickName;
+    });
   }
 
 
-  getSubTitle$(): Observable<string> {
-    return this.getObject$().pipe(
-      map((process: PrProcess) => {
-        const typingName: TdTypingName = new TdTypingName(process.processTypingName);
-        return typingName.brickName;
-      })
-    );
-  }
-
-  getConfigValues$(): Observable<PrConfigValues> {
-    return this.getObject$().pipe(
-      map((process: PrProcess) => process.config.values)
-    );
-  }
-
-  isSuccess$(): Observable<boolean> {
-    return this.getStatus$().pipe(
-      map(status => status?.value === 'SUCCESS')
-    );
-  }
-
-  public hasDynamicIOPorts$(type: PrWorkflowPortType): Observable<boolean> {
+  public hasDynamicIOPorts2(type: PrWorkflowPortType): Signal<boolean> {
     if (type === 'input') {
-      return this.hasDynamicInputPorts$();
+      return this.hasDynamicInputPorts2();
     } else {
-      return this.hasDynamicOutputPorts$();
+      return this.hasDynamicOutputPorts2();
     }
   }
 
-  public hasDynamicInputPorts$(): Observable<boolean> {
-    return this.getObject$().pipe(
-      map(process => process.inputs.is_dynamic)
-    );
+  public hasDynamicInputPorts2(): Signal<boolean> {
+    return computed(() => this.objectSignal().inputs.is_dynamic);
   }
 
-  public hasDynamicOutputPorts$(): Observable<boolean> {
-    return this.getObject$().pipe(
-      map(process => process.outputs.is_dynamic)
-    );
+  public hasDynamicOutputPorts2(): Signal<boolean> {
+    return computed(() => this.objectSignal().outputs.is_dynamic);
   }
 }

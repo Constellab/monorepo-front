@@ -1,10 +1,10 @@
 import {PrProcess} from '../pr-process.class';
 import {PrWorkflowPort} from '../pr-workflow-port.class';
 import {PrWorkflowNodeProcess} from './pr-workflow-node-process.class';
-import {map, Observable} from 'rxjs';
 import {PrResource} from '../pr-resource.class';
 import {tdGetTypingNameColor} from '@monorepo/technical-doc';
 import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
+import {computed, Signal} from '@angular/core';
 
 export abstract class PrWorkflowNodeIo extends PrWorkflowNodeProcess {
 
@@ -39,10 +39,10 @@ export abstract class PrWorkflowNodeIo extends PrWorkflowNodeProcess {
   /////////////////////// RESOURCE ///////////////////////
   protected abstract getResourceId(process: PrProcess): string | null;
 
-  public getResourceId$(): Observable<string> {
-    return this.getObject$().pipe(
-      map(process => this.getResourceId(process))
-    );
+  public get resourceId(): Signal<string | null> {
+    return computed(() => {
+      return this.getResourceId(this.objectSignal());
+    });
   }
 
   public getCurrentResource(): PrResource | null {

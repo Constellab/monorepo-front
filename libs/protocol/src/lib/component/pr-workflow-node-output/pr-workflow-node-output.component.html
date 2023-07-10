@@ -4,15 +4,15 @@
 
     <!-- Title   -->
     <div class="name g-text-small">
-      {{title$ | async | flTranslatableText}}
+      {{title() | async | flTranslatableText}}
     </div>
 
 
     <!--  actions -->
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <ng-container *ngIf="resourceId$ | async as resourceId">
-        <button mat-stroked-button type="button" class="g-button-small button" *ngIf="resourceId"
-                (click)="openResourceDetail(resourceId)">
+      <ng-container *ngIf="node.resourceId()">
+        <button mat-stroked-button type="button" class="g-button-small button"
+                (click)="openResourceDetail(node.resourceId())">
           <mat-icon>visibility</mat-icon>
           {{'resource' | translate}}
         </button>

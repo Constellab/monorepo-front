@@ -1,12 +1,13 @@
+
 <div [ngClass]="layoutClass" class="g-full-height">
   <div class="port-list-container g-layout-col">
-    <div *ngFor="let port$ of ports" class="port-container">
+    <div *ngFor="let port$ of ports()" class="port-container">
 
       <div *ngIf="port$ | async as port" class="port-name g-layout-col"
            (click)="onPortClick(port.port.name)"
            [ngClass]="{'selected-port': (portIsSelected(port.port.name) | async),
-                       'port-input': mode === 'input',
-                       'port-output': mode === 'output'}">
+                       'port-input': portType === 'input',
+                       'port-output': portType === 'output'}">
 
         <div class="port-color" [style.background-color]="port.port.getDefaultColor()"></div>
         <div class="text">
@@ -14,7 +15,7 @@
         </div>
 
         <button mat-icon-button type="button" class="g-button-icon-tiny delete-port"
-                [matTooltip]="removePortTooltip | translate" *ngIf="isDynamicPorts$ | async"
+                [matTooltip]="removePortTooltip | translate" *ngIf="isDynamicPorts()"
                 [disabled]="(isEditable$ | async) === false" (click)="removePort(port.port.name, $event)">
           <mat-icon>clear</mat-icon>
         </button>
@@ -23,7 +24,7 @@
 
     <div class="g-text-centered">
       <button mat-icon-button type="button" class="g-button-icon-tiny"
-              [matTooltip]="addPortTooltip | translate" *ngIf="isDynamicPorts$ | async"
+              [matTooltip]="addPortTooltip | translate" *ngIf="isDynamicPorts()"
               [disabled]="(isEditable$ | async) === false" (click)="addPort()">
         <mat-icon>add</mat-icon>
       </button>
@@ -38,7 +39,7 @@
 
     <ng-template #noResource>
       <fl-error-text class="error-text"
-                     [errorMessage]="(mode === 'input' ? 'biox.no_input_resource' : 'biox.no_output_resource') | translate">
+                     [errorMessage]="(portType === 'input' ? 'biox.no_input_resource' : 'biox.no_output_resource') | translate">
       </fl-error-text>
 
     </ng-template>

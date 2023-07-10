@@ -342,7 +342,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
             text: {
               text: 'pr.deleting_interface',
               translateText: true,
-              translateParam: {param: {name: node.getCurrentTitle()}}
+              translateParam: {param: {name: node.title()}}
             },
             action: this.deleteInterface(workflowEvent.protocolId, node.getPort().name),
             additionalInformation: additionalInfo
@@ -353,7 +353,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
             text: {
               text: 'pr.deleting_outerface',
               translateText: true,
-              translateParam: {param: {name: node.getCurrentTitle()}},
+              translateParam: {param: {name: node.title()}},
             },
             action: this.deleteOuterface(workflowEvent.protocolId, node.getPort().name),
             additionalInformation: additionalInfo
@@ -365,7 +365,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
             text: {
               text: 'pr.deleting_process',
               translateText: true,
-              translateParam: {param: {processName: node.getCurrentTitle()}}
+              translateParam: {param: {processName: node.title()}}
             },
             action: this.onDeleteNode(workflowEvent.protocolId, workflowEvent.node),
             additionalInformation: additionalInfo

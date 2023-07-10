@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Component, Signal} from '@angular/core';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 
@@ -12,15 +11,11 @@ import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-pro
   templateUrl: './lab-workflow-drawer-action.component.html',
   styleUrls: ['./lab-workflow-drawer-action.component.scss']
 })
-export class LabWorkflowDrawerActionComponent implements OnInit {
+export class LabWorkflowDrawerActionComponent {
 
-  process$: Observable<LabProcess>;
+  process: Signal<LabProcess> = this.nodeDetailState.process2;
 
   constructor(private nodeDetailState: LabWorkflowNodeDetailState) {
-  }
-
-  ngOnInit(): void {
-    this.process$ = this.nodeDetailState.getProcess$();
   }
 
 

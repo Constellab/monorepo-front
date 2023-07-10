@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, computed, OnDestroy, OnInit, Signal} from '@angular/core';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 import {Observable, Subscription} from 'rxjs';
 import {FlDialogService, FlStatusEvent} from '@monorepo/front-core-lib';
@@ -21,7 +21,7 @@ import {PrWorkflowNodeSource, PrWorkflowResourcesState} from '@monorepo/protocol
 })
 export class LabTaskSourceConfigComponent implements OnInit, OnDestroy {
 
-  selectedResource$: Observable<FlStatusEvent<LabResource>>;
+  selectedResource: Signal<Observable<FlStatusEvent<LabResource>>>;
 
   isEditable$: Observable<boolean>;
 
@@ -48,7 +48,7 @@ export class LabTaskSourceConfigComponent implements OnInit, OnDestroy {
     // it can be called because the state change before the component is destroyed
     if (!(node instanceof PrWorkflowNodeSource)) return;
     this.node = node;
-    this.selectedResource$ = this.resourceWorkflow.getResourceFromObs(node.getResourceId$());
+    this.selectedResource = computed(() => this.resourceWorkflow.getResource(node.resourceId()))
   }
 
   openResourceSelection(): void {

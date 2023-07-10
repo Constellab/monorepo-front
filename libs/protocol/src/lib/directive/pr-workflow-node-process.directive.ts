@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, OnDestroy, Renderer2} from '@angular/core';
+import {computed, Directive, ElementRef, Input, OnDestroy, Renderer2, Signal} from '@angular/core';
 import {PrWorkflowNodeProcess} from '../model/node/pr-workflow-node-process.class';
 import {PrWorkflowManagerState} from '../state/pr-workflow-manager-state';
 import {PrWorkflowActionState} from '../state/pr-workflow-action-state';
@@ -30,8 +30,7 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
 
   node: PrWorkflowNodeProcess;
 
-  subTitle$: Observable<string>;
-  status$: Observable<FlStatus>;
+  status: Signal<FlStatus>;
 
   private listener: () => void;
 
@@ -40,7 +39,7 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
               protected actionState: PrWorkflowActionState,
               protected renderer: Renderer2,
               private portalService: FlPortalService,
-              protected workflowResourcesState: PrWorkflowResourcesState){
+              protected workflowResourcesState: PrWorkflowResourcesState) {
     super(workflowManager, elementRef);
   }
 
@@ -48,8 +47,7 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
     super.initNode();
 
 
-    this.subTitle$ = this.node.getSubTitle$();
-    this.status$ = this.node.getStatus$();
+    this.status = this.node.status;
 
     this.listenToNodeClick();
   }
@@ -137,18 +135,20 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
   }
 
   // get the title of the process if it is linked to a Resource (process IO)
-  protected getResourceTitle(resourceIds: Observable<string>): Observable<FlTranslatableText>{
-    return this.workflowResourcesState.getResourceFromObs(resourceIds).pipe(
-      map(resource => {
-        if (resource?.status === 'success') {
-          return resource.object != null ? resource.object.name : this.node.currentObject.title;
-        } else if (resource?.status === 'error') {
-          return {text: 'pr.error', translateText: true};
-        } else {
-          return this.node.currentObject.title;
-        }
-      })
-    );
+  protected getResourceTitle(resourceId: Signal<string>): Signal<Observable<FlTranslatableText>> {
+    return computed(() => {
+      return this.workflowResourcesState.getResource(resourceId()).pipe(
+        map(resource => {
+          if (resource?.status === 'success') {
+            return resource.object != null ? resource.object.name : this.node.currentObject.title;
+          } else if (resource?.status === 'error') {
+            return {text: 'pr.error', translateText: true};
+          } else {
+            return this.node.currentObject.title;
+          }
+        })
+      );
+    });
   }
 
   ngOnDestroy(): void {

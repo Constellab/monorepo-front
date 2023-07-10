@@ -4,16 +4,16 @@
 
     <!-- Title   -->
     <div class="text title">
-      {{title$ | async | flTranslatableText}}
+      {{node.title() | flTranslatableText}}
     </div>
     <div class="text name g-text-light">
-      {{subTitle$ | async}}
+      {{node.subTitle()}}
     </div>
 
 
     <!--  actions -->
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <mat-icon *ngIf="(typeStatus$ | async) === 'UNAVAILABLE'" color="warn"
+      <mat-icon *ngIf="node.objectSignal().typeStatus === 'UNAVAILABLE'" color="warn"
                 class="type-unavailable" [matTooltip]="'pr.process_not_available' | translate">
         error
       </mat-icon>
@@ -29,7 +29,7 @@
         <mat-icon>info</mat-icon>
       </button>
 
-      <fl-status-chip mode="iconOnly" [status]="status$"></fl-status-chip>
+      <fl-status-chip mode="iconOnly" [status]="status()"></fl-status-chip>
     </div>
   </div>
 

@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, computed, OnInit, Signal} from '@angular/core';
 import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-process.directive';
 import {Observable} from 'rxjs';
 import {PrWorkflowNodeViewer} from '../../model/node/pr-workflow-node-viewer.class';
-import {TdTaskViewerConfig} from '@monorepo/technical-doc';
 import {FlTranslatableText} from '@monorepo/front-core-lib';
 
 @Component({
@@ -12,22 +11,22 @@ import {FlTranslatableText} from '@monorepo/front-core-lib';
 })
 export class PrWorkflowNodeViewerComponent extends PrWorkflowNodeProcessDirective implements OnInit {
 
-  isSuccess$: Observable<boolean>;
-  isConfigured$: Observable<boolean>;
+  isConfigured: Signal<boolean>;
 
   node: PrWorkflowNodeViewer;
 
-  title$: Observable<FlTranslatableText>;
+  title: Signal<Observable<FlTranslatableText>>;
 
   ngOnInit(): void {
     this.initNode();
-    this.isSuccess$ = this.node.isSuccess$();
-    this.isConfigured$ = this.node.isConfigured$();
-    this.title$ = this.getResourceTitle(this.node.getResourceId$());
+    this.isConfigured = computed(
+      () => (this.node.configValues())?.view_config != null
+    );
+    this.title = this.getResourceTitle(this.node.resourceId);
   }
 
   callView(): void {
-    const config = this.getConfig();
+    const config = this.node.configValues();
     if (config == null) return;
 
     const resource = this.node.getCurrentResource();
@@ -40,10 +39,6 @@ export class PrWorkflowNodeViewerComponent extends PrWorkflowNodeProcessDirectiv
       config: config
     });
 
-  }
-
-  private getConfig(): TdTaskViewerConfig {
-    return this.node.currentObject.config.values as TdTaskViewerConfig;
   }
 
 }

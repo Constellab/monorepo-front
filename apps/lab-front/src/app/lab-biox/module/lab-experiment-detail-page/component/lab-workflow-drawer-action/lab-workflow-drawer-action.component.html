@@ -1,9 +1,9 @@
 <div class="drawer g-full-height g-layout-col"
-     *ngIf="process$ | async as process">
+     *ngIf="process()">
 
   <div class="header g-layout-row g-layout-between-center">
     <div class="g-text-big title">
-      {{process.title}}
+      {{process().title}}
     </div>
 
     <button mat-icon-button type="button" flDrawerClose tabindex="-1"

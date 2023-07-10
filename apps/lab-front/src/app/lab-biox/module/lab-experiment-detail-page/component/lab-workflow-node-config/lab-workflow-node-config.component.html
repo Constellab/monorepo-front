@@ -1,1 +1,12 @@
-<fl-pretty-json [object]="configValue$"></fl-pretty-json>
+<!--<fl-pretty-json [object]="configValue$"></fl-pretty-json>-->
+{{process().instanceName}}
+<div>{{configValue()}}</div>
+<div>{{configValue2()}}</div>
+<div>X : {{node().x}} - {{x()}}</div>
+
+<div> A {{a().a()}} - {{aComputed()}} - {{a2()}}</div>
+<div> C {{c()}} - {{cComputed()}} - {{c2()}} - {{cProblem()}}</div>
+<div class="g-warn-text" *ngIf="c() !== cProblem()">ERRROR</div>
+<ng-container *ngIf="cLate">{{cLate()}}</ng-container>
+<button mat-button type="button" (click)="change()">Change</button>
+<button mat-button type="button" (click)="change2()">Change 2</button>

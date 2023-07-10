@@ -4,7 +4,7 @@
 
   <div class="g-layout-row g-layout-between-center">
     <div class="g-text-big title">
-      {{nodeSelected.getTitle$() | async}}
+      {{nodeSelected.title()}}
     </div>
 
     <button mat-icon-button type="button" flDrawerClose tabindex="-1"
@@ -16,19 +16,20 @@
 
   <div class="g-flex-auto">
 
-    <div *ngIf="nodeSelected.getObject$() | async as object">
+    <div *ngIf="nodeSelected.objectSignal()">
       <fl-key-value class="kv">
         <fl-key>{{'node_process_name' | translate}}</fl-key>
         {{nodeSelected.currentObject.instanceName}}
       </fl-key-value>
 
-      <fl-key-value *ngIf="object.config | flIsNotEmpty" class="kv">
+      <fl-key-value *ngIf="nodeSelected.objectSignal().config | flIsNotEmpty" class="kv">
         <fl-key>
             {{'config' | translate}}
         </fl-key>
-        <fl-pretty-json [object]="object.config.values" [dense]="true" *ngIf="object.config.values | flIsNotEmpty"></fl-pretty-json>
+        <fl-pretty-json [object]="nodeSelected.objectSignal().config.values" [dense]="true"
+                        *ngIf="nodeSelected.objectSignal().config.values | flIsNotEmpty"></fl-pretty-json>
         <button mat-stroked-button type="button"
-                (click)="openConfigInfo(object.config)" class="g-button-small">
+                (click)="openConfigInfo(nodeSelected.objectSignal().config)" class="g-button-small">
           <mat-icon>info</mat-icon>
           <span>{{'detail' | translate}}</span>
         </button>

@@ -1,5 +1,14 @@
-import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
-import {PrWorkflowNodeProcess, PrWorkflowPort, PrWorkflowResourcesState} from '@monorepo/protocol';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+  Signal
+} from '@angular/core';
+import {PrWorkflowPort, PrWorkflowPortType, PrWorkflowResourcesState} from '@monorepo/protocol';
 import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
 import {LabResource} from '../../../../../lab-core/model/entities/resource/lab-resource.entity';
 import {map} from 'rxjs/operators';
@@ -23,24 +32,23 @@ interface LabWorkflowPortResource {
   selector: 'lab-workflow-node-io-panel',
   templateUrl: './lab-workflow-node-io-panel.component.html',
   styleUrls: ['./lab-workflow-node-io-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
 
-  @Input() nodeProcess$: Observable<PrWorkflowNodeProcess>;
 
-  @Input() mode: 'input' | 'output';
-
+  @Input() portType: PrWorkflowPortType;
 
   @HostBinding('class.is-opened')
   isOpened: boolean = false;
 
-  isDynamicPorts$: Observable<boolean>;
+  isDynamicPorts: Signal<boolean>;
+
   isEditable$: Observable<boolean> = this.experimentState.isEditable$();
-  ports: Observable<LabWorkflowPortResource>[];
+  ports: Signal<Observable<LabWorkflowPortResource>[]>;
 
   // observable to retrieve the id of the resource of the selected port
   selectedResourceId$: Observable<string>;
-
 
   // store the current selected port, null if none
   private selectedPort$: BehaviorSubject<string | null> = new BehaviorSubject(null);
@@ -55,25 +63,23 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
     this.getPortResources();
     this.getSelectedResource();
 
-    this.isDynamicPorts$ = this.nodeProcess$.pipe(
-      switchMap(nodeProcess => nodeProcess.hasDynamicIOPorts$(this.mode))
-    );
+    this.isDynamicPorts = computed(() => this.nodeState.node2().hasDynamicIOPorts2(this.portType)());
   }
 
   private getPortResources(): void {
-    this.nodeProcess$.pipe(
-      switchMap(nodeProcess =>
-        this.mode === 'input' ? nodeProcess.getInputPorts$() : nodeProcess.getOutputPorts$()))
-      .subscribe(ports => {
+    this.ports = computed(() => {
+      const node = this.nodeState.node2();
+      if (node == null) return [];
 
-        // for each port, get the resource
-        const resources: Observable<LabWorkflowPortResource>[] = [];
-        for (const port of ports) {
-          resources.push(this.portToPortResource(port));
-        }
+      const resources: Observable<LabWorkflowPortResource>[] = [];
 
-        this.ports = resources;
-      });
+      // for each port, get the resource
+      for (const port of node.portChange(this.portType)()) {
+        resources.push(this.portToPortResource(port));
+      }
+
+      return resources;
+    });
   }
 
   private getSelectedResource(): void {
@@ -81,7 +87,7 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
       map(([process, portName]) => {
         if (portName == null) return null;
 
-        const io = this.mode === 'input' ? process.inputs.ports[portName] : process.outputs.ports[portName];
+        const io = this.portType === 'input' ? process.inputs.ports[portName] : process.outputs.ports[portName];
 
         if (io == null) return null;
         return io.resource_id;
@@ -120,7 +126,7 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
 
   // useful to set the resource on the left or right side of the node
   get layoutClass(): string {
-    return this.mode === 'input' ? 'g-layout-row' : 'g-layout-row-reverse';
+    return this.portType === 'input' ? 'g-layout-row' : 'g-layout-row-reverse';
   }
 
   portIsSelected(portName: string): Observable<boolean> {
@@ -128,15 +134,15 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
   }
 
   get addPortTooltip(): string {
-    return this.mode === 'input' ? 'biox.add_input_port' : 'biox.add_output_port';
+    return this.portType === 'input' ? 'biox.add_input_port' : 'biox.add_output_port';
   }
 
   get removePortTooltip(): string {
-    return this.mode === 'input' ? 'biox.remove_input_port' : 'biox.remove_output_port';
+    return this.portType === 'input' ? 'biox.remove_input_port' : 'biox.remove_output_port';
   }
 
   addPort(): void {
-    if (this.mode === 'input') {
+    if (this.portType === 'input') {
       this.nodeState.createDynamicInputPort();
     } else {
       this.nodeState.createDynamicOutputPort();
@@ -146,7 +152,7 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
   removePort(portName: string, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
 
-    if (this.mode === 'input') {
+    if (this.portType === 'input') {
       this.nodeState.deleteDynamicInputPort(portName);
     } else {
       this.nodeState.deleteDynamicOutputPort(portName);

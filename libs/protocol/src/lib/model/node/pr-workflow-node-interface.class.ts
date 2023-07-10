@@ -1,8 +1,7 @@
 import {PrWorkflowNode} from './pr-workflow-node.class';
 import {PrInterface} from '../pr-interface.class';
 import {PrWorkflowPort} from '../pr-workflow-port.class';
-import {map, Observable, of} from 'rxjs';
-import {FlStatus} from '@monorepo/front-core-lib';
+import {computed, Signal} from '@angular/core';
 
 /**
  * Node for the interfaces
@@ -26,25 +25,14 @@ export class PrWorkflowNodeInterface extends PrWorkflowNode<PrInterface> {
   }
 
   protected initPorts(object: PrInterface): void {
-    // TODO check null
     this.createPort(object.portName, {
       specs: object.portType,
       resource_id: null,
     }, 'output');
   }
 
-  getStatus$(): Observable<FlStatus | null> {
-    return of(null);
-  }
-
-  getTitle$(): Observable<string> {
-    return this.getObject$().pipe(
-      map(object => object.name)
-    );
-  }
-
-  getSubTitle$(): Observable<string> {
-    return of(null);
+  get title(): Signal<any> {
+    return computed(() => this.objectSignal().name)
   }
 
   getPort(): PrWorkflowPort {

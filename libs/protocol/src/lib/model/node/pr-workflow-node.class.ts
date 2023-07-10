@@ -1,9 +1,10 @@
 import {PrWorkflowPort, PrWorkflowPortType} from '../pr-workflow-port.class';
 import {DrawflowConnectionDetail, DrawflowNode} from 'drawflow';
-import {BehaviorSubject, combineLatest, map, Observable, of, Subscription} from 'rxjs';
-import {FlCoord, FlStatus, FlTranslatableText, FlTranslateService} from '@monorepo/front-core-lib';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {FlCoord} from '@monorepo/front-core-lib';
 import {TdIOSpec, TdIOSpecs} from '@monorepo/technical-doc';
 import {PrPort} from '../pr-io.class';
+import {computed, Signal, signal, WritableSignal} from '@angular/core';
 
 
 /**
@@ -22,8 +23,9 @@ export abstract class PrWorkflowNode<T = any> {
   private inputPortsChange$: BehaviorSubject<PrWorkflowPort[]>;
   private outputPortsChange$: BehaviorSubject<PrWorkflowPort[]>;
 
-  private titleSubscription: Subscription;
-  private currentTitle: FlTranslatableText;
+  private readonly objSignal: WritableSignal<T>;
+  private readonly inputPortsSignal: WritableSignal<PrWorkflowPort[]>;
+  private readonly outputPortsSignal: WritableSignal<PrWorkflowPort[]>;
 
   public x: number = null;
   public y: number = null;
@@ -34,10 +36,13 @@ export abstract class PrWorkflowNode<T = any> {
     public readonly parentLayerId: string,
     object: T) {
     this.object$ = new BehaviorSubject<T>(object);
+    this.objSignal = signal(object);
     this.inputPorts = [];
     this.outputPorts = [];
     this.inputPortsChange$ = new BehaviorSubject(this.inputPorts);
     this.outputPortsChange$ = new BehaviorSubject(this.outputPorts);
+    this.inputPortsSignal = signal(this.inputPorts);
+    this.outputPortsSignal = signal(this.outputPorts);
     this.initPorts(object);
   }
 
@@ -45,16 +50,11 @@ export abstract class PrWorkflowNode<T = any> {
     this.drawflowId = nodeId;
     this.getDrawflowNodeMethod = getDrawflowNodeMethod;
     this.initPortColors();
-
-    this.titleSubscription = this.getTitle$().subscribe(
-      title => this.currentTitle = title
-    );
   }
 
   public deInitDrawflow(): void {
     this.drawflowId = null;
     this.getDrawflowNodeMethod = null;
-    this.titleSubscription?.unsubscribe();
   }
 
   protected abstract initPorts(object: T): void;
@@ -63,11 +63,7 @@ export abstract class PrWorkflowNode<T = any> {
 
   public abstract getClassName(): string;
 
-  public abstract getTitle$(): Observable<FlTranslatableText>;
-
-  public abstract getSubTitle$(): Observable<string>;
-
-  public abstract getStatus$(): Observable<FlStatus | null>;
+  public abstract get title(): Signal<string>;
 
   /////////////////////////////// OBJECT //////////////////////////////
 
@@ -81,7 +77,13 @@ export abstract class PrWorkflowNode<T = any> {
 
   public updateObject(object: T): void {
     this.object$.next(object);
+    this.objSignal.set(object);
   }
+
+  public get objectSignal(): Signal<T> {
+    return this.objSignal.asReadonly();
+  }
+
 
   /////////////////////////////// INPUT //////////////////////////////
 
@@ -136,8 +138,8 @@ export abstract class PrWorkflowNode<T = any> {
     return this.countInputs() > 0;
   }
 
-  public getInputSpecs$(): Observable<TdIOSpecs> {
-    return this.getPortsSpecs$('input');
+  public get inputSpecs(): Signal<TdIOSpecs> {
+    return this.getPortsSpecs2('input');
   }
 
   public deleteInputPort(portName: string): void {
@@ -146,6 +148,7 @@ export abstract class PrWorkflowNode<T = any> {
     this.inputPorts = this.inputPorts.filter(p => p.name !== portName);
     port.destroy();
     this.inputPortsChange$.next(this.inputPorts);
+    this.inputPortsSignal.set(this.inputPorts);
   }
 
   public getInputPortDrawflowName(portName: string): string {
@@ -154,13 +157,10 @@ export abstract class PrWorkflowNode<T = any> {
     return PrWorkflowPort.getInputDrawflowName(index + 1);
   }
 
-  public getInputPorts$(): Observable<PrWorkflowPort[]> {
-    return this.inputPortsChange$.asObservable();
+  public hasDynamicInputPorts2(): Signal<boolean> {
+    return signal(false).asReadonly();
   }
 
-  public hasDynamicInputPorts$(): Observable<boolean> {
-    return of(false);
-  }
 
   /////////////////////////////// OUTPUT //////////////////////////////
 
@@ -186,8 +186,8 @@ export abstract class PrWorkflowNode<T = any> {
     return this.countOutputs() > 0;
   }
 
-  public getOutputSpecs$(): Observable<TdIOSpecs> {
-    return this.getPortsSpecs$('output');
+  public get outputSpecs(): Signal<TdIOSpecs> {
+    return this.getPortsSpecs2('output');
   }
 
   public deleteOutputPort(portName: string): void {
@@ -195,6 +195,7 @@ export abstract class PrWorkflowNode<T = any> {
     if (port == null) return;
     this.outputPorts = this.outputPorts.filter(p => p.name !== portName);
     this.outputPortsChange$.next(this.outputPorts);
+    this.outputPortsSignal.set(this.outputPorts);
     port.destroy();
   }
 
@@ -204,12 +205,8 @@ export abstract class PrWorkflowNode<T = any> {
     return PrWorkflowPort.getOutputDrawflowName(index + 1);
   }
 
-  public getOutputPorts$(): Observable<PrWorkflowPort[]> {
-    return this.outputPortsChange$.asObservable();
-  }
-
-  public hasDynamicOutputPorts$(): Observable<boolean> {
-    return of(false);
+  public hasDynamicOutputPorts2(): Signal<boolean> {
+    return signal(false).asReadonly();
   }
 
   /////////////////////////////// PORTS //////////////////////////////
@@ -220,8 +217,10 @@ export abstract class PrWorkflowNode<T = any> {
 
     if (type === 'input') {
       this.inputPortsChange$.next(this.inputPorts);
+      this.inputPortsSignal.set(this.inputPorts);
     } else {
       this.outputPortsChange$.next(this.outputPorts);
+      this.outputPortsSignal.set(this.outputPorts);
     }
 
     return port;
@@ -288,32 +287,38 @@ export abstract class PrWorkflowNode<T = any> {
     return portType === 'input' ? this.findInputPortByName(name) : this.findOutputPortByName(name);
   }
 
-  public getPorts$(type: PrWorkflowPortType): Observable<PrWorkflowPort[]> {
-    return type === 'input' ? this.getInputPorts$() : this.getOutputPorts$();
+  public getPorts(type: PrWorkflowPortType): Signal<PrWorkflowPort[]> {
+    return type === 'input' ? this.inputPortsSignal.asReadonly() : this.outputPortsSignal.asReadonly();
   }
 
-  public hasDynamicIOPorts$(type: PrWorkflowPortType): Observable<boolean> {
+  public hasDynamicIOPorts2(type: PrWorkflowPortType): Signal<boolean> {
     if (type === 'input') {
-      return this.hasDynamicInputPorts$();
+      return this.hasDynamicInputPorts2();
     } else {
-      return this.hasDynamicOutputPorts$();
+      return this.hasDynamicOutputPorts2();
     }
   }
 
-  private getPortsSpecs$(type: PrWorkflowPortType): Observable<TdIOSpecs> {
-    return combineLatest([this.getPorts$(type), this.hasDynamicIOPorts$(type)]).pipe(
-      map(([ports, isDynamic]) => {
-        const specs: Record<string, TdIOSpec> = {};
+  private getPortsSpecs2(type: PrWorkflowPortType): Signal<TdIOSpecs> {
+    return computed(() => {
+      const ports = this.getPorts(type)();
+      const isDynamic = this.hasDynamicIOPorts2(type)();
 
-        for (const port of ports) {
-          specs[port.name] = port.currentSpecs;
-        }
+      const specs: Record<string, TdIOSpec> = {};
 
-        return {
-          specs,
-          is_dynamic: isDynamic
-        };
-      }));
+      for (const port of ports) {
+        specs[port.name] = port.currentSpecs;
+      }
+
+      return {
+        specs,
+        is_dynamic: isDynamic
+      };
+    });
+  }
+
+  public portChange(type: PrWorkflowPortType): Signal<PrWorkflowPort[]> {
+    return type === 'input' ? this.inputPortsSignal : this.outputPortsSignal;
   }
 
   /////////////////////////////// OTHER //////////////////////////////
@@ -360,17 +365,11 @@ export abstract class PrWorkflowNode<T = any> {
     this.y = coord.y;
   }
 
-  public getCurrentTitle(): string {
-    if (this.currentTitle == null) return '';
-    return FlTranslateService.getInstance().translatableText(this.currentTitle);
-  }
-
 
   public destroy(): void {
     this.object$.complete();
     this.inputPortsChange$.complete();
     this.outputPortsChange$.complete();
-    this.titleSubscription?.unsubscribe();
     const ports: PrWorkflowPort[] = [...this.inputPorts, ...this.outputPorts];
     for (const port of ports) {
       port.destroy();

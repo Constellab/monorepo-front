@@ -4,7 +4,7 @@
 
     <!-- Title   -->
     <div class="name g- g-text-small">
-      {{title$ | async | flTranslatableText}}
+      {{title() | async | flTranslatableText}}
     </div>
 
 
@@ -15,12 +15,12 @@
         <mat-icon>info</mat-icon>
       </button>
 
-      <button mat-icon-button type="button" *ngIf="(isConfigured$ | async) === false"
+      <button mat-icon-button type="button" *ngIf="!isConfigured()"
               (click)="openNodeDetail()" [matTooltip]="'pr.viewer_not_configured' | translate">
         <mat-icon>warnings</mat-icon>
       </button>
 
-      <button *ngIf="isSuccess$ | async" mat-stroked-button type="button" (click)="callView()"
+      <button *ngIf="node.objectSignal().status.value === 'SUCCESS'" mat-stroked-button type="button" (click)="callView()"
               [matTooltip]="'pr.show_view' | translate" class="g-button-small">
         <mat-icon>visibility</mat-icon>
       </button>

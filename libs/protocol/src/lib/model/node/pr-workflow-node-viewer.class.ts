@@ -1,8 +1,8 @@
 import {PrWorkflowPort} from '../pr-workflow-port.class';
 import {PrWorkflowNodeIo} from './pr-workflow-node-io.class';
-import {map, Observable} from 'rxjs';
 import {PrProcess} from '../pr-process.class';
 import {TdTaskViewerConfig, TdTypingName} from '@monorepo/technical-doc';
+import {computed, Signal} from '@angular/core';
 
 export class PrWorkflowNodeViewer extends PrWorkflowNodeIo {
 
@@ -19,14 +19,12 @@ export class PrWorkflowNodeViewer extends PrWorkflowNodeIo {
     return this.inputPorts[0];
   }
 
-  public isConfigured$(): Observable<boolean> {
-    return this.getConfigValues$().pipe(
-      map((config: TdTaskViewerConfig) => config != null && config.view_config != null)
-    );
-  }
-
   protected getResourceId(process: PrProcess): string | null {
     return process.inputs.ports[TdTypingName.task.output.resourceInput].resource_id ?? null;
+  }
+
+  public get configValues(): Signal<TdTaskViewerConfig> {
+    return computed(() => this.objectSignal().config.values as TdTaskViewerConfig);
   }
 
 

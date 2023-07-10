@@ -1,10 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-process.directive';
-import {map, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {PrWorkflowNodeProtocol} from '../../model/node/pr-workflow-node-protocol.class';
-import {FlTranslatableText} from '@monorepo/front-core-lib';
-import {TdTypeObjectStatus} from '@monorepo/technical-doc';
-import {PrProcess} from '../../model/pr-process.class';
 
 @Component({
   selector: 'pr-workflow-node',
@@ -16,16 +13,9 @@ export class PrWorkflowNodeComponent extends PrWorkflowNodeProcessDirective impl
   layerIsLoading$: Observable<boolean>;
   isProtocol: boolean;
 
-  title$: Observable<FlTranslatableText>;
-  typeStatus$: Observable<TdTypeObjectStatus>;
-
 
   ngOnInit(): void {
     this.initNode();
-    this.title$ = this.node.getTitle$();
-    this.typeStatus$ = this.node.getObject$().pipe(
-      map((object: PrProcess) => object.typeStatus)
-    );
     this.isProtocol = this.node instanceof PrWorkflowNodeProtocol;
 
     if (this.isProtocol) {

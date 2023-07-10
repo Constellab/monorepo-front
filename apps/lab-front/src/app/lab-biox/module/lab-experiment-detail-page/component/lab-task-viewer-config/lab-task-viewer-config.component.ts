@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {mergeMap, Observable, of} from 'rxjs';
+import {Component, computed, OnInit, Signal} from '@angular/core';
+import {Observable} from 'rxjs';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
@@ -7,7 +7,6 @@ import {
   LabConfigureViewerDialogComponent,
   LabConfigureViewerDialogInput
 } from '../lab-configure-viewer-dialog/lab-configure-viewer-dialog.component';
-import {map} from 'rxjs/operators';
 import {PrWorkflowNodeViewer} from '@monorepo/protocol';
 import {TdTaskViewerConfig} from '@monorepo/technical-doc';
 
@@ -25,8 +24,8 @@ export class LabTaskViewerConfigComponent implements OnInit {
 
   isEditable$: Observable<boolean>;
 
-  node$: Observable<PrWorkflowNodeViewer>;
-  config$: Observable<TdTaskViewerConfig>;
+  node: Signal<PrWorkflowNodeViewer | null>;
+  config: Signal<TdTaskViewerConfig>;
 
   constructor(private nodeDetail: LabWorkflowNodeDetailState,
               private dialogService: FlDialogService,
@@ -34,30 +33,20 @@ export class LabTaskViewerConfigComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.node$ = this.nodeDetail.getNode$().pipe(
-      map(node => {
-        if (node instanceof PrWorkflowNodeViewer) {
-          return node;
-        } else {
-          return null;
-        }
-      })
-    );
+    this.node = computed(() => {
+      const node = this.nodeDetail.node2();
+      if (node instanceof PrWorkflowNodeViewer) return node;
+      return null;
+    });
 
-    this.config$ = this.node$.pipe(
-      mergeMap(node => {
-        if (node == null) return of(null);
-        return node.getObject$()
-          .pipe(map(process => process.config.values as TdTaskViewerConfig));
-      })
-    );
+    this.config = computed(() => this.node()?.configValues())
 
     this.isEditable$ = this.experimentState.isEditable$();
   }
 
 
   openViewerConfiguration(node: PrWorkflowNodeViewer): void {
-    const data: LabConfigureViewerDialogInput = node.currentObject.config.values as TdTaskViewerConfig;
+    const data: LabConfigureViewerDialogInput = node.configValues();
 
     this.dialogService.openMediumDialog(LabConfigureViewerDialogComponent,
       {data: data, panelClass: 'g-dialog-main-background'}).afterClosed().subscribe(

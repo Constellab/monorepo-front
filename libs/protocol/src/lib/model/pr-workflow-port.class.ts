@@ -2,6 +2,7 @@ import {FlColorHelper} from '@monorepo/front-core-lib';
 import {PrPort} from './pr-io.class';
 import {BehaviorSubject, map, Observable} from 'rxjs';
 import {TdIOSpec} from '@monorepo/technical-doc';
+import {computed, signal, Signal, WritableSignal} from '@angular/core';
 
 export type PrWorkflowPortType = 'input' | 'output';
 
@@ -11,12 +12,14 @@ export class PrWorkflowPort {
   private static readonly OUTPUT_NAME_PREFIX: string = 'output_';
 
   private object$: BehaviorSubject<PrPort>;
+  private objectSignal: WritableSignal<PrPort>;
 
 
   constructor(public name: string,
               port: PrPort,
               public type: PrWorkflowPortType) {
     this.object$ = new BehaviorSubject(port);
+    this.objectSignal = signal(port);
   }
 
   /////////////////////////////// OBJECT //////////////////////////////
@@ -31,6 +34,7 @@ export class PrWorkflowPort {
 
   public updateObject(object: PrPort): void {
     this.object$.next(object);
+    this.objectSignal.set(object);
   }
 
   public get currentSpecs(): TdIOSpec {
@@ -41,6 +45,10 @@ export class PrWorkflowPort {
     return this.object$.asObservable().pipe(
       map(port => port.resource_id)
     );
+  }
+
+  public get resourceId(): Signal<string>{
+    return computed(() => this.objectSignal().resource_id)
   }
 
   get humanName(): string {
