@@ -85,7 +85,7 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
     this.buildDataForm(event.value);
   }
 
-  private buildDataForm(type: LabCredentialsType, defaultValue: any = {}): void {
+  private buildDataForm(type: LabCredentialsType, defaultValue?: any): void {
     this.viewContainer.clear();
     this.viewComponentRef?.destroy();
 
