@@ -78,7 +78,8 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
   private switchMode(mode: 'key' | 'value'): void {
     if (mode === 'key') {
       const inputObs = this.inputCtrl.valueChanges.pipe(
-        clRxjsElasticSearch(this.searchDebounceTime, 1),
+        clRxjsElasticSearch(this.searchDebounceTime, 0),
+        startWith(''),
       );
 
       this.filteredOptions = inputObs.pipe(
