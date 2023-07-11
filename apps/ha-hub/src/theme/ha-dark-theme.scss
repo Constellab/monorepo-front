@@ -1,6 +1,9 @@
 @import "libs/front-core-lib/src/style/theme/base/base-dark-theme";
 @import "libs/front-core-lib/src/style/theme/quill/quill-theme-dark";
 
+// Style to highlight code in text editor
+@import 'highlight.js/styles/monokai-sublime.css';
+
 // include dark theme for quill
 @include _quill-theme-dark($theme);
 

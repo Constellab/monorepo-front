@@ -3,13 +3,17 @@ import {marked} from 'marked';
 import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
 import {ClStringHelper, ClYoutubeHelper} from '@monorepo/core-lib';
 import hljs from 'highlight.js';
+import {markedHighlight} from 'marked-highlight';
 
-// configure marked to use highlight.js
-marked.setOptions({
-  highlight: function(code, lang) {
-    return hljs.highlight(code, {language: lang || 'python'}).value;
+
+marked.use(markedHighlight({
+  langPrefix: 'hljs language-',
+  highlight(code, lang) {
+    const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+    return hljs.highlight(code, {language}).value;
   }
-});
+}));
+
 @Pipe({
   name: 'tdMarkdown'
 })
@@ -31,7 +35,7 @@ export class TdMarkdownPipe implements PipeTransform {
 
       let out: string = '';
 
-      if(ClYoutubeHelper.isYoutubeVideoUrl(href)){
+      if (ClYoutubeHelper.isYoutubeVideoUrl(href)) {
         const embedHref: SafeResourceUrl = ClYoutubeHelper.convertToEmbedUrl(href);
         // eslint-disable-next-line max-len
         let iframe: string = `<div class="iframe-div"><iframe src="${embedHref}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen property="binding"`;
@@ -52,14 +56,14 @@ export class TdMarkdownPipe implements PipeTransform {
         out += '>';
       }
       return out;
-    }
+    };
 
     //return this.domSanitizer.sanitize(SecurityContext.NONE, marked.parse(value, {renderer: renderer}));
     const parsedDoc: string = marked.parse(value, {renderer: renderer});
     let safeDoc: string = this.domSanitizer.sanitize(SecurityContext.HTML, parsedDoc);
-    for(const key of Object.keys(iframes)){
+    for (const key of Object.keys(iframes)) {
       safeDoc = safeDoc.replace(key,
-        this.domSanitizer.sanitize(SecurityContext.RESOURCE_URL, this.domSanitizer.bypassSecurityTrustResourceUrl(iframes[key])))
+        this.domSanitizer.sanitize(SecurityContext.RESOURCE_URL, this.domSanitizer.bypassSecurityTrustResourceUrl(iframes[key])));
     }
     return this.domSanitizer.bypassSecurityTrustHtml(safeDoc);
   }
