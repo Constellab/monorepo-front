@@ -7,7 +7,7 @@
   <fl-portal-content>
 
 
-    <form [formGroup]="formGp" (ngSubmit)="submit()">
+    <form [formGroup]="formGp" (ngSubmit)="submit()" class="form">
 
 
       <div class="form-first-part">
@@ -17,7 +17,7 @@
           <mat-select formControlName="chartType" required
                       placeholder="{{'spSpreadsheet.chart_type' | translate}}">
             <mat-select-trigger *ngIf="formGp.value.chartType">
-              {{'flChart.' + formGp.value.chartType | translate}}
+             {{'chChart.' + formGp.value.chartType | translate}}
             </mat-select-trigger>
             <ch-chart-type-select-options [availableChartTypes]="availableChartTypes"></ch-chart-type-select-options>
           </mat-select>
