@@ -8,7 +8,7 @@ import {FlDialogService} from '@monorepo/front-core-lib';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
 import {MatExpansionPanel} from '@angular/material/expansion';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
-import {combineLatest, firstValueFrom, Observable} from 'rxjs';
+import {firstValueFrom, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 import {
@@ -65,10 +65,10 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
     this.isEditable$ = this.experimentState.isEditable$();
 
     this.showInputs$ = this.nodeDetailState.getNode$().pipe(map(
-      node => node.currentObject.inputs.is_dynamic || (node.hasInputs() && !(node instanceof PrWorkflowNodeIo))
+      node => node && (node.currentObject.inputs.is_dynamic || (node.hasInputs() && !(node instanceof PrWorkflowNodeIo)))
     ));
     this.showOutput$ = this.nodeDetailState.getNode$().pipe(map(
-      node => node.currentObject.outputs.is_dynamic || (node.hasOutputs() && !(node instanceof PrWorkflowNodeIo))
+      node => node && (node.currentObject.outputs.is_dynamic || (node.hasOutputs() && !(node instanceof PrWorkflowNodeIo)))
     ));
   }
 

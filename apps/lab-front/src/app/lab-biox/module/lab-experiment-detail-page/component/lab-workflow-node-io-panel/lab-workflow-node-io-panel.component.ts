@@ -2,7 +2,7 @@ import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {PrWorkflowNodeProcess, PrWorkflowPort, PrWorkflowResourcesState} from '@monorepo/protocol';
 import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
 import {LabResource} from '../../../../../lab-core/model/entities/resource/lab-resource.entity';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 import {ClHelpService} from '@monorepo/core-lib';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
@@ -62,6 +62,7 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
 
   private getPortResources(): void {
     this.nodeProcess$.pipe(
+      filter(nodeProcess => nodeProcess != null),
       switchMap(nodeProcess =>
         this.mode === 'input' ? nodeProcess.getInputPorts$() : nodeProcess.getOutputPorts$()))
       .subscribe(ports => {

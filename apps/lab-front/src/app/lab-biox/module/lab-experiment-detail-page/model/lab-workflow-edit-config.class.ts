@@ -30,7 +30,7 @@ import {LabExperimentDetailPageState} from '../state/lab-experiment-detail-page.
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {TdIOSpec} from '@monorepo/technical-doc';
 
-enum LabWorkflowAction {
+export enum LabWorkflowAction {
   ADD_PROCESS = 'workflow-add-process',
   ADD_PROCESS_WITH_CONNECTIONS = 'workflow-add-process-with-connections',
   DELETE_PROCESS = 'workflow-remove-process',
@@ -48,7 +48,7 @@ interface LabWorkflowEventConnectionAdditionalInfo {
   connection: PrWorkflowConnection;
 }
 
-interface LabWorkflowEventNodeAdditionalInfo {
+export interface LabWorkflowEventNodeAdditionalInfo {
   protocolId: string;
   node: PrWorkflowNode;
   connections: PrWorkflowConnection[];
@@ -71,7 +71,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
               private dialogService: FlDialogService) {
 
     // listen to the new Process actions
-    this.actionSubscription = this.getActions$().subscribe(
+    this.actionSubscription = this.getAllActions$().subscribe(
       result => this.onActionResult(result)
     );
   }
@@ -575,7 +575,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     return this.protocolService.deleteProcessInProtocol(protocolId, node.nodeName);
   }
 
-  public getActions$(): Observable<FlPortalActionResult> {
+  public getAllActions$(): Observable<FlPortalActionResult> {
     return this.actionsService.getResult$([
       LabWorkflowAction.ADD_PROCESS, LabWorkflowAction.ADD_PROCESS_WITH_CONNECTIONS,
       LabWorkflowAction.DELETE_PROCESS,
@@ -583,6 +583,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
       LabWorkflowAction.DELETE_CONNECTION, LabWorkflowAction.ADD_CONNECTION,
       LabWorkflowAction.UPDATE_PROCESS_CONFIG, LabWorkflowAction.RESET_PROCESS,
       LabWorkflowAction.MODIFY_DYNAMIC_PORT]);
+  }
+
+  public getActions$(actions: LabWorkflowAction[]): Observable<FlPortalActionResult> {
+    return this.actionsService.getResult$(actions);
   }
 
   private executeUpdateAction(action: FlPortalAction, process: LabProcess,

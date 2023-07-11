@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, filter, firstValueFrom, Observable, Subscription, switchMap} from 'rxjs';
+import {BehaviorSubject, filter, firstValueFrom, Observable, switchMap} from 'rxjs';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
   PrConfigValues,
@@ -17,8 +17,13 @@ import {
   LabResourceViewDetailDialogInput
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
 import {FlDialogService} from '@monorepo/front-core-lib';
-import {LabWorkflowEditConfig} from '../model/lab-workflow-edit-config.class';
+import {
+  LabWorkflowAction,
+  LabWorkflowEditConfig,
+  LabWorkflowEventNodeAdditionalInfo
+} from '../model/lab-workflow-edit-config.class';
 import {TdIOSpec} from '@monorepo/technical-doc';
+import {ClSubscriptionHandler} from '@monorepo/core-lib';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -29,7 +34,7 @@ export class LabWorkflowNodeDetailState {
   private node$: BehaviorSubject<PrWorkflowNodeProcess>;
 
   private drawer: MatDrawer;
-  private subscription: Subscription;
+  private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
   constructor(private workflowEditConfig: LabWorkflowEditConfig,
               private actionState: PrWorkflowActionState,
@@ -40,9 +45,12 @@ export class LabWorkflowNodeDetailState {
     this.node$ = new BehaviorSubject(null);
     this.drawer = drawer;
 
-    this.subscription = this.actionState.getAction$().subscribe(
+    this.subscription.add(this.actionState.getAction$().subscribe(
       action => this.onNewAction(action)
-    );
+    ));
+
+    this.subscription.add(this.workflowEditConfig.getActions$([LabWorkflowAction.DELETE_PROCESS]).subscribe(
+      result => this.onNodeDeleted(result.additionalInformation)));
   }
 
   private onNewAction(action: PrWorkflowActionEvent): void {
@@ -63,8 +71,23 @@ export class LabWorkflowNodeDetailState {
     }
   }
 
+  /**
+   * If the current selected node is deleted, close the drawer
+   * @param info
+   * @private
+   */
+  private onNodeDeleted(info: LabWorkflowEventNodeAdditionalInfo): void {
+    const node = this.node$.value;
+    if (info && node && info.node.nodeName == node.nodeName && info.node.parentLayerId == node.parentLayerId) {
+      this.setNode(null);
+    }
+  }
+
   public setNode(node: PrWorkflowNodeProcess): void {
     this.node$.next(node);
+    if (node == null) {
+      this.drawer.close();
+    }
   }
 
   public getNode$(): Observable<PrWorkflowNodeProcess> {
@@ -96,27 +119,27 @@ export class LabWorkflowNodeDetailState {
     this.workflowEditConfig.resetProcess(node.parentLayerId, node.nodeName);
   }
 
-  public createDynamicInputPort(): void{
+  public createDynamicInputPort(): void {
     this.workflowEditConfig.addDynamicInputPort(this.node$.value);
   }
 
-  public createDynamicOutputPort(): void{
+  public createDynamicOutputPort(): void {
     this.workflowEditConfig.addDynamicOutputPort(this.node$.value);
   }
 
-  public deleteDynamicInputPort(portName: string): void{
+  public deleteDynamicInputPort(portName: string): void {
     this.workflowEditConfig.removeDynamicInputPort(this.node$.value, portName);
   }
 
-  public deleteDynamicOutputPort(portName: string): void{
+  public deleteDynamicOutputPort(portName: string): void {
     this.workflowEditConfig.removeDynamicOutputPort(this.node$.value, portName);
   }
 
-  public updateDynamicInputPort(portName: string, ioSpec: TdIOSpec): void{
+  public updateDynamicInputPort(portName: string, ioSpec: TdIOSpec): void {
     this.workflowEditConfig.updateDynamicInputPort(this.node$.value, portName, ioSpec);
   }
 
-  public updateDynamicOutputPort(portName: string, ioSpec: TdIOSpec): void{
+  public updateDynamicOutputPort(portName: string, ioSpec: TdIOSpec): void {
     this.workflowEditConfig.updateDynamicOutputPort(this.node$.value, portName, ioSpec);
   }
 
