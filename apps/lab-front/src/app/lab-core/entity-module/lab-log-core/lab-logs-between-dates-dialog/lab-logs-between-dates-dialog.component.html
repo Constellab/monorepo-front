@@ -10,10 +10,23 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <fl-async-section [object]="logs$">
 
-    <ng-container *flSectionBody="let logs">
-      <lab-logs-between-dates [logs]="logs"></lab-logs-between-dates>
-    </ng-container>
-  </fl-async-section>
+
+  <div class="g-scrollable-element container"
+       (flInfiniteScroll)="loadNextPage()" [flInfiniteDisabled]="loadNextPageDisabled">
+    <lab-logs-between-dates *ngIf="logs" [logs]="logs"></lab-logs-between-dates>
+
+    <div class="g-text-centered" *ngIf="logs && !logs.isLastPage">
+      <button [disabled]="loadNextPageDisabled" class="g-button-small"
+              mat-stroked-button color="primary" type="button" (click)="loadNextPage()">
+        {{'show_more_result' | translate}}
+        <fl-button-loader *ngIf="isLoading" size="small"></fl-button-loader>
+      </button>
+    </div>
+
+    <div class="g-text-centered" *ngIf="isLoading">
+      <fl-loader></fl-loader>
+    </div>
+  </div>
+
 </mat-dialog-content>

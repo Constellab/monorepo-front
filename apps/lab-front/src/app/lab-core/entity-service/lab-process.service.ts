@@ -4,6 +4,8 @@ import {LabLogsBetweenDates} from '../model/entities/lab-log.entity';
 import {Observable} from 'rxjs';
 import {LabProcessClass} from '../model/entities/process/lab-process.entity';
 import {LabMonitorBetweenDates} from '../model/entities/lab-monitor.entity';
+import {DateTime} from 'luxon';
+import {ClDateHelper} from '@monorepo/core-lib';
 
 
 @Injectable({
@@ -16,8 +18,10 @@ export class LabProcessService {
   constructor(private apiService: FlApiService) {
   }
 
-  public getProcessLogs(processType: LabProcessClass, id: string): Observable<LabLogsBetweenDates> {
-    return this.apiService.get(`${this.route}/${processType}/${id}/logs`, LabLogsBetweenDates);
+  public getProcessLogs(processType: LabProcessClass, id: string, fromPageDate?: DateTime): Observable<LabLogsBetweenDates> {
+    const params = fromPageDate ? {from_page_date: ClDateHelper.serializeDateTime(fromPageDate)} : null;
+    return this.apiService.get(`${this.route}/${processType}/${id}/logs`, LabLogsBetweenDates,
+      {params});
   }
 
   public getDownloadProcessLogUrl(processType: LabProcessClass, id: string): string {

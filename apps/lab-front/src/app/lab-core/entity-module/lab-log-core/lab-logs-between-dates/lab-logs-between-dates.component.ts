@@ -10,7 +10,8 @@ export class LabLogsBetweenDatesComponent implements OnInit {
 
   @Input() logs: LabLogsBetweenDates;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

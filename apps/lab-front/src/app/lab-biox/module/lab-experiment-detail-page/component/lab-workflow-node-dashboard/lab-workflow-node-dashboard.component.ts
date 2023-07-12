@@ -23,6 +23,7 @@ import {
 } from '../../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import {LabProcessService} from '../../../../../lab-core/entity-service/lab-process.service';
 import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
+import {DateTime} from 'luxon';
 
 /**
  * Complete dashboard to edit, view and run a workflow node
@@ -88,7 +89,7 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
   openProcessLogs(process: LabProcess): void {
     const input: LabLogBetweenDatesDialogInput = {
       title: process.instanceName,
-      logs$: this.processService.getProcessLogs(process.getProcessType(), process.id),
+      loadFunction: (fromDatePage?: DateTime) => this.processService.getProcessLogs(process.getProcessType(), process.id, fromDatePage),
       downloadUrl: this.processService.getDownloadProcessLogUrl(process.getProcessType(), process.id)
     };
 

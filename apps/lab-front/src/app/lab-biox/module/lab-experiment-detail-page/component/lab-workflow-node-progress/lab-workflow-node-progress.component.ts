@@ -17,6 +17,7 @@ import {
   LabMonitorBetweenDatesDialogInput
 } from '../../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
+import {DateTime} from 'luxon';
 
 @Component({
   selector: 'lab-workflow-node-progress',
@@ -51,7 +52,7 @@ export class LabWorkflowNodeProgressComponent implements OnInit {
   openProcessLogs(process: LabProcess): void {
     const input: LabLogBetweenDatesDialogInput = {
       title: process.instanceName,
-      logs$: this.processService.getProcessLogs(process.getProcessType(), process.id),
+      loadFunction: (fromDatePage?: DateTime) => this.processService.getProcessLogs(process.getProcessType(), process.id, fromDatePage),
       downloadUrl: this.processService.getDownloadProcessLogUrl(process.getProcessType(), process.id)
     };
 

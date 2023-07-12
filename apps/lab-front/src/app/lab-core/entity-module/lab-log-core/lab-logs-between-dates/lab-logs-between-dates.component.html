@@ -10,8 +10,8 @@
   </fl-key-value>
 
   <div class="logs">
-    <p *ngFor="let log of logs.logs">
-      {{log.level}} - {{log.datetime}} - {{log.content}}
-    </p>
+    <div *ngFor="let log of logs.logs" class="g-layout-row">
+      <div class="info">{{log.level}} - {{log.datetime | flDate:'DATETIME_MED_WITH_SECONDS'}} - </div><div>{{log.message}}</div>
+    </div>
   </div>
 </div>

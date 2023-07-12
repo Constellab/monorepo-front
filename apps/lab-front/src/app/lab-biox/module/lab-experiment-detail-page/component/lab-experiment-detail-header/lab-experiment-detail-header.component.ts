@@ -44,6 +44,7 @@ import {
   LabProtocolTemplateFormDialogInput
 } from '../../../../../lab-core/entity-module/lab-protocol-template-core/component/lab-protocol-template-form-dialog/lab-protocol-template-form-dialog.component';
 import {LabProtocolService} from '../../../../../lab-core/entity-service/lab-protocol.service';
+import {DateTime} from 'luxon';
 
 /**
  * Header for the experiment detail page
@@ -318,7 +319,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   openProcessLogs(experiment: LabExperiment): void {
     const input: LabLogBetweenDatesDialogInput = {
       title: experiment.title,
-      logs$: this.processService.getProcessLogs('PROTOCOL', experiment.protocol.id),
+      loadFunction: (fromDatePage?: DateTime) => this.processService.getProcessLogs('PROTOCOL', experiment.protocol.id, fromDatePage),
       downloadUrl: this.processService.getDownloadProcessLogUrl('PROTOCOL', experiment.protocol.id)
     };
 

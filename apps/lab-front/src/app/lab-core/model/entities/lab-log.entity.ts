@@ -44,12 +44,10 @@ export class LabLogLine {
   level: LabLogLevel;
 
   @Expose({name: 'date_time'})
-  datetime: string;
+  @ClLuxonDateTimeTransform()
+  datetime: DateTime;
 
-  content: string;
-
-  @Expose({name: 'is_from_experiment'})
-  isFromExperiment: boolean;
+  message: string;
 }
 
 export class LabLogsBetweenDates {
@@ -65,8 +63,12 @@ export class LabLogsBetweenDates {
   @ClLuxonDateTimeTransform()
   toDate: DateTime;
 
-  @Expose({name: 'from_experiment'})
-  fromExperiment: boolean;
+  @Expose({name: 'is_last_page'})
+  isLastPage: boolean;
+
+  @Expose({name: 'last_log_date'})
+  @ClLuxonDateTimeTransform()
+  lastLogDate: DateTime;
 }
 
 export class LabLogsArrayObs extends FlArrayObs<LabLogInfo> {
