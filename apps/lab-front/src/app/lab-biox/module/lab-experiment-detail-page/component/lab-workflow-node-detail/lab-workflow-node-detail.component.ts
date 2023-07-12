@@ -65,10 +65,10 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
     this.isEditable$ = this.experimentState.isEditable$();
 
     this.showInputs$ = this.nodeDetailState.getNode$().pipe(map(
-      node => node && (node.currentObject.inputs.is_dynamic || (node.hasInputs() && !(node instanceof PrWorkflowNodeIo)))
+      node => node && (node.currentObject.inputs.type === 'dynamic' || (node.hasInputs() && !(node instanceof PrWorkflowNodeIo)))
     ));
     this.showOutput$ = this.nodeDetailState.getNode$().pipe(map(
-      node => node && (node.currentObject.outputs.is_dynamic || (node.hasOutputs() && !(node instanceof PrWorkflowNodeIo)))
+      node => node && (node.currentObject.outputs.type === 'dynamic' || (node.hasOutputs() && !(node instanceof PrWorkflowNodeIo)))
     ));
   }
 

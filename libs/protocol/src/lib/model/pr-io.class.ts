@@ -8,9 +8,14 @@ export interface PrOI {
   ports: Record<string, PrPort>;
 
   /**
-   * If true, input and output ports are dynamic (can be added or removed)
+   * dynamic: ports are dynamic (can be added or removed)
    */
-  is_dynamic: boolean;
+  type: 'normal' | 'dynamic';
+
+  /**
+   * Additional info based on type
+   */
+  additional_info?: Record<string, any>;
 }
 
 /**

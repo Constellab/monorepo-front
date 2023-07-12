@@ -81,13 +81,13 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
 
   public hasDynamicInputPorts$(): Observable<boolean> {
     return this.getObject$().pipe(
-      map(process => process.inputs.is_dynamic)
+      map(process => process.inputs.type === 'dynamic')
     );
   }
 
   public hasDynamicOutputPorts$(): Observable<boolean> {
     return this.getObject$().pipe(
-      map(process => process.outputs.is_dynamic)
+      map(process => process.outputs.type === 'dynamic')
     );
   }
 }
