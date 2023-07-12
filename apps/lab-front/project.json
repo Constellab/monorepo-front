@@ -58,30 +58,10 @@
           "luxon",
           "lodash.throttle",
           "quill-delta-to-html",
-          "plotly.js-dist-min"
+          "plotly.js-strict-dist-min"
         ]
       },
       "configurations": {
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "vendorChunk": true,
-          "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true,
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "2mb",
-              "maximumError": "50mb"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "6kb",
-              "maximumError": "30kb"
-            }
-          ]
-        },
         "production": {
           "fileReplacements": [
             {
@@ -118,12 +98,9 @@
       "configurations": {
         "production": {
           "browserTarget": "lab-front:build:production"
-        },
-        "development": {
-          "browserTarget": "lab-front:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "production"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

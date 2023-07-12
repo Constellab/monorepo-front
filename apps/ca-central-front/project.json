@@ -54,7 +54,7 @@
           "luxon",
           "lodash.throttle",
           "quill-delta-to-html",
-          "plotly.js-dist-min"
+          "plotly.js-strict-dist-min"
         ]
       },
       "configurations": {

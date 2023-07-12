@@ -1,10 +1,14 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild,} from '@angular/core';
 import {RvResourceViewDirective, RvResourceViewPlotly,} from '@monorepo/resource-view';
-import {newPlot, relayout} from 'plotly.js-dist-min';
 import {FlResizeObservable} from '@monorepo/front-core-lib';
 import {debounceTime} from 'rxjs/operators';
 import {CommonModule} from '@angular/common';
+
+// we use the strict version of plotly even if it's not typed because the normal version
+// use eval (for webgl scatter) which requires unsafe-eval in the CSP
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Plotly = require('plotly.js-strict-dist-min');
 
 /**
  * Standalone component to display a plotly view.
@@ -28,7 +32,7 @@ export class RvViewPlotlyComponent
   private resizeObs: FlResizeObservable;
 
   ngOnInit(): void {
-    newPlot(
+    Plotly.newPlot(
       this.plotlyContainer.nativeElement,
       this.view.data.data,
       this.view.data.layout
@@ -43,7 +47,7 @@ export class RvViewPlotlyComponent
       .subscribe((value) => {
         if (value.length === 0) return;
         const resize = value[0];
-        relayout(this.plotlyContainer.nativeElement, {
+        Plotly.relayout(this.plotlyContainer.nativeElement, {
           width: resize.contentRect.width,
           height: resize.contentRect.height,
         });
