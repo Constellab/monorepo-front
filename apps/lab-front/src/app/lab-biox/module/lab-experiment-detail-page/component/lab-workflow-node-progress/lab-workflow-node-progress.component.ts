@@ -46,7 +46,7 @@ export class LabWorkflowNodeProgressComponent implements OnInit {
       map(process => process.progressBar)
     );
 
-    this.dialogService.openMediumDialog(LabProgressBarInfoDialogComponent, {data: progressBar$});
+    this.dialogService.openBigDialog(LabProgressBarInfoDialogComponent, {data: progressBar$});
   }
 
   openProcessLogs(process: LabProcess): void {

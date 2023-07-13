@@ -62,6 +62,26 @@
         ]
       },
       "configurations": {
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "50mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "30kb"
+            }
+          ]
+        },
         "production": {
           "fileReplacements": [
             {
@@ -96,11 +116,14 @@
         "browserTarget": "lab-front:build"
       },
       "configurations": {
+        "development": {
+          "browserTarget": "lab-front:build:development"
+        },
         "production": {
           "browserTarget": "lab-front:build:production"
         }
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "development"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -119,12 +142,16 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/lab-front"],
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/lab-front"
+      ],
       "options": {
         "jestConfig": "apps/lab-front/jest.config.ts",
         "passWithNoTests": true
       }
     }
   },
-  "tags": ["front"]
+  "tags": [
+    "front"
+  ]
 }

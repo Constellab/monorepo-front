@@ -274,7 +274,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   archiveExperiment(): void {
     const experiment = this.experimentState.currentExperiment;
 
-    let input: FlConfirmDialogInput = null;
+    let input: FlConfirmDialogInput;
     if (experiment.isArchived) {
       input = {
         title: 'biox.unarchive_experiment',
@@ -307,7 +307,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   }
 
   openProgressInformation(): void {
-    this.dialogService.openMediumDialog(LabProgressBarInfoDialogComponent,
+    this.dialogService.openBigDialog(LabProgressBarInfoDialogComponent,
       {
         data:
           this.experimentState.getMainProtocol$().pipe(
