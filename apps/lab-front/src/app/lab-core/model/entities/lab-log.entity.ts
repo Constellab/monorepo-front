@@ -66,9 +66,9 @@ export class LabLogsBetweenDates {
   @Expose({name: 'is_last_page'})
   isLastPage: boolean;
 
-  @Expose({name: 'last_log_date'})
+  @Expose({name: 'next_page_date'})
   @ClLuxonDateTimeTransform()
-  lastLogDate: DateTime;
+  nextPageDate: DateTime;
 }
 
 export class LabLogsArrayObs extends FlArrayObs<LabLogInfo> {
