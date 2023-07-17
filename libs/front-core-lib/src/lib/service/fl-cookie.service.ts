@@ -28,7 +28,6 @@ export class FlCookieService {
   /**
    * Check the cookies acceptances
    * @param config config to check the user cookies acceptance
-   * @param panelClass
    */
   public checkCookiesAcceptance(config: FlAcceptanceCookiesConfig): Observable<boolean> {
     if (config == null || !this.canAccessCookies()) {
@@ -39,7 +38,7 @@ export class FlCookieService {
 
     // check if the cookie exist and if the version has been accepted
     if (acceptanceCookie != null && acceptanceCookie.version >= config.version) {
-      return of(true);
+      return of(acceptanceCookie.choice ?? false);
     }
 
     // if we need to ask the permissions
@@ -82,7 +81,7 @@ export class FlCookieService {
     };
 
     this.setCookie(this.ACCEPTANCE_COOKIE_KEY, acceptanceCookie, {
-      expires: this.getDateInTenYears(),
+      expires: this.getDateInOneYear(),
       sameSite: 'Strict'
     });
   }
@@ -171,7 +170,7 @@ export class FlCookieService {
     return this.cookieService.check(name);
   }
 
-  private getDateInTenYears(): Date {
-    return new Date(new Date().getTime() + ClDateHelper.ONE_YEAR * 10);
+  private getDateInOneYear(): Date {
+    return new Date(new Date().getTime() + ClDateHelper.ONE_YEAR);
   }
 }

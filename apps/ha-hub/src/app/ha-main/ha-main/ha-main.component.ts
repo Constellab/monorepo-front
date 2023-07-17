@@ -31,8 +31,6 @@ export class HaMainComponent implements OnInit, AfterContentInit {
 
   theme = ClTheme;
 
-  lang = ClSupportedLanguage;
-
   isDarkTheme: boolean;
 
 
@@ -67,7 +65,7 @@ export class HaMainComponent implements OnInit, AfterContentInit {
         version: 1,
         displayMode: 'snackbar',
         component: HaCookieConsentComponent,
-      })?.subscribe(res => {
+      }).subscribe(res => {
         if (res) {
           this.setGoogleAnalytics();
         }
@@ -111,9 +109,6 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     return this.currentTheme === this.theme.LIGHT_THEME ? 'assets/fl-logo/community-logo-text-black.svg' :
       'assets/fl-logo/community-logo-text-white.svg';
   }
-
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  protected readonly ClSupportedLanguage = ClSupportedLanguage;
 
   private setGoogleAnalytics(): void {
     if (document.getElementById('google-analytics-script') != null) {
