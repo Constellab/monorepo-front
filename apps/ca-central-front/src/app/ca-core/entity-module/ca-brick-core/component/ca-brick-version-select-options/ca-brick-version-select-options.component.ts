@@ -5,7 +5,7 @@ import {mergeMap, Observable, of} from 'rxjs';
 import {CaBrickVersion} from '../../../../model/entities/ca-brick.class';
 import {CaBrickService} from '../../../../service-api/ca-brick.service';
 import {map} from 'rxjs/operators';
-import {CmVersion} from '@monorepo/common-model';
+import {ClVersion} from '@monorepo/core-lib';
 
 /**
  * Automatically search for available brick version and use version string as value
@@ -58,7 +58,7 @@ export class CaBrickVersionSelectOptionsComponent extends FlEmbeddedOptionsAbstr
   private filterVersions(brickVersions: CaBrickVersion[], minVersion?: string): CaBrickVersion[] {
     if (minVersion == null) return brickVersions;
 
-    const minVersionObj = CmVersion.fromString(minVersion);
+    const minVersionObj = ClVersion.fromString(minVersion);
 
     return brickVersions.filter(brickVersion => brickVersion.isEqualOrHigher(minVersionObj));
   }

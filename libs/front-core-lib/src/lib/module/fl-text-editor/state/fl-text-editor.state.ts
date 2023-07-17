@@ -1,11 +1,10 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import Quill, {RangeStatic} from 'quill';
 import {FlTextEditorUploadedImage} from '../model/fl-text-editor-image.class';
-import {CmRichTextFigure, CmRichTextFormula, CmRichTextVideo} from '@monorepo/common-model';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {FlTextEditorConfig} from '../model/fl-text-editor-config.class';
 import {FlTextEditorHintType} from '../model/fl-text-editor-hint-blot.class';
-import {ClYoutubeHelper} from '@monorepo/core-lib';
+import {ClRichTextFigure, ClRichTextFormula, ClRichTextVideo, ClYoutubeHelper} from '@monorepo/core-lib';
 
 @Injectable()
 export class FlTextEditorState implements OnDestroy {
@@ -15,7 +14,7 @@ export class FlTextEditorState implements OnDestroy {
   public quill: Quill;
 
   private disabled$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  private outsideClick$: Subject<MouseEvent>= new Subject();
+  private outsideClick$: Subject<MouseEvent> = new Subject();
 
   public config: FlTextEditorConfig;
 
@@ -32,7 +31,7 @@ export class FlTextEditorState implements OnDestroy {
 
 
   public insertImageFromUrl(image: FlTextEditorUploadedImage, index: number): any {
-    const figure: CmRichTextFigure = {
+    const figure: ClRichTextFigure = {
       filename: image.filename,
       width: image.width,
       height: image.height,
@@ -56,9 +55,9 @@ export class FlTextEditorState implements OnDestroy {
 
   public insertVideo(url: string, index: number): void {
     const embedUrl = ClYoutubeHelper.convertToEmbedUrl(url);
-    if(embedUrl == null) return;
+    if (embedUrl == null) return;
 
-    const data: CmRichTextVideo = {
+    const data: ClRichTextVideo = {
       url: embedUrl,
       title: '',
       caption: ''
@@ -67,9 +66,9 @@ export class FlTextEditorState implements OnDestroy {
   }
 
   public insertFormula(formula: string, index: number): void {
-    const value: CmRichTextFormula = {
+    const value: ClRichTextFormula = {
       formula: formula
-    }
+    };
     this.quill.insertEmbed(index, 'customFormula', value);
   }
 
@@ -89,7 +88,7 @@ export class FlTextEditorState implements OnDestroy {
           insert: linkName
         }
       ]
-    }
+    };
   }
 
   public insertText(index: number, text: string): any {
@@ -188,7 +187,7 @@ export class FlTextEditorState implements OnDestroy {
     return this.disabled$.asObservable();
   }
 
-  public outsideClick(event: MouseEvent): void{
+  public outsideClick(event: MouseEvent): void {
     this.outsideClick$.next(event);
   }
 

@@ -1,5 +1,5 @@
 import {FlQuillEmbed} from './fl-quill-export.class';
-import {CmRichTextFormula} from '@monorepo/common-model';
+import {ClRichTextFormula} from '@monorepo/core-lib';
 
 
 export class FlTextEditorFormulaBlot extends FlQuillEmbed {
@@ -9,7 +9,7 @@ export class FlTextEditorFormulaBlot extends FlQuillEmbed {
 
   public domNode: HTMLElement;
 
-  static create(value: CmRichTextFormula): any {
+  static create(value: ClRichTextFormula): any {
     const node: HTMLElement = super.create(value) as any;
     if (value == null) value = {formula: ''};
     node.setAttribute('formula', value.formula);
@@ -18,7 +18,7 @@ export class FlTextEditorFormulaBlot extends FlQuillEmbed {
     return node;
   }
 
-  value(): { customFormula: CmRichTextFormula } {
+  value(): { customFormula: ClRichTextFormula } {
     return {
       customFormula: {
         formula: this.domNode.getAttribute('formula'),

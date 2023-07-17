@@ -71,11 +71,6 @@
   fill: var(--primary-color) !important;
 }
 
-.ql-snow .ql-editor code{
-  background-color: var(--card-background);
-  color: var(--color-foreground);
-}
-
 .ql-toolbar.ql-snow .ql-formats{
   margin: 0;
   padding: 0 7.5px;
@@ -163,7 +158,7 @@
 
   // Code block
   pre.ql-syntax {
-    background-color: var(--main-background);
+    background-color: var(--card-background);
     color: var(--color-foreground);
     margin-top: 2em;
     margin-bottom: 2em;
@@ -178,7 +173,7 @@
   }
 
   code, pre{
-    background-color: var(--main-background);
+    background-color: var(--card-background);
     color: var(--color-foreground);
     padding: 6px 7px;
     font-weight: bold;

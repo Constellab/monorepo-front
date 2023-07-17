@@ -1,5 +1,5 @@
-import {CmUserCategory} from '@monorepo/common-model';
 import {CaRouterService} from '../../ca-core/service/ca-router.service';
+import {ClUserCategory} from '@monorepo/core-lib';
 
 /**
  * Describe one main menu link button
@@ -8,7 +8,7 @@ export interface CaMainMenuLink {
   route: string;
   label: string;
   icon: string;
-  authorizedCategories?: CmUserCategory[];
+  authorizedCategories?: ClUserCategory[];
 }
 
 // list of the main menu links buttons
@@ -42,6 +42,6 @@ export const caMainMenuLinks: CaMainMenuLink[] = [
     label: 'admin_dashboard',
     icon: 'admin_panel_settings',
     route: CaRouterService.getAdminRoute(),
-    authorizedCategories: [CmUserCategory.ADMIN]
+    authorizedCategories: [ClUserCategory.ADMIN]
   }
 ];

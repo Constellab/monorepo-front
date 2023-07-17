@@ -1,10 +1,9 @@
 import {HaEntity} from './ha-entity.class';
-import {CmVersion} from '@monorepo/common-model';
-import {HaReferenceDTO, HaRepoType, HaVersionType} from './ha-version.class';
+import {HaReferenceDTO, HaRepoType} from './ha-version.class';
 import {HaBrickUser} from './ha-brick-user';
-import {Type} from 'class-transformer';
+import {ClVersion} from '@monorepo/core-lib';
 
-export enum HaBrickVisibility{
+export enum HaBrickVisibility {
   PRIVATE = 'private',
   PUBLIC = 'public'
 }
@@ -22,7 +21,7 @@ export class HaBrick extends HaEntity {
 
   visibility: HaBrickVisibility;
 
-  lastVersion: CmVersion;
+  lastVersion: ClVersion;
 
   brickUsers: HaBrickUser[];
 
@@ -33,12 +32,12 @@ export class HaBrick extends HaEntity {
   credentialPassword?: string;
 }
 
-export class HaBrickCreationDTO{
+export class HaBrickCreationDTO {
   name: string;
   description: string;
   repoGit: string;
   repoPip: string;
-  version: string | CmVersion;
+  version: string | ClVersion;
   repoType: HaRepoType;
   credentialUsername?: string;
   credentialPassword?: string;
@@ -63,22 +62,7 @@ export class HaBrickCreationDTO{
 }
 
 
-export class HaBrickDTO {
-  id?: string;
-
-  name: string;
-
-  description: string;
-
-  version: string|CmVersion;
-
-  versionType: HaVersionType = HaVersionType.BETA;
-
-  subPatch?: number;
-}
-
-
-export class HaEditBrickDTO{
+export class HaEditBrickDTO {
   id: string;
   description: string;
   gitRepo: string;

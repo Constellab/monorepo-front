@@ -9,8 +9,7 @@ import {
   FlThemeService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {ClStringHelper, ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
-import {CmUserCategory} from '@monorepo/common-model';
+import {ClStringHelper, ClSupportedLanguage, ClTheme, ClUserCategory} from '@monorepo/core-lib';
 import {CaCurrentSpaceService} from './ca-current-space.service';
 import {CaSpaceInfoDto} from '../model/entities/space/ca-space.class';
 import {CaSpaceService} from './ca-space.service';
@@ -181,7 +180,7 @@ export class CaAuthenticatedUserService implements FlCleanableService {
     return this.isAdmin() || this.currentSpaceService.isSpaceAdmin();
   }
 
-  public isCategory(...categories: CmUserCategory[]): boolean {
+  public isCategory(...categories: ClUserCategory[]): boolean {
     return this.userAuthenticated?.isCategory(...categories) ?? false;
   }
 

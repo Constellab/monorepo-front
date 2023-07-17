@@ -4,9 +4,9 @@ import {Observable} from 'rxjs';
 import {LabBrickMigration} from '../../../../lab-core/model/entities/lab-brick.entity';
 import {FormControl} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
-import {CmVersion} from '@monorepo/common-model';
 import {FlSnackBarService} from '@monorepo/front-core-lib';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ClVersion} from '@monorepo/core-lib';
 
 /**
  * Dialog to list available migration a call them manually
@@ -20,7 +20,7 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
 
   brickMigrations$: Observable<LabBrickMigration[]>;
 
-  formControl: FormControl<CmVersion>;
+  formControl: FormControl<ClVersion>;
 
   isLoading: boolean = false;
 
@@ -41,7 +41,7 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
     }
   }
 
-  private callMigration(version: CmVersion): void {
+  private callMigration(version: ClVersion): void {
     this.isLoading = true;
 
     this.brickService.callMigration(this.brickName, version.toString()).subscribe(

@@ -1,12 +1,12 @@
 import {Component, Inject} from '@angular/core';
-import {CmCredentials} from '@monorepo/common-model';
 import {Observable} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormGroup} from '@ngneat/reactive-forms';
 import {FlLoginFormComponent} from '../fl-login-form/fl-login-form.component';
+import {ClCredentials} from '@monorepo/core-lib';
 
 export interface FlCheckCredentialsDialogInput {
-  onSubmit(credentials: CmCredentials): Observable<any>;
+  onSubmit(credentials: ClCredentials): Observable<any>;
 }
 
 /**
@@ -23,7 +23,7 @@ export interface FlCheckCredentialsDialogInput {
 })
 export class FlCheckCredentialsDialogComponent {
 
-  formGp: FormGroup<CmCredentials> = FlLoginFormComponent.buildForm();
+  formGp: FormGroup<ClCredentials> = FlLoginFormComponent.buildForm();
 
   isLoading: boolean = false;
 
@@ -39,7 +39,7 @@ export class FlCheckCredentialsDialogComponent {
 
   }
 
-  private checkCredentials(credentials: CmCredentials): void {
+  private checkCredentials(credentials: ClCredentials): void {
     this.isLoading = true;
     this.dialogInput.onSubmit(credentials).subscribe(
       {

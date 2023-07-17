@@ -1,8 +1,8 @@
 import {HttpErrorResponse} from '@angular/common/http';
-import {CmApiError} from '@monorepo/common-model';
+import {ClApiError} from '@monorepo/core-lib';
 
 export interface FlServerError {
   response?: HttpErrorResponse;
   message: string;
-  nestedError?: CmApiError;
+  nestedError?: ClApiError;
 }

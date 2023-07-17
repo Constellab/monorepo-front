@@ -9,7 +9,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {CmCredentials, CmCredentials2Fa} from '@monorepo/common-model';
+import {ClCredentials, ClCredentials2Fa} from '@monorepo/core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +23,11 @@ export class HaAuthService extends FlAuthService {
     super(cookieService);
   }
 
-  public login(credentials: CmCredentials): Observable<FlAuthLoginResponse> {
+  public login(credentials: ClCredentials): Observable<FlAuthLoginResponse> {
     return this.apiService.post(this.route + '/login', credentials);
   }
 
-  public checkTwoFA(credentials: CmCredentials2Fa): Observable<FlAuthLogin2FaResponse> {
+  public checkTwoFA(credentials: ClCredentials2Fa): Observable<FlAuthLogin2FaResponse> {
     return this.apiService.post(this.route + '/login-2fa', credentials);
   }
 

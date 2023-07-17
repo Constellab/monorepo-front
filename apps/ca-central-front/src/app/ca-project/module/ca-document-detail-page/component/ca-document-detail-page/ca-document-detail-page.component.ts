@@ -2,10 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 import {CaConstellabDocument, CaDocument} from '../../../../../ca-core/model/entities/project/ca-document.class';
-import {CmRichTextI} from '@monorepo/common-model';
 import {FlDebouncer, FlDialogService, FlTextEditorConfig} from '@monorepo/front-core-lib';
 import {CaDocumentTextEditorConfig} from '../../../ca-document-core/ca-document-text-editor-config.class';
 import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
+import {ClRichTextI} from '@monorepo/core-lib';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -18,7 +18,7 @@ import {CaRouterService} from '../../../../../ca-core/service/ca-router.service'
 export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
 
   document: CaDocument;
-  documentContent: CmRichTextI;
+  documentContent: ClRichTextI;
 
   textEditorConfig: FlTextEditorConfig;
 
@@ -26,7 +26,7 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
 
   editMode: boolean = false;
 
-  private contentDebouncer: FlDebouncer<CmRichTextI>;
+  private contentDebouncer: FlDebouncer<ClRichTextI>;
 
 
   constructor(private route: ActivatedRoute,
@@ -64,11 +64,11 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
-  onContentUpdate(content: CmRichTextI): void {
+  onContentUpdate(content: ClRichTextI): void {
     this.contentDebouncer.setValue(content);
   }
 
-  private saveContent(content: CmRichTextI): void {
+  private saveContent(content: ClRichTextI): void {
     this.projectService.updateConstellabDocument(this.document.id, content).subscribe(
       doc => this.updateDocument(doc.document)
     );

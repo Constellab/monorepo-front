@@ -1,13 +1,13 @@
-import {CmUserCategory} from '@monorepo/common-model';
+import {ClUserCategory} from '@monorepo/core-lib';
 
 export interface FlSignUpUser {
   firstname: string;
   lastname: string;
   email: string;
-  category: CmUserCategory;
+  category: ClUserCategory;
   password: string;
   repeatPassword: string;
   validateCGU: boolean;
-  phone ?: string;
-  captcha ?: string;
+  phone?: string;
+  captcha?: string;
 }

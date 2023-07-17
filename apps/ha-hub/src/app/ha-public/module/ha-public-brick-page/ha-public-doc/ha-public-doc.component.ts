@@ -18,7 +18,6 @@ import {
   FlPortalService
 } from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
-import {CmRichText, CmRichTextI} from '@monorepo/common-model';
 import {Observable} from 'rxjs';
 import {HaDocTextEditorConfig} from '../ha-doc-text-editor-config.class';
 import {HaNodeDTO} from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
@@ -28,6 +27,7 @@ import {
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
+import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-public-doc-page',
@@ -38,13 +38,13 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   @Output() newItemEvent: EventEmitter<string> = new EventEmitter<string>();
 
-  private contentDebouncer: FlDebouncer<CmRichTextI>;
+  private contentDebouncer: FlDebouncer<ClRichTextI>;
   documentation: HaDocumentation;
   brickName: string;
   brickVersion: string;
   formGp: FormGroup<Partial<HaDocumentationContentFormDTO>>;
   titles: any[] = [];
-  richText: CmRichText;
+  richText: ClRichText;
   lastUrl: string = null;
   isAdminOrBrickUser: Observable<boolean>;
   isCheck: boolean = false;
@@ -95,7 +95,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     );
   }
 
-  private init(brickName: string, brickVersion: string): void{
+  private init(brickName: string, brickVersion: string): void {
     this.brickName = brickName;
     this.brickVersion = brickVersion;
     this.brickService.getByName(this.brickName).subscribe(brick => {
@@ -108,9 +108,9 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
     this.route.url.subscribe((url: UrlSegment[]) => {
       if (url.toString() != this.lastUrl && this.lastUrl != '') {
-        if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)){
+        if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)) {
           const doc: HaDocumentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
-          if(doc)
+          if (doc)
             this.actionOnDoc(url.length == 0, doc);
           else
             this.docNotFound = true;
@@ -136,12 +136,12 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.isCheck = false;
     this.docNotFound = false;
     let path: string;
-    if(!isFirstDoc)
+    if (!isFirstDoc)
       path = url.join('/') + '/';
     this.brickService.getDocByPath(this.brickName, path, this.brickVersion).subscribe(doc => {
-      if(doc){
-        if(isPlatformServer(this.platformId)){
-          if(this.transferState.hasKey(this.DOC_KEY)){
+      if (doc) {
+        if (isPlatformServer(this.platformId)) {
+          if (this.transferState.hasKey(this.DOC_KEY)) {
             this.documentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
           } else {
             this.transferState.set(this.DOC_KEY, doc);
@@ -168,7 +168,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.titles = [];
 
     if (doc.content) {
-      this.richText = new CmRichText(doc.content);
+      this.richText = new ClRichText(doc.content);
       this.titles = this.richText.getHeaders([2, 3]);
       this.formGp.controls.content.disable();
     }
@@ -188,18 +188,18 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   onContentUpdate(content: any): void {
     this.contentDebouncer.setValue(content);
     if (this.formGp.value.content) {
-      this.richText = new CmRichText(this.formGp.value.content as CmRichTextI)
+      this.richText = new ClRichText(this.formGp.value.content as ClRichTextI);
       this.titles = this.richText.getHeaders([2, 3]);
     }
   }
 
   private setFormGroupValue(doc: HaDocumentationContentFormDTO): void {
-    this.formGp.patchValue(doc)
+    this.formGp.patchValue(doc);
   }
 
-  private saveContent(value: CmRichTextI): void {
+  private saveContent(value: ClRichTextI): void {
 
-    this.formGp.value.content = value as CmRichTextI;
+    this.formGp.value.content = value as ClRichTextI;
     this.isAdminOrBrickUser.subscribe(isAdmin => {
       if (isAdmin) {
         this.documentationService.updateContent(this.formGp.value as HaDocumentationContentFormDTO).subscribe();
@@ -289,7 +289,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   private changeTextEditorState(): void {
     this.isDisabled = !this.isDisabled;
-    if(this.formGp.controls.content.disabled)
+    if (this.formGp.controls.content.disabled)
       this.formGp.controls.content.enable();
     else
       this.formGp.controls.content.disable();

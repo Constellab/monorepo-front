@@ -9,8 +9,8 @@ import {
   FlCleanerService,
   FlCookieService
 } from '@monorepo/front-core-lib';
-import {CmCredentials, CmCredentials2Fa} from '@monorepo/common-model';
 import {CaEnvironmentHelper} from '../../ca-core/utils/ca-environment.helper';
+import {ClCredentials, ClCredentials2Fa} from '@monorepo/core-lib';
 
 /**
  * Service to handle login and logout and store cookie to check if user is connected
@@ -31,11 +31,11 @@ export class CaAuthService extends FlAuthService {
    * The JWT is returned in a HTTPOnly cookie and is not accessible from JS
    * @param credentials username and password
    */
-  public login(credentials: CmCredentials): Observable<FlAuthLoginResponse> {
+  public login(credentials: ClCredentials): Observable<FlAuthLoginResponse> {
     return this.apiService.post(this.route + '/login', credentials);
   }
 
-  public checkTwoFA(credentials: CmCredentials2Fa): Observable<FlAuthLogin2FaResponse> {
+  public checkTwoFA(credentials: ClCredentials2Fa): Observable<FlAuthLogin2FaResponse> {
     return this.apiService.post(this.route + '/login-2fa', credentials);
   }
 

@@ -10,7 +10,6 @@ import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.se
 import {CaAuthenticatedUserService} from '../../../../../ca-core/service-api/ca-authenticated-user.service';
 import {CaCommentTextEditorConfig} from '../../../../../ca-core/model/config/ca-comment-text-editor.config';
 import {FormControl, Validators} from '@angular/forms';
-import {CmRichText} from '@monorepo/common-model';
 import {
   FlConfirmDialogInput,
   FlDialogService,
@@ -21,6 +20,7 @@ import {
 import {CaNotificationState} from '../../../../../ca-core/state/ca-notification.state';
 import {Router} from '@angular/router';
 import {CaNotificationType} from '../../../../../ca-core/model/entities/ca-notification.class';
+import {ClRichText} from '@monorepo/core-lib';
 
 
 @Component({
@@ -74,7 +74,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
       if (btEmoji) {
         this.openEmojiPanel(btEmoji);
       }
-    })
+    });
   }
 
   private readProjectCommentsNotification(): void {
@@ -88,7 +88,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
 
 
   private createNewComment(): void {
-    if (!CmRichText.isEmpty(this.formControl.value)) {
+    if (!ClRichText.isEmpty(this.formControl.value)) {
       this.projectService.newProjectComment(this.projectId, this.formControl.value).subscribe((newComment) => {
         if (newComment) {
           this.comments.addItem(newComment, () => true);
@@ -99,7 +99,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
   }
 
   addEmoji(event: string): void {
-    this.formControl.setValue(CmRichText.addEmoji(this.formControl.value, event));
+    this.formControl.setValue(ClRichText.addEmoji(this.formControl.value, event));
   }
 
   eventOnMessage(event: [FlOverlayRef, string], comment: CaProjectComment): void {
@@ -113,7 +113,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
           translateMessage: true
         };
         this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
-          if(res.choice)
+          if (res.choice)
             this.deleteComment(this.projectId, comment);
         });
         event[0].dispose();
@@ -143,7 +143,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
     this.portalService.createPortal(FlEmojiPickerPortalComponent, config).detachments().subscribe(
       emoji => {
         if (emoji)
-          this.addEmoji(emoji)
+          this.addEmoji(emoji);
       }
     );
   }

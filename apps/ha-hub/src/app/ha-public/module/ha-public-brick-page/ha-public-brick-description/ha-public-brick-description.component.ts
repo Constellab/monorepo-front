@@ -3,7 +3,6 @@ import {HaBrick, HaEditBrickDTO} from '../../../../ha-core/ha-model/ha-entities/
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HaBrickVersion} from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import {CmVersion} from '@monorepo/common-model';
 import {FlDialogService, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {HaPublicEditBrickDialogComponent} from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
 import {HaReferenceDTO} from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
@@ -13,6 +12,7 @@ import {Observable} from 'rxjs';
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
+import {ClVersion} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-public-brick-description-page',
@@ -23,7 +23,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
 
   brick: HaBrick;
   latestBrickVersion: HaBrickVersion;
-  lastVersion: CmVersion;
+  lastVersion: ClVersion;
   references: HaReferenceDTO[];
   isAdminOrBrickUser$: Observable<boolean>;
 
@@ -59,7 +59,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   }
 
   private setBrick(brickName: string): void {
-    if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_DESCRIPTION_KEY)){
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_DESCRIPTION_KEY)) {
       this.onBrick(this.transferState.get(this.BRICK_DESCRIPTION_KEY, null) as HaBrick);
       this.transferState.remove(this.BRICK_DESCRIPTION_KEY);
     }
@@ -79,7 +79,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   }
 
   private setLastBrickVersion(brickName: string): void {
-    if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_DESCRIPTION_VERSION_KEY)){
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_DESCRIPTION_VERSION_KEY)) {
       const data = this.transferState.get(this.BRICK_DESCRIPTION_VERSION_KEY, null) as HaBrickVersion;
       this.transferState.remove(this.BRICK_DESCRIPTION_VERSION_KEY);
       this.onLatestBrickVersion(data);
@@ -91,7 +91,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
 
   private onLatestBrickVersion(brickVersion: HaBrickVersion): void {
     this.latestBrickVersion = brickVersion;
-    this.lastVersion = new CmVersion(brickVersion.brickMajorVersion.major, brickVersion.minor, brickVersion.patch, brickVersion.subPatch);
+    this.lastVersion = new ClVersion(brickVersion.brickMajorVersion.major, brickVersion.minor, brickVersion.patch, brickVersion.subPatch);
     if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICK_DESCRIPTION_VERSION_KEY)) {
       this.transferState.set(this.BRICK_DESCRIPTION_VERSION_KEY, brickVersion);
     }
@@ -101,7 +101,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   private setDirectReferences(brickVersionId: string): void {
     this.brickVersionService.getDirectReferences(brickVersionId).subscribe(res => {
       this.references = res;
-    })
+    });
   }
 
   createEditBrickDialog(): void {

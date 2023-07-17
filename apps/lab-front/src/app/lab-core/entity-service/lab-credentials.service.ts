@@ -12,8 +12,7 @@ import {
   LabCredentialsDatasource,
   LabSaveCredentialsDTO
 } from '../model/entities/lab-credentials.entity';
-import {CmCredentials} from '@monorepo/common-model';
-import {ClPageI} from '@monorepo/core-lib';
+import {ClCredentials, ClPageI} from '@monorepo/core-lib';
 import {
   LabCredentialsSearch,
   LabCredentialsSearchFields
@@ -46,7 +45,7 @@ export class LabCredentialsService {
     return this.apiService.get(`${this.route}/${id}`, LabCredentials);
   }
 
-  public getCredentialsData(id: string, userCredentials: CmCredentials): Observable<LabCredentialsData> {
+  public getCredentialsData(id: string, userCredentials: ClCredentials): Observable<LabCredentialsData> {
     return this.apiService.post(`${this.route}/${id}/data`, userCredentials);
   }
 

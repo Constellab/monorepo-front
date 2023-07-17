@@ -8,8 +8,8 @@ import {
   FlCleanerService,
   FlCookieService
 } from '@monorepo/front-core-lib';
-import {CmCredentials, CmCredentials2Fa} from '@monorepo/common-model';
 import {tap} from 'rxjs/operators';
+import {ClCredentials, ClCredentials2Fa} from '@monorepo/core-lib';
 
 
 /**
@@ -31,7 +31,7 @@ export class LabAuthService extends FlAuthService {
    * The JWT is returned in a HTTPOnly cookie and is not accessible from JS
    * @param credentials username and password
    */
-  public login(credentials: CmCredentials): Observable<FlAuthLoginResponse> {
+  public login(credentials: ClCredentials): Observable<FlAuthLoginResponse> {
     return this.apiService.post('login', credentials);
   }
 
@@ -39,7 +39,7 @@ export class LabAuthService extends FlAuthService {
     this.storeAuthExpirationCookie(expiresIn);
   }
 
-  checkTwoFA(credentials: CmCredentials2Fa): Observable<FlAuthLogin2FaResponse> {
+  checkTwoFA(credentials: ClCredentials2Fa): Observable<FlAuthLogin2FaResponse> {
     return this.apiService.post('login-2fa', credentials);
   }
 

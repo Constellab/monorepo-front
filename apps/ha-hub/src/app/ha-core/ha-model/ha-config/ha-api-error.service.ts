@@ -10,8 +10,8 @@ import {
   FlSnackBarService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {CmApiError} from '@monorepo/common-model';
 import {isPlatformBrowser} from '@angular/common';
+import {ClApiError} from '@monorepo/core-lib';
 
 
 /**
@@ -33,7 +33,7 @@ export class HaApiErrorService extends FlApiErrorService {
   /**
    * Handle the error message for the not specific errors
    */
-  private static getErrorMessage(error: CmApiError, defaultError: string): string {
+  private static getErrorMessage(error: ClApiError, defaultError: string): string {
     return error?.detail ?? defaultError;
   }
 
@@ -57,7 +57,7 @@ export class HaApiErrorService extends FlApiErrorService {
     };
 
     // check if the error is formatted from nest api
-    const nestError: CmApiError = errorResponse.error;
+    const nestError: ClApiError = errorResponse.error;
     if (nestError && nestError.code != null && nestError.instanceId != null
       && nestError.detail != null && nestError.status != null) {
       serverError.nestedError = nestError;
@@ -85,7 +85,7 @@ export class HaApiErrorService extends FlApiErrorService {
     }
 
     // throw the error to propagate it
-    return throwError(() => serverError)
+    return throwError(() => serverError);
 
 
   }
@@ -100,7 +100,7 @@ export class HaApiErrorService extends FlApiErrorService {
     // to assure the user is disconnected
     this.cookieService.removeCookie(flAuthExpiredCookie);
 
-    if(isPlatformBrowser(this.platformId)) window.location.reload();
+    if (isPlatformBrowser(this.platformId)) window.location.reload();
 
     serverError.message = this.translateService.translate('session_expired');
 

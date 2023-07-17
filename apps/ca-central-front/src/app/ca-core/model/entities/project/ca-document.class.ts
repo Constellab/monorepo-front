@@ -1,7 +1,7 @@
 import {CaBaseEntity} from '../ca-base-entity.class';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
-import {CmRichTextI} from '@monorepo/common-model';
+import {ClRichTextI} from '@monorepo/core-lib';
 
 
 export class CaDocument extends CaBaseEntity {
@@ -24,5 +24,5 @@ export class CaConstellabDocument {
   @Type(() => CaDocument)
   document: CaDocument;
 
-  content: CmRichTextI;
+  content: ClRichTextI;
 }

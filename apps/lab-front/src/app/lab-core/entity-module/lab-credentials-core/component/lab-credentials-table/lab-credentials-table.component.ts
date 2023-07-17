@@ -14,7 +14,7 @@ import {
   LabCredentialsFormDialogComponent,
   LabCredentialsFormDialogInput
 } from '../lab-credentials-form-dialog/lab-credentials-form-dialog.component';
-import {CmCredentials} from '@monorepo/common-model';
+import {ClCredentials} from '@monorepo/core-lib';
 
 @Component({
   selector: 'lab-credentials-table',
@@ -35,7 +35,7 @@ export class LabCredentialsTableComponent {
 
     // open user check credentials dialog
     const dialogInput: FlCheckCredentialsDialogInput = {
-      onSubmit: (userCredentials: CmCredentials) =>
+      onSubmit: (userCredentials: ClCredentials) =>
         this.credentialsService.getCredentialsData(credentials.id, userCredentials)
     };
 
@@ -47,7 +47,7 @@ export class LabCredentialsTableComponent {
   }
 
   private openUpdateCredentials(credentials: LabCredentials, credentialsData: LabCredentialsData): void {
-    if(credentialsData == null) return;
+    if (credentialsData == null) return;
 
     const dialogInput: LabCredentialsFormDialogInput = {
       mode: 'update',

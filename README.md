@@ -34,11 +34,6 @@ Typescript library for font and back for services, helpers, classes
 
 Prefix : Cl
 
-### common-model : Cm
-Typescript library for font and back to share models (interfaces, classes)
-
-Prefix : Cm
-
 ### front-core-lib : Fl
 Library for angular app that contains modules, components, directives, pipes and classes
 

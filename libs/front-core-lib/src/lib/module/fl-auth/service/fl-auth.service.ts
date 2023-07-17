@@ -1,7 +1,7 @@
 import {Observable} from 'rxjs';
-import {CmCredentials, CmCredentials2Fa} from '@monorepo/common-model';
 import {FlCookieService} from '../../../service/fl-cookie.service';
 import {flAuthExpiredCookie} from '../../../service/model/fl-cookie.class';
+import {ClCredentials, ClCredentials2Fa} from '@monorepo/core-lib';
 
 export interface FlAuthLoginResponse {
   status: 'LOGGED_IN' | '2FA_REQUIRED';
@@ -27,13 +27,13 @@ export abstract class FlAuthService {
    * The JWT is returned in a HTTPOnly cookie and is not accessible from JS
    * @param credentials username and password
    */
-  public abstract login(credentials: CmCredentials): Observable<FlAuthLoginResponse>;
+  public abstract login(credentials: ClCredentials): Observable<FlAuthLoginResponse>;
 
   /**
    * Methode to validate the 2FA code after the login if 2FA is required
    * @param credentials
    */
-  public abstract checkTwoFA(credentials: CmCredentials2Fa): Observable<FlAuthLogin2FaResponse>;
+  public abstract checkTwoFA(credentials: ClCredentials2Fa): Observable<FlAuthLogin2FaResponse>;
 
 
   public abstract afterLogin(expiresIn: number): void;

@@ -234,15 +234,18 @@ export class ClStringHelper {
   }
 
   /**
-   * Return the string with line breaks replaced by a point with a space
+   * Generate an url path from a string. It replaces spaces with dashes and remove all special characters
    */
-  public static replaceLineBreaksBySpace(str: string): string {
-    if (str == null) return null;
+  public static generateUrlPathFromString(str: string): string {
+    if (str == null) return '';
 
-    str = str.replace(/(?:\r\n|\r|\n)/g, ' ');
-
-
-
-    return str;
+    // replace all white spaces with dash
+    // remove all special characters
+    // remove all double dashes
+    // remove all dashes at the beginning and at the end
+    return ClStringHelper.trimAndRemoveDuplicateSpaces(str)
+      .replace(new RegExp(/[&?~/|\\'"[()\]%!§:;.,*^¨}{@°`]/g), '')
+      .replace(/--/g, '-')
+      .replace(/^-|-$/g, '');
   }
 }

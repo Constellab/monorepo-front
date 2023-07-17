@@ -1,17 +1,17 @@
-import {CmRichTextI} from '@monorepo/common-model';
-import {HaTopic, } from './ha-topic.class';
+import {HaTopic,} from './ha-topic.class';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
 import {HaEntity} from './ha-entity.class';
 import {HaUser} from './ha-user';
-import { Type } from 'class-transformer';
+import {Type} from 'class-transformer';
 import {DateTime} from 'luxon';
+import {ClRichTextI} from '@monorepo/core-lib';
 
-export enum HaStoryStatus{
+export enum HaStoryStatus {
   DRAFT = 'DRAFT',
   PUBLISHED = 'PUBLISHED'
 }
 
-export enum HaStoryCategory{
+export enum HaStoryCategory {
   DOCUMENTATION = 'DOCUMENTATION',
   PRODUCT_DOCUMENTATION = 'PRODUCT_DOCUMENTATION',
   USE_CASE = 'USE_CASE',
@@ -19,12 +19,12 @@ export enum HaStoryCategory{
 }
 
 
-export enum HaStoryAuthorStatus{
+export enum HaStoryAuthorStatus {
   AUTHOR = 'AUTHOR',
   COAUTHOR = 'COAUTHOR'
 }
 
-export class HaStoryAuthor{
+export class HaStoryAuthor {
   id: string;
   status: HaStoryAuthorStatus;
 
@@ -34,10 +34,10 @@ export class HaStoryAuthor{
   story: HaStory;
 }
 
-export class HaStory{
+export class HaStory {
   id: string;
   title: string;
-  content: CmRichTextI;
+  content: ClRichTextI;
 
   firstParagraph: string;
 
@@ -62,29 +62,29 @@ export class HaStory{
     Object.assign(this, story);
   }
 
-  getTopics(): HaTopic[]{
+  getTopics(): HaTopic[] {
     return this.topics.sort((a, b) => a.popularity - b.popularity);
   }
 
 
-  getAuthor(): HaUser{
+  getAuthor(): HaUser {
     return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
   }
 
-  getCoAuthors(): HaUser[]{
+  getCoAuthors(): HaUser[] {
     return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.COAUTHOR)
       .map(storyAuthor => storyAuthor.user);
   }
 }
 
-export class HaCreateStoryDto{
+export class HaCreateStoryDto {
   title: string;
 
   category: HaStoryCategory;
 
 }
 
-export class HaListStoryDto{
+export class HaListStoryDto {
   id: string;
   title: string;
   firstParagraph: string;
@@ -100,16 +100,16 @@ export class HaListStoryDto{
   publishedAt: DateTime;
   lastModifiedAt: DateTime;
 
-  getTopics(): HaTopic[]{
+  getTopics(): HaTopic[] {
     return this.topics.sort((a, b) => a.popularity - b.popularity);
   }
 
-  getAuthor(): HaUser{
+  getAuthor(): HaUser {
     return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
   }
 }
 
-export class HaStoryDataSourceDataDto{
+export class HaStoryDataSourceDataDto {
   id: string;
   title: string;
 
@@ -126,17 +126,17 @@ export class HaStoryDataSourceDataDto{
 
   topics?: HaTopic[];
 
-  getTopics(): HaTopic[]{
+  getTopics(): HaTopic[] {
     return this.topics.sort((a, b) => a.popularity - b.popularity);
   }
 
 
-  getAuthor(): HaUser{
+  getAuthor(): HaUser {
     return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
   }
 }
 
-export class HaStoryFilter{
+export class HaStoryFilter {
   title: string;
   categories: string[];
   topics: string[];
@@ -153,5 +153,5 @@ export type HaStoryDatasourcePaginated = FlDatasourcePaginated<HaListStoryDto>;
 export type HaMyStoriesDataSource = FlDatasourcePaginated<HaStoryDataSourceDataDto>;
 
 export class HaStoryContentFormDTO extends HaEntity {
-  content: CmRichTextI;
+  content: ClRichTextI;
 }

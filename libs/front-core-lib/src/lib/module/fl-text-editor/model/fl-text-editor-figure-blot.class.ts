@@ -1,8 +1,8 @@
-import {CmRichTextFigure} from '@monorepo/common-model';
 import {FlQuillEmbed} from './fl-quill-export.class';
+import {ClRichTextFigure} from '@monorepo/core-lib';
 
 
-export class FlTextEditorFigureBlot extends FlQuillEmbed{
+export class FlTextEditorFigureBlot extends FlQuillEmbed {
 
   static blotName = 'figure';
   static tagName = 'fl-text-editor-figure';
@@ -10,9 +10,9 @@ export class FlTextEditorFigureBlot extends FlQuillEmbed{
 
   public domNode: HTMLElement;
 
-  private readonly storedValue: CmRichTextFigure;
+  private readonly storedValue: ClRichTextFigure;
 
-  static create(value: CmRichTextFigure): any {
+  static create(value: ClRichTextFigure): any {
     const node: HTMLElement = super.create(value) as any;
     node.setAttribute('filename', value.filename);
     node.setAttribute('natural-width', value.naturalWidth?.toString());
@@ -24,13 +24,13 @@ export class FlTextEditorFigureBlot extends FlQuillEmbed{
     return node;
   }
 
-  constructor(node: Node, value: CmRichTextFigure) {
+  constructor(node: Node, value: ClRichTextFigure) {
     super(node);
     this.storedValue = value;
   }
 
-  value(): { figure: CmRichTextFigure } {
-    const value: CmRichTextFigure = Object.assign(this.storedValue, {
+  value(): { figure: ClRichTextFigure } {
+    const value: ClRichTextFigure = Object.assign(this.storedValue, {
       width: parseInt(this.domNode.getAttribute('width')),
       height: parseInt(this.domNode.getAttribute('height')),
       title: this.domNode.getAttribute('image-title'),

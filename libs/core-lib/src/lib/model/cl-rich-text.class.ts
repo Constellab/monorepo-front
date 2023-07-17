@@ -1,10 +1,10 @@
-import {ClHelpService} from '@monorepo/core-lib';
+import {ClHelpService} from '../utils/cl-help.service';
 
-export interface CmRichTextI {
-  ops: CmRichTextOp[];
+export interface ClRichTextI {
+  ops: ClRichTextOp[];
 }
 
-export interface CmRichTextOp {
+export interface ClRichTextOp {
   insert: any;
   attributes?: any;
 }
@@ -12,7 +12,7 @@ export interface CmRichTextOp {
 /**
  * Required information for a new upload image
  */
-export interface CmRichTextUploadedImage{
+export interface ClRichTextUploadedImage{
   filename: string;
   width: number;
   height: number;
@@ -21,7 +21,7 @@ export interface CmRichTextUploadedImage{
 /**
  * Object representing the value stored to create a figure
  */
-export interface CmRichTextFigure {
+export interface ClRichTextFigure {
   filename: string;
   title?: string;
   caption?: string;
@@ -34,80 +34,80 @@ export interface CmRichTextFigure {
 /**
  * Object representing the value stored to create a video
  */
-export interface CmRichTextVideo {
+export interface ClRichTextVideo {
   url: string;
   title?: string;
   caption?: string;
 }
 
-export interface CmRichTextFigureOp extends CmRichTextOp {
+export interface ClRichTextFigureOp extends ClRichTextOp {
   insert: {
-    figure: CmRichTextFigure
+    figure: ClRichTextFigure
   };
 }
 
 
-export interface CmRichTextLink {
-  attributes: CmRichTextTitleAttribute;
+export interface ClRichTextLink {
+  attributes: ClRichTextTitleAttribute;
   insert: string;
 }
 
 /**
  * Object representing the value stored to create a formula
  */
-export interface CmRichTextFormula {
+export interface ClRichTextFormula {
   formula: string;
   title?: string;
   caption?: string;
 }
 
-export interface CmRichTextHeader {
-  attributes: CmRichTextHeaderAttribute;
+export interface ClRichTextHeader {
+  attributes: ClRichTextHeaderAttribute;
   insert: string;
 }
 
-export interface CmRichTextHeaderAttribute {
-  header: CmRichTextHeaderConfig;
+export interface ClRichTextHeaderAttribute {
+  header: ClRichTextHeaderConfig;
 }
 
-export interface CmRichTextHeaderConfig {
+export interface ClRichTextHeaderConfig {
   level: number;
   id?: string;
 }
 
-export interface CmRichTextImageCP {
-  insert: CmRichTextInsertImage | CmRichTextInsertFigure;
+export interface ClRichTextImageCP {
+  insert: ClRichTextInsertImage | ClRichTextInsertFigure;
 }
 
-export interface CmRichTextInsertImage {
+export interface ClRichTextInsertImage {
   image: string;
 }
 
-export interface CmRichTextInsertFigure {
-  figure: CmRichTextFigure
+export interface ClRichTextInsertFigure {
+  figure: ClRichTextFigure
 }
 
-export interface CmRichTextTitleAttribute {
+export interface ClRichTextTitleAttribute {
   link: string;
   id?: string;
 }
 
 
-export class CmRichText {
+export class ClRichText {
 
 
   private static readonly figureOps = 'figure';
 
-  constructor(private richText: CmRichTextI) {
+  constructor(private richText: ClRichTextI) {
 
 
   }
 
-  public static newRichText(): CmRichTextI {
+  public static newRichText(): ClRichTextI {
     return {ops: []};
   }
 
-  public static getOptimisedContent(content: CmRichTextI): CmRichTextI{
+  public static getOptimisedContent(content: ClRichTextI): ClRichTextI{
     if(content.ops[0] && !content.ops[0].attributes && content.ops[0].insert &&
       (typeof content.ops[0].insert === 'string' || content.ops[0].insert instanceof String)){
       content.ops[0].insert = content.ops[0].insert.replace(/^\s+|/g, '');
@@ -122,21 +122,21 @@ export class CmRichText {
     return content;
   }
 
-  public static getLinks(content: CmRichTextI): CmRichTextLink[] {
-    const titles: CmRichTextLink[] = [];
+  public static getLinks(content: ClRichTextI): ClRichTextLink[] {
+    const titles: ClRichTextLink[] = [];
     const contentData: any[] = content.ops;
     if (contentData != null) {
       contentData.forEach((c) => {
         if (c.attributes && c.insert && c.attributes.link) {
-          titles.push(c as CmRichTextLink);
+          titles.push(c as ClRichTextLink);
         }
       });
     }
     return titles;
   }
 
-  public static getHeaders(content: CmRichTextI): CmRichTextHeader[] {
-    const headers: CmRichTextHeader[] = [];
+  public static getHeaders(content: ClRichTextI): ClRichTextHeader[] {
+    const headers: ClRichTextHeader[] = [];
     const contentData: any[] = content.ops;
     if (contentData) {
       contentData.forEach((c) => {
@@ -148,8 +148,8 @@ export class CmRichText {
     return headers;
   }
 
-  public static getImageCP(content: CmRichTextI): CmRichTextImageCP[] {
-    const imgs: CmRichTextImageCP[] = [];
+  public static getImageCP(content: ClRichTextI): ClRichTextImageCP[] {
+    const imgs: ClRichTextImageCP[] = [];
     const contentData: any[] = content.ops;
     if (contentData != null) {
       contentData.forEach((c) => {
@@ -164,7 +164,7 @@ export class CmRichText {
     return imgs;
   }
 
-  public static isEmpty(content: CmRichTextI): boolean{
+  public static isEmpty(content: ClRichTextI): boolean{
     let isEmpty = true;
     if (!ClHelpService.isNullOrEmpty(content) && content.ops) {
       for(const op of content.ops){
@@ -176,7 +176,7 @@ export class CmRichText {
     return isEmpty;
   }
 
-  public static getMentions(content: CmRichTextI): string[] {
+  public static getMentions(content: ClRichTextI): string[] {
     const mentions: string[] = [];
     const contentData: any[] = content.ops;
     if (contentData != null) {
@@ -189,7 +189,7 @@ export class CmRichText {
     return mentions;
   }
 
-  public static addEmoji(content: CmRichTextI, emoji: string): CmRichTextI {
+  public static addEmoji(content: ClRichTextI, emoji: string): ClRichTextI {
     if(this.isEmpty(content)){
       content.ops = [{insert: emoji}];
     } else {
@@ -207,7 +207,7 @@ export class CmRichText {
     return content;
   }
 
-  public getContent(): CmRichTextI {
+  public getContent(): ClRichTextI {
     return this.richText;
   }
 
@@ -260,7 +260,7 @@ export class CmRichText {
 
   // Get the first paragraph of the content
   public getFirstParagraph(size:number=100): string {
-    const content: CmRichTextI = this.getContent();
+    const content: ClRichTextI = this.getContent();
     let firstParagraph = '';
     if (content.ops) {
       for (const op of content.ops) {
@@ -281,7 +281,7 @@ export class CmRichText {
 
   // Get the first figure link of the content
   public getFirstFigureLink(): string {
-    const content: CmRichTextI = this.getContent();
+    const content: ClRichTextI = this.getContent();
     let firstPictureLink = '';
     if (content.ops) {
       for (const op of content.ops) {
@@ -302,8 +302,8 @@ export class CmRichText {
    * @param filename
    * @param figure
    */
-  public updateFigure(filename: string, figure: Partial<CmRichTextFigure>): void {
-    const opsFigure: CmRichTextFigureOp = this.getFigureOp(filename);
+  public updateFigure(filename: string, figure: Partial<ClRichTextFigure>): void {
+    const opsFigure: ClRichTextFigureOp = this.getFigureOp(filename);
 
     if (opsFigure == null) return;
 
@@ -311,12 +311,12 @@ export class CmRichText {
   }
 
 
-  public getFigureOp(filename: string): CmRichTextFigureOp | undefined {
-    return this.findSpecialOp(CmRichText.figureOps, (figureOp: CmRichTextFigureOp) => figureOp.insert.figure.filename === filename);
+  public getFigureOp(filename: string): ClRichTextFigureOp | undefined {
+    return this.findSpecialOp(ClRichText.figureOps, (figureOp: ClRichTextFigureOp) => figureOp.insert.figure.filename === filename);
   }
 
-  public getFiguresOps(): CmRichTextFigureOp[] {
-    return this.getSpecialOps(CmRichText.figureOps);
+  public getFiguresOps(): ClRichTextFigureOp[] {
+    return this.getSpecialOps(ClRichText.figureOps);
   }
 
   ///////////////////////////////////// SPECIAL OPS ///////////////////////////////////////////////
@@ -327,7 +327,7 @@ export class CmRichText {
    * @param newValue
    */
   public setSpecialOps(opsType: string, findPredicate: (ops: any, index: number) => boolean, newValue: any): void {
-    const specialOps: CmRichTextOp = this.findSpecialOp(opsType, findPredicate);
+    const specialOps: ClRichTextOp = this.findSpecialOp(opsType, findPredicate);
 
     if (specialOps == null) return;
 
@@ -335,13 +335,13 @@ export class CmRichText {
     specialOps.insert[opsType] = newValue;
   }
 
-  public getSpecialOps(opsType: string): CmRichTextOp[] {
+  public getSpecialOps(opsType: string): ClRichTextOp[] {
     return this.richText.ops.filter(
       op => op.insert[opsType] !== null && typeof op.insert[opsType] === 'object',
     );
   }
 
-  public findSpecialOp(opsType: string, findPredicate: (ops: CmRichTextOp, index: number) => boolean): CmRichTextOp | undefined {
+  public findSpecialOp(opsType: string, findPredicate: (ops: ClRichTextOp, index: number) => boolean): ClRichTextOp | undefined {
     return this.getSpecialOps(opsType).find(findPredicate);
   }
 

@@ -6,10 +6,10 @@ import {HaNode} from '../ha-model/ha-entities/ha-node.class';
 import {HaDocumentation, HaDocumentationSearchDTO} from '../ha-model/ha-entities/ha-documentation.class';
 import {HaNewVersionDTO, HaReferenceDTO} from '../ha-model/ha-entities/ha-version.class';
 import {HaBrickVersion} from '../ha-model/ha-entities/ha-brick-version.class';
-import {CmVersion} from '@monorepo/common-model';
 import {TdTypeEntity} from '@monorepo/technical-doc';
 import {HaBrickUser} from '../ha-model/ha-entities/ha-brick-user';
 import {HaBrickUserInvite} from '../ha-model/ha-entities/ha-brick-user-invite.class';
+import {ClVersion} from '@monorepo/core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,8 @@ export class HaBrickService {
    */
   public create(object: Partial<HaBrickCreationDTO>): Observable<HaBrick> {
     object.version = object.isBeta ?
-      CmVersion.fromString(object.version + '-beta.' + object.subPatch)
-      : CmVersion.fromString(object.version as string);
+      ClVersion.fromString(object.version + '-beta.' + object.subPatch)
+      : ClVersion.fromString(object.version as string);
     return this.apiService.post(this.route, object, HaBrick);
   }
 
@@ -75,7 +75,7 @@ export class HaBrickService {
   }
 
   public getLastVersion(brickName: string): Observable<HaBrickVersion> {
-    return this.apiService.get(`${this.route}/latest/${brickName}`)
+    return this.apiService.get(`${this.route}/latest/${brickName}`);
   }
 
   /*Import the technical documentation of the brick*/

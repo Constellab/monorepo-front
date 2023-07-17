@@ -1,5 +1,5 @@
 import {HaEntity} from './ha-entity.class';
-import {CmVersion} from '@monorepo/common-model';
+import {ClVersion} from '@monorepo/core-lib';
 
 export enum HaRepoType {
   PIP = 'PIP',
@@ -28,11 +28,11 @@ export class HaNewVersionDTO {
 
   technicalInfo?: Record<string, any>;
 
-  references?: HaReferenceDTO[]
+  references?: HaReferenceDTO[];
 }
 
 
-export class HaAddVersionInput{
+export class HaAddVersionInput {
   isNew: boolean;
   name: string;
   version: string;
@@ -45,27 +45,27 @@ export class HaAddVersionInput{
     this.isNew = isNew;
     this.name = name;
     this.version = version;
-    this.isBeta = CmVersion.fromString(version).isBeta();
-    if(this.isBeta){
-      this.subPatch = CmVersion.fromString(version).subPatch;
+    this.isBeta = ClVersion.fromString(version).isBeta();
+    if (this.isBeta) {
+      this.subPatch = ClVersion.fromString(version).subPatch;
     }
     this.technicalInfo = technicalInfo;
     this.brickVersionReferences = [];
-    if(environment.bricks){
-      for(const b of environment.bricks){
+    if (environment.bricks) {
+      for (const b of environment.bricks) {
         this.brickVersionReferences.push({name: b.name, version: b.version});
       }
     }
-    for(const d of environment.pip){
-      for(const p of d.packages){
-        if(p.is_brick){
+    for (const d of environment.pip) {
+      for (const p of d.packages) {
+        if (p.is_brick) {
           this.brickVersionReferences.push({name: p.name, version: p.version});
         }
       }
     }
-    for(const d of environment.git){
-      for(const p of d.packages){
-        if(p.is_brick){
+    for (const d of environment.git) {
+      for (const p of d.packages) {
+        if (p.is_brick) {
           this.brickVersionReferences.push({name: p.name, version: p.version});
         }
       }
@@ -73,37 +73,37 @@ export class HaAddVersionInput{
   }
 }
 
-export interface HaReferenceDTO{
+export interface HaReferenceDTO {
   name: string;
   version: string;
   referenceState?: HaBrickVersionReferenceState;
 }
 
-export interface HaNewVersionFile{
+export interface HaNewVersionFile {
   name: string;
   version: string;
   technical_info: Record<string, any>;
   environment: HaEnvironmentDTO;
 }
 
-export enum HaBrickVersionReferenceState{
+export enum HaBrickVersionReferenceState {
   DIRECT = 'DIRECT',
   INDIRECT = 'INDIRECT'
 }
 
-export interface HaImportReferenceDTO{
+export interface HaImportReferenceDTO {
   name: string;
   version: string;
   is_brick?: boolean;
 }
 
-export interface HaEnvironmentDTO{
+export interface HaEnvironmentDTO {
   pip: HaRepoTypeNewVersionDTO[];
   git: HaRepoTypeNewVersionDTO[];
   bricks?: HaImportReferenceDTO[];
 }
 
-export interface HaRepoTypeNewVersionDTO{
+export interface HaRepoTypeNewVersionDTO {
   source: string;
   packages: HaImportReferenceDTO[];
 }

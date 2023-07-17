@@ -1,14 +1,13 @@
 import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform, ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
+import {ClLuxonDateTimeTransform, ClSupportedLanguage, ClTheme, ClUserCategory, ClUserStatus} from '@monorepo/core-lib';
 import {CaEntity} from './ca-entity.entity';
-import {CmUserCategory, CmUserStatus} from '@monorepo/common-model';
 import {FlDatasourcePaginated, FlUser} from '@monorepo/front-core-lib';
 
 export interface CaNewUser {
   firstname: string;
   lastname: string;
   email: string;
-  category: CmUserCategory;
+  category: ClUserCategory;
   password: string;
   repeatPassword: string;
 }
@@ -20,8 +19,7 @@ export class CaUser extends CaEntity implements FlUser {
 
   email: string;
 
-  category: CmUserCategory;
-
+  category: ClUserCategory;
 
   activity?: string;
 
@@ -35,7 +33,7 @@ export class CaUser extends CaEntity implements FlUser {
 
   company?: string;
 
-  status: CmUserStatus;
+  status: ClUserStatus;
 
   phone?: string;
 
@@ -54,11 +52,11 @@ export class CaUser extends CaEntity implements FlUser {
   }
 
   public isAdmin(): boolean {
-    return this.category === CmUserCategory.ADMIN;
+    return this.category === ClUserCategory.ADMIN;
   }
 
   // return true if the user is one of the listed category
-  public isCategory(...categories: CmUserCategory[]): boolean {
+  public isCategory(...categories: ClUserCategory[]): boolean {
     if (categories == null || categories.length === 0) {
       return true;
     }
@@ -66,7 +64,7 @@ export class CaUser extends CaEntity implements FlUser {
   }
 
   public statusMailNotValidated(): boolean {
-    return this.status === CmUserStatus.WAITING_FOR_EMAIL;
+    return this.status === ClUserStatus.WAITING_FOR_EMAIL;
   }
 }
 

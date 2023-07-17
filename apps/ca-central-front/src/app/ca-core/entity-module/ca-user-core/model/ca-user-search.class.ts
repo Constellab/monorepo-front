@@ -1,4 +1,3 @@
-import {CmUserCategory} from '@monorepo/common-model';
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
@@ -7,6 +6,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Type} from 'class-transformer';
+import {ClUserCategory} from '@monorepo/core-lib';
 
 
 export class CaUserSearchFields {
@@ -17,7 +17,7 @@ export class CaUserSearchFields {
 
   email: string;
 
-  category: CmUserCategory[];
+  category: ClUserCategory[];
 
   company: string;
 

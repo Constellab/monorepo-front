@@ -5,11 +5,10 @@ import {HaStory} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import {HaStoryTextEditorConfig} from '../ha-story-edit-page/ha-story-text-editor.config';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {FormControl} from '@ngneat/reactive-forms';
-import {CmRichText, CmRichTextI} from '@monorepo/common-model';
 import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
-import {ClStringHelper} from '@monorepo/core-lib';
+import {ClRichText, ClRichTextI, ClStringHelper} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-story-page',
@@ -22,7 +21,7 @@ export class HaStoryPageComponent implements OnInit {
 
   textEditorConfig: HaStoryTextEditorConfig;
 
-  formControl: FormControl<CmRichTextI> = new FormControl<CmRichTextI>();
+  formControl: FormControl<ClRichTextI> = new FormControl();
 
   titles: any[];
 
@@ -63,13 +62,13 @@ export class HaStoryPageComponent implements OnInit {
     }
   }
 
-  private onStory(story: HaStory): void{
+  private onStory(story: HaStory): void {
     this.story = story;
     this.formControl.setValue(this.story.content);
     this.formControl.disable({emitEvent: true});
     this.titles = this.titles == null || this.titles.length == 0 ?
-      (new CmRichText(this.story.content)).getHeaders([2, 3]) : this.titles;
-    if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)){
+      (new ClRichText(this.story.content)).getHeaders([2, 3]) : this.titles;
+    if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)) {
       this.transferState.set(this.STORY_KEY, {story: story, titles: this.titles});
     }
     this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});

@@ -20,11 +20,10 @@ import {
   FlSearchConverter,
   FlTextEditorUploadedImage,
 } from '@monorepo/front-core-lib';
-import {ClPage, ClPageI} from '@monorepo/core-lib';
+import {ClPage, ClPageI, ClRichTextFigure, ClRichTextI} from '@monorepo/core-lib';
 import {CaGroup} from '../model/entities/ca-group.entity';
 import {CaUser} from '../model/entities/ca-user.class';
 import {CaProjectComment, CaProjectCommentDatasourcePaginated} from '../model/entities/ca-comment.class';
-import {CmRichTextFigure, CmRichTextI} from '@monorepo/common-model';
 import {CaProjectSearch, CaProjectSearchFields} from '../entity-module/ca-project-core/model/ca-project-search.class';
 import {CaBucket, CaBucketFull} from '../model/entities/ca-object-storage.class';
 import {CaCloudProviderRegion} from '../model/entities/ca-cloud-provider.class';
@@ -187,12 +186,12 @@ export class CaProjectService {
       {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public newProjectComment(projectId: string, content: CmRichTextI, parentCommentId?: string): Observable<CaProjectComment> {
+  public newProjectComment(projectId: string, content: ClRichTextI, parentCommentId?: string): Observable<CaProjectComment> {
     return this.apiService.post(`${this.route}/${projectId}/comment`,
       {content: content, parentCommentId: parentCommentId}, CaProjectComment);
   }
 
-  public editProjectComment(projectId: string, commentId: string, content: CmRichTextI): Observable<CaProjectComment> {
+  public editProjectComment(projectId: string, commentId: string, content: ClRichTextI): Observable<CaProjectComment> {
     return this.apiService.put(`${this.route}/${projectId}/comment/${commentId}`,
       {content: content}, CaProjectComment);
   }
@@ -252,7 +251,7 @@ export class CaProjectService {
     return this.apiService.post(`${this.route}/${projectId}/constellab-document`, {name: filename}, CaConstellabDocument);
   }
 
-  public updateConstellabDocument(documentId: string, content: CmRichTextI): Observable<CaConstellabDocument> {
+  public updateConstellabDocument(documentId: string, content: ClRichTextI): Observable<CaConstellabDocument> {
     return this.apiService.put(`${this.route}/constellab-document/${documentId}`, content, CaConstellabDocument);
   }
 
@@ -260,7 +259,7 @@ export class CaProjectService {
     return this.apiService.get(`${this.route}/constellab-document/${documentId}`, CaConstellabDocument);
   }
 
-  public uploadConstellabDocumentImage(file: File, documentId: string): Observable<CmRichTextFigure> {
+  public uploadConstellabDocumentImage(file: File, documentId: string): Observable<ClRichTextFigure> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/constellab-document/${documentId}/image`, formData);

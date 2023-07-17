@@ -1,8 +1,8 @@
-import {CmApiError} from '@monorepo/common-model';
+import {ClApiError} from '@monorepo/core-lib';
 
 /**
  * Error returned by the lab api
  */
-export interface LabApiError extends CmApiError{
+export interface LabApiError extends ClApiError {
   show_as: 'error' | 'info';
 }

@@ -8,8 +8,8 @@ import {CaMouseHoverCommentData} from '../../directive/ca-mouse-hover-comment-po
 import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
 import {CaCommentMenuPortalButton} from '../ca-comment-menu-portal/ca-comment-menu-portal.component';
 import {FormControl, Validators} from '@angular/forms';
-import {CmRichText, CmRichTextI} from '@monorepo/common-model';
 import {CaProjectDetailState} from '../../../ca-project/module/ca-project-detail-page/state/ca-project-detail.state';
+import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-comment-div',
@@ -54,23 +54,23 @@ export class CaCommentDivComponent implements OnInit {
       }];
     if (this.authUserService.getUser().id === this.comment.createdBy.id && this.comment.createdAt.diffNow('minute').as('minute') > -5) {
       this.buttons.push({
-        icon: 'edit',
-        text: 'Edit',
-        type: 'button',
-        onClick: (event: MouseEvent, overlayRef?: FlOverlayRef) => {
-          this.isEditMode$.next(true);
-          this.formControl = new FormControl(this.comment.content, [Validators.required, Validators.min(1)]);
-          this.eventOnMessage$.next([overlayRef, 'edit']);
-        }
-      },
-      {
-        icon: 'delete',
-        text: 'Delete',
-        type: 'button',
-        onClick: (event, overlayRef: FlOverlayRef) => {
-          this.eventOnMessage$.next([overlayRef, 'delete']);
-        }
-      });
+          icon: 'edit',
+          text: 'Edit',
+          type: 'button',
+          onClick: (event: MouseEvent, overlayRef?: FlOverlayRef) => {
+            this.isEditMode$.next(true);
+            this.formControl = new FormControl(this.comment.content, [Validators.required, Validators.min(1)]);
+            this.eventOnMessage$.next([overlayRef, 'edit']);
+          }
+        },
+        {
+          icon: 'delete',
+          text: 'Delete',
+          type: 'button',
+          onClick: (event, overlayRef: FlOverlayRef) => {
+            this.eventOnMessage$.next([overlayRef, 'delete']);
+          }
+        });
     }
     this.data = {
       comment: this.comment,
@@ -130,7 +130,7 @@ export class CaCommentDivComponent implements OnInit {
     );
   }
 
-  getCommentContent(): CmRichTextI {
+  getCommentContent(): ClRichTextI {
     return this.comment.content;
   }
 
@@ -139,6 +139,6 @@ export class CaCommentDivComponent implements OnInit {
   }
 
   private addEmoji(event: string): void {
-    this.formControl.setValue(CmRichText.addEmoji(this.formControl.value, event));
+    this.formControl.setValue(ClRichText.addEmoji(this.formControl.value, event));
   }
 }

@@ -1,11 +1,11 @@
 import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import {CmVersion} from '@monorepo/common-model';
 import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
+import {ClVersion} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -31,7 +31,7 @@ export class HaPublicListBricksPageComponent implements OnInit {
       this.bricks = this.transferState.get(this.BRICKS_KEY, null) as HaBrick[];
       this.transferState.remove(this.BRICKS_KEY);
       for (const b of this.bricks) {
-        b.lastVersion = new CmVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);
+        b.lastVersion = new ClVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);
       }
     }
 
@@ -41,10 +41,10 @@ export class HaPublicListBricksPageComponent implements OnInit {
   private setupBricks(): void {
     this.haBrickService.get().subscribe((bricks: HaBrick[]) => {
       for (const b of bricks) {
-        b.lastVersion = new CmVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);
+        b.lastVersion = new ClVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);
       }
       this.bricks = bricks;
-      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICKS_KEY)){
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICKS_KEY)) {
         this.transferState.set(this.BRICKS_KEY, this.bricks);
       }
     });

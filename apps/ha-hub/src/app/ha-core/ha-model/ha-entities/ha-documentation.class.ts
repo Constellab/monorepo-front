@@ -1,11 +1,11 @@
 import {HaEntity} from './ha-entity.class';
-import {CmRichTextI} from '@monorepo/common-model';
+import {ClRichTextI} from '@monorepo/core-lib';
 
 export class HaDocumentation extends HaEntity {
 
   title: string;
 
-  content: CmRichTextI;
+  content: ClRichTextI;
 
   path: string;
 
@@ -20,7 +20,7 @@ export class HaDocumentation extends HaEntity {
 
 
 export class HaDocumentationContentFormDTO extends HaEntity {
-  content: CmRichTextI;
+  content: ClRichTextI;
 }
 
 export interface HaDocumentationSearchDTO {

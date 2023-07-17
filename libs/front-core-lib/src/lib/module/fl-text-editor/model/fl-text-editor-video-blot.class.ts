@@ -1,5 +1,5 @@
-import {CmRichTextVideo} from '@monorepo/common-model';
 import {FlQuillEmbed} from './fl-quill-export.class';
+import {ClRichTextVideo} from '@monorepo/core-lib';
 
 /**
  * Blot object for video
@@ -12,9 +12,9 @@ export class FlTextEditorVideoBlot extends FlQuillEmbed {
 
   public domNode: HTMLElement;
 
-  private readonly storedValue: CmRichTextVideo;
+  private readonly storedValue: ClRichTextVideo;
 
-  static create(value: CmRichTextVideo): any {
+  static create(value: ClRichTextVideo): any {
     const node: HTMLElement = super.create(value) as any;
 
     node.setAttribute('url', value.url);
@@ -24,12 +24,12 @@ export class FlTextEditorVideoBlot extends FlQuillEmbed {
     return node;
   }
 
-  constructor(node: Node, value: CmRichTextVideo) {
+  constructor(node: Node, value: ClRichTextVideo) {
     super(node);
     this.storedValue = value;
   }
 
-  value(): { video: CmRichTextVideo } {
+  value(): { video: ClRichTextVideo } {
     return {
       video: {
         url: this.storedValue.url,

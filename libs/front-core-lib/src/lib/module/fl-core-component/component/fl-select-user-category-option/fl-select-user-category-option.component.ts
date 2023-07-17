@@ -5,7 +5,7 @@ import {
 } from '../../../../abstract-directive/fl-embedded-options-abstract.directive';
 
 /**
- * List of option for a {@link CmUserCategory}
+ * List of option for a {@link ClUserCategory}
  */
 @Component({
   selector: 'fl-select-user-category-option',

@@ -3,7 +3,6 @@ import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
 import {HaStory, HaStoryContentFormDTO} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CmRichText, CmRichTextI} from '@monorepo/common-model';
 import {FlConfirmDialogInput, FlDebouncer, FlDialogService, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {HaStoryTextEditorConfig} from './ha-story-text-editor.config';
 import {mergeMap, Observable, of, startWith} from 'rxjs';
@@ -15,6 +14,7 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaStoryCoAuthorDialogComponent} from '../ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-ha-story-edit-page',
@@ -32,7 +32,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   textEditorConfig: HaStoryTextEditorConfig;
 
   contentEditorIsFocused: boolean = false;
-  private contentDebouncer: FlDebouncer<CmRichTextI>;
+  private contentDebouncer: FlDebouncer<ClRichTextI>;
 
   contentHasError: boolean = false;
 
@@ -120,7 +120,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         content: 'new_topic_content',
         translateTitleAndContent: true,
         observable: this.addTopicToStory(topic)
-      }
+      };
 
       this.dialogService.openConfirmDialog(input).afterClosed().subscribe();
 
@@ -161,7 +161,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     return topic && topic.name ? topic.name : '';
   }
 
-  private saveContent(value: CmRichTextI): void {
+  private saveContent(value: ClRichTextI): void {
     this.storyService.updateContent(this.story.id, value).subscribe();
   }
 
@@ -175,7 +175,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   publish(): void {
 
-    if(new CmRichText(this.formGp.get('content').value).getFirstFigureLink().length > 0){
+    if (new ClRichText(this.formGp.get('content').value).getFirstFigureLink().length > 0) {
       this.contentHasError = false;
       const input: FlConfirmDialogInput = {
         title: 'publish_story',
@@ -184,10 +184,10 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         observable: this.publishStory(),
         translateMessage: true,
         translateTitleAndContent: true
-      }
+      };
       this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
         if (res.choice && res.result) {
-          this.router.navigate(['/stories', res.result.id])
+          this.router.navigate(['/stories', res.result.id]);
           this.story = res.result;
         }
       });
@@ -241,7 +241,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     const input: FlFormDialogInput<HaStory> = {
       mode: 'update',
       object: this.story
-    }
+    };
 
     this.dialogService.openSmallDialog(HaStoryCoAuthorDialogComponent, {data: input}).afterClosed().subscribe((res) => {
       if (res && res.choice && res.result) {

@@ -1,4 +1,11 @@
+
+export * from './user/cl-credentials.class';
+export * from './user/cl-user-category.enum';
+export * from './user/cl-user-status.enum';
 export * from './cl-class-reference.class';
 export * from './cl-object.class';
 export * from './cl-page.class';
 export * from './cl-record-wrapper.class';
+export * from './cl-nest-api-error.class';
+export * from './cl-rich-text.class';
+export * from './cl-version.class';

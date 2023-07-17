@@ -10,8 +10,7 @@ import {
   HaStoryFilter
 } from '../ha-model/ha-entities/ha-story.class';
 import {Observable} from 'rxjs';
-import {ClPage} from '@monorepo/core-lib';
-import {CmRichTextI} from '@monorepo/common-model';
+import {ClPage, ClRichTextI} from '@monorepo/core-lib';
 import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
 import {HaStoryAuthorInvite} from '../ha-model/ha-entities/ha-story-author-invite.class';
 
@@ -89,7 +88,7 @@ export class HaStoryService {
    * @param content new content
    * return a story
    */
-  public updateContent(id: string, content: CmRichTextI): Observable<HaStory> {
+  public updateContent(id: string, content: ClRichTextI): Observable<HaStory> {
     return this.apiService.put(this.route + '/' + id + '/content', {content: content}, HaStory);
   }
 
