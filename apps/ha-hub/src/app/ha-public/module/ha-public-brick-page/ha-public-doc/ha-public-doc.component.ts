@@ -39,7 +39,6 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   private contentDebouncer: FlDebouncer<ClRichTextI>;
   private lastUrl: string = null;
-  private isCheck: boolean = false;
   private DOC_KEY: StateKey<object>;
 
   constructor(private brickService: HaBrickService,
@@ -57,23 +56,11 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.DOC_KEY = makeStateKey<object>('doc');
 
-    if (this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')) {
-      this.init(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy', 'latest');
-    } else {
-      this.route.parent.parent.url.subscribe(url => {
-        this.init(url[0].path, url[1].path);
-      });
-    }
+    this.route.parent.parent.url.subscribe(url => this.init(url[0].path, url[1].path));
 
     //create a debouncer to save the description after x second of idle
     this.contentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
-    this.contentDebouncer.getDebouncedValue().subscribe(
-      value => {
-        if (this.isCheck) {
-          this.saveContent(value);
-        }
-      }
-    );
+    this.contentDebouncer.getDebouncedValue().subscribe(value => this.saveContent(value));
   }
 
   private init(brickName: string, brickVersion: string): void {
@@ -91,27 +78,25 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       if (url.toString() != this.lastUrl && this.lastUrl != '') {
         if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)) {
           const doc: HaDocumentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
-          if (doc)
-            this.actionOnDoc(url.length == 0, doc);
-          else
+          if (doc) {
+            this.onDocLoaded(doc);
+          } else {
             this.docNotFound = true;
+          }
           this.transferState.remove(this.DOC_KEY);
         } else {
-          this.getDocumentationByPath(url, url.length == 0);
+          this.getDocumentationByPath(url);
         }
       }
       this.lastUrl = url.toString();
     });
   }
 
-  private getDocumentationByPath(url: UrlSegment[], isFirstDoc: boolean): void {
+  private getDocumentationByPath(url: UrlSegment[]): void {
     this.isLoading = true;
     this.documentation = null;
-    this.isCheck = false;
     this.docNotFound = false;
-    let path: string;
-    if (!isFirstDoc)
-      path = url.join('/') + '/';
+    const path: string = url.join('/') + '/';
     this.brickService.getDocByPath(this.brickName, path, this.brickVersion).subscribe(doc => {
       if (doc) {
         if (isPlatformServer(this.platformId)) {
@@ -121,28 +106,24 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
             this.transferState.set(this.DOC_KEY, doc);
           }
         }
-        this.actionOnDoc(isFirstDoc, doc);
+        this.onDocLoaded(doc);
       } else {
         this.docNotFound = true;
       }
     });
   }
 
-  private actionOnDoc(isFirstDoc: boolean, doc: HaDocumentation): void {
-    if (isFirstDoc) {
-      this.router.navigate([`${this.router.url}/${doc.completePath}`]).then();
-    }
+  private onDocLoaded(doc: HaDocumentation): void {
     this.docNotFound = false;
-    this.isCheck = true;
     this.documentation = doc;
 
     this.formCtrl.patchValue(doc.content);
+    this.formCtrl.disable();
     this.titles = [];
 
     if (doc.content) {
       const richText = new ClRichText(doc.content);
       this.titles = richText.getHeaders([2, 3]);
-      this.formCtrl.disable();
     }
 
     this.textEditorConfig =
@@ -157,15 +138,16 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       true, {brickTitle: this.brickName, docTitle: this.documentation.title});
   }
 
-  onContentUpdate(content: any): void {
+  onContentUpdate(content: ClRichTextI): void {
     this.contentDebouncer.setValue(content);
     if (this.formCtrl.value) {
-      const richText = new ClRichText(this.formCtrl.value);
+      const richText = new ClRichText(content);
       this.titles = richText.getHeaders([2, 3]);
     }
   }
 
   private saveContent(value: ClRichTextI): void {
+    if (this.documentation == null) return;
     this.isAdminOrBrickUser.subscribe(isAdmin => {
       if (isAdmin) {
         this.documentationService.updateContent(this.documentation.id, value).subscribe();

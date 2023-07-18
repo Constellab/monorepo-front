@@ -1,12 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
 import {HaDocumentationSearchDTO} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {mergeMap, Observable, of, startWith} from 'rxjs';
 import {FormControl} from '@ngneat/reactive-forms';
 import {map} from 'rxjs/operators';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
-import {clRxjsElasticSearch, ClStringHelper} from '@monorepo/core-lib';
+import {clRxjsElasticSearch} from '@monorepo/core-lib';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
@@ -25,12 +24,9 @@ export class HaPublicFindDocComponent implements OnInit {
   brickName: string;
   major: string;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) input: any,
-    private dialogRef: MatDialogRef<HaPublicFindDocComponent>,
-    private documentationService: HaDocumentationService,
-    private brickService: HaBrickService
-  ) {
+  constructor(@Inject(MAT_DIALOG_DATA) input: any,
+              private dialogRef: MatDialogRef<HaPublicFindDocComponent>,
+              private brickService: HaBrickService) {
     this.brickName = input.brickName;
     this.major = input.major;
   }
@@ -107,16 +103,11 @@ export class HaPublicFindDocComponent implements OnInit {
     );
   }
 
-  getCurrentInput(): HaDocumentationSearchDTO{
+  getCurrentInput(): HaDocumentationSearchDTO {
     return {
       name: this.inputControl.value as string
-    }
+    };
   }
-
-  isALink(input: any): boolean{
-    return ClStringHelper.isHttpLink(input as string);
-  }
-
 
   submit(value: HaDocumentationSearchDTO): void {
     this.dialogRef.close(value);
