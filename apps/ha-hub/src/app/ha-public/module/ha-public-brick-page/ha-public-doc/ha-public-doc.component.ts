@@ -1,22 +1,9 @@
-import {Component, EventEmitter, Inject, OnDestroy, OnInit, Output, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
-import {
-  HaDocumentation,
-  HaDocumentationContentFormDTO
-} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
-import {
-  FlConfirmDialogInput,
-  FlDebouncer,
-  FlDialogService,
-  FlFormDialogInput,
-  FlMenuDynamic,
-  FlMenuDynamicService,
-  FlOverlayRef,
-  FlPortalService
-} from '@monorepo/front-core-lib';
+import {FlConfirmDialogInput, FlDebouncer, FlDialogService, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 import {Observable} from 'rxjs';
 import {HaDocTextEditorConfig} from '../ha-doc-text-editor-config.class';
@@ -28,6 +15,7 @@ import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'ha-public-doc-page',
@@ -36,45 +24,38 @@ import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
 })
 export class HaPublicDocComponent implements OnInit, OnDestroy {
 
-  @Output() newItemEvent: EventEmitter<string> = new EventEmitter<string>();
-
-  private contentDebouncer: FlDebouncer<ClRichTextI>;
   documentation: HaDocumentation;
   brickName: string;
   brickVersion: string;
-  formGp: FormGroup<Partial<HaDocumentationContentFormDTO>>;
+
+  formCtrl = new FormControl<ClRichTextI>(null);
+
   titles: any[] = [];
-  richText: ClRichText;
-  lastUrl: string = null;
+
   isAdminOrBrickUser: Observable<boolean>;
-  isCheck: boolean = false;
   isLoading: boolean = false;
   textEditorConfig: HaDocTextEditorConfig;
   docNotFound: boolean = false;
-  isDisabled: boolean = true;
-  menuOpen: boolean;
-  openedMenu: FlOverlayRef;
-  DOC_KEY: StateKey<object>;
 
-  constructor(
-    private brickService: HaBrickService,
-    private documentationService: HaDocumentationService,
-    private authUserService: HaAuthenticatedUserService,
-    private dialogService: FlDialogService,
-    private portalService: FlPortalService,
-    private contextMenuService: FlMenuDynamicService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private transferState: TransferState,
-    @Inject(PLATFORM_ID) private platformId: object,
-    private metadataService: HaMetadataService,
-  ) {
+  private contentDebouncer: FlDebouncer<ClRichTextI>;
+  private lastUrl: string = null;
+  private isCheck: boolean = false;
+  private DOC_KEY: StateKey<object>;
+
+  constructor(private brickService: HaBrickService,
+              private documentationService: HaDocumentationService,
+              private authUserService: HaAuthenticatedUserService,
+              private dialogService: FlDialogService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private transferState: TransferState,
+              @Inject(PLATFORM_ID) private platformId: object,
+              private metadataService: HaMetadataService) {
   }
 
 
   ngOnInit(): void {
     this.DOC_KEY = makeStateKey<object>('doc');
-    this.buildForm();
 
     if (this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')) {
       this.init(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy', 'latest');
@@ -123,13 +104,6 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     });
   }
 
-  buildForm(): void {
-    this.formGp = new FormBuilder().group({
-      id: [null],
-      content: [null],
-    });
-  }
-
   private getDocumentationByPath(url: UrlSegment[], isFirstDoc: boolean): void {
     this.isLoading = true;
     this.documentation = null;
@@ -154,23 +128,21 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     });
   }
 
-  private actionOnDoc(isFirstDoc: boolean, doc: any): void {
+  private actionOnDoc(isFirstDoc: boolean, doc: HaDocumentation): void {
     if (isFirstDoc) {
       this.router.navigate([`${this.router.url}/${doc.completePath}`]).then();
     }
     this.docNotFound = false;
     this.isCheck = true;
-    this.isDisabled = true;
     this.documentation = doc;
 
-
-    this.setFormGroupValue(doc);
+    this.formCtrl.patchValue(doc.content);
     this.titles = [];
 
     if (doc.content) {
-      this.richText = new ClRichText(doc.content);
-      this.titles = this.richText.getHeaders([2, 3]);
-      this.formGp.controls.content.disable();
+      const richText = new ClRichText(doc.content);
+      this.titles = richText.getHeaders([2, 3]);
+      this.formCtrl.disable();
     }
 
     this.textEditorConfig =
@@ -187,43 +159,24 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   onContentUpdate(content: any): void {
     this.contentDebouncer.setValue(content);
-    if (this.formGp.value.content) {
-      this.richText = new ClRichText(this.formGp.value.content as ClRichTextI);
-      this.titles = this.richText.getHeaders([2, 3]);
+    if (this.formCtrl.value) {
+      const richText = new ClRichText(this.formCtrl.value);
+      this.titles = richText.getHeaders([2, 3]);
     }
   }
 
-  private setFormGroupValue(doc: HaDocumentationContentFormDTO): void {
-    this.formGp.patchValue(doc);
-  }
-
   private saveContent(value: ClRichTextI): void {
-
-    this.formGp.value.content = value as ClRichTextI;
     this.isAdminOrBrickUser.subscribe(isAdmin => {
       if (isAdmin) {
-        this.documentationService.updateContent(this.formGp.value as HaDocumentationContentFormDTO).subscribe();
+        this.documentationService.updateContent(this.documentation.id, value).subscribe();
       }
     });
 
   }
 
-  onClickMenu(event: MouseEvent): void {
-    this.isAdminOrBrickUser.subscribe(isAdmin => {
-      if (isAdmin) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (this.menuOpen) {
-          this.openedMenu.overlayRef.detach();
-        }
-        this.openedMenu =
-          this.contextMenuService.openDynamicMenuFromMouseEvent(this.getContextMenuConfig(), event);
-        this.menuOpen = true;
-      }
-    });
-  }
 
   openResourceDelete(): void {
+    // TODO : improve message and delete doc once it's done
     const input: FlConfirmDialogInput = {
       title: 'confirm_deletion',
       content: 'confirm_deletion_message',
@@ -233,69 +186,17 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       translateMessage: true
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(res => {
-
-      if (res.choice) {
-        this.newItemEvent.emit('delete');
-      }
-    });
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe();
   }
 
-  private getContextMenuConfig(): FlMenuDynamic[] {
-    console.log(this.isDisabled);
-    if (this.isDisabled) {
-      return [
-        {
-          type: 'button',
-          text: {text: 'edit', translateText: true},
-          icon: 'edit_note',
-          onClick: () => this.changeTextEditorState()
-        },
-        {
-          type: 'button',
-          text: {text: 'edit_title', translateText: true},
-          icon: 'edit',
-          onClick: () => this.prepareEditDialog()
-        },
-        {
-          type: 'button',
-          text: {text: 'delete', translateText: true},
-          icon: 'delete',
-          onClick: () => this.openResourceDelete(),
-        }
-      ];
-    }
-    return [
-      {
-        type: 'button',
-        text: {text: 'view', translateText: true},
-        icon: 'visibility',
-        onClick: () => this.changeTextEditorState()
-      },
-      {
-        type: 'button',
-        text: {text: 'edit_title', translateText: true},
-        icon: 'edit',
-        onClick: () => this.prepareEditDialog()
-      },
-      {
-        type: 'button',
-        text: {text: 'delete', translateText: true},
-        icon: 'delete',
-        onClick: () => this.openResourceDelete()
-      }
-    ];
-  }
-
-  private changeTextEditorState(): void {
-    this.isDisabled = !this.isDisabled;
-    if (this.formGp.controls.content.disabled)
-      this.formGp.controls.content.enable();
+  changeTextEditorState(): void {
+    if (this.formCtrl.disabled)
+      this.formCtrl.enable();
     else
-      this.formGp.controls.content.disable();
+      this.formCtrl.disable();
   }
 
-  private prepareEditDialog(): void {
+  prepareEditDialog(): void {
     this.createEditDialog(this.documentation);
   }
 
@@ -318,7 +219,6 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       (res: HaDocumentation) => {
         if (res != null) {
           this.router.navigate(['..', res.path], {relativeTo: this.route});
-          this.newItemEvent.emit('rename');
         }
       }
     );

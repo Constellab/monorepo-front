@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {FlApiService, FlTextEditorUploadedImage} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
-import {HaDocumentation, HaDocumentationContentFormDTO} from '../ha-model/ha-entities/ha-documentation.class';
+import {HaDocumentation} from '../ha-model/ha-entities/ha-documentation.class';
 import {HaNodeDTO} from '../ha-model/ha-entities/ha-node.class';
+import {ClRichTextI} from '@monorepo/core-lib';
 
 /**
  * Service to manage documentation entity
@@ -28,10 +29,9 @@ export class HaDocumentationService {
 
   /**
    * Call http updateContent
-   * @param object json object
    */
-  public updateContent(object: HaDocumentationContentFormDTO): Observable<HaDocumentation> {
-    return this.apiService.put(this.route + '/content/' + object.id, object.content);
+  public updateContent(id: string, content: ClRichTextI): Observable<HaDocumentation> {
+    return this.apiService.put(this.route + '/content/' + id, content);
   }
 
   /**

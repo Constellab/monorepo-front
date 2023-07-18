@@ -11,15 +11,38 @@
     <div class="doc-div-content g-max-article-width">
       <div class="doc-title-div">
         <h3>{{documentation.title}}</h3>
-        <button mat-icon-button type="button" (click)="onClickMenu($event)" *ngIf="isAdminOrBrickUser | async">
+
+
+        <button mat-icon-button type="button" *ngIf="isAdminOrBrickUser | async"
+                [matMenuTriggerFor]="menu">
           <mat-icon>
             more_vert
           </mat-icon>
         </button>
+
+        <mat-menu #menu="matMenu">
+
+          <button mat-menu-item type="button" (click)="changeTextEditorState()">
+            <mat-icon>{{formCtrl.disabled ? 'edit_note' : 'visibility'}}</mat-icon>
+            <span>{{(formCtrl.disabled ? 'edit' : 'view') | translate}}</span>
+          </button>
+
+          <button mat-menu-item type="button" (click)="prepareEditDialog()">
+            <mat-icon>edit</mat-icon>
+            <span>{{'edit_title' | translate}}</span>
+          </button>
+
+          <button mat-menu-item type="button" (click)="openResourceDelete()">
+            <mat-icon color="warn">delete</mat-icon>
+            <span class="g-warn-text">{{'delete' | translate}}</span>
+          </button>
+        </mat-menu>
+
+
       </div>
-      <form class="documentation-form" [formGroup]="formGp" *ngIf="!isLoading">
-        <fl-text-editor class="content-editor g-max-article-width" formControlName="content"
-                         mode="JSON" scrollContainer="auto"
+      <form class="documentation-form" *ngIf="!isLoading">
+        <fl-text-editor class="content-editor g-max-article-width" [formControl]="formCtrl"
+                        mode="JSON" scrollContainer="auto"
                         [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [noPadding]="true"
                         flAutoScrollToAnchor [baseDelta]="documentation?.content"></fl-text-editor>
       </form>
@@ -28,7 +51,7 @@
 </div>
 <div class="right-panel right-div g-scrollable-element" *ngIf="documentation">
   <div>
-    <ha-public-brick-right-panel [currentPage]="documentation.title" [brickVersion]="brickVersion" [brickName]="brickName"
+    <ha-public-brick-right-panel [brickName]="brickName"
                                  [docTitles]="titles"></ha-public-brick-right-panel>
   </div>
 </div>
