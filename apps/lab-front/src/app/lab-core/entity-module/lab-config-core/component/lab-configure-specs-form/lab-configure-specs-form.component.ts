@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlDynamicFormGroupConfig, FlDynamicFormHelper} from '@monorepo/front-core-lib';
+import {FlDynamicFieldConfigService, FlDynamicFormGroupConfig, FlDynamicFormHelper} from '@monorepo/front-core-lib';
 import {LabConfig, LabConfigureSpecsForm} from '../../../../model/entities/lab-config.entity';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {ControlContainer} from '@angular/forms';
+import {LabConfigureProcessDynamicField} from '../../lab-configure-process-dynamic-field.service';
 
 
 /**
@@ -11,7 +12,11 @@ import {ControlContainer} from '@angular/forms';
 @Component({
   selector: 'lab-configure-specs-form',
   templateUrl: './lab-configure-specs-form.component.html',
-  styleUrls: ['./lab-configure-specs-form.component.scss']
+  styleUrls: ['./lab-configure-specs-form.component.scss'],
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    {provide: FlDynamicFieldConfigService, useClass: LabConfigureProcessDynamicField}
+  ]
 })
 export class LabConfigureSpecsFormComponent implements OnInit {
 
