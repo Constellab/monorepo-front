@@ -334,6 +334,15 @@ export class CaLabInstanceService {
   public getGreenOptions(labId: string): Observable<CaLabGreenOption[]> {
     return this.apiService.get(`${this.route}/${labId}/green-options`, CaLabGreenOption);
   }
+  //////////////////////////// STATUS RULE  ////////////////////////////////
+
+  public createFreeTrialLabInstanceCurrentUser(): Observable<CaLabInstance> {
+    return this.apiService.post(`${this.route}/free-trial/current`, null, CaLabInstance);
+  }
+
+  public createFreeTrialLabInstanceForUser(userId: string): Observable<CaLabInstance> {
+    return this.apiService.post(`${this.route}/free-trial/user/${userId}`, null, CaLabInstance);
+  }
 
   //////////////////////////// DESKTOP ////////////////////////////////
 

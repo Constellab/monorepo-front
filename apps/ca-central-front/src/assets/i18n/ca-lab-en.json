@@ -262,5 +262,8 @@
   "lab_green_option_days": "Days",
   "lab_green_option_timezone": "Timezone",
   "lab_green_option_inactivity_duration": "Inactivity duration (minutes)",
-  "no_lab_green_option": "No green computing option"
+  "no_lab_green_option": "No green computing option",
+  "start_lab_free_trial": "Start free trial",
+  "start_lab_free_trial_confirmation": "You are about to start the lab trial. It will start a pre-configured lab available for 14 days. The lab creation will take a few minutes.",
+  "lab_free_trial_started": "Free trial started, lab is being created"
 }

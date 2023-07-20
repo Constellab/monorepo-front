@@ -28,6 +28,7 @@ import {CaLabConfigComponent} from './component/ca-lab-config/ca-lab-config.comp
 import {
   CaLabInstanceFormDialogComponent
 } from './component/ca-lab-instance-form-dialog/ca-lab-instance-form-dialog.component';
+import {CaLabFreeTrialComponent} from './component/ca-lab-free-trial/ca-lab-free-trial.component';
 
 /**
  * Core module for Lab and LabInstance
@@ -45,6 +46,7 @@ import {
     CaLabConfigDialogComponent,
     CaLabConfigComponent,
     CaLabInstanceFormDialogComponent,
+    CaLabFreeTrialComponent,
   ],
   exports: [
     CaLabInstanceCardComponent,
@@ -57,6 +59,7 @@ import {
     CaLabConfigDialogComponent,
     CaLabConfigComponent,
     CaLabInstanceFormDialogComponent,
+    CaLabFreeTrialComponent,
   ],
   imports: [
     CommonModule,
@@ -70,7 +73,7 @@ import {
     CaCloudProviderCoreModule,
 
     CaCoreModule,
-  ]
+  ],
 })
 export class CaLabCoreModule {
 }

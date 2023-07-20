@@ -262,5 +262,8 @@
   "lab_green_option_days": "Jours",
   "lab_green_option_timezone": "Fuseau horaire",
   "lab_green_option_inactivity_duration": "Durée d'inactivité (minutes)",
-  "no_lab_green_option": "Aucune option d'informatique vert"
+  "no_lab_green_option": "Aucune option d'informatique vert",
+  "start_lab_free_trial": "Démarrer l'essai gratuit",
+  "start_lab_free_trial_confirmation": "Vous êtes sur le point de démarrer l'essai gratuit. Cela va démarrer un lab pré-configuré disponible pendant 14 jours. La création du lab peut prendre quelques minutes.",
+  "lab_free_trial_started": "Essai gratuit démarré, le lab est en cours de création"
 }
