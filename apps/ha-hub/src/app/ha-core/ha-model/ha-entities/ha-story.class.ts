@@ -58,6 +58,8 @@ export class HaStory {
 
   lastModifiedAt: DateTime;
 
+  titlePath: string;
+
   init(story: HaStory): void {
     Object.assign(this, story);
   }

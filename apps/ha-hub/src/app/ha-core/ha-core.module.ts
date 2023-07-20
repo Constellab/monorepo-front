@@ -1,28 +1,18 @@
 import {NgModule} from '@angular/core';
 import {HaCustomLibraryModule} from './ha-custom-library/ha-custom-library.module';
 import {HaCustomMaterialModule} from './ha-custom-material/ha-custom-material.module';
-import {HaIsAdminDirective} from './ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
-import {
-  HaIsAuthenticatedDirective
-} from './ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
-import {HaSidenavButtonDirective} from './ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
-import {HaFilterArrayPipe} from './ha-pipe/ha-filter-array.pipe';
+import {HaCoreDirectiveModule} from './ha-module/ha-core-directive/ha-core-directive.module';
+import {HaCorePipeModule} from './ha-module/ha-core-pipe/ha-core-pipe.module';
 
 @NgModule({
+
   exports: [
     HaCustomLibraryModule,
     HaCustomMaterialModule,
-    HaIsAdminDirective,
-    HaIsAuthenticatedDirective,
-    HaFilterArrayPipe,
-    HaSidenavButtonDirective,
+
+    HaCoreDirectiveModule,
+    HaCorePipeModule,
   ],
-  declarations: [
-    HaIsAdminDirective,
-    HaIsAuthenticatedDirective,
-    HaFilterArrayPipe,
-    HaSidenavButtonDirective
-  ]
 })
 export class HaCoreModule {
 }

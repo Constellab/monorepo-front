@@ -12,6 +12,7 @@ import {EnumChangefreq, SitemapItem, SitemapStream, streamToPromise} from 'sitem
 import axios from 'axios';
 import * as cookieParser from 'cookie-parser';
 
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -34,34 +35,34 @@ export function app(): express.Express {
     next: express.NextFunction
   ): void => {
 
-    res.setHeader("X-Frame-Options", "SAMEORIGIN");
-    res.setHeader("X-Content-Type-Options", "nosniff");
-    res.setHeader("X-Xss-Protection", "1; mode=block");
-    if(environment.production) {
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Xss-Protection', '1; mode=block');
+    if (environment.production) {
       // TODO: CHECK IF THERE IS A BETTER WAY
-      const defaultSrc = "default-src 'self' *.constellab.community";
+      const defaultSrc = 'default-src \'self\' *.constellab.community';
       //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' is for the inline script in the index.html
       // script-src : https://www.google.com, https://www.gstatic.com
       // eslint-disable-next-line max-len
-      const scriptSrc = "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com data:";
+      const scriptSrc = 'script-src \'self\' \'unsafe-hashes\' \'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=\' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com data:';
       // frame-src https://www.google.com/' is for the recaptcha
       // eslint-disable-next-line max-len
-      const frameSrc = "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com";
-      const workerSrc = "worker-src  *.gencovery.com *.constellab.community data: 'self' blob:";
-      const styleSrc = "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community https://fonts.googleapis.com";
-      const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com";
-      const imgSrc = "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community";
+      const frameSrc = 'frame-src \'self\' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com';
+      const workerSrc = 'worker-src  *.gencovery.com *.constellab.community data: \'self\' blob:';
+      const styleSrc = 'style-src \'self\' \'unsafe-inline\' *.gencovery.com *.constellab.community https://fonts.googleapis.com';
+      const fontSrc = 'font-src \'self\' data: http: https: fonts.googleapis.com';
+      const imgSrc = 'img-src \'self\' blob: data: http: https: *.gencovery.com *.constellab.community';
       // eslint-disable-next-line max-len
-      const connectSrc = "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com";
+      const connectSrc = 'connect-src \'self\' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com';
       // eslint-disable-next-line max-len
-      res.setHeader("Content-Security-Policy", `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`);
+      res.setHeader('Content-Security-Policy', `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`);
     }
-    res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
+    res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
 
     res.setHeader(
-      "Feature-Policy",
+      'Feature-Policy',
       // eslint-disable-next-line max-len
-      "accelerometer 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; payment 'none'"
+      'accelerometer \'none\'; autoplay \'none\'; camera \'none\'; encrypted-media \'none\'; geolocation \'none\'; gyroscope \'none\'; magnetometer \'none\'; microphone \'none\'; midi \'none\'; payment \'none\''
     );
 
     next();
@@ -171,29 +172,17 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
 async function fetchBricksMap(): Promise<SitemapItem[]> {
   try {
     const response = await axios.get(`${environment.settings.apiUrl}/brick/all-map`);
-    const brickUrlMap: string[] = response.data;
-
-    return brickUrlMap.map((brickUrl) => ({
-      url: `/bricks/${brickUrl}`,
-      changefreq: EnumChangefreq.DAILY,
-      priority: 0.8,
-    }) as SitemapItem);
+    return response.data;
   } catch (error) {
     console.error('Error fetching bricks URLs:', error);
     return [];
   }
 }
 
-async function fetchStoriesMap(): Promise<SitemapItem[]>{
+async function fetchStoriesMap(): Promise<SitemapItem[]> {
   try {
     const response = await axios.get(`${environment.settings.apiUrl}/story/all-map`);
-    const storiesUrlMap: string[] = response.data;
-
-    return storiesUrlMap.map((storyId) => ({
-      url: `/stories/${storyId}`,
-      changefreq: EnumChangefreq.DAILY,
-      priority: 0.8,
-    }) as SitemapItem);
+    return response.data;
   } catch (error) {
     console.error('Error fetching stories URLs:', error);
     return [];

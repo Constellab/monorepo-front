@@ -35,7 +35,7 @@
        flInfiniteMode="auto">
     <h1 class="title">{{'stories' | translate}}</h1>
     <div class="stories-list">
-      <a class="story" *ngFor="let story of stories.connect() | async" [routerLink]="story.id">
+      <a class="story" *ngFor="let story of stories.connect() | async" [routerLink]="story | haDetailRoute">
         <div class="story-content">
           <h5>{{story.title}}</h5>
           <p class="small-text"

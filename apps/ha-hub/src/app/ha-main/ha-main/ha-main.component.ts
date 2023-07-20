@@ -78,7 +78,7 @@ export class HaMainComponent implements OnInit, AfterContentInit {
   }
 
   getStoryListRoute(): string {
-    return HaRouterService.getStoryListRoute();
+    return HaRouterService.getStoriesListRoute();
   }
 
   getBrickListRoute(): string {

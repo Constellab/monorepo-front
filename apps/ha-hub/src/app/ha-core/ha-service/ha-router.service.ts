@@ -17,9 +17,7 @@ export class HaRouterService {
     return '/';
   }
 
-  public static getStoryListRoute(): string {
-    return '/stories/';
-  }
+
 
   public static getBrickListRoute(): string {
     return '/bricks/';
@@ -45,6 +43,16 @@ export class HaRouterService {
     return '/bricks/gws_core/latest';
   }
 
+  ////////////////////////// STORIES ////////////////////////////////
+  public static getStoriesListRoute(): string {
+    return '/stories/';
+  }
+
+  public static getStoryRoute(id: string, titlePath: string): string {
+    return `${this.getStoriesListRoute()}${id}/${titlePath}`;
+  }
+  ////////////////////////// BRICKS ////////////////////////////////
+
   public static getBrickPageRoute(brickName: string, brickMajor?: string): string {
     const brickMajorUrl = brickMajor == null || brickMajor === 'latest' ? 'latest' : `v${brickMajor}`;
     return `${this.getBrickListRoute()}${brickName}/${brickMajorUrl}/`;
@@ -58,7 +66,8 @@ export class HaRouterService {
     return `${this.getBrickDocsPageRoute(brickName, brickMajor)}${completePath}`;
   }
 
-  public static getTechnicalDocRoute(parentBrickName: string, parentVersion: string, objectType: string, docParentUniqueName: string): string {
+  public static getTechnicalDocRoute(parentBrickName: string, parentVersion: string,
+                                     objectType: string, docParentUniqueName: string): string {
     return `${this.getBrickDocsPageRoute(parentBrickName, parentVersion)}technical-folder/${objectType}/${docParentUniqueName}`;
   }
 

@@ -9,6 +9,7 @@ import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service
 import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {ClRichText, ClRichTextI, ClStringHelper} from '@monorepo/core-lib';
+import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-story-page',
@@ -27,14 +28,14 @@ export class HaStoryPageComponent implements OnInit {
 
   STORY_KEY: StateKey<object>;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
+  storiesListRoute = HaRouterService.getStoriesListRoute();
+
+  constructor(private activatedRoute: ActivatedRoute,
     private storyService: HaStoryService,
     private dialogService: FlDialogService,
     private metadataService: HaMetadataService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState
-  ) {
+    private transferState: TransferState) {
   }
 
   ngOnInit(): void {
