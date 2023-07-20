@@ -10,6 +10,7 @@ import {
   FlDialogModule,
   FlFormModule,
   FlIconModule,
+  FlInfiniteScrollModule,
   FlKeyValueModule,
   FlLoaderModule,
   FlMenuDynamicModule,
@@ -47,6 +48,7 @@ import {TdTechnicalDocModule} from '@monorepo/technical-doc';
     FlThemeModule,
     FlDateModule,
     FlKeyValueModule,
+    FlInfiniteScrollModule,
 
     //-------------------
 
