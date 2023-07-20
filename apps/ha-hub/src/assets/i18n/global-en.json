@@ -59,7 +59,7 @@
   "direct_references": "Direct references",
   "indirect_references": "Indirect references",
   "references": "References",
-  "brick_name" : "Brick name",
+  "brick_name": "Brick name",
   "replace_version_text": "This action will replace an existing version",
   "file_wrong_type": "The imported file is not a valid json file",
   "file_wrong_brick_or_major": "Wrong brick or major version",
@@ -136,41 +136,29 @@
   "invite_text": "invite you to become co-author of the story",
   "product_doc": "Product documentation",
   "tech_doc": "Technical documentation",
-
   "ha.home.title": "Community - Home",
   "ha.home.description": "Home page of Constellab Community, Constellab Community is a collaborative platform for sharing knowledge and best practices in the field of AI and data science. It is a place where you can find and share technical documentations, tutorials, use-cases and other articles.",
-
   "ha.stories.title": "Community - Stories",
   "ha.stories.description": "List of stories page",
-
   "ha.story.title": "Community - {{title}}",
   "ha.story.description": "This is the page of the story {{title}}",
-
   "ha.brick.title": "Community - {{title}}",
   "ha.brick.description": "This is the page of the brick {{title}}",
-
   "ha.bricks.title": "Community - Bricks",
   "ha.bricks.description": "List of bricks page",
-
   "ha.documentation.brick.title": "Community - {{brickTitle}} - {{docTitle}}",
   "ha.documentation.brick.description": "This is the page of the documentation {{docTitle}} of the brick {{brickTitle}}",
-
   "ha.techdocumentation.brick.title": "Community - {{brickTitle}} - {{docTitle}}",
   "ha.techdocumentation.brick.description": "This is the page of the technical documentation {{docTitle}} of the brick {{brickTitle}}",
-
   "ha.versions.brick.title": "Community - {{brickTitle}} - Versions",
   "ha.versions.brick.description": "List of versions of the brick {{brickTitle}}",
-
   "light_theme": "Light theme",
   "dark_theme": "Dark theme",
-
   "switch_fr": "Switch to French",
   "switch_en": "Switch to English",
-
   "brick_user_invited": "User invited",
   "add_brick_user": "Add user",
-
-  "brick_invite_text": "You have been invited to become a co-author of the brick"
-
-
+  "brick_invite_text": "You have been invited to become a co-author of the brick",
+  "show_more_result": "Show more results",
+  "no_more_result": "No more result"
 }

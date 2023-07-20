@@ -12,15 +12,17 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {FlHtmlFindParentOptions, FlHtmlHelper} from '../../../../utils/fl-html.helper';
+import {ScrollDispatcher} from '@angular/cdk/overlay';
 
 /**
  * Mode for the infinite scroll
  * - container: the scroll is on the container
  * - body: the scroll is on the body
+ * - auto: the scroll is on the first scrollable parent using CdkScrollable
  * - FlHtmlFindParentOptions: object to search for parent
  * - HTMLElement: the scroll is on the given HTMLElement
  */
-export type FlInfiniteScrollMode = 'container' | 'body' | FlHtmlFindParentOptions | HTMLElement;
+export type FlInfiniteScrollMode = 'container' | 'body' | 'auto' | FlHtmlFindParentOptions | HTMLElement;
 
 /**
  * Directive to be placed on a scrollable container and it emits an event when
@@ -99,7 +101,8 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
 
   constructor(private elementRef: ElementRef<HTMLElement>,
               private renderer: Renderer2,
-              @Inject(DOCUMENT) private document: Document) {
+              @Inject(DOCUMENT) private document: Document,
+              private scrollDispatcher: ScrollDispatcher) {
   }
 
   ngOnInit(): void {
@@ -116,6 +119,16 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
         this.scrollableElement = this.elementRef.nativeElement;
       } else if (this.flInfiniteMode instanceof HTMLElement) {
         this.scrollableElement = this.flInfiniteMode;
+      } else if (this.flInfiniteMode === 'auto') {
+        // retrieve scrollable parents
+        const scrollableElements = this.scrollDispatcher.getAncestorScrollContainers(this.elementRef);
+
+        // if there are some scrollable parent, use the first one
+        if (scrollableElements.length > 0) {
+          this.scrollableElement = scrollableElements[scrollableElements.length - 1].getElementRef().nativeElement;
+        } else {
+          this.scrollableElement = this.elementRef.nativeElement;
+        }
       } else {
         const parent = FlHtmlHelper.getParent(this.elementRef.nativeElement, this.flInfiniteMode);
 
@@ -127,7 +140,6 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
         }
       }
     }
-
     return this.scrollableElement;
   }
 

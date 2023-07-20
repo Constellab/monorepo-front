@@ -112,4 +112,8 @@ export class HaStoryListPageComponent implements OnInit {
   getStoriesFiltered(): void {
     this.stories = this.storyService.getAllPaginatedFiltered(this.filters);
   }
+
+  loadMoreResults(): void {
+    this.stories.getNextPage();
+  }
 }

@@ -12,6 +12,7 @@ import {CommonModule} from '@angular/common';
 import {HaStoryMyListComponent} from './module/ha-story-my-list/ha-story-my-list.component';
 import {HaStoryCoAuthorDialogComponent} from './module/ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import {HaStoryInvitePageComponent} from './module/ha-story-invite-page/ha-story-invite-page.component';
+import {FlInfiniteScrollModule} from '@monorepo/front-core-lib';
 
 
 @NgModule({
@@ -24,16 +25,17 @@ import {HaStoryInvitePageComponent} from './module/ha-story-invite-page/ha-story
     HaStoryCoAuthorDialogComponent,
     HaStoryInvitePageComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
 
-    HaStoryRoutingModule,
-    HaCustomLibraryModule,
-    HaCustomMaterialModule,
-    HaCoreModule,
-  ]
+        HaStoryRoutingModule,
+        HaCustomLibraryModule,
+        HaCustomMaterialModule,
+        HaCoreModule,
+        FlInfiniteScrollModule,
+    ]
 })
 export class HaStoryModule {
 }

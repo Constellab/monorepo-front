@@ -136,38 +136,29 @@
   "invite_text": "vous invite à devenir co-auteur de la story",
   "product_doc": "Documentation produit",
   "tech_doc": "Documentation technique",
-
   "ha.home.title": "Community - Acceuil",
   "ha.home.description": "Page d'acceuil de Constellab Community",
-
   "ha.stories.title": "Community - Stories",
   "ha.stories.description": "Liste des stories de Constellab Community",
-
   "ha.story.title": "Community - {{title}}",
   "ha.story.description": "Page de la story {{title}}",
-
   "ha.brick.title": "Community - {{title}}",
   "ha.brick.description": "Page de la brick {{title}}",
-
   "ha.bricks.title": "Community - Bricks",
   "ha.bricks.description": "Liste des bricks de Constellab Community",
-
   "ha.documentation.brick.title": "Community - {{brickTitle}} - {{docTitle}}",
   "ha.documentation.brick.description": "Page de la documentation {{docTitle}} de la brick {{brickTitle}}",
-
   "ha.techdocumentation.brick.title": "Community - {{brickTitle}} - {{docTitle}}",
   "ha.techdocumentation.brick.description": "Page de la documentation technique {{docTitle}} de la brick {{brickTitle}}",
-
   "ha.versions.brick.title": "Community - {{brickTitle}} - Versions",
   "ha.versions.brick.description": "Liste des versions de la brick {{brickTitle}}",
-
-
   "light_theme": "Thème clair",
   "dark_theme": "Thème sombre",
-
   "switch_fr": "Passer en français",
   "switch_en": "Passer en anglais",
-
-  "brick_user_invited": "Utilisateur invité"
-
+  "brick_user_invited": "Utilisateur invité",
+  "add_brick_user": "Ajouter un utilisateur",
+  "brick_invite_text": "Vous avez été invité à devenir co-auteur de la brique",
+  "show_more_result": "Afficher plus de résultat",
+  "no_more_result": "Aucun résultat supplémentaire"
 }
