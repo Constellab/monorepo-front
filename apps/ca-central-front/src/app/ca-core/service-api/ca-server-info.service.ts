@@ -1,8 +1,15 @@
 import {Injectable} from '@angular/core';
 import {CaServerInfo, CaServerInfoDatasource} from '../model/entities/ca-server-info.class';
 import {Observable} from 'rxjs';
-import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
+import {
+  FlAdvancedSearchInput,
+  FlApiService,
+  FlEntityPaginatedDatasource,
+  FlSearchConverter
+} from '@monorepo/front-core-lib';
 import {ClPageI} from '@monorepo/core-lib';
+import {CaBucketFull} from '../model/entities/ca-object-storage.class';
+import {CaServerInfoSearch} from '../entity-module/ca-server-info-core/model/ca-server-info-search.class';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +44,15 @@ export class CaServerInfoService {
 
   public delete(id: string): Observable<void> {
     return this.apiService.deleteById(this.route, id);
+  }
+
+  public search(page: number, pageSize: number, filters?: CaServerInfoSearch): Observable<ClPageI<CaServerInfo>> {
+    const data: FlAdvancedSearchInput = {
+      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaServerInfoSearch.advancedSearchConverter),
+      sortsCriteria: null
+    };
+    return this.apiService.post(`${this.route}/search`, data, CaBucketFull, {
+      page: page, pageSize: pageSize, resultIsPaginated: true
+    });
   }
 }

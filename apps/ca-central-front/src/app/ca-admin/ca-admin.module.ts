@@ -9,13 +9,10 @@ import {
 import {
   CaAdminAccountActivationButtonComponent
 } from './component/ca-admin-account-activation-button/ca-admin-account-activation-button.component';
-import {
-  CaAdminServerInfoListComponent
-} from './component/ca-admin-server-info-list/ca-admin-server-info-list.component';
 import {CaServerInfoCoreModule} from '../ca-core/entity-module/ca-server-info-core/ca-server-info-core.module';
 import {CaLabCoreModule} from '../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
 import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space-core.module';
-import {CaAdminServersPageComponent} from './component/ca-admin-servers-page/ca-admin-servers-page.component';
+import {CaAdminOthersPageComponent} from './component/ca-admin-others-page/ca-admin-others-page.component';
 import {CaAdminPageComponent} from './component/ca-admin-page/ca-admin-page.component';
 import {
   CaAdminCloudProvidersListComponent
@@ -35,6 +32,9 @@ import {
 } from './component/ca-admin-lab-instances-page/ca-admin-lab-instances-page.component';
 import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
 import {CaAdminBucketsPageComponent} from './component/ca-admin-buckets-page/ca-admin-buckets-page.component';
+import {
+  CaAdminServerInfoPageComponent
+} from './component/ca-admin-server-info-page/ca-admin-server-info-page.component';
 
 /**
  * Module only accessible by the admins
@@ -44,8 +44,7 @@ import {CaAdminBucketsPageComponent} from './component/ca-admin-buckets-page/ca-
     CaAdminDashboardPageComponent,
     CaAdminAccountsActivationComponent,
     CaAdminAccountActivationButtonComponent,
-    CaAdminServerInfoListComponent,
-    CaAdminServersPageComponent,
+    CaAdminOthersPageComponent,
     CaAdminPageComponent,
     CaAdminCloudProvidersListComponent,
     CaAdminBucketCredentialsListComponent,
@@ -54,6 +53,7 @@ import {CaAdminBucketsPageComponent} from './component/ca-admin-buckets-page/ca-
     CaAdminUsersPageComponent,
     CaAdminLabInstancesPageComponent,
     CaAdminBucketsPageComponent,
+    CaAdminServerInfoPageComponent,
   ],
   imports: [
     CommonModule,

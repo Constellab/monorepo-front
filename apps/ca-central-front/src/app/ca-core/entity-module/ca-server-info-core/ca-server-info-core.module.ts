@@ -15,7 +15,11 @@ import {
 } from './component/ca-select-server-info-options/ca-select-server-info-options.component';
 import {CaServerInfoInlineComponent} from './component/ca-server-info-inline/ca-server-info-inline.component';
 import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-provider-core.module';
-
+import {CaServerInfoSearchComponent} from './component/ca-server-info-search/ca-server-info-search.component';
+import {
+  CaServerInfoSearchFormComponent
+} from './component/ca-server-info-search-form/ca-server-info-search-form.component';
+import {CaSpaceCoreModule} from '../ca-space-core/ca-space-core.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,8 @@ import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-prov
     CaSelectDiskTypeOptionsComponent,
     CaSelectServerInfoOptionsComponent,
     CaServerInfoInlineComponent,
+    CaServerInfoSearchComponent,
+    CaServerInfoSearchFormComponent,
   ],
   exports: [
     CaServerInfoDetailComponent,
@@ -32,7 +38,9 @@ import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-prov
     CaServerInfoFormDialogComponent,
     CaSelectDiskTypeOptionsComponent,
     CaSelectServerInfoOptionsComponent,
-    CaServerInfoInlineComponent
+    CaServerInfoInlineComponent,
+    CaServerInfoSearchComponent,
+    CaServerInfoSearchFormComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +49,8 @@ import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-prov
 
     CaCoreModule,
     CaCloudProviderCoreModule,
-  ]
+    CaSpaceCoreModule,
+  ],
 })
 export class CaServerInfoCoreModule {
 }

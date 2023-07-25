@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CaAdminServersPageComponent} from './ca-admin-servers-page.component';
+import {CaAdminOthersPageComponent} from './ca-admin-others-page.component';
 
 describe('CaAdminServersPageComponent', () => {
-  let component: CaAdminServersPageComponent;
-  let fixture: ComponentFixture<CaAdminServersPageComponent>;
+  let component: CaAdminOthersPageComponent;
+  let fixture: ComponentFixture<CaAdminOthersPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaAdminServersPageComponent ]
+      declarations: [ CaAdminOthersPageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CaAdminServersPageComponent);
+    fixture = TestBed.createComponent(CaAdminOthersPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

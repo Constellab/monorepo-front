@@ -198,6 +198,10 @@ export class CaRouterService {
     return `${CaRouterService.getAdminRoute()}/buckets`;
   }
 
+  public static getAdminServersInfoRoute(): string {
+    return `${CaRouterService.getAdminRoute()}/servers-info`;
+  }
+
   public navigateToAdmin(): void {
     this.router.navigate([CaRouterService.getAdminRoute()]);
   }

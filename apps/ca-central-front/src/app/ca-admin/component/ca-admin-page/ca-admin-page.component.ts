@@ -35,14 +35,19 @@ export class CaAdminPageComponent {
       route: CaRouterService.getAdminLabsRoute()
     },
     {
-      label: {text: 'admin_servers_page', translateText: true},
-      icon: 'dns',
-      route: CaRouterService.getAdminServersRoute()
-    },
-    {
       label: {text: 'bucket_list', translateText: true},
       icon: 'folder',
       route: CaRouterService.getAdminBucketsRoute()
+    },
+    {
+      label: {text: 'server_info_list', translateText: true},
+      icon: 'dns',
+      route: CaRouterService.getAdminServersInfoRoute()
+    },
+    {
+      label: {text: 'admin_other_page', translateText: true},
+      icon: 'settings',
+      route: CaRouterService.getAdminServersRoute()
     },
   ];
 }
