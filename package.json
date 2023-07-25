@@ -25,7 +25,7 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "ca-central-front:serve": "nx serve ca-central-front",
-    "ca-central-front:build-prod": "nx build ca-central-front --prod",
+    "ca-central-front:build-prod": "node --max_old_space_size=4096 ./node_modules/nx/bin/nx build ca-central-front --prod",
     "ca-central-front:build-dev": "nx build ca-central-front --configuration=development",
     "ca-central-front:caprover-deploy-preprod": "deploy.cmd https://captain.constellab-pre-prod.gencovery.com central-front-pre-prod registry.gitlab.com/constellab/core/monorepo-front/central-front",
     "ca-central-front:caprover-deploy-prod": "deploy.cmd https://captain.constellab.gencovery.com central-front registry.gitlab.com/constellab/core/monorepo-front/central-front",
