@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {FlTranslateService} from '@monorepo/front-core-lib';
 
 /**
  * Search page for all the spaces
@@ -8,11 +10,11 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './ca-admin-spaces-page.component.html',
   styleUrls: ['./ca-admin-spaces-page.component.scss']
 })
-export class CaAdminSpacesPageComponent implements OnInit {
+export class CaAdminSpacesPageComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(titleService: Title,
+              translateService: FlTranslateService) {
+    titleService.setTitle(`Admin - ${translateService.translate('space_list')}`);
   }
 
 }

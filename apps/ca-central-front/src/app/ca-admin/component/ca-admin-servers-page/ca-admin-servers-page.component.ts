@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {FlTranslateService} from '@monorepo/front-core-lib';
 
 /**
  * Page to manager cloud providers, object storage, servers
@@ -8,11 +10,11 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './ca-admin-servers-page.component.html',
   styleUrls: ['./ca-admin-servers-page.component.scss']
 })
-export class CaAdminServersPageComponent implements OnInit {
+export class CaAdminServersPageComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(titleService: Title,
+              translateService: FlTranslateService) {
+    titleService.setTitle(`Admin - ${translateService.translate('admin_servers_page')}`);
   }
 
 }

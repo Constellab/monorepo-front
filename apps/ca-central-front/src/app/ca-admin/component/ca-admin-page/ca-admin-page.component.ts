@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {CaRouterService} from '../../../ca-core/service/ca-router.service';
 import {FlHorizontalNavBarItem} from '@monorepo/front-core-lib';
 
@@ -10,7 +10,7 @@ import {FlHorizontalNavBarItem} from '@monorepo/front-core-lib';
   templateUrl: './ca-admin-page.component.html',
   styleUrls: ['./ca-admin-page.component.scss']
 })
-export class CaAdminPageComponent implements OnInit {
+export class CaAdminPageComponent {
 
   routes: FlHorizontalNavBarItem[] = [
     {
@@ -45,11 +45,4 @@ export class CaAdminPageComponent implements OnInit {
       route: CaRouterService.getAdminBucketsRoute()
     },
   ];
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
 }

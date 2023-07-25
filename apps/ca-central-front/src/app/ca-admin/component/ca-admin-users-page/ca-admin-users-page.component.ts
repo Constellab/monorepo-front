@@ -1,15 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {FlTranslateService} from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ca-admin-users-page',
   templateUrl: './ca-admin-users-page.component.html',
   styleUrls: ['./ca-admin-users-page.component.scss']
 })
-export class CaAdminUsersPageComponent implements OnInit {
+export class CaAdminUsersPageComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(titleService: Title,
+              translateService: FlTranslateService) {
+    titleService.setTitle(`Admin - ${translateService.translate('users')}`);
   }
 
 }
