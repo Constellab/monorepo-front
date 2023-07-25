@@ -5,44 +5,46 @@
       <mat-icon>dns</mat-icon>
       <h2>{{'lab_server' | translate}}</h2>
     </fl-text-icon>
-  </fl-card-header>
 
-  <fl-card-body>
-
-    <ng-container *ngIf="status$ | async as status">
-      <div *ngIf="status.serverTaskStatus.value === 'RUNNING'; else notRunning"
-           class="g-layout-row g-layout-start-center g-layout-gap-1em">
-
-        <fl-loader size="small"></fl-loader>
-        <p>{{getStatusRunningMessage(status) | translate}}</p>
-      </div>
-
-      <ng-template #notRunning>
-        <fl-status-chip [status]="status.serverTaskStatus" size="small"></fl-status-chip>
-      </ng-template>
-
-      <fl-key-value>
-        <fl-key>{{(status.serverTaskStatus.value === 'RUNNING' ? 'lab_server_current_task' : 'lab_server_last_task') | translate}}</fl-key>
-        {{status.serverTaskText}}
-      </fl-key-value>
-    </ng-container>
-
-    <ca-lab-instance-server-status class="status"></ca-lab-instance-server-status>
-
-
-    <div class="g-section g-layout-row">
-
-      <ca-lab-instance-start-stop *ngIf="isOwner$ | async" class="g-button-action actions-button">
-      </ca-lab-instance-start-stop>
-
+    <fl-card-actions>
       <button mat-stroked-button type="button" class="g-button-small actions-button"
               (click)="openServerInfoDialog()">
         <mat-icon>info</mat-icon>
         {{'lab_server_info' | translate}}
       </button>
-    </div>
+    </fl-card-actions>
+  </fl-card-header>
 
-    <mat-expansion-panel *ngIf="isOwner$ | async">
+  <fl-card-body>
+
+    <ng-container *ngIf="status$ | async as status">
+      <div *ngIf="status.serverTaskStatus.value !== 'NONE'">
+
+        <div class="g-layout-row g-layout-start-center">
+
+          <fl-loader size="small" *ngIf="status.serverTaskStatus.value === 'RUNNING' ; else notRunning"
+                     class="task-loader"></fl-loader>
+
+          <ng-template #notRunning>
+            <fl-status-chip [status]="status.serverTaskStatus" size="small" class="status"></fl-status-chip>
+          </ng-template>
+
+          <div>
+            {{(status.serverTaskStatus.value === 'RUNNING' ? 'lab_server_current_task' : 'lab_server_last_task') | translate}}
+          </div>
+
+          <div class="task-time-separator">-</div>
+
+          <fl-from-now *ngIf="status.serverTaskDatetime" [date]="status.serverTaskDatetime"
+                       class="g-text-light"></fl-from-now>
+        </div>
+
+        <!--   Task text   -->
+        <div>{{status.serverTaskText}}</div>
+      </div>
+    </ng-container>
+
+    <mat-expansion-panel>
       <mat-expansion-panel-header>
         {{'lab_advanced_configuration' | translate}}
       </mat-expansion-panel-header>

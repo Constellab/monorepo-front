@@ -12,6 +12,8 @@ import {Type} from 'class-transformer';
 import {CaSpace} from '../space/ca-space.class';
 import {CaLabInstanceUserRole} from './ca-lab-instance-user.class';
 import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
+import {DateTime} from 'luxon';
+import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 
 export type CaLabInstanceBillingMode = 'HOURLY' | 'MONTHLY';
 export type CaLabInstanceVolumeType = 'CLASSIC' | 'HIGH_SPEED';
@@ -25,13 +27,17 @@ export type CaLabInstanceStatus =
   | 'SERVER_STOPPED'
   | 'SERVER_STARTING'
   | 'SERVER_STOPPING'
-  | 'SERVER_RUNNING';
+  | 'SERVER_RUNNING'
+  | 'SERVER_NOT_CONFIGURED';
+
+
 export const caLabInstanceStatusDict: FlStatusDict<CaLabInstanceStatus> = {
   LAB_RUNNING: FlStatusHelper.getRunningStatus('LAB_RUNNING'),
   SERVER_STOPPED: FlStatusHelper.getStoppedStatus('SERVER_STOPPED'),
   SERVER_STARTING: FlStatusHelper.getWarningStatus('SERVER_STARTING', 'lab_starting'),
   SERVER_STOPPING: FlStatusHelper.getWarningStatus('SERVER_STOPPING', 'lab_stopping'),
   SERVER_RUNNING: FlStatusHelper.getWarningStatus('SERVER_RUNNING', 'lab_server_running'),
+  SERVER_NOT_CONFIGURED: FlStatusHelper.getInfoStatus('SERVER_NOT_CONFIGURED', 'lab_server_not_configured'),
 };
 
 export type CaLabInstanceServerTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR' | 'NONE';
@@ -176,6 +182,9 @@ export class CaLabInstanceStatusDTO {
 
   @FlStatusTransform(caLabInstanceServerTaskStatusDict)
   serverTaskStatus: FlStatus<CaLabInstanceServerTaskStatus>;
+
+  @ClLuxonDateTimeTransform()
+  serverTaskDatetime: DateTime
 
 }
 

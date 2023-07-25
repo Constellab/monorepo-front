@@ -13,7 +13,6 @@ import {CaLabInstanceDetailServerState} from '../../../state/ca-lab-instance-det
 export class CaLabInstanceServerComponent implements OnInit {
 
   status$: Observable<CaLabInstanceStatusDTO> = this.state.getStatus$();
-  isOwner$: Observable<boolean> = this.state.isLabOwner$();
 
   constructor(private state: CaLabInstanceDetailPageState,
               private serverState: CaLabInstanceDetailServerState) {
@@ -49,14 +48,4 @@ export class CaLabInstanceServerComponent implements OnInit {
   stopCurrentServerTask(): void {
     this.serverState.stopCurrentServerTask();
   }
-
-  getStatusRunningMessage(status: CaLabInstanceStatusDTO): string {
-    if (status.labStatus.value === 'SERVER_STARTING') {
-      return 'lab_is_starting';
-    } else if (status.labStatus.value === 'SERVER_STOPPING') {
-      return 'lab_task_is_running';
-    }
-    return 'lab_task_is_running';
-  }
-
 }
