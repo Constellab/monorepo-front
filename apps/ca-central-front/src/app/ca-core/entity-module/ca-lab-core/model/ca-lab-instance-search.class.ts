@@ -11,6 +11,7 @@ import {CaLabInstanceStatus, CaLabInstanceType} from '../../../model/entities/la
 import {CaCity} from '../../../model/entities/ca-city.entity';
 import {CaServerInfo} from '../../../model/entities/ca-server-info.class';
 import {CaSpace} from '../../../model/entities/space/ca-space.class';
+import {CaCloudProvider} from '../../../model/entities/ca-cloud-provider.class';
 
 
 export class CaLabInstanceSearchFields {
@@ -38,6 +39,9 @@ export class CaLabInstanceSearchFields {
 
   type: CaLabInstanceType;
 
+  @Type(() => CaCloudProvider)
+  cloudProvider: CaCloudProvider;
+
   id: string;
 }
 
@@ -53,6 +57,7 @@ export class CaLabInstanceSearch {
     createdAt: 'creation_date',
     space: 'space',
     type: 'lab_instance_type',
+    cloudProvider: 'cloud_provider',
   };
 
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaLabInstanceSearchFields> = {
@@ -65,6 +70,7 @@ export class CaLabInstanceSearch {
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     type: {key: 'type', operator: 'EQ'},
+    cloudProvider: {key: 'region.cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     id: {key: 'id', operator: 'EQ'},
   };
 
@@ -82,6 +88,7 @@ export class CaLabInstanceSearch {
       }),
       space: null,
       type: null,
+      cloudProvider: null,
       id: null,
     });
   }
