@@ -9,6 +9,10 @@ import {
   TdTypeObjectType
 } from '@monorepo/technical-doc';
 
+export interface LabFileTypeAdditionalInfo {
+  default_extensions: string[];
+}
+
 export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSearchObjectToUrl {
   @Expose({name: 'object_type'})
   objectType: TdTypeObjectType;
@@ -33,6 +37,9 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
 
   @Expose({name: 'deprecated_message'})
   deprecatedMessage: string | undefined;
+
+  @Expose({name: 'additional_info'})
+  additionalInfo: any;
 
   parent?: {
     brick_version: string;

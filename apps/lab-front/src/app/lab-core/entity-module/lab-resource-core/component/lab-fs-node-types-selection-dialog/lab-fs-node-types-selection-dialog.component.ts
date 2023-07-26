@@ -4,9 +4,10 @@ import {FormArray, FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {ClCachedObservable} from '@monorepo/core-lib';
-import {LabTypeEntity} from '../../../../model/entities/lab-type/lab-type.entity';
+import {LabFileTypeAdditionalInfo, LabTypeEntity} from '../../../../model/entities/lab-type/lab-type.entity';
 import {TdTypingName} from '@monorepo/technical-doc';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FlFileHelper} from '@monorepo/front-core-lib';
 
 
 export type LabFsNodeTypesSelectionDialogMode = 'files' | 'folder' | 'filesOrFolder';
@@ -89,11 +90,6 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
     });
   }
 
-  // show the selection of file types when the mode is not folder
-  get showSelectFileTypes(): boolean {
-    return this.formGp.getRawValue().nodeMode !== 'folder';
-  }
-
 
   onNodeModeChange(mode: 'files' | 'folder'): void {
     this.formArray.clear();
@@ -107,16 +103,20 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   private async initFormFiles(): Promise<void> {
     this.resourceTypes$ = this.fileTypes$.getObs();
 
-    const filesWithType: LabFsNodeWithType[] = [];
-    // detect the typing name automatically
-    for (const filename of this.input.filenames) {
-      // set the file as default typing name
-      filesWithType.push({filename: filename, typingName: TdTypingName.resource.file});
-    }
+    this.resourceTypes$.subscribe(
+      (typeEntities) => {
+        const filesWithType: LabFsNodeWithType[] = [];
+        // detect the typing name automatically
+        for (const filename of this.input.filenames) {
+          // set the file as default typing name
+          filesWithType.push({filename: filename, typingName: this.getFileDefaultTyping(filename, typeEntities)});
+        }
 
-    for (const file of filesWithType) {
-      this.addItemToFormArray(file);
-    }
+        for (const file of filesWithType) {
+          this.addItemToFormArray(file);
+        }
+      }
+    );
   }
 
   private initFormFolder(): void {
@@ -165,5 +165,18 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
 
   get typePlaceholder(): string {
     return this.formGp.value.nodeMode === 'files' ? 'databox.select_file_type' : 'databox.select_folder_type';
+  }
+
+  private getFileDefaultTyping(filename: string, typeEntities: LabTypeEntity[]): string {
+    const extension = FlFileHelper.getFileExtension(filename);
+
+    for(const type of typeEntities){
+      const additionalInfo: LabFileTypeAdditionalInfo = type.additionalInfo;
+      if(additionalInfo && additionalInfo.default_extensions.includes(extension)){
+        return type.typingName;
+      }
+    }
+    // set the file as default typing name
+    return TdTypingName.resource.file;
   }
 }
