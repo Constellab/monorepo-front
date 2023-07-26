@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 import {FlEntityPaginatedDatasource, FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {LabViewConfig, LabViewConfigDatasource} from '../../../../model/entities/resource/lab-view-config.entity';
-import {LabResourceDetailTabsState} from '../../state/lab-resource-detail-tabs-state.service';
+import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
 
 /**
  * Show historic of views for a resource
@@ -18,10 +18,10 @@ export class LabResourceViewHistoricComponent implements OnInit {
 
   datasource: LabViewConfigDatasource;
 
-  columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'lastModifiedAt', 'preview', 'flagged'];
+  columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'lastModifiedAt', 'flagged'];
 
   constructor(private viewConfigService: LabViewConfigService,
-              private resourceTabState: LabResourceDetailTabsState) {
+              private state: LabResourceDetailState) {
   }
 
   ngOnInit(): void {
@@ -30,17 +30,13 @@ export class LabResourceViewHistoricComponent implements OnInit {
 
   private getByResourceDatasource(): void {
     this.datasource = new FlEntityPaginatedDatasource(
-      (page, pageSize) => this.viewConfigService.getByResource(this.resourceId, page, pageSize),
+      (page, pageSize) => this.viewConfigService.getByResource(this.resourceId, false, page, pageSize),
       10
     );
   }
 
   onViewConfigSelect(viewConfig: LabViewConfig): void {
-    this.resourceTabState.addViewConfigTab(viewConfig.id);
-  }
-
-  loadMoreResults(): void {
-    this.datasource.getNextPage();
+    this.state.addViewFromConfig(viewConfig.id, viewConfig.title);
   }
 
 }

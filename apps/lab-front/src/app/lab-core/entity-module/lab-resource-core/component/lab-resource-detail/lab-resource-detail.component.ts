@@ -1,83 +1,52 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {LabResourceDetailTabsState} from '../../state/lab-resource-detail-tabs-state.service';
-import {LabResourceViewSpecWithConfig} from '../../../../model/entities/resource/lab-resource-view.entity';
-import {LabTag} from '../../../../model/entities/lab-tag.entity';
-import {LabRouterService} from '../../../../service/lab-router.service';
-import {FlOverlayRef, FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
-import {
-  LabTransformResourcePortalComponent,
-  LabTransformResourcePortalInput
-} from '../../../lab-transformer-core/component/lab-transform-resource-portal/lab-transform-resource-portal.component';
+import {Component, Input, OnInit, Signal} from '@angular/core';
+import {Observable} from 'rxjs';
+import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
+import {LabViewConfigurerState} from '../../state/lab-view-configurer-state.service';
 
-/**
- * Component to show detail of a resource
- */
 @Component({
   selector: 'lab-resource-detail',
   templateUrl: './lab-resource-detail.component.html',
-  styleUrls: ['./lab-resource-detail.component.scss']
+  styleUrls: ['./lab-resource-detail.component.scss'],
+  providers: [
+    LabResourceDetailState,
+    LabViewConfigurerState
+  ]
 })
-export class LabResourceDetailComponent implements OnInit, OnDestroy {
+export class LabResourceDetailComponent implements OnInit {
 
-  @Input() resource: LabResource;
+  @Input() resourceId: string | Observable<string>;
 
+  // when true, the transform, import button are deactivate
   @Input() readOnly: boolean = false;
 
-  private overlay: FlOverlayRef;
+  /**
+   * True if this component is used in a dialog with only this component
+   */
+  @Input() fullDialog: boolean = false;
 
-  constructor(private state: LabResourceDetailTabsState,
-              private routerService: LabRouterService,
-              private portalService: FlPortalService) {
+  hasChildren: Signal<boolean> = this.state.hasChildren;
+  selectedView = this.state.selectedView;
+
+  constructor(private state: LabResourceDetailState) {
+
   }
 
   ngOnInit(): void {
-  }
-
-  callView(config: LabResourceViewSpecWithConfig): void {
-    this.state.addView(this.resource.id, config);
-  }
-
-  onUpdate(resource: LabResource): void {
-    this.resource = resource;
-  }
-
-  onUpdateTags(tags: LabTag[]): void {
-    if (tags != null) {
-      this.resource.tags = tags;
+    if (this.resourceId instanceof Observable) {
+      this.resourceId.subscribe(
+        id => this.onNewResourceId(id)
+      );
+    } else {
+      this.onNewResourceId(this.resourceId);
     }
   }
 
-  onDelete(): void {
-    this.routerService.navigateToDatabox();
+  private onNewResourceId(id: string): void {
+    if(id == null) return;
+    this.state.init(id, this.readOnly);
   }
 
-  async openTransformerResource(): Promise<void> {
-    if (this.overlay) return;
-
-
-    const config: FlPortalConfig = this.portalService.configureAbsolutePortal(
-      {centerHorizontally: '0', top: '0'},
-      {
-        disposeOnNavigation: true,
-        hasBackdrop: true,
-        transparentBackdrop: true,
-      });
-
-    const input: LabTransformResourcePortalInput = {
-      resourceName: this.resource.name,
-      resourceTypingName: this.resource.resourceTypingName,
-      resourceId: this.resource.id,
-      currentTransformers: []
-    };
-
-    this.overlay = this.portalService.createPortal(LabTransformResourcePortalComponent, config, input);
-    this.overlay.detachments().subscribe(() => this.overlay = null);
+  undockView(): void {
+    this.state.undockCurrentView();
   }
-
-  ngOnDestroy(): void {
-    this.overlay?.dispose();
-  }
-
-
 }

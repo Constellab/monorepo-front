@@ -7,7 +7,6 @@ import {
 import {FlDialogService, FlFlatTreeControl, FlMenuDynamic, FlMenuDynamicService} from '@monorepo/front-core-lib';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {LabFileResourceService} from '../../../../entity-service/lab-file-resource.service';
-import {ActivatedRoute} from '@angular/router';
 import {
   LabFsNodeTypesSelectionDialogComponent,
   LabFsNodeTypesSelectionDialogInput,
@@ -16,7 +15,7 @@ import {
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
 import {LabRouterService} from '../../../../service/lab-router.service';
 import {RvResourceViewDirective} from '@monorepo/resource-view';
-import {LabResourceDetailTabsState} from '../../state/lab-resource-detail-tabs-state.service';
+import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
 
 /**
  * Resource view for folder
@@ -33,11 +32,10 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
   dataSource: MatTreeFlatDataSource<LabResourceViewFolderContent, LabResourceViewFolderContentFlat>;
 
   constructor(private fileService: LabFileResourceService,
-              private route: ActivatedRoute,
               private dialogService: FlDialogService,
               private routerService: LabRouterService,
               private menuDynamicService: FlMenuDynamicService,
-              @Optional() private tabsState: LabResourceDetailTabsState) {
+              @Optional() private resourceState: LabResourceDetailState) {
     super();
   }
 
@@ -80,10 +78,6 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
     );
   }
 
-  // open the dialog to select the node type
-  callFileView(node: LabResourceViewFolderContentFlat): void {
-    this.tabsState.addFullScreenView(this.fileService.callFolderSubFileView(this.resourceId, this.getNodePath(node)));
-  }
 
 
   private selectNodeTypeClosed(result: LabFsNodeTypesSelectionDialogResult, node: LabResourceViewFolderContentFlat): void {
@@ -128,8 +122,8 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
 
     const menuDynamic: FlMenuDynamic[] = [];
 
-    //TODO : this only work when the view is under tabs state
-    if (!node.isFolder && this.tabsState) {
+    //TODO : this only work when the view is under resource state
+    if (!node.isFolder && this.resourceState) {
       // button to extract the node
       menuDynamic.push({
         type: 'button',
@@ -163,6 +157,11 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
     }
 
     this.menuDynamicService.openDynamicMenuAbsolute(menuDynamic, event);
+  }
+
+  // open the dialog to select the node type
+  private callFileView(node: LabResourceViewFolderContentFlat): void {
+    this.resourceState.callView(this.fileService.callFolderSubFileView(this.resourceId, this.getNodePath(node)), node.name);
   }
 
 }

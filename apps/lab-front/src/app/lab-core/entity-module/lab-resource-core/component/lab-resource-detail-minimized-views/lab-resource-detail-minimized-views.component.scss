@@ -1,0 +1,23 @@
+:host {
+  height: 45px;
+}
+
+.container {
+  padding: 0.5em;
+}
+
+.card {
+  background-color: var(--card-background);
+  border-radius: var(--card-radius);
+  padding: 0.5em 1em;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.view-image{
+  display: flex;
+  margin-right: 0.5em;
+}

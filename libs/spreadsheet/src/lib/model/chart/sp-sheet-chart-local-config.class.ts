@@ -9,7 +9,11 @@ import {SpSheetChartSelectionBoxPlot} from './sp-sheet-chart-selection-box-plot.
 import {SpSheetChartSelectionHeatMap} from './sp-sheet-chart-selection-heat-map.class';
 import {SpSheetChartSelectionBasic} from './sp-sheet-chart-selection-basic.class';
 import {SpSheetChartSelection} from './sp-sheet-chart-selection.class';
-import {SpSheetChartConfig, SpSpreadsheetChartSerieSelectionInput} from './sp-sheet-chart-config.class';
+import {
+  SpSheetChartConfig,
+  SpSpreadsheetChartSerieSelectionInput,
+  SpSpreadsheetGenerateChartOptions
+} from './sp-sheet-chart-config.class';
 import {SpSheetChartSelectionVulcanoPlot} from './sp-sheet-chart-selection-vulcano-plot.class';
 import {FlMenuDynamic, FlOverlayRef, FlPortalConfig} from '@monorepo/front-core-lib';
 import {ChChartPortalConfig, ChChartPortalService, ChChartType} from '@monorepo/chart';
@@ -47,11 +51,10 @@ export class SpSheetLocalChartConfigLinePlot extends SpSheetLocalChartConfig {
     return ChChartType.LINE;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): FlOverlayRef {
-    const selection = new SpSheetChartSelectionBasic(sheet, this.getChartType(), series,
-      additionalFields.xAxisLabel, additionalFields.yAxisLabel);
-    return this.openChartPortal(selection, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
+    const selection = new SpSheetChartSelectionBasic(options.sheet, this.getChartType(), series,
+      options.additionalFields.xAxisLabel, options.additionalFields.yAxisLabel);
+    return this.openChartPortal(selection, options.contextMenuItems);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -79,11 +82,10 @@ export class SpSheetLocalChartConfigScatterPlot extends SpSheetLocalChartConfig 
     return ChChartType.SCATTER_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): FlOverlayRef {
-    const selection = new SpSheetChartSelectionBasic(sheet, this.getChartType(), series,
-      additionalFields.xAxisLabel, additionalFields.yAxisLabel);
-    return this.openChartPortal(selection, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
+    const selection = new SpSheetChartSelectionBasic(options.sheet, this.getChartType(), series,
+      options.additionalFields.xAxisLabel, options.additionalFields.yAxisLabel);
+    return this.openChartPortal(selection, options.contextMenuItems);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -111,13 +113,12 @@ export class SpSheetLocalChartConfigVulcanoPlot extends SpSheetLocalChartConfig 
     return ChChartType.VULCANO_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): FlOverlayRef {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
     // create the selection object, only take the first serie
-    const selection = new SpSheetChartSelectionVulcanoPlot(sheet, series[0],
-      additionalFields.xThreshold, additionalFields.yThreshold,
-      additionalFields.xAxisLabel, additionalFields.yAxisLabel);
-    return this.openChartPortal(selection, contextMenuItems);
+    const selection = new SpSheetChartSelectionVulcanoPlot(options.sheet, series[0],
+      options.additionalFields.xThreshold, options.additionalFields.yThreshold,
+      options.additionalFields.xAxisLabel, options.additionalFields.yAxisLabel);
+    return this.openChartPortal(selection, options.contextMenuItems);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -151,11 +152,10 @@ export class SpSheetLocalChartConfigBarPlot extends SpSheetLocalChartConfig {
     return ChChartType.BAR_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): FlOverlayRef {
-    const selection = new SpSheetChartSelectionBarPlot(sheet, this.getChartType(), series,
-      additionalFields.xAxisLabel, additionalFields.yAxisLabel);
-    return this.openChartPortal(selection, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
+    const selection = new SpSheetChartSelectionBarPlot(options.sheet, this.getChartType(), series,
+      options.additionalFields.xAxisLabel, options.additionalFields.yAxisLabel);
+    return this.openChartPortal(selection, options.contextMenuItems);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -182,11 +182,10 @@ export class SpSheetLocalChartConfigStackedBarPlot extends SpSheetLocalChartConf
     return ChChartType.STACKED_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): FlOverlayRef {
-    const selection = new SpSheetChartSelectionBarPlot(sheet, this.getChartType(), series,
-      additionalFields.xAxisLabel, additionalFields.yAxisLabel);
-    return this.openChartPortal(selection, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
+    const selection = new SpSheetChartSelectionBarPlot(options.sheet, this.getChartType(), series,
+      options.additionalFields.xAxisLabel, options.additionalFields.yAxisLabel);
+    return this.openChartPortal(selection, options.contextMenuItems);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -214,11 +213,10 @@ export class SpSheetLocalChartConfigHistogram extends SpSheetLocalChartConfig {
     return ChChartType.HISTOGRAM;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): FlOverlayRef {
-    const selection = new SpSheetChartSelectionHistogram(sheet, series, additionalFields.nbOfBins,
-      additionalFields.xAxisLabel, additionalFields.yAxisLabel);
-    return this.openChartPortal(selection, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
+    const selection = new SpSheetChartSelectionHistogram(options.sheet, series, options.additionalFields.nbOfBins,
+      options.additionalFields.xAxisLabel, options.additionalFields.yAxisLabel);
+    return this.openChartPortal(selection, options.contextMenuItems);
   }
 
 
@@ -252,11 +250,10 @@ export class SpSheetLocalChartConfigBoxPlot extends SpSheetLocalChartConfig {
     return ChChartType.BOX_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): FlOverlayRef {
-    const selection = new SpSheetChartSelectionBoxPlot(sheet, series,
-      additionalFields.xAxisLabel, additionalFields.yAxisLabel);
-    return this.openChartPortal(selection, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
+    const selection = new SpSheetChartSelectionBoxPlot(options.sheet, series,
+      options.additionalFields.xAxisLabel, options.additionalFields.yAxisLabel);
+    return this.openChartPortal(selection, options.contextMenuItems);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -284,11 +281,10 @@ export class SpSheetLocalChartConfigHeatMap extends SpSheetLocalChartConfig {
     return ChChartType.HEAT_MAP;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): FlOverlayRef {
-    const selection = new SpSheetChartSelectionHeatMap(sheet, series[0],
-      additionalFields.xAxisLabel, additionalFields.yAxisLabel);
-    return this.openChartPortal(selection, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
+    const selection = new SpSheetChartSelectionHeatMap(options.sheet, series[0],
+      options.additionalFields.xAxisLabel, options.additionalFields.yAxisLabel);
+    return this.openChartPortal(selection, options.contextMenuItems);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {

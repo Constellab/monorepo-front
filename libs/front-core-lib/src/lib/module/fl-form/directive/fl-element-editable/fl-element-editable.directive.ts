@@ -1,0 +1,93 @@
+import {Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, Renderer2} from '@angular/core';
+import {DateTime} from 'luxon';
+import {ClDateHelper} from '@monorepo/core-lib';
+import {FlKeyboardKey} from '../../../../utils/fl-keyboard.helper';
+
+@Directive({
+  selector: '[flElementEditable]',
+})
+export class FlElementEditableDirective {
+
+  /**
+   * Make element editable
+   */
+  @HostBinding('class.g-fl-element-editable-true')
+  @Input() flElementEditable: boolean | string = false;
+
+  @Output() flElementEditableChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  /**
+   * When true, the click event is not used but mouse up and down are used to trigger editable.
+   * The editable is then ony trigger if the mouse down event last less than 200ms.
+   * This is used to avoid editable to be trigger when user is dragging the element.
+   * This can be used for portal title for example
+   */
+  @Input() flElementIgnoreDrag: boolean = false;
+
+  /**
+   * Disable editable element
+   */
+  @Input() flElementDisabled: boolean = false;
+
+  /**
+   * Event triggered on blur event with the new text value
+   */
+  @Output() flElementValueChange: EventEmitter<string> = new EventEmitter<string>();
+
+  private mouseDownTime: DateTime;
+
+  private readonly mouseDownThreshold: number = 200;
+
+  @HostListener('mousedown', ['$event']) onMouseDown(): void {
+    if (this.flElementDisabled || !this.flElementIgnoreDrag) return;
+    this.mouseDownTime = ClDateHelper.getDate();
+  }
+
+  // only trigger when click down last for less than 500ms
+  @HostListener('mouseup', ['$event']) onMouseUp(): void {
+    if (this.flElementDisabled || !this.flElementIgnoreDrag) return;
+    const mouseUpTime = ClDateHelper.getDate();
+    const diff = mouseUpTime.diff(this.mouseDownTime, 'milliseconds').milliseconds;
+    if (diff < this.mouseDownThreshold) {
+      this.setEditable();
+    }
+    this.mouseDownTime = null;
+  }
+
+  @HostListener('click', ['$event']) onClick(): void {
+    if (this.flElementDisabled || this.flElementIgnoreDrag) return;
+    this.setEditable();
+  }
+
+  @HostListener('blur', ['$event']) onBlur(): void {
+    this.setNotEditable();
+  }
+
+  // listen to Enter key to trigger blur
+  @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent): void {
+    if (event.key === FlKeyboardKey.ENTER) {
+      event.preventDefault();
+      this.setNotEditable();
+    }
+  }
+
+  constructor(private elementRef: ElementRef,
+              private renderer: Renderer2) {
+    // add a default class to the element
+    renderer.addClass(elementRef.nativeElement, 'g-fl-element-editable');
+  }
+
+  private setEditable(): void {
+    this.flElementEditable = true;
+    this.flElementEditableChange.emit(this.flElementEditable);
+    this.renderer.setAttribute(this.elementRef.nativeElement, 'contentEditable', 'true');
+    this.elementRef.nativeElement.focus();
+  }
+
+  private setNotEditable(): void {
+    this.flElementEditable = false;
+    this.flElementEditableChange.emit(this.flElementEditable);
+    this.renderer.removeAttribute(this.elementRef.nativeElement, 'contentEditable');
+    this.flElementValueChange.emit(this.elementRef.nativeElement.innerText);
+  }
+}

@@ -17,6 +17,7 @@ import {LabShareLinkService} from '../../../../entity-service/lab-share-link.ser
 /**
  * Card that show the share link with possibility to CRUD it and list
  * the SharedEntity (info on where this entity was shared)
+ * TODO to delete
  */
 @Component({
   selector: 'lab-shared-entity-info',

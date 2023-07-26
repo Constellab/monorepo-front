@@ -2,8 +2,7 @@
 
   <div class="chart-container g-layout-row g-layout-center-center">
     <rv-resource-view *ngIf="view" [resourceId]="resourceId" [view]="view"
-                      [config]="viewConfig" displayMode="portal"
-                      class="resource-view"></rv-resource-view>
+                      [config]="viewConfig" class="resource-view"></rv-resource-view>
 
     <fl-loader *ngIf="isLoading" size="medium"></fl-loader>
   </div>

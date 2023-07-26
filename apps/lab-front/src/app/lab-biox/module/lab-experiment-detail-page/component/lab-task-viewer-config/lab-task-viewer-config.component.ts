@@ -60,7 +60,7 @@ export class LabTaskViewerConfigComponent implements OnInit {
     const data: LabConfigureViewerDialogInput = node.currentObject.config.values as TdTaskViewerConfig;
 
     this.dialogService.openMediumDialog(LabConfigureViewerDialogComponent,
-      {data: data, panelClass: 'g-dialog-main-background'}).afterClosed().subscribe(
+      {data: data}).afterClosed().subscribe(
       resource => this.onConfigurationClosed(resource)
     );
   }

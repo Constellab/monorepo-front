@@ -30,8 +30,9 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
   // The request data is passed when calling the get page method
   private requestData: any;
 
-  constructor(private getPageFunction: ClGetPageFunction<T>, private pageSize: number, initFirstPage: boolean = true) {
-    super();
+  constructor(private getPageFunction: ClGetPageFunction<T>, private pageSize: number, initFirstPage: boolean = true,
+              disableAutoDisconnect: boolean = false){
+    super(null, disableAutoDisconnect)
     if (initFirstPage) {
       this.getFirstPage();
     }

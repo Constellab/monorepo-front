@@ -23,10 +23,6 @@ export type RvResourceViewType =
   | 'html-view'
   | 'plotly-view'
 
-// Mode to where display the view
-export type RvViewDisplayMode = 'fullScreen' | 'portal';
-
-
 export interface RvResourceViewBase {
   type: RvResourceViewType | string;
   data: any;

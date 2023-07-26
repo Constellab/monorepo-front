@@ -121,6 +121,7 @@ export class FlPortalActionDetail {
       action: this.action,
       additionalInformation: this.action.additionalInformation
     });
+    console.error(error);
     this.actionSubject$.complete();
   }
 

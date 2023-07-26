@@ -36,11 +36,14 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
       return;
     }
 
-    if (object instanceof Observable) {
-      this.subscribeToObservable(object);
-    } else {
-      this.onSuccess(object);
-    }
+    // use timeout to let other input be set before
+    setTimeout(() => {
+      if (object instanceof Observable) {
+        this.subscribeToObservable(object);
+      } else {
+        this.onResponse(object);
+      }
+    }, 0);
   }
 
   /**
@@ -165,6 +168,9 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
       this.onSuccess(event.object);
     } else if (event.status === 'error') {
       this.onError(event.error);
+    } else {
+      this.isLoading = true;
+      this.cdr.detectChanges();
     }
   }
 

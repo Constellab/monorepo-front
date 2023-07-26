@@ -75,8 +75,8 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.columns = this.fullPageSearch ?
-      ['name', 'type', 'tags', 'created', 'preview', 'flagged'] :
-      ['name', 'type', 'created', 'preview']; // no tags, flagged
+      ['name', 'type', 'tags', 'created', 'viewResource', 'flagged'] :
+      ['name', 'type', 'created', 'viewResource']; // no tags, flagged
     // in none selectable mode, we add the action column
     if (!this.resourceSelectable) {
       this.columns.push('action');

@@ -4,7 +4,6 @@ import {
   Injector,
   Renderer2,
   RendererFactory2,
-  StaticProvider,
   TemplateRef,
   ViewContainerRef
 } from '@angular/core';
@@ -202,8 +201,10 @@ export class FlPortalService {
    * @param config the portal configuration
    * @param data data to send to the portal. Get the data in the component by inject -->
    * \@Inject(LIB_PORTAL_DATA) data: any
+   * @param viewContainerRef the container where the component will be attached
    */
-  public createPortal<T>(component: ComponentType<T>, config: FlPortalConfig, data: any = {}): FlOverlayRef {
+  public createPortal<T>(component: ComponentType<T>, config: FlPortalConfig, data: any = {},
+                         viewContainerRef: ViewContainerRef = null): FlOverlayRef {
     // we create the overlay
     const overlayRef: FlOverlayRef = this.createOverlay(config.config);
 
@@ -213,11 +214,11 @@ export class FlPortalService {
     }
 
     // create the injector
-    const injector = this.createInjector(data, overlayRef, config.config.customProviders);
+    const injector = this.createInjector(data, overlayRef, viewContainerRef?.injector ?? null);
 
     // create the component with the injector
     const componentPortal: ComponentPortal<T> =
-      new ComponentPortal(component, null, injector);
+      new ComponentPortal(component, viewContainerRef, injector);
 
     // attach the component to the dom
     overlayRef.attach(componentPortal);
@@ -354,7 +355,7 @@ export class FlPortalService {
   }
 
   // create an injector to send data to the portal and the overlay ref
-  private createInjector(data: any, overlayRef: FlOverlayRef, providers: StaticProvider[] = []): Injector {
+  private createInjector(data: any, overlayRef: FlOverlayRef, parentInjector: Injector = null): Injector {
     const injectionTokens = new WeakMap();
     // send data to the portal
     injectionTokens.set(FL_PORTAL_DATA, data);
@@ -362,8 +363,7 @@ export class FlPortalService {
     injectionTokens.set(FlOverlayRef, overlayRef);
 
     return Injector.create({
-      parent: this.injector, providers: [
-        ...providers,
+      parent: parentInjector ?? this.injector, providers: [
         {provide: FL_PORTAL_DATA, useValue: data},
         {provide: FlOverlayRef, useValue: overlayRef},
       ]

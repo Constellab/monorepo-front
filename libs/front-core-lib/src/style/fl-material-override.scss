@@ -215,8 +215,12 @@ body {
   // override the space between 2 columns
   mat-cell.mdc-data-table__cell:not(:first-of-type),
   mat-header-cell.mdc-data-table__header-cell:not(:first-of-type) {
-    padding-right: 0;
     padding-left: 5px;
+  }
+   //override the space between 2 columns
+  mat-cell.mdc-data-table__cell,
+  mat-header-cell.mdc-data-table__header-cell {
+    padding-right: 0;
   }
 
   // set font size and define a right padding to separate cells
@@ -249,6 +253,14 @@ body {
   .g-table-icon-button-cell {
     flex: initial !important;
     width: 45px; // width of icon button
+  }
+
+  // when the g-table-icon-button-cell is the last cell, increase the size of the cell to
+  // let some space on the right
+  mat-cell.g-table-icon-button-cell:last-of-type,
+  mat-header-cell.g-table-icon-button-cell:last-of-type,
+  mat-footer-cell.g-table-icon-button-cell:last-of-type {
+    width: 65px;
   }
 
   // define a base flex size for all columns in table

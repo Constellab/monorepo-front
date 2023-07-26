@@ -1,5 +1,5 @@
 import {Component, ComponentRef, Inject, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {RvResourceViewBase, RvViewDisplayMode} from '../../model/rv-resource-view.class';
+import {RvResourceViewBase} from '../../model/rv-resource-view.class';
 
 import {RvViewConfig} from '../../model/rv-view-config.class';
 import {RvResourceViewDirective} from '../../model/rv-resource-view.directive';
@@ -28,8 +28,6 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
   @Input() resourceId: string;
 
   @Input() config: RvViewConfig;
-
-  @Input() displayMode: RvViewDisplayMode = 'fullScreen';
 
   // if provided the view will support a right click. (only supported by view chart2d for now)
   @Input() contextMenuItems?: FlMenuDynamic[];
@@ -76,7 +74,6 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
       this.viewComponentRef.instance.view = view;
       this.viewComponentRef.instance.resourceId = this.resourceId;
       this.viewComponentRef.instance.config = ClHelpService.deepClone(this.config);
-      this.viewComponentRef.instance.displayMode = this.displayMode;
       this.viewComponentRef.instance.contextMenuItems = this.contextMenuItems;
     }, 0);
   }

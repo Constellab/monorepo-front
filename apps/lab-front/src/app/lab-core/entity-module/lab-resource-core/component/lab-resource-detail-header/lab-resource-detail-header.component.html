@@ -1,0 +1,61 @@
+<div *ngIf="resource()" class="g-layout-row g-layout-start-center g-layout-gap-05em container">
+
+  <div class="g-flex-auto g-layout-col g-layout-start-start">
+    <!--  Resource & experiment name  -->
+    <h1 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">{{resource().name}}</h1>
+    <a [routerLink]="resource().experiment.id | labDetailRoute:'experiment'"
+       *ngIf="resource().experiment" class="g-text-link">
+      <fl-text-icon class="g-text-small g-text-light" gap="5px">
+        <mat-icon flIcon="experiment" class="g-icon-small"></mat-icon>
+        {{resource().experiment.title}}
+      </fl-text-icon>
+    </a>
+  </div>
+
+  <button mat-icon-button type="button" (click)="openViewSpecListPortal($event)"
+          [matTooltip]="'biox.open_views' | translate" class="button">
+    <mat-icon>visibility</mat-icon>
+  </button>
+
+  <button mat-icon-button type="button" (click)="openResourceFlaggedViewsPortal($event)"
+          [matTooltip]="'biox.show_flagged_views' | translate" class="button">
+    <mat-icon>star</mat-icon>
+  </button>
+
+  <button mat-stroked-button type="button" (click)="openResourceInfoDialog()"
+          class="g-button-small button">
+    <mat-icon>info</mat-icon>
+    {{'biox.resource_info' | translate}}
+  </button>
+
+  <button mat-stroked-button type="button" (click)="openShareDialog()"
+          class="g-button-small button">
+    <mat-icon>share</mat-icon>
+    {{'biox.share_info' | translate}}
+  </button>
+
+  <!--   Link to resource detail page only for readOnly       -->
+  <a mat-stroked-button type="button" *ngIf="readOnly"
+     [routerLink]="resource() | labDetailRoute"
+     class="g-button-small button">
+    <mat-icon flIcon="preview"></mat-icon>
+    {{'biox.open_resource' | translate}}
+  </a>
+
+  <lab-resource-actions-menu [readOnly]="readOnly" [resource]="resource()" (update)="onUpdate($event)"
+                             (updateTags)="onUpdateTags($event)"
+                             (delete)="onDelete()" class="button">
+
+    <button mat-menu-item type="button"
+            (click)="openTransformerResource()">
+      <mat-icon flIcon="transformer"></mat-icon>
+      {{'biox.transformers' | translate}}
+    </button>
+
+  </lab-resource-actions-menu>
+
+  <button *ngIf="fullDialog" mat-icon-button type="button" [matTooltip]="'close' | translate"
+          [mat-dialog-close]="null" tabindex="-1">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

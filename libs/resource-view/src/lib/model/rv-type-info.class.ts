@@ -1,4 +1,4 @@
-import {RvResourceViewType, RvViewDisplayMode} from './rv-resource-view.class';
+import {RvResourceViewType} from './rv-resource-view.class';
 import {ComponentType} from '@angular/cdk/overlay';
 import {RvViewJsonComponent} from '../component/rv-view-json/rv-view-json.component';
 import {RvViewChart2dComponent} from '../component/rv-view-chart-2d/rv-view-chart2d.component';
@@ -16,10 +16,6 @@ export interface RvResourceViewTypeInfo {
   icon: string;
   image: FlThemeSwitch<string>;
   text: string;
-  // Whether the view show in a portal or component by default
-  defaultDisplayMode: RvViewDisplayMode;
-  // if true the default display mode can be modified
-  forceDefaultDisplayMode: boolean;
 
   viewComponent: ComponentType<RvResourceViewDirective> |
     // Lazy load the component
@@ -35,32 +31,24 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'json-view': {
     icon: 'code',
     text: 'rvResourceView.resource_view_json',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewJsonComponent,
     image: null,
   },
   'text-view': {
     icon: 'text_snippet',
     text: 'rvResourceView.resource_view_text',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewTextComponent,
     image: null,
   },
   'html-view': {
     icon: 'html',
     text: 'rvResourceView.resource_view_html',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewHtmlComponent,
     image: null,
   },
   'table-view': {
     icon: 'calendar_view_month',
     text: 'rvResourceView.resource_view_spreadsheet',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: true,
     viewComponent: RvViewSpreadsheetComponent,
     image: {
       lightTheme: 'assets/views/light/tabular-view.svg',
@@ -70,8 +58,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'tabular-view': {
     icon: 'calendar_view_month',
     text: 'rvResourceView.resource_view_spreadsheet',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: true,
     viewComponent: RvViewSpreadsheetComponent,
     image: {
       lightTheme: 'assets/views/light/tabular-view.svg',
@@ -81,8 +67,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'dataset-view': {
     icon: 'calendar_view_month',
     text: 'rvResourceView.resource_view_dataset_view',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: true,
     viewComponent: RvViewSpreadsheetComponent,
     image: {
       lightTheme: 'assets/views/light/tabular-view.svg',
@@ -92,8 +76,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'network-view': {
     icon: 'share',
     text: 'rvResourceView.resource_view_pathway',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: true,
     viewComponent: RvViewNetworkComponent,
     image: {
       lightTheme: 'assets/views/light/network-view.svg',
@@ -103,16 +85,12 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'image-view': {
     icon: 'insert_photo',
     text: 'rvResourceView.resource_view_image',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewImageComponent,
     image: null,
   },
   'scatter-plot-2d-view': {
     icon: 'scatter_plot',
     text: 'rvResourceView.resource_view_scatter_plot_2d',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewChart2dComponent,
     image: {
       lightTheme: 'assets/views/light/scatter-plot.svg',
@@ -122,8 +100,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'line-plot-2d-view': {
     icon: 'show_chart',
     text: 'rvResourceView.resource_view_line_plot_2d',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewChart2dComponent,
     image: {
       lightTheme: 'assets/views/light/line-plot.svg',
@@ -133,8 +109,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'vulcano-plot-view': {
     icon: 'scatter_plot',
     text: 'rvResourceView.resource_view_vulcano_plot',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewChart2dComponent,
     image: {
       lightTheme: 'assets/views/light/scatter-plot.svg',
@@ -144,8 +118,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'bar-plot-view': {
     icon: 'bar_chart',
     text: 'rvResourceView.resource_view_bar_plot',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewChart2dComponent,
     image: {
       lightTheme: 'assets/views/light/bar-plot.svg',
@@ -155,8 +127,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'stacked-bar-plot-view': {
     icon: 'stacked_bar_chart',
     text: 'rvResourceView.resource_view_stacked_bar_plot',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewChart2dComponent,
     image: {
       lightTheme: 'assets/views/light/stacked-bar-plot.svg',
@@ -166,8 +136,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'histogram-view': {
     icon: 'bar_chart',
     text: 'rvResourceView.resource_view_histogram',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewChart2dComponent,
     image: {
       lightTheme: 'assets/views/light/histogram.svg',
@@ -177,8 +145,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'box-plot-view': {
     icon: 'multiline_chart',
     text: 'rvResourceView.resource_view_box_plot',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewChart2dComponent,
     image: {
       lightTheme: 'assets/views/light/box-plot.svg',
@@ -188,16 +154,12 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'multi-view': {
     icon: 'multiline_chart',
     text: 'rvResourceView.resource_view_multi_views',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewMultiViewsComponent,
     image: null
   },
   'venn-diagram-view': {
     icon: 'join_full',
     text: 'rvResourceView.resource_view_venn_diagram',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewChart2dComponent,
     image: {
       lightTheme: 'assets/views/light/venn-diagram.svg',
@@ -207,8 +169,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'heatmap-view': {
     icon: 'multiline_chart',
     text: 'rvResourceView.resource_view_heatmap',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: RvViewChart2dComponent,
     image: {
       lightTheme: 'assets/views/light/heatmap.svg',
@@ -218,8 +178,6 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   'plotly-view': {
     icon: 'multiline_chart',
     text: 'rvResourceView.resource_view_plotly',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: {
       load: () =>
         import('../component/rv-view-plotly/rv-view-plotly.component').then(m => m.RvViewPlotlyComponent),

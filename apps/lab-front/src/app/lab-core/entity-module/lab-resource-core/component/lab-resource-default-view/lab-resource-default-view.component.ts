@@ -4,6 +4,7 @@ import {LabResourceService} from '../../../../entity-service/lab-resource.servic
 import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
 import {filter} from 'rxjs/operators';
 
+// TODO to check if still useful
 @Component({
   selector: 'lab-resource-default-view',
   templateUrl: './lab-resource-default-view.component.html',

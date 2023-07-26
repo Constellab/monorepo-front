@@ -12,11 +12,11 @@ import {
   FlMenuDynamic,
   FlOverlayRef,
   FlPortalActionResult,
-  FlPortalActionsService, FlPortalConfig,
+  FlPortalActionsService,
+  FlPortalConfig,
   FlPortalService,
   FlSnackBarService
 } from '@monorepo/front-core-lib';
-import {ChChartPortalService} from '@monorepo/chart';
 
 
 interface SelectionWithOverlay {
@@ -38,7 +38,6 @@ export class SpSpreadsheetChartState implements OnDestroy {
 
   constructor(private state: SpSpreadsheetState,
               private portalService: FlPortalService,
-              private chartPortalService: ChChartPortalService,
               private selectionState: SpSpreadsheetSelectionState,
               private snackBarService: FlSnackBarService,
               private actionService: FlPortalActionsService) {
@@ -108,8 +107,12 @@ export class SpSpreadsheetChartState implements OnDestroy {
       const chartConfig = this.state.getChartConfig(result.formValue.chartType);
 
       const chartOverlay = chartConfig.generateChart(
-        result.formValue.series, result.formValue.additionalFields, this.state.currentSheet,
-        this.getContextMenuItem(result.formValue.id));
+        result.formValue.series, {
+          sheet: this.state.currentSheet,
+          additionalFields: result.formValue.additionalFields,
+          contextMenuItems: this.getContextMenuItem(result.formValue.id),
+          updateSelection: () => this.openUpdateChartSelectionPortal(result.formValue.id)
+        });
 
       if (chartOverlay instanceof Observable) {
         // call the action service to register the chart creation

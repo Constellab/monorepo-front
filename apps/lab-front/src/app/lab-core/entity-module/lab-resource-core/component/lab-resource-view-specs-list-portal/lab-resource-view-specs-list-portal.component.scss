@@ -1,0 +1,9 @@
+
+.container{
+  display: grid;
+  width: 25em;
+  grid-template-columns: 12em 12em;
+  gap: 1em;
+  grid-row-gap: 1em;
+}
+

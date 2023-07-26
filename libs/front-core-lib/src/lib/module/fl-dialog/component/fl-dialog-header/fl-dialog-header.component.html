@@ -5,10 +5,10 @@
   <div class="g-centered-forced title-text">
     <ng-content></ng-content>
   </div>
-  <div *ngIf="!hideCloseButton">
+  <div class="g-layout-row g-layout-start-center">
     <ng-content select="fl-dialog-header-actions"></ng-content>
     <button mat-icon-button type="button" [matTooltip]="'close' | translate"
-            [mat-dialog-close]="null" tabindex="-1">
+            [mat-dialog-close]="null" tabindex="-1" *ngIf="!hideCloseButton">
       <mat-icon>close</mat-icon>
     </button>
   </div>

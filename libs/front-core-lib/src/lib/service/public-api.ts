@@ -7,7 +7,6 @@ export * from './fl-http-interceptor.service';
 export * from './fl-local-storage.service';
 export * from './fl-luxon-date-adapter.service';
 export * from './fl-plateform.service';
-export * from './fl-service-worker.service';
 export * from './fl-image.helper';
 export * from '../module/fl-theme/fl-theme.service';
 

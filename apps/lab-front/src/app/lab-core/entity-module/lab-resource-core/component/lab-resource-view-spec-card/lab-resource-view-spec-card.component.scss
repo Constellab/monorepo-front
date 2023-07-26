@@ -1,0 +1,24 @@
+.view-spec {
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 8px;
+  border-radius: var(--card-radius);
+  background-color: var(--main-background);
+  height: 100%;
+}
+
+.default-view-spec {
+  border-color: var(--primary-color);
+}
+
+.view-image {
+  display: flex;
+}
+
+.view-info {
+  margin-top: 0.3em;
+}
+
+.text {
+  min-height: 2em;
+}

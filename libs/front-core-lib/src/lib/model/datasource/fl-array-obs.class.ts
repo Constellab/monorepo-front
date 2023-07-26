@@ -50,7 +50,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
 
   /**
    * @param data initial data
-   * @param disableAutoDisconnect, if true the auto disconnect is disabled. mat-table and fl-async-section will
+   * @param disableAutoDisconnect if true the auto disconnect is disabled. mat-table and fl-async-section will
    * not automatically disconnect the array obs. It needs to be done manually (call manualDisconnect method)
    * @protected
    */
@@ -149,6 +149,37 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
 
       this.array = array;
     }
+  }
+
+  /**
+   * Add or update an item in the list
+   * @param item
+   * @param order
+   */
+  public addOrUpdateItem(item: T | T[], order ?: (a: T, b: T, index: number) => boolean): void {
+    const items: T[] = this.convertObjectOrArrayToArray(item);
+
+    if (items.length === 0) {
+      return;
+    }
+
+    const array: T[] = this.array;
+
+    for (const it of items) {
+      const index = array.findIndex(v => this.equals(it, v));
+
+      if (index >= 0) {
+        array[index] = it;
+      } else {
+        if (!order) {
+          array.push(it);
+        } else {
+          ClHelpService.insertIntoOrderedArray(it, array, order);
+        }
+      }
+    }
+
+    this.array = array;
   }
 
 

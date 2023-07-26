@@ -263,3 +263,20 @@ figure {
 .g-max-article-width {
   max-width: 60rem;
 }
+
+
+// FOR FlElementEditableDirective
+// force a small padding to make edition easier
+.g-fl-element-editable {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+}
+
+:not(.g-fl-element-editable-true).g-fl-element-editable:hover {
+  background-color: var(--hover-color);
+}
+
+.g-fl-element-editable-true {
+  cursor: initial;
+}

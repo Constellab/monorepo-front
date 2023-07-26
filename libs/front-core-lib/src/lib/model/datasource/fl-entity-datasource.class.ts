@@ -6,8 +6,9 @@ import {of} from 'rxjs';
 
 export class FlEntityPaginatedDatasource<T extends FlEntity> extends FlDatasourcePaginated<T> {
 
-  constructor(getPageFunction: ClGetPageFunction<T>, pageSize: number, initFirstPage: boolean = true) {
-    super(getPageFunction, pageSize, initFirstPage);
+  constructor(getPageFunction: ClGetPageFunction<T>, pageSize: number, initFirstPage: boolean = true,
+              disableAutoDisconnect: boolean = false) {
+    super(getPageFunction, pageSize, initFirstPage, disableAutoDisconnect);
   }
 
   protected equals(a: T, b: T): boolean {

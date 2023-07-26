@@ -32,8 +32,8 @@
 
   <ng-container *ngIf="isOpened">
     <ng-container *ngIf="selectedResourceId$ | async; else noResource">
-      <lab-resource-default-view [resourceId]="selectedResourceId$"
-                                 class="view-container"></lab-resource-default-view>
+      <lab-resource-detail [resourceId]="selectedResourceId$" [readOnly]="true"
+                           class="view-container"></lab-resource-detail>
     </ng-container>
 
     <ng-template #noResource>

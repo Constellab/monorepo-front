@@ -99,9 +99,6 @@
     "default_view": "Vue par défaut",
     "resource_view_folder": "Folder",
     "resource_view_resources_list": "Ressources",
-    "resource_view_display_mode": "Mode d'affichage",
-    "resource_view_display_portal": "Popup",
-    "resource_view_display_component": "Plein écran",
     "stop_experiment": "Arrêter l'expérience",
     "stop_experiment_confirmation": "Êtes-vous sûr de vouloir arrêter l'expérience ?",
     "experiment_stopped": "Expérience arrêtée",
@@ -162,7 +159,7 @@
     "process_sub_type_EXPORTER": "Exporteur",
     "process_sub_type_TRANSFORMER": "Transformeur",
     "biox.process_sub_type_RESOURCE": "Ressource",
-    "open_resource_page": "Ouvrir la ressource",
+    "open_resource": "Ouvrir la ressource",
     "open_in_new_tab": "Ouvrir dans un nouvel onglet",
     "update_resource_type": "Modifier le type de la ressource",
     "update_resource_type_help": "Vous pouvez modifier le type de la ressource seulement si cette ressource n'est pas utilisée dans une expérience",
@@ -178,7 +175,8 @@
     "view_config_date": "Dernière vue",
     "view_config_select": "Sélectionner une config de vue",
     "view_config_select_help": "Voici l'historique des vues que vous avez généré. Vous pouvez seulement rechercher les vues des ressources qui on été générées ou utilisées par une des expériences associées à ce rapport. \nSi vous ne trouvez pas la vues souhaitez, re-générer la depuis la page de la ressource et re-lancer la recherche, la vues devrait apparaître en première.",
-    "update_view_config_title": "Modifier le titre",
+    "update_view_config_title": "Modifier le titre de la vue",
+    "update_view_tags": "Modifier les tags de la vue",
     "view_config_title_updated": "Titre modifié",
     "view_include_not_flagged": "Inclure les vues non marquées",
     "view_not_flagged_tooltip": "Vue non marqué\nCliquer pour le marquer",
@@ -336,6 +334,13 @@
     "removing_output_port": "Suppression de la sortie",
     "configure_port": "Configurer le port",
     "configure_port_help": "Vous pouvez configurez le port pour définir des types de Resource plus précis. Vous pouvez aussi définir un nom et une description pour le port.",
-    "configuring_port": "Configuration du port"
+    "configuring_port": "Configuration du port",
+    "resource_info": "Info resource",
+    "dock_view": "Encrer la vue",
+    "undock_view": "Undock view",
+    "show_flagged_views": "Afficher les vues flaggées",
+    "open_views": "Ouvrir les vues",
+    "minimize_view": "Réduire la vue",
+    "update_view": "Modifier les paramètres de la vue"
   }
 }

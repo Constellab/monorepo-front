@@ -4,7 +4,7 @@ import {FlArrayObs, FlEntityArrayObs, FlTableColumnStatic} from '@monorepo/front
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
 import {ClCoreJsonConvert} from '@monorepo/core-lib';
 import {RvResourceViewDirective} from '@monorepo/resource-view';
-import {LabResourceDetailTabsState} from '../../state/lab-resource-detail-tabs-state.service';
+import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
 
 /**
  * View of resource that show a list of other resources
@@ -19,11 +19,11 @@ export class LabResourceViewListComponent extends RvResourceViewDirective<LabRes
 
   datasource: FlArrayObs<LabResource>;
 
-  columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'tags', 'preview', 'openInNewTab'];
+  columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'tags', 'flagged'];
 
   selectableRow: boolean;
 
-  constructor(@Optional() private resourceTabState: LabResourceDetailTabsState) {
+  constructor(@Optional() private resourceState: LabResourceDetailState) {
     super();
   }
 
@@ -33,12 +33,12 @@ export class LabResourceViewListComponent extends RvResourceViewDirective<LabRes
 
     // if this component is under the ResourceDetailTabsComponent, we don't use link but trigger a resource view load
     // on sub resource clic
-    this.selectableRow = this.resourceTabState != null;
+    this.selectableRow = this.resourceState != null;
   }
 
-  openInNewTab(resource: LabResource): void {
-    if (this.resourceTabState) {
-      this.resourceTabState.addResourceTab(resource.id);
+  selectResource(resource: LabResource): void {
+    if (this.resourceState) {
+      this.resourceState.selectResource(resource.id);
     }
   }
 

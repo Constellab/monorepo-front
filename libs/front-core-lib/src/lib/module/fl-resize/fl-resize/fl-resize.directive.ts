@@ -37,7 +37,7 @@ export class FlResizeDirective implements OnInit, OnDestroy {
   /**
    * Size of the resizer element in px
    */
-  @Input() flResizeSize: number = 6;
+  @Input() flResizeSize: number = 20;
 
   @Output() flResizeChanged: EventEmitter<FlResizeEvent> = new EventEmitter();
 

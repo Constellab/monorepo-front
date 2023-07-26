@@ -12,23 +12,10 @@
 
           <!--  View configuration   -->
           <lab-configure-specs-form [configData]="configs" formGroupName="viewConfig"></lab-configure-specs-form>
-
-          <mat-divider class="divider"></mat-divider>
-
-          <!--  Full screen or dialog   -->
-          <div *ngIf="showDisplayModeControl" class="display-mode">
-            <label>{{'biox.resource_view_display_mode' | translate}}</label>
-            <mat-radio-group formControlName="displayMode" color="primary">
-              <mat-radio-button value="fullScreen"
-                                class="display-mode-label">{{'biox.resource_view_display_component' | translate}}</mat-radio-button>
-              <mat-radio-button value="portal"
-                                class="display-mode-label">{{'biox.resource_view_display_portal' | translate}}</mat-radio-button>
-            </mat-radio-group>
-          </div>
         </form>
 
         <button mat-flat-button color="primary" type="submit" form="config-form"
-                class="g-centered-forced">
+                class="g-centered-forced submit-button">
           {{'ok' | translate}}
         </button>
       </ng-container>

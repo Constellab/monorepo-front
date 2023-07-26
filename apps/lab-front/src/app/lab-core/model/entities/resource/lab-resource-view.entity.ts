@@ -1,5 +1,5 @@
 import {Expose, Type} from 'class-transformer';
-import {RvResourceView, RvResourceViewBase, RvResourceViewType, RvViewDisplayMode} from '@monorepo/resource-view';
+import {RvResourceView, RvResourceViewBase, RvResourceViewType} from '@monorepo/resource-view';
 import {LabResourceViewFolder} from './lab-resource-view-folder.class';
 import {LabViewConfig} from './lab-view-config.entity';
 import {ClRecordWrapperTransform} from '@monorepo/core-lib';
@@ -27,7 +27,7 @@ export class LabResourceViewSpec {
 
   // true if the view has config specs
   @Expose({name: 'has_config_specs'})
-  hasConfigSpecs: boolean
+  hasConfigSpecs: boolean;
 
   getName(): string {
     return this.humanName ?? this.methodName;
@@ -48,7 +48,6 @@ export interface LabResourceViewSpecWithConfig {
   viewName: string;
   viewMethodName: string;
   viewConfigValues: PrConfigValues;
-  displayMode: RvViewDisplayMode;
 }
 
 
@@ -69,7 +68,12 @@ export class LabResourceView {
 
   @Expose({name: 'view_config'})
   @Type(() => LabViewConfig)
-  viewConfig: LabViewConfig;
+  viewConfig?: LabViewConfig;
+
+  title: string;
+
+  @Expose({name: 'view_type'})
+  viewType: LabResourceViewType;
 }
 
 //////////////////////////// TYPE THAT GROUP ALL VIEW TYPES /////////////////////////////

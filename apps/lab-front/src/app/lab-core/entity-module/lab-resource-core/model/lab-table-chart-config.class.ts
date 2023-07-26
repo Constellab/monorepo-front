@@ -1,4 +1,4 @@
-import {FlMenuDynamic, FlOverlayRef, FlPortalConfig, FlPortalService,} from '@monorepo/front-core-lib';
+import {FlOverlayRef, FlPortalConfig, FlPortalService,} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {LabResourceTableService, LabTableChartType} from '../../../entity-service/lab-resource-table.service';
@@ -14,9 +14,11 @@ import {
   SpSheetChartConfig,
   SpSheetChartSelectionFormAdditional,
   SpSheetSelectionRange,
-  SpSpreadsheetChartSerieSelectionInput
+  SpSpreadsheetChartSerieSelectionInput,
+  SpSpreadsheetGenerateChartOptions
 } from '@monorepo/spreadsheet';
 import {ChChartType} from '@monorepo/chart';
+import {ViewContainerRef} from '@angular/core';
 
 /**
  * Main config class to generate chart from the sheet by calling the resource service
@@ -25,15 +27,16 @@ export abstract class LabTableChartConfig extends SpSheetChartConfig {
 
   constructor(private resourceId: string, private tableViewMethodName: string,
               private tableViewConfig: PrConfigValues,
-              private resourceTableService: LabResourceTableService, private portalService: FlPortalService) {
+              private resourceTableService: LabResourceTableService, private portalService: FlPortalService,
+              private viewContainerRef: ViewContainerRef) {
     super();
   }
 
   protected callChartOnTable(chartType: LabTableChartType, chartConfig: PrConfigValues,
-                             contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+                             options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
     return this.resourceTableService.callChartOnTable(this.resourceId, this.tableViewMethodName,
       this.tableViewConfig, chartType, chartConfig).pipe(
-      map((view) => this.openChartPortal(view, contextMenuItems)),
+      map((view) => this.openChartPortal(view, options)),
     );
   }
 
@@ -41,7 +44,7 @@ export abstract class LabTableChartConfig extends SpSheetChartConfig {
    * Open the chart portal after chart selection
    * @private
    */
-  protected openChartPortal(labView: LabResourceView, contextMenuItems?: FlMenuDynamic[]): FlOverlayRef {
+  protected openChartPortal(labView: LabResourceView, options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
 
     const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
       {centerHorizontally: '0', top: '0'},
@@ -51,10 +54,12 @@ export abstract class LabTableChartConfig extends SpSheetChartConfig {
 
     const config: LabResourceViewPortalInput = {
       labView: labView,
-      contextMenuItems: contextMenuItems
+      contextMenuItems: options.contextMenuItems,
+      editView: options.updateSelection,
     };
 
-    return this.portalService.createPortal(LabResourceViewPortalComponent, portalConfig, config);
+    return this.portalService.createPortal(LabResourceViewPortalComponent, portalConfig, config,
+      this.viewContainerRef);
   }
 }
 
@@ -64,14 +69,13 @@ export abstract class LabTableChartConfig extends SpSheetChartConfig {
 export abstract class LabTableChart2dConfig extends LabTableChartConfig {
 
   generate2dChart(chartType: LabTableChartType, chartConfig: PrConfigValues,
-                  additionalFields: SpSheetChartSelectionFormAdditional,
-                  contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+                  options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
     const fullChartConfig: PrConfigValues = Object.assign({
-      x_axis_label: additionalFields.xAxisLabel,
-      y_axis_label: additionalFields.yAxisLabel,
+      x_axis_label: options.additionalFields.xAxisLabel,
+      y_axis_label: options.additionalFields.yAxisLabel,
     }, chartConfig);
 
-    return this.callChartOnTable(chartType, fullChartConfig, contextMenuItems);
+    return this.callChartOnTable(chartType, fullChartConfig, options);
   }
 
 
@@ -87,10 +91,8 @@ export class LabTableChartConfigLinePlot extends LabTableChart2dConfig {
     return ChChartType.LINE;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
-    return this.generate2dChart('line-plot-2d', {series: series},
-      additionalFields, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
+    return this.generate2dChart('line-plot-2d', {series: series}, options);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -118,10 +120,8 @@ export class LabTableChartConfigScatterPlot extends LabTableChart2dConfig {
     return ChChartType.SCATTER_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
-    return this.generate2dChart('scatter-plot-2d', {series: series},
-      additionalFields, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
+    return this.generate2dChart('scatter-plot-2d', {series: series}, options);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -149,15 +149,14 @@ export class LabTableChartConfigVulcanoPlot extends LabTableChart2dConfig {
     return ChChartType.VULCANO_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
     return this.generate2dChart('vulcano-plot',
       {
         series: series,
-        x_threshold: additionalFields.xThreshold,
-        y_threshold: additionalFields.yThreshold,
+        x_threshold: options.additionalFields.xThreshold,
+        y_threshold: options.additionalFields.yThreshold,
       },
-      additionalFields, contextMenuItems);
+      options);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -191,10 +190,8 @@ export class LabTableChartConfigBarPlot extends LabTableChart2dConfig {
     return ChChartType.BAR_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
-    return this.generate2dChart('bar-plot', {series: series},
-      additionalFields, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
+    return this.generate2dChart('bar-plot', {series: series}, options);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -221,14 +218,13 @@ export class LabTableChartConfigStackedBarPlot extends LabTableChart2dConfig {
     return ChChartType.STACKED_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
     return this.generate2dChart('stack-bar-plot',
       {
         series: series,
-        normalize: additionalFields.normalize,
+        normalize: options.additionalFields.normalize,
       },
-      additionalFields, contextMenuItems);
+      options);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -254,15 +250,14 @@ export class LabTableChartConfigHistogram extends LabTableChart2dConfig {
     return ChChartType.HISTOGRAM;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
     return this.generate2dChart('histogram',
       {
         series: series,
-        nbins: additionalFields.nbOfBins,
-        density: additionalFields.density,
+        nbins: options.additionalFields.nbOfBins,
+        density: options.additionalFields.density,
       },
-      additionalFields, contextMenuItems);
+      options);
   }
 
 
@@ -295,10 +290,8 @@ export class LabTableChartConfigBoxPlot extends LabTableChart2dConfig {
     return ChChartType.BOX_PLOT;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
-    return this.generate2dChart('box-plot', {series: series},
-      additionalFields, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
+    return this.generate2dChart('box-plot', {series: series}, options);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -325,10 +318,8 @@ export class LabTableChartConfigHeatMap extends LabTableChart2dConfig {
     return ChChartType.HEAT_MAP;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
-    return this.generate2dChart('heatmap', {serie: series[0]},
-      additionalFields, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
+    return this.generate2dChart('heatmap', {serie: series[0]}, options);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {
@@ -360,9 +351,8 @@ export class LabTableChartConfigVennDiagram extends LabTableChartConfig {
     return ChChartType.VENN_DIAGRAM;
   }
 
-  generateChart(series: SpSheetChart2dSerieSelectionForm[], additionalFields: SpSheetChartSelectionFormAdditional,
-                sheet: SpSheet, contextMenuItems?: FlMenuDynamic[]): Observable<FlOverlayRef> {
-    return this.callChartOnTable('venn-diagram', {series: series}, contextMenuItems);
+  generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): Observable<FlOverlayRef> {
+    return this.callChartOnTable('venn-diagram', {series: series}, options);
   }
 
   createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[] {

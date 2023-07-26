@@ -1,5 +1,5 @@
 import {ConnectedPosition, OverlayConfig} from '@angular/cdk/overlay';
-import {InjectionToken, StaticProvider} from '@angular/core';
+import {InjectionToken} from '@angular/core';
 
 /**
  * @ignore
@@ -46,11 +46,6 @@ export interface FlOverlayConfig extends OverlayConfig {
    * Set responsive size on portal
    */
   size?: FlOverlaySize;
-
-  /**
-   * Custom provider injected in the portal
-   */
-  customProviders?: StaticProvider[];
 }
 
 

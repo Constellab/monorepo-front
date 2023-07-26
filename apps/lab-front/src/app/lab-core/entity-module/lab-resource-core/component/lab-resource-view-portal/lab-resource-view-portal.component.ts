@@ -1,13 +1,23 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Optional} from '@angular/core';
 import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
-import {FL_PORTAL_DATA, FlMenuDynamic, FlTag} from '@monorepo/front-core-lib';
+import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef, FlTag} from '@monorepo/front-core-lib';
 import {RvViewConfig} from '@monorepo/resource-view';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
+import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
+import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 
 
 export interface LabResourceViewPortalInput {
   labView: LabResourceView;
+  /**
+   * Pass context menu items to the view
+   */
   contextMenuItems?: FlMenuDynamic[];
+
+  /**
+   * Override the edit view button action (to show a custom form for view config)
+   */
+  editView?: () => void;
 }
 
 /**
@@ -18,7 +28,7 @@ export interface LabResourceViewPortalInput {
   templateUrl: './lab-resource-view-portal.component.html',
   styleUrls: ['./lab-resource-view-portal.component.scss']
 })
-export class LabResourceViewPortalComponent implements OnInit {
+export class LabResourceViewPortalComponent {
 
   labView: LabResourceView;
   rvConfig: RvViewConfig;
@@ -27,17 +37,25 @@ export class LabResourceViewPortalComponent implements OnInit {
   width: string;
   height: string;
 
+  editTitle: boolean = false;
 
-  constructor(@Inject(FL_PORTAL_DATA) private input: LabResourceViewPortalInput) {
+
+  constructor(@Inject(FL_PORTAL_DATA) private input: LabResourceViewPortalInput,
+              @Optional() private resourceState: LabResourceDetailState,
+              private overlayRef: FlOverlayRef,
+              private viewConfigService: LabViewConfigService) {
     this.labView = input.labView;
-    this.rvConfig = {
-      methodName: input.labView.viewConfig.viewName,
-      configValues: input.labView.viewConfig.configValues,
-    };
     this.contextMenuItems = input.contextMenuItems;
 
+    if (input.labView.viewConfig) {
+      this.rvConfig = {
+        methodName: input.labView.viewConfig.viewName,
+        configValues: input.labView.viewConfig.configValues,
+      };
+    }
+
     // do not define the container, the heat map defines it itself
-    if (input.labView.viewConfig.viewType === 'heatmap-view') {
+    if (input.labView.viewType === 'heatmap-view') {
       this.width = null;
       this.height = null;
       // big portal for the multi view
@@ -50,15 +68,50 @@ export class LabResourceViewPortalComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
-
   onUpdate(viewConfig: LabViewConfig): void {
     this.labView.viewConfig = viewConfig;
+    if(this.resourceState) {
+      this.resourceState.updateViewConfig(viewConfig);
+    }
   }
 
   onTagUpdate(tags: FlTag[]): void {
     this.labView.viewConfig.tags = tags;
+  }
+
+  get resourceStateAccessible(): boolean {
+    return this.resourceState != null;
+  }
+
+  dockView(): void {
+    if (this.resourceState) {
+      this.resourceState.setMainView(this.labView);
+      this.overlayRef.dispose();
+    }
+  }
+
+  minimizeView(): void {
+    if (this.resourceState) {
+      this.resourceState.minimizeView(this.labView);
+      this.overlayRef.dispose();
+    }
+  }
+
+  updateView(): void {
+    if (this.input.editView) {
+      this.input.editView();
+      return;
+    }
+    if (this.resourceState) {
+      this.resourceState.updateView(this.labView, this.overlayRef);
+    }
+  }
+
+  updateTitle(title: string): void {
+    if (this.labView.viewConfig == null) return;
+    this.viewConfigService.updateTitle(this.labView.viewConfig.id, title).subscribe(
+      viewConfig => this.onUpdate(viewConfig)
+    );
   }
 
 }

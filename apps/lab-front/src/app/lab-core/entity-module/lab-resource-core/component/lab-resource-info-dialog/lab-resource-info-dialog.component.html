@@ -1,0 +1,17 @@
+<fl-dialog-header>
+  {{resource.name}}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="content-grid">
+    <lab-resource-info [resource]="resource"></lab-resource-info>
+
+    <lab-resource-view-historic [resourceId]="resource.id"></lab-resource-view-historic>
+
+
+    <lab-experiments-using-resource [resourceId]="resource.id"></lab-experiments-using-resource>
+
+
+    <lab-reports-using-resource [resourceId]="resource.id"></lab-reports-using-resource>
+  </div>
+</mat-dialog-content>

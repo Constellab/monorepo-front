@@ -83,17 +83,6 @@
   </ng-container>
 
 
-  <!-- Preview -->
-  <ng-container matColumnDef="preview">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
-    </mat-header-cell>
-    <mat-cell *matCellDef="let resource" class="g-table-icon-button-cell">
-
-      <lab-resource-preview-button [resourceId]="resource.id" [resourceName]="resource.name"
-                                   [stopPropagation]="true"></lab-resource-preview-button>
-    </mat-cell>
-  </ng-container>
-
   <!-- Flagged -->
   <ng-container matColumnDef="flagged">
     <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
@@ -124,7 +113,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="g-table-icon-button-cell">
       <button mat-icon-button (click)="openResourceDetail(resource, $event)"
-              type="button" [matTooltip]="'biox.resource_preview' | translate">
+              type="button" [matTooltip]="'biox.open_resource' | translate">
         <mat-icon>visibility</mat-icon>
       </button>
     </mat-cell>

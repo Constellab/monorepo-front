@@ -28,6 +28,14 @@ export interface SpSpreadsheetChartSerieSelectionInput {
   xSelectionMode?: SpSheetSelectionMode;
 }
 
+export interface SpSpreadsheetGenerateChartOptions {
+  additionalFields: SpSheetChartSelectionFormAdditional;
+  sheet: SpSheet;
+  contextMenuItems: FlMenuDynamic[];
+  // method that can be called to open the selection update portal
+  updateSelection: () => void;
+}
+
 /**
  * Config for the form to select values from spreadsheet to then generate a chart type from the sheet
  */
@@ -36,9 +44,7 @@ export abstract class SpSheetChartConfig {
   public abstract getChartType(): ChChartType;
 
   public abstract generateChart(series: SpSheetChart2dSerieSelectionForm[],
-                                additionalFields: SpSheetChartSelectionFormAdditional,
-                                sheet: SpSheet,
-                                contextMenuItems?: FlMenuDynamic[]): FlOverlayRef | Observable<FlOverlayRef>;
+                                options: SpSpreadsheetGenerateChartOptions): FlOverlayRef | Observable<FlOverlayRef>;
 
   abstract createSeriesFromDataRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetChart2dSerieSelectionForm[];
 

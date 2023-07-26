@@ -19,8 +19,6 @@ export const labConstResourceViewTypeInfos: Record<string, RvResourceViewTypeInf
   'table-view': {
     icon: 'calendar_view_month',
     text: 'rvResourceView.resource_view_spreadsheet',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: true,
     viewComponent: LabResourceViewSpreadsheetComponent,
     image: {
       lightTheme: 'assets/views/light/tabular-view.svg',
@@ -31,8 +29,6 @@ export const labConstResourceViewTypeInfos: Record<string, RvResourceViewTypeInf
   'tabular-view': {
     icon: 'calendar_view_month',
     text: 'rvResourceView.resource_view_spreadsheet',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: true,
     viewComponent: LabResourceViewSpreadsheetComponent,
     image: {
       lightTheme: 'assets/views/light/tabular-view.svg',
@@ -43,8 +39,6 @@ export const labConstResourceViewTypeInfos: Record<string, RvResourceViewTypeInf
   'dataset-view': {
     icon: 'calendar_view_month',
     text: 'rvResourceView.resource_view_dataset_view',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: true,
     viewComponent: LabResourceViewSpreadsheetComponent,
     image: {
       lightTheme: 'assets/views/light/tabular-view.svg',
@@ -55,16 +49,12 @@ export const labConstResourceViewTypeInfos: Record<string, RvResourceViewTypeInf
   'text-view': {
     icon: 'text_snippet',
     text: 'rvResourceView.resource_view_text',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: false,
     viewComponent: LabResourceViewTextComponent,
     image: null
   },
   view: {
     icon: 'view_quilt',
     text: 'biox.resource_view_base',
-    defaultDisplayMode: 'portal',
-    forceDefaultDisplayMode: false,
     viewComponent: null,
     image: {
       lightTheme: 'assets/views/light/default-view.svg',
@@ -74,16 +64,12 @@ export const labConstResourceViewTypeInfos: Record<string, RvResourceViewTypeInf
   'resources-list-view': {
     icon: 'format_list_bulleted',
     text: 'biox.resource_view_resources_list',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: false,
     viewComponent: LabResourceViewListComponent,
     image: null
   },
   'folder-view': {
     icon: 'folder',
     text: 'biox.resource_view_folder',
-    defaultDisplayMode: 'fullScreen',
-    forceDefaultDisplayMode: false,
     viewComponent: LabResourceViewFolderComponent,
     image: null
   }

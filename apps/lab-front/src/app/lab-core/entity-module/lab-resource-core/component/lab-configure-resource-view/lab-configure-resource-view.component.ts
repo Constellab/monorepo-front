@@ -4,14 +4,12 @@ import {
   LabResourceViewSpecComplete,
   LabResourceViewSpecWithConfig,
 } from '../../../../model/entities/resource/lab-resource-view.entity';
-import {Validators} from '@angular/forms';
 import {LabConfig, LabConfigureSpecsForm} from '../../../../model/entities/lab-config.entity';
 import {FL_PORTAL_DATA, FlFormHelper, FlOverlayRef} from '@monorepo/front-core-lib';
 import {
   LabConfigureSpecsFormComponent
 } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {RvViewDisplayMode} from '@monorepo/resource-view';
 import {Observable} from 'rxjs';
 import {PrConfigValues} from '@monorepo/protocol';
 
@@ -20,7 +18,6 @@ export interface LabConfigureResourceViewInput {
   resourceId?: string;
   title: string;
   viewMethodName: string;
-  showDisplayModeControl: boolean; // whether to show the radio button to choose display mode
 
   preConfiguration?: LabResourceViewSpecWithConfig;
 }
@@ -28,12 +25,10 @@ export interface LabConfigureResourceViewInput {
 export interface LabConfigureResourceViewOutput {
   viewMethodName: string;
   viewConfigValues: PrConfigValues;
-  displayMode: RvViewDisplayMode;
 }
 
 
 export interface LabConfigureResourceViewForm {
-  displayMode: RvViewDisplayMode;
   viewConfig: LabConfigureSpecsForm;
 }
 
@@ -53,7 +48,6 @@ export class LabConfigureResourceViewComponent implements OnInit {
   configs: LabConfig;
 
   title: string;
-  showDisplayModeControl: boolean;
   resourceTypingName: string;
 
   isLoading: boolean = true;
@@ -64,7 +58,6 @@ export class LabConfigureResourceViewComponent implements OnInit {
               private cdr: ChangeDetectorRef) {
     this.title = input.title;
     this.resourceTypingName = input.resourceTypingName;
-    this.showDisplayModeControl = input.showDisplayModeControl;
   }
 
   ngOnInit(): void {
@@ -93,10 +86,7 @@ export class LabConfigureResourceViewComponent implements OnInit {
   private init(specs: LabResourceViewSpecComplete): void {
     this.configs = LabConfig.fromSpecs(specs.configSpecs, this.input.preConfiguration?.viewConfigValues ?? {});
 
-    const displayMode: RvViewDisplayMode = this.input.preConfiguration?.displayMode ?? 'fullScreen';
-
     this.formGp = new FormBuilder().group({
-      displayMode: [displayMode, Validators.required],
       viewConfig: LabConfigureSpecsFormComponent.buildFormGroup(this.configs),
     });
 
@@ -119,7 +109,6 @@ export class LabConfigureResourceViewComponent implements OnInit {
     return {
       viewMethodName: this.input.viewMethodName,
       viewConfigValues: {...formValue.viewConfig.public, ...formValue.viewConfig.protected},
-      displayMode: formValue.displayMode,
     };
   }
 }

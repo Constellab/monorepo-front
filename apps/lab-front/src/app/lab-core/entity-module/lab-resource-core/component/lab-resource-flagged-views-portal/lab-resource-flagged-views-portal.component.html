@@ -1,0 +1,9 @@
+<fl-portal class="portal">
+  <fl-portal-content>
+    <fl-infinite-table-container [datasource]="resourceViews" class="g-full-height">
+      <lab-view-config-table [datasource]="resourceViews" [columns]="columns"
+                             [selectableRow]="true"
+                             (viewConfigSelected)="showView($event)"></lab-view-config-table>
+    </fl-infinite-table-container>
+  </fl-portal-content>
+</fl-portal>

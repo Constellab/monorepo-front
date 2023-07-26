@@ -1,31 +1,56 @@
-<fl-portal class="portal" flResize="both" flPortalZIndex [style.width]="width" [style.height]="height">
-  <fl-portal-header [enableDrag]="true">
-    <div class="title">{{labView.viewConfig.title}}</div>
-    <fl-tag-list [tags]="labView.viewConfig.tags" [tagSelectable]="false" class="g-text-small"></fl-tag-list>
+<fl-portal class="portal" flResize="both" [style.width]="width" [style.height]="height">
+  <fl-portal-header [enableDrag]="!editTitle">
+    <div class="title" [(flElementEditable)]="editTitle" [flElementIgnoreDrag]="true"
+         [flElementDisabled]="labView.viewConfig == null"
+         (flElementValueChange)="updateTitle($event)">
+      {{labView.title}}
+    </div>
+    <fl-tag-list *ngIf="labView.viewConfig"
+                 [tags]="labView.viewConfig.tags" [tagSelectable]="false" class="g-text-small"></fl-tag-list>
 
     <fl-portal-header-buttons>
 
       <a [routerLink]="labView.viewConfig | labDetailRoute" mat-icon-button target="_blank"
-         [matTooltip]="'biox.open_view_in_new_tab' | translate">
+         *ngIf="labView.viewConfig" [matTooltip]="'biox.open_view_in_new_tab' | translate">
         <mat-icon>open_in_new</mat-icon>
       </a>
 
+      <ng-container *ngIf="resourceStateAccessible">
+        <button mat-icon-button type="button" [matTooltip]="'biox.update_view' | translate"
+                (click)="updateView()">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-icon-button type="button" [matTooltip]="'biox.dock_view' | translate"
+                (click)="dockView()">
+          <mat-icon>dock</mat-icon>
+        </button>
+      </ng-container>
+
       <fl-resize-portal-fullscreen-button></fl-resize-portal-fullscreen-button>
 
-      <lab-flag-button *ngIf="labView.viewConfig" [entity]="labView.viewConfig"></lab-flag-button>
+      <lab-flag-button *ngIf="labView.viewConfig" [entity]="labView.viewConfig"
+                       (update)="onUpdate($any($event))"></lab-flag-button>
 
-      <lab-view-config-actions-menu [viewConfig]="labView.viewConfig"
+      <lab-view-config-actions-menu *ngIf="labView.viewConfig" [viewConfig]="labView.viewConfig"
                                     (update)="onUpdate($event)"
                                     (updateTags)="onTagUpdate($event)"></lab-view-config-actions-menu>
 
 
       <rv-technical-info-button [technicalInfo]="labView.view.technical_info"></rv-technical-info-button>
+
+      <ng-container *ngIf="resourceStateAccessible">
+        <button mat-icon-button type="button" [matTooltip]="'biox.minimize_view' | translate"
+                (click)="minimizeView()">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </ng-container>
     </fl-portal-header-buttons>
   </fl-portal-header>
 
   <fl-portal-content>
     <rv-resource-view [view]="labView.view" [config]="rvConfig" [resourceId]="labView.resourceId"
-                      [displayMode]="'portal'" [contextMenuItems]="contextMenuItems">
+                      [contextMenuItems]="contextMenuItems">
     </rv-resource-view>
   </fl-portal-content>
 </fl-portal>

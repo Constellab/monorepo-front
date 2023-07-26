@@ -1,0 +1,333 @@
+import {computed, Injectable, OnDestroy, Signal, signal, ViewContainerRef, WritableSignal} from '@angular/core';
+import {LabResource} from '../../../model/entities/resource/lab-resource.entity';
+import {LabResourceService} from '../../../entity-service/lab-resource.service';
+import {
+  LabResourceView,
+  LabResourceViewSpec,
+  LabResourceViewSpecWithConfig
+} from '../../../model/entities/resource/lab-resource-view.entity';
+import {LabTag} from '../../../model/entities/lab-tag.entity';
+import {
+  FlEntityPaginatedDatasource,
+  FlOverlayRef,
+  FlPortalActionResult,
+  FlPortalActionsService,
+  FlPortalConfig,
+  FlPortalService,
+  FlQueryParamHandler,
+  FlStatusEvent
+} from '@monorepo/front-core-lib';
+import {LabViewConfigService} from '../../../entity-service/lab-view-config.service';
+import {
+  LabResourceViewPortalComponent,
+  LabResourceViewPortalInput
+} from '../component/lab-resource-view-portal/lab-resource-view-portal.component';
+import {Observable, Subscription} from 'rxjs';
+import {PrConfigValues} from '@monorepo/protocol';
+import {filter} from 'rxjs/operators';
+import {LabViewConfig, LabViewConfigDatasource} from '../../../model/entities/resource/lab-view-config.entity';
+import {ComponentType} from '@angular/cdk/overlay';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LabViewConfigurerState} from './lab-view-configurer-state.service';
+
+export interface LabMinimizedView {
+  symbol: symbol;
+  view: LabResourceView;
+}
+
+@Injectable()
+export class LabResourceDetailState implements OnDestroy {
+
+  private mainResourceId: WritableSignal<string> = signal(null);
+  private selectedResourceId: WritableSignal<string> = signal(null);
+
+  private resources: WritableSignal<LabResource[]> = signal([]);
+
+  private _selectedView: WritableSignal<FlStatusEvent<LabResourceView>> = signal(null);
+  private _minimizedViews: WritableSignal<LabMinimizedView[]> = signal([]);
+
+  private flaggedViews: Record<string, LabViewConfigDatasource> = {};
+
+  public readOnly: boolean = false;
+
+  private readonly actionType: string = 'view-portal-loader';
+  private viewPortalSubscription: Subscription;
+
+  private queryParamHandler: FlQueryParamHandler<{ resourceId: string }>;
+
+  public mainResource: Signal<LabResource> = computed(() => {
+    const mainId = this.mainResourceId();
+    const resources = this.resources();
+    return resources.find(resource => resource.id === mainId);
+  });
+
+  public childrenResources: Signal<LabResource[]> = computed(() => {
+    const mainResourceId = this.mainResourceId();
+    const resources = this.resources();
+    return resources.filter(resource => resource.id !== mainResourceId);
+  });
+
+  public hasChildren: Signal<boolean> = computed(() => {
+    const mainResource = this.mainResource();
+    return mainResource?.hasChildren ?? false;
+  });
+
+  public selectedResource: Signal<LabResource> = computed(() => {
+    const selectedId = this.selectedResourceId();
+    const resources = this.resources();
+    return resources.find(resource => resource.id === selectedId);
+  });
+
+  public get selectedView(): Signal<FlStatusEvent<LabResourceView>> {
+    return this._selectedView.asReadonly();
+  }
+
+  public get minimizedViews(): Signal<LabMinimizedView[]> {
+    return this._minimizedViews.asReadonly();
+  }
+
+  constructor(private resourceService: LabResourceService,
+              private actionService: FlPortalActionsService,
+              private portalService: FlPortalService,
+              private viewConfigService: LabViewConfigService,
+              private viewContainerRef: ViewContainerRef,
+              private viewConfigState: LabViewConfigurerState,
+              route: ActivatedRoute,
+              router: Router) {
+    this.queryParamHandler = new FlQueryParamHandler(router, route);
+  }
+
+  public init(resourceId: string, readOnly: boolean): void {
+    this.initResource(resourceId);
+    this.mainResourceId.set(resourceId);
+
+    // check the query param to select the right resource
+    this.queryParamHandler.getFirstQueryParams().subscribe(
+      params => {
+        if (params.resourceId) {
+          this.selectResource(params.resourceId, false);
+        } else {
+          // load the main resource
+          this.selectResource(resourceId, false);
+        }
+      });
+
+    this.readOnly = readOnly;
+    this.subscribeToViewPortal();
+  }
+
+  private initResource(resourceId: string): void {
+    this.resourceService.getById(resourceId).subscribe(
+      resource => this.initResourceSuccess(resource)
+    );
+  }
+
+  private initResourceSuccess(resource: LabResource): void {
+    this.resources.set([resource]);
+    if (resource.hasChildren) {
+      this.resourceService.getResourceChildren(resource.id).subscribe(
+        children => this.resources.update(resources => [...resources, ...children])
+      );
+    }
+  }
+
+
+  public selectResource(resourceId: string, setQueryParams: boolean = true): void {
+    if (resourceId === this.selectedResourceId()) return;
+    this.selectedResourceId.set(resourceId);
+    this.loadDefaultView(resourceId);
+    // when the resource is in readonly mode (in dialog) don't update the query params
+    if (setQueryParams && !this.readOnly) {
+      this.queryParamHandler.mergeQueryParams({resourceId});
+    }
+  }
+
+  private loadDefaultView(resourceId: string): void {
+    this._selectedView.set({status: 'loading'});
+    this.resourceService.callResourceDefaultView(resourceId, true).subscribe({
+      next: view => this._selectedView.set({status: 'success', object: view}),
+      error: (error) => this._selectedView.set({status: 'error', error: error})
+    });
+  }
+
+  public updateResourceTags(resourceId: string, tags: LabTag[]): void {
+    this.resources.mutate(resources => {
+      const resource = resources.find(resource => resource.id === resourceId);
+      if (resource) {
+        resource.tags = tags;
+      }
+    });
+  }
+
+  public updateResource(resource: LabResource): void {
+    this.resources.update(resources => {
+      const index = resources.findIndex(r => r.id === resource.id);
+      if (index >= 0) {
+        resources[index] = resource;
+      }
+      return resources;
+    });
+  }
+
+  ////////////////////////////////////// VIEWS /////////////////////////////////////
+  public addViewFromConfig(viewConfigId: string, viewName: string): void {
+    this.callView(this.viewConfigService.callViewConfig(viewConfigId), viewName);
+  }
+
+  public addViewFromSpecs(resourceId: string, config: LabResourceViewSpecWithConfig): void {
+    this.callView(this.callResourceView(resourceId, config.viewMethodName,
+      config.viewConfigValues), config.viewName);
+  }
+
+  /**
+   * Call and open the view in a portal, using the action service
+   */
+  public callView(view$: Observable<LabResourceView>, viewName: string): void {
+    this.actionService.addAction(
+      {
+        type: this.actionType,
+        text: viewName,
+        action: view$,
+      },
+      true);
+  }
+
+
+  public setMainView(view: LabResourceView): void {
+    this._selectedView.set({status: 'success', object: view});
+  }
+
+  private callResourceView(resourceId: string, methodName: string, configValues: PrConfigValues): Observable<LabResourceView> {
+    return this.resourceService.callResourceView(resourceId, methodName, configValues, true);
+  }
+
+  public undockCurrentView(): void {
+    const view = this._selectedView();
+    if (view.status === 'success') {
+      this.openViewInPortal(view.object);
+    }
+  }
+
+  public getSelectedResourceFlaggedViews(): LabViewConfigDatasource {
+    return this.getFlaggedViews(this.selectedResourceId());
+  }
+
+  public minimizeView(view: LabResourceView): void {
+    this._minimizedViews.update(views => [...views, {
+      symbol: Symbol(),
+      view: view
+    }]);
+  }
+
+  public openMinimizedView(minimizedView: LabMinimizedView): void {
+    this.openViewInPortal(minimizedView.view);
+    this.deleteMinimizedView(minimizedView.symbol);
+  }
+
+  public deleteMinimizedView(minimizedViewId: symbol): void {
+    this._minimizedViews.update(views => {
+      const index = views.findIndex(v => v.symbol === minimizedViewId);
+      if (index >= 0) {
+        views.splice(index, 1);
+      }
+      return views;
+    });
+  }
+
+  private getFlaggedViews(resourceId: string): LabViewConfigDatasource {
+    if (this.flaggedViews[resourceId] == null) {
+      this.flaggedViews[resourceId] = new FlEntityPaginatedDatasource(
+        (page, pageSize) => this.viewConfigService.getByResource(resourceId, true, page, pageSize),
+        10, true, true
+      );
+    }
+    return this.flaggedViews[resourceId];
+  }
+
+  ////////////////////////////////////// VIEWS PORTAL /////////////////////////////////////
+
+  /**
+   * subscribe to action service to open views in a portal
+   * @private
+   */
+  private subscribeToViewPortal(): void {
+    this.viewPortalSubscription?.unsubscribe();
+    // subscribe to portal view to open them
+    this.viewPortalSubscription = this.actionService.getResult$(this.actionType).pipe(
+      filter(result => result.status === 'success'),
+    ).subscribe(
+      (result: FlPortalActionResult<LabResourceView>) => this.openViewInPortal(result.result)
+    );
+  }
+
+
+  private openViewInPortal(labView: LabResourceView): void {
+    const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
+      {centerHorizontally: '0', top: '0'},
+      {
+        disposeOnNavigation: true,
+      });
+
+
+    const config: LabResourceViewPortalInput = {
+      labView: labView,
+    };
+
+    this.createPortal(LabResourceViewPortalComponent, portalConfig, config);
+  }
+
+  public createPortal(component: ComponentType<any>, config: FlPortalConfig, data: any = {}): FlOverlayRef {
+    return this.portalService.createPortal(component, config, data, this.viewContainerRef);
+  }
+
+  public updateView(view: LabResourceView, viewOverlayRef: FlOverlayRef): void {
+    const resource = this.resources().find(r => r.id === view.resourceId);
+    if (resource == null) return;
+    this.viewConfigState.openConfigPortal(view.viewConfig.viewName, view.title, true,
+      resource.id, resource.resourceTypingName, view.viewConfig.configValues).subscribe(
+      result => this.onViewConfiguredClosed(resource.id, result, viewOverlayRef)
+    );
+  }
+
+  ////////////////////////////////////// VIEW CONFIG /////////////////////////////////////
+  // prepare the data and open the view configuration portal
+  public openConfigPortal(view: LabResourceViewSpec): void {
+    const resource = this.selectedResource();
+    this.viewConfigState.openConfigPortal(view.methodName, view.getName(), view.hasConfigSpecs,
+      resource.id, resource.resourceTypingName).subscribe(
+      result => this.onViewConfiguredClosed(resource.id, result)
+    );
+  }
+
+  private onViewConfiguredClosed(resourceId: string, config?: LabResourceViewSpecWithConfig, overlayRef?: FlOverlayRef): void {
+    if (config == null) return;
+    this.addViewFromSpecs(resourceId, config);
+
+    if (overlayRef) {
+      overlayRef.dispose();
+    }
+  }
+
+  /**
+   * Update a flagged view config in the datasource
+   * @param viewConfig
+   */
+  public updateViewConfig(viewConfig: LabViewConfig): void {
+    const datasource = this.getFlaggedViews(viewConfig.resource.id);
+    if (datasource == null) return;
+    // remove the view config if it is not flagged anymore (if it exists in the datasource)
+    if (!viewConfig.flagged) {
+      datasource.removeItem(viewConfig);
+    } else {
+      // add/update the view config if it is flagged and not in the datasource
+      datasource.addOrUpdateItem(viewConfig, () => true);
+    }
+  }
+
+
+  ngOnDestroy(): void {
+    this.viewPortalSubscription?.unsubscribe();
+  }
+
+
+}
