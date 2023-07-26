@@ -3,7 +3,7 @@
     <button [disabled]="datasource.isLoading" class="g-button-small"
             mat-stroked-button color="primary" type="button" (click)="loadMoreResults()">
       {{'show_more_result' | translate}}
-      <fl-button-loader *ngIf="datasource.nextPageIsLoading"></fl-button-loader>
+      <fl-button-loader *ngIf="datasource.nextPageIsLoading" size="small"></fl-button-loader>
     </button>
   </div>
 
