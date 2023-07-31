@@ -53,6 +53,8 @@ export class CaProjectObjectDetailState implements OnDestroy {
       hasChildren => {
         if (!hasChildren) {
           this.setTreeOpened(false);
+        }else{
+          this.setTreeOpened(true);
         }
       });
   }
