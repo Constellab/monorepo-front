@@ -35,12 +35,12 @@
 
           <div class="task-time-separator">-</div>
 
-          <fl-from-now *ngIf="status.serverTaskDatetime" [date]="status.serverTaskDatetime"
-                       class="g-text-light"></fl-from-now>
+          <!--   Task text   -->
+          <div>{{status.serverTaskText}}</div>
+          <div class="task-time-separator">-</div>
+          <fl-from-now *ngIf="status.serverTaskDatetime" [date]="status.serverTaskDatetime"></fl-from-now>
         </div>
 
-        <!--   Task text   -->
-        <div>{{status.serverTaskText}}</div>
       </div>
     </ng-container>
 

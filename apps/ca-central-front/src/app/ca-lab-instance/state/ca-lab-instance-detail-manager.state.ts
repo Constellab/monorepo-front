@@ -42,12 +42,16 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
 
   private autoRefreshFrequency = 15000;
   private autoRefreshTimeout: any;
+  // current number of not running status in a row
+  private autoNotRunningStatusCount = 0;
+  // stop auto refresh after 2 not running status
+  // this is used to prevent stop auto-refresh if a short not running status is returned (on lab start for example)
+  private readonly autoNotRunningStatusMaxCount = 2;
 
 
   constructor(private state: CaLabInstanceDetailPageState,
               private labInstanceService: CaLabInstanceService,
               private dialogService: FlDialogService,
-              private portalService: FlPortalActionsService,
               private actionService: FlPortalActionsService) {
   }
 
@@ -72,6 +76,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
   }
 
   public refreshStatus(): void {
+    // if the previous request is still running, do nothing
     if (this.status$.value.status === 'loading') return;
     if (this.autoRefreshTimeout) {
       clearTimeout(this.autoRefreshTimeout);
@@ -92,6 +97,15 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
     });
 
     if (status.currentTask?.status.value === 'RUNNING') {
+      // as the tas kis running mark, the count as 0, it will keep refreshing
+      this.autoNotRunningStatusCount = 0;
+    }else{
+      // if the task is not running, increase the count
+      this.autoNotRunningStatusCount++;
+    }
+
+    // only refresh if the count is not maxed out
+    if (this.autoNotRunningStatusCount < this.autoNotRunningStatusMaxCount) {
       this.autoRefreshTimeout = setTimeout(() => this.refreshStatus(), this.autoRefreshFrequency);
     }
   }
