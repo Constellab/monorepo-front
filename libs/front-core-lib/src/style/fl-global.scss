@@ -273,10 +273,10 @@ figure {
   border-radius: 5px;
 }
 
-:not(.g-fl-element-editable-true).g-fl-element-editable:hover {
+.g-fl-element-editable:not(.g-fl-element-editable-true):not(.g-fl-element-editable-disabled):hover {
   background-color: var(--hover-color);
 }
 
-.g-fl-element-editable-true {
+.g-fl-element-editable-true:not(.g-fl-element-editable-disabled) {
   cursor: initial;
 }

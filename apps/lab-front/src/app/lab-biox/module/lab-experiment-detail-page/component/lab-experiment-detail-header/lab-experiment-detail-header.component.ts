@@ -82,6 +82,12 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     this.syncObjectFunc = (id: string) => this.experimentService.syncWithSpace(id);
   }
 
+  updateTitle(title: string): void {
+    this.experimentService.updateTitle(this.experimentState.currentExperiment.id, title).subscribe(
+      experiment => this.onExperimentUpdate(experiment)
+    );
+  }
+
   openUpdateDialog(): void {
     const experiment: LabExperiment = this.experimentState.currentExperiment;
 

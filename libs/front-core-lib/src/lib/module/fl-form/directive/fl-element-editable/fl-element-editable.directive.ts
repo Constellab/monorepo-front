@@ -27,6 +27,7 @@ export class FlElementEditableDirective {
   /**
    * Disable editable element
    */
+  @HostBinding('class.g-fl-element-editable-disabled')
   @Input() flElementDisabled: boolean = false;
 
   /**
@@ -37,6 +38,8 @@ export class FlElementEditableDirective {
   private mouseDownTime: DateTime;
 
   private readonly mouseDownThreshold: number = 200;
+
+  private previousValue: string;
 
   @HostListener('mousedown', ['$event']) onMouseDown(): void {
     if (this.flElementDisabled || !this.flElementIgnoreDrag) return;
@@ -82,12 +85,17 @@ export class FlElementEditableDirective {
     this.flElementEditableChange.emit(this.flElementEditable);
     this.renderer.setAttribute(this.elementRef.nativeElement, 'contentEditable', 'true');
     this.elementRef.nativeElement.focus();
+    this.previousValue = this.elementRef.nativeElement.innerText;
   }
 
   private setNotEditable(): void {
     this.flElementEditable = false;
     this.flElementEditableChange.emit(this.flElementEditable);
     this.renderer.removeAttribute(this.elementRef.nativeElement, 'contentEditable');
-    this.flElementValueChange.emit(this.elementRef.nativeElement.innerText);
+
+    // only emit if value has changed
+    if (this.previousValue !== this.elementRef.nativeElement.innerText) {
+      this.flElementValueChange.emit(this.elementRef.nativeElement.innerText);
+    }
   }
 }

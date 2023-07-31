@@ -39,6 +39,10 @@ export class LabReport extends LabBaseEntityWithUser implements LabProjectObject
   get isSynced(): boolean {
     return this.lastSyncAt != null;
   }
+
+  isEditable(): boolean {
+    return !this.isArchived && !this.isValidated;
+  }
 }
 
 export type LabReportDatasource = FlDatasourcePaginated<LabReport>;

@@ -12,8 +12,10 @@
               flIcon="archive">
     </mat-icon>
 
-    <h1>{{experiment.title}}</h1>
+    <h1 flElementEditable (flElementValueChange)="updateTitle($event)"
+        [flElementDisabled]="!experiment.isEditable()">{{experiment.title}}</h1>
   </fl-text-icon>
+
 
   <lab-sync-object-button [object]="experiment" [syncObjectFunc]="syncObjectFunc"
                           (objectUpdate)="onExperimentUpdate($event)">

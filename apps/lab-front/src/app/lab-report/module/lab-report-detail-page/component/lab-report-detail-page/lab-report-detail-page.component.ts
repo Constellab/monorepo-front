@@ -70,6 +70,11 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
     );
   }
 
+  updateTitle(title: string): void{
+    this.reportService.updateTitle(this.state.currentReport.id, title).subscribe(
+      report => this.state.updateReport(report)
+    );
+  }
 
   updateReport(): void {
     const report: LabReport = this.state.currentReport;

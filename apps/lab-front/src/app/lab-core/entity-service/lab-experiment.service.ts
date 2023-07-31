@@ -51,6 +51,10 @@ export class LabExperimentService {
     );
   }
 
+  public updateTitle(experimentId: string, title: string): Observable<LabExperiment> {
+    return this.apiService.put(`${this.route}/${experimentId}/title`, {title: title}, LabExperiment);
+  }
+
   public updateProject(experimentId: string, projectId: string): Observable<LabExperiment> {
     return this.apiService.put(`${this.route}/${experimentId}/project`, {project_id: projectId}, LabExperiment);
   }

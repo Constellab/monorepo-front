@@ -14,28 +14,31 @@
                   flIcon="archive">
         </mat-icon>
 
-        <h2 class="g-flex-auto">{{report.title}}</h2>
+        <h2 class="g-flex-auto" flElementEditable (flElementValueChange)="updateTitle($event)"
+            [flElementDisabled]="!report.isEditable()">{{report.title}}</h2>
 
         <lab-sync-object-button [object]="report" [syncObjectFunc]="syncObjectFunc"
                                 additionalConfirmText="biox.sync_report_confirmation"
                                 (objectUpdate)="onReportUpdate($event)" class="g-print-hide">
         </lab-sync-object-button>
 
-        <div *ngIf="!report.isValidated" class="g-print-hide action-buttons">
-          <button mat-icon-button type="button" [matTooltip]="'biox.update_report' | translate"
-                  (click)="updateReport()">
-            <mat-icon>edit</mat-icon>
-          </button>
+        <div  class="g-print-hide action-buttons">
+          <ng-container *ngIf="report.isEditable()">
+            <button mat-icon-button type="button" [matTooltip]="'biox.update_report' | translate"
+                    (click)="updateReport()">
+              <mat-icon>edit</mat-icon>
+            </button>
 
-          <button mat-icon-button type="button" [matTooltip]="'biox.validate_report' | translate"
-                  (click)="validate()">
-            <mat-icon flIcon="validated"></mat-icon>
-          </button>
+            <button mat-icon-button type="button" [matTooltip]="'biox.validate_report' | translate"
+                    (click)="validate()">
+              <mat-icon flIcon="validated"></mat-icon>
+            </button>
 
-          <button mat-icon-button type="button" [matTooltip]="'biox.print_report' | translate"
-                  (click)="printReport()">
-            <mat-icon>print</mat-icon>
-          </button>
+            <button mat-icon-button type="button" [matTooltip]="'biox.print_report' | translate"
+                    (click)="printReport()">
+              <mat-icon>print</mat-icon>
+            </button>
+          </ng-container>
 
 
           <button mat-icon-button type="button" (click)="archiveReport()"
@@ -44,7 +47,7 @@
           </button>
 
           <button mat-icon-button type="button" [matTooltip]="'biox.delete_report' | translate"
-                  color="warn" (click)="delete()">
+                  color="warn" (click)="delete()" *ngIf="report.isEditable()">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
