@@ -16,7 +16,6 @@ interface CaProjectFlatNode {
   expandable: boolean;
   isSelected: boolean;
   levelStatus: CaProjectLevelStatus;
-
 }
 
 /**

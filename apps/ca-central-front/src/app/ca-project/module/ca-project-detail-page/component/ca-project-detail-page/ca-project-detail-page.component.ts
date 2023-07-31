@@ -1,11 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {CaReport} from '../../../../../ca-core/model/entities/project/ca-report.class';
-import {CaReportService} from '../../../../../ca-core/service-api/ca-report.service';
 import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-experiment.class';
-import {CaExperimentService} from '../../../../../ca-core/service-api/ca-experiment.service';
 import {CaProjectDetailState} from '../../state/ca-project-detail.state';
 import {map} from 'rxjs/operators';
 import {FlArrayObs} from '@monorepo/front-core-lib';
@@ -30,10 +27,7 @@ export class CaProjectDetailPageComponent implements OnInit {
   showObjects$: Observable<boolean>;
 
 
-  constructor(private projectService: CaProjectService,
-              private reportService: CaReportService,
-              private experimentService: CaExperimentService,
-              private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               private state: CaProjectDetailState) {
   }
 

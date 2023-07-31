@@ -15,6 +15,9 @@ import {
 import {
   CaDocumentDetailPageComponent
 } from '../ca-document-detail-page/component/ca-document-detail-page/ca-document-detail-page.component';
+import {
+  CaProjectTreePageComponent
+} from '../ca-project-tree-page/component/ca-project-tree-page/ca-project-tree-page.component';
 
 const routes: Route[] = [
   {
@@ -24,7 +27,8 @@ const routes: Route[] = [
       {path: 'report/:reportId', component: CaReportDetailPageComponent},
       {path: 'document/:documentId', component: CaDocumentDetailPageComponent}
     ]
-  }
+  },
+  {path: 'tree/:projectId', component: CaProjectTreePageComponent}
 ];
 
 @NgModule({
