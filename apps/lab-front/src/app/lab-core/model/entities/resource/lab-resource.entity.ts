@@ -88,11 +88,6 @@ export class LabResource extends LabEntityWithTag implements LabFlaggedEntity {
     return this.origin !== 'GENERATED';
   }
 
-  // can only update project manually if the resource was not generated from an experiment
-  canUpdateProject(): boolean{
-    return this.experiment == null;
-  }
-
 }
 
 

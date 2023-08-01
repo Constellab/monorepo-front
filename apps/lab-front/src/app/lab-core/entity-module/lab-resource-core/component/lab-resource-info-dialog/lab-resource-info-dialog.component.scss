@@ -3,8 +3,8 @@
   gap: 1%;
   grid-template-columns: 49.5% 49.5%;
   // set the height of the rows
-  grid-auto-rows: minmax(25em, auto);
-  min-height: 100%;
+  grid-auto-rows: 49.5% 49.5%;
+  height: 100%;
 }
 
 

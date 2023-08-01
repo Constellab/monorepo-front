@@ -4,10 +4,12 @@ import {
   LabTypeDialogComponent,
   LabTypeDialogInput
 } from '../../../lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import {FlDialogService, FlTagDialogService} from '@monorepo/front-core-lib';
 import {
   LabSharedEntityOriginDialogComponent
 } from '../../../lab-share-core/component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
+import {LabTag} from '../../../../model/entities/lab-tag.entity';
+import {LabResourceService} from '../../../../entity-service/lab-resource.service';
 
 /**
  * Component to show info about a resource
@@ -21,7 +23,9 @@ export class LabResourceInfoComponent implements OnInit {
 
   @Input() resource: LabResource;
 
-  constructor(private dialogService: FlDialogService) {
+  constructor(private dialogService: FlDialogService,
+              private tagDialogService: FlTagDialogService,
+              private resourceService: LabResourceService) {
   }
 
   ngOnInit(): void {
@@ -37,6 +41,21 @@ export class LabResourceInfoComponent implements OnInit {
   openResourceShareOrigin(): void {
     if (this.resource.origin === 'IMPORTED_FROM_LAB') {
       this.dialogService.openMediumDialog(LabSharedEntityOriginDialogComponent, {data: this.resource.id});
+    }
+  }
+
+  openTagFormDialog(): void {
+    this.tagDialogService.openUpdateTagDialog({
+      tags: this.resource.tags,
+      updateMethod: (tags) => this.resourceService.saveTags(this.resource.id, tags)
+    }).afterClosed().subscribe(
+      (newTags: LabTag[]) => this.onTagClosed(newTags)
+    );
+  }
+
+  private onTagClosed(newTags: LabTag[]): void {
+    if (newTags != null) {
+      this.resource.tags = newTags;
     }
   }
 }
