@@ -22,7 +22,7 @@
                                 (objectUpdate)="onReportUpdate($event)" class="g-print-hide">
         </lab-sync-object-button>
 
-        <div  class="g-print-hide action-buttons">
+        <div class="g-print-hide action-buttons">
           <ng-container *ngIf="report.isEditable()">
             <button mat-icon-button type="button" [matTooltip]="'biox.update_report' | translate"
                     (click)="updateReport()">
@@ -57,11 +57,10 @@
       <fl-article-container>
         <fl-article-left-side>
 
+
           <!--  Project  -->
-          <fl-text-icon *ngIf="report.project" class="separator">
-            <mat-icon flIcon="project"></mat-icon>
-            <lab-project-inline [project]="report.project"></lab-project-inline>
-          </fl-text-icon>
+          <lab-project-inline-select [(ngModel)]="report.project" (selectionChange)="updateProject($event)"
+                                     [disabled]="!report.isEditable()" class="separator"></lab-project-inline-select>
 
           <!--  Validated info  -->
           <lab-object-validation-info class="separator" [object]="report"

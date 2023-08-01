@@ -115,5 +115,6 @@
   "open_ai_delete_all_messages": "Delete all messages",
   "open_ai_update_message": "Update message",
   "open_ai_message_placeholder": "Enter your message",
-  "open_ai_no_message_error": "You must enter a message"
+  "open_ai_no_message_error": "You must enter a message",
+  "select_none": "None"
 }

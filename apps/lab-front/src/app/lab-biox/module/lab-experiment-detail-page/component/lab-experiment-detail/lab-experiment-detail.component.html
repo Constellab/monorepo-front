@@ -13,10 +13,9 @@
     </div>
 
     <!--  Project  -->
-    <fl-text-icon *ngIf="experiment.project" class="separator">
-      <mat-icon flIcon="project"></mat-icon>
-      <lab-project-inline [project]="experiment.project"></lab-project-inline>
-    </fl-text-icon>
+    <lab-project-inline-select class="separator" [(ngModel)]="experiment.project"
+                               (selectionChange)="updateProject($event)"
+                               [disabled]="!experiment.isEditable()"></lab-project-inline-select>
 
     <!--  Type  -->
     <fl-text-icon class="separator">

@@ -20,7 +20,6 @@ export class ClCachedObservable<T> {
   private subject: ReplaySubject<T>;
 
   private isSuccess: boolean = false;
-  private isError: boolean = false;
   private isComplete: boolean = false;
 
   public isLoading: boolean = false;
@@ -92,7 +91,6 @@ export class ClCachedObservable<T> {
   // save and emit the error and mark the observable as completed
   private onError(error: any): void {
     this.error = error;
-    this.isError = true;
     this.isSuccess = false;
     this.isComplete = true;
     this.isLoading = false;

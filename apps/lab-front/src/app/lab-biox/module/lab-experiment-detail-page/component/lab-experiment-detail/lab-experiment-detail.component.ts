@@ -10,6 +10,7 @@ import {
   FlTextEditorConfig
 } from '@monorepo/front-core-lib';
 import {LabExperimentService} from '../../../../../lab-core/entity-service/lab-experiment.service';
+import {LabProject} from '../../../../../lab-core/model/entities/lab-project.class';
 
 /**
  * Component inside LabExperimentDetailPage to show experiment information but not workflow
@@ -71,6 +72,12 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
           this.experimentState.updateTags(newTags);
         }
       }
+    );
+  }
+
+  updateProject(project: LabProject): void {
+    this.experimentService.updateProject(this.experimentState.currentExperiment.id, project?.id ?? null).subscribe(
+      experiment => this.experimentState.updateExperiment(experiment)
     );
   }
 

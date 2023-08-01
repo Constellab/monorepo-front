@@ -44,6 +44,10 @@ export class LabReportService {
     return this.apiService.put(`${this.route}/${id}/title`, {title: title}, LabReport);
   }
 
+  public updateProject(id: string, projectId: string): Observable<LabReport> {
+    return this.apiService.put(`${this.route}/${id}/project`, {project_id: projectId}, LabReport);
+  }
+
   private reportFormToBody(report: LabReportForm): { title: string, project_id: string } {
     return {
       title: report.title,

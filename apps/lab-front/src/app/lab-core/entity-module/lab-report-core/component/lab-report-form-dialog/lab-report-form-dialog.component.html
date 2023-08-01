@@ -17,9 +17,7 @@
 
     <!--    Project      -->
     <p class="g-text-light helper-text">{{'biox.select_project_help' | translate}}</p>
-    <div class="g-text-centered">
-      <lab-project-select-button formControlName="project"></lab-project-select-button>
-    </div>
+    <lab-project-select formControlName="project" [multiple]="false"></lab-project-select>
 
   </form>
 </mat-dialog-content>

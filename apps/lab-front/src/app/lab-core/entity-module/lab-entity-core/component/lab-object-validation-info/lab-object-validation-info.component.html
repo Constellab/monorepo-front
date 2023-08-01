@@ -1,7 +1,7 @@
 <!--  Validated info  -->
-<fl-text-icon *ngIf="object.validatedBy && object.validatedAt"
+<div *ngIf="object.validatedBy && object.validatedAt"
               class="g-layout-row g-layout-start-center g-layout-gap-05em">
   <mat-icon flIcon="validated"></mat-icon>
-  <div>{{'validation_info' | translate}}</div>
+  <div>{{'validation_info' | translate}} : </div>
   <fl-user-with-date [user]="object.validatedBy" [date]="object.validatedAt"></fl-user-with-date>
-</fl-text-icon>
+</div>

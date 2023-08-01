@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FlMenuDynamic, FlMenuDynamicButton} from '../../model/fl-menu-dynamic.class';
 import {MatMenu, MatMenuTrigger, MenuPositionX, MenuPositionY} from '@angular/material/menu';
+import {Observable, of} from 'rxjs';
+
 @Component({
   selector: 'fl-menu-dynamic',
   templateUrl: './fl-menu-dynamic.component.html',
@@ -11,7 +13,13 @@ export class FlMenuDynamicComponent implements OnInit {
 
   public static readonly containerClass = 'fl-dynamic-menu';
 
-  @Input() menuItems: FlMenuDynamic[];
+  @Input() set menuItems(menuItems: FlMenuDynamic[] | Observable<FlMenuDynamic[]>) {
+    if (menuItems instanceof Observable) {
+      this.menuItems$ = menuItems;
+    } else {
+      this.menuItems$ = of(menuItems);
+    }
+  }
 
   @Input() hasBackdrop: boolean = true;
 
@@ -26,6 +34,8 @@ export class FlMenuDynamicComponent implements OnInit {
   @ViewChild(MatMenuTrigger, {static: false}) menuTrigger: MatMenuTrigger;
 
   containerClass = FlMenuDynamicComponent.containerClass;
+
+  menuItems$: Observable<FlMenuDynamic[]>;
 
   constructor() {
   }

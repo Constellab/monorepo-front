@@ -1,9 +1,10 @@
-import {Component, EventEmitter, OnInit, Optional, Output, Self} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
 import {FlFlatTreeControl, FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {LabProject, LabProjectWithChildren} from '../../../../model/entities/lab-project.class';
 import {NgControl} from '@angular/forms';
 import {LabProjectService} from '../../../../entity-service/lab-project.service';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import {ClHelpService} from '@monorepo/core-lib';
 
 
 interface LabProjectFlatNode {
@@ -18,10 +19,17 @@ interface LabProjectFlatNode {
   templateUrl: './lab-project-select.component.html',
   styleUrls: ['./lab-project-select.component.scss']
 })
-export class LabProjectSelectComponent extends FlFormFieldDirective<FlFlatTreeControl<LabProjectFlatNode, string>, LabProject[]>
+export class LabProjectSelectComponent
+  extends FlFormFieldDirective<FlFlatTreeControl<LabProjectFlatNode, string>, LabProject[] | LabProject>
   implements OnInit {
 
-  @Output() selectionChange: EventEmitter<LabProject[]> = new EventEmitter();
+  /**
+   * If true, the user can select multiple projects
+   * If false, the user can select only one project
+   */
+  @Input() multiple: boolean = true;
+
+  @Output() selectionChange: EventEmitter<LabProject[] | LabProject> = new EventEmitter();
 
   dataSource: MatTreeFlatDataSource<LabProjectWithChildren, LabProjectFlatNode>;
 
@@ -76,16 +84,16 @@ export class LabProjectSelectComponent extends FlFormFieldDirective<FlFlatTreeCo
     this.isLoading = false;
   }
 
-  callChangeEvent(value: LabProject[]): void {
+  callChangeEvent(value: LabProject[] | LabProject): void {
     this.selectionChange.emit(value);
   }
 
   onDisableChange(): void {
   }
 
-  writeValue(obj: LabProject[]): void {
-    if (obj == null) obj = [];
-    this.selectProjects(obj);
+  writeValue(obj: LabProject[] | LabProject): void {
+    let projects: LabProject[] = ClHelpService.convertObjectOrArrayToArray(obj);
+    this.selectProjects(projects);
   }
 
   private selectProjects(projects: LabProject[]): void {
@@ -100,14 +108,22 @@ export class LabProjectSelectComponent extends FlFormFieldDirective<FlFlatTreeCo
   }
 
 
-  protected convertInnerToOuter(innerValue: FlFlatTreeControl<LabProjectFlatNode, string>): LabProject[] {
-    return innerValue.dataNodes.filter(node => node.selected).map(node => node.project);
+  protected convertInnerToOuter(innerValue: FlFlatTreeControl<LabProjectFlatNode, string>): LabProject[] | LabProject {
+    const projects = innerValue.dataNodes.filter(node => node.selected).map(node => node.project);
+    if (!this.multiple) {
+      return projects.length > 0 ? projects[0] : null;
+    }
+    return projects;
   }
 
   toggleProjectSelection(project: LabProjectFlatNode): void {
     if (this.disabled) return;
 
     project.selected = !project.selected;
+
+    if (!this.multiple) {
+      this.value.dataNodes.filter(node => node.selected && node !== project).forEach(node => node.selected = false);
+    }
     this.emitCurrentValue();
   }
 

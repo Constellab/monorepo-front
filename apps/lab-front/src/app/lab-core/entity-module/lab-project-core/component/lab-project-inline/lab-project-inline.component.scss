@@ -1,3 +1,13 @@
+.container{
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.container:hover{
+  background-color: var(--hover-color);
+}
+
 .project-color {
   width: 15px;
   height: 15px;

@@ -24,9 +24,9 @@ import {
 } from '../../../lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import {
   LabResourceUpdateProjectDialogComponent,
-  LabResourceUpdateProjectDialogInput
+  LabResourceUpdateProjectDialogInput,
+  LabResourceUpdateProjectDialogOutput
 } from '../lab-resource-update-project-dialog/lab-resource-update-project-dialog.component';
-import {LabProject} from '../../../../model/entities/lab-project.class';
 
 /**
  * Action menu button for resources, it has a ng-content for custom buttons
@@ -115,9 +115,9 @@ export class LabResourceActionsMenuComponent implements OnInit {
       .afterClosed().subscribe(project => this.updateProjectClosed(project));
   }
 
-  private updateProjectClosed(project?: LabProject): void {
-    if (project) {
-      this.resource.project = project;
+  private updateProjectClosed(result?: LabResourceUpdateProjectDialogOutput): void {
+    if (result) {
+      this.resource.project = result.project;
       this.update.next(this.resource);
     }
   }

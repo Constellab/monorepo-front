@@ -1,5 +1,5 @@
 import {ControlValueAccessor, NgControl} from '@angular/forms';
-import {Directive, Input} from '@angular/core';
+import {Directive, HostBinding, Input} from '@angular/core';
 import {AbstractControl} from '@ngneat/reactive-forms';
 import {ValidationErrors} from '@ngneat/reactive-forms/lib/types';
 import {ClHelpService} from '@monorepo/core-lib';
@@ -42,7 +42,8 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
    */
   ngControl: NgControl;
 
-  /** Whether the input is disable */
+  /** Whether the input is disabled */
+  @HostBinding('class.disabled')
   private _disabled: boolean = false;
 
   /** Whether filling out the input is required in the form. */

@@ -1,0 +1,18 @@
+:host{
+  display: block;
+}
+
+.container {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+:host:not(.disabled) {
+  .container {
+    cursor: pointer;
+  }
+
+  .container:hover {
+    background-color: var(--hover-color);
+  }
+}

@@ -1,4 +1,4 @@
-<fl-section [isLoading]="isLoading" [object]="value">
+<fl-section [isLoading]="isLoading" [object]="value" class="container">
 
   <ng-container *flSectionBody>
 
@@ -12,7 +12,8 @@
           <div class="circle-color" [style.background-color]="node.project.id | flStringToRgb"></div>
 
           <div>
-            <div>{{node.project.code}}<span class="text-pipe">|</span><span class="g-text-light">{{node.project.title}}</span></div>
+            <div>{{node.project.code}}<span class="text-pipe">|</span><span
+              class="g-text-light">{{node.project.title}}</span></div>
             <!--            <div class="g-text-light g-text-tiny">{{node.project.title}}</div>-->
           </div>
         </div>
@@ -21,15 +22,13 @@
       <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding
                      class="g-text-small tree-node" matTreeNodeToggle>
         <div class="node-content g-layout-row g-layout-start-center">
-          <button mat-icon-button class="g-button-icon-small"
-                  [attr.aria-label]="'Toggle ' + node.title" type="button">
-            <mat-icon>
-              {{value.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
-          </button>
+          <mat-icon>
+            {{value.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
 
           <div>
-            <div>{{node.project.code}}<span class="text-pipe">|</span><span class="g-text-light">{{node.project.title}}</span></div>
+            <div>{{node.project.code}}<span class="text-pipe">|</span><span
+              class="g-text-light">{{node.project.title}}</span></div>
             <!--            <div class="g-text-light g-text-tiny">{{node.project.title}}</div>-->
           </div>
         </div>
