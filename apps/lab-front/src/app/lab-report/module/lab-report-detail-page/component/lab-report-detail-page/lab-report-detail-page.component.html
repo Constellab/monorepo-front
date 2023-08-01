@@ -14,8 +14,10 @@
                   flIcon="archive">
         </mat-icon>
 
-        <h2 class="g-flex-auto" flElementEditable (flElementValueChange)="updateTitle($event)"
-            [flElementDisabled]="!report.isEditable()">{{report.title}}</h2>
+        <div class="g-flex-auto g-flex">
+          <h2 flElementEditable (flElementValueChange)="updateTitle($event)"
+              [flElementDisabled]="!report.isEditable()">{{report.title}}</h2>
+        </div>
 
         <lab-sync-object-button [object]="report" [syncObjectFunc]="syncObjectFunc"
                                 additionalConfirmText="biox.sync_report_confirmation"

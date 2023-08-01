@@ -5,6 +5,7 @@
 
 .header-title {
   word-break: break-word;
+  line-height: initial; // fix height in dialog
 }
 
 .button{
