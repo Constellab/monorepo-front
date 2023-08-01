@@ -53,7 +53,7 @@ export class LabResourceDetailState implements OnDestroy {
   private readonly actionType: string = 'view-portal-loader';
   private viewPortalSubscription: Subscription;
 
-  private queryParamHandler: FlQueryParamHandler<{ resourceId: string }>;
+  private queryParamHandler: FlQueryParamHandler<{ resourceId: string, viewId: string }>;
 
   public mainResource: Signal<LabResource> = computed(() => {
     const mainId = this.mainResourceId();
@@ -105,11 +105,12 @@ export class LabResourceDetailState implements OnDestroy {
     this.queryParamHandler.getFirstQueryParams().subscribe(
       params => {
         if (params.resourceId) {
-          this.selectResource(params.resourceId, false);
+          this.selectResource(params.resourceId, params.viewId, false);
         } else {
           // load the main resource
-          this.selectResource(resourceId, false);
+          this.selectResource(resourceId, params.viewId, false);
         }
+
       });
 
     this.readOnly = readOnly;
@@ -131,20 +132,38 @@ export class LabResourceDetailState implements OnDestroy {
     }
   }
 
-
-  public selectResource(resourceId: string, setQueryParams: boolean = true): void {
+  /**
+   * Select the resource for the page
+   * @param resourceId the resource id
+   * @param viewId (optional) the view id to load, if not provided the default view will be loaded
+   * @param setQueryParams (optional) if true the query params will be updated
+   */
+  public selectResource(resourceId: string, viewId: string = null, setQueryParams: boolean = true): void {
     if (resourceId === this.selectedResourceId()) return;
     this.selectedResourceId.set(resourceId);
-    this.loadDefaultView(resourceId);
+
+    if (viewId) {
+      this.loadViewFromId(viewId);
+    } else {
+      this.loadDefaultView(resourceId);
+    }
     // when the resource is in readonly mode (in dialog) don't update the query params
     if (setQueryParams && !this.readOnly) {
-      this.queryParamHandler.mergeQueryParams({resourceId});
+      this.queryParamHandler.mergeQueryParams({resourceId, viewId});
     }
   }
 
   private loadDefaultView(resourceId: string): void {
+    this.loadMainView(this.resourceService.callResourceDefaultView(resourceId, true));
+  }
+
+  private loadViewFromId(viewId: string): void {
+    this.loadMainView(this.viewConfigService.callViewConfig(viewId));
+  }
+
+  private loadMainView(obs: Observable<LabResourceView>): void {
     this._selectedView.set({status: 'loading'});
-    this.resourceService.callResourceDefaultView(resourceId, true).subscribe({
+    obs.subscribe({
       next: view => this._selectedView.set({status: 'success', object: view}),
       error: (error) => this._selectedView.set({status: 'error', error: error})
     });
@@ -195,6 +214,9 @@ export class LabResourceDetailState implements OnDestroy {
 
   public setMainView(view: LabResourceView): void {
     this._selectedView.set({status: 'success', object: view});
+    if (view.viewConfig) {
+      this.queryParamHandler.mergeQueryParams({viewId: view.viewConfig.id});
+    }
   }
 
   private callResourceView(resourceId: string, methodName: string, configValues: PrConfigValues): Observable<LabResourceView> {

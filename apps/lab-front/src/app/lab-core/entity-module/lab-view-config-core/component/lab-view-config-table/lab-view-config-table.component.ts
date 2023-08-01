@@ -5,6 +5,7 @@ import {ClHelpService} from '@monorepo/core-lib';
 import {LabTag} from '../../../../model/entities/lab-tag.entity';
 import {LabDragType} from '../../../../model/global/lab-drag-type.class';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
+import {LabRouterService} from '../../../../service/lab-router.service';
 
 @Component({
   selector: 'lab-view-config-table',
@@ -30,7 +31,8 @@ export class LabViewConfigTableComponent {
   supportedDropType: LabDragType = LabDragType.TAG;
 
 
-  constructor(private viewConfigService: LabViewConfigService) {
+  constructor(private viewConfigService: LabViewConfigService,
+              private routerService: LabRouterService) {
   }
 
   rowClicked(viewConfig: LabViewConfig): void {
@@ -60,5 +62,9 @@ export class LabViewConfigTableComponent {
 
     viewConfig.addTag(event.data);
     this.viewConfigService.saveTags(viewConfig.id, viewConfig.tags).subscribe();
+  }
+
+  navigateToViewConfigPage(viewConfig: LabViewConfig): void {
+    this.routerService.navigateToViewConfig(viewConfig.resource.id, viewConfig.id);
   }
 }

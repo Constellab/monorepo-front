@@ -10,11 +10,6 @@
 
     <fl-portal-header-buttons>
 
-      <a [routerLink]="labView.viewConfig | labDetailRoute" mat-icon-button target="_blank"
-         *ngIf="labView.viewConfig" [matTooltip]="'biox.open_view_in_new_tab' | translate">
-        <mat-icon>open_in_new</mat-icon>
-      </a>
-
       <ng-container *ngIf="resourceStateAccessible">
         <button mat-icon-button type="button" [matTooltip]="'biox.update_view' | translate"
                 (click)="updateView()">
