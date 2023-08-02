@@ -1,7 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {LabFlaggedEntity} from '../../../../model/global/lab-flagged-entity.class';
-import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
-import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
 import {ClHelpService} from '@monorepo/core-lib';
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
@@ -24,8 +22,7 @@ export class LabFlagButtonComponent {
 
   private isLoading: boolean = false;
 
-  constructor(private viewConfigService: LabViewConfigService,
-              private resourceService: LabResourceService) {
+  constructor(private resourceService: LabResourceService) {
   }
 
   toggleHighlight(event: MouseEvent): void {
@@ -35,9 +32,7 @@ export class LabFlagButtonComponent {
 
     this.entity.flagged = !this.entity.flagged;
     let obs: Observable<LabFlaggedEntity> = null;
-    if (this.entity instanceof LabViewConfig) {
-      obs = this.viewConfigService.updateFlagged(this.entity.id, this.entity.flagged);
-    } else if (this.entity instanceof LabResource) {
+    if (this.entity instanceof LabResource) {
       obs = this.resourceService.updateFlagged(this.entity.id, this.entity.flagged);
     } else {
       console.error('[LabHighlightButtonComponent] type is not supported');
@@ -67,9 +62,7 @@ export class LabFlagButtonComponent {
   }
 
   get tooltip(): string {
-    if (this.entity instanceof LabViewConfig) {
-      return this.entity.flagged ? 'biox.view_favorite_tooltip' : 'biox.view_not_favorite_tooltip';
-    } else if (this.entity instanceof LabResource) {
+    if (this.entity instanceof LabResource) {
       return this.entity.flagged ? 'biox.resource_flagged_tooltip' : 'biox.resource_not_flagged_tooltip';
     } else {
       console.error('[LabFlagButtonComponent] Object type unknown');
