@@ -1,9 +1,17 @@
 
-.container{
+.container {
   display: grid;
-  width: 25em;
-  grid-template-columns: 12em 12em;
+  width: 33em;
+  grid-template-columns: 16em 16em;
   gap: 1em;
   grid-row-gap: 1em;
+  grid-auto-rows: 8em;
 }
 
+.title {
+  margin-bottom: 0.5em;
+}
+
+.native-views {
+  margin-top: 1em;
+}

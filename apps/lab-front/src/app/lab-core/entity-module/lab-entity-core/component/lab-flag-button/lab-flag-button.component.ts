@@ -68,7 +68,7 @@ export class LabFlagButtonComponent {
 
   get tooltip(): string {
     if (this.entity instanceof LabViewConfig) {
-      return this.entity.flagged ? 'biox.view_flagged_tooltip' : 'biox.view_not_flagged_tooltip';
+      return this.entity.flagged ? 'biox.view_favorite_tooltip' : 'biox.view_not_favorite_tooltip';
     } else if (this.entity instanceof LabResource) {
       return this.entity.flagged ? 'biox.resource_flagged_tooltip' : 'biox.resource_not_flagged_tooltip';
     } else {

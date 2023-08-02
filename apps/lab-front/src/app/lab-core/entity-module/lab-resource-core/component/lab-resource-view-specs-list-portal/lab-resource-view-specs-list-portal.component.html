@@ -2,9 +2,33 @@
 
   <fl-portal-content>
 
+    <fl-async-section [arrayObs]="favoritesViews$" [emptyText]="'biox.no_favorite_views'">
+
+      <fl-section-header>
+        <fl-text-icon iconPosition="end" class="title">
+          <h2>{{'biox.favorite_views' | translate}}</h2>
+          <mat-icon color="accent">star</mat-icon>
+        </fl-text-icon>
+      </fl-section-header>
+      <ng-container *flSectionBody="let favoritesViews">
+
+        <div class="container">
+          <lab-resource-view-spec-card *ngFor="let viewConfig of favoritesViews"
+                                       [viewType]="viewConfig.viewType"
+                                       [name]="viewConfig.title"
+                                       [shortDescription]="viewConfig.lastModifiedBy.fullname"
+                                       (click)="openFavoriteView(viewConfig)">
+          </lab-resource-view-spec-card>
+        </div>
+      </ng-container>
+    </fl-async-section>
+
+    <h2 class="title native-views">{{'biox.native_views' | translate}}</h2>
     <div class="container">
       <lab-resource-view-spec-card *ngFor="let viewSpec of viewSpecs$ | async"
-                                   [viewSpec]="viewSpec"
+                                   [viewType]="viewSpec.viewType"
+                                   [name]="viewSpec.getName()"
+                                   [shortDescription]="viewSpec.shortDescription"
                                    (click)="openConfigPortal(viewSpec)">
       </lab-resource-view-spec-card>
     </div>

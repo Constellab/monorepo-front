@@ -67,7 +67,7 @@
     <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig" class="g-table-icon-button-cell">
-      <lab-flag-button [entity]="viewConfig"></lab-flag-button>
+      <lab-view-config-favorite [viewConfig]="viewConfig"></lab-view-config-favorite>
     </mat-cell>
   </ng-container>
 
@@ -79,7 +79,8 @@
 
       <lab-view-config-actions-menu [viewConfig]="viewConfig"
                                     (update)="onUpdate($event)"
-                                    (updateTags)="onUpdateTags(viewConfig, $event)">
+                                    (updateTags)="onUpdateTags(viewConfig, $event)"
+                                    mode="icon">
       </lab-view-config-actions-menu>
     </mat-cell>
   </ng-container>

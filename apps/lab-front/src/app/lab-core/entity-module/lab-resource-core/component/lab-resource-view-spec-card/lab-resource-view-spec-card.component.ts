@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {LabResourceViewSpec} from '../../../../model/entities/resource/lab-resource-view.entity';
+import {LabResourceViewType} from '../../../../model/entities/resource/lab-resource-view.entity';
 
 @Component({
   selector: 'lab-resource-view-spec-card',
@@ -8,5 +8,9 @@ import {LabResourceViewSpec} from '../../../../model/entities/resource/lab-resou
 })
 export class LabResourceViewSpecCardComponent {
 
-  @Input() viewSpec: LabResourceViewSpec;
+  @Input() viewType: LabResourceViewType;
+
+  @Input() name: string;
+
+  @Input() shortDescription: string;
 }

@@ -2,14 +2,17 @@
 
   <fl-text-icon>
     <mat-icon flIcon="view"></mat-icon>
-    <h2>{{'biox.available_views' | translate}}</h2>
+    <h2>{{'biox.views' | translate}}</h2>
   </fl-text-icon>
 
   <ng-content></ng-content>
 
   <div class="g-flex-grow g-layout-row-wrap g-layout-start-stretch g-layout-gap-05em view-list g-scrollable-element">
     <lab-resource-view-spec-card *ngFor="let viewSpec of viewSpecs$ | async"
-                                 [viewSpec]="viewSpec" class="view-spec"
+                                 [viewType]="viewSpec.viewType"
+                                 [name]="viewSpec.getName()"
+                                 [shortDescription]="viewSpec.shortDescription"
+                                 class="view-spec"
                                  (click)="openConfigPortal(viewSpec)">
     </lab-resource-view-spec-card>
   </div>

@@ -7,18 +7,16 @@
   height: 100%;
 }
 
-.default-view-spec {
-  border-color: var(--primary-color);
+.view-image-container {
+  margin-left: 0.5em;
+  margin-right: 1em;
 }
 
-.view-image {
+.view-image{
   display: flex;
-}
-
-.view-info {
-  margin-top: 0.3em;
 }
 
 .text {
   min-height: 2em;
+  margin-top: 3px;
 }

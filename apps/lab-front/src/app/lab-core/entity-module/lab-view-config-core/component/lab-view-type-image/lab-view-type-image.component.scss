@@ -1,4 +1,9 @@
-
+:host{
+  display: flex;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+}
 
 .view-icon{
   height: 1em;

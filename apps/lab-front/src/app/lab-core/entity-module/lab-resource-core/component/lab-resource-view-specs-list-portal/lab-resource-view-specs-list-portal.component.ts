@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
 import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
 import {FlOverlayRef} from '@monorepo/front-core-lib';
+import {LabViewConfig, LabViewConfigDatasource} from '../../../../model/entities/resource/lab-view-config.entity';
 
 @Component({
   selector: 'lab-resource-view-specs-list-portal',
@@ -13,6 +14,7 @@ import {FlOverlayRef} from '@monorepo/front-core-lib';
 export class LabResourceViewSpecsListPortalComponent {
 
   viewSpecs$: Observable<LabResourceViewSpec[]>;
+  favoritesViews$: LabViewConfigDatasource = this.state.getSelectedResourceFlaggedViews();
 
   constructor(private state: LabResourceDetailState,
               private resourceService: LabResourceService,
@@ -27,6 +29,10 @@ export class LabResourceViewSpecsListPortalComponent {
         this.viewSpecs$ = of([]);
       }
     });
+  }
+
+  openFavoriteView(viewConfig: LabViewConfig): void {
+    this.state.addViewFromConfig(viewConfig.id, viewConfig.title);
   }
 
   // prepare the data and open the view configuration portal

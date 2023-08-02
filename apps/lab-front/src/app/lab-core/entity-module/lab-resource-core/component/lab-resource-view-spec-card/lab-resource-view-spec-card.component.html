@@ -1,11 +1,12 @@
-<div  class="view-spec g-layout-col g-layout-start-center"
-     [ngClass]="{'default-view-spec' : viewSpec.defaultView}" matRipple>
+<div class="view-spec g-layout-row g-layout-start-center" matRipple>
 
-  <lab-view-type-image [viewType]="viewSpec.viewType" size="3em" class="view-image">
-  </lab-view-type-image>
+  <div class="view-image-container">
+    <lab-view-type-image [viewType]="viewType" size="2em" class="view-image">
+    </lab-view-type-image>
+  </div>
 
-  <div class="view-info">
-    <div class="g-text-centered">{{viewSpec.getName()}}</div>
-    <p class="text g-text-centered g-text-tiny g-text-light">{{viewSpec.shortDescription}}</p>
+  <div>
+    <div>{{name}}</div>
+    <p *ngIf="shortDescription" class="text g-text-tiny g-text-light">{{shortDescription}}</p>
   </div>
 </div>

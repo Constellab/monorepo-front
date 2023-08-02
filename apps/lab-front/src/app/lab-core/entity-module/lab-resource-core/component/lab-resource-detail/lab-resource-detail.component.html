@@ -9,9 +9,8 @@
       <lab-resource-view-detail *ngIf="view" [showResourceName]="false"
                                 [labView]="view" class="g-full-height">
         <button mat-icon-button type="button" [matTooltip]="'biox.undock_view' | translate"
-                (click)="undockView()">
-          <!--   TODO change icon -->
-          <mat-icon>open_in_new</mat-icon>
+                (click)="undockView()" class="open-icon">
+          <mat-icon>open_in_browser</mat-icon>
         </button>
       </lab-resource-view-detail>
     </ng-container>

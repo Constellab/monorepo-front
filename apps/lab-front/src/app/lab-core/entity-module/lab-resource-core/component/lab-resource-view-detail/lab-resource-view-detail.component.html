@@ -1,9 +1,12 @@
 <fl-section [object]="labView" class="g-full-height">
   <fl-section-header class="header">
 
-    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
       <lab-view-type-image [viewType]="labView.viewType" size="1.75em" class="view-image"></lab-view-type-image>
       <h2 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">{{labView.title}}</h2>
+
+      <lab-view-config-favorite *ngIf="labView.viewConfig" [viewConfig]="labView.viewConfig"
+                                (update)="onUpdate($event)"></lab-view-config-favorite>
     </div>
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
@@ -21,8 +24,6 @@
 
     <fl-section-actions>
       <ng-content></ng-content>
-      <lab-flag-button [entity]="labView.viewConfig" (update)="onUpdate($any($event))"></lab-flag-button>
-
       <rv-technical-info-button [technicalInfo]="labView.view.technical_info"></rv-technical-info-button>
 
       <lab-view-config-actions-menu [viewConfig]="labView.viewConfig"

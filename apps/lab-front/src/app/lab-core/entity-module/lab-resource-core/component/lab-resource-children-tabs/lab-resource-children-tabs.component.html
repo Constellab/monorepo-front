@@ -1,4 +1,4 @@
-<div class="container g-layout-row g-layout-start-center g-layout-gap-05em">
+<div class="container g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
   <div class="card g-text-small" matRipple (click)="selectResource(resource())"
        [ngClass]="{'selected-card': resource()?.id === selectedResource()?.id}">
     {{resource().name}}

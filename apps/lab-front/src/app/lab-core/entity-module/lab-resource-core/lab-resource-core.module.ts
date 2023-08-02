@@ -74,9 +74,6 @@ import {
 import {
   LabResourceUpdateProjectDialogComponent
 } from './component/lab-resource-update-project-dialog/lab-resource-update-project-dialog.component';
-import {
-  LabResourceDefaultViewComponent
-} from './component/lab-resource-default-view/lab-resource-default-view.component';
 import {LabResourceDetailComponent} from './component/lab-resource-detail/lab-resource-detail.component';
 import {
   LabResourceDetailHeaderComponent
@@ -127,7 +124,6 @@ import {
     LabResourceViewDetailDialogComponent,
     LabImportResourceFromLinkComponent,
     LabResourceUpdateProjectDialogComponent,
-    LabResourceDefaultViewComponent,
     LabResourceDetailComponent,
     LabResourceDetailHeaderComponent,
     LabResourceInfoDialogComponent,
@@ -156,7 +152,6 @@ import {
     LabResourceViewSpecListComponent,
     LabImportResourceFromLinkComponent,
     LabResourceUpdateProjectDialogComponent,
-    LabResourceDefaultViewComponent,
     LabResourceDetailComponent,
   ],
   imports: [

@@ -13,9 +13,8 @@
         </div>
       </a>
 
-      <div *ngIf="resource().experiment && resource().project"> - </div>
+      <div *ngIf="resource().experiment && resource().project"> -</div>
 
-<!--      <lab-project-inline [project]="resource().project" *ngIf="resource().project"></lab-project-inline>-->
       <div class="g-layout-row g-layout-start-center" *ngIf="resource().project">
         <mat-icon flIcon="project" class="g-icon-small separator"></mat-icon>
         <div class="circle-color separator" [style.background-color]="resource().project.id | flStringToRgb"></div>
@@ -24,26 +23,21 @@
     </div>
   </div>
 
-  <button mat-icon-button type="button" (click)="openViewSpecListPortal($event)"
-          [matTooltip]="'biox.open_views' | translate" class="button">
-    <mat-icon>visibility</mat-icon>
-  </button>
+  <lab-flag-button [entity]="resource()"></lab-flag-button>
 
-  <button mat-icon-button type="button" (click)="openResourceFlaggedViewsPortal($event)"
-          [matTooltip]="'biox.show_flagged_views' | translate" class="button">
-    <mat-icon>star</mat-icon>
+  <button mat-stroked-button type="button" (click)="openViewSpecListPortal($event)"
+          class="g-button-small button">
+    {{'biox.views' | translate}}
   </button>
 
   <button mat-stroked-button type="button" (click)="openResourceInfoDialog()"
           class="g-button-small button">
-    <mat-icon>info</mat-icon>
     {{'biox.resource_info' | translate}}
   </button>
 
   <button mat-stroked-button type="button" (click)="openShareDialog()"
           class="g-button-small button">
-    <mat-icon>share</mat-icon>
-    {{'biox.share_info' | translate}}
+    {{'biox.share' | translate}}
   </button>
 
   <!--   Link to resource detail page only for readOnly       -->
@@ -56,7 +50,7 @@
 
   <lab-resource-actions-menu [readOnly]="readOnly" [resource]="resource()" (update)="onUpdate($event)"
                              (updateTags)="onUpdateTags($event)"
-                             (delete)="onDelete()" class="button">
+                             (delete)="onDelete()">
 
     <button mat-menu-item type="button"
             (click)="openTransformerResource()">

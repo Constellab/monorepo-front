@@ -1,6 +1,14 @@
+:host{
+  display: block;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  box-sizing: border-box;
+}
 
 .container {
   padding: 0.5em 1em;
+  background-color: var(--card-background);
+  border-radius: var(--card-radius);
 }
 
 .header-title {
@@ -10,6 +18,8 @@
 
 .button{
   flex-shrink: 0;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 .separator{

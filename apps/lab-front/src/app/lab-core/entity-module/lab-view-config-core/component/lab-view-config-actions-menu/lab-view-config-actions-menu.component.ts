@@ -25,6 +25,8 @@ export class LabViewConfigActionsMenuComponent implements OnInit {
 
   @Input() viewConfig: LabViewConfig;
 
+  @Input() mode : 'text' | 'icon' = 'text';
+
   @Output() update: EventEmitter<LabViewConfig> = new EventEmitter();
   @Output() updateTags: EventEmitter<LabTag[]> = new EventEmitter();
 

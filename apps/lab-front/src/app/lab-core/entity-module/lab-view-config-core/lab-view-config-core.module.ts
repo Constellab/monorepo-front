@@ -26,7 +26,7 @@ import {RouterModule} from '@angular/router';
 import {LabViewConfigPreviewComponent} from './component/lab-view-config-preview/lab-view-config-preview.component';
 import {LabViewTypeImageComponent} from './component/lab-view-type-image/lab-view-type-image.component';
 import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module';
-
+import {LabViewConfigFavoriteComponent} from './component/lab-view-config-favorite/lab-view-config-favorite.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module'
     LabUpdateViewConfigDialogComponent,
     LabViewConfigPreviewComponent,
     LabViewTypeImageComponent,
+    LabViewConfigFavoriteComponent,
   ],
   exports: [
     LabViewConfigSearchComponent,
@@ -51,6 +52,7 @@ import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module'
     LabUpdateViewConfigDialogComponent,
     LabViewConfigPreviewComponent,
     LabViewTypeImageComponent,
+    LabViewConfigFavoriteComponent,
   ],
   imports: [
     CommonModule,
@@ -64,5 +66,4 @@ import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module'
     LabProjectCoreModule,
   ],
 })
-export class LabViewConfigCoreModule {
-}
+export class LabViewConfigCoreModule {}
