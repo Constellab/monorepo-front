@@ -1,7 +1,6 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PortalModule} from '@angular/cdk/portal';
-import {FlPortalArrowComponent} from './component/fl-portal-arrow/fl-portal-arrow.component';
 import {FlTooltipComponent} from './component/fl-tooltip/fl-tooltip.component';
 import {FlPortalService} from './service/fl-portal.service';
 import {FlTooltipService} from './service/fl-tooltip.service';
@@ -22,7 +21,6 @@ import {MatButtonModule} from '@angular/material/button';
  */
 @NgModule({
   declarations: [
-    FlPortalArrowComponent,
     FlTooltipComponent,
     FlPortalCloseDirective,
     FlPortalHeaderComponent,

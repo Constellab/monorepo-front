@@ -60,19 +60,6 @@ export interface FlRelativeOverlayConfig extends FlOverlayConfig {
   hostSize?: FlRelativeOverlaySize;
 
   /**
-   * If true show an arrow that point to the element host
-   *
-   * Works when the overlay position X or Y is opposed to the host element origin position X or Y
-   * Basically the arrow doesn't show if the overlay is over the host element
-   */
-  showArrow?: boolean;
-
-  /**
-   * Color of the arrow, default white
-   */
-  arrowColor?: string;
-
-  /**
    * margin on the view port borders
    * Default to 20
    */

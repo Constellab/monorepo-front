@@ -63,7 +63,6 @@ export abstract class FlMouseHoverPortalAbstractDirective extends FlMouseHoverAb
     const overlayConfig: FlRelativeOverlayConfig = config.overlayConfig ?? {
       hasBackdrop: false,
       disposeOnNavigation: true,
-      showArrow: false,
       scrollStrategy: this.portalService.getCloseOnScrollStrategy()
     };
 

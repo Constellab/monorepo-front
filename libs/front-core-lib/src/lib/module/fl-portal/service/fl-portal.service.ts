@@ -25,14 +25,12 @@ import {FlPortalConfig, FlRelativePortalConfig} from '../model/fl-portal-config.
 import {
   FL_PORTAL_DATA,
   FlOverlayConfig,
-  flPortalArrowOffset,
   FlPortalConnectedPosition,
   FlPortalDefaultPosition,
   FlRelativeOverlayConfig,
   PortalAbsolutePosition
 } from '../model/fl-portal.class';
 import {FlOverlayRef} from '../model/fl-overlay-ref.class';
-import {FlPortalArrowComponent} from '../component/fl-portal-arrow/fl-portal-arrow.component';
 import {FlEventWrapper} from '../../../model/fl-event-wrapper.class';
 
 
@@ -81,11 +79,6 @@ export class FlPortalService {
 
     // set the position strategy
     config.setPositionStrategy(strategy);
-
-    // if we show the arrow
-    if (config.config.showArrow) {
-      this.configureOffset(strategy.positions, config);
-    }
 
     return config;
   }
@@ -167,33 +160,6 @@ export class FlPortalService {
     return globalPosition;
   }
 
-  // configure the overlay offset if we need an arrow
-  private configureOffset(positions: ConnectedPosition[], config: FlRelativePortalConfig): void {
-    for (const position of positions) {
-      if (position.offsetY == null) {
-        position.offsetY = 0;
-      }
-      if (position.offsetX == null) {
-        position.offsetX = 0;
-      }
-
-      // set the offset of the portal for the arrow, depending on the position
-      if (position.originY === 'top' && position.overlayY === 'bottom') {
-        position.offsetY -= flPortalArrowOffset;
-      } else if (position.originY === 'bottom' && position.overlayY === 'top') {
-        position.offsetY += flPortalArrowOffset;
-      } else if (position.originX === 'start' && position.overlayX === 'end') {
-        position.offsetX -= flPortalArrowOffset;
-      } else if (position.originX === 'end' && position.overlayX === 'start') {
-        position.offsetX += flPortalArrowOffset;
-      } else {
-        console.error('The overlay position does not support the arrow');
-        // cancel the arrow
-        config.config.showArrow = false;
-      }
-    }
-  }
-
 
   /**
    * Create the portal on the dom with the configuration
@@ -223,11 +189,6 @@ export class FlPortalService {
     // attach the component to the dom
     overlayRef.attach(componentPortal);
 
-    // created the arrow if needed before the main portal so that it is under it
-    if (config instanceof FlRelativePortalConfig && config.config.showArrow) {
-      this.createArrowPortal(config, overlayRef);
-    }
-
     return overlayRef;
   }
 
@@ -251,11 +212,6 @@ export class FlPortalService {
 
     // attach the component to the dom
     overlayRef.attach(componentPortal);
-
-    // created the arrow if needed before the main portal so that it is under it
-    if (config instanceof FlRelativePortalConfig && config.config.showArrow) {
-      this.createArrowPortal(config, overlayRef);
-    }
 
     return overlayRef;
   }
@@ -320,38 +276,6 @@ export class FlPortalService {
     if (!wrapper.elementIsParent(overlay.getPanelElement())) {
       overlay.dispose();
     }
-  }
-
-  /**
-   * Create the arrow portal pointed to the host element
-   * @param mainConfig PortalConfig of the main portal
-   * @param mainOverlayRef overlay of the main portal
-   */
-  private createArrowPortal(mainConfig: FlRelativePortalConfig, mainOverlayRef: FlOverlayRef): void {
-    const arrowConfig: FlOverlayConfig = {};
-
-    // if the overlay has a size, add the specific class to hide the arrow on small screen
-    if (mainConfig.config.size) {
-      arrowConfig.panelClass = 'g-arrow-overlay';
-    }
-
-    // set a default position, the position is handle in the arrow component
-    const defaultPosition: ConnectedPosition = {
-      originX: 'start',
-      originY: 'top',
-      overlayX: 'start',
-      overlayY: 'top'
-    };
-    // configure the overlay relative to the same element as the host
-    const arrowConfigurer: FlPortalConfig =
-      this.configureRelativePortal(mainConfig.hostElement, [defaultPosition], arrowConfig);
-    const arrowOverlay: FlOverlayRef = this.createPortal(FlPortalArrowComponent, arrowConfigurer,
-      {arrowColor: mainConfig.config.arrowColor, mainConfig: mainConfig});
-
-    // close the arrow portal when the main portal is closed
-    mainOverlayRef.detachments().subscribe(
-      () => arrowOverlay.dispose()
-    );
   }
 
   // create an injector to send data to the portal and the overlay ref
