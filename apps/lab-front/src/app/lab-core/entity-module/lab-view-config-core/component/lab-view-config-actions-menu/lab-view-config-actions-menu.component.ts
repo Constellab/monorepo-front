@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {LabTag} from '../../../../model/entities/lab-tag.entity';
 import {FlDialogService, FlSnackBarService, FlTagDialogService} from '@monorepo/front-core-lib';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
@@ -12,6 +12,7 @@ import {
 } from '../../../lab-report-core/component/lab-select-report-dialog/lab-select-report-dialog.component';
 import {LabReport} from '../../../../model/entities/lab-report.entity';
 import {LabReportService} from '../../../../entity-service/lab-report.service';
+import {LabRouterService} from '../../../../service/lab-router.service';
 
 /**
  * Actions menu button for view configs, it has a ng-content for custom buttons
@@ -21,11 +22,11 @@ import {LabReportService} from '../../../../entity-service/lab-report.service';
   templateUrl: './lab-view-config-actions-menu.component.html',
   styleUrls: ['./lab-view-config-actions-menu.component.scss']
 })
-export class LabViewConfigActionsMenuComponent implements OnInit {
+export class LabViewConfigActionsMenuComponent {
 
   @Input() viewConfig: LabViewConfig;
 
-  @Input() mode : 'text' | 'icon' = 'text';
+  @Input() mode: 'text' | 'icon' = 'text';
 
   @Output() update: EventEmitter<LabViewConfig> = new EventEmitter();
   @Output() updateTags: EventEmitter<LabTag[]> = new EventEmitter();
@@ -39,7 +40,8 @@ export class LabViewConfigActionsMenuComponent implements OnInit {
               private snackBarService: FlSnackBarService) {
   }
 
-  ngOnInit(): void {
+  get viewRoute(): { route: string, queryParams: any } {
+    return LabRouterService.getViewConfigDetailRoute(this.viewConfig.resource.id, this.viewConfig.id);
   }
 
   stopPropagation(event: MouseEvent): void {
@@ -97,5 +99,4 @@ export class LabViewConfigActionsMenuComponent implements OnInit {
     this.snackBarService.openSuccessMessage({text: 'biox.view_added_to_report', translateText: true});
     this.addToReportIsLoading = false;
   }
-
 }

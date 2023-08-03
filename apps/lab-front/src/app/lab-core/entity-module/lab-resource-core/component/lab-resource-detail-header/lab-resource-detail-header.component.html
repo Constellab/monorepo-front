@@ -1,12 +1,13 @@
 <div *ngIf="resource()" class="g-layout-row g-layout-start-center g-layout-gap-05em container">
 
-  <div class="g-flex-auto g-layout-col g-layout-start-start">
-    <!--  Resource & experiment name  -->
+  <div class="g-flex-auto g-layout-col g-layout-start-start header-left">
+    <!--  Resource,  experiment name & project name  -->
     <h1 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">{{resource().name}}</h1>
 
-    <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small">
+    <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small"
+         *ngIf="displayMode !== 'dense'">
       <a [routerLink]="resource().experiment.id | labDetailRoute:'experiment'"
-         *ngIf="resource().experiment" class="g-text-link">
+         *ngIf="resource().experiment" class="g-text-link subtitle">
         <div class="g-layout-row g-layout-start-center">
           <mat-icon flIcon="experiment" class="g-icon-small separator"></mat-icon>
           {{resource().experiment.title}}
@@ -15,7 +16,7 @@
 
       <div *ngIf="resource().experiment && resource().project"> -</div>
 
-      <div class="g-layout-row g-layout-start-center" *ngIf="resource().project">
+      <div class="g-layout-row g-layout-start-center subtitle" *ngIf="resource().project">
         <mat-icon flIcon="project" class="g-icon-small separator"></mat-icon>
         <div class="circle-color separator" [style.background-color]="resource().project.id | flStringToRgb"></div>
         <div>{{resource().project.code}} - {{resource().project.title}}</div>
@@ -23,7 +24,7 @@
     </div>
   </div>
 
-  <lab-flag-button [entity]="resource()"></lab-flag-button>
+  <lab-flag-button [entity]="resource()" *ngIf="displayMode !== 'dense'"></lab-flag-button>
 
   <button mat-stroked-button type="button" (click)="openViewSpecListPortal($event)"
           class="g-button-small button">
@@ -31,36 +32,33 @@
   </button>
 
   <button mat-stroked-button type="button" (click)="openResourceInfoDialog()"
-          class="g-button-small button">
+          class="g-button-small button" *ngIf="displayMode !== 'dense'">
     {{'biox.resource_info' | translate}}
   </button>
 
   <button mat-stroked-button type="button" (click)="openShareDialog()"
-          class="g-button-small button">
+          class="g-button-small button" *ngIf="displayMode !== 'dense'">
     {{'biox.share' | translate}}
   </button>
 
-  <!--   Link to resource detail page only for readOnly       -->
-  <a mat-stroked-button type="button" *ngIf="readOnly"
-     [routerLink]="resource() | labDetailRoute"
-     class="g-button-small button">
-    <mat-icon flIcon="preview"></mat-icon>
-    {{'biox.open_resource' | translate}}
-  </a>
 
-  <lab-resource-actions-menu [readOnly]="readOnly" [resource]="resource()" (update)="onUpdate($event)"
+  <lab-resource-actions-menu [readOnly]="displayMode !== 'fullPage'" [resource]="resource()" (update)="onUpdate($event)"
                              (updateTags)="onUpdateTags($event)"
                              (delete)="onDelete()">
-
-    <button mat-menu-item type="button"
+    <button mat-menu-item type="button" *ngIf="displayMode === 'fullPage'"
             (click)="openTransformerResource()">
       <mat-icon flIcon="transformer"></mat-icon>
       {{'biox.transformers' | translate}}
     </button>
 
+    <button mat-menu-item type="button" (click)="openResourceInfoDialog()"
+            *ngIf="displayMode === 'dense'">
+      <mat-icon>info</mat-icon>
+      {{'biox.resource_info' | translate}}
+    </button>
   </lab-resource-actions-menu>
 
-  <button *ngIf="fullDialog" mat-icon-button type="button" [matTooltip]="'close' | translate"
+  <button *ngIf="displayMode === 'fullDialog'" mat-icon-button type="button" [matTooltip]="'close' | translate"
           [mat-dialog-close]="null" tabindex="-1">
     <mat-icon>close</mat-icon>
   </button>

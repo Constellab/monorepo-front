@@ -1,23 +1,22 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlTableAbstractDirective} from '@monorepo/front-core-lib';
-import {LabShareLink, LabShareLinkDatasource} from '../../../../model/entities/lab-share.entity';
+import {Component, Input} from '@angular/core';
+import {LabSharedEntity, LabShareLink, LabShareLinkDatasource} from '../../../../model/entities/lab-share.entity';
 import {LabShareService} from '../../../../entity-service/lab-share.service';
+import {FlClipboardService, FlSnackBarService, FlTableColumnStatic} from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'lab-share-link-table',
   templateUrl: './lab-share-link-table.component.html',
   styleUrls: ['./lab-share-link-table.component.scss']
 })
-export class LabShareLinkTableComponent extends FlTableAbstractDirective<LabShareLink>
-  implements OnInit {
+export class LabShareLinkTableComponent {
 
   @Input() datasource: LabShareLinkDatasource;
 
-  constructor(private shareService: LabShareService) {
-    super(['entityType', 'entityName', 'validUntil', 'downloadLink', 'actions']);
-  }
+  @Input() columns: FlTableColumnStatic<LabSharedEntity>[];
 
-  ngOnInit(): void {
+  constructor(private shareService: LabShareService,
+              private clipboardService: FlClipboardService,
+              private snackBarService: FlSnackBarService) {
   }
 
   onLinkUpdated(entity: LabShareLink): void {
@@ -30,6 +29,13 @@ export class LabShareLinkTableComponent extends FlTableAbstractDirective<LabShar
 
   getDownloadLink(entity: LabShareLink): string {
     return this.shareService.getDownloadRoute(entity.entityType, entity.token);
+  }
+
+  copyDownloadLink(shareLink: LabShareLink): void {
+    const result = this.clipboardService.copy(this.shareService.getDownloadRoute(shareLink.entityType, shareLink.token));
+    if (result) {
+      this.snackBarService.openSuccessMessage({text: 'biox.share_link_copied', translateText: true});
+    }
   }
 
 

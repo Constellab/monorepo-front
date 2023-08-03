@@ -271,6 +271,9 @@ figure {
   padding-left: 5px;
   padding-right: 5px;
   border-radius: 5px;
+  border: 1px solid transparent;
+  outline: none;
+  line-height: normal; // prevent cursor from being too high
 }
 
 .g-fl-element-editable:not(.g-fl-element-editable-true):not(.g-fl-element-editable-disabled):hover {
@@ -279,4 +282,8 @@ figure {
 
 .g-fl-element-editable-true:not(.g-fl-element-editable-disabled) {
   cursor: initial;
+}
+
+.g-fl-element-editable-true{
+  border-color: var(--color-foreground);
 }

@@ -1,16 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {
-  LabSharedEntity,
-  LabSharedEntityDatasource,
-  LabShareLink,
-  LabShareLinkType
-} from '../../../../model/entities/lab-share.entity';
+import {LabSharedEntityDatasource, LabShareLink, LabShareLinkType} from '../../../../model/entities/lab-share.entity';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
-import {FlClipboardService, FlDialogService, FlSnackBarService, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlClipboardService, FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
 import {Observable, of, share} from 'rxjs';
 import {LabShareService} from '../../../../entity-service/lab-share.service';
 import {LabShareLinkService} from '../../../../entity-service/lab-share-link.service';
@@ -33,8 +28,6 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
   shareLink$: Observable<LabShareLink>;
 
   sharedEntities: LabSharedEntityDatasource;
-
-  displayedColumns: FlTableColumn<LabSharedEntity>[] = ['lab', 'space', 'receiver', 'sharedBy'];
 
   constructor(@Inject(MAT_DIALOG_DATA) input: LabSharedEntityInfoDialogInput,
               private shareService: LabShareService,

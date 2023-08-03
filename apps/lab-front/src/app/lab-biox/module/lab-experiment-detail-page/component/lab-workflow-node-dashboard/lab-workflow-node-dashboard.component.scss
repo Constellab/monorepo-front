@@ -4,6 +4,7 @@
   display: flex;
   // make the grid fill the whole container
   height: 100%;
+  padding-top: 0 !important;
 }
 
 
@@ -12,6 +13,7 @@
   padding-right: 24px;
   padding-top: 10px;
   border-bottom: 1px solid var(--hover-color);
+  background-color: var(--card-background);
 }
 
 .process-error{

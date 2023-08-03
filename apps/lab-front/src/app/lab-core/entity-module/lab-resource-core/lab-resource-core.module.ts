@@ -80,14 +80,11 @@ import {
 } from './component/lab-resource-detail-header/lab-resource-detail-header.component';
 import {LabResourceInfoDialogComponent} from './component/lab-resource-info-dialog/lab-resource-info-dialog.component';
 import {
-  LabResourceViewSpecsListPortalComponent
-} from './component/lab-resource-view-specs-list-portal/lab-resource-view-specs-list-portal.component';
+  LabResourceAvailableViewsPortalComponent
+} from './component/lab-resource-available-views-portal/lab-resource-available-views-portal.component';
 import {
   LabResourceChildrenTabsComponent
 } from './component/lab-resource-children-tabs/lab-resource-children-tabs.component';
-import {
-  LabResourceFlaggedViewsPortalComponent
-} from './component/lab-resource-flagged-views-portal/lab-resource-flagged-views-portal.component';
 import {
   LabResourceDetailMinimizedViewsComponent
 } from './component/lab-resource-detail-minimized-views/lab-resource-detail-minimized-views.component';
@@ -127,9 +124,8 @@ import {
     LabResourceDetailComponent,
     LabResourceDetailHeaderComponent,
     LabResourceInfoDialogComponent,
-    LabResourceViewSpecsListPortalComponent,
+    LabResourceAvailableViewsPortalComponent,
     LabResourceChildrenTabsComponent,
-    LabResourceFlaggedViewsPortalComponent,
     LabResourceDetailMinimizedViewsComponent,
     LabResourceViewSpecCardComponent,
     LabResourceViewSpecCardComponent,

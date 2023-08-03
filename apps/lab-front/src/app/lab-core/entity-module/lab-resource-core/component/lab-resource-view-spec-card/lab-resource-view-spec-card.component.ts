@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {LabResourceViewType} from '../../../../model/entities/resource/lab-resource-view.entity';
+import {LabUser} from '../../../../model/entities/lab-user.entity';
+import {DateTime} from 'luxon';
 
 @Component({
   selector: 'lab-resource-view-spec-card',
@@ -13,4 +15,8 @@ export class LabResourceViewSpecCardComponent {
   @Input() name: string;
 
   @Input() shortDescription: string;
+
+  @Input() user: LabUser;
+
+  @Input() creationDate: DateTime;
 }

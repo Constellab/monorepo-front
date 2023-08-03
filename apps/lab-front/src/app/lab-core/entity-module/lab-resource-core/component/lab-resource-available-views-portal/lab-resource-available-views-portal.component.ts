@@ -7,11 +7,11 @@ import {FlOverlayRef} from '@monorepo/front-core-lib';
 import {LabViewConfig, LabViewConfigDatasource} from '../../../../model/entities/resource/lab-view-config.entity';
 
 @Component({
-  selector: 'lab-resource-view-specs-list-portal',
-  templateUrl: './lab-resource-view-specs-list-portal.component.html',
-  styleUrls: ['./lab-resource-view-specs-list-portal.component.scss'],
+  selector: 'lab-resource-available-views-portal',
+  templateUrl: './lab-resource-available-views-portal.component.html',
+  styleUrls: ['./lab-resource-available-views-portal.component.scss'],
 })
-export class LabResourceViewSpecsListPortalComponent {
+export class LabResourceAvailableViewsPortalComponent {
 
   viewSpecs$: Observable<LabResourceViewSpec[]>;
   favoritesViews$: LabViewConfigDatasource = this.state.getSelectedResourceFlaggedViews();

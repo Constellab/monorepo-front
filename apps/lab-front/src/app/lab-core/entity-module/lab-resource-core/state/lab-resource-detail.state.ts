@@ -38,6 +38,9 @@ export interface LabMinimizedView {
 @Injectable()
 export class LabResourceDetailState implements OnDestroy {
 
+  private static id = 0;
+  private id = LabResourceDetailState.id++;
+
   private mainResourceId: WritableSignal<string> = signal(null);
   private selectedResourceId: WritableSignal<string> = signal(null);
 
@@ -48,9 +51,9 @@ export class LabResourceDetailState implements OnDestroy {
 
   private flaggedViews: Record<string, LabViewConfigDatasource> = {};
 
-  public readOnly: boolean = false;
+  // if true the query param handler will be updated
+  private updateQueryParams: boolean;
 
-  private readonly actionType: string = 'view-portal-loader';
   private viewPortalSubscription: Subscription;
 
   private queryParamHandler: FlQueryParamHandler<{ resourceId: string, viewId: string }>;
@@ -97,7 +100,7 @@ export class LabResourceDetailState implements OnDestroy {
     this.queryParamHandler = new FlQueryParamHandler(router, route);
   }
 
-  public init(resourceId: string, readOnly: boolean): void {
+  public init(resourceId: string, updateQueryParams: boolean): void {
     this.initResource(resourceId);
     this.mainResourceId.set(resourceId);
 
@@ -113,7 +116,7 @@ export class LabResourceDetailState implements OnDestroy {
 
       });
 
-    this.readOnly = readOnly;
+    this.updateQueryParams = updateQueryParams;
     this.subscribeToViewPortal();
   }
 
@@ -147,8 +150,7 @@ export class LabResourceDetailState implements OnDestroy {
     } else {
       this.loadDefaultView(resourceId);
     }
-    // when the resource is in readonly mode (in dialog) don't update the query params
-    if (setQueryParams && !this.readOnly) {
+    if (setQueryParams && this.updateQueryParams) {
       this.queryParamHandler.mergeQueryParams({resourceId, viewId});
     }
   }
@@ -344,6 +346,11 @@ export class LabResourceDetailState implements OnDestroy {
       // add/update the view config if it is flagged and not in the datasource
       datasource.addOrUpdateItem(viewConfig, () => true);
     }
+  }
+
+  get actionType(): string {
+    // use id to make sure that the action type is unique by state
+    return `view-portal-loader-${this.id}`;
   }
 
 

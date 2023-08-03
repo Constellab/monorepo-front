@@ -32,7 +32,7 @@
 
   <ng-container *ngIf="isOpened">
     <ng-container *ngIf="selectedResourceId$ | async; else noResource">
-      <lab-resource-detail [resourceId]="selectedResourceId$" [readOnly]="true"
+      <lab-resource-detail [resourceId]="selectedResourceId$" displayMode="dense"
                            class="view-container"></lab-resource-detail>
     </ng-container>
 

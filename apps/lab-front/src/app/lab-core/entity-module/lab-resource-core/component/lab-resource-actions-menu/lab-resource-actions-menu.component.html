@@ -17,8 +17,6 @@
     </button>
   </ng-container>
 
-  <ng-content></ng-content>
-
   <button mat-menu-item type="button" (click)="openTagFormDialog()">
     <mat-icon>local_offer</mat-icon>
     <span>{{'update_tags' | translate }}</span>
@@ -41,9 +39,11 @@
   </button>
 
   <button mat-menu-item type="button" (click)="openTypingDoc()">
-    <mat-icon>info</mat-icon>
+    <mat-icon>help</mat-icon>
     <span>{{'biox.resource_doc' | translate}}</span>
   </button>
+
+  <ng-content></ng-content>
 
   <button mat-menu-item type="button" (click)="deleteResource()"
           *ngIf="resource.isDeletable() && !readOnly">

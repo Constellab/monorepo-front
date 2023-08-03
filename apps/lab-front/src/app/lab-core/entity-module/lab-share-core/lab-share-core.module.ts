@@ -15,7 +15,6 @@ import {
   LabSharedEntityOriginDialogComponent
 } from './component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
 import {LabSharedEntityTableComponent} from './component/lab-shared-entity-table/lab-shared-entity-table.component';
-import {LabSharedEntityInfoComponent} from './component/lab-shared-entity-info/lab-shared-entity-info.component';
 import {
   LabSharedEntityInfoDialogComponent
 } from './component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
@@ -31,7 +30,6 @@ import {
     LabSharedEntityOriginComponent,
     LabSharedEntityOriginDialogComponent,
     LabSharedEntityTableComponent,
-    LabSharedEntityInfoComponent,
     LabSharedEntityInfoDialogComponent,
   ],
   exports: [
@@ -41,7 +39,6 @@ import {
     LabSharedEntityOriginComponent,
     LabSharedEntityOriginDialogComponent,
     LabSharedEntityTableComponent,
-    LabSharedEntityInfoComponent,
     LabSharedEntityInfoDialogComponent,
   ],
   imports: [

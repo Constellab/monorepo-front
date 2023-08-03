@@ -8,5 +8,6 @@
   <div>
     <div>{{name}}</div>
     <p *ngIf="shortDescription" class="text g-text-tiny g-text-light">{{shortDescription}}</p>
+    <fl-user-with-date [user]="user" [date]="creationDate" *ngIf="user && creationDate"></fl-user-with-date>
   </div>
 </div>

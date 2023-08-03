@@ -16,7 +16,8 @@
           <lab-resource-view-spec-card *ngFor="let viewConfig of favoritesViews"
                                        [viewType]="viewConfig.viewType"
                                        [name]="viewConfig.title"
-                                       [shortDescription]="viewConfig.lastModifiedBy.fullname"
+                                       [user]="viewConfig.createdBy"
+                                       [creationDate]="viewConfig.createdAt"
                                        (click)="openFavoriteView(viewConfig)">
           </lab-resource-view-spec-card>
         </div>

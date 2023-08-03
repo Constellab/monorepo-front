@@ -115,7 +115,9 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
 
   openProcessDashboard(): void {
     this.dialogService.openBigDialog(LabWorkflowNodeDashboardComponent, {
-      panelClass: ['g-dialog-no-padding'], viewContainerRef: this.viewContainerRef
+      panelClass: ['g-dialog-no-padding', 'g-dialog-main-background'],
+      viewContainerRef: this.viewContainerRef,
+      autoFocus: false
     });
   }
 

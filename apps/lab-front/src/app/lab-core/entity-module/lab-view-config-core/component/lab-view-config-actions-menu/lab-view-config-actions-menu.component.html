@@ -31,5 +31,9 @@
     <fl-button-loader *ngIf="addToReportIsLoading"></fl-button-loader>
   </button>
 
-
+  <a mat-menu-item type="button" target="_blank"
+     [routerLink]="viewRoute.route" [queryParams]="viewRoute.queryParams">
+    <mat-icon>open_in_new</mat-icon>
+    <span>{{'biox.open_in_new_tab' | translate}}</span>
+  </a>
 </mat-menu>

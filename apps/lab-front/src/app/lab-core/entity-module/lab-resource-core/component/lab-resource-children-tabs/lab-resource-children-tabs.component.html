@@ -1,11 +1,13 @@
-<div class="container g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+<div class="container g-layout-row g-layout-start-center g-layout-gap-05em">
   <div class="card g-text-small" matRipple (click)="selectResource(resource())"
-       [ngClass]="{'selected-card': resource()?.id === selectedResource()?.id}">
+       [ngClass]="{'selected-card': resource()?.id === selectedResource()?.id}"
+       [matTooltip]="resource().name" [matTooltipShowDelay]="500">
     {{resource().name}}
   </div>
 
   <div *ngFor="let child of children()" class="card g-text-small" matRipple
        (click)="selectResource(child)"
+       [matTooltip]="child.name" [matTooltipShowDelay]="500"
        [ngClass]="{'selected-card': child.id === selectedResource()?.id}">
     {{child.name}}
   </div>

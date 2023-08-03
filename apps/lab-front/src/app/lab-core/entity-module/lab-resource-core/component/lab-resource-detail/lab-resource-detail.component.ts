@@ -16,13 +16,13 @@ export class LabResourceDetailComponent implements OnInit {
 
   @Input() resourceId: string | Observable<string>;
 
-  // when true, the transform, import button are deactivate
-  @Input() readOnly: boolean = false;
-
   /**
-   * True if this component is used in a dialog with only this component
+   * FullPage : resource detail page
+   * FullDialog : resource detail dialog
+   * Dense : resource detail in a dense page (task dashboard)
+   *
    */
-  @Input() fullDialog: boolean = false;
+  @Input() displayMode: 'fullPage' | 'fullDialog' | 'dense' = 'fullPage';
 
   hasChildren: Signal<boolean> = this.state.hasChildren;
   selectedView = this.state.selectedView;
@@ -42,8 +42,8 @@ export class LabResourceDetailComponent implements OnInit {
   }
 
   private onNewResourceId(id: string): void {
-    if(id == null) return;
-    this.state.init(id, this.readOnly);
+    if (id == null) return;
+    this.state.init(id, this.displayMode === 'fullPage');
   }
 
   undockView(): void {

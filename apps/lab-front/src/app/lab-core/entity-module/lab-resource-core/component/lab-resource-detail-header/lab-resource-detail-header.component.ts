@@ -17,11 +17,8 @@ import {
   LabResourceInfoDialogInput
 } from '../lab-resource-info-dialog/lab-resource-info-dialog.component';
 import {
-  LabResourceFlaggedViewsPortalComponent
-} from '../lab-resource-flagged-views-portal/lab-resource-flagged-views-portal.component';
-import {
-  LabResourceViewSpecsListPortalComponent
-} from '../lab-resource-view-specs-list-portal/lab-resource-view-specs-list-portal.component';
+  LabResourceAvailableViewsPortalComponent
+} from '../lab-resource-available-views-portal/lab-resource-available-views-portal.component';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
 
 @Component({
@@ -31,11 +28,9 @@ import {LabResourceService} from '../../../../entity-service/lab-resource.servic
 })
 export class LabResourceDetailHeaderComponent {
 
-  @Input() fullDialog: boolean;
+  @Input() displayMode: 'fullPage' | 'fullDialog' | 'dense' = 'fullPage';
 
   resource: Signal<LabResource> = this.state.selectedResource;
-
-  readOnly: boolean = this.state.readOnly;
 
   private overlay: FlOverlayRef;
 
@@ -56,18 +51,7 @@ export class LabResourceDetailHeaderComponent {
         disposeOnBackdropClick: true,
         transparentBackdrop: true,
       });
-    this.state.createPortal(LabResourceViewSpecsListPortalComponent, config);
-  }
-
-  openResourceFlaggedViewsPortal(event: MouseEvent): void {
-    const config = this.portalService.configureRelativePortalFromMouseEvent(event, ['bottom', 'right', 'left'],
-      {
-        hasBackdrop: true,
-        disposeOnNavigation: true,
-        disposeOnBackdropClick: true,
-        transparentBackdrop: true,
-      });
-    this.state.createPortal(LabResourceFlaggedViewsPortalComponent, config);
+    this.state.createPortal(LabResourceAvailableViewsPortalComponent, config);
   }
 
   openResourceInfoDialog(): void {

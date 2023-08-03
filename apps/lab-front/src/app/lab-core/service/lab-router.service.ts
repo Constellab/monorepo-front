@@ -45,6 +45,14 @@ export class LabRouterService {
     return `${labConstDataboxFullRoute}/resource/${id}`;
   }
 
+  public static getViewConfigDetailRoute(resourceId: string, viewConfigId: string): { route: string, queryParams: any } {
+    return {
+      route: `${labConstDataboxFullRoute}/resource/${resourceId}`,
+      queryParams: {viewId: viewConfigId}
+    };
+  }
+
+
   public static getReportSearchRoute(): string {
     return labConstReportFullRoute;
   }
@@ -98,6 +106,7 @@ export class LabRouterService {
     return `${LabRouterService.getMonitoringRoute()}/activity`;
   }
 
+
   /////////////////// NAVIGATE METHODS ///////////////////
   public navigateToAppRoute(): void {
     this.router.navigate([LabRouterService.getAppRoute()]);
@@ -128,6 +137,7 @@ export class LabRouterService {
   }
 
   public navigateToViewConfig(resourceId: string, viewConfigId: string): Promise<boolean> {
-    return this.router.navigate([LabRouterService.getResourceDetailRoute(resourceId)], {queryParams: {viewId: viewConfigId}});
+    const viewRoute = LabRouterService.getViewConfigDetailRoute(resourceId, viewConfigId);
+    return this.router.navigate([viewRoute.route], {queryParams: viewRoute.queryParams});
   }
 }

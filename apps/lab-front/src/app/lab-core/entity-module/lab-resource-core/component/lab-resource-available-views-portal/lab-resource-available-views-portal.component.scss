@@ -1,11 +1,15 @@
 
 .container {
   display: grid;
-  width: 33em;
   grid-template-columns: 16em 16em;
   gap: 1em;
   grid-row-gap: 1em;
   grid-auto-rows: 8em;
+
+  // use to prevent x scroll bar when there is an y scrollbar
+  box-sizing: border-box;
+  padding-left: 10px;
+  padding-right:10px;
 }
 
 .title {

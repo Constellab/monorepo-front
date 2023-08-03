@@ -1,4 +1,4 @@
-:host{
+:host {
   display: block;
   padding-left: 0.5em;
   padding-right: 0.5em;
@@ -11,22 +11,26 @@
   border-radius: var(--card-radius);
 }
 
-.header-title {
+.header-left {
   word-break: break-word;
-  line-height: initial; // fix height in dialog
 }
 
-.button{
+.subtitle {
+  margin-top: 0.5em;
+  line-height: 1em;
+}
+
+.button {
   flex-shrink: 0;
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
 
-.separator{
+.separator {
   margin-right: 5px;
 }
 
-.circle-color{
+.circle-color {
   width: 10px;
   height: 10px;
   border-radius: 50%;

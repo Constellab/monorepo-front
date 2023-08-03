@@ -1,8 +1,9 @@
 <div class="container g-layout-row g-layout-start-center g-layout-gap-05em">
   <div *ngFor="let minimizedView of minimizedViews()" class="card g-layout-row g-layout-start-center" matRipple
-       (click)="openView(minimizedView)" (auxclick)="onAuxClick(minimizedView, $event)">
+       (click)="openView(minimizedView)" (auxclick)="onAuxClick(minimizedView, $event)"
+       [matTooltip]="minimizedView.view.title" [matTooltipShowDelay]="500">
 
     <lab-view-type-image [viewType]="minimizedView.view.viewType" size="13px" class="view-image"></lab-view-type-image>
-    <div class="g-text-small">{{minimizedView.view.title}}</div>
+    <div class="g-text-small title">{{minimizedView.view.title}}</div>
   </div>
 </div>

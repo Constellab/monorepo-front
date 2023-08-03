@@ -1,5 +1,6 @@
 :host {
   height: 45px;
+  flex-shrink: 0;
 }
 
 .container {
@@ -21,4 +22,10 @@
   display: flex;
   margin-right: 0.5em;
   padding: 3px;
+}
+
+.title{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
