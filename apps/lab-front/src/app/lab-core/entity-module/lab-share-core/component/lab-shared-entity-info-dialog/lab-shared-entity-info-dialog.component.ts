@@ -60,7 +60,6 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
 
   private onShareClosedClosed(shareLink?: LabShareLink): void {
     if (shareLink) {
-      // TODO
       this.onShareLinkUpdate(shareLink);
     }
   }
