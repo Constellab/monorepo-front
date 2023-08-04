@@ -190,5 +190,9 @@ export class LabResourceService {
     return this.apiService.get(`${this.route}/${id}/shared-origin`, LabSharedEntity);
   }
 
+  public uploadResourceFromLink(url: string, uncompressOption: string): Observable<LabResource> {
+    return this.apiService.post(`${this.route}/upload-from-link`,
+      {url: url, uncompress_option: uncompressOption}, LabResource);
+  }
 
 }

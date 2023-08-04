@@ -41,13 +41,9 @@ export interface RvResourceViewText extends RvResourceViewBase {
     text: string
     is_first_page: boolean;
     is_last_page: boolean;
-    last_page: number;
-    next_page: number;
-    number_of_items_per_page: number;
-    page: number;
-    prev_page: number;
-    total_number_of_items: number;
-    total_number_of_pages: number;
+    next_page: any;
+    previous_page: any;
+    page_param_name: string;
   };
 }
 

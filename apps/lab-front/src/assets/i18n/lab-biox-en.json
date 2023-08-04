@@ -241,6 +241,7 @@
     "import_resource_from_link": "Upload from link",
     "import_from_link_help": "You can import resources from a link. You can provide link to a simple file or a share link from another lab. The resource will be imported in your lab and you will be able to use it like any other resource.",
     "resource_link": "Resource link",
+    "uncompress_resource_option": "Uncompress file option",
     "share_origin_info": "Origin information",
     "share_origin_lab": "Lab origin",
     "share_origin_by": "Shared by",

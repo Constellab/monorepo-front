@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {FlPortalActionsService, FlSnackBarService} from '@monorepo/front-core-lib';
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {LabShareService} from '../../../../entity-service/lab-share.service';
 import {MatDialogRef} from '@angular/material/dialog';
 import {LabRouterService} from '../../../../service/lab-router.service';
+import {LabResourceService} from '../../../../entity-service/lab-resource.service';
+
 
 /**
  * Import a resource from a link
@@ -14,31 +15,31 @@ import {LabRouterService} from '../../../../service/lab-router.service';
   templateUrl: './lab-import-resource-from-link.component.html',
   styleUrls: ['./lab-import-resource-from-link.component.scss']
 })
-export class LabImportResourceFromLinkComponent implements OnInit {
+export class LabImportResourceFromLinkComponent {
 
-  formCtrl: FormControl;
+  formGp = new FormBuilder().group({
+    url: new FormControl('', [Validators.required]),
+    uncompressOption: new FormControl('auto', [Validators.required])
+  });
 
   constructor(private dialogRef: MatDialogRef<LabImportResourceFromLinkComponent>,
-              private shareService: LabShareService,
+              private resourceService: LabResourceService,
               private snackBarService: FlSnackBarService,
               private actionService: FlPortalActionsService) {
   }
 
-  ngOnInit(): void {
-    this.formCtrl = new FormControl(null, [Validators.required]);
-  }
 
   submit(): void {
-    if (this.formCtrl.valid) {
-      this.importResource(this.formCtrl.value);
+    if (this.formGp.valid) {
+      this.importResource(this.formGp.value.url, this.formGp.value.uncompressOption);
     }
   }
 
-  private importResource(url: string): void {
+  private importResource(url: string, uncompressOption: string): void {
 
     this.actionService.addAction({
       type: 'import-resource',
-      action: this.shareService.importResourceFromLab(url),
+      action: this.resourceService.uploadResourceFromLink(url, uncompressOption),
       text: {text: 'biox.downloading_resource', translateText: true},
       successLink: (resource: LabResource) => LabRouterService.getResourceDetailRoute(resource.id),
     }, false);

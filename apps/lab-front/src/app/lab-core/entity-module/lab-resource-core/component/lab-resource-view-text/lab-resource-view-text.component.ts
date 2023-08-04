@@ -4,10 +4,6 @@ import {LabResourceService} from '../../../../entity-service/lab-resource.servic
 import {Observable} from 'rxjs';
 import {RvResourceViewDirective, RvResourceViewText} from '@monorepo/resource-view';
 
-
-// Spec name of the page on view text
-const labResourceViewTextSpecPage: string = 'page';
-
 /**
  * Component to view a resource as plain text
  *
@@ -27,9 +23,6 @@ export class LabResourceViewTextComponent extends RvResourceViewDirective<RvReso
 
   text: string = '';
 
-  private lowerPage: number = 1; // for loading previous page
-  private higherPage: number = 1; // for loading next page
-
   reachedFirstPage: boolean = false;
   reachedLastPage: boolean = false;
 
@@ -47,18 +40,17 @@ export class LabResourceViewTextComponent extends RvResourceViewDirective<RvReso
   private initText(): void {
     this.reachedFirstPage = this.view.data.is_first_page;
     this.reachedLastPage = this.view.data.is_last_page;
-    this.lowerPage = this.view.data.page;
-    this.higherPage = this.view.data.page;
+
 
     this.text = this.toString(this.view.data.text);
   }
 
   loadNextPage(): void {
+    if(this.view.data.is_last_page || this.view.data.next_page == null) return;
     this.isLoading = true;
-    this.higherPage++;
-    this.callPagination(this.higherPage).subscribe({
+    this.callPagination(this.view.data.next_page).subscribe({
       next: view => this.loadNextPageSuccess(view),
-      error: () => this.isLoading = false
+      error: () => this.onComplete()
     });
   }
 
@@ -66,34 +58,38 @@ export class LabResourceViewTextComponent extends RvResourceViewDirective<RvReso
     this.view.data.text += this.toString(view.data.text);
     this.text += this.toString(view.data.text);
     this.reachedLastPage = view.data.is_last_page;
-    this.onSuccess();
+    // refresh next page
+    this.view.data.next_page = view.data.next_page;
+    this.onComplete();
   }
 
   loadPreviousPage(): void {
+    if(this.view.data.is_first_page || this.view.data.previous_page == null) return;
     this.isLoading = true;
-    this.lowerPage--;
-    this.callPagination(this.lowerPage).subscribe({
+    this.callPagination(this.view.data.previous_page).subscribe({
       next: view => this.loadPreviousPageSuccess(view),
-      error: () => this.isLoading = false
+      error: () => this.onComplete()
     });
   }
 
-  private callPagination(page: number): Observable<RvResourceViewText> {
+  private callPagination(page: any): Observable<RvResourceViewText> {
     // merge config with pagination config
-    const viewConfig = Object.assign(this.config.configValues, {[labResourceViewTextSpecPage]: page});
+    const viewConfig = Object.assign(this.config.configValues, {[this.view.data.page_param_name]: page});
 
     return this.resourceService.callResourceViewData(this.resourceId, this.config.methodName,
       viewConfig) as Observable<RvResourceViewText>;
   }
 
   private loadPreviousPageSuccess(view: RvResourceViewText): void {
-    this.view.data.text = this.toString(view.data) + this.view.data;
-    this.text = this.toString(view.data) + this.text;
+    this.view.data.text = this.toString(view.data.text) + this.view.data;
+    this.text = this.toString(view.data.text) + this.text;
     this.reachedFirstPage = view.data.is_first_page;
-    this.onSuccess();
+    // refresh previous page
+    this.view.data.previous_page = view.data.previous_page;
+    this.onComplete();
   }
 
-  private onSuccess(): void {
+  private onComplete(): void {
     this.isLoading = false;
     this.cdr.markForCheck();
   }

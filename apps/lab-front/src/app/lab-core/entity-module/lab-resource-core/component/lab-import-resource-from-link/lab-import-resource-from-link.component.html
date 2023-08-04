@@ -3,23 +3,36 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <form (ngSubmit)="submit()" id="import-ext-resource">
+  <form (ngSubmit)="submit()" id="upload-resource-from-link" [formGroup]="formGp">
 
     <p class="help-text">{{'biox.import_from_link_help' | translate}}</p>
 
     <!--    Url      -->
     <mat-form-field class="g-form-input">
       <mat-label>{{'biox.resource_link' | translate}}</mat-label>
-      <input matInput [formControl]="formCtrl" [placeholder]="'biox.resource_link' | translate">
-      <mat-error *ngIf="formCtrl.hasError('required')">
+      <input matInput formControlName="url" [placeholder]="'biox.resource_link' | translate">
+      <mat-error *ngIf="formGp.get('url').hasError('required')">
         {{'biox.resource_link' | flErrorRequired }}
+      </mat-error>
+    </mat-form-field>
+
+    <!--    Compress option      -->
+    <mat-form-field class="g-form-input g-form-field-compact">
+      <mat-label>{{'biox.uncompress_resource_option' | translate}}</mat-label>
+      <mat-select [placeholder]="'biox.uncompress_resource_option' | translate" formControlName="uncompressOption">
+        <mat-option value="auto">Auto</mat-option>
+        <mat-option value="yes">Yes</mat-option>
+        <mat-option value="no">No</mat-option>
+      </mat-select>
+      <mat-error *ngIf="formGp.get('uncompressOption').hasError('required')">
+        {{'biox.uncompress_resource_option' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="import-ext-resource"
+  <button mat-flat-button color="primary" type="submit" form="upload-resource-from-link"
           class="g-centered-forced">
     {{'save' | translate}}
   </button>
