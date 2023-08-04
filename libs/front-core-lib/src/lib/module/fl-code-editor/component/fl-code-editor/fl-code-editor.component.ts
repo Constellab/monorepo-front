@@ -1,0 +1,53 @@
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ComponentRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
+import {FlCodeEditorLanguage} from '../../fl-code-editor.class';
+import {FormControl} from '@angular/forms';
+
+/**
+ * This component is used to lazy load the code editor component.
+ */
+@Component({
+  selector: 'fl-code-editor',
+  templateUrl: './fl-code-editor.component.html',
+  styleUrls: ['./fl-code-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class FlCodeEditorComponent implements OnInit, OnDestroy {
+
+  @Input() language: FlCodeEditorLanguage;
+
+  @Input() formCtrl: FormControl;
+
+  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+
+  private componentRef: ComponentRef<any>;
+
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+  }
+
+  async ngOnInit(): Promise<void> {
+    const {FlCodeEditorStandaloneComponent} = await import('../fl-code-editor-standalone/fl-code-editor-standalone.component');
+    this.componentRef = this.viewContainer.createComponent(FlCodeEditorStandaloneComponent);
+    this.componentRef.instance.formCtrl = this.formCtrl;
+    this.componentRef.instance.language = this.language;
+
+    // use change detection to force the OnInit of LabPythonEditorComponent to be called
+    // because of the parent ChangeDetectionStrategy.OnPush, the OnInit of the lazy loaded
+    // component is not called
+    this.changeDetectorRef.markForCheck();
+  }
+
+  ngOnDestroy(): void {
+    this.componentRef.destroy();
+  }
+
+}

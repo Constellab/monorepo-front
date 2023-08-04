@@ -6,7 +6,7 @@ import {EditorView, keymap} from '@codemirror/view';
 import {basicSetup} from 'codemirror';
 import {defaultKeymap, indentWithTab} from '@codemirror/commands';
 import {FormControl} from '@angular/forms';
-import {FlThemeService} from '@monorepo/front-core-lib';
+import {FlCodeEditorLanguage, FlThemeService} from '@monorepo/front-core-lib';
 import {HighlightStyle, StreamLanguage, syntaxHighlighting,} from '@codemirror/language';
 import {tags as t} from '@lezer/highlight';
 import {python} from '@codemirror/lang-python';
@@ -16,7 +16,6 @@ import {r} from '@codemirror/legacy-modes/mode/r';
 import {yaml} from '@codemirror/legacy-modes/mode/yaml';
 import {julia} from '@codemirror/legacy-modes/mode/julia';
 import {perl} from '@codemirror/legacy-modes/mode/perl';
-import {FlCodeEditorLanguage} from './fl-code-editor.class';
 
 /**
  * Python IDE editor component using CodeMirror.
@@ -24,23 +23,24 @@ import {FlCodeEditorLanguage} from './fl-code-editor.class';
  * is only loaded when needed.
  */
 @Component({
-  selector: 'fl-code-editor',
+  selector: 'fl-code-editor-standalone',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './fl-code-editor.component.html',
-  styleUrls: ['./fl-code-editor.component.scss'],
+  templateUrl: './fl-code-editor-standalone.component.html',
+  styleUrls: ['./fl-code-editor-standalone.component.scss'],
 })
-export class FlCodeEditorComponent implements OnInit, OnDestroy {
+export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
   @Input() language: FlCodeEditorLanguage;
 
   @Input() formCtrl: FormControl;
 
-  @ViewChild('editor', { static: true }) editor: ElementRef<HTMLElement>;
+  @ViewChild('editor', {static: true}) editor: ElementRef<HTMLElement>;
 
   private editorState: EditorState;
   private editorView: EditorView;
 
-  constructor(private themeService: FlThemeService) {}
+  constructor(private themeService: FlThemeService) {
+  }
 
   ngOnInit(): void {
     this.editorState = EditorState.create({
@@ -114,12 +114,12 @@ export class FlCodeEditorComponent implements OnInit, OnDestroy {
     };
 
     const materialDarkHighlightStyle = HighlightStyle.define([
-      { tag: t.keyword, color: config.keyword },
+      {tag: t.keyword, color: config.keyword},
       {
         tag: [t.name, t.deleted, t.character, t.macroName],
         color: config.variable,
       },
-      { tag: [t.propertyName], color: config.function },
+      {tag: [t.propertyName], color: config.function},
       {
         tag: [
           t.processingInstruction,
@@ -137,8 +137,8 @@ export class FlCodeEditorComponent implements OnInit, OnDestroy {
         tag: [t.color, t.constant(t.name), t.standard(t.name)],
         color: config.constant,
       },
-      { tag: [t.definition(t.name), t.separator], color: config.variable },
-      { tag: [t.className], color: config.class },
+      {tag: [t.definition(t.name), t.separator], color: config.variable},
+      {tag: [t.className], color: config.class},
       {
         tag: [
           t.number,
@@ -150,20 +150,20 @@ export class FlCodeEditorComponent implements OnInit, OnDestroy {
         ],
         color: config.number,
       },
-      { tag: [t.typeName], color: config.type, fontStyle: config.type },
-      { tag: [t.operator, t.operatorKeyword], color: config.keyword },
-      { tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp },
-      { tag: [t.meta, t.comment], color: config.comment },
-      { tag: t.strong, fontWeight: 'bold' },
-      { tag: t.emphasis, fontStyle: 'italic' },
-      { tag: t.link, textDecoration: 'underline' },
-      { tag: t.heading, fontWeight: 'bold', color: config.heading },
+      {tag: [t.typeName], color: config.type, fontStyle: config.type},
+      {tag: [t.operator, t.operatorKeyword], color: config.keyword},
+      {tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp},
+      {tag: [t.meta, t.comment], color: config.comment},
+      {tag: t.strong, fontWeight: 'bold'},
+      {tag: t.emphasis, fontStyle: 'italic'},
+      {tag: t.link, textDecoration: 'underline'},
+      {tag: t.heading, fontWeight: 'bold', color: config.heading},
       {
         tag: [t.atom, t.bool, t.special(t.variableName)],
         color: config.variable,
       },
-      { tag: t.invalid, color: config.invalid },
-      { tag: t.strikethrough, textDecoration: 'line-through' },
+      {tag: t.invalid, color: config.invalid},
+      {tag: t.strikethrough, textDecoration: 'line-through'},
     ]);
 
     return [syntaxHighlighting(materialDarkHighlightStyle)];

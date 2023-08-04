@@ -1,54 +1,25 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ComponentRef,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewContainerRef
-} from '@angular/core';
-import {FlDynamicFieldAbstractDirective} from '@monorepo/front-core-lib';
-
+import {Component, Input, OnInit} from '@angular/core';
+import {FlCodeEditorLanguage, FlDynamicFieldAbstractDirective} from '@monorepo/front-core-lib';
 import {TdParamSpecType} from '@monorepo/technical-doc';
-import {
-  FlCodeEditorLanguage
-} from 'libs/front-core-lib/src/lib/standalone-component/fl-code-editor/fl-code-editor.class';
 
 /**
  * Component used under {@link FlDynamicFieldComponent} to show
  * code editor.
- * It lazy load the standalone python code component, so it is not
- * included in the main bundle.
  */
 @Component({
   selector: 'lab-code-editor-dynamic-field',
   templateUrl: './lab-code-editor-dynamic-field.component.html',
-  styleUrls: ['./lab-code-editor-dynamic-field.component.scss']
+  styleUrls: ['./lab-code-editor-dynamic-field.component.scss'],
 })
 export class LabCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDirective
-  implements OnInit, OnDestroy {
+  implements OnInit {
 
   @Input() specType: TdParamSpecType;
 
-  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
-
-  private componentRef: ComponentRef<any>;
-
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-    super();
-  }
+  language: FlCodeEditorLanguage;
 
   async ngOnInit(): Promise<void> {
-    // eslint-disable-next-line max-len
-    const {FlCodeEditorComponent} = await import('../../../../../../../../../libs/front-core-lib/src/lib/standalone-component/fl-code-editor/fl-code-editor.component');
-    this.componentRef = this.viewContainer.createComponent(FlCodeEditorComponent);
-    this.componentRef.instance.formCtrl = this.formCtrl;
-    this.componentRef.instance.language = this.getCodeEditorLanguage();
-    // use change detection to force the OnInit of LabPythonEditorComponent to be called
-    // because of the parent ChangeDetectionStrategy.OnPush, the OnInit of the lazy loaded
-    // component is not called
-    this.changeDetectorRef.markForCheck();
+    this.language = this.getCodeEditorLanguage();
   }
 
   private getCodeEditorLanguage(): FlCodeEditorLanguage {
@@ -69,12 +40,7 @@ export class LabCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDi
         return 'perl';
       default:
         throw new Error(`Unknown spec type ${this.specType}`);
-
     }
-  }
-
-  ngOnDestroy(): void {
-    this.componentRef.destroy();
   }
 
 

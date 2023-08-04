@@ -4,6 +4,7 @@ import {
   FlAuthModule,
   FlAutocompleteMultipleModule,
   FlCardModule,
+  FlCodeEditorModule,
   FlColorModule,
   FlCoreComponentModule,
   FlCoreDirectiveModule,
@@ -26,7 +27,8 @@ import {
   FlLoaderModule,
   FlMenuDynamicModule,
   FlPortalActionsModule,
-  FlPortalModule, FlRadioButtonBigModule,
+  FlPortalModule,
+  FlRadioButtonBigModule,
   FlResizeModule,
   FlSearchModule,
   FlSectionModule,
@@ -93,6 +95,7 @@ import {ChChartModule} from '@monorepo/chart';
     FlInputSearchModule,
     FlHorizontalNavBarModule,
     FlRadioButtonBigModule,
+    FlCodeEditorModule,
 
     //  Other lib
     BnBioNetworkModule,

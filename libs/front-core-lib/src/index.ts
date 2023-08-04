@@ -8,6 +8,7 @@ export * from './lib/module/fl-auth/public-api';
 export * from './lib/module/fl-autocomplete-multiple/public-api';
 export * from './lib/module/fl-captcha/public-api';
 export * from './lib/module/fl-card/public-api';
+export * from './lib/module/fl-code-editor/public-api';
 export * from './lib/module/fl-color/public-api';
 export * from './lib/module/fl-core-component/public-api';
 export * from './lib/module/fl-core-directive/public-api';
