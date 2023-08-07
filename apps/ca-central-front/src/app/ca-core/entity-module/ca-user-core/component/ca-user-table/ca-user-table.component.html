@@ -60,6 +60,7 @@
       <fl-from-now *ngIf="user.lastLoginSuccess" [date]="user.lastLoginSuccess"></fl-from-now>
       <fl-text-ok-nok *ngIf="user.statusMailNotValidated()" [value]="false"
                       [nokText]="'mail_not_validated' | translate"></fl-text-ok-nok>
+      <mat-icon *ngIf="isLocked(user)" [matTooltip]="'user_locked' | translate" class="g-icon-small lock">lock</mat-icon>
     </mat-cell>
   </ng-container>
 
@@ -78,6 +79,19 @@
           <mat-icon>visibility</mat-icon>
           <span>{{'detail' | translate}}</span>
         </a>
+
+        <button mat-menu-item type="button" (click)="unlockUser(row)"
+                *ngIf="isLocked(row); else notLocked">
+          <mat-icon>lock_open</mat-icon>
+          <span>{{'unlock_user' | translate}}</span>
+        </button>
+
+        <ng-template #notLocked>
+          <button mat-menu-item type="button" (click)="lockUser(row)">
+            <mat-icon color="warn">lock</mat-icon>
+            <span class="g-warn-text">{{'lock_user' | translate}}</span>
+          </button>
+        </ng-template>
       </mat-menu>
     </mat-cell>
   </ng-container>

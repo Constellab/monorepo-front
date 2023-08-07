@@ -233,5 +233,11 @@
   "reduce_menu": "Réduire",
   "notifications": "Notifications",
   "phone_number": "Numéro de téléphone",
-  "export_search_to_csv": "Exporter la recherche en CSV"
+  "export_search_to_csv": "Exporter la recherche en CSV",
+  "lock_user": "Bloquer l'utilisateur",
+  "lock_user_confirmation": "Êtes-vous sûr de vouloir bloquer l'utilisateur ? Il ne pourra plus se connecter.",
+  "user_locked": "Utilisateur bloqué",
+  "unlock_user": "Débloquer l'utilisateur",
+  "unlock_user_confirmation": "Êtes-vous sûr de vouloir débloquer l'utilisateur ? Il pourra se connecter à nouveau.",
+  "user_unlocked": "Utilisateur débloqué"
 }

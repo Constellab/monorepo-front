@@ -1,14 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CaAdminDashboardPageComponent} from './component/ca-admin-dashboard-page/ca-admin-dashboard-page.component';
 import {CaCoreModule} from '../ca-core/ca-core.module';
 import {CaAdminRoutingModule} from './ca-admin-routing.module';
-import {
-  CaAdminAccountsActivationComponent
-} from './component/ca-admin-accounts-activation/ca-admin-accounts-activation.component';
-import {
-  CaAdminAccountActivationButtonComponent
-} from './component/ca-admin-account-activation-button/ca-admin-account-activation-button.component';
 import {CaServerInfoCoreModule} from '../ca-core/entity-module/ca-server-info-core/ca-server-info-core.module';
 import {CaLabCoreModule} from '../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
 import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space-core.module';
@@ -41,9 +34,6 @@ import {
  */
 @NgModule({
   declarations: [
-    CaAdminDashboardPageComponent,
-    CaAdminAccountsActivationComponent,
-    CaAdminAccountActivationButtonComponent,
     CaAdminOthersPageComponent,
     CaAdminPageComponent,
     CaAdminCloudProvidersListComponent,

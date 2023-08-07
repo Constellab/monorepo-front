@@ -233,5 +233,11 @@
   "reduce_menu": "Reduce",
   "notifications": "Notifications",
   "phone_number": "Phone number",
-  "export_search_to_csv": "Exporter la recherche en CSV"
+  "export_search_to_csv": "Exporter la recherche en CSV",
+  "lock_user": "Lock user",
+  "lock_user_confirmation": "Are you sure you want to lock this user ? He will not be able to login anymore.",
+  "user_locked": "User locked",
+  "unlock_user": "Unlock user",
+  "unlock_user_confirmation": "Are you sure you want to unlock this user ? He will be able to login again.",
+  "user_unlocked": "User unlocked"
 }

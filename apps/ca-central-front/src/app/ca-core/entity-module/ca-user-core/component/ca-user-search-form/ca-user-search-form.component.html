@@ -22,6 +22,14 @@
       </mat-select>
     </mat-form-field>
 
+    <!--  Status  -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{'status' | translate }}</mat-label>
+      <mat-select formControlName="status" [placeholder]="'status' | translate" [multiple]="true">
+        <mat-option *ngFor="let key of status | flObjectKeys" [value]="key">{{status[key]}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <!--  Company  -->
     <mat-form-field class="g-search-field">
       <mat-label>{{'company' | translate }}</mat-label>

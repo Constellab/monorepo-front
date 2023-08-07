@@ -14,12 +14,6 @@ export class CaAdminPageComponent {
 
   routes: FlHorizontalNavBarItem[] = [
     {
-      label: {text: 'admin_dashboard_page', translateText: true},
-      icon: 'dashboard',
-      route: CaRouterService.getAdminRoute(),
-      linkActiveExact: true
-    },
-    {
       label: {text: 'space_list', translateText: true},
       icon: 'space',
       route: CaRouterService.getAdminSpacesRoute()

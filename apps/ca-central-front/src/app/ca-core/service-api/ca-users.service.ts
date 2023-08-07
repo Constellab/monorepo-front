@@ -57,4 +57,12 @@ export class CaUsersService {
 
   }
 
+  public lockUser(userId: string): Observable<CaUser> {
+    return this.apiService.put(`${this.route}/lock/${userId}`, null, CaUser);
+  }
+
+  public unlockUser(userId: string): Observable<CaUser> {
+    return this.apiService.put(`${this.route}/unlock/${userId}`, null, CaUser);
+  }
+
 }
