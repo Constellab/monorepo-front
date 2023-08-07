@@ -7,8 +7,8 @@ import {
   FlTableColumnStatic,
   FlViewContext
 } from '@monorepo/front-core-lib';
-import {CaUsersService} from '../../../../service-api/ca-users.service';
 import {ClUserStatus} from '@monorepo/core-lib';
+import {CaUserAccountsService} from '../../../../service-api/ca-user-accounts.service';
 
 /**
  * Table to display users
@@ -27,7 +27,7 @@ export class CaUserTableComponent {
 
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
-  constructor(private userService: CaUsersService,
+  constructor(private userAccountsService: CaUserAccountsService,
               private dialogService: FlDialogService) {
   }
 
@@ -44,7 +44,7 @@ export class CaUserTableComponent {
       title: 'lock_user',
       content: 'lock_user_confirmation',
       translateTitleAndContent: true,
-      observable: this.userService.lockUser(user.id),
+      observable: this.userAccountsService.lockUser(user.id),
       successMessage: 'user_locked',
       translateMessage: true
     };
@@ -57,7 +57,7 @@ export class CaUserTableComponent {
       title: 'unlock_user',
       content: 'unlock_user_confirmation',
       translateTitleAndContent: true,
-      observable: this.userService.unlockUser(user.id),
+      observable: this.userAccountsService.unlockUser(user.id),
       successMessage: 'user_unlocked',
       translateMessage: true
     };

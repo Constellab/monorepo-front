@@ -53,16 +53,7 @@ export class CaUsersService {
 
   public searchByNamesDatasource(): CaUserDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size, name) => this.searchByNames(name, page, size), 20, false);
+        (page, size, name) => this.searchByNames(name, page, size), 20, false);
 
   }
-
-  public lockUser(userId: string): Observable<CaUser> {
-    return this.apiService.put(`${this.route}/lock/${userId}`, null, CaUser);
-  }
-
-  public unlockUser(userId: string): Observable<CaUser> {
-    return this.apiService.put(`${this.route}/unlock/${userId}`, null, CaUser);
-  }
-
 }

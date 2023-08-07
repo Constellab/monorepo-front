@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {CaNewUser, CaUser, CaUserDatasourcePaginated} from '../model/entities/ca-user.class';
+import {CaNewUser, CaUser} from '../model/entities/ca-user.class';
 import {Observable} from 'rxjs';
-import {FlApiService, FlEntityPaginatedDatasource, FlUserAccountService} from '@monorepo/front-core-lib';
-import {ClPageI} from '@monorepo/core-lib';
+import {FlApiService, FlUserAccountService} from '@monorepo/front-core-lib';
 
 /**
  * Service to manage users' accounts
@@ -40,23 +39,6 @@ export class CaUserAccountsService extends FlUserAccountService {
     return this.apiService.post(`${this.route}/reset-password/${token}`, {password: password});
   }
 
-  /**
-   * Route with a token to reset the user password
-   */
-  public adminActivateUser(userId: string): Observable<CaUser> {
-    return this.apiService.post(`${this.route}/adminActivation/${userId}`, CaUser);
-  }
-
-  public findUsersToAdminActivate(page: number, size: number): Observable<ClPageI<CaUser>> {
-    return this.apiService.get(`${this.route}/usersToAdminActivate`, CaUser,
-      {page: page, pageSize: size, resultIsPaginated: true});
-  }
-
-  public findUsersToAdminActivateDatasource(): CaUserDatasourcePaginated {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.findUsersToAdminActivate(page, size), 20
-    );
-  }
 
   /**
    * Public route to accept an invitation when a new user is registered
@@ -67,5 +49,14 @@ export class CaUserAccountsService extends FlUserAccountService {
     delete user.repeatPassword;
     return this.apiService.post(`${this.route}/sign-up-in-space/${code}`, user, CaUser);
   }
+
+  public lockUser(userId: string): Observable<CaUser> {
+    return this.apiService.put(`${this.route}/lock/${userId}`, null, CaUser);
+  }
+
+  public unlockUser(userId: string): Observable<CaUser> {
+    return this.apiService.put(`${this.route}/unlock/${userId}`, null, CaUser);
+  }
+
 
 }
