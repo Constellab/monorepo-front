@@ -24,7 +24,6 @@ import {
 import {
   CaExperimentTechnicalReportProcessDocDialogComponent
 } from './component/ca-experiment-technical-report-process-doc-dialog/ca-experiment-technical-report-process-doc-dialog.component';
-import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {
   CaExperimentTechnicalReportWorkflowDrawerComponent
 } from './component/ca-experiment-technical-report-workflow-drawer/ca-experiment-technical-report-workflow-drawer.component';
@@ -34,13 +33,14 @@ import {
 import {
   CaExperimentTechnicalReportResourceInfoComponent
 } from './component/ca-experiment-technical-report-resource-info/ca-experiment-technical-report-resource-info.component';
-import {FlColorModule, FlDragModule} from '@monorepo/front-core-lib';
 import {CaExperimentTableComponent} from './component/ca-experiment-table/ca-experiment-table.component';
 import {CaProjectObjectCoreModule} from '../ca-project-object-core/ca-project-object-core.module';
 import {
   CaExperimentCardDetailComponent
 } from './component/ca-experiment-card-detail/ca-experiment-card-detail.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import {
+  CaNotificationCoreModule
+} from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
 
 
 @NgModule({
@@ -73,11 +73,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 
     CaCoreModule,
     CaLabCoreModule,
-    TdTechnicalDocModule,
-    MatTabsModule,
     CaProjectObjectCoreModule,
-    FlColorModule,
-    FlDragModule
+    CaNotificationCoreModule,
   ]
 })
 export class CaExperimentCoreModule {

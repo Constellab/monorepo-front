@@ -1,11 +1,7 @@
 import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
+import {FlApiService} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
-import {
-  CaNotification,
-  CaNotificationDatasourcePaginated,
-  CaNotificationType
-} from '../model/entities/ca-notification.class';
+import {CaNotification, CaNotificationCountBySpace} from '../model/entities/ca-notification.class';
 import {ClPage} from '@monorepo/core-lib';
 
 @Injectable({
@@ -18,21 +14,12 @@ export class CaNotificationsService {
   constructor(private apiService: FlApiService) {
   }
 
-  public getUserNotifications(userId: string, onlyNotRead: boolean = false): CaNotificationDatasourcePaginated {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAll(userId, page, size, onlyNotRead), 20);
-  }
-
-  public getAll(userId: string, page: number, size: number, onlyNotRead: boolean): Observable<ClPage<CaNotification>> {
-    return this.apiService.get(`${this.route}?onlyNotRead=${onlyNotRead}`, CaNotification,
+  public getCurrentNotifications(page: number, size: number): Observable<ClPage<CaNotification>> {
+    return this.apiService.get(`${this.route}`, CaNotification,
       {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public getAllNotRead(): Observable<CaNotification[]> {
-    return this.apiService.get(`${this.route}/not-read`, CaNotification);
-  }
-
-  public readAllNotifications(): Observable<void> {
+  public markAllNotificationsAsRead(): Observable<void> {
     return this.apiService.post(`${this.route}/readAll`, null);
   }
 
@@ -40,10 +27,11 @@ export class CaNotificationsService {
     return this.apiService.post(`${this.route}/read/${notifId}`, null);
   }
 
-  public readEntityNotificationsByLink(link: string, notificationType: CaNotificationType): Observable<void> {
-    return this.apiService.post(`${this.route}/read-entity-notifications-by-link`, {
-      link: link,
-      notificationType: notificationType
-    });
+  public readNotifications(notificationIds: string[]): Observable<void> {
+    return this.apiService.post(`${this.route}/read`, notificationIds);
+  }
+
+  public getNotReadBySpace(): Observable<CaNotificationCountBySpace[]> {
+    return this.apiService.get(`${this.route}/count-not-read-by-space`);
   }
 }

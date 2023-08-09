@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CaProjectSharedGroupsListComponent} from './ca-project-shared-groups-list.component';
+import {CaProjectSharedListComponent} from './ca-project-shared-list.component';
 
 describe('CaProjectSharedGroupsListComponent', () => {
-  let component: CaProjectSharedGroupsListComponent;
-  let fixture: ComponentFixture<CaProjectSharedGroupsListComponent>;
+  let component: CaProjectSharedListComponent;
+  let fixture: ComponentFixture<CaProjectSharedListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaProjectSharedGroupsListComponent ]
+      declarations: [ CaProjectSharedListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CaProjectSharedGroupsListComponent);
+    fixture = TestBed.createComponent(CaProjectSharedListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

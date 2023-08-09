@@ -6,7 +6,7 @@
       <span> {{'name' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-column-width-2">
-      {{row.name}}
+      <div [caNotificationMark]="row.id" caNotificationObjectType="PROJECT_DOCUMENT">{{row.name}}</div>
     </mat-cell>
   </ng-container>
 

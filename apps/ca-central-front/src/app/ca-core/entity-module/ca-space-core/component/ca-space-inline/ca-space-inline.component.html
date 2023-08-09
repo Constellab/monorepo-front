@@ -1,5 +1,5 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-1em" *ngIf="space">
-  <ca-space-photo [space]="space" [matBadge]="nbNotif" matBadgeColor="warn"></ca-space-photo>
+  <ca-space-photo [space]="space" [matBadge]="notifCount | async" matBadgeColor="warn"></ca-space-photo>
   <div>
     {{space.name}}
   </div>

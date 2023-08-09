@@ -9,7 +9,7 @@
         <mat-icon [matTooltip]="'experiment_validated' | translate"
                   flIcon="validated">
         </mat-icon>
-        <div>{{experiment.title}}</div>
+        <div  [caNotificationMark]="experiment.id" caNotificationObjectType="EXPERIMENT">{{experiment.title}}</div>
       </fl-text-icon>
     </mat-cell>
   </ng-container>

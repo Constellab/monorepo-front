@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CaProject} from '../../../../model/entities/project/ca-project.class';
 
 /**
@@ -10,14 +10,8 @@ import {CaProject} from '../../../../model/entities/project/ca-project.class';
   styleUrls: ['./ca-project-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CaProjectCardComponent implements OnInit {
+export class CaProjectCardComponent {
 
   @Input() project: CaProject;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
 }

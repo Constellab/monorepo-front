@@ -17,6 +17,7 @@ import {CaProjectSearchComponent} from './component/ca-project-search/ca-project
 import {CaProjectSearchFormComponent} from './component/ca-project-search-form/ca-project-search-form.component';
 import {CaStatusModule} from '../../module/ca-status/ca-status.module';
 import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-provider-core.module';
+import {CaNotificationCoreModule} from '../ca-notification-core/ca-notification-core.module';
 
 /**
  * Importable module to get project components and pipe
@@ -57,6 +58,7 @@ import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-prov
     CaCoreModule,
     CaStatusModule,
     CaCloudProviderCoreModule,
+    CaNotificationCoreModule,
   ]
 })
 export class CaProjectCoreModule {

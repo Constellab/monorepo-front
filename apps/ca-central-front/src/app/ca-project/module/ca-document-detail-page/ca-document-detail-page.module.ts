@@ -6,11 +6,8 @@ import {CaProjectObjectCoreModule} from '../ca-project-object-core/ca-project-ob
 import {FormsModule} from '@angular/forms';
 import {CaDocumentCoreModule} from '../ca-document-core/ca-document-core.module';
 
-
 @NgModule({
-  declarations: [
-    CaDocumentDetailPageComponent
-  ],
+  declarations: [CaDocumentDetailPageComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -18,6 +15,7 @@ import {CaDocumentCoreModule} from '../ca-document-core/ca-document-core.module'
     CaCoreModule,
     CaProjectObjectCoreModule,
     CaDocumentCoreModule,
-  ]
+  ],
 })
-export class CaDocumentDetailPageModule { }
+export class CaDocumentDetailPageModule {
+}

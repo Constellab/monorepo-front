@@ -1,12 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {
-  FlArrayObs,
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlEntityArrayObs
-} from '@monorepo/front-core-lib';
-import {CaGroup} from '../../../../../ca-core/model/entities/ca-group.entity';
+import {Component, Inject} from '@angular/core';
+import {FlArrayObs, FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 import {
   CaGroupShareDialogComponent,
@@ -14,6 +7,8 @@ import {
 } from '../../../../../ca-core/entity-module/ca-group-core/component/ca-group-share-dialog/ca-group-share-dialog.component';
 import {Observable} from 'rxjs';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {CaUser} from '../../../../../ca-core/model/entities/ca-user.class';
+import {CaProjectDetailState} from '../../state/ca-project-detail.state';
 
 export interface CaProjectSharedGroupsListInput {
   projectId: string;
@@ -21,28 +16,26 @@ export interface CaProjectSharedGroupsListInput {
 }
 
 /**
- * Component to list the groups where the project is shared with. with button to share or unshare with group
+ * Component to list the user where the project is shared with. with button to share or unshare
  */
 @Component({
-  selector: 'ca-project-shared-groups-list',
-  templateUrl: './ca-project-shared-groups-list.component.html',
-  styleUrls: ['./ca-project-shared-groups-list.component.scss']
+  selector: 'ca-project-shared-list',
+  templateUrl: './ca-project-shared-list.component.html',
+  styleUrls: ['./ca-project-shared-list.component.scss'],
 })
-export class CaProjectSharedGroupsListComponent implements OnInit {
+export class CaProjectSharedListComponent {
 
   canEdit$: Observable<boolean>;
 
-  groupsArray: FlArrayObs<CaGroup>;
+  users$: FlArrayObs = this.state.getUsers();
 
   constructor(@Inject(MAT_DIALOG_DATA) private input: CaProjectSharedGroupsListInput,
+              private state: CaProjectDetailState,
               private projectService: CaProjectService,
               private dialogService: FlDialogService) {
     this.canEdit$ = input.canEdit$;
   }
 
-  ngOnInit(): void {
-    this.groupsArray = new FlEntityArrayObs(this.projectService.getProjectSharedGroups(this.input.projectId));
-  }
 
   openShareDialog(): void {
     const input: CaGroupShareDialogInput = {
@@ -54,30 +47,30 @@ export class CaProjectSharedGroupsListComponent implements OnInit {
     );
   }
 
-  private onShareDialogClosed(group?: CaGroup): void {
-    if (group) {
-      this.groupsArray.addItem(group, () => true);
+  private onShareDialogClosed(users: CaUser[]): void {
+    if (users) {
+      this.users$.array = users;
     }
   }
 
-  openUnshareDialog(group: CaGroup): void {
+  openUnshareDialog(user: CaUser): void {
     const input: FlConfirmDialogInput = {
       title: 'unshare',
       content: 'unshare_confirmation',
       translateTitleAndContent: true,
-      observable: this.projectService.unshareProject(this.input.projectId, group.id),
+      observable: this.projectService.unshareProject(this.input.projectId, user.id),
       successMessage: 'unshared',
       translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onRemoveSharingClosed(result, group)
+      result => this.onRemoveSharingClosed(result, user)
     );
   }
 
-  private onRemoveSharingClosed(result: FlConfirmDialogResult, group: CaGroup): void {
+  private onRemoveSharingClosed(result: FlConfirmDialogResult, user: CaUser): void {
     if (result.choice) {
-      this.groupsArray.removeItem(group);
+      this.users$.removeItem(user);
     }
   }
 

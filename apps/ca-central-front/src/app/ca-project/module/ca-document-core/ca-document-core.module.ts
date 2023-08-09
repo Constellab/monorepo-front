@@ -8,6 +8,9 @@ import {
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CaDocumentActionsMenuComponent} from './component/ca-document-actions-menu/ca-document-actions-menu.component';
+import {
+  CaNotificationCoreModule
+} from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
 
 
 @NgModule({
@@ -28,6 +31,7 @@ import {CaDocumentActionsMenuComponent} from './component/ca-document-actions-me
     RouterModule,
 
     CaCoreModule,
+    CaNotificationCoreModule,
   ],
 })
 export class CaDocumentCoreModule {

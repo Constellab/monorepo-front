@@ -1,7 +1,8 @@
-<div class="{{theme === 'OVERRIDE_BUTTON' ? 'editor' : 'editor-snow'}} g-styled-scrollbar" #editor
+<div class="editor g-styled-scrollbar"
+     [ngClass]="{'override-buttons': theme === 'OVERRIDE_BUTTON'}" #editor
      (flOutsideClick)="outsideClick($event)">
-
 </div>
+
 <ng-container *ngIf="isReady">
   <div *ngIf="theme !== 'OVERRIDE_BUTTON'" class="snow-menu-div mat-elevation-z0">
     <fl-text-editor-snow-button></fl-text-editor-snow-button>

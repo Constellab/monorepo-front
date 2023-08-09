@@ -1,21 +1,24 @@
 <fl-portal class="portal-notifications mat-elevation-z5">
   <fl-portal-content class="portal-notifications-content">
-    <fl-infinite-scroll [datasource]="notifications" class="infinite-scroll" [textNoResult]="'no_notifications'" [textNoMoreResult]="'no_more_notifications'">
+    <fl-infinite-scroll [datasource]="notifications" class="infinite-scroll" [textNoResult]="'no_notifications'"
+                        [textNoMoreResult]="'no_more_notifications'">
       <div class="g-layout-row">
         <h2>Notifications</h2>
-        <div class="g-layout-row head-notif-portal">
-          <p>{{'view_read_notifications' | translate}}</p>
-          <mat-slide-toggle class="slide" color="primary" [checked]="true" (change)="onSlideChange($event)"></mat-slide-toggle>
-        </div>
+        <!--        <div class="g-layout-row head-notif-portal">-->
+        <!--          <p>{{'view_read_notifications' | translate}}</p>-->
+        <!--          <mat-slide-toggle class="slide" color="primary" [checked]="true" (change)="onSlideChange($event)"></mat-slide-toggle>-->
+        <!--        </div>-->
       </div>
       <mat-divider class="divider"></mat-divider>
       <div class="g-layout-row">
         <span>{{'most_recent' | translate}}</span>
-        <span class="g-text-link read-all-text" (click)="readAllNotifications()">{{'mark_all_as_read' | translate}}</span>
+        <span class="g-text-link read-all-text"
+              (click)="markAllNotificationsAsRead()">{{'mark_all_as_read' | translate}}</span>
       </div>
 
       <a *ngFor="let notif of notifications.connect() | async" class="notification"
-         [routerLink]="getNotificationLink(notif.link)" [queryParams]="getNotificationQueryParams(notif.link)">
+         [routerLink]="getNotificationLink(notif.link)" [queryParams]="getNotificationQueryParams(notif.link)"
+         (click)="markAsRead(notif)">
         <div class="created-by-pp">
           <fl-user-profile-picture [user]="notif.createdBy" size="4"></fl-user-profile-picture>
         </div>

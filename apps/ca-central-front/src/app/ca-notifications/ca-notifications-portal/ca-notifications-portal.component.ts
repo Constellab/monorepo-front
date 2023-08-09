@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {CaAuthenticatedUserService} from '../../ca-core/service-api/ca-authenticated-user.service';
-import {CaNotificationsService} from '../../ca-core/service-api/ca-notifications.service';
 import {
+  CaNotification,
   CaNotificationDatasourcePaginated,
   CaNotificationType
 } from '../../ca-core/model/entities/ca-notification.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {CaNotificationState} from '../../ca-core/state/ca-notification.state';
-import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 
 
 @Component({
@@ -17,33 +15,20 @@ import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 })
 export class CaNotificationsPortalComponent implements OnInit {
 
-  notifications: CaNotificationDatasourcePaginated;
-  slideState: boolean = true;
+  notifications: CaNotificationDatasourcePaginated = this.notificationState.notifications;
 
-  constructor(private authUserService: CaAuthenticatedUserService,
-              private notificationState: CaNotificationState,
-              private notificationsService: CaNotificationsService) {
+  constructor(private notificationState: CaNotificationState) {
   }
 
   ngOnInit(): void {
-    this.updateNotifications();
   }
 
-  private updateNotifications(): void {
-    this.notifications = this.notificationsService.getUserNotifications(this.authUserService.getUser().id, !this.slideState);
-    this.notificationState.updateNotification();
+  markAsRead(notification: CaNotification): void {
+    this.notificationState.markNotifAsRead({id: notification.id});
   }
 
-
-  onSlideChange(event: MatSlideToggleChange): void {
-    this.slideState = event.checked;
-    this.updateNotifications();
-  }
-
-  readAllNotifications(): void {
-    this.notificationsService.readAllNotifications().subscribe(() => {
-      this.updateNotifications();
-    });
+  markAllNotificationsAsRead(): void {
+    this.notificationState.markAllAsRead();
   }
 
 
@@ -66,16 +51,16 @@ export class CaNotificationsPortalComponent implements OnInit {
 
   getNotificationObjectIcon(objectType: CaNotificationType): string {
     switch (objectType) {
-      case CaNotificationType.EXPERIMENT_COMMENT:
-        return 'science';
-      case CaNotificationType.PROJECT_COMMENT:
+      case 'PROJECT_DOCUMENT':
+      case 'PROJECT_COMMENT':
+      case 'EXPERIMENT':
+      case 'REPORT':
+      case 'PROJECT':
         return 'project';
-      case CaNotificationType.REPORT_COMMENT:
-        return 'report';
-      case CaNotificationType.NEW_USER:
+      case 'USER':
         return 'people';
       default:
-        return '';
+        return 'campaign';
     }
   }
 }

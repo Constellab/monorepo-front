@@ -8,9 +8,7 @@ import {RouterModule} from '@angular/router';
 import {CaExperimentCoreModule} from '../ca-experiment-core/ca-experiment-core.module';
 import {CaReportCoreModule} from '../ca-report-core/ca-report-core.module';
 import {CaGroupCoreModule} from '../../../ca-core/entity-module/ca-group-core/ca-group-core.module';
-import {
-  CaProjectSharedGroupsListComponent
-} from './component/ca-project-shared-groups-list/ca-project-shared-groups-list.component';
+import {CaProjectSharedListComponent} from './component/ca-project-shared-list/ca-project-shared-list.component';
 import {CaProjectChildrenComponent} from './component/ca-project-children/ca-project-children.component';
 import {CaProjectObjectCoreModule} from '../ca-project-object-core/ca-project-object-core.module';
 import {CaProjectUsersComponent} from './component/ca-project-users/ca-project-users.component';
@@ -46,6 +44,12 @@ import {
 } from './component/ca-project-documents-list/ca-project-documents-list.component';
 import {CaDocumentCoreModule} from '../ca-document-core/ca-document-core.module';
 import {CaUserCoreModule} from '../../../ca-core/entity-module/ca-user-core/ca-user-core.module';
+import {
+  CaNotificationCoreModule
+} from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
+import {
+  CaProjectUserConfigDialogComponent
+} from './component/ca-project-user-config-dialog/ca-project-user-config-dialog.component';
 
 /**
  * Module for the project detail page
@@ -54,7 +58,7 @@ import {CaUserCoreModule} from '../../../ca-core/entity-module/ca-user-core/ca-u
   declarations: [
     CaProjectDetailPageComponent,
     CaProjectDetailComponent,
-    CaProjectSharedGroupsListComponent,
+    CaProjectSharedListComponent,
     CaProjectChildrenComponent,
     CaProjectUsersComponent,
     CaProjectDetailRightPanelComponent,
@@ -66,6 +70,7 @@ import {CaUserCoreModule} from '../../../ca-core/entity-module/ca-user-core/ca-u
     CaProjectStorageSettingsComponent,
     CaProjectConfigureStorageComponent,
     CaProjectDocumentsListComponent,
+    CaProjectUserConfigDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -85,6 +90,7 @@ import {CaUserCoreModule} from '../../../ca-core/entity-module/ca-user-core/ca-u
     CaObjectStorageCoreModule,
     CaCloudProviderCoreModule,
     CaUserCoreModule,
+    CaNotificationCoreModule,
   ]
 })
 export class CaProjectDetailPageModule {

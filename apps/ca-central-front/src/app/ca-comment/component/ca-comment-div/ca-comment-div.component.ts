@@ -43,17 +43,18 @@ export class CaCommentDivComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.buttons = [
-      {
-        icon: 'add_reaction',
-        text: 'Add reaction',
-        type: 'button',
-        onClick: (event: MouseEvent, overlayRef?: FlOverlayRef) => {
-          this.eventOnMessage$.next([overlayRef, 'addReaction']);
-        }
-      }];
+    this.buttons = [];
+    // {
+    //   icon: 'add_reaction',
+    //   text: 'Add reaction',
+    //   type: 'button',
+    //   onClick: (event: MouseEvent, overlayRef?: FlOverlayRef) => {
+    //     this.eventOnMessage$.next([overlayRef, 'addReaction']);
+    //   }
+    // }];
     if (this.authUserService.getUser().id === this.comment.createdBy.id && this.comment.createdAt.diffNow('minute').as('minute') > -5) {
-      this.buttons.push({
+      this.buttons.push(
+        {
           icon: 'edit',
           text: 'Edit',
           type: 'button',

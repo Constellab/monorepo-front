@@ -1,8 +1,10 @@
 <div class="comment-zone" *ngIf="comments">
-  <fl-infinite-scroll [datasource]="comments" class="comment-div" [reverseMode]="true" [textNoResult]="'no_comments'" [textNoMoreResult]="''">
+  <fl-infinite-scroll [datasource]="comments" class="comment-div" [reverseMode]="true" [textNoResult]="'no_comments'"
+                      [textNoMoreResult]="''">
     <div class="comments-container g-layout-col-reverse">
-      <div *ngFor="let comment of comments?.connect() | async" class="comment
-      {{comment.createdBy.id === currentUserId ? 'our-comment' : 'other-comment'}}">
+      <div *ngFor="let comment of comments?.connect() | async"
+           class="comment" [ngClass]="comment.createdBy.id === currentUserId ? 'our-comment' : 'other-comment'"
+           [caNotificationMark]="comment.id" caNotificationObjectType="PROJECT_COMMENT">
         <ca-comment-div [comment]="comment" (eventOnMessage$)="eventOnMessage($event, comment)"></ca-comment-div>
       </div>
     </div>
@@ -11,7 +13,7 @@
     <fl-section [isLoading]="isLoading" [object]="formControl" class="section">
       <ng-container *flSectionBody>
         <fl-text-editor [formControl]="formControl" [config]="textEditorConfig" mode="JSON" [leftButtons]="false"
-                        placeholder="{{'write_a_comment' | translate}}"
+                        [placeholder]="'write_a_comment' | translate"
                         theme="VISIBLE_BUTTON" class="input-message" scrollContainer="child"
                         (keydown.control.enter)="enterEvent($event)">
         </fl-text-editor>

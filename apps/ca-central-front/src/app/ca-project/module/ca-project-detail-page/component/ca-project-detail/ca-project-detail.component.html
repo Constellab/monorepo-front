@@ -10,18 +10,25 @@
 
     <!--   Settings menu   -->
     <div class="g-layout-row g-layout-gap-1em">
-      <button mat-icon-button (click)="openShareDialog(project)" class="g-button-shadow"
-              *ngIf="isRootProject$ | async" [matTooltip]="'project_shared_groups' | translate">
-        <mat-icon>share</mat-icon>
+
+      <button mat-icon-button (click)="openUserConfigDialog(project)" class="g-button-shadow"
+              *ngIf="isRootProject$ | async" [matTooltip]="'project_configure_notifications' | translate">
+        <mat-icon>notifications</mat-icon>
       </button>
-      <ca-project-actions-menu [project]="project" [projectUsers$]="projectUsers$"
-                               (projectUpdated)="onProjectUpdated($event)"
-                               (projectDeleted)="onProjectDeleted($event)"
-                               (childProjectCreated)="onChildCreated($event)"
-                               class="actions-button g-button-shadow"></ca-project-actions-menu>
+
+      <ng-container *ngIf="canEditProject$ | async">
+        <button mat-icon-button (click)="openShareDialog(project)" class="g-button-shadow"
+                *ngIf="isRootProject$ | async" [matTooltip]="'project_shared_groups' | translate">
+          <mat-icon>share</mat-icon>
+        </button>
+        <ca-project-actions-menu [project]="project" [projectUsers$]="projectUsers$"
+                                 (projectUpdated)="onProjectUpdated($event)"
+                                 (projectDeleted)="onProjectDeleted($event)"
+                                 (childProjectCreated)="onChildCreated($event)"
+                                 class="actions-button g-button-shadow"></ca-project-actions-menu>
+      </ng-container>
     </div>
   </div>
-
 
 
   <div class="project-info">
@@ -56,7 +63,8 @@
          [matTooltip]="'show_project_comments' | translate"
          class="g-button-shadow"
          [ngClass]="{'panel-button-selected': rightPanel.type === 'comments'}"
-         [matBadge]="commentsNotifNumber$ | async" matBadgeColor="warn">
+         [caNotificationMark]="projectId$" caNotificationObjectType="PROJECT_COMMENT"
+         [caNotificationAssociatedObjectIds]="1">
         <mat-icon>comment</mat-icon>
       </a>
     </ng-container>

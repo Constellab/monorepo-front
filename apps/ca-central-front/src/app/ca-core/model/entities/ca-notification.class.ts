@@ -13,9 +13,6 @@ export class CaNotification extends CaEntity {
   @Type(() => CaUser)
   createdBy: CaUser;
 
-  @Type(() => CaUser)
-  user: CaUser;
-
   isRead: boolean;
 
   link: string;
@@ -30,17 +27,16 @@ export class CaNotification extends CaEntity {
 
   @Type(() => CaSpace)
   space: CaSpace;
+
+  associatedObjectIds: string[];
 }
 
 export type CaNotificationDatasourcePaginated = FlDatasourcePaginated<CaNotification>;
-export interface CaNotificationNumber {
-  number: number;
-}
-export enum CaNotificationType {
-  EXPERIMENT_COMMENT = 'EXPERIMENT_COMMENT',
-  PROJECT_COMMENT = 'PROJECT_COMMENT',
-  REPORT_COMMENT = 'REPORT_COMMENT',
-  COMMENT_MENTION = 'COMMENT_MENTION',
-  COMMENT_RESPONSE = 'COMMENT_RESPONSE',
-  NEW_USER = 'NEW_USER',
+
+
+export type CaNotificationType = 'USER' | 'PROJECT' | 'EXPERIMENT' | 'REPORT' | 'PROJECT_DOCUMENT' | 'PROJECT_COMMENT';
+
+export interface CaNotificationCountBySpace {
+  spaceId: string;
+  notReadCount: number;
 }

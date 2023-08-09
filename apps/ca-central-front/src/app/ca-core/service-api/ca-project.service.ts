@@ -28,6 +28,7 @@ import {CaProjectSearch, CaProjectSearchFields} from '../entity-module/ca-projec
 import {CaBucket, CaBucketFull} from '../model/entities/ca-object-storage.class';
 import {CaCloudProviderRegion} from '../model/entities/ca-cloud-provider.class';
 import {CaConstellabDocument, CaDocument, CaDocumentDatasource} from '../model/entities/project/ca-document.class';
+import {CaProjectUserConfig} from '../model/entities/project/ca-project-user.class';
 
 /**
  * Service to manage project entity
@@ -99,25 +100,12 @@ export class CaProjectService {
     return new FlEntityArrayObs(this.apiService.get(`${this.route}/${id}/status-history`, CaProjectStatusHistory));
   }
 
-  public getProjectSharedGroups(id: string): Observable<CaGroup[]> {
-    return this.apiService.get(`${this.route}/${id}/shared-groups`, CaGroup);
-  }
-
   public shareProject(id: string, groupId: string): Observable<CaGroup> {
     return this.apiService.put(`${this.route}/${id}/share/${groupId}`, null, CaGroup);
   }
 
-  public unshareProject(id: string, groupId: string): Observable<void> {
-    return this.apiService.delete(`${this.route}/${id}/unshare/${groupId}`);
-  }
-
-  public getProjectsByTeam(groupId: string, page: number, size: number): Observable<ClPageI<CaProject>> {
-    return this.apiService.get(`${this.route}/group/${groupId}`, CaProject,
-      {resultIsPaginated: true, page: page, pageSize: size});
-  }
-
-  public getProjectsByTeamDatasource(groupId: string): CaProjectDatasource {
-    return new FlEntityPaginatedDatasource((page: number, pageSize: number) => this.getProjectsByTeam(groupId, page, pageSize), 20);
+  public unshareProject(id: string, userId: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/${id}/unshare/${userId}`);
   }
 
   public getOnGoingProjectsNumber(): Observable<number> {
@@ -278,4 +266,14 @@ export class CaProjectService {
   public createProjectBucket(projectId: string, region: CaCloudProviderRegion): Observable<CaBucket> {
     return this.apiService.post(`${this.route}/${projectId}/bucket`, region, CaBucket);
   }
+
+  /////////////////////////////// Project user ///////////////////////////////////////////
+  getProjectUserConfig(projectId: string): Observable<CaProjectUserConfig> {
+    return this.apiService.get(`${this.route}/${projectId}/user-config`, CaProjectUserConfig);
+  }
+
+  updateProjectUserConfig(projectId: string, projectUser: CaProjectUserConfig): Observable<CaProjectUserConfig> {
+    return this.apiService.put(`${this.route}/${projectId}/user-config`, projectUser, CaProjectUserConfig);
+  }
+
 }

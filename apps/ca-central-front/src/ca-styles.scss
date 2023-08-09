@@ -7,7 +7,6 @@
 @import "libs/front-core-lib/src/style/fl-media-query";
 @import "libs/front-core-lib/src/style/fl-flex";
 
-
 // Import the style for material
 @import "libs/front-core-lib/src/style/fl-material-override";
 @import "libs/front-core-lib/src/style/fl-dialog";
@@ -18,7 +17,7 @@
 
 @import "libs/front-core-lib/src/style/fl-emoji-mart";
 
-:root{
+:root {
   // margin on top and bottom of the main menu
   --main-menu-margin: 1em;
 }
@@ -126,11 +125,11 @@ body {
   }
 }
 
-.g-grid-3-rows{
-   display: grid;
-   grid-template-columns: 1fr 1fr 1fr;
-   grid-gap: 1em;
- }
+.g-grid-3-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1em;
+}
 
 @media (max-width: 1279px) {
   .g-grid-3-rows {
@@ -145,3 +144,19 @@ body {
 }
 
 
+///////////////// caNotificationMark //////////////////////
+.g-notification-mark {
+  // make a small circle on top right of the element
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+  }
+}

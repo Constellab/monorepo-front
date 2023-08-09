@@ -33,7 +33,7 @@ export class CaMainAppComponent implements OnInit {
 
   numberOfNotifications$: Observable<string | number>;
 
-  otherSpaceNotificationsNumber$: Observable<string | number>;
+  otherSpaceNotificationsNumber$: Observable<string>;
 
   constructor(private authenticatedUserService: CaAuthenticatedUserService,
               private currentSpaceService: CaCurrentSpaceService,
@@ -54,7 +54,7 @@ export class CaMainAppComponent implements OnInit {
     this.notificationState.init();
 
     this.numberOfNotifications$ = this.notificationState.getNotReadNotificationsNumber();
-    this.otherSpaceNotificationsNumber$ = this.notificationState.getOtherSpacesNotificationsNumber();
+    this.otherSpaceNotificationsNumber$ = this.notificationState.getOtherSpacesNotificationsCount$();
   }
 
   private initAccessibleLinks(): void {

@@ -7,17 +7,16 @@
   box-sizing: border-box;
 }
 
+
+
 .editor {
   width: 100%;
   max-width: 100%;
   max-height: inherit;
-  height: inherit;
 }
 
-.editor-snow{
-  width: 100%;
-  max-width: 100%;
-  max-height: inherit;
+.override-buttons{
+  height: inherit;
 }
 
 .drag-indicator{

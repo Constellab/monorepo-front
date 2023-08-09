@@ -9,6 +9,9 @@ import {CaReportTableComponent} from './component/ca-report-table/ca-report-tabl
 import {CaProjectObjectCoreModule} from '../ca-project-object-core/ca-project-object-core.module';
 import {CaReportContentComponent} from './component/ca-report-content/ca-report-content.component';
 import {FormsModule} from '@angular/forms';
+import {
+  CaNotificationCoreModule
+} from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
 
 /**
  * Core module for Report entity
@@ -34,7 +37,8 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
 
     CaCoreModule,
-    CaProjectObjectCoreModule
+    CaProjectObjectCoreModule,
+    CaNotificationCoreModule,
   ]
 })
 export class CaReportCoreModule {

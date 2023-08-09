@@ -39,6 +39,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {RvResourceViewModule} from '@monorepo/resource-view';
 import {PrProtocolModule} from '@monorepo/protocol';
+import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 
 /**
  * Regrouped all the needed import from library
@@ -90,6 +91,7 @@ import {PrProtocolModule} from '@monorepo/protocol';
 
     RvResourceViewModule,
     PrProtocolModule,
+    TdTechnicalDocModule,
   ]
 })
 export class CaCustomLibraryModule {

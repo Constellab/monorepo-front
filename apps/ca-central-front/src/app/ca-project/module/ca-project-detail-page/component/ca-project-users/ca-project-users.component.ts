@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CaUser} from '../../../../../ca-core/model/entities/ca-user.class';
 import {CaProjectDetailState} from '../../state/ca-project-detail.state';
@@ -11,17 +11,13 @@ import {CaProjectDetailState} from '../../state/ca-project-detail.state';
   templateUrl: './ca-project-users.component.html',
   styleUrls: ['./ca-project-users.component.scss']
 })
-export class CaProjectUsersComponent implements OnInit {
+export class CaProjectUsersComponent {
 
   @Input() projectId$: Observable<string>;
 
-  users$: Observable<CaUser[]>;
+  users$: Observable<CaUser[]> = this.state.getUsers().connect();
 
   constructor(private state: CaProjectDetailState) {
-  }
-
-  ngOnInit(): void {
-    this.users$ = this.state.getUsers$();
   }
 
   selectedUserChange(users: CaUser[]): void {

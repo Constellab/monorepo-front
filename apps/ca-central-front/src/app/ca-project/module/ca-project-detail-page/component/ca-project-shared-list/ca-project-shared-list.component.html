@@ -3,17 +3,17 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <fl-async-section [arrayObs]="groupsArray" class="g-full-height">
+  <fl-async-section [arrayObs]="users$" class="g-full-height">
 
-    <ng-container *flSectionBody="let groups">
+    <ng-container *flSectionBody="let users">
 
 
-      <div *ngFor="let group of groups" class="g-layout-row g-layout-between-center">
-        <ca-group-inline [group]="group"></ca-group-inline>
+      <div *ngFor="let user of users" class="g-layout-row g-layout-between-center">
+        <fl-user-inline [user]="user"></fl-user-inline>
 
-        <button mat-icon-button type="button" (click)="openUnshareDialog(group)"
+        <button mat-icon-button type="button" (click)="openUnshareDialog(user)"
                 [matTooltip]="'unshare' | translate" *ngIf="canEdit$ | async" color="warn">
-          <mat-icon>delete</mat-icon>
+          <mat-icon>clear</mat-icon>
         </button>
       </div>
 

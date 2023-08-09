@@ -26,7 +26,7 @@ export class CaProjectDetailState implements OnDestroy {
   private id$: Observable<string>;
 
   private project$: BehaviorSubject<CaProject>;
-  private users$: BehaviorSubject<CaUser[]>;
+  private users$: FlArrayObs<CaUser>;
   private reports$: FlArrayObs<CaReport>;
   private experiments$: FlArrayObs<CaExperiment>;
   private children$: FlEntityArrayObs<CaProject>;
@@ -38,8 +38,8 @@ export class CaProjectDetailState implements OnDestroy {
 
   constructor(private projectService: CaProjectService,
               private authenticatedUserService: CaAuthenticatedUserService,
-              private route: ActivatedRoute,
-              private router: Router,
+              route: ActivatedRoute,
+              router: Router,
               private experimentService: CaExperimentService,
               private reportService: CaReportService) {
     this.queryParamHandler = new FlQueryParamHandler(router, route);
@@ -48,7 +48,6 @@ export class CaProjectDetailState implements OnDestroy {
   public init(id$: Observable<string>): void {
     this.id$ = id$;
     this.project$ = new BehaviorSubject<CaProject>(null);
-    this.users$ = new BehaviorSubject<CaUser[]>(null);
     this.reports$ = new FlEntityArrayObs(null, true);
     this.experiments$ = new FlEntityArrayObs(null, true);
     this.children$ = new FlEntityArrayObs(null, true);
@@ -61,13 +60,11 @@ export class CaProjectDetailState implements OnDestroy {
       error: error => this.project$.error(error)
     }));
 
-    this.subscription.add(this.id$.pipe(
+
+    this.users$ = new FlEntityArrayObs(this.id$.pipe(
       first(), // as the share is handle at the root project level, not need to refresh it every time
       switchMap(id => this.projectService.getUsersOfProject(id)),
-    ).subscribe({
-      next: users => this.users$.next(users),
-      error: error => this.users$.error(error)
-    }));
+    ), true);
 
     this.subscription.add(this.id$.pipe(
       switchMap(() => this.queryParamHandler.getQueryParams())
@@ -116,10 +113,8 @@ export class CaProjectDetailState implements OnDestroy {
     );
   }
 
-  public getUsers$(): Observable<CaUser[]> {
-    return this.users$.asObservable().pipe(
-      filter(users => users != null)
-    );
+  public getUsers(): FlArrayObs {
+    return this.users$;
   }
 
   /**
@@ -208,7 +203,7 @@ export class CaProjectDetailState implements OnDestroy {
 
   ngOnDestroy(): void {
     this.project$?.complete();
-    this.users$?.complete();
+    this.users$?.disconnect();
     this.reports$?.manualDisconnect();
     this.experiments$?.manualDisconnect();
     this.children$?.manualDisconnect();

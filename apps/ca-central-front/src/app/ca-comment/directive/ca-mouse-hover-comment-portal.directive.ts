@@ -31,7 +31,6 @@ export class CaMouseHoverCommentPortalDirective extends FlMouseHoverPortalAbstra
   }
 
   getConfig(): FlMouseHoverPortalConfig | null {
-    this.elementRef.nativeElement.style.cursor = 'pointer';
     const pos: ConnectedPosition[] = [{originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'top'}];
     return {
       data: this.data,

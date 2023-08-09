@@ -19,7 +19,6 @@ import {
 } from '@monorepo/front-core-lib';
 import {CaNotificationState} from '../../../../../ca-core/state/ca-notification.state';
 import {Router} from '@angular/router';
-import {CaNotificationType} from '../../../../../ca-core/model/entities/ca-notification.class';
 import {ClRichText} from '@monorepo/core-lib';
 
 
@@ -78,7 +77,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
   }
 
   private readProjectCommentsNotification(): void {
-    this.notificationState.readEntityNotificationsByLink(this.router.url.slice(1), CaNotificationType.PROJECT_COMMENT).subscribe();
+    // this.notificationState.readEntityNotificationsByLink(this.router.url.slice(1), 'PROJECT_COMMENT').subscribe();
   }
 
   enterEvent(event: Event): void {

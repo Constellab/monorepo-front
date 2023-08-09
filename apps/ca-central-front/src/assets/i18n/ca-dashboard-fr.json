@@ -111,5 +111,17 @@
   "rename_document": "Renommer le document",
   "document_renamed": "Document renommé",
   "print_document": "Imprimer",
-  "user_group_added_by": "Ajouté par"
+  "user_group_added_by": "Ajouté par",
+  "project_configure_notifications": "Configurer les notifications",
+  "project_configure_notifications_title": "Configurer les notifications pour ce projet et ses sous projets",
+  "project_notif_NOTIF_ONLY": "Uniquement les notifications",
+  "project_notif_NOTIF_AND_EMAIL": "Notifications et emails",
+  "project_notif_EMAIL_ONLY": "Uniquement les emails",
+  "project_notif_NONE": "Aucune",
+  "project_notif_project": "Sur modification du projet : description, statut, chef de projet, partage/départage",
+  "project_notif_comment": "Sur nouveau commentaire",
+  "project_notif_report": "Sur création, modification, suppression de rapport",
+  "project_notif_experiment": "Sur création, modification, suppression d'expérience",
+  "project_notif_document": "Sur création, modification, suppression de document",
+  "project_notif_saved": "Configuration sauvegardée"
 }

@@ -23,6 +23,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 /**
@@ -49,6 +50,7 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatRadioModule,
     MatSlideToggleModule,
     MatBadgeModule,
+    MatTabsModule,
 
     MatDialogModule,
     MatSnackBarModule,

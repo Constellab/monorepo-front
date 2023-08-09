@@ -23,6 +23,7 @@ import {CaUser} from '../../../../model/entities/ca-user.class';
 import {ClHelpService} from '@monorepo/core-lib';
 import {CaRouterService} from '../../../../service/ca-router.service';
 
+
 /**
  * Action menu button to edit or a project
  */
@@ -46,7 +47,6 @@ export class CaProjectActionsMenuComponent implements OnInit {
   @Output() projectDeleted: EventEmitter<CaProject> = new EventEmitter();
 
   @Output() childProjectCreated: EventEmitter<CaProject> = new EventEmitter();
-
 
   constructor(private dialogService: FlDialogService,
               private projectService: CaProjectService) {
