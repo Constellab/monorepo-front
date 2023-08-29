@@ -7,14 +7,10 @@
   width: 100%;
 }
 
-.chip-list{
-  display: block;
-  overflow: hidden;
-}
-
 .chip{
   background-color: var(--hover-color);
   margin: 4px;
+  cursor: default;
 }
 
 .remove-icon{

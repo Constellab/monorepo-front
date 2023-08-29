@@ -1,0 +1,13 @@
+:host{
+  height: 100vh;
+  display: block;
+  box-sizing: border-box;
+  padding-top: var(--main-menu-margin);
+  padding-bottom: var(--main-menu-margin);
+  padding-right: 1em;
+}
+
+.container {
+  height: 100%;
+  display: block;
+}

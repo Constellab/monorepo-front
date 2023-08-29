@@ -166,4 +166,8 @@ export class CaProjectActionsMenuComponent implements OnInit {
     return CaRouterService.getProjectDetailRoute(this.project.id);
   }
 
+  get activityRoute(): string {
+    return CaRouterService.getProjectActivityRoute(this.project.id);
+  }
+
 }

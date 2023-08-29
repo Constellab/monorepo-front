@@ -31,7 +31,12 @@
     <span>{{'change_project_leader' | translate}}</span>
   </button>
 
-  <a mat-menu-item type="button" [routerLink]="detailRoute"
+  <a mat-menu-item [routerLink]="activityRoute">
+    <mat-icon>task</mat-icon>
+    <span>{{'activities' | translate}}</span>
+  </a>
+
+  <a mat-menu-item [routerLink]="detailRoute"
      [queryParams]="{type: 'settings'}">
     <mat-icon>settings</mat-icon>
     <span>{{'project_settings' | translate}}</span>

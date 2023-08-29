@@ -8,6 +8,7 @@
   "lastname": "Nom",
   "fullname": "Nom complet",
   "phone": "Téléphone",
+  "date": "Date",
   "error_required": "Le champ '{{field}}' est obligatoire",
   "email": "Adresse email",
   "email_invalid": "L'adresse email n'est pas valide",
@@ -203,7 +204,7 @@
   "no_comments": "Aucun commentaire, écrivez le premier et collaborez avec votre équipe!",
   "no_notifications": "Aucune notification dans les 30 derniers jours",
   "no_more_notifications": "Pas plus de notifications au cours 30 derniers jours",
-  "two_fa":  "Two factor authentication",
+  "two_fa": "Two factor authentication",
   "activate_two_fa": "Activer l'authentification à deux facteurs",
   "activate_two_fa_confirmation": "Activer l'authentification à deux facteurs. A chaque connexion vous recevrez un code par mail à entrer pour compléter votre connexion.",
   "two_fa_enabled": "Authentification à deux facteurs activée",
@@ -239,5 +240,11 @@
   "user_locked": "Utilisateur bloqué",
   "unlock_user": "Débloquer l'utilisateur",
   "unlock_user_confirmation": "Êtes-vous sûr de vouloir débloquer l'utilisateur ? Il pourra se connecter à nouveau.",
-  "user_unlocked": "Utilisateur débloqué"
+  "user_unlocked": "Utilisateur débloqué",
+  "activity_entity_type": "Type d'objet",
+  "activity_entity_id": "Id de l'objet",
+  "activity_entity_name": "Nom de l'objet",
+  "activity_action_type": "Type d'action",
+  "activity_user_date": "Utilisateur/Date",
+  "activities": "Activités"
 }

@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {FlFormFilledInput, FlFormInputName, FlFormInputsManagerConfig} from '../fl-form-inputs-manager.class';
 import {FlTranslateService} from '../../fl-translate/service/fl-translate.service';
 import {FlFormHelper} from '../../../model/fl-form-helper';
+import {FlMouseButton} from '../../../utils/fl-keyboard.helper';
 
 /**
  * Component that works with form to display the list of form input not null in a chip list
@@ -134,6 +135,12 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
         // recursive call to check children
         this.checkControlValue(childKey, control.get(childKey), (config as any)[childKey]);
       }
+    }
+  }
+
+  onChipClick(formInput: FlFormFilledInput, event: MouseEvent): void{
+    if(event.button === FlMouseButton.MIDDLE){
+      this.clearInput(formInput);
     }
   }
 

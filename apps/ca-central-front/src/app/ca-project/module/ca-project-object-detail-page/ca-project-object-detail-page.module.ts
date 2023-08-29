@@ -13,6 +13,7 @@ import {RouterModule} from '@angular/router';
 import {CaProjectObjectTreeComponent} from './component/ca-project-object-tree/ca-project-object-tree.component';
 import {CaProjectCoreModule} from '../../../ca-core/entity-module/ca-project-core/ca-project-core.module';
 import {CaDocumentDetailPageModule} from '../ca-document-detail-page/ca-document-detail-page.module';
+import {CaProjectActivityPageModule} from '../ca-project-activity-page/ca-project-activity-page.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {CaDocumentDetailPageModule} from '../ca-document-detail-page/ca-document
     CaReportDetailPageModule,
     CaProjectObjectCoreModule,
     CaDocumentDetailPageModule,
+    CaProjectActivityPageModule,
 
     CaProjectDetailPageRoutingModule,
   ]

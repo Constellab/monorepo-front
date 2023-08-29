@@ -15,11 +15,15 @@ import {
 import {
   CaDocumentDetailPageComponent
 } from '../ca-document-detail-page/component/ca-document-detail-page/ca-document-detail-page.component';
+import {
+  CaProjectActivityPageComponent
+} from '../ca-project-activity-page/component/ca-project-activity-page/ca-project-activity-page.component';
 
 const routes: Route[] = [
   {
     path: '', component: CaProjectObjectDetailPageComponent, children: [
       {path: ':projectId', component: CaProjectDetailPageComponent},
+      {path: ':projectId/activity', component: CaProjectActivityPageComponent},
       {path: 'experiment/:experimentId', component: CaExperimentDetailPageComponent},
       {path: 'report/:reportId', component: CaReportDetailPageComponent},
       {path: 'document/:documentId', component: CaDocumentDetailPageComponent}

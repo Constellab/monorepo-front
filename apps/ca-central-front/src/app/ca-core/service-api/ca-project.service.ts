@@ -29,6 +29,11 @@ import {CaBucket, CaBucketFull} from '../model/entities/ca-object-storage.class'
 import {CaCloudProviderRegion} from '../model/entities/ca-cloud-provider.class';
 import {CaConstellabDocument, CaDocument, CaDocumentDatasource} from '../model/entities/project/ca-document.class';
 import {CaProjectUserConfig} from '../model/entities/project/ca-project-user.class';
+import {CaActivity} from '../model/entities/ca-activity.class';
+import {
+  CaActivitySearch,
+  CaActivitySearchFields
+} from '../entity-module/ca-activity-core/model/ca-activity-search.class';
 
 /**
  * Service to manage project entity
@@ -276,4 +281,15 @@ export class CaProjectService {
     return this.apiService.put(`${this.route}/${projectId}/user-config`, projectUser, CaProjectUserConfig);
   }
 
+  /////////////////////////////// Activity ///////////////////////////////////////////
+  public searchActivity(projectId: string, page: number, pageSize: number,
+                        filters?: CaActivitySearchFields): Observable<ClPageI<CaActivity>> {
+    const data: FlAdvancedSearchInput = {
+      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaActivitySearch.advancedSearchConverter),
+      sortsCriteria: null
+    };
+    return this.apiService.post(`${this.route}/${projectId}/activity`, data, CaActivity, {
+      page: page, pageSize: pageSize, resultIsPaginated: true
+    });
+  }
 }

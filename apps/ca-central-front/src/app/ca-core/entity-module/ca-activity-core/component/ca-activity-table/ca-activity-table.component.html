@@ -1,0 +1,72 @@
+<mat-table mat-table [dataSource]="datasource">
+
+  <!-- EntityType -->
+  <ng-container matColumnDef="entityType">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{'activity_entity_type' | translate}}/{{'activity_action_type' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div>
+        <div>{{row.entityType}}</div>
+        <div>{{row.actionType}}</div>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Title -->
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+      <span> {{'title' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-column-width-2">
+      {{row.title}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- EntityName -->
+  <ng-container matColumnDef="entityName">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{'activity_entity_name' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{row.entityName}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- ActionType -->
+  <ng-container matColumnDef="actionType">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{'activity_action_type' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{row.actionType}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Space -->
+  <ng-container matColumnDef="space">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{'space' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <ca-space-inline [space]="row.space"></ca-space-inline>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Creation info -->
+  <ng-container matColumnDef="creation">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{'activity_user_date' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date [user]="row.user" [date]="row.createdAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: columns;">
+  </mat-row>
+</mat-table>

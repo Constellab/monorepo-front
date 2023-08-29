@@ -82,6 +82,10 @@ export class CaRouterService {
     return CaRouterService.getFullRoute(`${caConstProjectRoute}/document/${documentId}`);
   }
 
+  public static getProjectActivityRoute(projectId: string): string {
+    return `${CaRouterService.getProjectDetailRoute(projectId)}/activity`;
+  }
+
   public navigateToDocumentDetail(documentId: string): void {
     this.router.navigate([CaRouterService.getDocumentDetailRoute(documentId)]);
   }

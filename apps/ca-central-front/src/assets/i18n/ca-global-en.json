@@ -8,6 +8,7 @@
   "lastname": "Last name",
   "fullname": "Fullname",
   "phone": "Phone",
+  "date": "Date",
   "error_required": "The field '{{field}}' is mandatory",
   "email": "Email address",
   "email_invalid": "The email address is not valid",
@@ -239,5 +240,11 @@
   "user_locked": "User locked",
   "unlock_user": "Unlock user",
   "unlock_user_confirmation": "Are you sure you want to unlock this user ? He will be able to login again.",
-  "user_unlocked": "User unlocked"
+  "user_unlocked": "User unlocked",
+  "activity_entity_type": "Object type",
+  "activity_entity_id": "Object id",
+  "activity_entity_name": "Object name",
+  "activity_action_type": "Action type",
+  "activity_user_date": "User/date",
+  "activities": "Activities"
 }
