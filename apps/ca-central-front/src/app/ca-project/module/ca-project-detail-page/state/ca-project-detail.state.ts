@@ -123,7 +123,7 @@ export class CaProjectDetailState implements OnDestroy {
   private onRightPanelStateUpdate(state: CaProjectDetailRightPanel): void {
     // default value for the state
     if (state.type == null) {
-      state = {type: 'description', objectId: null};
+      state = {type: 'comments', objectId: null};
     }
 
     // check if the state has changed
