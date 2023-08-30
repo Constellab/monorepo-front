@@ -1,6 +1,8 @@
 import {environment} from '../../../environments/lab-environment';
 import {LabEnvironment} from '../../../environments/lab-environment.class';
 
+export type LabCommunityTechnicalDocType = 'task' | 'resource' | 'protocol';
+
 /**
  * Static class to access environment
  *
@@ -44,20 +46,17 @@ export class LabEnvironmentHelper {
     return `${LabEnvironmentHelper.getDevBaseApiUrl()}/${LabEnvironmentHelper.coreApiRoute}/`;
   }
 
+  public static getRecaptchaSiteKey(): string {
+    return LabEnvironmentHelper.getEnv().settings.captchaSiteKey;
+  }
+
+  //////////////////////////// Space ////////////////////////////
   public static getSpaceFrontUrl(): string {
     return LabEnvironmentHelper.getEnv().settings.spaceFrontUrl;
   }
 
   public static getSpaceApiUrl(): string {
     return LabEnvironmentHelper.getEnv().settings.spaceApiUrl;
-  }
-
-  public static getCommunityFrontUrl(): string {
-    return LabEnvironmentHelper.getEnv().settings.communityFrontUrl;
-  }
-
-  public static getCommunityApiUrl(): string {
-    return LabEnvironmentHelper.getEnv().settings.communityApiUrl;
   }
 
   public static getSpaceFrontAppUrl(): string {
@@ -68,7 +67,20 @@ export class LabEnvironmentHelper {
     return `${LabEnvironmentHelper.getSpaceFrontAppUrl()}/labs/${labId}/config`;
   }
 
-  public static getRecaptchaSiteKey(): string {
-    return LabEnvironmentHelper.getEnv().settings.captchaSiteKey;
+  ////////////////////// Community //////////////////////
+  public static getCommunityFrontUrl(): string {
+    return LabEnvironmentHelper.getEnv().settings.communityFrontUrl;
   }
+
+  public static getCommunityTechnicalDocUrl(brickName: string, majorVersion: number,
+                                            objectType: LabCommunityTechnicalDocType,
+                                            objectName: string): string {
+    // eslint-disable-next-line max-len
+    return `${LabEnvironmentHelper.getCommunityFrontUrl()}/bricks/${brickName}/v${majorVersion}/doc/technical-folder/${objectType}/${objectName}`;
+  }
+
+  public static getCommunityApiUrl(): string {
+    return LabEnvironmentHelper.getEnv().settings.communityApiUrl;
+  }
+
 }

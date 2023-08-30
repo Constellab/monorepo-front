@@ -21,14 +21,13 @@
                           (objectUpdate)="onExperimentUpdate($event)">
   </lab-sync-object-button>
 
+  <fl-status-chip [status]="experiment.status" mode="iconText"
+                  class="buttons"></fl-status-chip>
 
   <button mat-icon-button type="button" [matMenuTriggerFor]="menu"
           class="buttons">
     <mat-icon>more_vert</mat-icon>
   </button>
-
-  <fl-status-chip [status]="experiment.status" mode="iconText"
-                  class="buttons"></fl-status-chip>
 
   <!-- Menu -->
   <mat-menu #menu>

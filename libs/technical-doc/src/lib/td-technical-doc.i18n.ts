@@ -34,6 +34,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     add_port: 'Ajouter un port',
     update_port: 'Modifier le port',
     remove_port: 'Supprimer le port',
+    brick: 'Brique',
   }
 };
 
@@ -70,7 +71,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     add_port: 'Add port',
     update_port: 'Update port',
     remove_port: 'Remove port',
-
+    brick: 'Brick',
   }
 };
 

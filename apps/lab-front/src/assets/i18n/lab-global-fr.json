@@ -110,11 +110,11 @@
   "settings": "Paramètre",
   "reduce_menu": "Réduire",
   "validation_info": "Validé",
+  "open_ai_help": "Entrez votre message, validez le (appuyez sur entrer) et lancez la tâche pour discuter avec l'IA",
   "open_ai_context": "Contexte",
   "open_ai_delete_message": "Supprimer le message",
   "open_ai_delete_all_messages": "Supprimer tous les messages",
   "open_ai_update_message": "Modifier le message",
-  "open_ai_message_placeholder": "Entrez votre message",
   "open_ai_no_message_error": "Vous devez entrer un message",
   "select_none": "Aucun"
 }

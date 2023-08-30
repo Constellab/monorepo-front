@@ -4,7 +4,7 @@ import {LabProgressBar, LabProgressMessage} from '../lab-progress-bar.entity';
 import {FlStatus, FlStatusTransform} from '@monorepo/front-core-lib';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
 import {TdTypeObjectStatus, TdTypingName} from '@monorepo/technical-doc';
-import {PrConfigValues, PrOI, PrPort, PrProcess, PrProcessStatus, prProcessStatusDict} from '@monorepo/protocol';
+import {PrConfigValues, PrOI, PrProcess, PrProcessStatus, prProcessStatusDict} from '@monorepo/protocol';
 import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {LabEntity} from '../../global/lab-entity.entity';

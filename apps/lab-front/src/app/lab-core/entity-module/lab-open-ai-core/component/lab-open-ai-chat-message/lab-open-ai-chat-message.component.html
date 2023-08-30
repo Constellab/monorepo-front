@@ -5,10 +5,14 @@
   </div>
 
   <div class="text-content">
-    <div *ngIf="role === 'system'"><strong>{{'open_ai_context' | translate}}</strong></div>
+    <fl-text-icon *ngIf="role === 'system'" (click)="toggleContent()" class="g-text-link"
+                  iconPosition="end">
+      <strong>{{'open_ai_context' | translate}}</strong>
+      <mat-icon>{{showContent ? 'expand_less' : 'expand_more'}}</mat-icon>
+    </fl-text-icon>
     <div *ngIf="role === 'assistant' else normal" [innerHTML]="message.content | tdMarkdown"></div>
     <ng-template #normal>
-      <div>{{message.content}}</div>
+      <div *ngIf="showContent">{{message.content}}</div>
     </ng-template>
   </div>
 

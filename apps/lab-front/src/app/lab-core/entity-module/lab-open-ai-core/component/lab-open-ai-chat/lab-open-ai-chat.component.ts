@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Optional, Output, Self, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Optional, Output, Self, ViewChild} from '@angular/core';
 import {FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {LabOpenAiChat, LabOpenAiChatMessage} from '../../model/lab-open-ai.class';
 import {FormControl, NgControl} from '@angular/forms';
@@ -16,6 +16,9 @@ import {LabOpenAiChatMessageAction} from '../lab-open-ai-chat-message/lab-open-a
   providers: [{provide: FlFormFieldDirective, useExisting: LabOpenAiChatComponent}]
 })
 export class LabOpenAiChatComponent extends FlFormFieldDirective<LabOpenAiChat> {
+
+  @Input() placeholder: string;
+  @Input() hint: string;
 
   @Output() chatChange: EventEmitter<LabOpenAiChat> = new EventEmitter();
 

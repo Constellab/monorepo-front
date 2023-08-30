@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ClHelpService} from '@monorepo/core-lib';
 import {
   LabConfigureSpecsFormDialogComponent,
@@ -16,7 +16,6 @@ import {
   LabTypeDialogInput
 } from '../../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import {PrWorkflowNodeIo, PrWorkflowNodeProcess} from '@monorepo/protocol';
-import {LabWorkflowNodeDashboardComponent} from '../lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
 import {TdDocIOUpdateEvent} from '@monorepo/technical-doc';
 import {
   LabDynamicPortConfigDialogComponent,
@@ -36,7 +35,7 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
   node$: Observable<PrWorkflowNodeProcess>;
 
   configMode$: Observable<ConfigMode>;
-  showDashboard$: Observable<boolean>;
+  showConfigDashboard$: Observable<boolean>;
   showProgress$: Observable<boolean>;
 
   showInputs$: Observable<boolean>;
@@ -45,8 +44,7 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
 
   constructor(private dialogService: FlDialogService,
               private experimentState: LabExperimentDetailPageState,
-              private nodeDetailState: LabWorkflowNodeDetailState,
-              private viewContainerRef: ViewContainerRef) {
+              private nodeDetailState: LabWorkflowNodeDetailState) {
   }
 
   ngOnInit(): void {
@@ -56,7 +54,7 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
     this.configMode$ = this.nodeDetailState.getProcess$().pipe(map(
       process => this.getConfigMode(process)
     ));
-    this.showDashboard$ = this.configMode$.pipe(map(
+    this.showConfigDashboard$ = this.configMode$.pipe(map(
       mode => mode !== 'source' && mode !== 'view-task'
     ));
     this.showProgress$ = this.configMode$.pipe(map(
@@ -86,7 +84,7 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
     const process = await this.nodeDetailState.getProcessPromise();
     const input: LabConfigureSpecsFormDialogInput = {
       configData: process.config,
-      title: 'biox.configuration',
+      title: 'biox.parameters',
       submitButtonText: 'save',
       disabled: !(await firstValueFrom(this.isEditable$))
     };
@@ -114,11 +112,7 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
   }
 
   openProcessDashboard(): void {
-    this.dialogService.openBigDialog(LabWorkflowNodeDashboardComponent, {
-      panelClass: ['g-dialog-no-padding', 'g-dialog-main-background'],
-      viewContainerRef: this.viewContainerRef,
-      autoFocus: false
-    });
+    this.nodeDetailState.openProcessConfigDashboard();
   }
 
   inputSpecEvent(specEvent: TdDocIOUpdateEvent): void {

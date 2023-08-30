@@ -6,15 +6,19 @@
 
 
 <mat-form-field class="g-full" subscriptSizing="dynamic" #textarea>
-  <mat-label>{{'open_ai_message_placeholder' | translate}}</mat-label>
+  <mat-label>{{placeholder | translate}}</mat-label>
 
   <textarea matInput type="number" [formControl]="messageCtrl"
-            [placeholder]="'open_ai_message_placeholder' | translate" rows="4"
+            [placeholder]="placeholder | translate" rows="4"
             (keydown.enter)="onEnter($event)" (blur)="markAsTouched()">
   </textarea>
 
   <button mat-icon-button matSuffix type="button" (click)="addMessage()">
     <mat-icon>send</mat-icon>
   </button>
+
+  <mat-hint *ngIf="hint">
+    {{hint}}
+  </mat-hint>
 
 </mat-form-field>

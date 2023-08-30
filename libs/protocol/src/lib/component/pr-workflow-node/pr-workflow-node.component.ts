@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-process.directive';
 import {map, Observable} from 'rxjs';
 import {PrWorkflowNodeProtocol} from '../../model/node/pr-workflow-node-protocol.class';
 import {FlTranslatableText} from '@monorepo/front-core-lib';
 import {TdTypeObjectStatus} from '@monorepo/technical-doc';
 import {PrProcess} from '../../model/pr-process.class';
+import {PrWorkflowMode} from '../../model/pr-workflow.class';
 
 @Component({
   selector: 'pr-workflow-node',
@@ -14,10 +15,16 @@ import {PrProcess} from '../../model/pr-process.class';
 export class PrWorkflowNodeComponent extends PrWorkflowNodeProcessDirective implements OnInit, OnDestroy {
 
   layerIsLoading$: Observable<boolean>;
-  isProtocol: boolean;
+
+
+  @HostBinding('class.protocol') isProtocol: boolean;
 
   title$: Observable<FlTranslatableText>;
   typeStatus$: Observable<TdTypeObjectStatus>;
+
+  showConfigButton$: Observable<boolean> = this.workflowManager.getMode$().pipe(
+    map((mode: PrWorkflowMode) => mode === 'edit')
+  );
 
 
   ngOnInit(): void {
@@ -31,6 +38,13 @@ export class PrWorkflowNodeComponent extends PrWorkflowNodeProcessDirective impl
     if (this.isProtocol) {
       this.layerIsLoading$ = (this.node as PrWorkflowNodeProtocol).subLayerIsLoading$();
     }
+  }
+
+  openNodeConfiguration(): void {
+    this.actionState.newAction({
+      action: 'configureNode',
+      processNode: this.node,
+    });
   }
 
   zoomInProtocol(): void {

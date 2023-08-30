@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, ViewContainerRef} from '@angular/core';
 import {BehaviorSubject, filter, firstValueFrom, Observable, switchMap} from 'rxjs';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
@@ -24,6 +24,9 @@ import {
 } from '../model/lab-workflow-edit-config.class';
 import {TdIOSpec} from '@monorepo/technical-doc';
 import {ClSubscriptionHandler} from '@monorepo/core-lib';
+import {
+  LabWorkflowNodeDashboardComponent
+} from '../component/lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -38,7 +41,8 @@ export class LabWorkflowNodeDetailState {
 
   constructor(private workflowEditConfig: LabWorkflowEditConfig,
               private actionState: PrWorkflowActionState,
-              private dialogService: FlDialogService) {
+              private dialogService: FlDialogService,
+              private viewContainerRef: ViewContainerRef) {
   }
 
   public init(drawer: MatDrawer): void {
@@ -61,6 +65,10 @@ export class LabWorkflowNodeDetailState {
         this.setNode(action.processNode);
         this.drawer.open();
         break;
+      case 'configureNode':
+        this.setNode(action.processNode);
+        this.openProcessConfigDashboard();
+        break;
       case 'showResource':
         this.openResourceDetail(action.resourceId);
         break;
@@ -69,6 +77,14 @@ export class LabWorkflowNodeDetailState {
         break;
 
     }
+  }
+
+  openProcessConfigDashboard(): void {
+    this.dialogService.openBigDialog(LabWorkflowNodeDashboardComponent, {
+      panelClass: ['g-dialog-no-padding', 'g-dialog-main-background'],
+      viewContainerRef: this.viewContainerRef,
+      autoFocus: false
+    });
   }
 
   /**

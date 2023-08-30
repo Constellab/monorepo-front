@@ -1,7 +1,10 @@
+.container{
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
 .doc-info{
   margin-top: 1em;
-  padding: 0 35px;
-  text-align: justify;
 }
 
 .deprecated-message-div{
@@ -20,6 +23,7 @@
 .technical-doc-content{
   white-space: pre-line;
   height: auto;
+  padding: 0;
 }
 
 .resource-color-div{

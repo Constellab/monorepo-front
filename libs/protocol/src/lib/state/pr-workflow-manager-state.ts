@@ -18,8 +18,6 @@ export class PrWorkflowManagerState {
 
   private workflowElement: HTMLElement;
 
-  private idGenerator: number = 0;
-
   private mode$: Observable<PrWorkflowMode>;
   private currentMode: PrWorkflowMode;
 
@@ -67,7 +65,6 @@ export class PrWorkflowManagerState {
   }
 
   public clear(): void {
-    this.idGenerator = 0;
     this.workflow.deInitDrawflow();
     this.workflow = null;
   }

@@ -8,6 +8,8 @@ export interface TdTypeEntity {
 
   typingName: string;
 
+  brickVersion: string;
+
   humanName: string;
 
   shortDescription: string | undefined;

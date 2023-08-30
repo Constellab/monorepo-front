@@ -4,15 +4,15 @@
 
   <ng-container *ngIf="experiment.isEditable()">
     <!-- Add object button  -->
-    <button mat-icon-button type="button"
-            [matTooltip]="'biox.add_object' | translate" matTooltipPosition="below"
+    <button mat-button type="button" class="g-button-small"
             [matMenuTriggerFor]="menu">
       <mat-icon>add</mat-icon>
+      {{'biox.add_object' | translate}}
     </button>
 
-    <button mat-icon-button type="button" (click)="start()"
-            [matTooltip]="'biox.experiment_start' | translate" matTooltipPosition="below">
+    <button mat-button type="button" (click)="start()" class="g-button-small">
       <mat-icon>play_arrow</mat-icon>
+      {{'biox.experiment_start' | translate}}
     </button>
   </ng-container>
 

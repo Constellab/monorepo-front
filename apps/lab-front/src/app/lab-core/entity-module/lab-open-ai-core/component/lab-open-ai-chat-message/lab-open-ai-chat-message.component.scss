@@ -2,10 +2,12 @@
 .icon {
   flex-shrink: 0;
   padding-right: 1em;
+  display: flex;
 }
 
 .content {
   padding: 1em;
+  border-radius: var(--card-radius);
 }
 
 ::ng-deep lab-open-ai-chat-message{

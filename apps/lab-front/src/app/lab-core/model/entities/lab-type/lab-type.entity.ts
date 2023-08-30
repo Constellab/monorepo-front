@@ -20,6 +20,9 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
   @Expose({name: 'typing_name'})
   typingName: string;
 
+  @Expose({name: 'brick_version'})
+  brickVersion: string;
+
   @Expose({name: 'model_name'})
   modelName: string;
 

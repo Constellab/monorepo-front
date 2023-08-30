@@ -5,6 +5,11 @@
   max-height: 100%;
 }
 
+// from host binding
+:host.protocol{
+  width: 150px;
+}
+
 .text{
   overflow: hidden;
   white-space: nowrap;
@@ -23,4 +28,13 @@
 
 .expansion-content{
   padding-top: 0.5em;
+}
+
+.error-icon{
+  margin-left: 5px;
+}
+
+.icon{
+  margin-left: 1px;
+  margin-right: 1px;
 }

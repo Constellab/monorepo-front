@@ -5,6 +5,7 @@ import {TdTaskViewerConfig} from '@monorepo/technical-doc';
 
 export type PrWorkflowActionEvent =
   PrWorkflowActionSelectNode
+  | PrWorkflowActionConfigureNode
   | PrWorkflowActionSelectInterface
   | PrWorkflowActionSelectOuterface
   | PrWorkflowActionShowResource
@@ -19,6 +20,14 @@ export interface PrWorkflowActionBase {
  */
 export interface PrWorkflowActionSelectNode extends PrWorkflowActionBase {
   action: 'selectNode';
+  processNode: PrWorkflowNodeProcess;
+}
+
+/**
+ * Action called when click on node configure
+ */
+export interface PrWorkflowActionConfigureNode extends PrWorkflowActionBase {
+  action: 'configureNode';
   processNode: PrWorkflowNodeProcess;
 }
 
