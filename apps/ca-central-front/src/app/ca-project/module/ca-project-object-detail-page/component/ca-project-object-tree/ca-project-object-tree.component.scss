@@ -1,6 +1,11 @@
 
-.container{
+.container {
   padding: 8px;
+}
+
+mat-tree-node {
+  min-height: 0;
+  margin-bottom: 10px;
 }
 
 .tree .tree-node:not(:last-child) {
@@ -12,6 +17,7 @@
   background-color: var(--main-background);
   border-radius: 10px;
   padding-right: 0;
+  width: 100%;
 }
 
 .project-title {
@@ -24,7 +30,7 @@
 }
 
 .leaf-node-margin {
-  margin-left: 2em;
+  //margin-left: 2em;
 }
 
 

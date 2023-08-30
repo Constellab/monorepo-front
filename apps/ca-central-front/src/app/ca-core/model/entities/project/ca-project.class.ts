@@ -31,10 +31,9 @@ export class CaProjectStatusHistory extends CaStatusHistory<CaProjectStatus> {
 export enum CaProjectLevel {
   // main level of the project
   PROJECT = 1,
-  // sub-level of the project
-  WORK_PACKAGE = 2,
-  // sub-level of the work package
-  TASK = 3,
+
+  // max level of the project hierarchy
+  MAX_LEVEL = 6,
 }
 
 export enum CaProjectLevelStatus {
@@ -65,7 +64,7 @@ export class CaProject extends CaBaseEntity {
   currentStatus: CaProjectStatusHistory;
 
   // level of this project, work package or task
-  currentLevel: CaProjectLevel;
+  currentLevel: number;
 
   levelStatus: CaProjectLevelStatus;
 
@@ -91,15 +90,7 @@ export class CaProject extends CaBaseEntity {
   }
 
   getChildLevel(): CaProjectLevel {
-    switch (this.currentLevel) {
-      case CaProjectLevel.PROJECT:
-        return CaProjectLevel.WORK_PACKAGE;
-      case CaProjectLevel.WORK_PACKAGE:
-        return CaProjectLevel.TASK;
-      default:
-        return null;
-    }
-
+    return this.currentLevel + 1;
   }
 }
 

@@ -5,7 +5,7 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="project-form" [formGroup]="formGp">
 
-    <p class="g-text-small g-text-light help-text" *ngIf="parentIsWorkPackage && isCreateMode()">
+    <p class="g-text-small g-text-light help-text" *ngIf="!allowParent && isCreateMode()">
       {{ 'modern_project_forced' | translate }}
     </p>
 

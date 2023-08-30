@@ -94,6 +94,7 @@ export class CaProjectObjectTreeComponent implements OnInit, OnDestroy {
     if (this.currentAncestors != null) {
       this.onAncestorChange(this.currentAncestors);
     }
+
   }
 
   private onAncestorChange(ancestors: CaProjectAncestorTreeDTO[]): void {

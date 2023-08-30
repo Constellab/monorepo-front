@@ -69,7 +69,7 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
         {
           value: CaProjectLevelStatus.LEAF,
           // when work package we force the children to be leaf to limit hierarchy depth
-          disabled: this.isUpdateMode() || this.parentIsWorkPackage
+          disabled: this.isUpdateMode() || !this.allowParent
         }
         , Validators.required],
       code: [null, Validators.required],
@@ -117,8 +117,9 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
     }
   }
 
-  get parentIsWorkPackage(): boolean {
-    return this.dialogInput.parentLevel === CaProjectLevel.WORK_PACKAGE;
+  // return true if we can create a parent project, false if the hierarchy reached the max depth
+  get allowParent(): boolean {
+    return this.dialogInput.parentLevel < CaProjectLevel.MAX_LEVEL - 1;
   }
 
   get showStorageRegion(): boolean {
