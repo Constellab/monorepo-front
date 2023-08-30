@@ -37,6 +37,8 @@ export class CaNotificationState implements OnDestroy {
   // use to mark notification per batch
   private notifToRead$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
+  private readonly notificationMarkDebounceTime: number = 5000;
+
   constructor(private notificationService: CaNotificationsService,
               private currentSpaceService: CaCurrentSpaceService) {
     this.notifications = new FlEntityPaginatedDatasource(
@@ -47,7 +49,9 @@ export class CaNotificationState implements OnDestroy {
 
   public init(): void {
 
-    this.notifToRead$.pipe(debounceTime(5000)).subscribe((notifIds: string[]) => this.markNotificationsAsRead(notifIds));
+    this.notifToRead$.pipe(debounceTime(this.notificationMarkDebounceTime)).subscribe(
+      (notifIds: string[]) => this.markNotificationsAsRead(notifIds)
+    );
     this.notificationsBySpace$ = new ClCachedObservable(this.notificationService.getNotReadBySpace());
   }
 
@@ -118,7 +122,8 @@ export class CaNotificationState implements OnDestroy {
       if (options.checkAssociatedObjects != null) {
         return notifications.filter(notif => {
           const parentObjectIds = notif.associatedObjectIds ?? [];
-          const limit = options.checkAssociatedObjects < 0 ? parentObjectIds.length : Math.min(options.checkAssociatedObjects, parentObjectIds.length);
+          const limit = options.checkAssociatedObjects < 0 ? parentObjectIds.length :
+            Math.min(options.checkAssociatedObjects, parentObjectIds.length);
           const limitParents = parentObjectIds.slice(0, limit);
           return notif.objectId === options.objectId || limitParents.includes(options.objectId);
         });

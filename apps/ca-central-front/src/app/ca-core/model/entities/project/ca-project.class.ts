@@ -38,12 +38,12 @@ export enum CaProjectLevel {
 
 export enum CaProjectLevelStatus {
   /**
-   * Project that contains sub-projects. No object (experiment, report) can be associated to it
+   * Project that contains subproject. No object (experiment, report) can be associated to it
    */
   PARENT = 'PARENT',
 
   /**
-   * Leaf project, no sub-project can be associated to it. Object (experiment, report) can be associated to it
+   * Leaf project, no subproject can be associated to it. Object (experiment, report) can be associated to it
    */
   LEAF = 'LEAF',
 }
