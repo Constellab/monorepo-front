@@ -41,6 +41,7 @@ export enum LabWorkflowAction {
   UPDATE_PROCESS_CONFIG = 'workflow-update-process-config',
   RESET_PROCESS = 'reset-process',
   MODIFY_DYNAMIC_PORT = 'workflow-update-dynamic-port',
+  RUN_PROCESS = 'workflow-run-process',
 }
 
 interface LabWorkflowEventConnectionAdditionalInfo {
@@ -225,6 +226,19 @@ export class LabWorkflowEditConfig implements OnDestroy {
       text: {text: 'biox.saving_config', translateText: true},
     };
     return this.executeUpdateAction(action, node.currentObject as LabProcess, true);
+  }
+
+  public runProcess(protocolId: string, processInstanceName: string): Observable<FlPortalActionResult | null> {
+    const node = this.getAndCheckProcessNode(protocolId, processInstanceName);
+    if (node == null) return of(null);
+
+    const obs = this.protocolService.runProcessInProtocol(protocolId, processInstanceName);
+    const action: FlPortalAction = {
+      type: LabWorkflowAction.RUN_PROCESS,
+      action: obs,
+      text: {text: 'biox.running_process', translateText: true},
+    };
+    return this.executeUpdateAction(action, node.currentObject as LabProcess, false);
   }
 
   public resetProcess(protocolId: string, processInstanceName: string): void {
@@ -582,7 +596,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
       LabWorkflowAction.DELETE_INTERFACE, LabWorkflowAction.DELETE_OUTERFACE,
       LabWorkflowAction.DELETE_CONNECTION, LabWorkflowAction.ADD_CONNECTION,
       LabWorkflowAction.UPDATE_PROCESS_CONFIG, LabWorkflowAction.RESET_PROCESS,
-      LabWorkflowAction.MODIFY_DYNAMIC_PORT]);
+      LabWorkflowAction.MODIFY_DYNAMIC_PORT, LabWorkflowAction.RUN_PROCESS]);
   }
 
   public getActions$(actions: LabWorkflowAction[]): Observable<FlPortalActionResult> {

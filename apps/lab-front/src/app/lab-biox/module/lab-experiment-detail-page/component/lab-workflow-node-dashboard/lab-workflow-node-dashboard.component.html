@@ -16,8 +16,8 @@
             <mat-icon>save</mat-icon>
           </button>
 
-          <button mat-icon-button type="button" (click)="saveConfigAndStartExperiment()" tabindex="-1"
-                  [matTooltip]="'biox.save_config_and_run_experiment' | translate" matTooltipPosition="below">
+          <button mat-icon-button type="button" (click)="saveConfigAndRunProcess(process)" tabindex="-1"
+                  [matTooltip]="'biox.save_config_and_run_process' | translate" matTooltipPosition="below">
             <mat-icon>play_arrow</mat-icon>
           </button>
         </ng-container>
@@ -26,7 +26,7 @@
         </mat-icon>
 
         <fl-loader *ngIf="isRunning$ | async" size="small"
-                   [matTooltip]="'biox.experiment_is_running' | translate" matTooltipPosition="below">
+                   [matTooltip]="'biox.process_is_running' | translate" matTooltipPosition="below">
         </fl-loader>
 
         <button mat-icon-button [matMenuTriggerFor]="menu">

@@ -24,6 +24,7 @@ import {
 import {LabProcessService} from '../../../../../lab-core/entity-service/lab-process.service';
 import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
 import {DateTime} from 'luxon';
+import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class';
 
 /**
  * Complete dashboard to edit, view and run a workflow node
@@ -40,8 +41,8 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
   nodeProcess$ = this.nodeState.getNode$();
 
   isEditable$ = this.experimentState.isEditable$();
-  isRunning$ = this.experimentState.getExperiment$().pipe(
-    map(experiment => experiment.isRunning())
+  isRunning$ = this.nodeState.getProcess$().pipe(
+    map(process => process.isRunning())
   );
   isWaiting$ = this.experimentState.getExperiment$().pipe(
     map(experiment => experiment.isWaiting())
@@ -51,7 +52,8 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
               private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService,
               private processService: LabProcessService,
-              private dashboardState: LabWorkflowNodeDashboardState) {
+              private dashboardState: LabWorkflowNodeDashboardState,
+              private workflowEditConfig: LabWorkflowEditConfig) {
   }
 
   ngOnInit(): void {
@@ -64,17 +66,17 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
     this.dialogService.openMediumDialog(LabTypeDialogComponent, {data: data});
   }
 
-  saveConfigAndStartExperiment(): void {
+  saveConfigAndRunProcess(process: LabProcess): void {
     this.dashboardState.saveCurrentTaskConfig().subscribe(
       (result) => {
         if (result && result.status === 'success') {
-          this.experimentState.start();
+          this.workflowEditConfig.runProcess(process.parentProtocolId, process.instanceName);
         }
       }
     );
   }
 
-  saveConfig(): void{
+  saveConfig(): void {
     this.dashboardState.saveCurrentTaskConfig();
   }
 

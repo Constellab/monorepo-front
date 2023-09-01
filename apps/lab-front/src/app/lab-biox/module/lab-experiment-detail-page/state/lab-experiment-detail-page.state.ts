@@ -10,7 +10,6 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalActionsService,
   FlQuillJson,
   FlSnackBarService
 } from '@monorepo/front-core-lib';
@@ -40,7 +39,6 @@ export class LabExperimentDetailPageState {
 
   constructor(private experimentService: LabExperimentService,
               private protocolService: LabProtocolService,
-              private actionsService: FlPortalActionsService,
               private workflowFactory: LabWorkflowFactory,
               private snackBarService: FlSnackBarService,
               private dialogService: FlDialogService) {
@@ -73,6 +71,7 @@ export class LabExperimentDetailPageState {
   private onMainProtocolLoaded(protocol: LabProtocol): void {
     this.workflow = this.workflowFactory.protocolToWorkflow(protocol);
     this.mainProtocol$.next(protocol);
+    this.checkAndStartRefreshProtocol();
   }
 
   public getExperiment$(): Observable<LabExperiment> {
@@ -101,6 +100,8 @@ export class LabExperimentDetailPageState {
     if (refreshWorkflow) {
       this.refreshAllProtocols();
     }
+
+    this.checkAndStartRefreshProtocol();
   }
 
   public updateTags(tags: LabTag[]): void {
@@ -129,13 +130,15 @@ export class LabExperimentDetailPageState {
   /**
    * Check if the experiment is waiting or running and start to refresh the protocol if yes
    */
-  public checkAndStartRefreshProtocol(): void {
-    this.timeout = setTimeout(() => {
+  private checkAndStartRefreshProtocol(): void {
+    if(this.timeout) return;
+    const mainProtocol = this.getCurrentMainProtocol();
+    const experiment = this.currentExperiment;
+    // Stop refresh if experiment is not running (including queue) and the main protocol is finished
+    if ((!experiment.isRunning() && experiment.status.value !== 'IN_QUEUE') && !mainProtocol.isRunning()) return;
 
-      const mainProtocol = this.getCurrentMainProtocol();
-      const experiment = this.currentExperiment;
-      // Stop refresh if experiment is not running (including queue) and the main protocol is finished
-      if ((!experiment.isRunning() && experiment.status.value !== 'IN_QUEUE') || mainProtocol.isFinished()) return;
+    this.timeout = setTimeout(() => {
+      this.timeout = null;
 
       // retrieve all not finished protocols
       const notFinishedProtocolIds: string[] = this.getProtocols()
@@ -189,7 +192,7 @@ export class LabExperimentDetailPageState {
 
     this.refreshProtocolSuccess(dbProtocol);
 
-    // also refresh the parent protocol if there is one
+    // also refresh the parent protocols if there are some
     let parent = protocol.parentLayer;
     const parentsIds = [];
     while (parent != null) {
@@ -210,7 +213,7 @@ export class LabExperimentDetailPageState {
     }
   }
 
-  public stopProtocolsRefresh(): void {
+  private stopProtocolsRefresh(): void {
     if (this.timeout) {
       clearTimeout(this.timeout);
       this.timeout = null;

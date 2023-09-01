@@ -1,5 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {LabExperimentService} from '../../../../../lab-core/entity-service/lab-experiment.service';
+import {Component, OnInit} from '@angular/core';
 import {LabExperiment} from '../../../../../lab-core/model/entities/lab-experiment.entity';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {
@@ -23,18 +22,16 @@ import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class'
   templateUrl: './lab-workflow-actions.component.html',
   styleUrls: ['./lab-workflow-actions.component.scss']
 })
-export class LabWorkflowActionsComponent implements OnInit, OnDestroy {
+export class LabWorkflowActionsComponent implements OnInit {
   experiment$: Observable<LabExperiment>;
 
   constructor(private workflowEditState: LabWorkflowEditConfig,
-              private experimentService: LabExperimentService,
               private dialogService: FlDialogService,
               private experimentState: LabExperimentDetailPageState) {
   }
 
   ngOnInit(): void {
     this.experiment$ = this.experimentState.getExperiment$();
-    this.experimentState.checkAndStartRefreshProtocol();
   }
 
 
@@ -72,9 +69,5 @@ export class LabWorkflowActionsComponent implements OnInit, OnDestroy {
 
   stopExperiment(): void {
     this.experimentState.stopExperiment();
-  }
-
-  ngOnDestroy(): void {
-    this.experimentState.stopProtocolsRefresh();
   }
 }

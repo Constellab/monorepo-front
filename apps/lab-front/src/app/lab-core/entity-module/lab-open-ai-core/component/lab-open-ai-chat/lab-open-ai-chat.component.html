@@ -6,10 +6,10 @@
 
 
 <mat-form-field class="g-full" subscriptSizing="dynamic" #textarea>
-  <mat-label>{{placeholder | translate}}</mat-label>
+  <mat-label>{{placeholder}}</mat-label>
 
   <textarea matInput type="number" [formControl]="messageCtrl"
-            [placeholder]="placeholder | translate" rows="4"
+            [placeholder]="placeholder" rows="4"
             (keydown.enter)="onEnter($event)" (blur)="markAsTouched()">
   </textarea>
 
