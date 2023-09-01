@@ -197,7 +197,7 @@ export class LabExperimentDetailPageState {
     const parentsIds = [];
     while (parent != null) {
       parentsIds.push(protocol.id);
-      parent = protocol.parentLayer;
+      parent = parent.parentLayer;
     }
 
     if (parentsIds.length > 0) {
