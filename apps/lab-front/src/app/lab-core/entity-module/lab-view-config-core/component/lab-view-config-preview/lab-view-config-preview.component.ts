@@ -48,7 +48,6 @@ export class LabViewConfigPreviewComponent implements OnInit, OnDestroy {
       element, ['left', 'bottom', 'right', 'top'],
       {
         disposeOnNavigation: true,
-        disposeOnOutsideClick: true
       });
 
     const config: LabResourceViewPortalInput = {
