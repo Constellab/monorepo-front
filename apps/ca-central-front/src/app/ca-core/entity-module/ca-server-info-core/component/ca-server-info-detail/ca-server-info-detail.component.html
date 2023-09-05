@@ -12,22 +12,18 @@
     </fl-key-value>
     <fl-key-value>
       <fl-key>{{'cpuCount' | translate}}</fl-key>
-      {{serverInfo.cpuCount}}
+      {{serverInfo.cpuCount}} ({{serverInfo.cpuType}})
     </fl-key-value>
     <fl-key-value>
-      <fl-key>{{'cpuType' | translate}}</fl-key>
-      {{serverInfo.cpuType}}
+      <fl-key>{{'ram' | translate}}</fl-key>
+      {{serverInfo.ram}}
     </fl-key-value>
 
     <!--  If there is a GPU  -->
     <ng-container *ngIf="serverInfo.gpuType">
       <fl-key-value>
         <fl-key>{{'gpuCount'}}</fl-key>
-        {{serverInfo.gpuCount}}
-      </fl-key-value>
-      <fl-key-value>
-        <fl-key>{{'gpuType'}}</fl-key>
-        {{serverInfo.gpuType}}
+        {{serverInfo.gpuCount}} ({{serverInfo.gpuType}})
       </fl-key-value>
     </ng-container>
   </div>
@@ -35,11 +31,7 @@
   <div>
     <fl-key-value>
       <fl-key>{{'diskSpace' | translate}}</fl-key>
-      {{serverInfo.diskSpace}}
-    </fl-key-value>
-    <fl-key-value>
-      <fl-key>{{'diskType' | translate}}</fl-key>
-      {{serverInfo.diskType}}
+      {{serverInfo.diskSpace}} ({{serverInfo.diskType}})
     </fl-key-value>
     <ng-content></ng-content>
   </div>

@@ -5,15 +5,9 @@
 
   <fl-card-body>
     <ca-server-info-detail [serverInfo]="labInstance.serverInfo">
-
-      <fl-key-value>
-        <fl-key>{{'lab_volume_type' | translate}}</fl-key>
-        {{'lab_volume_type_' + labInstance.volumeType | translate}}
-      </fl-key-value>
-
       <fl-key-value>
         <fl-key>{{'lab_volume_size' | translate}}</fl-key>
-        {{labInstance.volumeSize}}
+        {{labInstance.volumeSize}} ({{'lab_volume_type_' + labInstance.volumeType | translate}})
       </fl-key-value>
     </ca-server-info-detail>
   </fl-card-body>
