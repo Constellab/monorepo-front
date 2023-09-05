@@ -9,6 +9,8 @@ import {
   CaLabInstanceFindOneDto,
   CaLabInstanceStatusDTO,
   CaLabInstanceStatusHistory,
+  CaLabInstanceStatusRunRequest,
+  CaLabInstanceStatusRunResponse,
   CaLabInstanceWithSpace,
   CaRequestLabInstance
 } from '../model/entities/lab/ca-lab-instance.class';
@@ -334,6 +336,7 @@ export class CaLabInstanceService {
   public getGreenOptions(labId: string): Observable<CaLabGreenOption[]> {
     return this.apiService.get(`${this.route}/${labId}/green-options`, CaLabGreenOption);
   }
+
   //////////////////////////// STATUS RULE  ////////////////////////////////
 
   public createFreeTrialLabInstanceCurrentUser(): Observable<CaLabInstance> {
@@ -344,6 +347,13 @@ export class CaLabInstanceService {
     return this.apiService.post(`${this.route}/free-trial/user/${userId}`, null, CaLabInstance);
   }
 
+  //////////////////////////// KPI ////////////////////////////////
+
+  public getRunningKpi(id: string, request: CaLabInstanceStatusRunRequest): Observable<CaLabInstanceStatusRunResponse> {
+    return this.apiService.post(`${this.route}/${id}/kpi/running`, request, CaLabInstanceStatusRunResponse,
+      {serialization: CaLabInstanceStatusRunRequest});
+  }
+
   //////////////////////////// DESKTOP ////////////////////////////////
 
   public getDesktopConfigDownloadUrl(id: string, config: CaLabInstanceDesktopConfig): Observable<Blob> {
@@ -351,4 +361,6 @@ export class CaLabInstanceService {
       `${this.route}/${id}/desktop/generate-config`, config, null,
       {responseType: 'blob'});
   }
+
+
 }

@@ -13,13 +13,12 @@ import {CaSpace} from '../space/ca-space.class';
 import {CaLabInstanceUserRole} from './ca-lab-instance-user.class';
 import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
 import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
+import {ClLuxonDateTimeTransform, ClLuxonDateTransform} from '@monorepo/core-lib';
 
 export type CaLabInstanceBillingMode = 'HOURLY' | 'MONTHLY';
 export type CaLabInstanceVolumeType = 'CLASSIC' | 'HIGH_SPEED';
 export type CaLabInstanceType = 'CLOUD' | 'DESKTOP';
 export type CaLabDesktopPlatform = 'WINDOWS' | 'LINUX' | 'MAC';
-
 
 
 export type CaLabInstanceStatus =
@@ -46,7 +45,7 @@ export const caLabInstanceServerTaskStatusDict: FlStatusDict<CaLabInstanceServer
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
   NONE: FlStatusHelper.getInfoStatus('NONE'),
-}
+};
 
 export class CaLabInstanceStatusHistory extends CaStatusHistory<CaLabInstanceStatus> {
 
@@ -184,7 +183,7 @@ export class CaLabInstanceStatusDTO {
   serverTaskStatus: FlStatus<CaLabInstanceServerTaskStatus>;
 
   @ClLuxonDateTimeTransform()
-  serverTaskDatetime: DateTime
+  serverTaskDatetime: DateTime;
 
 }
 
@@ -202,4 +201,35 @@ export interface CaRequestLabInstance {
 
 export interface CaLabInstanceDesktopConfig {
   glabTag: 'beta' | 'latest' | string;
+}
+
+export enum CaLabInstanceStatusRunPeriod {
+  LAST_WEEK = 'LAST_WEEK',
+  LAST_MONTH = 'LAST_MONTH',
+  LAST_YEAR = 'LAST_YEAR',
+  ALL = 'ALL',
+  CUSTOM = 'CUSTOM',
+}
+
+export class CaLabInstanceStatusRunRequest {
+  period: CaLabInstanceStatusRunPeriod;
+
+
+  @ClLuxonDateTransform()
+  customStartDate?: DateTime;
+
+  @ClLuxonDateTransform()
+  customEndDate?: DateTime;
+}
+
+export class CaLabInstanceStatusRunResponse {
+  period: CaLabInstanceStatusRunPeriod;
+
+  @ClLuxonDateTransform()
+  fromDate: DateTime;
+  @ClLuxonDateTransform()
+  toDate: DateTime;
+
+  // in seconds
+  runDuration: number;
 }

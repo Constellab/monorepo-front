@@ -124,6 +124,10 @@ import {
   CaLabGreenOptionValueComponent
 } from './component/green-option/ca-lab-green-option-value/ca-lab-green-option-value.component';
 import {CaStatusModule} from '../ca-core/module/ca-status/ca-status.module';
+import {CaLabInstanceUsageComponent} from './component/kpi/ca-lab-instance-usage/ca-lab-instance-usage.component';
+import {
+  LabBrickCoreModule
+} from '../../../../lab-front/src/app/lab-core/entity-module/lab-brick-core/lab-brick-core.module';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -172,6 +176,7 @@ import {CaStatusModule} from '../ca-core/module/ca-status/ca-status.module';
     CaLabGreenOptionFormDialogComponent,
     CaLabGreenOptionTableComponent,
     CaLabGreenOptionValueComponent,
+    CaLabInstanceUsageComponent,
   ],
   imports: [
     CommonModule,
@@ -188,6 +193,7 @@ import {CaStatusModule} from '../ca-core/module/ca-status/ca-status.module';
     CaLabInstanceRoutingModule,
     CaSpaceCoreModule,
     CaStatusModule,
+    LabBrickCoreModule,
   ],
 })
 export class CaLabInstanceModule {}
