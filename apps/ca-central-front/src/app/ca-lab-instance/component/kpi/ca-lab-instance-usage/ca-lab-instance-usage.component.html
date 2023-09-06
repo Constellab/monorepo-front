@@ -46,10 +46,15 @@
     <fl-async-section [object]="runResponse$" class="section">
       <ng-container *flSectionBody="let runResponse">
         <fl-key-value>
-          <fl-key>{{'lab_usage_running_duration' | translate}}</fl-key>
-          {{(runResponse.runDuration * 1000) | flDuration}}
+          <fl-key>{{'lab_usage_total_running_duration' | translate}}</fl-key>
+          {{(runResponse.runningDuration * 1000) | flDuration:3}}
         </fl-key-value>
       </ng-container>
     </fl-async-section>
+
+    <div class="g-section">
+      <h3>{{'lab_usage_running_periods' | translate}}</h3>
+      <ca-lab-instance-running-status-table [datasource]="runStatuses$"></ca-lab-instance-running-status-table>
+    </div>
   </fl-card-body>
 </fl-card>

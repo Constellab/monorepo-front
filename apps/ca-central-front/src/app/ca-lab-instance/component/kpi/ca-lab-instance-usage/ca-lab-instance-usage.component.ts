@@ -1,13 +1,17 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {
-  CaLabInstanceStatusRunPeriod,
-  CaLabInstanceStatusRunRequest,
-  CaLabInstanceStatusRunResponse
-} from '../../../../ca-core/model/entities/lab/ca-lab-instance.class';
 import {FormBuilder, Validators} from '@angular/forms';
 import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
 import {DateTime} from 'luxon';
-import {debounceTime, Observable, startWith, Subscription} from 'rxjs';
+import {debounceTime, Observable, share, startWith, Subscription} from 'rxjs';
+import {
+  CaLabInstanceRunningStatus,
+  CaLabInstanceRunningStatusArrayObs,
+  CaLabInstanceStatusRunPeriod,
+  CaLabInstanceStatusRunRequest,
+  CaLabInstanceStatusRunResponse
+} from '../../../../ca-core/model/entities/lab/ca-lab-instance-status.dto';
+import {FlArrayObs} from '@monorepo/front-core-lib';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'ca-lab-instance-usage',
@@ -27,8 +31,8 @@ export class CaLabInstanceUsageComponent implements OnInit, OnDestroy {
     customEndDate: [null as DateTime],
   });
 
-
   runResponse$: Observable<CaLabInstanceStatusRunResponse>;
+  runStatuses$: FlArrayObs<CaLabInstanceRunningStatus>;
 
   private subscription: Subscription;
 
@@ -44,7 +48,9 @@ export class CaLabInstanceUsageComponent implements OnInit, OnDestroy {
 
   private callKpi(request: CaLabInstanceStatusRunRequest): void {
     if (this.formGroup.valid) {
-      this.runResponse$ = this.labService.getRunningKpi(this.labInstanceId, request);
+      const obs = this.labService.getRunningKpi(this.labInstanceId, request).pipe(share());
+      this.runResponse$ = obs;
+      this.runStatuses$ = new CaLabInstanceRunningStatusArrayObs(obs.pipe(map(response => response.statuses)));
     }
   }
 

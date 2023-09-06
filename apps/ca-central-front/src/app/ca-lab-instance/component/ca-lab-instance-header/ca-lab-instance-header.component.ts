@@ -72,4 +72,8 @@ export class CaLabInstanceHeaderComponent implements OnInit {
     return CaRouterService.getLabInstanceConfigRoute(labInstance.id);
   }
 
+  getUsageRoute(labInstance: CaLabInstance): string {
+    return CaRouterService.getLabInstanceUsageRoute(labInstance.id);
+  }
+
 }

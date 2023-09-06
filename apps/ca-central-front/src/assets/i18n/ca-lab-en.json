@@ -278,6 +278,8 @@
   "lab_usage_period_ALL": "All time",
   "lab_usage_period_CUSTOM": "Custom",
   "lab_usage_running_duration": "Running duration",
-  "lab_usage_period_from": "Start date",
-  "lab_usage_period_to": "End date"
+  "lab_usage_total_running_duration": "Total Running duration",
+  "lab_usage_period_from": "From date",
+  "lab_usage_period_to": "To date",
+  "lab_usage_running_periods": "Running periods"
 }

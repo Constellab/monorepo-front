@@ -10,6 +10,9 @@ import {
 import {
   CaLabInstanceConfigPageComponent
 } from './component/ca-lab-instance-config-page/ca-lab-instance-config-page.component';
+import {
+  CaLabInstanceUsagePageComponent
+} from './component/kpi/ca-lab-instance-usage-page/ca-lab-instance-usage-page.component';
 
 const routes: Route[] = [
   {path: '', component: CaMyLabInstancesPageComponent},
@@ -17,6 +20,7 @@ const routes: Route[] = [
     path: ':id', component: CaLabInstanceDetailPageComponent, children: [
       {path: '', component: CaLabInstanceDashboardPageComponent},
       {path: 'config', component: CaLabInstanceConfigPageComponent},
+      {path: 'usage', component: CaLabInstanceUsagePageComponent},
     ]
   },
 ];

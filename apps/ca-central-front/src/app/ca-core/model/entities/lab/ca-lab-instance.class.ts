@@ -13,7 +13,7 @@ import {CaSpace} from '../space/ca-space.class';
 import {CaLabInstanceUserRole} from './ca-lab-instance-user.class';
 import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
 import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform, ClLuxonDateTransform} from '@monorepo/core-lib';
+import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 
 export type CaLabInstanceBillingMode = 'HOURLY' | 'MONTHLY';
 export type CaLabInstanceVolumeType = 'CLASSIC' | 'HIGH_SPEED';
@@ -201,35 +201,4 @@ export interface CaRequestLabInstance {
 
 export interface CaLabInstanceDesktopConfig {
   glabTag: 'beta' | 'latest' | string;
-}
-
-export enum CaLabInstanceStatusRunPeriod {
-  LAST_WEEK = 'LAST_WEEK',
-  LAST_MONTH = 'LAST_MONTH',
-  LAST_YEAR = 'LAST_YEAR',
-  ALL = 'ALL',
-  CUSTOM = 'CUSTOM',
-}
-
-export class CaLabInstanceStatusRunRequest {
-  period: CaLabInstanceStatusRunPeriod;
-
-
-  @ClLuxonDateTransform()
-  customStartDate?: DateTime;
-
-  @ClLuxonDateTransform()
-  customEndDate?: DateTime;
-}
-
-export class CaLabInstanceStatusRunResponse {
-  period: CaLabInstanceStatusRunPeriod;
-
-  @ClLuxonDateTransform()
-  fromDate: DateTime;
-  @ClLuxonDateTransform()
-  toDate: DateTime;
-
-  // in seconds
-  runDuration: number;
 }

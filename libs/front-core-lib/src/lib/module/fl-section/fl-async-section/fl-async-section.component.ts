@@ -127,6 +127,7 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
       next: result => this.onResponse(result),
       error: error => this.onError(error)
     });
+    this.cdr.markForCheck();
   }
 
   private onResponse(result: any): void {

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {CaLabInstance} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
-import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
 import {ActivatedRoute} from '@angular/router';
 import {CaLabInstanceDetailPageState} from '../../state/ca-lab-instance-detail-page.state';
 import {Observable} from 'rxjs';
@@ -22,7 +21,6 @@ export class CaLabInstanceDetailPageComponent implements OnInit {
   isLoading: boolean = false;
 
   constructor(private state: CaLabInstanceDetailPageState,
-              private labInstanceService: CaLabInstanceService,
               private route: ActivatedRoute) {
   }
 

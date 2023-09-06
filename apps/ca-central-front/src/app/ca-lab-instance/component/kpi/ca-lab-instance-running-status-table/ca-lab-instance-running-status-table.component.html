@@ -1,0 +1,36 @@
+<mat-table mat-table [dataSource]="datasource">
+
+  <!-- From date -->
+  <ng-container matColumnDef="fromDate">
+    <mat-header-cell *matHeaderCellDef>
+      {{'lab_usage_period_from' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let status">
+      {{status.fromDate | flDate:'DATETIME_MED_WITH_SECONDS'}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- To date -->
+  <ng-container matColumnDef="toDate">
+    <mat-header-cell *matHeaderCellDef>
+      {{'lab_usage_period_to' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let status">
+      {{status.toDate | flDate:'DATETIME_MED_WITH_SECONDS'}}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Run duration -->
+  <ng-container matColumnDef="duration">
+    <mat-header-cell *matHeaderCellDef>
+      {{'lab_usage_running_duration' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let status">
+      {{(status.duration * 1000) | flDuration}}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>
+

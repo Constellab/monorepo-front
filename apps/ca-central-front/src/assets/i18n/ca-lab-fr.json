@@ -278,6 +278,8 @@
   "lab_usage_period_ALL": "Tout le temps",
   "lab_usage_period_CUSTOM": "Personnalisé",
   "lab_usage_running_duration": "Durée d'exécution",
+  "lab_usage_total_running_duration": "Durée d'exécution totale",
   "lab_usage_period_from": "Date de début",
-  "lab_usage_period_to": "Date de fin"
+  "lab_usage_period_to": "Date de fin",
+  "lab_usage_running_periods": "Périodes d'exécution"
 }

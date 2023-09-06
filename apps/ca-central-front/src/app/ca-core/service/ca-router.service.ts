@@ -109,6 +109,10 @@ export class CaRouterService {
     return `${CaRouterService.getLabInstanceDetailRoute(labInstanceId)}/config`;
   }
 
+  public static getLabInstanceUsageRoute(labInstanceId: string): string {
+    return `${CaRouterService.getLabInstanceDetailRoute(labInstanceId)}/usage`;
+  }
+
   ////////////////////////// SMART DB ///////////////////////
 
   public static getMySmartDbsRoute(): string {

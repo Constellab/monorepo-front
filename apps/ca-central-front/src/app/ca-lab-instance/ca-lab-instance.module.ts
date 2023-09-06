@@ -125,6 +125,12 @@ import {
 } from './component/green-option/ca-lab-green-option-value/ca-lab-green-option-value.component';
 import {CaStatusModule} from '../ca-core/module/ca-status/ca-status.module';
 import {CaLabInstanceUsageComponent} from './component/kpi/ca-lab-instance-usage/ca-lab-instance-usage.component';
+import {
+  CaLabInstanceUsagePageComponent
+} from './component/kpi/ca-lab-instance-usage-page/ca-lab-instance-usage-page.component';
+import {
+  CaLabInstanceRunningStatusTableComponent
+} from './component/kpi/ca-lab-instance-running-status-table/ca-lab-instance-running-status-table.component';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -174,6 +180,8 @@ import {CaLabInstanceUsageComponent} from './component/kpi/ca-lab-instance-usage
     CaLabGreenOptionTableComponent,
     CaLabGreenOptionValueComponent,
     CaLabInstanceUsageComponent,
+    CaLabInstanceUsagePageComponent,
+    CaLabInstanceRunningStatusTableComponent,
   ],
   imports: [
     CommonModule,
@@ -192,5 +200,4 @@ import {CaLabInstanceUsageComponent} from './component/kpi/ca-lab-instance-usage
     CaStatusModule,
   ],
 })
-export class CaLabInstanceModule {
-}
+export class CaLabInstanceModule {}

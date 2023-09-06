@@ -9,8 +9,6 @@ import {
   CaLabInstanceFindOneDto,
   CaLabInstanceStatusDTO,
   CaLabInstanceStatusHistory,
-  CaLabInstanceStatusRunRequest,
-  CaLabInstanceStatusRunResponse,
   CaLabInstanceWithSpace,
   CaRequestLabInstance
 } from '../model/entities/lab/ca-lab-instance.class';
@@ -44,6 +42,10 @@ import {
 import {CaServerCompleteInfo} from '../model/entities/lab/ca-lab-server.class';
 import {CaLabConfig} from '../model/entities/lab/ca-lab-config.class';
 import {CaLabGreenOption, CaLabGreenOptionFormDto} from '../model/entities/lab/ca-lab-green-option.class';
+import {
+  CaLabInstanceStatusRunRequest,
+  CaLabInstanceStatusRunResponse
+} from '../model/entities/lab/ca-lab-instance-status.dto';
 
 @Injectable({
   providedIn: 'root'

@@ -19,6 +19,12 @@
       <mat-icon>settings</mat-icon>
       {{'lab_configuration' | translate}}
     </a>
+
+    <a mat-button [routerLink]="getUsageRoute(labInstance)" routerLinkActive="menu-active"
+       class="nav-button">
+      <mat-icon>data_usage</mat-icon>
+      {{'lab_usage' | translate}}
+    </a>
   </div>
 
   <div class="g-layout-row g-layout-start-center">
