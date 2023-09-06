@@ -146,18 +146,22 @@ export class FlTextEditorState implements OnDestroy {
    * @param pageY
    */
   public getBlockFromMouseYPosition(pageY: number): HTMLElement {
+    if(!document) return null;
     const editor = this.getQlEditorElement();
 
-    let previousChild: HTMLElement = null;
+    // Calculate the scroll offset
+    const scrollOffset = document.documentElement.scrollTop;
+
     for (let i = 0; i < editor.childNodes.length; i++) {
       const child: HTMLElement = editor.childNodes[i] as HTMLElement;
       const rect = child.getBoundingClientRect();
 
+      const elementTop = rect.top + scrollOffset;
       // when the top of the rect is greater (meaning bellow the mouse), we stop and return the previous child
-      if (rect.top > pageY) {
-        return previousChild;
+      if (elementTop <= pageY && pageY <= elementTop + child.offsetHeight){
+        return child;
       }
-      previousChild = child;
+
     }
 
     return null;
