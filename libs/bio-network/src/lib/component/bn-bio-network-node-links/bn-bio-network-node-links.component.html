@@ -2,7 +2,7 @@
 
 <mat-nav-list dense>
   <a mat-list-item *ngFor="let link of links" [href]="link.link" target="_blank">
-    <p matLine>{{ link.name }}</p>
-    <mat-icon>open_in_new</mat-icon>
+    {{ link.name }}
+    <mat-icon class="g-icon-small">open_in_new</mat-icon>
   </a>
 </mat-nav-list>
