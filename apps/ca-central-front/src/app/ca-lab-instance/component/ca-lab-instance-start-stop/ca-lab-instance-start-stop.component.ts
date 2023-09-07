@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CaLabInstance, CaLabInstanceStatusDTO} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
+import {CaLabInstance} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
 import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
 import {
   FlConfirmDialogInput,
@@ -21,9 +21,12 @@ import {map} from 'rxjs/operators';
 })
 export class CaLabInstanceStartStopComponent implements OnInit {
 
-  status$: Observable<CaLabInstanceStatusDTO> = this.state.getStatus$();
-  serverIsReady$: Observable<boolean> = this.state.getStatus$().pipe(
-    map(status => status.hasServerInstanceId && status.labStatus.value != 'SERVER_STARTING' && status.labStatus.value != 'SERVER_STOPPING')
+  serverIsRunning$: Observable<boolean> = this.state.getStatus$().pipe(
+    map(status => status.serverIsRunning())
+  );
+
+  disabledStart$: Observable<boolean> = this.state.getStatus$().pipe(
+    map(status => status.serverIsBusy() || status.labStatus.value === 'NO_SERVER')
   );
 
   constructor(private state: CaLabInstanceDetailPageState,

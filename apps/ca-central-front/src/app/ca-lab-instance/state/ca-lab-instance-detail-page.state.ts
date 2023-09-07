@@ -5,6 +5,7 @@ import {
   CaLabInstance,
   CaLabInstanceFindOneDto,
   CaLabInstanceStatusDTO,
+  caLabInstanceStatusTemp,
 } from '../../ca-core/model/entities/lab/ca-lab-instance.class';
 import {map} from 'rxjs/operators';
 import {CaAuthenticatedUserService} from '../../ca-core/service-api/ca-authenticated-user.service';
@@ -46,10 +47,10 @@ export class CaLabInstanceDetailPageState implements OnDestroy {
     });
 
     this.status$ = new BehaviorSubject(null);
-    this.getStatus();
+    this.refreshStatus();
 
     this.subscription = this.portalService.getResult$(CaLabInstanceDetailPageState.actionType).subscribe(
-      (result) => this.getStatus(result.result)
+      (result) => this.refreshStatus(result.result)
     );
   }
 
@@ -63,7 +64,7 @@ export class CaLabInstanceDetailPageState implements OnDestroy {
     this.userRole$.error(error);
   }
 
-  public getStatus(object?: CaLabInstanceStatusDTO): void {
+  public refreshStatus(object?: CaLabInstanceStatusDTO): void {
     if (object && object instanceof CaLabInstanceStatusDTO) {
       this.setStatus(object);
     } else {
@@ -86,9 +87,8 @@ export class CaLabInstanceDetailPageState implements OnDestroy {
     }
 
     // if the lab is busy, refresh the status every 10 seconds
-    if (status.labStatus.value === 'SERVER_STARTING' || status.labStatus.value === 'SERVER_STOPPING' ||
-      status.labStatus.value === 'SERVER_RUNNING') {
-      this.timeout = setTimeout(() => this.getStatus(), this.statusRefreshFrequency);
+    if (caLabInstanceStatusTemp.includes(status.labStatus.value) || status.serverTaskStatus.value === 'RUNNING') {
+      this.timeout = setTimeout(() => this.refreshStatus(), this.statusRefreshFrequency);
     }
   }
 
@@ -137,14 +137,14 @@ export class CaLabInstanceDetailPageState implements OnDestroy {
 
   public updateLab(labInstance: CaLabInstance): void {
     this.labInstance$.next(labInstance);
-    this.getStatus();
+    this.refreshStatus();
   }
 
   public getLabInstanceId(): string {
     return this.id;
   }
 
-  refreshStatus(): void {
+  forceStatusRefresh(): void {
     this.portalService.addAction({
       type: CaLabInstanceDetailPageState.actionType,
       text: {text: 'refresh_status', translateText: true},

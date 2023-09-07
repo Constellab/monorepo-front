@@ -31,6 +31,11 @@
                       [nokText]="'lab_server_volume_not_configured' | translate">
       </fl-text-ok-nok>
 
+      <fl-text-ok-nok [value]="status.dnsConfigured"
+                      [okText]="'lab_dsn_configured' | translate"
+                      [nokText]="'lab_dsn_not_configured' | translate">
+      </fl-text-ok-nok>
+
       <fl-text-ok-nok [value]="status.labManagerIsRunning"
                       [okText]="'lab_manager_running' | translate"
                       [nokText]="'lab_manager_not_running' | translate">

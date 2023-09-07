@@ -18,7 +18,7 @@
   <div *ngIf="labStatus.currentTask; else noTask">
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-      <span>{{'lab_manager_task' | translate}} : </span>
+      <span class="no-shrink">{{'lab_manager_task' | translate}} : </span>
 
       <fl-loader size="small" *ngIf="labStatus.currentTask.status.value === 'RUNNING'; else finished"></fl-loader>
       <ng-template #finished>

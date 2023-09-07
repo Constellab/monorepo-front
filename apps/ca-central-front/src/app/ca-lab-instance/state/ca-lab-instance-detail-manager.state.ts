@@ -3,6 +3,7 @@ import {CaLabInstanceService} from '../../ca-core/service-api/ca-lab-instance.se
 import {CaLabInstanceDetailPageState} from './ca-lab-instance-detail-page.state';
 import {
   FlDialogService,
+  FlPortalActionResult,
   FlPortalActionsService,
   FlStatusEvent,
   flStatutEventSuccess,
@@ -22,6 +23,10 @@ import {
 import {
   CaLabPullBiotaFormDialogComponent
 } from '../component/manager/ca-lab-pull-biota-form-dialog/ca-lab-pull-biota-form-dialog.component';
+
+interface CaAdditionalData {
+  refreshLabStatus?: boolean;
+}
 
 /**
  * State in the lab instance detail page for the lab manager.
@@ -70,9 +75,16 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
 
       // refresh the values on new action result
       this.actionSubscription = this.actionService.getResult$(this.actionType).subscribe(
-        () => this.refreshStatus()
+        result => this.onActionResult(result)
       );
     }
+  }
+
+  private onActionResult(result: FlPortalActionResult): void {
+    if ((result?.additionalInformation as CaAdditionalData)?.refreshLabStatus) {
+      this.state.refreshStatus();
+    }
+    this.refreshStatus();
   }
 
   public refreshStatus(): void {
@@ -99,7 +111,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
     if (status.currentTask?.status.value === 'RUNNING') {
       // as the tas kis running mark, the count as 0, it will keep refreshing
       this.autoNotRunningStatusCount = 0;
-    }else{
+    } else {
       // if the task is not running, increase the count
       this.autoNotRunningStatusCount++;
     }
@@ -151,7 +163,8 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
     this.actionService.addAction({
       action: this.labInstanceService.initAll(this.state.getLabInstanceId()),
       text: actionText,
-      type: this.actionType
+      type: this.actionType,
+      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
     });
   }
 
@@ -162,7 +175,8 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
           this.actionService.addAction({
             action: this.labInstanceService.upContainers(this.state.getLabInstanceId(), formValue),
             text: 'Up containers',
-            type: this.actionType
+            type: this.actionType,
+            additionalInformation: {refreshLabStatus: true} as CaAdditionalData
           });
         }
       }
@@ -176,7 +190,8 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
           this.actionService.addAction({
             action: this.labInstanceService.restartContainers(this.state.getLabInstanceId(), formValue),
             text: 'Restart containers',
-            type: this.actionType
+            type: this.actionType,
+            additionalInformation: {refreshLabStatus: true} as CaAdditionalData
           });
         }
       }
@@ -191,7 +206,8 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
     this.actionService.addAction({
       action: this.labInstanceService.downContainers(this.state.getLabInstanceId()),
       text: 'Down containers',
-      type: this.actionType
+      type: this.actionType,
+      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
     });
   }
 

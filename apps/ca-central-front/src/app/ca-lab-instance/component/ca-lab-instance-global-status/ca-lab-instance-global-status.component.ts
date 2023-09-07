@@ -48,7 +48,7 @@ export class CaLabInstanceGlobalStatusComponent implements OnInit {
   }
 
   forceStatusRefresh(): void {
-    this.state.refreshStatus();
+    this.state.forceStatusRefresh();
   }
 
 

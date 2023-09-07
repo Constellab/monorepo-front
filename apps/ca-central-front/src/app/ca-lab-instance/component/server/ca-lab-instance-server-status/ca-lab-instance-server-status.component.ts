@@ -5,7 +5,9 @@ import {CaLabInstanceStatusDTO} from '../../../../ca-core/model/entities/lab/ca-
 import {map} from 'rxjs/operators';
 import {CaLabInstanceDetailServerState} from '../../../state/ca-lab-instance-detail-server.state';
 
-type CaServerStatus = 'SERVER_NOT_CREATED' | 'LAB_MANAGER_NOT_AVAILABLE' | 'LAB_NOT_AVAILABLE' | 'LAB_RUNNING';
+type CaServerStatus = 'SERVER_NOT_CREATED' | 'DNS_NOT_CONFIGURED' |
+  'LAB_MANAGER_NOT_AVAILABLE' |
+  'LAB_NOT_AVAILABLE' | 'LAB_RUNNING';
 
 @Component({
   selector: 'ca-lab-instance-server-status',
@@ -29,6 +31,8 @@ export class CaLabInstanceServerStatusComponent implements OnInit {
   private convertStatusMessage(status: CaLabInstanceStatusDTO): CaServerStatus {
     if (!status.hasServerInstanceId || !status.hasServerVolumeId) {
       return 'SERVER_NOT_CREATED';
+    } else if (!status.dnsConfigured) {
+      return 'DNS_NOT_CONFIGURED';
     } else if (!status.labManagerIsRunning) {
       return 'LAB_MANAGER_NOT_AVAILABLE';
     } else if (!status.labIsRunning) {
@@ -47,9 +51,9 @@ export class CaLabInstanceServerStatusComponent implements OnInit {
   }
 
   moveToLabManager(): void {
-    if(document){
+    if (document) {
       const element = document.getElementById('lab-manager');
-      if(element){
+      if (element) {
         element.scrollIntoView({behavior: 'smooth'});
       }
     }

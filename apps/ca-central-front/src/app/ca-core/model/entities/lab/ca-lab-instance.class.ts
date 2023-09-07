@@ -22,12 +22,13 @@ export type CaLabDesktopPlatform = 'WINDOWS' | 'LINUX' | 'MAC';
 
 
 export type CaLabInstanceStatus =
-  'LAB_RUNNING'
-  | 'SERVER_STOPPED'
-  | 'SERVER_STARTING'
-  | 'SERVER_STOPPING'
-  | 'SERVER_RUNNING'
-  | 'SERVER_NOT_CONFIGURED';
+  'LAB_RUNNING'  // server and lab running
+  | 'SERVER_STOPPED' // server stopped in the cloud (billing stopped)
+  | 'SERVER_STARTING' // server is starting in the cloud
+  | 'SERVER_STOPPING' // server is stopping in the cloud
+  | 'SERVER_RUNNING' // server running but lab manager and lab are not started (server not configured)
+  | 'SERVER_CONFIGURED' // server is started and lab manager is running
+  | 'NO_SERVER';
 
 
 export const caLabInstanceStatusDict: FlStatusDict<CaLabInstanceStatus> = {
@@ -35,9 +36,14 @@ export const caLabInstanceStatusDict: FlStatusDict<CaLabInstanceStatus> = {
   SERVER_STOPPED: FlStatusHelper.getStoppedStatus('SERVER_STOPPED'),
   SERVER_STARTING: FlStatusHelper.getWarningStatus('SERVER_STARTING', 'lab_starting'),
   SERVER_STOPPING: FlStatusHelper.getWarningStatus('SERVER_STOPPING', 'lab_stopping'),
-  SERVER_RUNNING: FlStatusHelper.getWarningStatus('SERVER_RUNNING', 'lab_server_running'),
-  SERVER_NOT_CONFIGURED: FlStatusHelper.getInfoStatus('SERVER_NOT_CONFIGURED', 'lab_server_not_configured'),
+  SERVER_RUNNING: FlStatusHelper.getInfoStatus('SERVER_RUNNING', 'lab_server_running'),
+  SERVER_CONFIGURED: FlStatusHelper.getInfoStatus('SERVER_CONFIGURED', 'lab_server_configured'),
+  NO_SERVER: FlStatusHelper.getInfoStatus('NO_SERVER', 'lab_no_server'),
 };
+
+export const caLabInstanceStatusTemp: CaLabInstanceStatus[] = [
+  'SERVER_STARTING', 'SERVER_STOPPING', 'SERVER_RUNNING', 'SERVER_CONFIGURED'
+];
 
 export type CaLabInstanceServerTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR' | 'NONE';
 export const caLabInstanceServerTaskStatusDict: FlStatusDict<CaLabInstanceServerTaskStatus> = {
@@ -177,6 +183,7 @@ export class CaLabInstanceStatusDTO {
 
   hasServerInstanceId: boolean;
   hasServerVolumeId: boolean;
+  dnsConfigured: boolean;
   serverTaskText: string;
 
   @FlStatusTransform(caLabInstanceServerTaskStatusDict)
@@ -185,6 +192,16 @@ export class CaLabInstanceStatusDTO {
   @ClLuxonDateTimeTransform()
   serverTaskDatetime: DateTime;
 
+  serverIsRunning(): boolean {
+    const runningStatus: CaLabInstanceStatus[] = ['LAB_RUNNING', 'SERVER_RUNNING', 'SERVER_CONFIGURED'];
+    return this.labIsRunning || this.labManagerIsRunning ||
+      runningStatus.includes(this.labStatus.value);
+  }
+
+  serverIsBusy(): boolean {
+    const busyStatus: CaLabInstanceStatus[] = ['SERVER_STARTING', 'SERVER_STOPPING'];
+    return busyStatus.includes(this.labStatus.value);
+  }
 }
 
 /**

@@ -29,7 +29,7 @@
             <fl-status-chip [status]="status.serverTaskStatus" size="small" class="status"></fl-status-chip>
           </ng-template>
 
-          <div>
+          <div class="no-shrink">
             {{(status.serverTaskStatus.value === 'RUNNING' ? 'lab_server_current_task' : 'lab_server_last_task') | translate}}
           </div>
 
@@ -38,7 +38,8 @@
           <!--   Task text   -->
           <div>{{status.serverTaskText}}</div>
           <div class="task-time-separator">-</div>
-          <fl-from-now *ngIf="status.serverTaskDatetime" [date]="status.serverTaskDatetime"></fl-from-now>
+          <fl-from-now *ngIf="status.serverTaskDatetime" [date]="status.serverTaskDatetime"
+                       class="no-shrink"></fl-from-now>
         </div>
 
       </div>

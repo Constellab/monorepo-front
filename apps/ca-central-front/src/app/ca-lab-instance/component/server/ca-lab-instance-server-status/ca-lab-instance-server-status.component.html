@@ -9,6 +9,15 @@
     </button>
   </ng-container>
 
+  <ng-container *ngSwitchCase="'DNS_NOT_CONFIGURED'">
+    {{'lab_status_dns_not_configured' | translate}}
+
+    <button mat-stroked-button class="status-action-button"
+            type="button" (click)="initServer()">
+      {{'lab_init_server' | translate}}
+    </button>
+  </ng-container>
+
   <ng-container *ngSwitchCase="'LAB_MANAGER_NOT_AVAILABLE'">
     {{'lab_status_server_lab_manager_not_available' | translate}}
 
