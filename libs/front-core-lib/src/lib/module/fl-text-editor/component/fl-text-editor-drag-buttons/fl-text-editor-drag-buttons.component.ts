@@ -71,7 +71,7 @@ export class FlTextEditorDragButtonsComponent implements OnInit, OnDestroy {
   }
 
   private enableIndicator(): void {
-    if(isPlatformBrowser(this.platformId) && this.state.textEditorContainer) {
+    if (isPlatformBrowser(this.platformId) && this.state.textEditorContainer) {
       this.mouseOverListener = this.renderer.listen(this.state.textEditorContainer, 'mouseover',
         (event: MouseEvent) => {
           this.onMouseOver(event);
