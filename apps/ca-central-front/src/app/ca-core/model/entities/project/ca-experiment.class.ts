@@ -1,6 +1,5 @@
 import {CaBaseEntity} from '../ca-base-entity.class';
 import {CaLabInstance} from '../lab/ca-lab-instance.class';
-import {CaStatusHistory} from '../ca-status-history.class';
 import {FlQuillJson, FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform} from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
@@ -8,19 +7,16 @@ import {DateTime} from 'luxon';
 import {CaUser} from '../ca-user.class';
 import {CaProject, CaProjectObject} from './ca-project.class';
 
-export type CaExperimentStatus = 'DRAFT' | 'SUCCESS' | 'ERROR' | 'ARCHIVED';
+export type CaExperimentStatus = 'DRAFT' | 'SUCCESS' | 'ERROR' | 'ARCHIVED' | 'PARTIALLY_RUN';
 
 export const caExperimentStatusDict: FlStatusDict<CaExperimentStatus> = {
   DRAFT: FlStatusHelper.getDraftStatus('DRAFT'),
   ARCHIVED: FlStatusHelper.getInfoStatus('ARCHIVED'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR')
+  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run',
+    FlStatusHelper.draftIcon)
 };
-
-export class CaExperimentStatusHistory extends CaStatusHistory<CaExperimentStatus> {
-  @FlStatusTransform(caExperimentStatusDict)
-  status: FlStatus<CaExperimentStatus>;
-}
 
 export class CaExperiment extends CaBaseEntity implements CaProjectObject {
 
@@ -51,9 +47,5 @@ export class CaExperiment extends CaBaseEntity implements CaProjectObject {
 
   @Type(() => CaUser)
   lastSyncBy?: CaUser;
-
-  statusIsDraft(): boolean {
-    return this.status.value === 'DRAFT';
-  }
 }
 
