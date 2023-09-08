@@ -47,7 +47,7 @@
         <fl-async-section [object]="columnTagsColorer$" emptyText="spSpreadsheet.column_no_tags"
                           class="g-section">
           <fl-section-header>
-            <h2>{{'spSpreadsheet.column_tags' | translate}}</h2>
+            <div class="g-text-big">{{'spSpreadsheet.column_tags' | translate}}</div>
           </fl-section-header>
 
           <ng-container *flSectionBody="let columnTagsColorer">
@@ -58,7 +58,7 @@
         <fl-async-section [object]="rowTagsColorer$" emptyText="spSpreadsheet.row_no_tags"
                           class="g-section">
           <fl-section-header>
-            <h2>{{'spSpreadsheet.row_tags' | translate}}</h2>
+            <div class="g-text-big">{{'spSpreadsheet.row_tags' | translate}}</div>
           </fl-section-header>
 
           <ng-container *flSectionBody="let rowTagColorer">
