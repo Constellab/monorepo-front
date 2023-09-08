@@ -75,11 +75,24 @@ export class ChChartRendererStackedBarPlot extends ChChart2AxisRenderer<ChChart2
   }
 
   private openPortal(event: MouseEvent, d: SeriesPoint<ChChartDataWithSerie<ChChart2dDatum>[]>, fixPortal: boolean): void {
+
+    // find the select bar section by using the sum of the previous data
+    let sum = 0;
+    let selectedValue: ChChart2dDatum = null;
+    for(const data of d.data){
+      sum += data.data.getY();
+      // when the sum of the previous data is equal than the bar top value, it is the selected value
+      if(sum >= d[1]){
+        selectedValue = data.data;
+        break;
+      }
+    }
     const data: ChChartStackedBarDataPortalInput = {
       data: d.data,
       seriesColorScale: this.colorScale,
       xLabelFormatter: this.data.xAxis.getTickFormatter(),
       yLabelFormatter: this.data.yAxis.getTickFormatter(),
+      selectedValue: selectedValue
     };
 
     // create the portal

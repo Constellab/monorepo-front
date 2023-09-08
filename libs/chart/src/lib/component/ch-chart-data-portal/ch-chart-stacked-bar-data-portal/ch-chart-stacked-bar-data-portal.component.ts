@@ -10,6 +10,7 @@ export interface ChChartStackedBarDataPortalInput {
   seriesColorScale: ChChartScaleColor;
   xLabelFormatter: ChChartLabelFormatter;
   yLabelFormatter: ChChartLabelFormatter;
+  selectedValue: ChChart2dDatum;
 }
 
 /**
@@ -31,8 +32,10 @@ export class ChChartStackedBarDataPortalComponent  {
   data: ChChartDataWithSerie<ChChart2dDatum>[];
   seriesColorScale: ChChartScaleColor;
 
+  selectedValue: ChChart2dDatum;
+
   constructor(@Inject(FL_PORTAL_DATA) input: ChChartStackedBarDataPortalInput) {
-    this.data = input.data;
+    this.data = [...input.data].reverse();
     this.seriesColorScale = input.seriesColorScale;
 
     // retrieve the x, all the values have the same X as it is one stacked bar
@@ -41,6 +44,7 @@ export class ChChartStackedBarDataPortalComponent  {
     }
     this.xLabelFormatter = input.xLabelFormatter;
     this.yLabelFormatter = input.yLabelFormatter;
+    this.selectedValue = input.selectedValue;
   }
 
 

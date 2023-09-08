@@ -1,17 +1,23 @@
 
-.container{
+.container {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: auto;
-  grid-template-rows: repeat(35, auto);
+  grid-auto-columns: 10px 1fr 1fr;
+  grid-template-rows: auto;
 }
 
-.serie{
-  padding-left: 0.5em;
+.selected-value {
+  //width: 10px;
 }
 
-
-
-.value{
+.serie-inline {
+  margin-right: 0.5em;
+}
+.value {
   margin-left: 0.5em;
+}
+
+
+.selected-value {
+  font-weight: bold;
 }

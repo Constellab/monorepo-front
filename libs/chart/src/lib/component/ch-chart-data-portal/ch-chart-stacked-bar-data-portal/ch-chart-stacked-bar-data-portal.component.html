@@ -2,19 +2,24 @@
   <fl-portal-content>
 
     <ch-chart-value name="x" [value]="x" [formatter]="xLabelFormatter"></ch-chart-value>
-    <div class="container">
-      <div *ngFor="let dataWithSerie of data"
-           class="serie g-text-tiny g-layout-row g-layout-start-center g-layout-gap-05em"
-           [matTooltip]="dataWithSerie.data.getY() | chChartValueFormatter:yLabelFormatter:'long'">
+    <div *ngFor="let dataWithSerie of data"
+         class="container g-text-tiny"
+         [matTooltip]="dataWithSerie.data.getY() | chChartValueFormatter:yLabelFormatter:'long'"
+         [ngClass]="{'selected-value': selectedValue === dataWithSerie.data}">
 
-        <ch-chart-serie-inline [color]="dataWithSerie.serieKey | chChartScale:seriesColorScale"
-                               [serieName]="dataWithSerie.serieName" class="serie-inline g-text-light"
-                               [limitSerieNameWidth]="true">
-        </ch-chart-serie-inline>
-
-        <div class="value">{{dataWithSerie.data.getY() | chChartValueFormatter:yLabelFormatter}}</div>
-
+      <div class="selected-value">
+        <ng-container *ngIf="selectedValue === dataWithSerie.data">-</ng-container>
       </div>
+
+      <ch-chart-serie-inline [color]="dataWithSerie.serieKey | chChartScale:seriesColorScale"
+                             [serieName]="dataWithSerie.serieName" class="serie-inline g-text-light"
+                             [limitSerieNameWidth]="true">
+      </ch-chart-serie-inline>
+
+      <div class="value">
+        {{dataWithSerie.data.getY() | chChartValueFormatter:yLabelFormatter}}
+      </div>
+
     </div>
   </fl-portal-content>
 </fl-portal>
