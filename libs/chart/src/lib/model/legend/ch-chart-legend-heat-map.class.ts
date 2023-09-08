@@ -31,8 +31,8 @@ export class ChChartLegendHeatMap extends ChChartSVGLegend {
     parent.append('defs')
       .append('linearGradient')
       .attr('id', 'legend-traffic')
-      .attr('x1', '0%').attr('y1', '0%')
-      .attr('x2', '0%').attr('y2', '100%')
+      .attr('x1', '0%').attr('y1', '100%')
+      .attr('x2', '0%').attr('y2', '0%')
       .selectAll('stop')
       .data(this.domain)
       .enter().append('stop')
@@ -51,7 +51,7 @@ export class ChChartLegendHeatMap extends ChChartSVGLegend {
   private drawLegendAxis(parent: Selection<any, any, any, any>, x: number, rectHeight: number, topMargin: number,): void {
     const domainScale = scaleLinear()
       .domain(this.domain)
-      .range([0, rectHeight]);
+      .range([rectHeight, 0]);
 
     parent.append('g') // x axis
       .attr('class', 'axis')
