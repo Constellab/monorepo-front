@@ -33,10 +33,10 @@
 
   <!-- Tags -->
   <ng-container matColumnDef="tags">
-    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+    <mat-header-cell *matHeaderCellDef>
       <span> {{'tags' | translate}}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let resource" class="g-column-width-2 tags">
+    <mat-cell *matCellDef="let resource" class="tags">
       <fl-tag-list [tags]="resource.tags"
                    [tagSelectable]="tagSelectable" (tagSelected)="onTagSelected($event)"></fl-tag-list>
     </mat-cell>
