@@ -16,6 +16,9 @@ import {
 import {
   LabSelectCredentialsDynamicFieldComponent
 } from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
+import {
+  LabSelectReportTemplateDynamicFieldComponent
+} from '../lab-report-template-core/component/lab-select-report-template-dynamic-field/lab-select-report-template-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
@@ -29,6 +32,7 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
       'tags': this.buildTagField,
       'open_ai_chat': this.buildOpenAiChatField,
       'select_credentials': this.buildSelectCredentialsField,
+      'select_report_template': this.buildSelectReportTemplateField,
     };
 
     // for each code spec type, set the code editor component
@@ -59,6 +63,10 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
     // the additional info is the type of credentials to select (can be null)
     component.instance.type = config.additionalInfo?.credentialsType ?? null;
     return component;
+  }
+
+  private buildSelectReportTemplateField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+    return viewContainer.createComponent(LabSelectReportTemplateDynamicFieldComponent);
   }
 
 }

@@ -25,33 +25,50 @@
         </lab-sync-object-button>
 
         <div class="g-print-hide action-buttons">
-          <ng-container *ngIf="report.isEditable()">
-            <button mat-icon-button type="button" [matTooltip]="'biox.update_report' | translate"
-                    (click)="updateReport()">
-              <mat-icon>edit</mat-icon>
-            </button>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before" class="g-print-hide">
 
-            <button mat-icon-button type="button" [matTooltip]="'biox.validate_report' | translate"
-                    (click)="validate()">
-              <mat-icon flIcon="validated"></mat-icon>
-            </button>
+            <ng-container *ngIf="report.isEditable()">
+              <button mat-menu-item type="button" (click)="updateReport()">
+                <mat-icon>edit</mat-icon>
+                <span>{{'biox.update_report' | translate}}</span>
+              </button>
 
-            <button mat-icon-button type="button" [matTooltip]="'biox.print_report' | translate"
-                    (click)="printReport()">
+              <button mat-menu-item type="button" [matTooltip]="'biox.validate_report' | translate"
+                      (click)="validate()">
+                <mat-icon flIcon="validated"></mat-icon>
+                <span>{{'biox.validate_report' | translate}}</span>
+              </button>
+            </ng-container>
+
+            <button mat-menu-item type="button" (click)="printReport()">
               <mat-icon>print</mat-icon>
+              <span>{{'biox.print_report' | translate}}</span>
             </button>
-          </ng-container>
+
+            <button mat-menu-item type="button" (click)="createReportTemplate()">
+              <mat-icon flIcon="report"></mat-icon>
+              <span>{{'biox.create_report_template' | translate}}</span>
+              <fl-button-loader *ngIf="createTemplateLoading"></fl-button-loader>
+            </button>
 
 
-          <button mat-icon-button type="button" (click)="archiveReport()"
-                  [matTooltip]="(report.isArchived ? 'biox.unarchive_report' : 'biox.archive_report') | translate">
-            <mat-icon color="warn" [flIcon]="report.isArchived ? 'unarchive': 'archive'"></mat-icon>
-          </button>
+            <button mat-menu-item type="button" (click)="archiveReport()">
+              <mat-icon color="warn" [flIcon]="report.isArchived ? 'unarchive': 'archive'"></mat-icon>
+              <span class="g-warn-text">
+                {{report.isArchived ? 'biox.unarchive_report' : 'biox.archive_report' | translate}}
+              </span>
+            </button>
 
-          <button mat-icon-button type="button" [matTooltip]="'biox.delete_report' | translate"
-                  color="warn" (click)="delete()" *ngIf="report.isEditable()">
-            <mat-icon>delete</mat-icon>
-          </button>
+            <button mat-menu-item type="button"
+                    (click)="delete()" *ngIf="report.isEditable()">
+              <mat-icon color="warn">delete</mat-icon>
+              <span class="g-warn-text">{{'biox.delete_report' | translate}}</span>
+            </button>
+
+          </mat-menu>
         </div>
       </div>
 

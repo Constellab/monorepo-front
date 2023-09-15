@@ -347,6 +347,12 @@
     "favorite_views": "Favorite views",
     "native_views": "Native views",
     "no_favorite_views": "No favorite view",
-    "view_settings": "View settings"
+    "view_settings": "View settings",
+    "select_report": "Select a report",
+    "create_report_template": "Create report template",
+    "delete_report_template": "Delete report template",
+    "delete_report_template_confirmation": "Are you sure you want to delete this report template ?",
+    "report_template_deleted": "Report template deleted",
+    "print_report_template": "Print report template"
   }
 }

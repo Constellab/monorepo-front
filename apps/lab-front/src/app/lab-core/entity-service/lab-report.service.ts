@@ -5,13 +5,13 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
+  FlEntityPaginatedDatasource,
   FlSearchConverter,
-  FLSearchFunction,
   FlTextEditorUploadedImage
 } from '@monorepo/front-core-lib';
-import {LabReport, LabReportContent, LabReportForm} from '../model/entities/lab-report.entity';
+import {LabReport, LabReportContent, LabReportDatasource, LabReportForm} from '../model/entities/lab-report.entity';
 import {Observable} from 'rxjs';
-import {ClPageI} from '@monorepo/core-lib';
+import {ClHelpService, ClPageI} from '@monorepo/core-lib';
 import {LabExperiment} from '../model/entities/lab-experiment.entity';
 import {
   LabReportSearch,
@@ -113,16 +113,38 @@ export class LabReportService {
     return this.apiService.get(`${this.route}/${reportId}/experiments`, LabExperiment);
   }
 
-  public getAdvancedSearchFunction(): FLSearchFunction<LabReport> {
-    return (page: number, pageSize: number, filters?: LabReportSearchFields) => this.advancedSearch(page, pageSize, filters);
+
+  public getSearchDatasource(): LabReportDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number, filters?: LabReportSearchFields) => this.search(page, pageSize, filters),
+      20, false
+    );
   }
 
-  private advancedSearch(page: number, pageSize: number, filters: LabReportSearchFields): Observable<ClPageI<LabReport>> {
+  public search(page: number, pageSize: number,
+                filters?: LabReportSearchFields): Observable<ClPageI<LabReport>> {
     const data: FlAdvancedSearchInput = {
       filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, LabReportSearch.advancedSearchConverter),
       sortsCriteria: null
     };
-    return this.apiService.post(`${this.route}/advanced-search`, data, LabReport, {
+    return this.apiService.post(`${this.route}/search`, data, LabReport, {
+      page: page, pageSize: pageSize, resultIsPaginated: true
+    });
+  }
+
+  public searchByNameDatasource(): LabReportDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number, name: string) => this.searchByName(page, pageSize, name),
+      20, false
+    );
+  }
+
+  public searchByName(page: number, pageSize: number, name: string): Observable<ClPageI<LabReport>> {
+    // if empty search, return all
+    if (ClHelpService.isNullOrEmpty(name)) {
+      return this.search(page, pageSize);
+    }
+    return this.apiService.get(`${this.route}/search-name/${name}`, LabReport, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }

@@ -49,6 +49,10 @@ import {
   LabWorkflowResourcesState
 } from './lab-biox/module/lab-experiment-detail-page/state/lab-workflow-resources.state';
 import {LabEnvironmentHelper} from './lab-core/utils/lab-environment.helper';
+import {
+  LabReportTemplateCoreModule
+} from './lab-core/entity-module/lab-report-template-core/lab-report-template-core.module';
+import {LabCredentialsCoreModule} from './lab-core/entity-module/lab-credentials-core/lab-credentials-core.module';
 
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
@@ -112,6 +116,11 @@ function configureCaptcha(): FlCaptchaModuleConfig {
 
     PrProtocolModule.forRoot(LabWorkflowResourcesState),
 
+
+    // import core module here because they have dynamic field component required
+    // in task config
+    LabReportTemplateCoreModule,
+    LabCredentialsCoreModule,
 
     LabAppRoutingModule
   ],

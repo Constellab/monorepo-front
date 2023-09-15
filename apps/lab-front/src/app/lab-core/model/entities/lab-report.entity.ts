@@ -43,6 +43,10 @@ export class LabReport extends LabBaseEntityWithUser implements LabProjectObject
   isEditable(): boolean {
     return !this.isArchived && !this.isValidated;
   }
+
+  toString(): string {
+    return this.title;
+  }
 }
 
 export type LabReportDatasource = FlDatasourcePaginated<LabReport>;

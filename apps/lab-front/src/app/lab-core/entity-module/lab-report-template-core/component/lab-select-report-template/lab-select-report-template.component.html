@@ -1,0 +1,19 @@
+<fl-input-search [selectedItem]="selectedReportTemplate"
+                 (selectedItemChange)="setAndEmitValue($event)"
+                 [datasource]="datasource"
+                 [placeholder]="placeholder"
+                 [required]="required"
+                 [disabled]="disabled"
+                 [minInputSearchLength]="0"
+                 [advancedButton]="advancedButton">
+
+  <div class="photo" *flInputSearchPrefix="let reportTemplate">
+    <fl-user-profile-picture *ngIf="reportTemplate" [user]="reportTemplate.createdBy"
+                             size="small"></fl-user-profile-picture>
+
+  </div>
+
+
+  <lab-report-template-inline *flInputSearchOption="let reportTemplate" [reportTemplate]="reportTemplate">
+  </lab-report-template-inline>
+</fl-input-search>

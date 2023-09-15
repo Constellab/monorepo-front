@@ -45,7 +45,10 @@ export class LabRouterService {
     return `${labConstDataboxFullRoute}/resource/${id}`;
   }
 
-  public static getViewConfigDetailRoute(resourceId: string, viewConfigId: string): { route: string, queryParams: any } {
+  public static getViewConfigDetailRoute(resourceId: string, viewConfigId: string): {
+    route: string,
+    queryParams: any
+  } {
     return {
       route: `${labConstDataboxFullRoute}/resource/${resourceId}`,
       queryParams: {viewId: viewConfigId}
@@ -59,6 +62,10 @@ export class LabRouterService {
 
   public static getReportDetailRoute(id: string): string {
     return `${labConstReportFullRoute}/${id}`;
+  }
+
+  public static getReportTemplateDetailRoute(id: string): string {
+    return `${labConstReportFullRoute}/template/${id}`;
   }
 
   public static getDocRoute(): string {
@@ -132,6 +139,10 @@ export class LabRouterService {
     return this.router.navigate([LabRouterService.getReportDetailRoute(id)]);
   }
 
+  public navigatorToReportTemplateDetail(id: string): Promise<boolean> {
+    return this.router.navigate([LabRouterService.getReportTemplateDetailRoute(id)]);
+  }
+
   public navigateToReportSearch(): Promise<boolean> {
     return this.router.navigate([LabRouterService.getReportSearchRoute()]);
   }
@@ -140,4 +151,5 @@ export class LabRouterService {
     const viewRoute = LabRouterService.getViewConfigDetailRoute(resourceId, viewConfigId);
     return this.router.navigate([viewRoute.route], {queryParams: viewRoute.queryParams});
   }
+
 }

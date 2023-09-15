@@ -22,6 +22,8 @@ import {
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
 import {LabProject} from '../../../../../lab-core/model/entities/lab-project.class';
 import {LabReportTextEditorConfig} from '../../lab-report-text-editor-config.class';
+import {LabReportTemplateService} from '../../../../../lab-core/entity-service/lab-report-template.service';
+import {LabReportTemplate} from '../../../../../lab-core/model/entities/lab-report-template.entity';
 
 @Component({
   selector: 'lab-report-detail-page',
@@ -38,6 +40,8 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
 
   syncObjectFunc: (id: string) => Observable<LabReport>;
 
+  createTemplateLoading: boolean = false;
+
 
   private contentDebouncer: FlDebouncer<LabReportContent>;
 
@@ -45,7 +49,8 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
               private state: LabReportDetailPageState,
               private route: ActivatedRoute,
               private dialogService: FlDialogService,
-              private routerService: LabRouterService) {
+              private routerService: LabRouterService,
+              private reportTemplateService: LabReportTemplateService) {
   }
 
   ngOnInit(): void {
@@ -70,7 +75,7 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateTitle(title: string): void{
+  updateTitle(title: string): void {
     this.reportService.updateTitle(this.state.currentReport.id, title).subscribe(
       report => this.state.updateReport(report)
     );
@@ -201,6 +206,19 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
     if (result.choice) {
       this.state.updateReport(result.result);
     }
+  }
+
+  createReportTemplate(): void {
+    if (this.createTemplateLoading) return;
+    this.createTemplateLoading = true;
+    this.reportTemplateService.createFromReport(this.state.currentReport.id).subscribe({
+      next: reportTemplate => this.createReportSuccess(reportTemplate),
+      error: () => this.createTemplateLoading = false
+    });
+  }
+
+  private createReportSuccess(reportTemplate: LabReportTemplate): void {
+    this.routerService.navigatorToReportTemplateDetail(reportTemplate.id);
   }
 
   ngOnDestroy(): void {

@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   FlDatasourcePaginated,
   FlDialogService,
-  FlEntityPaginatedDatasource,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
@@ -59,8 +58,7 @@ export class LabReportSearchComponent implements OnInit {
       storeSearchInUrl: this.fullPageSearch
     };
 
-    this.datasource = new FlEntityPaginatedDatasource(this.reportService.getAdvancedSearchFunction(),
-      20, false);
+    this.datasource = this.reportService.getSearchDatasource();
     this.searchState.init(config, this.datasource);
   }
 

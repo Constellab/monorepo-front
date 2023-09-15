@@ -13,7 +13,7 @@ export type TdParamSpecType =
   | 'python_code_param' | 'r_code_param' | 'julia_code_param'
   | 'bash_code_param' | 'perl_code_param' | 'yaml_code_param' | 'json_code_param'
   | 'open_ai_chat_param'
-  | 'credentials_param';
+  | 'credentials_param' | 'report_template_param';
 
 /**
  * Visibility of the param spec
@@ -88,7 +88,8 @@ export type TdParamSpecSimple =
   | TdParamSpecTags
   | TdParamSpecCode
   | TdParamOpenAiChat
-  | TdParamSelectCredentials;
+  | TdParamSelectCredentials
+  | TdParamSelectReportTemplate;
 
 /**
  * Param for short string
@@ -148,6 +149,10 @@ export interface TdParamSelectCredentials extends TdParamSpecBase {
   additional_info: {
     credentials_type: string;
   };
+}
+
+export interface TdParamSelectReportTemplate extends TdParamSpecBase {
+  type: 'report_template_param';
 }
 
 /**

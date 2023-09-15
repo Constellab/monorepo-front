@@ -348,6 +348,12 @@
     "favorite_views": "Vues favorites",
     "native_views": "Vues natives",
     "no_favorite_views": "Aucune vue favorite",
-    "view_settings": "Paramètres de la vue"
+    "view_settings": "Paramètres de la vue",
+    "select_report": "Sélectionner un rapport",
+    "create_report_template": "Créer un modèle de rapport",
+    "delete_report_template": "Supprimer le modèle de rapport",
+    "delete_report_template_confirmation": "Êtes-vous sûr de vouloir supprimer ce modèle de rapport ?",
+    "report_template_deleted": "Modèle de rapport supprimé",
+    "print_report_template": "Imprimer le modèle de rapport"
   }
 }

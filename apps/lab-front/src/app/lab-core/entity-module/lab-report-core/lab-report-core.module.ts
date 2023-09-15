@@ -12,6 +12,8 @@ import {LabReportFormDialogComponent} from './component/lab-report-form-dialog/l
 import {LabSelectReportDialogComponent} from './component/lab-select-report-dialog/lab-select-report-dialog.component';
 import {LabEntityCoreModule} from '../lab-entity-core/lab-entity-core.module';
 import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module';
+import {LabSelectReportComponent} from './component/lab-select-report/lab-select-report.component';
+import {LabReportInlineComponent} from './component/lab-report-inline/lab-report-inline.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module'
     LabReportTableComponent,
     LabReportFormDialogComponent,
     LabSelectReportDialogComponent,
+    LabSelectReportComponent,
+    LabReportInlineComponent,
   ],
   exports: [
     LabReportSearchComponent,
@@ -27,6 +31,8 @@ import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module'
     LabReportTableComponent,
     LabReportFormDialogComponent,
     LabSelectReportDialogComponent,
+    LabSelectReportComponent,
+    LabReportInlineComponent,
   ],
   imports: [
     CommonModule,
