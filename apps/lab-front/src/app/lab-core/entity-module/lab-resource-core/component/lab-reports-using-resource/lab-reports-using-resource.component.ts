@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LabReport, LabReportDatasource} from '../../../../model/entities/lab-report.entity';
-import {FlEntityPaginatedDatasource, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlEntityPaginatedDatasource, FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {LabReportService} from '../../../../entity-service/lab-report.service';
 
 /**
@@ -17,9 +17,10 @@ export class LabReportsUsingResourceComponent implements OnInit {
 
   datasource: LabReportDatasource;
 
-  columns: FlTableColumn<LabReport>[] = ['title', 'createdAt'];
+  columns: FlTableColumnStatic<LabReport>[] = ['title', 'lastModification'];
 
-  constructor(private reportService: LabReportService) { }
+  constructor(private reportService: LabReportService) {
+  }
 
   ngOnInit(): void {
     this.getDatasource();

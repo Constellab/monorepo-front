@@ -5,6 +5,7 @@ import {LabProject, LabProjectObject} from './lab-project.class';
 import {LabEntity} from '../global/lab-entity.entity';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {DateTime} from 'luxon';
+import {LabReportTemplate} from './lab-report-template.entity';
 
 export type LabReportContent = FlQuillJson;
 
@@ -54,4 +55,5 @@ export type LabReportDatasource = FlDatasourcePaginated<LabReport>;
 export interface LabReportForm {
   title: string;
   project: LabEntity;
+  template: LabReportTemplate;
 }

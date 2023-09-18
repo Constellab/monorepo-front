@@ -5,8 +5,9 @@ import {LabReport} from '../../model/entities/lab-report.entity';
 import {LabExperiment} from '../../model/entities/lab-experiment.entity';
 import {LabResource} from '../../model/entities/resource/lab-resource.entity';
 import {LabProtocolTemplate} from '../../model/entities/process/lab-protocol-template.entity';
+import {LabReportTemplate} from '../../model/entities/lab-report-template.entity';
 
-export type LabObjectType = 'experiment' | 'resource' | 'report' | 'protocol-template';
+export type LabObjectType = 'experiment' | 'resource' | 'report' | 'protocol-template' | 'report-template';
 
 /**
  * Pipe to get the detail route of an object
@@ -38,6 +39,8 @@ export class LabDetailRoutePipe implements PipeTransform {
         return LabRouterService.getReportDetailRoute(id);
       case 'protocol-template':
         return LabRouterService.getProtocolTemplateDetailRoute(id);
+      case 'report-template':
+        return LabRouterService.getReportTemplateDetailRoute(id);
       default:
         console.error(`[labDetailRoute] object type ${objectType} not supported`);
         return null;
@@ -54,6 +57,8 @@ export class LabDetailRoutePipe implements PipeTransform {
       return 'report';
     } else if (obj instanceof LabProtocolTemplate) {
       return 'protocol-template';
+    } else if (obj instanceof LabReportTemplate) {
+      return 'report-template';
     } else {
       console.error('[labDetailRoute] The object is not supported');
       return null;

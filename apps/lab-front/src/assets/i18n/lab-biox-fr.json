@@ -354,6 +354,8 @@
     "delete_report_template": "Supprimer le modèle de rapport",
     "delete_report_template_confirmation": "Êtes-vous sûr de vouloir supprimer ce modèle de rapport ?",
     "report_template_deleted": "Modèle de rapport supprimé",
-    "print_report_template": "Imprimer le modèle de rapport"
+    "print_report_template": "Imprimer le modèle de rapport",
+    "select_report_template": "Sélectionner un modèle de rapport",
+    "report_templates": "Modèles de rapport"
   }
 }

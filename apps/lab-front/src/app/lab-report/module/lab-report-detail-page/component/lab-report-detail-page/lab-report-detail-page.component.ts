@@ -94,7 +94,8 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
       reportId: report.id,
       object: {
         title: report.title,
-        project: report.project
+        project: report.project,
+        template: null,
       },
       disableProject: report.isSynced
     };

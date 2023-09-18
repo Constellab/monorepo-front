@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LabReportAdvancedSearchFormComponent} from './lab-report-advanced-search-form.component';
+import {LabReportSearchFormComponent} from './lab-report-search-form.component';
 
 describe('LabReportAdvancedSearchFormComponent', () => {
-  let component: LabReportAdvancedSearchFormComponent;
-  let fixture: ComponentFixture<LabReportAdvancedSearchFormComponent>;
+  let component: LabReportSearchFormComponent;
+  let fixture: ComponentFixture<LabReportSearchFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabReportAdvancedSearchFormComponent ]
+      declarations: [ LabReportSearchFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LabReportAdvancedSearchFormComponent);
+    fixture = TestBed.createComponent(LabReportSearchFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

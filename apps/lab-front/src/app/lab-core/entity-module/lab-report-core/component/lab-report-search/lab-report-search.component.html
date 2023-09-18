@@ -2,7 +2,7 @@
 
   <!-- Advanced section in the right in a drawer -->
   <fl-search-advanced-form>
-    <lab-report-advanced-search-form></lab-report-advanced-search-form>
+    <lab-report-search-form></lab-report-search-form>
   </fl-search-advanced-form>
 
 
@@ -16,11 +16,17 @@
     </fl-text-icon>
 
 
-    <fl-search-header-actions>
+    <fl-search-header-actions class="g-layout-row">
       <button mat-icon-button type="button" color="accent"
               [matTooltip]="'biox.create_report' | translate" matTooltipPosition="before"
               (click)="openCreateReportFormDialog()">
         <mat-icon>add</mat-icon>
+      </button>
+
+      <button mat-icon-button type="button" color="accent"
+              [matTooltip]="'biox.report_templates' | translate" matTooltipPosition="before"
+              (click)="openReportTemplatesSearch()">
+        <mat-icon flIcon="report"></mat-icon>
       </button>
     </fl-search-header-actions>
   </fl-search-header>

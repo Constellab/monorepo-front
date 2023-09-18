@@ -9,10 +9,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {ClHelpService, ClPageI} from '@monorepo/core-lib';
-import {
-  LabReportSearch,
-  LabReportSearchFields
-} from '../entity-module/lab-report-core/model/lab-report-advanced-search.class';
+import {LabReportSearch, LabReportSearchFields} from '../entity-module/lab-report-core/model/lab-report-search.class';
 import {map} from 'rxjs/operators';
 import {
   LabReportTemplate,

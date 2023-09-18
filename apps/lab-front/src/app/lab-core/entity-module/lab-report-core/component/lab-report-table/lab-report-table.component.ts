@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlTableAbstractDirective} from '@monorepo/front-core-lib';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FlDatasource, FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {LabReport} from '../../../../model/entities/lab-report.entity';
 import {ClHelpService} from '@monorepo/core-lib';
 
@@ -8,22 +8,19 @@ import {ClHelpService} from '@monorepo/core-lib';
   templateUrl: './lab-report-table.component.html',
   styleUrls: ['./lab-report-table.component.scss']
 })
-export class LabReportTableComponent extends FlTableAbstractDirective<LabReport>
-  implements OnInit {
+export class LabReportTableComponent {
 
-  // when true, the row become clickable and resourceSelected event is trigger
+  @Input() datasource: FlDatasource<LabReport>;
+
+  @Input() columns: FlTableColumnStatic<LabReport>[] = ['title', 'creation', 'lastModification'];
+
+  // when true, the row become clickable and reportSelected event is trigger
   @Input() rowSelectable: boolean = false;
 
   @Output() reportSelected: EventEmitter<LabReport> = new EventEmitter();
 
   @Output() reportDisassociate: EventEmitter<LabReport> = new EventEmitter();
 
-  constructor() {
-    super(['title', 'isValidated', 'createdAt', 'disassociate']);
-  }
-
-  ngOnInit(): void {
-  }
 
   rowClicked(report: LabReport): void {
     if (this.rowSelectable) {

@@ -29,13 +29,33 @@
   </ng-container>
 
 
-  <!-- Datetime -->
-  <ng-container matColumnDef="createdAt">
+  <!-- Creation -->
+  <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'datetime' | translate}}</span>
+      <span>{{'creation_info' | translate}}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let report">
-      <span>{{report.createdAt | flDate}}</span>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last Modification -->
+  <ng-container matColumnDef="lastModification">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{'last_modification_info' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last Synchro -->
+  <ng-container matColumnDef="lastSynchro">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{'biox.last_sync' | translate}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date *ngIf="row.isSynced" [user]="row.lastSyncBy" [date]="row.lastSyncAt"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 
@@ -52,29 +72,16 @@
   </ng-container>
 
 
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let obj">
-      <div>
-        <span>{{obj[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
-
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
   <!-- Mode selectable -->
   <ng-container *ngIf="rowSelectable; else notSelectable">
-    <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
+    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
              (click)="rowClicked(row)"></mat-row>
   </ng-container>
 
   <!-- Mode link -->
   <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
+    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
              [routerLink]="row | labDetailRoute"></mat-row>
   </ng-template>
 </mat-table>

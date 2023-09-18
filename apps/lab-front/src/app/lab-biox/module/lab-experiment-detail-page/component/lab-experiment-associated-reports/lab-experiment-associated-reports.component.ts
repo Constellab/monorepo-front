@@ -6,7 +6,7 @@ import {
   FlEntityArrayObs,
   FlPortalActionResult,
   FlPortalActionsService,
-  FlTableColumn
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {Subscription} from 'rxjs';
 import {LabReportService} from '../../../../../lab-core/entity-service/lab-report.service';
@@ -29,7 +29,7 @@ export class LabExperimentAssociatedReportsComponent implements OnInit, OnDestro
 
   reports: FlEntityArrayObs<LabReport>;
 
-  columns: FlTableColumn<LabReport>[] = ['title', 'disassociate'];
+  columns: FlTableColumnStatic<LabReport>[] = ['title', 'disassociate'];
 
   private readonly actionName: string = 'experiment-associate-report';
 

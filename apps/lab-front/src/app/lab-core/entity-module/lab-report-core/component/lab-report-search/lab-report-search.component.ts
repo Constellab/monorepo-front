@@ -5,10 +5,10 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
+  FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabReportSearch, LabReportSearchFields} from '../../model/lab-report-advanced-search.class';
+import {LabReportSearch, LabReportSearchFields} from '../../model/lab-report-search.class';
 import {LabReport} from '../../../../model/entities/lab-report.entity';
 import {LabReportService} from '../../../../entity-service/lab-report.service';
 import {LabRouterService} from '../../../../service/lab-router.service';
@@ -16,6 +16,10 @@ import {
   LabReportFormDialogComponent,
   LabReportFormDialogInput
 } from '../lab-report-form-dialog/lab-report-form-dialog.component';
+import {
+  LabSelectReportTemplateDialogComponent,
+  LabSelectReportTemplateDialogInput
+} from '../../../lab-report-template-core/component/lab-select-report-template-dialog/lab-select-report-template-dialog.component';
 
 
 @Component({
@@ -36,7 +40,7 @@ export class LabReportSearchComponent implements OnInit {
 
   datasource: FlDatasourcePaginated<LabReport>;
 
-  columns: FlTableColumn<LabReport>[] = ['title', 'createdAt'];
+  columns: FlTableColumnStatic<LabReport>[] = ['title', 'lastModification', 'lastSynchro'];
 
   constructor(private searchState: FlSearchState<any>,
               private reportService: LabReportService,
@@ -71,7 +75,7 @@ export class LabReportSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: true,
-        filtersCriteria: {isValidated: false} as Partial<LabReportSearchFields>
+        filtersCriteria: {isValidated: false, isArchived: false} as Partial<LabReportSearchFields>
       },
       {
         searchName: 'lab-report',
@@ -80,7 +84,7 @@ export class LabReportSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: false,
-        filtersCriteria: {isValidated: true} as Partial<LabReportSearchFields>
+        filtersCriteria: {isValidated: true, isArchived: true} as Partial<LabReportSearchFields>
       }
     ];
   }
@@ -103,5 +107,10 @@ export class LabReportSearchComponent implements OnInit {
 
   selectReport(report: LabReport): void {
     this.reportSelected.next(report);
+  }
+
+  openReportTemplatesSearch(): void {
+    const data: LabSelectReportTemplateDialogInput = {mode: 'link'};
+    this.dialogService.openBigDialog(LabSelectReportTemplateDialogComponent, {data});
   }
 }

@@ -7,6 +7,7 @@ import {Validators} from '@angular/forms';
 import {LabReportService} from '../../../../entity-service/lab-report.service';
 import {LabEntity} from '../../../../model/global/lab-entity.entity';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {LabReportTemplate} from '../../../../model/entities/lab-report-template.entity';
 
 export interface LabReportFormDialogInput extends FlFormDialogInput<LabReportForm> {
   reportId?: string;
@@ -42,10 +43,11 @@ export class LabReportFormDialogComponent extends FlFormDialogAbstractDirective<
   buildForm(): FormGroup<LabReportForm> {
     const formGroup: FormGroup<LabReportForm> = new FormBuilder().group({
       title: [null, Validators.required],
-      project: [{value: this.dialogInput.project, disabled: this.isCreateMode() && this.dialogInput.project != null}]
+      project: [{value: this.dialogInput.project, disabled: this.isCreateMode() && this.dialogInput.project != null}],
+      template: [{value: null, disabled: this.isUpdateMode()}]
     });
 
-    if(this.dialogInput.disableProject) {
+    if (this.dialogInput.disableProject) {
       formGroup.get('project').disable();
     }
 
@@ -64,8 +66,6 @@ export class LabReportFormDialogComponent extends FlFormDialogAbstractDirective<
     return this.reportService.update(this.dialogInput.reportId, formValue);
   }
 
-
-
   getCreateSuccessMessage(): string {
     return 'biox.report_created';
   }
@@ -74,7 +74,11 @@ export class LabReportFormDialogComponent extends FlFormDialogAbstractDirective<
     return 'biox.report_updated';
   }
 
-
+  onTemplateSelected(template: LabReportTemplate): void {
+    if (!this.formGp.value.title) {
+      this.formGp.patchValue({title: template.title});
+    }
+  }
 
 
 }

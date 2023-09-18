@@ -5,8 +5,9 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="report-form" [formGroup]="formGp">
 
+
     <!--  Title  -->
-    <mat-form-field class="g-form-input" appearance="outline">
+    <mat-form-field class="g-form-input">
       <mat-label>{{'title' | translate}}</mat-label>
       <input matInput formControlName="title" required flInputMaxLength="255"
              placeholder="{{'title' | translate}}">
@@ -14,6 +15,12 @@
         {{'title' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
+
+    <!--  Template  -->
+    <fl-form-field class="g-form-input" *ngIf="isCreateMode()">
+      <lab-select-report-template formControlName="template" [placeholder]="'biox.select_report_template' | translate"
+                                  (valueChange)="onTemplateSelected($event)"></lab-select-report-template>
+    </fl-form-field>
 
     <!--    Project      -->
     <p class="g-text-light helper-text">{{'biox.select_project_help' | translate}}</p>

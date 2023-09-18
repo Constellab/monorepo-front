@@ -13,10 +13,7 @@ import {LabReport, LabReportContent, LabReportDatasource, LabReportForm} from '.
 import {Observable} from 'rxjs';
 import {ClHelpService, ClPageI} from '@monorepo/core-lib';
 import {LabExperiment} from '../model/entities/lab-experiment.entity';
-import {
-  LabReportSearch,
-  LabReportSearchFields
-} from '../entity-module/lab-report-core/model/lab-report-advanced-search.class';
+import {LabReportSearch, LabReportSearchFields} from '../entity-module/lab-report-core/model/lab-report-search.class';
 import {map} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
@@ -48,10 +45,11 @@ export class LabReportService {
     return this.apiService.put(`${this.route}/${id}/project`, {project_id: projectId}, LabReport);
   }
 
-  private reportFormToBody(report: LabReportForm): { title: string, project_id: string } {
+  private reportFormToBody(report: LabReportForm): any {
     return {
       title: report.title,
-      project_id: report.project?.id ?? null
+      project_id: report.project?.id ?? null,
+      template_id: report.template?.id ?? null
     };
   }
 

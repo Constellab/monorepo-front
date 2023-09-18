@@ -1,9 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlFormFieldDirective, FlInputSearchAdvancedButton} from '@monorepo/front-core-lib';
+import {FlDialogService, FlFormFieldDirective, FlInputSearchAdvancedButton} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
 import {LabReportTemplate, LabReportTemplateDatasource} from '../../../../model/entities/lab-report-template.entity';
 import {LabReportTemplateService} from '../../../../entity-service/lab-report-template.service';
 import {Observable} from 'rxjs';
+import {
+  LabSelectReportTemplateDialogComponent,
+  LabSelectReportTemplateDialogInput
+} from '../lab-select-report-template-dialog/lab-select-report-template-dialog.component';
 
 @Component({
   selector: 'lab-select-report-template',
@@ -24,12 +28,18 @@ export class LabSelectReportTemplateComponent extends FlFormFieldDirective<LabRe
   advancedButton: FlInputSearchAdvancedButton<LabReportTemplate>;
 
   constructor(private reportTemplateService: LabReportTemplateService,
+              private dialogService: FlDialogService,
               @Optional() @Self() ngControl: NgControl) {
     super(ngControl);
   }
 
   ngOnInit(): void {
     this.datasource = this.reportTemplateService.searchByNameDatasource();
+
+    const data: LabSelectReportTemplateDialogInput = {mode: 'selection'};
+    this.advancedButton = {
+      onClick: () => this.dialogService.openBigDialog(LabSelectReportTemplateDialogComponent, {data}).afterClosed()
+    };
   }
 
   callChangeEvent(value: LabReportTemplate): void {
