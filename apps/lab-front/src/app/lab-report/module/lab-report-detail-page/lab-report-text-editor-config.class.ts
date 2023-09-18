@@ -18,9 +18,16 @@ import {LabReportContentView, LabReportContentViewBlot} from './lab-report-conte
  * Config for the text editor in the report
  */
 export class LabReportTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader {
-  constructor(private reportId: string,
-              private reportService: LabReportService,
-              private dialogService: FlDialogService) {
+
+  /**
+   *
+   * @param reportService
+   * @param dialogService
+   * @param reportId if provided the open resource select view button is accessible
+   */
+  constructor(private reportService: LabReportService,
+              private dialogService: FlDialogService,
+              private reportId ?: string) {
     super();
   }
 
@@ -29,19 +36,23 @@ export class LabReportTextEditorConfig extends FlTextEditorConfig implements FlT
   }
 
   getBlockAddButtons(state: FlTextEditorState): FlTextEditorBlockAddButton[] {
-    return [
-      {
-        icon: 'image', type: 'fileExplorer',
-        onAction: file => this.insertImageFromFile(file, state)
-      },
-      {
+    const blocks: FlTextEditorBlockAddButton[] = [{
+      icon: 'image', type: 'fileExplorer',
+      onAction: file => this.insertImageFromFile(file, state)
+    }];
+
+    if(this.reportId){
+      blocks.push({
         icon: 'add_chart', type: 'button', tooltip: 'biox.report_add_view',
-        onAction: () => this.openSelectResourceView(state)
-      },
-      this.getCodeBlockAddButton(state),
-      this.getHintBlockAddButton(state),
-      this.getFormulaAddButton(state, this.dialogService),
-    ];
+        onAction: () => this.openSelectResourceView(state, this.reportId)
+      });
+    }
+
+    blocks.push(this.getCodeBlockAddButton(state));
+    blocks.push(this.getHintBlockAddButton(state));
+    blocks.push(this.getFormulaAddButton(state, this.dialogService));
+
+    return blocks;
   }
 
   getSnowButtons(): FlTextEditorSnowButton[] {
@@ -63,8 +74,8 @@ export class LabReportTextEditorConfig extends FlTextEditorConfig implements FlT
     );
   }
 
-  private openSelectResourceView(textEditorState: FlTextEditorState): void {
-    this.dialogService.openBigDialog(LabSelectViewConfigDialogComponent, {data: this.reportId}).afterClosed()
+  private openSelectResourceView(textEditorState: FlTextEditorState, reportId: string): void {
+    this.dialogService.openBigDialog(LabSelectViewConfigDialogComponent, {data: reportId}).afterClosed()
       .subscribe(viewConfig => this.insertResourceView(textEditorState, viewConfig));
   }
 

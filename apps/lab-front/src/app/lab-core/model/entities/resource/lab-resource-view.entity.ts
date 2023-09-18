@@ -2,7 +2,7 @@ import {Expose, Type} from 'class-transformer';
 import {RvResourceView, RvResourceViewBase, RvResourceViewType} from '@monorepo/resource-view';
 import {LabResourceViewFolder} from './lab-resource-view-folder.class';
 import {LabViewConfig} from './lab-view-config.entity';
-import {ClRecordWrapperTransform} from '@monorepo/core-lib';
+import {ClRecordWrapperTransform, ClRichTextI} from '@monorepo/core-lib';
 import {PrConfigSpecs, PrConfigValues} from '@monorepo/protocol';
 
 // list of available view type
@@ -76,6 +76,15 @@ export class LabResourceView {
   viewType: LabResourceViewType;
 }
 
+/**
+ * View rich text (like report)
+ */
+export interface LabResourceViewRichText extends RvResourceViewBase {
+  type: 'rich-text-view';
+  data: { content: ClRichTextI };
+}
+
 //////////////////////////// TYPE THAT GROUP ALL VIEW TYPES /////////////////////////////
-export type LabResourceViewData = RvResourceView | LabResourceViewResourcesList | LabResourceViewFolder;
+export type LabResourceViewData = RvResourceView | LabResourceViewResourcesList |
+  LabResourceViewFolder | LabResourceViewRichText;
 

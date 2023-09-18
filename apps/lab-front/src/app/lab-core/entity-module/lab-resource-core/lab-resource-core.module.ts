@@ -91,6 +91,9 @@ import {
 import {
   LabResourceViewSpecCardComponent
 } from './component/lab-resource-view-spec-card/lab-resource-view-spec-card.component';
+import {
+  LabResourceRichTextViewComponent
+} from './component/lab-resource-rich-text-view/lab-resource-rich-text-view.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +132,7 @@ import {
     LabResourceDetailMinimizedViewsComponent,
     LabResourceViewSpecCardComponent,
     LabResourceViewSpecCardComponent,
+    LabResourceRichTextViewComponent,
   ],
   exports: [
     LabResourceViewPortalComponent,
@@ -149,6 +153,7 @@ import {
     LabImportResourceFromLinkComponent,
     LabResourceUpdateProjectDialogComponent,
     LabResourceDetailComponent,
+    LabResourceRichTextViewComponent,
   ],
   imports: [
     CommonModule,
@@ -169,5 +174,4 @@ import {
     LabShareCoreModule,
   ],
 })
-export class LabResourceCoreModule {
-}
+export class LabResourceCoreModule {}

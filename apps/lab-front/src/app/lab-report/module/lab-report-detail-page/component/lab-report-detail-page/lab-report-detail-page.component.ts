@@ -68,7 +68,7 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
 
   private init(id: string): void {
     this.state.init(id);
-    this.textEditorConfig = new LabReportTextEditorConfig(id, this.reportService, this.dialogService);
+    this.textEditorConfig = new LabReportTextEditorConfig(this.reportService, this.dialogService, id);
     this.report$ = this.state.getReport$();
     this.state.getContent$().subscribe(
       content => this.content = content

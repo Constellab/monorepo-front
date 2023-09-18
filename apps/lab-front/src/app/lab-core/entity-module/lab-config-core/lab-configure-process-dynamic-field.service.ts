@@ -19,6 +19,9 @@ import {
 import {
   LabSelectReportTemplateDynamicFieldComponent
 } from '../lab-report-template-core/component/lab-select-report-template-dynamic-field/lab-select-report-template-dynamic-field.component';
+import {
+  LabSelectReportDynamicFieldComponent
+} from '../lab-report-core/component/lab-select-report-dynamic-field/lab-select-report-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
@@ -33,6 +36,7 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
       'open_ai_chat': this.buildOpenAiChatField,
       'select_credentials': this.buildSelectCredentialsField,
       'select_report_template': this.buildSelectReportTemplateField,
+      'select_report': this.buildSelectReportField,
     };
 
     // for each code spec type, set the code editor component
@@ -67,6 +71,9 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
 
   private buildSelectReportTemplateField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(LabSelectReportTemplateDynamicFieldComponent);
+  }
+  private buildSelectReportField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+    return viewContainer.createComponent(LabSelectReportDynamicFieldComponent);
   }
 
 }

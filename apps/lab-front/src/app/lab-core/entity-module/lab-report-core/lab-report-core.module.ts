@@ -13,6 +13,9 @@ import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module'
 import {LabSelectReportComponent} from './component/lab-select-report/lab-select-report.component';
 import {LabReportInlineComponent} from './component/lab-report-inline/lab-report-inline.component';
 import {LabReportTemplateCoreModule} from '../lab-report-template-core/lab-report-template-core.module';
+import {
+  LabSelectReportDynamicFieldComponent
+} from './component/lab-select-report-dynamic-field/lab-select-report-dynamic-field.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import {LabReportTemplateCoreModule} from '../lab-report-template-core/lab-repor
     LabSelectReportDialogComponent,
     LabSelectReportComponent,
     LabReportInlineComponent,
+    LabSelectReportDynamicFieldComponent,
   ],
   exports: [
     LabReportSearchComponent,
@@ -32,6 +36,7 @@ import {LabReportTemplateCoreModule} from '../lab-report-template-core/lab-repor
     LabSelectReportDialogComponent,
     LabSelectReportComponent,
     LabReportInlineComponent,
+    LabSelectReportDynamicFieldComponent,
   ],
   imports: [
     CommonModule,
@@ -45,5 +50,4 @@ import {LabReportTemplateCoreModule} from '../lab-report-template-core/lab-repor
     LabReportTemplateCoreModule,
   ],
 })
-export class LabReportCoreModule {
-}
+export class LabReportCoreModule {}

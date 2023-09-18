@@ -4,6 +4,8 @@ import {NgControl} from '@angular/forms';
 import {LabReport, LabReportDatasource} from '../../../../model/entities/lab-report.entity';
 import {LabReportService} from '../../../../entity-service/lab-report.service';
 import {LabSelectReportDialogComponent} from '../lab-select-report-dialog/lab-select-report-dialog.component';
+import {LabReportTemplate} from '../../../../model/entities/lab-report-template.entity';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'lab-select-report',
@@ -17,7 +19,7 @@ export class LabSelectReportComponent extends FlFormFieldDirective<LabReport> im
 
   @Output() valueChange: EventEmitter<LabReport> = new EventEmitter();
 
-  selectedReport: LabReport;
+  selectedReport: LabReport | Observable<LabReport>;
 
   datasource: LabReportDatasource;
 
@@ -46,13 +48,20 @@ export class LabSelectReportComponent extends FlFormFieldDirective<LabReport> im
   }
 
   writeValue(obj: LabReport): void {
-    if (obj == null || obj.id == null) {
+    if (obj == null || (typeof obj != 'string' && obj.id == null)) {
       this.selectedReport = null;
       this.value = null;
       return;
     }
-    // if the user is complete
-    this.selectedReport = obj;
+
+    if (typeof obj == 'string') {
+      this.selectedReport = this.reportService.getReport(obj);
+    } else if (!(obj instanceof LabReportTemplate)) {
+      this.selectedReport = this.reportService.getReport((obj as any).id);
+    } else {
+      // if the user is complete
+      this.selectedReport = obj;
+    }
 
     this.value = obj;
   }

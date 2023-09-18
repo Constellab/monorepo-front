@@ -12,6 +12,9 @@ import {
 import {
   LabResourceViewFolderComponent
 } from '../../../entity-module/lab-resource-core/component/lab-resource-view-folder/lab-resource-view-folder.component';
+import {
+  LabResourceRichTextViewComponent
+} from '../../../entity-module/lab-resource-core/component/lab-resource-rich-text-view/lab-resource-rich-text-view.component';
 
 export const labConstResourceViewTypeInfos: Record<string, RvResourceViewTypeInfo> = {
   ...rvDefaultViewTypeInfos,
@@ -71,6 +74,12 @@ export const labConstResourceViewTypeInfos: Record<string, RvResourceViewTypeInf
     icon: 'folder',
     text: 'biox.resource_view_folder',
     viewComponent: LabResourceViewFolderComponent,
+    image: null
+  },
+  'rich-text-view':{
+    icon: 'report',
+    text: 'biox.report',
+    viewComponent: LabResourceRichTextViewComponent,
     image: null
   }
 };
