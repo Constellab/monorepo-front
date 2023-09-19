@@ -94,8 +94,6 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
 
   private blockAddButtonOverlay?: FlOverlayRef;
 
-  private testBrowser: boolean;
-
   // as the onInit is async, this assure that onInit was called before subcomponents onInit
   isReady: boolean = false;
 
@@ -110,14 +108,14 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
               private managerState: FlTextEditorsManagerState,
               private renderer: Renderer2,
               // eslint-disable-next-line @typescript-eslint/ban-types
-              @Inject(PLATFORM_ID) platformId: Object) {
+              @Inject(PLATFORM_ID) private platformId: Object) {
     super(ngControl);
     managerState.registerTextEditor(elementRef.nativeElement, state);
     renderer.addClass(this.elementRef.nativeElement, FlTextEditorsManagerState.textEditorElementClass);
-    this.testBrowser = isPlatformBrowser(platformId);
   }
+
   async ngOnInit(): Promise<void> {
-    if (!this.testBrowser) {
+    if (!isPlatformBrowser(this.platformId)) {
       if(this.baseDelta == null || this.baseDelta.ops == null) {
         return;
       }
