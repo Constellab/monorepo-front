@@ -1,11 +1,13 @@
-<div class="g-page">
+<div class="g-page page">
   <fl-section class="g-flex-auto" [object]="reportTemplate" [isLoading]="isLoading">
 
     <ng-container *flSectionBody>
 
       <div class="g-layout-row g-layout-start-center">
 
-
+        <div>
+          <h2>{{'biox.report_template' | translate}} :</h2>
+        </div>
         <div class="g-flex-auto g-flex">
           <h2 flElementEditable (flElementValueChange)="updateTitle($event)">
             {{reportTemplate.title}}</h2>
@@ -38,7 +40,6 @@
       <!--   Content   -->
       <fl-article-container>
         <fl-article-left-side>
-
 
           <!--  Created by & Last modified bt  -->
           <p class="g-text-small g-text-light separator">
