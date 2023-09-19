@@ -26,6 +26,7 @@ const prProtocolI18nFr: FlLangTranslation = {
     short_description: "Brève description",
     default_value: "Valeur par défaut",
     partially_run: "Partiellement exécuté",
+    waiting_for_cli_process: "En attente",
     process_not_available: "Le process n'est pas disponible, vérifier le monitoring pour plus d'informations. L'expérience ne peut pas être exécutée",
     process_configuration: "Configuration",
   }
@@ -52,6 +53,7 @@ const prProtocolI18nEn: FlLangTranslation = {
     short_description: "Short description",
     default_value: "Default value",
     partially_run: "Partially run",
+    waiting_for_cli_process: "Waiting",
     process_not_available: "The process is not available, check the monitoring for more information. The experiment can't be run",
     process_configuration: "Configuration",
   }
