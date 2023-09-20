@@ -17,7 +17,6 @@ export class CaProjectObjectDetailPageComponent implements OnInit {
 
   treeOpened$: Observable<boolean>;
 
-  showTreeButton$: Observable<boolean>;
 
 
   constructor(private state: CaProjectObjectDetailState) {
@@ -27,7 +26,6 @@ export class CaProjectObjectDetailPageComponent implements OnInit {
     this.state.init();
 
     this.treeOpened$ = this.state.getTreeDrawerOpened$();
-    this.showTreeButton$ = this.state.rootProjectHasChildren$();
   }
 
 }

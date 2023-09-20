@@ -1,15 +1,16 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {BehaviorSubject, first, Observable, share, switchMap} from 'rxjs';
+import {BehaviorSubject, filter, first, Observable, share, switchMap} from 'rxjs';
 import {
+  CaProject,
   CaProjectAncestorTreeDTO,
   CaProjectObjectRef,
   CaProjectTreeDto
 } from '../../../../ca-core/model/entities/project/ca-project.class';
 import {CaProjectService} from '../../../../ca-core/service-api/ca-project.service';
-import {ClCachedObservable} from '@monorepo/core-lib';
-import {FlQueryParamHandler, FlRouterHelper} from '@monorepo/front-core-lib';
+import {FlDatasourceTree, FlQueryParamHandler, FlRouterHelper} from '@monorepo/front-core-lib';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {map} from 'rxjs/operators';
+import {ClHelpService} from '@monorepo/core-lib';
 
 /**
  * State for the CaProjectObjectDetailPageComponent
@@ -18,7 +19,7 @@ import {map} from 'rxjs/operators';
 export class CaProjectObjectDetailState implements OnDestroy {
 
   private projectAncestors$: Observable<CaProjectAncestorTreeDTO[]>;
-  private projectTree$: ClCachedObservable<CaProjectTreeDto>;
+  private projectTree$: FlDatasourceTree<CaProjectTreeDto>;
 
   private treeDrawerOpened$: BehaviorSubject<boolean>;
   private queryParamHandler: FlQueryParamHandler<{ showTree?: boolean }>;
@@ -39,24 +40,30 @@ export class CaProjectObjectDetailState implements OnDestroy {
       share() // share the observable result for multiple subscribers, use share not ClCachedObservable because it emits multiples values
     );
 
-    this.projectTree$ = new ClCachedObservable(projectObjectRef$.pipe(
+    this.projectTree$ = new FlDatasourceTree<CaProjectTreeDto>(null,
+      (a, b) => ClHelpService.sortAlphabeticalFunction(a.code, b.code));
+    projectObjectRef$.pipe(
       // as the tree start with the root, it only needs to be loaded once
       first(),
       switchMap(projectObject => this.projectService.getProjectTree(projectObject.type, projectObject.id)),
-    ));
+    ).subscribe({
+      next: projectTree => this.getTreeSuccess(projectTree),
+    });
+
     this.treeDrawerOpened$ = new BehaviorSubject(false);
 
     this.initTreeDrawerOpened();
+  }
+
+  private getTreeSuccess(projectTree: CaProjectTreeDto): void {
+    this.projectTree$.setData(projectTree);
 
     // if there is no hierarchy, force the tree to be closed
-    this.rootProjectHasChildren$().subscribe(
-      hasChildren => {
-        if (!hasChildren) {
-          this.setTreeOpened(false);
-        }else{
-          this.setTreeOpened(true);
-        }
-      });
+    if (projectTree?.children.length > 0) {
+      this.setTreeOpened(true);
+    } else {
+      this.setTreeOpened(false);
+    }
   }
 
   public rootProjectHasChildren$(): Observable<boolean> {
@@ -76,13 +83,12 @@ export class CaProjectObjectDetailState implements OnDestroy {
         type: 'report',
         id: params.reportId
       };
-    } else if(params.documentId){
+    } else if (params.documentId) {
       return {
         type: 'document',
         id: params.documentId
       };
-    }
-    else {
+    } else {
       return {
         type: 'project',
         id: params.projectId
@@ -120,8 +126,35 @@ export class CaProjectObjectDetailState implements OnDestroy {
   }
 
   public getProjectTree$(): Observable<CaProjectTreeDto> {
-    return this.projectTree$.getObs();
+    return this.projectTree$.connect().pipe(
+      filter(projectTree => projectTree != null)
+    );
   }
+
+  public addProjectChild(project: CaProject): void {
+    const projectTree = this.projectToTree(project);
+    this.projectTree$.addNode(projectTree, project.parentId);
+  }
+
+  public updateProject(project: CaProject): void {
+    const projectTree = this.projectToTree(project);
+    this.projectTree$.updateNode(projectTree);
+  }
+
+  private projectToTree(project: CaProject): CaProjectTreeDto {
+    return {
+      id: project.id,
+      code: project.code,
+      title: project.title,
+      children: [],
+      levelStatus: project.levelStatus
+    };
+  }
+
+  public deleteProject(projectId: string): void {
+    this.projectTree$.deleteNode(projectId);
+  }
+
 
   public getTreeDrawerOpened$(): Observable<boolean> {
     return this.treeDrawerOpened$.asObservable();
@@ -129,6 +162,7 @@ export class CaProjectObjectDetailState implements OnDestroy {
 
   ngOnDestroy(): void {
     this.treeDrawerOpened$?.complete();
+    this.projectTree$?.disconnect();
   }
 
 

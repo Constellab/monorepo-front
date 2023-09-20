@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {CaProjectAncestorTreeDTO} from '../../../../../ca-core/model/entities/project/ca-project.class';
-import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
@@ -29,7 +28,6 @@ export class CaProjectObjectBreadcrumbComponent implements OnInit {
   showTreeButton$: Observable<boolean>;
 
   constructor(private state: CaProjectObjectDetailState,
-              private projectService: CaProjectService,
               private translateService: FlTranslateService) {
   }
 

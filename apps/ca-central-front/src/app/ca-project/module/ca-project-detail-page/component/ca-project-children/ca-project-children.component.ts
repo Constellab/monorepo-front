@@ -38,6 +38,8 @@ export class CaProjectChildrenComponent implements OnInit, OnDestroy {
       level: project.getChildLevel(),
       parentId: project.id,
       parentLevel: project.currentLevel,
+      parentStartingDate: project.startingDate,
+      parentEndingDate: project.endingDate,
     };
 
     this.dialogService.openSmallDialog(CaProjectFormDialogComponent, {

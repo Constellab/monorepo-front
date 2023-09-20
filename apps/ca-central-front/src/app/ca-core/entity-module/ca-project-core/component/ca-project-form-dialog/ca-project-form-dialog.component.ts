@@ -18,11 +18,14 @@ import {
 } from '@monorepo/front-core-lib';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
+import {DateTime} from 'luxon';
 
 export interface CaProjectFormDialogInput extends FlFormDialogInput<CaProject> {
   level: CaProjectLevel;
-  parentId: string;
-  parentLevel: CaProjectLevel;
+  parentId?: string;
+  parentLevel?: CaProjectLevel;
+  parentStartingDate?: DateTime;
+  parentEndingDate?: DateTime;
 }
 
 /**
@@ -74,8 +77,8 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
         , Validators.required],
       code: [null, Validators.required],
       title: [null, Validators.required],
-      startingDate: [null, Validators.required],
-      endingDate: [null],
+      startingDate: [this.dialogInput.parentStartingDate, Validators.required],
+      endingDate: [this.dialogInput.parentEndingDate],
       storageRegion: [null, this.showStorageRegion ? Validators.required : null],
     });
   }

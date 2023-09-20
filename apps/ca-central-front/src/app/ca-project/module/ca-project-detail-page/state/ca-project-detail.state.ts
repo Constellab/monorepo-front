@@ -12,7 +12,9 @@ import {CaExperiment} from '../../../../ca-core/model/entities/project/ca-experi
 import {CaReportService} from '../../../../ca-core/service-api/ca-report.service';
 import {CaExperimentService} from '../../../../ca-core/service-api/ca-experiment.service';
 import {CaBaseEntity} from '../../../../ca-core/model/entities/ca-base-entity.class';
-import {ClSubscriptionHandler} from '@monorepo/core-lib';
+import {ClHelpService, ClSubscriptionHandler} from '@monorepo/core-lib';
+import {CaProjectObjectDetailState} from '../../ca-project-object-core/state/ca-project-object-detail.state';
+import {CaRouterService} from '../../../../ca-core/service/ca-router.service';
 
 export type CaProjectDetailRightPanel = {
   type: 'description' | 'report' | 'experiment' | 'comments' | 'settings';
@@ -40,8 +42,10 @@ export class CaProjectDetailState implements OnDestroy {
               private authenticatedUserService: CaAuthenticatedUserService,
               route: ActivatedRoute,
               router: Router,
+              private routerService: CaRouterService,
               private experimentService: CaExperimentService,
-              private reportService: CaReportService) {
+              private reportService: CaReportService,
+              private projectObjectDetailState: CaProjectObjectDetailState) {
     this.queryParamHandler = new FlQueryParamHandler(router, route);
   }
 
@@ -101,6 +105,7 @@ export class CaProjectDetailState implements OnDestroy {
 
   public updateCurrentProject(project: CaProject): void {
     this.project$.next(project);
+    this.projectObjectDetailState.updateProject(project);
   }
 
   public getCurrentProject(): CaProject | null {
@@ -198,7 +203,18 @@ export class CaProjectDetailState implements OnDestroy {
   }
 
   public addChild(project: CaProject): void {
-    this.children$.addItem(project, () => true);
+    this.children$.addItem(project,
+      (a, b) => ClHelpService.sortAlphabeticalFunction(a.code, b.code) < 0);
+    this.projectObjectDetailState.addProjectChild(project);
+  }
+
+  public deleteProject(project: CaProject): void {
+    if (project.parentId != null) {
+      this.routerService.navigateToProjectDetail(project.parentId);
+    } else {
+      this.routerService.navigateToDashboard();
+    }
+    this.projectObjectDetailState.deleteProject(project.id);
   }
 
   ngOnDestroy(): void {

@@ -9,7 +9,6 @@ import {
   CaProjectSharedListComponent
 } from '../ca-project-shared-list/ca-project-shared-list.component';
 import {map} from 'rxjs/operators';
-import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
 import {
   CaProjectUserConfigDialogComponent,
   CaProjectUserConfigDialogInput
@@ -40,7 +39,6 @@ export class CaProjectDetailComponent {
 
   constructor(private dialogService: FlDialogService,
               private state: CaProjectDetailState,
-              private routerService: CaRouterService,
               private viewContainerRef: ViewContainerRef) {
   }
 
@@ -50,11 +48,7 @@ export class CaProjectDetailComponent {
   }
 
   onProjectDeleted(project: CaProject): void {
-    if (project.parentId != null) {
-      this.routerService.navigateToProjectDetail(project.parentId);
-    } else {
-      this.routerService.navigateToDashboard();
-    }
+    this.state.deleteProject(project);
   }
 
   onChildCreated(project: CaProject): void {

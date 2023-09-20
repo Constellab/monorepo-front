@@ -66,8 +66,6 @@ export class CaProjectActionsMenuComponent implements OnInit {
       mode: 'update',
       object: this.project,
       level: this.project.currentLevel,
-      parentId: null,
-      parentLevel: null,
     };
 
     this.dialogService.openSmallDialog(CaProjectFormDialogComponent, {
@@ -101,6 +99,8 @@ export class CaProjectActionsMenuComponent implements OnInit {
       level: this.project.getChildLevel(),
       parentId: this.project.id,
       parentLevel: this.project.currentLevel,
+      parentStartingDate: this.project.startingDate,
+      parentEndingDate: this.project.endingDate
     };
 
     this.dialogService.openSmallDialog(CaProjectFormDialogComponent, {

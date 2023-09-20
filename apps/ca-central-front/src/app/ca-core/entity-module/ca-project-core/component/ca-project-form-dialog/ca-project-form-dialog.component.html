@@ -48,7 +48,7 @@
     <!--  Title  -->
     <mat-form-field class="g-form-input">
       <mat-label>{{'title' | translate}}</mat-label>
-      <input matInput formControlName="title" required flInputMaxLength="50"
+      <input matInput formControlName="title" required flInputMaxLength="100"
              placeholder="{{'title' | translate}}">
       <mat-error *ngIf="formGp.get('title').hasError('required')">
         {{'title' | flErrorRequired}}

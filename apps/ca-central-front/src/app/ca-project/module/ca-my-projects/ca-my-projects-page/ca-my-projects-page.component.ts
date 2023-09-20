@@ -31,9 +31,7 @@ export class CaMyProjectsPageComponent implements OnInit {
   openCreateProjectDialog(): void {
     const dialogInput: CaProjectFormDialogInput = {
       mode: 'create',
-      level: CaProjectLevel.PROJECT,
-      parentId: null,
-      parentLevel: null,
+      level: CaProjectLevel.PROJECT
     };
     this.dialogService.openSmallDialog(CaProjectFormDialogComponent, {data: dialogInput}).afterClosed().subscribe(
       projects => this.onCreateProjectClosed(projects)
