@@ -1,0 +1,7 @@
+<ng-container *ngIf="freeTrialDto$ | async as freeTrialDto">
+  <div *ngIf="freeTrialDto.trialStatus === 'NOT_USED'">
+    <button mat-flat-button type="button" (click)="createFreeTrialLabInstance(freeTrialDto)">
+      {{'start_lab_free_trial' | translate}}
+    </button>
+  </div>
+</ng-container>

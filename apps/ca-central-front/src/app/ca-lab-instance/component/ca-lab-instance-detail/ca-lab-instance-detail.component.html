@@ -50,6 +50,12 @@
       </fl-key-value>
     </fl-text-icon>
 
+    <!--   Trial   -->
+    <fl-text-icon *ngIf="labInstance.isFreeTrial">
+      <mat-icon>lightbulb</mat-icon>
+      {{'lab_free_trial_long' | translate}}
+    </fl-text-icon>
+
     <fl-text-icon *ngIf="labInstance.isDesktop">
       <mat-icon>help</mat-icon>
       <a [href]="desktopDocUrl" target="_blank" class="g-text-link">

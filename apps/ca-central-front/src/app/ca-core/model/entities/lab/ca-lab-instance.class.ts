@@ -101,6 +101,8 @@ export class CaLabInstance extends CaBaseEntity {
   gwsCoreDevDbPassword?: string;
   desktopPlatform?: CaLabDesktopPlatform;
 
+  isFreeTrial: boolean;
+
   public isRunning(): boolean {
     return this.currentStatus.status.value === 'LAB_RUNNING';
   }

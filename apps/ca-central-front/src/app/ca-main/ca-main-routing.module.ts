@@ -71,8 +71,8 @@ const routes: Route[] = [
       //////////////////////// USER PAGE /////////////////////////
       {
         path: caConstUserPageRoute,
-        loadChildren: () => import('../ca-user-complete-info-page/ca-user-complete-info-page.module')
-          .then(m => m.CaUserCompleteInfoPageModule)
+        loadChildren: () => import('../ca-user-detail-page/ca-user-detail-page.module')
+          .then(m => m.CaUserDetailPageModule)
       },
 
       //////////////////////// SETTINGS /////////////////////////

@@ -287,3 +287,8 @@ figure {
 .g-fl-element-editable-true{
   border-color: var(--color-foreground);
 }
+
+// For FlHideSamePageLinkDirective
+.g-fl-hide-same-page-link {
+  display: none !important;
+}

@@ -37,4 +37,7 @@
 </fl-async-section>
 
 
-<ca-user-spaces-list *caIsAdmin class="g-section" [userId]="id"></ca-user-spaces-list>
+<ng-container *caIsAdmin>
+  <ca-user-spaces-list class="g-section" [userId]="id"></ca-user-spaces-list>
+  <ca-lab-free-trial-card-info *caIsAdmin class="g-section" [userId]="id"></ca-lab-free-trial-card-info>
+</ng-container>

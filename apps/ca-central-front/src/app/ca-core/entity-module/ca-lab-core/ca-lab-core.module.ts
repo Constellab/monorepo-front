@@ -28,7 +28,17 @@ import {CaLabConfigComponent} from './component/ca-lab-config/ca-lab-config.comp
 import {
   CaLabInstanceFormDialogComponent
 } from './component/ca-lab-instance-form-dialog/ca-lab-instance-form-dialog.component';
-import {CaLabFreeTrialComponent} from './component/ca-lab-free-trial/ca-lab-free-trial.component';
+import {CaLabFreeTrialInfoComponent} from './component/ca-lab-free-trial-info/ca-lab-free-trial-info.component';
+import {
+  CaLabFreeTrialFormDialogComponent
+} from './component/ca-lab-free-trial-form-dialog/ca-lab-free-trial-form-dialog.component';
+import {CaProjectCoreModule} from '../ca-project-core/ca-project-core.module';
+import {
+  CaLabFreeTrialCardInfoComponent
+} from './component/ca-lab-free-trial-card-info/ca-lab-free-trial-card-info.component';
+import {
+  CaLabFreeTrialCreateButtonComponent
+} from './component/ca-lab-free-trial-create-button/ca-lab-free-trial-create-button.component';
 
 /**
  * Core module for Lab and LabInstance
@@ -46,7 +56,10 @@ import {CaLabFreeTrialComponent} from './component/ca-lab-free-trial/ca-lab-free
     CaLabConfigDialogComponent,
     CaLabConfigComponent,
     CaLabInstanceFormDialogComponent,
-    CaLabFreeTrialComponent,
+    CaLabFreeTrialInfoComponent,
+    CaLabFreeTrialFormDialogComponent,
+    CaLabFreeTrialCardInfoComponent,
+    CaLabFreeTrialCreateButtonComponent,
   ],
   exports: [
     CaLabInstanceCardComponent,
@@ -59,7 +72,10 @@ import {CaLabFreeTrialComponent} from './component/ca-lab-free-trial/ca-lab-free
     CaLabConfigDialogComponent,
     CaLabConfigComponent,
     CaLabInstanceFormDialogComponent,
-    CaLabFreeTrialComponent,
+    CaLabFreeTrialInfoComponent,
+    CaLabFreeTrialFormDialogComponent,
+    CaLabFreeTrialCardInfoComponent,
+    CaLabFreeTrialCreateButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -73,7 +89,7 @@ import {CaLabFreeTrialComponent} from './component/ca-lab-free-trial/ca-lab-free
     CaCloudProviderCoreModule,
 
     CaCoreModule,
+    CaProjectCoreModule,
   ],
 })
-export class CaLabCoreModule {
-}
+export class CaLabCoreModule {}

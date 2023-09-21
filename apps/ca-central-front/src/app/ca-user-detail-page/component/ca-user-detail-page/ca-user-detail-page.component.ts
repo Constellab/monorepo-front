@@ -14,11 +14,11 @@ import {CaSpaceService} from '../../../ca-core/service-api/ca-space.service';
  * Component that show a form on first user login to complete his information
  */
 @Component({
-  selector: 'ca-user-complete-info-page',
-  templateUrl: './ca-user-complete-info-page.component.html',
-  styleUrls: ['./ca-user-complete-info-page.component.scss']
+  selector: 'ca-user-detail-page',
+  templateUrl: './ca-user-detail-page.component.html',
+  styleUrls: ['./ca-user-detail-page.component.scss']
 })
-export class CaUserCompleteInfoPageComponent implements OnInit {
+export class CaUserDetailPageComponent implements OnInit {
 
   user$: Observable<CaUser>;
   currentUser: CaUser;

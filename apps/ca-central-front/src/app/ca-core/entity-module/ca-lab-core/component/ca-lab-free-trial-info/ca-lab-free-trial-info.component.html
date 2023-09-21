@@ -1,0 +1,50 @@
+<ng-container [ngSwitch]="freeTrialDto.trialStatus">
+  <fl-text-icon *ngSwitchCase="'IN_PROGRESS'">
+    <mat-icon>cached</mat-icon>
+    <div>
+      {{'lab_free_trial_in_progress' | translate: {
+      expirationDate: (freeTrialDto.freeTrial.expirationDate | flDate:'DATETIME_MED'),
+      remainingHours: (freeTrialDto.remainingMilliseconds | flDuration:2: 'minutes')
+    } }}
+
+    </div>
+
+  </fl-text-icon>
+
+  <fl-text-icon *ngSwitchCase="'EXPIRED'">
+    <mat-icon>clear</mat-icon>
+    {{'lab_free_trial_expired' | translate: {date: (freeTrialDto.deletionDate | flDate:'DATETIME_MED')} }}
+  </fl-text-icon>
+</ng-container>
+
+<ng-container *ngIf="freeTrialDto.freeTrial">
+  <fl-text-icon>
+    <mat-icon>calendar_today</mat-icon>
+    <fl-key-value>
+      <fl-key>{{'lab_free_trial_start_date' | translate}}</fl-key>
+      {{freeTrialDto.freeTrial.createdAt | flDate:'DATETIME_MED'}}
+    </fl-key-value>
+  </fl-text-icon>
+
+  <fl-text-icon>
+    <mat-icon>data_usage</mat-icon>
+    <fl-key-value>
+      <fl-key>{{'lab_free_trial_usage' | translate}}</fl-key>
+      {{(freeTrialDto.currentUsageInSeconds * 1000) | flDuration:2: 'minutes'}}
+      / {{freeTrialDto.freeTrial.usageLimitInHours}} {{'lab_usage_hours' | translate}}
+    </fl-key-value>
+  </fl-text-icon>
+
+  <fl-text-icon>
+    <mat-icon>person</mat-icon>
+    <fl-user-inline [user]="freeTrialDto.freeTrial.createdBy"></fl-user-inline>
+  </fl-text-icon>
+</ng-container>
+
+<div class="g-text-centered" *ngIf="freeTrialDto.freeTrial?.labInstanceId">
+  <a [routerLink]="freeTrialDto.freeTrial.labInstanceId | caDetailRoute:'labInstance'"
+     mat-button type="button"
+     flHideSamePageLink class="lab-link">
+    {{'lab_free_trial_open_lab' | translate}}
+  </a></div>
+

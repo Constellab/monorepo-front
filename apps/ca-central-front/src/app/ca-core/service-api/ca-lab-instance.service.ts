@@ -46,6 +46,7 @@ import {
   CaLabInstanceStatusRunRequest,
   CaLabInstanceStatusRunResponse
 } from '../model/entities/lab/ca-lab-instance-status.dto';
+import {CaFreeTrialUpdateDto, CaLabFreeTrialGetDto} from '../model/entities/lab/ca-lab-free-trial.class';
 
 @Injectable({
   providedIn: 'root'
@@ -339,14 +340,31 @@ export class CaLabInstanceService {
     return this.apiService.get(`${this.route}/${labId}/green-options`, CaLabGreenOption);
   }
 
-  //////////////////////////// STATUS RULE  ////////////////////////////////
+  //////////////////////////// Free trial  ////////////////////////////////
 
   public createFreeTrialLabInstanceCurrentUser(): Observable<CaLabInstance> {
     return this.apiService.post(`${this.route}/free-trial/current`, null, CaLabInstance);
   }
 
-  public createFreeTrialLabInstanceForUser(userId: string): Observable<CaLabInstance> {
-    return this.apiService.post(`${this.route}/free-trial/user/${userId}`, null, CaLabInstance);
+  public getCurrentUserFreeTrial(): Observable<CaLabFreeTrialGetDto> {
+    return this.apiService.get(`${this.route}/free-trial/current`, CaLabFreeTrialGetDto);
+  }
+
+  public getUserFreeTrialByUser(userId: string): Observable<CaLabFreeTrialGetDto> {
+    return this.apiService.get(`${this.route}/free-trial/user/${userId}`, CaLabFreeTrialGetDto);
+  }
+
+  public getUserFreeTrialByLab(labId: string): Observable<CaLabFreeTrialGetDto> {
+    return this.apiService.get(`${this.route}/free-trial/lab/${labId}`, CaLabFreeTrialGetDto);
+  }
+
+  public updateFreeTrial(id: string, updateDto: CaFreeTrialUpdateDto): Observable<CaLabFreeTrialGetDto> {
+    return this.apiService.put(`${this.route}/free-trial/${id}`, updateDto, CaLabFreeTrialGetDto,
+      {serialization: CaFreeTrialUpdateDto});
+  }
+
+  public deleteFreeTrial(id: string): Observable<CaLabFreeTrialGetDto> {
+    return this.apiService.delete(`${this.route}/free-trial/${id}`, CaLabFreeTrialGetDto);
   }
 
   //////////////////////////// KPI ////////////////////////////////

@@ -1,13 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CaCoreModule} from '../ca-core/ca-core.module';
-import {
-  CaUserCompleteInfoPageComponent
-} from './component/ca-user-complete-info-page/ca-user-complete-info-page.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CaUserCompleteInfoPageRoutingModule} from './ca-user-complete-info-page-routing.module';
 import {CaUserSpacesListComponent} from './component/ca-user-spaces-list/ca-user-spaces-list.component';
 import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space-core.module';
+import {CaLabCoreModule} from '../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
+import {CaUserDetailPageComponent} from './component/ca-user-detail-page/ca-user-detail-page.component';
+import {CaUserDetailPageRoutingModule} from './ca-user-detail-page-routing.module';
 
 /**
  * Page used when the user logged for the first time
@@ -16,8 +15,8 @@ import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space
  */
 @NgModule({
   declarations: [
-    CaUserCompleteInfoPageComponent,
-    CaUserSpacesListComponent
+    CaUserDetailPageComponent,
+    CaUserSpacesListComponent,
   ],
   imports: [
     CommonModule,
@@ -26,9 +25,10 @@ import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space
 
     CaCoreModule,
     CaSpaceCoreModule,
+    CaLabCoreModule,
 
-    CaUserCompleteInfoPageRoutingModule,
-  ],
+    CaUserDetailPageRoutingModule,
+  ]
 })
-export class CaUserCompleteInfoPageModule {
+export class CaUserDetailPageModule {
 }

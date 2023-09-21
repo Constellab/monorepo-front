@@ -1,0 +1,30 @@
+<fl-async-section [object]="freeTrialDto$">
+  <ng-container *flSectionBody="let freeTrialDto">
+
+    <fl-card>
+      <fl-card-header>
+        <fl-text-icon>
+          <mat-icon flIcon="lab"></mat-icon>
+          <h2>{{'lab_free_trial' | translate}}</h2>
+        </fl-text-icon>
+
+        <fl-card-actions *caIsAdmin>
+          <button mat-icon-button type="button"
+                  (click)="updateFreeTrial(freeTrialDto)"
+                  [matTooltip]="'lab_free_trial_update' | translate">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button type="button" color="warn"
+                  (click)="deleteFreeTrial(freeTrialDto)"
+                  [matTooltip]="'lab_free_trial_delete' | translate">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </fl-card-actions>
+      </fl-card-header>
+
+      <fl-card-body>
+        <ca-lab-free-trial-info [freeTrialDto]="freeTrialDto"></ca-lab-free-trial-info>
+      </fl-card-body>
+    </fl-card>
+  </ng-container>
+</fl-async-section>

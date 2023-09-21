@@ -13,7 +13,7 @@ import {FlBackupImageDirective} from './fl-backup-image/fl-backup-image.directiv
 import {FlActiveRouteDirective} from './fl-active-route/fl-active-route.directive';
 import {FlHideDirective} from './fl-hide/fl-hide.directive';
 import {FlClassDirective} from './fl-class/fl-class.directive';
-
+import {FlHideSamePageLinkDirective} from './fl-hide-same-page-link/fl-hide-same-page-link.directive';
 
 /**
  * Core modules containing directives
@@ -32,6 +32,7 @@ import {FlClassDirective} from './fl-class/fl-class.directive';
     FlActiveRouteDirective,
     FlHideDirective,
     FlClassDirective,
+    FlHideSamePageLinkDirective,
   ],
   exports: [
     FlInputMaxLengthDirective,
@@ -46,12 +47,8 @@ import {FlClassDirective} from './fl-class/fl-class.directive';
     FlActiveRouteDirective,
     FlHideDirective,
     FlClassDirective,
+    FlHideSamePageLinkDirective,
   ],
-  imports: [
-    CommonModule,
-
-    FlPortalModule,
-  ]
+  imports: [CommonModule, FlPortalModule],
 })
-export class FlCoreDirectiveModule {
-}
+export class FlCoreDirectiveModule {}
