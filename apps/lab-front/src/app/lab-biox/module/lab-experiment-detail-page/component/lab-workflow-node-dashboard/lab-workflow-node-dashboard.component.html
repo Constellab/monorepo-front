@@ -29,6 +29,11 @@
                    [matTooltip]="'biox.process_is_running' | translate" matTooltipPosition="below">
         </fl-loader>
 
+        <button mat-icon-button type="button" (click)="convertLiveTaskCodeToTask(process)" tabindex="-1"
+                [matTooltip]="'biox.convert_live_task_code_to_task' | translate" matTooltipPosition="below">
+          <mat-icon>code</mat-icon>
+        </button>
+
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>

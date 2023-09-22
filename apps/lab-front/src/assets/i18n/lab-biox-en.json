@@ -52,6 +52,7 @@
     "preparing_resource_download": "Preparing download",
     "downloading_resource": "Downloading resource",
     "downloading_resource_help_text": "The resource is being downloaded, you can check the progress in the running experiments.",
+    "resource_preview": "Preview",
     "resource_next_text_load": "Load more text",
     "resource_previous_text_load": "Load previous text",
     "resource_type_select": "Select a resource type",
@@ -356,6 +357,7 @@
     "print_report_template": "Print report template",
     "select_report_template": "Select a report template",
     "report_templates": "Report templates",
-    "report_template": "Report template"
+    "report_template": "Report template",
+    "convert_live_task_code_to_task": "Convert live task code to task code"
   }
 }

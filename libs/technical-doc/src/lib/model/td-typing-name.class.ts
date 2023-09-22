@@ -21,6 +21,7 @@ export class TdTypingName {
     },
     tableImporter: 'TASK.gws_core.TableImporter',
     viewer: 'TASK.gws_core.Viewer',
+    pyLiveTask: 'TASK.gws_core.PyLiveTask',
   };
 
   public static resource = {

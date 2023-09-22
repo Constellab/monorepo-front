@@ -25,6 +25,8 @@ import {LabProcessService} from '../../../../../lab-core/entity-service/lab-proc
 import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
 import {DateTime} from 'luxon';
 import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class';
+import {TdTypingName} from '@monorepo/technical-doc';
+import {LabTaskGeneratorService} from '../../../../../lab-core/service/lab-task-generator.service';
 
 /**
  * Complete dashboard to edit, view and run a workflow node
@@ -48,12 +50,17 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
     map(experiment => experiment.isWaiting())
   );
 
+  isPyLiveTask$ = this.nodeState.getProcess$().pipe(
+    map(process => process.processTypingName === TdTypingName.task.pyLiveTask)
+  );
+
   constructor(private nodeState: LabWorkflowNodeDetailState,
               private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService,
               private processService: LabProcessService,
               private dashboardState: LabWorkflowNodeDashboardState,
-              private workflowEditConfig: LabWorkflowEditConfig) {
+              private workflowEditConfig: LabWorkflowEditConfig,
+              private taskGeneratorService: LabTaskGeneratorService) {
   }
 
   ngOnInit(): void {
@@ -109,5 +116,9 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
 
   resetProcess(): void {
     this.nodeState.resetProcess();
+  }
+
+  convertLiveTaskCodeToTask(process: LabProcess): void {
+    this.taskGeneratorService.generateTaskCodeFromLiveTask(process.id).subscribe();
   }
 }
