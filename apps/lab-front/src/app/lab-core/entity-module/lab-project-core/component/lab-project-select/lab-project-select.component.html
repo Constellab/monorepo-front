@@ -34,5 +34,13 @@
         </div>
       </mat-tree-node>
     </mat-tree>
+
+    <div *ngIf="isEmpty">
+      {{'biox.no_project_help' | translate}}
+      <strong>
+        <a [href]="labDashboardRoute" target="_blank"
+           class="g-text-link">{{'biox.no_project_help_link' | translate}}</a>
+      </strong>
+    </div>
   </ng-container>
 </fl-section>

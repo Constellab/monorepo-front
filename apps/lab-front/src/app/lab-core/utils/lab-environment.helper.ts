@@ -63,9 +63,14 @@ export class LabEnvironmentHelper {
     return LabEnvironmentHelper.getSpaceFrontUrl() + '/app';
   }
 
+  public static getSpaceDashboardLabUrl(labId: string): string {
+    return `${LabEnvironmentHelper.getSpaceFrontAppUrl()}/labs/${labId}`;
+  }
+
   public static getSpaceConfigLabUrl(labId: string): string {
     return `${LabEnvironmentHelper.getSpaceFrontAppUrl()}/labs/${labId}/config`;
   }
+
 
   ////////////////////// Community //////////////////////
   public static getCommunityFrontUrl(): string {

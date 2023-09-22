@@ -225,6 +225,8 @@
     "no_running_experiment": "Aucune expérience en cours",
     "select_project": "Sélectionner un projet",
     "select_project_help": "Vous pouvez sélectionner un projet maintenant pour organiser vos object et les synchroniser avec Space. Si vous ne sélectionnez pas de project, vous pourrez toujours le faire plus tard pas la page de l'objet.",
+    "no_project_help": "Vous n'avez pas encore de projet. Vous pouvez ajouter des projets depuis votre espace dans la",
+    "no_project_help_link": "page de gestion du lab.",
     "view_process_logs": "Voir les logs serveurs",
     "log_download": "Télécharger le fichier",
     "view_process_monitoring": "Monitoring",

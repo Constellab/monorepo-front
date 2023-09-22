@@ -5,6 +5,8 @@ import {NgControl} from '@angular/forms';
 import {LabProjectService} from '../../../../entity-service/lab-project.service';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {ClHelpService} from '@monorepo/core-lib';
+import {LabSystemService} from '../../../../service/lab-system.service';
+import {LabEnvironmentHelper} from '../../../../utils/lab-environment.helper';
 
 
 interface LabProjectFlatNode {
@@ -35,6 +37,10 @@ export class LabProjectSelectComponent
 
   isLoading: boolean = false;
 
+  // handle empty project list
+  isEmpty: boolean = false;
+  labDashboardRoute: string; // link to the lab dashboard to add project to the lab
+
   // use to store the selected project before the project list is loaded
   private tempSelectedProjects: LabProject[] = [];
 
@@ -51,7 +57,8 @@ export class LabProjectSelectComponent
 
 
   constructor(@Optional() @Self() ngControl: NgControl,
-              private projectService: LabProjectService) {
+              private projectService: LabProjectService,
+              private systemService: LabSystemService) {
     super(ngControl);
   }
 
@@ -64,6 +71,10 @@ export class LabProjectSelectComponent
   }
 
   private getProjectTreesSuccess(projects: LabProjectWithChildren[]): void {
+    if (projects.length === 0) {
+      this.handleEmptyProjectList();
+    }
+
     this.value = new FlFlatTreeControl<LabProjectFlatNode, string>(
       node => node.level, node => node.expandable, {
         trackBy: node => node.project.id
@@ -84,6 +95,15 @@ export class LabProjectSelectComponent
     this.isLoading = false;
   }
 
+  private handleEmptyProjectList(): void {
+    this.systemService.getSystemInfo().subscribe(
+      systemInfo => {
+        this.labDashboardRoute = LabEnvironmentHelper.getSpaceDashboardLabUrl(systemInfo.id);
+        this.isEmpty = true;
+      }
+    );
+  }
+
   callChangeEvent(value: LabProject[] | LabProject): void {
     this.selectionChange.emit(value);
   }
@@ -92,7 +112,7 @@ export class LabProjectSelectComponent
   }
 
   writeValue(obj: LabProject[] | LabProject): void {
-    let projects: LabProject[] = ClHelpService.convertObjectOrArrayToArray(obj);
+    const projects: LabProject[] = ClHelpService.convertObjectOrArrayToArray(obj);
     this.selectProjects(projects);
   }
 
