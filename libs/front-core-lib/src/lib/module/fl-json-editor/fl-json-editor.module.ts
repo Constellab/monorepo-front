@@ -13,6 +13,8 @@ import {FlTranslateService} from '../fl-translate/service/fl-translate.service';
 import {flJsonEditorI18n} from './i18n/fl-json-editor.i18n';
 import {FlPrettyJsonDialogComponent} from './fl-pretty-json-dialog/fl-pretty-json-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 /**
  * Module containing a component to edit json in html
@@ -32,8 +34,10 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule,
     MatTreeModule,
     MatIconModule,
-    FlTextIconModule,
+    MatButtonModule,
+    MatTooltipModule,
 
+    FlTextIconModule,
     FlDialogModule,
     FlTranslateModule,
     FlSnackBarModule,

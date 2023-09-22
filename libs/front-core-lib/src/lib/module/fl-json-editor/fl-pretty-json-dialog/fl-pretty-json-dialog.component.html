@@ -1,5 +1,12 @@
 <fl-dialog-header>
-  {{title}}
+  {{title | flTranslatableText}}
+
+  <fl-dialog-header-actions>
+    <button mat-icon-button type="button" (click)="copyToClipboard()"
+            [matTooltip]="'flJsonEditor.copy_json_to_clipboard' | translate">
+      <mat-icon>copy</mat-icon>
+    </button>
+  </fl-dialog-header-actions>
 </fl-dialog-header>
 
 <mat-dialog-content>

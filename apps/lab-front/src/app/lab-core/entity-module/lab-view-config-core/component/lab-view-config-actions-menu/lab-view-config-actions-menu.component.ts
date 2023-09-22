@@ -1,6 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {LabTag} from '../../../../model/entities/lab-tag.entity';
-import {FlDialogService, FlSnackBarService, FlTagDialogService} from '@monorepo/front-core-lib';
+import {
+  FlDialogService,
+  FlPrettyJsonDialogComponent,
+  FlPrettyJsonDialogInput,
+  FlSnackBarService,
+  FlTagDialogService
+} from '@monorepo/front-core-lib';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 import {
@@ -98,5 +104,17 @@ export class LabViewConfigActionsMenuComponent {
   private onSuccess(): void {
     this.snackBarService.openSuccessMessage({text: 'biox.view_added_to_report', translateText: true});
     this.addToReportIsLoading = false;
+  }
+
+  showViewConfig(): void {
+    const data: FlPrettyJsonDialogInput = {
+      title: {text: this.viewConfig.title},
+      object: {
+        view_params: this.viewConfig.configValues,
+        view_method_name: this.viewConfig.viewName
+      }
+    };
+
+    this.dialogService.openSmallDialog(FlPrettyJsonDialogComponent, {data});
   }
 }
