@@ -13,7 +13,7 @@
     </mat-icon>
 
     <h1 flElementEditable (flElementValueChange)="updateTitle($event)"
-        [flElementDisabled]="!experiment.isEditable()">{{experiment.title}}</h1>
+        [flElementDisabled]="!experiment.isEditable()" class="title">{{experiment.title}}</h1>
   </fl-text-icon>
 
 
