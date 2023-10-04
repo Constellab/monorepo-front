@@ -1,7 +1,5 @@
 import {FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform} from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
-import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 
 export type CaLabContainersStatus = 'STOP' | 'DOWN' | 'UP' | 'PARTIALLY_UP';
 
@@ -106,45 +104,4 @@ export class CaLabManagerBrickVersionDTO {
 export class CaLabManagerConfig {
   brickVersions: CaLabManagerBrickVersionDTO[];
   glabTag: 'latest' | 'beta' | string;
-}
-
-
-////////////////////////////// BACKUP //////////////////////////
-
-export type CaExternalLabBackupStatus = 'IN_PROGRESS' | 'DONE' | 'ERROR';
-
-export interface CaExternalLabBackupStatusObject {
-  status: CaExternalLabBackupStatus
-  message: string;
-}
-
-// TODO to delete
-export class CaExternalLabBackup {
-  status: CaExternalLabBackupStatus;
-
-  @Type(() => CaExternalLabBackupStorage)
-  storages: CaExternalLabBackupStorage[];
-}
-
-export class CaExternalLabBackupStorage {
-  region: string;
-  bucket: string;
-  endpoint: string;
-
-  @ClLuxonDateTimeTransform()
-  startUploadAt: DateTime;
-
-  @ClLuxonDateTimeTransform()
-  endUploadAt?: DateTime;
-  status: CaExternalLabBackupStatus;
-
-  dataStatus: CaExternalLabBackupStatusObject;
-  dbStatus: CaExternalLabBackupStatusObject;
-}
-
-export class CaExternalLabBackupHistory {
-  version: number;
-
-  @Type(() => CaExternalLabBackup)
-  backups: CaExternalLabBackup[];
 }

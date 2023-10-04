@@ -22,7 +22,6 @@ import {
 } from '@monorepo/front-core-lib';
 import {ClPage, ClPageI} from '@monorepo/core-lib';
 import {
-  CaExternalLabBackup,
   CaLabComposeRestartOptions,
   CaLabComposeUpOptions,
   CaLabDockerPs,
@@ -282,10 +281,6 @@ export class CaLabInstanceService {
 
   public stopCurrentBackup(id: string): Observable<CaLabBackupHistory[]> {
     return this.apiService.post(`${this.route}/${id}/backup/stop-current`, null, CaLabBackupHistory);
-  }
-
-  public getBackupCurrentStatus(id: string): Observable<CaExternalLabBackup> {
-    return this.apiService.get(`${this.route}/${id}/backup/last-status`, CaExternalLabBackup);
   }
 
   public syncBackupHistory(id: string): Observable<void> {
