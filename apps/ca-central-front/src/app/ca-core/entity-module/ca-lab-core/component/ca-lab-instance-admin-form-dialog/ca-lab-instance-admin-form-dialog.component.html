@@ -140,6 +140,32 @@
         </mat-error>
       </mat-form-field>
 
+      <!--  Backup region    -->
+      <ng-container *ngIf="isCreateMode()">
+        <mat-form-field class="g-form-input">
+          <mat-label>{{'lab_backup_daily_region' | translate}}</mat-label>
+          <mat-select formControlName="dailyBackupRegion">
+            <ca-select-cloud-provider-region-options mode="s3"></ca-select-cloud-provider-region-options>
+          </mat-select>
+          <mat-error *ngIf="formGp.get('dailyBackupRegion').hasError('required')">
+            {{'lab_backup_daily_region' | flErrorRequired}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="g-form-input">
+          <mat-label>{{'lab_backup_weekly_region' | translate}}</mat-label>
+          <mat-select formControlName="weeklyBackupRegion">
+            <ca-select-cloud-provider-region-options mode="s3"></ca-select-cloud-provider-region-options>
+          </mat-select>
+          <mat-error *ngIf="formGp.get('weeklyBackupRegion').hasError('required')">
+            {{'lab_backup_weekly_region' | flErrorRequired}}
+          </mat-error>
+          <mat-error *ngIf="formGp.get('weeklyBackupRegion').hasError('sameBackupRegion')">
+            {{'lab_backups_same_region_error' | translate}}
+          </mat-error>
+        </mat-form-field>
+      </ng-container>
+
       <!--  Server instance id  -->
       <mat-form-field class="g-form-input">
         <mat-label>{{'lab_server_instance_id' | translate}}</mat-label>

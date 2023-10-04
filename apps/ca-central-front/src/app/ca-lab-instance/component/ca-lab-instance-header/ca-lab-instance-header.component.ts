@@ -76,4 +76,8 @@ export class CaLabInstanceHeaderComponent implements OnInit {
     return CaRouterService.getLabInstanceUsageRoute(labInstance.id);
   }
 
+  getBackupRoute(labInstance: CaLabInstance): string{
+    return CaRouterService.getLabBackupRoute(labInstance.id);
+  }
+
 }

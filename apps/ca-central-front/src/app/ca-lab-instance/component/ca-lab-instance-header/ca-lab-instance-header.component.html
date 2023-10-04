@@ -25,6 +25,12 @@
       <mat-icon>data_usage</mat-icon>
       {{'lab_usage' | translate}}
     </a>
+
+    <a mat-button [routerLink]="getBackupRoute(labInstance)" routerLinkActive="menu-active"
+       class="nav-button">
+      <mat-icon>cloud_done</mat-icon>
+      {{'lab_backup' | translate}}
+    </a>
   </div>
 
   <div class="g-layout-row g-layout-start-center">

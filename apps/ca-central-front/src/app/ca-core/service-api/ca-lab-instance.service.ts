@@ -23,7 +23,6 @@ import {
 import {ClPage, ClPageI} from '@monorepo/core-lib';
 import {
   CaExternalLabBackup,
-  CaExternalLabBackupHistory,
   CaLabComposeRestartOptions,
   CaLabComposeUpOptions,
   CaLabDockerPs,
@@ -47,6 +46,7 @@ import {
   CaLabInstanceStatusRunResponse
 } from '../model/entities/lab/ca-lab-instance-status.dto';
 import {CaFreeTrialUpdateDto, CaLabFreeTrialGetDto} from '../model/entities/lab/ca-lab-free-trial.class';
+import {CaLabBackupHistory, CaLabBackupOption} from '../model/entities/lab/ca-lab-backup.class';
 
 @Injectable({
   providedIn: 'root'
@@ -276,20 +276,32 @@ export class CaLabInstanceService {
 
   //////////////////////////// BACKUP ////////////////////////////////
 
-  public backupProd(id: string): Observable<CaExternalLabBackup> {
-    return this.apiService.post(`${this.route}/${id}/backup/prod`, CaExternalLabBackup);
+  public backupProd(id: string): Observable<CaLabBackupHistory[]> {
+    return this.apiService.post(`${this.route}/${id}/backup/prod`, CaLabBackupHistory);
   }
 
-  public stopCurrentBackup(id: string): Observable<void> {
-    return this.apiService.post(`${this.route}/${id}/backup/stop-current`, null);
+  public stopCurrentBackup(id: string): Observable<CaLabBackupHistory[]> {
+    return this.apiService.post(`${this.route}/${id}/backup/stop-current`, null, CaLabBackupHistory);
   }
 
   public getBackupCurrentStatus(id: string): Observable<CaExternalLabBackup> {
     return this.apiService.get(`${this.route}/${id}/backup/last-status`, CaExternalLabBackup);
   }
 
-  public getBackupHistory(id: string): Observable<CaExternalLabBackupHistory> {
-    return this.apiService.get(`${this.route}/${id}/backup/history`, CaExternalLabBackupHistory);
+  public syncBackupHistory(id: string): Observable<void> {
+    return this.apiService.post(`${this.route}/${id}/backup/sync`, null);
+  }
+
+  public getBackupOptions(id: string): Observable<CaLabBackupOption> {
+    return this.apiService.get(`${this.route}/${id}/backup-options`, CaLabBackupOption);
+  }
+
+  public getBackupHistory(id: string, page: number, size: number): Observable<ClPageI<CaLabBackupHistory>> {
+    return this.apiService.get(`${this.route}/${id}/backup-history`, CaLabBackupHistory, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true
+    });
   }
 
   //////////////////////////// SERVER ////////////////////////////////

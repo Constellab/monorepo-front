@@ -62,15 +62,6 @@ import {
 } from './component/ca-lab-instance-codelab-info/ca-lab-instance-codelab-info.component';
 import {CaLabInstanceHeaderComponent} from './component/ca-lab-instance-header/ca-lab-instance-header.component';
 import {
-  CaLabInstanceManageBackupComponent
-} from './component/manager/ca-lab-instance-manage-backup/ca-lab-instance-manage-backup.component';
-import {
-  CaLabInstanceBackupComponent
-} from './component/manager/ca-lab-instance-backup/ca-lab-instance-backup.component';
-import {
-  CaLabBackupHistoryDialogComponent
-} from './component/manager/ca-lab-backup-history-dialog/ca-lab-backup-history-dialog.component';
-import {
   CaLabInstanceDashboardPageComponent
 } from './component/ca-lab-instance-dashboard-page/ca-lab-instance-dashboard-page.component';
 import {
@@ -131,6 +122,12 @@ import {
 import {
   CaLabInstanceRunningStatusTableComponent
 } from './component/kpi/ca-lab-instance-running-status-table/ca-lab-instance-running-status-table.component';
+import {
+  CaLabBackupDetailPageComponent
+} from './component/backup/ca-lab-backup-detail-page/ca-lab-backup-detail-page.component';
+import {CaLabBackupOptionsComponent} from './component/backup/ca-lab-backup-options/ca-lab-backup-options.component';
+import {CaLabBackupHistoryComponent} from './component/backup/ca-lab-backup-history/ca-lab-backup-history.component';
+import {CaCloudProviderCoreModule} from '../ca-core/entity-module/ca-cloud-provider-core/ca-cloud-provider-core.module';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -158,9 +155,6 @@ import {
     CaLabInstanceAddProjectDialogComponent,
     CaLabInstanceCodelabInfoComponent,
     CaLabInstanceHeaderComponent,
-    CaLabInstanceManageBackupComponent,
-    CaLabInstanceBackupComponent,
-    CaLabBackupHistoryDialogComponent,
     CaLabInstanceDashboardPageComponent,
     CaLabInstanceConfigPageComponent,
     CaLabInstanceServerComponent,
@@ -182,6 +176,9 @@ import {
     CaLabInstanceUsageComponent,
     CaLabInstanceUsagePageComponent,
     CaLabInstanceRunningStatusTableComponent,
+    CaLabBackupDetailPageComponent,
+    CaLabBackupOptionsComponent,
+    CaLabBackupHistoryComponent,
   ],
   imports: [
     CommonModule,
@@ -198,6 +195,8 @@ import {
     CaLabInstanceRoutingModule,
     CaSpaceCoreModule,
     CaStatusModule,
+    CaCloudProviderCoreModule,
   ],
 })
-export class CaLabInstanceModule {}
+export class CaLabInstanceModule {
+}

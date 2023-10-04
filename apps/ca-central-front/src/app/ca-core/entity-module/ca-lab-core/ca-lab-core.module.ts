@@ -39,6 +39,9 @@ import {
 import {
   CaLabFreeTrialCreateButtonComponent
 } from './component/ca-lab-free-trial-create-button/ca-lab-free-trial-create-button.component';
+import {
+  CaLabBackupHistoryTableComponent
+} from './component/ca-lab-backup-history-table/ca-lab-backup-history-table.component';
 
 /**
  * Core module for Lab and LabInstance
@@ -60,6 +63,7 @@ import {
     CaLabFreeTrialFormDialogComponent,
     CaLabFreeTrialCardInfoComponent,
     CaLabFreeTrialCreateButtonComponent,
+    CaLabBackupHistoryTableComponent,
   ],
   exports: [
     CaLabInstanceCardComponent,
@@ -76,6 +80,7 @@ import {
     CaLabFreeTrialFormDialogComponent,
     CaLabFreeTrialCardInfoComponent,
     CaLabFreeTrialCreateButtonComponent,
+    CaLabBackupHistoryTableComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,33 @@
+<fl-card>
+
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>history</mat-icon>
+      <h2>{{'lab_backup_history' | translate}}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <ng-container *ngIf="isOwner$ | async">
+        <button mat-stroked-button type="button" color="primary"
+                class="g-button-small" (click)="backupProd()">{{'backup_lab_production' | translate}}
+        </button>
+
+        <button mat-stroked-button type="button" color="warn"
+                class="g-button-small" (click)="stopCurrentBackup()">{{'stop_lab_current_backups' | translate}}
+        </button>
+      </ng-container>
+
+      <button mat-stroked-button type="button" (click)="syncHistory()"
+              class="g-button-small">
+        <mat-icon>refresh</mat-icon>
+        {{'lab_backup_history_sync' | translate}}
+      </button>
+    </fl-card-actions>
+  </fl-card-header>
+
+  <fl-card-body>
+    <fl-infinite-table-container [datasource]="datasource" class="container">
+      <ca-lab-backup-history-table [datasource]="datasource"></ca-lab-backup-history-table>
+    </fl-infinite-table-container>
+  </fl-card-body>
+</fl-card>

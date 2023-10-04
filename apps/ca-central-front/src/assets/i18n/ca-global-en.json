@@ -246,5 +246,6 @@
   "activity_entity_name": "Object name",
   "activity_action_type": "Action type",
   "activity_user_date": "User/date",
-  "activities": "Activities"
+  "activities": "Activities",
+  "info": "Info"
 }

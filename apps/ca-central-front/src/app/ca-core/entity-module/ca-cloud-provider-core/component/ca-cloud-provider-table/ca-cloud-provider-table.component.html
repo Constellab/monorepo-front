@@ -41,9 +41,9 @@
 
 
         <button mat-menu-item type="button"
-                class="g-warn-text" (click)="deleteCloudProvider(row)">
+                (click)="deleteCloudProvider(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span>{{'delete_cloud_provider' | translate}}</span>
+          <span class="g-warn-text">{{'delete_cloud_provider' | translate}}</span>
         </button>
       </mat-menu>
     </mat-cell>

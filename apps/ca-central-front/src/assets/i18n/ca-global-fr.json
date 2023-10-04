@@ -246,5 +246,7 @@
   "activity_entity_name": "Nom de l'objet",
   "activity_action_type": "Type d'action",
   "activity_user_date": "Utilisateur/Date",
-  "activities": "Activités"
+  "activities": "Activités",
+  "info": "Info",
+  "lab_backup_history_sync": "Synchroniser"
 }

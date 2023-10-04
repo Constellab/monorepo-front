@@ -118,6 +118,7 @@ export interface CaExternalLabBackupStatusObject {
   message: string;
 }
 
+// TODO to delete
 export class CaExternalLabBackup {
   status: CaExternalLabBackupStatus;
 

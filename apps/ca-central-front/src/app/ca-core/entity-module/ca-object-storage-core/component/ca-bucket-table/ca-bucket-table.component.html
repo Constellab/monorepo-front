@@ -36,7 +36,7 @@
       {{'bucket_credentials' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <ca-bucket-credentials-inline [credentials]="row.credentials"></ca-bucket-credentials-inline>
+      {{row.credentials.name}}
     </mat-cell>
   </ng-container>
 
@@ -90,15 +90,13 @@
         </button>
 
         <button mat-menu-item type="button"
-                class="g-warn-text" (click)="deleteBucket(row)">
+                (click)="deleteBucket(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span>{{'delete_bucket' | translate}}</span>
+          <span class="g-warn-text">{{'delete_bucket' | translate}}</span>
         </button>
       </mat-menu>
     </mat-cell>
   </ng-container>
-
-
 
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>

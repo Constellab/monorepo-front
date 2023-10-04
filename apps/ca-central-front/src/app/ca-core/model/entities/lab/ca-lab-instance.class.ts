@@ -160,6 +160,12 @@ export class CaLabInstanceAdminForm {
   @Type(() => CaSpace)
   space?: CaSpace;
   desktopPlatform?: CaLabDesktopPlatform;
+
+  @Type(() => CaCloudProviderRegion)
+  dailyBackupRegion?: CaCloudProviderRegion;
+
+  @Type(() => CaCloudProviderRegion)
+  weeklyBackupRegion?: CaCloudProviderRegion;
 }
 
 export class CaLabInstanceDesktopForm {

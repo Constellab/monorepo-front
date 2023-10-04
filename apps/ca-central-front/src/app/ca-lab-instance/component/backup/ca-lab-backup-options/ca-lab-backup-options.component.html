@@ -1,0 +1,49 @@
+<fl-card>
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>settings</mat-icon>
+      <h2>{{'lab_backup_config' | translate}}</h2>
+    </fl-text-icon>
+  </fl-card-header>
+
+  <fl-card-body>
+    <fl-section [object]="backupOption" [isLoading]="isLoading">
+      <ng-container *flSectionBody>
+
+        <!--    Bucket 1    -->
+        <h3>{{'lab_backup' | translate}} 1</h3>
+        <fl-key-value>
+          <fl-key>{{'lab_backup_frequency' | translate}}</fl-key>
+          {{'lab_backup_frequency_' + backupOption.frequency1 | translate}}
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{'cloud_provider_region' | translate}}</fl-key>
+          <ca-bucket-region-inline [region]="backupOption.bucket1.region"></ca-bucket-region-inline>
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{'bucket_name' | translate}}</fl-key>
+          {{backupOption.bucket1.name | translate}}
+        </fl-key-value>
+
+        <!--    Bucket 2    -->
+        <h3>{{'lab_backup' | translate}} 2</h3>
+        <fl-key-value>
+          <fl-key>{{'lab_backup_frequency' | translate}}</fl-key>
+          {{'lab_backup_frequency_' + backupOption.frequency2 | translate}}
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{'cloud_provider_region' | translate}}</fl-key>
+          <ca-bucket-region-inline [region]="backupOption.bucket2.region"></ca-bucket-region-inline>
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{'bucket' | translate}}</fl-key>
+          {{backupOption.bucket2.name | translate}}
+        </fl-key-value>
+      </ng-container>
+    </fl-section>
+  </fl-card-body>
+</fl-card>

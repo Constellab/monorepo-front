@@ -122,7 +122,7 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
 
   // return true if we can create a parent project, false if the hierarchy reached the max depth
   get allowParent(): boolean {
-    return this.dialogInput.parentLevel < CaProjectLevel.MAX_LEVEL - 1;
+    return this.dialogInput.parentLevel == null || this.dialogInput.parentLevel < CaProjectLevel.MAX_LEVEL - 1;
   }
 
   get showStorageRegion(): boolean {

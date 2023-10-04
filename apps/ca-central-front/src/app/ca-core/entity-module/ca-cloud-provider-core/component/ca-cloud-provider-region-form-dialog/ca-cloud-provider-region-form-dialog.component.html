@@ -6,7 +6,7 @@
   <form (ngSubmit)="submit()" id="cloud-provider-form" [formGroup]="formGp">
 
     <!--  Name  -->
-    <mat-form-field class="g-form-input" appearance="outline">
+    <mat-form-field class="g-form-input">
       <mat-label>{{'name' | translate}}</mat-label>
       <input matInput formControlName="technicalName" required flInputMaxLength="50"
              [placeholder]="'name' | translate">
@@ -17,7 +17,7 @@
 
 
     <!--  Cloud provider  -->
-    <mat-form-field class="g-form-input" appearance="outline">
+    <mat-form-field class="g-form-input">
       <mat-label>{{'cloud_provider' | translate}}</mat-label>
       <mat-select formControlName="cloudProvider" required>
         <ca-select-cloud-provider-options></ca-select-cloud-provider-options>
@@ -39,10 +39,10 @@
     </mat-form-field>
 
     <!--  S3Endpoint  -->
-    <mat-form-field class="g-form-input" appearance="outline">
-      <mat-label>{{'cloud_provider_region_endpoint' | translate}}</mat-label>
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'cloud_provider_region_s3_endpoint' | translate}}</mat-label>
       <input matInput formControlName="s3Endpoint" flInputMaxLength="255"
-             [placeholder]="'cloud_provider_region_endpoint' | translate">
+             [placeholder]="'cloud_provider_region_s3_endpoint' | translate">
     </mat-form-field>
 
   </form>

@@ -1,0 +1,85 @@
+<mat-table mat-table [dataSource]="datasource">
+
+  <!-- Date -->
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef>
+      {{'date' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
+      <fl-status-chip [status]="row.status" size="small"></fl-status-chip>
+      {{row.startedAt | flDate}} ({{getDuration(row) | flDuration}})
+    </mat-cell>
+  </ng-container>
+
+  <!-- Status -->
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef>
+      {{'status' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-status-chip [status]="row.status"></fl-status-chip>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Bucket -->
+  <ng-container matColumnDef="bucket">
+    <mat-header-cell *matHeaderCellDef>
+      {{'lab_backup_location' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
+      <ca-bucket-region-inline [region]="row.bucket.region"></ca-bucket-region-inline>
+      <div class="g-text-light g-text-small">{{row.bucket.name}}</div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Data -->
+  <ng-container matColumnDef="data">
+    <mat-header-cell *matHeaderCellDef>
+      {{'lab_backup_data' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
+      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+        <fl-status-chip [status]="row.dataStatus" size="small"  mode="iconOnly"></fl-status-chip>
+        <span>{{row.dataSize | flByteText}}</span>
+      </div>
+      <div class="g-text-light g-text-small">{{row.dataMessage}}</div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- DB -->
+  <ng-container matColumnDef="db">
+    <mat-header-cell *matHeaderCellDef>
+      {{'lab_backup_database' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
+      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+        <fl-status-chip [status]="row.dbStatus" size="small" mode="iconOnly"></fl-status-chip>
+        <span>{{row.dbSize | flByteText}}</span>
+      </div>
+      <div class="g-text-light g-text-small">{{row.dbMessage}}</div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Info -->
+  <ng-container matColumnDef="info">
+    <mat-header-cell *matHeaderCellDef>
+      {{'info' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row"  class="g-layout-col g-layout-center-start col-cell">
+      <fl-key-value>
+        <fl-key>{{'lab_backup_frequency' | translate}}</fl-key>
+        {{('lab_backup_frequency_' + row.frequency) | translate}}
+      </fl-key-value>
+
+      <fl-key-value>
+        <fl-key>{{'lab_backup_trigger_mode' | translate}}</fl-key>
+        {{('lab_backup_trigger_mode_' + row.triggerMode) | translate}}
+      </fl-key-value>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>
+

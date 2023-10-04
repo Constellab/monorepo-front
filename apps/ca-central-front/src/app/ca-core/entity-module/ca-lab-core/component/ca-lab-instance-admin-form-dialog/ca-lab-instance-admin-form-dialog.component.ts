@@ -4,10 +4,10 @@ import {
   CaLabInstanceType,
   CaLabInstanceWithSpace
 } from '../../../../model/entities/lab/ca-lab-instance.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import {FormBuilder, FormControl, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
-import {Validators} from '@angular/forms';
+import {AbstractControl, ValidatorFn, Validators} from '@angular/forms';
 import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
@@ -64,7 +64,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
 
   buildForm(): FormGroup<CaLabInstanceAdminForm> {
 
-    return new FormBuilder().group({
+    const formGp: FormGroup<CaLabInstanceAdminForm> = new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required, CaLabInstanceValidator.nameValidator()]],
       type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
@@ -82,8 +82,15 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       gwsCoreDevDbPassword: [null],
       region: [null, Validators.required],
       space: [null, Validators.required],
-      desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]]
+      desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]],
     });
+
+    if (this.isCreateMode()) {
+      formGp.addControl('dailyBackupRegion', new FormControl(null, Validators.required));
+      formGp.addControl('weeklyBackupRegion', new FormControl(null, [Validators.required, this.differentBackupRegionValidator()]));
+    }
+
+    return formGp;
   }
 
   onTypeChange(type: CaLabInstanceType): void {
@@ -136,6 +143,22 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
 
   getUpdateSuccessMessage(): string {
     return 'lab_instance_updated';
+  }
+
+  public differentBackupRegionValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+      if (!control.parent || !control.value) return null;
+
+      const parent: FormGroup<CaLabInstanceAdminForm> = control.parent as FormGroup<CaLabInstanceAdminForm>;
+      const dailyBackupRegion = parent.value.dailyBackupRegion;
+
+      if (dailyBackupRegion == null) return null;
+
+      if (parent.value.dailyBackupRegion.id === control.value.id) {
+        return {sameBackupRegion: true};
+      }
+      return null;
+    };
   }
 
 }
