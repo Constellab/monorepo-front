@@ -7,9 +7,15 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
       <fl-text-icon>
-        <mat-icon [matTooltip]="'lab_instance_type_' + labInstance.type | translate">
-          {{labInstance.typeIcon}}
+        <mat-icon *ngIf="labInstance.isFreeTrial; else normal"
+                  [matTooltip]="'lab_free_trial_long' | translate">
+          timelapse
         </mat-icon>
+        <ng-template #normal>
+          <mat-icon [matTooltip]="'lab_instance_type_' + labInstance.type | translate">
+            {{labInstance.typeIcon}}
+          </mat-icon>
+        </ng-template>
         <span>{{labInstance.name}}</span>
       </fl-text-icon>
     </mat-cell>

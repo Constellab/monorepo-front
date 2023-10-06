@@ -272,7 +272,13 @@
   "lab_green_option_inactivity_duration": "Durée d'inactivité (minutes)",
   "no_lab_green_option": "Aucune option d'informatique vert",
   "start_lab_free_trial": "Démarrer l'essai gratuit",
-  "start_lab_free_trial_confirmation": "<p>Vous êtes sur le point de démarrer l'essai gratuit du lab.</p></br><p>Il va démarrer un lab pré-configuré disponible pendant <strong>{{expirationDays}} jours</strong> pour <strong>{{usageLimit}} heures</strong> d'utilisateur de lab.<p/></br><p>Une option d'informatique vert est configurée dans le lab pour l'arrêter automatiquement après <strong>{{greenOptionInactivityDuration}} minutes</strong> d'inactivité, vous pourrez le redémarrer plus tard</p></br><p>Après l'essai gratuit vous pouvez contacter le support Constellab pour étendre l'essai ou commencer à travailler avec votre propre lab.</p></br><p>A la fin de la période d'essaie, le lab sera supprimé.</p></br><p>La création du lab va prendre quelques minutes.</p>",
+  "start_lab_free_trial_confirmation_1": "Vous êtes sur le point de démarrer un essai gratuit de <strong>{{usageLimit}} heures</strong> d'utilisation de lab",
+  "start_lab_free_trial_confirmation_2": "La création du lab prendra quelques minutes, merci de patienter.",
+  "start_lab_free_trial_confirmation_3": "Le lab sera disponible pendant <strong>{{expirationDays}} jours</strong>.",
+  "start_lab_free_trial_confirmation_4": "Le lab s'arrêtera automatiquement après <strong>{{greenOptionInactivityDuration}} minutes</strong> d'inactivité, vous pourrez le redémarrer plus tard.",
+  "start_lab_free_trial_confirmation_5": "Le lab sera supprimé à la fin de cet essai.",
+  "start_lab_free_trial_confirmation_6": "Pendant cet essai gratuit, vous pouvez trouver du support sur <a href='{{communityLink}}' target='blank'>Constellab Community</a>.",
+  "start_lab_free_trial_confirmation_7": "Après l'essai, vous pouvez contacter le support Constellab (<a href='mailto:{{supportMail}}'>{{supportMail}}</a>) pour prolonger l'essai ou commencer à travailler avec votre propre lab.",
   "lab_free_trial_started": "Essai gratuit démarré, le lab est en cours de création",
   "lab_free_trial_in_progress_fr": "Essai gratuit en cours, votre essai va expirer le {{expirationDate}}. Vous avez {{remainingHours}} d'utilisation du lab restantes.",
   "lab_free_trial_open_lab": "Ouvrir le lab",
@@ -310,5 +316,6 @@
   "lab_backup_trigger_mode": "Mode de déclenchement",
   "lab_backup_trigger_mode_AUTOMATIC": "Automatique",
   "lab_backup_trigger_mode_MANUAL": "Manuel",
-  "lab_backup_config": "Backup config"
+  "lab_backup_config": "Backup config",
+  "lab_backup_history_sync": "Synchroniser"
 }

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {CaSpace} from '../../../ca-core/model/entities/space/ca-space.class';
 import {CaUserDatasourcePaginated} from '../../../ca-core/model/entities/ca-user.class';
 import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
+import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper';
 
 /**
  * Page containing the user dashboard
@@ -15,7 +16,8 @@ import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
 })
 export class CaDashboardPageComponent implements OnInit, OnDestroy {
 
-  hubLink: string = CaCommunityHelper.getCommunityUrl();
+  communityLink: string = CaCommunityHelper.getCommunityUrl();
+  supportMail = CaEnvironmentHelper.getSupportMail()
 
   currentSpace$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
   spaceUsers: CaUserDatasourcePaginated = this.currentSpaceService.getCurrentSpaceUsersDatasource();

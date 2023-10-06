@@ -6,10 +6,13 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
+  FlTranslateParam,
   FlTranslateService
 } from '@monorepo/front-core-lib';
 import {CaLabInstance} from '../../../../model/entities/lab/ca-lab-instance.class';
 import {CaRouterService} from '../../../../service/ca-router.service';
+import {CaEnvironmentHelper} from '../../../../utils/ca-environment.helper';
+import {CaCommunityHelper} from '../../../../utils/ca-community.helper';
 
 @Component({
   selector: 'ca-lab-free-trial-create-button',
@@ -27,17 +30,27 @@ export class CaLabFreeTrialCreateButtonComponent {
   }
 
   createFreeTrialLabInstance(freeTrial: CaLabFreeTrialGetDto): void {
+    const params: FlTranslateParam = {
+      param: {
+        expirationDays: freeTrial.standardInfo.expirationDays,
+        usageLimit: freeTrial.standardInfo.usageLimitInHours,
+        greenOptionInactivityDuration: freeTrial.standardInfo.greenOptionInactivityDuration,
+        communityLink: CaCommunityHelper.getDigitalLabOverviewRoute(),
+        supportMail: CaEnvironmentHelper.getSupportMail(),
+      }
+    };
+
+    const content = `<p>${this.translateService.translate('start_lab_free_trial_confirmation_1', params)}</p></br>
+<p>${this.translateService.translate('start_lab_free_trial_confirmation_2', params)}</p></br>
+<p>${this.translateService.translate('start_lab_free_trial_confirmation_3', params)}</p></br>
+<p>${this.translateService.translate('start_lab_free_trial_confirmation_4', params)}</p></br>
+<p>${this.translateService.translate('start_lab_free_trial_confirmation_5', params)}</p></br>
+<p>${this.translateService.translate('start_lab_free_trial_confirmation_6', params)}</p></br>
+<p>${this.translateService.translate('start_lab_free_trial_confirmation_7', params)}</p>`;
     const input: FlConfirmDialogInput = {
       title: this.translateService.translate('start_lab_free_trial'),
-      content: this.translateService.translate('start_lab_free_trial_confirmation',
-        {
-          param: {
-            expirationDays: freeTrial.standardInfo.expirationDays,
-            usageLimit: freeTrial.standardInfo.usageLimitInHours,
-            greenOptionInactivityDuration: freeTrial.standardInfo.greenOptionInactivityDuration
-          }
-        }),
-      translateTitleAndContent: true,
+      content: content,
+      translateTitleAndContent: false,
       observable: this.labService.createFreeTrialLabInstanceCurrentUser(),
       successMessage: 'lab_free_trial_started',
       translateMessage: true,

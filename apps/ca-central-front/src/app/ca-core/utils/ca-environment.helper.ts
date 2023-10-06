@@ -30,4 +30,8 @@ export class CaEnvironmentHelper{
   public static getRecaptchaSiteKey(): string {
     return CaEnvironmentHelper.getEnv().settings.captchaSiteKey;
   }
+
+  public static getSupportMail(): string {
+    return 'clientsuccess@gencovery.com';
+  }
 }
