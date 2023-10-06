@@ -1,39 +1,61 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {
+  FlCheckCredentialsDialogComponent,
+  FlCheckCredentialsDialogInput,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {
-  CaBucketCredentialsFull,
-  CaBucketCredentialsFullDatasource
+  CaBucketCredentials,
+  CaBucketCredentialsDatasource,
+  CaBucketCredentialsFull
 } from '../../../../model/entities/ca-object-storage.class';
 import {
   CaBucketCredentialsFormDialogComponent,
   CaBucketCredentialsFormDialogInput
 } from '../ca-bucket-credentials-form-dialog/ca-bucket-credentials-form-dialog.component';
 import {CaObjectStorageService} from '../../../../service-api/ca-object-storage.service';
+import {ClCredentials} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-bucket-credentials-table',
   templateUrl: './ca-bucket-credentials-table.component.html',
   styleUrls: ['./ca-bucket-credentials-table.component.scss']
 })
-export class CaBucketCredentialsTableComponent extends FlTableAbstractDirective<CaBucketCredentialsFull>
-  implements OnInit {
+export class CaBucketCredentialsTableComponent implements OnInit {
 
-  @Input() datasource: CaBucketCredentialsFullDatasource;
+  @Input() datasource: CaBucketCredentialsDatasource;
+
+  @Input() columns: FlTableColumnStatic<CaBucketCredentials>[] =
+    ['name', 'cloudProvider', 'space', 's3Username', 'created', 'lastModified', 'actions'];
 
   constructor(private dialogService: FlDialogService,
               private objectStorageService: CaObjectStorageService) {
-    super(['space', 'cloudProvider', 'created', 'lastModified', 's3Username', 'actions']);
   }
 
   ngOnInit(): void {
   }
 
-  updateBucketCredential(credentials: CaBucketCredentialsFull): void {
+  updateBucketCredential(credentials: CaBucketCredentials): void {
+
+    // open user check credentials dialog
+    const dialogInput: FlCheckCredentialsDialogInput = {
+      onSubmit: (userCredentials: ClCredentials) =>
+        this.objectStorageService.getCredentialsData(credentials.id, userCredentials)
+    };
+
+    this.dialogService.openSmallDialog(FlCheckCredentialsDialogComponent, {
+      data: dialogInput
+    }).afterClosed().subscribe(
+      result => this.openUpdateCredentials(result)
+    );
+
+  }
+
+  private openUpdateCredentials(credentials: CaBucketCredentialsFull): void {
+    if(credentials == null) return;
     const input: CaBucketCredentialsFormDialogInput = {
       mode: 'update',
       object: credentials
@@ -44,13 +66,13 @@ export class CaBucketCredentialsTableComponent extends FlTableAbstractDirective<
     );
   }
 
-  private onUpdateClosed(credentials?: CaBucketCredentialsFull): void {
+  private onUpdateClosed(credentials?: CaBucketCredentials): void {
     if (credentials) {
       this.datasource.updateItem(credentials);
     }
   }
 
-  deleteBucketCredentials(credentials: CaBucketCredentialsFull): void {
+  deleteBucketCredentials(credentials: CaBucketCredentials): void {
     const input: FlConfirmDialogInput = {
       title: 'delete_bucket_credentials',
       content: 'delete_bucket_credentials_confirm',
@@ -65,7 +87,7 @@ export class CaBucketCredentialsTableComponent extends FlTableAbstractDirective<
     );
   }
 
-  private onDeleteClosed(result: FlConfirmDialogResult, credentials: CaBucketCredentialsFull): void {
+  private onDeleteClosed(result: FlConfirmDialogResult, credentials: CaBucketCredentials): void {
     if (result.choice) {
       this.datasource.removeItem(credentials);
     }

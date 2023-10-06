@@ -6,12 +6,13 @@ import {
   FlSearchConverter
 } from '@monorepo/front-core-lib';
 import {
+  CaBucketCredentials,
+  CaBucketCredentialsDatasource,
   CaBucketCredentialsFull,
-  CaBucketCredentialsFullDatasource,
   CaBucketFull
 } from '../model/entities/ca-object-storage.class';
 import {Observable} from 'rxjs';
-import {ClPageI} from '@monorepo/core-lib';
+import {ClCredentials, ClPageI} from '@monorepo/core-lib';
 import {
   CaBucketSearch,
   CaBucketSearchFields
@@ -56,28 +57,31 @@ export class CaObjectStorageService {
 
 
   //////////////// CREDENTIALS ////////////////
-  public createCredentials(credentials: Partial<CaBucketCredentialsFull>): Observable<CaBucketCredentialsFull> {
-    return this.apiService.post(this.credentialsRoute, credentials, CaBucketCredentialsFull);
+  public createCredentials(credentials: Partial<CaBucketCredentialsFull>): Observable<CaBucketCredentials> {
+    return this.apiService.post(this.credentialsRoute, credentials, CaBucketCredentials);
   }
 
-  public updateCredentials(credentials: Partial<CaBucketCredentialsFull>): Observable<CaBucketCredentialsFull> {
-    return this.apiService.put(this.credentialsRoute, credentials, CaBucketCredentialsFull);
+  public updateCredentials(credentials: Partial<CaBucketCredentialsFull>): Observable<CaBucketCredentials> {
+    return this.apiService.put(this.credentialsRoute, credentials, CaBucketCredentials);
   }
 
   public deleteCredentials(id: string): Observable<void> {
     return this.apiService.deleteById(this.credentialsRoute, id);
   }
 
-  public getAllCredentials(page: number, size: number): Observable<ClPageI<CaBucketCredentialsFull>> {
-    return this.apiService.get(this.credentialsRoute, CaBucketCredentialsFull, {
+  public getAllCredentials(page: number, size: number): Observable<ClPageI<CaBucketCredentials>> {
+    return this.apiService.get(this.credentialsRoute, CaBucketCredentials, {
       page: page, pageSize: size, resultIsPaginated: true
     });
   }
 
-  public getAllCredentialsDatasource(): CaBucketCredentialsFullDatasource {
+  public getAllCredentialsDatasource(): CaBucketCredentialsDatasource {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number) => this.getAllCredentials(page, pageSize), 20
     );
   }
 
+  public getCredentialsData(id: string, userCredentials: ClCredentials): Observable<CaBucketCredentialsFull> {
+    return this.apiService.post(`${this.credentialsRoute}/${id}/data`, userCredentials, CaBucketCredentialsFull);
+  }
 }

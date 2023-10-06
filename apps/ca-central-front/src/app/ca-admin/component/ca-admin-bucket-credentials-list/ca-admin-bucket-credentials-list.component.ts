@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  CaBucketCredentialsFull,
-  CaBucketCredentialsFullDatasource
+  CaBucketCredentials,
+  CaBucketCredentialsDatasource
 } from '../../../ca-core/model/entities/ca-object-storage.class';
 import {CaObjectStorageService} from '../../../ca-core/service-api/ca-object-storage.service';
-import {FlDialogService, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlDialogService} from '@monorepo/front-core-lib';
 import {
   CaBucketCredentialsFormDialogComponent,
   CaBucketCredentialsFormDialogInput
@@ -20,10 +20,7 @@ import {
 })
 export class CaAdminBucketCredentialsListComponent implements OnInit {
 
-  bucketCredentials: CaBucketCredentialsFullDatasource = this.objectStorageService.getAllCredentialsDatasource();
-
-  displayedColumns: FlTableColumn<CaBucketCredentialsFull>[] =
-    ['name', 'cloudProvider', 'space', 's3Username', 'lastModified', 'actions'];
+  bucketCredentials: CaBucketCredentialsDatasource = this.objectStorageService.getAllCredentialsDatasource();
 
   constructor(private objectStorageService: CaObjectStorageService,
               private dialogService: FlDialogService) {
@@ -42,7 +39,7 @@ export class CaAdminBucketCredentialsListComponent implements OnInit {
     );
   }
 
-  private onCreateClosed(credentials?: CaBucketCredentialsFull): void {
+  private onCreateClosed(credentials?: CaBucketCredentials): void {
     if (credentials) {
       this.bucketCredentials.addItem(credentials);
     }

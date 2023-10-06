@@ -1,10 +1,7 @@
 import {AfterViewInit, Component, Host, OnDestroy, OnInit} from '@angular/core';
 import {FlEmbeddedOptionsAbstractDirective} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
-import {
-  CaBucketCredentialsFull,
-  CaBucketCredentialsFullDatasource
-} from '../../../../model/entities/ca-object-storage.class';
+import {CaBucketCredentials, CaBucketCredentialsDatasource} from '../../../../model/entities/ca-object-storage.class';
 import {CaObjectStorageService} from '../../../../service-api/ca-object-storage.service';
 import {MatSelect} from '@angular/material/select';
 
@@ -16,8 +13,8 @@ import {MatSelect} from '@angular/material/select';
 export class CaSelectBucketCredentialsOptionsComponent extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit, OnDestroy {
 
-  datasource: CaBucketCredentialsFullDatasource;
-  credentials$: Observable<CaBucketCredentialsFull[]>;
+  datasource: CaBucketCredentialsDatasource;
+  credentials$: Observable<CaBucketCredentials[]>;
 
 
   constructor(private objectStorageService: CaObjectStorageService,

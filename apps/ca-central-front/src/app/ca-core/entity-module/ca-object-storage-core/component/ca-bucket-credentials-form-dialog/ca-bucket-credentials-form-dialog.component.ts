@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
-import {CaBucketCredentialsFull} from '../../../../model/entities/ca-object-storage.class';
+import {CaBucketCredentials, CaBucketCredentialsFull} from '../../../../model/entities/ca-object-storage.class';
 import {
   CaCloudProviderFormDialogInput
 } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
@@ -18,7 +18,7 @@ export type CaBucketCredentialsFormDialogInput = FlFormDialogInput<CaBucketCrede
   styleUrls: ['./ca-bucket-credentials-form-dialog.component.scss']
 })
 export class CaBucketCredentialsFormDialogComponent
-  extends FlFormDialogAbstractDirective<Partial<CaBucketCredentialsFull>, CaBucketCredentialsFull>
+  extends FlFormDialogAbstractDirective<Partial<CaBucketCredentialsFull>, CaBucketCredentials>
   implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) dialogInput: CaCloudProviderFormDialogInput,
@@ -46,7 +46,7 @@ export class CaBucketCredentialsFormDialogComponent
     });
   }
 
-  create(formValue: Partial<CaBucketCredentialsFull>): Observable<CaBucketCredentialsFull> {
+  create(formValue: Partial<CaBucketCredentialsFull>): Observable<CaBucketCredentials> {
     return this.objectStorageService.createCredentials(formValue);
   }
 
@@ -58,7 +58,7 @@ export class CaBucketCredentialsFormDialogComponent
     return 'bucket_credentials_updated';
   }
 
-  update(formValue: Partial<CaBucketCredentialsFull>): Observable<CaBucketCredentialsFull> {
+  update(formValue: Partial<CaBucketCredentialsFull>): Observable<CaBucketCredentials> {
     return this.objectStorageService.updateCredentials(formValue);
   }
 

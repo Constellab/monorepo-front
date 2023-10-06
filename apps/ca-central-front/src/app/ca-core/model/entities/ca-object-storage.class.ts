@@ -32,7 +32,7 @@ export class CaBucketCredentialsFull extends CaBucketCredentials {
 
 }
 
-export type CaBucketCredentialsFullDatasource = FlEntityPaginatedDatasource<CaBucketCredentialsFull>;
+export type CaBucketCredentialsDatasource = FlEntityPaginatedDatasource<CaBucketCredentials>;
 
 export enum CaBucketContentType {
   LAB_BACKUP = 'LAB_BACKUP',
