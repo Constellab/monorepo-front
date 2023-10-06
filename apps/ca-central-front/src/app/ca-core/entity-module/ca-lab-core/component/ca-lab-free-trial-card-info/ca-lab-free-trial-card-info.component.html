@@ -9,16 +9,19 @@
         </fl-text-icon>
 
         <fl-card-actions *caIsAdmin>
-          <button mat-icon-button type="button"
-                  (click)="updateFreeTrial(freeTrialDto)"
-                  [matTooltip]="'lab_free_trial_update' | translate">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button type="button" color="warn"
-                  (click)="deleteFreeTrial(freeTrialDto)"
-                  [matTooltip]="'lab_free_trial_delete' | translate">
-            <mat-icon>delete</mat-icon>
-          </button>
+          <ng-container *ngIf="freeTrialDto.freeTrial">
+            <button mat-icon-button type="button"
+                    (click)="updateFreeTrial(freeTrialDto)"
+                    [matTooltip]="'lab_free_trial_update' | translate">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button type="button" color="warn"
+                    (click)="deleteFreeTrial(freeTrialDto)"
+                    [matTooltip]="'lab_free_trial_delete' | translate">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </ng-container>
+
         </fl-card-actions>
       </fl-card-header>
 

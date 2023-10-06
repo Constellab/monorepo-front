@@ -276,7 +276,7 @@ export class CaLabInstanceService {
   //////////////////////////// BACKUP ////////////////////////////////
 
   public backupProd(id: string): Observable<CaLabBackupHistory[]> {
-    return this.apiService.post(`${this.route}/${id}/backup/prod`, CaLabBackupHistory);
+    return this.apiService.post(`${this.route}/${id}/backup/prod`,null, CaLabBackupHistory);
   }
 
   public stopCurrentBackup(id: string): Observable<CaLabBackupHistory[]> {

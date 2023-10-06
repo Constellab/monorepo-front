@@ -7,7 +7,8 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
       <fl-status-chip [status]="row.status" size="small"></fl-status-chip>
-      {{row.startedAt | flDate}} ({{getDuration(row) | flDuration}})
+<!--      <fl-date-range [startingDate]="row.startedAt" [endingDate]="row.endedAt" dateFormat="DATETIME_MED"></fl-date-range>-->
+      {{row.startedAt | flDate: 'DATETIME_MED'}} ({{getDuration(row) | flDuration}})
     </mat-cell>
   </ng-container>
 
@@ -28,7 +29,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
       <ca-bucket-region-inline [region]="row.bucket.region"></ca-bucket-region-inline>
-      <div class="g-text-light g-text-small">{{row.bucket.name}}</div>
+      <div class="g-text-light g-text-small message">{{row.bucket.name}}</div>
     </mat-cell>
   </ng-container>
 
@@ -42,7 +43,7 @@
         <fl-status-chip [status]="row.dataStatus" size="small"  mode="iconOnly"></fl-status-chip>
         <span>{{row.dataSize | flByteText}}</span>
       </div>
-      <div class="g-text-light g-text-small">{{row.dataMessage}}</div>
+      <div class="g-text-light g-text-small message">{{row.dataMessage}}</div>
     </mat-cell>
   </ng-container>
 
@@ -56,7 +57,7 @@
         <fl-status-chip [status]="row.dbStatus" size="small" mode="iconOnly"></fl-status-chip>
         <span>{{row.dbSize | flByteText}}</span>
       </div>
-      <div class="g-text-light g-text-small">{{row.dbMessage}}</div>
+      <div class="g-text-light g-text-small message">{{row.dbMessage}}</div>
     </mat-cell>
   </ng-container>
 
