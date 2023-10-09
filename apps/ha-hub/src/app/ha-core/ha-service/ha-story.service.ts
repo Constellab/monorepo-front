@@ -4,7 +4,7 @@ import {
   HaCreateStoryDto,
   HaListStoryDto,
   HaMyStoriesDataSource,
-  HaStory,
+  HaStory, HaStoryCategory,
   HaStoryDataSourceDataDto,
   HaStoryDatasourcePaginated,
   HaStoryFilter
@@ -74,12 +74,22 @@ export class HaStoryService {
 
   /**
    * Call http put to update the title of a story
-   * @param id id of the story
+   * @param storyId id of the story
    * @param title new title
    * return a story
    */
-  public updateTitle(id: string, title: string): Observable<HaStory> {
-    return this.apiService.put(this.route + '/' + id + '/title', {title: title}, HaStory);
+  public updateTitle(storyId: string, title: string): Observable<HaStory> {
+    return this.apiService.put(`${this.route}/${storyId}/title`, {title: title}, HaStory);
+  }
+
+  /**
+   * Call http put to update the category of a story
+   * @param storyId
+   * @param category
+   * return a story
+   */
+  updateCategory(storyId: string, category: HaStoryCategory): Observable<HaStory> {
+    return this.apiService.put(`${this.route}/${storyId}/category`, {category: category}, HaStory);
   }
 
   /**
@@ -137,6 +147,12 @@ export class HaStoryService {
     return this.apiService.put(`${this.route}/${storyId}/add-topic`, topicDto, HaTopic);
   }
 
+  /***
+    * Remove topic from story
+   * @param topicId topic id
+   * @param storyId story id
+   * @return story
+   */
   removeTopicFromStory(topicId: string, storyId: string): Observable<any> {
     return this.apiService.put(`${this.route}/${storyId}/remove-topic/${topicId}`, {});
   }
@@ -145,6 +161,7 @@ export class HaStoryService {
    * Update story co-authors
    * @param storyId story id
    * @param coAuthors co authors mails
+   * @return story
    */
   updateStoryCoAuthors(storyId: string, coAuthors: string[]): Observable<HaStory> {
     return this.apiService.put(`${this.route}/${storyId}/co-authors`, coAuthors, HaStory);
@@ -153,7 +170,8 @@ export class HaStoryService {
   /***
    * Remove story co-author
    * @param storyId story id
-   * @param coAuthor co author id
+   * @param storyAuthorId co author id
+   * @return story
    */
   removeStoryCoAuthor(storyId: string, storyAuthorId: string): Observable<HaStory> {
     return this.apiService.put(`${this.route}/${storyId}/remove-co-author/${storyAuthorId}`, {}, HaStory);

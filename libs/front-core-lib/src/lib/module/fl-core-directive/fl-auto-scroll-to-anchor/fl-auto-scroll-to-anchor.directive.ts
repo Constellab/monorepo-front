@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, OnDestroy} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Inject, OnDestroy, PLATFORM_ID} from '@angular/core';
 import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
 
@@ -17,7 +17,8 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
   constructor(
     private elementRef: ElementRef<HTMLElement>,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
 
   }
@@ -41,7 +42,7 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
   }
 
   private scrollToAnchor(anchor: string): void {
-    const children: HTMLElement = this.elementRef.nativeElement.querySelector('#' + anchor);
+    const children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
     if (children) {
       children.scrollIntoView(true);
     }

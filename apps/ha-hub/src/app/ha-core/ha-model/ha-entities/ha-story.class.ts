@@ -156,4 +156,5 @@ export type HaMyStoriesDataSource = FlDatasourcePaginated<HaStoryDataSourceDataD
 
 export class HaStoryContentFormDTO extends HaEntity {
   content: ClRichTextI;
+  category: HaStoryCategory;
 }
