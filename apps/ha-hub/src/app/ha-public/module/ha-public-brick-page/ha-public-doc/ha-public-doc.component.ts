@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
@@ -37,6 +37,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   textEditorConfig: HaDocTextEditorConfig;
   docNotFound: boolean = false;
 
+  anchor: string = null;
+
   private contentDebouncer: FlDebouncer<ClRichTextI>;
   private lastUrl: string = null;
   private DOC_KEY: StateKey<object>;
@@ -49,7 +51,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
               private router: Router,
               private transferState: TransferState,
               @Inject(PLATFORM_ID) private platformId: object,
-              private metadataService: HaMetadataService) {
+              private metadataService: HaMetadataService,
+              private elementRef: ElementRef<HTMLElement>) {
   }
 
 
@@ -61,6 +64,10 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     //create a debouncer to save the description after x second of idle
     this.contentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     this.contentDebouncer.getDebouncedValue().subscribe(value => this.saveContent(value));
+
+    this.route.fragment.subscribe(anchor => {
+      this.anchor = anchor;
+    });
   }
 
   private init(brickName: string, brickVersion: string): void {
@@ -153,7 +160,6 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
         this.documentationService.updateContent(this.documentation.id, value).subscribe();
       }
     });
-
   }
 
 

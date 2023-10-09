@@ -9,7 +9,15 @@
 
 <div class="main-div g-max-article-width" *ngIf="story">
   <div class="top-div">
-    <div class="inputs-div">
+    <div class="top-left-inputs inputs-div">
+      <mat-form-field class="form-field">
+        <mat-label>{{'category' | translate}}</mat-label>
+        <mat-select [formControl]="formGp.controls.category" (valueChange)="onStoryCategoryChange($event)">
+          <mat-option *ngFor="let category of storyCategories" [value]="category">
+            {{category.toLowerCase() | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <mat-form-field class="form-field">
         <mat-label>{{'title' | translate}}</mat-label>
         <input matInput flInputMaxLength="100" [placeholder]="'title' | translate" (input)="onTitleChange($event)"

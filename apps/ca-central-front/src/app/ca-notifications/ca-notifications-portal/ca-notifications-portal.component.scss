@@ -51,12 +51,14 @@
 
 .notification-text{
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .notification-text2, .notification-date{
   font-size: 0.9em;
 }
-
 
 .notification-read-div{
   width: 5%;

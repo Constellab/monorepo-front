@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CaMainMenuLink, caMainMenuLinks} from '../../model/ca-main-menu-link.class';
 import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
-import {FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
+import {FlChatBotService, FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
 import {
   CaNotificationsPortalComponent
 } from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
@@ -11,6 +11,7 @@ import {Observable} from 'rxjs';
 import {CaCurrentSpaceService} from '../../../ca-core/service-api/ca-current-space.service';
 import {map} from 'rxjs/operators';
 import {CaNotificationState} from '../../../ca-core/state/ca-notification.state';
+import {CaBotChatScriptService} from '../../../ca-core/service/ca-bot-chat-script.service';
 
 /**
  * Main app component. Menu on the left and page on the right
@@ -38,11 +39,14 @@ export class CaMainAppComponent implements OnInit {
   constructor(private authenticatedUserService: CaAuthenticatedUserService,
               private currentSpaceService: CaCurrentSpaceService,
               private portalService: FlPortalService,
-              private notificationState: CaNotificationState) {
+              private notificationState: CaNotificationState,
+              private chatBotService: FlChatBotService) {
   }
 
   ngOnInit(): void {
     this.initAccessibleLinks();
+
+    this.chatBotService.loadScript();
 
     // if the current space has a photo, use it, otherwise, use the default logo of gencovery
     this.spaceLogo$ = this.currentSpaceService.getCurrentSpacePhoto$().pipe(
