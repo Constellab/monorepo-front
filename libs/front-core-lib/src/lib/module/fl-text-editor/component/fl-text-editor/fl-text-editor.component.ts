@@ -90,6 +90,8 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
   @HostBinding('class.ql-dense')
   @Input() dense: boolean = false;
 
+  @Input() anchor?: string;
+
   private quill: Quill;
 
   private blockAddButtonOverlay?: FlOverlayRef;
@@ -193,6 +195,12 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
 
     this.quill.on('text-change', () => this.setAndEmitValue(this.getQuillValue()));
     this.quill.on('editor-change', (changeEvent: any, obj: any) => this.onEditorChange(changeEvent, obj));
+
+    if(isPlatformBrowser(this.platformId) && this.anchor != null){
+      const anchorElement = this.elementRef.nativeElement.querySelector(`#${this.anchor}`);
+      anchorElement.scrollIntoView(true);
+    }
+
     this.isReady = true;
   }
 

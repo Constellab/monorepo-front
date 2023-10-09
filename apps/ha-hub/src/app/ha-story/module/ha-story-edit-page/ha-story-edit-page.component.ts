@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {HaStory, HaStoryContentFormDTO} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import {HaStory, HaStoryCategory, HaStoryContentFormDTO} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {FlConfirmDialogInput, FlDebouncer, FlDialogService, FlFormDialogInput} from '@monorepo/front-core-lib';
@@ -48,6 +48,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   canSaveTopic: boolean = false;
 
   inputTopic: string = '';
+
+  storyCategories: string[] = Object.keys(HaStoryCategory);
 
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
 
@@ -103,6 +105,13 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  onStoryCategoryChange(newCategory: HaStoryCategory): void {
+    if(newCategory){
+      this.storyService.updateCategory(this.story.id, newCategory).subscribe((story) => {
+        this.story.category = story.category;
+      });
+    }
+  }
   saveTitle(): void {
     this.storyService.updateTitle(this.story.id, this.inputTitle).subscribe((story) => {
       this.story.title = story.title;
@@ -153,7 +162,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   buildForm(): void {
     this.formGp = new FormBuilder().group({
       id: [null],
-      content: [null]
+      content: [null],
+      category: [null],
     });
   }
 

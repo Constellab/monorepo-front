@@ -44,7 +44,7 @@
         <fl-text-editor class="content-editor g-max-article-width" [formControl]="formCtrl"
                         mode="JSON" scrollContainer="auto"
                         [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [noPadding]="true"
-                        flAutoScrollToAnchor [baseDelta]="documentation?.content"></fl-text-editor>
+                        flAutoScrollToAnchor [baseDelta]="documentation?.content" [anchor]="anchor"></fl-text-editor>
       </form>
     </div>
   </div>
