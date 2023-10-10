@@ -15,6 +15,16 @@
     <mat-icon>clear</mat-icon>
     {{'lab_free_trial_expired' | translate: {date: (freeTrialDto.deletionDate | flDate:'DATETIME_MED')} }}
   </fl-text-icon>
+
+  <fl-text-icon *ngSwitchCase="'EXPIRED_AND_DELETED'">
+    <mat-icon>clear</mat-icon>
+    {{'lab_free_trial_expired_and_deleted' | translate }}
+  </fl-text-icon>
+
+  <fl-text-icon *ngSwitchCase="'NOT_USED'">
+    <mat-icon>clear</mat-icon>
+    {{'lab_free_trial_not_used' | translate }}
+  </fl-text-icon>
 </ng-container>
 
 <ng-container *ngIf="freeTrialDto.freeTrial">

@@ -283,6 +283,8 @@
   "lab_free_trial_in_progress_fr": "Essai gratuit en cours, votre essai va expirer le {{expirationDate}}. Vous avez {{remainingHours}} d'utilisation du lab restantes.",
   "lab_free_trial_open_lab": "Ouvrir le lab",
   "lab_free_trial_expired": "L'essai gratuit est terminé, le lab sera supprimé le {{date}}. Merci de nous contacter si vous souhaitez continuer à utiliser le lab.",
+  "lab_free_trial_expired_and_deleted": "L'essai gratuit est terminé, le lab a été supprimé. Merci de nous contacter si vous souhaitez continuer à utiliser le lab.",
+  "lab_free_trial_not_used": "L'essai gratuit n'a pas encore été utilisé",
   "lab_free_trial_delete": "Supprimer l'essai gratuit",
   "lab_free_trial_delete_confirmation": "Êtes-vous sûr de vouloir supprimer l'essai gratuit ? L'utilisateur pourra créer un nouveau lab gratuit.",
   "lab_free_trial_deleted": "Essai gratuit supprimé",

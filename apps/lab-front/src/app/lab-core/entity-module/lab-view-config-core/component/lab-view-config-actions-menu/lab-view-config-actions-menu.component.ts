@@ -110,7 +110,7 @@ export class LabViewConfigActionsMenuComponent {
     const data: FlPrettyJsonDialogInput = {
       title: {text: this.viewConfig.title},
       object: {
-        view_params: this.viewConfig.configValues,
+        config_values: this.viewConfig.configValues,
         view_method_name: this.viewConfig.viewName
       }
     };

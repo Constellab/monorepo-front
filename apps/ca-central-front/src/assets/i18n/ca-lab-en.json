@@ -283,6 +283,8 @@
   "lab_free_trial_in_progress": "Free trial in progress, your trial will expire the {{expirationDate}}. You have {{remainingHours}} of lab usage left.",
   "lab_free_trial_open_lab": "Open lab",
   "lab_free_trial_expired": "Free trial expired, the lab will be deleted the {{date}}. Please contact us if you want to continue using the lab.",
+  "lab_free_trial_expired_and_deleted": "Free trial expired, the lab has been deleted. Please contact us if you want your own lab.",
+  "lab_free_trial_not_used": "Free trial not used yet",
   "lab_free_trial_delete": "Delete lab free trial",
   "lab_free_trial_delete_confirmation": "Are you sure you want to delete the lab free trial ? The user will be able to start a new free trial.",
   "lab_free_trial_deleted": "Lab free trial deleted",
