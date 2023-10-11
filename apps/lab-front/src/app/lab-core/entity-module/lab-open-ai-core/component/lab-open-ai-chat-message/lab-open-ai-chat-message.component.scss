@@ -1,3 +1,7 @@
+.content {
+  padding: 1em;
+  border-radius: var(--card-radius);
+}
 
 .icon {
   flex-shrink: 0;
@@ -5,10 +9,6 @@
   display: flex;
 }
 
-.content {
-  padding: 1em;
-  border-radius: var(--card-radius);
-}
 
 ::ng-deep lab-open-ai-chat-message{
   .content code {
@@ -47,4 +47,14 @@
   .edit-button {
     opacity: 1;
   }
+}
+
+
+////////////////////// EDIT MODE //////////////////////
+.edit-container{
+  padding: 1em;
+}
+
+.cancel-button{
+  margin-left: 1em;
 }
