@@ -64,7 +64,7 @@ export class FlPortalActionsService {
 
     // set portal on bottom right
     const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
-      {right: '10px', bottom: '10px'});
+      {right: '10px', bottom: '10px'}, {panelClass: 'g-print-hide'});
 
     // open portal
     this.currentOverlay = this.portalService.createPortal(FlPortalActionsComponent, portalConfig);
