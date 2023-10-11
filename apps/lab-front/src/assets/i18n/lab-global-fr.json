@@ -116,6 +116,8 @@
   "open_ai_delete_message": "Supprimer le message",
   "open_ai_delete_all_messages": "Supprimer tous les messages",
   "open_ai_update_message": "Modifier le message",
+  "open_ai_save_update" : "Enregistrer (ctrl + entrer)",
+  "open_ai_cancel_update" : "Annuler (échappe)",
   "open_ai_no_message_error": "Vous devez entrer un message",
   "select_none": "Aucun"
 }

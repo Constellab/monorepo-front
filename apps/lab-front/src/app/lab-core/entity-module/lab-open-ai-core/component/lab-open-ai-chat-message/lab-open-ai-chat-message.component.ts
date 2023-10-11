@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LabOpenAiChatMessage, LabOpenAiChatMessageRole} from '../../model/lab-open-ai.class';
+import {ClHelpService} from '@monorepo/core-lib';
 
 export type LabOpenAiChatMessageAction = 'delete' | 'delete-all';
 
@@ -8,13 +9,17 @@ export type LabOpenAiChatMessageAction = 'delete' | 'delete-all';
   templateUrl: './lab-open-ai-chat-message.component.html',
   styleUrls: ['./lab-open-ai-chat-message.component.scss'],
 })
-export class LabOpenAiChatMessageComponent implements OnInit{
+export class LabOpenAiChatMessageComponent implements OnInit {
 
   @Input() message: LabOpenAiChatMessage;
 
   @Output() action: EventEmitter<LabOpenAiChatMessageAction> = new EventEmitter();
 
-  showContent : boolean;
+  mode: 'read' | 'edit' = 'read';
+  editContent: string;
+  editRowCount: number = 1;
+
+  showContent: boolean;
 
   ngOnInit(): void {
     this.showContent = this.message?.role !== 'system';
@@ -43,5 +48,28 @@ export class LabOpenAiChatMessageComponent implements OnInit{
 
   toggleContent(): void {
     this.showContent = !this.showContent;
+  }
+
+  setEditMode(): void {
+    this.mode = 'edit';
+    this.editContent = this.message.content;
+    if (this.editContent) {
+      this.editRowCount = Math.max(this.editContent.split('\n').length, 4);
+    }
+  }
+
+
+  escapePressed(event: Event): void {
+    ClHelpService.stopEventPropagation(event);
+    this.cancelEdit();
+  }
+
+  cancelEdit(): void {
+    this.mode = 'read';
+  }
+
+  saveEdit(): void {
+    this.message.content = this.editContent;
+    this.mode = 'read';
   }
 }
