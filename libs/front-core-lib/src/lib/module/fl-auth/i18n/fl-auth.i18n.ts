@@ -53,7 +53,7 @@ const flAuthI18nEn: FlLangTranslation = {
     signup: 'Sign up',
     password_weak_error: 'The password must contain at least 8 characters, 1 letter and 1 number',
     repeat_password_error: 'The repeat password is not the same',
-    signup_link: 'Doesn\'t have an account? Sign up',
+    signup_link: 'Don\'t have an account? Sign up',
     sign_in_link: 'Already have an account? Sign in',
     account_created: 'Account created, we sent you an email to activate your account',
     accept_cgu_cgv_text: `I agree to the website <a href="https://gencovery.com/legal/terms-of-use" target="_blank">Terms of Use</a> and <a href="https://gencovery.com/legal/privacy-policy" target="_blank">Privacy Policy</a>`,
