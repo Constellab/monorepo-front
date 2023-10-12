@@ -1,3 +1,9 @@
+
+.container {
+  container-type: inline-size;
+  container-name: section;
+}
+
 .header{
   padding: 0.3em 1em;
   box-sizing: border-box;
@@ -9,4 +15,12 @@
 
 .view-image{
   display: flex;
+}
+
+/* If the container is larger than 700px */
+@container section (max-width: 400px) {
+  // hide the view image in small screens
+  .view-image {
+    display: none;
+  }
 }
