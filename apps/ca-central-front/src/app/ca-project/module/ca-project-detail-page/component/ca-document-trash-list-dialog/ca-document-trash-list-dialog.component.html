@@ -1,0 +1,9 @@
+<fl-dialog-header [closeButtonData]="restoredDocuments">
+  {{'documents_in_trash' | translate}}
+</fl-dialog-header>
+<mat-dialog-content>
+  <fl-infinite-scroll [datasource]="documentDatasource" class="g-infinite-table">
+    <ca-document-table [datasource]="documentDatasource" [isTrash]="true"
+                       (documentAction)="onDocumentAction($event)"></ca-document-table>
+  </fl-infinite-scroll>
+</mat-dialog-content>

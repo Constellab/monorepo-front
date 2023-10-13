@@ -66,6 +66,7 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
         id: space.id,
         name: space.name,
         defaultStorageRegion: this.spaceSettings.defaultStorageRegion,
+        defaultBackupStorageRegion: this.spaceSettings.defaultBackupStorageRegion,
         nbLicenses: this.spaceSettings.nbLicenses
       }
     };

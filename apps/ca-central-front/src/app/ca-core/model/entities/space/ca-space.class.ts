@@ -31,6 +31,9 @@ export class CaSpaceSettingsDto {
 
   @Type(() => CaCloudProviderRegion)
   defaultStorageRegion: CaCloudProviderRegion;
+
+  @Type(() => CaCloudProviderRegion)
+  defaultBackupStorageRegion: CaCloudProviderRegion;
 }
 
 export type CaSpaceDatasource = FlDatasourcePaginated<CaSpace>;
@@ -40,6 +43,7 @@ export interface CaSaveSpaceDTO {
   name: string;
   nbLicenses: number;
   defaultStorageRegion: CaCloudProviderRegion;
+  defaultBackupStorageRegion: CaCloudProviderRegion;
 }
 
 export class CaSpaceInfoDto {

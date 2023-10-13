@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {Validators} from '@angular/forms';
+import {ValidatorFn, Validators} from '@angular/forms';
 import {
+  CaCreateProjectBucketDTO,
   CaProject,
   CaProjectLevel,
   CaProjectLevelStatus,
@@ -60,7 +61,8 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
     if (this.showStorageRegion) {
       this.spaceService.getCurrentSpaceSettings().subscribe(
         spaceSettings => {
-          this.formGp.get('storageRegion').setValue(spaceSettings.defaultStorageRegion);
+          this.formGp.get('mainRegion').setValue(spaceSettings.defaultStorageRegion);
+          this.formGp.get('backupRegion').setValue(spaceSettings.defaultBackupStorageRegion);
         }
       );
     }
@@ -79,8 +81,9 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
       title: [null, Validators.required],
       startingDate: [this.dialogInput.parentStartingDate, Validators.required],
       endingDate: [this.dialogInput.parentEndingDate],
-      storageRegion: [null, this.showStorageRegion ? Validators.required : null],
-    });
+      mainRegion: [null, this.showStorageRegion ? Validators.required : null],
+      backupRegion: [null, this.showStorageRegion ? Validators.required : null],
+    }, {validator: this.showStorageRegion ? this.differentBackupRegionValidator() : null});
   }
 
   create(formValue: CnSaveProjectDTO): Observable<CaProject> {
@@ -127,5 +130,16 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
 
   get showStorageRegion(): boolean {
     return this.dialogInput.level === CaProjectLevel.PROJECT && this.isCreateMode();
+  }
+
+  private differentBackupRegionValidator(): ValidatorFn {
+    return (control: FormGroup<CaCreateProjectBucketDTO>): { [key: string]: any } => {
+      if(control.value.mainRegion == null || control.value.backupRegion == null) return null;
+
+      if (control.value.mainRegion.id === control.value.backupRegion.id) {
+        return {sameBackupRegion: true};
+      }
+      return null;
+    };
   }
 }

@@ -7,19 +7,17 @@ import {
   CaDocumentDatasource
 } from '../../../../../ca-core/model/entities/project/ca-document.class';
 import {firstValueFrom} from 'rxjs';
-import {
-  FlDialogService,
-  FlPortalAction,
-  FlPortalActionsService,
-  FlTableColumn,
-  FlTranslateService
-} from '@monorepo/front-core-lib';
+import {FlDialogService, FlPortalAction, FlPortalActionsService, FlTranslateService} from '@monorepo/front-core-lib';
 import {ClHelpService, ClSubscriptionHandler} from '@monorepo/core-lib';
 import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
 import {
   CaDocumentNameFormDialogComponent,
   CaDocumentNameFormDialogInput
 } from '../../../ca-document-core/component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
+import {
+  CaDocumentTrashListDialogComponent,
+  CaDocumentTrashListDialogInput
+} from '../ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
 
 /**
  * Card to list the document of the current project
@@ -32,8 +30,6 @@ import {
 export class CaProjectDocumentsListComponent implements OnInit, OnDestroy {
 
   documentDatasource: CaDocumentDatasource;
-
-  columns: FlTableColumn<CaDocument>[] = ['name', 'size', 'creationInfo', 'actions'];
 
   private actionName = 'upload-project-document';
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
@@ -99,6 +95,21 @@ export class CaProjectDocumentsListComponent implements OnInit, OnDestroy {
   private createConstellabDocClosed(doc?: CaConstellabDocument): void {
     if (doc) {
       this.routerService.navigateToDocumentDetail(doc.document.id);
+    }
+  }
+
+  async openDocumentInTrash(): Promise<void> {
+    const input: CaDocumentTrashListDialogInput = {
+      projectId: await firstValueFrom(this.state.getProjectId$())
+    };
+
+    this.dialogService.openMediumDialog(CaDocumentTrashListDialogComponent, {data: input}).afterClosed()
+      .subscribe(restoredDocs => this.onDocumentInTrashClosed(restoredDocs));
+  }
+
+  private onDocumentInTrashClosed(restoredDocs?: CaDocument[]): void {
+    if (restoredDocs) {
+      this.documentDatasource.unshiftItem(restoredDocs);
     }
   }
 

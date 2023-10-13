@@ -15,6 +15,17 @@
       </mat-error>
     </mat-form-field>
 
+
+    <!--  Nb of licences  -->
+    <mat-form-field class="g-form-input" *caIsAdmin>
+      <mat-label>{{'nb_of_licenses' | translate}}</mat-label>
+      <input matInput formControlName="nbLicenses" required type="number"
+             [placeholder]="'nb_of_licenses' | translate" min="0">
+      <mat-error *ngIf="formGp.get('nbLicenses').hasError('required')">
+        {{'nb_of_licenses' | flErrorRequired}}
+      </mat-error>
+    </mat-form-field>
+
     <!--  Default storage region  -->
     <mat-form-field class="g-form-input">
       <mat-label>{{'space_default_storage_region' | translate}}</mat-label>
@@ -30,15 +41,24 @@
       </mat-error>
     </mat-form-field>
 
-    <!--  Nb of licences  -->
-    <mat-form-field class="g-form-input" *caIsAdmin>
-      <mat-label>{{'nb_of_licenses' | translate}}</mat-label>
-      <input matInput formControlName="nbLicenses" required type="number"
-             [placeholder]="'nb_of_licenses' | translate" min="0">
-      <mat-error *ngIf="formGp.get('nbLicenses').hasError('required')">
-        {{'nb_of_licenses' | flErrorRequired}}
+    <!--  Default backup storage region  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'space_default_backup_storage_region' | translate}}</mat-label>
+      <mat-select formControlName="defaultBackupStorageRegion"
+                  [placeholder]="'space_default_backup_storage_region' | translate">
+        <ca-select-cloud-provider-region-options mode="s3"></ca-select-cloud-provider-region-options>
+      </mat-select>
+      <mat-hint>
+        {{'space_default_backup_storage_region_help' | translate}}
+      </mat-hint>
+      <mat-error *ngIf="formGp.get('defaultBackupStorageRegion').hasError('required')">
+        {{'space_default_backup_storage_region' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
+
+    <mat-error *ngIf="formGp.hasError('sameBackupRegion')">
+      {{'project_storage_region_same_error' | translate}}
+    </mat-error>
 
 
   </form>

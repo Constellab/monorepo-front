@@ -9,22 +9,24 @@
 
   <ng-container *flSectionBody="let bucket">
     <div class="body">
-      <div *ngIf="bucket; else notConfigured">
-        <fl-text-ok-nok [value]="true" [okText]="'project_storage_configured' | translate">
-        </fl-text-ok-nok>
-        <ca-bucket-info [bucket]="bucket"></ca-bucket-info>
+
+      <!--   Main bucket   -->
+      <fl-text-ok-nok [value]="!!bucket.mainBucket" [okText]="'project_main_storage_configured' | translate"
+                      [nokText]="'project_main_storage_not_configured' | translate">
+      </fl-text-ok-nok>
+      <ca-bucket-info *ngIf="bucket.mainBucket" [bucket]="bucket.mainBucket"></ca-bucket-info>
+
+      <!--  Backup bucket    -->
+      <fl-text-ok-nok [value]="!!bucket.backupBucket" [okText]="'project_backup_storage_configured' | translate"
+                      [nokText]="'project_backup_storage_not_configured' | translate">
+      </fl-text-ok-nok>
+      <ca-bucket-info *ngIf="bucket.backupBucket" [bucket]="bucket.backupBucket"></ca-bucket-info>
+
+      <div class="g-text-centered configure-button" *ngIf="!bucket.mainBucket || !bucket.backupBucket">
+        <button mat-stroked-button type="button" (click)="configureStorage()">
+          {{'configure_project_storage' | translate}}
+        </button>
       </div>
-
-      <ng-template #notConfigured>
-        <fl-text-ok-nok [value]="false" [nokText]="'project_storage_not_configured' | translate">
-        </fl-text-ok-nok>
-
-        <div class="g-text-centered configure-button">
-          <button mat-stroked-button type="button" (click)="configureStorage()">
-            {{'configure_project_storage' | translate}}
-          </button>
-        </div>
-      </ng-template>
     </div>
   </ng-container>
 </fl-async-section>

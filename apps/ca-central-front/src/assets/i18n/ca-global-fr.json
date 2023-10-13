@@ -124,6 +124,8 @@
   "invalid_domain_name": "Nom de domaine invalide, il doit contenir seulement des caractères alphanumériques et des tirets",
   "space_default_storage_region": "Région de stockage par défaut",
   "space_default_storage_region_help": "La région de stockage par défaut est utilisée pour les nouveaux projets.",
+  "space_default_backup_storage_region": "Région de stockage par défaut pour les sauvegardes",
+  "space_default_backup_storage_region_help": "Définissez une région différente pour sauvegarder les données de la région par défaut.",
   "role": "Rôle",
   "active_license": "Licence active",
   "space_activate_license": "Activer la licence",

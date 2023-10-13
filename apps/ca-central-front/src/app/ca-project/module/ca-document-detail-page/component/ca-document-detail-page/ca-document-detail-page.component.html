@@ -24,6 +24,9 @@
         <fl-article>
           <fl-card class="g-full-height">
             <fl-card-body>
+              <div *ngIf="document.inTrash" class="g-warn-text">
+                {{'document_in_trash' | translate}}
+              </div>
               <div class="header g-layout-row g-layout-between-center">
                 <h1>{{document.name}}</h1>
 
@@ -40,8 +43,7 @@
                   </button>
 
                   <ca-document-actions-menu [document]="document" [showViewLinks]="false"
-                                            (documentUpdated)="updateDocument($event)"
-                                            (documentDeleted)="deleteDocument()"></ca-document-actions-menu>
+                                            (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
                 </div>
               </div>
 

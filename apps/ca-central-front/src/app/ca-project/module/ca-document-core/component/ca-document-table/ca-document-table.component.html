@@ -38,28 +38,13 @@
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
 
       <ca-document-actions-menu [document]="row"
-                                (documentUpdated)="updateDocument($event)"
-                                (documentDeleted)="deleteDocument($event)"></ca-document-actions-menu>
+                                (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
     </mat-cell>
   </ng-container>
 
-
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let experiment">
-      <div>
-        <span>{{experiment[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
-
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
-  <mat-row *matRowDef="let row; columns: _columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 
 </mat-table>
