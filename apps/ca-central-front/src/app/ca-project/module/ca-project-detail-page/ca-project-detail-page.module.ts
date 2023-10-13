@@ -50,6 +50,9 @@ import {
 import {
   CaProjectUserConfigDialogComponent
 } from './component/ca-project-user-config-dialog/ca-project-user-config-dialog.component';
+import {
+  CaDocumentTrashListDialogComponent
+} from './component/ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
 
 /**
  * Module for the project detail page
@@ -71,6 +74,7 @@ import {
     CaProjectConfigureStorageComponent,
     CaProjectDocumentsListComponent,
     CaProjectUserConfigDialogComponent,
+    CaDocumentTrashListDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -91,7 +95,6 @@ import {
     CaCloudProviderCoreModule,
     CaUserCoreModule,
     CaNotificationCoreModule,
-  ]
+  ],
 })
-export class CaProjectDetailPageModule {
-}
+export class CaProjectDetailPageModule {}

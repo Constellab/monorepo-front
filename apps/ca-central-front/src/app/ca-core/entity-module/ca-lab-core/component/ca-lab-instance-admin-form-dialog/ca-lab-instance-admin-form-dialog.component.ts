@@ -154,7 +154,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
 
       if (dailyBackupRegion == null) return null;
 
-      if (parent.value.dailyBackupRegion.id === control.value.id) {
+      if (dailyBackupRegion.id === control.value.id) {
         return {sameBackupRegion: true};
       }
       return null;

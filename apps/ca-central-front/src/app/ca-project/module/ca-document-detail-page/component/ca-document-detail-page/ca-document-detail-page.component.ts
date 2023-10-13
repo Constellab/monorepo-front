@@ -6,6 +6,9 @@ import {FlDebouncer, FlDialogService, FlTextEditorConfig} from '@monorepo/front-
 import {CaDocumentTextEditorConfig} from '../../../ca-document-core/ca-document-text-editor-config.class';
 import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
 import {ClRichTextI} from '@monorepo/core-lib';
+import {
+  CaDocumentActionEvent
+} from '../../../ca-document-core/component/ca-document-actions-menu/ca-document-actions-menu.component';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -70,16 +73,16 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
 
   private saveContent(content: ClRichTextI): void {
     this.projectService.updateConstellabDocument(this.document.id, content).subscribe(
-      doc => this.updateDocument(doc.document)
+      doc => this.document = doc.document
     );
   }
 
-  updateDocument(document: CaDocument): void {
-    this.document = document;
-  }
-
-  deleteDocument(): void {
-    this.routerService.navigateToProjectDetail(this.document.projectId);
+  onDocumentAction(event: CaDocumentActionEvent): void {
+    if (event.action === 'update') {
+      this.document = event.document;
+    } else if (event.action === 'delete') {
+      this.routerService.navigateToProjectDetail(this.document.projectId);
+    }
   }
 
   toggleEditMode(): void {

@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import {
+  CaCreateProjectBucketDTO,
   CaProject,
   CaProjectAncestorTreeDTO,
   CaProjectAncestorType,
+  CaProjectBucketsDTO,
   CaProjectDatasource,
   CaProjectStatus,
   CaProjectStatusHistory,
@@ -25,8 +27,7 @@ import {CaGroup} from '../model/entities/ca-group.entity';
 import {CaUser} from '../model/entities/ca-user.class';
 import {CaProjectComment, CaProjectCommentDatasourcePaginated} from '../model/entities/ca-comment.class';
 import {CaProjectSearch, CaProjectSearchFields} from '../entity-module/ca-project-core/model/ca-project-search.class';
-import {CaBucket, CaBucketFull} from '../model/entities/ca-object-storage.class';
-import {CaCloudProviderRegion} from '../model/entities/ca-cloud-provider.class';
+import {CaBucketFull} from '../model/entities/ca-object-storage.class';
 import {CaConstellabDocument, CaDocument, CaDocumentDatasource} from '../model/entities/project/ca-document.class';
 import {CaProjectUserConfig} from '../model/entities/project/ca-project-user.class';
 import {CaActivity} from '../model/entities/ca-activity.class';
@@ -238,6 +239,21 @@ export class CaProjectService {
     return this.apiService.put(`${this.route}/document/${documentId}/rename`, {name: name}, CaDocument);
   }
 
+  public getTrashedDocuments(projectId: string): CaDocumentDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page, size) => this.apiService.get(`${this.route}/${projectId}/document/trashed`, CaDocument, {
+        page: page, pageSize: size, resultIsPaginated: true
+      }), 20);
+  }
+
+  public moveDocumentToTrash(documentId: string): Observable<CaDocument> {
+    return this.apiService.put(`${this.route}/document/${documentId}/move-to-trash`, null, CaDocument);
+  }
+
+  public restoreDocumentFromTrash(documentId: string): Observable<CaDocument> {
+    return this.apiService.put(`${this.route}/document/${documentId}/restore-from-trash`, null, CaDocument);
+  }
+
   //////////////////////////////////// CONSTELLAB DOCUMENT ///////////////////////////////////////////
 
   public createConstellabDocument(projectId: string, filename: string): Observable<CaConstellabDocument> {
@@ -264,12 +280,12 @@ export class CaProjectService {
 
 
   /////////////////////////////// Project Bucket ///////////////////////////////////////////
-  public getProjectBucket(projectId: string): Observable<CaBucketFull | null> {
-    return this.apiService.get(`${this.route}/${projectId}/bucket`, CaBucketFull);
+  public getProjectBuckets(projectId: string): Observable<CaProjectBucketsDTO | null> {
+    return this.apiService.get(`${this.route}/${projectId}/buckets`, CaBucketFull);
   }
 
-  public createProjectBucket(projectId: string, region: CaCloudProviderRegion): Observable<CaBucket> {
-    return this.apiService.post(`${this.route}/${projectId}/bucket`, region, CaBucket);
+  public createProjectBuckets(projectId: string, createBucket: CaCreateProjectBucketDTO): Observable<CaProjectBucketsDTO> {
+    return this.apiService.post(`${this.route}/${projectId}/buckets`, createBucket, CaProjectBucketsDTO);
   }
 
   /////////////////////////////// Project user ///////////////////////////////////////////

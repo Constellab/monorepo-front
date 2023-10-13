@@ -13,6 +13,8 @@ export class FlDialogHeaderComponent implements OnInit {
 
   @Input() hideCloseButton: boolean = false;
 
+  @Input() closeButtonData: any;
+
   constructor() {
   }
 

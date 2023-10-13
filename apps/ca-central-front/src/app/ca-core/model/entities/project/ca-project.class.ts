@@ -13,6 +13,7 @@ import {
 import {Type} from 'class-transformer';
 import {CaUser} from '../ca-user.class';
 import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
+import {CaBucketFull} from '../ca-object-storage.class';
 
 export type CaProjectStatus = 'ACTIVE' | 'IN_PROGRESS' | 'ARCHIVED';
 
@@ -107,7 +108,9 @@ export class CnSaveProjectDTO {
   endingDate: DateTime;
   // only for project level in creation
   @Type(() => CaCloudProviderRegion)
-  storageRegion?: CaCloudProviderRegion;
+  mainRegion?: CaCloudProviderRegion;
+  @Type(() => CaCloudProviderRegion)
+  backupRegion?: CaCloudProviderRegion;
 }
 
 /**
@@ -146,4 +149,20 @@ export interface CaProjectTreeDto {
   title: string;
   children: CaProjectTreeDto[];
   levelStatus: CaProjectLevelStatus;
+}
+
+export class CaCreateProjectBucketDTO {
+  @Type(() => CaCloudProviderRegion)
+  mainRegion: CaCloudProviderRegion;
+
+  @Type(() => CaCloudProviderRegion)
+  backupRegion: CaCloudProviderRegion;
+}
+
+export class CaProjectBucketsDTO {
+  @Type(() => CaBucketFull)
+  mainBucket: CaBucketFull;
+
+  @Type(() => CaBucketFull)
+  backupBucket: CaBucketFull;
 }

@@ -28,8 +28,21 @@
   </button>
 
   <button mat-menu-item type="button"
-          (click)="deleteDocument()">
+          (click)="moveToTrash()" *ngIf="!document.inTrash; else inTrash">
     <mat-icon color="warn">clear</mat-icon>
-    <span class="g-warn-text">{{'delete_document' | translate}}</span>
+    <span class="g-warn-text">{{'move_document_to_trash' | translate}}</span>
   </button>
+
+  <ng-template #inTrash>
+    <button mat-menu-item type="button" (click)="restoreFromTrash()">
+      <mat-icon>restore_from_trash</mat-icon>
+      <span>{{'restore_document_from_trash' | translate}}</span>
+    </button>
+
+    <button mat-menu-item type="button"
+            (click)="deleteDocument()">
+      <mat-icon color="warn">delete_forever</mat-icon>
+      <span class="g-warn-text">{{'delete_document' | translate}}</span>
+    </button>
+  </ng-template>
 </mat-menu>

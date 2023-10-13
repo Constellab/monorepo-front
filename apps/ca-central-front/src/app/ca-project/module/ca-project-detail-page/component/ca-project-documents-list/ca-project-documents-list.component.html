@@ -17,12 +17,17 @@
         <input flInputFile [multiple]="true" type="file" (fileChange)="uploadDocument($event)"
                [autoClearHtmlInput]="true">
       </fl-input-file-icon-container>
+
+      <button mat-icon-button type="button" (click)="openDocumentInTrash()"
+              [matTooltip]="'documents_in_trash' | translate">
+        <mat-icon>delete</mat-icon>
+      </button>
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
     <fl-infinite-scroll [datasource]="documentDatasource" class="g-infinite-table">
-      <ca-document-table [datasource]="documentDatasource" [columns]="columns"></ca-document-table>
+      <ca-document-table [datasource]="documentDatasource"></ca-document-table>
     </fl-infinite-scroll>
   </fl-card-body>
 

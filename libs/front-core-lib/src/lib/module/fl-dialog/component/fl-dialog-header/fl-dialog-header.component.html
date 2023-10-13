@@ -8,7 +8,7 @@
   <div class="g-layout-row g-layout-start-center">
     <ng-content select="fl-dialog-header-actions"></ng-content>
     <button mat-icon-button type="button" [matTooltip]="'close' | translate"
-            [mat-dialog-close]="null" tabindex="-1" *ngIf="!hideCloseButton">
+            [mat-dialog-close]="closeButtonData" tabindex="-1" *ngIf="!hideCloseButton">
       <mat-icon>close</mat-icon>
     </button>
   </div>

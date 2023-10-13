@@ -7,6 +7,11 @@ import {
 import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 
+export interface CaDocumentActionEvent {
+  action: 'update' | 'delete' | 'moveToTrash' | 'restoreFromTrash';
+  document: CaDocument;
+}
+
 @Component({
   selector: 'ca-document-actions-menu',
   templateUrl: './ca-document-actions-menu.component.html',
@@ -18,8 +23,7 @@ export class CaDocumentActionsMenuComponent implements OnInit {
 
   @Input() showViewLinks: boolean = true;
 
-  @Output() documentUpdated: EventEmitter<CaDocument> = new EventEmitter();
-  @Output() documentDeleted: EventEmitter<CaDocument> = new EventEmitter();
+  @Output() documentAction: EventEmitter<CaDocumentActionEvent> = new EventEmitter();
 
   constructor(private dialogService: FlDialogService,
               private projectService: CaProjectService) {
@@ -51,7 +55,58 @@ export class CaDocumentActionsMenuComponent implements OnInit {
 
   private onRenameClosed(doc?: CaDocument): void {
     if (doc) {
-      this.documentUpdated.emit(doc);
+      this.documentAction.emit({
+        action: 'update',
+        document: doc
+      });
+    }
+  }
+
+  moveToTrash(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'move_document_to_trash',
+      content: 'move_document_to_trash_confirmation',
+      translateTitleAndContent: true,
+      observable: this.projectService.moveDocumentToTrash(this.document.id),
+      successMessage: 'document_moved_to_trash',
+      translateMessage: true
+    };
+
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
+      result => this.onMoveToTrashClosed(result)
+    );
+  }
+
+  private onMoveToTrashClosed(result: FlConfirmDialogResult<CaDocument>): void {
+    if(result.choice){
+      this.documentAction.emit({
+        action: 'moveToTrash',
+        document: result.result
+      });
+    }
+  }
+
+  restoreFromTrash(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'restore_document_from_trash',
+      content: 'restore_document_from_trash_confirmation',
+      translateTitleAndContent: true,
+      observable: this.projectService.restoreDocumentFromTrash(this.document.id),
+      successMessage: 'document_restored_from_trash',
+      translateMessage: true
+    };
+
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
+      result => this.onRestoreFromTrashClosed(result)
+    );
+  }
+
+  private onRestoreFromTrashClosed(result: FlConfirmDialogResult<CaDocument>): void {
+    if(result.choice){
+      this.documentAction.emit({
+        action: 'restoreFromTrash',
+        document: result.result
+      });
     }
   }
 
@@ -72,7 +127,10 @@ export class CaDocumentActionsMenuComponent implements OnInit {
 
   onDeleteClosed(result: FlConfirmDialogResult, document: CaDocument): void {
     if (result.choice) {
-      this.documentDeleted.emit(document);
+      this.documentAction.emit({
+        action: 'delete',
+        document: document
+      });
     }
   }
 

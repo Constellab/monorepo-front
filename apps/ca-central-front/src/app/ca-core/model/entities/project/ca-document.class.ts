@@ -14,6 +14,8 @@ export class CaDocument extends CaBaseEntity {
   projectId: string;
 
   isConstellabDocument: boolean;
+
+  inTrash: boolean;
 }
 
 export type CaDocumentDatasource = FlDatasourcePaginated<CaDocument>;
