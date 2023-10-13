@@ -11,7 +11,6 @@ import {Observable} from 'rxjs';
 import {CaCurrentSpaceService} from '../../../ca-core/service-api/ca-current-space.service';
 import {map} from 'rxjs/operators';
 import {CaNotificationState} from '../../../ca-core/state/ca-notification.state';
-import {CaBotChatScriptService} from '../../../ca-core/service/ca-bot-chat-script.service';
 
 /**
  * Main app component. Menu on the left and page on the right

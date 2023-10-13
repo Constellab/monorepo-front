@@ -1,0 +1,41 @@
+.methods-div{
+  margin-bottom: 2em;
+  padding: 1em;
+  border-radius: 18px;
+}
+
+.method-card{
+  background-color: var(--card-background);
+  margin-top: 1em;
+  padding: 1em;
+  border-radius: 13px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.func-code-line:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.func{
+  font-size: 13px;
+  background-color: var(--card-background);
+  padding: 1em;
+  margin-top: 1em;
+}
+
+.func-parameters-element{
+  min-width: 12.5em;
+}
+
+.view-title{
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.view-img{
+  max-height: 10em;
+}

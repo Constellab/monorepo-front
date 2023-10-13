@@ -24,6 +24,7 @@ import {
   FlUserModule
 } from '@monorepo/front-core-lib';
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
+import {RvResourceViewModule} from '@monorepo/resource-view';
 
 @NgModule({
   exports: [
@@ -52,7 +53,8 @@ import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 
     //-------------------
 
-    TdTechnicalDocModule
+    TdTechnicalDocModule,
+    RvResourceViewModule
   ]
 })
 export class HaCustomLibraryModule {

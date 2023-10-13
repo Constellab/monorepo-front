@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {makeStateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformServer} from '@angular/common';
+import {FlChatBotService} from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ha-monorepo-root',
@@ -12,10 +13,13 @@ export class HaAppComponent implements OnInit {
   message: string;
 
   constructor(private transferState: TransferState,
-              @Inject(PLATFORM_ID) private platformId: object) {
+              @Inject(PLATFORM_ID) private platformId: object,
+              private chatBotService: FlChatBotService) {
   }
 
   ngOnInit(): void {
+
+    this.chatBotService.loadScript();
 
     const MESSAGE_KEY = makeStateKey<string>('message');
 

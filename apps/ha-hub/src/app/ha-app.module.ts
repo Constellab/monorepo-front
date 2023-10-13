@@ -33,6 +33,7 @@ import {HaUserConfig} from './ha-core/ha-model/ha-config/ha-user-config.config';
 import {HaMainModule} from './ha-main/ha-main.module';
 import {HaEnvironmentHelper} from './ha-core/ha-model/ha-config/ha-environment.helper';
 import {HaHttpInterceptorSsrService} from './ha-core/ha-service/ha-http-interceptor-ssr.service';
+import {rvDefaultViewTypeInfos, RvResourceViewModule} from '@monorepo/resource-view';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -90,6 +91,9 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlTextEditorModule.forRoot({
       blots: [],
     }),
+
+    RvResourceViewModule.forRoot({availableViews: rvDefaultViewTypeInfos}),
+
     HaMainModule
   ],
   providers: [
