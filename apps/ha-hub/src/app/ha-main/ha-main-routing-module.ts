@@ -5,7 +5,6 @@ import {Ha404Component} from '../ha-public/module/ha404/ha404.component';
 import {HaLoginPageComponent} from './ha-login-page/ha-login-page.component';
 import {HaHomeComponent} from './ha-home/ha-home.component';
 import {HaRouterService} from '../ha-core/ha-service/ha-router.service';
-import {HaSpecialDocGuard} from '../ha-core/ha-guard/ha-special-doc.guard';
 
 const routes: Routes = [
   {
@@ -15,13 +14,11 @@ const routes: Routes = [
   },
   {
     path: 'tech-doc',
-    canActivate: [HaSpecialDocGuard],
-    component: HaMainComponent,
+    redirectTo: HaRouterService.getTechDocRoute()
   },
   {
     path: 'product-doc',
-    canActivate: [HaSpecialDocGuard],
-    component: HaMainComponent,
+    redirectTo: HaRouterService.getProductDocRoute()
   },
   {
     path: 'bricks',

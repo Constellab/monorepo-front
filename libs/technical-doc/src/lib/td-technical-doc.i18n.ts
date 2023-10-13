@@ -35,6 +35,11 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     update_port: 'Modifier le port',
     remove_port: 'Supprimer le port',
     brick: 'Brique',
+    views: 'Vues',
+    default_view: 'Vue par défaut',
+    functions: 'Fonctions',
+    parameters: 'Paramètres',
+    return_type: 'Type de retour',
   }
 };
 
@@ -72,6 +77,11 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     update_port: 'Update port',
     remove_port: 'Remove port',
     brick: 'Brick',
+    views: 'Views',
+    default_view: 'Default view',
+    functions: 'Functions',
+    parameters: 'Parameters',
+    return_type: 'Return type',
   }
 };
 

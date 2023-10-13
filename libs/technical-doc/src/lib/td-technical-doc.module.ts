@@ -7,11 +7,14 @@ import {TdMainDocComponent} from './component/td-main-doc/td-main-doc.component'
 import {TdProcessDocComponent} from './component/td-process-doc/td-process-doc.component';
 import {MatIconModule} from '@angular/material/icon';
 import {
-    FlCoreComponentModule,
-    FlCorePipeModule, FlIconModule,
-    FlKeyValueModule,
-    FlTranslateModule,
-    FlTranslateService
+  FlCoreComponentModule,
+  FlCorePipeModule,
+  FlIconModule,
+  FlKeyValueModule,
+  FlTextIconModule,
+  FlThemeModule,
+  FlTranslateModule,
+  FlTranslateService
 } from '@monorepo/front-core-lib';
 import {TdIoDocsComponent} from './component/td-io-docs/td-io-docs.component';
 import {MatDividerModule} from '@angular/material/divider';
@@ -31,22 +34,24 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        MatIconModule,
-        MatChipsModule,
-        MatDividerModule,
-        MatTooltipModule,
-        MatButtonModule,
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatIconModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatTooltipModule,
+    MatButtonModule,
 
-        FlCorePipeModule,
-        FlCoreComponentModule,
-        FlTranslateModule,
-        FlKeyValueModule,
-        FlIconModule,
-        MatMenuModule,
-    ],
+    FlCorePipeModule,
+    FlCoreComponentModule,
+    FlTranslateModule,
+    FlKeyValueModule,
+    FlIconModule,
+    MatMenuModule,
+    FlTextIconModule,
+    FlThemeModule,
+  ],
   declarations: [
     TdResourceDocComponent,
     TdTechnicalDocComponent,

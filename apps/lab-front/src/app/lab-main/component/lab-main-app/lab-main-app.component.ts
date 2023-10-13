@@ -11,6 +11,7 @@ import {Title} from '@angular/platform-browser';
 import {LabSystemInfo} from '../../../lab-core/model/global/lab-system.class';
 import {LabBrickService} from '../../../lab-core/entity-service/lab-brick.service';
 import {LabBrickEntity, LabBrickGWS} from '../../../lab-core/model/entities/lab-brick.entity';
+import {FlChatBotService} from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'lab-main-app',
@@ -36,10 +37,13 @@ export class LabMainAppComponent implements OnInit {
               private authenticatedUserService: LabAuthenticatedUserService,
               private systemService: LabSystemService,
               private titleService: Title,
-              private brickService: LabBrickService) {
+              private brickService: LabBrickService,
+              private chatBotService: FlChatBotService) {
   }
 
   ngOnInit(): void {
+    this.chatBotService.loadScript();
+
     this.authenticatedUserService.loadAuthenticatedUser();
     // init lab name
     this.setLabName('Lab');
