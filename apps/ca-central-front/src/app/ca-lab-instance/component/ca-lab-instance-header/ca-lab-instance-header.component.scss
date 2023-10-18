@@ -4,10 +4,14 @@
   padding: 1em;
 }
 
-.nav-button{
+.nav-button {
   margin-left: 1em;
 }
 
-.menu-active{
+.menu-active {
   --mdc-text-button-label-text-color: var(--primary-color);
+}
+
+mat-icon {
+  flex-shrink: 0;
 }

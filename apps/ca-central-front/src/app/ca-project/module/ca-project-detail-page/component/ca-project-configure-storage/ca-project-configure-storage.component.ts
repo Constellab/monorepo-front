@@ -5,13 +5,10 @@ import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {ValidatorFn, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {
-  CaCreateProjectBucketDTO,
-  CaProjectBucketsDTO
-} from '../../../../../ca-core/model/entities/project/ca-project.class';
+import {CaProjectStorageDTO} from '../../../../../ca-core/model/entities/project/ca-project.class';
 
 
-export interface CaProjectConfigureStorageInput extends FlFormDialogInput<CaCreateProjectBucketDTO> {
+export interface CaProjectConfigureStorageInput extends FlFormDialogInput<CaProjectStorageDTO> {
   projectId: string;
 }
 
@@ -24,7 +21,7 @@ export interface CaProjectConfigureStorageInput extends FlFormDialogInput<CaCrea
   styleUrls: ['./ca-project-configure-storage.component.scss']
 })
 export class CaProjectConfigureStorageComponent
-  extends FlFormDialogAbstractDirective<CaCreateProjectBucketDTO, CaProjectBucketsDTO>
+  extends FlFormDialogAbstractDirective<CaProjectStorageDTO>
   implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) private input: CaProjectConfigureStorageInput,
@@ -38,14 +35,14 @@ export class CaProjectConfigureStorageComponent
     this.init();
   }
 
-  buildForm(): FormGroup<CaCreateProjectBucketDTO> {
+  buildForm(): FormGroup<CaProjectStorageDTO> {
     return new FormBuilder().group({
       mainRegion: [null, Validators.required],
       backupRegion: [null, [Validators.required]],
     }, {validator: this.differentBackupRegionValidator()});
   }
 
-  create(formValue: CaCreateProjectBucketDTO): Observable<CaProjectBucketsDTO> {
+  create(formValue: CaProjectStorageDTO): Observable<CaProjectStorageDTO> {
     return this.projectService.createProjectBuckets(this.input.projectId, formValue);
   }
 
@@ -58,12 +55,12 @@ export class CaProjectConfigureStorageComponent
     return '';
   }
 
-  update(): Observable<CaProjectBucketsDTO> {
+  update(): Observable<CaProjectStorageDTO> {
     return undefined;
   }
 
   private differentBackupRegionValidator(): ValidatorFn {
-    return (control: FormGroup<CaCreateProjectBucketDTO>): { [key: string]: any } => {
+    return (control: FormGroup<CaProjectStorageDTO>): { [key: string]: any } => {
       if (control.value.mainRegion == null || control.value.backupRegion == null) return null;
 
       if (control.value.mainRegion.id === control.value.backupRegion.id) {

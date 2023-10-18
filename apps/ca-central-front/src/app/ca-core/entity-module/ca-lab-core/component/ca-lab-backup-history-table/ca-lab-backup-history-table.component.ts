@@ -12,7 +12,7 @@ export class CaLabBackupHistoryTableComponent {
 
   @Input() datasource: CaLabBackupHistoryDatasource;
 
-  @Input() columns: FlTableColumnStatic<CaLabBackupHistory>[] = ['date', 'bucket', 'data', 'db', 'info'];
+  @Input() columns: FlTableColumnStatic<CaLabBackupHistory>[] = ['date', 'region', 'data', 'db', 'info'];
 
   currentDate = ClDateHelper.getDate();
 

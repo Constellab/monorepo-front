@@ -22,14 +22,13 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Bucket -->
-  <ng-container matColumnDef="bucket">
+  <!-- Region -->
+  <ng-container matColumnDef="region">
     <mat-header-cell *matHeaderCellDef>
       {{'lab_backup_location' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
-      <ca-bucket-region-inline [region]="row.bucket.region"></ca-bucket-region-inline>
-      <div class="g-text-light g-text-small message">{{row.bucket.name}}</div>
+      <ca-bucket-region-inline [region]="row.region"></ca-bucket-region-inline>
     </mat-cell>
   </ng-container>
 

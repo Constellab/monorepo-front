@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ValidatorFn, Validators} from '@angular/forms';
 import {
-  CaCreateProjectBucketDTO,
   CaProject,
   CaProjectLevel,
   CaProjectLevelStatus,
+  CaProjectStorageDTO,
   CnSaveProjectDTO
 } from '../../../../model/entities/project/ca-project.class';
 import {CaProjectService} from '../../../../service-api/ca-project.service';
@@ -133,7 +133,7 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
   }
 
   private differentBackupRegionValidator(): ValidatorFn {
-    return (control: FormGroup<CaCreateProjectBucketDTO>): { [key: string]: any } => {
+    return (control: FormGroup<CaProjectStorageDTO>): { [key: string]: any } => {
       if(control.value.mainRegion == null || control.value.backupRegion == null) return null;
 
       if (control.value.mainRegion.id === control.value.backupRegion.id) {

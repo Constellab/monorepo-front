@@ -7,7 +7,7 @@ import {
   CaProjectConfigureStorageComponent,
   CaProjectConfigureStorageInput
 } from '../ca-project-configure-storage/ca-project-configure-storage.component';
-import {CaProjectBucketsDTO} from '../../../../../ca-core/model/entities/project/ca-project.class';
+import {CaProjectStorageDTO} from '../../../../../ca-core/model/entities/project/ca-project.class';
 
 /**
  * Component to show the storage settings of the project (bucket) with possibility to configure it.
@@ -19,7 +19,7 @@ import {CaProjectBucketsDTO} from '../../../../../ca-core/model/entities/project
 })
 export class CaProjectStorageSettingsComponent implements OnInit {
 
-  projectBucket$: Observable<CaProjectBucketsDTO>;
+  projectBucket$: Observable<CaProjectStorageDTO>;
 
   constructor(private projectService: CaProjectService,
               private state: CaProjectDetailState,
@@ -44,7 +44,7 @@ export class CaProjectStorageSettingsComponent implements OnInit {
     );
   }
 
-  private onConfiguredClosed(buckets?: CaProjectBucketsDTO): void {
+  private onConfiguredClosed(buckets?: CaProjectStorageDTO): void {
     if (buckets) {
       this.projectBucket$ = of(buckets);
     }

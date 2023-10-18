@@ -11,18 +11,18 @@
     <div class="body">
 
       <!--   Main bucket   -->
-      <fl-text-ok-nok [value]="!!bucket.mainBucket" [okText]="'project_main_storage_configured' | translate"
+      <fl-text-ok-nok [value]="!!bucket.mainRegion" [okText]="'project_main_storage_configured' | translate"
                       [nokText]="'project_main_storage_not_configured' | translate">
       </fl-text-ok-nok>
-      <ca-bucket-info *ngIf="bucket.mainBucket" [bucket]="bucket.mainBucket"></ca-bucket-info>
+      <ca-bucket-region-inline *ngIf="bucket.mainRegion" [region]="bucket.mainRegion"></ca-bucket-region-inline>
 
       <!--  Backup bucket    -->
-      <fl-text-ok-nok [value]="!!bucket.backupBucket" [okText]="'project_backup_storage_configured' | translate"
+      <fl-text-ok-nok [value]="!!bucket.backupRegion" [okText]="'project_backup_storage_configured' | translate"
                       [nokText]="'project_backup_storage_not_configured' | translate">
       </fl-text-ok-nok>
-      <ca-bucket-info *ngIf="bucket.backupBucket" [bucket]="bucket.backupBucket"></ca-bucket-info>
+      <ca-bucket-region-inline *ngIf="bucket.backupRegion" [region]="bucket.backupRegion"></ca-bucket-region-inline>
 
-      <div class="g-text-centered configure-button" *ngIf="!bucket.mainBucket || !bucket.backupBucket">
+      <div class="g-text-centered configure-button" *ngIf="!bucket.mainRegion || !bucket.backupRegion">
         <button mat-stroked-button type="button" (click)="configureStorage()">
           {{'configure_project_storage' | translate}}
         </button>

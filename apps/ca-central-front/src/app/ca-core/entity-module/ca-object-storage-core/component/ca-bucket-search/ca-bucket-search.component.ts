@@ -27,7 +27,7 @@ export class CaBucketSearchComponent implements OnInit {
   datasource: CaBucketFullDatasource;
 
   columns: FlTableColumnStatic<CaBucketFull>[] =
-    ['name', 'contentType', 'region', 'space', 'credentials', 'lastModified', 'actions'];
+    ['name', 'contentType', 'region', 'credentials', 'lastModified', 'actions'];
 
   constructor(private searchState: FlSearchState<any>,
               private bucketSearch: CaObjectStorageService,

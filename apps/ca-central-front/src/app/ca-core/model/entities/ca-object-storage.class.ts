@@ -59,9 +59,6 @@ export class CaBucketFull extends CaBucket {
 
   @Type(() => CaBucketCredentials)
   credentials: CaBucketCredentials;
-
-  @Type(() => CaSpace)
-  space: CaSpace;
 }
 
 export type CaBucketFullDatasource = FlEntityPaginatedDatasource<CaBucketFull>;

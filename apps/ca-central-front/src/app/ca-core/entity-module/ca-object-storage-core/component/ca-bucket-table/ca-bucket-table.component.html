@@ -40,16 +40,6 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Space -->
-  <ng-container matColumnDef="space">
-    <mat-header-cell *matHeaderCellDef>
-      {{'space' | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <ca-space-inline *ngIf="row.space" [space]="row.space"></ca-space-inline>
-    </mat-cell>
-  </ng-container>
-
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>

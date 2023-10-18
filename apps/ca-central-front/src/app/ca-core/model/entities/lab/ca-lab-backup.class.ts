@@ -1,6 +1,5 @@
 import {CaBaseEntity} from '../ca-base-entity.class';
 import {Type} from 'class-transformer';
-import {CaBucketFull} from '../ca-object-storage.class';
 import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {
@@ -10,6 +9,7 @@ import {
   FlStatusHelper,
   FlStatusTransform
 } from '@monorepo/front-core-lib';
+import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
 
 export type CaLabBackupFrequency = 'DAILY' | 'WEEKLY';
 export type CaLabBackupTriggerMode = 'MANUAL' | 'AUTOMATIC';
@@ -25,8 +25,8 @@ export class CaLabBackupHistory extends CaBaseEntity {
 
   frequency: CaLabBackupFrequency;
 
-  @Type(() => CaBucketFull)
-  bucket: CaBucketFull;
+  @Type(() => CaCloudProviderRegion)
+  region: CaCloudProviderRegion;
 
   triggerMode: CaLabBackupTriggerMode;
 
@@ -61,11 +61,11 @@ export type CaLabBackupHistoryDatasource = FlEntityPaginatedDatasource<CaLabBack
 export class CaLabBackupOption extends CaBaseEntity {
   frequency1: CaLabBackupFrequency;
 
-  @Type(() => CaBucketFull)
-  bucket1: CaBucketFull;
+  @Type(() => CaCloudProviderRegion)
+  region1: CaCloudProviderRegion;
 
   frequency2: CaLabBackupFrequency;
 
-  @Type(() => CaBucketFull)
-  bucket2: CaBucketFull;
+  @Type(() => CaCloudProviderRegion)
+  region2: CaCloudProviderRegion;
 }

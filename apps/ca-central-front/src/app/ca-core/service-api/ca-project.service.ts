@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
 import {
-  CaCreateProjectBucketDTO,
   CaProject,
   CaProjectAncestorTreeDTO,
   CaProjectAncestorType,
-  CaProjectBucketsDTO,
   CaProjectDatasource,
   CaProjectStatus,
   CaProjectStatusHistory,
+  CaProjectStorageDTO,
   CaProjectTreeDto,
   CnSaveProjectDTO
 } from '../model/entities/project/ca-project.class';
@@ -280,12 +279,12 @@ export class CaProjectService {
 
 
   /////////////////////////////// Project Bucket ///////////////////////////////////////////
-  public getProjectBuckets(projectId: string): Observable<CaProjectBucketsDTO | null> {
-    return this.apiService.get(`${this.route}/${projectId}/buckets`, CaBucketFull);
+  public getProjectBuckets(projectId: string): Observable<CaProjectStorageDTO | null> {
+    return this.apiService.get(`${this.route}/${projectId}/storage`, CaBucketFull);
   }
 
-  public createProjectBuckets(projectId: string, createBucket: CaCreateProjectBucketDTO): Observable<CaProjectBucketsDTO> {
-    return this.apiService.post(`${this.route}/${projectId}/buckets`, createBucket, CaProjectBucketsDTO);
+  public createProjectBuckets(projectId: string, createBucket: CaProjectStorageDTO): Observable<CaProjectStorageDTO> {
+    return this.apiService.post(`${this.route}/${projectId}/storage`, createBucket, CaProjectStorageDTO);
   }
 
   /////////////////////////////// Project user ///////////////////////////////////////////

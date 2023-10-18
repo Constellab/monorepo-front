@@ -32,7 +32,7 @@
     <mat-form-field class="g-form-input">
       <mat-label>{{'cloud_provider_region' | translate}}</mat-label>
       <mat-select formControlName="region" required [placeholder]="'cloud_provider_region' | translate">
-        <ca-select-cloud-provider-region-options></ca-select-cloud-provider-region-options>
+        <ca-select-cloud-provider-region-options mode="s3"></ca-select-cloud-provider-region-options>
       </mat-select>
       <mat-error *ngIf="formGp.get('region').hasError('required')">
         {{'cloud_provider_region' | flErrorRequired}}
@@ -49,15 +49,6 @@
         {{'bucket_credentials' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
-
-    <!--  Space  -->
-    <fl-form-field class="g-form-input">
-      <ca-select-space formControlName="space" [placeholder]="'space' | translate"
-                       [required]="true"></ca-select-space>
-      <mat-error *ngIf="formGp.get('space').hasError('required')">
-        {{'space' | flErrorRequired}}
-      </mat-error>
-    </fl-form-field>
 
     <!--  Object id  -->
     <mat-form-field class="g-form-input">
