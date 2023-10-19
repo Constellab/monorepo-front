@@ -2,9 +2,10 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FlSnackBarService} from '@monorepo/front-core-lib';
 import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CaLabInstance, CaLabInstanceDesktopForm} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
+import {CaLabInstance} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CaLabInstanceValidator} from '../../../ca-core/model/entities/lab/ca-lab-instance.validator';
+import {CaLabInstanceDesktopForm} from '../../../ca-core/model/entities/lab/ca-lab-instance.form';
 
 export type LabInstanceUpdateDialogInput = CaLabInstanceDesktopForm;
 
@@ -46,10 +47,11 @@ export class CaLabInstanceUpdateDialogComponent implements OnInit {
   submit(): void {
     if (!this.isLoading && this.formGp.valid) {
       this.isLoading = true;
-      this.labInstanceService.updateLab(this.formGp.value).subscribe(
-        lab => this.onSuccess(lab),
-        () => this.isLoading = false
-      );
+      this.labInstanceService.updateLab(this.formGp.value).subscribe({
+        next: lab => this.onSuccess(lab),
+        error: () => this.isLoading = false
+      });
+
     }
   }
 

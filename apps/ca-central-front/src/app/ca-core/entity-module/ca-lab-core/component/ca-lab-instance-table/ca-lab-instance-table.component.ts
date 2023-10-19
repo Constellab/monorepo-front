@@ -66,7 +66,7 @@ export class CaLabInstanceTableComponent extends FlTableAbstractDirective<CaLabI
       }
     };
 
-    this.dialogService.openSmallDialog(CaLabInstanceAdminFormDialogComponent, {data: dialogInput}).afterClosed().subscribe(
+    this.dialogService.openMediumDialog(CaLabInstanceAdminFormDialogComponent, {data: dialogInput}).afterClosed().subscribe(
       result => this.onUpdateClosed(result)
     );
   }

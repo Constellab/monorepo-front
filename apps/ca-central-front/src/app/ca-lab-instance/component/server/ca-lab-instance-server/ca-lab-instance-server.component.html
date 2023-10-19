@@ -55,15 +55,17 @@
         {{'lab_advanced_configuration_warning' | translate}}
       </fl-text-icon>
 
-      <button mat-stroked-button type="button" class="g-button-small actions-button"
-              (click)="initServer()">
-        {{'lab_init_server' | translate}}
-      </button>
+      <ng-container *ngIf="isCloud$ | async">
+        <button mat-stroked-button type="button" class="g-button-small actions-button"
+                (click)="initServer()">
+          {{'lab_init_server' | translate}}
+        </button>
 
-      <button mat-stroked-button type="button" class="g-button-small actions-button"
-              (click)="createServer()">
-        {{'lab_create_server' | translate}}
-      </button>
+        <button mat-stroked-button type="button" class="g-button-small actions-button"
+                (click)="createServer()">
+          {{'lab_create_server' | translate}}
+        </button>
+      </ng-container>
 
       <button mat-stroked-button type="button" class="g-button-small actions-button"
               (click)="configureServer()">
@@ -80,10 +82,12 @@
         {{'lab_stop_current_task' | translate}}
       </button>
 
-      <button mat-stroked-button type="button" class="g-button-small actions-button"
-              color="warn" (click)="deleteServer()" *caIsAdmin>
-        {{'lab_delete_server' | translate}}
-      </button>
+      <ng-container *ngIf="isCloud$ | async">
+        <button mat-stroked-button type="button" class="g-button-small actions-button"
+                color="warn" (click)="deleteServer()" *caIsAdmin>
+          {{'lab_delete_server' | translate}}
+        </button>
+      </ng-container>
 
     </mat-expansion-panel>
   </fl-card-body>

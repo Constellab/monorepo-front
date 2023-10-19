@@ -24,26 +24,28 @@ export class CaLabInstanceValidator {
     };
   }
 
-  public static virtualHostDomainValidator(): ValidatorFn {
+  public static virtualHostDomainValidator(checkSupportedDomains: boolean): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value: any = control.value;
       if (value == null || value.length === 0) {
         return null;  // don't validate empty values to allow optional controls
       }
 
-      // check that the value is a subdomain of one of supportedDomains
-      const subDomain = value.split('.')[0];
-      if (subDomain.length === 0) {
-        return {invalid: true};
-      }
+      if (checkSupportedDomains) {
+        // check that the value is a subdomain of one of supportedDomains
+        const subDomain = value.split('.')[0];
+        if (subDomain.length === 0) {
+          return {invalid: true};
+        }
 
-      const mainDomain = value.substring(subDomain.length + 1);
-      if (CaLabInstanceValidator.SUPPORTED_DOMAINS.indexOf(mainDomain) === -1) {
-        return {invalid: true};
+        const mainDomain = value.substring(subDomain.length + 1);
+        if (checkSupportedDomains && CaLabInstanceValidator.SUPPORTED_DOMAINS.indexOf(mainDomain) === -1) {
+          return {invalid: true};
+        }
       }
 
       // check that subdomain is only lowercase letters, numbers and '-'
-      if (!subDomain.match(/^[a-z0-9-]+$/)) {
+      if (!value.match(/^[a-z0-9-.]+$/)) {
         return {pattern: true};
       }
 

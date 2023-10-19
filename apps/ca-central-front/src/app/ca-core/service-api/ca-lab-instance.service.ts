@@ -2,15 +2,12 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {
   CaLabInstance,
-  CaLabInstanceAdminForm,
   CaLabInstanceDatasource,
   CaLabInstanceDesktopConfig,
-  CaLabInstanceDesktopForm,
   CaLabInstanceFindOneDto,
   CaLabInstanceStatusDTO,
   CaLabInstanceStatusHistory,
   CaLabInstanceWithSpace,
-  CaRequestLabInstance
 } from '../model/entities/lab/ca-lab-instance.class';
 import {
   FlAdvancedSearchInput,
@@ -46,6 +43,11 @@ import {
 } from '../model/entities/lab/ca-lab-instance-status.dto';
 import {CaFreeTrialUpdateDto, CaLabFreeTrialGetDto} from '../model/entities/lab/ca-lab-free-trial.class';
 import {CaLabBackupHistory, CaLabBackupOption} from '../model/entities/lab/ca-lab-backup.class';
+import {
+  CaLabInstanceAdminForm,
+  CaLabInstanceDesktopForm,
+  CaRequestLabInstanceForm
+} from '../model/entities/lab/ca-lab-instance.form';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +80,7 @@ export class CaLabInstanceService {
     return this.apiService.deleteById(this.route, id, CaLabInstance);
   }
 
-  public requestNewLabInstance(request: CaRequestLabInstance): Observable<CaLabInstance> {
+  public requestNewLabInstance(request: CaRequestLabInstanceForm): Observable<CaLabInstance> {
     return this.apiService.post(this.route + '/request-lab-instance', request, CaLabInstance);
   }
 

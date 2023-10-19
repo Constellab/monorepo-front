@@ -27,7 +27,7 @@
     </a>
 
     <a mat-button [routerLink]="getBackupRoute(labInstance)" routerLinkActive="menu-active"
-       class="nav-button">
+       class="nav-button" *ngIf="isCloud$ | async">
       <mat-icon>cloud_done</mat-icon>
       {{'lab_backup' | translate}}
     </a>

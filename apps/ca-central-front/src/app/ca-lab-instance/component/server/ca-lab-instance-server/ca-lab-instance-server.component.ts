@@ -14,6 +14,9 @@ export class CaLabInstanceServerComponent implements OnInit {
 
   status$: Observable<CaLabInstanceStatusDTO> = this.state.getStatus$();
 
+  isCloud$: Observable<boolean> = this.state.isCloud$();
+
+
   constructor(private state: CaLabInstanceDetailPageState,
               private serverState: CaLabInstanceDetailServerState) {
   }

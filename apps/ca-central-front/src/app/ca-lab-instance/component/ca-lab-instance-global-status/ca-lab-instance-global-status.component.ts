@@ -19,7 +19,8 @@ import {map} from 'rxjs/operators';
 export class CaLabInstanceGlobalStatusComponent implements OnInit {
 
   status$: Observable<CaLabInstanceStatusDTO> = this.state.getStatus$();
-  isOwner$: Observable<boolean> = this.state.isLabOwner$();
+
+  isCloud$: Observable<boolean> = this.state.isCloud$();
 
   currentTask$: Observable<string>;
   errors$: Observable<string[]>;
@@ -61,11 +62,11 @@ export class CaLabInstanceGlobalStatusComponent implements OnInit {
       return `${this.translateService.translate(this.getStatusRunningMessage(status))} - ${status.serverTaskText} - ${ClDateHelper.fromNow(status.serverTaskDatetime)}`;
     }
 
-    if(status.labStatus.value === 'SERVER_STARTING') {
+    if (status.labStatus.value === 'SERVER_STARTING') {
       return this.translateService.translate('lab_is_starting');
     }
 
-    if(status.labStatus.value === 'SERVER_STOPPING') {
+    if (status.labStatus.value === 'SERVER_STOPPING') {
       return this.translateService.translate('lab_is_stopping');
     }
 

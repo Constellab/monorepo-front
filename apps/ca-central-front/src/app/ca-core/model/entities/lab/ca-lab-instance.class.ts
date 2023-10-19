@@ -17,7 +17,7 @@ import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 
 export type CaLabInstanceBillingMode = 'HOURLY' | 'MONTHLY';
 export type CaLabInstanceVolumeType = 'CLASSIC' | 'HIGH_SPEED';
-export type CaLabInstanceType = 'CLOUD' | 'DESKTOP';
+export type CaLabInstanceType = 'CLOUD' | 'DESKTOP' | 'ON_PREMISE';
 export type CaLabDesktopPlatform = 'WINDOWS' | 'LINUX' | 'MAC';
 
 
@@ -119,8 +119,33 @@ export class CaLabInstance extends CaBaseEntity {
     return this.type === 'DESKTOP';
   }
 
+  get isOnPremise(): boolean {
+    return this.type === 'ON_PREMISE';
+  }
+
+  /**
+   * Return true if the lab is hosted on a server (cloud or on premise)
+   */
+  get isOnServer(): boolean {
+    return this.isCloud || this.isOnPremise;
+  }
+
+  /**
+   * Return true if the lab is accessible through http (for cloud and public on premise)
+   */
+  get isHttpAccessible(): boolean {
+    return this.isOnServer;
+  }
+
   get typeIcon(): string {
-    return this.isCloud ? 'cloud' : 'computer';
+    switch (this.type){
+      case 'CLOUD':
+        return 'cloud';
+      case 'DESKTOP':
+        return 'computer';
+      case 'ON_PREMISE':
+        return 'dns';
+    }
   }
 }
 
@@ -131,48 +156,6 @@ export class CaLabInstanceWithSpace extends CaLabInstance {
 
 
 export type CaLabInstanceDatasource = FlEntityPaginatedDatasource<CaLabInstance>;
-
-export class CaLabInstanceAdminForm {
-  id: string;
-  name: string;
-  type: CaLabInstanceType;
-  virtualHost?: string;
-
-  @Type(() => CaServerInfo)
-  serverInfo?: CaServerInfo;
-
-  billingMode?: CaLabInstanceBillingMode;
-  volumeSize?: number;
-  volumeType?: CaLabInstanceVolumeType;
-
-  glabApiKey?: string;
-  labManagerApiKey?: string;
-  codelabToken?: string;
-  serverInstanceId?: string;
-  serverVolumeId?: string;
-  gwsCoreProdDbPassword?: string;
-  gwsCoreDevDbPassword?: string;
-
-  @Type(() => CaCloudProviderRegion)
-  region?: CaCloudProviderRegion;
-
-
-  @Type(() => CaSpace)
-  space?: CaSpace;
-  desktopPlatform?: CaLabDesktopPlatform;
-
-  @Type(() => CaCloudProviderRegion)
-  dailyBackupRegion?: CaCloudProviderRegion;
-
-  @Type(() => CaCloudProviderRegion)
-  weeklyBackupRegion?: CaCloudProviderRegion;
-}
-
-export class CaLabInstanceDesktopForm {
-  id: string;
-  name: string;
-  desktopPlatform: CaLabDesktopPlatform;
-}
 
 
 export class CaLabInstanceFindOneDto {
@@ -210,18 +193,6 @@ export class CaLabInstanceStatusDTO {
     const busyStatus: CaLabInstanceStatus[] = ['SERVER_STARTING', 'SERVER_STOPPING'];
     return busyStatus.includes(this.labStatus.value);
   }
-}
-
-/**
- * Object used when a user wants to create a lab instance
- * He provides free text
- */
-export interface CaRequestLabInstance {
-  cloudProvider?: string;
-  cpuCount?: string;
-  storageSize?: string;
-  labNeed?: string;
-  additionalInfo?: string;
 }
 
 export interface CaLabInstanceDesktopConfig {

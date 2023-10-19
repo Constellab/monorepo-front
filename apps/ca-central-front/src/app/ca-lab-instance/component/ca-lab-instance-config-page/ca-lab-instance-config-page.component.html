@@ -1,11 +1,9 @@
 <!--   Owner section      -->
 <ng-container *ngIf="isOwner$ | async">
 
-  <ng-container *ngIf="(isCloud$ | async); else desktop">
-
+  <ng-container *ngIf="isHttpAccessible$ | async">
 
     <ca-lab-instance-global-status class="g-section"></ca-lab-instance-global-status>
-
 
     <ca-lab-instance-manager class="g-section"></ca-lab-instance-manager>
 
@@ -14,7 +12,6 @@
     <ca-lab-instance-server class="g-section"></ca-lab-instance-server>
   </ng-container>
 
-  <ng-template #desktop>
-    <ca-lab-desktop-config class="g-section"></ca-lab-desktop-config>
-  </ng-template>
+  <ca-lab-desktop-config *ngIf="isDesktop$ | async"
+                         class="g-section"></ca-lab-desktop-config>
 </ng-container>

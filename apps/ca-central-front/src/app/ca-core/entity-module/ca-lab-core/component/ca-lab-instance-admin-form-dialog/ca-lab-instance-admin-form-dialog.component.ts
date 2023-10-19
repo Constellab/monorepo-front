@@ -1,13 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {
-  CaLabInstanceAdminForm,
-  CaLabInstanceType,
-  CaLabInstanceWithSpace
-} from '../../../../model/entities/lab/ca-lab-instance.class';
-import {FormBuilder, FormControl, FormGroup} from '@ngneat/reactive-forms';
+import {CaLabInstanceType, CaLabInstanceWithSpace} from '../../../../model/entities/lab/ca-lab-instance.class';
+import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
-import {AbstractControl, ValidatorFn, Validators} from '@angular/forms';
+import {ValidatorFn, Validators} from '@angular/forms';
 import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
@@ -15,10 +11,9 @@ import {
   FlPlatformService,
   FlSnackBarService
 } from '@monorepo/front-core-lib';
-import {CaCountryService} from '../../../../service-api/ca-country.service';
-import {CaCountry} from '../../../../model/entities/ca-country.entity';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CaLabInstanceValidator} from '../../../../model/entities/lab/ca-lab-instance.validator';
+import {CaLabInstanceAdminForm} from '../../../../model/entities/lab/ca-lab-instance.form';
 
 export type CaLabInstanceAdminFormDialogInput = FlFormDialogInput<CaLabInstanceAdminForm>;
 
@@ -33,7 +28,6 @@ export type CaLabInstanceAdminFormDialogInput = FlFormDialogInput<CaLabInstanceA
 export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractDirective<CaLabInstanceAdminForm, CaLabInstanceWithSpace>
   implements OnInit {
 
-  countries: CaCountry[];
 
   maxNameLength = CaLabInstanceWithSpace.MAX_NAME_LENGTH;
 
@@ -43,7 +37,6 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
               dialogRef: MatDialogRef<CaLabInstanceAdminFormDialogComponent>,
               @Inject(MAT_DIALOG_DATA) dialogInput: CaLabInstanceAdminFormDialogInput,
               private labInstanceService: CaLabInstanceService,
-              private countryService: CaCountryService,
               private platformService: FlPlatformService) {
     super(dialogInput, snackBarService, dialogRef);
   }
@@ -53,22 +46,17 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
   }
 
   ngOnInit(): void {
-
-    this.countryService.get().subscribe(cities => {
-      this.countries = cities;
-    });
     this.init();
 
     this.onTypeChange(this.formGp.getRawValue().type);
   }
 
   buildForm(): FormGroup<CaLabInstanceAdminForm> {
-
-    const formGp: FormGroup<CaLabInstanceAdminForm> = new FormBuilder().group({
+    return new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required, CaLabInstanceValidator.nameValidator()]],
       type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
-      virtualHost: [null, [Validators.required, CaLabInstanceValidator.virtualHostDomainValidator()]],
+      virtualHost: [null, [Validators.required, CaLabInstanceValidator.virtualHostDomainValidator(true)]],
       serverInfo: [null, [Validators.required]],
       billingMode: [null, [Validators.required]],
       volumeSize: [null, [Validators.required, FlGlobalValidators.isInteger, Validators.min(50)]],
@@ -83,50 +71,84 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       region: [null, Validators.required],
       space: [null, Validators.required],
       desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]],
+      dailyBackupRegion: [{value: null, disabled: this.isUpdateMode()}, [Validators.required]],
+      weeklyBackupRegion: [{value: null, disabled: this.isUpdateMode()}, [Validators.required]],
     });
-
-    if (this.isCreateMode()) {
-      formGp.addControl('dailyBackupRegion', new FormControl(null, Validators.required));
-      formGp.addControl('weeklyBackupRegion', new FormControl(null, [Validators.required, this.differentBackupRegionValidator()]));
-    }
-
-    return formGp;
   }
 
   onTypeChange(type: CaLabInstanceType): void {
-    if (type === 'CLOUD') {
-      this.formGp.get('virtualHost').enable();
-      this.formGp.get('serverInfo').enable();
-      this.formGp.get('billingMode').enable();
-      this.formGp.get('volumeSize').enable();
-      this.formGp.get('volumeType').enable();
-      this.formGp.get('labManagerApiKey').enable();
-      this.formGp.get('codelabToken').enable();
-      this.formGp.get('serverInstanceId').enable();
-      this.formGp.get('serverVolumeId').enable();
-      this.formGp.get('region').enable();
+    this.formGp.clearValidators();
+    switch (type) {
+      case 'CLOUD':
+        this.formGp.get('virtualHost').enable();
+        this.formGp.get('serverInfo').enable();
+        this.formGp.get('billingMode').enable();
+        this.formGp.get('volumeSize').enable();
+        this.formGp.get('volumeType').enable();
+        this.formGp.get('labManagerApiKey').enable();
+        this.formGp.get('codelabToken').enable();
+        this.formGp.get('serverInstanceId').enable();
+        this.formGp.get('serverVolumeId').enable();
+        this.formGp.get('region').enable();
 
-      this.formGp.get('desktopPlatform').disable();
+        this.formGp.get('desktopPlatform').disable();
+        this.formGp.get('virtualHost').setValidators([Validators.required, CaLabInstanceValidator.virtualHostDomainValidator(true)]);
+        if (this.isCreateMode()) {
+          this.formGp.get('dailyBackupRegion').enable();
+          this.formGp.get('weeklyBackupRegion').enable();
+          this.formGp.addValidators([this.differentBackupRegionValidator()]);
+        }
+        break;
+      case 'ON_PREMISE':
+        this.formGp.get('virtualHost').enable();
+        this.formGp.get('labManagerApiKey').enable();
+        this.formGp.get('codelabToken').enable();
 
-    } else {
-      this.formGp.get('virtualHost').disable();
-      this.formGp.get('serverInfo').disable();
-      this.formGp.get('billingMode').disable();
-      this.formGp.get('volumeSize').disable();
-      this.formGp.get('volumeType').disable();
-      this.formGp.get('labManagerApiKey').disable();
-      this.formGp.get('codelabToken').disable();
-      this.formGp.get('serverInstanceId').disable();
-      this.formGp.get('serverVolumeId').disable();
-      this.formGp.get('region').disable();
+        this.formGp.get('serverInfo').disable();
+        this.formGp.get('volumeSize').disable();
+        this.formGp.get('volumeType').disable();
+        this.formGp.get('billingMode').disable();
+        this.formGp.get('serverInstanceId').disable();
+        this.formGp.get('serverVolumeId').disable();
+        this.formGp.get('desktopPlatform').disable();
+        this.formGp.get('region').disable();
+        this.formGp.get('dailyBackupRegion').disable();
+        this.formGp.get('weeklyBackupRegion').disable();
 
-      this.formGp.get('desktopPlatform').enable();
+
+        this.formGp.get('virtualHost').setValidators([Validators.required, CaLabInstanceValidator.virtualHostDomainValidator(false)]);
+        break;
+      case 'DESKTOP':
+        this.formGp.get('desktopPlatform').enable();
+
+        this.formGp.get('virtualHost').disable();
+        this.formGp.get('serverInfo').disable();
+        this.formGp.get('billingMode').disable();
+        this.formGp.get('volumeSize').disable();
+        this.formGp.get('volumeType').disable();
+        this.formGp.get('labManagerApiKey').disable();
+        this.formGp.get('codelabToken').disable();
+        this.formGp.get('serverInstanceId').disable();
+        this.formGp.get('serverVolumeId').disable();
+        this.formGp.get('region').disable();
+        this.formGp.get('dailyBackupRegion').disable();
+        this.formGp.get('weeklyBackupRegion').disable();
+
+        break;
     }
     this.formGp.updateValueAndValidity();
   }
 
   isCloud(): boolean {
     return this.formGp.getRawValue().type === 'CLOUD';
+  }
+
+  isDesktop(): boolean {
+    return this.formGp.getRawValue().type === 'DESKTOP';
+  }
+
+  isOnServer(): boolean {
+    return this.formGp.getRawValue().type === 'CLOUD' || this.formGp.getRawValue().type === 'ON_PREMISE';
   }
 
   create(formValue: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
@@ -146,15 +168,15 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
   }
 
   public differentBackupRegionValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
-      if (!control.parent || !control.value) return null;
+    return (control: FormGroup<CaLabInstanceAdminForm>): { [key: string]: any } => {
+      if (!control.value) return null;
 
-      const parent: FormGroup<CaLabInstanceAdminForm> = control.parent as FormGroup<CaLabInstanceAdminForm>;
-      const dailyBackupRegion = parent.value.dailyBackupRegion;
+      const dailyBackupRegion = control.value.dailyBackupRegion;
+      const weeklyBackupRegion = control.value.weeklyBackupRegion;
 
-      if (dailyBackupRegion == null) return null;
+      if (dailyBackupRegion == null || weeklyBackupRegion == null) return null;
 
-      if (dailyBackupRegion.id === control.value.id) {
+      if (dailyBackupRegion.id === weeklyBackupRegion.id) {
         return {sameBackupRegion: true};
       }
       return null;

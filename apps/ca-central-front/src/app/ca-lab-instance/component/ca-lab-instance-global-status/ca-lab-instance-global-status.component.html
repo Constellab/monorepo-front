@@ -21,20 +21,22 @@
 
     <ng-container *ngIf="status$ | async as status">
 
-      <fl-text-ok-nok [value]="status.hasServerInstanceId"
-                      [okText]="'lab_server_instance_configured' | translate"
-                      [nokText]="'lab_server_instance_not_configured' | translate">
-      </fl-text-ok-nok>
+      <ng-container *ngIf="isCloud$ | async">
+        <fl-text-ok-nok [value]="status.hasServerInstanceId"
+                        [okText]="'lab_server_instance_configured' | translate"
+                        [nokText]="'lab_server_instance_not_configured' | translate">
+        </fl-text-ok-nok>
 
-      <fl-text-ok-nok [value]="status.hasServerVolumeId"
-                      [okText]="'lab_server_volume_configured' | translate"
-                      [nokText]="'lab_server_volume_not_configured' | translate">
-      </fl-text-ok-nok>
+        <fl-text-ok-nok [value]="status.hasServerVolumeId"
+                        [okText]="'lab_server_volume_configured' | translate"
+                        [nokText]="'lab_server_volume_not_configured' | translate">
+        </fl-text-ok-nok>
 
-      <fl-text-ok-nok [value]="status.dnsConfigured"
-                      [okText]="'lab_dsn_configured' | translate"
-                      [nokText]="'lab_dsn_not_configured' | translate">
-      </fl-text-ok-nok>
+        <fl-text-ok-nok [value]="status.dnsConfigured"
+                        [okText]="'lab_dsn_configured' | translate"
+                        [nokText]="'lab_dsn_not_configured' | translate">
+        </fl-text-ok-nok>
+      </ng-container>
 
       <fl-text-ok-nok [value]="status.labManagerIsRunning"
                       [okText]="'lab_manager_running' | translate"
@@ -73,7 +75,7 @@
       <div class="g-layout-row g-layout-start-center action-buttons">
         <ca-lab-login-button [labInstanceId]="labInstanceId" [isRunning]="status.labIsRunning"></ca-lab-login-button>
 
-        <ca-lab-instance-start-stop *ngIf="isOwner$ | async" class="start-button">
+        <ca-lab-instance-start-stop class="start-button">
         </ca-lab-instance-start-stop>
       </div>
     </ng-container>

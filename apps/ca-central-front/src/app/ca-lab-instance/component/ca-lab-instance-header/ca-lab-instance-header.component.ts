@@ -31,6 +31,7 @@ export class CaLabInstanceHeaderComponent implements OnInit {
   );
 
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
+  isCloud$: Observable<boolean> = this.state.isCloud$();
 
   constructor(private dialogService: FlDialogService,
               private labInstanceService: CaLabInstanceService,

@@ -20,7 +20,7 @@
 
 
     <div class="action-buttons g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
-      <ca-lab-login-button *ngIf="labInstance.isCloud"
+      <ca-lab-login-button *ngIf="labInstance.isHttpAccessible"
                            [labInstanceId]="labInstance.id" [isRunning]="labInstance.isRunning()"
                            size="small"></ca-lab-login-button>
 

@@ -13,7 +13,7 @@
 
 
     <!--   Lab url   -->
-    <fl-text-icon *ngIf="labInstance.isCloud">
+    <fl-text-icon *ngIf="labInstance.isOnServer">
       <mat-icon>link</mat-icon>
       <fl-key-value>
         <fl-key>{{'url' | translate}}</fl-key>
@@ -67,11 +67,12 @@
 
   <fl-card-footer class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
 
-    <ng-container *ngIf="labInstance.isCloud; else desktop">
+    <ng-container *ngIf="labInstance.isOnServer">
 
-      <ca-lab-login-button [labInstanceId]="labInstance.id" [isRunning]="labIsRunning$ | async"></ca-lab-login-button>
+      <ca-lab-login-button *ngIf="labInstance.isHttpAccessible"
+                           [labInstanceId]="labInstance.id" [isRunning]="labIsRunning$ | async"></ca-lab-login-button>
 
-      <ca-lab-instance-start-stop *ngIf="isOwner$ | async"></ca-lab-instance-start-stop>
+      <ca-lab-instance-start-stop *ngIf="labInstance.isCloud && (isOwner$ | async)"></ca-lab-instance-start-stop>
 
       <button mat-stroked-button type="button" (click)="openCodelabInfo(labInstance)"
               class="g-button-small">
@@ -81,13 +82,13 @@
 
     </ng-container>
 
-    <ng-template #desktop>
+    <ng-container *ngIf="labInstance.isDesktop">
       <button mat-stroked-button (click)="getDesktopConfigDownloadUrl(labInstance)"
               type="button">
         <mat-icon>cloud_download</mat-icon>
         <span>{{'download_desktop_config' | translate}}</span>
       </button>
-    </ng-template>
+    </ng-container>
 
     <button mat-stroked-button type="button" (click)="openLabConfig(labInstance)"
             class="g-button-small">

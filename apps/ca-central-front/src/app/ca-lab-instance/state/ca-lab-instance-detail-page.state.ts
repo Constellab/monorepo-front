@@ -121,11 +121,29 @@ export class CaLabInstanceDetailPageState implements OnDestroy {
   }
 
   /**
-   * return true if the lab in on cloud
+   * return true if the lab is on cloud
    */
   public isCloud$(): Observable<boolean> {
     return this.getLabInstance$().pipe(
       map(labInstance => labInstance.isCloud)
+    );
+  }
+
+  /**
+   * return true if the lab is on desktop
+   */
+  public isDesktop$(): Observable<boolean> {
+    return this.getLabInstance$().pipe(
+      map(labInstance => labInstance.isDesktop)
+    );
+  }
+
+  /**
+   * return true if the lab is accessible through http (for cloud and public on premise)
+   */
+  public isHttpAccessible$(): Observable<boolean> {
+    return this.getLabInstance$().pipe(
+      map(labInstance => labInstance.isHttpAccessible)
     );
   }
 

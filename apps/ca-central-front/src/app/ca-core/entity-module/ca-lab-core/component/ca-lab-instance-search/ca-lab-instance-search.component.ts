@@ -106,7 +106,7 @@ export class CaLabInstanceSearchComponent implements OnInit {
       mode: 'create'
     };
 
-    this.dialogService.openSmallDialog(CaLabInstanceAdminFormDialogComponent, {data: dialogInput}).afterClosed()
+    this.dialogService.openMediumDialog(CaLabInstanceAdminFormDialogComponent, {data: dialogInput}).afterClosed()
       .subscribe(
         labInstance => this.onCreateLabInstanceClosed(labInstance)
       );
