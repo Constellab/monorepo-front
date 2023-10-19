@@ -20,7 +20,7 @@ FROM nginx:alpine
 COPY --from=buildContainer /app/dist/apps/lab-front /usr/share/nginx/html
 
 # Copy the default nginx.conf
-COPY apps/lab-front/nginx.conf /etc/nginx/conf.d/default.conf
+COPY apps/lab-front/nginx.conf /etc/nginx/conf.d/nginx.template
 
 # Copy the entry point
 COPY apps/lab-front/entrypoint.sh /entrypoint.sh
@@ -42,7 +42,7 @@ CMD ["nginx","-g","daemon off;"]
 #COPY dist/apps/lab-front /usr/share/nginx/html
 #
 ## Copy the default nginx.conf
-#COPY apps/lab-front/nginx.conf /etc/nginx/conf.d/default.conf
+#COPY apps/lab-front/nginx.conf /etc/nginx/conf.d/nginx.template
 #
 ## Copy the entry point
 #COPY apps/lab-front/entrypoint.sh /entrypoint.sh
