@@ -4,7 +4,7 @@
 
   <fl-async-section [object]="report$" class="g-flex-auto">
 
-    <ng-container *flSectionBody="let report">
+    <ng-container *flSectionBody="report$ as report">
       <ca-report-detail [report]="report" class="detail"></ca-report-detail>
     </ng-container>
 

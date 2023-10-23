@@ -18,7 +18,7 @@
       </fl-section-actions>
     </fl-section-header>
 
-    <ng-container *flSectionBody="let projects">
+    <ng-container *flSectionBodyDatasource="projectsDatasource as projects">
       <div class="g-grid-5-rows">
         <a *ngFor="let project of projects" [routerLink]="project | caDetailRoute">
           <ca-project-card [project]="project"></ca-project-card>

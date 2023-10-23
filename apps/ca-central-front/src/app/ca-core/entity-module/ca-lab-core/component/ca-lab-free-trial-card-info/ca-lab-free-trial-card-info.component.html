@@ -1,5 +1,5 @@
 <fl-async-section [object]="freeTrialDto$">
-  <ng-container *flSectionBody="let freeTrialDto">
+  <ng-container *flSectionBody="freeTrialDto$ as freeTrialDto">
 
     <fl-card>
       <fl-card-header>

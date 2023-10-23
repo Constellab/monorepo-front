@@ -4,7 +4,7 @@
 
 <mat-dialog-content>
   <fl-async-section [object]="resourceShare$">
-    <ng-container *flSectionBody="let resourceShare">
+    <ng-container *flSectionBody="resourceShare$ as resourceShare">
       <lab-shared-entity-origin [sharedEntity]="resourceShare"></lab-shared-entity-origin>
     </ng-container>
   </fl-async-section>

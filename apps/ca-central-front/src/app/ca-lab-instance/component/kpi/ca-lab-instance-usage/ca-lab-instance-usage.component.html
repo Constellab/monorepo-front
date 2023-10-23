@@ -44,7 +44,7 @@
     </form>
 
     <fl-async-section [object]="runResponse$" class="section">
-      <ng-container *flSectionBody="let runResponse">
+      <ng-container *flSectionBody="runResponse$ as runResponse">
         <fl-key-value>
           <fl-key>{{'lab_usage_total_running_duration' | translate}}</fl-key>
           {{(runResponse.runningDuration * 1000) | flDuration:3}}

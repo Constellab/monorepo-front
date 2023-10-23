@@ -6,7 +6,7 @@
 
   <fl-async-section [arrayObs]="statusHistories" emptyText="no_history">
 
-    <ng-container *flSectionBody="let histories">
+    <ng-container *flSectionBodyDatasource="statusHistories as histories">
       <div *ngFor="let statusHistory of histories">
         <ca-status-history-card [statusHistory]="statusHistory">
         </ca-status-history-card>
@@ -20,7 +20,6 @@
 
 
 <div matDialogActions>
-
   <button mat-button type="button" color="primary"
           class="g-centered-forced" matDialogClose>
     {{'ok' | translate}}

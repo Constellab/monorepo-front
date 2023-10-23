@@ -3,7 +3,7 @@
     <h1>{{'monitoring.brick_list' | translate}}</h1>
   </fl-section-header>
 
-  <ng-container *flSectionBody="let bricks">
+  <ng-container *flSectionBody="bricks$ as bricks">
     <mat-accordion>
       <mat-expansion-panel *ngFor="let brick of bricks">
         <mat-expansion-panel-header>

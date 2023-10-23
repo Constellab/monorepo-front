@@ -3,7 +3,7 @@
   <fl-async-section [object]="smartDb$">
 
 
-    <ng-container *flSectionBody="let smartDb">
+    <ng-container *flSectionBody="smartDb$ as smartDb">
       <h1>{{'smart_db.smart_db' | translate}} : {{smartDb.name}}</h1>
 
 

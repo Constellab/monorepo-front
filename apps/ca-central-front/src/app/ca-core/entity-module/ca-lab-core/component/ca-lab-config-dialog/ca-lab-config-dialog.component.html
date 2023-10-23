@@ -4,8 +4,8 @@
 
 <mat-dialog-content>
   <fl-async-section [object]="labConfig$">
-    <ng-container *flSectionBody="let labConfig">
-      <ca-lab-config [labConfig]="labConfig"></ca-lab-config>
+    <ng-container *flSectionBody="labConfig$ as conf">
+      <ca-lab-config [labConfig]="conf"></ca-lab-config>
     </ng-container>
   </fl-async-section>
 </mat-dialog-content>

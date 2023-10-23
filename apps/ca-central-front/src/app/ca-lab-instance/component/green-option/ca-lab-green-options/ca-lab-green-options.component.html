@@ -21,7 +21,7 @@
 
     <!--  Global status  -->
     <fl-async-section [arrayObs]="labGreenOptions$" emptyText="no_lab_green_option">
-      <ng-container *flSectionBody>
+      <ng-container *flSectionBodyDatasource>
         <ca-lab-green-option-table [datasource]="labGreenOptions$" [columns]="columns">
         </ca-lab-green-option-table>
       </ng-container>

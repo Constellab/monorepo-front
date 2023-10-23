@@ -17,7 +17,7 @@
   <fl-card-body>
     <fl-async-section [arrayObs]="datasource" emptyText="no_lab_project">
 
-      <ng-container *flSectionBody>
+      <ng-container *flSectionBodyDatasource>
         <div class="g-infinite-table g-scrollable-element">
           <ca-lab-instance-projects-table [datasource]="datasource" [columns]="columns$ | async"
                                           [labInstanceId]="labInstanceId">

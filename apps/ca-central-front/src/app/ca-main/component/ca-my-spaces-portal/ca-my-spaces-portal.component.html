@@ -24,7 +24,7 @@
     <mat-divider class="g-full"></mat-divider>
     <!--  Other spaces  -->
     <fl-async-section [object]="otherSpaces" emptyText="">
-      <ng-container *flSectionBody="let spaces">
+      <ng-container *flSectionBody="otherSpaces as spaces">
         <div class="switch-to g-text-light">{{'switch_to_space' | translate}}</div>
         <a *ngFor="let space of spaces" [caExternalSpaceLink]="appRoute"
            [caExternalSpaceDomain]="space.domain">

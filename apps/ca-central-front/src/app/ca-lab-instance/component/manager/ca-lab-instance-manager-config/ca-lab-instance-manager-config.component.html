@@ -1,5 +1,5 @@
 <fl-async-section [object]="labConfig$" class="section">
-  <ng-container *flSectionBody="let labConfig">
+  <ng-container *flSectionBody="labConfig$ as labConfig">
     <ca-lab-instance-config-form [labConfig]="labConfig" [labInstanceId]="labInstanceId"
                                  labType="CLOUD"
                                  (labConfigured)="refreshStatus()"></ca-lab-instance-config-form>

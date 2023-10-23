@@ -2,7 +2,7 @@
 
   <fl-async-section [object]="smartDb$">
 
-    <ng-container *flSectionBody="let smartDb">
+    <ng-container *flSectionBody="smartDb$ as smartDb">
 
       <!--  Header with the search -->
       <div>

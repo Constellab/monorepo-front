@@ -1,5 +1,5 @@
 <fl-async-section [object]="content$" class="g-full-height">
-  <ng-container *flSectionBody="let content">
+  <ng-container *flSectionBody="content$ as content">
     <fl-text-editor [ngModel]="content" mode="JSON" [disabled]="true"
                     class="g-full-height text-editor g-print-section"
 

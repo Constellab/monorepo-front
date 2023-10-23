@@ -2,7 +2,7 @@
 
   <fl-async-section [object]="teams$">
 
-    <ng-container *flSectionBody="let group">
+    <ng-container *flSectionBody="teams$ as group">
       <ca-team-detail [team]="group"></ca-team-detail>
     </ng-container>
   </fl-async-section>

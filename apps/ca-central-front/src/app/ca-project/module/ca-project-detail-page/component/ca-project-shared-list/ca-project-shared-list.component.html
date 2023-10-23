@@ -5,7 +5,7 @@
 <mat-dialog-content>
   <fl-async-section [arrayObs]="users$" class="g-full-height">
 
-    <ng-container *flSectionBody="let users">
+    <ng-container *flSectionBodyDatasource="users$ as users">
 
 
       <div *ngFor="let user of users" class="g-layout-row g-layout-between-center">

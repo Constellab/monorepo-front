@@ -10,7 +10,7 @@
           <mat-icon color="accent">star</mat-icon>
         </fl-text-icon>
       </fl-section-header>
-      <ng-container *flSectionBody="let favoritesViews">
+      <ng-container *flSectionBodyDatasource="favoritesViews$ as favoritesViews">
 
         <div class="container">
           <lab-resource-view-spec-card *ngFor="let viewConfig of favoritesViews"

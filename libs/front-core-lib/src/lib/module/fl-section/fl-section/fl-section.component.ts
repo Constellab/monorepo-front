@@ -36,7 +36,7 @@ export class FlSectionComponent implements OnInit, AfterContentInit {
   @Input() disableEmptyText: boolean = false;
 
   /** Content that will be rendered lazily. */
-  @ContentChild(FlSectionBodyDirective) private lazyContent: FlSectionBodyDirective;
+  @ContentChild(FlSectionBodyDirective) private lazyContent: FlSectionBodyDirective<any>;
 
   /** Portal holding the user's content. */
   portal: TemplatePortal;

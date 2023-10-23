@@ -1,5 +1,5 @@
 <fl-async-section [object]="type$">
-  <ng-container *flSectionBody="let type">
+  <ng-container *flSectionBody="type$ as type">
 
     <fl-dialog-header>
       <h2>{{type.name}}</h2>

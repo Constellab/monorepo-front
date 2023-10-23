@@ -9,14 +9,14 @@ import {
   TemplateRef
 } from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
-import {FlSectionBodyDirective} from '../fl-section-body';
+import {FlAsyncSectionBodyContext, FlSectionBodyDirective} from '../fl-section-body';
 import {ClHelpService} from '@monorepo/core-lib';
-import {FlViewContext} from '../../../model/fl-view-context.class';
 import {FlDatasource} from '../../../model/datasource/fl-datasource.class';
 import {delay} from 'rxjs/operators';
 import {FlServerError} from '../../fl-api/model/fl-server-error.class';
 import {FlTranslateService} from '../../fl-translate/service/fl-translate.service';
 import {FlStatusEvent} from '../../../model/fl-status-event.class';
+
 
 @Component({
   selector: 'fl-async-section',
@@ -188,8 +188,13 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
   }
 
 
-  get viewContext(): FlViewContext<any> {
-    return {$implicit: this.result};
+  get viewContext(): FlAsyncSectionBodyContext<any> {
+    return {
+      $implicit: this.result,
+      flSectionBody: this.result,
+      flSectionBodyDatasource: this.result,
+      flSectionBodyStatusEvent: this.result
+    };
   }
 
 

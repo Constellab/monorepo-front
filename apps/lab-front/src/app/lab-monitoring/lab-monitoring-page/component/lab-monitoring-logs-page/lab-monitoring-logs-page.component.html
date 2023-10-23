@@ -11,7 +11,7 @@
 
     <fl-async-section [object]="logsStatus$">
 
-      <ng-container *flSectionBody="let logsStatus">
+      <ng-container *flSectionBody="logsStatus$ as logsStatus">
 
         <fl-key-value>
           <fl-key>{{'monitoring.log_folder' | translate}}</fl-key>

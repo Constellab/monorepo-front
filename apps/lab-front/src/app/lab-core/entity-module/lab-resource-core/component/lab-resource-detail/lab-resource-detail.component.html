@@ -6,7 +6,7 @@
   <!-- View -->
   <fl-async-section [object]="selectedView()" [isFlStatusEvent]="true" [showServerErrorText]="true"
                     class="g-flex-auto main-view">
-    <ng-container *flSectionBody="let view">
+    <ng-container *flSectionBodyStatusEvent="selectedView() as view">
       <lab-resource-view-detail *ngIf="view" [showResourceName]="false"
                                 [labView]="view" class="g-full-height">
         <button mat-icon-button type="button" [matTooltip]="'biox.undock_view' | translate"

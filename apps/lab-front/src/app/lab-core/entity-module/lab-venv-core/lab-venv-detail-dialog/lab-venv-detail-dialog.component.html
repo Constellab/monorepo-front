@@ -5,7 +5,7 @@
 <mat-dialog-content>
   <fl-async-section [object]="venvCompleteInfo$">
 
-    <ng-container *flSectionBody="let venvCompleteInfo">
+    <ng-container *flSectionBody="venvCompleteInfo$ as venvCompleteInfo">
       <lab-venv-complete-info [venvCompleteInfo]="venvCompleteInfo"></lab-venv-complete-info>
     </ng-container>
   </fl-async-section>

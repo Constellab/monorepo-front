@@ -5,7 +5,7 @@
 <mat-dialog-content>
   <fl-async-section [object]="labLogCompleteInfo$">
 
-    <ng-container *flSectionBody="let log">
+    <ng-container *flSectionBody="labLogCompleteInfo$ as log">
       <lab-log-complete-info [log]="log"></lab-log-complete-info>
     </ng-container>
   </fl-async-section>

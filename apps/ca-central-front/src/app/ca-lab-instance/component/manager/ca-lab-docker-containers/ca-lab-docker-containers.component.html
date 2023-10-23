@@ -9,7 +9,7 @@
       </button>
     </fl-section-actions>
   </fl-section-header>
-  <ng-container *flSectionBody="let containers">
+  <ng-container *flSectionBody="containers$ as containers">
     <ca-lab-docker-containers-list [labInstanceId]="labInstanceId"
                                    [containers]="containers"></ca-lab-docker-containers-list>
   </ng-container>

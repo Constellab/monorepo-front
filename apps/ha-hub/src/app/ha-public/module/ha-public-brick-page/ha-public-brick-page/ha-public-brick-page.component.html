@@ -1,6 +1,6 @@
 
 <fl-async-section [object]="brick$" class="full-w" [emptyText]="'error_brick_not_found'">
-  <ng-container *flSectionBody="let brick">
+  <ng-container *flSectionBody="brick$ as brick">
     <div class="left-panel" *ngIf="brick">
       <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
       <ha-public-sidenav [brick]="brick"></ha-public-sidenav>

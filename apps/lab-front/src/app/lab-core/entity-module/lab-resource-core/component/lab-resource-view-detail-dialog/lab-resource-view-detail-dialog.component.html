@@ -4,7 +4,7 @@
 
 <mat-dialog-content>
   <fl-async-section [object]="labView$" class="g-full-height">
-    <ng-container *flSectionBody="let labView">
+    <ng-container *flSectionBody="labView$ as labView">
       <lab-resource-view-detail [labView]="labView" class="g-full-height"></lab-resource-view-detail>
     </ng-container>
   </fl-async-section>

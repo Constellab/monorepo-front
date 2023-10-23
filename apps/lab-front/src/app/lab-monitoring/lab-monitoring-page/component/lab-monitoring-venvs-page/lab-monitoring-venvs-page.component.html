@@ -17,7 +17,7 @@
 
     <fl-async-section [object]="venvsStatus$">
 
-      <ng-container *flSectionBody="let venvsStatus">
+      <ng-container *flSectionBody="venvsStatus$ as venvsStatus">
 
         <fl-key-value>
           <fl-key>{{'monitoring.venv_base_folder' | translate}}</fl-key>

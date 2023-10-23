@@ -1,7 +1,7 @@
 <div class="g-page">
   <fl-async-section [object]="doc$">
 
-    <ng-container *flSectionBody="let doc">
+    <ng-container *flSectionBody="doc$ as doc">
 
       <fl-article-container>
         <fl-article>

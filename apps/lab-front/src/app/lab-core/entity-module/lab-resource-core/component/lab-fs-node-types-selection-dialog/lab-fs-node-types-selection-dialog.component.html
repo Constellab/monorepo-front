@@ -24,7 +24,7 @@
     <!--    Selection of the folder types    -->
     <fl-async-section [object]="resourceTypes$">
 
-      <ng-container *flSectionBody="let resourceTypes">
+      <ng-container *flSectionBody="resourceTypes$ as resourceTypes">
         <ng-container formArrayName="files">
           <div *ngFor="let control of formArray.controls; index as i" [formGroupName]="i">
 

@@ -1,7 +1,7 @@
 <div class="g-page page">
   <fl-async-section class="g-flex-auto" [object]="report$">
 
-    <ng-container *flSectionBody="let report">
+    <ng-container *flSectionBody="report$ as report">
 
       <div class="g-layout-row g-layout-start-center">
         <mat-icon [matTooltip]="'biox.report_validated' | translate"

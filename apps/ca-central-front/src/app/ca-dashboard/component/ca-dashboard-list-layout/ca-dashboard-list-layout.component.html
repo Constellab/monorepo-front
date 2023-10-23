@@ -15,7 +15,7 @@
     </div>
   </fl-section-header>
 
-  <ng-container *flSectionBody="let items">
+  <ng-container *flSectionBodyDatasource="datasource as items">
     <div class="g-grid-4-rows">
       <a *ngFor="let item of items" [routerLink]="item | caDetailRoute">
         <ng-template [ngTemplateOutlet]="templateRef"

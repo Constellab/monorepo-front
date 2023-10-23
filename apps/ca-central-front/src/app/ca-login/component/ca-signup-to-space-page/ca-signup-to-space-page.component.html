@@ -3,7 +3,7 @@
   <fl-async-section [object]="invitation$" [showServerErrorText]="true" class="section">
 
 
-    <ng-container *flSectionBody="let invitation">
+    <ng-container *flSectionBody="invitation$ as invitation">
       <fl-card class="card">
         <fl-card-body class="g-layout-col">
 

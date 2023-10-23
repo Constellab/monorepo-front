@@ -1,6 +1,6 @@
 <fl-async-section [object]="processes$" emptyText="biox.process_no_config" class="g-full-height">
 
-  <ng-container *flSectionBody="let processes">
+  <ng-container *flSectionBody="processes$ as processes">
 
     <div class="container g-full-height">
 
@@ -8,7 +8,7 @@
         <div *ngFor="let process of processes" class="process" matRipple
              (click)="selectProcess(process)">
           <div>{{ process.data?.title }}</div>
-          <div class="g-text-small g-text-light">{{process.name}}</div>
+          <div class="g-text-small g-text-light">{{process.instanceName}}</div>
         </div>
       </div>
 

@@ -5,7 +5,7 @@
 <mat-dialog-content>
 
   <fl-async-section [object]="brickVersion$">
-    <ng-container *flSectionBody="let brickVersion">
+    <ng-container *flSectionBody="brickVersion$ as brickVersion">
       <ca-brick-version-detail [brickVersion]="brickVersion" [brickName]="brickName"></ca-brick-version-detail>
     </ng-container>
   </fl-async-section>

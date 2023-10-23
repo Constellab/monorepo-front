@@ -17,7 +17,7 @@
   <fl-card-body>
     <fl-async-section [arrayObs]="datasource">
 
-      <ng-container *flSectionBody>
+      <ng-container *flSectionBodyDatasource>
         <ca-lab-instance-users-table [datasource]="datasource" [columns]="columns$ | async"
                                      [labInstanceId]="labInstanceId">
         </ca-lab-instance-users-table>

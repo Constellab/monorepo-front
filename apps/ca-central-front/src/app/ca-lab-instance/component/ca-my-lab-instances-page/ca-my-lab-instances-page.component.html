@@ -18,7 +18,7 @@
       </fl-section-actions>
     </fl-section-header>
 
-    <ng-container *flSectionBody="let labInstances">
+    <ng-container *flSectionBodyDatasource="labInstancesDatasource as labInstances">
       <div class="g-grid-5-rows">
         <a *ngFor="let labInstance of labInstances" [routerLink]="labInstance | caDetailRoute">
           <ca-lab-instance-card [labInstance]="labInstance"></ca-lab-instance-card>

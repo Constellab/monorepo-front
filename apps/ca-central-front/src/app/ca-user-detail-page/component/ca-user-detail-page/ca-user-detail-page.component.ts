@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {CaUser} from '../../../ca-core/model/entities/ca-user.class';
 import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
 import {ActivatedRoute} from '@angular/router';
-import {CaUsersService} from '../../../ca-core/service-api/ca-users.service';
 import {Observable} from 'rxjs';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {
@@ -27,7 +26,6 @@ export class CaUserDetailPageComponent implements OnInit {
 
   constructor(private authenticatedUserService: CaAuthenticatedUserService,
               private route: ActivatedRoute,
-              private userService: CaUsersService,
               private spaceService: CaSpaceService,
               private dialogService: FlDialogService) {
   }
@@ -39,16 +37,16 @@ export class CaUserDetailPageComponent implements OnInit {
       this.id = params.id;
       this.getUser();
 
-    })
+    });
   }
 
-  openSettings(): void{
+  openSettings(): void {
     this.dialogService.openMediumDialog(CaUserSettingsDialogComponent).afterClosed().subscribe(() => {
       this.getUser();
     });
   }
 
-  getUser(): void{
+  getUser(): void {
     this.user$ = this.spaceService.getUserById(this.id);
   }
 }

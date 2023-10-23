@@ -10,7 +10,7 @@
       <h2>{{'biox.running_experiment_list' | translate}}</h2>
     </fl-section-header>
 
-    <ng-container *flSectionBody>
+    <ng-container *flSectionBodyDatasource>
       <lab-running-experiment-table [datasource]="runningExperiments" [columns]="experimentColumns"
                                     class="content"></lab-running-experiment-table>
     </ng-container>

@@ -4,7 +4,7 @@
 
 <mat-dialog-content>
   <fl-async-section [object]="logs$" [showServerErrorText]="true">
-    <ng-container *flSectionBody="let logs">
+    <ng-container *flSectionBody="logs$ as logs">
       <p class="logs">{{logs}}</p>
     </ng-container>
   </fl-async-section>

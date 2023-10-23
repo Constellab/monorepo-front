@@ -17,7 +17,7 @@
       </fl-section-actions>
     </fl-section-header>
 
-    <ng-container *flSectionBody="let smartDbs">
+    <ng-container *flSectionBodyDatasource="smartDbs$ as smartDbs">
       <div class="g-grid-5-rows">
         <a *ngFor="let smartDb of smartDbs" [routerLink]="smartDb | caDetailRoute">
           <ca-smart-db-card [smartDb]="smartDb"></ca-smart-db-card>

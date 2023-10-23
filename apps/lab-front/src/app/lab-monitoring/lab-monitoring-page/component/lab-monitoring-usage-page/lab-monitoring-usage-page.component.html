@@ -11,7 +11,7 @@
 
     <fl-async-section [object]="monitor$" class="g-full-height">
 
-      <ng-container *flSectionBody="let monitor">
+      <ng-container *flSectionBody="monitor$ as monitor">
         <lab-monitor-between-dates [monitor]="monitor"></lab-monitor-between-dates>
       </ng-container>
     </fl-async-section>

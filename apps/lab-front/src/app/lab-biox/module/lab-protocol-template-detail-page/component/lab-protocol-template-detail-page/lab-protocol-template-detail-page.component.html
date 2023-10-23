@@ -2,7 +2,7 @@
 
   <fl-async-section [object]="template$" class="g-flex-auto">
 
-    <ng-container *flSectionBody="let template">
+    <ng-container *flSectionBody="template$ as template">
       <lab-protocol-template-detail [template]="template" class="detail"></lab-protocol-template-detail>
     </ng-container>
 

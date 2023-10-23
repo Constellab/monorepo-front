@@ -50,7 +50,7 @@
             <div class="g-text-big">{{'spSpreadsheet.column_tags' | translate}}</div>
           </fl-section-header>
 
-          <ng-container *flSectionBody="let columnTagsColorer">
+          <ng-container *flSectionBody="columnTagsColorer$ as columnTagsColorer">
             <fl-tags-select-colors [tagColorer]="columnTagsColorer"></fl-tags-select-colors>
           </ng-container>
         </fl-async-section>
@@ -61,7 +61,7 @@
             <div class="g-text-big">{{'spSpreadsheet.row_tags' | translate}}</div>
           </fl-section-header>
 
-          <ng-container *flSectionBody="let rowTagColorer">
+          <ng-container *flSectionBody="rowTagsColorer$ as rowTagColorer">
             <fl-tags-select-colors [tagColorer]="rowTagColorer"></fl-tags-select-colors>
           </ng-container>
         </fl-async-section>

@@ -2,7 +2,7 @@
   <fl-card-body>
     <fl-async-section [object]="labConfig$">
 
-      <ng-container *flSectionBody="let config">
+      <ng-container *flSectionBody="labConfig$ as config">
         <ca-lab-instance-config-form [labInstanceId]="labInstanceId" [labConfig]="config"
                                      [showAdvanced]="false" labType="DESKTOP"></ca-lab-instance-config-form>
       </ng-container>
