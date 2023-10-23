@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
 import {
   TdResourceFunction,
   TdResourceFunctionArg,
@@ -7,6 +7,7 @@ import {
 } from '../../model/td-resource-type.class';
 import {forEach} from '@angular-devkit/schematics';
 import {rvDefaultViewTypeInfos, RvResourceViewType, RvResourceViewTypeInfo} from '@monorepo/resource-view';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'td-resource-doc',
@@ -20,18 +21,25 @@ export class TdResourceDocComponent implements OnInit {
 
   views: RvResourceViewTypeInfo[] = [];
 
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
   }
 
   ngOnInit(): void {
-    for(const v of this.resource.methods.views){
-      console.log('A', v.view_type);
-    }
   }
 
 
   getFunctionSignature(func: TdResourceFunction): string {
-    return '(' + this.getFunctionArgsToString(func.args) + ') -> ' + (func.return_type ? func.return_type : 'void');
+    if(isPlatformBrowser(this.platformId)){
+      const hljs = require('highlight.js');
+      const signature = hljs.highlight('python', this.getFunctionSignatureToString(func)).value;
+      console.log(signature)
+      return signature;
+    }
+    return '';
+  }
+
+  getFunctionSignatureToString(func: TdResourceFunction): string {
+    return 'def ' + func.name + '(' + this.getFunctionArgsToString(func.args) + ') -> ' + (func.return_type ? func.return_type : 'void');
   }
 
   getFunctionArgsToString(args: TdResourceFunctionArg[]): string{

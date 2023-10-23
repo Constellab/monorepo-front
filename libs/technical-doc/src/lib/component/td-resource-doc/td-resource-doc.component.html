@@ -4,15 +4,18 @@
   <h4>{{'td.views' | translate}}</h4>
   <div *ngFor="let v of getOrderedResourceViews(resource.methods.views)"  class="method-card">
     <fl-text-icon class="view-title">
-      <mat-icon>{{rvDefaultViewTypeInfos[v.view_type].icon}}</mat-icon>
+      <mat-icon *ngIf="rvDefaultViewTypeInfos[v.view_type].image == null">{{rvDefaultViewTypeInfos[v.view_type].icon}}</mat-icon>
+
+      <mat-icon *ngIf="rvDefaultViewTypeInfos[v.view_type].image != null">
+        <img [src]="rvDefaultViewTypeInfos[v.view_type].image | flThemeSwitch"
+             [alt]="rvDefaultViewTypeInfos[v.view_type].text | translate"
+             class="view-img"/>
+      </mat-icon>
       {{v.human_name.toUpperCase() + ' - ' +  v.method_name + '()'}}
       <mat-chip *ngIf="v.default_view" color="primary">{{'td.default_view' | translate}}</mat-chip>
     </fl-text-icon>
     {{v.short_description}}
-    <img *ngIf="rvDefaultViewTypeInfos[v.view_type].image != null"
-         [src]="rvDefaultViewTypeInfos[v.view_type].image | flThemeSwitch"
-         [alt]="rvDefaultViewTypeInfos[v.view_type].text | translate"
-    class="view-img"/>
+
   </div>
 </div>
 
@@ -21,7 +24,7 @@
   <div class="method-card">
     <ng-container *ngFor="let func of resource.methods.funcs">
       <a class="func-code-line" [routerLink]="'.'" [fragment]="func.name">
-        <code><b>{{func.name}}</b>{{getFunctionSignature(func)}}</code>
+        <code [innerHTML]="getFunctionSignature(func)"></code>
         <br>
       </a>
     </ng-container>
@@ -43,7 +46,7 @@
         </tr>
       </table>
     </div>
-    <div *ngIf="func.return_type != 'None' && func.return_type != null && getCleanType(func.return_type) != null">
+    <div class="return-type-div" *ngIf="func.return_type != 'None' && func.return_type != null && getCleanType(func.return_type) != null">
       {{'td.return_type' | translate}}:
       <table>
         <tr>
