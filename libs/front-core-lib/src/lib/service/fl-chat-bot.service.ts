@@ -1,4 +1,5 @@
-import {Injectable, Renderer2, RendererFactory2} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID, Renderer2, RendererFactory2} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,13 @@ export class FlChatBotService {
   private renderer: Renderer2;
   private scriptTag: HTMLElement;
 
-  constructor(private rendererFactory: RendererFactory2) {
+  constructor(private rendererFactory: RendererFactory2,
+              @Inject(PLATFORM_ID) private platformId: Object) {
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 
   loadScript() {
-    if (!this.scriptTag) {
+    if (!this.scriptTag && isPlatformBrowser(this.platformId)) {
       // ChatBot Config
       const configScript = this.renderer.createElement('script');
       configScript.innerHTML = `

@@ -1,5 +1,5 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import ForceGraph, {ForceGraphInstance, GraphData} from 'force-graph';
+import {ForceGraphInstance, GraphData} from 'force-graph';
 import {BnBioNetworkGraph} from '../model/bn-bio-network-graph.class';
 import {BnBioNetworkSelectionState} from '../state/bn-bio-network-selection.state';
 import {BnBioNetworkOptionsState} from '../state/bn-bio-network-options.state';
@@ -15,6 +15,11 @@ import {BnBioNetworkLinksRenderer} from './bn-bio-network-links.renderer';
 import {BnBioNetworkGridState} from '../state/bn-bio-network-grid.state';
 import {BnBioNetworkEngineState} from '../state/bn-bio-network-engine.state';
 import {FlCoord, FlThemeDetail, FlThemeService} from '@monorepo/front-core-lib';
+export let ForceGraph: any = null;
+
+if (typeof window !== 'undefined') {
+  ForceGraph = require('force-graph');
+}
 
 export interface BnBioNetworkGraphRenderer {
   graph: ForceGraphInstance;
@@ -87,7 +92,7 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
     const graphData: GraphData = this.dataToGraph(data, !engineConfig.liveDrawing);
 
 
-    const graph = ForceGraph()(this.container)
+    const graph: ForceGraphInstance = ForceGraph()(this.container)
       .graphData(graphData).width(width).height(height)
       .autoPauseRedraw(true) // prevent redraw on every tick
       .maxZoom(BnBioNetworkZoomRenderer.maxZoomScale)
