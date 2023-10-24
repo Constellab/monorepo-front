@@ -6,6 +6,7 @@ import {LabTag} from '../../../../model/entities/lab-tag.entity';
 import {LabDragType} from '../../../../model/global/lab-drag-type.class';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 import {LabRouterService} from '../../../../service/lab-router.service';
+import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource/lab-resource-view-type.class';
 
 @Component({
   selector: 'lab-view-config-table',
@@ -67,4 +68,6 @@ export class LabViewConfigTableComponent {
   navigateToViewConfigPage(viewConfig: LabViewConfig): void {
     this.routerService.navigateToViewConfig(viewConfig.resource.id, viewConfig.id);
   }
+
+  protected readonly labConstResourceViewTypeInfos = labConstResourceViewTypeInfos;
 }

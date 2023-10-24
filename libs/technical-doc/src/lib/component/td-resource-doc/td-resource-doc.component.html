@@ -3,17 +3,11 @@
 <div class="methods-div">
   <h4>{{'td.views' | translate}}</h4>
   <div *ngFor="let v of getOrderedResourceViews(resource.methods.views)"  class="method-card">
-    <fl-text-icon class="view-title">
-      <mat-icon *ngIf="rvDefaultViewTypeInfos[v.view_type].image == null">{{rvDefaultViewTypeInfos[v.view_type].icon}}</mat-icon>
-
-      <mat-icon *ngIf="rvDefaultViewTypeInfos[v.view_type].image != null">
-        <img [src]="rvDefaultViewTypeInfos[v.view_type].image | flThemeSwitch"
-             [alt]="rvDefaultViewTypeInfos[v.view_type].text | translate"
-             class="view-img"/>
-      </mat-icon>
-      {{v.human_name.toUpperCase() + ' - ' +  v.method_name + '()'}}
+    <div class="view-title">
+      <rv-view-type-image [viewType]="v.view_type"></rv-view-type-image>
+      <span>{{v.human_name.toUpperCase() + ' - ' +  v.method_name + '()'}}</span>
       <mat-chip *ngIf="v.default_view" color="primary">{{'td.default_view' | translate}}</mat-chip>
-    </fl-text-icon>
+    </div>
     {{v.short_description}}
 
   </div>
@@ -32,9 +26,8 @@
 
   <div *ngFor="let func of resource.methods.funcs" id="{{func.name}}" class="func">
     {{func.name.toUpperCase()}}
-    <p class="func-doc" *ngIf="func.doc">
-      {{getFunctionCleanDocInfo(func).join('\n')}}
-    </p>
+    <div class="func-doc" *ngIf="func.doc" [innerHTML]="getFunctionCleanDocInfo(func).join('\n') | tdMarkdown">
+    </div>
     <div class="func-parameters" *ngIf="func.args.length > 0">
       {{'td.parameters' | translate}}:
       <table>

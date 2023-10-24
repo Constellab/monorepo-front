@@ -2,7 +2,7 @@
   <fl-section-header class="header">
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <lab-view-type-image [viewType]="labView.viewType" size="1.75em" class="view-image"></lab-view-type-image>
+      <rv-view-type-image [viewType]="labView.viewType" size="1.75em" class="view-image" [viewTypesInfos]="labConstResourceViewTypeInfos"></rv-view-type-image>
       <h2 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">{{labView.title}}</h2>
 
       <lab-view-config-favorite *ngIf="labView.viewConfig" [viewConfig]="labView.viewConfig"

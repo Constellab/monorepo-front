@@ -3,7 +3,7 @@
        (click)="openView(minimizedView)" (auxclick)="onAuxClick(minimizedView, $event)"
        [matTooltip]="minimizedView.view.title" [matTooltipShowDelay]="500">
 
-    <lab-view-type-image [viewType]="minimizedView.view.viewType" size="13px" class="view-image"></lab-view-type-image>
+    <rv-view-type-image [viewType]="minimizedView.view.viewType" size="13px" class="view-image" [viewTypesInfos]="labConstResourceViewTypeInfos"></rv-view-type-image>
     <div class="g-text-small title">{{minimizedView.view.title}}</div>
   </div>
 </div>

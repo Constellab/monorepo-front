@@ -5,6 +5,7 @@ import {RvViewConfig} from '@monorepo/resource-view';
 import {FlTag} from '@monorepo/front-core-lib';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
+import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource/lab-resource-view-type.class';
 
 @Component({
   selector: 'lab-resource-view-detail',
@@ -45,4 +46,6 @@ export class LabResourceViewDetailComponent {
       viewConfig => this.onUpdate(viewConfig)
     );
   }
+
+  protected readonly labConstResourceViewTypeInfos = labConstResourceViewTypeInfos;
 }

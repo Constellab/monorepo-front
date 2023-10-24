@@ -12,7 +12,7 @@ import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 })
 export class HaPublicBrickPageComponent implements OnInit {
 
-  brick$: HaBrick;
+  brick: HaBrick;
   brickNotFound: boolean = false;
   BRICK_KEY: StateKey<object>;
 
@@ -41,7 +41,7 @@ export class HaPublicBrickPageComponent implements OnInit {
 
     //Set the brick loaded from the server to the transfer state
     if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_KEY)){
-      this.brick$ = this.transferState.get(this.BRICK_KEY, null) as HaBrick;
+      this.brick = this.transferState.get(this.BRICK_KEY, null) as HaBrick;
       this.transferState.remove(this.BRICK_KEY);
       return;
     }
@@ -51,7 +51,7 @@ export class HaPublicBrickPageComponent implements OnInit {
         this.brickNotFound = true;
         return;
       }
-      this.brick$ = brick;
+      this.brick = brick;
       if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICK_KEY)) {
         this.transferState.set(this.BRICK_KEY, brick);
       }

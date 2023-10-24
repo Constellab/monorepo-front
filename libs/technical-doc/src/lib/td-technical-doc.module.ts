@@ -32,26 +32,28 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
+import {RvResourceViewModule} from "@monorepo/resource-view";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatIconModule,
-    MatChipsModule,
-    MatDividerModule,
-    MatTooltipModule,
-    MatButtonModule,
+    imports: [
+        CommonModule,
+        RouterModule,
+        MatIconModule,
+        MatChipsModule,
+        MatDividerModule,
+        MatTooltipModule,
+        MatButtonModule,
 
-    FlCorePipeModule,
-    FlCoreComponentModule,
-    FlTranslateModule,
-    FlKeyValueModule,
-    FlIconModule,
-    MatMenuModule,
-    FlTextIconModule,
-    FlThemeModule,
-  ],
+        FlCorePipeModule,
+        FlCoreComponentModule,
+        FlTranslateModule,
+        FlKeyValueModule,
+        FlIconModule,
+        MatMenuModule,
+        FlTextIconModule,
+        FlThemeModule,
+        RvResourceViewModule,
+    ],
   declarations: [
     TdResourceDocComponent,
     TdTechnicalDocComponent,

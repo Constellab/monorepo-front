@@ -24,7 +24,6 @@ import {LabTagCoreModule} from '../lab-tag-core/lab-tag-core.module';
 import {LabEntityCoreModule} from '../lab-entity-core/lab-entity-core.module';
 import {RouterModule} from '@angular/router';
 import {LabViewConfigPreviewComponent} from './component/lab-view-config-preview/lab-view-config-preview.component';
-import {LabViewTypeImageComponent} from './component/lab-view-type-image/lab-view-type-image.component';
 import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module';
 import {LabViewConfigFavoriteComponent} from './component/lab-view-config-favorite/lab-view-config-favorite.component';
 
@@ -39,7 +38,6 @@ import {LabViewConfigFavoriteComponent} from './component/lab-view-config-favori
     LabViewConfigActionsMenuComponent,
     LabUpdateViewConfigDialogComponent,
     LabViewConfigPreviewComponent,
-    LabViewTypeImageComponent,
     LabViewConfigFavoriteComponent,
   ],
   exports: [
@@ -51,7 +49,6 @@ import {LabViewConfigFavoriteComponent} from './component/lab-view-config-favori
     LabViewConfigActionsMenuComponent,
     LabUpdateViewConfigDialogComponent,
     LabViewConfigPreviewComponent,
-    LabViewTypeImageComponent,
     LabViewConfigFavoriteComponent,
   ],
   imports: [

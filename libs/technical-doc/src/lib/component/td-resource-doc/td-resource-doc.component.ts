@@ -32,7 +32,6 @@ export class TdResourceDocComponent implements OnInit {
     if(isPlatformBrowser(this.platformId)){
       const hljs = require('highlight.js');
       const signature = hljs.highlight('python', this.getFunctionSignatureToString(func)).value;
-      console.log(signature)
       return signature;
     }
     return '';
@@ -47,9 +46,6 @@ export class TdResourceDocComponent implements OnInit {
   }
 
   getFunctionCleanDocInfo(func: TdResourceFunction, getTechInfo: boolean = false): string[] {
-    //check foreach doc line if it countains :type or :param or :return
-    //if yes, remove it
-    //if no, return the line
     if(!func.doc){
       return null;
     }
@@ -57,10 +53,12 @@ export class TdResourceDocComponent implements OnInit {
     const cleanLines = [];
     const techLines = [];
     for (const line of lines) {
-      if (line.includes(':type') || line.includes(':param') || line.includes(':return')) {
+      if (line.includes(':type') || line.includes(':param') || line.includes(':return') || line.includes(':rtype')) {
         techLines.push(line);
+      } else {
+        cleanLines.push(line);
       }
-      cleanLines.push(line);
+
     }
     if (getTechInfo) {
       return techLines;

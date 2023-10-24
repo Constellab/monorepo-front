@@ -7,8 +7,8 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig">
       <div class="g-layout-row g-layout-start-center">
-        <lab-view-type-image [viewType]="viewConfig.viewType" size="2em"
-                             class="view-image"></lab-view-type-image>
+        <rv-view-type-image [viewType]="viewConfig.viewType" size="2em"
+                            class="view-image" [viewTypesInfos]="labConstResourceViewTypeInfos"></rv-view-type-image>
         <div>{{viewConfig.title}}</div>
       </div>
     </mat-cell>

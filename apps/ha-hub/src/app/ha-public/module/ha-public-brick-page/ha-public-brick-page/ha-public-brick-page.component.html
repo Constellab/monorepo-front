@@ -1,6 +1,6 @@
 
-<fl-async-section [object]="brick$" class="full-w" [emptyText]="'error_brick_not_found'">
-  <ng-container *flSectionBody="brick$ as brick">
+<fl-section [object]="brick" class="full-w" [emptyText]="'error_brick_not_found'">
+  <ng-container *flSectionBody>
     <div class="left-panel" *ngIf="brick">
       <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
       <ha-public-sidenav [brick]="brick"></ha-public-sidenav>
@@ -10,9 +10,8 @@
         <router-outlet></router-outlet>
       </div>
     </div>
-    <!--    <router-outlet></router-outlet>-->
   </ng-container>
-</fl-async-section>
+</fl-section>
 
 
 
