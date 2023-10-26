@@ -16,7 +16,6 @@ export class CaBucketSearchFields {
 
   contentType: CaBucketContentType;
 
-  objectId: string;
 
   @Type(() => CaSpace)
   space: CaSpace;
@@ -46,7 +45,6 @@ export class CaBucketSearch {
    */
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaBucketSearchFields> = {
     contentType: 'bucket_content_type',
-    objectId: 'bucket_object_id',
     region: 'cloud_provider_region',
     credentials: 'bucket_credentials',
     createdAt: 'creation_date',
@@ -62,7 +60,6 @@ export class CaBucketSearch {
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaBucketSearchFields> = {
     name: {key: 'name', operator: 'CONTAINS'},
     contentType: {key: 'contentType', operator: 'IN'},
-    objectId: {key: 'objectId', operator: 'EQ'},
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     region: {key: 'region.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     credentials: {key: 'credentials.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
@@ -79,7 +76,6 @@ export class CaBucketSearch {
       {
         name: [null],
         contentType: [null],
-        objectId: [null],
         space: [null],
         region: [null],
         credentials: [null],

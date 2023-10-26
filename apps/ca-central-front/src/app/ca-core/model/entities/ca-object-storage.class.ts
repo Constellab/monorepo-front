@@ -53,8 +53,6 @@ export class CaBucket extends CaBaseEntity {
 
   contentType: CaBucketContentType;
 
-  objectId: string;
-
   bucketType: CaBucketType;
 }
 
