@@ -82,7 +82,7 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
       startingDate: [this.dialogInput.parentStartingDate, Validators.required],
       endingDate: [this.dialogInput.parentEndingDate],
       mainRegion: [null, this.showStorageRegion ? Validators.required : null],
-      backupRegion: [null, this.showStorageRegion ? Validators.required : null],
+      backupRegion: [null],
     }, {validator: this.showStorageRegion ? this.differentBackupRegionValidator() : null});
   }
 

@@ -39,7 +39,7 @@ export class CaBucketCredentialsFormDialogComponent
       name: [null, Validators.required],
       accessKeyId: [null, Validators.required],
       secretAccessKey: [null, Validators.required],
-      cloudProvider: [null, Validators.required],
+      cloudProvider: [null],
       space: [null],
       s3Username: [null],
       shortDescription: [null],

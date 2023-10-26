@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaCloudProviderRegion} from '../../../../model/entities/ca-cloud-provider.class';
 
 @Component({
@@ -6,14 +6,8 @@ import {CaCloudProviderRegion} from '../../../../model/entities/ca-cloud-provide
   templateUrl: './ca-cloud-provider-region-inline.component.html',
   styleUrls: ['./ca-cloud-provider-region-inline.component.scss']
 })
-export class CaCloudProviderRegionInlineComponent implements OnInit {
+export class CaCloudProviderRegionInlineComponent {
 
   @Input() region: CaCloudProviderRegion;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
 }

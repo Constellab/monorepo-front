@@ -41,7 +41,12 @@
 
     <fl-key-value *ngIf="spaceSettings.defaultStorageRegion">
       <fl-key>{{'space_default_storage_region' | translate}}</fl-key>
-      {{spaceSettings.defaultStorageRegion.technicalName}} ({{spaceSettings.defaultStorageRegion.cloudProvider.name}})
+      <ca-bucket-region-inline [region]="spaceSettings.defaultStorageRegion"></ca-bucket-region-inline>
+    </fl-key-value>
+
+    <fl-key-value *ngIf="spaceSettings.defaultBackupStorageRegion">
+      <fl-key>{{'space_default_backup_storage_region' | translate}}</fl-key>
+      <ca-bucket-region-inline [region]="spaceSettings.defaultBackupStorageRegion"></ca-bucket-region-inline>
     </fl-key-value>
   </fl-card-body>
 

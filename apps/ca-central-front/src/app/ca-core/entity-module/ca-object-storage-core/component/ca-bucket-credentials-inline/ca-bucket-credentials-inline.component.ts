@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaBucketCredentials} from '../../../../model/entities/ca-object-storage.class';
 
 @Component({
@@ -6,14 +6,7 @@ import {CaBucketCredentials} from '../../../../model/entities/ca-object-storage.
   templateUrl: './ca-bucket-credentials-inline.component.html',
   styleUrls: ['./ca-bucket-credentials-inline.component.scss']
 })
-export class CaBucketCredentialsInlineComponent implements OnInit {
+export class CaBucketCredentialsInlineComponent {
 
   @Input() credentials: CaBucketCredentials;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
 }

@@ -34,10 +34,15 @@ export class CaProjectStorageSettingsComponent implements OnInit {
 
   async configureStorage(): Promise<void> {
     const projectId = await firstValueFrom(this.state.getProjectId$());
+    const projectBucket = await firstValueFrom(this.projectBucket$);
 
     const input: CaProjectConfigureStorageInput = {
-      mode: 'create',
-      projectId: projectId
+      mode: 'update',
+      projectId: projectId,
+      object: {
+        mainRegion: projectBucket.mainRegion,
+        backupRegion: projectBucket.backupRegion,
+      }
     };
     this.dialogService.openSmallDialog(CaProjectConfigureStorageComponent, {data: input}).afterClosed().subscribe(
       bucket => this.onConfiguredClosed(bucket)

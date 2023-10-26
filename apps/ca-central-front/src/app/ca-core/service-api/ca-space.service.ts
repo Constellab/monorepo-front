@@ -5,13 +5,7 @@ import {
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {
-  CaSaveSpaceDTO,
-  CaSpace,
-  CaSpaceDatasource,
-  CaSpaceInfoDto,
-  CaSpaceSettingsDto,
-} from '../model/entities/space/ca-space.class';
+import {CaSpace, CaSpaceDatasource, CaSpaceInfoDto,} from '../model/entities/space/ca-space.class';
 import {Observable} from 'rxjs';
 import {ClPage} from '@monorepo/core-lib';
 import {CaRequestNewLicensesDto} from '../model/dto/ca-space.dto';
@@ -22,6 +16,7 @@ import {
   CaSpaceUserSearch,
   CaSpaceUserSearchFields
 } from '../entity-module/ca-space-core/model/ca-space-user-search.class';
+import {CaSaveSpaceDTO, CaSpaceSettingsDto} from '../model/entities/space/ca-space-form.class';
 
 @Injectable({
   providedIn: 'root'

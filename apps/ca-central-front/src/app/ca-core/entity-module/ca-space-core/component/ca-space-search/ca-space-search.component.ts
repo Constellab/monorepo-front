@@ -11,11 +11,12 @@ import {
 } from '@monorepo/front-core-lib';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
 import {CaSpaceSearch, CaSpaceSearchFields} from '../../model/ca-space-search.class';
-import {CaSpace, CaSpaceDatasource, CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space.class';
+import {CaSpace, CaSpaceDatasource} from '../../../../model/entities/space/ca-space.class';
 import {
   CaSpaceFormDialogComponent,
   CaSpaceFormDialogInput
 } from '../ca-space-form-dialog/ca-space-form-dialog.component';
+import {CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space-form.class';
 
 
 @Component({

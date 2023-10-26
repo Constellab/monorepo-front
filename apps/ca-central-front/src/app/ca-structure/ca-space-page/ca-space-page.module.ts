@@ -38,6 +38,9 @@ import {
 import {
   CaCurrentSpaceTeamsPageComponent
 } from './component/ca-current-space-teams-page/ca-current-space-teams-page.component';
+import {
+  CaCloudProviderCoreModule
+} from '../../ca-core/entity-module/ca-cloud-provider-core/ca-cloud-provider-core.module';
 
 @NgModule({
   declarations: [
@@ -71,6 +74,7 @@ import {
     CaGroupCoreModule,
     CaLabCoreModule,
     CaProjectCoreModule,
+    CaCloudProviderCoreModule,
   ],
 })
 export class CaSpacePageModule {

@@ -31,7 +31,7 @@ export class LabFsNodeEntity extends LabEntity {
 }
 
 export type LabResourceOrigin = 'UPLOADED' | 'GENERATED' | 'IMPORTED' | 'TRANSFORMED'
-  | 'ACTIONS' | 'IMPORTED_FROM_LAB';
+  | 'ACTIONS' | 'IMPORTED_FROM_LAB' | 'S3_PROJECT_STORAGE';
 
 export class LabResource extends LabEntityWithTag implements LabFlaggedEntity {
 
@@ -80,12 +80,16 @@ export class LabResource extends LabEntityWithTag implements LabFlaggedEntity {
     return this.isFsNode() && this.fsNode.isFile;
   }
 
-  isUpdatable(): boolean {
+  canUpdateType(): boolean {
     return this.origin === 'UPLOADED';
   }
 
+  isUpdatable(): boolean{
+    return this.origin !== 'S3_PROJECT_STORAGE';
+  }
+
   isDeletable(): boolean {
-    return this.origin !== 'GENERATED';
+    return this.origin !== 'GENERATED' && this.origin !== 'S3_PROJECT_STORAGE';
   }
 
 }

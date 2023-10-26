@@ -1,36 +1,34 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
-import {
-  CaCloudProviderRegionFormDialogComponent,
-  CaCloudProviderRegionFormDialogInput
-} from '../ca-cloud-provider-region-form-dialog/ca-cloud-provider-region-form-dialog.component';
-import {CaCloudProviderService} from '../../../../service-api/ca-cloud-provider.service';
 import {
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource
-} from '../../../../model/entities/ca-cloud-provider.class';
+} from '../../../ca-core/model/entities/ca-cloud-provider.class';
+import {
+  CaAdminCloudProviderRegionFormDialogComponent,
+  CaCloudProviderRegionFormDialogInput
+} from '../ca-admin-cloud-provider-region-form-dialog/ca-admin-cloud-provider-region-form-dialog.component';
+import {CaCloudProviderService} from '../../../ca-core/service-api/ca-cloud-provider.service';
 
 @Component({
-  selector: 'ca-bucket-region-table',
-  templateUrl: './ca-cloud-provider-region-table.component.html',
-  styleUrls: ['./ca-cloud-provider-region-table.component.scss']
+  selector: 'ca-admin-bucket-region-table',
+  templateUrl: './ca-admin-cloud-provider-region-table.component.html',
+  styleUrls: ['./ca-admin-cloud-provider-region-table.component.scss']
 })
-export class CaCloudProviderRegionTableComponent extends FlTableAbstractDirective<CaCloudProviderRegion>
-  implements OnInit {
+export class CaAdminCloudProviderRegionTableComponent {
 
   @Input() datasource: CaCloudProviderRegionDatasource;
 
-  constructor(private dialogService: FlDialogService,
-              private cloudProviderService: CaCloudProviderService) {
-    super(['technicalName', 'cloudProvider', 'city', 'created', 'lastModified', 'actions']);
-  }
+  @Input() columns: FlTableColumnStatic<CaCloudProviderRegion>[] =
+    ['technicalName', 'cloudProvider', 'city', 'space', 'lastModified', 'actions'];
 
-  ngOnInit(): void {
+  constructor(private cloudProviderService: CaCloudProviderService,
+              private dialogService: FlDialogService) {
   }
 
   updateRegion(region: CaCloudProviderRegion): void {
@@ -39,7 +37,7 @@ export class CaCloudProviderRegionTableComponent extends FlTableAbstractDirectiv
       object: region
     };
 
-    this.dialogService.openSmallDialog(CaCloudProviderRegionFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaAdminCloudProviderRegionFormDialogComponent, {data: input}).afterClosed().subscribe(
       region => this.onUpdateClosed(region)
     );
   }

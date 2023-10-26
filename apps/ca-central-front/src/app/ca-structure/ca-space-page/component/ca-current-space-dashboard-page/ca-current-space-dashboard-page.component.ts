@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-space.class';
 import {CaSpaceService} from '../../../../ca-core/service-api/ca-space.service';
+import {CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-space-form.class';
 
 @Component({
   selector: 'ca-current-space-dashboard-page',

@@ -1,1 +1,3 @@
-{{region.cloudProvider.name}} - {{region.technicalName}}
+{{region.technicalName}}
+<ng-container *ngIf="region.cloudProvider">- {{region.cloudProvider.name}}</ng-container>
+<ng-container *ngIf="region.space">- {{region.space.name}}</ng-container>

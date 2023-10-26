@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
-import {CaBucketContentType, CaBucketFull} from '../../../../model/entities/ca-object-storage.class';
+import {CaBucketContentType, CaBucketFull, CaBucketType} from '../../../../model/entities/ca-object-storage.class';
 import {CaObjectStorageService} from '../../../../service-api/ca-object-storage.service';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
@@ -19,6 +19,7 @@ export class CaBucketFormDialogComponent
   implements OnInit {
 
   contentTypes = CaBucketContentType;
+  bucketTypes = CaBucketType;
 
   constructor(@Inject(MAT_DIALOG_DATA) dialogInput: CaBucketFormDialogInput,
               private objectStorageService: CaObjectStorageService,
@@ -34,12 +35,22 @@ export class CaBucketFormDialogComponent
   buildForm(): FormGroup<Partial<CaBucketFull>> {
     return new FormBuilder().group({
       id: [null],
+      bucketType: [null, Validators.required],
       name: [null, Validators.required],
       contentType: [null, Validators.required],
       region: [null, Validators.required],
       credentials: [null, Validators.required],
       objectId: [null],
     });
+  }
+
+  onBucketTypeChange(bucketType: CaBucketType): void {
+    // for the lab bucket the name is forced
+    if (bucketType === CaBucketType.LAB) {
+      this.formGp.get('name').disable();
+    }else {
+      this.formGp.get('name').enable();
+    }
   }
 
   create(formValue: Partial<CaBucketFull>): Observable<CaBucketFull> {

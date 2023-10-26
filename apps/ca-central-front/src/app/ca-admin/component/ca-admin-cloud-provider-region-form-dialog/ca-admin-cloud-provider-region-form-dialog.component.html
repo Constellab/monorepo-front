@@ -19,7 +19,7 @@
     <!--  Cloud provider  -->
     <mat-form-field class="g-form-input">
       <mat-label>{{'cloud_provider' | translate}}</mat-label>
-      <mat-select formControlName="cloudProvider" required>
+      <mat-select formControlName="cloudProvider">
         <ca-select-cloud-provider-options></ca-select-cloud-provider-options>
       </mat-select>
       <mat-error *ngIf="formGp.get('cloudProvider').hasError('required')">
@@ -28,7 +28,7 @@
     </mat-form-field>
 
     <!--  City  -->
-    <mat-form-field class="g-form-input" appearance="outline">
+    <mat-form-field class="g-form-input">
       <mat-label>{{'city' | translate}}</mat-label>
       <mat-select formControlName="city" required>
         <ca-select-city-options></ca-select-city-options>
@@ -37,6 +37,12 @@
         {{'city' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
+
+    <!--  Space  -->
+    <fl-form-field class="g-form-input">
+      <ca-select-space formControlName="space"
+                       [placeholder]="'space' | translate"></ca-select-space>
+    </fl-form-field>
 
     <!--  S3Endpoint  -->
     <mat-form-field class="g-form-input">

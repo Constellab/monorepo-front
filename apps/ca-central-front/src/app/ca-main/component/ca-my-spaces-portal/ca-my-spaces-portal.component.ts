@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CaSpaceService} from '../../../ca-core/service-api/ca-space.service';
 import {combineLatestWith, Observable} from 'rxjs';
-import {CaSpace, CaSpaceSettingsDto} from '../../../ca-core/model/entities/space/ca-space.class';
+import {CaSpace} from '../../../ca-core/model/entities/space/ca-space.class';
 import {map} from 'rxjs/operators';
 import {CaCurrentSpaceService} from '../../../ca-core/service-api/ca-current-space.service';
 import {CaRouterService} from '../../../ca-core/service/ca-router.service';
@@ -11,6 +11,7 @@ import {
   CaSpaceFormDialogInput
 } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-form-dialog/ca-space-form-dialog.component';
 import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper';
+import {CaSpaceSettingsDto} from '../../../ca-core/model/entities/space/ca-space-form.class';
 
 /**
  * Portal to list the space of the user with possibility to switch between them

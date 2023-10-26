@@ -213,6 +213,7 @@
     "resource_origin_TRANSFORMED": "Transformed",
     "resource_origin_ACTIONS": "Actions",
     "resource_origin_IMPORTED_FROM_LAB": "Imported from lab",
+    "resource_origin_S3_PROJECT_STORAGE": "Project document",
     "open_view_in_new_tab": "Open in new tab",
     "resource_children": "Children resources",
     "viewer_configuration": "Viewer configuration",

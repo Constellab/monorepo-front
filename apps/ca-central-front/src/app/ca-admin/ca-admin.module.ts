@@ -28,6 +28,14 @@ import {CaAdminBucketsPageComponent} from './component/ca-admin-buckets-page/ca-
 import {
   CaAdminServerInfoPageComponent
 } from './component/ca-admin-server-info-page/ca-admin-server-info-page.component';
+import {
+  CaAdminCloudProviderRegionFormDialogComponent
+} from './component/ca-admin-cloud-provider-region-form-dialog/ca-admin-cloud-provider-region-form-dialog.component';
+import {
+  CaAdminCloudProviderRegionTableComponent
+} from './component/ca-admin-cloud-provider-region-table/ca-admin-cloud-provider-region-table.component';
+import {CaConfigCoreModule} from '../ca-core/entity-module/ca-config-core/ca-config-core.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 /**
  * Module only accessible by the admins
@@ -44,9 +52,13 @@ import {
     CaAdminLabInstancesPageComponent,
     CaAdminBucketsPageComponent,
     CaAdminServerInfoPageComponent,
+    CaAdminCloudProviderRegionFormDialogComponent,
+    CaAdminCloudProviderRegionTableComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     CaCoreModule,
     CaServerInfoCoreModule,
@@ -55,6 +67,7 @@ import {
     CaCloudProviderCoreModule,
     CaObjectStorageCoreModule,
     CaUserCoreModule,
+    CaConfigCoreModule,
 
     CaAdminRoutingModule,
   ],

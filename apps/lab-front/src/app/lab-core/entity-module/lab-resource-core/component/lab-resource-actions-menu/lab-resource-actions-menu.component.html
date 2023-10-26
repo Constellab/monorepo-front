@@ -17,23 +17,26 @@
     </button>
   </ng-container>
 
-  <button mat-menu-item type="button" (click)="openTagFormDialog()">
-    <mat-icon>local_offer</mat-icon>
-    <span>{{'update_tags' | translate }}</span>
-  </button>
+  <ng-container *ngIf="resource.isUpdatable()">
+    <button mat-menu-item type="button" (click)="openTagFormDialog()">
+      <mat-icon>local_offer</mat-icon>
+      <span>{{'update_tags' | translate }}</span>
+    </button>
 
-  <button mat-menu-item type="button" (click)="openUpdateName()">
-    <mat-icon>edit</mat-icon>
-    <span>{{'biox.update_resource_name' | translate}}</span>
-  </button>
+    <button mat-menu-item type="button" (click)="openUpdateName()">
+      <mat-icon>edit</mat-icon>
+      <span>{{'biox.update_resource_name' | translate}}</span>
+    </button>
 
-  <button mat-menu-item type="button" (click)="openUpdateProject()">
-    <mat-icon flIcon="project">edit</mat-icon>
-    <span>{{'biox.update_project' | translate}}</span>
-  </button>
+    <button mat-menu-item type="button" (click)="openUpdateProject()">
+      <mat-icon flIcon="project">edit</mat-icon>
+      <span>{{'biox.update_project' | translate}}</span>
+    </button>
+  </ng-container>
+
 
   <button mat-menu-item type="button" (click)="updateResourceType()"
-          *ngIf="resource.isUpdatable() && !readOnly">
+          *ngIf="resource.canUpdateType() && !readOnly">
     <mat-icon>edit</mat-icon>
     <span>{{'biox.update_resource_type' | translate}}</span>
   </button>
@@ -48,7 +51,7 @@
   <button mat-menu-item type="button" (click)="deleteResource()"
           *ngIf="resource.isDeletable() && !readOnly">
     <mat-icon color="warn">delete</mat-icon>
-    <span  class="g-warn-text">{{'databox.delete_resource' | translate}}</span>
+    <span class="g-warn-text">{{'databox.delete_resource' | translate}}</span>
   </button>
 
 </mat-menu>

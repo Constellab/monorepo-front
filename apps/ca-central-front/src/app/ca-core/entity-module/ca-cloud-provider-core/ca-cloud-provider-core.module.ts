@@ -11,12 +11,6 @@ import {
 } from './component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
 import {CaCloudProviderInlineComponent} from './component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
 import {
-  CaCloudProviderRegionFormDialogComponent
-} from './component/ca-cloud-provider-region-form-dialog/ca-cloud-provider-region-form-dialog.component';
-import {
-  CaCloudProviderRegionTableComponent
-} from './component/ca-cloud-provider-region-table/ca-cloud-provider-region-table.component';
-import {
   CaSelectCloudProviderRegionOptionsComponent
 } from './component/ca-select-cloud-provider-region-options/ca-select-cloud-provider-region-options.component';
 import {
@@ -31,8 +25,6 @@ import {CaConfigCoreModule} from '../ca-config-core/ca-config-core.module';
     CaCloudProviderFormDialogComponent,
     CaSelectCloudProviderOptionsComponent,
     CaCloudProviderInlineComponent,
-    CaCloudProviderRegionFormDialogComponent,
-    CaCloudProviderRegionTableComponent,
     CaSelectCloudProviderRegionOptionsComponent,
     CaCloudProviderRegionInlineComponent,
   ],
@@ -41,8 +33,6 @@ import {CaConfigCoreModule} from '../ca-config-core/ca-config-core.module';
     CaCloudProviderFormDialogComponent,
     CaSelectCloudProviderOptionsComponent,
     CaCloudProviderInlineComponent,
-    CaCloudProviderRegionFormDialogComponent,
-    CaCloudProviderRegionTableComponent,
     CaSelectCloudProviderRegionOptionsComponent,
     CaCloudProviderRegionInlineComponent,
   ],
@@ -55,4 +45,5 @@ import {CaConfigCoreModule} from '../ca-config-core/ca-config-core.module';
     CaConfigCoreModule,
   ],
 })
-export class CaCloudProviderCoreModule { }
+export class CaCloudProviderCoreModule {
+}

@@ -29,6 +29,7 @@ export class CaProjectConfigureStorageComponent
               snackBarService: FlSnackBarService,
               private projectService: CaProjectService) {
     super(input, snackBarService, dialogRef);
+    console.log(input);
   }
 
   ngOnInit(): void {
@@ -38,25 +39,25 @@ export class CaProjectConfigureStorageComponent
   buildForm(): FormGroup<CaProjectStorageDTO> {
     return new FormBuilder().group({
       mainRegion: [null, Validators.required],
-      backupRegion: [null, [Validators.required]],
+      backupRegion: [null],
     }, {validator: this.differentBackupRegionValidator()});
   }
 
-  create(formValue: CaProjectStorageDTO): Observable<CaProjectStorageDTO> {
-    return this.projectService.createProjectBuckets(this.input.projectId, formValue);
+  create(): Observable<CaProjectStorageDTO> {
+    return undefined;
   }
 
   getCreateSuccessMessage(): string {
-    return 'project_storage_configured';
+    return '';
   }
 
   // Update is not supported
   getUpdateSuccessMessage(): string {
-    return '';
+    return 'project_storage_configured';
   }
 
-  update(): Observable<CaProjectStorageDTO> {
-    return undefined;
+  update(formValue: CaProjectStorageDTO): Observable<CaProjectStorageDTO> {
+    return this.projectService.createProjectBuckets(this.input.projectId, formValue);
   }
 
   private differentBackupRegionValidator(): ValidatorFn {

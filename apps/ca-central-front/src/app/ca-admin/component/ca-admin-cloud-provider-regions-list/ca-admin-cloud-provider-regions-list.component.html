@@ -16,10 +16,8 @@
 
   <fl-card-body>
     <fl-infinite-scroll [datasource]="regions" class="g-infinite-table">
-      <ca-bucket-region-table [datasource]="regions" [columns]="displayedColumns">
-      </ca-bucket-region-table>
+      <ca-admin-bucket-region-table [datasource]="regions">
+      </ca-admin-bucket-region-table>
     </fl-infinite-scroll>
   </fl-card-body>
-
-
 </fl-card>

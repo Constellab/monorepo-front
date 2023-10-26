@@ -5,6 +5,21 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="cloud-provider-form" [formGroup]="formGp">
 
+    <!--  Bucket type  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'bucket_type' | translate}}</mat-label>
+      <mat-select formControlName="bucketType" required [placeholder]="'bucket_type' | translate"
+                  (valueChange)="onBucketTypeChange($event)">
+        <mat-option *ngFor="let bucketType of bucketTypes | flObjectKeys" [value]="bucketType">
+          {{bucketType}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formGp.get('bucketType').hasError('required')">
+        {{'bucket_type' | flErrorRequired}}
+      </mat-error>
+    </mat-form-field>
+
+
     <!--  Name  -->
     <mat-form-field class="g-form-input">
       <mat-label>{{'name' | translate}}</mat-label>

@@ -29,7 +29,7 @@ export class CaBucketCredentialsTableComponent implements OnInit {
   @Input() datasource: CaBucketCredentialsDatasource;
 
   @Input() columns: FlTableColumnStatic<CaBucketCredentials>[] =
-    ['name', 'cloudProvider', 'space', 's3Username', 'created', 'lastModified', 'actions'];
+    ['name', 'cloudProvider', 'space', 's3Username', 'description', 'lastModified', 'actions'];
 
   constructor(private dialogService: FlDialogService,
               private objectStorageService: CaObjectStorageService) {

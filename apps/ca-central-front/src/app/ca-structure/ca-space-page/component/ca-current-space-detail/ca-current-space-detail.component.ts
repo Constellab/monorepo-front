@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CaSaveSpaceDTO, CaSpace, CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-space.class';
+import {CaSpace} from '../../../../ca-core/model/entities/space/ca-space.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -18,6 +18,7 @@ import {
 import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-space.service';
 import {Observable} from 'rxjs';
 import {CaRequestNewLicensesComponent} from '../ca-request-new-licenses/ca-request-new-licenses.component';
+import {CaSaveSpaceDTO, CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-space-form.class';
 
 /**
  * Show all the information about a space

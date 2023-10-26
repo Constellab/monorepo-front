@@ -10,7 +10,7 @@ export class CaBucketCredentials extends CaBaseEntity {
   name: string;
 
   @Type(() => CaCloudProvider)
-  cloudProvider: CaCloudProvider;
+  cloudProvider?: CaCloudProvider;
 
   @Type(() => CaSpace)
   space: CaSpace;
@@ -41,6 +41,12 @@ export enum CaBucketContentType {
   PROJECT = 'PROJECT',
 }
 
+export enum CaBucketType {
+  NORMAL = 'NORMAL',
+  LAB = 'LAB' // bucket hosted on a lab
+}
+
+
 export class CaBucket extends CaBaseEntity {
 
   name: string;
@@ -49,6 +55,7 @@ export class CaBucket extends CaBaseEntity {
 
   objectId: string;
 
+  bucketType: CaBucketType;
 }
 
 

@@ -155,5 +155,5 @@ export class CaProjectStorageDTO {
   mainRegion: CaCloudProviderRegion;
 
   @Type(() => CaCloudProviderRegion)
-  backupRegion: CaCloudProviderRegion;
+  backupRegion?: CaCloudProviderRegion;
 }
