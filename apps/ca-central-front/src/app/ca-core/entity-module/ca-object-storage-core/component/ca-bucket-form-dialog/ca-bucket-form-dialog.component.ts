@@ -30,6 +30,10 @@ export class CaBucketFormDialogComponent
 
   ngOnInit(): void {
     this.init();
+
+    if (this.isUpdateMode() && this.dialogInput.object.bucketType) {
+      this.onBucketTypeChange(this.dialogInput.object.bucketType);
+    }
   }
 
   buildForm(): FormGroup<Partial<CaBucketFull>> {
@@ -47,7 +51,7 @@ export class CaBucketFormDialogComponent
     // for the lab bucket the name is forced
     if (bucketType === CaBucketType.LAB) {
       this.formGp.get('name').disable();
-    }else {
+    } else {
       this.formGp.get('name').enable();
     }
   }

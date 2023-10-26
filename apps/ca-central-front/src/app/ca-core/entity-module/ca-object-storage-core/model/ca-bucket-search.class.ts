@@ -6,7 +6,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaBucketContentType, CaBucketCredentials} from '../../../model/entities/ca-object-storage.class';
+import {CaBucketContentType, CaBucketCredentials, CaBucketType} from '../../../model/entities/ca-object-storage.class';
 import {CaSpace} from '../../../model/entities/space/ca-space.class';
 import {CaUser} from '../../../model/entities/ca-user.class';
 import {CaCloudProviderRegion} from '../../../model/entities/ca-cloud-provider.class';
@@ -16,6 +16,7 @@ export class CaBucketSearchFields {
 
   contentType: CaBucketContentType;
 
+  bucketType: CaBucketType;
 
   @Type(() => CaSpace)
   space: CaSpace;
@@ -45,6 +46,7 @@ export class CaBucketSearch {
    */
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaBucketSearchFields> = {
     contentType: 'bucket_content_type',
+    bucketType: 'bucket_type',
     region: 'cloud_provider_region',
     credentials: 'bucket_credentials',
     createdAt: 'creation_date',
@@ -60,6 +62,7 @@ export class CaBucketSearch {
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaBucketSearchFields> = {
     name: {key: 'name', operator: 'CONTAINS'},
     contentType: {key: 'contentType', operator: 'IN'},
+    bucketType: {key: 'bucketType', operator: 'IN'},
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     region: {key: 'region.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     credentials: {key: 'credentials.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
@@ -76,6 +79,7 @@ export class CaBucketSearch {
       {
         name: [null],
         contentType: [null],
+        bucketType: [null],
         space: [null],
         region: [null],
         credentials: [null],

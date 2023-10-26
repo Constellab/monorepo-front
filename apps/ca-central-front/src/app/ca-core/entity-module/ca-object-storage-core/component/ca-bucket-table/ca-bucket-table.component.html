@@ -6,7 +6,10 @@
       {{'name' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{row.name}}
+      <fl-text-icon>
+        <mat-icon [flIcon]="row.getBucketTypeIcon()"></mat-icon>
+        {{row.name}}
+      </fl-text-icon>
     </mat-cell>
   </ng-container>
 

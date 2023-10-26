@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
-import {CaBucketContentType} from '../../../../model/entities/ca-object-storage.class';
+import {CaBucketContentType, CaBucketType} from '../../../../model/entities/ca-object-storage.class';
 import {FlSearchState} from '@monorepo/front-core-lib';
 
 @Component({
@@ -12,6 +12,7 @@ export class CaBucketSearchFormComponent implements OnInit {
   formGp: UntypedFormGroup;
 
   contentTypes = CaBucketContentType;
+  bucketTypes = CaBucketType;
 
   constructor(private searchState: FlSearchState<any>) {
   }

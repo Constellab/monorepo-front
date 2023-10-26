@@ -8,6 +8,17 @@
       <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off">
     </mat-form-field>
 
+    <!--  Bucket type  -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{'bucket_type' | translate}}</mat-label>
+      <mat-select formControlName="bucketType" [placeholder]="'bucket_type' | translate"
+                  [multiple]="true">
+        <mat-option *ngFor="let bucketType of bucketTypes | flObjectKeys" [value]="bucketType">
+          {{bucketType}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <!--  Content type  -->
     <mat-form-field class="g-search-field">
       <mat-label>{{'bucket_content_type' | translate}}</mat-label>

@@ -54,6 +54,15 @@ export class CaBucket extends CaBaseEntity {
   contentType: CaBucketContentType;
 
   bucketType: CaBucketType;
+
+  getBucketTypeIcon(): string {
+    switch (this.bucketType) {
+      case CaBucketType.LAB:
+        return 'lab';
+      default:
+        return 'cloud';
+    }
+  }
 }
 
 
