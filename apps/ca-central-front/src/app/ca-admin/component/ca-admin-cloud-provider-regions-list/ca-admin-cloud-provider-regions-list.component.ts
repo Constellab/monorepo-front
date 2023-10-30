@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {
   CaAdminCloudProviderRegionFormDialogComponent,
@@ -15,17 +15,14 @@ import {
   templateUrl: './ca-admin-cloud-provider-regions-list.component.html',
   styleUrls: ['./ca-admin-cloud-provider-regions-list.component.scss']
 })
-export class CaAdminCloudProviderRegionsListComponent implements OnInit {
+export class CaAdminCloudProviderRegionsListComponent {
 
   regions: CaCloudProviderRegionDatasource = this.cloudProviderService.getAllRegionsDatasource();
-
 
   constructor(private cloudProviderService: CaCloudProviderService,
               private dialogService: FlDialogService) {
   }
 
-  ngOnInit(): void {
-  }
 
   openCreateDialog(): void {
     const input: CaCloudProviderRegionFormDialogInput = {

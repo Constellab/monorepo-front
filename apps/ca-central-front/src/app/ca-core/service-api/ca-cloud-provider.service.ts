@@ -59,26 +59,33 @@ export class CaCloudProviderService {
     return this.apiService.deleteById(this.regionsRoute, id);
   }
 
-  public getAllRegions(page: number, size: number): Observable<ClPageI<CaCloudProviderRegion>> {
-    return this.apiService.get(this.regionsRoute, CaCloudProviderRegion, {
-      page: page, pageSize: size, resultIsPaginated: true
-    });
-  }
-
   public getAllRegionsDatasource(): CaCloudProviderRegionDatasource {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.getAllRegions(page, pageSize), 20
+      (page: number, pageSize: number) => this.getRegionsObs('', page, pageSize), 20
     );
   }
 
-  public getS3Regions(page: number, size: number): Observable<ClPageI<CaCloudProviderRegion>> {
-    return this.apiService.get(this.regionsRoute + '/s3', CaCloudProviderRegion,
-      {page: page, pageSize: size, resultIsPaginated: true});
-  }
-
-  public getS3RegionsDatasource(): CaCloudProviderRegionDatasource {
+  public getAllS3RegionsDatasource(): CaCloudProviderRegionDatasource {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.getS3Regions(page, pageSize), 20
+      (page: number, pageSize: number) => this.getRegionsObs('/s3', page, pageSize), 20
     );
+  }
+
+  public getRegionsInCurrentSpaceDatasource(): CaCloudProviderRegionDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number) => this.getRegionsObs('/current-space', page, pageSize), 20
+    );
+  }
+
+  public getS3RegionsInCurrentSpaceDatasource(): CaCloudProviderRegionDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number) => this.getRegionsObs('/current-space/s3', page, pageSize), 20
+    );
+  }
+
+  private getRegionsObs(subRoute: string, page: number, size: number): Observable<ClPageI<CaCloudProviderRegion>> {
+    return this.apiService.get(this.regionsRoute + subRoute, CaCloudProviderRegion, {
+      page: page, pageSize: size, resultIsPaginated: true
+    });
   }
 }

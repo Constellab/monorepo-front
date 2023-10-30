@@ -109,7 +109,7 @@
         <mat-form-field>
           <mat-label>{{'cloud_provider_region' | translate}}</mat-label>
           <mat-select formControlName="region">
-            <ca-select-cloud-provider-region-options></ca-select-cloud-provider-region-options>
+            <ca-select-cloud-provider-region-options mode="all"></ca-select-cloud-provider-region-options>
           </mat-select>
           <mat-error *ngIf="formGp.get('region').hasError('required')">
             {{'region' | flErrorRequired}}
@@ -157,7 +157,7 @@
           <mat-form-field>
             <mat-label>{{'lab_backup_daily_region' | translate}}</mat-label>
             <mat-select formControlName="dailyBackupRegion">
-              <ca-select-cloud-provider-region-options mode="s3"></ca-select-cloud-provider-region-options>
+              <ca-select-cloud-provider-region-options mode="all-s3"></ca-select-cloud-provider-region-options>
             </mat-select>
             <mat-error *ngIf="formGp.get('dailyBackupRegion').hasError('required')">
               {{'lab_backup_daily_region' | flErrorRequired}}
@@ -168,7 +168,7 @@
             <mat-form-field class="g-full">
               <mat-label>{{'lab_backup_weekly_region' | translate}}</mat-label>
               <mat-select formControlName="weeklyBackupRegion">
-                <ca-select-cloud-provider-region-options mode="s3"></ca-select-cloud-provider-region-options>
+                <ca-select-cloud-provider-region-options mode="all-s3"></ca-select-cloud-provider-region-options>
               </mat-select>
               <mat-error *ngIf="formGp.get('weeklyBackupRegion').hasError('required')">
                 {{'lab_backup_weekly_region' | flErrorRequired}}
