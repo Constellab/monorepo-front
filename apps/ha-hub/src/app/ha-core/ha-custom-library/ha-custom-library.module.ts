@@ -13,7 +13,7 @@ import {
   FlInfiniteScrollModule,
   FlKeyValueModule,
   FlLoaderModule,
-  FlMenuDynamicModule,
+  FlMenuDynamicModule, FlPortalActionsModule,
   FlPortalModule,
   FlSectionModule,
   FlSnackBarModule,
@@ -50,6 +50,7 @@ import {RvResourceViewModule} from '@monorepo/resource-view';
     FlDateModule,
     FlKeyValueModule,
     FlInfiniteScrollModule,
+    FlPortalActionsModule,
 
     //-------------------
 

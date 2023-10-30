@@ -65,6 +65,12 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
    */
   @Input() disableFileDrop: boolean = false;
 
+
+  /**
+   * If true, the input value is cleared after a file is selected
+   */
+  @Input() autoClear: boolean = false;
+
   // retrieve the injected directive in the ng content
   @ContentChild(FlInputFileDirective, {static: true}) private inputFile: FlInputFileDirective;
 
@@ -115,6 +121,10 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
 
   // change displayed text on file input change
   private getNewFiles(files: File | File[]): void {
+    if(this.autoClear){
+      return;
+    }
+
     if (files instanceof Array) {
       const length: number = files.length;
       if (length === 0) {

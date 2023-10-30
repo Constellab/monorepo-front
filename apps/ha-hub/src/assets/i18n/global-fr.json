@@ -160,5 +160,14 @@
   "add_brick_user": "Ajouter un utilisateur",
   "brick_invite_text": "Vous avez été invité à devenir co-auteur de la brique",
   "show_more_result": "Afficher plus de résultat",
-  "no_more_result": "Aucun résultat supplémentaire"
+  "no_more_result": "Aucun résultat supplémentaire",
+  "attached_files": "Fichiers joints",
+  "attach_files_to_the_story": "Joindre des fichiers à la story",
+  "story_files": "Fichiers de la story",
+  "story_file_name": "Nom du fichier",
+  "upload_document": "Upload un document",
+  "add_file": "Ajouter un fichier",
+  "deleting_document": "Suppression du document",
+  "uploading_document": "Upload du document",
+  "no_files_attached": "Aucun fichier joint"
 }

@@ -1,0 +1,25 @@
+<fl-dialog-header>
+  {{'story_files' | translate}}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="dialog-content">
+    <fl-input-file-container color="primary" placeholder="Select files" [autoClear]="true" class="select-file-button">
+      <input flInputFile [multiple]="true" type="file" (fileChange)="uploadDocument($event)"
+             [autoClearHtmlInput]="true">
+    </fl-input-file-container>
+    <table>
+      <tr *ngFor="let file of story?.storyFiles">
+        <td class="left-cell" flElementEditable (flElementValueChange)="renameFile($event, file)">{{file.humanName}}</td>
+        <td class="right-cell">
+          <button mat-icon-button class="button" (click)="deleteFile(file)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
+    <p *ngIf="story?.storyFiles == null || story?.storyFiles.length == 0" class="no-file-attached-text">
+      {{'no_files_attached' | translate}}
+    </p>
+  </div>
+</mat-dialog-content>

@@ -13,6 +13,7 @@ import {Observable} from 'rxjs';
 import {ClPage, ClRichTextI} from '@monorepo/core-lib';
 import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
 import {HaStoryAuthorInvite} from '../ha-model/ha-entities/ha-story-author-invite.class';
+import {HaStoryFile} from '../ha-model/ha-entities/ha-story-file';
 
 
 @Injectable({
@@ -102,8 +103,12 @@ export class HaStoryService {
     return this.apiService.put(this.route + '/' + id + '/content', {content: content}, HaStory);
   }
 
-  public getFilePath(filename: string): string {
+  public getImagePath(filename: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
+  }
+
+  public getStoryFilePath(storyFileId: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/get-file/${storyFileId}`);
   }
 
   uploadImage(file: File, storyId: string): Observable<FlTextEditorUploadedImage> {
@@ -113,7 +118,7 @@ export class HaStoryService {
   }
 
   getImageUrl(filename: string): string {
-    return this.getFilePath(filename);
+    return this.getImagePath(filename);
   }
 
   publishStory(id: string): Observable<HaStory> {
@@ -189,5 +194,20 @@ export class HaStoryService {
    */
   acceptInvite(token: string): Observable<HaStory> {
     return this.apiService.put(`${this.route}/invite/${token}/accept`, {});
+  }
+
+
+  uploadDocument(file: File, storyId: string): Observable<HaStoryFile>{
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.apiService.post(`${this.route}/file/${storyId}`, formData);
+  }
+
+  deleteStoryFile(storyFileId: string): Observable<void>{
+    return this.apiService.delete(`${this.route}/file/${storyFileId}`);
+  }
+
+  renameStoryFile(storyFileId: string, newName: string): Observable<HaStoryFile>{
+    return this.apiService.put(`${this.route}/file/${storyFileId}/rename`, {humanName: newName}, HaStoryFile);
   }
 }

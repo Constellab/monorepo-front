@@ -15,9 +15,10 @@ import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaStoryCoAuthorDialogComponent} from '../ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
+import {HaStoryFileDialogComponent, HaStoryFileFormData} from '../ha-story-file-dialog/ha-story-file-dialog.component';
 
 @Component({
-  selector: 'ha-ha-story-edit-page',
+  selector: 'ha-story-edit-page',
   templateUrl: './ha-story-edit-page.component.html',
   styleUrls: ['./ha-story-edit-page.component.scss']
 })
@@ -254,6 +255,21 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     };
 
     this.dialogService.openSmallDialog(HaStoryCoAuthorDialogComponent, {data: input}).afterClosed().subscribe((res) => {
+      if (res && res.choice && res.result) {
+        this.story = res.result;
+      }
+    });
+  }
+
+  openStoryFileDialog(): void{
+    const input: FlFormDialogInput<HaStoryFileFormData> = {
+      mode: 'update',
+      object: {
+        story: this.story
+      }
+    }
+
+    this.dialogService.openMediumDialog(HaStoryFileDialogComponent, {data: input}).afterClosed().subscribe((res) => {
       if (res && res.choice && res.result) {
         this.story = res.result;
       }

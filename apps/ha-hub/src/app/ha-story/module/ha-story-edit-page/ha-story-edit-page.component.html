@@ -26,15 +26,27 @@
         <mat-error *ngIf="!inputTitle || inputTitle.length === 0">{{'title' | flErrorRequired}}</mat-error>
       </mat-form-field>
     </div>
-    <div *ngIf="story.status === 'DRAFT'">
-      <button mat-flat-button type="button" class="publish-story-bt" *haIsAuthenticated (click)="publish()">
-        {{'publish_story' | translate}}
-      </button>
+    <div class="top-right-inputs">
+      <div class="top-right-top-row">
+        <div *ngIf="story.status === 'DRAFT'">
+          <button mat-flat-button type="button" class="publish-story-bt" *haIsAuthenticated (click)="publish()">
+            {{'publish_story' | translate}}
+          </button>
+        </div>
+        <button mat-icon-button type="button" class="co-author-bt" *ngIf="isAuthor() | async"
+                (click)="openCoAuthorDialog()">
+          <mat-icon>group_add</mat-icon>
+        </button>
+      </div>
+      <div>
+        <button mat-flat-button type="button" class="add-file-button" (click)="openStoryFileDialog()">
+          <fl-text-icon>
+            <mat-icon>cloud_upload</mat-icon>
+            {{'story_files' | translate}}
+          </fl-text-icon>
+        </button>
+      </div>
     </div>
-    <button mat-icon-button type="button" class="co-author-bt" *ngIf="isAuthor() | async"
-            (click)="openCoAuthorDialog()">
-      <mat-icon>group_add</mat-icon>
-    </button>
   </div>
 
   <mat-form-field class="form-field">

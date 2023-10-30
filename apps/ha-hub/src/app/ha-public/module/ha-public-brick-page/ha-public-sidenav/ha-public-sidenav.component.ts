@@ -160,7 +160,6 @@ export class HaPublicSidenavComponent implements OnInit {
     this.isAdminOrBrickUser$ = this.authenticatedUserService.isAdminOrBrickUser(this.brick);
 
     this.route.params.subscribe(params => {
-
       this.initCurrentCompletePath(params['version']);
       this.init(params['brickName'], params['version']);
     });
