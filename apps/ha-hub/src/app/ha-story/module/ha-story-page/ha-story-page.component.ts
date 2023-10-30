@@ -10,6 +10,7 @@ import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {ClRichText, ClRichTextI, ClStringHelper} from '@monorepo/core-lib';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
+import {HaStoryFile} from '../../../ha-core/ha-model/ha-entities/ha-story-file';
 
 @Component({
   selector: 'ha-story-page',
@@ -75,9 +76,16 @@ export class HaStoryPageComponent implements OnInit {
     this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
     this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
     this.metadataService.addMetaTag('og:image', this.getStoryImageLink(this.story.mainPicture), false);
+
+    console.log(this.story.storyFiles)
   }
 
   getStoryImageLink(imageName: string): string {
     return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
+  }
+
+  downloadFile(file: HaStoryFile): string{
+    // download file from server (not from the client)
+    return this.storyService.getStoryFilePath(file.id);
   }
 }

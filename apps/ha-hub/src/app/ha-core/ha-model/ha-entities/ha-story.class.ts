@@ -5,6 +5,7 @@ import {HaUser} from './ha-user';
 import {Type} from 'class-transformer';
 import {DateTime} from 'luxon';
 import {ClRichTextI} from '@monorepo/core-lib';
+import {HaStoryFile} from './ha-story-file';
 
 export enum HaStoryStatus {
   DRAFT = 'DRAFT',
@@ -59,6 +60,8 @@ export class HaStory {
   lastModifiedAt: DateTime;
 
   titlePath: string;
+
+  storyFiles: HaStoryFile[];
 
   init(story: HaStory): void {
     Object.assign(this, story);

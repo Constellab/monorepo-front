@@ -11,7 +11,7 @@ import {
   FlDialogModule,
   FlHttpInterceptorService,
   FlIconModule,
-  flIconsDefault,
+  flIconsDefault, FlPortalActionsModule,
   FlPortalModule,
   FlSnackBarModule,
   FlTextEditorModule,
@@ -82,6 +82,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlDialogModule.forRoot(),
 
     FlPortalModule.forRoot(),
+    FlPortalActionsModule.forRoot(),
     FlCaptchaModule,
 
     FlIconModule.forRoot({

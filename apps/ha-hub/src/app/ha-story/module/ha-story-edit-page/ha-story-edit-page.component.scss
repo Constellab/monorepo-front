@@ -60,7 +60,7 @@
   background-color: var(--card-background);
   height: 56px;
   padding: 8px;
-  margin-top: 1.75em;
+  margin-top: -0.25em;
 }
 
 .input-icon{
@@ -68,7 +68,25 @@
 }
 
 .co-author-bt{
-  margin: 1.25em 0 auto auto;
+  margin: 0.25em 0 auto auto;
+}
+
+.top-right-inputs{
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+}
+
+.top-right-top-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.add-file-button{
+  margin-top: 1em;
+  height: 56px;
+  padding: 8px;
+  width: 100%;
 }
 
 //*{

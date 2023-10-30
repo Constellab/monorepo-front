@@ -1,9 +1,10 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {makeStateKey, StateKey, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+import { TransferState } from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
+import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -20,6 +21,7 @@ export class HaPublicBrickPageComponent implements OnInit {
     private brickService: HaBrickService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private metadataService: HaMetadataService,
     @Inject(PLATFORM_ID) private platformId: object,
     private transferState: TransferState
   ) {
@@ -31,6 +33,12 @@ export class HaPublicBrickPageComponent implements OnInit {
       this.initBrick(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
     } else {
       this.activatedRoute.params.subscribe((params: Params) => {
+
+        // If the version is not latest, then add noindex meta tag to avoid duplicated indexed pages
+        if(params.version != 'latest'){
+          this.metadataService.addMetaTag('robots', 'noindex');
+        }
+
         this.initBrick(params.brickName);
       });
     }

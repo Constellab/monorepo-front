@@ -87,6 +87,36 @@
   padding-left: 4px;
 }
 
+.file-title{
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.files-div table{
+  width: 100%;
+}
+
+.story-file{
+  font-size: 0.8em;
+  width: 100%;
+}
+
+.story-file:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.file-text-icon{
+  width: 100%;
+}
+
+.files-div{
+  padding-bottom: 0.4em;
+  border-bottom: 1px solid var(--hover-color);
+}
+
 @media (max-width: 1600px) {
   .main-panel{
     margin: 4em auto 0 auto !important;

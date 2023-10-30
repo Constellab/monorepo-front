@@ -45,8 +45,7 @@ export class HaStoryCoAuthorDialogComponent extends FlFormDialogAbstractDirectiv
               dialogRef: MatDialogRef<HaStoryCoAuthorDialogComponent>,
               @Inject(MAT_DIALOG_DATA) dialogInput: HaCreateStoryDtoInput,
               private dialogService: FlDialogService,
-              private storyService: HaStoryService,
-              private location: Location) {
+              private storyService: HaStoryService) {
     super(dialogInput, snackBarService, dialogRef);
     this.storyId = dialogInput.object.id;
   }
