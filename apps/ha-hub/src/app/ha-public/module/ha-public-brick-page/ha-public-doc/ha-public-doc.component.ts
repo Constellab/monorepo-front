@@ -135,7 +135,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
     this.textEditorConfig =
       new HaDocTextEditorConfig(this.brickName, this.brickVersion, this.documentation.title,
-        this.documentationService, this.dialogService);
+        this.documentationService, this.dialogService, this.documentation.id);
 
     this.isLoading = false;
 

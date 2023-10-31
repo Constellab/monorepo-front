@@ -57,10 +57,10 @@ export class HaDocumentationService {
     return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
   }
 
-  uploadImage(file: File): Observable<FlTextEditorUploadedImage> {
+  uploadImage(file: File, docId: string): Observable<FlTextEditorUploadedImage> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.apiService.put(`${this.route}/image`, formData);
+    return this.apiService.put(`${this.route}/image/${docId}`, formData);
   }
 
   getImageUrl(filename: string): string {

@@ -21,7 +21,8 @@ export class HaDocTextEditorConfig extends FlTextEditorConfig implements FlTextE
               private major: string,
               private documentationName: string,
               private docService: HaDocumentationService,
-              private dialogService: FlDialogService) {
+              private dialogService: FlDialogService,
+              private docId: string) {
     super();
   }
 
@@ -52,7 +53,7 @@ export class HaDocTextEditorConfig extends FlTextEditorConfig implements FlTextE
 
   insertImageFromFile(file: File, textEditorState: FlTextEditorState): void {
     const index = textEditorState.getCurrentSelectionIndex();
-    this.docService.uploadImage(file).subscribe(
+    this.docService.uploadImage(file, this.docId).subscribe(
       fileUrl => textEditorState.insertImageFromUrl(fileUrl, index)
     );
   }
