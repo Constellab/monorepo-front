@@ -1,7 +1,51 @@
-.chip-list{
-  width: 100%;
+.add-coauthor-div {
+  display: flex;
+  flex-direction: column;
 }
 
-.chip-icon-bt{
-  line-height: 0;
+.add-coauthor-div p {
+  margin-bottom: 1em;
+}
+
+h6 {
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-bottom: 0.5em;
+}
+
+.add-coauthor-input-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  vertical-align: center;
+}
+
+.invite-button{
+  margin-top: -0.6em;
+  margin-left: 0.5em;
+}
+
+.email-form-field{
+  width: 90%;
+}
+
+.co-author-div{
+  display: flex;
+  flex-direction: row;
+  height: 4em;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.co-author-div:hover{
+  background-color: var(--hover-color);
+}
+
+.dialog-part{
+  margin-bottom: 2em;
+}
+
+.empty-zone-text{
+  margin-top: 1em;
+  text-align: center;
 }

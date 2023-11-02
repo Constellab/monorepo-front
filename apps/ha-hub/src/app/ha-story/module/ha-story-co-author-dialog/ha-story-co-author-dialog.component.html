@@ -1,32 +1,52 @@
 <fl-dialog-header>
-  {{'add_coauthors' | translate}}
+  {{'coauthors' | translate}}
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <form (ngSubmit)="submit()" id="story-form" [formGroup]="formGp" *ngIf="formGp">
-    <mat-form-field class="chip-list" appearance="fill">
-      <mat-label>{{'coauthors' | translate}}</mat-label>
+  <div class="dialog-part">
+    {{'coauthors' | translate}}:
+    <div *ngFor="let coAuthor of story?.getCoAuthors()" class="co-author-div">
+      <fl-user-inline [user]="coAuthor"></fl-user-inline>
+      <button mat-icon-button [matTooltip]="'remove_coauthor' | translate" (click)="openRemoveConfirmDialog(coAuthor)" color="warn">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+    </div>
 
-      <mat-chip-grid #chipGrid>
-        <mat-chip-row *ngFor="let cA of coAuthors" (removed)="remove(cA)">
-          {{cA.id ? cA.fullName : cA.email}}
-          <button mat-icon-button class="chip-icon-bt" (click)="cA.id ? openRemoveConfirmDialog(cA) : remove(cA)">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
+    <div *ngIf="story?.getCoAuthors().length == 0" class="empty-zone-text">{{'no-coauthors' | translate}}</div>
+  </div>
 
-        <input [matChipInputFor]="chipGrid"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="true"
-               (matChipInputTokenEnd)="add($event)">
-      </mat-chip-grid>
-    </mat-form-field>
-  </form>
+  <div>
+    {{'pending_coauthor_invitations' | translate}}:
+    <div *ngFor="let pendingInvite of coAuthorPendingInvites" class="co-author-div">
+      <p>{{pendingInvite.email}}</p>
+      <button mat-icon-button [matTooltip]="'cancel_invitation' | translate" (click)="deleteCoAuthorInvite(pendingInvite.id)" color="warn">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="coAuthorPendingInvites?.length == 0" class="empty-zone-text">{{'no_pending_invitation' | translate}}</div>
+  </div>
+
+  <div class="add-coauthor-div">
+    <h6>Invite a Co-Author</h6>
+
+    <p>{{'invite_story_coauthor_information' | translate}}</p>
+
+    <div class="add-coauthor-input-div">
+      <mat-form-field class="email-form-field">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" [formControl]="formGp.controls.coAuthorMail"/>
+        <mat-error *ngIf="formGp.controls.coAuthorMail.hasError('email') && !formGp.controls.coAuthorMail.hasError('required')">
+          {{'invalidEmail' | translate}}
+        </mat-error>
+        <mat-error *ngIf="formGp.controls.coAuthorMail.hasError('required')">
+          {{'error_required' | translate:{field: 'email'} }}
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-icon-button [matTooltip]="'send_invitation' | translate" class="invite-button" (click)="checkAndSendInvite()">
+        <mat-icon>person_add</mat-icon>
+      </button>
+    </div>
+
+  </div>
 </mat-dialog-content>
-
-<div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="story-form" class="g-centered-forced">
-    {{'save' | translate}}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-  </button>
-</div>

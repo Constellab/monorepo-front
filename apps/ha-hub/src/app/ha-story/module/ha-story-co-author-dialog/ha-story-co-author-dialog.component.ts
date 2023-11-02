@@ -6,23 +6,21 @@ import {
   FlFormDialogInput,
   FlSnackBarService
 } from '@monorepo/front-core-lib';
-import {HaStory, HaStoryAuthor, HaStoryAuthorStatus} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import {HaStory} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Location} from '@angular/common';
-import {MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatChipInputEvent } from '@angular/material/chips';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {HaStoryAuthorInvite} from '../../../ha-core/ha-model/ha-entities/ha-story-author-invite.class';
+import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 
 export type HaCreateStoryDtoInput = FlFormDialogInput<HaCoAuthorFormData>;
 
 export interface HaCoAuthorFormData {
-  storyAuthors?: HaStoryAuthor[];
   id?: string;
-
-  coAuthors: HaCoAuthorEmail[];
+  coAuthorMail: string;
 }
 
 export interface HaCoAuthorEmail {
@@ -38,8 +36,10 @@ export interface HaCoAuthorEmail {
 })
 export class HaStoryCoAuthorDialogComponent extends FlFormDialogAbstractDirective<HaCoAuthorFormData, HaStory> implements OnInit {
 
-  coAuthors: HaCoAuthorEmail[] = [];
+  coAuthors: HaCoAuthorEmail[];
+  coAuthorPendingInvites: HaStoryAuthorInvite[];
   storyId: string;
+  story: HaStory;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   constructor(snackBarService: FlSnackBarService,
               dialogRef: MatDialogRef<HaStoryCoAuthorDialogComponent>,
@@ -52,57 +52,76 @@ export class HaStoryCoAuthorDialogComponent extends FlFormDialogAbstractDirectiv
 
   ngOnInit(): void {
     this.formGp = this.buildForm();
+
+    this.updateCoAuthors();
+    this.updateCoAuthorsInvitation();
+  }
+
+  updateCoAuthors(): void {
     this.storyService.getById(this.storyId).subscribe(story => {
-      this.coAuthors = story.storyAuthors.filter(value => (value.status != HaStoryAuthorStatus.AUTHOR)).map(sA => ({
-        id: sA.id,
-        fullName: sA.user.fullname,
-        email: sA.user.email
-      }));
+      this.story = story;
+      this.coAuthors = this.story.getCoAuthors();
+    });
+  }
+
+  updateCoAuthorsInvitation(): void {
+    this.storyService.getStoryCoAuthorsPendingInvites(this.storyId).subscribe(storyCoAuthorsPendingInvites => {
+      this.coAuthorPendingInvites = storyCoAuthorsPendingInvites;
     });
   }
 
   buildForm(): FormGroup<HaCoAuthorFormData> {
     return new FormBuilder().group({
-      coAuthors: [this.coAuthors, Validators.required]
+      coAuthorMail: [null, [Validators.required, Validators.email]]
     })
   }
 
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
 
-    // Add our fruit
-    if (value && RegExp(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/).test(value)) {
-      this.coAuthors.push({email: value});
-      this.formGp.patchValue({coAuthors: this.coAuthors});
-    }
-
-    // Clear the input value
-    event.chipInput?.clear();
-  }
-
-  openRemoveConfirmDialog(storyAuthor: HaCoAuthorEmail): void {
+  openRemoveConfirmDialog(storyCoAuthor: HaUser): void {
     const input: FlConfirmDialogInput = {
       title: 'remove_coauthor',
       content: 'remove_coauthor_dialog_content',
       translateTitleAndContent: true,
       successMessage: 'remove_coauthor_success',
       translateMessage: true,
-      observable: this.storyService.removeStoryCoAuthor(this.storyId, storyAuthor.id)
+      observable: this.storyService.removeStoryCoAuthor(this.storyId, storyCoAuthor.id)
     }
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(result => {
       if (result) {
-        this.remove(storyAuthor);
+        this.updateCoAuthors();
       }
     });
   }
 
-  remove(coAuthor: HaCoAuthorEmail): void {
-    const index = this.coAuthors.indexOf(coAuthor);
+  deleteCoAuthorInvite(inviteId: string): void{
+    if(inviteId != null){
+      const input: FlConfirmDialogInput = {
+        title: 'cancel_invitation',
+        content: 'cancel_story_coauthor_invitation_dialog_content',
+        translateTitleAndContent: true,
+        successMessage: 'cancel_invitation_success',
+        translateMessage: true,
+        observable: this.storyService.deleteCoAuthorInvite(inviteId)
+      }
 
-    if (index >= 0) {
-      this.coAuthors.splice(index, 1);
-      this.formGp.patchValue({coAuthors: this.coAuthors});
+      this.dialogService.openConfirmDialog(input).afterClosed().subscribe(result => {
+        if (result) {
+          this.updateCoAuthorsInvitation();
+        }
+      });
+    }
+  }
+
+  checkAndSendInvite(): void {
+    if (this.formGp.controls.coAuthorMail.valid) {
+      const inviteMail: string = this.formGp.controls.coAuthorMail.value;
+      this.storyService.inviteStoryCoAuthor(this.storyId, inviteMail).subscribe(result => {
+        if (result) {
+          this.updateCoAuthorsInvitation();
+          this.formGp.controls.coAuthorMail.patchValue(null);
+        }
+      });
     }
   }
 
@@ -111,11 +130,7 @@ export class HaStoryCoAuthorDialogComponent extends FlFormDialogAbstractDirectiv
   }
 
   update(formValue: HaCoAuthorFormData): Observable<HaStory> {
-    if(formValue.coAuthors.length > 0) {
-      const newCoAuthors = formValue.coAuthors.filter(coAuthor => !coAuthor.id);
-      return this.storyService.updateStoryCoAuthors(this.storyId, newCoAuthors.map(coAuthor => coAuthor.email));
-    }
-    return null;
+    throw new Error('Method not implemented.');
   }
 
   getCreateSuccessMessage(): string {

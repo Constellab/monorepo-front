@@ -12,8 +12,8 @@
       <tr *ngFor="let file of story?.storyFiles">
         <td class="left-cell" flElementEditable (flElementValueChange)="renameFile($event, file)">{{file.humanName}}</td>
         <td class="right-cell">
-          <button mat-icon-button class="button" (click)="deleteFile(file)">
-            <mat-icon>delete</mat-icon>
+          <button mat-icon-button class="button" (click)="deleteFile(file)" [matTooltip]="'delete_story_file' | translate">
+            <mat-icon color="warn">delete</mat-icon>
           </button>
         </td>
       </tr>

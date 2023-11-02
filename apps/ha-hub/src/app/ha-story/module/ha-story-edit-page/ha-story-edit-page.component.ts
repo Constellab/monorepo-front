@@ -14,7 +14,7 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaStoryCoAuthorDialogComponent} from '../ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
+import {ClRichText, ClRichTextI, ClStringHelper} from '@monorepo/core-lib';
 import {HaStoryFileDialogComponent, HaStoryFileFormData} from '../ha-story-file-dialog/ha-story-file-dialog.component';
 
 @Component({
@@ -26,8 +26,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   story: HaStory;
 
-  titleChange: boolean = false;
-  inputTitle: string;
 
   formGp: FormGroup<Partial<HaStoryContentFormDTO>>;
   textEditorConfig: HaStoryTextEditorConfig;
@@ -96,13 +94,12 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  onTitleChange(event: any): void {
-    const input: HTMLInputElement = event.target as HTMLInputElement;
-    if (this.story.title !== input.value && input.value.length > 0) {
-      this.titleChange = true;
-      this.inputTitle = input.value;
+  onTitleChange(event: string): void {
+    if(event !== this.story.title && event.length > 0){
+      this.saveTitle(event);
     } else {
-      this.titleChange = false;
+      const titleElement = document.getElementById('storyTitle');
+      titleElement.innerText = this.story.title;
     }
   }
 
@@ -113,14 +110,14 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       });
     }
   }
-  saveTitle(): void {
-    this.storyService.updateTitle(this.story.id, this.inputTitle).subscribe((story) => {
+  saveTitle(newTitle: string): void {
+    this.storyService.updateTitle(this.story.id, newTitle).subscribe((story) => {
       this.story.title = story.title;
-      this.titleChange = false;
     });
   }
 
   saveTopic(): void {
+    console.log('topicControl', this.topicControl.value);
     const topic: HaTopicDto = typeof this.topicControl.value === 'string' ?
       new HaTopicDto(this.topicControl.value) : new HaTopicDto(this.topicControl.value.name, this.topicControl.value.id);
 
@@ -274,5 +271,9 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         this.story = res.result;
       }
     });
+  }
+
+  checkTopicControl(): boolean{
+    return this.topicControl.value != null && this.topicControl.value != '' && typeof this.topicControl.value == 'string' && this.topicControl.value.trim() != '';
   }
 }

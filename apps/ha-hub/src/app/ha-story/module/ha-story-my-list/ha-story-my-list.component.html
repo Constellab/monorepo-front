@@ -25,15 +25,24 @@
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef> {{'status' | translate}} </mat-header-cell>
         <mat-cell *matCellDef="let story">
-      <span [style.color]="story.status === 'PUBLISHED' ? 'var(--primary-color)' : 'var(--secondary-color)'">
-        {{story.status | translate}}
-      </span>
+          <span [style.color]="story.status === 'PUBLISHED' ? 'var(--primary-color)' : 'var(--secondary-color)'">
+            {{story.status | translate}}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef> {{'role' | translate}} </mat-header-cell>
+        <mat-cell *matCellDef="let story">
+          <span>
+            {{getStoryRole(story) | translate}}
+          </span>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="createdAt">
-        <mat-header-cell *matHeaderCellDef> {{'created' | translate}} </mat-header-cell>
-        <mat-cell *matCellDef="let story">
+        <mat-header-cell *matHeaderCellDef class="date-cell-head"> {{'created' | translate}} </mat-header-cell>
+        <mat-cell *matCellDef="let story" class="date-cell">
           <fl-from-now [date]="story.createdAt" [prefix]="'created' | translate"></fl-from-now>
         </mat-cell>
       </ng-container>

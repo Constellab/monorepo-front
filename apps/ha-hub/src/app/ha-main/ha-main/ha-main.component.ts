@@ -36,8 +36,6 @@ export class HaMainComponent implements OnInit, AfterContentInit {
 
   constructor(private authUserService: HaAuthenticatedUserService,
               private authService: HaAuthService,
-              private dialogService: FlDialogService,
-              private apiService: HaApiServiceConfig,
               private activatedRoute: ActivatedRoute,
               private themeService: FlThemeService,
               private cookieService: FlCookieService,

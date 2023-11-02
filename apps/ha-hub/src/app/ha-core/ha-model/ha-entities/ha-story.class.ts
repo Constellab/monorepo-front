@@ -73,7 +73,7 @@ export class HaStory {
 
 
   getAuthor(): HaUser {
-    return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
+    return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0]?.user;
   }
 
   getCoAuthors(): HaUser[] {

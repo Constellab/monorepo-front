@@ -163,16 +163,6 @@ export class HaStoryService {
   }
 
   /***
-   * Update story co-authors
-   * @param storyId story id
-   * @param coAuthors co authors mails
-   * @return story
-   */
-  updateStoryCoAuthors(storyId: string, coAuthors: string[]): Observable<HaStory> {
-    return this.apiService.put(`${this.route}/${storyId}/co-authors`, coAuthors, HaStory);
-  }
-
-  /***
    * Remove story co-author
    * @param storyId story id
    * @param storyAuthorId co author id
@@ -196,6 +186,10 @@ export class HaStoryService {
     return this.apiService.put(`${this.route}/invite/${token}/accept`, {});
   }
 
+  inviteStoryCoAuthor(storyId: string, coAuthorMail: string): Observable<boolean>{
+    return this.apiService.post(`${this.route}/${storyId}/invite-co-author`, {coAuthorMail: coAuthorMail}, Boolean);
+  }
+
 
   uploadDocument(file: File, storyId: string): Observable<HaStoryFile>{
     const formData = new FormData();
@@ -209,5 +203,13 @@ export class HaStoryService {
 
   renameStoryFile(storyFileId: string, newName: string): Observable<HaStoryFile>{
     return this.apiService.put(`${this.route}/file/${storyFileId}/rename`, {humanName: newName}, HaStoryFile);
+  }
+
+  getStoryCoAuthorsPendingInvites(storyId: string): Observable<HaStoryAuthorInvite[]>{
+    return this.apiService.get(`${this.route}/${storyId}/co-authors-pending-invites`, HaStoryAuthorInvite, {resultIsPaginated: false});
+  }
+
+  deleteCoAuthorInvite(inviteId: string): Observable<void>{
+    return this.apiService.delete(`${this.route}/invite/${inviteId}`);
   }
 }

@@ -36,11 +36,11 @@ export class HaRouterService {
   }
 
   public static getProductDocRoute(): string {
-    return '/bricks/gws_academy/latest';
+    return '/bricks/gws_academy/latest/doc/getting-started';
   }
 
   public static getTechDocRoute(): string {
-    return '/bricks/gws_core/latest';
+    return '/bricks/gws_core/latest/doc/getting-started';
   }
 
   ////////////////////////// STORIES ////////////////////////////////

@@ -15,8 +15,15 @@
   border-radius: 18px;
 }
 
-.top-div{
+h2{
+  margin-bottom: 0.5em;
+}
+
+.buttons-div{
   display: flex;
+  flex-direction: row;
+  margin-bottom: 1em;
+  justify-content: space-between;
 }
 
 .inputs-div{
@@ -56,7 +63,6 @@
 
 .publish-story-bt {
   width: 100%;
-  border-radius: 18px !important;
   background-color: var(--card-background);
   height: 56px;
   padding: 8px;
@@ -71,22 +77,17 @@
   margin: 0.25em 0 auto auto;
 }
 
-.top-right-inputs{
-  display: flex;
-  flex-direction: column;
-  width: 35%;
+.add-file-button-author{
+  margin: 0.25em 0 auto 0.5em;
+}
+
+.add-file-button-co-author{
+  margin: 0.25em 0 auto auto;
 }
 
 .top-right-top-row{
   display: flex;
   flex-direction: row;
-}
-
-.add-file-button{
-  margin-top: 1em;
-  height: 56px;
-  padding: 8px;
-  width: 100%;
 }
 
 //*{

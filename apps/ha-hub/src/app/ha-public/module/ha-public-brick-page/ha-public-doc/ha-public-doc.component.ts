@@ -26,6 +26,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   documentation: HaDocumentation;
   brickName: string;
+  lastBrickName: string;
   brickVersion: string;
 
   formCtrl = new FormControl<ClRichTextI>(null);
@@ -71,6 +72,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   }
 
   private init(brickName: string, brickVersion: string): void {
+    if(this.brickName != null) this.lastBrickName = this.brickName;
     this.brickName = brickName;
     this.brickVersion = brickVersion;
     this.brickService.getByName(this.brickName).subscribe(brick => {
@@ -80,9 +82,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   }
 
   private getActiveDoc(): void {
-
     this.route.url.subscribe((url: UrlSegment[]) => {
-      if (url.toString() != this.lastUrl && this.lastUrl != '') {
+      if ((this.lastBrickName != this.brickName || url.toString() != this.lastUrl) && this.lastUrl != '') {
         if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)) {
           const doc: HaDocumentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
           if (doc) {

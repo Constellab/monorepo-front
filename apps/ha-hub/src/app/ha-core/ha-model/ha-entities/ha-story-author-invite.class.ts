@@ -6,7 +6,7 @@ import {HaInviteStatus} from './ha-invite';
 
 
 export class HaStoryAuthorInvite{
-  id: number;
+  id: string;
 
   email: string;
 
