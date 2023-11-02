@@ -185,6 +185,7 @@
   "cancel_story_coauthor_invitation_dialog_content": "Are you sure you want to cancel this invitation ?",
   "cancel_invitation_success": "Invitation canceled successfully",
   "send_invitation": "Send invitation",
+  "invitation_sent_successfully": "Invitation sent successfully",
   "role": "Role",
   "table_of_contents": "Table of contents",
   "invite_coauthor_success": "Co-author invited successfully",

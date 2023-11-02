@@ -118,6 +118,7 @@ export class HaStoryCoAuthorDialogComponent extends FlFormDialogAbstractDirectiv
       const inviteMail: string = this.formGp.controls.coAuthorMail.value;
       this.storyService.inviteStoryCoAuthor(this.storyId, inviteMail).subscribe(result => {
         if (result) {
+          this.snackBarService.openSuccessMessage({text: 'invitation_sent_successfully', translateText: true});
           this.updateCoAuthorsInvitation();
           this.formGp.controls.coAuthorMail.patchValue(null);
         }

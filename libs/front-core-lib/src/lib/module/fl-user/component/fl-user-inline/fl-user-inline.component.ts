@@ -26,7 +26,7 @@ export class FlUserInlineComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    if(!this.user.fullname){
+    if(this.user && !this.user.fullname){
       this.user.fullname = this.user.firstname + ' ' + this.user.lastname;
     }
   }

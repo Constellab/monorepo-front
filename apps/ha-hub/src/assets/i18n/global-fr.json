@@ -185,6 +185,7 @@
   "cancel_story_coauthor_invitation_dialog_content": "Êtes-vous sûr de vouloir annuler l'invitation ?",
   "cancel_invitation_success": "Invitation annulée avec succès",
   "send_invitation": "Envoyer l'invitation",
+  "invitation_sent_successfully": "Invitation envoyée avec succès",
   "role": "Rôle",
   "table_of_contents": "Table des matières",
   "invite_coauthor_success": "Co-auteur invité avec succès",
