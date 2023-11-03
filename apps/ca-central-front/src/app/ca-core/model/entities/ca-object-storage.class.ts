@@ -2,7 +2,9 @@ import {CaBaseEntity} from './ca-base-entity.class';
 import {CaCloudProvider, CaCloudProviderRegion} from './ca-cloud-provider.class';
 import {Type} from 'class-transformer';
 import {CaSpace} from './space/ca-space.class';
-import {FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
+import {FlDatasourcePaginated, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
+import {CaLabInstance} from './lab/ca-lab-instance.class';
+import {ClGetPageFunction} from '@monorepo/core-lib';
 
 
 export class CaBucketCredentials extends CaBaseEntity {
@@ -69,10 +71,43 @@ export class CaBucket extends CaBaseEntity {
 export class CaBucketFull extends CaBucket {
 
   @Type(() => CaCloudProviderRegion)
-  region: CaCloudProviderRegion;
+  region?: CaCloudProviderRegion;
+
+  @Type(() => CaLabInstance)
+  labInstance?: CaLabInstance;
 
   @Type(() => CaBucketCredentials)
   credentials: CaBucketCredentials;
 }
 
 export type CaBucketFullDatasource = FlEntityPaginatedDatasource<CaBucketFull>;
+
+/**
+ * DTO to only show the location of the bucket without the name
+ */
+export class CaBucketLocationDTO {
+  bucketId: string;
+  locationName: string;
+  bucketType: CaBucketType;
+
+  getIcon(): string {
+    if (this.bucketType === CaBucketType.LAB) {
+      return 'lab';
+    } else {
+      return 'cloud';
+    }
+  }
+}
+
+export class CaBucketLocationDatasource extends FlDatasourcePaginated<CaBucketLocationDTO> {
+
+  constructor(getPageFunction: ClGetPageFunction<CaBucketLocationDTO>, pageSize: number, initFirstPage: boolean = true,
+              disableAutoDisconnect: boolean = false) {
+    super(getPageFunction, pageSize, initFirstPage, disableAutoDisconnect);
+  }
+
+  protected equals(a: CaBucketLocationDTO, b: CaBucketLocationDTO): boolean {
+    return a.bucketId === b.bucketId;
+  }
+}
+

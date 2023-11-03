@@ -4,7 +4,6 @@ import {
   CaProject,
   CaProjectLevel,
   CaProjectLevelStatus,
-  CaProjectStorageDTO,
   CnSaveProjectDTO
 } from '../../../../model/entities/project/ca-project.class';
 import {CaProjectService} from '../../../../service-api/ca-project.service';
@@ -58,11 +57,11 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
   async ngOnInit(): Promise<void> {
     this.init();
 
-    if (this.showStorageRegion) {
+    if (this.showStorage) {
       this.spaceService.getCurrentSpaceSettings().subscribe(
         spaceSettings => {
-          this.formGp.get('mainRegion').setValue(spaceSettings.defaultStorageRegion);
-          this.formGp.get('backupRegion').setValue(spaceSettings.defaultBackupStorageRegion);
+          this.formGp.get('mainStorage').setValue(spaceSettings.defaultProjectStorageLocation);
+          this.formGp.get('backupStorage').setValue(spaceSettings.defaultBackupProjectStorageLocation);
         }
       );
     }
@@ -81,9 +80,9 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
       title: [null, Validators.required],
       startingDate: [this.dialogInput.parentStartingDate, Validators.required],
       endingDate: [this.dialogInput.parentEndingDate],
-      mainRegion: [null, this.showStorageRegion ? Validators.required : null],
-      backupRegion: [null],
-    }, {validator: this.showStorageRegion ? this.differentBackupRegionValidator() : null});
+      mainStorage: [null, this.showStorage ? Validators.required : null],
+      backupStorage: [null],
+    }, {validator: this.showStorage ? this.differentStorageValidator() : null});
   }
 
   create(formValue: CnSaveProjectDTO): Observable<CaProject> {
@@ -128,16 +127,16 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
     return this.dialogInput.parentLevel == null || this.dialogInput.parentLevel < CaProjectLevel.MAX_LEVEL - 1;
   }
 
-  get showStorageRegion(): boolean {
+  get showStorage(): boolean {
     return this.dialogInput.level === CaProjectLevel.PROJECT && this.isCreateMode();
   }
 
-  private differentBackupRegionValidator(): ValidatorFn {
-    return (control: FormGroup<CaProjectStorageDTO>): { [key: string]: any } => {
-      if(control.value.mainRegion == null || control.value.backupRegion == null) return null;
+  private differentStorageValidator(): ValidatorFn {
+    return (control: FormGroup<CnSaveProjectDTO>): { [key: string]: any } => {
+      if(control.value.mainStorage == null || control.value.backupStorage == null) return null;
 
-      if (control.value.mainRegion.id === control.value.backupRegion.id) {
-        return {sameBackupRegion: true};
+      if (control.value.mainStorage.bucketId === control.value.backupStorage.bucketId) {
+        return {sameBackupStorage: true};
       }
       return null;
     };

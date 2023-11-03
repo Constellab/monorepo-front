@@ -184,6 +184,9 @@ export class CaRouterService {
     return `${CaRouterService.getCurrentSpaceRoute()}/teams`;
   }
 
+  public static getCurrentSpaceOtherRoute(): string {
+    return `${CaRouterService.getCurrentSpaceRoute()}/other`;
+  }
   ////////////////////////// ADMIN ///////////////////////
 
   public static getAdminRoute(): string {

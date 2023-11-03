@@ -14,7 +14,7 @@
   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="itemSelected()">
     <fl-infinite-scroll [datasource]="datasource" class="g-mat-option-infinite-scroll">
       <mat-option *ngFor="let item of items$ | async" [value]="item">
-        <ng-container *ngTemplateOutlet="optionTemplate; context: {$implicit: item}"></ng-container>
+        <ng-container *ngTemplateOutlet="optionTemplate; context: getOptionTemplateContext(item)"></ng-container>
       </mat-option>
     </fl-infinite-scroll>
   </mat-autocomplete>

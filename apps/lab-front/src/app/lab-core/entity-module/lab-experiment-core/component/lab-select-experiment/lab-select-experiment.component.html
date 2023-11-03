@@ -7,12 +7,12 @@
                  [minInputSearchLength]="0"
                  [advancedButton]="advancedButton">
 
-  <div class="photo" *flInputSearchPrefix="let experiment">
+  <div class="photo" *flInputSearchPrefix="datasource as experiment">
     <fl-user-profile-picture *ngIf="experiment" [user]="experiment.createdBy"
                              size="small"></fl-user-profile-picture>
 
   </div>
 
-  <lab-experiment-inline *flInputSearchOption="let experiment" [experiment]="experiment">
+  <lab-experiment-inline *flInputSearchOption="datasource as experiment" [experiment]="experiment">
   </lab-experiment-inline>
 </fl-input-search>

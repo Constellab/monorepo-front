@@ -138,6 +138,10 @@ export class CaLabInstance extends CaBaseEntity {
   }
 
   get typeIcon(): string {
+    if(this.isFreeTrial){
+      return 'timelapse';
+    }
+
     switch (this.type){
       case 'CLOUD':
         return 'cloud';
@@ -146,6 +150,18 @@ export class CaLabInstance extends CaBaseEntity {
       case 'ON_PREMISE':
         return 'dns';
     }
+  }
+
+  get typeTooltip(): string {
+    if(this.isFreeTrial){
+      return 'lab_free_trial_long';
+    }
+
+    return 'lab_instance_type_' + this.type;
+  }
+
+  toString(): string{
+    return this.name;
   }
 }
 

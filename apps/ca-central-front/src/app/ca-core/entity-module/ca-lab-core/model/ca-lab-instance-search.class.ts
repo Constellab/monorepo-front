@@ -42,6 +42,8 @@ export class CaLabInstanceSearchFields {
   @Type(() => CaCloudProvider)
   cloudProvider: CaCloudProvider;
 
+  isFreeTrial: boolean;
+
   id: string;
 }
 
@@ -71,6 +73,7 @@ export class CaLabInstanceSearch {
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     type: {key: 'type', operator: 'EQ'},
     cloudProvider: {key: 'region.cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    isFreeTrial: {key: 'isFreeTrial', operator: 'EQ'},
     id: {key: 'id', operator: 'EQ'},
   };
 
@@ -89,6 +92,7 @@ export class CaLabInstanceSearch {
       space: null,
       type: null,
       cloudProvider: null,
+      isFreeTrial: null,
       id: null,
     });
   }

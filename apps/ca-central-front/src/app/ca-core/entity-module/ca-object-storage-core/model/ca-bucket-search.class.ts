@@ -10,6 +10,7 @@ import {CaBucketContentType, CaBucketCredentials, CaBucketType} from '../../../m
 import {CaSpace} from '../../../model/entities/space/ca-space.class';
 import {CaUser} from '../../../model/entities/ca-user.class';
 import {CaCloudProviderRegion} from '../../../model/entities/ca-cloud-provider.class';
+import {CaLabInstance} from '../../../model/entities/lab/ca-lab-instance.class';
 
 export class CaBucketSearchFields {
   name: string;
@@ -21,8 +22,13 @@ export class CaBucketSearchFields {
   @Type(() => CaSpace)
   space: CaSpace;
 
+  @Type(() => CaCloudProviderRegion)
   region: CaCloudProviderRegion;
 
+  @Type(() => CaLabInstance)
+  labInstance: CaLabInstance;
+
+  @Type(() => CaBucketCredentials)
   credentials: CaBucketCredentials;
 
   @Type(() => FlSearchDateInterval)
@@ -48,6 +54,7 @@ export class CaBucketSearch {
     contentType: 'bucket_content_type',
     bucketType: 'bucket_type',
     region: 'cloud_provider_region',
+    labInstance: 'lab',
     credentials: 'bucket_credentials',
     createdAt: 'creation_date',
     createdBy: 'created_by',
@@ -65,6 +72,7 @@ export class CaBucketSearch {
     bucketType: {key: 'bucketType', operator: 'IN'},
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     region: {key: 'region.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    labInstance: {key: 'labInstance.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     credentials: {key: 'credentials.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     // Date
     createdBy: {key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
@@ -82,6 +90,7 @@ export class CaBucketSearch {
         bucketType: [null],
         space: [null],
         region: [null],
+        labInstance: [null],
         credentials: [null],
         createdBy: [null],
         createdAt: new FormBuilder().group<FlSearchDateInterval>({

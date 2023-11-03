@@ -26,38 +26,38 @@
       </mat-error>
     </mat-form-field>
 
-    <!--  Default storage region  -->
+    <!--  Default storage location  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'space_default_storage_region' | translate}}</mat-label>
-      <mat-select formControlName="defaultStorageRegion" required
-                  [placeholder]="'space_default_storage_region' | translate">
-        <ca-select-cloud-provider-region-options mode="current-space-s3"></ca-select-cloud-provider-region-options>
+      <mat-label>{{'space_project_default_storage_location' | translate}}</mat-label>
+      <mat-select formControlName="defaultProjectStorageLocation" required
+                  [placeholder]="'space_project_default_storage_location' | translate">
+        <ca-bucket-location-select-options [mode]="getBucketLocationSelectMode()"></ca-bucket-location-select-options>
       </mat-select>
       <mat-hint>
-        {{'space_default_storage_region_help' | translate}}
+        {{'space_project_default_storage_location_help' | translate}}
       </mat-hint>
-      <mat-error *ngIf="formGp.get('defaultStorageRegion').hasError('required')">
-        {{'space_default_storage_region' | flErrorRequired}}
+      <mat-error *ngIf="formGp.get('defaultProjectStorageLocation').hasError('required')">
+        {{'space_project_default_storage_location' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
 
-    <!--  Default backup storage region  -->
+    <!--  Default backup storage location  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'space_default_backup_storage_region' | translate}}</mat-label>
-      <mat-select formControlName="defaultBackupStorageRegion"
-                  [placeholder]="'space_default_backup_storage_region' | translate">
-        <ca-select-cloud-provider-region-options mode="current-space-s3"></ca-select-cloud-provider-region-options>
+      <mat-label>{{'space_default_project_backup_storage_location' | translate}}</mat-label>
+      <mat-select formControlName="defaultProjectBackupStorageLocation"
+                  [placeholder]="'space_default_project_backup_storage_location' | translate">
+        <ca-bucket-location-select-options [mode]="getBucketLocationSelectMode()"></ca-bucket-location-select-options>
       </mat-select>
       <mat-hint>
-        {{'space_default_backup_storage_region_help' | translate}}
+        {{'space_default_project_backup_storage_location_help' | translate}}
       </mat-hint>
-      <mat-error *ngIf="formGp.get('defaultBackupStorageRegion').hasError('required')">
-        {{'space_default_backup_storage_region' | flErrorRequired}}
+      <mat-error *ngIf="formGp.get('defaultProjectBackupStorageLocation').hasError('required')">
+        {{'space_default_project_backup_storage_location' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
 
-    <mat-error *ngIf="formGp.hasError('sameBackupRegion')">
-      {{'project_storage_region_same_error' | translate}}
+    <mat-error *ngIf="formGp.hasError('sameBackupStorage')">
+      {{'project_storage_location_same_error' | translate}}
     </mat-error>
 
 

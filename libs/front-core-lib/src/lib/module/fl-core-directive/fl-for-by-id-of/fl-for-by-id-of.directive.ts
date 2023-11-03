@@ -16,11 +16,16 @@ interface WithId {
 export class FlForByIdOfDirective <T extends WithId, U extends NgIterable<T> = NgIterable<T>>
   extends NgForOf<T, U> {
 
+
   constructor(_viewContainer: ViewContainerRef, _template: TemplateRef<NgForOfContext<T, U>>,
               _differs: IterableDiffers) {
     super(_viewContainer, _template, _differs);
     // set the track by id
     this.ngForTrackBy = ClHelpService.trackByIdFunction();
+  }
+
+  @Input({required: false}) set ngForOf(ngForOf: (U & NgIterable<T>) | undefined | null) {
+    super.ngForOf = ngForOf;
   }
 
   @Input()

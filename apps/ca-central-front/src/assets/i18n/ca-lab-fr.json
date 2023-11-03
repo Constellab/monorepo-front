@@ -291,7 +291,7 @@
   "lab_free_trial_delete_confirmation": "Êtes-vous sûr de vouloir supprimer l'essai gratuit ? L'utilisateur pourra créer un nouveau lab gratuit.",
   "lab_free_trial_deleted": "Essai gratuit supprimé",
   "lab_free_trial": "Essai gratuit du lab",
-  "lab_free_trial_long": "Ce lab est un lab gratuit",
+  "lab_free_trial_long": "Ce lab est un lab de démo gratuit",
   "lab_free_trial_update": "Modifier l'essai gratuit",
   "lab_free_trial_updated": "Essai gratuit modifié",
   "lab_free_trial_hour_limit": "Limite d'utilisation du lab (heures)",

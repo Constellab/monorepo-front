@@ -6,6 +6,9 @@ import {Observable} from 'rxjs';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CaSaveSpaceDTO, CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space-form.class';
+import {
+  CaBucketLocationSelectMode
+} from '../../../ca-object-storage-core/component/ca-bucket-location-select-options/ca-bucket-location-select-options.component';
 
 export type CaSpaceFormDialogInput = FlFormDialogInput<CaSaveSpaceDTO>;
 
@@ -37,10 +40,10 @@ export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<Ca
     return new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required]],
-      defaultStorageRegion: [null, [Validators.required]],
-      defaultBackupStorageRegion: [null],
+      defaultProjectStorageLocation: [null, [Validators.required]],
+      defaultProjectBackupStorageLocation: [null],
       nbLicenses: [0, [Validators.required]],
-    }, {validator: this.differentBackupRegionValidator()});
+    }, {validator: this.differentProjectStorageValidator()});
   }
 
   create(formValue: CaSaveSpaceDTO): Observable<CaSpaceSettingsDto> {
@@ -59,16 +62,22 @@ export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<Ca
     return 'space_updated';
   }
 
-  private differentBackupRegionValidator(): ValidatorFn {
+  private differentProjectStorageValidator(): ValidatorFn {
     return (control: FormGroup<CaSaveSpaceDTO>): { [key: string]: any } => {
-      if (control.value.defaultStorageRegion == null || control.value.defaultBackupStorageRegion == null) return null;
+      if (control.value.defaultProjectStorageLocation == null || control.value.defaultProjectBackupStorageLocation == null) return null;
 
-      if (control.value.defaultStorageRegion.id === control.value.defaultBackupStorageRegion.id) {
-        return {sameBackupRegion: true};
+      if (control.value.defaultProjectStorageLocation.bucketId === control.value.defaultProjectBackupStorageLocation.bucketId) {
+        return {sameBackupStorage: true};
       }
       return null;
     };
   }
 
+  /**
+   * In create mode, we can only select cloud bucket because there is no lab in the new space.
+   */
+  getBucketLocationSelectMode(): CaBucketLocationSelectMode {
+    return this.isCreateMode() ? 'cloud' : 'all';
+  }
 
 }

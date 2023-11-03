@@ -37,9 +37,6 @@ import {
   CaObjectStorageCoreModule
 } from '../../../ca-core/entity-module/ca-object-storage-core/ca-object-storage-core.module';
 import {
-  CaCloudProviderCoreModule
-} from '../../../ca-core/entity-module/ca-cloud-provider-core/ca-cloud-provider-core.module';
-import {
   CaProjectDocumentsListComponent
 } from './component/ca-project-documents-list/ca-project-documents-list.component';
 import {CaDocumentCoreModule} from '../ca-document-core/ca-document-core.module';
@@ -92,9 +89,9 @@ import {
     CaLabCoreModule,
     CaCommentModule,
     CaObjectStorageCoreModule,
-    CaCloudProviderCoreModule,
     CaUserCoreModule,
     CaNotificationCoreModule,
   ],
 })
-export class CaProjectDetailPageModule {}
+export class CaProjectDetailPageModule {
+}

@@ -134,8 +134,8 @@
   "project_notif_experiment": "On experiment creation, modification, deletion",
   "project_notif_document": "On document creation, modification, deletion",
   "project_notif_saved": "Configuration saved",
-  "project_main_storage_region": "Storage region",
-  "project_backup_storage_region": "Backup storage region",
-  "project_storage_region_same_error": "The storage and the backup storage must be in different regions",
+  "project_main_storage_location": "Storage location",
+  "project_backup_storage_location": "Backup storage region",
+  "project_storage_location_same_error": "The storage and the backup storage must be in different locations",
   "project_storage_configured": "Storage configured"
 }

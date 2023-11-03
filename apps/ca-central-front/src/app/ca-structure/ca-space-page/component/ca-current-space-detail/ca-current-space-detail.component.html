@@ -39,14 +39,14 @@
       {{spaceSettings.nbLicenses}}
     </fl-key-value>
 
-    <fl-key-value *ngIf="spaceSettings.defaultStorageRegion">
-      <fl-key>{{'space_default_storage_region' | translate}}</fl-key>
-      <ca-bucket-region-inline [region]="spaceSettings.defaultStorageRegion"></ca-bucket-region-inline>
+    <fl-key-value *ngIf="spaceSettings.defaultProjectStorageLocation">
+      <fl-key>{{'space_project_default_storage_location' | translate}}</fl-key>
+      <ca-bucket-location-inline [bucketLocation]="spaceSettings.defaultProjectStorageLocation"></ca-bucket-location-inline>
     </fl-key-value>
 
-    <fl-key-value *ngIf="spaceSettings.defaultBackupStorageRegion">
-      <fl-key>{{'space_default_backup_storage_region' | translate}}</fl-key>
-      <ca-bucket-region-inline [region]="spaceSettings.defaultBackupStorageRegion"></ca-bucket-region-inline>
+    <fl-key-value *ngIf="spaceSettings.defaultBackupProjectStorageLocation">
+      <fl-key>{{'space_default_project_backup_storage_location' | translate}}</fl-key>
+      <ca-bucket-location-inline [bucketLocation]="spaceSettings.defaultBackupProjectStorageLocation"></ca-bucket-location-inline>
     </fl-key-value>
   </fl-card-body>
 

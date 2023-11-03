@@ -94,9 +94,6 @@ export class CaLabInstanceService {
       {resultIsPaginated: true, page: page, pageSize: pageSize});
   }
 
-  public getCurrentRunningLabInstance(): Observable<CaLabInstance[]> {
-    return this.apiService.get(this.route + '/current-running', CaLabInstance);
-  }
 
   public startLabInstance(id: string): Observable<CaLabInstance> {
     return this.apiService.put(`${this.route}/${id}/start`, null, CaLabInstance);
@@ -119,7 +116,7 @@ export class CaLabInstanceService {
   }
 
   public searchAll(page: number, pageSize: number,
-                   filters?: CaLabInstanceSearchFields): Observable<ClPage<CaLabInstanceWithSpace>> {
+                   filters?: Partial<CaLabInstanceSearchFields>): Observable<ClPage<CaLabInstanceWithSpace>> {
     const data: FlAdvancedSearchInput = {
       filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaLabInstanceSearch.advancedSearchConverter),
       sortsCriteria: null
@@ -278,7 +275,7 @@ export class CaLabInstanceService {
   //////////////////////////// BACKUP ////////////////////////////////
 
   public backupProd(id: string): Observable<CaLabBackupHistory[]> {
-    return this.apiService.post(`${this.route}/${id}/backup/prod`,null, CaLabBackupHistory);
+    return this.apiService.post(`${this.route}/${id}/backup/prod`, null, CaLabBackupHistory);
   }
 
   public stopCurrentBackup(id: string): Observable<CaLabBackupHistory[]> {

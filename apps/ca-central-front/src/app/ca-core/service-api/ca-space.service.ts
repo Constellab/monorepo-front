@@ -8,7 +8,6 @@ import {
 import {CaSpace, CaSpaceDatasource, CaSpaceInfoDto,} from '../model/entities/space/ca-space.class';
 import {Observable} from 'rxjs';
 import {ClPage} from '@monorepo/core-lib';
-import {CaRequestNewLicensesDto} from '../model/dto/ca-space.dto';
 import {CaUser, CaUserDatasourcePaginated} from '../model/entities/ca-user.class';
 import {CaSpaceSearch, CaSpaceSearchFields} from '../entity-module/ca-space-core/model/ca-space-search.class';
 import {CaSpaceRole, CaSpaceUser, CaSpaceUserDatasource} from '../model/entities/space/ca-space-user.class';
@@ -16,7 +15,7 @@ import {
   CaSpaceUserSearch,
   CaSpaceUserSearchFields
 } from '../entity-module/ca-space-core/model/ca-space-user-search.class';
-import {CaSaveSpaceDTO, CaSpaceSettingsDto} from '../model/entities/space/ca-space-form.class';
+import {CaRequestNewLicensesDto, CaSaveSpaceDTO, CaSpaceSettingsDto} from '../model/entities/space/ca-space-form.class';
 
 @Injectable({
   providedIn: 'root'

@@ -50,7 +50,13 @@ export class CaCurrentSpacePageComponent implements OnInit {
           label: {text: 'teams', translateText: true},
           icon: 'group',
           route: CaRouterService.getCurrentSpaceTeamsRoute()
-        });
+        },
+        {
+          label: {text: 'admin_other_page', translateText: true},
+          icon: 'settings',
+          route: CaRouterService.getCurrentSpaceOtherRoute()
+        },
+      );
     }
   }
 

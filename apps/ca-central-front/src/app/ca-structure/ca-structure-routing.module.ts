@@ -20,6 +20,9 @@ import {
 import {
   CaCurrentSpaceTeamsPageComponent
 } from './ca-space-page/component/ca-current-space-teams-page/ca-current-space-teams-page.component';
+import {
+  CaCurrentSpaceOtherPageComponent
+} from './ca-space-page/component/ca-current-space-other-page/ca-current-space-other-page.component';
 
 const routes: Route[] = [
   {
@@ -29,6 +32,7 @@ const routes: Route[] = [
       {path: 'labs', component: CaCurrentSpaceLabInstancesPageComponent},
       {path: 'projects', component: CaCurrentSpaceProjectsPageComponent},
       {path: 'teams', component: CaCurrentSpaceTeamsPageComponent},
+      {path: 'other', component: CaCurrentSpaceOtherPageComponent}
     ]
   },
   {path: 'team/:id', component: CaTeamPageComponent},

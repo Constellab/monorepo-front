@@ -7,13 +7,13 @@
                  [minInputSearchLength]="0"
                  [advancedButton]="advancedButton">
 
-  <div class="photo" *flInputSearchPrefix="let report">
+  <div class="photo" *flInputSearchPrefix="datasource as report">
     <fl-user-profile-picture *ngIf="report" [user]="report.createdBy"
                              size="small"></fl-user-profile-picture>
 
   </div>
 
 
-  <lab-report-inline *flInputSearchOption="let report" [report]="report">
+  <lab-report-inline *flInputSearchOption="datasource as report" [report]="report">
   </lab-report-inline>
 </fl-input-search>

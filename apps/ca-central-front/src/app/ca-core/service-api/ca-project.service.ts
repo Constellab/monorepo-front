@@ -26,7 +26,7 @@ import {CaGroup} from '../model/entities/ca-group.entity';
 import {CaUser} from '../model/entities/ca-user.class';
 import {CaProjectComment, CaProjectCommentDatasourcePaginated} from '../model/entities/ca-comment.class';
 import {CaProjectSearch, CaProjectSearchFields} from '../entity-module/ca-project-core/model/ca-project-search.class';
-import {CaBucketFull} from '../model/entities/ca-object-storage.class';
+import {CaBucketLocationDTO} from '../model/entities/ca-object-storage.class';
 import {CaConstellabDocument, CaDocument, CaDocumentDatasource} from '../model/entities/project/ca-document.class';
 import {CaProjectUserConfig} from '../model/entities/project/ca-project-user.class';
 import {CaActivity} from '../model/entities/ca-activity.class';
@@ -279,12 +279,17 @@ export class CaProjectService {
 
 
   /////////////////////////////// Project Bucket ///////////////////////////////////////////
-  public getProjectBuckets(projectId: string): Observable<CaProjectStorageDTO | null> {
-    return this.apiService.get(`${this.route}/${projectId}/storage`, CaBucketFull);
+  public getProjectStorages(projectId: string): Observable<CaProjectStorageDTO | null> {
+    return this.apiService.get(`${this.route}/${projectId}/storage`, CaProjectStorageDTO);
   }
 
   public createProjectBuckets(projectId: string, createBucket: CaProjectStorageDTO): Observable<CaProjectStorageDTO> {
     return this.apiService.post(`${this.route}/${projectId}/storage`, createBucket, CaProjectStorageDTO);
+  }
+
+  public findAccessibleProjectBucketLocation(page: number, size: number): Observable<ClPageI<CaBucketLocationDTO>> {
+    return this.apiService.get(`${this.route}/storage/buckets`, CaBucketLocationDTO,
+      {resultIsPaginated: true, page: page, pageSize: size});
   }
 
   /////////////////////////////// Project user ///////////////////////////////////////////

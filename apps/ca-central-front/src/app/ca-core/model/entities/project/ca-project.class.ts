@@ -12,7 +12,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
 import {CaUser} from '../ca-user.class';
-import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
+import {CaBucketLocationDTO} from '../ca-object-storage.class';
 
 export type CaProjectStatus = 'ACTIVE' | 'IN_PROGRESS' | 'ARCHIVED';
 
@@ -105,11 +105,12 @@ export class CnSaveProjectDTO {
   startingDate: DateTime;
   @ClLuxonDateTransform()
   endingDate: DateTime;
+
   // only for project level in creation
-  @Type(() => CaCloudProviderRegion)
-  mainRegion?: CaCloudProviderRegion;
-  @Type(() => CaCloudProviderRegion)
-  backupRegion?: CaCloudProviderRegion;
+  @Type(() => CaBucketLocationDTO)
+  mainStorage?: CaBucketLocationDTO;
+  @Type(() => CaBucketLocationDTO)
+  backupStorage?: CaBucketLocationDTO;
 }
 
 /**
@@ -151,9 +152,9 @@ export interface CaProjectTreeDto {
 }
 
 export class CaProjectStorageDTO {
-  @Type(() => CaCloudProviderRegion)
-  mainRegion: CaCloudProviderRegion;
-
-  @Type(() => CaCloudProviderRegion)
-  backupRegion?: CaCloudProviderRegion;
+  // only for project level in creation
+  @Type(() => CaBucketLocationDTO)
+  mainStorage: CaBucketLocationDTO;
+  @Type(() => CaBucketLocationDTO)
+  backupStorage?: CaBucketLocationDTO;
 }

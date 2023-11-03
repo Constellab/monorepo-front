@@ -17,7 +17,7 @@ import {
   CaSpaceUserSearchFormComponent
 } from './component/ca-space-user-search-form/ca-space-user-search-form.component';
 import {CaSelectSpaceComponent} from './component/ca-select-space/ca-select-space.component';
-import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-provider-core.module';
+import {CaObjectStorageCoreModule} from '../ca-object-storage-core/ca-object-storage-core.module';
 
 
 @NgModule({
@@ -56,7 +56,7 @@ import {CaCloudProviderCoreModule} from '../ca-cloud-provider-core/ca-cloud-prov
     RouterModule,
 
     CaCoreModule,
-    CaCloudProviderCoreModule,
+    CaObjectStorageCoreModule,
   ],
 })
 export class CaSpaceCoreModule {

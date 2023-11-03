@@ -2,9 +2,6 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CaCoreModule} from '../../ca-core.module';
 import {CaLabInstanceCardComponent} from './component/ca-lab-instance-card/ca-lab-instance-card.component';
-import {
-  CaSelectAccessibleLabInstanceOptionsComponent
-} from './component/ca-select-accessible-lab-instance-options/ca-select-accessible-lab-instance-options.component';
 import {RouterModule} from '@angular/router';
 import {CaLabInstanceTableComponent} from './component/ca-lab-instance-table/ca-lab-instance-table.component';
 import {
@@ -42,6 +39,8 @@ import {
 import {
   CaLabBackupHistoryTableComponent
 } from './component/ca-lab-backup-history-table/ca-lab-backup-history-table.component';
+import {CaSelectLabComponent} from './component/ca-select-lab/ca-select-lab.component';
+import {CaLabInlineComponent} from './component/ca-lab-inline/ca-lab-inline.component';
 
 /**
  * Core module for Lab and LabInstance
@@ -49,7 +48,6 @@ import {
 @NgModule({
   declarations: [
     CaLabInstanceCardComponent,
-    CaSelectAccessibleLabInstanceOptionsComponent,
     CaLabInstanceTableComponent,
     CaLabInstanceAdminFormDialogComponent,
     CaLabInstanceStatusDialogComponent,
@@ -64,10 +62,11 @@ import {
     CaLabFreeTrialCardInfoComponent,
     CaLabFreeTrialCreateButtonComponent,
     CaLabBackupHistoryTableComponent,
+    CaSelectLabComponent,
+    CaLabInlineComponent,
   ],
   exports: [
     CaLabInstanceCardComponent,
-    CaSelectAccessibleLabInstanceOptionsComponent,
     CaLabInstanceTableComponent,
     CaLabInstanceAdminFormDialogComponent,
     CaLabLoginButtonComponent,
@@ -81,6 +80,8 @@ import {
     CaLabFreeTrialCardInfoComponent,
     CaLabFreeTrialCreateButtonComponent,
     CaLabBackupHistoryTableComponent,
+    CaSelectLabComponent,
+    CaLabInlineComponent,
   ],
   imports: [
     CommonModule,

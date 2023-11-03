@@ -10,30 +10,30 @@
   <form (ngSubmit)="submit()" id="cloud-provider-form" [formGroup]="formGp">
 
 
-    <!--  main region  -->
+    <!--  main storage  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'project_main_storage_region' | translate}}</mat-label>
-      <mat-select formControlName="mainRegion" required [placeholder]="'project_main_storage_region' | translate">
-        <ca-select-cloud-provider-region-options mode="current-space-s3"></ca-select-cloud-provider-region-options>
+      <mat-label>{{'project_main_storage_location' | translate}}</mat-label>
+      <mat-select formControlName="mainStorage" required [placeholder]="'project_main_storage_location' | translate">
+        <ca-bucket-location-select-options></ca-bucket-location-select-options>
       </mat-select>
-      <mat-error *ngIf="formGp.get('mainRegion').hasError('required')">
-        {{'project_main_storage_region' | flErrorRequired}}
+      <mat-error *ngIf="formGp.get('mainStorage').hasError('required')">
+        {{'project_main_storage_location' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
 
-    <!--  backup region  -->
+    <!--  backup storage  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'project_backup_storage_region' | translate}}</mat-label>
-      <mat-select formControlName="backupRegion" [placeholder]="'project_backup_storage_region' | translate">
-        <ca-select-cloud-provider-region-options mode="current-space-s3"></ca-select-cloud-provider-region-options>
+      <mat-label>{{'project_backup_storage_location' | translate}}</mat-label>
+      <mat-select formControlName="backupStorage" [placeholder]="'project_backup_storage_location' | translate">
+        <ca-bucket-location-select-options></ca-bucket-location-select-options>
       </mat-select>
-      <mat-error *ngIf="formGp.get('backupRegion').hasError('required')">
-        {{'project_backup_storage_region' | flErrorRequired}}
+      <mat-error *ngIf="formGp.get('backupStorage').hasError('required')">
+        {{'project_backup_storage_location' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
 
-    <mat-error *ngIf="formGp.hasError('sameBackupRegion')">
-      {{'project_storage_region_same_error' | translate}}
+    <mat-error *ngIf="formGp.hasError('sameBackupStorage')">
+      {{'project_storage_location_same_error' | translate}}
     </mat-error>
 
   </form>

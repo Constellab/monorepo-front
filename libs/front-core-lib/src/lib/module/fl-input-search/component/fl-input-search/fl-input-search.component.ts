@@ -12,11 +12,16 @@ import {
 } from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {FormControl} from '@angular/forms';
-import {FlInputSearchOptionDirective} from '../../directive/fl-input-search-option.directive';
-import {FlViewContext} from '../../../../model/fl-view-context.class';
+import {
+  FlInputSearchOptionContext,
+  FlInputSearchOptionDirective
+} from '../../directive/fl-input-search-option.directive';
 import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
 import {ClHelpService, clRxjsElasticSearch} from '@monorepo/core-lib';
-import {FlInputSearchPrefixDirective} from '../../directive/fl-input-search-prefix.directive';
+import {
+  FlInputSearchPrefixContext,
+  FlInputSearchPrefixDirective
+} from '../../directive/fl-input-search-prefix.directive';
 
 /**
  * Additional config, if provided, a button is showed in the input
@@ -84,10 +89,10 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
   @ViewChild('input', {static: false, read: ElementRef}) input: ElementRef<HTMLInputElement>;
 
   // get the option template
-  @ContentChild(FlInputSearchOptionDirective, {read: TemplateRef}) optionTemplate: TemplateRef<FlViewContext<T>>;
+  @ContentChild(FlInputSearchOptionDirective, {read: TemplateRef}) optionTemplate: TemplateRef<FlInputSearchOptionContext<T>>;
 
   // get the prefix template
-  @ContentChild(FlInputSearchPrefixDirective, {read: TemplateRef}) prefixTemplate?: TemplateRef<FlViewContext<T>>;
+  @ContentChild(FlInputSearchPrefixDirective, {read: TemplateRef}) prefixTemplate?: TemplateRef<FlInputSearchPrefixContext<T>>;
 
   items$: Observable<T[]>;
 
@@ -167,11 +172,19 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
    * When the input value is a string, it means that the user is typing something, so we consider
    * that there is not value for the prefix template
    */
-  getPrefixTemplateContext(): FlViewContext<T> {
+  getPrefixTemplateContext(): FlInputSearchPrefixContext<T> {
     const selectedItem: T | null = this._selectedItem && typeof this.inputControl.value !== 'string' ?
       this._selectedItem : null;
     return {
-      $implicit: selectedItem
+      $implicit: selectedItem,
+      flInputSearchPrefix: selectedItem
+    };
+  }
+
+  getOptionTemplateContext(item: T): FlInputSearchOptionContext<T> {
+    return {
+      $implicit: item,
+      flInputSearchOption: item
     };
   }
 

@@ -11,9 +11,6 @@ import {
   CaAdminCloudProvidersListComponent
 } from './component/ca-admin-cloud-providers-list/ca-admin-cloud-providers-list.component';
 import {CaCloudProviderCoreModule} from '../ca-core/entity-module/ca-cloud-provider-core/ca-cloud-provider-core.module';
-import {
-  CaAdminBucketCredentialsListComponent
-} from './component/ca-admin-bucket-credentials-list/ca-admin-bucket-credentials-list.component';
 import {CaObjectStorageCoreModule} from '../ca-core/entity-module/ca-object-storage-core/ca-object-storage-core.module';
 import {
   CaAdminCloudProviderRegionsListComponent
@@ -36,6 +33,13 @@ import {
 } from './component/ca-admin-cloud-provider-region-table/ca-admin-cloud-provider-region-table.component';
 import {CaConfigCoreModule} from '../ca-core/entity-module/ca-config-core/ca-config-core.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CaBucketFormDialogComponent} from './component/bucket/ca-bucket-form-dialog/ca-bucket-form-dialog.component';
+import {CaBucketTableComponent} from './component/bucket/ca-bucket-table/ca-bucket-table.component';
+import {CaBucketSearchComponent} from './component/bucket/ca-bucket-search/ca-bucket-search.component';
+import {CaBucketSearchFormComponent} from './component/bucket/ca-bucket-search-form/ca-bucket-search-form.component';
+import {
+  CaBucketCredentialsCoreModule
+} from '../ca-core/entity-module/ca-bucket-credentials-core/ca-bucket-credentials-core.module';
 
 /**
  * Module only accessible by the admins
@@ -45,7 +49,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     CaAdminOthersPageComponent,
     CaAdminPageComponent,
     CaAdminCloudProvidersListComponent,
-    CaAdminBucketCredentialsListComponent,
     CaAdminCloudProviderRegionsListComponent,
     CaAdminSpacesPageComponent,
     CaAdminUsersPageComponent,
@@ -54,6 +57,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     CaAdminServerInfoPageComponent,
     CaAdminCloudProviderRegionFormDialogComponent,
     CaAdminCloudProviderRegionTableComponent,
+
+    CaBucketFormDialogComponent,
+    CaBucketTableComponent,
+    CaBucketSearchComponent,
+    CaBucketSearchFormComponent,
   ],
   imports: [
     CommonModule,
@@ -68,6 +76,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     CaObjectStorageCoreModule,
     CaUserCoreModule,
     CaConfigCoreModule,
+    CaBucketCredentialsCoreModule,
 
     CaAdminRoutingModule,
   ],

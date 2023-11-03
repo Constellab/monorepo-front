@@ -1,6 +1,6 @@
 import {Type} from 'class-transformer';
-import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
 import {CaSpace} from './ca-space.class';
+import {CaBucketLocationDTO} from '../ca-object-storage.class';
 
 
 export class CaSpaceSettingsDto {
@@ -10,18 +10,27 @@ export class CaSpaceSettingsDto {
 
   nbLicenses: number;
 
-  @Type(() => CaCloudProviderRegion)
-  defaultStorageRegion: CaCloudProviderRegion;
+  @Type(() => CaBucketLocationDTO)
+  defaultProjectStorageLocation: CaBucketLocationDTO;
 
-  @Type(() => CaCloudProviderRegion)
-  defaultBackupStorageRegion?: CaCloudProviderRegion;
+  @Type(() => CaBucketLocationDTO)
+  defaultBackupProjectStorageLocation ?: CaBucketLocationDTO;
 }
 
 export interface CaSaveSpaceDTO {
   id: string;
   name: string;
   nbLicenses: number;
-  defaultStorageRegion: CaCloudProviderRegion;
-  defaultBackupStorageRegion?: CaCloudProviderRegion;
+
+  defaultProjectStorageLocation: CaBucketLocationDTO;
+  defaultProjectBackupStorageLocation?: CaBucketLocationDTO;
+}
+
+/**
+ * Simple for to request new licenses for an space
+ */
+export interface CaRequestNewLicensesDto {
+  nbLicenses: number;
+  text?: string;
 }
 

@@ -134,8 +134,8 @@
   "project_notif_experiment": "Sur création, modification, suppression d'expérience",
   "project_notif_document": "Sur création, modification, suppression de document",
   "project_notif_saved": "Configuration sauvegardée",
-  "project_main_storage_region": "Region du stockage",
-  "project_backup_storage_region": "Region du stockage de backup",
-  "project_storage_region_same_error": "Les régions de stockage et de backup doivent être différentes",
+  "project_main_storage_location": "Lieu du stockage",
+  "project_backup_storage_location": "Lieu du stockage de backup",
+  "project_storage_location_same_error": "Les lieux de stockage et de backup doivent être différentes",
   "project_storage_configured": "Stockage configuré"
 }

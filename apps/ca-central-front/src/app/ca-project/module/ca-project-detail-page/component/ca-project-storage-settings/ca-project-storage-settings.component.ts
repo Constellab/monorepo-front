@@ -28,7 +28,7 @@ export class CaProjectStorageSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectBucket$ = this.state.getProjectId$().pipe(
-      mergeMap(projectId => this.projectService.getProjectBuckets(projectId))
+      mergeMap(projectId => this.projectService.getProjectStorages(projectId))
     );
   }
 
@@ -40,8 +40,8 @@ export class CaProjectStorageSettingsComponent implements OnInit {
       mode: 'update',
       projectId: projectId,
       object: {
-        mainRegion: projectBucket.mainRegion,
-        backupRegion: projectBucket.backupRegion,
+        mainStorage: projectBucket.mainStorage,
+        backupStorage: projectBucket.backupStorage,
       }
     };
     this.dialogService.openSmallDialog(CaProjectConfigureStorageComponent, {data: input}).afterClosed().subscribe(

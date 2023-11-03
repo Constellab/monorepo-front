@@ -81,6 +81,18 @@ export class CaObjectStorageService {
     );
   }
 
+  public getAllCredentialsByCurrentSpace(page: number, size: number): Observable<ClPageI<CaBucketCredentials>> {
+    return this.apiService.get(this.credentialsRoute + '/current-space', CaBucketCredentials, {
+      page: page, pageSize: size, resultIsPaginated: true
+    });
+  }
+
+  public getAllCredentialsByCurrentSpaceDatasource(): CaBucketCredentialsDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number) => this.getAllCredentialsByCurrentSpace(page, pageSize), 20
+    );
+  }
+
   public getCredentialsData(id: string, userCredentials: ClCredentials): Observable<CaBucketCredentialsFull> {
     return this.apiService.post(`${this.credentialsRoute}/${id}/data`, userCredentials, CaBucketCredentialsFull);
   }

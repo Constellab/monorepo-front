@@ -41,6 +41,15 @@ import {
 import {
   CaCloudProviderCoreModule
 } from '../../ca-core/entity-module/ca-cloud-provider-core/ca-cloud-provider-core.module';
+import {
+  CaObjectStorageCoreModule
+} from '../../ca-core/entity-module/ca-object-storage-core/ca-object-storage-core.module';
+import {
+  CaCurrentSpaceOtherPageComponent
+} from './component/ca-current-space-other-page/ca-current-space-other-page.component';
+import {
+  CaBucketCredentialsCoreModule
+} from '../../ca-core/entity-module/ca-bucket-credentials-core/ca-bucket-credentials-core.module';
 
 @NgModule({
   declarations: [
@@ -57,6 +66,7 @@ import {
     CaCurrentSpaceLabInstancesPageComponent,
     CaCurrentSpaceProjectsPageComponent,
     CaCurrentSpaceTeamsPageComponent,
+    CaCurrentSpaceOtherPageComponent,
   ],
   exports: [
     CaSpaceInvitFormDialogComponent,
@@ -75,7 +85,8 @@ import {
     CaLabCoreModule,
     CaProjectCoreModule,
     CaCloudProviderCoreModule,
+    CaObjectStorageCoreModule,
+    CaBucketCredentialsCoreModule,
   ],
 })
-export class CaSpacePageModule {
-}
+export class CaSpacePageModule {}

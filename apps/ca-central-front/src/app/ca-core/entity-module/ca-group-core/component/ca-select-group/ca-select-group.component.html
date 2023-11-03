@@ -6,7 +6,7 @@
                  [disabled]="disabled"
                  [minInputSearchLength]="0">
 
-  <div class="photo" *flInputSearchPrefix="let group">
+  <div class="photo" *flInputSearchPrefix="datasource as group">
     <mat-icon *ngIf="!group || group.type === 'TEAM'; else singleUser" flIcon="group"></mat-icon>
 
     <ng-template #singleUser>
@@ -15,5 +15,5 @@
     </ng-template>
   </div>
 
-  <ca-group-inline *flInputSearchOption="let group" [group]="group" [disableLink]="true"></ca-group-inline>
+  <ca-group-inline *flInputSearchOption="datasource as group" [group]="group" [disableLink]="true"></ca-group-inline>
 </fl-input-search>

@@ -29,7 +29,6 @@ export class CaProjectConfigureStorageComponent
               snackBarService: FlSnackBarService,
               private projectService: CaProjectService) {
     super(input, snackBarService, dialogRef);
-    console.log(input);
   }
 
   ngOnInit(): void {
@@ -38,9 +37,9 @@ export class CaProjectConfigureStorageComponent
 
   buildForm(): FormGroup<CaProjectStorageDTO> {
     return new FormBuilder().group({
-      mainRegion: [null, Validators.required],
-      backupRegion: [null],
-    }, {validator: this.differentBackupRegionValidator()});
+      mainStorage: [{value: null, disabled: this.input.object.mainStorage != null}, Validators.required],
+      backupStorage: [{value: null, disabled: this.input.object.backupStorage != null}],
+    }, {validator: this.differentBackupStorageValidator()});
   }
 
   create(): Observable<CaProjectStorageDTO> {
@@ -60,12 +59,12 @@ export class CaProjectConfigureStorageComponent
     return this.projectService.createProjectBuckets(this.input.projectId, formValue);
   }
 
-  private differentBackupRegionValidator(): ValidatorFn {
+  private differentBackupStorageValidator(): ValidatorFn {
     return (control: FormGroup<CaProjectStorageDTO>): { [key: string]: any } => {
-      if (control.value.mainRegion == null || control.value.backupRegion == null) return null;
+      if (control.value.mainStorage == null || control.value.backupStorage == null) return null;
 
-      if (control.value.mainRegion.id === control.value.backupRegion.id) {
-        return {sameBackupRegion: true};
+      if (control.value.mainStorage.bucketId === control.value.backupStorage.bucketId) {
+        return {sameBackupStorage: true};
       }
       return null;
     };
