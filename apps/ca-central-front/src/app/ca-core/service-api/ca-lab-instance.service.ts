@@ -196,6 +196,9 @@ export class CaLabInstanceService {
     return this.apiService.get(`${this.route}/${labId}/project`, CaLabInstanceProject);
   }
 
+  public syncLabProject(labId: string, projectId: string): Observable<void>{
+    return this.apiService.put(`${this.route}/${labId}/project/${projectId}/sync`, null);
+  }
   //////////////////////////// LAB MANAGER ////////////////////////////////
 
   public updateLabManager(id: string, version: string): Observable<CaLabInstanceStatusDTO> {

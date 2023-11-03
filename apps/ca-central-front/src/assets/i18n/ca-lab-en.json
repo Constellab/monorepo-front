@@ -129,6 +129,8 @@
   "lab_remove_project_confirmation": "Are you sure you want to remove the project from the lab? The project will still exist but will no longer be accessible in the lab. If an experience or a report in the lab is attached to this project, the project cannot be deleted.",
   "lab_project_removed": "Project removed from lab",
   "no_lab_project": "No project in the lab",
+  "sync_lab_project": "Sync project with lab",
+  "lab_project_synced": "Project synced with lab",
   "codelab_info": "Codelab information",
   "codelab_description": "The codelab is the integrated development environment in the lab. It allows you to develop bricks containing tasks, protocols and resources.",
   "codelab_user": "Codelab user",

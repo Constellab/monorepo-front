@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {
   CaLabInstanceProject,
   CaLabInstanceProjectDatasource
@@ -7,6 +7,7 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
+  FlSnackBarService,
   FlTableAbstractDirective
 } from '@monorepo/front-core-lib';
 import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
@@ -16,19 +17,22 @@ import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-insta
   templateUrl: './ca-lab-instance-projects-table.component.html',
   styleUrls: ['./ca-lab-instance-projects-table.component.scss']
 })
-export class CaLabInstanceProjectsTableComponent extends FlTableAbstractDirective<CaLabInstanceProject>
-  implements OnInit {
+export class CaLabInstanceProjectsTableComponent extends FlTableAbstractDirective<CaLabInstanceProject> {
 
   @Input() datasource: CaLabInstanceProjectDatasource;
 
   @Input() labInstanceId: string;
 
   constructor(private labInstanceService: CaLabInstanceService,
-              private dialogService: FlDialogService) {
+              private dialogService: FlDialogService,
+              private snackbarService: FlSnackBarService) {
     super(['project', 'createdBy', 'createdAt', 'actions']);
   }
 
-  ngOnInit(): void {
+  syncLabProject(labProject: CaLabInstanceProject): void {
+    this.labInstanceService.syncLabProject(this.labInstanceId, labProject.project.id).subscribe(
+      () => this.snackbarService.openSuccessMessage({text: 'lab_project_synced', translateText: true})
+    );
   }
 
   openDeleteProjectDialog(labProject: CaLabInstanceProject): void {

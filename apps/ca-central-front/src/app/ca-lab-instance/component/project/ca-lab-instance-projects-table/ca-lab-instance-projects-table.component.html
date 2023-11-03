@@ -41,7 +41,10 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
+        <button mat-menu-item type="button" (click)="syncLabProject(labInstance)">
+          <mat-icon>sync</mat-icon>
+          <span>{{'sync_lab_project' | translate}}</span>
+        </button>
         <button mat-menu-item type="button" (click)="openDeleteProjectDialog(labInstance)">
           <mat-icon color="warn">delete</mat-icon>
           <span class="g-warn-text">{{'lab_remove_project' | translate}}</span>
