@@ -92,8 +92,14 @@ export class LabExperiment extends LabEntityWithTag implements LabProjectObject 
   @Expose({name: 'pid_status'})
   pidStatus: LabExperimentPidStatus;
 
+  // return true if basic info can be edited (like title, description...)
+  isInfoEditable(): boolean {
+    return !this.isArchived && !this.isValidated;
+  }
+
+  // return true if the experiment can be edited (like protocol, validation)
   isEditable(): boolean {
-    return !this.isArchived && !this.isValidated && !this.isRunning() && this.status.value !== 'IN_QUEUE';
+    return this.isInfoEditable() && !this.isRunning() && this.status.value !== 'IN_QUEUE';
   }
 
   isRunning(): boolean {

@@ -15,7 +15,7 @@
     <!--  Project  -->
     <lab-project-inline-select class="separator" [(ngModel)]="experiment.project"
                                (selectionChange)="updateProject($event)"
-                               [disabled]="!experiment.isEditable()"></lab-project-inline-select>
+                               [disabled]="!experiment.isInfoEditable()"></lab-project-inline-select>
 
     <!--  Type  -->
     <fl-text-icon class="separator">

@@ -13,7 +13,7 @@
     </mat-icon>
 
     <h1 flElementEditable (flElementValueChange)="updateTitle($event)"
-        [flElementDisabled]="!experiment.isEditable()" class="title">{{experiment.title}}</h1>
+        [flElementDisabled]="!experiment.isInfoEditable()" class="title">{{experiment.title}}</h1>
   </fl-text-icon>
 
 
@@ -42,12 +42,14 @@
     </button>
 
     <!--  Update buttons  -->
-    <ng-container *ngIf="experiment.isEditable()">
+    <ng-container *ngIf="experiment.isInfoEditable()">
       <button mat-menu-item type="button" (click)="openUpdateDialog()">
         <mat-icon>edit</mat-icon>
         {{'biox.update_experiment' | translate}}
       </button>
+    </ng-container>
 
+    <ng-container *ngIf="experiment.isEditable()">
       <button mat-menu-item type="button" (click)="openValidationDialog()">
         <mat-icon flIcon="validated"></mat-icon>
         {{'biox.validate_experiment' | translate}}
