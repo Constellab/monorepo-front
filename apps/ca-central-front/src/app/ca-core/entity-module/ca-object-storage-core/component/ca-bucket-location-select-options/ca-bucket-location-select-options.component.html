@@ -1,4 +1,6 @@
 <fl-infinite-scroll [datasource]="datasource">
+  <mat-option [value]="null">None</mat-option>
+
   <ng-container *ngIf="locations$ | async as locations">
     <mat-optgroup [label]="'cloud_location' | translate">
       <mat-option *ngFor="let location of locations.cloud" [value]="location">
