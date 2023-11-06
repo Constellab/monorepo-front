@@ -20,8 +20,6 @@ export class LabMonitoringVenvsPageComponent implements OnInit {
 
   venvsList: LabVenvArrayObs;
 
-  displayedColumns: string[] = ['name', 'type', 'configFileOrigin', 'createdAt', 'actions'];
-
   constructor(private venvService: LabVenvService,
               private dialogService: FlDialogService) {
   }

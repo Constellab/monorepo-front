@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {LabVenvArrayObs, LabVenvBasicInfo} from '../../../model/entities/lab-venv.entity';
 import {
@@ -17,17 +17,15 @@ import {LabVenvService} from '../../../entity-service/lab-venv.service';
   templateUrl: './lab-venv-table.component.html',
   styleUrls: ['./lab-venv-table.component.scss']
 })
-export class LabVenvTableComponent extends FlTableAbstractDirective<LabVenvBasicInfo>
-  implements OnInit {
+export class LabVenvTableComponent {
 
   @Input() datasource: LabVenvArrayObs;
 
+  @Input() columns: FlTableColumnStatic<LabVenvBasicInfo>[]
+    = ['name', 'type', 'configFileOrigin', 'createdAt', 'actions'];
+
   constructor(private dialogService: FlDialogService,
               private venvService: LabVenvService) {
-    super(['name', 'type', 'configFileOrigin', 'createdAt', 'actions']);
-  }
-
-  ngOnInit(): void {
   }
 
   openVenvDetailDialog(venv: LabVenvBasicInfo): void {

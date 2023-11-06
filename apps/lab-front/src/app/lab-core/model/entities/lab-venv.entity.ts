@@ -14,6 +14,10 @@ export class LabVEnvCreationInfo {
   @Expose({name: 'origin_env_config_file_path'})
   originEnvConfigFilePath: string;
 
+  @Expose({name: 'env_type'})
+  envType: 'conda' | 'mamba' | 'pip';
+
+
 }
 
 export class LabVenvBasicInfo {
