@@ -618,7 +618,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
       // if the action is attached to an existing node
       // we check if this is a finished process
-    } else if (process && process instanceof LabProcess && process.isFinished()) {
+    } else if (process && !this.experimentState.currentExperiment.isDraft() &&
+      process instanceof LabProcess && process.isFinished()) {
       dialogInput = {
         title: 'biox.update_finished_process',
         content: 'biox.update_finished_process_confirmation',
