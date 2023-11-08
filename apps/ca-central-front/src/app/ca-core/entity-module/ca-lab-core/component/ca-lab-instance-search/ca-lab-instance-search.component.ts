@@ -62,15 +62,29 @@ export class CaLabInstanceSearchComponent implements OnInit {
   }
 
   private getSavedSearch(): FlSavedSearch[] {
-    return [{
-      searchName: 'ca-lab-instance',
-      id: null,
-      label: 'All labs',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {} as Partial<CaLabInstanceSearchFields>
-    }];
+    return [
+      {
+        searchName: 'ca-lab-instance',
+        id: null,
+        label: 'All labs',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {} as Partial<CaLabInstanceSearchFields>
+      },
+      {
+        searchName: 'ca-lab-instance',
+        id: null,
+        label: 'Running cloud',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: false,
+        filtersCriteria: {
+          type: 'CLOUD',
+          currentStatus: 'LAB_RUNNING'
+        } as Partial<CaLabInstanceSearchFields>
+      }
+    ];
   }
 
   private getDatasource(): CaLabInstanceDatasource {
