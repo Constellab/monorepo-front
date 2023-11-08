@@ -15,10 +15,12 @@ import {BnBioNetworkLinksRenderer} from './bn-bio-network-links.renderer';
 import {BnBioNetworkGridState} from '../state/bn-bio-network-grid.state';
 import {BnBioNetworkEngineState} from '../state/bn-bio-network-engine.state';
 import {FlCoord, FlThemeDetail, FlThemeService} from '@monorepo/front-core-lib';
+
 export let ForceGraph: any = null;
 
 if (typeof window !== 'undefined') {
-  ForceGraph = require('force-graph');
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  ForceGraph = require('force-graph').default;
 }
 
 export interface BnBioNetworkGraphRenderer {
