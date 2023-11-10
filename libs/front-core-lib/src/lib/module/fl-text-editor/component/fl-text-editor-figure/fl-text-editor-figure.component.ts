@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   HostBinding,
@@ -76,9 +75,8 @@ export class FlTextEditorFigureComponent extends FlTextEditorElementDirective im
     }
     this.disabled$ = this.getDisabled$();
     // let the parent have its width
-    setTimeout(() => this.initSize(), 0)
+    setTimeout(() => this.initSize(), 0);
   }
-
 
 
   private initSize(): void {

@@ -27,6 +27,11 @@ body {
     padding: 0;
   }
 
+  // disable border radius of dialog
+  .g-dialog-no-border-radius .mat-mdc-dialog-surface {
+    border-radius: 0 !important;
+  }
+
   // Style the component inside the dialog to be full height of parent
   .mat-mdc-dialog-surface > *:first-child {
     display: flex;
