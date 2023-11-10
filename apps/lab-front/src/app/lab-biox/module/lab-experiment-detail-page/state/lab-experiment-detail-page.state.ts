@@ -5,23 +5,25 @@ import {LabExperiment} from '../../../../lab-core/model/entities/lab-experiment.
 import {filter, map, tap} from 'rxjs/operators';
 import {LabProtocol} from '../../../../lab-core/model/entities/process/lab-protocol.entity';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
-import {LabTag} from '../../../../lab-core/model/entities/lab-tag.entity';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlQuillJson,
-  FlSnackBarService
+  FlSnackBarService,
+  FlTagDatasource
 } from '@monorepo/front-core-lib';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {PrWorkflow, PrWorkflowLayer, PrWorkflowNodeProtocol} from '@monorepo/protocol';
 import {LabWorkflowFactory} from '../model/lab-workflow.factory';
+import {LabTagService} from '../../../../lab-core/entity-service/lab-tag.service';
 
 @Injectable()
 export class LabExperimentDetailPageState {
 
   private experiment$: BehaviorSubject<LabExperiment>;
   private experimentDescription$: BehaviorSubject<FlQuillJson>;
+  private tags$: FlTagDatasource;
 
   public workflow: PrWorkflow;
   private mainProtocol$: BehaviorSubject<LabProtocol>;
@@ -41,7 +43,8 @@ export class LabExperimentDetailPageState {
               private protocolService: LabProtocolService,
               private workflowFactory: LabWorkflowFactory,
               private snackBarService: FlSnackBarService,
-              private dialogService: FlDialogService) {
+              private dialogService: FlDialogService,
+              private tagService: LabTagService) {
   }
 
   public init(experimentId: string): void {
@@ -55,6 +58,7 @@ export class LabExperimentDetailPageState {
         error: error => this.experiment$.error(error)
       }
     );
+    this.tags$ = this.tagService.getEntityTagsDatasource('EXPERIMENT', experimentId);
   }
 
   private getExperimentSuccess(experiment: LabExperiment): void {
@@ -104,8 +108,8 @@ export class LabExperimentDetailPageState {
     this.checkAndStartRefreshProtocol();
   }
 
-  public updateTags(tags: LabTag[]): void {
-    this.experiment$.value.tags = tags;
+  public getTags$(): FlTagDatasource {
+    return this.tags$;
   }
 
   public getDescription$(): Observable<FlQuillJson> {
@@ -131,7 +135,7 @@ export class LabExperimentDetailPageState {
    * Check if the experiment is waiting or running and start to refresh the protocol if yes
    */
   private checkAndStartRefreshProtocol(): void {
-    if(this.timeout) return;
+    if (this.timeout) return;
     const mainProtocol = this.getCurrentMainProtocol();
     const experiment = this.currentExperiment;
     // Stop refresh if experiment is not running (including queue) and the main protocol is finished
@@ -311,5 +315,6 @@ export class LabExperimentDetailPageState {
     this.experimentDescription$.complete();
     this.stopProtocolsRefresh();
     this.workflow?.destroy();
+    this.tags$?.disconnect();
   }
 }

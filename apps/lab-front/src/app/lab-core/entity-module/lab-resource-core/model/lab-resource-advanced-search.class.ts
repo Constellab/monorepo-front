@@ -3,8 +3,7 @@ import {
   FlSearchConverter,
   FlSearchCriteriaConverter,
   FlSearchDateInterval,
-  FlTag,
-  FlTagHelper
+  FlTag
 } from '@monorepo/front-core-lib';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabSearchConverter} from '../../../model/global/lab-search-converter.class';
@@ -78,7 +77,7 @@ export class LabResourceSearch {
     },
     resourceTypingNames: {key: 'resource_typing_names', operator: 'IN'},
     name: {key: 'name', operator: 'CONTAINS'},
-    tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
+    tags: {key: 'tags', operator: 'EQ'},
     origin: {key: 'origin', operator: 'EQ'},
     data: {key: 'data', operator: 'MATCH'},
     experiment: {key: 'experiment', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},

@@ -47,6 +47,7 @@ import {
 import {FlTranslateModule} from '../fl-translate/fl-translate.module';
 
 import {FlTextEditorFigureComponent} from './component/fl-text-editor-figure/fl-text-editor-figure.component';
+import {FlImageModule} from '../fl-image/fl-image.module';
 
 
 @NgModule({
@@ -87,6 +88,7 @@ import {FlTextEditorFigureComponent} from './component/fl-text-editor-figure/fl-
     FlTranslateModule,
     FlResizeModule,
     FlDialogModule,
+    FlImageModule,
   ],
 })
 export class FlTextEditorModule {
@@ -116,7 +118,7 @@ export class FlTextEditorModule {
         {blot: FlTextEditorFormulaBlot, componentType: FlTextEditorFormulaComponent},
         {blot: FlTextEditorVideoBlot, componentType: FlTextEditorVideoComponent},
         ...FlTextEditorModule.config.blots
-      ]
+      ];
 
       // Register quill blots
       for (const blot of blots) {

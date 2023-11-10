@@ -17,11 +17,11 @@ import {map, mergeMap, startWith, tap} from 'rxjs/operators';
 import {TAB} from '@angular/cdk/keycodes';
 import {ClHelpService, clRxjsElasticSearch} from '@monorepo/core-lib';
 import {FlFormFieldDirective} from '../../../../abstract-directive/form/fl-form-field.directive';
-import {FlTag, FlTagEntity, FlTagHelper, FlTagService} from '../../fl-tag.class';
+import {FlTag, FlTagEntity, FlTagHelper, FlTagService, FlTagValue} from '../../fl-tag.class';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 
-type FlTagInput = FlTag[] | Record<string, string>
+type FlTagInput = FlTag[] | Record<string, FlTagValue>
 
 @Component({
   selector: 'fl-tag-input',
@@ -226,7 +226,7 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
     if (this.mode === 'array') {
       return innerValue;
     } else {
-      const tags: Record<string, string> = {};
+      const tags: Record<string, FlTagValue> = {};
       for (const tag of innerValue) {
         tags[tag.key] = tag.value;
       }

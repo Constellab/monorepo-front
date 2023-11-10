@@ -19,7 +19,7 @@ export class FlTagColorPipe implements PipeTransform {
       return tagColorer.getTagColor$(tag);
     }
 
-    return of(FlTagHelper.getTagDefaultColor(tag.key, tag.value));
+    return of(FlTagHelper.getTagDefaultColor(tag.key, FlTagHelper.tagValueToString(tag.value)));
   }
 
 }

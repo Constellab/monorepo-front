@@ -188,7 +188,7 @@ export class LabTagDashboardComponent extends FlFormFieldDirective<FlTag[]> impl
         this.tags.splice(index, 1);
       } else {
         // delete only the value
-        const valueIndex = tagEntity.values.indexOf(tag.value);
+        const valueIndex = tagEntity.values.findIndex(value => value === tag.value);
         if (valueIndex >= 0) {
           const newTagEntity = tagEntity.clone();
           newTagEntity.values.splice(valueIndex, 1);

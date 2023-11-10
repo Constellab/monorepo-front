@@ -18,11 +18,6 @@
   </ng-container>
 
   <ng-container *ngIf="resource.isUpdatable()">
-    <button mat-menu-item type="button" (click)="openTagFormDialog()">
-      <mat-icon>local_offer</mat-icon>
-      <span>{{'update_tags' | translate }}</span>
-    </button>
-
     <button mat-menu-item type="button" (click)="openUpdateName()">
       <mat-icon>edit</mat-icon>
       <span>{{'biox.update_resource_name' | translate}}</span>

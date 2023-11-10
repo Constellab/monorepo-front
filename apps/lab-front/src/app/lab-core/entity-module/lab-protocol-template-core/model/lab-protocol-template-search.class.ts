@@ -3,8 +3,7 @@ import {
   FlSearchConverter,
   FlSearchCriteriaConverter,
   FlSearchDateInterval,
-  FlTag,
-  FlTagHelper
+  FlTag
 } from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
@@ -47,7 +46,7 @@ export class LabProtocolTemplateSearch {
    */
   public static advancedSearchConverter: FlSearchCriteriaConverter<LabProtocolTemplateSearchFields> = {
     name: {key: 'name', operator: 'CONTAINS'},
-    tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
+    tags: {key: 'tags', operator: 'EQ'},
     // Date
     createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('created_at'),

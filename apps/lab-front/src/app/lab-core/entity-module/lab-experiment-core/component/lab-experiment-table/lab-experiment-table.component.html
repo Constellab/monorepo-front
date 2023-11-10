@@ -65,8 +65,9 @@
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
       <span> {{'tags' | translate}}</span>
     </mat-header-cell>
+    <!--   TODO use angular v17 defer to load tag only for visible element to prevent nb of request -->
     <mat-cell *matCellDef="let experiment" class="g-column-width-2 tags">
-      <fl-tag-list [tags]="experiment.tags"
+      <fl-tag-list [tags]="experiment | labGetEntityTags"
                    [tagSelectable]="true" (tagSelected)="onTagSelected($event)"></fl-tag-list>
     </mat-cell>
   </ng-container>
@@ -83,35 +84,19 @@
     </mat-cell>
   </ng-container>
 
-
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let experiment">
-      <div>
-        <span>{{experiment[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
-
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
   <ng-container *ngIf="rowSelectable; else notSelectable">
-    <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
-             (click)="rowClicked(row)"
-             flDragHover="drag-element" [flDragHoverMode]="supportedDropType" (flDrop)="onDrop(row, $event)">
+    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
+             (click)="rowClicked(row)">
     </mat-row>
   </ng-container>
 
   <!-- Mode link -->
   <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
-             [routerLink]="row | labDetailRoute"
-             flDragHover="drag-element" [flDragHoverMode]="supportedDropType" (flDrop)="onDrop(row, $event)">
+    <mat-row *matRowDef="let row; columns:columns;" class="g-table-row-selectable"
+             [routerLink]="row | labDetailRoute">
     </mat-row>
   </ng-template>
 </mat-table>

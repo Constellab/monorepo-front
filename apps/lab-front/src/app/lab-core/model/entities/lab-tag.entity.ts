@@ -1,12 +1,15 @@
-import {FlTag, FlTagEntity} from '@monorepo/front-core-lib';
+import {FlTag, FlTagEntity, FlTagValue} from '@monorepo/front-core-lib';
 import {LabEntity} from '../global/lab-entity.entity';
+
+export type LabEntityTagType = 'EXPERIMENT' | 'REPORT' | 'RESOURCE' | 'VIEW' | 'PROTOCOL_TEMPLATE';
+
 
 /**
  * Object representing the tag
  */
 export class LabTag implements FlTag {
   key: string;
-  value: string;
+  value: FlTagValue;
 }
 
 /**
@@ -24,4 +27,3 @@ export class LabTagEntity extends LabEntity implements FlTagEntity {
     return clone;
   }
 }
-

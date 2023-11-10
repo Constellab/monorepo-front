@@ -9,8 +9,7 @@ import {
   FlStatusTransform
 } from '@monorepo/front-core-lib';
 import {Expose, Type} from 'class-transformer';
-import {LabEntityWithTag} from './lab-entity-with-tag.entity';
-import {LabUser} from './lab-user.entity';
+import {LabBaseEntityWithUser, LabUser} from './lab-user.entity';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {DateTime} from 'luxon';
 import {LabProject, LabProjectObject} from './lab-project.class';
@@ -44,9 +43,7 @@ export const labExperimentTypeDict: FlStatusDict<LabExperimentType> = {
   RESOURCE_DOWNLOADER: FlStatusHelper.getInfoStatus('RESOURCE_DOWNLOADER', 'biox.experiment_type_downloader'),
 };
 
-export class LabExperiment extends LabEntityWithTag implements LabProjectObject {
-
-  score: any;
+export class LabExperiment extends LabBaseEntityWithUser implements LabProjectObject {
 
   title: string;
 
@@ -114,7 +111,7 @@ export class LabExperiment extends LabEntityWithTag implements LabProjectObject 
     return this.status.value === 'DRAFT';
   }
 
-  isWaiting(): boolean{
+  isWaiting(): boolean {
     return this.status.value === 'IN_QUEUE';
   }
 

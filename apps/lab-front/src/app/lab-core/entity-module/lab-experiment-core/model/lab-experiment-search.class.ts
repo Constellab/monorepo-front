@@ -3,8 +3,7 @@ import {
   FlSearchConverter,
   FlSearchCriteriaConverter,
   FlSearchDateInterval,
-  FlTag,
-  FlTagHelper
+  FlTag
 } from '@monorepo/front-core-lib';
 import {LabExperimentStatus, LabExperimentType} from '../../../model/entities/lab-experiment.entity';
 import {Type} from 'class-transformer';
@@ -63,7 +62,7 @@ export class LabExperimentSearch {
     title: {key: 'title', operator: 'CONTAINS'},
     type: {key: 'type', operator: 'EQ'},
     status: {key: 'status', operator: 'IN'},
-    tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
+    tags: {key: 'tags', operator: 'EQ'},
     project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
     // Date
     createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},

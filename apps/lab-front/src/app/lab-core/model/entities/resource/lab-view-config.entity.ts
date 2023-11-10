@@ -1,14 +1,14 @@
 import {Expose} from 'class-transformer';
 import {LabResourceViewType} from './lab-resource-view.entity';
-import {LabEntityWithTag} from '../lab-entity-with-tag.entity';
 import {LabFlaggedEntity} from '../../global/lab-flagged-entity.class';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
 import {PrConfigValues} from '@monorepo/protocol';
+import {LabBaseEntityWithUser} from '../lab-user.entity';
 
 /**
  * Represent a view config that the user viewed
  */
-export class LabViewConfig extends LabEntityWithTag implements LabFlaggedEntity {
+export class LabViewConfig extends LabBaseEntityWithUser implements LabFlaggedEntity {
 
   title: string;
 

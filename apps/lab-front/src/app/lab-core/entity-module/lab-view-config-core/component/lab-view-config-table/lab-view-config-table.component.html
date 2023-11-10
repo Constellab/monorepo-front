@@ -79,7 +79,6 @@
 
       <lab-view-config-actions-menu [viewConfig]="viewConfig"
                                     (update)="onUpdate($event)"
-                                    (updateTags)="onUpdateTags(viewConfig, $event)"
                                     mode="icon">
       </lab-view-config-actions-menu>
     </mat-cell>
@@ -91,16 +90,14 @@
   <!-- Mode selectable -->
   <ng-container *ngIf="selectableRow; else notSelectable">
     <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             (click)="rowClicked(row)"
-             flDragHover="drag-element" [flDragHoverMode]="supportedDropType" (flDrop)="onDrop(row, $event)">
+             (click)="rowClicked(row)">
     </mat-row>
   </ng-container>
 
   <!-- Mode link -->
   <ng-template #notSelectable>
     <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             (click)="navigateToViewConfigPage(row)"
-             flDragHover="drag-element" [flDragHoverMode]="supportedDropType" (flDrop)="onDrop(row, $event)">
+             (click)="navigateToViewConfigPage(row)">
     </mat-row>
   </ng-template>
 

@@ -1,9 +1,9 @@
 import {FlEntityPaginatedDatasource, FlQuillJson} from '@monorepo/front-core-lib';
-import {LabEntityWithTag} from '../lab-entity-with-tag.entity';
 import {PrProtocolGraph} from '@monorepo/protocol';
+import {LabBaseEntityWithUser} from '../lab-user.entity';
 
 
-export class LabProtocolTemplate extends LabEntityWithTag {
+export class LabProtocolTemplate extends LabBaseEntityWithUser {
 
   name: string;
 

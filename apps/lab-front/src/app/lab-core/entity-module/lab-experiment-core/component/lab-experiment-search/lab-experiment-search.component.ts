@@ -6,7 +6,6 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
   FlTag,
   FlThemeService
 } from '@monorepo/front-core-lib';
@@ -34,8 +33,6 @@ export class LabExperimentSearchComponent implements OnInit {
   @Output() experimentSelected: EventEmitter<LabExperiment> = new EventEmitter();
 
   datasource: FlDatasourcePaginated<LabExperiment>;
-
-  columns: FlTableColumn<LabExperiment>[] = ['title', 'status', 'tags', 'createdAt'];
 
   constructor(private searchState: FlSearchState<any>,
               private experimentService: LabExperimentService,

@@ -5,6 +5,7 @@ import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-pa
 import {
   FlDebouncer,
   FlQuillJson,
+  FlTagDatasource,
   FlTagDialogService,
   FlTextEditorBasicConfig,
   FlTextEditorConfig
@@ -24,6 +25,7 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
 
   experiment$: Observable<LabExperiment>;
   description: FlQuillJson;
+  tags$: FlTagDatasource;
 
   textEditorConfig: FlTextEditorConfig = new FlTextEditorBasicConfig();
 
@@ -39,6 +41,7 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
     this.experimentState.getDescription$().subscribe(
       description => this.description = description
     );
+    this.tags$ = this.experimentState.getTags$();
 
     // create a debouncer to save the description after x second of idle
     this.descriptionDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
@@ -64,15 +67,9 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
   openTagsFormDialog(): void {
     const experiment = this.experimentState.currentExperiment;
     this.tagDialogService.openUpdateTagDialog({
-      tags: experiment.tags,
+      tags: this.experimentState.getTags$(),
       updateMethod: (tags) => this.experimentService.saveTags(experiment.id, tags)
-    }).afterClosed().subscribe(
-      newTags => {
-        if (newTags != null) {
-          this.experimentState.updateTags(newTags);
-        }
-      }
-    );
+    });
   }
 
   updateProject(project: LabProject): void {

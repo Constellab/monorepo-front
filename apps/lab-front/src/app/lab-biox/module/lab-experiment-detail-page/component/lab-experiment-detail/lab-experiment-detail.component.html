@@ -1,11 +1,11 @@
-<fl-article-container class="g-full-height container" *ngIf="experiment$| async as experiment">
+<fl-article-container class="g-full-height container" *ngIf="experiment$ | async as experiment">
 
   <!-- Technical information -->
   <fl-article-left-side>
 
     <!--  Tags  -->
     <div class="g-layout-row">
-      <fl-tag-list class="g-flex-auto" [tags]="experiment.tags" [showNoTagMessage]="true"></fl-tag-list>
+      <fl-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"></fl-tag-list>
       <button mat-icon-button type="button" class="g-button-icon-small"
               (click)="openTagsFormDialog()">
         <mat-icon>edit</mat-icon>

@@ -8,10 +8,8 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTagDialogService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {LabTag} from '../../../../model/entities/lab-tag.entity';
 import {LabUpdateResourceTypeComponent} from '../lab-update-resource-type/lab-update-resource-type.component';
 import {
   LabUpdateResourceNameDialogComponent
@@ -43,12 +41,10 @@ export class LabResourceActionsMenuComponent implements OnInit {
   @Input() readOnly: boolean = false;
 
   @Output() update: EventEmitter<LabResource> = new EventEmitter<LabResource>();
-  @Output() updateTags: EventEmitter<LabTag[]> = new EventEmitter<LabTag[]>();
   @Output() delete: EventEmitter<LabResource> = new EventEmitter<LabResource>();
 
   constructor(private resourceService: LabResourceService,
               private dialogService: FlDialogService,
-              private tagDialogService: FlTagDialogService,
               private resourceDownloadService: LabResourceDownloadService,
               private translateService: FlTranslateService) {
   }
@@ -69,22 +65,6 @@ export class LabResourceActionsMenuComponent implements OnInit {
     };
 
     this.dialogService.openMediumDialog(LabImportResourceDialogComponent, {data: input});
-  }
-
-
-  openTagFormDialog(): void {
-    this.tagDialogService.openUpdateTagDialog({
-      tags: this.resource.tags,
-      updateMethod: (tags) => this.resourceService.saveTags(this.resource.id, tags)
-    }).afterClosed().subscribe(
-      (newTags: LabTag[]) => this.onTagClosed(newTags)
-    );
-  }
-
-  private onTagClosed(newTags: LabTag[]): void {
-    if (newTags != null) {
-      this.updateTags.next(newTags);
-    }
   }
 
   updateResourceType(): void {

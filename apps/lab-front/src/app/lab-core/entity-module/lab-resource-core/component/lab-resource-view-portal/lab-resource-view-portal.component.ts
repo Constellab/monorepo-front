@@ -1,10 +1,11 @@
 import {Component, Inject, Optional} from '@angular/core';
 import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
-import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef, FlTag} from '@monorepo/front-core-lib';
+import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef, FlTagDatasource} from '@monorepo/front-core-lib';
 import {RvViewConfig} from '@monorepo/resource-view';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
 import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
+import {LabTagService} from '../../../../entity-service/lab-tag.service';
 
 
 export interface LabResourceViewPortalInput {
@@ -39,10 +40,13 @@ export class LabResourceViewPortalComponent {
 
   editTitle: boolean = false;
 
+  tags: FlTagDatasource;
+
 
   constructor(@Inject(FL_PORTAL_DATA) private input: LabResourceViewPortalInput,
               @Optional() private resourceState: LabResourceDetailState,
               private overlayRef: FlOverlayRef,
+              private tagService: LabTagService,
               private viewConfigService: LabViewConfigService) {
     this.labView = input.labView;
     this.contextMenuItems = input.contextMenuItems;
@@ -52,6 +56,7 @@ export class LabResourceViewPortalComponent {
         methodName: input.labView.viewConfig.viewName,
         configValues: input.labView.viewConfig.configValues,
       };
+      this.tags = this.tagService.getEntityTagsDatasource('VIEW', input.labView.viewConfig.id);
     }
 
     // do not define the container, the heat map defines it itself
@@ -70,13 +75,9 @@ export class LabResourceViewPortalComponent {
 
   onUpdate(viewConfig: LabViewConfig): void {
     this.labView.viewConfig = viewConfig;
-    if(this.resourceState) {
+    if (this.resourceState) {
       this.resourceState.updateViewConfig(viewConfig);
     }
-  }
-
-  onTagUpdate(tags: FlTag[]): void {
-    this.labView.viewConfig.tags = tags;
   }
 
   get resourceStateAccessible(): boolean {

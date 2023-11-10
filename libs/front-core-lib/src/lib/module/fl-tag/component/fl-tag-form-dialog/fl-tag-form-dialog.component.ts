@@ -1,15 +1,16 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FlTag} from '../../fl-tag.class';
+import {FlTag, FlTagDatasource} from '../../fl-tag.class';
 import {Observable} from 'rxjs';
 import {UntypedFormControl} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {first} from 'rxjs/operators';
 
 export type FlTagUpdateMethod = (tags: FlTag[]) => Observable<FlTag[]>;
 
 export interface FlTagFormDialogInput {
   updateMethod: FlTagUpdateMethod; // method to update the tags
   title?: string; // default to update tag
-  tags: FlTag[]; // list of current tags
+  tags: FlTag[] | FlTagDatasource; // list of current tags
 }
 
 /**
@@ -31,15 +32,21 @@ export class FlTagFormDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initCtrl();
+    if (this.input.tags instanceof FlTagDatasource) {
+      this.input.tags.connect().pipe(first()).subscribe({
+        next: tags => this.initCtrl(tags)
+      });
+    } else {
+      this.initCtrl(this.input.tags);
+    }
   }
 
   get title(): string {
     return this.input.title ?? 'flTag.update_tags';
   }
 
-  private initCtrl(): void {
-    this.formCtrl = new UntypedFormControl(this.input.tags);
+  private initCtrl(tags: FlTag[]): void {
+    this.formCtrl = new UntypedFormControl(tags);
   }
 
   submit(): void {
@@ -50,15 +57,19 @@ export class FlTagFormDialogComponent implements OnInit {
 
   private updateTags(tags: FlTag[]): void {
     this.isLoading = true;
-    this.input.updateMethod(tags).subscribe(
-      newTags => this.onUpdateTagSuccess(newTags),
-      () => this.isLoading = false
-    );
+    this.input.updateMethod(tags).subscribe({
+      next: newTags => this.onUpdateTagSuccess(newTags),
+      error: () => this.isLoading = false
+    });
   }
 
   private onUpdateTagSuccess(tags: FlTag[]): void {
+    if(this.input.tags instanceof FlTagDatasource) {
+      this.input.tags.array = tags;
+    }
     this.isLoading = false;
     this.dialogRef.close(tags);
+
   }
 
 }

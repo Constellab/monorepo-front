@@ -7,7 +7,7 @@ import {
   FlEntityArrayObs,
   FlPortalActionResult,
   FlPortalActionsService,
-  FlTableColumn
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {
   LabSelectExperimentDialogComponent
@@ -31,7 +31,7 @@ export class LabReportAssociatedExperimentsComponent implements OnInit, OnDestro
 
   canEdit: boolean = false;
 
-  columns: FlTableColumn<LabExperiment>[];
+  columns: FlTableColumnStatic<LabExperiment>[];
 
   private readonly actionName: string = 'report-associate-experiment';
 

@@ -5,6 +5,7 @@ import {
   FlPrettyJsonDialogComponent,
   FlPrettyJsonDialogInput,
   FlSnackBarService,
+  FlTagDatasource,
   FlTagDialogService
 } from '@monorepo/front-core-lib';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
@@ -33,6 +34,8 @@ export class LabViewConfigActionsMenuComponent {
   @Input() viewConfig: LabViewConfig;
 
   @Input() mode: 'text' | 'icon' = 'text';
+
+  @Input() tags: FlTagDatasource;
 
   @Output() update: EventEmitter<LabViewConfig> = new EventEmitter();
   @Output() updateTags: EventEmitter<LabTag[]> = new EventEmitter();
@@ -70,17 +73,9 @@ export class LabViewConfigActionsMenuComponent {
 
   openTagFormDialog(): void {
     this.tagDialogService.openUpdateTagDialog({
-      tags: this.viewConfig.tags,
+      tags: this.tags,
       updateMethod: (tags) => this.viewConfigService.saveTags(this.viewConfig.id, tags)
-    }).afterClosed().subscribe(
-      (newTags: LabTag[]) => this.onTagClosed(newTags)
-    );
-  }
-
-  private onTagClosed(newTags: LabTag[]): void {
-    if (newTags != null) {
-      this.updateTags.next(newTags);
-    }
+    });
   }
 
   openSelectReport(): void {

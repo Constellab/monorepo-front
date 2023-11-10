@@ -11,14 +11,15 @@
     </div>
 
     <fl-tag-list *ngIf="labView.viewConfig"
-                 [tags]="labView.viewConfig.tags" [tagSelectable]="false" class="g-text-small"></fl-tag-list>
+                 [tags]="tags" [tagSelectable]="false" class="g-text-small"></fl-tag-list>
 
     <fl-portal-header-buttons>
 
       <rv-technical-info-button [technicalInfo]="labView.view.technical_info"></rv-technical-info-button>
-      <lab-view-config-actions-menu *ngIf="labView.viewConfig" [viewConfig]="labView.viewConfig"
+      <lab-view-config-actions-menu *ngIf="labView.viewConfig"
+                                    [viewConfig]="labView.viewConfig"
+                                    [tags]="tags"
                                     (update)="onUpdate($event)"
-                                    (updateTags)="onTagUpdate($event)"
                                     mode="icon">
 
         <ng-container *ngIf="resourceStateAccessible">

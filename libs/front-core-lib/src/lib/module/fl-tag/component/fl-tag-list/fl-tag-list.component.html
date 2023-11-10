@@ -1,9 +1,13 @@
 <div>
-  <fl-tag *ngFor="let tag of tags | flTagsToList | slice:0:limitNumber" [flTag]="tag"
-          [tagColorer]="tagColorer"
-          (click)="selectTag(tag, $event)"></fl-tag>
+  <ng-container *ngIf="tags | flTagsToList:limitNumber | async as tagList">
+    <fl-tag *ngFor="let tag of tagList"
+            [flTag]="tag"
+            [tagColorer]="tagColorer"
+            (click)="selectTag(tag, $event)"></fl-tag>
+
+    <div *ngIf="showNoTagMessage && tagList.length === 0" class="g-text-small g-text-light">
+      {{'no_tags' | translate}}
+    </div>
+  </ng-container>
 </div>
 
-<div *ngIf="showNoTagMessage && tags.length === 0" class="g-text-small g-text-light">
-  {{'no_tags' | translate}}
-</div>

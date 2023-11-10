@@ -11,7 +11,6 @@ import {
   FlArrayObs,
   FlArrayObsStatus,
   FlDialogService,
-  FlDropEvent,
   FlEntityArrayObs,
   FlTableColumnStatic,
   FlTag,
@@ -20,7 +19,6 @@ import {
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
 import {ClHelpService} from '@monorepo/core-lib';
 import {LabTag} from '../../../../model/entities/lab-tag.entity';
-import {LabDragType} from '../../../../model/global/lab-drag-type.class';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
 import {LabResourceDetailDialogComponent} from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 import {Observable} from 'rxjs';
@@ -51,9 +49,6 @@ export class LabResourceTableComponent implements OnInit {
 
   // column used in the sub table (for resource set)
   subTableColumns: FlTableColumnStatic<LabResource>[];
-
-  // enable drop tags
-  supportedDropType: LabDragType = LabDragType.TAG;
 
   // for parent resource only, store the current expanded resource
   expandedResource: LabResource;
@@ -90,14 +85,6 @@ export class LabResourceTableComponent implements OnInit {
     this.datasource.updateItem(resource);
   }
 
-
-  onUpdateTags(resource: LabResource, newTags: LabTag[]): void {
-    if (newTags != null) {
-      resource.tags = newTags;
-      this.cdr.markForCheck();
-    }
-  }
-
   onDelete(resource: LabResource): void {
     this.datasource.removeItem(resource);
   }
@@ -109,15 +96,6 @@ export class LabResourceTableComponent implements OnInit {
 
   emitTagSelected(tag: LabTag): void {
     this.tagSelected.next(tag);
-  }
-
-
-  onDrop(resource: LabResource, event: FlDropEvent<FlTag>): void {
-    if (!event.data) return;
-
-    resource.addTag(event.data);
-    this.resourceService.saveTags(resource.id, resource.tags).subscribe();
-    this.cdr.markForCheck();
   }
 
   openResourceDetail(resource: LabResource, event: MouseEvent): void {

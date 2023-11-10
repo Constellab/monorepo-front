@@ -1,13 +1,26 @@
 import {Observable} from 'rxjs';
 import {FlColorHelper} from '../../utils/fl-color-helper.class';
+import {DateTime} from 'luxon';
+import {FlArrayObs} from '../../model/datasource/fl-array-obs.class';
+
+export type FlTagValue = string | number | DateTime;
 
 /**
  * Simple tag with key value
  */
 export interface FlTag {
   key: string;
-  value: string;
+  value: FlTagValue;
 }
+
+
+export class FlTagDatasource extends FlArrayObs<FlTag> {
+
+  protected equals(a: FlTag, b: FlTag): boolean {
+    return a.key === b.key && a.value === b.value;
+  }
+}
+
 
 /**
  * Tag information that contains the list of available values for a tag
@@ -22,7 +35,7 @@ export interface FlTagEntity {
  */
 export interface FlTagWithColor {
   key: string;
-  value: string;
+  value: FlTagValue;
   color: string;
 }
 
@@ -121,6 +134,15 @@ export class FlTagHelper {
 
   public static getTagDefaultColor(key: string, value: string): string {
     return FlColorHelper.stringToRGBColor(`${key}${FlTagHelper.KEY_VALUE_SEPARATOR}${value}`);
+  }
+
+  public static tagValueToString(tag: FlTagValue): string {
+    if (tag == null) return '';
+    if (tag instanceof DateTime) {
+      return tag.toISODate();
+    } else {
+      return tag.toString();
+    }
   }
 }
 

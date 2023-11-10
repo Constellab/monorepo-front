@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlDropEvent, FlTableAbstractDirective, FlTag, FlTagSelectedEvent} from '@monorepo/front-core-lib';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FlArrayObs, FlTableColumnStatic, FlTag, FlTagSelectedEvent} from '@monorepo/front-core-lib';
 import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
 import {ClHelpService} from '@monorepo/core-lib';
-import {LabDragType} from '../../../../model/global/lab-drag-type.class';
 import {LabExperimentService} from '../../../../entity-service/lab-experiment.service';
 
 @Component({
@@ -10,8 +9,11 @@ import {LabExperimentService} from '../../../../entity-service/lab-experiment.se
   templateUrl: './lab-experiment-table.component.html',
   styleUrls: ['./lab-experiment-table.component.scss']
 })
-export class LabExperimentTableComponent extends FlTableAbstractDirective<LabExperiment>
-  implements OnInit {
+export class LabExperimentTableComponent {
+
+  @Input() datasource: FlArrayObs<LabExperiment>;
+
+  @Input() columns: FlTableColumnStatic<LabExperiment>[] = ['title', 'status', 'tags', 'createdAt'];
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() rowSelectable: boolean = false;
@@ -22,15 +24,7 @@ export class LabExperimentTableComponent extends FlTableAbstractDirective<LabExp
 
   @Output() experimentDisassociate: EventEmitter<LabExperiment> = new EventEmitter();
 
-
-  // enable drop tags
-  supportedDropType: LabDragType = LabDragType.TAG;
-
   constructor(private experimentService: LabExperimentService) {
-    super(['title', 'score', 'status', 'createdAt', 'tags', 'disassociate']);
-  }
-
-  ngOnInit(): void {
   }
 
   rowClicked(experiment: LabExperiment): void {
@@ -42,13 +36,6 @@ export class LabExperimentTableComponent extends FlTableAbstractDirective<LabExp
   onTagSelected(tagEvent: FlTagSelectedEvent): void {
     ClHelpService.stopEventPropagation(tagEvent.event);
     this.tagSelected.next(tagEvent.tag);
-  }
-
-  onDrop(experiment: LabExperiment, event: FlDropEvent<FlTag>): void {
-    if (!event.data) return;
-
-    experiment.addTag(event.data);
-    this.experimentService.saveTags(experiment.id, experiment.tags).subscribe();
   }
 
   disassociateExperiment(experiment: LabExperiment, event: MouseEvent): void {

@@ -89,7 +89,9 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   }
 
   openUpdateDialog(): void {
-    const experiment: LabExperiment = this.experimentState.currentExperiment;
+    const experiment: LabExperiment = this.experimentState.currentExperiment
+
+
 
     const experimentForm: LabExperimentSimpleForm = {
       title: experiment.title,
@@ -158,15 +160,9 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   openTagsFormDialog(): void {
     const experiment = this.experimentState.currentExperiment;
     this.tagDialogService.openUpdateTagDialog({
-      tags: experiment.tags,
+      tags: this.experimentState.getTags$(),
       updateMethod: (tags) => this.experimentService.saveTags(experiment.id, tags)
-    }).afterClosed().subscribe(
-      newTags => {
-        if (newTags != null) {
-          this.experimentState.updateTags(newTags);
-        }
-      }
-    );
+    });
   }
 
   openDuplicateConfirmation(): void {

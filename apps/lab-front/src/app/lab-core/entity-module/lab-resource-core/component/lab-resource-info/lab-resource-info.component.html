@@ -11,8 +11,8 @@
 
     <fl-text-icon (click)="openTagFormDialog()" class="line tags">
       <mat-icon>local_offer</mat-icon>
-      <fl-tag-list [tags]="resource.tags" [tagSelectable]="false" class="g-text-small"></fl-tag-list>
-      <div *ngIf="resource.tags.length === 0">{{'no_tags' | translate}}</div>
+      <fl-tag-list [tags]="tags" [tagSelectable]="false" class="g-text-small"></fl-tag-list>
+      <div *ngIf="tags.isEmpty()">{{'no_tags' | translate}}</div>
     </fl-text-icon>
 
     <!--  Experiment  -->

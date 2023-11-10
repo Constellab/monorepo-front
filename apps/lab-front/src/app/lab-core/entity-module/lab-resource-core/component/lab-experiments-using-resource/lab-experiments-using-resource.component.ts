@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlEntityPaginatedDatasource, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlEntityPaginatedDatasource, FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {LabExperimentService} from '../../../../entity-service/lab-experiment.service';
 import {LabExperiment, LabExperimentDatasource} from '../../../../model/entities/lab-experiment.entity';
 
@@ -17,7 +17,7 @@ export class LabExperimentsUsingResourceComponent implements OnInit {
 
   datasource: LabExperimentDatasource;
 
-  columns: FlTableColumn<LabExperiment>[] = ['title', 'status'];
+  columns: FlTableColumnStatic<LabExperiment>[] = ['title', 'status'];
 
   constructor(private experimentService: LabExperimentService) {
   }

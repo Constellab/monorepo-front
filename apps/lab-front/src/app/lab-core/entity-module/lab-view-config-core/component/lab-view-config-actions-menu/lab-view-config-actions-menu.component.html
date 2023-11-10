@@ -15,7 +15,7 @@
 
   <ng-content></ng-content>
 
-  <button mat-menu-item type="button" (click)="openTagFormDialog()">
+  <button mat-menu-item type="button" *ngIf="tags" (click)="openTagFormDialog()">
     <mat-icon>local_offer</mat-icon>
     <span>{{'biox.update_view_tags' | translate }}</span>
   </button>

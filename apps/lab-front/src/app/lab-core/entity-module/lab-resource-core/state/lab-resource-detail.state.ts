@@ -6,7 +6,6 @@ import {
   LabResourceViewSpec,
   LabResourceViewSpecWithConfig
 } from '../../../model/entities/resource/lab-resource-view.entity';
-import {LabTag} from '../../../model/entities/lab-tag.entity';
 import {
   FlEntityPaginatedDatasource,
   FlOverlayRef,
@@ -171,14 +170,7 @@ export class LabResourceDetailState implements OnDestroy {
     });
   }
 
-  public updateResourceTags(resourceId: string, tags: LabTag[]): void {
-    this.resources.mutate(resources => {
-      const resource = resources.find(resource => resource.id === resourceId);
-      if (resource) {
-        resource.tags = tags;
-      }
-    });
-  }
+
 
   public updateResource(resource: LabResource): void {
     this.resources.update(resources => {

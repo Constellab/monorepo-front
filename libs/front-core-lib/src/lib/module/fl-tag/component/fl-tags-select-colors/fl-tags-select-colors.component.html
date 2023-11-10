@@ -13,7 +13,7 @@
       <fl-chip *ngFor="let tagValue of tagGroup.tags; trackBy:trackByTag"
                size="small" class="tag g-layout-row g-layout-between-center g-layout-gap-05em"
                (click)="toggleTagColor(tagValue)"
-               [matTooltip]="tagValue.value" matTooltipPosition="below">
+               [matTooltip]="tagValue.value | flTagValueToString" matTooltipPosition="below">
         <div class="tag-value">{{tagValue.value}}</div>
 
         <div *ngIf="tagValue.activeColor; else fakeCircle" [style.background-color]="tagValue.color" class="color"

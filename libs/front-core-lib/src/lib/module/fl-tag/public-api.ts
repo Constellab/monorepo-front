@@ -13,6 +13,7 @@ export * from './fl-tag-dialog.service';
 
 // pipe
 export * from './pipe/fl-tag-color.pipe';
+export * from './pipe/fl-tag-value-to-string.pipe';
 export * from './pipe/fl-tags-to-list.pipe';
 
 // Models

@@ -4,12 +4,12 @@ import {
   LabTypeDialogComponent,
   LabTypeDialogInput
 } from '../../../lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
-import {FlDialogService, FlTagDialogService} from '@monorepo/front-core-lib';
+import {FlDialogService, FlTagDatasource, FlTagDialogService} from '@monorepo/front-core-lib';
 import {
   LabSharedEntityOriginDialogComponent
 } from '../../../lab-share-core/component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
-import {LabTag} from '../../../../model/entities/lab-tag.entity';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
+import {LabTagService} from '../../../../entity-service/lab-tag.service';
 
 /**
  * Component to show info about a resource
@@ -21,14 +21,18 @@ import {LabResourceService} from '../../../../entity-service/lab-resource.servic
 })
 export class LabResourceInfoComponent implements OnInit {
 
-  @Input() resource: LabResource;
+  @Input({required: true}) resource: LabResource;
+
+  tags: FlTagDatasource;
 
   constructor(private dialogService: FlDialogService,
               private tagDialogService: FlTagDialogService,
-              private resourceService: LabResourceService) {
+              private resourceService: LabResourceService,
+              private tagService: LabTagService) {
   }
 
   ngOnInit(): void {
+    this.tags = this.tagService.getEntityTagsDatasource('RESOURCE', this.resource.id);
   }
 
   openTypingDoc(): void {
@@ -46,16 +50,8 @@ export class LabResourceInfoComponent implements OnInit {
 
   openTagFormDialog(): void {
     this.tagDialogService.openUpdateTagDialog({
-      tags: this.resource.tags,
+      tags: this.tags,
       updateMethod: (tags) => this.resourceService.saveTags(this.resource.id, tags)
-    }).afterClosed().subscribe(
-      (newTags: LabTag[]) => this.onTagClosed(newTags)
-    );
-  }
-
-  private onTagClosed(newTags: LabTag[]): void {
-    if (newTags != null) {
-      this.resource.tags = newTags;
-    }
+    });
   }
 }

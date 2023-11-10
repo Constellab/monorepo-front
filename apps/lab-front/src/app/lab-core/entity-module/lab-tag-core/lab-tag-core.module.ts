@@ -6,26 +6,23 @@ import {LabTagEntityDetailComponent} from './component/lab-tag-entity-detail/lab
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LabTagFormDialogComponent} from './component/lab-tag-form-dialog/lab-tag-form-dialog.component';
 import {LabTagHelpDialogComponent} from './component/lab-tag-help-dialog/lab-tag-help-dialog.component';
-
+import {LabGetEntityTagsPipe} from './pipe/lab-get-entity-tags.pipe';
 
 @NgModule({
   declarations: [
     LabTagDashboardComponent,
     LabTagEntityDetailComponent,
     LabTagFormDialogComponent,
-    LabTagHelpDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-
-    LabCoreModule,
+    LabTagHelpDialogComponent,
+    LabGetEntityTagsPipe,
   ],
   exports: [
     LabTagDashboardComponent,
     LabTagEntityDetailComponent,
-    LabTagHelpDialogComponent
-  ]
+    LabTagHelpDialogComponent,
+    LabGetEntityTagsPipe,
+  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, LabCoreModule],
 })
-export class LabTagCoreModule { }
+export class LabTagCoreModule {
+}

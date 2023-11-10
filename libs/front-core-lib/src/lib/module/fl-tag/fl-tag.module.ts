@@ -28,7 +28,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import {FlTagValueToStringPipe} from './pipe/fl-tag-value-to-string.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     FlTagListComponent,
     FlTagsSelectColorsComponent,
     FlTagColorPipe,
-    FlTagsToListPipe
+    FlTagsToListPipe,
+    FlTagValueToStringPipe,
   ],
   exports: [
     FlTagInputComponent,
@@ -48,6 +49,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     FlTagsSelectColorsComponent,
     FlTagColorPipe,
     FlTagsToListPipe,
+    FlTagValueToStringPipe,
   ],
   imports: [
     CommonModule,
@@ -77,15 +79,18 @@ export class FlTagModule {
     translateService.addModuleTranslation('FlTagModule', flTagI18n);
   }
 
-  public static forRoot(tagService: Type<FlTagService>): ModuleWithProviders<FlTagModule> {
+  public static forRoot(
+    tagService: Type<FlTagService>
+  ): ModuleWithProviders<FlTagModule> {
     return {
       ngModule: FlTagModule,
       providers: [
         {
-          provide: FlTagService, useClass: tagService
+          provide: FlTagService,
+          useClass: tagService,
         },
         FlTagDialogService,
-      ]
+      ],
     };
   }
 }

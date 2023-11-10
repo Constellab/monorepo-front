@@ -1,7 +1,6 @@
 import {Component, Input, Signal, ViewContainerRef} from '@angular/core';
 import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {LabTag} from '../../../../model/entities/lab-tag.entity';
 import {LabRouterService} from '../../../../service/lab-router.service';
 import {FlDialogService, FlOverlayRef, FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
 import {
@@ -71,12 +70,6 @@ export class LabResourceDetailHeaderComponent {
     };
 
     this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, {data});
-  }
-
-  onUpdateTags(tags: LabTag[]): void {
-    if (tags != null) {
-      this.state.updateResourceTags(this.resource().id, tags);
-    }
   }
 
   onUpdate(resource: LabResource): void {

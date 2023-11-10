@@ -43,7 +43,6 @@
 
 
   <lab-resource-actions-menu [readOnly]="displayMode !== 'fullPage'" [resource]="resource()" (update)="onUpdate($event)"
-                             (updateTags)="onUpdateTags($event)"
                              (delete)="onDelete()">
     <button mat-menu-item type="button" *ngIf="displayMode === 'fullPage'"
             (click)="openTransformerResource()">

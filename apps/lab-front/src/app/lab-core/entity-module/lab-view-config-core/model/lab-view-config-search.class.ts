@@ -4,8 +4,7 @@ import {
   FlSearchConverter,
   FlSearchCriteriaConverter,
   FlSearchDateInterval,
-  FlTag,
-  FlTagHelper
+  FlTag
 } from '@monorepo/front-core-lib';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabResourceViewType} from '../../../model/entities/resource/lab-resource-view.entity';
@@ -57,7 +56,7 @@ export class LabViewConfigSearch {
     viewType: {key: 'view_type', operator: 'IN', convertValue: LabViewConfigSearch.viewTypeConverter},
     // Date
     createdAt: FlSearchConverter.dateInterval('created_at'),
-    tags: {key: 'tags', operator: 'EQ', convertValue: FlTagHelper.tagsToString},
+    tags: {key: 'tags', operator: 'EQ'},
     includeNotFlagged: {key: 'include_not_flagged', operator: 'EQ'},
     id: {key: 'id', operator: 'EQ'}
   };
