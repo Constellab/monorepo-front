@@ -62,7 +62,7 @@
   </div>
 
   <div class="right-side-div">
-    <button mat-flat-button type="button" class="bt" *haIsAdmin (click)="openCreateDocDialog()">
+    <button mat-flat-button type="button" class="bt" *haIsAuthenticated (click)="openCreateDocDialog()">
       <mat-icon >add_circle</mat-icon>
       {{'create_story' | translate}}
     </button>

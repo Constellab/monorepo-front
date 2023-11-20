@@ -76,8 +76,6 @@ export class HaStoryPageComponent implements OnInit {
     this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
     this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
     this.metadataService.addMetaTag('og:image', this.getStoryImageLink(this.story.mainPicture), false);
-
-    console.log(this.story.storyFiles)
   }
 
   getStoryImageLink(imageName: string): string {
