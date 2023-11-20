@@ -5,8 +5,7 @@ import {
   TdResourceType,
   TdResourceView
 } from '../../model/td-resource-type.class';
-import {forEach} from '@angular-devkit/schematics';
-import {rvDefaultViewTypeInfos, RvResourceViewType, RvResourceViewTypeInfo} from '@monorepo/resource-view';
+import {rvDefaultViewTypeInfos, RvResourceViewTypeInfo} from '@monorepo/resource-view';
 import {isPlatformBrowser} from '@angular/common';
 
 @Component({

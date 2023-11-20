@@ -1,5 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {rvDefaultViewTypeInfos, RvResourceViewType, RvResourceViewTypeInfo} from '@monorepo/resource-view';
+import {
+  rvDefaultViewTypeIcon,
+  rvDefaultViewTypeInfos,
+  RvResourceViewType,
+  RvResourceViewTypeInfo
+} from '@monorepo/resource-view';
 
 @Component({
   selector: 'rv-view-type-image',
@@ -21,4 +26,5 @@ export class RvViewTypeImageComponent implements OnInit {
     this.viewTypeInfo = this.viewTypesInfos[this.viewType];
   }
 
+  protected readonly rvDefaultViewTypeIcon = rvDefaultViewTypeIcon;
 }

@@ -24,6 +24,8 @@ export interface RvResourceViewTypeInfo {
     };
 }
 
+export const rvDefaultViewTypeIcon = 'multiline_chart';
+
 /**
  * List of default views supported by the resource view library
  */

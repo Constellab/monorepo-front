@@ -8,8 +8,7 @@
       <span>{{v.human_name.toUpperCase() + ' - ' +  v.method_name + '()'}}</span>
       <mat-chip *ngIf="v.default_view" color="primary">{{'td.default_view' | translate}}</mat-chip>
     </div>
-    {{v.short_description}}
-
+    <span class="view-description" *ngIf="v?.short_description">{{v.short_description}}</span>
   </div>
 </div>
 
