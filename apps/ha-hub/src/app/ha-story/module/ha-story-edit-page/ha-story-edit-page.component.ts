@@ -219,11 +219,21 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   private getStory(id: string): void {
     this.storyService.getById(id).subscribe(story => {
+      if(story == null) this.router.navigate(['/stories']);
+      this.checkUserIsAuthorOrCoAuthor(story);
       this.story = story;
       this.textEditorConfig =
         new HaStoryTextEditorConfig(this.storyService, this.dialogService, this.story.id);
       if (this.story.topics.length >= 5) this.topicControl.disable();
       this.formGp.patchValue(this.story);
+    });
+  }
+
+  private checkUserIsAuthorOrCoAuthor(story: HaStory): void {
+    this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
+      if (user.id !== story.getAuthor().id && !story.getCoAuthors().find(coAuthor => coAuthor.id === user.id)) {
+        this.router.navigate(['/stories', story.id]);
+      }
     });
   }
 

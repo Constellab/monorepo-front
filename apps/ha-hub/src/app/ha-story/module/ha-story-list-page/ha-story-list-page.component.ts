@@ -64,7 +64,7 @@ export class HaStoryListPageComponent implements OnInit {
   }
 
 
-  openCreateDocDialog(): void{
+  openCreateStoryDialog(): void{
 
     const input: HaCreateStoryDtoInput = {
       mode: 'create'
