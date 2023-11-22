@@ -5,8 +5,7 @@ import {
   FlEntityPaginatedDatasource,
   FlFileHelper,
   FlQuillJson,
-  FlSearchConverter,
-  FlTag
+  FlSearchConverter
 } from '@monorepo/front-core-lib';
 import {Observable, of, switchMap} from 'rxjs';
 import {
@@ -16,7 +15,6 @@ import {
   LabRunningExperimentInfo
 } from '../model/entities/lab-experiment.entity';
 import {ClHelpService, ClPageI} from '@monorepo/core-lib';
-import {LabTag} from '../model/entities/lab-tag.entity';
 import {
   LabExperimentSearch,
   LabExperimentSearchFields
@@ -102,10 +100,6 @@ export class LabExperimentService {
 
   public validateExperiment(experimentId: string, projectId: string): Observable<LabExperiment> {
     return this.apiService.put(`${this.route}/${experimentId}/validate/${projectId}`, null, LabExperiment);
-  }
-
-  public saveTags(id: string, tags: FlTag[]): Observable<LabTag[]> {
-    return this.apiService.put(`${this.route}/${id}/tags`, tags, LabTag);
   }
 
   public cloneExperiment(id: string): Observable<LabExperiment> {

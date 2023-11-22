@@ -11,6 +11,7 @@ export type FlTagValue = string | number | DateTime;
 export interface FlTag {
   key: string;
   value: FlTagValue;
+  is_propagable?: boolean;
 }
 
 
@@ -28,6 +29,8 @@ export class FlTagDatasource extends FlArrayObs<FlTag> {
 export interface FlTagEntity {
   key: string;
   values: string[];
+
+  is_propagable: boolean;
 }
 
 /**
@@ -148,4 +151,16 @@ export class FlTagHelper {
 
 export abstract class FlTagService {
   public abstract searchTag(key: string): Observable<FlTagEntity[]>;
+
+  // TODO REMOVE
+  // public abstract addEntityTags(entityType: string, entityId: string, tag: FlTag): Observable<FlTag>;
+  //
+  // public abstract removeEntityTag(entityType: string, entityId: string, tag: FlTag): Observable<void>;
+}
+
+export abstract class FlEntityTagService {
+
+  public abstract addEntityTag(tags: FlTag[]): Observable<FlTag>;
+
+  public abstract removeEntityTag(tag: FlTag): Observable<void>;
 }

@@ -6,7 +6,7 @@
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small"
          *ngIf="displayMode !== 'dense'">
-      <a [routerLink]="resource().experiment.id | labDetailRoute:'experiment'"
+      <a [routerLink]="resource().experiment.id | labDetailRoute:'EXPERIMENT'"
          *ngIf="resource().experiment" class="g-text-link subtitle">
         <div class="g-layout-row g-layout-start-center">
           <mat-icon flIcon="experiment" class="g-icon-small separator"></mat-icon>

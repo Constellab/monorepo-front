@@ -3,8 +3,8 @@ import {DateTime} from 'luxon';
 import {ClDateHelper, ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {LabBaseEntityWithUser, LabUser} from './lab-user.entity';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {LabObjectType} from '../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 import {LabBaseEntity} from '../global/lab-entity.entity';
+import {LabEntityType} from './lab-navigable-entity.entity';
 
 export type LabShareLinkType = 'RESOURCE';
 
@@ -31,8 +31,8 @@ export class LabShareLink extends LabBaseEntityWithUser {
     return this.validUntil > ClDateHelper.getDate();
   }
 
-  get labObjectType(): LabObjectType {
-    return 'resource';
+  get labObjectType(): LabEntityType {
+    return 'RESOURCE';
   }
 }
 
@@ -64,7 +64,7 @@ export class LabSharedEntity extends LabBaseEntity {
 
   @Expose({name: 'created_by'})
   @Type(() => LabUser)
-  createdBy: LabUser
+  createdBy: LabUser;
 
 }
 

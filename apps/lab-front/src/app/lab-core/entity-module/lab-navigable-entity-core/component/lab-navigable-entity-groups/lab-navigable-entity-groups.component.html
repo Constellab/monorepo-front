@@ -1,0 +1,17 @@
+<mat-accordion>
+  <ng-container *ngFor="let group of groups">
+    <mat-expansion-panel *ngIf="group.entities.length > 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{group.entities.length}} {{('lab_entity_type_' + group.type) | translate}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let entity of group.entities"
+           [routerLink]="entity.id | labDetailRoute:group.type">{{ entity.name }}</a>
+      </mat-nav-list>
+
+    </mat-expansion-panel>
+  </ng-container>
+</mat-accordion>

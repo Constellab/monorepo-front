@@ -7,6 +7,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LabTagFormDialogComponent} from './component/lab-tag-form-dialog/lab-tag-form-dialog.component';
 import {LabTagHelpDialogComponent} from './component/lab-tag-help-dialog/lab-tag-help-dialog.component';
 import {LabGetEntityTagsPipe} from './pipe/lab-get-entity-tags.pipe';
+import {
+  LabManageEntityTagsDialogComponent
+} from './component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
+import {
+  LabTagCheckPropagationComponent
+} from './component/lab-tag-check-propagation/lab-tag-check-propagation.component';
+import {LabNavigableEntityCoreModule} from '../lab-navigable-entity-core/lab-navigable-entity-core.module';
 
 @NgModule({
   declarations: [
@@ -15,14 +22,23 @@ import {LabGetEntityTagsPipe} from './pipe/lab-get-entity-tags.pipe';
     LabTagFormDialogComponent,
     LabTagHelpDialogComponent,
     LabGetEntityTagsPipe,
+    LabManageEntityTagsDialogComponent,
+    LabTagCheckPropagationComponent,
   ],
   exports: [
     LabTagDashboardComponent,
     LabTagEntityDetailComponent,
     LabTagHelpDialogComponent,
     LabGetEntityTagsPipe,
+    LabManageEntityTagsDialogComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, LabCoreModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+
+    LabCoreModule,
+    LabNavigableEntityCoreModule,
+  ],
 })
-export class LabTagCoreModule {
-}
+export class LabTagCoreModule {}

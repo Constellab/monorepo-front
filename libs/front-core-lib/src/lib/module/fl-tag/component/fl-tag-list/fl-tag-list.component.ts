@@ -10,7 +10,7 @@ import {FlTagColorer} from '../../fl-tag-colorer.class';
 })
 export class FlTagListComponent {
 
-  @Input() tags: FlTag[] | Record<string, string> | FlTagDatasource;
+  @Input({required: true}) tags: FlTag[] | Record<string, string> | FlTagDatasource;
 
   @Input() tagSelectable: boolean = false;
 
@@ -20,7 +20,11 @@ export class FlTagListComponent {
 
   @Input() tagColorer?: FlTagColorer;
 
+  @Input() showDeleteIcon: boolean = false;
+
   @Output() tagSelected: EventEmitter<FlTagSelectedEvent> = new EventEmitter();
+
+  @Output() tagDeleted: EventEmitter<FlTag> = new EventEmitter();
 
 
   selectTag(tag: FlTag, event: MouseEvent): void {
@@ -28,5 +32,9 @@ export class FlTagListComponent {
       tag: tag,
       event: event
     });
+  }
+
+  deleteTag(tag: FlTag): void {
+    this.tagDeleted.next(tag);
   }
 }

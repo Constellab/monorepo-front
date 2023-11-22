@@ -35,7 +35,7 @@ export class FlImageFullscreenDirective {
     this.dialogService.openFullDialog(FlImageFullscreenTestComponent,
       {
         data: input,
-        panelClass: ['g-dialog-no-padding', 'g-dialog-no-border-radius'],
+        panelClass: ['g-dialog-no-padding', 'g-dialog-no-border-radius', 'g-dialog-transparent'],
         autoFocus: false
       });
   }

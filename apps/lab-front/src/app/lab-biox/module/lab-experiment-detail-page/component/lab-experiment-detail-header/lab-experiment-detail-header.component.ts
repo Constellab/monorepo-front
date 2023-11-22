@@ -9,7 +9,6 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTagDialogService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
@@ -45,6 +44,10 @@ import {
 } from '../../../../../lab-core/entity-module/lab-protocol-template-core/component/lab-protocol-template-form-dialog/lab-protocol-template-form-dialog.component';
 import {LabProtocolService} from '../../../../../lab-core/entity-service/lab-protocol.service';
 import {DateTime} from 'luxon';
+import {
+  LabAddTagToEntityDialogInput,
+  LabManageEntityTagsDialogComponent
+} from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 
 /**
  * Header for the experiment detail page
@@ -66,7 +69,6 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   constructor(private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService,
               private experimentService: LabExperimentService,
-              private tagDialogService: FlTagDialogService,
               private routerService: LabRouterService,
               private queueService: LabQueueService,
               private translateService: FlTranslateService,
@@ -89,8 +91,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   }
 
   openUpdateDialog(): void {
-    const experiment: LabExperiment = this.experimentState.currentExperiment
-
+    const experiment: LabExperiment = this.experimentState.currentExperiment;
 
 
     const experimentForm: LabExperimentSimpleForm = {
@@ -158,11 +159,13 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
 
   openTagsFormDialog(): void {
-    const experiment = this.experimentState.currentExperiment;
-    this.tagDialogService.openUpdateTagDialog({
+    const data: LabAddTagToEntityDialogInput = {
+      entityType: 'EXPERIMENT',
+      entityId: this.experimentState.currentExperiment.id,
       tags: this.experimentState.getTags$(),
-      updateMethod: (tags) => this.experimentService.saveTags(experiment.id, tags)
-    });
+    };
+
+    this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, {data: data});
   }
 
   openDuplicateConfirmation(): void {

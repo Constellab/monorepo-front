@@ -11,7 +11,7 @@ const flTagI18nFr: FlLangTranslation = {
     tags: 'Tags',
     input_helper_text: '\'Entrer\' pour sélectionner un tag. \'Tab\' pour ajouter un nouveau tag',
     update_tags: 'Modifier les tags',
-    no_tags: 'Aucun tag',
+    no_tags: 'Aucun tag'
   }
 };
 

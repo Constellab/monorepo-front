@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FlArrayObs, FlTableColumnStatic, FlTag, FlTagSelectedEvent} from '@monorepo/front-core-lib';
 import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
 import {ClHelpService} from '@monorepo/core-lib';
-import {LabExperimentService} from '../../../../entity-service/lab-experiment.service';
 
 @Component({
   selector: 'lab-experiment-table',
@@ -23,9 +22,6 @@ export class LabExperimentTableComponent {
   @Output() tagSelected: EventEmitter<FlTag> = new EventEmitter();
 
   @Output() experimentDisassociate: EventEmitter<LabExperiment> = new EventEmitter();
-
-  constructor(private experimentService: LabExperimentService) {
-  }
 
   rowClicked(experiment: LabExperiment): void {
     if (this.rowSelectable) {

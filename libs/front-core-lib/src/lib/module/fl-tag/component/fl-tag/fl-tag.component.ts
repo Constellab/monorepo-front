@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {FlTag} from '../../fl-tag.class';
 import {FlTagColorer} from '../../fl-tag-colorer.class';
 
@@ -11,18 +11,18 @@ import {FlTagColorer} from '../../fl-tag-colorer.class';
   styleUrls: ['./fl-tag.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlTagComponent implements OnInit {
+export class FlTagComponent {
 
   @Input() flTag: FlTag;
 
   @Input() tagColorer?: FlTagColorer;
 
-  constructor() {
+  @Input() showDeleteIcon: boolean = false;
+
+  @Output() deleteTag: EventEmitter<FlTag> = new EventEmitter();
+
+  onDeleteTag(): void {
+    this.deleteTag.next(this.flTag);
   }
-
-
-  ngOnInit(): void {
-  }
-
 
 }

@@ -9,9 +9,7 @@ import {FlTranslateModule} from '../fl-translate/fl-translate.module';
 import {FlTagService} from './fl-tag.class';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {FlTagComponent} from './component/fl-tag/fl-tag.component';
-import {FlTagFormDialogComponent} from './component/fl-tag-form-dialog/fl-tag-form-dialog.component';
 import {FlDialogModule} from '../fl-dialog/fl-dialog.module';
-import {FlTagDialogService} from './fl-tag-dialog.service';
 import {FlLoaderModule} from '../fl-loader/fl-loader.module';
 import {FlCoreDirectiveModule} from '../fl-core-directive/fl-core-directive.module';
 import {FlTagListComponent} from './component/fl-tag-list/fl-tag-list.component';
@@ -29,27 +27,29 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {FlTagValueToStringPipe} from './pipe/fl-tag-value-to-string.pipe';
+import {FlAddTagInputComponent} from './component/fl-add-tag-input/fl-add-tag-input.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
     FlTagInputComponent,
     FlTagComponent,
-    FlTagFormDialogComponent,
     FlTagListComponent,
     FlTagsSelectColorsComponent,
     FlTagColorPipe,
     FlTagsToListPipe,
     FlTagValueToStringPipe,
+    FlAddTagInputComponent,
   ],
   exports: [
     FlTagInputComponent,
     FlTagComponent,
-    FlTagFormDialogComponent,
     FlTagListComponent,
     FlTagsSelectColorsComponent,
     FlTagColorPipe,
     FlTagsToListPipe,
     FlTagValueToStringPipe,
+    FlAddTagInputComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +64,7 @@ import {FlTagValueToStringPipe} from './pipe/fl-tag-value-to-string.pipe';
     MatButtonModule,
     MatTooltipModule,
     MatRippleModule,
+    MatCheckboxModule,
 
     FlTranslateModule,
     FlDialogModule,
@@ -89,7 +90,6 @@ export class FlTagModule {
           provide: FlTagService,
           useClass: tagService,
         },
-        FlTagDialogService,
       ],
     };
   }

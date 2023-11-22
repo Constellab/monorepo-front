@@ -3,6 +3,8 @@
     <fl-tag *ngFor="let tag of tagList"
             [flTag]="tag"
             [tagColorer]="tagColorer"
+            [showDeleteIcon]="showDeleteIcon"
+            (deleteTag)="deleteTag($event)"
             (click)="selectTag(tag, $event)"></fl-tag>
 
     <div *ngIf="showNoTagMessage && tagList.length === 0" class="g-text-small g-text-light">

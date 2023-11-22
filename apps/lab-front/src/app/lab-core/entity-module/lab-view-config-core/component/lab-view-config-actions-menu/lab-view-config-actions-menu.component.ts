@@ -5,11 +5,9 @@ import {
   FlPrettyJsonDialogComponent,
   FlPrettyJsonDialogInput,
   FlSnackBarService,
-  FlTagDatasource,
-  FlTagDialogService
+  FlTagDatasource
 } from '@monorepo/front-core-lib';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
-import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 import {
   LabUpdateViewConfigDialogComponent
 } from '../lab-update-view-config-dialog/lab-update-view-config-dialog.component';
@@ -20,6 +18,10 @@ import {
 import {LabReport} from '../../../../model/entities/lab-report.entity';
 import {LabReportService} from '../../../../entity-service/lab-report.service';
 import {LabRouterService} from '../../../../service/lab-router.service';
+import {
+  LabAddTagToEntityDialogInput,
+  LabManageEntityTagsDialogComponent
+} from '../../../lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 
 /**
  * Actions menu button for view configs, it has a ng-content for custom buttons
@@ -42,9 +44,7 @@ export class LabViewConfigActionsMenuComponent {
 
   addToReportIsLoading: boolean = false;
 
-  constructor(private viewConfigService: LabViewConfigService,
-              private dialogService: FlDialogService,
-              private tagDialogService: FlTagDialogService,
+  constructor(private dialogService: FlDialogService,
               private reportService: LabReportService,
               private snackBarService: FlSnackBarService) {
   }
@@ -72,10 +72,13 @@ export class LabViewConfigActionsMenuComponent {
 
 
   openTagFormDialog(): void {
-    this.tagDialogService.openUpdateTagDialog({
+    const data: LabAddTagToEntityDialogInput = {
+      entityType: 'VIEW',
+      entityId: this.viewConfig.id,
       tags: this.tags,
-      updateMethod: (tags) => this.viewConfigService.saveTags(this.viewConfig.id, tags)
-    });
+    };
+
+    this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, {data: data});
   }
 
   openSelectReport(): void {

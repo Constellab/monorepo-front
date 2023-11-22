@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   FlArrayObs,
   FlArrayObsStatus,
@@ -56,8 +48,7 @@ export class LabResourceTableComponent implements OnInit {
   expandedChildrenResources$: FlEntityArrayObs<LabResource>;
   expandedChildrenStatus$: Observable<FlArrayObsStatus>;
 
-  constructor(private cdr: ChangeDetectorRef,
-              private resourceService: LabResourceService,
+  constructor(private resourceService: LabResourceService,
               private dialogService: FlDialogService) {
   }
 

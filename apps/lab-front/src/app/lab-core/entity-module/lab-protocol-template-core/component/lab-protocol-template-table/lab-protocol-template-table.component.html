@@ -27,7 +27,7 @@
       <span> {{'tags' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template" class="tags">
-      <fl-tag-list [tags]="template.tags"></fl-tag-list>
+      <fl-tag-list [tags]="template | labGetEntityTags"></fl-tag-list>
     </mat-cell>
   </ng-container>
 

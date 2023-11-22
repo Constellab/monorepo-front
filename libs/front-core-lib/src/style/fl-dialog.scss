@@ -32,6 +32,11 @@ body {
     border-radius: 0 !important;
   }
 
+  .g-dialog-transparent .mat-mdc-dialog-surface {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
   // Style the component inside the dialog to be full height of parent
   .mat-mdc-dialog-surface > *:first-child {
     display: flex;

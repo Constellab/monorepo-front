@@ -55,6 +55,14 @@ export class LabRouterService {
     };
   }
 
+  /**
+   * Special route that get the resource id to redirect to the view config page
+   * @param viewConfigId
+   */
+  public static getViewConfigRedirectRoute(viewConfigId: string): string {
+    return `${labConstDataboxFullRoute}/view-redirect/${viewConfigId}`;
+  }
+
 
   public static getReportSearchRoute(): string {
     return labConstReportFullRoute;

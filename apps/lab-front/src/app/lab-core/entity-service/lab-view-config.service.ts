@@ -1,11 +1,5 @@
 import {Injectable} from '@angular/core';
-import {
-  FlAdvancedSearchInput,
-  FlApiService,
-  FlSearchConverter,
-  FLSearchFunction,
-  FlTag
-} from '@monorepo/front-core-lib';
+import {FlAdvancedSearchInput, FlApiService, FlSearchConverter, FLSearchFunction} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {ClPageI} from '@monorepo/core-lib';
 import {LabViewConfig} from '../model/entities/resource/lab-view-config.entity';
@@ -13,7 +7,6 @@ import {
   LabViewConfigSearch,
   LabViewConfigSearchFields
 } from '../entity-module/lab-view-config-core/model/lab-view-config-search.class';
-import {LabTag} from '../model/entities/lab-tag.entity';
 import {LabResourceView} from '../model/entities/resource/lab-resource-view.entity';
 
 @Injectable({providedIn: 'root'})
@@ -38,11 +31,6 @@ export class LabViewConfigService {
 
   public updateFlagged(id: string, flagged: boolean): Observable<LabViewConfig> {
     return this.apiService.put(`${this.route}/${id}/flagged`, {flagged: flagged}, LabViewConfig);
-  }
-
-
-  public saveTags(id: string, tags: FlTag[]): Observable<LabTag[]> {
-    return this.apiService.put(`${this.route}/${id}/tags`, tags, LabTag);
   }
 
   public getByResource(resourceId: string, onlyFlagged: boolean, page: number, pageSize: number): Observable<ClPageI<LabViewConfig>> {

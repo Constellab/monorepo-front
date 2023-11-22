@@ -6,8 +6,8 @@ import {LabExperiment} from '../../model/entities/lab-experiment.entity';
 import {LabResource} from '../../model/entities/resource/lab-resource.entity';
 import {LabProtocolTemplate} from '../../model/entities/process/lab-protocol-template.entity';
 import {LabReportTemplate} from '../../model/entities/lab-report-template.entity';
-
-export type LabObjectType = 'experiment' | 'resource' | 'report' | 'protocol-template' | 'report-template';
+import {LabEntityType} from '../../model/entities/lab-navigable-entity.entity';
+import {LabViewConfig} from '../../model/entities/resource/lab-view-config.entity';
 
 /**
  * Pipe to get the detail route of an object
@@ -21,7 +21,7 @@ export type LabObjectType = 'experiment' | 'resource' | 'report' | 'protocol-tem
 })
 export class LabDetailRoutePipe implements PipeTransform {
 
-  transform(value: string | LabEntity, objectType?: LabObjectType): string {
+  transform(value: string | LabEntity, objectType?: LabEntityType): string {
     if (objectType == null) {
       objectType = this.getObjectType(value);
     }
@@ -31,16 +31,18 @@ export class LabDetailRoutePipe implements PipeTransform {
     const id = typeof value === 'string' ? value : value.id;
 
     switch (objectType) {
-      case 'experiment':
+      case 'EXPERIMENT':
         return LabRouterService.getExperimentDetailRoute(id);
-      case 'resource':
+      case 'RESOURCE':
         return LabRouterService.getResourceDetailRoute(id);
-      case 'report':
+      case 'REPORT':
         return LabRouterService.getReportDetailRoute(id);
-      case 'protocol-template':
+      case 'PROTOCOL_TEMPLATE':
         return LabRouterService.getProtocolTemplateDetailRoute(id);
-      case 'report-template':
+      case 'REPORT_TEMPLATE':
         return LabRouterService.getReportTemplateDetailRoute(id);
+      case 'VIEW':
+        return LabRouterService.getViewConfigRedirectRoute(id);
       default:
         console.error(`[labDetailRoute] object type ${objectType} not supported`);
         return null;
@@ -48,17 +50,19 @@ export class LabDetailRoutePipe implements PipeTransform {
 
   }
 
-  private getObjectType(obj: any): LabObjectType {
+  private getObjectType(obj: any): LabEntityType {
     if (obj instanceof LabExperiment) {
-      return 'experiment';
+      return 'EXPERIMENT';
     } else if (obj instanceof LabResource) {
-      return 'resource';
+      return 'RESOURCE';
     } else if (obj instanceof LabReport) {
-      return 'report';
+      return 'REPORT';
     } else if (obj instanceof LabProtocolTemplate) {
-      return 'protocol-template';
+      return 'PROTOCOL_TEMPLATE';
     } else if (obj instanceof LabReportTemplate) {
-      return 'report-template';
+      return 'REPORT_TEMPLATE';
+    } else if (obj instanceof LabViewConfig) {
+      return 'VIEW';
     } else {
       console.error('[labDetailRoute] The object is not supported');
       return null;

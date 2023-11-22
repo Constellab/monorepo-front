@@ -6,7 +6,7 @@ import {
   LabActivityDatasource
 } from '../../../../model/entities/lab-activity.entity';
 import {FlTableColumnStatic} from '@monorepo/front-core-lib';
-import {LabObjectType} from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
+import {LabEntityType} from '../../../../model/entities/lab-navigable-entity.entity';
 
 @Component({
   selector: 'lab-activity-table',
@@ -26,12 +26,12 @@ export class LabActivityTableComponent {
         activity.objectType === ActivityObjectType.REPORT);
   }
 
-  getLabObjectType(activity: LabActivity): LabObjectType {
+  getLabObjectType(activity: LabActivity): LabEntityType {
     switch (activity.objectType) {
       case ActivityObjectType.EXPERIMENT:
-        return 'experiment';
+        return 'EXPERIMENT';
       case ActivityObjectType.REPORT:
-        return 'report';
+        return 'REPORT';
       default:
         return null;
     }

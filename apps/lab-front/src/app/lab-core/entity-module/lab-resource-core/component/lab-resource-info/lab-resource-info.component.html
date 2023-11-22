@@ -18,7 +18,7 @@
     <!--  Experiment  -->
     <fl-text-icon *ngIf="resource.experiment" class="line">
       <mat-icon flIcon="experiment"></mat-icon>
-      <a [routerLink]="resource.experiment.id | labDetailRoute:'experiment'"
+      <a [routerLink]="resource.experiment.id | labDetailRoute:'EXPERIMENT'"
          class="g-text-link">{{resource.experiment.title}}</a>
     </fl-text-icon>
 

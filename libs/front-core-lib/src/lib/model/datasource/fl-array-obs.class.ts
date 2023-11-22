@@ -82,8 +82,10 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
    * Add an item to the array
    * @param item item or items to add
    * @param order if filled the item is added on the position when order returns < 0
+   * @param skipIfExists if true the item is not added if it already exists
    */
-  public addItem(item: T | T[], order ?: (a: T, b: T, index: number) => boolean): void {
+  public addItem(item: T | T[], order ?: (a: T, b: T, index: number) => boolean,
+                 skipIfExists: boolean = true): void {
     const items: T[] = this.convertObjectOrArrayToArray(item);
 
     if (items.length === 0) {
@@ -92,10 +94,12 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
 
     const array: T[] = this.array;
 
-    if (!order) {
-      array.push(...items);
-    } else {
-      for (const it of items) {
+    for (const it of items) {
+      if (skipIfExists && this.findItem(it)) continue;
+
+      if (!order) {
+        array.push(it);
+      } else {
         ClHelpService.insertIntoOrderedArray(it, array, order);
       }
     }
@@ -126,7 +130,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
 
     const array: T[] = this.array;
     for (const item of items) {
-      const index = array.findIndex(v => this.equals(item, v));
+      const index = this.findIndex(item);
 
       if (index >= 0) {
         array[index] = item;
@@ -166,7 +170,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
     const array: T[] = this.array;
 
     for (const it of items) {
-      const index = array.findIndex(v => this.equals(it, v));
+      const index = this.findIndex(it);
 
       if (index >= 0) {
         array[index] = it;
@@ -222,6 +226,15 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
 
       this.array = array;
     }
+  }
+
+  //////////////////////// GET /////////////////////////
+  public findItem(item: T): T | null {
+    return this.array.find(v => this.equals(item, v));
+  }
+
+  public findIndex(item: T): number {
+    return this.array.findIndex(v => this.equals(item, v));
   }
 
   /////////////////////// ARRAY ////////////////////////

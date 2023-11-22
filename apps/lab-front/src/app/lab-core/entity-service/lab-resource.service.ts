@@ -4,8 +4,7 @@ import {
   FlApiService,
   FlFileHelper,
   FlSearchConverter,
-  FLSearchFunction,
-  FlTag
+  FLSearchFunction
 } from '@monorepo/front-core-lib';
 import {Observable, of} from 'rxjs';
 import {LabResource} from '../model/entities/resource/lab-resource.entity';
@@ -24,7 +23,6 @@ import {
 import {LabResourceImporterType} from '../model/entities/resource/lab-resource.dto';
 import {LabTypeService} from './lab-type.service';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
-import {LabTag} from '../model/entities/lab-tag.entity';
 import {PrConfigValues} from '@monorepo/protocol';
 import {LabSharedEntity} from '../model/entities/lab-share.entity';
 import {LabTransformerParams} from '../model/global/lab-transformer.class';
@@ -88,11 +86,6 @@ export class LabResourceService {
 
   public updateFlagged(id: string, flagged: boolean): Observable<LabResource> {
     return this.apiService.put(`${this.route}/${id}/flagged`, {flagged: flagged}, LabResource);
-  }
-
-
-  public saveTags(id: string, tags: FlTag[]): Observable<LabTag[]> {
-    return this.apiService.put(`${this.route}/${id}/tags`, tags, LabTag);
   }
 
   public updateProject(id: string, projectId: string): Observable<LabResource> {

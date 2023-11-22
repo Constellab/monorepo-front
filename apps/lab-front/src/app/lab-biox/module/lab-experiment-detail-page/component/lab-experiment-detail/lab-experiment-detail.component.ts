@@ -4,14 +4,18 @@ import {LabExperiment} from '../../../../../lab-core/model/entities/lab-experime
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
 import {
   FlDebouncer,
+  FlDialogService,
   FlQuillJson,
   FlTagDatasource,
-  FlTagDialogService,
   FlTextEditorBasicConfig,
   FlTextEditorConfig
 } from '@monorepo/front-core-lib';
 import {LabExperimentService} from '../../../../../lab-core/entity-service/lab-experiment.service';
 import {LabProject} from '../../../../../lab-core/model/entities/lab-project.class';
+import {
+  LabAddTagToEntityDialogInput,
+  LabManageEntityTagsDialogComponent
+} from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 
 /**
  * Component inside LabExperimentDetailPage to show experiment information but not workflow
@@ -33,7 +37,7 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
 
   constructor(private experimentState: LabExperimentDetailPageState,
               private experimentService: LabExperimentService,
-              private tagDialogService: FlTagDialogService) {
+              private dialogService: FlDialogService) {
   }
 
   ngOnInit(): void {
@@ -65,11 +69,13 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
   }
 
   openTagsFormDialog(): void {
-    const experiment = this.experimentState.currentExperiment;
-    this.tagDialogService.openUpdateTagDialog({
+    const data: LabAddTagToEntityDialogInput = {
+      entityType: 'EXPERIMENT',
+      entityId: this.experimentState.currentExperiment.id,
       tags: this.experimentState.getTags$(),
-      updateMethod: (tags) => this.experimentService.saveTags(experiment.id, tags)
-    });
+    };
+
+    this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, {data: data});
   }
 
   updateProject(project: LabProject): void {

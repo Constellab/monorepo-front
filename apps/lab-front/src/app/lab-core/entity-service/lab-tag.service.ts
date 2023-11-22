@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {FlApiService, FlTagDatasource, FlTagService, FlTagValue} from '@monorepo/front-core-lib';
+import {FlApiService, FlTag, FlTagDatasource, FlTagService, FlTagValue} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
-import {LabEntityTagType, LabTag, LabTagEntity} from '../model/entities/lab-tag.entity';
+import {LabEntityTagType, LabTag, LabTagEntity, TagPropagationImpactDTO} from '../model/entities/lab-tag.entity';
 
 
 @Injectable({
@@ -44,7 +44,18 @@ export class LabTagService extends FlTagService {
     return this.apiService.put(`${this.route}/${tagKey}/reorder`, values, LabTagEntity);
   }
 
+
   ///////////////////////////////////////////////////// ENTITY TAGS /////////////////////////////////////////////////////
+
+
+  addEntityTags(entityType: string, entityId: string, tags: FlTag[],
+                propagate: boolean): Observable<LabTag[]> {
+    return this.apiService.post(`${this.route}/entity/${entityType}/${entityId}/${propagate}`, tags, LabTag);
+  }
+
+  deleteEntityTag(entityType: string, entityId: string, tag: FlTag): Observable<void> {
+    return this.apiService.delete(`${this.route}/entity/${entityType}/${entityId}/${tag.key}/${tag.value}`);
+  }
 
   public getEntityTags(entityType: LabEntityTagType, entityId: string): Observable<LabTag[]> {
     return this.apiService.get(`${this.route}/entity/${entityType}/${entityId}`, LabTag);
@@ -54,8 +65,14 @@ export class LabTagService extends FlTagService {
     return new FlTagDatasource(this.getEntityTags(entityType, entityId));
   }
 
-  public saveEntityTags(entityType: LabEntityTagType, entityId: string,
-                        tags: LabTag[]): Observable<LabTag[]> {
-    return this.apiService.put(`${this.route}/entity/${entityType}/${entityId}`, tags, LabTag);
+
+  ////////////////////////////////////////////////// PROPAGATION //////////////////////////////////////////////////
+  public checkPropagationAddTags(entityType: LabEntityTagType, entityId: string, tags: FlTag[]): Observable<TagPropagationImpactDTO> {
+    return this.apiService.post(`${this.route}/check-propagation-add/${entityType}/${entityId}`, tags, TagPropagationImpactDTO);
   }
+
+  public checkPropagationDeleteTags(entityType: LabEntityTagType, entityId: string, tag: FlTag): Observable<TagPropagationImpactDTO> {
+    return this.apiService.post(`${this.route}/check-propagation-delete/${entityType}/${entityId}`, tag, TagPropagationImpactDTO);
+  }
+
 }

@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
 import {LabTagEntity} from '../../../../model/entities/lab-tag.entity';
-import {LabDragType} from '../../../../model/global/lab-drag-type.class';
 import {FlFormFieldDirective, FlTag} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
 import {ClHelpService} from '@monorepo/core-lib';
@@ -30,8 +29,6 @@ export class LabTagEntityDetailComponent extends FlFormFieldDirective<string> im
   @Output() deleteTagValue: EventEmitter<FlTag> = new EventEmitter();
 
   isExpanded: boolean = false;
-
-  dragType: LabDragType = LabDragType.TAG;
 
   constructor(@Optional() @Self() ngControl: NgControl,
               private tagService: LabTagService) {
