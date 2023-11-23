@@ -7,8 +7,9 @@ import {CommonModule} from '@angular/common';
 
 // we use the strict version of plotly even if it's not typed because the normal version
 // use eval (for webgl scatter) which requires unsafe-eval in the CSP
+// don't use the dist version because the webgl doesn't work in production mode
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const Plotly = require('plotly.js-strict-dist-min');
+const Plotly = require('plotly.js-strict-dist');
 
 /**
  * Standalone component to display a plotly view.
