@@ -1,32 +1,34 @@
-.port-list-container{
+.port-list-container {
   min-height: 0;
   min-width: 0;
+  overflow-y: auto;
 }
 
-.port-container{
+.port-container {
   margin-bottom: 0.5em;
   // prevent text to be too long
   flex-shrink: 1;
   overflow: hidden;
+  min-height: 120px;
 }
 
-.selected-port{
+.selected-port {
   background-color: var(--hover-color);
 }
 
-.view-container{
+.view-container {
   min-width: 0; // prevent width overflow
   flex: 1;
 }
 
-.error-text{
+.error-text {
   display: block;
   padding-left: 1em;
   padding-right: 1em;
 }
 
 //////// PORT SECTION ////////
-.port-name {
+.port-container {
   padding-top: 1em;
   padding-bottom: 1em;
   border: 1px solid var(--hover-color);
@@ -34,13 +36,24 @@
   max-height: 100%;
   place-content: center flex-start;
   align-items: center;
+  margin-bottom: 0.5em;
+
+  // prevent text form being too long
+  // but set also a min height to the text from being too small
+  flex-shrink: 1;
+  overflow: hidden;
+  min-height: 120px;
 }
 
 .port-name:hover {
   background-color: var(--hover-color);
 }
 
-.text{
+.super-text{
+  min-height: 120px;
+}
+
+.text {
   writing-mode: vertical-lr;
   user-select: none;
   text-overflow: ellipsis;
@@ -73,7 +86,12 @@
   flex-shrink: 0;
 }
 
-.delete-port{
+.delete-port {
   margin-top: 10px;
   margin-bottom: -5px;
+  // make the button container takes the remaining space
+  // and align button to bottom
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
 }

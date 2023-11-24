@@ -1,14 +1,27 @@
-<div class="container g-layout-row g-layout-start-center g-layout-gap-05em">
-  <div class="card g-text-small" matRipple (click)="selectResource(resource())"
-       [ngClass]="{'selected-card': resource()?.id === selectedResource()?.id}"
-       [matTooltip]="resource().name" [matTooltipShowDelay]="500">
-    {{resource().name}}
+<div class="container">
+  <div class="scrollable-container g-layout-row g-layout-start-center g-layout-gap-05em g-styled-scrollbar"
+       #scrollableElement (scroll)="updateShowScrollButtons()">
+
+    <div class="card g-text-small" matRipple (click)="selectResource(resource())"
+         [ngClass]="{'selected-card': resource()?.id === selectedResource()?.id}"
+         [matTooltip]="resource().name" [matTooltipShowDelay]="500">
+      {{resource().name}}
+    </div>
+
+    <div *ngFor="let child of children()" class="card g-text-small" matRipple
+         (click)="selectResource(child)"
+         [matTooltip]="child.name" [matTooltipShowDelay]="500"
+         [ngClass]="{'selected-card': child.id === selectedResource()?.id}">
+      {{child.name}}
+    </div>
   </div>
 
-  <div *ngFor="let child of children()" class="card g-text-small" matRipple
-       (click)="selectResource(child)"
-       [matTooltip]="child.name" [matTooltipShowDelay]="500"
-       [ngClass]="{'selected-card': child.id === selectedResource()?.id}">
-    {{child.name}}
-  </div>
+  <button mat-icon-button color="primary" class="scroll-button scroll-button-left" (click)="scrollToLeft()"
+          type="button" *ngIf="showLeftScrollButton()">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <button mat-icon-button color="primary" class="scroll-button scroll-button-right" (click)="scrollToRight()"
+          type="button" *ngIf="showRightScrollButton()">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
 </div>

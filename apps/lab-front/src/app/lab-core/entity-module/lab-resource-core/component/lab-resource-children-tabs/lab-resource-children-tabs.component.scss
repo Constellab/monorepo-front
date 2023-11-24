@@ -1,7 +1,21 @@
-.container {
-  padding: 0 0.5em;
+.container{
+  position: relative;
 }
 
+.scrollable-container {
+  padding: 0 0.5em;
+  overflow-x: auto;
+}
+
+.size-element{
+  width: fit-content;
+}
+
+  /* width and height */
+  .scrollable-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 
 .card {
   background-color: var(--card-background);
@@ -13,6 +27,8 @@
   text-overflow: ellipsis;
   cursor: pointer;
   margin-top: 0.5em;
+  min-width: 100px;
+  text-align: center;
 }
 
 .selected-card {
@@ -20,3 +36,18 @@
   color: var(--primary-color-contrast)
 }
 
+.scroll-button{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--primary-color);
+  color: var(--primary-color-contrast);
+}
+
+.scroll-button-left{
+  left: 0;
+}
+
+.scroll-button-right{
+  right: 0;
+}

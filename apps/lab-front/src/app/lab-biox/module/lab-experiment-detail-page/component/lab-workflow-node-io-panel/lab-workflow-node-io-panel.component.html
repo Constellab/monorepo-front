@@ -1,8 +1,8 @@
 <div [ngClass]="layoutClass" class="g-full-height">
-  <div class="port-list-container g-layout-col">
-    <div *ngFor="let port$ of ports" class="port-container">
+  <div class="port-list-container g-layout-col g-styled-scrollbar">
+    <ng-container *ngFor="let port$ of ports">
 
-      <div *ngIf="port$ | async as port" class="port-name g-layout-col"
+      <div *ngIf="port$ | async as port" class="port-container g-layout-col"
            (click)="onPortClick(port.port.name)"
            [ngClass]="{'selected-port': (portIsSelected(port.port.name) | async),
                        'port-input': mode === 'input',
@@ -12,14 +12,15 @@
         <div class="text">
           {{ port.text | flTranslatableText}}
         </div>
-
-        <button mat-icon-button type="button" class="g-button-icon-tiny delete-port"
-                [matTooltip]="removePortTooltip | translate" *ngIf="isDynamicPorts$ | async"
-                [disabled]="(isEditable$ | async) === false" (click)="removePort(port.port.name, $event)">
-          <mat-icon>clear</mat-icon>
-        </button>
+        <div class="delete-port">
+          <button mat-icon-button type="button" class="g-button-icon-tiny "
+                  [matTooltip]="removePortTooltip | translate" *ngIf="isDynamicPorts$ | async"
+                  [disabled]="(isEditable$ | async) === false" (click)="removePort(port.port.name, $event)">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
       </div>
-    </div>
+    </ng-container>
 
     <div class="g-text-centered">
       <button mat-icon-button type="button" class="g-button-icon-tiny"
