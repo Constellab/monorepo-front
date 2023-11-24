@@ -45,8 +45,8 @@ import {
 import {LabProtocolService} from '../../../../../lab-core/entity-service/lab-protocol.service';
 import {DateTime} from 'luxon';
 import {
-  LabAddTagToEntityDialogInput,
-  LabManageEntityTagsDialogComponent
+  LabManageEntityTagsDialogComponent,
+  LabManageEntityTagsDialogInput
 } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 
 /**
@@ -159,7 +159,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
 
   openTagsFormDialog(): void {
-    const data: LabAddTagToEntityDialogInput = {
+    const data: LabManageEntityTagsDialogInput = {
       entityType: 'EXPERIMENT',
       entityId: this.experimentState.currentExperiment.id,
       tags: this.experimentState.getTags$(),

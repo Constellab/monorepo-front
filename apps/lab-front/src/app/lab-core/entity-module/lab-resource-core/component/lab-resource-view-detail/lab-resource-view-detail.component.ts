@@ -2,11 +2,11 @@ import {Component, Input, OnInit, Optional} from '@angular/core';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
 import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
 import {RvViewConfig} from '@monorepo/resource-view';
-import {FlTagDatasource} from '@monorepo/front-core-lib';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
 import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource/lab-resource-view-type.class';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
+import {LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
 
 @Component({
   selector: 'lab-resource-view-detail',
@@ -19,7 +19,7 @@ export class LabResourceViewDetailComponent implements OnInit {
 
   @Input() showResourceName: boolean = true;
 
-  tags: FlTagDatasource;
+  tags: LabTagDatasource;
 
   constructor(private viewConfigService: LabViewConfigService,
               private tagService: LabTagService,

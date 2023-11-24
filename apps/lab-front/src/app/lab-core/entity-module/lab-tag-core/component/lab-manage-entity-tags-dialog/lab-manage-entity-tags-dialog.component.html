@@ -4,9 +4,9 @@
 
   <!-- Existing/Delete section -->
   <h2>{{'existing_tags' | translate}}</h2>
-  <fl-tag-list [tags]="currentTags" class="tag-list"
-               [showDeleteIcon]="true" [showNoTagMessage]="true"
-               (tagDeleted)="deleteExistingTag($event)"></fl-tag-list>
+  <lab-tag-list [tags]="currentTags" class="tag-list"
+                [mode]="'edit'" [showNoTagMessage]="true"
+                (tagDeleted)="deleteExistingTag($event)"></lab-tag-list>
 
   <mat-divider class="divider"></mat-divider>
 
@@ -16,9 +16,9 @@
 
   <fl-add-tag-input class="section" (addTag)="addTag($event)"></fl-add-tag-input>
 
-  <fl-tag-list [tags]="newTags" class="tag-list"
-               [showDeleteIcon]="true"
-               (tagDeleted)="removeNewTag($event)"></fl-tag-list>
+  <lab-tag-list [tags]="newTags" class="tag-list"
+                [mode]="'edit'"
+                (tagDeleted)="removeNewTag($event)"></lab-tag-list>
 
   <mat-checkbox [(ngModel)]="isPropagable" class="section">
     {{'propagate_tags' | translate}}

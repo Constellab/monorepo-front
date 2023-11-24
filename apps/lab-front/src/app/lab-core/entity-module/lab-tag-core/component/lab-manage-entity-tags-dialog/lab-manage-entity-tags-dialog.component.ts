@@ -1,25 +1,24 @@
 import {Component, Inject} from '@angular/core';
 import {
+  FlAddTagEvent,
   FlConfirmDialogResult,
   FlDialogService,
   FlPortalActionResult,
   FlPortalActionsService,
-  FlSnackBarService,
-  FlTag,
-  FlTagDatasource
+  FlSnackBarService
 } from '@monorepo/front-core-lib';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {LabEntityTagType} from '../../../../model/entities/lab-tag.entity';
+import {LabEntityTagType, LabTag, LabTagDatasource, LabTagEntity} from '../../../../model/entities/lab-tag.entity';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
 import {
   LabTagCheckPropagationComponent,
   LabTagCheckPropagationInput
 } from '../lab-tag-check-propagation/lab-tag-check-propagation.component';
 
-export interface LabAddTagToEntityDialogInput {
+export interface LabManageEntityTagsDialogInput {
   entityType: LabEntityTagType;
   entityId: string;
-  tags: FlTagDatasource;
+  tags: LabTagDatasource;
 }
 
 /**
@@ -32,14 +31,14 @@ export interface LabAddTagToEntityDialogInput {
 })
 export class LabManageEntityTagsDialogComponent {
 
-  currentTags: FlTagDatasource;
-  newTags: FlTagDatasource = new FlTagDatasource();
+  currentTags: LabTagDatasource;
+  newTags: LabTagDatasource = new LabTagDatasource();
 
   isPropagable: boolean = false;
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: LabAddTagToEntityDialogInput,
+  constructor(@Inject(MAT_DIALOG_DATA) private input: LabManageEntityTagsDialogInput,
               private tagService: LabTagService,
               private dialogService: FlDialogService,
               private portalActionService: FlPortalActionsService,
@@ -47,21 +46,22 @@ export class LabManageEntityTagsDialogComponent {
     this.currentTags = input.tags;
   }
 
-  addTag(tag: FlTag): void {
+  addTag(tagEvent: FlAddTagEvent): void {
+    const tag = LabTag.newUserTag(tagEvent.tagEntity.key, tagEvent.value);
     if (this.currentTags.findItem(tag)) {
       this.snackBarService.openErrorMessage({text: 'tag_already_exists', translateText: true});
       return;
     }
     // init the propagable value with the first tag
     if (this.newTags.isEmpty()) {
-      this.isPropagable = tag.is_propagable;
+      this.isPropagable = (tagEvent.tagEntity as LabTagEntity).is_propagable;
     }
 
     if (this.newTags.findItem(tag)) return;
     this.newTags.addItem(tag);
   }
 
-  removeNewTag(tag: FlTag): void {
+  removeNewTag(tag: LabTag): void {
     this.newTags.removeItem(tag);
   }
 
@@ -98,7 +98,7 @@ export class LabManageEntityTagsDialogComponent {
       text: {text: 'adding_tag', translateText: true},
       action: this.tagService.addEntityTags(this.input.entityType, this.input.entityId, this.newTags.array, this.isPropagable)
     }, true).subscribe(
-      (result: FlPortalActionResult<FlTag[]>) => {
+      (result: FlPortalActionResult<LabTag[]>) => {
         if (result.status === 'success') {
           this.currentTags.addItem(result.result);
         }
@@ -107,7 +107,7 @@ export class LabManageEntityTagsDialogComponent {
     this.newTags.clearArray();
   }
 
-  deleteExistingTag(tag: FlTag): void {
+  deleteExistingTag(tag: LabTag): void {
     const data: LabTagCheckPropagationInput = {
       impactDTO$: this.tagService.checkPropagationDeleteTags(this.input.entityType, this.input.entityId, tag),
       mode: 'REMOVE'
@@ -117,7 +117,7 @@ export class LabManageEntityTagsDialogComponent {
     });
   }
 
-  private removeCheckPropagationDialogResult(tag: FlTag, result ?: FlConfirmDialogResult): void {
+  private removeCheckPropagationDialogResult(tag: LabTag, result ?: FlConfirmDialogResult): void {
     if (result?.choice) {
       this.portalActionService.addAction({
         type: 'delete-tag',

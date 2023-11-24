@@ -77,8 +77,8 @@
       <span> {{'tags' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="tags">
-      <fl-tag-list [tags]="resource | labGetEntityTags"
-                   [tagSelectable]="tagSelectable" (tagSelected)="onTagSelected($event)"></fl-tag-list>
+      <lab-tag-list [tags]="resource | labGetEntityTags"
+                   [tagSelectable]="tagSelectable" (tagSelected)="onTagSelected($event)"></lab-tag-list>
     </mat-cell>
   </ng-container>
 

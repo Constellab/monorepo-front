@@ -4,15 +4,12 @@ import {
   LabTypeDialogComponent,
   LabTypeDialogInput
 } from '../../../lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
-import {FlDialogService, FlTagDatasource} from '@monorepo/front-core-lib';
+import {FlDialogService} from '@monorepo/front-core-lib';
 import {
   LabSharedEntityOriginDialogComponent
 } from '../../../lab-share-core/component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
-import {
-  LabAddTagToEntityDialogInput,
-  LabManageEntityTagsDialogComponent
-} from '../../../lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
+import {LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
 
 /**
  * Component to show info about a resource
@@ -26,7 +23,7 @@ export class LabResourceInfoComponent implements OnInit {
 
   @Input({required: true}) resource: LabResource;
 
-  tags: FlTagDatasource;
+  tags: LabTagDatasource;
 
   constructor(private dialogService: FlDialogService,
               private tagService: LabTagService) {
@@ -47,15 +44,5 @@ export class LabResourceInfoComponent implements OnInit {
     if (this.resource.origin === 'IMPORTED_FROM_LAB') {
       this.dialogService.openMediumDialog(LabSharedEntityOriginDialogComponent, {data: this.resource.id});
     }
-  }
-
-  openTagFormDialog(): void {
-    const data: LabAddTagToEntityDialogInput = {
-      entityType: 'RESOURCE',
-      entityId: this.resource.id,
-      tags: this.tags,
-    };
-
-    this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, {data: data});
   }
 }

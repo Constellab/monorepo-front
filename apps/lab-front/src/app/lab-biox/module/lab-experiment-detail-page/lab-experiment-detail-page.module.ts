@@ -62,6 +62,7 @@ import {
 import {
   LabDynamicPortConfigDialogComponent
 } from './component/lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
+import {LabTagCoreModule} from '../../../lab-core/entity-module/lab-tag-core/lab-tag-core.module';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import {
     LabProgressBarCoreModule,
     LabProjectCoreModule,
     LabProtocolTemplateCoreModule,
+    LabTagCoreModule,
   ],
 })
 export class LabExperimentDetailPageModule {

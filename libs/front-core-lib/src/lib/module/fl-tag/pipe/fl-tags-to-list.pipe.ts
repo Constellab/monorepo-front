@@ -1,6 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {FlTag, FlTagDatasource, FlTagValue} from '../fl-tag.class';
 import {Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 /**
  * Pipe to convert list of tags or record of tags to a list of tags
@@ -11,26 +12,24 @@ import {Observable, of} from 'rxjs';
 export class FlTagsToListPipe implements PipeTransform {
 
   transform(tags: FlTag[] | Record<string, FlTagValue> | FlTagDatasource,
-            slice: number): Observable<FlTag[]> {
+            slice: number = -1): Observable<FlTag[]> {
     if (tags == null) return of([]);
 
+    let obs: Observable<FlTag[]>;
     if (tags instanceof FlTagDatasource) {
-      return tags.connect();
+      obs = tags.connect();
+    } else if (Array.isArray(tags)) {
+      obs = of(tags);
     } else {
-      return of(this.recordOrListToList(tags, slice));
+      obs = of(this.recordToList(tags));
     }
-  }
 
-
-  private recordOrListToList(tags: FlTag[] | Record<string, FlTagValue>, slice: number): FlTag[] {
-    let tagList: FlTag[];
-    if (Array.isArray(tags)) {
-      tagList = tags;
-    } else {
-      tagList = this.recordToList(tags);
+    if (slice > 0) {
+      return obs.pipe(
+        map((values: FlTag[]) => values.slice(0, slice))
+      );
     }
-    if (slice == null) return tagList;
-    return tagList.slice(0, slice);
+    return obs;
   }
 
   private recordToList(tags: Record<string, FlTagValue>): FlTag[] {

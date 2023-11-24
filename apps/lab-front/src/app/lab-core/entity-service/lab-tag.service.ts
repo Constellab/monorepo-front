@@ -1,7 +1,14 @@
 import {Injectable} from '@angular/core';
-import {FlApiService, FlTag, FlTagDatasource, FlTagService, FlTagValue} from '@monorepo/front-core-lib';
+import {FlApiService, FlTag, FlTagService, FlTagValue} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
-import {LabEntityTagType, LabTag, LabTagEntity, TagPropagationImpactDTO} from '../model/entities/lab-tag.entity';
+import {
+  LabEntityTagType,
+  LabTag,
+  LabTagDatasource,
+  LabTagDetail,
+  LabTagEntity,
+  TagPropagationImpactDTO
+} from '../model/entities/lab-tag.entity';
 
 
 @Injectable({
@@ -61,8 +68,12 @@ export class LabTagService extends FlTagService {
     return this.apiService.get(`${this.route}/entity/${entityType}/${entityId}`, LabTag);
   }
 
-  public getEntityTagsDatasource(entityType: LabEntityTagType, entityId: string): FlTagDatasource {
-    return new FlTagDatasource(this.getEntityTags(entityType, entityId));
+  public getEntityTagsDatasource(entityType: LabEntityTagType, entityId: string): LabTagDatasource {
+    return new LabTagDatasource(this.getEntityTags(entityType, entityId));
+  }
+
+  public getEntityTag(entityTagId: string): Observable<LabTagDetail> {
+    return this.apiService.get(`${this.route}/entity/${entityTagId}`, LabTagDetail);
   }
 
 

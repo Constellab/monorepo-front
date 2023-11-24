@@ -1,4 +1,4 @@
-import {FlTag, FlTagEntity, FlTagValue} from '@monorepo/front-core-lib';
+import {FlTag, FlTagDatasource, FlTagEntity, FlTagValue} from '@monorepo/front-core-lib';
 import {LabEntity} from '../global/lab-entity.entity';
 import {LabNavigableEntityGrouped} from './lab-navigable-entity.entity';
 import {Expose, Type} from 'class-transformer';
@@ -12,7 +12,36 @@ export type LabEntityTagType = 'EXPERIMENT' | 'REPORT' | 'RESOURCE' | 'VIEW' | '
 export class LabTag implements FlTag {
   key: string;
   value: FlTagValue;
+
+  @Expose({name: 'is_user_origin'})
+  isUserOrigin: boolean;
+
+  public static newUserTag(key: string, value: FlTagValue): LabTag {
+    const tag = new LabTag();
+    tag.key = key;
+    tag.value = value;
+    tag.isUserOrigin = true;
+    return tag;
+  }
 }
+
+export class LabTagDetail implements FlTag {
+  key: string;
+  value: FlTagValue;
+
+  @Expose({name: 'is_user_origin'})
+  isUserOrigin: boolean;
+
+  @Expose({name: 'is_propagable'})
+  isPropagable: boolean;
+
+  @Expose({name: 'origins'})
+  origins: string[];
+
+  @Expose({name: 'created_at'})
+  createdAt: string;
+}
+
 
 /**
  * Object representing the tags entity
@@ -46,4 +75,8 @@ export class TagPropagationImpactDTO {
   get hasImpactedEntities(): boolean {
     return this.entityCount > 0;
   }
+}
+
+export class LabTagDatasource extends FlTagDatasource<LabTag>{
+
 }

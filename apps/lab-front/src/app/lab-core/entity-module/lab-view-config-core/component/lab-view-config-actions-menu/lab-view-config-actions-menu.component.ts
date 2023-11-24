@@ -1,11 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {LabTag} from '../../../../model/entities/lab-tag.entity';
+import {LabTag, LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
 import {
   FlDialogService,
   FlPrettyJsonDialogComponent,
   FlPrettyJsonDialogInput,
-  FlSnackBarService,
-  FlTagDatasource
+  FlSnackBarService
 } from '@monorepo/front-core-lib';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
 import {
@@ -19,8 +18,8 @@ import {LabReport} from '../../../../model/entities/lab-report.entity';
 import {LabReportService} from '../../../../entity-service/lab-report.service';
 import {LabRouterService} from '../../../../service/lab-router.service';
 import {
-  LabAddTagToEntityDialogInput,
-  LabManageEntityTagsDialogComponent
+  LabManageEntityTagsDialogComponent,
+  LabManageEntityTagsDialogInput
 } from '../../../lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 
 /**
@@ -37,7 +36,7 @@ export class LabViewConfigActionsMenuComponent {
 
   @Input() mode: 'text' | 'icon' = 'text';
 
-  @Input() tags: FlTagDatasource;
+  @Input() tags: LabTagDatasource;
 
   @Output() update: EventEmitter<LabViewConfig> = new EventEmitter();
   @Output() updateTags: EventEmitter<LabTag[]> = new EventEmitter();
@@ -72,7 +71,7 @@ export class LabViewConfigActionsMenuComponent {
 
 
   openTagFormDialog(): void {
-    const data: LabAddTagToEntityDialogInput = {
+    const data: LabManageEntityTagsDialogInput = {
       entityType: 'VIEW',
       entityId: this.viewConfig.id,
       tags: this.tags,

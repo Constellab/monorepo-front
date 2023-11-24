@@ -6,16 +6,16 @@ import {
   FlDebouncer,
   FlDialogService,
   FlQuillJson,
-  FlTagDatasource,
   FlTextEditorBasicConfig,
   FlTextEditorConfig
 } from '@monorepo/front-core-lib';
 import {LabExperimentService} from '../../../../../lab-core/entity-service/lab-experiment.service';
 import {LabProject} from '../../../../../lab-core/model/entities/lab-project.class';
 import {
-  LabAddTagToEntityDialogInput,
-  LabManageEntityTagsDialogComponent
+  LabManageEntityTagsDialogComponent,
+  LabManageEntityTagsDialogInput
 } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
+import {LabTagDatasource} from '../../../../../lab-core/model/entities/lab-tag.entity';
 
 /**
  * Component inside LabExperimentDetailPage to show experiment information but not workflow
@@ -29,7 +29,7 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
 
   experiment$: Observable<LabExperiment>;
   description: FlQuillJson;
-  tags$: FlTagDatasource;
+  tags$: LabTagDatasource;
 
   textEditorConfig: FlTextEditorConfig = new FlTextEditorBasicConfig();
 
@@ -69,7 +69,7 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
   }
 
   openTagsFormDialog(): void {
-    const data: LabAddTagToEntityDialogInput = {
+    const data: LabManageEntityTagsDialogInput = {
       entityType: 'EXPERIMENT',
       entityId: this.experimentState.currentExperiment.id,
       tags: this.experimentState.getTags$(),

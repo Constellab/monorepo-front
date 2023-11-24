@@ -192,7 +192,7 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
       this.switchMode('key');
     } else {
       // find the selected tag and save it
-      this.newTag = this.allTags.find(t => t.key === value) ?? {key: value, values: [], is_propagable: true};
+      this.newTag = this.allTags.find(t => t.key === value) ?? {key: value, values: []};
       this.switchMode('value');
 
       // force reopening the panel after clear

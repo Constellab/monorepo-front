@@ -13,9 +13,14 @@ import {TAB} from '@angular/cdk/keycodes';
 import {UntypedFormControl} from '@angular/forms';
 import {ClHelpService, clRxjsElasticSearch} from '@monorepo/core-lib';
 import {map, mergeMap, startWith, tap} from 'rxjs/operators';
-import {FlTag, FlTagEntity, FlTagService} from '../../fl-tag.class';
+import {FlTagEntity, FlTagService, FlTagValue} from '../../fl-tag.class';
 import {Observable} from 'rxjs';
 
+
+export interface FlAddTagEvent {
+  tagEntity: FlTagEntity;
+  value: FlTagValue;
+}
 
 /**
  * Component that supports NgModel to search and add a tag
@@ -32,7 +37,7 @@ export class FlAddTagInputComponent implements OnInit {
 
   @Input() label: string = 'flTag.tags';
 
-  @Output() addTag: EventEmitter<FlTag> = new EventEmitter();
+  @Output() addTag: EventEmitter<FlAddTagEvent> = new EventEmitter();
 
   @ViewChild('input') input: ElementRef<HTMLInputElement>;
   @ViewChild(MatAutocompleteTrigger) autocompleteTrigger: MatAutocompleteTrigger;
@@ -138,14 +143,14 @@ export class FlAddTagInputComponent implements OnInit {
   private addChip(value: string): void {
     if (!value) return;
     if (this.isValueSelection) {
-      this.addTag.emit({key: this.currentTagKey.key, value: value, is_propagable: this.currentTagKey.is_propagable});
+      this.addTag.emit({tagEntity: this.currentTagKey, value: value});
 
       // clear the new tag key (to switch to key selection)
       this.currentTagKey = null;
       this.switchMode('key');
     } else {
       // find the selected tag and save it
-      this.currentTagKey = this.allTags.find(t => t.key === value) ?? {key: value, values: [], is_propagable: true};
+      this.currentTagKey = this.allTags.find(t => t.key === value) ?? {key: value, values: []};
       this.switchMode('value');
 
       // force reopening the panel after clear

@@ -10,20 +10,20 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlQuillJson,
-  FlSnackBarService,
-  FlTagDatasource
+  FlSnackBarService
 } from '@monorepo/front-core-lib';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {PrWorkflow, PrWorkflowLayer, PrWorkflowNodeProtocol} from '@monorepo/protocol';
 import {LabWorkflowFactory} from '../model/lab-workflow.factory';
 import {LabTagService} from '../../../../lab-core/entity-service/lab-tag.service';
+import {LabTagDatasource} from '../../../../lab-core/model/entities/lab-tag.entity';
 
 @Injectable()
 export class LabExperimentDetailPageState {
 
   private experiment$: BehaviorSubject<LabExperiment>;
   private experimentDescription$: BehaviorSubject<FlQuillJson>;
-  private tags$: FlTagDatasource;
+  private tags$: LabTagDatasource;
 
   public workflow: PrWorkflow;
   private mainProtocol$: BehaviorSubject<LabProtocol>;
@@ -108,7 +108,7 @@ export class LabExperimentDetailPageState {
     this.checkAndStartRefreshProtocol();
   }
 
-  public getTags$(): FlTagDatasource {
+  public getTags$(): LabTagDatasource {
     return this.tags$;
   }
 

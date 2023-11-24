@@ -14,6 +14,7 @@ import {
   LabTagCheckPropagationComponent
 } from './component/lab-tag-check-propagation/lab-tag-check-propagation.component';
 import {LabNavigableEntityCoreModule} from '../lab-navigable-entity-core/lab-navigable-entity-core.module';
+import {LabTagListComponent} from './component/lab-tag-list/lab-tag-list.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {LabNavigableEntityCoreModule} from '../lab-navigable-entity-core/lab-nav
     LabGetEntityTagsPipe,
     LabManageEntityTagsDialogComponent,
     LabTagCheckPropagationComponent,
+    LabTagListComponent,
   ],
   exports: [
     LabTagDashboardComponent,
@@ -31,6 +33,7 @@ import {LabNavigableEntityCoreModule} from '../lab-navigable-entity-core/lab-nav
     LabTagHelpDialogComponent,
     LabGetEntityTagsPipe,
     LabManageEntityTagsDialogComponent,
+    LabTagListComponent,
   ],
   imports: [
     CommonModule,

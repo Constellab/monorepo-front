@@ -1,11 +1,11 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {FlEntity, FlTagDatasource} from '@monorepo/front-core-lib';
+import {FlEntity} from '@monorepo/front-core-lib';
 import {LabExperiment} from '../../../model/entities/lab-experiment.entity';
 import {LabTagService} from '../../../entity-service/lab-tag.service';
 import {LabReport} from '../../../model/entities/lab-report.entity';
 import {LabResource} from '../../../model/entities/resource/lab-resource.entity';
 import {LabViewConfig} from '../../../model/entities/resource/lab-view-config.entity';
-import {LabEntityTagType} from '../../../model/entities/lab-tag.entity';
+import {LabEntityTagType, LabTagDatasource} from '../../../model/entities/lab-tag.entity';
 import {LabProtocolTemplate} from '../../../model/entities/process/lab-protocol-template.entity';
 
 @Pipe({
@@ -16,12 +16,12 @@ export class LabGetEntityTagsPipe implements PipeTransform {
   constructor(private tagService: LabTagService) {
   }
 
-  transform(entity: FlEntity): FlTagDatasource {
-    if (entity == null) return new FlTagDatasource([]);
+  transform(entity: FlEntity): LabTagDatasource {
+    if (entity == null) return new LabTagDatasource([]);
 
     const tagType = this.getTagType(entity);
 
-    if (tagType == null) return new FlTagDatasource([]);
+    if (tagType == null) return new LabTagDatasource([]);
 
     return this.tagService.getEntityTagsDatasource(tagType, entity.id);
   }

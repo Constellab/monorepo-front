@@ -76,6 +76,9 @@
       <fl-article-container>
         <fl-article-left-side>
 
+          <!-- Tags -->
+          <lab-tag-list entityType="REPORT" [entityId]="report.id"  [showNoTagMessage]="true"></lab-tag-list>
+
 
           <!--  Project  -->
           <lab-project-inline-select [(ngModel)]="report.project" (selectionChange)="updateProject($event)"

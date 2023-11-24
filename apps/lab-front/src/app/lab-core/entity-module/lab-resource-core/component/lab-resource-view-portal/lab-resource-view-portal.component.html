@@ -10,8 +10,10 @@
                                 (update)="onUpdate($event)"></lab-view-config-favorite>
     </div>
 
-    <fl-tag-list *ngIf="labView.viewConfig"
-                 [tags]="tags" [tagSelectable]="false" class="g-text-small"></fl-tag-list>
+    <lab-tag-list *ngIf="labView.viewConfig"
+                 [tags]="tags" [tagSelectable]="false"
+                  entityType="VIEW" [entityId]="labView.viewConfig.id"
+                  class="g-text-small"></lab-tag-list>
 
     <fl-portal-header-buttons>
 

@@ -10,7 +10,6 @@ import {
 } from '@monorepo/front-core-lib';
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
 import {ClHelpService} from '@monorepo/core-lib';
-import {LabTag} from '../../../../model/entities/lab-tag.entity';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
 import {LabResourceDetailDialogComponent} from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 import {Observable} from 'rxjs';
@@ -85,7 +84,7 @@ export class LabResourceTableComponent implements OnInit {
     this.emitTagSelected(tagEvent.tag);
   }
 
-  emitTagSelected(tag: LabTag): void {
+  emitTagSelected(tag: FlTag): void {
     this.tagSelected.next(tag);
   }
 

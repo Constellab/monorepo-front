@@ -1,11 +1,12 @@
 import {Component, Inject, Optional} from '@angular/core';
 import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
-import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef, FlTagDatasource} from '@monorepo/front-core-lib';
+import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef} from '@monorepo/front-core-lib';
 import {RvViewConfig} from '@monorepo/resource-view';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
 import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
+import {LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
 
 
 export interface LabResourceViewPortalInput {
@@ -40,7 +41,7 @@ export class LabResourceViewPortalComponent {
 
   editTitle: boolean = false;
 
-  tags: FlTagDatasource;
+  tags: LabTagDatasource;
 
 
   constructor(@Inject(FL_PORTAL_DATA) private input: LabResourceViewPortalInput,

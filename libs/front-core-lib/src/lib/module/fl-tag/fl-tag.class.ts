@@ -11,13 +11,12 @@ export type FlTagValue = string | number | DateTime;
 export interface FlTag {
   key: string;
   value: FlTagValue;
-  is_propagable?: boolean;
 }
 
 
-export class FlTagDatasource extends FlArrayObs<FlTag> {
+export class FlTagDatasource<T extends FlTag = FlTag> extends FlArrayObs<T> {
 
-  protected equals(a: FlTag, b: FlTag): boolean {
+  protected equals(a: T, b: T): boolean {
     return a.key === b.key && a.value === b.value;
   }
 }
@@ -29,8 +28,6 @@ export class FlTagDatasource extends FlArrayObs<FlTag> {
 export interface FlTagEntity {
   key: string;
   values: string[];
-
-  is_propagable: boolean;
 }
 
 /**

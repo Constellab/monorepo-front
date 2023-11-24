@@ -8,7 +8,7 @@
 
     <ng-container *flSectionBody="impactDTO$ as impactDTO">
       <h2>{{tagListText | translate}}</h2>
-      <fl-tag-list [tags]="impactDTO.tags" class="tag-list" [showNoTagMessage]="true"></fl-tag-list>
+      <lab-tag-list [tags]="tags" class="tag-list" [showNoTagMessage]="true"></lab-tag-list>
 
       <div class="help-text g-text-light">
         {{helpText | translate}}

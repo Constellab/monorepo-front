@@ -9,6 +9,7 @@ import {FlBlobToSrcPipe} from './fl-blob-to-src/fl-blob-to-src.pipe';
 import {FlCallMethodPipe} from './fl-call-method/fl-call-method.pipe';
 import {FlByteTextPipe} from './fl-byte-text/fl-byte-text.pipe';
 import {FlIsNotEmptyPipe} from './fl-is-not-empty/fl-is-not-empty.pipe';
+import {FlDatasourceConnectPipe} from './fl-datasource-connect/fl-datasource-connect.pipe';
 
 /**
  * Core module containing pipes
@@ -23,6 +24,7 @@ import {FlIsNotEmptyPipe} from './fl-is-not-empty/fl-is-not-empty.pipe';
     FlCallMethodPipe,
     FlByteTextPipe,
     FlIsNotEmptyPipe,
+    FlDatasourceConnectPipe,
   ],
   exports: [
     FlErrorRequiredPipe,
@@ -33,11 +35,8 @@ import {FlIsNotEmptyPipe} from './fl-is-not-empty/fl-is-not-empty.pipe';
     FlCallMethodPipe,
     FlByteTextPipe,
     FlIsNotEmptyPipe,
+    FlDatasourceConnectPipe,
   ],
-  imports: [
-    CommonModule,
-    FlTranslateModule,
-  ]
+  imports: [CommonModule, FlTranslateModule],
 })
-export class FlCorePipeModule {
-}
+export class FlCorePipeModule {}

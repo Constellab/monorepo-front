@@ -5,7 +5,8 @@
 
     <!--  Tags  -->
     <div class="g-layout-row">
-      <fl-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"></fl-tag-list>
+      <lab-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"
+                    entityType="EXPERIMENT" [entityId]="experiment.id"></lab-tag-list>
       <button mat-icon-button type="button" class="g-button-icon-small"
               (click)="openTagsFormDialog()">
         <mat-icon>edit</mat-icon>
