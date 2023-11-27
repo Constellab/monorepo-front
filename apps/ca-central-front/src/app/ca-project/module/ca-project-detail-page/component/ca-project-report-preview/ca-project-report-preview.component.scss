@@ -13,6 +13,10 @@
   padding-right: 1em;
 }
 
+.title{
+  word-break: break-word;
+}
+
 .report-content{
   min-height: 0;
   min-width: 0; // limit width to parent width
