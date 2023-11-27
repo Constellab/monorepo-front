@@ -6,7 +6,7 @@ import {
   LabProgressMessageDatasource
 } from '../../../../model/entities/lab-progress-bar.entity';
 import {mergeMap, Observable, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {filter, first, map} from 'rxjs/operators';
 import {LabProgressBarService} from '../../../../entity-service/lab-progress-bar.service';
 
 /**
@@ -31,6 +31,16 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
   loadMoreIsLoading = false;
   loadMoreCompleted = false;
 
+  // when true, the component will reload the last 20 messages every time the progress bar is updated
+  // if replaces all the messages in the list
+  // if load more messages is called, the live mode is disabled automatically to avoid conflict
+  // if the progress bar is completed, the live mode is disabled automatically
+  // when false, new messages are not loaded
+  liveMode: boolean = null;
+
+  // store if the progress bar was finished when the component was initialized
+  isFinishedOnInit: boolean = null;
+
   private subscription?: Subscription;
 
   private readonly nbOfMessages = 20;
@@ -54,19 +64,32 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
 
     // every time the progress bar updated (reload from state), refresh the message list
     this.subscription = this.progressBar$.pipe(
-      mergeMap(progressBar => this.getMessages(progressBar.id))).subscribe(
+      filter(() => this.liveMode !== false),
+      mergeMap(progressBar => this.getMessages(progressBar))).subscribe(
       messages => this.addMessageToList(messages)
     );
   }
 
-  private getMessages(progressBarId: string): Observable<LabProgressBarMessages> {
-    this.progressBarId = progressBarId;
+  private getMessages(progressBar: LabProgressBar): Observable<LabProgressBarMessages> {
+    this.progressBarId = progressBar.id;
+
+    if (this.liveMode == null) {
+      // enable live mode if the progress bar is not completed
+      this.liveMode = progressBar.endedAt == null;
+    }
+    if(this.isFinishedOnInit == null){
+      this.isFinishedOnInit = progressBar.endedAt != null;
+    }
     // get the last 20 messages
-    return this.progressBarService.getProgressBarMessages(progressBarId, this.nbOfMessages);
+    return this.progressBarService.getProgressBarMessages(progressBar.id, this.nbOfMessages);
   }
 
+  loadMoreMessagesManually(): void {
+    this.liveMode = false;
+    this.loadMoreMessages();
+  }
 
-  loadMoreMessages(): void {
+  private loadMoreMessages(): void {
     if (this.loadMoreIsLoading || this.loadMoreCompleted) return;
 
     this.loadMoreIsLoading = true;
@@ -85,17 +108,36 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
   private loadMoreMessagesSuccess(messages: LabProgressBarMessages): void {
     this.loadMoreIsLoading = false;
     this.addMessageToList(messages);
-
   }
 
   // add message to the list, avoid duplicate and respect order
   private addMessageToList(messages: LabProgressBarMessages): void {
-    this.messageDatasource.removeItem(messages.messages);
+    if (this.liveMode) {
+      // in live mode we clear all messages
+      this.messageDatasource.clear();
+    } else {
+      this.messageDatasource.removeItem(messages.messages);
+    }
     this.messageDatasource.addItem(messages.messages, (a, b) => a.datetime > b.datetime);
 
     // if the number of messages is less than the number of messages requested, it means that there is no more messages
     if (messages.messages.length < this.nbOfMessages) {
       this.loadMoreCompleted = true;
+    }else if (this.liveMode && messages.messages.length >= this.nbOfMessages){
+      // if we are in live mode and we have more messages than requested, it means that there is more messages
+      this.loadMoreCompleted = false;
+    }
+  }
+
+  liveModeChanged(): void {
+    // if the live mode was enabled manually, we clear all messages and reload the last 20 messages
+    if (this.liveMode === true) {
+      this.messageDatasource.clear();
+      this.loadMoreCompleted = false;
+      this.progressBar$.pipe(first()).subscribe(progressBar => this.getMessages(progressBar).subscribe(
+        messages => this.addMessageToList(messages)
+      ));
+
     }
   }
 

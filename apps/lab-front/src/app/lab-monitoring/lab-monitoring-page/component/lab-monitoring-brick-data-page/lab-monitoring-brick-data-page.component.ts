@@ -40,7 +40,7 @@ export class LabMonitoringBrickDataPageComponent implements OnInit {
 
   private onDeleteClosed(result: FlConfirmDialogResult): void {
     if (result.choice) {
-      this.brickDataList.clearArray();
+      this.brickDataList.clear();
     }
   }
 

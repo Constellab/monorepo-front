@@ -46,7 +46,7 @@ export class LabMonitoringVenvsPageComponent implements OnInit {
 
   private onDeleteAllEnvsClosed(result: FlConfirmDialogResult): void {
     if (result.choice) {
-      this.venvsList.clearArray();
+      this.venvsList.clear();
     }
   }
 

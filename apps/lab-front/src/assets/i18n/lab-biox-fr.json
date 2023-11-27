@@ -283,6 +283,7 @@
     "update_finished_process": "Modifier le processus",
     "update_finished_process_confirmation": "Ce processus a été exécuté, êtes-vous sûr de vouloir le mettre à jour ? Ce processus et tous les processus suivants seront réinitialisés et les ressources associées supprimées. Les processus précédents ne seront pas affectés. Le statut de l'expérience changera.",
     "progress_bar_multiple_start": "Ce protocole a été exécuté plusieurs fois. Il montre le début de la première exécution et la fin de la dernière exécution.",
+    "progress_bar_live_messages": "Messages en direct",
     "no_input_resource": "Aucune ressource en entrée, le processus précédent n'a pas été exécuté ou n'est pas connecté",
     "no_output_resource": "Aucune ressource en sortie, le processus n'a pas été exécuté ou est en erreur",
     "resource_loading_error": "Erreur lors du chargement de la ressource",

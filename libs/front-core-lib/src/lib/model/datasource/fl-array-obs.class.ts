@@ -252,7 +252,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
   /**
    * Clear the array
    */
-  public clearArray(): void {
+  public clear(): void {
     this.array = [];
   }
 

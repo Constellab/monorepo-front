@@ -104,7 +104,7 @@ export class LabManageEntityTagsDialogComponent {
         }
       }
     );
-    this.newTags.clearArray();
+    this.newTags.clear();
   }
 
   deleteExistingTag(tag: LabTag): void {

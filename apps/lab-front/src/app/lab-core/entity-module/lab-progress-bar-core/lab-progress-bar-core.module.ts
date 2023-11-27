@@ -6,6 +6,7 @@ import {
   LabProgressBarInfoDialogComponent
 } from './component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import {LabProgressMessageComponent} from './component/lab-progress-message/lab-progress-message.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {LabProgressMessageComponent} from './component/lab-progress-message/lab-
   ],
   imports: [
     CommonModule,
+    FormsModule,
 
     LabCoreModule,
   ]
