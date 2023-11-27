@@ -1,4 +1,4 @@
-import {Inject, Injector, ModuleWithProviders, NgModule, PLATFORM_ID} from '@angular/core';
+import {Inject, Injector, ModuleWithProviders, NgModule, PLATFORM_ID,} from '@angular/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FlTextEditorLink} from './model/fl-text-editor-link-without-target.class';
 import {FlInputFileModule} from '../fl-input-file/fl-input-file.module';
@@ -38,7 +38,7 @@ import {FlTextEditorHintBlot} from './model/fl-text-editor-hint-blot.class';
 import {MatIconModule} from '@angular/material/icon';
 import {FlTranslateService} from '../fl-translate/service/fl-translate.service';
 import {FlTextEditorVideoBlot} from './model/fl-text-editor-video-blot.class';
-import {FlTextEditorModuleConfig, FlTextEditorModuleConfigBlot} from './model/fl-text-editor-module-config.class';
+import {FlTextEditorModuleConfig, FlTextEditorModuleConfigBlot,} from './model/fl-text-editor-module-config.class';
 import {FlResizeModule} from '../fl-resize/fl-resize.module';
 import {FlTextEditorComponent} from './component/fl-text-editor/fl-text-editor.component';
 import {
@@ -48,7 +48,7 @@ import {FlTranslateModule} from '../fl-translate/fl-translate.module';
 
 import {FlTextEditorFigureComponent} from './component/fl-text-editor-figure/fl-text-editor-figure.component';
 import {FlImageModule} from '../fl-image/fl-image.module';
-
+import {FlRichTextIsEmptyPipe} from './pipe/fl-rich-text-is-empty/fl-rich-text-is-empty.pipe';
 
 @NgModule({
   declarations: [
@@ -63,12 +63,14 @@ import {FlImageModule} from '../fl-image/fl-image.module';
     FlTextEditorDirective,
     FlTextEditorFormulaComponent,
     FlTextEditorFormulaDialogComponent,
+    FlRichTextIsEmptyPipe,
   ],
   exports: [
     FlTextEditorComponent,
     FlTextEditorTitleCaptionComponent,
     FlTextEditorDirective,
     FlTextEditorFormulaComponent,
+    FlRichTextIsEmptyPipe,
   ],
   imports: [
     CommonModule,
@@ -96,10 +98,12 @@ export class FlTextEditorModule {
 
   private static config: FlTextEditorModuleConfig;
 
-  constructor(injector: Injector, translateService: FlTranslateService,
-              // eslint-disable-next-line @typescript-eslint/ban-types
-              @Inject(PLATFORM_ID) platformId: Object) {
-
+  constructor(
+    injector: Injector,
+    translateService: FlTranslateService,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    @Inject(PLATFORM_ID) platformId: Object
+  ) {
     if (FlTextEditorModule.registered) return;
     if (isPlatformServer(platformId)) return;
 
@@ -111,13 +115,25 @@ export class FlTextEditorModule {
 
       FlTextEditorModule.registered = true;
 
-      translateService.addModuleTranslation('FlTextEditorModule', flTextEditorI18n);
+      translateService.addModuleTranslation(
+        'FlTextEditorModule',
+        flTextEditorI18n
+      );
 
       const blots: FlTextEditorModuleConfigBlot[] = [
-        {blot: FlTextEditorFigureBlot, componentType: FlTextEditorFigureComponent},
-        {blot: FlTextEditorFormulaBlot, componentType: FlTextEditorFormulaComponent},
-        {blot: FlTextEditorVideoBlot, componentType: FlTextEditorVideoComponent},
-        ...FlTextEditorModule.config.blots
+        {
+          blot: FlTextEditorFigureBlot,
+          componentType: FlTextEditorFigureComponent,
+        },
+        {
+          blot: FlTextEditorFormulaBlot,
+          componentType: FlTextEditorFormulaComponent,
+        },
+        {
+          blot: FlTextEditorVideoBlot,
+          componentType: FlTextEditorVideoComponent,
+        },
+        ...FlTextEditorModule.config.blots,
       ];
 
       // Register quill blots
@@ -127,16 +143,19 @@ export class FlTextEditorModule {
         // declare the FlTextEditorFigureComponent as angular element to make the tag
         // fl-text-editor-figure
         if (!customElements.get(blot.blot.tagName.toLowerCase())) {
-          customElements.define(blot.blot.tagName.toLowerCase(),
-            createCustomElement(blot.componentType, {injector: injector}));
+          customElements.define(
+            blot.blot.tagName.toLowerCase(),
+            createCustomElement(blot.componentType, { injector: injector })
+          );
         }
       }
     });
-
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  public static forRoot(config: FlTextEditorModuleConfig): ModuleWithProviders<FlTextEditorModule> {
+  public static forRoot(
+    config: FlTextEditorModuleConfig
+  ): ModuleWithProviders<FlTextEditorModule> {
     FlTextEditorModule.config = config;
 
     return {
