@@ -79,7 +79,6 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
   }
 
 
-
   private selectNodeTypeClosed(result: LabFsNodeTypesSelectionDialogResult, node: LabResourceViewFolderContentFlat): void {
     if (result == null) return;
 
@@ -87,7 +86,7 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
     const typingName = result.uploadMode === 'files' ? result.fileTypingNames[0] : result.folderTypingName;
 
     node.isLoading = true;
-    this.fileService.extractFile(this.resourceId, path, typingName).subscribe({
+    this.fileService.extractNode(this.resourceId, path, typingName).subscribe({
       next: resource => this.extractFileSuccess(node, resource),
       error: () => node.isLoading = false
     });
@@ -155,6 +154,17 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
         icon: 'drive_file_move'
       });
     }
+
+    // button to download the node
+    menuDynamic.push({
+      type: 'button',
+      text: {
+        text: node.isFolder ? 'biox.folder_download_sub_folder' : 'biox.folder_download_sub_file',
+        translateText: true
+      },
+      onClick: () => this.fileService.downloadSubNode(this.resourceId, this.getNodePath(node)),
+      icon: 'cloud_download'
+    });
 
     this.menuDynamicService.openDynamicMenuAbsolute(menuDynamic, event);
   }

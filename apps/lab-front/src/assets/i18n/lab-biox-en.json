@@ -170,6 +170,8 @@
     "documentation": "Documentation",
     "folder_extract_file": "Extract file",
     "folder_extract_folder": "Extract folder",
+    "folder_download_sub_file": "Download file",
+    "folder_download_sub_folder": "Download folder",
     "extract_fs_node_help": "The extraction will create a new resource (file or folder) that reference the file or folder you selected. This resource can then be used in an experiment.",
     "folder_view_sub_files": "View file",
     "view_type": "View type",

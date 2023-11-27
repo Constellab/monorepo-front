@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource, FlFileHelper} from '@monorepo/front-core-lib';
+import {FlApiService, FlFileHelper} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
-import {ClPageI} from '@monorepo/core-lib';
-import {LabResource, LabResourceDatasource} from '../model/entities/resource/lab-resource.entity';
+import {LabResource} from '../model/entities/resource/lab-resource.entity';
 import {HttpEvent} from '@angular/common/http';
 import {LabTypeEntity} from '../model/entities/lab-type/lab-type.entity';
 import {LabResourceView} from '../model/entities/resource/lab-resource-view.entity';
@@ -53,21 +52,22 @@ export class LabFileResourceService {
   }
 
 
-  public getAll(page: number, pageSize: number): Observable<ClPageI<LabResource>> {
-    return this.apiService.get(this.route, LabResource,
-      {resultIsPaginated: true, page: page, pageSize: pageSize});
-  }
+  //////////////////////////// FOLDER ROUTES ///////////////////////////////////////
 
-  public getAllDatasource(): LabResourceDatasource {
-    return new FlEntityPaginatedDatasource(((page, pageSize) => this.getAll(page, pageSize)),
-      20, true);
-  }
-
-  public extractFile(id: string, subPath: string, typingName: string): Observable<LabResource> {
-    return this.apiService.put(`${this.route}/${id}/extract-file`, {
+  public extractNode(id: string, subPath: string, typingName: string): Observable<LabResource> {
+    return this.apiService.put(`${this.route}/${id}/folder/extract-node`, {
       path: subPath,
       fs_node_typing_name: typingName
     }, LabResource);
+  }
+
+  public downloadSubNode(id: string, subPath: string): void {
+    // download the file from the url
+    FlFileHelper.downloadUrl(this.getSubNodeFromFolderDownloadUrl(id, subPath));
+  }
+
+  public getSubNodeFromFolderDownloadUrl(id: string, subPath: string): string {
+    return this.apiService.getBaseRouteUrl(`fs-node/${id}/folder/download/${subPath}`);
   }
 
   public callFolderSubFileView(id: string, subFilePath: string): Observable<LabResourceView> {
