@@ -15,7 +15,6 @@
     display: none !important;
   }
 
-
   // force light mode texts
   .mat-drawer-container {
     color: black;
@@ -24,6 +23,12 @@
   .g-text-light {
     color: #434546;
   }
+
+  // hide chatbase chat floating button
+  #chatbase-bubble-button {
+    display: none;
+  }
+
 }
 
 .g-hide {

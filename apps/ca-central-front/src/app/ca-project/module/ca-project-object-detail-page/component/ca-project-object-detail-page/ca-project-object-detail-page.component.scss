@@ -5,7 +5,7 @@
 }
 
 
-.drawer-container{
+.drawer-container {
   // let the color background of main app
   background-color: transparent;
 }
@@ -16,4 +16,10 @@
   // align the drawer content with main menu margin
   padding: var(--main-menu-margin) 0.5em var(--main-menu-margin) 0.5em;
   background-color: transparent;
+}
+
+@media print {
+  .print-full-width {
+    margin-left: 0 !important;
+  }
 }
