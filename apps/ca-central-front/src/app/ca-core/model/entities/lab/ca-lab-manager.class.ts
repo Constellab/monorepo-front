@@ -21,6 +21,7 @@ export class CaLabContainerStatusInfo {
 
 export type caLabDockerState = 'created' | 'running' | 'exited';
 
+
 const caLabDockerStateDict: FlStatusDict<caLabDockerState> = {
   created: FlStatusHelper.getWarningStatus('created', 'lab_container_created'),
   running: FlStatusHelper.getSuccessStatus('running', 'lab_container_running'),
@@ -28,27 +29,31 @@ const caLabDockerStateDict: FlStatusDict<caLabDockerState> = {
 };
 
 export class CaLabDockerPs {
+  names: string;
+
+  @FlStatusTransform(caLabDockerStateDict)
+  state: FlStatus<caLabDockerState>;
+}
+
+export class CaLabDockerPsFull extends CaLabDockerPs {
   command: string;
   id: string;
   image: string;
   mounts: string;
-  names: string;
   networks: string;
   ports: string;
   runningFor: string;
   size: string;
-
-  @FlStatusTransform(caLabDockerStateDict)
-  state: FlStatus<caLabDockerState>;
   status: string;
 }
+
 
 export interface CaLabComposeUpOptions {
   updateContainers?: boolean;
   pruneSystem?: boolean;
 }
 
-export interface CaLabComposeRestartOptions extends CaLabComposeUpOptions{
+export interface CaLabComposeRestartOptions extends CaLabComposeUpOptions {
   destroyContainers?: boolean; // if true container will be destroyed and recreated
 }
 
@@ -84,7 +89,7 @@ export class CaLabManagerStatus {
   version: string;
   biota: {
     exists: boolean;
-    dbUrl ?: string;
+    dbUrl?: string;
   };
   isConfigured: boolean;
   isInitialized: boolean;
@@ -92,7 +97,7 @@ export class CaLabManagerStatus {
   lastInitVersion: string;
 }
 
-export class CaLabManagerRecommendedVersion{
+export class CaLabManagerRecommendedVersion {
   labManagerRecommendedVersion: string;
 }
 

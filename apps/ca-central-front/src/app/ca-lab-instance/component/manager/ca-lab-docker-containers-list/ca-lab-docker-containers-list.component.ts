@@ -8,7 +8,7 @@ import {
 import {ClHelpService} from '@monorepo/core-lib';
 
 /**
- * Component to list the docker container with name, status and informations
+ * Component to list the docker container with name, status and information
  */
 @Component({
   selector: 'ca-lab-docker-containers-list',

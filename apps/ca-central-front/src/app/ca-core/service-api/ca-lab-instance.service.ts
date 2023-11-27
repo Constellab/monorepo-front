@@ -22,6 +22,7 @@ import {
   CaLabComposeRestartOptions,
   CaLabComposeUpOptions,
   CaLabDockerPs,
+  CaLabDockerPsFull,
   CaLabManagerConfig,
   CaLabManagerRecommendedVersion,
   CaLabManagerStatus,
@@ -218,8 +219,12 @@ export class CaLabInstanceService {
     return this.apiService.get(`${this.route}/${id}/lab-manager/containers`, CaLabDockerPs);
   }
 
+  public getContainerDetails(id: string, containerName: string): Observable<CaLabDockerPsFull> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}`, CaLabDockerPsFull);
+  }
+
   public getLogs(id: string, containerName: string): Observable<string> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/${containerName}/logs`, null,
+    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs`, null,
       {responseType: 'text'});
   }
 

@@ -128,6 +128,9 @@ import {
 import {CaLabBackupOptionsComponent} from './component/backup/ca-lab-backup-options/ca-lab-backup-options.component';
 import {CaLabBackupHistoryComponent} from './component/backup/ca-lab-backup-history/ca-lab-backup-history.component';
 import {CaCloudProviderCoreModule} from '../ca-core/entity-module/ca-cloud-provider-core/ca-cloud-provider-core.module';
+import {
+  CaLabDockerContainerDetailsComponent
+} from './component/manager/ca-lab-docker-container-details/ca-lab-docker-container-details.component';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -179,6 +182,7 @@ import {CaCloudProviderCoreModule} from '../ca-core/entity-module/ca-cloud-provi
     CaLabBackupDetailPageComponent,
     CaLabBackupOptionsComponent,
     CaLabBackupHistoryComponent,
+    CaLabDockerContainerDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -198,5 +202,4 @@ import {CaCloudProviderCoreModule} from '../ca-core/entity-module/ca-cloud-provi
     CaCloudProviderCoreModule,
   ],
 })
-export class CaLabInstanceModule {
-}
+export class CaLabInstanceModule {}
