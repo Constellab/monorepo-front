@@ -27,10 +27,10 @@ export class ChChartBinDataPortalComponent {
   serieKey: number;
   color: string;
 
-  constructor(@Inject(FL_PORTAL_DATA) private input: ChChartBinDataPortalInput) {
+  constructor(@Inject(FL_PORTAL_DATA) input: ChChartBinDataPortalInput) {
     const bin = input.data.data;
     this.y = bin.getY();
-    this.intervalText = bin.getIntervalText();
+    this.intervalText = bin.getIntervalLongText();
     this.serieName = input.data.serieName;
     this.serieKey = input.data.serieKey;
     this.color = input.color;

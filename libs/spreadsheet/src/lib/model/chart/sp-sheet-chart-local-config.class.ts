@@ -4,7 +4,7 @@ import {
   SpSheetChartSelectionFormAdditional,
   SpSheetSelectionRange
 } from './sp-sheet-chart-selection-form.class';
-import {SpSheetChartSelectionBarPlot, SpSheetChartSelectionHistogram} from './sp-sheet-chart-selection-bar-plot.class';
+import {SpSheetChartSelectionBarPlot} from './sp-sheet-chart-selection-bar-plot.class';
 import {SpSheetChartSelectionBoxPlot} from './sp-sheet-chart-selection-box-plot.class';
 import {SpSheetChartSelectionHeatMap} from './sp-sheet-chart-selection-heat-map.class';
 import {SpSheetChartSelectionBasic} from './sp-sheet-chart-selection-basic.class';
@@ -17,6 +17,7 @@ import {
 import {SpSheetChartSelectionVulcanoPlot} from './sp-sheet-chart-selection-vulcano-plot.class';
 import {FlMenuDynamic, FlOverlayRef, FlPortalConfig} from '@monorepo/front-core-lib';
 import {ChChartPortalConfig, ChChartPortalService, ChChartType} from '@monorepo/chart';
+import {SpSheetChartSelectionHistogram} from './sp-sheet-chart-selection-histogram.class';
 
 
 /**

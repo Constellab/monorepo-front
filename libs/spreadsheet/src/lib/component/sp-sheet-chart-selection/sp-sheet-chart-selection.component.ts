@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {SpSpreadsheetSelectionState} from '../../state/sp-spreadsheet-selection.state';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {SpSpreadsheetState} from '../../state/sp-spreadsheet.state';
@@ -24,9 +23,9 @@ import {SpSheetChartConfig, SpSpreadsheetChartSerieSelectionInput} from '../../m
 import {
   FL_PORTAL_DATA,
   FlGlobalValidators,
-  FlOverlayRef, FlPortalConfig,
-  FlPortalService,
-  FlTranslateService
+  FlOverlayRef,
+  FlPortalConfig,
+  FlPortalService
 } from '@monorepo/front-core-lib';
 import {ChChartType} from '@monorepo/chart';
 
@@ -59,12 +58,10 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
 
   private subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  constructor(private selectionState: SpSpreadsheetSelectionState,
-              private state: SpSpreadsheetState,
+  constructor(private state: SpSpreadsheetState,
               @Inject(FL_PORTAL_DATA) input: SpSpreadsheetChartSelectionInput,
               private portalService: FlPortalService,
               private overlayRef: FlOverlayRef,
-              private translate: FlTranslateService,
               private cdr: ChangeDetectorRef) {
     this.input = input;
   }
@@ -98,7 +95,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
       dataRange: [null],
       series: [[], Validators.required],
       additionalFields: new FormBuilder().group({
-        nbOfBins: [null, [Validators.min(1), FlGlobalValidators.isInteger()]],
+        nbOfBins: [10, [Validators.min(1), FlGlobalValidators.isInteger()]],
         density: [null],
         normalize: [null],
         xAxisLabel: [null],

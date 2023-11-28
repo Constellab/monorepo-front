@@ -51,7 +51,7 @@ export function rvHistogramToChart(view: RvResourceViewHistogram): ChChartConfig
   series.axisXLabelTicksFormatter = new ChChartLabelFormatter(
     (index: number) => {
       const dataHisto: ChChartDataBin = series.series[0].data[index];
-      return dataHisto.getIntervalText();
+      return dataHisto.getIntervalShortText();
     },
     ChChartDataBin.getIntervalTextLength()
   );

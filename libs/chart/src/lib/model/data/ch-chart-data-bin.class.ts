@@ -1,6 +1,7 @@
 // data holder for the histogram
 import {ChChart2dDatum} from './ch-chart-data.class';
 import {ChChartDomain} from '../ch-chart-domain.class';
+import {ChChartLabelFormatter} from '../ch-chart-label-formatter.class';
 
 /**
  * Binned data, this is an object that contains multiple value between the min and max values
@@ -14,19 +15,24 @@ export class ChChartDataBin extends ChChart2dDatum {
     super(x, y);
   }
 
-  // TODO to improve
   public static getIntervalTextLength(): number {
-    return 25;
+    // return the length of the longest interval text
+    // 2 times the numbers + [],
+    return (ChChartLabelFormatter.defaultFormatNumberShortMaxLength * 2) + 3;
   }
-
 
   addData(): void {
     this.y++;
   }
 
-  public getIntervalText(): string {
-    return `[${this.min.toFixed(2)},${this.max.toFixed(2)}]`;
+  public getIntervalShortText(): string {
+    return `[${ChChartLabelFormatter.formatNumberShort(this.min)},${ChChartLabelFormatter.formatNumberShort(this.max)}]`;
   }
+
+  public getIntervalLongText(): string {
+    return `[${this.min},${this.max}]`;
+  }
+
 }
 
 /**

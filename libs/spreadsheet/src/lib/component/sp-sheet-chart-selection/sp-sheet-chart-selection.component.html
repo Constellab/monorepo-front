@@ -15,9 +15,9 @@
         <mat-form-field class="g-form-input" appearance="outline">
           <mat-label>{{'spSpreadsheet.chart_type' | translate}}</mat-label>
           <mat-select formControlName="chartType" required
-                      placeholder="{{'spSpreadsheet.chart_type' | translate}}">
+                      [placeholder]="'spSpreadsheet.chart_type' | translate">
             <mat-select-trigger *ngIf="formGp.value.chartType">
-             {{'chChart.' + formGp.value.chartType | translate}}
+              {{'chChart.' + formGp.value.chartType | translate}}
             </mat-select-trigger>
             <ch-chart-type-select-options [availableChartTypes]="availableChartTypes"></ch-chart-type-select-options>
           </mat-select>
@@ -38,7 +38,7 @@
           <mat-form-field appearance="outline" class="g-full" *ngIf="showAdditionalField('nbOfBins')">
             <mat-label>{{'spSpreadsheet.chart_nb_of_bins' | translate}}</mat-label>
             <input matInput formControlName="nbOfBins" [min]="1"
-                   placeholder="{{'spSpreadsheet.chart_nb_of_bins' | translate}}" type="number">
+                   [placeholder]="'spSpreadsheet.chart_nb_of_bins' | translate" type="number">
             <mat-error *ngIf="formGp.get('additionalFields').get('nbOfBins').invalid">
               {{'spSpreadsheet.chart_nb_of_bins_error' | translate}}
             </mat-error>
@@ -64,7 +64,7 @@
                             class="g-form-input-bottom half-input">
               <mat-label>{{'spSpreadsheet.chart_x_threshold' | translate}}</mat-label>
               <input matInput formControlName="xThreshold" required
-                     placeholder="{{'spSpreadsheet.chart_x_threshold' | translate}}" type="number">
+                     [placeholder]="'spSpreadsheet.chart_x_threshold' | translate" type="number">
               <mat-error *ngIf="additionalFieldFormGp.get('xThreshold').hasError('required')">
                 {{'spSpreadsheet.chart_x_threshold' | flErrorRequired}}
               </mat-error>
@@ -76,7 +76,7 @@
                             class="g-form-input-bottom half-input">
               <mat-label>{{'spSpreadsheet.chart_y_threshold' | translate}}</mat-label>
               <input matInput formControlName="yThreshold" required
-                     placeholder="{{'spSpreadsheet.chart_y_threshold' | translate}}" type="number">
+                     [placeholder]="'spSpreadsheet.chart_y_threshold' | translate" type="number">
               <mat-error *ngIf="additionalFieldFormGp.get('yThreshold').hasError('required')">
                 {{'spSpreadsheet.chart_y_threshold' | flErrorRequired}}
               </mat-error>
@@ -89,13 +89,13 @@
             <mat-form-field class="half-input" *ngIf="showAdditionalField('xAxisLabel')">
               <mat-label>{{'spSpreadsheet.chart_x_axis_label' | translate}}</mat-label>
               <input matInput formControlName="xAxisLabel"
-                     placeholder="{{'spSpreadsheet.chart_x_axis_label' | translate}}">
+                     [placeholder]="'spSpreadsheet.chart_x_axis_label' | translate">
             </mat-form-field>
 
             <mat-form-field class="half-input" *ngIf="showAdditionalField('yAxisLabel')">
               <mat-label>{{'spSpreadsheet.chart_y_axis_label' | translate}}</mat-label>
               <input matInput formControlName="yAxisLabel"
-                     placeholder="{{'spSpreadsheet.chart_y_axis_label' | translate}}">
+                     [placeholder]="'spSpreadsheet.chart_y_axis_label' | translate">
             </mat-form-field>
           </div>
         </ng-container>

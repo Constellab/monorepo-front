@@ -48,6 +48,7 @@ export * from './lib/model/chart/sp-sheet-chart-selection-basic.class';
 export * from './lib/model/chart/sp-sheet-chart-selection-box-plot.class';
 export * from './lib/model/chart/sp-sheet-chart-selection-form.class';
 export * from './lib/model/chart/sp-sheet-chart-selection-heat-map.class';
+export * from './lib/model/chart/sp-sheet-chart-selection-histogram.class';
 export * from './lib/model/chart/sp-sheet-chart-selection-vulcano-plot.class';
 
 // Selection
