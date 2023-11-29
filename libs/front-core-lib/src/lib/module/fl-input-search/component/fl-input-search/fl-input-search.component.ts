@@ -154,7 +154,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
 
   onBlur(): void {
     // when the input is clear, we considered that the item was removed
-    if (this.inputControl.value === '') {
+    if (this.inputControl.value === '' && this._selectedItem) {
       this.setSelectedItemAndEmit(null);
     }
     this.refreshInputCtrl();

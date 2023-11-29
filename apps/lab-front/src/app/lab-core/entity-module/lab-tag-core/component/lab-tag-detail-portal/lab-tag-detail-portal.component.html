@@ -1,0 +1,29 @@
+<fl-portal>
+
+  <fl-portal-content>
+
+    <fl-async-section [object]="tagDetail$">
+
+      <ng-container *flSectionBody="tagDetail$ as tagDetail">
+
+        <fl-key-value>
+          <fl-key>{{'tag_key' | translate}}</fl-key>
+          {{tagDetail.key}}
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{'tag_value' | translate}}</fl-key>
+          {{tagDetail.value}}
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{'created_at' | translate}}</fl-key>
+          {{tagDetail.createdAt | flDate:'DATETIME_MED'}}
+        </fl-key-value>
+
+        <fl-text-ok-nok [value]="tagDetail.isPropagable" [okText]="'tag_is_propagable' |translate"
+                        [nokText]="'tag_is_not_propagable' |translate"></fl-text-ok-nok>
+      </ng-container>
+    </fl-async-section>
+  </fl-portal-content>
+</fl-portal>

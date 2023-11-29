@@ -1,5 +1,14 @@
-import {FlTag, FlTagDatasource, FlTagEntity, FlTagValue} from '@monorepo/front-core-lib';
-import {LabEntity} from '../global/lab-entity.entity';
+import {
+  FlDatasourcePaginated,
+  FlEntity,
+  FlTag,
+  FlTagDatasource,
+  FlTagKeyModel,
+  FlTagValue,
+  FlTagValueFormat,
+  FlTagValueModel
+} from '@monorepo/front-core-lib';
+import {LabBaseEntity} from '../global/lab-entity.entity';
 import {LabNavigableEntityGrouped} from './lab-navigable-entity.entity';
 import {Expose, Type} from 'class-transformer';
 
@@ -9,7 +18,9 @@ export type LabEntityTagType = 'EXPERIMENT' | 'REPORT' | 'RESOURCE' | 'VIEW' | '
 /**
  * Object representing the tag
  */
-export class LabTag implements FlTag {
+export class LabTag implements FlTag, FlEntity {
+  id: string;
+
   key: string;
   value: FlTagValue;
 
@@ -25,18 +36,28 @@ export class LabTag implements FlTag {
   }
 }
 
-export class LabTagDetail implements FlTag {
+
+export class LabTagOrigin {
+
+  @Expose({name: 'origin_type'})
+  originType: string;
+
+  @Expose({name: 'origin_id'})
+  originId: string;
+}
+
+export class LabTagDetail implements FlTag, FlEntity {
+
+  id: string;
+
   key: string;
   value: FlTagValue;
-
-  @Expose({name: 'is_user_origin'})
-  isUserOrigin: boolean;
 
   @Expose({name: 'is_propagable'})
   isPropagable: boolean;
 
-  @Expose({name: 'origins'})
-  origins: string[];
+  @Type(() => LabTagOrigin)
+  origins: LabTagOrigin[];
 
   @Expose({name: 'created_at'})
   createdAt: string;
@@ -46,20 +67,52 @@ export class LabTagDetail implements FlTag {
 /**
  * Object representing the tags entity
  */
-export class LabTagEntity extends LabEntity implements FlTagEntity {
+export class LabTagKeyModel extends LabBaseEntity implements FlTagKeyModel {
   key: string;
-  values: string[];
 
-  is_propagable: boolean;
+  @Expose({name: 'value_format'})
+  valueFormat: FlTagValueFormat;
 
-  clone(): LabTagEntity {
-    const clone = new LabTagEntity();
+  @Expose({name: 'is_propagable'})
+  isPropagable: boolean;
+
+  clone(): LabTagKeyModel {
+    const clone = new LabTagKeyModel();
     clone.id = this.id;
     clone.key = this.key;
-    clone.values = this.values;
     return clone;
   }
+
+  toString(): string {
+    return this.key;
+  }
 }
+
+export type LabTagKeyModelDatasource = FlDatasourcePaginated<LabTagKeyModel>;
+
+
+export class LabTagValueModel extends LabBaseEntity implements FlTagValueModel {
+
+  key: string;
+
+  value: FlTagValue;
+
+  @Expose({name: 'value_format'})
+  valueFormat: FlTagValueFormat;
+
+  toString(): string {
+    return this.value.toString();
+  }
+
+  toSimpleTag(): FlTag {
+    return {
+      key: this.key,
+      value: this.value
+    };
+  }
+}
+
+export type LabTagValueModelDatasource = FlDatasourcePaginated<LabTagValueModel>;
 
 export class TagPropagationImpactDTO {
   @Type(() => LabTag)
@@ -77,6 +130,17 @@ export class TagPropagationImpactDTO {
   }
 }
 
-export class LabTagDatasource extends FlTagDatasource<LabTag>{
+export class LabTagDatasource extends FlTagDatasource<LabTag> {
 
+}
+
+export class LabCreateTagResponse{
+
+  @Expose({name: 'key_model'})
+  @Type(() => LabTagKeyModel)
+  keyModel: LabTagKeyModel;
+
+  @Expose({name: 'value_model'})
+  @Type(() => LabTagValueModel)
+  valueModel: LabTagValueModel;
 }

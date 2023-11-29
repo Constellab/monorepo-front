@@ -79,3 +79,10 @@
   margin-left: 1px;
   margin-right: 1px;
 }
+
+/**
+ * Default max size to use when a table uses an infinite scroll
+ */
+.g-infinite-table {
+  max-height: 20em;
+}

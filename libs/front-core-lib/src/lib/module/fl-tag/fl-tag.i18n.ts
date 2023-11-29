@@ -10,6 +10,7 @@ const flTagI18nFr: FlLangTranslation = {
     search_tag: 'Rechercher des tags',
     tags: 'Tags',
     input_helper_text: '\'Entrer\' pour sélectionner un tag. \'Tab\' pour ajouter un nouveau tag',
+    basic_input_helper_text: '\'Entrer\' ou \'Tab\' pour ajouter un tag',
     update_tags: 'Modifier les tags',
     no_tags: 'Aucun tag'
   }
@@ -20,6 +21,7 @@ const flTagI18nEn: FlLangTranslation = {
     search_tag: 'Search tags',
     tags: 'Tags',
     input_helper_text: '\'Enter\' to select tag. \'Tab\' to add a new tag',
+    basic_input_helper_text: '\'Enter\' or \'Tab\' to add a tag',
     update_tags: 'Update tags',
     no_tags: 'No tags',
   }

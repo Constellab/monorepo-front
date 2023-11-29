@@ -1,40 +1,29 @@
 <mat-form-field class="g-full">
   <mat-label>{{label | translate}}</mat-label>
 
-  <mat-chip-grid #chipGrid
-                 cdkDropList cdkDropListOrientation="horizontal"
-                 (cdkDropListDropped)="dropChip($event)">
+  <mat-chip-grid #chipGrid>
 
-    <mat-chip-row *ngFor="let tag of value" (removed)="remove(tag)" cdkDrag>
+    <mat-chip-row *ngFor="let tag of value" (removed)="remove(tag)">
       {{tag.key}} : {{tag.value}}
       <button matChipRemove>
         <mat-icon>cancel</mat-icon>
       </button>
     </mat-chip-row>
     <mat-chip-row *ngIf="newTag" (removed)="removeTempTag()">
-      {{newTag.key}} :
+      {{newTag}} :
     </mat-chip-row>
     <input
-      [placeholder]="'flTag.search_tag' | translate"
+      [placeholder]="label | translate"
       #input
       [formControl]="inputCtrl"
-      [matAutocomplete]="auto"
       [matChipInputFor]="chipGrid"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="addUnknownValue()" tabindex="0"
       [flInputMaxLength]="maxLength"
       (keydown.enter)="onEnterDown($event)">
   </mat-chip-grid>
-  <mat-autocomplete #auto="matAutocomplete"
-                    (optionSelected)="optionSelected($event)" [autoActiveFirstOption]="true">
 
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      {{option}}
-    </mat-option>
-
-  </mat-autocomplete>
-
-  <mat-hint>{{'flTag.input_helper_text' | translate}}</mat-hint>
+  <mat-hint>{{'flTag.basic_input_helper_text' | translate}}</mat-hint>
 </mat-form-field>
 
 

@@ -68,7 +68,7 @@
     <!--   TODO use angular v17 defer to load tag only for visible element to prevent nb of request -->
     <mat-cell *matCellDef="let experiment" class="g-column-width-2 tags">
       <lab-tag-list [tags]="experiment | labGetEntityTags"
-                   [tagSelectable]="true" (tagSelected)="onTagSelected($event)"></lab-tag-list>
+                   [tagSelectable]="true"></lab-tag-list>
     </mat-cell>
   </ng-container>
 

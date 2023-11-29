@@ -8,7 +8,7 @@ import {
   FlSnackBarService
 } from '@monorepo/front-core-lib';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {LabEntityTagType, LabTag, LabTagDatasource, LabTagEntity} from '../../../../model/entities/lab-tag.entity';
+import {LabEntityTagType, LabTag, LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
 import {
   LabTagCheckPropagationComponent,
@@ -47,14 +47,14 @@ export class LabManageEntityTagsDialogComponent {
   }
 
   addTag(tagEvent: FlAddTagEvent): void {
-    const tag = LabTag.newUserTag(tagEvent.tagEntity.key, tagEvent.value);
+    const tag = LabTag.newUserTag(tagEvent.key, tagEvent.value);
     if (this.currentTags.findItem(tag)) {
       this.snackBarService.openErrorMessage({text: 'tag_already_exists', translateText: true});
       return;
     }
     // init the propagable value with the first tag
     if (this.newTags.isEmpty()) {
-      this.isPropagable = (tagEvent.tagEntity as LabTagEntity).is_propagable;
+      this.isPropagable = tagEvent.defaultIsPropagable;
     }
 
     if (this.newTags.findItem(tag)) return;

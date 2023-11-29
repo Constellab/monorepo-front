@@ -102,6 +102,8 @@
   "delete_tag_propagation_help": "List of objects that will be untagged due to the tag propagation, please validate the tag deletion.",
   "tag_to_delete": "Tag to delete",
   "propagate_tags": "Propagate tags",
+  "tag_is_propagable": "Propagable",
+  "tag_is_not_propagable": "Not propagable",
   "existing_tags": "Existing tags",
   "tag_already_exists": "This tag already exists on the object",
   "adding_tag": "Adding tag",

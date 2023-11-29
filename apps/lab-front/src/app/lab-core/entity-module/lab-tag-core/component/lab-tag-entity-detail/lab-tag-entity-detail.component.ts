@@ -1,10 +1,21 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {LabTagEntity} from '../../../../model/entities/lab-tag.entity';
-import {FlFormFieldDirective, FlTag} from '@monorepo/front-core-lib';
-import {NgControl} from '@angular/forms';
-import {ClHelpService} from '@monorepo/core-lib';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  LabCreateTagResponse,
+  LabTagKeyModel,
+  LabTagValueModel,
+  LabTagValueModelDatasource
+} from '../../../../model/entities/lab-tag.entity';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlEntityPaginatedDatasource,
+  FlFormDialogInput,
+  FlTag
+} from '@monorepo/front-core-lib';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
+import {LabTagFormDialogComponent} from '../lab-tag-form-dialog/lab-tag-form-dialog.component';
+import {ClHelpService} from '@monorepo/core-lib';
 
 /**
  * Component to show the LabTagEntity information
@@ -17,92 +28,83 @@ import {LabTagService} from '../../../../entity-service/lab-tag.service';
   styleUrls: ['./lab-tag-entity-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LabTagEntityDetailComponent extends FlFormFieldDirective<string> implements OnInit {
+export class LabTagEntityDetailComponent implements OnInit {
 
-  @Input() tagEntity: LabTagEntity;
+  @Input() tagEntity: LabTagKeyModel;
 
-  @Input() selectedValue: string;
-  @Output() selectedValueChange: EventEmitter<string> = new EventEmitter();
+  @Output() lastTagValueDeleted: EventEmitter<void> = new EventEmitter();
 
-  @Output() addTagValue: EventEmitter<string> = new EventEmitter();
-  @Output() updateTagValue: EventEmitter<FlTag> = new EventEmitter();
-  @Output() deleteTagValue: EventEmitter<FlTag> = new EventEmitter();
+  tagValues: LabTagValueModelDatasource;
 
-  isExpanded: boolean = false;
-
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private tagService: LabTagService) {
-    super(ngControl);
+  constructor(private tagService: LabTagService,
+              private dialogService: FlDialogService) {
   }
 
   ngOnInit(): void {
-    if (this.selectedValue) {
-      this.isExpanded = true;
+    this.tagValues = new FlEntityPaginatedDatasource(
+      (page, size) => this.tagService.searchValues(this.tagEntity.key, null, page, size),
+      5, true);
+  }
+
+  openAddValueDialog(event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    const input: FlFormDialogInput<FlTag> = {
+      mode: 'create',
+      object: {key: this.tagEntity.key, value: null}
+    };
+
+    this.dialogService.openSmallDialog(LabTagFormDialogComponent, {data: input}).afterClosed().subscribe(
+      createResponse => this.addClosed(createResponse)
+    );
+  }
+
+  private addClosed(createResponse?: LabCreateTagResponse): void {
+    if (createResponse) {
+      this.tagValues.addItem(createResponse.valueModel);
     }
   }
 
-  callChangeEvent(value: string): void {
-    this.selectedValueChange.next(value);
+
+  openUpdateValueDialog(tag: LabTagValueModel): void {
+    const input: FlFormDialogInput<FlTag> = {
+      mode: 'update',
+      object: tag
+    };
+
+    this.dialogService.openSmallDialog(LabTagFormDialogComponent, {data: input}).afterClosed().subscribe(
+      createResponse => this.updateClosed(createResponse)
+    );
   }
 
-  onDisableChange(): void {
-  }
-
-  writeValue(obj: string): void {
-    this.selectedValue = obj;
-    if (obj) {
-      this.isExpanded = true;
+  private updateClosed(createResponse?: LabCreateTagResponse): void {
+    if (createResponse) {
+      this.tagValues.updateItem(createResponse.valueModel);
     }
   }
 
+  openDeleteTag(tag: LabTagValueModel): void {
+    const data: FlConfirmDialogInput = {
+      title: 'tag_delete',
+      content: 'tag_delete_confirmation',
+      translateTitleAndContent: true,
+      observable: this.tagService.deleteTag(tag.key, tag.value),
+      successMessage: 'tag_deleted',
+      translateMessage: true
+    };
 
-  get icon(): string {
-    return this.isExpanded ? 'expand_more' : 'chevron_right';
+    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
+      result => this.onDeleteClosed(result, tag)
+    );
   }
 
-  toggleExpanded(): void {
-    this.isExpanded = !this.isExpanded;
-  }
+  private onDeleteClosed(result: FlConfirmDialogResult,
+                         tag: LabTagValueModel): void {
+    if (!result.choice) return;
+    this.tagValues.removeItem(tag);
 
-
-  selectTag(value: string): void {
-    if (value === this.selectedValue) {
-      this.selectedValue = null;
-    } else {
-      this.selectedValue = value;
+    if (this.tagValues.isEmpty()) {
+      this.lastTagValueDeleted.next();
     }
-
-    this.selectedValueChange.next(this.selectedValue);
-  }
-
-  getFlTag(value: string): FlTag {
-    return {key: this.tagEntity.key, value: value};
-  }
-
-
-  isSelected(value: string): boolean {
-    return this.selectedValue === value;
-  }
-
-  addTagValueClick(event: MouseEvent): void {
-    ClHelpService.stopEventPropagation(event);
-    this.addTagValue.next(this.tagEntity.key);
-  }
-
-  updateTagValueClick(value: string, event: MouseEvent): void {
-    ClHelpService.stopEventPropagation(event);
-    this.updateTagValue.next(this.getFlTag(value));
-  }
-
-  deleteTagValueClick(value: string, event: MouseEvent): void {
-    ClHelpService.stopEventPropagation(event);
-    this.deleteTagValue.next(this.getFlTag(value));
-  }
-
-  reorderValues(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.tagEntity.values, event.previousIndex, event.currentIndex);
-
-    this.tagService.reorderTagValues(this.tagEntity.key, this.tagEntity.values).subscribe();
   }
 
 }

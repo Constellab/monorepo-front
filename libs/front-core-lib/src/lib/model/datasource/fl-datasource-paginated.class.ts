@@ -31,8 +31,8 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
   private requestData: any;
 
   constructor(private getPageFunction: ClGetPageFunction<T>, private pageSize: number, initFirstPage: boolean = true,
-              disableAutoDisconnect: boolean = false){
-    super(null, disableAutoDisconnect)
+              disableAutoDisconnect: boolean = false) {
+    super(null, disableAutoDisconnect);
     if (initFirstPage) {
       this.getFirstPage();
     }
@@ -154,7 +154,7 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
   }
 
   public isEmpty(): boolean {
-    return this.page == null || this.page.totalElements === 0;
+    return this.page == null || this.page.totalElements === 0 || this.array.length === 0;
   }
 
   /**
@@ -184,6 +184,16 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
    */
   public setRequestData(data: any): void {
     this.requestData = data;
+  }
+
+}
+
+/**
+ * Basic paginated datasource that uses === to compare items.
+ */
+export class FlBasicDatasourcePaginated<T> extends FlDatasourcePaginated<T> {
+  protected equals(a: T, b: T): boolean {
+    return a === b;
   }
 
 }

@@ -41,6 +41,8 @@ import {
   LabMonitoringActivityPageComponent
 } from './component/lab-monitoring-activity-page/lab-monitoring-activity-page.component';
 import {LabActivityCoreModule} from '../../lab-core/entity-module/lab-activity-core/lab-activity-core.module';
+import {LabMonitoringTagsPageComponent} from './component/lab-monitoring-tags-page/lab-monitoring-tags-page.component';
+import {LabTagCoreModule} from '../../lab-core/entity-module/lab-tag-core/lab-tag-core.module';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import {LabActivityCoreModule} from '../../lab-core/entity-module/lab-activity-c
     LabSynchroDialogComponent,
     LabMonitoringCredentialsPageComponent,
     LabMonitoringActivityPageComponent,
+    LabMonitoringTagsPageComponent,
   ],
   imports: [
     CommonModule,
@@ -74,6 +77,7 @@ import {LabActivityCoreModule} from '../../lab-core/entity-module/lab-activity-c
     LabBrickCoreModule,
     LabCredentialsCoreModule,
     LabActivityCoreModule,
+    LabTagCoreModule,
   ],
 })
 export class LabMonitoringPageModule {}

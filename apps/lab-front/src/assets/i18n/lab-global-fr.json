@@ -102,6 +102,8 @@
   "delete_tag_propagation_help": "Liste des objets qui seront détaggés suite à la suppression du tag propagé, merci de valider la suppression du tag.",
   "tags_to_delete": "Tags à supprimer",
   "propagate_tags": "Propager les tags",
+  "tag_is_propagable": "Propagable",
+  "tag_is_not_propagable": "Non propagable",
   "existing_tags": "Tags existants",
   "tag_already_exists": "Le tag existe déjà sur l'objet",
   "adding_tag": "Ajout du tag",

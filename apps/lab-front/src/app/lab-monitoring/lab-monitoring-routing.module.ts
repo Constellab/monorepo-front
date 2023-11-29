@@ -27,12 +27,16 @@ import {
 import {
   LabMonitoringActivityPageComponent
 } from './lab-monitoring-page/component/lab-monitoring-activity-page/lab-monitoring-activity-page.component';
+import {
+  LabMonitoringTagsPageComponent
+} from './lab-monitoring-page/component/lab-monitoring-tags-page/lab-monitoring-tags-page.component';
 
 const routes: Routes = [
   {
     path: '', component: LabMonitoringPageComponent, children: [
       {path: '', component: LabMonitoringDashboardPageComponent},
       {path: 'usage', component: LabMonitoringUsagePageComponent},
+      {path: 'tags', component: LabMonitoringTagsPageComponent},
       {path: 'venvs', component: LabMonitoringVenvsPageComponent},
       {path: 'bricks-data', component: LabMonitoringBrickDataPageComponent},
       {path: 'logs', component: LabMonitoringLogsPageComponent},

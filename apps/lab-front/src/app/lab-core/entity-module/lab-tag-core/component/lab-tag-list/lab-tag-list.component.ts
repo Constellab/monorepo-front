@@ -1,11 +1,16 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlDialogService, FlTagColorer, FlTagSelectedEvent} from '@monorepo/front-core-lib';
+import {FlDialogService, FlPortalService, FlTagColorer} from '@monorepo/front-core-lib';
 import {LabEntityTagType, LabTag, LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
 import {
   LabManageEntityTagsDialogComponent,
   LabManageEntityTagsDialogInput
 } from '../lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
+import {ClHelpService} from '@monorepo/core-lib';
+import {
+  LabTagDetailPortalComponent,
+  LabTagDetailPortalInput
+} from '../lab-tag-detail-portal/lab-tag-detail-portal.component';
 
 
 @Component({
@@ -13,7 +18,7 @@ import {LabTagService} from '../../../../entity-service/lab-tag.service';
   templateUrl: './lab-tag-list.component.html',
   styleUrls: ['./lab-tag-list.component.scss'],
 })
-export class LabTagListComponent implements OnInit{
+export class LabTagListComponent implements OnInit {
   @Input() tags: LabTagDatasource;
 
   @Input() tagSelectable: boolean = false;
@@ -30,12 +35,11 @@ export class LabTagListComponent implements OnInit{
   @Input() entityType: LabEntityTagType;
   @Input() entityId: string;
 
-  @Output() tagSelected: EventEmitter<FlTagSelectedEvent> = new EventEmitter();
-
   @Output() tagDeleted: EventEmitter<LabTag> = new EventEmitter();
 
   constructor(private dialogService: FlDialogService,
-              private tagService: LabTagService) {
+              private tagService: LabTagService,
+              private portalService: FlPortalService) {
   }
 
   ngOnInit(): void {
@@ -43,8 +47,8 @@ export class LabTagListComponent implements OnInit{
       this.tags = this.tagService.getEntityTagsDatasource(this.entityType, this.entityId);
     }
 
-    if(this.tags == null){
-      console.error("[LabTagListComponent] Tags is null");
+    if (this.tags == null) {
+      console.error('[LabTagListComponent] Tags is null');
     }
   }
 
@@ -65,11 +69,20 @@ export class LabTagListComponent implements OnInit{
     });
   }
 
-  selectTag(tag: LabTag, event: MouseEvent): void {
-    this.tagSelected.next({
-      tag: tag,
-      event: event
-    });
+  showTagDetail(tag: LabTag, event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    const config = this.portalService.configureRelativePortalFromMouseEvent(event,
+      ['bottom', 'right', 'top', 'left'],
+      {
+        disposeOnNavigation: true,
+        disposeOnOutsideClick: true
+      });
+
+    const data: LabTagDetailPortalInput = {
+      entityTagId: tag.id
+    };
+    this.portalService.createPortal(LabTagDetailPortalComponent, config, data);
+
   }
 
   deleteTag(tag: LabTag): void {

@@ -1,0 +1,19 @@
+<div>
+
+  <div>Tag filters</div>
+
+  <fl-tag-list [tags]="selectedTags" class="selected-tag-list"
+               [showDeleteIcon]="true"
+               (tagDeleted)="removeTag($event)"></fl-tag-list>
+
+  <fl-add-tag-input class="global-input" (addTag)="addTag($event)"></fl-add-tag-input>
+
+  <fl-infinite-scroll [datasource]="tagKeys" class="tag-key-list" textNoMoreResult="">
+    <div *ngFor="let tagKey of tagKeys | flDatasourceConnect | async"
+         class="g-layout-row g-layout-start-center g-layout-gap-1em tag-key">
+      <div>{{tagKey.key}}</div>
+      <lab-select-tag-value [key]="tagKey.key" class="g-form-field-compact tag-key-field"
+                            (tagChange)="onKeyValueChange(tagKey.key, $event)"></lab-select-tag-value>
+    </div>
+  </fl-infinite-scroll>
+</div>

@@ -7,7 +7,7 @@ import {
   FlTagHelper
 } from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
-import {LabTagEntity} from '../../../../model/entities/lab-tag.entity';
+import {LabCreateTagResponse} from '../../../../model/entities/lab-tag.entity';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
 import {Validators} from '@angular/forms';
@@ -22,7 +22,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   templateUrl: './lab-tag-form-dialog.component.html',
   styleUrls: ['./lab-tag-form-dialog.component.scss']
 })
-export class LabTagFormDialogComponent extends FlFormDialogAbstractDirective<FlTag, LabTagEntity>
+export class LabTagFormDialogComponent extends FlFormDialogAbstractDirective<FlTag, LabCreateTagResponse>
   implements OnInit {
 
   maxLength = FlTagHelper.MAX_LENGTH;
@@ -49,7 +49,7 @@ export class LabTagFormDialogComponent extends FlFormDialogAbstractDirective<FlT
     });
   }
 
-  create(formValue: FlTag): Observable<LabTagEntity> {
+  create(formValue: FlTag): Observable<LabCreateTagResponse> {
     return this.tagService.createTag(formValue.key, formValue.value);
   }
 
@@ -61,7 +61,7 @@ export class LabTagFormDialogComponent extends FlFormDialogAbstractDirective<FlT
     return 'tag_updated';
   }
 
-  update(formValue: FlTag): Observable<LabTagEntity> {
+  update(formValue: FlTag): Observable<LabCreateTagResponse> {
     return this.tagService.updateTag(this.dialogInput.object.key,
       this.dialogInput.object.value, formValue.value);
   }

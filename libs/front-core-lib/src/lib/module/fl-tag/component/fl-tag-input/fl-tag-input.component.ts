@@ -5,21 +5,16 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnInit,
   Optional,
   Output,
   Self,
   ViewChild
 } from '@angular/core';
 import {NgControl, UntypedFormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, mergeMap, startWith, tap} from 'rxjs/operators';
-import {TAB} from '@angular/cdk/keycodes';
-import {ClHelpService, clRxjsElasticSearch} from '@monorepo/core-lib';
+import {ENTER, TAB} from '@angular/cdk/keycodes';
+import {ClHelpService} from '@monorepo/core-lib';
 import {FlFormFieldDirective} from '../../../../abstract-directive/form/fl-form-field.directive';
-import {FlTag, FlTagEntity, FlTagHelper, FlTagService, FlTagValue} from '../../fl-tag.class';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {FlTag, FlTagHelper, FlTagValue} from '../../fl-tag.class';
 
 type FlTagInput = FlTag[] | Record<string, FlTagValue>
 
@@ -29,7 +24,7 @@ type FlTagInput = FlTag[] | Record<string, FlTagValue>
   styleUrls: ['./fl-tag-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInput> implements OnInit {
+export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInput> {
 
   @Input() searchDebounceTime: number = 300;
 
@@ -47,63 +42,19 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
   @Output() tagChange: EventEmitter<FlTagInput> = new EventEmitter();
 
   @ViewChild('input') input: ElementRef<HTMLInputElement>;
-  @ViewChild(MatAutocompleteTrigger) autocompleteTrigger: MatAutocompleteTrigger;
 
-  separatorKeysCodes: number[] = [TAB];
+  separatorKeysCodes: number[] = [ENTER, TAB];
   inputCtrl = new UntypedFormControl();
-
-  filteredOptions: Observable<string[]>;
-
-  allTags: FlTagEntity[] = [];
 
   // provided when adding a new tag. It is set when the key has been defined but not the value
   // this is a temp storage
-  newTag: FlTagEntity;
+  newTag: string;
 
   constructor(@Optional() @Self() ngControl: NgControl,
-              private tagService: FlTagService,
               private cdr: ChangeDetectorRef) {
     super(ngControl);
   }
 
-  ngOnInit(): void {
-    this.switchMode('key');
-  }
-
-  /**
-   * Use to switch option modes
-   * @param mode
-   * @private
-   */
-  private switchMode(mode: 'key' | 'value'): void {
-    if (mode === 'key') {
-      const inputObs = this.inputCtrl.valueChanges.pipe(
-        clRxjsElasticSearch(this.searchDebounceTime, 0),
-        startWith(''),
-      );
-
-      this.filteredOptions = inputObs.pipe(
-        mergeMap((inputText) => this.searchTags(inputText))
-      );
-    } else {
-      const inputObs = this.inputCtrl.valueChanges.pipe(
-        clRxjsElasticSearch(100, 0),
-        startWith(''),
-      );
-
-      this.filteredOptions = inputObs.pipe(
-        map((inputText) => this.filterArray(this.newTag.values, inputText))
-      );
-    }
-  }
-
-
-  private searchTags(inputText: string): Observable<string[]> {
-    return this.tagService.searchTag(inputText).pipe(
-      tap(tags => this.allTags = tags),
-      map(tags => tags.map(tag => tag.key))
-    );
-  }
 
   callChangeEvent(value: FlTagInput): void {
     this.tagChange.next(value);
@@ -127,16 +78,6 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
     this.cdr.markForCheck();
   }
 
-  // function to filter an array
-  private filterArray(array: string[], text: string | null): string[] {
-    if (text) {
-      const filterValue = text.toLowerCase();
-      return array.filter(fruit => fruit.toLowerCase().includes(filterValue));
-    } else {
-      return array.slice();
-    }
-  }
-
   // true when the user is selecting the tag value
   get isValueSelection(): boolean {
     return this.newTag != null;
@@ -154,7 +95,6 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
 
   removeTempTag(): void {
     this.newTag = null;
-    this.switchMode('key');
   }
 
   /**
@@ -176,39 +116,24 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
     this.addChip(value);
   }
 
-  optionSelected(event: MatAutocompleteSelectedEvent): void {
-    this.addChip(event.option.viewValue);
-  }
-
   private addChip(value: string): void {
     if (!value) return;
     if (this.isValueSelection) {
       if (this.value == null) this.value = [];
-      this.setAndEmitValue(FlTagHelper.addOrReplaceTag(this.value, {key: this.newTag.key, value: value}));
+      this.setAndEmitValue(FlTagHelper.addOrReplaceTag(this.value, {key: this.newTag, value: value}));
       this.emitCurrentValue();
 
       // clear the new tag key (to switch to key selection)
       this.newTag = null;
-      this.switchMode('key');
     } else {
       // find the selected tag and save it
-      this.newTag = this.allTags.find(t => t.key === value) ?? {key: value, values: []};
-      this.switchMode('value');
-
-      // force reopening the panel after clear
-      setTimeout(() => this.autocompleteTrigger.openPanel(), 0);
+      this.newTag = value;
     }
 
     // clear the input
     this.input.nativeElement.value = '';
     this.inputCtrl.setValue(null);
   }
-
-  dropChip(event: CdkDragDrop<FlTag[]>): void {
-    moveItemInArray(this.value, event.previousIndex, event.currentIndex);
-    this.emitCurrentValue();
-  }
-
 
   protected convertOuterToInner(outerValue: FlTagInput): FlTag[] {
     if (outerValue == null) return [];

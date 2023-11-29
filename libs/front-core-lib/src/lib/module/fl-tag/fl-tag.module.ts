@@ -7,7 +7,6 @@ import {FlTranslateService} from '../fl-translate/service/fl-translate.service';
 import {flTagI18n} from './fl-tag.i18n';
 import {FlTranslateModule} from '../fl-translate/fl-translate.module';
 import {FlTagService} from './fl-tag.class';
-import {DragDropModule} from '@angular/cdk/drag-drop';
 import {FlTagComponent} from './component/fl-tag/fl-tag.component';
 import {FlDialogModule} from '../fl-dialog/fl-dialog.module';
 import {FlLoaderModule} from '../fl-loader/fl-loader.module';
@@ -29,6 +28,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {FlTagValueToStringPipe} from './pipe/fl-tag-value-to-string.pipe';
 import {FlAddTagInputComponent} from './component/fl-add-tag-input/fl-add-tag-input.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {FlInfiniteScrollModule} from '../fl-inifite-scroll/fl-infinite-scroll.module';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatChipsModule,
     MatAutocompleteModule,
     MatIconModule,
-    DragDropModule,
     MatButtonModule,
     MatTooltipModule,
     MatRippleModule,
@@ -73,6 +72,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     FlCorePipeModule,
     FlCoreComponentModule,
     FlColorModule,
+    FlInfiniteScrollModule,
   ],
 })
 export class FlTagModule {

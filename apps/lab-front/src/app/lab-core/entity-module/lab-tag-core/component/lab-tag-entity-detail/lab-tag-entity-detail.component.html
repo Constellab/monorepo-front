@@ -1,62 +1,40 @@
-<!-- The element is draggable withing the tag dashboard component-->
-<div class="g-drag-hide-placeholder container" cdkDrag cdkDragPreviewClass="g-drag-elevate">
+<mat-expansion-panel>
 
-  <div class="element key g-layout-row g-layout-start-center"
-       (click)="toggleExpanded()">
-    <mat-icon class="g-icon-small">{{icon}}</mat-icon>
-    <div class="key-text g-flex-auto">{{tagEntity.key}}</div>
-
-
-    <div class="action-buttons">
-      <button mat-icon-button type="button"
-              class="g-button-icon-tiny drag-indicator" cdkDragHandle
-              [matTooltip]="'reorder_tags' | translate">
-        <mat-icon>drag_handle</mat-icon>
-      </button>
-
-      <button mat-icon-button type="button" (click)="addTagValueClick($event)"
-              class="g-button-icon-tiny">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="g-layout-row g-layout-start-center">
+      <span class="g-flex-auto">{{tagEntity.key}}</span>
+      <button mat-icon-button type="button" (click)="openAddValueDialog($event)"
+              [matTooltip]="'tag_create' | translate">
         <mat-icon>add</mat-icon>
       </button>
-    </div>
-  </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
 
   <!--   Values  -->
-  <div *ngIf="isExpanded" class="g-text-small g-drag-anim-order"
-       cdkDropList (cdkDropListDropped)="reorderValues($event)">
+  <ng-template matExpansionPanelContent>
+    <fl-infinite-scroll [datasource]="tagValues" class="infinite-scroll">
+      <div *ngFor="let value of tagValues | flDatasourceConnect | async"
+           class="value g-layout-row g-layout-start-center g-layout-gap-05em">
 
-    <div *ngFor="let value of tagEntity.values"
-         class="value element g-drag-hide-placeholder g-layout-row g-layout-start-center g-layout-gap-05em"
-         (click)="selectTag(value)" #dragElement
-         [ngClass]="{'selected': isSelected(value)}"
-         cdkDrag cdkDragPreviewClass="g-drag-elevate">
+        <div class="color"></div>
+        <div class="g-flex-auto">
+          {{value}}
+        </div>
 
-      <div class="color" [style.background-color]="getFlTag(value) | flTagColor | async"></div>
-      <div class="g-flex-auto">
-        {{value}}
+        <div class="action-buttons">
+          <button mat-icon-button type="button"
+                  (click)="openUpdateValueDialog(value)"
+                  [matTooltip]="'tag_update' | translate">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button type="button"
+                  (click)="openDeleteTag(value)"
+                  [matTooltip]="'tag_delete' | translate">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
       </div>
+    </fl-infinite-scroll>
 
-      <div class="action-buttons">
-<!--        <button mat-icon-button type="button" class="g-button-icon-tiny drag-indicator"-->
-<!--                flDraggable [flDraggableType]="dragType" [flDraggableData]="getFlTag(value)"-->
-<!--                [flDraggableGhostElement]="dragElement"-->
-<!--                [matTooltip]="'tag_drag_tooltip' | translate">-->
-<!--          <mat-icon>local_offer</mat-icon>-->
-<!--        </button>-->
-        <button mat-icon-button type="button"
-                class="g-button-icon-tiny drag-indicator" cdkDragHandle
-                [matTooltip]="'reorder_tags' | translate">
-          <mat-icon>drag_handle</mat-icon>
-        </button>
-        <button mat-icon-button type="button" class="g-button-icon-tiny"
-                (click)="updateTagValueClick(value, $event)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button type="button" class="g-button-icon-tiny"
-                (click)="deleteTagValueClick(value, $event)">
-          <mat-icon>clear</mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+  </ng-template>
+</mat-expansion-panel>

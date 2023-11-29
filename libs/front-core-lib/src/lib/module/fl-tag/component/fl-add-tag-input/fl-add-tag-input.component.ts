@@ -4,6 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild
@@ -11,16 +12,26 @@ import {
 import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {TAB} from '@angular/cdk/keycodes';
 import {UntypedFormControl} from '@angular/forms';
-import {ClHelpService, clRxjsElasticSearch} from '@monorepo/core-lib';
-import {map, mergeMap, startWith, tap} from 'rxjs/operators';
-import {FlTagEntity, FlTagService, FlTagValue} from '../../fl-tag.class';
-import {Observable} from 'rxjs';
+import {ClHelpService} from '@monorepo/core-lib';
+import {FlTagKeyModel, FlTagService, FlTagValue, FlTagValueModel} from '../../fl-tag.class';
+import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
+import {FlEntityPaginatedDatasource} from '../../../../model/datasource/fl-entity-datasource.class';
+import {BehaviorSubject, combineLatest, startWith, Subject, Subscription} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 
 
 export interface FlAddTagEvent {
-  tagEntity: FlTagEntity;
+  key: string;
   value: FlTagValue;
+  defaultIsPropagable: boolean;
 }
+
+interface FlNewTagKey {
+  key: string;
+  defaultIsPropagable: boolean;
+}
+
+type FlTagMode = 'key' | 'value';
 
 /**
  * Component that supports NgModel to search and add a tag
@@ -31,7 +42,7 @@ export interface FlAddTagEvent {
   styleUrls: ['./fl-add-tag-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlAddTagInputComponent implements OnInit {
+export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   @Input() searchDebounceTime: number = 300;
 
@@ -45,66 +56,53 @@ export class FlAddTagInputComponent implements OnInit {
   separatorKeysCodes: number[] = [TAB];
   inputCtrl = new UntypedFormControl();
 
-  filteredOptions: Observable<string[]>;
-
-  allTags: FlTagEntity[] = [];
+  filteredOptions: FlDatasourcePaginated<any>;
 
   // provided when adding a new tag. It is set when the key has been defined but not the value
   // this is a temp storage
-  currentTagKey: FlTagEntity;
+  currentTagKey: FlNewTagKey;
+
+  private mode$: Subject<FlTagMode> = new BehaviorSubject('key');
+
+  private subscription: Subscription;
 
   constructor(private tagService: FlTagService) {
   }
 
   ngOnInit(): void {
-    this.switchMode('key');
-  }
-
-  /**
-   * Use to switch option modes
-   * @param mode
-   * @private
-   */
-  private switchMode(mode: 'key' | 'value'): void {
-    if (mode === 'key') {
-      const inputObs = this.inputCtrl.valueChanges.pipe(
-        clRxjsElasticSearch(this.searchDebounceTime, 0),
-        startWith(''),
-      );
-
-      this.filteredOptions = inputObs.pipe(
-        mergeMap((inputText) => this.searchTags(inputText))
-      );
-    } else {
-      const inputObs = this.inputCtrl.valueChanges.pipe(
-        clRxjsElasticSearch(100, 0),
-        startWith(''),
-      );
-
-      this.filteredOptions = inputObs.pipe(
-        map((inputText) => this.filterArray(this.currentTagKey.values, inputText))
-      );
-    }
-  }
-
-  // function to filter an array
-  private filterArray(array: string[], text: string | null): string[] {
-    if (text) {
-      const filterValue = text.toLowerCase();
-      return array.filter(fruit => fruit.toLowerCase().includes(filterValue));
-    } else {
-      return array.slice();
-    }
-  }
-
-
-  private searchTags(inputText: string): Observable<string[]> {
-    return this.tagService.searchTag(inputText).pipe(
-      tap(tags => this.allTags = tags),
-      map(tags => tags.map(tag => tag.key))
+    this.filteredOptions = new FlEntityPaginatedDatasource(
+      (page, size, filter) => this.tagService.searchTag(filter, page, size),
+      20, false
     );
+
+    combineLatest([
+      this.inputCtrl.valueChanges.pipe(startWith('')),
+      this.mode$.asObservable()
+    ]).pipe(
+      debounceTime(this.searchDebounceTime),
+    ).subscribe(([inputText, mode]) => this.loadPage(inputText, mode));
+
   }
 
+  private loadPage(inputText: string, mode: FlTagMode): void {
+    if (mode === 'value') {
+      this.filteredOptions.getFirstPage({key: this.currentTagKey.key, value: inputText});
+    } else {
+      this.filteredOptions.getFirstPage({key: inputText});
+    }
+  }
+
+  switchMode(mode: FlTagMode): void {
+    this.mode$.next(mode);
+    if (mode == 'key') {
+      this.currentTagKey = null;
+    }
+    this.filteredOptions.clear();
+
+    // clear the input
+    this.input.nativeElement.value = '';
+    this.inputCtrl.setValue('', {emitEvent: true});
+  }
 
   // true when the user is selecting the tag value
   get isValueSelection(): boolean {
@@ -113,7 +111,6 @@ export class FlAddTagInputComponent implements OnInit {
 
 
   removeTempTag(): void {
-    this.currentTagKey = null;
     this.switchMode('key');
   }
 
@@ -137,30 +134,44 @@ export class FlAddTagInputComponent implements OnInit {
   }
 
   optionSelected(event: MatAutocompleteSelectedEvent): void {
-    this.addChip(event.option.viewValue);
+    this.addChip(event.option.value);
   }
 
-  private addChip(value: string): void {
+  private addChip(value: any): void {
     if (!value) return;
     if (this.isValueSelection) {
-      this.addTag.emit({tagEntity: this.currentTagKey, value: value});
 
-      // clear the new tag key (to switch to key selection)
-      this.currentTagKey = null;
+      let tagValue: FlTagValue;
+      if (typeof value === 'string') {
+        tagValue = value;
+      } else {
+        tagValue = (value as FlTagValueModel).value;
+      }
+      this.addTag.emit({
+        key: this.currentTagKey.key,
+        value: tagValue,
+        defaultIsPropagable: this.currentTagKey.defaultIsPropagable
+      });
+
       this.switchMode('key');
     } else {
-      // find the selected tag and save it
-      this.currentTagKey = this.allTags.find(t => t.key === value) ?? {key: value, values: []};
-      this.switchMode('value');
+      if (typeof value === 'string') {
+        // create a new tag key
+        this.currentTagKey = {key: value, defaultIsPropagable: false};
+      } else {
+        const key: FlTagKeyModel = (value as FlTagKeyModel);
+        // find the selected tag and save it
+        this.currentTagKey = {key: key.key, defaultIsPropagable: key.isPropagable};
+      }
 
+      this.switchMode('value');
       // force reopening the panel after clear
       setTimeout(() => this.autocompleteTrigger.openPanel(), 0);
     }
-
-    // clear the input
-    this.input.nativeElement.value = '';
-    this.inputCtrl.setValue(null);
   }
 
-
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+    this.mode$?.complete();
+  }
 }

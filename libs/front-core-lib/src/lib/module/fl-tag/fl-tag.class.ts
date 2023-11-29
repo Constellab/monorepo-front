@@ -2,6 +2,9 @@ import {Observable} from 'rxjs';
 import {FlColorHelper} from '../../utils/fl-color-helper.class';
 import {DateTime} from 'luxon';
 import {FlArrayObs} from '../../model/datasource/fl-array-obs.class';
+import {ClPageI} from '@monorepo/core-lib';
+import {FlEntity} from '../../model/fl-entity.class';
+import {FlDatasourcePaginated} from '../../model/datasource/fl-datasource-paginated.class';
 
 export type FlTagValue = string | number | DateTime;
 
@@ -21,13 +24,27 @@ export class FlTagDatasource<T extends FlTag = FlTag> extends FlArrayObs<T> {
   }
 }
 
+export class FlTagDatasourcePaginated<T extends FlTag = FlTag> extends FlDatasourcePaginated<T> {
+
+  protected equals(a: T, b: T): boolean {
+    return a.key === b.key && a.value === b.value;
+  }
+}
+
+
+export type FlTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'DATETIME';
 
 /**
  * Tag information that contains the list of available values for a tag
  */
-export interface FlTagEntity {
+export interface FlTagKeyModel extends FlEntity {
   key: string;
-  values: string[];
+  isPropagable: boolean;
+}
+
+export interface FlTagValueModel extends FlEntity {
+  key: string;
+  value: FlTagValue;
 }
 
 /**
@@ -66,26 +83,6 @@ export class FlTagHelper {
     }
   }
 
-  public static tagsToString(tags: FlTag[]): string {
-    if (!tags) return null;
-
-    let strTag = '';
-    for (const tag of tags) {
-      if (strTag.length > 0) {
-        strTag += FlTagHelper.TAGS_SEPARATOR;
-      }
-
-      strTag += FlTagHelper.tagToString(tag);
-    }
-
-    return strTag;
-  }
-
-  public static tagToString(tag: FlTag): string {
-    if (!tag) return null;
-
-    return `${tag.key}${FlTagHelper.KEY_VALUE_SEPARATOR}${tag.value}`;
-  }
 
   /**
    * Group a list of tag by keys
@@ -147,17 +144,11 @@ export class FlTagHelper {
 }
 
 export abstract class FlTagService {
-  public abstract searchTag(key: string): Observable<FlTagEntity[]>;
 
-  // TODO REMOVE
-  // public abstract addEntityTags(entityType: string, entityId: string, tag: FlTag): Observable<FlTag>;
-  //
-  // public abstract removeEntityTag(entityType: string, entityId: string, tag: FlTag): Observable<void>;
+  public abstract searchTag(filters: {
+    key: string,
+    value?: string
+  }, page: number, pageSize: number): Observable<ClPageI<any>>;
+
 }
 
-export abstract class FlEntityTagService {
-
-  public abstract addEntityTag(tags: FlTag[]): Observable<FlTag>;
-
-  public abstract removeEntityTag(tag: FlTag): Observable<void>;
-}

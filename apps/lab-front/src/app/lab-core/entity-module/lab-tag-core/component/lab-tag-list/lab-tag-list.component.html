@@ -1,11 +1,11 @@
 <div (click)="openManageEntityTagDialog()">
   <ng-container *ngIf="tags | flDatasourceConnect | async as tagList">
     <fl-tag *ngFor="let tag of tagList"
-            [flTag]="tag"
+            [flTag]="tag" class="tag"
             [tagColorer]="tagColorer"
             [showDeleteIcon]="mode === 'edit' && tag.isUserOrigin"
             (deleteTag)="deleteTag(tag)"
-            (click)="selectTag(tag, $event)"></fl-tag>
+            (click)="showTagDetail(tag, $event)"></fl-tag>
 
     <div *ngIf="showNoTagMessage && tagList.length === 0" class="g-text-small g-text-light">
       {{'no_tags' | translate}}

@@ -22,6 +22,11 @@ export class LabMonitoringPageComponent {
       route: LabRouterService.getMonitoringUsageRoute()
     },
     {
+      label: {text: 'tags', translateText: true},
+      icon: 'local_offer',
+      route: LabRouterService.getMonitoringTagsRoute()
+    },
+    {
       label: {text: 'monitoring.venv_list', translateText: true},
       icon: 'takeout_dining',
       route: LabRouterService.getMonitoringVenvsRoute()

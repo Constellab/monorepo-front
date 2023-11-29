@@ -2,13 +2,16 @@ import {Injectable} from '@angular/core';
 import {FlApiService, FlTag, FlTagService, FlTagValue} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {
+  LabCreateTagResponse,
   LabEntityTagType,
   LabTag,
   LabTagDatasource,
   LabTagDetail,
-  LabTagEntity,
+  LabTagKeyModel,
+  LabTagValueModel,
   TagPropagationImpactDTO
 } from '../model/entities/lab-tag.entity';
+import {ClPageI} from '@monorepo/core-lib';
 
 
 @Injectable({
@@ -22,35 +25,53 @@ export class LabTagService extends FlTagService {
     super();
   }
 
-  public searchTag(key: string): Observable<LabTagEntity[]> {
-    if (!key) return this.getAllTags();
-    return this.apiService.get(`${this.route}/${key}`, LabTagEntity);
+  public searchKeys(key: string, page: number, pageSize: number): Observable<ClPageI<LabTagKeyModel>> {
+    return this.apiService.get(`${this.route}/search/key/${key ?? ''}`, LabTagKeyModel, {
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true
+    });
   }
 
-  public getAllTags(): Observable<LabTagEntity[]> {
-    return this.apiService.get(this.route, LabTagEntity);
+
+  public searchValues(key: string, value: FlTagValue, page: number, pageSize: number): Observable<ClPageI<LabTagValueModel>> {
+    return this.apiService.get(`${this.route}/search/key/${key}/value/${value ?? ''}`, LabTagValueModel, {
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true
+    });
   }
 
-  public createTag(tagKey: string, tagValue: FlTagValue): Observable<LabTagEntity> {
-    return this.apiService.post(`${this.route}/${tagKey}/${tagValue}`, LabTagEntity);
+
+  searchTag(filters: { key: string; value?: string },
+            page: number, pageSize: number): Observable<ClPageI<any>> {
+    if (filters.value == null) {
+      return this.searchKeys(filters.key, page, pageSize);
+    } else {
+      return this.searchValues(filters.key, filters.value, page, pageSize) as any;
+    }
   }
 
-  public updateTag(tagKey: string, oldTagValue: FlTagValue, newTagValue: FlTagValue): Observable<LabTagEntity> {
-    return this.apiService.put(`${this.route}/${tagKey}/${oldTagValue}/${newTagValue}`, LabTagEntity);
+
+  public getAllTags(): Observable<LabTagKeyModel[]> {
+    return this.apiService.get(this.route, LabTagKeyModel);
+  }
+
+  public createTag(tagKey: string, tagValue: FlTagValue): Observable<LabCreateTagResponse> {
+    return this.apiService.post(`${this.route}/${tagKey}/${tagValue}`, null, LabCreateTagResponse);
+  }
+
+  public updateTag(tagKey: string, oldTagValue: FlTagValue, newTagValue: FlTagValue): Observable<LabCreateTagResponse> {
+    return this.apiService.put(`${this.route}/${tagKey}/${oldTagValue}/${newTagValue}`, null, LabCreateTagResponse);
   }
 
   public deleteTag(tagKey: string, tagValue: FlTagValue): Observable<void> {
     return this.apiService.delete(`${this.route}/${tagKey}/${tagValue}`);
   }
 
-  public reorderTags(tagKeys: string[]): Observable<LabTagEntity[]> {
-    return this.apiService.put(`${this.route}/reorder`, tagKeys, LabTagEntity);
+  public reorderTags(tagKeys: string[]): Observable<LabTagKeyModel[]> {
+    return this.apiService.put(`${this.route}/reorder`, tagKeys, LabTagKeyModel);
   }
-
-  public reorderTagValues(tagKey: string, values: FlTagValue[]): Observable<LabTagEntity> {
-    return this.apiService.put(`${this.route}/${tagKey}/reorder`, values, LabTagEntity);
-  }
-
 
   ///////////////////////////////////////////////////// ENTITY TAGS /////////////////////////////////////////////////////
 

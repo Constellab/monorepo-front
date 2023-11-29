@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LabCoreModule} from '../../lab-core.module';
-import {LabTagDashboardComponent} from './component/lab-tag-dashboard/lab-tag-dashboard.component';
 import {LabTagEntityDetailComponent} from './component/lab-tag-entity-detail/lab-tag-entity-detail.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LabTagFormDialogComponent} from './component/lab-tag-form-dialog/lab-tag-form-dialog.component';
@@ -15,10 +14,12 @@ import {
 } from './component/lab-tag-check-propagation/lab-tag-check-propagation.component';
 import {LabNavigableEntityCoreModule} from '../lab-navigable-entity-core/lab-navigable-entity-core.module';
 import {LabTagListComponent} from './component/lab-tag-list/lab-tag-list.component';
+import {LabTagDetailPortalComponent} from './component/lab-tag-detail-portal/lab-tag-detail-portal.component';
+import {LabTagFiltersComponent} from './component/lab-tag-filters/lab-tag-filters.component';
+import {LabSelectTagValueComponent} from './component/lab-select-tag-value/lab-select-tag-value.component';
 
 @NgModule({
   declarations: [
-    LabTagDashboardComponent,
     LabTagEntityDetailComponent,
     LabTagFormDialogComponent,
     LabTagHelpDialogComponent,
@@ -26,14 +27,19 @@ import {LabTagListComponent} from './component/lab-tag-list/lab-tag-list.compone
     LabManageEntityTagsDialogComponent,
     LabTagCheckPropagationComponent,
     LabTagListComponent,
+    LabTagDetailPortalComponent,
+    LabTagFiltersComponent,
+    LabSelectTagValueComponent,
   ],
   exports: [
-    LabTagDashboardComponent,
     LabTagEntityDetailComponent,
     LabTagHelpDialogComponent,
     LabGetEntityTagsPipe,
     LabManageEntityTagsDialogComponent,
     LabTagListComponent,
+    LabTagDetailPortalComponent,
+    LabTagFiltersComponent,
+    LabSelectTagValueComponent,
   ],
   imports: [
     CommonModule,
@@ -44,4 +50,5 @@ import {LabTagListComponent} from './component/lab-tag-list/lab-tag-list.compone
     LabNavigableEntityCoreModule,
   ],
 })
-export class LabTagCoreModule {}
+export class LabTagCoreModule {
+}

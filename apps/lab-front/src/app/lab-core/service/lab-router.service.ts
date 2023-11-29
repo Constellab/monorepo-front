@@ -97,6 +97,10 @@ export class LabRouterService {
     return `${LabRouterService.getMonitoringRoute()}/usage`;
   }
 
+  public static getMonitoringTagsRoute(): string {
+    return `${LabRouterService.getMonitoringRoute()}/tags`;
+  }
+
   public static getMonitoringVenvsRoute(): string {
     return `${LabRouterService.getMonitoringRoute()}/venvs`;
   }
