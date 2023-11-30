@@ -26,7 +26,8 @@ export class LabTagService extends FlTagService {
   }
 
   public searchKeys(key: string, page: number, pageSize: number): Observable<ClPageI<LabTagKeyModel>> {
-    return this.apiService.get(`${this.route}/search/key/${key ?? ''}`, LabTagKeyModel, {
+    const strKey = key ? '/' + key : '';
+    return this.apiService.get(`${this.route}/search/key${strKey}`, LabTagKeyModel, {
       page: page,
       pageSize: pageSize,
       resultIsPaginated: true
@@ -35,7 +36,8 @@ export class LabTagService extends FlTagService {
 
 
   public searchValues(key: string, value: FlTagValue, page: number, pageSize: number): Observable<ClPageI<LabTagValueModel>> {
-    return this.apiService.get(`${this.route}/search/key/${key}/value/${value ?? ''}`, LabTagValueModel, {
+    const strValue = value ? '/' + value : '';
+    return this.apiService.get(`${this.route}/search/key/${key}/value${strValue}`, LabTagValueModel, {
       page: page,
       pageSize: pageSize,
       resultIsPaginated: true

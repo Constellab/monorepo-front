@@ -1,21 +1,12 @@
-
-.selected-tag-list {
-  margin-top: 1em;
-  display: block;
-}
-
-.global-input{
+.global-input {
   margin-top: 1em;
 }
 
 .tag-key-list {
-  margin-top: 2em;
+  display: flex;
 }
 
-.tag-key{
-  margin-top: 1em;
-}
-
-.tag-key-field{
-  flex: 1;
+.chip {
+  cursor: pointer;
+  margin-top: 5px;
 }

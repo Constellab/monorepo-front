@@ -4,6 +4,9 @@
   <mat-chip-grid #chipGrid>
 
     <mat-chip-row *ngIf="currentTagKey" (removed)="removeTempTag()">
+      <div matChipAvatar class="color"
+           [style.background-color]="currentTagKey.key | flTagColor | async">
+      </div>
       {{currentTagKey.key}} :
     </mat-chip-row>
     <input
@@ -20,13 +23,18 @@
                     (optionSelected)="optionSelected($event)" [autoActiveFirstOption]="true">
     <fl-infinite-scroll [datasource]="filteredOptions" class="g-mat-option-infinite-scroll">
       <mat-option *ngFor="let item of filteredOptions | flDatasourceConnect | async" [value]="item">
-        {{item}}
+        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+          <div *ngIf="(mode$ | async) === 'key'" class="color color-option"
+               [style.background-color]="item.key | flTagColor | async">
+          </div>
+          <span>{{item}}</span>
+        </div>
       </mat-option>
     </fl-infinite-scroll>
 
   </mat-autocomplete>
 
-  <mat-hint>{{'flTag.input_helper_text' | translate}}</mat-hint>
+  <mat-hint *ngIf="allowUnknownTag">{{'flTag.input_helper_text' | translate}}</mat-hint>
 </mat-form-field>
 
 

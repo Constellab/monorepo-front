@@ -16,7 +16,7 @@ import {ClHelpService} from '@monorepo/core-lib';
 import {FlTagKeyModel, FlTagService, FlTagValue, FlTagValueModel} from '../../fl-tag.class';
 import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
 import {FlEntityPaginatedDatasource} from '../../../../model/datasource/fl-entity-datasource.class';
-import {BehaviorSubject, combineLatest, startWith, Subject, Subscription} from 'rxjs';
+import {BehaviorSubject, combineLatest, startWith, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 
 
@@ -48,6 +48,11 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   @Input() label: string = 'flTag.tags';
 
+  /**
+   * If true, allow to add a tag that is not in the list (new key or new value)
+   */
+  @Input() allowUnknownTag: boolean = true;
+
   @Output() addTag: EventEmitter<FlAddTagEvent> = new EventEmitter();
 
   @ViewChild('input') input: ElementRef<HTMLInputElement>;
@@ -62,7 +67,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   // this is a temp storage
   currentTagKey: FlNewTagKey;
 
-  private mode$: Subject<FlTagMode> = new BehaviorSubject('key');
+  mode$: BehaviorSubject<FlTagMode> = new BehaviorSubject('key');
 
   private subscription: Subscription;
 
@@ -93,6 +98,8 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   }
 
   switchMode(mode: FlTagMode): void {
+    if (this.mode$.value === mode) return;
+
     this.mode$.next(mode);
     if (mode == 'key') {
       this.currentTagKey = null;
@@ -103,12 +110,6 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
     this.input.nativeElement.value = '';
     this.inputCtrl.setValue('', {emitEvent: true});
   }
-
-  // true when the user is selecting the tag value
-  get isValueSelection(): boolean {
-    return this.currentTagKey != null;
-  }
-
 
   removeTempTag(): void {
     this.switchMode('key');
@@ -129,6 +130,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   // call when adding a tag without selecting an option
   addUnknownValue(): void {
+    if (!this.allowUnknownTag) return;
     const value = (this.input.nativeElement.value || '').trim();
     this.addChip(value);
   }
@@ -139,7 +141,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   private addChip(value: any): void {
     if (!value) return;
-    if (this.isValueSelection) {
+    if (this.mode$.value === 'value') {
 
       let tagValue: FlTagValue;
       if (typeof value === 'string') {
@@ -168,6 +170,22 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
       // force reopening the panel after clear
       setTimeout(() => this.autocompleteTrigger.openPanel(), 0);
     }
+  }
+
+  /**
+   * Method that can be called from outside this component to force the select key mode
+   * and focus the input
+   * @param key
+   */
+  public setKey(key: string): void {
+    // switch to key mode to set the key
+    this.switchMode('key');
+    this.addChip(key);
+    this.focusInput();
+  }
+
+  focusInput(): void {
+    this.input.nativeElement.focus();
   }
 
   ngOnDestroy(): void {

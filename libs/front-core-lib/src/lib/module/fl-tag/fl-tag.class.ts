@@ -13,7 +13,7 @@ export type FlTagValue = string | number | DateTime;
  */
 export interface FlTag {
   key: string;
-  value: FlTagValue;
+  value?: FlTagValue;
 }
 
 
@@ -66,8 +66,6 @@ export interface FlTagSelectedEvent {
 
 export class FlTagHelper {
 
-  private static readonly KEY_VALUE_SEPARATOR = ':';
-  private static readonly TAGS_SEPARATOR = ',';
   public static readonly MAX_LENGTH = 20;
 
   public static addOrReplaceTag(tags: FlTag[], tag: FlTag): FlTag[] {
@@ -129,8 +127,8 @@ export class FlTagHelper {
     return tagsColors;
   }
 
-  public static getTagDefaultColor(key: string, value: string): string {
-    return FlColorHelper.stringToRGBColor(`${key}${FlTagHelper.KEY_VALUE_SEPARATOR}${value}`);
+  public static getTagDefaultColor(key: string): string {
+    return FlColorHelper.stringToRGBColor(`${key}${key}${key}`);
   }
 
   public static tagValueToString(tag: FlTagValue): string {

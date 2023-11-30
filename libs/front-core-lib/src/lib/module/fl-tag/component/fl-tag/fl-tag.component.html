@@ -3,7 +3,7 @@
     <div class="color" [style.background-color]="flTag | flTagColor:tagColorer | async">
     </div>
 
-    <div>{{flTag.key}} : {{flTag.value}}</div>
+    <div>{{flTag.key}} <ng-container *ngIf="flTag.value">: {{flTag.value}}</ng-container></div>
 
     <button *ngIf="showDeleteIcon" mat-icon-button class="g-button-icon-tiny"
             (click)="onDeleteTag()" type="button">

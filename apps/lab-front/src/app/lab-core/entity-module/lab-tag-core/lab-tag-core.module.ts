@@ -16,7 +16,6 @@ import {LabNavigableEntityCoreModule} from '../lab-navigable-entity-core/lab-nav
 import {LabTagListComponent} from './component/lab-tag-list/lab-tag-list.component';
 import {LabTagDetailPortalComponent} from './component/lab-tag-detail-portal/lab-tag-detail-portal.component';
 import {LabTagFiltersComponent} from './component/lab-tag-filters/lab-tag-filters.component';
-import {LabSelectTagValueComponent} from './component/lab-select-tag-value/lab-select-tag-value.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import {LabSelectTagValueComponent} from './component/lab-select-tag-value/lab-s
     LabTagListComponent,
     LabTagDetailPortalComponent,
     LabTagFiltersComponent,
-    LabSelectTagValueComponent,
   ],
   exports: [
     LabTagEntityDetailComponent,
@@ -39,7 +37,6 @@ import {LabSelectTagValueComponent} from './component/lab-select-tag-value/lab-s
     LabTagListComponent,
     LabTagDetailPortalComponent,
     LabTagFiltersComponent,
-    LabSelectTagValueComponent,
   ],
   imports: [
     CommonModule,

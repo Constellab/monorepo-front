@@ -80,7 +80,7 @@ export class FlTagColorer {
     return this.getTagColorFromTag(tags, this.tags$.value);
   }
 
-
+  // TODO check if we color by key/value or only key
   public getTagColor$(tags: FlTag): Observable<string> {
     return this.tags$.pipe(map(tagColors => this.getTagColorFromTag(tags, tagColors)));
   }

@@ -12,14 +12,16 @@ import {Observable, of} from 'rxjs';
 })
 export class FlTagColorPipe implements PipeTransform {
 
-  transform(tag: FlTag, tagColorer?: FlTagColorer): Observable<string> {
+  transform(tag: FlTag | string, tagColorer?: FlTagColorer): Observable<string> {
     if (tag == null) return of('');
 
+    const formattedTag = typeof tag === 'string' ? {key: tag} : tag;
+
     if (tagColorer) {
-      return tagColorer.getTagColor$(tag);
+      return tagColorer.getTagColor$(formattedTag);
     }
 
-    return of(FlTagHelper.getTagDefaultColor(tag.key, FlTagHelper.tagValueToString(tag.value)));
+    return of(FlTagHelper.getTagDefaultColor(formattedTag.key));
   }
 
 }

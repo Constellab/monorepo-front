@@ -1,13 +1,13 @@
-import {Component, EventEmitter, OnInit, Optional, Output, Self} from '@angular/core';
+import {Component, EventEmitter, OnInit, Optional, Output, Self, ViewChild} from '@angular/core';
 import {LabTagKeyModel} from '../../../../model/entities/lab-tag.entity';
 import {
   FlAddTagEvent,
+  FlAddTagInputComponent,
   FlDatasourcePaginated,
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
   FlTag,
-  FlTagDatasource,
-  FlTagValue
+  FlTagDatasource
 } from '@monorepo/front-core-lib';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
 import {NgControl} from '@angular/forms';
@@ -23,11 +23,13 @@ import {NgControl} from '@angular/forms';
 })
 export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implements OnInit {
 
+  @Output() selectionChange: EventEmitter<FlTag[]> = new EventEmitter();
+
+  @ViewChild(FlAddTagInputComponent) addTagInputComponent: FlAddTagInputComponent;
+
   selectedTags: FlTagDatasource = new FlTagDatasource();
 
   tagKeys: FlDatasourcePaginated<LabTagKeyModel>;
-
-  @Output() selectionChange: EventEmitter<FlTag[]> = new EventEmitter();
 
   constructor(@Optional() @Self() ngControl: NgControl,
               private tagService: LabTagService) {
@@ -37,7 +39,7 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
   ngOnInit(): void {
     this.tagKeys = new FlEntityPaginatedDatasource(
       (page, size) => this.tagService.searchKeys(null, page, size),
-      10, true
+      40, true
     );
   }
 
@@ -51,10 +53,9 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
     this.setAndEmitValue(this.selectedTags.array);
   }
 
-  onKeyValueChange(key: string, value: FlTagValue): void {
-    if (value == null) return;
-    this.selectedTags.addItem({key: key, value: value});
-    this.setAndEmitValue(this.selectedTags.array);
+  onKeyClick(key: LabTagKeyModel): void {
+    // when a key is clicked, set the key in the add tag input
+    this.addTagInputComponent.setKey(key.key);
   }
 
   callChangeEvent(value: FlTag[]): void {
