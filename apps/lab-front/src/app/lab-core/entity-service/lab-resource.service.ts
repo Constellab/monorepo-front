@@ -170,6 +170,10 @@ export class LabResourceService {
     return this.apiService.get(`${this.route}/${resourceTypingName}/exporter`, LabTypeService.deserializeTyping);
   }
 
+  public exportResource(resourceId: string, exporterTypingName: string, config: PrConfigValues): Observable<LabResource> {
+    return this.apiService.post(`${this.route}/${resourceId}/export/${exporterTypingName}`, config, LabResource);
+  }
+
   public downloadResource(resourceId: string, exporterTypingName: string, config: PrConfigValues): void {
     // create the download url, with config params
     const fullUrl = this.apiService.getBaseRouteUrl(`resource/${resourceId}/download/${exporterTypingName}`) + '?' +

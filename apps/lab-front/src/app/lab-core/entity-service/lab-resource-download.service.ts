@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {LabResource} from '../model/entities/resource/lab-resource.entity';
-import {FlDialogService, FlPortalActionsService} from '@monorepo/front-core-lib';
+import {FlDialogService, FlPortalActionResult, FlPortalActionsService} from '@monorepo/front-core-lib';
 import {LabFileResourceService} from './lab-file-resource.service';
 import {LabResourceService} from './lab-resource.service';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
@@ -9,8 +9,8 @@ import {
   LabConfigureSpecsFormDialogInput
 } from '../entity-module/lab-config-core/component/lab-configure-specs-form-dialog/lab-configure-specs-form-dialog.component';
 import {LabConfig} from '../model/entities/lab-config.entity';
-import {Observable, of} from 'rxjs';
-import {mergeMap, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
 import {PrConfigValues} from '@monorepo/protocol';
 
 /**
@@ -34,19 +34,24 @@ export class LabResourceDownloadService {
   public downloadResource(resource: LabResource): void {
 
     // if it's a fsNode, directly download it, otherwise, call exporter
-    if (resource.isFsNode()) {
+    if (resource.isFile()) {
       this.fileService.downloadFile(resource.id);
       return;
     }
 
-    this.actionService.addAction({
+    const action = this.actionService.addAction({
       type: this.downloadAction,
-      text: {text: 'biox.preparing_resource_download', translateText: true},
+      text: {
+        text: 'biox.preparing_resource_download',
+        translateText: true,
+        translateParam: {param: {resourceName: resource.name}}
+      },
       action: this.downloadBasicResource(resource)
     }, true);
+    action.subscribe((result) => this.callDownloadResource(result));
   }
 
-  private downloadBasicResource(resource: LabResource): Observable<any> {
+  private downloadBasicResource(resource: LabResource): Observable<LabResource> {
     return this.resourceService.getResourceExporterConfig(resource.resourceTypingName).pipe(
       mergeMap(type => this.openExporterConfig(resource, type))
     );
@@ -58,12 +63,11 @@ export class LabResourceDownloadService {
    * @param exporterType
    * @private
    */
-  private openExporterConfig(resource: LabResource, exporterType: LabProcessType): Observable<void> {
+  private openExporterConfig(resource: LabResource, exporterType: LabProcessType): Observable<LabResource> {
 
     // if there is no config, call it directly without config
     if (!exporterType.hasConfigSpecs()) {
-      this.callDownloadResource(resource.id, exporterType.typingName, {});
-      return of(null);
+      return this.exportResource(resource.id, exporterType.typingName, {});
     }
 
     const input: LabConfigureSpecsFormDialogInput = {
@@ -75,17 +79,33 @@ export class LabResourceDownloadService {
     // open the configuration dialog
     return this.dialogService.openMediumDialog(LabConfigureSpecsFormDialogComponent, {data: input})
       .afterClosed().pipe(
-        tap(config => this.callDownloadResource(resource.id, exporterType.typingName, config))
+        mergeMap(config => this.exportResource(resource.id, exporterType.typingName, config))
       );
   }
 
-  // on dialog closed, download the resource with the configuration (if it exists)
-  private callDownloadResource(resourceId: string, exporterTypingName: string, config?: PrConfigValues): void {
+  private exportResource(resourceId: string, exporterTypingName: string, config?: PrConfigValues): Observable<LabResource> {
     // cancel the process
     if (config == null) {
       throw Error('Canceled');
     }
 
-    this.resourceService.downloadResource(resourceId, exporterTypingName, config);
+    return this.resourceService.exportResource(resourceId, exporterTypingName, config);
+  }
+
+  // on dialog closed, download the resource with the configuration (if it exists)
+  private callDownloadResource(result: FlPortalActionResult<LabResource>): void {
+    if (result.status !== 'success') return;
+
+    const resource = result.result;
+    // cancel the process
+    if (resource == null) {
+      throw Error('Canceled');
+    }
+
+    if (!resource.isFile()) {
+      throw Error('Error during the exporter, the resource is not a file');
+    }
+
+    this.fileService.downloadFile(resource.id);
   }
 }

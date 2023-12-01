@@ -51,7 +51,6 @@ export class LabFileResourceService {
     return this.apiService.getBaseRouteUrl(`fs-node/${id}/download`);
   }
 
-
   //////////////////////////// FOLDER ROUTES ///////////////////////////////////////
 
   public extractNode(id: string, subPath: string, typingName: string): Observable<LabResource> {
@@ -59,15 +58,6 @@ export class LabFileResourceService {
       path: subPath,
       fs_node_typing_name: typingName
     }, LabResource);
-  }
-
-  public downloadSubNode(id: string, subPath: string): void {
-    // download the file from the url
-    FlFileHelper.downloadUrl(this.getSubNodeFromFolderDownloadUrl(id, subPath));
-  }
-
-  public getSubNodeFromFolderDownloadUrl(id: string, subPath: string): string {
-    return this.apiService.getBaseRouteUrl(`fs-node/${id}/folder/download/${subPath}`);
   }
 
   public callFolderSubFileView(id: string, subFilePath: string): Observable<LabResourceView> {

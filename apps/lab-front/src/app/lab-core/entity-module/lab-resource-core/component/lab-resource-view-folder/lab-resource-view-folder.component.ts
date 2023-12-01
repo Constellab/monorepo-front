@@ -154,18 +154,6 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
         icon: 'drive_file_move'
       });
     }
-
-    // button to download the node
-    menuDynamic.push({
-      type: 'button',
-      text: {
-        text: node.isFolder ? 'biox.folder_download_sub_folder' : 'biox.folder_download_sub_file',
-        translateText: true
-      },
-      onClick: () => this.fileService.downloadSubNode(this.resourceId, this.getNodePath(node)),
-      icon: 'cloud_download'
-    });
-
     this.menuDynamicService.openDynamicMenuAbsolute(menuDynamic, event);
   }
 
