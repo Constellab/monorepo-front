@@ -23,8 +23,4 @@ export class LabShareService {
     return new FlEntityPaginatedDatasource(
       (page, pageSize) => this.getSharedTo(entityType, entityId, page, pageSize), 20);
   }
-
-  public getDownloadRoute(entityType: LabShareLinkType, token: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${entityType.toLowerCase()}/download/${token}`);
-  }
 }

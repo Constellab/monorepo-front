@@ -42,7 +42,7 @@ export class LabShareLinkActionsMenuComponent implements OnInit {
   }
 
   copyLinkToClipboard(): void {
-    const result = this.clipboard.copy(this.shareService.getDownloadRoute(this.shareLink.entityType, this.shareLink.token));
+    const result = this.clipboard.copy(this.shareLink.link);
     if (result) {
       this.snackBarService.openSuccessMessage({text: 'biox.share_link_copied', translateText: true});
     }

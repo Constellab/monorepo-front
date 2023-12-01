@@ -98,7 +98,7 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
   }
 
   copyDownloadLink(shareLink: LabShareLink): void {
-    const result = this.clipboardService.copy(this.shareService.getDownloadRoute(shareLink.entityType, shareLink.token));
+    const result = this.clipboardService.copy(shareLink.link);
     if (result) {
       this.snackBarService.openSuccessMessage({text: 'biox.share_link_copied', translateText: true});
     }

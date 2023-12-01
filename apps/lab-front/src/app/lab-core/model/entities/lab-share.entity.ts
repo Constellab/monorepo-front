@@ -27,6 +27,8 @@ export class LabShareLink extends LabBaseEntityWithUser {
 
   token: string;
 
+  link: string;
+
   isValid(): boolean {
     return this.validUntil > ClDateHelper.getDate();
   }
