@@ -9,6 +9,7 @@ import {FlDialogModule} from '../fl-dialog/fl-dialog.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
+import {FlCoreDirectiveModule} from '../fl-core-directive/fl-core-directive.module';
 
 /**
  * Module that contains Component to display Images.
@@ -26,6 +27,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule,
 
     FlDialogModule,
+    FlCoreDirectiveModule,
   ],
 })
 export class FlImageModule {
