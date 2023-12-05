@@ -26,7 +26,8 @@
     </ng-container>
   </div>
 
-  <div>
+  <div class="slide g-layout-row g-layout-start-center g-layout-gap-05em">
+    <fl-loader size="small" *ngIf="liveMode"></fl-loader>
     <mat-slide-toggle [(ngModel)]="liveMode"
                       (ngModelChange)="liveModeChanged()"
                       *ngIf="!isFinishedOnInit"
