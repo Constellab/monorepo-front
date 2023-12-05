@@ -255,7 +255,7 @@ export class LabTableChartConfigHistogram extends LabTableChart2dConfig {
       {
         series: series,
         nbins: options.additionalFields.nbOfBins,
-        density: options.additionalFields.density,
+        mode: options.additionalFields.histogramMode,
       },
       options);
   }
@@ -266,7 +266,7 @@ export class LabTableChartConfigHistogram extends LabTableChart2dConfig {
   }
 
   getAdditionalFieldsName(): (keyof SpSheetChartSelectionFormAdditional)[] {
-    return ['nbOfBins', 'density', 'xAxisLabel', 'yAxisLabel'];
+    return ['nbOfBins', 'histogramMode', 'xAxisLabel', 'yAxisLabel'];
   }
 
 

@@ -36,7 +36,6 @@ const spSpreadsheetI18nFr: FlLangTranslation = {
     chart_serie: 'Série',
     chart_series: 'Séries',
     chart_nb_of_bins: 'Nombres de classes',
-    chart_histo_density: 'Densité',
     chart_normalize: 'Normaliser les données',
     chart_nb_of_bins_error:
       'Le nombre de classes doit être un entier supérieur à 1',
@@ -110,7 +109,6 @@ const spSpreadsheetI18nEn: FlLangTranslation = {
     chart_serie: 'Serie',
     chart_series: 'Series',
     chart_nb_of_bins: 'Number of classes',
-    chart_histo_density: 'Density',
     chart_normalize: 'Normalize data',
     chart_nb_of_bins_error:
       'The number of classes must be an integer higher than 1',

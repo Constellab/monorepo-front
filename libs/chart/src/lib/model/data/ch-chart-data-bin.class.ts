@@ -3,6 +3,12 @@ import {ChChart2dDatum} from './ch-chart-data.class';
 import {ChChartDomain} from '../ch-chart-domain.class';
 import {ChChartLabelFormatter} from '../ch-chart-label-formatter.class';
 
+export enum ChChartHistogramMode {
+  FREQUENCY = 'FREQUENCY',
+  DENSITY = 'DENSITY',
+  PROBABILITY = 'PROBABILITY'
+}
+
 /**
  * Binned data, this is an object that contains multiple value between the min and max values
  *
@@ -11,7 +17,8 @@ import {ChChartLabelFormatter} from '../ch-chart-label-formatter.class';
 export class ChChartDataBin extends ChChart2dDatum {
 
   constructor(x: number, y: number,
-              public readonly min: number, public readonly max: number) {
+              public readonly min: number, public readonly max: number,
+              public readonly mode: ChChartHistogramMode) {
     super(x, y);
   }
 
@@ -37,10 +44,8 @@ export class ChChartDataBin extends ChChart2dDatum {
 
 /**
  * Build ChChartDataBin from data
- * @param data
- * @param numberOfBins
  */
-export function chChartGetDataBins(data: number[], numberOfBins?: number): ChChartDataBin[] {
+export function chChartGetDataBins(data: number[], mode: ChChartHistogramMode, numberOfBins?: number): ChChartDataBin[] {
   const domain: [number, number] = ChChartDomain.getLinearDomain(data);
 
   const bins: ChChartDataBin[] = [];
@@ -57,7 +62,7 @@ export function chChartGetDataBins(data: number[], numberOfBins?: number): ChCha
     const min = (i * thresholds) + domain[0];
     // for the last bin, use the domain max value
     const max = i === numberOfBins - 1 ? domain[1] : min + thresholds;
-    bins.push(new ChChartDataBin(i, 0, min, max));
+    bins.push(new ChChartDataBin(i, 0, min, max, mode));
   }
 
   // add the data in the right category

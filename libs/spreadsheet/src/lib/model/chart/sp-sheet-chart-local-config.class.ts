@@ -16,7 +16,7 @@ import {
 } from './sp-sheet-chart-config.class';
 import {SpSheetChartSelectionVulcanoPlot} from './sp-sheet-chart-selection-vulcano-plot.class';
 import {FlMenuDynamic, FlOverlayRef, FlPortalConfig} from '@monorepo/front-core-lib';
-import {ChChartPortalConfig, ChChartPortalService, ChChartType} from '@monorepo/chart';
+import {ChChartHistogramMode, ChChartPortalConfig, ChChartPortalService, ChChartType} from '@monorepo/chart';
 import {SpSheetChartSelectionHistogram} from './sp-sheet-chart-selection-histogram.class';
 
 
@@ -215,7 +215,9 @@ export class SpSheetLocalChartConfigHistogram extends SpSheetLocalChartConfig {
   }
 
   generateChart(series: SpSheetChart2dSerieSelectionForm[], options: SpSpreadsheetGenerateChartOptions): FlOverlayRef {
-    const selection = new SpSheetChartSelectionHistogram(options.sheet, series, options.additionalFields.nbOfBins,
+    const selection = new SpSheetChartSelectionHistogram(options.sheet, series,
+      ChChartHistogramMode.FREQUENCY,
+      options.additionalFields.nbOfBins,
       options.additionalFields.xAxisLabel, options.additionalFields.yAxisLabel);
     return this.openChartPortal(selection, options.contextMenuItems);
   }

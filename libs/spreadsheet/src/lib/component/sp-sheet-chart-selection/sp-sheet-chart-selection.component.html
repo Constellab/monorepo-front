@@ -12,7 +12,7 @@
 
       <div class="form-first-part">
         <!--   Chart type selection   -->
-        <mat-form-field class="g-form-input" appearance="outline">
+        <mat-form-field class="g-form-input">
           <mat-label>{{'spSpreadsheet.chart_type' | translate}}</mat-label>
           <mat-select formControlName="chartType" required
                       [placeholder]="'spSpreadsheet.chart_type' | translate">
@@ -35,7 +35,7 @@
 
         <ng-container formGroupName="additionalFields">
           <!-- NB of bins -->
-          <mat-form-field appearance="outline" class="g-full" *ngIf="showAdditionalField('nbOfBins')">
+          <mat-form-field class="g-full" *ngIf="showAdditionalField('nbOfBins')">
             <mat-label>{{'spSpreadsheet.chart_nb_of_bins' | translate}}</mat-label>
             <input matInput formControlName="nbOfBins" [min]="1"
                    [placeholder]="'spSpreadsheet.chart_nb_of_bins' | translate" type="number">
@@ -44,11 +44,15 @@
             </mat-error>
           </mat-form-field>
 
-          <!--    Density      -->
-          <mat-checkbox formControlName="density" *ngIf="showAdditionalField('density')"
-                        class="checkbox">
-            {{'spSpreadsheet.chart_histo_density' | translate}}
-          </mat-checkbox>
+          <!--    Histogram Mode      -->
+          <mat-form-field class="g-form-input" *ngIf="showAdditionalField('histogramMode')">
+            <mat-label>{{'chChart.chart_histogram_mode' | translate}}</mat-label>
+            <mat-select formControlName="histogramMode" required [placeholder]="'chChart.chart_histogram_mode' | translate">
+              <mat-option *ngFor="let mode of histogramModes | flObjectKeys" [value]="mode">
+                {{('chChart.chart_histogram_mode_' + mode) | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
           <!--    Normalize      -->
           <mat-checkbox formControlName="normalize" *ngIf="showAdditionalField('normalize')"

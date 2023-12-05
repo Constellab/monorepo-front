@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {Numeric} from 'd3';
 import {ChChartDataWithSerie} from '../../../model/data/ch-chart-serie.class';
-import {ChChartDataBin} from '../../../model/data/ch-chart-data-bin.class';
+import {ChChartDataBin, ChChartHistogramMode} from '../../../model/data/ch-chart-data-bin.class';
 import {FL_PORTAL_DATA} from '@monorepo/front-core-lib';
 
 export interface ChChartBinDataPortalInput {
@@ -26,6 +26,7 @@ export class ChChartBinDataPortalComponent {
   serieName: string;
   serieKey: number;
   color: string;
+  histogramMode: ChChartHistogramMode;
 
   constructor(@Inject(FL_PORTAL_DATA) input: ChChartBinDataPortalInput) {
     const bin = input.data.data;
@@ -34,6 +35,7 @@ export class ChChartBinDataPortalComponent {
     this.serieName = input.data.serieName;
     this.serieKey = input.data.serieKey;
     this.color = input.color;
+    this.histogramMode = input.data.data.mode;
   }
 
 }

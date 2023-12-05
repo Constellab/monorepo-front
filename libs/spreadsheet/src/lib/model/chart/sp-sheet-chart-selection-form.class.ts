@@ -1,6 +1,6 @@
 import {SpSheetSingleSelection} from '../selection/sp-sheet-single-selection.class';
 import {SpCellCoordRange} from '../sp-cell-coord.class';
-import {ChChartType} from '@monorepo/chart';
+import {ChChartHistogramMode, ChChartType} from '@monorepo/chart';
 
 
 export type SpSpreadsheetChartSelectionInput =
@@ -44,8 +44,6 @@ export interface SpSheetChartSelectionForm {
   additionalFields: SpSheetChartSelectionFormAdditional;
 }
 
-export type SpSheetSelectionRangeType = 'range' | 'columns';
-
 export type SpSheetSelectionRange = {
   type: 'range';
   selection: SpCellCoordRange[];
@@ -55,11 +53,11 @@ export type SpSheetSelectionRange = {
   selection: string[];
 }
 
-
 export interface SpSheetChartSelectionFormAdditional {
   // for the Histogram
   nbOfBins?: number;
   density?: boolean;
+  histogramMode?: ChChartHistogramMode;
   // for the stack bar
   normalize?: boolean;
   // for 2d charts

@@ -7,6 +7,7 @@ import {
   ChChartDataBin,
   chChartGetDataBins,
   ChChartHistogram,
+  ChChartHistogramMode,
   ChChartLabelFormatter,
   ChChartSerie
 } from '@monorepo/chart';
@@ -16,7 +17,7 @@ import {ClNumberHelper} from '@monorepo/core-lib';
 export class SpSheetChartSelectionHistogram extends SpSheetChartSelection {
 
   constructor(sheet: SpSheet, private series: SpSheetChartSerieSelectionForm[],
-              private nbOfBins?: number,
+              private mode: ChChartHistogramMode, private nbOfBins?: number,
               private xAxisLabel?: string, private yAxisLabel?: string) {
     super(sheet);
   }
@@ -31,7 +32,7 @@ export class SpSheetChartSelectionHistogram extends SpSheetChartSelection {
       .filter(value => value != null);
 
     // create the serie with bin data
-    const serie: ChChartSerie<any> = new ChChartSerie<any>(chChartGetDataBins(data, this.nbOfBins),
+    const serie: ChChartSerie<any> = new ChChartSerie<any>(chChartGetDataBins(data, this.mode, this.nbOfBins),
       this.series[0].name);
 
 

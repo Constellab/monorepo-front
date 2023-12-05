@@ -26,7 +26,6 @@ const chlChartI18nFr: FlLangTranslation = {
     BOX_PLOT: 'Boîte à moustache',
     HEAT_MAP: 'Heat map',
     VENN_DIAGRAM: 'Venn diagram',
-    number_of_data: 'Nb de données',
     interval: 'Interval',
     value: 'Valeur',
     venn_groups: 'Groupe(s)',
@@ -34,6 +33,10 @@ const chlChartI18nFr: FlLangTranslation = {
     venn_data: 'Donnée(s)',
     venn_no_data: 'Pas de données',
     tags: 'Tags',
+    chart_histogram_mode: 'Mode',
+    chart_histogram_mode_FREQUENCY: 'Fréquence',
+    chart_histogram_mode_DENSITY: 'Densité',
+    chart_histogram_mode_PROBABILITY: 'Probabilité',
   },
 };
 
@@ -58,7 +61,6 @@ const chChartI18nEn: FlLangTranslation = {
     BOX_PLOT: 'Box plot',
     HEAT_MAP: 'Heat map',
     VENN_DIAGRAM: 'Diagramme de venn',
-    number_of_data: 'Nb of data',
     interval: 'Interval',
     value: 'Value',
     venn_groups: 'Group(s)',
@@ -66,6 +68,10 @@ const chChartI18nEn: FlLangTranslation = {
     venn_data: 'Data',
     venn_no_data: 'No data',
     tags: 'Tags',
+    chart_histogram_mode: 'Mode',
+    chart_histogram_mode_FREQUENCY: 'Frequency',
+    chart_histogram_mode_DENSITY: 'Density',
+    chart_histogram_mode_PROBABILITY: 'Probability',
   },
 };
 

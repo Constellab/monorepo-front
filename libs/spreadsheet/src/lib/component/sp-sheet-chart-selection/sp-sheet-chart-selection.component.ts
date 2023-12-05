@@ -27,7 +27,10 @@ import {
   FlPortalConfig,
   FlPortalService
 } from '@monorepo/front-core-lib';
-import {ChChartType} from '@monorepo/chart';
+import {ChChartHistogramMode, ChChartType} from '@monorepo/chart';
+import {
+  CaBucketContentType
+} from '../../../../../../apps/ca-central-front/src/app/ca-core/model/entities/ca-object-storage.class';
 
 
 /**
@@ -51,6 +54,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
 
   availableChartTypes: ChChartType[];
+  histogramModes = ChChartHistogramMode;
 
   private readonly hideElementClass: string = 'g-hide-element';
 
@@ -96,7 +100,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
       series: [[], Validators.required],
       additionalFields: new FormBuilder().group({
         nbOfBins: [10, [Validators.min(1), FlGlobalValidators.isInteger()]],
-        density: [null],
+        histogramMode: [ChChartHistogramMode.FREQUENCY],
         normalize: [null],
         xAxisLabel: [null],
         yAxisLabel: [null],
@@ -309,4 +313,5 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   }
 
 
+  protected readonly CaBucketContentType = CaBucketContentType;
 }

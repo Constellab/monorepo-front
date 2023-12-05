@@ -2,7 +2,7 @@
   <fl-portal-content>
 
     <div>
-      <div>{{'chChart.number_of_data' | translate}} : {{y}}</div>
+      <div>{{('chChart.chart_histogram_mode_' + histogramMode) | translate}} : {{y}}</div>
       <div>{{'chChart.interval' | translate}} : {{intervalText}}</div>
 
       <ch-chart-serie-inline class="serie" [serieName]="serieName" [color]="color">

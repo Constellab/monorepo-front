@@ -3,6 +3,7 @@ import {
   ChChartConfig,
   ChChartDataBin,
   ChChartHistogram,
+  ChChartHistogramMode,
   ChChartLabelFormatter,
   ChChartSerie
 } from '@monorepo/chart';
@@ -14,9 +15,10 @@ export interface RvResourceViewHistogram extends RvResourceViewBase {
 }
 
 export interface RvResourceViewHistogramData {
+  x_label: string;
   y_label: string;
-  x_tick_labels?: string[];
   series: RvResourceViewHistogramSerie[];
+  mode: ChChartHistogramMode;
 }
 
 export interface RvResourceViewHistogramSerie {
@@ -41,7 +43,7 @@ export function rvHistogramToChart(view: RvResourceViewHistogram): ChChartConfig
       // create the bin
       const min = viewSerie.data.x[i];
       const max = viewSerie.data.x[i + 1];
-      data.push(new ChChartDataBin(i, viewSerie.data.y[i], min, max));
+      data.push(new ChChartDataBin(i, viewSerie.data.y[i], min, max, view.data.mode));
     }
 
     series.addSerie(new ChChartSerie(data, viewSerie.name));
@@ -55,6 +57,14 @@ export function rvHistogramToChart(view: RvResourceViewHistogram): ChChartConfig
     },
     ChChartDataBin.getIntervalTextLength()
   );
+
+  if (view.data.x_label) {
+    series.axisXLabel = view.data.x_label;
+  }
+
+  if(view.data.y_label) {
+    series.axisYLabel = view.data.y_label;
+  }
 
   return new ChChartHistogram(series);
 }
