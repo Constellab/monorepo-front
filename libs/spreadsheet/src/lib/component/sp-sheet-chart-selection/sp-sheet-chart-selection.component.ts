@@ -28,9 +28,6 @@ import {
   FlPortalService
 } from '@monorepo/front-core-lib';
 import {ChChartHistogramMode, ChChartType} from '@monorepo/chart';
-import {
-  CaBucketContentType
-} from '../../../../../../apps/ca-central-front/src/app/ca-core/model/entities/ca-object-storage.class';
 
 
 /**
@@ -312,6 +309,4 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-
-  protected readonly CaBucketContentType = CaBucketContentType;
 }
