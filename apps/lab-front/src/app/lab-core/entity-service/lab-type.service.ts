@@ -8,7 +8,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {LabTypeEntity, LabTypeEntityDatasource} from '../model/entities/lab-type/lab-type.entity';
 import {Observable} from 'rxjs';
-import {ClCoreJsonConvert, ClHelpService, ClPage, ClPageI} from '@monorepo/core-lib';
+import {ClCoreJsonConvert, ClPageI} from '@monorepo/core-lib';
 import {LabTypeSearch, LabTypeSearchFields} from '../entity-module/lab-type-core/model/lab-type-advanced-search.class';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
 import {TdTypeObjectType} from '@monorepo/technical-doc';
@@ -43,7 +43,12 @@ export class LabTypeService {
 
   public getAdvancedSearchFunction(): FLSearchFunction<LabTypeEntity> {
     return (page: number, pageSize: number, filters?: LabTypeSearchFields) =>
-      this.advancedSearch(`${this.route}/advanced-search`, page, pageSize, filters);
+      this.basicAdvancedSearch(page, pageSize, filters);
+  }
+
+  private basicAdvancedSearch(page: number, pageSize: number,
+                              filters: Partial<LabTypeSearchFields>): Observable<ClPageI<LabTypeEntity>> {
+    return this.advancedSearch(`${this.route}/advanced-search`, page, pageSize, filters);
   }
 
   public getImporterAdvancedSearchFunction(resourceTypingName: string, extension: string): FLSearchFunction<LabTypeEntity> {
@@ -92,7 +97,7 @@ export class LabTypeService {
   }
 
   private advancedSearch(route: string, page: number, pageSize: number,
-                         filters: LabTypeSearchFields): Observable<ClPageI<LabTypeEntity>> {
+                         filters: Partial<LabTypeSearchFields>): Observable<ClPageI<LabTypeEntity>> {
     const data: FlAdvancedSearchInput = this.getSearchInput(filters);
 
     return this.apiService.post(route, data, LabTypeEntity, {
@@ -100,7 +105,7 @@ export class LabTypeService {
     });
   }
 
-  private getSearchInput(filters: LabTypeSearchFields): FlAdvancedSearchInput {
+  private getSearchInput(filters:Partial< LabTypeSearchFields>): FlAdvancedSearchInput {
     return {
       filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, LabTypeSearch.advancedSearchConverter),
       sortsCriteria: null
@@ -115,25 +120,18 @@ export class LabTypeService {
     }
   }
 
-  public searchTypeByName(objectType: TdTypeObjectType, name: string,
-                          page: number, size: number): Observable<ClPage<LabTypeEntity>> {
-    if (ClHelpService.isNullOrEmpty(name)) {
-      return this.getByObjectType(objectType, page, size);
-    }
-    return this.apiService.get(`${this.route}/object-type/${objectType}/name-search/${name}`, LabTypeService.deserializeTyping,
-      {page: page, pageSize: size, resultIsPaginated: true});
+  public searchTypeByName(objectTypes: TdTypeObjectType[], name: string,
+                          page: number, size: number): Observable<ClPageI<LabTypeEntity>> {
+    const filters: Partial<LabTypeSearchFields> = {
+      text: name ? name : undefined,
+      objectType: objectTypes
+    };
+    return this.basicAdvancedSearch(page, size, filters);
   }
 
-  public searchTypeByNameDatasource(objectType: TdTypeObjectType): LabTypeEntityDatasource {
+  public searchTypeByNameDatasource(objectTypes: TdTypeObjectType[]): LabTypeEntityDatasource {
     return new FlEntityPaginatedDatasource(
-      (page, size, name) => this.searchTypeByName(objectType, name, page, size),
+      (page, size, name) => this.searchTypeByName(objectTypes, name, page, size),
       20, false);
   }
-
-  public getByObjectType(objectType: TdTypeObjectType,
-                         page: number, size: number): Observable<ClPage<LabTypeEntity>> {
-    return this.apiService.get(`${this.route}/object-type/${objectType}`, LabTypeService.deserializeTyping,
-      {page: page, pageSize: size, resultIsPaginated: true});
-  }
-
 }

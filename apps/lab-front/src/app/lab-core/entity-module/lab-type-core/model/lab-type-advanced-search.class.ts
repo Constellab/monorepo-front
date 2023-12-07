@@ -9,7 +9,7 @@ import {TdTypeObjectSubType, TdTypeObjectType} from '@monorepo/technical-doc';
 export type LabTypeSearchConfig =
 // Mode to filter on Task or protocol by default
   {
-    mode: 'process';
+    mode: 'process' | 'resource';
   } |
   // Mode to filter on transformer for a specific resource
   {

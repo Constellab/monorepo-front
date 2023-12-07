@@ -365,6 +365,7 @@
     "select_report_template": "Select a report template",
     "report_templates": "Report templates",
     "report_template": "Report template",
-    "convert_live_task_code_to_task": "Convert live task code to task code"
+    "convert_live_task_code_to_task": "Convert live task code to task code",
+    "process_type": "Process type"
   }
 }

@@ -11,6 +11,7 @@ import {LabProject} from '../../../model/entities/lab-project.class';
 import {LabSearchConverter} from '../../../model/global/lab-search-converter.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabUser} from '../../../model/entities/lab-user.entity';
+import {LabTypeEntity} from '../../../model/entities/lab-type/lab-type.entity';
 
 
 export class LabExperimentSearchFields {
@@ -34,6 +35,9 @@ export class LabExperimentSearchFields {
   isValidated: boolean;
   isArchived: boolean;
 
+  @Type(() => LabTypeEntity)
+  processTypingName: LabTypeEntity;
+
   id: string;
 
 }
@@ -52,6 +56,7 @@ export class LabExperimentSearch {
     createdBy: 'created_by',
     lastModifiedAt: 'last_modified_date',
     isValidated: 'biox.experiment_is_validated',
+    processTypingName: 'biox.process_type'
   };
 
 
@@ -70,6 +75,8 @@ export class LabExperimentSearch {
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
     isArchived: {key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
     isValidated: {key: 'is_validated', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
+    processTypingName: {key: 'process_typing_name', operator: 'EQ',
+      convertValue: (value: LabTypeEntity) => value?.typingName},
     id: {key: 'id', operator: 'EQ'},
   };
 
@@ -92,6 +99,7 @@ export class LabExperimentSearch {
         }),
         isArchived: [null],
         isValidated: [null],
+        processTypingName: [null],
         id: [null],
       }
     );

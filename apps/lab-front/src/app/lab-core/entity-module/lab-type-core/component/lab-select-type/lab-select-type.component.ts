@@ -1,10 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlFormFieldDirective} from '@monorepo/front-core-lib';
+import {FlDialogService, FlFormFieldDirective, FlInputSearchAdvancedButton} from '@monorepo/front-core-lib';
 import {LabTypeEntity, LabTypeEntityDatasource} from '../../../../model/entities/lab-type/lab-type.entity';
 import {NgControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {LabTypeService} from '../../../../entity-service/lab-type.service';
 import {TdTypeObjectType} from '@monorepo/technical-doc';
+import {
+  LabSelectTypeDialogComponent,
+  LabSelectTypeDialogInput
+} from '../lab-select-type-dialog/lab-select-type-dialog.component';
 
 /**
  * Select component for LabType
@@ -21,7 +25,7 @@ export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity>
 
   @Input() placeholder: string;
 
-  @Input() objectType: TdTypeObjectType;
+  @Input() mode: 'process' | 'resource' = 'process';
 
   @Output() typeChange: EventEmitter<LabTypeEntity> = new EventEmitter();
 
@@ -29,13 +33,27 @@ export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity>
 
   datasource: LabTypeEntityDatasource;
 
+  advancedButton: FlInputSearchAdvancedButton<LabTypeEntity>;
+
   constructor(@Optional() @Self() ngControl: NgControl,
-              private typeService: LabTypeService) {
+              private typeService: LabTypeService,
+              private dialogService: FlDialogService) {
     super(ngControl);
   }
 
   ngOnInit(): void {
-    this.datasource = this.typeService.searchTypeByNameDatasource(this.objectType);
+    const objectTypes: TdTypeObjectType[] = this.mode === 'process' ? ['TASK', 'PROTOCOL'] : ['RESOURCE'];
+    this.datasource = this.typeService.searchTypeByNameDatasource(objectTypes);
+
+    const data: LabSelectTypeDialogInput = {
+      searchConfig: {
+        mode: this.mode,
+      }
+    };
+    this.advancedButton = {
+      onClick: () => this.dialogService.openBigDialog(LabSelectTypeDialogComponent,
+        {data}).afterClosed()
+    };
   }
 
   writeValue(obj: LabTypeEntity): void {

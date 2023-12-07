@@ -6,7 +6,7 @@
 
     <!--  Name  -->
     <mat-form-field class="g-full">
-      <mat-label>{{'name' | translate }}</mat-label>
+      <mat-label>{{ 'name' | translate }}</mat-label>
       <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off">
     </mat-form-field>
 
@@ -21,7 +21,7 @@
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{'biox.projects' | translate }}
+        {{ 'biox.projects' | translate }}
       </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -35,7 +35,7 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{'advanced_search' | translate}}
+        {{ 'advanced_search' | translate }}
       </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -44,14 +44,14 @@
 
       <!--  Resource Type  -->
       <fl-form-field class="g-search-field">
-        <lab-select-type objectType="RESOURCE" [placeholder]="'resource_type' | translate"
+        <lab-select-type mode="resource" [placeholder]="'resource_type' | translate"
                          formControlName="resourceTypingName"></lab-select-type>
       </fl-form-field>
 
 
       <!--  Origin  -->
       <mat-form-field class="g-search-field">
-        <mat-label>{{'resource_origin' | translate }}</mat-label>
+        <mat-label>{{ 'resource_origin' | translate }}</mat-label>
         <mat-select formControlName="origin" [placeholder]="'resource_origin' | translate">
           <lab-resource-origin-options></lab-resource-origin-options>
         </mat-select>
@@ -64,26 +64,29 @@
 
       <!--  Id -->
       <mat-form-field class="g-search-field">
-        <mat-label>{{'id' | translate }}</mat-label>
+        <mat-label>{{ 'id' | translate }}</mat-label>
         <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
       </mat-form-field>
 
       <!-- Creation date  -->
       <div class="g-form-field-no-hint g-full g-form-field-compact">
-        <p class="g-text-small subtitle">{{'creation_date' | translate}}</p>
+        <p class="g-text-small subtitle">{{ 'creation_date' | translate }}</p>
         <fl-search-date-interval formGroupName="createdAt">
         </fl-search-date-interval>
       </div>
 
 
       <mat-checkbox formControlName="includeChildrenResource"
-                    class="checkbox">{{'resource_include_children' | translate }}</mat-checkbox>
+                    class="checkbox">{{ 'resource_include_children' | translate }}
+      </mat-checkbox>
 
       <mat-checkbox formControlName="includeNotFlagged"
-                    class="checkbox">{{'biox.resource_include_not_flagged' | translate }}</mat-checkbox>
+                    class="checkbox">{{ 'biox.resource_include_not_flagged' | translate }}
+      </mat-checkbox>
 
       <mat-checkbox formControlName="isArchived"
-                    class="checkbox">{{'resource_include_archived' | translate }}</mat-checkbox>
+                    class="checkbox">{{ 'resource_include_archived' | translate }}
+      </mat-checkbox>
     </div>
   </mat-expansion-panel>
 

@@ -7,7 +7,7 @@
   <p class="g-text-light help-text">{{'biox.configure_viewer_help' | translate}}</p>
 
   <fl-form-field>
-    <lab-select-type objectType="RESOURCE" [placeholder]="'resource_type' | translate"
+    <lab-select-type mode="resource" [placeholder]="'resource_type' | translate"
                      [(ngModel)]="resourceType"
                      (typeChange)="onResourceTypingChange($event)">
     </lab-select-type>

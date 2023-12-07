@@ -54,6 +54,15 @@ export class LabTypeSearchComponent implements OnInit {
           {columnName: 'description', accessor: 'shortDescription'},
           'objectSubType', 'detail'];
         break;
+      case 'resource':
+        searchFunction = this.typeService.getAdvancedSearchFunction();
+
+        hiddenFilters = {objectType: ['RESOURCE']};
+        this.columns = [
+          'name',
+          {columnName: 'description', accessor: 'shortDescription'},
+          'objectSubType', 'detail'];
+        break;
       case 'transformer':
         searchFunction = this.typeService.getTransformerAdvancedSearchFunction(this.config.resourceTypingNames);
 
@@ -102,15 +111,16 @@ export class LabTypeSearchComponent implements OnInit {
 
   private getSavedSearch(): FlSavedSearch[] {
     // list of predefined search of the resources
-    return [{
-      searchName: 'lab-type',
-      id: null,
-      label: 'All',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {includeDeprecated: false} as Partial<LabTypeSearchFields>
-    },
+    return [
+      {
+        searchName: 'lab-type',
+        id: null,
+        label: 'All',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {includeDeprecated: false} as Partial<LabTypeSearchFields>
+      },
       {
         searchName: 'lab-type',
         id: null,

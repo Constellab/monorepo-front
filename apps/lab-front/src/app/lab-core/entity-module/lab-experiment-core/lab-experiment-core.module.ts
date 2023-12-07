@@ -31,6 +31,7 @@ import {
 import {LabProcessCoreModule} from '../lab-process-core/lab-process-core.module';
 import {LabProtocolTemplateCoreModule} from '../lab-protocol-template-core/lab-protocol-template-core.module';
 import {LabExperimentInlineComponent} from './component/lab-experiment-inline/lab-experiment-inline.component';
+import {LabTypeCoreModule} from '../lab-type-core/lab-type-core.module';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import {LabExperimentInlineComponent} from './component/lab-experiment-inline/la
     LabProjectCoreModule,
     LabProcessCoreModule,
     LabProtocolTemplateCoreModule,
+    LabTypeCoreModule,
   ]
 })
 export class LabExperimentCoreModule {

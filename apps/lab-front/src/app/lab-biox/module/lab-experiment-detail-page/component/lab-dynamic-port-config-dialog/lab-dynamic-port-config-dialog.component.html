@@ -9,7 +9,7 @@
 
     <!--  ResourceType   -->
     <fl-form-field class="g-form-input">
-      <lab-select-type objectType="RESOURCE" [placeholder]="'resource_type' | translate"
+      <lab-select-type mode="resource"  [placeholder]="'resource_type' | translate"
                        formControlName="resourceType" [required]="true">
       </lab-select-type>
       <mat-error *ngIf="formGp.get('resourceType').hasError('required')">
