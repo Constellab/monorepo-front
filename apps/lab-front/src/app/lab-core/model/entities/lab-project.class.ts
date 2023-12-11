@@ -7,6 +7,7 @@ import {Type} from 'class-transformer';
 export class LabProject extends LabEntity {
   code: string;
   title: string;
+  levelStatus: 'PARENT' | 'LEAF';
 }
 
 export class LabProjectWithChildren extends LabProject {

@@ -47,7 +47,7 @@ export class LabProjectSelectComponent
   private _transformer = (node: LabProjectWithChildren, level: number): LabProjectFlatNode => {
     return {
       project: node,
-      expandable: !!node.children && node.children.length > 0,
+      expandable: node.levelStatus === 'PARENT',
       level: level,
       selected: false
     };
