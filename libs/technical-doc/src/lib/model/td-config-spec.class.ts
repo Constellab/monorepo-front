@@ -77,6 +77,7 @@ export type TdParamSpec =
   TdParamSpecSimple
   | TdParamSpecParamSet;
 
+export type TdParamSpecs = Record<string, TdParamSpec>;
 /**
  * Basic param spec (excluding param set)
  */
@@ -167,7 +168,7 @@ export interface TdParamSpecParamSet extends TdParamSpecBase {
   type: 'param_set';
 
   additional_info: {
-    param_set: Record<string, TdParamSpec>;
+    param_set: TdParamSpecs;
     max_number_of_occurrences: number;
   };
 }

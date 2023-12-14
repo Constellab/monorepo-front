@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TdTypeEntity} from '../../model/td-type.class';
 
 @Component({
@@ -6,17 +6,8 @@ import {TdTypeEntity} from '../../model/td-type.class';
   templateUrl: './td-technical-doc.component.html',
   styleUrls: ['./td-technical-doc.component.scss']
 })
-export class TdTechnicalDocComponent implements OnInit {
+export class TdTechnicalDocComponent {
 
-  @Input()
-  technicalDoc: TdTypeEntity;
-
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-
-  }
+  @Input() technicalDoc: TdTypeEntity;
 
 }

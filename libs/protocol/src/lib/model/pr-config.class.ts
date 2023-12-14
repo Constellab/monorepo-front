@@ -1,4 +1,4 @@
-import {PrConfigSpecs} from './pr-config-spec.entity';
+import {TdParamSpecs} from '@monorepo/technical-doc';
 
 export type PrConfigValues = Record<string, any>
 
@@ -9,7 +9,7 @@ export type PrConfigValues = Record<string, any>
 export interface PrConfig {
 
   // object describing the type of the configs and default values
-  specs: PrConfigSpecs;
+  specs: TdParamSpecs;
 
   // actual values of the config
   values: PrConfigValues;

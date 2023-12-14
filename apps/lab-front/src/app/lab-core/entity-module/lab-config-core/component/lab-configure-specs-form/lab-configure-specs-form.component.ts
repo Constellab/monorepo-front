@@ -51,9 +51,9 @@ export class LabConfigureSpecsFormComponent implements OnInit {
     this.protectedFormGp = this.controlContainer.control.get('protected') as any;
 
 
-    this.showProtectedConfigs = this.configData.hasConfig('protected');
+    this.showProtectedConfigs = this.configData.hasConfigs('protected');
     // Automatically expand the advanced config if there is no public config
-    this.protectedConfigExpand = !this.configData.hasConfig('public');
+    this.protectedConfigExpand = !this.configData.hasConfigs('public');
   }
 
 }

@@ -21,7 +21,6 @@ import {
   LabResourceSearchFields
 } from '../entity-module/lab-resource-core/model/lab-resource-advanced-search.class';
 import {LabResourceImporterType} from '../model/entities/resource/lab-resource.dto';
-import {LabTypeService} from './lab-type.service';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
 import {PrConfigValues} from '@monorepo/protocol';
 import {LabSharedEntity} from '../model/entities/lab-share.entity';
@@ -167,7 +166,7 @@ export class LabResourceService {
   //////////////////////////////////////// EXPORTER  ///////////////////////////////////////
 
   public getResourceExporterConfig(resourceTypingName: string): Observable<LabProcessType> {
-    return this.apiService.get(`${this.route}/${resourceTypingName}/exporter`, LabTypeService.deserializeTyping);
+    return this.apiService.get(`${this.route}/${resourceTypingName}/exporter`, LabProcessType);
   }
 
   public exportResource(resourceId: string, exporterTypingName: string, config: PrConfigValues): Observable<LabResource> {

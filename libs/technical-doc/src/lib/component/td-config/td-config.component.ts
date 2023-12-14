@@ -1,23 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TdParamSpec, TdParamSpecParamSet} from '../../model/td-config-spec.class';
+import {Component, Input} from '@angular/core';
+import {TdParamSpec, TdParamSpecParamSet, TdParamSpecs} from '../../model/td-config-spec.class';
 
 @Component({
   selector: 'td-config',
   templateUrl: './td-config.component.html',
   styleUrls: ['./td-config.component.scss']
 })
-export class TdConfigComponent implements OnInit {
+export class TdConfigComponent {
 
-  @Input() configSpecs?: Record<string, TdParamSpec>;
+  @Input() configSpecs?: TdParamSpecs;
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-
-  }
-
-  public getParamSet(confSpec: TdParamSpec): Record<string, TdParamSpec> {
+  public getParamSet(confSpec: TdParamSpec): TdParamSpecs {
     return (confSpec as TdParamSpecParamSet)?.additional_info?.param_set;
   }
 

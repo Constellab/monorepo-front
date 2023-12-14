@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {LabBrickMessage} from '../../../../lab-core/model/entities/lab-brick.entity';
 
 /**
@@ -9,13 +9,8 @@ import {LabBrickMessage} from '../../../../lab-core/model/entities/lab-brick.ent
   templateUrl: './lab-brick-message-list.component.html',
   styleUrls: ['./lab-brick-message-list.component.scss']
 })
-export class LabBrickMessageListComponent implements OnInit {
+export class LabBrickMessageListComponent {
 
   @Input() messages: LabBrickMessage[];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -2,8 +2,9 @@ import {Expose, Type} from 'class-transformer';
 import {RvResourceView, RvResourceViewBase, RvResourceViewType} from '@monorepo/resource-view';
 import {LabResourceViewFolder} from './lab-resource-view-folder.class';
 import {LabViewConfig} from './lab-view-config.entity';
-import {ClRecordWrapperTransform, ClRichTextI} from '@monorepo/core-lib';
-import {PrConfigSpecs, PrConfigValues} from '@monorepo/protocol';
+import {ClRichTextI} from '@monorepo/core-lib';
+import {PrConfigValues} from '@monorepo/protocol';
+import {TdParamSpecs} from '@monorepo/technical-doc';
 
 // list of available view type
 export type LabResourceViewType = RvResourceViewType | 'view'
@@ -37,8 +38,7 @@ export class LabResourceViewSpec {
 export class LabResourceViewSpecComplete extends LabResourceViewSpec {
 
   @Expose({name: 'config_specs'})
-  @ClRecordWrapperTransform(PrConfigSpecs)
-  configSpecs: PrConfigSpecs;
+  configSpecs: TdParamSpecs;
 }
 
 /**

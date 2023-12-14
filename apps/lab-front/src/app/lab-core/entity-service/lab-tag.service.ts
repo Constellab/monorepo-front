@@ -54,11 +54,6 @@ export class LabTagService extends FlTagService {
     }
   }
 
-
-  public getAllTags(): Observable<LabTagKeyModel[]> {
-    return this.apiService.get(this.route, LabTagKeyModel);
-  }
-
   public createTag(tagKey: string, tagValue: FlTagValue): Observable<LabCreateTagResponse> {
     return this.apiService.post(`${this.route}/${tagKey}/${tagValue}`, null, LabCreateTagResponse);
   }

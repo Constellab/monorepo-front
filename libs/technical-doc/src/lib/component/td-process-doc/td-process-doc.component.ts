@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {TdProcessType} from '../../model/td-process-type.class';
 
 @Component({
@@ -6,17 +6,8 @@ import {TdProcessType} from '../../model/td-process-type.class';
   templateUrl: './td-process-doc.component.html',
   styleUrls: ['./td-process-doc.component.scss']
 })
-export class TdProcessDocComponent implements OnInit {
+export class TdProcessDocComponent {
 
-  @Input()
-  process: TdProcessType;
+  @Input() process: TdProcessType;
 
-  type: string;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-
-  }
 }

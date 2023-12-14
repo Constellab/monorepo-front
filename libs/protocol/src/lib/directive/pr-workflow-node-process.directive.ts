@@ -137,8 +137,8 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
   }
 
   // get the title of the process if it is linked to a Resource (process IO)
-  protected getResourceTitle(resourceIds: Observable<string>): Observable<FlTranslatableText>{
-    return this.workflowResourcesState.getResourceFromObs(resourceIds).pipe(
+  protected getResourceTitle(resourceId: Observable<string>): Observable<FlTranslatableText>{
+    return this.workflowResourcesState.getResourceFromObs(resourceId).pipe(
       map(resource => {
         if (resource?.status === 'success') {
           return resource.object != null ? resource.object.name : this.node.currentObject.title;

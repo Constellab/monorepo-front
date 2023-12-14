@@ -23,9 +23,6 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
   @Expose({name: 'brick_version'})
   brickVersion: string;
 
-  @Expose({name: 'model_name'})
-  modelName: string;
-
   @Expose({name: 'human_name'})
   humanName: string;
 
@@ -60,7 +57,7 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
   }
 
   get name(): string {
-    return this.humanName || this.modelName;
+    return this.humanName;
   }
 
   get parentTypingName(): string {

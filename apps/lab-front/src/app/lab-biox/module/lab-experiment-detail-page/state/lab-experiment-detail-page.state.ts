@@ -248,7 +248,7 @@ export class LabExperimentDetailPageState {
 
     const layer = this.workflow.findLayerWithId(protocol.id);
     if (layer) {
-      for (const labProcess of Object.values(protocol.data.graph.nodes)) {
+      for (const labProcess of Object.values(protocol.data.nodes)) {
         layer.updateProcessObject(labProcess);
       }
     }

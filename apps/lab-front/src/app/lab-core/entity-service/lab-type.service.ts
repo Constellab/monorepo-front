@@ -7,11 +7,12 @@ import {
   FLSearchFunction
 } from '@monorepo/front-core-lib';
 import {LabTypeEntity, LabTypeEntityDatasource} from '../model/entities/lab-type/lab-type.entity';
-import {Observable} from 'rxjs';
-import {ClCoreJsonConvert, ClPageI} from '@monorepo/core-lib';
+import {Observable, throwError} from 'rxjs';
+import {ClPageI} from '@monorepo/core-lib';
 import {LabTypeSearch, LabTypeSearchFields} from '../entity-module/lab-type-core/model/lab-type-advanced-search.class';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
-import {TdTypeObjectType} from '@monorepo/technical-doc';
+import {TdTypeObjectType, TdTypingName} from '@monorepo/technical-doc';
+import {LabResourceType} from '../model/entities/lab-type/lab-resource-type.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -23,21 +24,30 @@ export class LabTypeService {
   constructor(private apiService: FlApiWithCacheService) {
   }
 
-  public static deserializeTyping(typingObj: any): LabTypeEntity | LabTypeEntity[] {
-    // construct the correct class based on object_type
-    const objectType: TdTypeObjectType = typingObj.object_type;
-    switch (objectType) {
+  public getTyping(typingName: string): Observable<LabTypeEntity> {
+    const typingNameObject = new TdTypingName(typingName);
+    switch (typingNameObject.type) {
       case 'TASK':
-        return ClCoreJsonConvert.deserialize(typingObj, LabProcessType);
+        return this.getTaskTyping(typingName);
       case 'PROTOCOL':
-        return ClCoreJsonConvert.deserialize(typingObj, LabProcessType);
+        return this.getProtocolTyping(typingName);
+      case 'RESOURCE':
+        return this.getResourceTyping(typingName);
       default:
-        return ClCoreJsonConvert.deserialize(typingObj, LabTypeEntity);
+        return throwError(() => Error(`Unknown typing name ${typingName}`));
     }
   }
 
-  public getTyping(typingName: string): Observable<LabTypeEntity> {
-    return this.apiService.getWithCache(`${this.route}/${typingName}`, LabTypeService.deserializeTyping).getObs();
+  private getResourceTyping(typingName: string): Observable<LabResourceType> {
+    return this.apiService.getWithCache(`${this.route}/resource/${typingName}`, LabResourceType).getObs();
+  }
+
+  public getTaskTyping(typingName: string): Observable<LabProcessType> {
+    return this.apiService.getWithCache(`${this.route}/task/${typingName}`, LabProcessType).getObs();
+  }
+
+  public getProtocolTyping(typingName: string): Observable<LabProcessType> {
+    return this.apiService.getWithCache(`${this.route}/protocol/${typingName}`, LabProcessType).getObs();
   }
 
 
@@ -105,7 +115,7 @@ export class LabTypeService {
     });
   }
 
-  private getSearchInput(filters:Partial< LabTypeSearchFields>): FlAdvancedSearchInput {
+  private getSearchInput(filters: Partial<LabTypeSearchFields>): FlAdvancedSearchInput {
     return {
       filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, LabTypeSearch.advancedSearchConverter),
       sortsCriteria: null

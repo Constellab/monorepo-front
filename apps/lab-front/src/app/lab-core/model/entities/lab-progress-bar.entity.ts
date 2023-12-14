@@ -1,4 +1,4 @@
-import {LabBaseEntity} from '../global/lab-entity.entity';
+import {LabEntity} from '../global/lab-entity.entity';
 import {Expose, Type} from 'class-transformer';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {DateTime} from 'luxon';
@@ -33,7 +33,7 @@ export class LabProgressMessage {
 }
 
 
-export class LabProgressBar extends LabBaseEntity {
+export class LabProgressBar extends LabEntity {
 
   @Expose({name: 'started_at'})
   @ClLuxonDateTimeTransform()
@@ -77,7 +77,6 @@ export class LabProgressMessageDatasource extends FlArrayObs<LabProgressMessage>
   protected equals(a: LabProgressMessage, b: LabProgressMessage): boolean {
     return a.datetime.equals(b.datetime) && a.text === b.text && a.type.value === b.type.value;
   }
-
 
 
 }

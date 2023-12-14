@@ -12,10 +12,6 @@ export class LabUserService {
   constructor(private apiService: FlApiService) {
   }
 
-  public getAllUsers(): Observable<LabUser[]> {
-    return this.apiService.get(this.route, LabUser);
-  }
-
   public searchByName(name: string, page: number, pageSize: number): Observable<ClPageI<LabUser>> {
     return this.apiService.get(`${this.route}/name-search/${name}`, LabUser,
       {page, pageSize, resultIsPaginated: true});

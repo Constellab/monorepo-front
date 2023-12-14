@@ -4,20 +4,13 @@ import {LabProgressBar, LabProgressMessage} from '../lab-progress-bar.entity';
 import {FlStatus, FlStatusTransform} from '@monorepo/front-core-lib';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
 import {TdTypeObjectStatus, TdTypingName} from '@monorepo/technical-doc';
-import {PrConfigValues, PrOI, PrProcess, PrProcessStatus, prProcessStatusDict} from '@monorepo/protocol';
+import {PrOI, PrProcess, PrProcessStatus, prProcessStatusDict} from '@monorepo/protocol';
 import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {LabEntity} from '../../global/lab-entity.entity';
 
 export type LabProcessClass = 'TASK' | 'PROTOCOL';
 
-export interface LabProcessData {
-  title: string;
-
-  description?: string;
-
-  graph?: any;
-}
 
 export interface LabProcessErrorInfo {
   context: string;
@@ -34,8 +27,6 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
 
   @Expose({name: 'process_typing_name'})
   processTypingName: string;
-
-  data: LabProcessData;
 
   @Expose({name: 'experiment_id'})
   experimentId: string;
@@ -83,17 +74,15 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   @Expose({name: 'error_info'})
   errorInfo: LabProcessErrorInfo;
 
+  @Expose({name: 'human_name'})
+  humanName?: string;
+
+  @Expose({name: 'short_description'})
+  shortDescription?: string;
+
 
   hasConfig(): boolean {
-    return this.config?.specs.hasProperties() ?? false;
-  }
-
-  public updateConfig(config: PrConfigValues): void {
-    this.config.updateConfig(config);
-  }
-
-  public getConfigValues(): PrConfigValues {
-    return this.config.values;
+    return this.config?.hasConfigs() ?? false;
   }
 
   // return true if the process is of type Source
@@ -111,7 +100,7 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   }
 
   get title(): string {
-    return this.data.title || this.instanceName;
+    return this.humanName || this.instanceName;
   }
 
   isFinished(): boolean {

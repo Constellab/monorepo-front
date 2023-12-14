@@ -19,13 +19,6 @@ export class LabBrickMessage {
   status: FlStatus<LabBrickMessageStatus>;
 }
 
-class LabBrickData extends LabEntity {
-
-  @Type(() => LabBrickMessage)
-  messages: LabBrickMessage[];
-
-}
-
 export type LabBrickStatus = 'SUCCESS' | 'ERROR' | 'CRITICAL' | 'WARNING'
 
 const labBrickStatusDict: FlStatusDict<LabBrickStatus> = {
@@ -41,8 +34,8 @@ export class LabBrickEntity extends LabEntity {
   @FlStatusTransform(labBrickStatusDict)
   status: FlStatus<LabBrickStatus>;
 
-  @Type(() => LabBrickData)
-  data: LabBrickData;
+  @Type(() => LabBrickMessage)
+  messages: LabBrickMessage[];
 
   version: string;
 
@@ -58,12 +51,8 @@ export class LabBrickEntity extends LabEntity {
   @Expose({name: 'brick_path'})
   brickPath: string;
 
-  hasMessages(): boolean {
-    return this.countMessages() > 0;
-  }
-
   countMessages(): number {
-    return this.data?.messages.length ?? 0;
+    return this.messages.length ?? 0;
   }
 }
 

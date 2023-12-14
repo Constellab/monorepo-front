@@ -14,7 +14,6 @@ export * from './lib/model/node/pr-workflow-node-protocol.class';
 
 // model
 export * from './lib/model/pr-config.class';
-export * from './lib/model/pr-config-spec.entity';
 export * from './lib/model/pr-config-view.class';
 export * from './lib/model/pr-interface.class';
 export * from './lib/model/pr-io.class';

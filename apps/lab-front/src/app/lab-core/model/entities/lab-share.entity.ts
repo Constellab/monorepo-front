@@ -25,8 +25,6 @@ export class LabShareLink extends LabBaseEntityWithUser {
 
   status: 'SUCCESS' | 'ERROR';
 
-  token: string;
-
   link: string;
 
   isValid(): boolean {

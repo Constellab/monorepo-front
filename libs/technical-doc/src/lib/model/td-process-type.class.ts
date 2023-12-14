@@ -1,5 +1,5 @@
 import {TdTypeEntity} from './td-type.class';
-import {TdParamSpec} from './td-config-spec.class';
+import {TdParamSpecs} from './td-config-spec.class';
 
 export interface TdIOSpecs{
   specs: Record<string, TdIOSpec>;
@@ -12,7 +12,7 @@ export interface TdProcessType extends TdTypeEntity {
 
   outputSpecs: TdIOSpecs;
 
-  configSpecs: Record<string, TdParamSpec>;
+  configSpecs: TdParamSpecs;
 
   additionalInfo: TdProcessAdditionalInfoDTO | undefined;
 }

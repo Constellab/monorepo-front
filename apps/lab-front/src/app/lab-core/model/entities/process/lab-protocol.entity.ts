@@ -1,8 +1,7 @@
-import {LabEntity} from '../../global/lab-entity.entity';
 import {ClRecordTransform} from '@monorepo/core-lib';
 import {LabProtocolIOFace, LabProtocolLink} from '../lab-protocol-link.entity';
 import {Expose, Type} from 'class-transformer';
-import {LabProcess, LabProcessData} from './lab-process.entity';
+import {LabProcess} from './lab-process.entity';
 
 export interface LabProcessLayout {
   x: number;
@@ -17,28 +16,29 @@ export class LabProtocolLayout {
   processLayouts: Record<string, LabProcessLayout>;
 
   @Expose({name: 'interface_layouts'})
-  interfaceLayouts : Record<string, LabProcessLayout>;
+  interfaceLayouts: Record<string, LabProcessLayout>;
 
   @Expose({name: 'outerface_layouts'})
-  outerfaceLayouts : Record<string, LabProcessLayout>;
+  outerfaceLayouts: Record<string, LabProcessLayout>;
 
   getProcess(instanceName: string): LabProcessLayout | null {
-    if(this.processLayouts == null) return null;
+    if (this.processLayouts == null) return null;
     return this.processLayouts[instanceName];
   }
 
   getInterface(name: string): LabProcessLayout | null {
-    if(this.interfaceLayouts == null) return null;
+    if (this.interfaceLayouts == null) return null;
     return this.interfaceLayouts[name];
   }
 
   getOuterface(name: string): LabProcessLayout | null {
-    if(this.outerfaceLayouts == null) return null;
+    if (this.outerfaceLayouts == null) return null;
     return this.outerfaceLayouts[name];
   }
 }
 
-export class LabProtocolGraph extends LabEntity {
+
+export class LabProtocolData {
 
   @ClRecordTransform(LabProtocolIOFace)
   interfaces: Record<string, LabProtocolIOFace>;
@@ -55,32 +55,14 @@ export class LabProtocolGraph extends LabEntity {
   @Type(() => LabProtocolLayout)
   layout?: LabProtocolLayout;
 
-  public static empty(): LabProtocolGraph {
-    const graph: LabProtocolGraph = new LabProtocolGraph();
+  public static empty(): LabProtocolData {
+    const graph: LabProtocolData = new LabProtocolData();
     graph.interfaces = {};
     graph.outerfaces = {};
     graph.nodes = {};
     graph.links = [];
 
     return graph;
-  }
-}
-
-
-
-export class LabProtocolData implements LabProcessData {
-
-  title: string;
-
-  description?: string;
-
-  @Type(() => LabProtocolGraph)
-  graph: LabProtocolGraph;
-
-  public static empty(): LabProtocolData {
-    const data: LabProtocolData = new LabProtocolData();
-    data.graph = LabProtocolGraph.empty();
-    return data;
   }
 }
 
@@ -109,7 +91,7 @@ export class LabProtocol extends LabProcess {
 
 
   getNodes(): Record<string, LabProcess> {
-    return this.data.graph.nodes;
+    return this.data.nodes;
   }
 
   public getProcess(instanceName: string): LabProcess {

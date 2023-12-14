@@ -90,13 +90,6 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
     this.shareLink$ = of(null);
   }
 
-  getDownloadLink(shareLink: LabShareLink): string {
-    if (shareLink) {
-      return this.shareLinkService.getDownloadLink(shareLink.entityType, shareLink.token);
-    }
-    return null;
-  }
-
   copyDownloadLink(shareLink: LabShareLink): void {
     const result = this.clipboardService.copy(shareLink.link);
     if (result) {
