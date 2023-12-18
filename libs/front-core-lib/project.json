@@ -18,8 +18,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/front-core-lib"],
       "options": {
-        "jestConfig": "libs/front-core-lib/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/front-core-lib/jest.config.ts"
       }
     }
   },

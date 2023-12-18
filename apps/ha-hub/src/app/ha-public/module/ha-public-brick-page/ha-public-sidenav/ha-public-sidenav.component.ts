@@ -1,4 +1,14 @@
-import {ChangeDetectorRef, Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  makeStateKey,
+  OnInit,
+  PLATFORM_ID,
+  StateKey,
+  TransferState
+} from '@angular/core';
 import {
   HaMateTreeFlatDataSource,
   HaNode,
@@ -33,7 +43,7 @@ import {ClStringHelper} from '@monorepo/core-lib';
 import {map} from 'rxjs/operators';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
-import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 

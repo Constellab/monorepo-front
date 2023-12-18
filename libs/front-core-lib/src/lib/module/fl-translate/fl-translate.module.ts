@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
+import {APP_INITIALIZER, ModuleWithProviders, NgModule, TransferState} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {FlTranslationLoader} from './fl-translation-loader';
@@ -8,7 +8,7 @@ import {FlTranslateService} from './service/fl-translate.service';
 import {FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig} from './model/fl-translate-module-config';
 import {CookieService} from 'ngx-cookie-service';
 import {FlTranslatableTextPipe} from './pipe/fl-translatable-text.pipe';
-import {TransferState} from '@angular/platform-browser';
+
 import {TranslateServerLoader} from './fl-translation-server-loader';
 
 // AoT requires an exported function for factories

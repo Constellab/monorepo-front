@@ -1,5 +1,5 @@
-import {Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
-import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+import {Component, Inject, Input, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
+
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 interface HaDocTitle {

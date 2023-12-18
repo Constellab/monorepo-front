@@ -1,5 +1,5 @@
-import {BrowserModule, TransferState} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {APP_INITIALIZER, NgModule, TransferState} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HaAppComponent} from './ha-app.component';
 import {
@@ -11,7 +11,8 @@ import {
   FlDialogModule,
   FlHttpInterceptorService,
   FlIconModule,
-  flIconsDefault, FlPortalActionsModule,
+  flIconsDefault,
+  FlPortalActionsModule,
   FlPortalModule,
   FlSnackBarModule,
   FlTextEditorModule,

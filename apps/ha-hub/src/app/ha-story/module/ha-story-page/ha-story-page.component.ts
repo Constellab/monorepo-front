@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
 import {HaStory} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
@@ -6,7 +6,7 @@ import {HaStoryTextEditorConfig} from '../ha-story-edit-page/ha-story-text-edito
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {FormControl} from '@ngneat/reactive-forms';
 import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
-import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {ClRichText, ClRichTextI, ClStringHelper} from '@monorepo/core-lib';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';

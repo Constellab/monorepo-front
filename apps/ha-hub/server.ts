@@ -1,11 +1,8 @@
-import 'zone.js/dist/zone-node';
-
 import {APP_BASE_HREF} from '@angular/common';
-import {ngExpressEngine} from '@nguniversal/express-engine';
 import * as express from 'express';
-import {existsSync} from 'fs';
-import {join} from 'path';
-
+import {CommonEngine} from '@angular/ssr';
+import {fileURLToPath} from 'node:url';
+import {dirname, join, resolve} from 'node:path';
 import {AppServerModule} from './src/main.server';
 import {environment} from './src/environments/ha-environment';
 import {EnumChangefreq, SitemapItem, SitemapStream, streamToPromise} from 'sitemap';
@@ -16,18 +13,23 @@ import * as cookieParser from 'cookie-parser';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/apps/ha-hub/browser');
-  const indexHtml = existsSync(join(distFolder, 'index.original.html'))
-    ? 'index.original.html'
-    : 'index';
+  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
+  console.log(serverDistFolder)
+  const browserDistFolder = resolve(serverDistFolder, '../browser');
+  const indexHtml = join(serverDistFolder, 'index.server.html');
+
+  const commonEngine = new CommonEngine();
+
+  server.set('view engine', 'html');
+  server.set('views', browserDistFolder);
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
-  server.engine(
-    'html',
-    ngExpressEngine({
-      bootstrap: AppServerModule,
-    })
-  );
+  // server.engine(
+  //   'html',
+  //   commonEngine.render({
+  //     bootstrap: AppServerModule,
+  //   })
+  // );
 
   const securityHeadersMiddleware = (
     req: express.Request,
@@ -126,9 +128,6 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
   });
 
 
-  server.set('view engine', 'html');
-  server.set('views', distFolder);
-
   server.use((req, res, next) => {
     // Set the cache control headers for specific file types
     if (req.url.match(/(dark-theme\.css|light-theme\.css|\.json)$/)) {
@@ -150,19 +149,31 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get(
-    '*.*',
-    express.static(distFolder, {
-      maxAge: '1y',
-    })
-  );
+  server.get('*.*', express.static(browserDistFolder, {
+    maxAge: '1y'
+  }));
 
   // All regular routes use the Universal engine
-  server.get('*', (req, res) => {
-    res.render(indexHtml, {
-      req,
-      providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}],
-    });
+  // server.get('*', (req, res) => {
+  //   res.render(indexHtml, {
+  //     req,
+  //     providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}],
+  //   });
+  // });
+  // All regular routes use the Angular engine
+  server.get('*', (req, res, next) => {
+    const { protocol, originalUrl, baseUrl, headers } = req;
+
+    commonEngine
+      .render({
+        bootstrap: AppServerModule,
+        documentFilePath: indexHtml,
+        url: `${protocol}://${headers.host}${originalUrl}`,
+        publicPath: browserDistFolder,
+        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+      })
+      .then((html) => res.send(html))
+      .catch((err) => next(err));
   });
 
   return server;

@@ -1,18 +1,19 @@
-import {Inject, Injectable, Optional, PLATFORM_ID} from '@angular/core';
+import {Inject, Injectable, InjectionToken, Optional, PLATFORM_ID} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {REQUEST} from '@nguniversal/express-engine/tokens';
 import {isPlatformServer} from '@angular/common';
+import {Request} from 'express';
+
+// Define the `Request` token
+export const REQUEST = new InjectionToken<Request>('REQUEST');
 
 @Injectable()
 export class HaHttpInterceptorSsrService implements HttpInterceptor {
 
-  private request: any;
+  private request: Request;
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: any,
-    @Optional() @Inject(REQUEST) request: any,
-  ) {
+  constructor(@Inject(PLATFORM_ID) private platformId: any,
+              @Optional() @Inject(REQUEST) request: Request) {
     if (isPlatformServer(this.platformId)) {
       this.request = request;
     }

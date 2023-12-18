@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
-import {makeStateKey, TransferState} from '@angular/platform-browser';
+import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, TransferState} from '@angular/core';
+
 import {isPlatformServer} from '@angular/common';
 import {FlChatBotService} from '@monorepo/front-core-lib';
 

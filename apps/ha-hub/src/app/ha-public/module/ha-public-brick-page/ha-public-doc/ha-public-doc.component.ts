@@ -1,4 +1,14 @@
-import {Component, ElementRef, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  makeStateKey,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+  StateKey,
+  TransferState
+} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
@@ -11,7 +21,7 @@ import {HaNodeDTO} from '../../../../ha-core/ha-model/ha-entities/ha-node.class'
 import {
   HaPublicSidenavCreateFormDialogComponent
 } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
-import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {ClRichText, ClRichTextI} from '@monorepo/core-lib';

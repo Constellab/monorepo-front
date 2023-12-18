@@ -1,12 +1,13 @@
-import {Inject, Injectable, Optional, PLATFORM_ID, Renderer2, RendererFactory2} from '@angular/core';
-import {FlPlatformService} from '../../service/fl-plateform.service';
-import {FlLocalStorageService} from '../../service/fl-local-storage.service';
+import {Inject, Injectable, InjectionToken, Optional, PLATFORM_ID, Renderer2, RendererFactory2} from '@angular/core';
 import {DOCUMENT, isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {clDefaultTheme, ClTheme, clThemeIsSupported} from '@monorepo/core-lib';
 import {FlThemeDetail, flThemeDetailDark, flThemeDetailLight} from './model/fl-theme-detail.class';
 import {flRootInjector} from '../../utils/fl-root-injector';
 import {FlCookieService} from '../../service/fl-cookie.service';
-import {REQUEST} from '@nguniversal/express-engine/tokens';
+import {Request} from 'express';
+
+// Define the `Request` token
+export const REQUEST = new InjectionToken<Request>('REQUEST');
 
 /**
  * Service to manage light and dark theme
@@ -20,14 +21,13 @@ export class FlThemeService {
 
   private renderer: Renderer2;
 
-  private request: any;
+  private request: Request;
 
-  constructor(private platformService: FlPlatformService,
-              private cookieService: FlCookieService,
+  constructor(private cookieService: FlCookieService,
               @Inject(DOCUMENT) private document: Document,
               // eslint-disable-next-line @typescript-eslint/ban-types
               @Inject(PLATFORM_ID) private platformId: Object,
-              @Optional() @Inject(REQUEST) request: any,
+              @Optional() @Inject(REQUEST) request: Request,
               rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
     this.request = request;
@@ -55,8 +55,8 @@ export class FlThemeService {
     return theme;
   }
 
-  private getCookieTheme(): ClTheme{
-    if(isPlatformServer(this.platformId)) {
+  private getCookieTheme(): ClTheme {
+    if (isPlatformServer(this.platformId)) {
       return this.request?.cookies[this.themeKey] as ClTheme;
     }
     return this.cookieService.getStringCookie(this.themeKey) as ClTheme;
@@ -64,7 +64,7 @@ export class FlThemeService {
 
   private setCookieTheme(theme: ClTheme): void {
     // set the cookie for 60 days
-    const date = new Date(new Date().getTime() +  5184000000);
+    const date = new Date(new Date().getTime() + 5184000000);
     // clear the millisecond to get closer to real expiration
     date.setMilliseconds(0);
     this.cookieService.setCookie(this.themeKey, theme, {
@@ -112,7 +112,7 @@ export class FlThemeService {
 
   // get the theme of the browser
   public getBrowserTheme(): ClTheme {
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       // dark-mode media query matched or not
       const matched: boolean = window?.matchMedia('(prefers-color-scheme: dark)')?.matches;
 

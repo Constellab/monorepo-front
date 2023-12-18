@@ -113,14 +113,14 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "browserTarget": "lab-front:build"
+        "buildTarget": "lab-front:build"
       },
       "configurations": {
         "development": {
-          "browserTarget": "lab-front:build:development"
+          "buildTarget": "lab-front:build:development"
         },
         "production": {
-          "browserTarget": "lab-front:build:production"
+          "buildTarget": "lab-front:build:production"
         }
       },
       "defaultConfiguration": "development"
@@ -128,7 +128,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "lab-front:build"
+        "buildTarget": "lab-front:build"
       }
     },
     "lint": {
@@ -144,8 +144,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/lab-front"],
       "options": {
-        "jestConfig": "apps/lab-front/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/lab-front/jest.config.ts"
       }
     }
   },

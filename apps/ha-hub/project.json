@@ -6,13 +6,18 @@
   "prefix": "ha",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "options": {
-        "outputPath": "dist/apps/ha-hub/browser",
+        "outputPath": "dist/apps/ha-hub",
         "index": "apps/ha-hub/src/index.html",
-        "main": "apps/ha-hub/src/main.ts",
-        "polyfills": "apps/ha-hub/src/polyfills.ts",
+        "browser": "apps/ha-hub/src/main.ts",
+        "polyfills": ["apps/ha-hub/src/polyfills.ts"],
         "tsConfig": "apps/ha-hub/tsconfig.app.json",
+        "server": "apps/ha-hub/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/ha-hub/server.ts"
+        },
         "assets": [
           "apps/ha-hub/src/assets",
           {
@@ -54,7 +59,8 @@
           "quill",
           "luxon",
           "lodash.throttle",
-          "quill-delta-to-html"
+          "quill-delta-to-html",
+          "plotly.js-strict-dist"
         ]
       },
       "configurations": {
@@ -109,14 +115,14 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "browserTarget": "ha-hub:build"
+        "buildTarget": "ha-hub:build"
       },
       "configurations": {
         "production": {
-          "browserTarget": "ha-hub:build:production"
+          "buildTarget": "ha-hub:build:production"
         },
         "development": {
-          "browserTarget": "ha-hub:build:development"
+          "buildTarget": "ha-hub:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -124,7 +130,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "ha-hub:build"
+        "buildTarget": "ha-hub:build"
       }
     },
     "lint": {
@@ -140,8 +146,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/ha-hub"],
       "options": {
-        "jestConfig": "apps/ha-hub/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/ha-hub/jest.config.ts"
       }
     },
     "server": {
@@ -171,7 +176,7 @@
       "defaultConfiguration": "production"
     },
     "serve-ssr": {
-      "executor": "@nguniversal/builders:ssr-dev-server",
+      "executor": "@angular-devkit/build-angular:ssr-dev-server",
       "configurations": {
         "development": {
           "browserTarget": "ha-hub:build:development",
@@ -185,7 +190,7 @@
       "defaultConfiguration": "development"
     },
     "prerender": {
-      "executor": "@nguniversal/builders:prerender",
+      "executor": "@angular-devkit/build-angular:prerender",
       "options": {
         "routes": ["/"]
       },

@@ -1,11 +1,11 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 import {TdTypeEntity} from '@monorepo/technical-doc';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
-import {makeStateKey, StateKey, TransferState} from '@angular/platform-browser';
+
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 @Component({
