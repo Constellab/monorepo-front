@@ -1,6 +1,6 @@
 // Import drawflow style
 @use '@angular/material' as mat;
-@import "~drawflow/dist/drawflow.min.css";
+@import "drawflow/dist/drawflow.min.css";
 
 @mixin drawflow-theme($theme) {
   $primary: map-get($theme, primary);

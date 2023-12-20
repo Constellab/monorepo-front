@@ -1,6 +1,6 @@
-@import "../../../libs/front-core-lib/src/style/theme/base/base-dark-theme";
-@import "../../../libs/front-core-lib/src/style/theme/quill/quill-theme-dark";
-@import "libs/protocol/src/style/pr-drawflow";
+@import "../../../../libs/front-core-lib/src/style/theme/base/base-dark-theme";
+@import "../../../../libs/front-core-lib/src/style/theme/quill/quill-theme-dark";
+@import "../../../../libs/protocol/src/style/pr-drawflow";
 
 // Style to highlight code in text editor
 @import 'highlight.js/styles/monokai-sublime.css';

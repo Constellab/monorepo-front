@@ -71,13 +71,6 @@ export function app(): express.Express {
 Disallow:
 Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
   });
-  // server.get('/sitemap.xml', (req, res) => {
-  //   res.type('text/xml');
-  //   const distFolder = join(process.cwd(), 'dist/apps/ha-hub/server');
-  //   const filePath = join(distFolder, 'sitemap.xml');
-  //   res.sendFile(filePath);
-  // });
-
   let lastSiteMapUpdate: Date = null;
   let siteMap: string = null;
 
@@ -155,7 +148,13 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
-        providers: [{provide: APP_BASE_HREF, useValue: baseUrl}],
+        providers: [
+          {provide: APP_BASE_HREF, useValue: baseUrl},
+          // provide the request object to the DI so it can be access in SSR
+          // check if this is still useful with new hydrate method
+          // TODO check if this is really useful once app built
+          {provide: 'REQUEST', useValue: req},
+        ],
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));
@@ -197,6 +196,7 @@ function run(): void {
     captchaSiteKey: process.env['CAPTCHA_SITE_KEY'] || '123465',
     googleAnalyticsId: process.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
   };
+  console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC')
 
 
   // Start up the Node server

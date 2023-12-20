@@ -16,12 +16,6 @@ import {BnBioNetworkGridState} from '../state/bn-bio-network-grid.state';
 import {BnBioNetworkEngineState} from '../state/bn-bio-network-engine.state';
 import {FlCoord, FlThemeDetail, FlThemeService} from '@monorepo/front-core-lib';
 
-export let ForceGraph: any = null;
-
-if (typeof window !== 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  ForceGraph = require('force-graph').default;
-}
 
 export interface BnBioNetworkGraphRenderer {
   graph: ForceGraphInstance;
@@ -79,10 +73,10 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
 
     data.setCofactorsPositions();
 
-    this.drawNetwork(data);
+    this.drawNetwork(data).then();
   }
 
-  private drawNetwork(data: BnBioNetworkGraph): void {
+  private async drawNetwork(data: BnBioNetworkGraph): Promise<void> {
     this.initSubscriptions = new ClSubscriptionHandler();
 
 
@@ -94,6 +88,7 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
     const graphData: GraphData = this.dataToGraph(data, !engineConfig.liveDrawing);
 
 
+    const ForceGraph = (await import('force-graph')).default;
     const graph: ForceGraphInstance = ForceGraph()(this.container)
       .graphData(graphData).width(width).height(height)
       .autoPauseRedraw(true) // prevent redraw on every tick
