@@ -11,10 +11,10 @@
         "outputPath": "dist/apps/ha-hub",
         "index": "apps/ha-hub/src/index.html",
         "browser": "apps/ha-hub/src/main.ts",
-        "polyfills": ["apps/ha-hub/src/polyfills.ts"],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/ha-hub/tsconfig.app.json",
         "server": "apps/ha-hub/src/main.server.ts",
-        "prerender": true,
+        "prerender": false,
         "ssr": {
           "entry": "apps/ha-hub/server.ts"
         },
@@ -65,9 +65,7 @@
       },
       "configurations": {
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
@@ -80,7 +78,7 @@
             {
               "type": "anyComponentStyle",
               "maximumWarning": "6kb",
-              "maximumError": "30kb"
+              "maximumError": "100kb"
             }
           ]
         },

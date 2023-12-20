@@ -1,6 +1,6 @@
 // Import input-file style
 @use '@angular/material' as mat;
-@import "libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file-container/fl-input-file-theme";
+@import "../components/fl-input-file-theme";
 
 // function to set the background and foreground palette in material theme
 // from https://github.com/angular/components/issues/6244#issuecomment-1017629612

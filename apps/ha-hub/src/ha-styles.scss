@@ -1,20 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
 // Import theme for material
-@import "libs/front-core-lib/src/style/theme/theme";
+@import "../../../libs/front-core-lib/src/style/theme/theme";
 // Import the style for the library
-@import "libs/front-core-lib/src/style/fl-global";
-@import "libs/front-core-lib/src/style/fl-media-query";
-@import "libs/front-core-lib/src/style/fl-flex";
+@import "../../../libs/front-core-lib/src/style/fl-global";
+@import "../../../libs/front-core-lib/src/style/fl-media-query";
+@import "../../../libs/front-core-lib/src/style/fl-flex";
 
 // Import the style for material
-@import "libs/front-core-lib/src/style/fl-material-override";
-@import "libs/front-core-lib/src/style/fl-dialog";
-@import "libs/front-core-lib/src/style/fl-icon";
-@import "libs/front-core-lib/src/style/fl-drag";
+@import "../../../libs/front-core-lib/src/style/fl-material-override";
+@import "../../../libs/front-core-lib/src/style/fl-dialog";
+@import "../../../libs/front-core-lib/src/style/fl-icon";
+@import "../../../libs/front-core-lib/src/style/fl-drag";
 
 // Import quill style
-@import "libs/front-core-lib/src/style/fl-quill";
+@import "../../../libs/front-core-lib/src/style/fl-quill";
 
 .g-form-input {
   width: 100%;

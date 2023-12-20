@@ -33,12 +33,6 @@ function bootstrap(): void {
       .bootstrapModule(HaAppModule)
       .catch((err) => console.error(err));
   }
-
-
 }
 
-if (document.readyState !== 'loading') {
-  bootstrap();
-} else {
-  document.addEventListener('DOMContentLoaded', bootstrap);
-}
+bootstrap();
