@@ -43,6 +43,12 @@ export class HaRouterService {
     return '/bricks/gws_core/latest/doc/getting-started';
   }
 
+  ////////////////////////// LIVE TASKS ////////////////////////////////
+  public static getLiveTaskListRoute(): string {
+    return '/live-tasks/';
+  }
+
+
   ////////////////////////// STORIES ////////////////////////////////
   public static getStoriesListRoute(): string {
     return '/stories/';

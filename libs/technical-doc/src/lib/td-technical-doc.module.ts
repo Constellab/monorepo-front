@@ -69,17 +69,19 @@ import {RvResourceViewModule} from "@monorepo/resource-view";
     TdTypeUnavailableComponent,
     TdTypingNamePipe
   ],
-  exports: [
-    TdTechnicalDocComponent,
-    TdResourceDocComponent,
-    TdMainDocComponent,
-    TdTechnicalDocHeaderComponent,
-    TdIoDocsComponent,
-    TdDocIoComponent,
-    TdTypeUnavailableComponent,
-    TdTypingNamePipe,
-    TdMarkdownPipe
-  ]
+    exports: [
+        TdTechnicalDocComponent,
+        TdResourceDocComponent,
+        TdMainDocComponent,
+        TdTechnicalDocHeaderComponent,
+        TdIoDocsComponent,
+        TdDocIoComponent,
+        TdTypeUnavailableComponent,
+        TdTypingNamePipe,
+        TdMarkdownPipe,
+        TdIoResourceComponent,
+        TdConfigComponent
+    ]
 })
 export class TdTechnicalDocModule {
 

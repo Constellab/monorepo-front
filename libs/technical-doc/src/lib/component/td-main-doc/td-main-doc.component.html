@@ -25,7 +25,7 @@
   <!-- Brick name and version -->
   <fl-key-value *ngIf="_entity.typingName" class="doc-info">
     <fl-key>{{'td.brick' | translate}}</fl-key>
-    {{(_entity.typingName | tdTypingName).brickName}} v{{_entity.brickVersion}}
+    {{(_entity.typingName | tdTypingName).brickName}} v{{_entity.brickMajor}}
   </fl-key-value>
 
   <!-- Parent info -->

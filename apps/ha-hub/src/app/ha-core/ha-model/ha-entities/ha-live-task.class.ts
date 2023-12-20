@@ -1,0 +1,26 @@
+import {HaEntity} from './ha-entity.class';
+import {HaSpace} from './ha-space.class';
+import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
+import {HaListStoryDto} from './ha-story.class';
+import {HaLiveTaskVersionFileInput} from './ha-live-task-version.class';
+
+export enum HaLiveTaskType {
+  PUBLIC = 'PUBLIC',
+  SPACE = 'SPACE'
+}
+
+export class HaLiveTask extends HaEntity {
+  title: string;
+  description?: Record<string, any>;
+  space?: HaSpace;
+  latestPublishVersion?: number;
+}
+
+export class HaCreateLiveTaskDto {
+  title: string;
+  type: HaLiveTaskType;
+  space?: HaSpace;
+  versionFile: HaLiveTaskVersionFileInput;
+}
+
+export type HaLiveTaskDatasourcePaginated = FlDatasourcePaginated<HaLiveTask>;

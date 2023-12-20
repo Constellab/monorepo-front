@@ -91,6 +91,10 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     return HaRouterService.getSimpleTechDocRoute();
   }
 
+  getLiveTaskRoute(): string {
+    return HaRouterService.getLiveTaskListRoute();
+  }
+
   isHome(): boolean {
     return this.currentUrlSegment.length === 0;
   }

@@ -76,6 +76,12 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
   @HostBinding('class.ql-no-padding')
   @Input() noPadding: boolean = false;
 
+  @HostBinding('class.ql-no-horizontal-padding')
+  @Input() noHorizontalPadding: boolean = false;
+
+  @HostBinding('class.ql-no-vertical-padding')
+  @Input() noVerticalPadding: boolean = false;
+
   /**
    * If auto it finds the parent scrollable element (use cdkScrollable),
    * otherwise it uses the child .ql-editor as scrollable

@@ -239,7 +239,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   private _filter(name: string): HaTopicDto[] {
     const filterValue = name.toLowerCase();
-
     return this.topics.filter(topic => topic.name.toLowerCase().includes(filterValue));
   }
 

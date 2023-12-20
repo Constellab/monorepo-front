@@ -10,7 +10,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 export type HaCreateStoryDtoInput = FlFormDialogInput<HaCreateStoryDto>;
 
 @Component({
-  selector: 'ha-ha-story-create-dialog',
+  selector: 'ha-story-create-dialog',
   templateUrl: './ha-story-create-dialog.component.html',
   styleUrls: ['./ha-story-create-dialog.component.scss']
 })

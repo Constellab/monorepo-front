@@ -1,0 +1,54 @@
+.main-header-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.live-task-info-card{
+  width: 302px;
+  display: flex;
+  flex-direction: column;
+}
+
+.live-task-info-card-bt-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.published-bt{
+  margin-left: auto;
+}
+
+.description-div{
+  margin-top: 32px;
+}
+
+.description-content-div{
+  min-height: 1.5em;
+  margin-top: 12px;
+}
+
+.description-editor{
+  border: none;
+}
+
+.description-editor-active{
+  border: none;
+}
+
+.description-editor-active:hover, .description-editor-active:active, .description-editor-active:focus{
+  border: var(--hover-color) 1px solid;
+}
+
+.brick-dependencies-div{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 320px){
+  .live-task-info-card{
+    width: 272px;
+  }
+}

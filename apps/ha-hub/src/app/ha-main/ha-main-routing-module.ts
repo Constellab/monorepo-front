@@ -31,6 +31,11 @@ const routes: Routes = [
     loadChildren: () => import('../ha-story/ha-story.module').then(m => m.HaStoryModule)
   },
   {
+    path: 'live-tasks',
+    component: HaMainComponent,
+    loadChildren: () => import('../ha-live-task/ha-live-task.module').then(m => m.HaLiveTaskModule)
+  },
+  {
     path: 'login',
     component: HaLoginPageComponent,
   },
