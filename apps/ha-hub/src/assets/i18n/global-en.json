@@ -231,5 +231,5 @@
   "environment_file": "Environment file",
   "import_live_task_version_file": "Import the live task version json file",
   "live_task_version_file": "Live task version file",
-  "live_tasks_description": "List of live tasks page",
+  "live_tasks_description": "List of live tasks page"
 }
