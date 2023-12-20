@@ -8,7 +8,9 @@ export interface TdTypeEntity {
 
   typingName: string;
 
-  brickVersion: string;
+  brickVersion?: string;
+
+  brickMajor?: number;
 
   humanName: string;
 

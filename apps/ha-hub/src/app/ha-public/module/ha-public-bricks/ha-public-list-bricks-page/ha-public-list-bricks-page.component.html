@@ -1,13 +1,12 @@
 <div class="main-container">
   <div class="left-panel">
     <a routerLink="edit" *haIsAdmin>
-      <button mat-flat-button type="button" class="bt first-bt" *haIsAuthenticated>
+      <button mat-flat-button type="button" class="bt first-bt">
         <mat-icon >add_circle</mat-icon>
         {{'create_brick' | translate}}
       </button>
     </a>
   </div>
-
   <div class="main-panel">
     <h1 class="title">{{'bricks' | translate}}</h1>
     <div class="bricks-list">

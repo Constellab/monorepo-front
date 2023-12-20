@@ -1,0 +1,91 @@
+<div class="spacer-v2"></div>
+
+<h2 class="h2-v2 spacing-6-v2">{{sectionTitle | translate}}</h2>
+
+<div class="card-v2 info-version-div spacing-7-v2" *ngIf="liveTaskVersion && (liveTaskVersion.versionInfos || isEditable)">
+  <div class="card-title-v2 card-header spacing-4-v2">
+    <div>
+      {{'info_about_this_version' | translate}}
+    </div>
+    <button mat-stroked-button color="primary"  class="g-button-small"
+            *ngIf="isCreator && isEditable" (click)="onVersionInfosEditorButtonClick()">
+      <fl-text-icon [iconPosition]="'end'">
+        <mat-icon>{{versionInfosDisabled ? 'edit' : 'save'}}</mat-icon>
+        {{versionInfosDisabled ? ('edit' | translate) : ('save' | translate)}}
+      </fl-text-icon>
+    </button>
+  </div>
+  <fl-text-editor
+    [class]="versionInfosDisabled ? 'version-infos-editor' : 'version-infos-active'" mode="JSON"
+    [disabled]="versionInfosDisabled || !isCreator || !isEditable"
+    [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)" [noPadding]="true"
+    [formControl]="versionInfosFormControl"
+    [baseDelta]="liveTaskVersion.versionInfos"
+    [leftButtons] = "false"
+    [placeholder]="'live_task_version_infos_place_holder' | translate"></fl-text-editor>
+</div>
+
+<div class="spacing-8-v2 card-v2 io-div" *ngIf="(liveTaskVersion?.inputSpecs?.specs | flIsNotEmpty) || (liveTaskVersion?.outputSpecs?.specs | flIsNotEmpty)">
+  <div class="i-div" *ngIf="liveTaskVersion?.inputSpecs?.specs | flIsNotEmpty">
+    <div class="card-title-v2 spacing-6-v2">
+      {{'input' | translate}}
+    </div>
+    <div *ngFor="let spec of liveTaskVersion?.inputSpecs.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.inputSpecs.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
+      <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.inputSpecs.specs[spec]">
+      </ha-live-task-version-detail-io>
+    </div>
+
+  </div>
+  <div class="o-div" *ngIf="liveTaskVersion?.outputSpecs?.specs | flIsNotEmpty">
+    <div class="card-title-v2 spacing-6-v2">
+      {{'output' | translate}}
+    </div>
+    <div *ngFor="let spec of liveTaskVersion?.outputSpecs.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.outputSpecs.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
+      <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.outputSpecs.specs[spec]">
+      </ha-live-task-version-detail-io>
+    </div>
+  </div>
+</div>
+
+<div class="spacing-8-v2 card-v2" *ngIf="liveTaskVersion?.configSpecs | flIsNotEmpty">
+  <div class="card-title-v2 spacing-6-v2">
+    {{'configuration' | translate}}
+  </div>
+  <ha-live-task-version-detail-config [configSpecs]="liveTaskVersion?.configSpecs"></ha-live-task-version-detail-config>
+</div>
+
+
+<!--TODO: Corriger le bug du changement de theme-->
+<div class="card-v2 spacing-6-v2" *ngIf="((isEditable && isCreator) || liveTaskVersion?.environment | flIsNotEmpty) && liveTaskVersion?.type != 'PYTHON'">
+  <div class="card-title-v2 card-header spacing-4-v2">
+    <div>
+      {{'environment_file' | translate}}
+    </div>
+    <div>
+      <button mat-stroked-button color="primary" (click)="onCopy('environment_file')"  class="g-button-small">
+        <fl-text-icon [iconPosition]="'end'">
+          <mat-icon>content_copy</mat-icon>
+          {{'copy_environment' | translate}}
+        </fl-text-icon>
+      </button>
+    </div>
+  </div>
+  <fl-code-editor [language]="getLanguageEnvironment()" [formCtrl]="environmentFormControl"></fl-code-editor>
+</div>
+
+<div class="card-v2 spacing-6-v2">
+  <div class="card-title-v2 card-header spacing-4-v2">
+    <div>
+      {{'code' | translate}}
+    </div>
+    <div>
+      <button mat-stroked-button color="primary" (click)="onCopy('code')" class="g-button-small">
+        <fl-text-icon [iconPosition]="'end'">
+          <mat-icon>content_copy</mat-icon>
+          {{'copy_code' | translate}}
+        </fl-text-icon>
+      </button>
+    </div>
+  </div>
+  <fl-code-editor [language]="getLanguageCode()" [formCtrl]="codeFormControl"></fl-code-editor>
+</div>

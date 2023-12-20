@@ -1,0 +1,69 @@
+<div class="main-div-v2">
+  <div class="spacer-v2"></div>
+  <div class="res-research-div">
+    <h2 class="h2-v2 spacing-8-v2">{{'research_results' | translate}} : </h2>
+    <button class="spacing-8-v2" mat-flat-button type="button" *haIsAuthenticated (click)="openCreateLiveTaskDialog()">
+      <mat-icon>add_circle</mat-icon>
+      {{'create_live_task' | translate}}
+    </button>
+  </div>
+
+  <div class="main-grid-v2">
+
+    <div class="main-left-side-v2 spacing-8-v2">
+      <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" [color]="'accent'" class="space-list-option">
+        {{'public' | translate}}
+      </mat-chip-option>
+      <ng-container *haIsAuthenticated>
+        <mat-chip-option [value]="isSelected('my-live-tasks')" (click)="selectSpace('my-live-tasks')" [color]="'accent'" class="space-list-option">
+          {{'my_live_tasks' | translate}}
+        </mat-chip-option>
+        <div class="spacer-tiny-v2"></div>
+        <mat-chip-option *ngFor="let space of  listSpaces" [color]="'warn'" [value]="isSelected(space.id)"
+                         (click)="selectSpace(space.id)" class="space-list-option">
+          {{space.name}}
+        </mat-chip-option>
+      </ng-container>
+    </div>
+
+    <div class="main-right-side-v2 live-tasks-list-div" *ngIf="liveTasksPaginated"
+         (flInfiniteScroll)="liveTasksPaginated.getNextPage()" [flInfiniteDisabled]="liveTasksPaginated?.isLoading || liveTasksPaginated?.page?.last"
+         flInfiniteMode="auto">
+      <a class="card-v2 live-task-result-card" *ngFor="let liveTask of liveTasksPaginated.connect() | async" [routerLink]="liveTask.id">
+        <div class="card-left-info">
+          <h2 class="h2-v2 spacing-5-v2">{{liveTask.title}}</h2>
+          <fl-key-value class="spacing-5-v2">
+            <fl-key>
+              {{'created_by' | translate}}
+            </fl-key>
+            <fl-user-inline [portalOnHover]="false" [showName]="true" [user]="liveTask.createdBy"></fl-user-inline>
+          </fl-key-value>
+          <div class="live-task-dates-div date-info-div">
+            <div class="live-task-date-div">
+              <p class="spacing-4-v2">{{'date_of_creation' | translate}} :</p>
+              <p><b>{{liveTask.createdAt | flDate: 'dd/MM/yyyy'}}</b></p>
+            </div>
+            <div class="live-task-date-div">
+              <p class="spacing-4-v2">{{'last_modification' | translate}} :</p>
+              <p><b>{{liveTask.lastModifiedAt | flDate: 'dd/MM/yyyy'}}</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="inner-card-v2 live-task-result-card-inner">
+          <div class="spacing-4-v2">{{'version' | translate}} :</div>
+          <div class="spacing-6-v2" *ngIf="liveTask.latestPublishVersion; else notPublishedYetDiv"><b>{{'version' | translate}} {{liveTask.latestPublishVersion}}</b></div>
+          <div class="spacing-4-v2">{{'task_type' | translate}} :</div>
+          <div class="spacing-6-v2">
+            <button mat-stroked-button class="g-button-small" [color]="liveTask.space == null ? 'accent' : 'warn'">{{liveTask.space == null ? ('public' | translate) : liveTask.space.name}}</button>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<ng-template #notPublishedYetDiv>
+  <div style="color: var(--warn-color)">
+    <b>{{'not_published' | translate}}</b>
+  </div>
+</ng-template>

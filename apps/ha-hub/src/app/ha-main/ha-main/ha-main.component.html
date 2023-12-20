@@ -17,9 +17,11 @@
         <h5 class="option doc-menu-bt" flHide.lt-sm>{{'documentation' | translate}}</h5>
       </div>
       <h5 class="option" flHide.lt-sm><a [routerLink]="getBrickListRoute()">{{'bricks' | translate}}</a></h5>
-      <h2 class="option"  flHide.gt-xs [routerLink]="getBrickListRoute()">
+      <a class="option"  flHide.gt-xs [routerLink]="getBrickListRoute()">
         <img class="option-icon brick-icon" src="assets/fl-logo/bricks_logo.svg"/>
-      </h2>
+      </a>
+
+      <h5 class="option" flHide.lt-sm><a [routerLink]="getLiveTaskRoute()">{{'live_tasks' | translate}}</a></h5>
 
       <mat-menu #docMenu="matMenu" xPosition="before">
         <a mat-menu-item [routerLink]="getProductDocRoute()" class="doc-menu-item">{{'product_doc'| translate}}</a>

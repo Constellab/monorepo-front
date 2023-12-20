@@ -1,0 +1,39 @@
+<div *ngFor="let c of configSpecs | flObjectKeys; index as i" [class]="i < (configSpecs | flObjectKeys).length - 1 ? 'spacing-6-v2' : ''">
+  <div class="g-layout-row g-layout-between-center config-spec-head">
+    <p class="spacing-4-v2">{{c}}</p>
+    <div class="chip-div">
+      <fl-chip class="g-primary-background chip" *ngIf="configSpecs[c].optional">{{'td.optional' |translate}}</fl-chip>
+      <fl-chip class="g-primary-background chip" *ngIf="configSpecs[c].visibility !== 'public'">{{'td.advanced_parameter' | translate}}</fl-chip>
+    </div>
+  </div>
+  <p class="code1-v2">{{configSpecs[c].short_description}}</p>
+  <ng-container *ngIf="configSpecs[c].type !== 'param_set'; else param_set_block">
+    <fl-key-value *ngIf="configSpecs[c].type" class="code1-v2">
+      <fl-key>{{'td.type' |translate}}</fl-key>
+      <code>{{configSpecs[c].type === 'str' ? 'string' : configSpecs[c].type}}</code>
+    </fl-key-value>
+    <fl-key-value *ngIf="configSpecs[c].allowed_values" class="code1-v2">
+      <fl-key>{{'td.allowed_values' | translate}}</fl-key>
+      <span *ngFor="let aV of configSpecs[c].allowed_values">
+         <code>{{aV}}</code>&nbsp;
+      </span>
+    </fl-key-value>
+    <fl-key-value *ngIf="configSpecs[c].default_value" class="code1-v2">
+      <fl-key>{{'td.default_value' | translate}}</fl-key>
+      <code>{{configSpecs[c].default_value}}</code>
+    </fl-key-value>
+  </ng-container>
+
+  <ng-template #param_set_block>
+    <fl-key-value *ngIf="configSpecs[c].type" class="code1-v2">
+      <fl-key>{{'td.type' |translate}}</fl-key>
+      <code>{{'td.param_set' | translate}}</code>
+    </fl-key-value>
+    <fl-key-value *ngIf="getMaxParamSetOccurrences(configSpecs[c])" class="code1-v2">
+      <fl-key>{{'td.max_occurrence_number' |translate}}</fl-key>
+      <code>{{getMaxParamSetOccurrences(configSpecs[c])}}</code>
+    </fl-key-value>
+    <td-config [configSpecs]="getParamSet(configSpecs[c])"
+               *ngIf="getParamSet(configSpecs[c]) | flIsNotEmpty"></td-config>
+  </ng-template>
+</div>

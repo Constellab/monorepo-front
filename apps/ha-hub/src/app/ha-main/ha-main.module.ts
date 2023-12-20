@@ -10,6 +10,7 @@ import { HaPublicModule } from '../ha-public/ha-public.module';
 import { HaStoryModule } from '../ha-story/ha-story.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HaCookieConsentComponent } from './ha-cookie-consent/ha-cookie-consent.component';
+import {HaLiveTaskModule} from '../ha-live-task/ha-live-task.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HaCookieConsentComponent } from './ha-cookie-consent/ha-cookie-consent.
     HaCoreModule,
     HaPublicModule,
     HaStoryModule,
+    HaLiveTaskModule,
     MatSlideToggleModule,
   ],
 })

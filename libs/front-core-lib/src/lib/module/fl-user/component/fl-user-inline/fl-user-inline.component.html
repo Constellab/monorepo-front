@@ -4,7 +4,7 @@
                            [size]="profilePictureSize"></fl-user-profile-picture>
 
   <div class="user-name" *ngIf="showName" [ngClass]="getTextSizeClass()">
-    {{user.fullname}}
+    {{user?.fullname ? user.fullname : user?.firstname + ' ' + user?.lastname}}
   </div>
 
 </div>

@@ -1,0 +1,82 @@
+<ng-container *ngIf="liveTask">
+  <div class="main-div-v2">
+    <div class="main-header-info spacing-8-v2">
+      <div>
+        <h1 class="h1-v2 spacing-6-v2">{{liveTask.title}}</h1>
+
+        <a [routerLink]="'versions'">
+          <div class="card-v2 no-published-version-div spacing-6-v2" *ngIf="liveTask.latestPublishVersion == null">
+            {{'live_task_with_no_published_version' | translate}}
+          </div>
+        </a>
+
+        <div class="spacing-5-v2" *ngIf="liveTask.createdBy">
+          <div>{{'created_by' | translate}} :</div>
+          <fl-user-inline [user]="liveTask.createdBy" [showName]="true" [portalOnHover]="false"></fl-user-inline>
+        </div>
+        <div class="live-task-dates-div date-info-div">
+          <div class="live-task-date-div">
+            <p class="spacing-4-v2">{{'date_of_creation' | translate}} :</p>
+            <p><b>{{liveTask.createdAt | flDate: 'dd/MM/yyyy'}}</b></p>
+          </div>
+          <div class="live-task-date-div">
+            <p class="spacing-4-v2">{{'last_modification' | translate}} :</p>
+            <p><b>{{liveTask.lastModifiedAt | flDate: 'dd/MM/yyyy'}}</b></p>
+          </div>
+        </div>
+      </div>
+      <div class="card-v2 live-task-info-card">
+        <div class="card-row spacing-6-v2">
+          <div class="brick-infos-div">
+            <div class="version-info-div">
+              <div class="spacing-4-v2"><b>{{'version' | translate}} :</b></div>
+              <div *ngIf="liveTask.latestPublishVersion; else notPublishedDiv">{{'version' | translate}} {{liveTask.latestPublishVersion}}</div>
+            </div>
+            <div class="task-status-info-div">
+              <div class="spacing-4-v2">{{'task_status' | translate}} :</div>
+              <button mat-stroked-button color="primary" class="g-button-small">
+                {{'copy_link' | translate}}
+              </button>
+            </div>
+          </div>
+          <div class="published-bt-div">
+            <button mat-stroked-button color="primary" class="published-bt g-button-small">
+              {{'published' | translate}}
+            </button>
+          </div>
+        </div>
+        <div class="task-type-div spacing-6-v2">
+          <div class="spacing-4-v2">{{'task_type' | translate}} :</div>
+          <button mat-stroked-button class="g-button-small" [color]="liveTask.space == null ? 'accent' : 'warn'">
+            {{liveTask.space == null ? ('public' | translate) : liveTask.space.name}}
+          </button>
+        </div>
+        <div class="necessary-bricks-div" *ngIf="brickDependencies && brickDependencies.length > 0">
+          <div>{{'necessary_bricks' | translate}} :</div>
+          <div class="brick-dependencies-div">
+            <mat-chip *ngFor="let brickDep of brickDependencies">
+              {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
+            </mat-chip>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs-buttons-div spacing-8-v2">
+      <a mat-stroked-button [routerLink]="'.'" [color]="currentTab == null ? 'primary' : null" (click)="currentTab=null">
+        {{'overview' | translate}}
+      </a>
+      <a mat-stroked-button [routerLink]="'versions'" [color]="currentTab == 'versions' ? 'primary' : null" (click)="currentTab='versions'">
+        {{'versions' | translate}}
+      </a>
+    </div>
+
+    <router-outlet></router-outlet>
+  </div>
+</ng-container>
+
+<ng-template #notPublishedDiv>
+  <div style="color: var(--warn-color)">
+    {{'not_published' | translate}}
+  </div>
+</ng-template>

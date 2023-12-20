@@ -1,0 +1,82 @@
+.main-header-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.no-published-version-div{
+  background-color: var(--warn-color);
+}
+
+.live-task-dates-div{
+  display: flex;
+  flex-direction: row;
+}
+
+.live-task-date-div:last-child{
+  margin-left: 12px;
+}
+
+.live-task-info-card{
+  width: 387px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.brick-infos-div{
+  flex: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.published-bt-div{
+  flex: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.tabs-buttons-div{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 8px;
+  width: fit-content;
+  border-radius: 8px;
+  background-color: var(--card-background);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.brick-dependencies-div{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 672px){
+  .live-task-info-card{
+    width: 295px;
+  }
+
+  .brick-infos-div{
+    flex-direction: column;
+    gap: 16px
+  }
+}
+
+@media (max-width: 320px){
+  .live-task-info-card{
+    width: 272px;
+  }
+}

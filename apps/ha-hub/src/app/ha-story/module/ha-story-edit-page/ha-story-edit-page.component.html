@@ -69,7 +69,7 @@
         [ngClass]="contentEditorIsFocused ? ['focus'] : []">
     <fl-text-editor class="content-editor g-max-article-width" mode="JSON" scrollContainer="auto"
                     formControlName="content"
-                    [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [noPadding]="true"
+                    [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [noHorizontalPadding]="true"
                     (focusin)="onFocus($event)" (focusout)="onUnFocus($event)">
     </fl-text-editor>
   </form>

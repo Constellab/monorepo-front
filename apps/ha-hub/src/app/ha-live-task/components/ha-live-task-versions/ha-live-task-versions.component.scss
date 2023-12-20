@@ -1,0 +1,37 @@
+.live-task-versions-list-div{
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.live-task-version-card{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.live-task-version-inner-card{
+  flex: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+}
+
+.live-task-version-bt-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.create-new-lt-version-bt{
+  width: fit-content;
+  margin-left: auto;
+}
+
+@media (max-width: 672px){
+  .live-task-version-card{
+    flex-direction: column;
+  }
+}

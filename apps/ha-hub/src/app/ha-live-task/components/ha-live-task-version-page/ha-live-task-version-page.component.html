@@ -1,0 +1,38 @@
+<ng-container *ngIf="liveTaskVersion">
+  <div class="main-div-v2">
+    <div class="main-header-info">
+      <div>
+        <h1 class="h1-v2 spacing-6-v2">{{liveTaskVersion?.liveTask.title}}</h1>
+        <h2 class="h2-v2 spacing-6-v2">{{'version' | translate}} {{liveTaskVersion?.version}}</h2>
+        <div class="spacing-5-v2" *ngIf="liveTaskVersion?.liveTask.createdBy">
+          <div>{{'created_by' | translate}} :</div>
+          <fl-user-inline [user]="liveTaskVersion?.liveTask.createdBy" [showName]="true" [portalOnHover]="false"></fl-user-inline>
+        </div>
+        <div>
+          <div>{{'date_of_creation' | translate}} : </div>
+          {{liveTaskVersion?.createdAt | flDate: 'dd/MM/yyyy'}}
+        </div>
+      </div>
+      <div class="card-v2 live-task-info-card">
+        <div class="live-task-info-card-bt-div">
+          <button mat-stroked-button color="primary" class="spacing-6-v2" *ngIf="liveTaskVersion.versionState == 'DRAFT' && isCreator" (click)="publishLiveTaskVersion()">
+            Publish
+          </button>
+          <button mat-stroked-button color="primary" class="spacing-6-v2 copy-link-bt">
+            Copy link
+          </button>
+        </div>
+        <div *ngIf="brickDependencies && brickDependencies.length > 0">
+          <div>{{'necessary_bricks' | translate}} :</div>
+          <div class="brick-dependencies-div">
+            <mat-chip *ngFor="let brickDep of brickDependencies">
+              {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
+            </mat-chip>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ha-live-task-version-detail [liveTaskVersion]="liveTaskVersion" [isCreator]="isCreator" [isEditable]="liveTaskVersion.versionState == 'DRAFT'"
+                                 (liveTaskVersionChangeEvent)="updateLiveTaskVersion($event)"></ha-live-task-version-detail>
+  </div>
+</ng-container>
