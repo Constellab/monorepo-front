@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Optional, Output, Self} from '@angular/core';
+import {Component, EventEmitter, Input, Optional, Output, Self} from '@angular/core';
 import {FlFormFieldDirective, FlPortalService} from '@monorepo/front-core-lib';
 import {LabProject} from '../../../../model/entities/lab-project.class';
 import {NgControl} from '@angular/forms';
 import {
   LabProjectSelectPortalComponent,
+  LabProjectSelectPortalInput,
   LabProjectSelectPortalResult
 } from '../lab-project-select-portal/lab-project-select-portal.component';
 
@@ -17,6 +18,8 @@ import {
   providers: [{provide: FlFormFieldDirective, useExisting: LabProjectInlineSelectComponent}]
 })
 export class LabProjectInlineSelectComponent extends FlFormFieldDirective<LabProject> {
+
+  @Input() updateProjectHelpText?: string;
 
   @Output() selectionChange: EventEmitter<LabProject | null> = new EventEmitter();
 
@@ -47,7 +50,12 @@ export class LabProjectInlineSelectComponent extends FlFormFieldDirective<LabPro
         disposeOnOutsideClick: true
       });
 
-    this.portalService.createPortal(LabProjectSelectPortalComponent, config, this.value).detachments().subscribe(
+    const data: LabProjectSelectPortalInput = {
+      project: this.value,
+      helpText: this.updateProjectHelpText
+    };
+
+    this.portalService.createPortal(LabProjectSelectPortalComponent, config, data).detachments().subscribe(
       project => this.onPortalClosed(project)
     );
   }

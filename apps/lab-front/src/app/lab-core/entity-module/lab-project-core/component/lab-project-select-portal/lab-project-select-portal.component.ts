@@ -2,6 +2,12 @@ import {Component, Inject} from '@angular/core';
 import {FL_PORTAL_DATA, FlOverlayRef} from '@monorepo/front-core-lib';
 import {LabProject} from '../../../../model/entities/lab-project.class';
 
+
+export interface LabProjectSelectPortalInput {
+  project?: LabProject;
+  helpText?: string;
+}
+
 export interface LabProjectSelectPortalResult {
   project?: LabProject;
 }
@@ -14,11 +20,13 @@ export interface LabProjectSelectPortalResult {
 export class LabProjectSelectPortalComponent {
 
   projects: LabProject;
+  helpText: string;
 
-  constructor(@Inject(FL_PORTAL_DATA) project: LabProject,
+  constructor(@Inject(FL_PORTAL_DATA) data: LabProjectSelectPortalInput,
               private overlayRef: FlOverlayRef) {
 
-    this.projects = project;
+    this.projects = data.project;
+    this.helpText = data.helpText;
   }
 
   projectSelected(project: LabProject): void {

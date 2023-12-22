@@ -16,7 +16,7 @@
 
         <div class="g-flex-auto g-flex">
           <h2 flElementEditable (flElementValueChange)="updateTitle($event)"
-              [flElementDisabled]="!report.isEditable()">{{report.title}}</h2>
+              [flElementDisabled]="!report.isEditable()">{{ report.title }}</h2>
         </div>
 
         <lab-sync-object-button [object]="report" [syncObjectFunc]="syncObjectFunc"
@@ -33,24 +33,24 @@
             <ng-container *ngIf="report.isEditable()">
               <button mat-menu-item type="button" (click)="updateReport()">
                 <mat-icon>edit</mat-icon>
-                <span>{{'biox.update_report' | translate}}</span>
+                <span>{{ 'biox.update_report' | translate }}</span>
               </button>
 
               <button mat-menu-item type="button" [matTooltip]="'biox.validate_report' | translate"
                       (click)="validate()">
                 <mat-icon flIcon="validated"></mat-icon>
-                <span>{{'biox.validate_report' | translate}}</span>
+                <span>{{ 'biox.validate_report' | translate }}</span>
               </button>
             </ng-container>
 
             <button mat-menu-item type="button" (click)="printReport()">
               <mat-icon>print</mat-icon>
-              <span>{{'biox.print_report' | translate}}</span>
+              <span>{{ 'biox.print_report' | translate }}</span>
             </button>
 
             <button mat-menu-item type="button" (click)="createReportTemplate()">
               <mat-icon flIcon="report"></mat-icon>
-              <span>{{'biox.create_report_template' | translate}}</span>
+              <span>{{ 'biox.create_report_template' | translate }}</span>
               <fl-button-loader *ngIf="createTemplateLoading"></fl-button-loader>
             </button>
 
@@ -58,14 +58,14 @@
             <button mat-menu-item type="button" (click)="archiveReport()">
               <mat-icon color="warn" [flIcon]="report.isArchived ? 'unarchive': 'archive'"></mat-icon>
               <span class="g-warn-text">
-                {{report.isArchived ? 'biox.unarchive_report' : 'biox.archive_report' | translate}}
+                {{ report.isArchived ? 'biox.unarchive_report' : 'biox.archive_report' | translate }}
               </span>
             </button>
 
             <button mat-menu-item type="button"
                     (click)="delete()" *ngIf="report.isEditable()">
               <mat-icon color="warn">delete</mat-icon>
-              <span class="g-warn-text">{{'biox.delete_report' | translate}}</span>
+              <span class="g-warn-text">{{ 'biox.delete_report' | translate }}</span>
             </button>
 
           </mat-menu>
@@ -77,12 +77,13 @@
         <fl-article-left-side>
 
           <!-- Tags -->
-          <lab-tag-list entityType="REPORT" [entityId]="report.id"  [showNoTagMessage]="true"></lab-tag-list>
+          <lab-tag-list entityType="REPORT" [entityId]="report.id" [showNoTagMessage]="true"></lab-tag-list>
 
 
           <!--  Project  -->
           <lab-project-inline-select [(ngModel)]="report.project" (selectionChange)="updateProject($event)"
-                                     [disabled]="!report.isEditable()" class="separator"></lab-project-inline-select>
+                                     [disabled]="!report.isEditable()" class="separator"
+                                     [updateProjectHelpText]="'biox.update_report_project_help' | translate"></lab-project-inline-select>
 
           <!--  Validated info  -->
           <lab-object-validation-info class="separator" [object]="report"
