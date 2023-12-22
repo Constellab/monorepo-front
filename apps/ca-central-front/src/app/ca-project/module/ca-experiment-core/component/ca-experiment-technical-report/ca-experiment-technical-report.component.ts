@@ -2,22 +2,22 @@ import {Component, Input, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/c
 import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-experiment.class';
 import {CaExperimentService} from '../../../../../ca-core/service-api/ca-experiment.service';
 import {CaTechnicalReport} from '../../../../../ca-core/model/entities/project/ca-technical-report.class';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import {FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
 import {
   PrWorkflow,
   PrWorkflowActionSelectNode,
+  PrWorkflowActionShowResource,
   PrWorkflowActionState,
   PrWorkflowFactory,
   PrWorkflowMode,
   PrWorkflowNodeProcess,
   PrWorkflowResourcesState
 } from '@monorepo/protocol';
-import {filter, Observable, of, tap} from 'rxjs';
+import {filter, Observable, of, Subscription, tap} from 'rxjs';
 import {MatDrawer} from '@angular/material/sidenav';
 import {CaWorkflowConfig} from '../../model/ca-workflow-config.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {map} from 'rxjs/operators';
-import {CaLabInstanceService} from '../../../../../ca-core/service-api/ca-lab-instance.service';
 import {
   CaLabConfigDialogComponent,
   CaLabConfigDialogInput
@@ -44,12 +44,14 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
 
   currentNodeSelected: Observable<PrWorkflowNodeProcess>;
 
+  private showResourceSubscription: Subscription;
+
   constructor(private experimentService: CaExperimentService,
               private dialogService: FlDialogService,
               private actionState: PrWorkflowActionState,
-              private labInstanceService: CaLabInstanceService,
               private ngZone: NgZone,
-              private workflowResourcesState: PrWorkflowResourcesState) {
+              private workflowResourcesState: PrWorkflowResourcesState,
+              private snackBarService: FlSnackBarService) {
   }
 
   ngOnInit(): void {
@@ -57,7 +59,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
       (res: CaTechnicalReport) => this.onTechnicalReportSuccess(res)
     );
 
-    this.workflowConfig = new CaWorkflowConfig(this.experiment.labInstance);
+    this.workflowConfig = new CaWorkflowConfig(this.experiment.labInstance, this.snackBarService);
     this.actionState.init();
 
 
@@ -66,6 +68,16 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
       tap(() => this.drawer.open()),
       map(action => (action as PrWorkflowActionSelectNode).processNode)
     );
+
+    this.showResourceSubscription = this.actionState.getAction$().pipe(
+      filter(action => action?.action === 'showResource')
+    ).subscribe(
+      (action: PrWorkflowActionShowResource) => this.navigateToResource(action.resourceId)
+    );
+  }
+
+  private navigateToResource(resourceId: string): void {
+    this.workflowConfig.openResourceDetail(resourceId);
   }
 
   openLabConfigDialog(): void {
@@ -83,6 +95,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.actionState.clear();
     this.workflow?.destroy();
+    this.showResourceSubscription?.unsubscribe();
   }
 }
 

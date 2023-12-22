@@ -1,14 +1,13 @@
 import {PrConfigView, PrWorkflowMode, PrWorkflowNodeProcess, PrWorkflowPort} from '@monorepo/protocol';
-import {FlMenuDynamicButton} from '@monorepo/front-core-lib';
+import {FlMenuDynamicButton, FlSnackBarService} from '@monorepo/front-core-lib';
 import {ClHelpService} from '@monorepo/core-lib';
 import {CaLabInstance} from '../../../../ca-core/model/entities/lab/ca-lab-instance.class';
 import {CaLabHelper} from '../../../../ca-core/utils/ca-lab.helper';
 
 export class CaWorkflowConfig extends PrConfigView {
 
-  constructor(
-    private labInstance: CaLabInstance
-  ) {
+  constructor(private labInstance: CaLabInstance,
+              private snackBarService: FlSnackBarService) {
     super();
   }
 
@@ -34,16 +33,18 @@ export class CaWorkflowConfig extends PrConfigView {
   private getResourceDetailContextButton(resourceId: string | null): FlMenuDynamicButton {
     return {
       type: 'button',
-      text: {text: 'resource', translateText: true},
+      text: {text: 'view_resource_in_lab', translateText: true},
       icon: 'resource',
       onClick: () => this.openResourceDetail(resourceId),
       disabled: ClHelpService.isNullOrEmpty(resourceId) || !this.labInstance.isRunning()
     };
   }
 
-  private openResourceDetail(resourceId: string): void {
+  public openResourceDetail(resourceId: string): void {
     if (this.labInstance.isRunning()) {
       window.location.href = CaLabHelper.getResourceUrl(this.labInstance.frontUrl, resourceId);
+    } else {
+      this.snackBarService.openErrorMessage({text: 'view_resource_lab_not_running', translateText: true});
     }
   }
 

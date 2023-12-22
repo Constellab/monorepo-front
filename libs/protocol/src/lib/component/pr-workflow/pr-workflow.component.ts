@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PrWorkflowManagerState} from '../../state/pr-workflow-manager-state';
 import {PrWorkflow, PrWorkflowMode} from '../../model/pr-workflow.class';
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 import {PrConfigView} from '../../model/pr-config-view.class';
 
 
@@ -23,8 +23,6 @@ export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
 
   flowIsLoading: boolean = true;
   error: boolean = false;
-  sub: Subscription;
-  inputActionSub: Subscription;
 
 
   constructor(private workflowManagerState: PrWorkflowManagerState) {
@@ -40,6 +38,7 @@ export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
   }
+
 
   ngAfterViewInit(): void {
     setTimeout(() => this.loadExperimentFlow(), 0);
@@ -60,7 +59,5 @@ export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.workflowManagerState.clear();
-    this.sub?.unsubscribe();
-    this.inputActionSub?.unsubscribe();
   }
 }

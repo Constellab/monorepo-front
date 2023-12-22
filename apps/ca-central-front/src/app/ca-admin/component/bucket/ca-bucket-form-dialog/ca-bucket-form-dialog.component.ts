@@ -37,6 +37,8 @@ export class CaBucketFormDialogComponent
 
     if (this.isUpdateMode() && this.dialogInput.object.bucketType) {
       this.onBucketTypeChange(this.dialogInput.object.bucketType);
+    }else{
+      this.onBucketTypeChange(CaBucketType.NORMAL);
     }
   }
 

@@ -42,7 +42,7 @@ export class CaCommunityHelper {
   }
 
   public static getDesktopDocUrl(): string {
-    return CaCommunityHelper.getDocUrl(CaCommunityHelper.GWS_CORE_BRICK_NAME, 'latest', 'digital-lab/digital-lab-for-desktop')
+    return CaCommunityHelper.getDocUrl(CaCommunityHelper.GWS_ACADEMY_BRICK_NAME, 'latest', 'digital-lab/digital-lab-for-desktop')
   }
 
   public static getDevEnvironmentUrl(): string {
