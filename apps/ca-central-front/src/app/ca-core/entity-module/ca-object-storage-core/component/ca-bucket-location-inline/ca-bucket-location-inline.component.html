@@ -1,4 +1,7 @@
 <fl-text-icon>
   <mat-icon [flIcon]="bucketLocation.getIcon()"></mat-icon>
   {{bucketLocation.locationName}}
+  <span class="g-text-light g-text-small" *ngIf="bucketLocation.cityName && bucketLocation.countryName">
+    ({{bucketLocation.cityName}} - {{bucketLocation.countryName}})
+  </span>
 </fl-text-icon>

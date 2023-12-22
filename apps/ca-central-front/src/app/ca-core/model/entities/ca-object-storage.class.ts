@@ -89,6 +89,8 @@ export class CaBucketLocationDTO {
   bucketId: string;
   locationName: string;
   bucketType: CaBucketType;
+  cityName?: string;
+  countryName?: string;
 
   getIcon(): string {
     if (this.bucketType === CaBucketType.LAB) {

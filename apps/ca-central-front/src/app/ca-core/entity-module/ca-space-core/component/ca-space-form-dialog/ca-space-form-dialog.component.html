@@ -31,6 +31,9 @@
       <mat-label>{{'space_project_default_storage_location' | translate}}</mat-label>
       <mat-select formControlName="defaultProjectStorageLocation" required
                   [placeholder]="'space_project_default_storage_location' | translate">
+        <mat-select-trigger *ngIf="formGp.get('defaultProjectStorageLocation').value">
+          <ca-bucket-location-inline [bucketLocation]="formGp.get('defaultProjectStorageLocation').value"></ca-bucket-location-inline>
+        </mat-select-trigger>
         <ca-bucket-location-select-options [mode]="getBucketLocationSelectMode()"></ca-bucket-location-select-options>
       </mat-select>
       <mat-hint>
@@ -46,6 +49,9 @@
       <mat-label>{{'space_default_project_backup_storage_location' | translate}}</mat-label>
       <mat-select formControlName="defaultProjectBackupStorageLocation"
                   [placeholder]="'space_default_project_backup_storage_location' | translate">
+        <mat-select-trigger *ngIf="formGp.get('defaultProjectBackupStorageLocation').value">
+          <ca-bucket-location-inline [bucketLocation]="formGp.get('defaultProjectBackupStorageLocation').value"></ca-bucket-location-inline>
+        </mat-select-trigger>
         <ca-bucket-location-select-options [mode]="getBucketLocationSelectMode()"></ca-bucket-location-select-options>
       </mat-select>
       <mat-hint>

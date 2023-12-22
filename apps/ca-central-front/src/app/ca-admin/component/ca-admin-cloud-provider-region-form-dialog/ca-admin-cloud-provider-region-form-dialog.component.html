@@ -7,10 +7,20 @@
 
     <!--  Name  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'name' | translate}}</mat-label>
-      <input matInput formControlName="technicalName" required flInputMaxLength="50"
-             [placeholder]="'name' | translate">
+      <mat-label>{{'region_technical_name' | translate}}</mat-label>
+      <input matInput formControlName="technicalName" required flInputMaxLength="20"
+             [placeholder]="'region_technical_name' | translate">
       <mat-error *ngIf="formGp.get('technicalName').hasError('required')">
+        {{'region_technical_name' | flErrorRequired}}
+      </mat-error>
+    </mat-form-field>
+
+    <!--  Name  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'name' | translate}}</mat-label>
+      <input matInput formControlName="name" required flInputMaxLength="100"
+             [placeholder]="'name' | translate">
+      <mat-error *ngIf="formGp.get('name').hasError('required')">
         {{'name' | flErrorRequired}}
       </mat-error>
     </mat-form-field>

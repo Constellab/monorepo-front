@@ -59,5 +59,6 @@
   "bucket_updated": "Bucket modifié",
   "delete_bucket": "Supprimer le bucket",
   "delete_bucket_confirm": "Êtes-vous sûr de vouloir supprimer ce bucket ?",
-  "bucket_deleted": "Bucket supprimé"
+  "bucket_deleted": "Bucket supprimé",
+  "region_technical_name": "Nom technique"
 }

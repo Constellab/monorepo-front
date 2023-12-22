@@ -6,9 +6,13 @@
       {{'name' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{row.technicalName}}
+      <div>
+        <div>{{ row.name }}</div>
+        <div class="g-text-small g-text-light">{{ row.technicalName }}</div>
+      </div>
     </mat-cell>
   </ng-container>
+
 
   <!-- Cloud provider -->
   <ng-container matColumnDef="cloudProvider">

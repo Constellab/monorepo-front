@@ -17,6 +17,8 @@ export type CaCloudProviderDatasource = FlEntityPaginatedDatasource<CaCloudProvi
 
 export class CaCloudProviderRegion extends CaBaseEntity {
 
+  name: string;
+
   technicalName: string;
 
   s3Endpoint: string;

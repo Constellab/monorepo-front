@@ -95,6 +95,9 @@
         <mat-label>{{'project_main_storage_location' | translate}}</mat-label>
         <mat-select formControlName="mainStorage" required
                     [placeholder]="'project_main_storage_location' | translate">
+          <mat-select-trigger *ngIf="formGp.get('mainStorage').value">
+            <ca-bucket-location-inline [bucketLocation]="formGp.get('mainStorage').value"></ca-bucket-location-inline>
+          </mat-select-trigger>
           <ca-bucket-location-select-options></ca-bucket-location-select-options>
         </mat-select>
         <mat-error *ngIf="formGp.get('mainStorage').hasError('required')">
@@ -106,6 +109,9 @@
         <mat-label>{{'project_backup_storage_location' | translate}}</mat-label>
         <mat-select formControlName="backupStorage"
                     [placeholder]="'project_backup_storage_location' | translate">
+          <mat-select-trigger *ngIf="formGp.get('backupStorage').value">
+            <ca-bucket-location-inline [bucketLocation]="formGp.get('backupStorage').value"></ca-bucket-location-inline>
+          </mat-select-trigger>
           <ca-bucket-location-select-options></ca-bucket-location-select-options>
         </mat-select>
       </mat-form-field>
