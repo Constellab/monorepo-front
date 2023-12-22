@@ -56,7 +56,7 @@ export class LabExperimentSearch {
     createdBy: 'created_by',
     lastModifiedAt: 'last_modified_date',
     isValidated: 'biox.experiment_is_validated',
-    processTypingName: 'biox.process_type'
+    processTypingName: 'biox.contain_process'
   };
 
 

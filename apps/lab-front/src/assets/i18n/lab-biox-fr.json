@@ -366,6 +366,7 @@
     "report_templates": "Modèles de rapport",
     "report_template": "Modèle de rapport",
     "convert_live_task_code_to_task": "Convertir le code de la live task en code de tâche",
-    "process_type": "Type de process"
+    "contain_process": "Contient le processus",
+    "generated_by_process": "Généré par le processus"
   }
 }

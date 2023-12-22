@@ -12,7 +12,7 @@ import {
   FlTag,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabResourceSearch, LabResourceSearchFields} from '../../model/lab-resource-advanced-search.class';
+import {LabResourceSearch, LabResourceSearchFields} from '../../model/lab-resource-search.class';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
 import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
 import {

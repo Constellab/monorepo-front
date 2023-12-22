@@ -10,8 +10,8 @@ import {
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LabExperimentSearchComponent} from './component/lab-experiment-search/lab-experiment-search.component';
 import {
-  LabExperimentAdvancedSearchFormComponent
-} from './component/lab-experiment-advanced-search-form/lab-experiment-advanced-search-form.component';
+  LabExperimentSearchFormComponent
+} from './component/lab-experiment-search-form/lab-experiment-search-form.component';
 import {
   LabExperimentStatusOptionsComponent
 } from './component/lab-experiment-status-options/lab-experiment-status-options.component';
@@ -40,7 +40,7 @@ import {LabTypeCoreModule} from '../lab-type-core/lab-type-core.module';
     LabExperimentCardComponent,
     LabExperimentFormDialogComponent,
     LabExperimentSearchComponent,
-    LabExperimentAdvancedSearchFormComponent,
+    LabExperimentSearchFormComponent,
     LabExperimentStatusOptionsComponent,
     LabExperimentTypeOptionsComponent,
     LabSelectExperimentDialogComponent,
@@ -53,7 +53,7 @@ import {LabTypeCoreModule} from '../lab-type-core/lab-type-core.module';
     LabExperimentCardComponent,
     LabExperimentFormDialogComponent,
     LabExperimentSearchComponent,
-    LabExperimentAdvancedSearchFormComponent,
+    LabExperimentSearchFormComponent,
     LabExperimentStatusOptionsComponent,
     LabExperimentTypeOptionsComponent,
     LabSelectExperimentDialogComponent,

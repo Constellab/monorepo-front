@@ -17,7 +17,7 @@ import {
 import {LabTypeEntity} from '../../../../lab-core/model/entities/lab-type/lab-type.entity';
 import {
   LabResourceSearchFields
-} from '../../../../lab-core/entity-module/lab-resource-core/model/lab-resource-advanced-search.class';
+} from '../../../../lab-core/entity-module/lab-resource-core/model/lab-resource-search.class';
 import {
   labResourceSearchName
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-search/lab-resource-search.component';

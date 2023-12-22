@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {FlSearchState} from '@monorepo/front-core-lib';
-import {LabTypeSearchConfig} from '../../model/lab-type-advanced-search.class';
+import {LabTypeSearchConfig} from '../../model/lab-type-search.class';
 
 @Component({
-  selector: 'lab-type-advanced-search-form',
-  templateUrl: './lab-type-advanced-search-form.component.html',
-  styleUrls: ['./lab-type-advanced-search-form.component.scss']
+  selector: 'lab-type-search-form',
+  templateUrl: './lab-type-search-form.component.html',
+  styleUrls: ['./lab-type-search-form.component.scss']
 })
-export class LabTypeAdvancedSearchFormComponent implements OnInit {
+export class LabTypeSearchFormComponent implements OnInit {
 
   @Input() config: LabTypeSearchConfig;
 

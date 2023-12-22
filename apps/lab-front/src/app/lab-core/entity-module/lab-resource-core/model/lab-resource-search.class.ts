@@ -40,6 +40,9 @@ export class LabResourceSearchFields {
   includeChildrenResource: boolean;
   includeNotFlagged: boolean;
 
+  @Type(() => LabTypeEntity)
+  generatedByProcess: LabTypeEntity;
+
   id: string;
 }
 
@@ -63,6 +66,7 @@ export class LabResourceSearch {
     project: 'biox.project',
     includeChildrenResource: 'resource_include_children_short',
     includeNotFlagged: 'biox.include_not_flagged_short',
+    generatedByProcess: 'biox.generated_by_process',
   };
 
 
@@ -95,7 +99,8 @@ export class LabResourceSearch {
       operator: 'EQ',
     },
     id: {key: 'id', operator: 'EQ'},
-  };
+    generatedByProcess: {key: 'generated_by_task', operator: 'EQ',
+      convertValue: (value: LabTypeEntity) => value?.typingName}  };
 
 
   public static getAdvancedSearchForm(): FormGroup<LabResourceSearchFields> {
@@ -120,6 +125,7 @@ export class LabResourceSearch {
         includeChildrenResource: [null],
         includeNotFlagged: [null],
         id: [null],
+        generatedByProcess: [null],
       }
     );
   }

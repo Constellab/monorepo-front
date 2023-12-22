@@ -3,11 +3,11 @@ import {UntypedFormGroup} from '@angular/forms';
 import {FlSearchState} from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'lab-experiment-advanced-search-form',
-  templateUrl: './lab-experiment-advanced-search-form.component.html',
-  styleUrls: ['./lab-experiment-advanced-search-form.component.scss']
+  selector: 'lab-experiment-search-form',
+  templateUrl: './lab-experiment-search-form.component.html',
+  styleUrls: ['./lab-experiment-search-form.component.scss']
 })
-export class LabExperimentAdvancedSearchFormComponent implements OnInit {
+export class LabExperimentSearchFormComponent implements OnInit {
 
   formGp: UntypedFormGroup;
 

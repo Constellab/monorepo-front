@@ -6,9 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LabResourceViewPortalComponent} from './component/lab-resource-view-portal/lab-resource-view-portal.component';
 import {LabResourceTableComponent} from './component/lab-resource-table/lab-resource-table.component';
 import {LabResourceSearchComponent} from './component/lab-resource-search/lab-resource-search.component';
-import {
-  LabResourceAdvancedSearchFormComponent
-} from './component/lab-resource-advanced-search-form/lab-resource-advanced-search-form.component';
+import {LabResourceSearchFormComponent} from './component/lab-resource-search-form/lab-resource-search-form.component';
 import {
   LabResourceOriginOptionsComponent
 } from './component/lab-resource-origin-options/lab-resource-origin-options.component';
@@ -102,7 +100,7 @@ import {
     LabResourceViewPortalComponent,
     LabResourceTableComponent,
     LabResourceSearchComponent,
-    LabResourceAdvancedSearchFormComponent,
+    LabResourceSearchFormComponent,
     LabResourceOriginOptionsComponent,
     LabSelectResourceDialogComponent,
     LabResourceCardComponent,

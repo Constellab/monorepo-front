@@ -9,7 +9,7 @@ import {
 import {LabTypeEntity, LabTypeEntityDatasource} from '../model/entities/lab-type/lab-type.entity';
 import {Observable, throwError} from 'rxjs';
 import {ClPageI} from '@monorepo/core-lib';
-import {LabTypeSearch, LabTypeSearchFields} from '../entity-module/lab-type-core/model/lab-type-advanced-search.class';
+import {LabTypeSearch, LabTypeSearchFields} from '../entity-module/lab-type-core/model/lab-type-search.class';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
 import {TdTypeObjectType, TdTypingName} from '@monorepo/technical-doc';
 import {LabResourceType} from '../model/entities/lab-type/lab-resource-type.entity';

@@ -19,7 +19,7 @@ import {
 import {
   LabResourceSearch,
   LabResourceSearchFields
-} from '../entity-module/lab-resource-core/model/lab-resource-advanced-search.class';
+} from '../entity-module/lab-resource-core/model/lab-resource-search.class';
 import {LabResourceImporterType} from '../model/entities/resource/lab-resource.dto';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
 import {PrConfigValues} from '@monorepo/protocol';

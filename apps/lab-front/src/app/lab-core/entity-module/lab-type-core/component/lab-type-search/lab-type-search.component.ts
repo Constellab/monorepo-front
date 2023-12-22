@@ -8,7 +8,7 @@ import {
   FlTableColumn,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabTypeSearch, LabTypeSearchConfig, LabTypeSearchFields} from '../../model/lab-type-advanced-search.class';
+import {LabTypeSearch, LabTypeSearchConfig, LabTypeSearchFields} from '../../model/lab-type-search.class';
 import {LabTypeEntity, LabTypeEntityDatasource} from '../../../../model/entities/lab-type/lab-type.entity';
 import {LabTypeService} from '../../../../entity-service/lab-type.service';
 import {LabBrickGWS} from '../../../../model/entities/lab-brick.entity';
