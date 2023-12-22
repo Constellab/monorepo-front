@@ -303,6 +303,7 @@
     "download_protocol_template": "Télécharger le modèle de protocole",
     "protocol": "Protocole",
     "import_protocol_template": "Importer un modèle de protocole",
+    "select_protocol_template_help_text": "Vous pouvez sélectionner un modèle de protocole pour pré-configurer l'expérience.",
     "experiment_with_same_name_exist": "{{count}} expérience avec le même nom existe",
     "credentials": "Identifiants",
     "create_credentials": "Créez des identifiants",

@@ -303,6 +303,7 @@
     "download_protocol_template": "Download protocol template",
     "protocol": "Protocol",
     "import_protocol_template": "Import protocol template",
+    "select_protocol_template_help_text": "You can select or import a protocol template to pre-configure the experiment.",
     "experiment_with_same_name_exist": "{{count}} experiment(s) with the same name exist",
     "credentials": "Credentials",
     "create_credentials": "Create credentials",

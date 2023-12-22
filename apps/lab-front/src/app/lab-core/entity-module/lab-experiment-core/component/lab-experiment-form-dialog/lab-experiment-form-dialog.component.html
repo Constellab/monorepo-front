@@ -22,6 +22,7 @@
     <!--  Protocol template  -->
     <div class="protocol-template" *ngIf="isCreateMode()">
       <p class="protocol-template-title"><strong>{{'biox.protocol_template' | translate}}</strong></p>
+      <div class="g-text-small g-text-light protocol-help">{{'biox.select_protocol_template_help_text' | translate}}</div>
       <fl-form-field>
         <lab-select-protocol-template formControlName="protocolTemplate"
                                       [placeholder]="'biox.protocol_template' | translate">
