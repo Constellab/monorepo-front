@@ -10,6 +10,7 @@ import {
 import {EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CaUser} from '../entities/ca-user.class';
+import 'quill-mention';
 
 export class CaCommentTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader {
 
@@ -46,7 +47,6 @@ export class CaCommentTextEditorConfig extends FlTextEditorConfig implements FlT
 
   getExtraModules(): any {
     // force loading of quill-mention module, only when needed
-    require('quill-mention' as any);
     return {
       mention: {
         allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
@@ -54,7 +54,7 @@ export class CaCommentTextEditorConfig extends FlTextEditorConfig implements FlT
         source: (searchTerm: string, renderList: any) => {
           const values: any[] = [{id: '0', value: 'everyone'}];
           values.push(...this.userList.map(user => {
-            return {id: user.id, value: user.fullname}
+            return {id: user.id, value: user.fullname};
           }));
           renderList(values.filter(v => v.value.toLowerCase().includes(searchTerm.toLowerCase())), searchTerm);
         },

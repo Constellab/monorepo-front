@@ -30,7 +30,7 @@ import {
 import {FlTextEditorState} from '../../state/fl-text-editor.state';
 import hljs from 'highlight.js/lib/core';
 import python from 'highlight.js/lib/languages/python';
-import Quill, {BoundsStatic, RangeStatic} from 'quill';
+import QuillType, {BoundsStatic, RangeStatic} from 'quill';
 import {FlTextEditorsManagerState} from '../../state/fl-text-editors-manager.state';
 import {FlTextEditorConfig} from '../../model/fl-text-editor-config.class';
 import {FlHtmlHelper} from '../../../../utils/fl-html.helper';
@@ -92,7 +92,7 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
 
   @Input() anchor?: string;
 
-  private quill: Quill;
+  private quill: QuillType;
 
   private blockAddButtonOverlay?: FlOverlayRef;
 
@@ -118,14 +118,14 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
 
   async ngOnInit(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) {
-      if(this.baseDelta == null || this.baseDelta.ops == null) {
+      if (this.baseDelta == null || this.baseDelta.ops == null) {
         return;
       }
       const deltaOps = this.baseDelta.ops;
       //TODO: check if this is the best way to do this
-      for(const [i, op] of deltaOps.entries()) {
-        if(op.attributes?.header) {
-          deltaOps[i].attributes = {header: op.attributes.header.level}
+      for (const [i, op] of deltaOps.entries()) {
+        if (op.attributes?.header) {
+          deltaOps[i].attributes = {header: op.attributes.header.level};
         }
       }
       const converter: any = new QuillDeltaToHtmlConverter(deltaOps);
@@ -144,7 +144,6 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
       return;
     }
 
-    const quillImport = await import('quill') as any;
 
     let modules: any = {
       syntax: {
@@ -154,11 +153,12 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
       clipboard: {
         matchVisual: false
       }
-    }
+    };
     modules = Object.assign(modules, this.config.getExtraModules());
 
+    const Quill = (await import('quill')).default;
     // create and configure quill
-    this.quill = new quillImport.default(this.editorElement.nativeElement,
+    this.quill = new Quill(this.editorElement.nativeElement,
       {
         theme: this.config.getTheme(this.theme),
         modules: modules,
@@ -196,7 +196,7 @@ export class FlTextEditorComponent extends FlFormFieldDirective<string> implemen
     this.quill.on('text-change', () => this.setAndEmitValue(this.getQuillValue()));
     this.quill.on('editor-change', (changeEvent: any, obj: any) => this.onEditorChange(changeEvent, obj));
 
-    if(isPlatformBrowser(this.platformId) && this.anchor != null){
+    if (isPlatformBrowser(this.platformId) && this.anchor != null) {
       const anchorElement = this.elementRef.nativeElement.querySelector(`#${this.anchor}`);
       anchorElement.scrollIntoView(true);
     }

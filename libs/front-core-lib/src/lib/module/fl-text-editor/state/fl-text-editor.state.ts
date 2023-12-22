@@ -73,9 +73,7 @@ export class FlTextEditorState implements OnDestroy {
   }
 
   public insertLink(index: number, link: string, linkName: string): any {
-    import('quill').then((quillImport) => {
-      return this.quill.insertText(index, linkName, 'link', link, quillImport.default.sources.USER);
-    });
+    return this.quill.insertText(index, linkName, 'link', link, 'user');
   }
 
   public createLink(index: number, link: string, linkName: string): any {
@@ -96,9 +94,7 @@ export class FlTextEditorState implements OnDestroy {
   }
 
   public insertEmbed(index: number, type: string, value: any): any {
-    import('quill').then((quillImport) => {
-      return this.quill.insertEmbed(index, type, value, quillImport.default.sources.USER);
-    });
+    return this.quill.insertEmbed(index, type, value, 'user');
   }
 
   public removeFormat(): void {

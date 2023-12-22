@@ -6,12 +6,12 @@
   "prefix": "ca",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "options": {
         "outputPath": "dist/apps/ca-central-front",
         "index": "apps/ca-central-front/src/index.html",
-        "main": "apps/ca-central-front/src/main.ts",
-        "polyfills": "apps/ca-central-front/src/polyfills.ts",
+        "browser": "apps/ca-central-front/src/main.ts",
+        "polyfills": ["apps/ca-central-front/src/polyfills.ts"],
         "tsConfig": "apps/ca-central-front/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -64,9 +64,7 @@
       },
       "configurations": {
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
@@ -79,12 +77,11 @@
             {
               "type": "anyComponentStyle",
               "maximumWarning": "6kb",
-              "maximumError": "30kb"
+              "maximumError": "100kb"
             }
           ]
         },
         "production": {
-          "serviceWorker": false,
           "outputHashing": "all",
           "optimization": {
             "styles": {

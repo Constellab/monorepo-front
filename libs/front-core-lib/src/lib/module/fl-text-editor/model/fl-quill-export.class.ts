@@ -1,14 +1,16 @@
 import BlockBlot from 'parchment/dist/src/blot/block';
 import EmbedBlot from 'parchment/dist/src/blot/embed';
 
-
+import Quill from 'quill';
 
 //Import quill only if document is defined (for server side rendering)
-let Quill;
+// let quillImport: any;
 
-if (typeof document === 'object' && document !== null) {
-  Quill = require('quill');
-}
+// if (typeof document === 'object' && document !== null) {
+  // @ts-ignore
+  // quillImport = Quill;
+  // Quill = require('quill');
+// }
 
 /**
  * File to export different quill objects
@@ -16,7 +18,7 @@ if (typeof document === 'object' && document !== null) {
 // export const Parchment = Quill.import('parchment');
 // export const ParchmentClass = Parchment.Attributor.Class as typeof ClassAttributor;
 // export const ParchmentAttribute = Parchment.Attributor.Attribute;
-export const FlQuillBlock = Quill ? Quill.import('blots/block') as typeof BlockBlot: Object;
+export const FlQuillBlock = Quill ? Quill.import('blots/block') as typeof BlockBlot : Object;
 //export const FlQuillBlock =  document != null ? Quill.import('blots/block') as typeof BlockBlot: Object;
 
 // export const Container = Quill.import('blots/container') as typeof ContainerBlot;
