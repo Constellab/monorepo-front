@@ -91,6 +91,7 @@ export class CaBucketLocationDTO {
   bucketType: CaBucketType;
   cityName?: string;
   countryName?: string;
+  cloudProviderName?: string;
 
   getIcon(): string {
     if (this.bucketType === CaBucketType.LAB) {
