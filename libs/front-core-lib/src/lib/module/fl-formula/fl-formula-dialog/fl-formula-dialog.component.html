@@ -1,0 +1,39 @@
+<fl-dialog-header>
+  {{ title | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="link-form">
+
+    <div class="help-text" >
+      {{ 'flFormula.formula_help_text' | translate }} :
+      <a href="https://katex.org/docs/supported.html" target="_blank" class="g-text-link" tabindex="-1">
+        https://katex.org/docs/supported.html
+      </a>
+    </div>
+
+    <!--  Formula  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'flFormula.formula' | translate }}</mat-label>
+      <textarea matInput [formControl]="formulaControl" required
+                placeholder="{{'flFormula.formula' | translate}}" rows="4">
+      </textarea>
+      <mat-error *ngIf="formulaControl.hasError('required')">
+        {{ 'flFormula.formula' | flErrorRequired }}
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+  <div class="preview">
+    <p class="g-text-light">{{ 'flFormula.formula_preview' | translate }}</p>
+    <fl-formula [formula]="formula$"></fl-formula>
+  </div>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" type="submit" form="link-form"
+          class="g-centered-forced">
+    {{ 'flFormula.ok' | translate }}
+  </button>
+</div>

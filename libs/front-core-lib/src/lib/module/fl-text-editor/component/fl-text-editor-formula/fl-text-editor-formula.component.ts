@@ -50,8 +50,8 @@ export class FlTextEditorFormulaComponent extends FlTextEditorElementDirective
   }
 
   async ngOnInit(): Promise<void> {
-    const {FlFormulaComponent} = await import('../../../../standalone-component/fl-formula/fl-formula.component');
-    this.componentRef = this.viewContainer.createComponent(FlFormulaComponent);
+    const {FlFormulaStandaloneComponent} = await import('../../../fl-formula/fl-formula-standalone/fl-formula-standalone.component');
+    this.componentRef = this.viewContainer.createComponent(FlFormulaStandaloneComponent);
     this.componentRef.instance.formula = this.formula;
     this.changeDetectorRef.markForCheck();
     this.disabled$ = this.getDisabled$();

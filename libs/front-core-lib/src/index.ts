@@ -22,6 +22,7 @@ export * from './lib/module/fl-emoji-picker/public-api';
 export * from './lib/module/fl-expansion-menu/public-api';
 export * from './lib/module/fl-form/public-api';
 export * from './lib/module/fl-form-inputs-manager/public-api';
+export * from './lib/module/fl-formula/public-api';
 export * from './lib/module/fl-horizontal-nav-bar/public-api';
 export * from './lib/module/fl-image/public-api';
 export * from './lib/module/fl-inifite-scroll/public-api';
@@ -55,3 +56,4 @@ export * from './lib/model/public-api';
 
 // Export the utils
 export * from './lib/utils/public-api';
+

@@ -1,0 +1,56 @@
+import {Component, Input} from '@angular/core';
+import {
+  FlDialogService,
+  FlFormulaDialogComponent,
+  FlTextEditorFormulaDialogComponent,
+  FlTextEditorFormulaDialogInput,
+  TeFormulaDialogInput
+} from '@monorepo/front-core-lib';
+import {FlTextEditorElementDirective} from '../../model/te-text-editor-element.directive';
+import {BehaviorSubject} from 'rxjs';
+
+@Component({
+  selector: 'te-formula',
+  templateUrl: './te-formula.component.html',
+  styleUrl: './te-formula.component.scss',
+})
+export class TeFormulaComponent extends FlTextEditorElementDirective {
+
+  @Input() formulaTitle: string;
+
+  @Input() caption: string;
+
+  public formula$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
+  constructor(private dialogService: FlDialogService) {
+    super();
+  }
+
+  public openInitFormulaDialog(): void {
+    // on init we check if we need to show formula dialog
+    if (!this.disabled) {
+      const input: TeFormulaDialogInput = {
+        mode: 'create'
+      };
+      this.dialogService.openSmallDialog(FlFormulaDialogComponent, {data: input}).afterClosed().subscribe(
+        (formula: string) => this.setFormula(formula)
+      );
+    }
+  }
+
+  public updateFormula(): void {
+    const input: FlTextEditorFormulaDialogInput = {
+      mode: 'update',
+      object: this.formula$.value,
+    };
+    this.dialogService.openSmallDialog(FlTextEditorFormulaDialogComponent, {data: input})
+      .afterClosed().subscribe((formula: string) => this.setFormula(formula));
+  }
+
+  public setFormula(formula?: string): void {
+    if (formula) {
+      this.formula$.next(formula);
+    }
+  }
+
+}

@@ -47,6 +47,7 @@ import {PrProtocolModule} from '@monorepo/protocol';
 import {BnBioNetworkModule} from '@monorepo/bio-network';
 import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
 import {ChChartModule} from '@monorepo/chart';
+import {TeTextEditorModule} from '@monorepo/text-editor';
 
 /**
  * Regrouped all the needed import for this app from library
@@ -104,6 +105,7 @@ import {ChChartModule} from '@monorepo/chart';
     PrProtocolModule,
     SpSpreadsheetModule,
     ChChartModule,
+    TeTextEditorModule,
   ]
 })
 export class LabCustomLibraryModule {

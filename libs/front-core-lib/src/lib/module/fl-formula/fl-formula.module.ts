@@ -1,0 +1,49 @@
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FlFormulaComponent} from './fl-formula/fl-formula.component';
+import {FlFormulaDialogComponent} from './fl-formula-dialog/fl-formula-dialog.component';
+import {FlDialogModule} from '../fl-dialog/fl-dialog.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FlTranslateModule} from '../fl-translate/fl-translate.module';
+import {FlCorePipeModule} from '../fl-core-pipe/fl-core-pipe.module';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {FlTranslateService} from '../fl-translate/service/fl-translate.service';
+import {flFormulaI18n} from './fl-formula.i18n';
+import {FlCoreDirectiveModule} from '../fl-core-directive/fl-core-directive.module';
+
+@NgModule({
+  declarations: [
+    FlFormulaComponent,
+    FlFormulaComponent,
+    FlFormulaDialogComponent,
+  ],
+  exports: [
+    FlFormulaComponent,
+    FlFormulaComponent
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+
+    FlDialogModule,
+    FlTranslateModule,
+    FlCorePipeModule,
+    FlCoreDirectiveModule,
+
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+  ],
+})
+export class FlFormulaModule {
+
+  constructor(translateService: FlTranslateService) {
+    translateService.addModuleTranslation(
+      'FlFormulaModule',
+      flFormulaI18n
+    );
+  }
+}

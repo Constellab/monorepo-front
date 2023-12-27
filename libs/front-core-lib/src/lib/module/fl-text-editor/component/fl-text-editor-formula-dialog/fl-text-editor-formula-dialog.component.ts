@@ -29,8 +29,8 @@ export class FlTextEditorFormulaDialogComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.formulaControl = new FormControl(this.input.object, [Validators.required]);
 
-    const {FlFormulaComponent} = await import('../../../../standalone-component/fl-formula/fl-formula.component');
-    this.componentRef = this.viewContainer.createComponent(FlFormulaComponent);
+    const {FlFormulaStandaloneComponent} = await import('../../../fl-formula/fl-formula-standalone/fl-formula-standalone.component');
+    this.componentRef = this.viewContainer.createComponent(FlFormulaStandaloneComponent);
     this.componentRef.instance.formula = this.formulaControl.valueChanges.pipe(
       startWith(this.formulaControl.value),
       debounceTime(300));
