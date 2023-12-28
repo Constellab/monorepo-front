@@ -4,7 +4,6 @@ import Underline from '@editorjs/underline';
 import Strikethrough from '@sotaproject/strikethrough';
 import {TeHeaderWithIdBlock} from '../block/te-header-with-id-block.class';
 import NestedList from '@editorjs/nested-list';
-import CodeTool from '@editorjs/code';
 import InlineCode from '@editorjs/inline-code';
 import Quote from '@editorjs/quote';
 import {teComponentBlockFactory} from '../block/te-component-block.class';
@@ -15,6 +14,7 @@ import {TeHintBlock} from '../block/te-hint-block.class';
 import {TeVideoBlock} from '../block/te-video-block.class';
 import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {TeFigureBlock, TeFigureBlockConfig} from '../block/te-figure-block.class';
+import {TeCodeBlock} from '../block/te-code-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -90,6 +90,13 @@ export abstract class TeConfig {
       class: teComponentBlockFactory(TeFigureBlock, envInjector, applicationRef, config),
     };
   };
+
+  getCodeConfig(envInjector: EnvironmentInjector,
+                applicationRef: ApplicationRef): ToolSettings {
+    return {
+      class: teComponentBlockFactory(TeCodeBlock, envInjector, applicationRef),
+    };
+  }
 }
 
 
@@ -120,11 +127,12 @@ export class TeCompleteConfig extends TeConfig {
       strikethrough: Strikethrough,
       header: this.getHeaderConfig(),
       list: this.getListConfig(),
-      code: CodeTool,
+      code: this.getCodeConfig(envInjector, applicationRef),
       inlineCode: {
         class: InlineCode,
         shortcut: 'CMD+SHIFT+M',
       },
+      // TODO check if we keep the quote block
       quote: {
         class: Quote,
         inlineToolbar: true,

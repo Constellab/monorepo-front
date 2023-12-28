@@ -61,6 +61,11 @@ export interface ClRichTextFormula {
   caption?: string;
 }
 
+export interface ClRichTextCode {
+  code: string;
+  language: string;
+}
+
 export interface ClRichTextHeader {
   attributes: ClRichTextHeaderAttribute;
   insert: string;

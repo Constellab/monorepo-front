@@ -2,6 +2,7 @@
 export * from './lib/te-text-editor.module';
 
 // Component
+export * from './lib/component/te-code/te-code.component';
 export * from './lib/component/te-figure/te-figure.component';
 export * from './lib/component/te-formula/te-formula.component';
 export * from './lib/component/te-link-dialog/te-link-dialog.component';
@@ -14,6 +15,7 @@ export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
 
 // Block
+export * from './lib/block/te-code-block.class';
 export * from './lib/block/te-component-block.class';
 export * from './lib/block/te-figure-block.class';
 export * from './lib/block/te-formula-block.class';

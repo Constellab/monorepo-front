@@ -7,36 +7,6 @@
   $warn: map-get($mat-theme, warn);
   $foreground: map-get($mat-theme, foreground);
 
-  te-text-editor {
-
-    .g-te-hint {
-      padding: 1em 2em;
-      border-radius: 10px;
-      margin-top: 2em;
-      margin-bottom: 2em;
-    }
-
-    // Hint tool
-    .g-te-hint-info {
-      background-color: mat.get-color-from-palette($primary, 100);
-      color: mat.get-color-from-palette($primary, '100-contrast');
-    }
-
-    .g-te-hint-warning {
-      background-color: mat.get-color-from-palette($warn, 100);
-      color: mat.get-color-from-palette($warn, '100-contrast');
-    }
-
-    .g-te-hint-science {
-      background-color: mat.get-color-from-palette($accent, 100);
-      color: mat.get-color-from-palette($accent, '100-contrast');
-    }
-  }
-
-  // force the block to be behind the popover
-  .ce-block__content{
-    z-index: 0;
-  }
 
   // make the editor scrollable
   .g-text-editor {
@@ -45,10 +15,20 @@
   }
 
   .g-text-editor {
-    p div {
-      font-weight: 100;
-      line-height: 2em;
-      margin: 1em 0;
+
+    // force the block to be behind the popover
+    .ce-block__content {
+      z-index: 0;
+    }
+
+    .g-te-block {
+      margin-top: 2em;
+      margin-bottom: 2em;
+      display: block;
+    }
+
+    .ce-paragraph {
+      padding: 0;
     }
 
     h1 {
@@ -114,23 +94,13 @@
       text-decoration: underline;
     }
 
-    // Code block
-    pre.ql-syntax {
-      background-color: var(--card-background);
-      color: var(--color-foreground);
-      margin-top: 2em;
-      margin-bottom: 2em;
-      border-radius: 10px;
-      font-family: "Poppins", "Helvetica Neue", sans-serif;
-    }
-
     blockquote {
       margin-top: 2em;
       margin-bottom: 2em;
       border-left-color: var(--card-background);
     }
 
-    code, pre{
+    code, pre {
       background-color: var(--card-background);
       color: var(--color-foreground);
       padding: 6px 7px;
@@ -138,16 +108,30 @@
       font-size: 85%;
       border-radius: 3px;
     }
-  }
 
-  // TODO TO fIX
-  .g-quill-block {
-    margin-top: 4em;
-    margin-bottom: 4em;
-    display: block;
-  }
+    // Hint tool
+    .g-te-hint {
+      padding: 1em 2em;
+      border-radius: 10px;
+    }
 
-  .g-text-editor-hint a{
-    color: black !important;
+    .g-te-hint-info {
+      background-color: mat.get-color-from-palette($primary, 100);
+      color: mat.get-color-from-palette($primary, '100-contrast');
+    }
+
+    .g-te-hint-warning {
+      background-color: mat.get-color-from-palette($warn, 100);
+      color: mat.get-color-from-palette($warn, '100-contrast');
+    }
+
+    .g-te-hint-science {
+      background-color: mat.get-color-from-palette($accent, 100);
+      color: mat.get-color-from-palette($accent, '100-contrast');
+    }
+
+    .g-text-editor-hint a {
+      color: black !important;
+    }
   }
 }

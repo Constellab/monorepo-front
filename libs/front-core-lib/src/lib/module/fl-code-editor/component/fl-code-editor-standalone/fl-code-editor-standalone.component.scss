@@ -1,4 +1,14 @@
 
+:host {
+  display: flex;
+  max-height: 100%;
+  width: 100%;
+}
+
+.container{
+  width: 100%;
+}
+
 ::ng-deep {
   .ͼ1.cm-editor.cm-focused {
     border: 2px solid var(--primary-color);
@@ -9,6 +19,7 @@
     border: 2px solid var(--hover-color);
     border-radius: 5px; // same as mat input
     overflow: hidden;
+    height: 100%;
   }
 
   // caret color
@@ -21,6 +32,7 @@
   .ͼ3 .cm-activeLine { // dark theme
     background-color: rgba(0, 0, 0, 0.1);
   }
+
   .ͼ2 .cm-activeLine { // light theme
     background-color: rgba(0, 0, 0, 0.05);
   }

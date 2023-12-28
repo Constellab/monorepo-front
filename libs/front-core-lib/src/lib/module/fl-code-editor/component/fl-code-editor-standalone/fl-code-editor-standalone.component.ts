@@ -55,6 +55,7 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
         }),
         EditorView.darkTheme.of(this.themeService.isDarkTheme()),
         this.getTheme(),
+        EditorState.readOnly.of(this.formCtrl.disabled)
       ],
     });
 

@@ -53,7 +53,7 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
   }
 
   get disabled(): boolean {
-    return this.componentInstance.disabled;
+    return this.options.readOnly;
   }
 
   get translateService(): FlTranslateService {
@@ -62,6 +62,7 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
 
   render(): HTMLElement {
     this.htmlElement = document.createElement(this.getTagName());
+    this.htmlElement.classList.add('g-te-block')
     this.componentRef = createComponent(this.getComponentType(), {
       environmentInjector: this.envInjector,
       hostElement: this.htmlElement,

@@ -95,7 +95,23 @@ export class TeTextEditorComponent extends FlFormFieldDirective<OutputData> impl
         //     caption: 'Caption',
         //     title: 'Title'
         //   }
-        // }
+
+        {
+          id: 'kljlkj',
+          type: 'code',
+          data: {
+            language: 'python',
+            code: `@classmethod
+def get_and_call_view_on_resource_model(cls, resource_model_id: str,
+                                            view_name: str, config_values: ConfigParamsDict,
+                                            save_view_config: bool = False) -> CallViewResult:
+
+
+        resource_model: ResourceModel = cls.get_resource_by_id(
+            resource_model_id)
+        return cls.call_view_on_resource_model(resource_model, view_name, config_values, save_view_config`
+          }
+        }
       ],
       version: '2.28.2'
     };
@@ -111,7 +127,6 @@ export class TeTextEditorComponent extends FlFormFieldDirective<OutputData> impl
       tools: this.config.getTools(this.envInjector, this.applicationRef),
 
       onChange: (api: API, event: any) => {
-        console.log(event);
         this.editor.save().then((outputData: OutputData) => {
           this.setAndEmitValue(outputData);
         });

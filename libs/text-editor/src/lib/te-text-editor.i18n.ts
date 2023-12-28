@@ -23,6 +23,7 @@ const teTextEditorI18nFr: FlLangTranslation = {
     list_unordered: 'Liste à puces',
     list_ordered: 'Liste numérotée',
     image: 'Image',
+    code: 'Code',
   }
 };
 
@@ -44,6 +45,7 @@ const teTextEditorI18nEn: FlLangTranslation = {
     list_unordered: 'Unordered list',
     list_ordered: 'Ordered list',
     image: 'Image',
+    code: 'Code',
   }
 };
 

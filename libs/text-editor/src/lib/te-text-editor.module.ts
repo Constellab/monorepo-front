@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {TeTextEditorComponent} from './component/te-text-editor/te-text-editor.component';
 import {TeFormulaComponent} from './component/te-formula/te-formula.component';
 import {
+  FlCodeEditorModule,
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDialogModule,
@@ -26,6 +27,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {TeLinkDialogComponent} from './component/te-link-dialog/te-link-dialog.component';
 import {TeVideoComponent} from './component/te-video/te-video.component';
 import {TeFigureComponent} from './component/te-figure/te-figure.component';
+import {TeCodeComponent} from './component/te-code/te-code.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import {TeFigureComponent} from './component/te-figure/te-figure.component';
     TeLinkDialogComponent,
     TeVideoComponent,
     TeFigureComponent,
+    TeCodeComponent,
   ],
   exports: [
     TeTextEditorComponent,
@@ -54,6 +57,7 @@ import {TeFigureComponent} from './component/te-figure/te-figure.component';
     FlResizeModule,
     FlInputFileModule,
     FlLoaderModule,
+    FlCodeEditorModule,
 
     MatDialogModule,
     MatFormFieldModule,
