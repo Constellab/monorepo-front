@@ -20,6 +20,9 @@ const teTextEditorI18nFr: FlLangTranslation = {
     header_2: 'Titre 2',
     header_3: 'Titre 3',
     header_4: 'Titre 4',
+    list_unordered: 'Liste à puces',
+    list_ordered: 'Liste numérotée',
+    image: 'Image',
   }
 };
 
@@ -38,6 +41,9 @@ const teTextEditorI18nEn: FlLangTranslation = {
     header_2: 'Header 2',
     header_3: 'Header 3',
     header_4: 'Header 4',
+    list_unordered: 'Unordered list',
+    list_ordered: 'Ordered list',
+    image: 'Image',
   }
 };
 

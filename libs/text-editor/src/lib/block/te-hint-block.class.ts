@@ -23,6 +23,10 @@ export class TeHintBlock implements BlockTool {
 
   }
 
+  static get isReadOnlySupported(): boolean {
+    return true;
+  }
+
   static get enableLineBreaks(): boolean {
     return true;
   }

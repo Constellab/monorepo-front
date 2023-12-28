@@ -1,115 +1,123 @@
-import {ApplicationRef, Component, ElementRef, EnvironmentInjector, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import EditorJS, {OutputData} from '@editorjs/editorjs';
-import NestedList from '@editorjs/nested-list';
-import CodeTool from '@editorjs/code';
-import InlineCode from '@editorjs/inline-code';
-import Quote from '@editorjs/quote';
-import Underline from '@editorjs/underline';
-import Strikethrough from '@sotaproject/strikethrough';
-import {TeFormulaBlock} from '../../block/te-formula-block.class';
-import ImageTool from '@editorjs/image';
-import Table from '@editorjs/table';
-import {teComponentBlockFactory} from '../../block/te-component-block.class';
-import {TeHintBlock} from '../../block/te-hint-block.class';
-import {TeHeaderWithIdBlock} from '../../block/te-header-with-id-block.class';
-import {TeVideoBlock} from '../../block/te-video-block.class';
+import {
+  ApplicationRef,
+  Component,
+  ElementRef,
+  EnvironmentInjector,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Output,
+  Self,
+  ViewChild
+} from '@angular/core';
+import EditorJS, {API, OutputData} from '@editorjs/editorjs';
+import {TeConfig} from '../../model/te-config.class';
+import {FlFormFieldDirective} from '@monorepo/front-core-lib';
+import {NgControl} from '@angular/forms';
 
 @Component({
   selector: 'te-text-editor',
   templateUrl: './te-text-editor.component.html',
   styleUrl: './te-text-editor.component.scss',
 })
-export class TeTextEditorComponent implements OnInit, OnDestroy {
+export class TeTextEditorComponent extends FlFormFieldDirective<OutputData> implements OnInit, OnDestroy {
+
+  @Input({required: true}) config: TeConfig;
+
+  @Input() placeholder: string = '';
+
+  @Output() textChange: EventEmitter<OutputData> = new EventEmitter<OutputData>();
 
   @ViewChild('editorContainer', {static: true}) editorContainer: ElementRef<HTMLElement>;
 
   editor: EditorJS;
 
-  constructor(private envInjector: EnvironmentInjector,
+  constructor(@Optional() @Self() ngControl: NgControl,
+              private envInjector: EnvironmentInjector,
               private applicationRef: ApplicationRef) {
+    super(ngControl);
   }
 
   ngOnInit(): void {
 
 
-    const data: OutputData = {
+    this.value = {
       time: 1703676274906,
       blocks: [
         {
           id: '-JiHr_aTiF',
           type: 'header',
-          'data': {text: 'SImple title', level: 2}
+          data: {text: 'SImple title', level: 2}
         },
         {id: 'EeX4cgOEbn', type: 'paragraph', data: {text: 'Text'}},
-        {id: 'EeX4cgOkjhEbn', type: 'hint', data: {hintType: 'info', content: '<p>Text</p><script>alert("A")</script>'}},
+        // {
+        //   id: 'EeX4cgOkjhEbn',
+        //   type: 'hint',
+        //   data: {hintType: 'info', content: '<p>Text</p><script>alert("A")</script>'}
+        // },
         // {id: 'EeX4cgOEjhjbn', type: 'video', data:
         //     {url: 'https://www.youtube.com/embed/L2jNEUoHP0U', title: 'Tess', caption: 'kjhkjh'}},
         // {
         //   id: 'cCRXafezGG',
         //   type: 'formula',
         //   data: {formula: 'e=mc^2', title: 'Super', caption: 'THE caption'}
+        // },
+        // {
+        //   id: 'cCRXafezGG',
+        //   type: 'view',
+        //   data: {
+        //     caption: 'kjhkjhkj', experiment_id: '51925a2e-204f-4655-95e0-2438342643b9',
+        //     id: 'f657e23c-2186-42e0-97fa-aa26d07a2f84_1703762058740',
+        //     resource_id: '9abbabab-2c64-4bb1-8bfc-5ff33551d344',
+        //     title: 'Table - Tabular kk',
+        //     view_config: {
+        //       from_row: 1,
+        //       number_of_rows_per_page: 100,
+        //       from_column: 1,
+        //       number_of_columns_per_page: 250,
+        //       replace_nan_by: 'empty'
+        //     },
+        //     view_method_name: 'view_as_table',
+        //   }
+        // }
+
+        // {
+        //   id: "kljlkj",
+        //   type: 'figure',
+        //   data: {
+        //     filename: '809e8bcd-65ed-4e8a-9ba7-e14122967250_1703772439187.jpg',
+        //     width: 371,
+        //     height: 495,
+        //     naturalHeight: 2048,
+        //     naturalWidth: 1536,
+        //     caption: 'Caption',
+        //     title: 'Title'
+        //   }
         // }
       ],
       version: '2.28.2'
     };
 
+
     this.editor = new EditorJS({
+      placeholder: this.placeholder,
       holder: this.editorContainer.nativeElement,
-      data: data,
+      data: this.value,
       // set order for the inline tools
-      inlineToolbar: ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode'],
-      // readOnly: true,
-      tools: {
-        underline: Underline,
-        strikethrough: Strikethrough,
-        header: {
-          class: TeHeaderWithIdBlock as any,
-          config: {
-            levels: [2, 3, 4],
-            defaultLevel: 2
-          },
-        },
-        list: {
-          class: NestedList,
-          inlineToolbar: true,
-          config: {
-            defaultStyle: 'unordered'
-          },
-        },
-        code: CodeTool,
-        inlineCode: {
-          class: InlineCode,
-          shortcut: 'CMD+SHIFT+M',
-        },
-        quote: {
-          class: Quote,
-          inlineToolbar: true,
-          shortcut: 'CMD+SHIFT+O',
-          config: {
-            quotePlaceholder: 'Enter a quote',
-            captionPlaceholder: 'Quote\'s author',
-          },
-        },
-        formula: {
-          class: teComponentBlockFactory(TeFormulaBlock, this.envInjector, this.applicationRef),
-        },
-        image: {
-          class: ImageTool,
-          config: {
-            endpoints: {
-              byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
-              byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
-            }
-          }
-        },
-        table: Table,
-        hint: {
-          class: TeHintBlock,
-          inlineToolbar: true,
-        },
-        video: teComponentBlockFactory(TeVideoBlock, this.envInjector, this.applicationRef),
+      inlineToolbar: this.config.getInlineToolbar(),
+      readOnly: this.disabled,
+      tools: this.config.getTools(this.envInjector, this.applicationRef),
+
+      onChange: (api: API, event: any) => {
+        console.log(event);
+        this.editor.save().then((outputData: OutputData) => {
+          this.setAndEmitValue(outputData);
+        });
       }
     });
+
     // });
     // setTimeout(() => {
     //   this.editor.readOnly.toggle();
@@ -122,9 +130,36 @@ export class TeTextEditorComponent implements OnInit, OnDestroy {
     // });
   }
 
+  callChangeEvent(value: OutputData): void {
+    this.textChange.emit(value);
+  }
+
+  onDisableChange(disable: boolean): void {
+    if (!this.editor) return;
+    if (disable !== this.editor.readOnly.isEnabled) {
+      console.log('toggle read only');
+      this.editor.readOnly.toggle();
+    }
+  }
+
+  writeValue(obj: OutputData): void {
+    if (this.editor) {
+      this.editor.render(obj);
+    }
+
+    this.value = obj;
+  }
+
+
   printJson(): void {
-    this.editor.save().then((outputData) => {
+    this.editor.save().then((outputData: OutputData) => {
       console.log('Article data: ', outputData);
+    });
+  }
+
+  setSavedData(): void {
+    this.editor.save().then((outputData: OutputData) => {
+      this.editor.render(outputData);
     });
   }
 

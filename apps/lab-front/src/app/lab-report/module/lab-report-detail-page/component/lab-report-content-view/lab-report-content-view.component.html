@@ -1,4 +1,4 @@
-<rv-report-resource-view [resourceId]="resourceId" [view$]="view$"
+<rv-report-resource-view *ngIf="view$" [resourceId]="resourceId" [view$]="view$"
                          [viewConfig]="viewConfig" [(viewTitle)]="viewTitle" [(caption)]="caption"
-                         [editable]="(disabled$ | async) === false">
+                         [editable]="!disabled">
 </rv-report-resource-view>

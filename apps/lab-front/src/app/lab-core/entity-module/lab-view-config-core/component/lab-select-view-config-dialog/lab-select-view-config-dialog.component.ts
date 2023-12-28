@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
@@ -7,7 +7,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   templateUrl: './lab-select-view-config-dialog.component.html',
   styleUrls: ['./lab-select-view-config-dialog.component.scss']
 })
-export class LabSelectViewConfigDialogComponent implements OnInit {
+export class LabSelectViewConfigDialogComponent {
 
   reportId: string;
 
@@ -16,11 +16,9 @@ export class LabSelectViewConfigDialogComponent implements OnInit {
     this.reportId = reportId;
   }
 
-  ngOnInit(): void {
-  }
 
   onViewConfigSelected(viewConfig: LabViewConfig): void {
-    if(viewConfig.viewType) {
+    if (viewConfig.viewType) {
       this.dialogRef.close(viewConfig);
     }
 

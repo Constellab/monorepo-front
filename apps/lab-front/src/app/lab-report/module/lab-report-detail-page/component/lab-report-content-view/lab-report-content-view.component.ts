@@ -1,9 +1,9 @@
-import {Component, ElementRef, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {LabResourceService} from '../../../../../lab-core/entity-service/lab-resource.service';
 import {LabResourceViewData} from '../../../../../lab-core/model/entities/resource/lab-resource-view.entity';
-import {FlTextEditorElementDirective, FlTextEditorsManagerState} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {RvViewConfig} from '@monorepo/resource-view';
+import {TeElementDirective} from '@monorepo/text-editor';
 
 /**
  * Component used in the Text editor to show a resource view
@@ -13,35 +13,32 @@ import {RvViewConfig} from '@monorepo/resource-view';
   templateUrl: './lab-report-content-view.component.html',
   styleUrls: ['./lab-report-content-view.component.scss']
 })
-export class LabReportContentViewComponent extends FlTextEditorElementDirective implements OnInit {
+export class LabReportContentViewComponent extends TeElementDirective {
 
   @Input() resourceId: string;
 
   @Input() viewConfig: RvViewConfig;
 
-  @HostBinding('attr.view-title')
   @Input() viewTitle: string;
 
-  @HostBinding('attr.caption')
   @Input() caption: string;
 
   view$: Observable<LabResourceViewData>;
 
-  disabled$: Observable<boolean>;
-
-
-  constructor(private resourceService: LabResourceService,
-              elementRef: ElementRef<HTMLElement>,
-              managersState: FlTextEditorsManagerState) {
-    super(elementRef, managersState);
-  }
-
-  ngOnInit(): void {
-    this.view$ = this.resourceService.callResourceViewData(this.resourceId, this.viewConfig.methodName,
-      this.viewConfig.configValues);
-
-    this.disabled$ = this.getDisabled$();
+  constructor(private resourceService: LabResourceService) {
+    super();
   }
 
 
+  public setInputs(resourceId: string, viewTitle: string, caption: string, viewConfig: RvViewConfig): void {
+    this.resourceId = resourceId;
+    this.viewTitle = viewTitle;
+    this.caption = caption;
+    this.viewConfig = viewConfig;
+
+    if (this.resourceId && this.viewConfig) {
+      this.view$ = this.resourceService.callResourceViewData(this.resourceId, this.viewConfig.methodName,
+        this.viewConfig.configValues);
+    }
+  }
 }

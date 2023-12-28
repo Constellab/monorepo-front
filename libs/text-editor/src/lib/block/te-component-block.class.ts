@@ -20,7 +20,8 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
 
   constructor(protected options: BlockToolConstructorOptions,
               protected readonly envInjector: EnvironmentInjector,
-              protected readonly applicationRef: ApplicationRef) {
+              protected readonly applicationRef: ApplicationRef,
+              protected readonly additionalData?: any) {
   }
 
   static get toolbox(): ToolboxConfig {
@@ -88,11 +89,13 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
  * @param blockType
  * @param environmentInjector
  * @param applicationRef
+ * @param additionalData
  */
 export function teComponentBlockFactory<T extends TeElementDirective = TeElementDirective>(
   blockType: Type<TeComponentBlock<T>>,
   environmentInjector: EnvironmentInjector,
-  applicationRef: ApplicationRef): any {
+  applicationRef: ApplicationRef,
+  additionalData?: any): any {
 
 
   // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
@@ -103,7 +106,7 @@ export function teComponentBlockFactory<T extends TeElementDirective = TeElement
     static isReadOnlySupported = (blockType as BlockToolConstructable).isReadOnlySupported;
 
     constructor(config: BlockToolConstructorOptions) {
-      return new blockType(config, environmentInjector, applicationRef) as any;
+      return new blockType(config, environmentInjector, applicationRef, additionalData) as any;
     }
   };
 }

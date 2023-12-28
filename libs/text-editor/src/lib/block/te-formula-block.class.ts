@@ -1,4 +1,3 @@
-import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
 import {ToolboxConfig, TunesMenuConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {ClRichTextFormula} from '@monorepo/core-lib';
 import {Type} from '@angular/core';
@@ -27,13 +26,13 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
     return TeFormulaBlock.TAG_NAME;
   }
 
-  initInputs(data: BlockToolData): void {
+  initInputs(data: ClRichTextFormula): void {
     this.componentInstance.formulaTitle = data?.title;
     this.componentInstance.caption = data?.caption;
     this.componentInstance.formula$.next(data?.formula);
   }
 
-  save(): BlockToolData {
+  save(): ClRichTextFormula {
     return {
       formula: this.componentInstance.formula$.value,
       title: this.componentInstance.formulaTitle,

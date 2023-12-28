@@ -2,13 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LabReport, LabReportContent} from '../../../../../lab-core/model/entities/lab-report.entity';
 import {LabReportService} from '../../../../../lab-core/entity-service/lab-report.service';
 import {ActivatedRoute} from '@angular/router';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDebouncer,
-  FlDialogService,
-  FlTextEditorConfig
-} from '@monorepo/front-core-lib';
+import {FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService} from '@monorepo/front-core-lib';
 import {
   LabReportFormDialogComponent,
   LabReportFormDialogInput
@@ -21,9 +15,9 @@ import {
   LabValidateObjectDialogInput
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
 import {LabProject} from '../../../../../lab-core/model/entities/lab-project.class';
-import {LabReportTextEditorConfig} from '../../lab-report-text-editor-config.class';
 import {LabReportTemplateService} from '../../../../../lab-core/entity-service/lab-report-template.service';
 import {LabReportTemplate} from '../../../../../lab-core/model/entities/lab-report-template.entity';
+import {LabReportTextEditorConfig} from '../../lab-report-text-editor-config.class';
 
 @Component({
   selector: 'lab-report-detail-page',
@@ -36,12 +30,11 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
   report$: Observable<LabReport>;
   content: LabReportContent;
 
-  textEditorConfig: FlTextEditorConfig;
+  textEditorConfig: LabReportTextEditorConfig;
 
   syncObjectFunc: (id: string) => Observable<LabReport>;
 
   createTemplateLoading: boolean = false;
-
 
   private contentDebouncer: FlDebouncer<LabReportContent>;
 
@@ -68,7 +61,7 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
 
   private init(id: string): void {
     this.state.init(id);
-    this.textEditorConfig = new LabReportTextEditorConfig(this.reportService, this.dialogService, id);
+    this.textEditorConfig = new LabReportTextEditorConfig(id, this.reportService);
     this.report$ = this.state.getReport$();
     this.state.getContent$().subscribe(
       content => this.content = content

@@ -7,6 +7,10 @@ import {
   FlCorePipeModule,
   FlDialogModule,
   FlFormulaModule,
+  FlImageModule,
+  FlInputFileModule,
+  FlLoaderModule,
+  FlResizeModule,
   FlTranslateModule,
   FlTranslateService
 } from '@monorepo/front-core-lib';
@@ -21,6 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {TeLinkDialogComponent} from './component/te-link-dialog/te-link-dialog.component';
 import {TeVideoComponent} from './component/te-video/te-video.component';
+import {TeFigureComponent} from './component/te-figure/te-figure.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,7 @@ import {TeVideoComponent} from './component/te-video/te-video.component';
     TeTitleCaptionComponent,
     TeLinkDialogComponent,
     TeVideoComponent,
+    TeFigureComponent,
   ],
   exports: [
     TeTextEditorComponent,
@@ -44,6 +50,10 @@ import {TeVideoComponent} from './component/te-video/te-video.component';
     FlTranslateModule,
     FlCoreDirectiveModule,
     FlCorePipeModule,
+    FlImageModule,
+    FlResizeModule,
+    FlInputFileModule,
+    FlLoaderModule,
 
     MatDialogModule,
     MatFormFieldModule,

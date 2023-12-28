@@ -3,8 +3,6 @@
 @mixin _te-text-editor-dark($mat-theme) {
 
   te-text-editor {
-    .cdx-block,
-    .ce-header,
     .inlineToolButton,
     .ce-toolbar__plus,
     .ce-toolbar__settings-btn,
@@ -14,9 +12,7 @@
     }
 
     .ce-toolbar__plus:hover,
-    .ce-toolbar__settings-btn:hover,
-    .cdx-loader,
-    .cdx-button {
+    .ce-toolbar__settings-btn:hover {
       color: white;
       background-color: #262626;
     }
@@ -47,6 +43,10 @@
 
     .cdx-search-field__input {
       color: white;
+    }
+
+    .ce-block--selected .ce-block__content {
+      background-color: #2f2f2f;
     }
 
     // TODO improve

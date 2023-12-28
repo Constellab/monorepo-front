@@ -1,3 +1,4 @@
+declare module '@editorjs/paragraph';
 declare module '@editorjs/header';
 declare module '@editorjs/nested-list';
 declare module '@editorjs/code';

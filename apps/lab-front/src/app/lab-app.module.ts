@@ -33,10 +33,6 @@ import {LabApiErrorService} from './lab-core/service/lab-api-error.service';
 import {LabApiServiceConfig} from './lab-core/service/lab-api-module.config';
 import {LabAppRoutingModule} from './lab-app-routing.module';
 import {LabTagService} from './lab-core/entity-service/lab-tag.service';
-import {LabReportContentViewBlot} from './lab-report/module/lab-report-detail-page/lab-report-content-view.class';
-import {
-  LabReportContentViewComponent
-} from './lab-report/module/lab-report-detail-page/component/lab-report-content-view/lab-report-content-view.component';
 import {RvResourceViewModule} from '@monorepo/resource-view';
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {LabTdServiceConfig} from './lab-core/service/lab-td-service.config';
@@ -105,7 +101,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlTagModule.forRoot(LabTagService),
     FlTextEditorModule.forRoot({
       blots: [
-        {blot: LabReportContentViewBlot, componentType: LabReportContentViewComponent},
+        // {blot: LabReportContentViewBlot, componentType: LabReportContentViewComponent},
       ]
     }),
     BnBioNetworkModule.forRoot(LabBioNetworkService),

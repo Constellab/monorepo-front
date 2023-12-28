@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input, OnInit, SecurityContext} from '@angular/core';
+import {Component, Input, OnInit, SecurityContext} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {ClYoutubeHelper} from '@monorepo/core-lib';
 import {TeElementDirective} from '../../model/te-element.directive';
@@ -15,10 +15,8 @@ export class TeVideoComponent extends TeElementDirective implements OnInit {
 
   @Input() url: string;
 
-  @HostBinding('attr.video-title')
   @Input() videoTitle: string;
 
-  @HostBinding('attr.caption')
   @Input() caption: string;
 
   sanitizedUrl: SafeUrl;

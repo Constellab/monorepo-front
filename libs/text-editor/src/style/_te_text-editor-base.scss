@@ -31,6 +31,123 @@
       background-color: mat.get-color-from-palette($accent, 100);
       color: mat.get-color-from-palette($accent, '100-contrast');
     }
+  }
 
+  // force the block to be behind the popover
+  .ce-block__content{
+    z-index: 0;
+  }
+
+  // make the editor scrollable
+  .g-text-editor {
+    padding: 12px 16px;
+    font-family: "Roboto Serif", serif;
+  }
+
+  .g-text-editor {
+    p div {
+      font-weight: 100;
+      line-height: 2em;
+      margin: 1em 0;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 0.8em;
+      margin-bottom: 0.5em;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      border-top: 1px solid var(--hover-color);
+      padding-top: 1.5em;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 200;
+      margin-top: 0.8em;
+      margin-bottom: 0.5em;
+    }
+
+    h4 {
+      font-size: 16px;
+      font-weight: 100;
+      margin-top: 0.8em;
+      margin-bottom: 0.5em;
+    }
+
+    ul, ol {
+      margin-bottom: 1em;
+    }
+
+    li {
+      padding-bottom: 8px;
+      line-height: 2rem;
+    }
+
+    li::before {
+      margin-right: 10px;
+    }
+
+    // customize the bullet marker
+    ul li::before {
+      font-size: 1.5rem;
+      margin-left: -1.5em;
+      vertical-align: bottom;
+    }
+
+    // link
+    a {
+      position: relative;
+      white-space: initial !important;
+      color: var(--light-color);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    // Code block
+    pre.ql-syntax {
+      background-color: var(--card-background);
+      color: var(--color-foreground);
+      margin-top: 2em;
+      margin-bottom: 2em;
+      border-radius: 10px;
+      font-family: "Poppins", "Helvetica Neue", sans-serif;
+    }
+
+    blockquote {
+      margin-top: 2em;
+      margin-bottom: 2em;
+      border-left-color: var(--card-background);
+    }
+
+    code, pre{
+      background-color: var(--card-background);
+      color: var(--color-foreground);
+      padding: 6px 7px;
+      font-weight: bold;
+      font-size: 85%;
+      border-radius: 3px;
+    }
+  }
+
+  // TODO TO fIX
+  .g-quill-block {
+    margin-top: 4em;
+    margin-bottom: 4em;
+    display: block;
+  }
+
+  .g-text-editor-hint a{
+    color: black !important;
   }
 }
