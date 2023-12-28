@@ -1,0 +1,6 @@
+@import "./te_text-editor-base";
+
+@mixin _te-text-editor-light($mat-theme) {
+
+  @include _text-editor-theme-base($mat-theme);
+}

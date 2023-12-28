@@ -4,6 +4,7 @@ import {TeTextEditorComponent} from './component/te-text-editor/te-text-editor.c
 import {TeFormulaComponent} from './component/te-formula/te-formula.component';
 import {
   FlCoreDirectiveModule,
+  FlCorePipeModule,
   FlDialogModule,
   FlFormulaModule,
   FlTranslateModule,
@@ -15,15 +16,19 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {TeLinkDialogComponent} from './component/te-link-dialog/te-link-dialog.component';
+import {TeVideoComponent} from './component/te-video/te-video.component';
 
 @NgModule({
   declarations: [
     TeTextEditorComponent,
     TeFormulaComponent,
     TeTitleCaptionComponent,
+    TeLinkDialogComponent,
+    TeVideoComponent,
   ],
   exports: [
     TeTextEditorComponent,
@@ -32,11 +37,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
 
     FlFormulaModule,
     FlDialogModule,
     FlTranslateModule,
     FlCoreDirectiveModule,
+    FlCorePipeModule,
 
     MatDialogModule,
     MatFormFieldModule,

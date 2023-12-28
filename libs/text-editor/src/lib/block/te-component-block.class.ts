@@ -6,13 +6,13 @@ import {
 } from '@editorjs/editorjs/types/tools/block-tool';
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
-import {FlTextEditorElementDirective} from '../model/te-text-editor-element.directive';
+import {TeElementDirective} from '../model/te-element.directive';
 import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 
 /**
  * Custom abstract class for editor js block to support angular component
  */
-export abstract class TeComponentBlock<T extends FlTextEditorElementDirective> implements BlockTool {
+export abstract class TeComponentBlock<T extends TeElementDirective> implements BlockTool {
 
   protected htmlElement: HTMLElement;
 
@@ -84,17 +84,18 @@ export abstract class TeComponentBlock<T extends FlTextEditorElementDirective> i
 
 /**
  * Factory function to create a block tool constructor for editor js configuration
- * This create a dynamic class to pass the environment injector and application ref class
+ * This creates a dynamic class to pass the environment injector and application ref class
  * @param blockType
  * @param environmentInjector
  * @param applicationRef
  */
-export function teComponentBlockFactory<T extends FlTextEditorElementDirective = FlTextEditorElementDirective>(
+export function teComponentBlockFactory<T extends TeElementDirective = TeElementDirective>(
   blockType: Type<TeComponentBlock<T>>,
   environmentInjector: EnvironmentInjector,
   applicationRef: ApplicationRef): any {
 
 
+  // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
   return class TeClass {
     static toolbox = (blockType as BlockToolConstructable).toolbox;
     static pasteConfig = (blockType as BlockToolConstructable).pasteConfig;

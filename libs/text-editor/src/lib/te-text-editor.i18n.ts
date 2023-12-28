@@ -10,6 +10,16 @@ const teTextEditorI18nFr: FlLangTranslation = {
     title: 'Titre',
     caption: 'Légende',
     ok: 'Ok',
+    hint_classic: 'Aide',
+    hint_warning: 'Warning',
+    hint_scientific: 'Info scientifique',
+    url: 'Url',
+    youtube_video: 'Vidéo youtube',
+    video_url_error: 'L\'url de la vidéo youtube est invalide',
+    not_youtube_link_error: 'Ce n\'est pas un lien de vidéo youtube',
+    header_2: 'Titre 2',
+    header_3: 'Titre 3',
+    header_4: 'Titre 4',
   }
 };
 
@@ -18,6 +28,16 @@ const teTextEditorI18nEn: FlLangTranslation = {
     title: 'Title',
     caption: 'Caption',
     ok: 'Ok',
+    hint_classic: 'Hint',
+    hint_warning: 'Warning',
+    hint_scientific: 'Scientific info',
+    url: 'Url',
+    youtube_video: 'Youtube video',
+    video_url_error: 'Invalid youtube video url',
+    not_youtube_link_error: 'This is not a youtube video url',
+    header_2: 'Header 2',
+    header_3: 'Header 3',
+    header_4: 'Header 4',
   }
 };
 

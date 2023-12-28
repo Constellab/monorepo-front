@@ -1,6 +1,7 @@
 @import "../../../../libs/front-core-lib/src/style/theme/base/base-light-theme";
 @import "../../../../libs/front-core-lib/src/style/theme/quill/quill-theme-light";
 @import "../../../../libs/protocol/src/style/pr-drawflow";
+@import "../../../../libs/text-editor/src/style/te-text-editor-light";
 
 // Style to highlight code in text editor
 @import 'highlight.js/styles/atom-one-light.css';
@@ -10,3 +11,6 @@
 
 // include drawflow theme
 @include drawflow-theme($theme);
+
+// include text editor theme
+@include _te-text-editor-light($theme);

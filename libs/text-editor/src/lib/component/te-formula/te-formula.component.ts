@@ -6,7 +6,7 @@ import {
   FlTextEditorFormulaDialogInput,
   TeFormulaDialogInput
 } from '@monorepo/front-core-lib';
-import {FlTextEditorElementDirective} from '../../model/te-text-editor-element.directive';
+import {TeElementDirective} from '../../model/te-element.directive';
 import {BehaviorSubject} from 'rxjs';
 
 @Component({
@@ -14,7 +14,7 @@ import {BehaviorSubject} from 'rxjs';
   templateUrl: './te-formula.component.html',
   styleUrl: './te-formula.component.scss',
 })
-export class TeFormulaComponent extends FlTextEditorElementDirective {
+export class TeFormulaComponent extends TeElementDirective {
 
   @Input() formulaTitle: string;
 

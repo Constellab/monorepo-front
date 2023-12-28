@@ -1,0 +1,36 @@
+@use '@angular/material' as mat;
+
+
+@mixin _text-editor-theme-base($mat-theme) {
+  $primary: map-get($mat-theme, primary);
+  $accent: map-get($mat-theme, accent);
+  $warn: map-get($mat-theme, warn);
+  $foreground: map-get($mat-theme, foreground);
+
+  te-text-editor {
+
+    .g-te-hint {
+      padding: 1em 2em;
+      border-radius: 10px;
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+
+    // Hint tool
+    .g-te-hint-info {
+      background-color: mat.get-color-from-palette($primary, 100);
+      color: mat.get-color-from-palette($primary, '100-contrast');
+    }
+
+    .g-te-hint-warning {
+      background-color: mat.get-color-from-palette($warn, 100);
+      color: mat.get-color-from-palette($warn, '100-contrast');
+    }
+
+    .g-te-hint-science {
+      background-color: mat.get-color-from-palette($accent, 100);
+      color: mat.get-color-from-palette($accent, '100-contrast');
+    }
+
+  }
+}
