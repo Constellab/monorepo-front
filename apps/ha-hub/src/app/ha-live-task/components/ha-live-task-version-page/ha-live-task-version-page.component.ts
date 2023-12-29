@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'ha-live-task-version-page',
@@ -18,7 +19,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
   textEditorConfig: HaLiveTaskTextEditorConfig;
   isLoading: boolean = true;
   isCreator: boolean = false;
-  brickDependencies: HaBrickVersion[];
+  brickDependencies$: Observable<HaBrickVersion[]>;
 
   constructor(private liveTaskService: HaLiveTaskService,
               private activatedRoute: ActivatedRoute,
@@ -65,9 +66,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
       this.authenticatedUserService.getUser().subscribe(user => {
         this.isCreator = user?.id === this.liveTaskVersion?.liveTask.createdBy.id;
       });
-      this.liveTaskService.getLiveTaskVersionBrickDependencies(liveTaskVersionId).subscribe(brickDependencies => {
-        this.brickDependencies = brickDependencies;
-      });
+      this.brickDependencies$ = this.liveTaskService.getLiveTaskVersionBrickDependencies(liveTaskVersionId);
     });
   }
 

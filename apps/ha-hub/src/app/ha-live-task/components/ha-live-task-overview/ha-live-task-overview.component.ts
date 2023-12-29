@@ -31,21 +31,28 @@ export class HaLiveTaskOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params => {
-      this.liveTaskService.getLiveTaskById(params['id']).subscribe(liveTask => {
-        this.liveTask = liveTask;
-        this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.dialogService, this.liveTask?.id);
-        this.descriptionFormControl.setValue(this.liveTask?.description);
-        this.descriptionFormControl.disable();
-        this.authenticatedUserService.getUser().subscribe(user => {
-          this.isCreator = user?.id === this.liveTask?.createdBy.id;
-        });
-      });
-      this.liveTaskService.getLatestLiveTaskVersionByLiveTaskId(params['id']).subscribe(liveTaskVersion => {
-        this.liveTaskVersion = liveTaskVersion;
-      });
+      this.setupLiveTask(params['id'])
+      this.setupLatestLiveTaskVersion(params['id']);
     });
   }
 
+  setupLatestLiveTaskVersion(id: string): void {
+    this.liveTaskService.getLatestLiveTaskVersionByLiveTaskId(id).subscribe(liveTaskVersion => {
+      this.liveTaskVersion = liveTaskVersion;
+    });
+  }
+
+  private setupLiveTask(id: string): void {
+    this.liveTaskService.getLiveTaskById(id).subscribe(liveTask => {
+      this.liveTask = liveTask;
+      this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.dialogService, this.liveTask?.id);
+      this.descriptionFormControl.setValue(this.liveTask?.description);
+      this.descriptionFormControl.disable();
+      this.authenticatedUserService.getUser().subscribe(user => {
+        this.isCreator = user?.id === this.liveTask?.createdBy.id;
+      });
+    });
+  }
 
   onDescriptionChange(description: Record<string, any>): void {
     this.liveTask.description = description;

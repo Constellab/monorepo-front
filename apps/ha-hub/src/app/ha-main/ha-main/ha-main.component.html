@@ -47,11 +47,6 @@
       <a [routerLink]="loginRoute" mat-flat-button flHide.lt-md>
         {{'login' | translate}}
       </a>
-      <a [routerLink]="loginRoute" mat-icon-button flHide.gt-sm>
-        <mat-icon>
-          login
-        </mat-icon>
-      </a>
       </ng-container>
       <fl-user-profile-picture [user]="user" [matMenuTriggerFor]="userMenu" *ngIf="userConnected$ | async as user"
                                [border]="true">

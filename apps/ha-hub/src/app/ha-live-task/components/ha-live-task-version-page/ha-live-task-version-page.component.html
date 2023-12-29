@@ -22,10 +22,10 @@
             Copy link
           </button>
         </div>
-        <div *ngIf="brickDependencies && brickDependencies.length > 0">
+        <div *ngIf="brickDependencies$">
           <div>{{'necessary_bricks' | translate}} :</div>
           <div class="brick-dependencies-div">
-            <mat-chip *ngFor="let brickDep of brickDependencies">
+            <mat-chip *ngFor="let brickDep of brickDependencies$ | async">
               {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
             </mat-chip>
           </div>

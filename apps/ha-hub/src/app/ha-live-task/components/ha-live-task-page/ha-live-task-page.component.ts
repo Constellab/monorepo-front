@@ -3,6 +3,7 @@ import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.servic
 import {ActivatedRoute, Router} from '@angular/router';
 import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -13,7 +14,7 @@ import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-ver
 export class HaLiveTaskPageComponent implements OnInit {
 
   liveTask: HaLiveTask;
-  brickDependencies: HaBrickVersion[];
+  brickDependencies$: Observable<HaBrickVersion[]>;
   currentTab: string;
 
   constructor(
@@ -30,10 +31,12 @@ export class HaLiveTaskPageComponent implements OnInit {
       }
       this.liveTask = liveTask;
       this.liveTaskService.getLatestLiveTaskVersionByLiveTaskId(this.liveTask.id).subscribe(liveTaskVersion => {
-        this.liveTaskService.getLiveTaskVersionBrickDependencies(liveTaskVersion.id).subscribe(brickDependencies => {
-          this.brickDependencies = brickDependencies;
-        });
+        if (liveTaskVersion == null)
+          return;
+
       })
+
+      this.brickDependencies$ = this.liveTaskService.getLiveTaskBrickDependencies(liveTask.id);
     });
 
     this.currentTab = this.activeRoute.snapshot.firstChild.url[0]?.path;

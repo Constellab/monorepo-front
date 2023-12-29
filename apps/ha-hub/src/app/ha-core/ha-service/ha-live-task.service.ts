@@ -181,6 +181,15 @@ export class HaLiveTaskService {
 
   /**
    * Call http get to get live task version brick dependencies
+   * @param liveTaskId
+   * return the live task version brickVersions
+   */
+  getLiveTaskBrickDependencies(liveTaskId: string): Observable<HaBrickVersion[]> {
+    return this.apiService.get(`${this.route}/${liveTaskId}/brick-dependencies`, HaBrickVersion);
+  }
+
+  /**
+   * Call http get to get live task version brick dependencies
    * @param liveTaskVersionId
    * return the live task version brickVersions
    */
