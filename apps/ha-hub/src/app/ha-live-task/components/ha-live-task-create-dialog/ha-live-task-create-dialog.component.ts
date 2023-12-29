@@ -23,7 +23,7 @@ export type HaCreateLiveTaskInput = FlFormDialogInput<HaCreateLiveTaskDto>;
 })
 export class HaLiveTaskCreateDialogComponent extends FlFormDialogAbstractDirective<HaCreateLiveTaskDto, HaLiveTaskVersion> implements OnInit {
 
-  userSpaces: HaSpace[];
+  userSpaces$: Observable<HaSpace[]>;
   inputFile: any;
 
   constructor(snackBarService: FlSnackBarService,
@@ -36,11 +36,7 @@ export class HaLiveTaskCreateDialogComponent extends FlFormDialogAbstractDirecti
   }
 
   ngOnInit(): void {
-    this.spaceService.getSpacesOfCurrentUser().subscribe(spaces => {
-      if (spaces && spaces.length > 0) {
-        this.userSpaces = spaces;
-      }
-    });
+    this.userSpaces$ = this.spaceService.getSpacesOfCurrentUser();
 
     this.init();
   }

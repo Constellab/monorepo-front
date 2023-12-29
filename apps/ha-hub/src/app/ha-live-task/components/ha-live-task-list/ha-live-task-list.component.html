@@ -19,7 +19,7 @@
           {{'my_live_tasks' | translate}}
         </mat-chip-option>
         <div class="spacer-tiny-v2"></div>
-        <mat-chip-option *ngFor="let space of  listSpaces" [color]="'warn'" [value]="isSelected(space.id)"
+        <mat-chip-option *ngFor="let space of  listSpaces" color="warn" [value]="isSelected(space.id)"
                          (click)="selectSpace(space.id)" class="space-list-option">
           {{space.name}}
         </mat-chip-option>

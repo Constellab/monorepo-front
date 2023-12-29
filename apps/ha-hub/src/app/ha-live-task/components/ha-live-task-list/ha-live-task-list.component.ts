@@ -10,9 +10,8 @@ import {
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import {HaLiveTask, HaLiveTaskDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
+import {HaLiveTaskDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import {HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 
 @Component({
   selector: 'ha-live-task-list',
@@ -21,8 +20,6 @@ import {HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 })
 export class HaLiveTaskListComponent implements OnInit {
 
-  user: HaUser;
-  liveTasks: HaLiveTask[];
   liveTasksPaginated: HaLiveTaskDatasourcePaginated;
   listSpaces: HaSpace[] = [];
   spaceIdFilter: string[] = [];
@@ -39,7 +36,6 @@ export class HaLiveTaskListComponent implements OnInit {
     this.liveTasksPaginated = this.liveTaskService.getAllPaginated();
 
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
-      this.user = user;
       if(user) {
         this.spaceService.getSpacesOfCurrentUser().subscribe((spaces: HaSpace[]) => {
           this.listSpaces = spaces;

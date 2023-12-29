@@ -1,15 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  HostListener,
-  Input,
-  OnChanges,
-  Output,
-  Renderer2,
-  SimpleChanges
-} from '@angular/core';
+import {Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, Renderer2} from '@angular/core';
 import {DateTime} from 'luxon';
 import {ClDateHelper} from '@monorepo/core-lib';
 import {FlKeyboardKey} from '../../../../utils/fl-keyboard.helper';
@@ -17,7 +6,7 @@ import {FlKeyboardKey} from '../../../../utils/fl-keyboard.helper';
 @Directive({
   selector: '[flElementEditable]',
 })
-export class FlElementEditableDirective implements OnChanges {
+export class FlElementEditableDirective {
 
   /**
    * Make element editable
@@ -89,24 +78,10 @@ export class FlElementEditableDirective implements OnChanges {
     }
   }
 
-  @HostListener('paste', ['$event']) onPaste(event: ClipboardEvent): void {
-    event.preventDefault();
-
-    let text = event.clipboardData.getData('text/plain');
-
-    this.setTextFormatted(text);
-  }
-
   constructor(private elementRef: ElementRef,
               private renderer: Renderer2) {
     // add a default class to the element
     renderer.addClass(elementRef.nativeElement, 'g-fl-element-editable');
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['flElementValue']) {
-      this.updateContent(this.flElementValue);
-    }
   }
 
   private setEditable(): void {
@@ -128,22 +103,4 @@ export class FlElementEditableDirective implements OnChanges {
     }
   }
 
-  private setTextFormatted(text: string): void {
-    if (document.execCommand) {
-      document.execCommand('insertText', false, text);
-    } else {
-      const range = window.getSelection().getRangeAt(0);
-      range.deleteContents();
-      range.insertNode(document.createTextNode(text));
-    }
-  }
-
-  private updateContent(content: string): void {
-    // Vous pouvez transformer le contenu ici si nécessaire, par exemple :
-    // Remplacer les retours à la ligne et les tabulations
-    const formattedContent = content?.replace(/\n/g, '\n').replace(/\t/g, '\t');
-
-    // Mettre à jour le contenu de l'élément
-    this.elementRef.nativeElement.innerText = formattedContent;
-  }
 }
