@@ -5,6 +5,7 @@ import {FlCodeEditorLanguage, FlDebouncer, FlDialogService, FlSnackBarService} f
 import {FormControl} from '@ngneat/reactive-forms';
 import {TdParamSpecParamSet} from '@monorepo/technical-doc';
 import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
+import {HaCardBackground} from '../../../ha-core/ha-component/ha-card/ha-card.component';
 
 @Component({
   selector: 'ha-live-task-version-detail',
@@ -117,4 +118,6 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.codeDebouncer.complete();
   }
+
+  protected readonly HaCardBackground = HaCardBackground;
 }

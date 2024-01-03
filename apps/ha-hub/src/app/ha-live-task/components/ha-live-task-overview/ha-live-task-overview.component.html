@@ -1,24 +1,26 @@
-<div class="card-v2 description-div">
-  <div class="card-title-v2 card-header spacing-4-v2">
-    <div>
-      {{'task_description' | translate}}
+<div class="description-div">
+  <ha-card>
+    <div class="card-title-v2 card-header spacing-4-v2">
+      <div>
+        {{'task_description' | translate}}
+      </div>
+      <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()" *ngIf="isCreator">
+        <fl-text-icon [iconPosition]="'end'">
+          <mat-icon>{{descriptionEditorDisabled ? 'edit' : 'save'}}</mat-icon>
+          {{descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate)}}
+        </fl-text-icon>
+      </button>
     </div>
-    <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()" *ngIf="isCreator">
-      <fl-text-icon [iconPosition]="'end'">
-        <mat-icon>{{descriptionEditorDisabled ? 'edit' : 'save'}}</mat-icon>
-        {{descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate)}}
-      </fl-text-icon>
-    </button>
-  </div>
-  <div class="description-content-div" *ngIf="liveTask">
-    <fl-text-editor
-      [class]="descriptionEditorDisabled ? 'description-editor' : 'description-editor-active'" mode="JSON"
-      [disabled]="descriptionEditorDisabled || !isCreator"
-      [config]="textEditorConfig" (textChange)="onDescriptionChange($event)" [noPadding]="true"
-      [formControl]="descriptionFormControl"
-      [baseDelta]="liveTask.description"
-      [placeholder]="'live_task_description_place_holder' | translate"></fl-text-editor>
-  </div>
+    <div class="description-content-div" *ngIf="liveTask">
+      <fl-text-editor
+        [class]="descriptionEditorDisabled ? 'description-editor' : 'description-editor-active'" mode="JSON"
+        [disabled]="descriptionEditorDisabled || !isCreator"
+        [config]="textEditorConfig" (textChange)="onDescriptionChange($event)" [noPadding]="true"
+        [formControl]="descriptionFormControl"
+        [baseDelta]="liveTask.description"
+        [placeholder]="'live_task_description_place_holder' | translate"></fl-text-editor>
+    </div>
+  </ha-card>
 </div>
 
 <ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion" [liveTaskVersion]="liveTaskVersion" [isCreator]="isCreator"

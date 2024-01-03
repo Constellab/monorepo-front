@@ -14,17 +14,18 @@
   gap: 32px;
 }
 
-.live-task-result-card{
+.live-task-result-card-div{
   max-width: 717px;
   width: auto;
+}
+
+.live-task-result-card{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-
 .live-task-result-card-inner{
-  background-color: var(--main-background);
   width: 372px;
   //TODO: Check avec Leo si la height en auto c'est mieux ?
   //height: auto;
