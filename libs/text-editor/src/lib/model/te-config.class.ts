@@ -18,16 +18,6 @@ import {TeCodeBlock} from '../block/te-code-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
-export interface TeImageUploaderResponse {
-  success: number;
-  file: {
-    url: string;
-    height?: number;
-    width?: number;
-  };
-}
-
-export type TeImageUploader = (file: File) => Promise<TeImageUploaderResponse>;
 
 export abstract class TeConfig {
 

@@ -76,7 +76,15 @@ export class TeHintBlock implements BlockTool {
 
     if (this.data.content) {
       const sanitizer = flRootInjector.get(DomSanitizer);
-      this.htmlElement.innerHTML = sanitizer.sanitize(SecurityContext.HTML, this.data.content);
+      // convert the \n to divs
+      const divs = this.data.content.split('\n');
+      for (const div of divs) {
+        if (!div || div.length === 0) {
+          this.htmlElement.innerHTML += sanitizer.sanitize(SecurityContext.HTML, `<div><br></div>`);
+        } else {
+          this.htmlElement.innerHTML += sanitizer.sanitize(SecurityContext.HTML, `<div>${div}</div>`);
+        }
+      }
     }
 
     return this.htmlElement;
@@ -84,10 +92,13 @@ export class TeHintBlock implements BlockTool {
 
 
   save(): TeHintBlockData {
-    const sanitizer = flRootInjector.get(DomSanitizer);
     return {
-      hintType: 'info',
-      content: sanitizer.sanitize(SecurityContext.HTML, this.htmlElement.innerHTML),
+      hintType: this.data.hintType,
+      // save the content without the divs and replace them by \n
+      content: this.htmlElement.innerHTML
+        .replace(/<\/div><div>/g, '\n')
+        .replace(/<div>/g, '')
+        .replace(/<\/div>/g, ''),
     };
   }
 }

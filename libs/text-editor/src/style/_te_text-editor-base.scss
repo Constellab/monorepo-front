@@ -10,16 +10,119 @@
 
   // make the editor scrollable
   .g-text-editor {
-    padding: 12px 16px;
     font-family: "Roboto Serif", serif;
   }
 
+  // tooltip
+  .ct__content {
+    background-color: var(--hover-color);
+    color: var(--light-color);
+    border-radius: 5px;
+  }
+
+  .codex-editor__redactor {
+    padding-bottom: 0 !important;
+  }
+
+
   .g-text-editor {
+    font-size: 13px;
 
     // force the block to be behind the popover
     .ce-block__content {
-      z-index: 0;
+      //z-index: 0;
     }
+
+    .ce-block__content,
+    .ce-toolbar__content {
+      max-width: unset;
+    }
+
+    .inlineToolButton,
+    .ce-toolbar__plus,
+    .ce-toolbar__settings-btn,
+    .ce-popover__search {
+      background-color: var(--card-background);
+      color: var(--light-color);
+    }
+
+    .ce-toolbar__plus:hover,
+    .ce-toolbar__settings-btn:hover {
+      color: var(--light-color);
+      background-color: var(--hover-color);
+    }
+
+
+    //.cdx-button:hover {
+    //  background-color: #2f2f2f;
+    //}
+
+    ////////////////////////////// POPUP TOOLBAR //////////////////////////////
+
+    .ce-popover {
+      //background-color: red;
+      --color-border: var(--hover-color);
+      --color-shadow: transparent;
+      --color-background: var(--card-background);
+      --color-text-primary: var(--light-color);
+      --color-text-secondary: var(--light-color);
+      --color-border-icon: var(--hover-color);
+      --color-border-icon-disabled: #EFF0F1;
+      --color-text-icon-active: var(--light-color);
+      --color-background-icon-active: var(--hover-color);
+      --color-background-item-focus: var(--hover-color);
+      --color-shadow-item-focus: var(--light-color);
+      --color-background-item-hover: var(--hover-color);
+      --color-background-item-confirm: var(--hover-color);
+      --color-background-item-confirm-hover: var(--hover-color);
+    }
+
+
+    .ce-popover-item__icon {
+      background-color: var(--card-background);
+    }
+
+    .ce-popover__nothing-found-message {
+      color: var(--light-color);
+    }
+
+    .cdx-search-field__input, .cdx-search-field__icon svg {
+      color: var(--light-color);
+    }
+
+    .cdx-search-field {
+      border-color: var(--hover-color);
+    }
+
+    ///////////////////////// INLINE TOOLBAR & CONVERSION TOOL/////////////////////////
+    .ce-inline-toolbar, .ce-conversion-toolbar, .ce-conversion-tool__icon {
+      color: var(--light-color);
+      background-color: var(--card-background);
+      border-color: var(--hover-color);
+    }
+
+    .ce-conversion-tool--focused {
+      background-color: var(--hover-color) !important;
+    }
+
+    .ce-conversion-tool:hover, .ce-inline-tool:hover, .ce-inline-toolbar__dropdown:hover {
+      background-color: var(--hover-color);
+    }
+
+    // background color for the current selected block (when clicking on tune button, or selecting with mouse)
+    .ce-block--selected .ce-block__content {
+      //background: transparent;
+      background: var(--hover-color);
+    }
+
+    // input used in inline tool (for link for example)
+    .ce-inline-tool-input {
+      background-color: var(--card-background);
+      color: var(--light-color);
+    }
+
+
+    ///////////////////////// BLOCK /////////////////////////
 
     .g-te-block {
       margin-top: 2em;
@@ -27,10 +130,15 @@
       display: block;
     }
 
+    ///////////////////////// PARAGRAPH /////////////////////////
     .ce-paragraph {
       padding: 0;
+      margin: 0;
+      font-weight: 100;
+      line-height: 1.35em;
     }
 
+    ///////////////////////// HEADER /////////////////////////
     h1 {
       font-size: 24px;
       font-weight: bold;
@@ -61,27 +169,26 @@
       margin-bottom: 0.5em;
     }
 
-    ul, ol {
+    //////////////////// LIST ////////////////////
+    // add a margin at the bottom of the list block
+    .cdx-nested-list:not(.cdx-nested-list__item-children) {
       margin-bottom: 1em;
+      margin-left: 1.5em;
     }
 
-    li {
-      padding-bottom: 8px;
-      line-height: 2rem;
+    .cdx-nested-list__item-children {
+      margin-left: 1.5em;
     }
 
-    li::before {
+    .cdx-nested-list__item:before {
       margin-right: 10px;
     }
 
-    // customize the bullet marker
-    ul li::before {
-      font-size: 1.5rem;
-      margin-left: -1.5em;
-      vertical-align: bottom;
+    .cdx-nested-list__item {
+      margin: 4px 0;
     }
 
-    // link
+    ///////////////////////// LINK /////////////////////////
     a {
       position: relative;
       white-space: initial !important;
@@ -94,25 +201,32 @@
       text-decoration: underline;
     }
 
+    ///////////////////////// BLOCKQUOTE /////////////////////////
     blockquote {
       margin-top: 2em;
       margin-bottom: 2em;
       border-left-color: var(--card-background);
     }
 
-    code, pre {
+    ///////////////////////// CODE INLINE /////////////////////////
+    code {
       background-color: var(--card-background);
       color: var(--color-foreground);
-      padding: 6px 7px;
-      font-weight: bold;
+      padding: 5px 7px;
+      //font-weight: bold;
       font-size: 85%;
       border-radius: 3px;
     }
 
-    // Hint tool
+    ///////////////////////// HINT /////////////////////////
     .g-te-hint {
       padding: 1em 2em;
       border-radius: 10px;
+      line-height: 1.35em;
+
+      a {
+        color: black;
+      }
     }
 
     .g-te-hint-info {
@@ -132,6 +246,32 @@
 
     .g-text-editor-hint a {
       color: black !important;
+    }
+
+    ///////////////////////// TABLE /////////////////////////
+    .tc-toolbox {
+      --toggler-dots-color: var(--hover-color);
+      --toggler-dots-color-hovered: var(--light-color);
+    }
+
+    .tc-popover, .tc-wrap {
+      --color-border: var(--hover-color);
+      --color-background: var(--card-background);
+      --color-background-hover: var(--hover-color);
+      --color-text-secondary: var(--hover-color);
+    }
+
+    //.tc-cell
+    .tc-cell:first-child {
+      border-left: 1px solid var(--hover-color);
+    }
+
+    .tc-add-column {
+      border-right: 1px solid var(--hover-color);
+    }
+
+    .tc-add-row:hover svg, .tc-add-column:hover svg {
+      color: var(--light-color);
     }
   }
 }

@@ -45,7 +45,7 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
     const tools = super.getTools(envInjector, applicationRef);
 
     // add the view block
-    tools.view = teComponentBlockFactory(LabReportContentViewBlot, envInjector, applicationRef, this.reportId);
+    tools.resourceView = teComponentBlockFactory(LabReportContentViewBlot, envInjector, applicationRef, this.reportId);
 
     // configure and add the image block
     const imageConfig = new LabReportTextEditorImageConfig(this.reportService);

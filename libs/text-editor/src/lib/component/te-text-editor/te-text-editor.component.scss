@@ -1,7 +1,11 @@
+:host{
+  display: flex;
+  flex-direction: column; // TODO TO REMOVE
+}
 
 .text-container {
   // TODO to update
-  border: 1px solid white;
+  //border: 1px solid white;
 }
 
 .button {

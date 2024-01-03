@@ -13,6 +13,7 @@ export * from './lib/component/te-video/te-video.component';
 // Model
 export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
+export * from './lib/model/te-quill-migrator';
 
 // Block
 export * from './lib/block/te-code-block.class';
