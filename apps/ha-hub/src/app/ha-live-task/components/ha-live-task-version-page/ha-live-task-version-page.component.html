@@ -13,23 +13,25 @@
           {{liveTaskVersion?.createdAt | flDate: 'dd/MM/yyyy'}}
         </div>
       </div>
-      <div class="card-v2 live-task-info-card">
-        <div class="live-task-info-card-bt-div">
-          <button mat-stroked-button color="primary" class="spacing-6-v2" *ngIf="liveTaskVersion.versionState == 'DRAFT' && isCreator" (click)="publishLiveTaskVersion()">
-            Publish
-          </button>
-          <button mat-stroked-button color="primary" class="spacing-6-v2 copy-link-bt">
-            Copy link
-          </button>
-        </div>
-        <div *ngIf="brickDependencies$">
-          <div>{{'necessary_bricks' | translate}} :</div>
-          <div class="brick-dependencies-div">
-            <mat-chip *ngFor="let brickDep of brickDependencies$ | async">
-              {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
-            </mat-chip>
+      <div class="live-task-info-card">
+        <ha-card>
+          <div class="live-task-info-card-bt-div">
+            <button mat-stroked-button color="primary" class="spacing-6-v2" *ngIf="liveTaskVersion.versionState == 'DRAFT' && isCreator" (click)="publishLiveTaskVersion()">
+              Publish
+            </button>
+            <button mat-stroked-button color="primary" class="spacing-6-v2 copy-link-bt">
+              Copy link
+            </button>
           </div>
-        </div>
+          <div *ngIf="brickDependencies$">
+            <div>{{'necessary_bricks' | translate}} :</div>
+            <div class="brick-dependencies-div">
+              <mat-chip *ngFor="let brickDep of brickDependencies$ | async">
+                {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
+              </mat-chip>
+            </div>
+          </div>
+        </ha-card>
       </div>
     </div>
     <ha-live-task-version-detail [liveTaskVersion]="liveTaskVersion" [isCreator]="isCreator" [isEditable]="liveTaskVersion.versionState == 'DRAFT'"

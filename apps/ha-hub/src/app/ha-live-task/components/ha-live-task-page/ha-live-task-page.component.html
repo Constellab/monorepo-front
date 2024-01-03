@@ -4,8 +4,11 @@
         <h1 class="h1-v2 spacing-6-v2">{{liveTask.title}}</h1>
 
         <a [routerLink]="'versions'">
-          <div class="card-v2 no-published-version-div spacing-6-v2" *ngIf="liveTask.latestPublishVersion == null">
-            {{'live_task_with_no_published_version' | translate}}
+          <div class="spacing-6-v2" *ngIf="liveTask.latestPublishVersion == null">
+            <ha-card [background]="'warn'">
+              {{'live_task_with_no_published_version' | translate}}
+            </ha-card>
+
           </div>
         </a>
 
@@ -24,40 +27,44 @@
           </div>
         </div>
       </div>
-      <div class="card-v2 live-task-info-card">
-        <div class="card-row spacing-6-v2">
-          <div class="brick-infos-div">
-            <div class="version-info-div">
-              <div class="spacing-4-v2"><b>{{'version' | translate}} :</b></div>
-              <div *ngIf="liveTask.latestPublishVersion; else notPublishedDiv">{{'version' | translate}} {{liveTask.latestPublishVersion}}</div>
+      <div class="live-task-info-card">
+        <ha-card>
+          <div class="live-task-info-card-div">
+            <div class="card-row spacing-6-v2">
+              <div class="brick-infos-div">
+                <div class="version-info-div">
+                  <div class="spacing-4-v2"><b>{{'version' | translate}} :</b></div>
+                  <div *ngIf="liveTask.latestPublishVersion; else notPublishedDiv">{{'version' | translate}} {{liveTask.latestPublishVersion}}</div>
+                </div>
+                <div class="task-status-info-div">
+                  <div class="spacing-4-v2">{{'task_status' | translate}} :</div>
+                  <button mat-stroked-button color="primary" class="g-button-small">
+                    {{'copy_link' | translate}}
+                  </button>
+                </div>
+              </div>
+              <div class="published-bt-div">
+                <button mat-stroked-button color="primary" class="published-bt g-button-small">
+                  {{'published' | translate}}
+                </button>
+              </div>
             </div>
-            <div class="task-status-info-div">
-              <div class="spacing-4-v2">{{'task_status' | translate}} :</div>
-              <button mat-stroked-button color="primary" class="g-button-small">
-                {{'copy_link' | translate}}
+            <div class="task-type-div spacing-6-v2">
+              <div class="spacing-4-v2">{{'task_type' | translate}} :</div>
+              <button mat-stroked-button class="g-button-small" [color]="liveTask.space == null ? 'accent' : 'warn'">
+                {{liveTask.space == null ? ('public' | translate) : liveTask.space.name}}
               </button>
             </div>
+            <div class="necessary-bricks-div" *ngIf="brickDependencies$">
+              <div>{{'necessary_bricks' | translate}} :</div>
+              <div class="brick-dependencies-div">
+                <mat-chip *ngFor="let brickDep of brickDependencies$ | async">
+                  {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
+                </mat-chip>
+              </div>
+            </div>
           </div>
-          <div class="published-bt-div">
-            <button mat-stroked-button color="primary" class="published-bt g-button-small">
-              {{'published' | translate}}
-            </button>
-          </div>
-        </div>
-        <div class="task-type-div spacing-6-v2">
-          <div class="spacing-4-v2">{{'task_type' | translate}} :</div>
-          <button mat-stroked-button class="g-button-small" [color]="liveTask.space == null ? 'accent' : 'warn'">
-            {{liveTask.space == null ? ('public' | translate) : liveTask.space.name}}
-          </button>
-        </div>
-        <div class="necessary-bricks-div" *ngIf="brickDependencies$">
-          <div>{{'necessary_bricks' | translate}} :</div>
-          <div class="brick-dependencies-div">
-            <mat-chip *ngFor="let brickDep of brickDependencies$ | async">
-              {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
-            </mat-chip>
-          </div>
-        </div>
+        </ha-card>
       </div>
     </div>
 

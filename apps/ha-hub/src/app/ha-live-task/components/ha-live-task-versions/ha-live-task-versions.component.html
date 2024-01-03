@@ -5,23 +5,27 @@
     <input flInputFile type="file" [strictMode]="true" [autoClearHtmlInput]="true" accept="application/json" (fileChange)="onFileSelected($any($event))">
   </fl-input-file-container>
   <a *ngFor="let liveTaskVersion of liveTaskVersions" [routerLink]="'../detail/' + liveTaskVersion.id">
-    <div class="card-v2 live-task-version-card">
-      <div class="inner-card-v2 live-task-version-inner-card">
-        <h2 class="h2-v2">{{'version' | translate}} {{liveTaskVersion.version}}</h2>
-        <div *ngIf="liveTaskVersion.versionState == 'PUBLISHED'; else notPublishedDiv">
-          {{'published' | translate}}: {{liveTaskVersion.createdAt | flDate: 'dd/MM/yyyy'}}
+    <ha-card>
+      <div class="live-task-version-card">
+        <div class="live-task-version-inner-card">
+          <ha-card [innerCard]="true" [background]="'main'">
+            <h2 class="h2-v2">{{ 'version' | translate }} {{ liveTaskVersion.version }}</h2>
+            <div *ngIf="liveTaskVersion.versionState == 'PUBLISHED'; else notPublishedDiv">
+              {{ 'published' | translate }}: {{ liveTaskVersion.createdAt | flDate: 'dd/MM/yyyy' }}
+            </div>
+          </ha-card>
         </div>
-
+        <div class="live-task-version-bt-div">
+          <button mat-stroked-button class="g-button-small" type="button" color="primary"
+                  (click)="onCopyCode(liveTaskVersion, $event)">
+            {{ 'copy_code' | translate }}
+          </button>
+          <button mat-stroked-button class="g-button-small" type="button" color="primary" (click)="onCopyLink($event)">
+            {{ 'copy_link' | translate }}
+          </button>
+        </div>
       </div>
-      <div class="live-task-version-bt-div">
-        <button mat-stroked-button class="g-button-small" type="button" color="primary" (click)="onCopyCode(liveTaskVersion, $event)">
-          {{'copy_code' | translate}}
-        </button>
-        <button mat-stroked-button class="g-button-small" type="button" color="primary" (click)="onCopyLink($event)">
-          {{'copy_link' | translate}}
-        </button>
-      </div>
-    </div>
+    </ha-card>
   </a>
 </div>
 
