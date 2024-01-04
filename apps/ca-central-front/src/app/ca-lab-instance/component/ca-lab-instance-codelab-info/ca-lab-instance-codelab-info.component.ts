@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CaLabInstance} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
 import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
-import {FlClipboardService, FlSnackBarService} from '@monorepo/front-core-lib';
+import {FlClipboardService} from '@monorepo/front-core-lib';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 /**
@@ -22,8 +22,7 @@ export class CaLabInstanceCodelabInfoComponent implements OnInit {
   showCodeLabToken = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) labInstance: CaLabInstance,
-              private clipboardService: FlClipboardService,
-              private snackBarService: FlSnackBarService) {
+              private clipboardService: FlClipboardService) {
     this.labInstance = labInstance;
   }
 
@@ -33,10 +32,8 @@ export class CaLabInstanceCodelabInfoComponent implements OnInit {
   }
 
   copyToTokenToClipboard(): void {
-    const result = this.clipboardService.copy(this.labInstance.codelabToken);
-    if (result) {
-      this.snackBarService.openSuccessMessage({text: 'codelab_token_copied', translateText: true});
-    }
+    this.clipboardService.copy(this.labInstance.codelabToken,
+      {text: 'codelab_token_copied', translateText: true});
   }
 
   toggleShowCodeLabToken(): void {

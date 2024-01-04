@@ -1,4 +1,9 @@
-<rv-report-resource-view *ngIf="view$" [resourceId]="resourceId" [view$]="view$"
-                         [viewConfig]="viewConfig" [(viewTitle)]="viewTitle" [(caption)]="caption"
-                         [editable]="!disabled">
-</rv-report-resource-view>
+@defer (on viewport) {
+
+  <rv-report-resource-view *ngIf="view$" [resourceId]="resourceId" [view$]="view$"
+                           [viewConfig]="viewConfig" [(viewTitle)]="viewTitle" [(caption)]="caption"
+                           [editable]="!disabled">
+  </rv-report-resource-view>
+}@placeholder {
+  <div></div>
+}

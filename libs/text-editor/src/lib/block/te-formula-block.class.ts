@@ -48,7 +48,7 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
   renderSettings(): HTMLElement | TunesMenuConfig {
     return [{
       icon: '<span class="material-icons-outlined">edit</span>',
-      title: this.translateService.translate('flTextEditor.edit_formula'),
+      title: this.translateService.translate('flFormula.edit_formula'),
       onActivate: () => this.componentInstance.updateFormula(),
     }];
   }

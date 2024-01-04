@@ -1,18 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {LabShareLink} from '../../../../model/entities/lab-share.entity';
 import {LabShareLinkService} from '../../../../entity-service/lab-share-link.service';
 import {
   FlClipboardService,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
-  FlDialogService,
-  FlSnackBarService
+  FlDialogService
 } from '@monorepo/front-core-lib';
 import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
-import {LabShareService} from '../../../../entity-service/lab-share.service';
 
 /**
  * Action menu for a share link. To update, delete, copy the link or open entity
@@ -22,7 +20,7 @@ import {LabShareService} from '../../../../entity-service/lab-share.service';
   templateUrl: './lab-share-link-actions-menu.component.html',
   styleUrls: ['./lab-share-link-actions-menu.component.scss']
 })
-export class LabShareLinkActionsMenuComponent implements OnInit {
+export class LabShareLinkActionsMenuComponent {
 
   @Input() shareLink: LabShareLink;
 
@@ -32,20 +30,12 @@ export class LabShareLinkActionsMenuComponent implements OnInit {
   @Output() delete: EventEmitter<LabShareLink> = new EventEmitter();
 
   constructor(private shareLinkService: LabShareLinkService,
-              private shareService: LabShareService,
               private dialogService: FlDialogService,
-              private clipboard: FlClipboardService,
-              private snackBarService: FlSnackBarService) {
-  }
-
-  ngOnInit(): void {
+              private clipboard: FlClipboardService) {
   }
 
   copyLinkToClipboard(): void {
-    const result = this.clipboard.copy(this.shareLink.link);
-    if (result) {
-      this.snackBarService.openSuccessMessage({text: 'biox.share_link_copied', translateText: true});
-    }
+    this.clipboard.copy(this.shareLink.link, {text: 'biox.share_link_copied', translateText: true});
   }
 
   openUpdateDialog(): void {

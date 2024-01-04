@@ -8,6 +8,7 @@ import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
 import {TeElementDirective} from '../model/te-element.directive';
 import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
+import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
 
 /**
  * Custom abstract class for editor js block to support angular component
@@ -30,6 +31,10 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
 
   static get isReadOnlySupported(): boolean {
     return true;
+  }
+
+  static get pasteConfig(): PasteConfig {
+    return false;
   }
 
   static get translateService(): FlTranslateService {
@@ -62,7 +67,7 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
 
   render(): HTMLElement {
     this.htmlElement = document.createElement(this.getTagName());
-    this.htmlElement.classList.add('g-te-block')
+    this.htmlElement.classList.add('g-te-block');
     this.componentRef = createComponent(this.getComponentType(), {
       environmentInjector: this.envInjector,
       hostElement: this.htmlElement,

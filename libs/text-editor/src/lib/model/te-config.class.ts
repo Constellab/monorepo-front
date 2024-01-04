@@ -12,7 +12,7 @@ import Table from '@editorjs/table';
 import Paragraph from '@editorjs/paragraph';
 import {TeHintBlock} from '../block/te-hint-block.class';
 import {TeVideoBlock} from '../block/te-video-block.class';
-import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
+import {FlKeyboardKey, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {TeFigureBlock, TeFigureBlockConfig} from '../block/te-figure-block.class';
 import {TeCodeBlock} from '../block/te-code-block.class';
 
@@ -20,6 +20,8 @@ export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
 
 export abstract class TeConfig {
+
+  public static readonly TOOLBOX_OPEN_KEY = FlKeyboardKey.TAB;
 
   abstract getTools(envInjector: EnvironmentInjector,
                     applicationRef: ApplicationRef): TeTools;

@@ -28,6 +28,7 @@ import {TeLinkDialogComponent} from './component/te-link-dialog/te-link-dialog.c
 import {TeVideoComponent} from './component/te-video/te-video.component';
 import {TeFigureComponent} from './component/te-figure/te-figure.component';
 import {TeCodeComponent} from './component/te-code/te-code.component';
+import {TeTextEditorSsrComponent} from './component/te-text-editor-ssr/te-text-editor-ssr.component';
 
 @NgModule({
   declarations: [
@@ -38,10 +39,12 @@ import {TeCodeComponent} from './component/te-code/te-code.component';
     TeVideoComponent,
     TeFigureComponent,
     TeCodeComponent,
+    TeTextEditorSsrComponent,
   ],
   exports: [
     TeTextEditorComponent,
-    TeFormulaComponent
+    TeFormulaComponent,
+    TeTextEditorSsrComponent
   ],
   imports: [
     CommonModule,

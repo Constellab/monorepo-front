@@ -43,14 +43,9 @@ export class TeFigureComponent extends TeElementDirective implements OnInit {
   }
 
   ngOnInit(): void {
-
     if (!ClHelpService.isNullOrEmpty(this.data)) {
       // let the parent have its width
       setTimeout(() => this.initImage(this.data), 0);
-    } else {
-      if (!this.disabled) {
-        setTimeout(() => this.openFileSelector(), 0);
-      }
     }
 
     this.disabled$ = of(this.disabled);
@@ -78,11 +73,11 @@ export class TeFigureComponent extends TeElementDirective implements OnInit {
     this.data.height = resizeEvent.height;
   }
 
-  openFileSelector(): void {
-    this.inputFile.nativeElement.click();
+  public openFileSelector(): void {
+    setTimeout(() => this.inputFile.nativeElement.click(), 0);
   }
 
-  onFileSelected(file: File): void {
+  public onFileSelected(file: File): void {
     this.uploadIsLoading = true;
     this.config.imageUploader(file).subscribe({
       next: (response) => this.onUploadSuccess(response),

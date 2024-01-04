@@ -4,6 +4,8 @@ import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {Type} from '@angular/core';
 import {ClRichTextFigure} from '@monorepo/core-lib';
 import {Observable} from 'rxjs';
+import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
+import {PasteEvent} from '@editorjs/editorjs';
 
 export interface TeUploadedImage {
   filename: string;
@@ -37,6 +39,16 @@ export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
     };
   }
 
+  static override get pasteConfig(): PasteConfig {
+    return {
+      // tags: ['img'], // uncomment to support pasting image from html page
+      files: {
+        mimeTypes: ['image/*'],
+      },
+    };
+
+  }
+
   get figureConfig(): TeFigureBlockConfig {
     return this.additionalData;
   }
@@ -63,7 +75,14 @@ export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
     return blockData?.filename?.length > 0;
   }
 
-  // override appendCallback(): void {
-  //   window.open('file:///');
-  // }
+  onPaste(event: PasteEvent): void {
+    // if a file image is pasted (like a screenshot), we will get the file here
+    if (event.type === 'file') {
+      this.componentInstance.onFileSelected((event.detail as any).file);
+    }
+  }
+
+  override appendCallback(): void {
+    this.componentInstance.openFileSelector();
+  }
 }

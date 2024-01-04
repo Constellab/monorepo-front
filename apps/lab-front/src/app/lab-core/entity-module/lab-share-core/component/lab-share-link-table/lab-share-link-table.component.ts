@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {LabSharedEntity, LabShareLink, LabShareLinkDatasource} from '../../../../model/entities/lab-share.entity';
-import {FlClipboardService, FlSnackBarService, FlTableColumnStatic} from '@monorepo/front-core-lib';
+import {FlClipboardService, FlTableColumnStatic} from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'lab-share-link-table',
@@ -13,8 +13,7 @@ export class LabShareLinkTableComponent {
 
   @Input() columns: FlTableColumnStatic<LabSharedEntity>[];
 
-  constructor(private clipboardService: FlClipboardService,
-              private snackBarService: FlSnackBarService) {
+  constructor(private clipboardService: FlClipboardService) {
   }
 
   onLinkUpdated(entity: LabShareLink): void {
@@ -27,10 +26,7 @@ export class LabShareLinkTableComponent {
 
 
   copyDownloadLink(shareLink: LabShareLink): void {
-    const result = this.clipboardService.copy(shareLink.link);
-    if (result) {
-      this.snackBarService.openSuccessMessage({text: 'biox.share_link_copied', translateText: true});
-    }
+    this.clipboardService.copy(shareLink.link, {text: 'biox.share_link_copied', translateText: true});
   }
 
 
