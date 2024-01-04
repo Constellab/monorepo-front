@@ -156,8 +156,7 @@ export class HaPublicSidenavComponent implements OnInit {
     private changeDetectorRefs: ChangeDetectorRef,
     private authenticatedUserService: HaAuthenticatedUserService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState
-  ) {
+    private transferState: TransferState) {
   }
 
   hasChild = (_: number, node: FlatNode): boolean => node.expandable;

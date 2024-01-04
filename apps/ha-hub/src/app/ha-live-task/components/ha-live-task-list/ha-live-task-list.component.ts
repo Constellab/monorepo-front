@@ -30,8 +30,7 @@ export class HaLiveTaskListComponent implements OnInit {
     private dialogService: FlDialogService,
     private router: Router,
     private authenticatedUserService: HaAuthenticatedUserService,
-    private spaceService: HaSpaceService
-  ) {
+    private spaceService: HaSpaceService) {
   }
 
   ngOnInit(): void {

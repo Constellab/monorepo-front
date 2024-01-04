@@ -16,12 +16,12 @@ export class HaLiveTaskPageComponent implements OnInit {
   liveTask: HaLiveTask;
   brickDependencies$: Observable<HaBrickVersion[]>;
   currentTab: string;
+  isLoading = true;
 
   constructor(
     private liveTaskService: HaLiveTaskService,
     private activeRoute: ActivatedRoute,
-    private router: Router
-  ) {
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -30,13 +30,8 @@ export class HaLiveTaskPageComponent implements OnInit {
         this.router.navigate(['../'], {relativeTo: this.activeRoute});
       }
       this.liveTask = liveTask;
-      this.liveTaskService.getLatestLiveTaskVersionByLiveTaskId(this.liveTask.id).subscribe(liveTaskVersion => {
-        if (liveTaskVersion == null)
-          return;
-
-      })
-
       this.brickDependencies$ = this.liveTaskService.getLiveTaskBrickDependencies(liveTask.id);
+      this.isLoading = false;
     });
 
     this.currentTab = this.activeRoute.snapshot.firstChild.url[0]?.path;

@@ -13,8 +13,8 @@ import {
   styleUrls: ['./ha-public-brick-users.component.scss'],
 })
 export class HaPublicBrickUsersComponent implements OnInit {
-  @Input()
-  brick: HaBrick;
+
+  @Input() brick: HaBrick;
 
   brickUsers: HaBrickUser[]
 

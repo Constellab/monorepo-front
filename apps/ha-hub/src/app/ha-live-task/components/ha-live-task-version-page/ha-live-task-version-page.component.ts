@@ -63,7 +63,6 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
   private setLiveTaskVersion(liveTaskVersionId: string): void {
     this.liveTaskService.getLiveTaskVersionById(liveTaskVersionId).subscribe(liveTaskVersion => {
       this.liveTaskVersion = liveTaskVersion;
-      this.isLoading = false;
       this.textEditorConfig =
         new HaLiveTaskTextEditorConfig(this.liveTaskService, this.dialogService, this.liveTaskVersion.liveTask.id);
       this.authenticatedUserService.getUser().subscribe(user => {
@@ -75,6 +74,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
         {title: 'versions_list', translateTitle: true},
         {title: `V${this.liveTaskVersion.version}`}
       ];
+      this.isLoading = false;
     });
   }
 

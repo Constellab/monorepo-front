@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {HaBrickVersionService} from '../../../ha-core/ha-service/ha-brick-version.service';
 
 @Component({
@@ -6,16 +6,11 @@ import {HaBrickVersionService} from '../../../ha-core/ha-service/ha-brick-versio
   templateUrl: './ha-admin-page.component.html',
   styleUrls: ['./ha-admin-page.component.scss']
 })
-export class HaAdminPageComponent implements OnInit {
+export class HaAdminPageComponent {
 
   isLoading: boolean = false;
 
-  constructor(
-    private brickVersionService: HaBrickVersionService
-  ) {
-  }
-
-  ngOnInit(): void {
+  constructor(private brickVersionService: HaBrickVersionService) {
   }
 
   sendAllToQueue(): void {

@@ -19,8 +19,7 @@ export class HaStoryInvitePageComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private storyService: HaStoryService,
-    private router: Router
-  ) {
+    private router: Router) {
   }
 
   ngOnInit(): void {

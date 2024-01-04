@@ -13,8 +13,7 @@ export class HaCookieConsentComponent {
   text: FlTranslatableText;
 
   constructor(
-    private snackBarRef: MatSnackBarRef<HaCookieConsentComponent>
-  ) {
+    private snackBarRef: MatSnackBarRef<HaCookieConsentComponent>) {
   }
 
   closeSnackBar(choice: boolean): void {

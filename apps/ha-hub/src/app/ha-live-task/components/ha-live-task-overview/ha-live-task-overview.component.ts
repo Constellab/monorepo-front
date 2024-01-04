@@ -21,12 +21,12 @@ export class HaLiveTaskOverviewComponent implements OnInit {
   descriptionFormControl: FormControl<Record<string, any>> = new FormControl<Record<string, any>>(null);
   descriptionEditorDisabled: boolean = true;
   isCreator: boolean = false;
+  isLoading: boolean = true;
   constructor(
     private liveTaskService: HaLiveTaskService,
     private activeRoute: ActivatedRoute,
     private dialogService: FlDialogService,
-    private authenticatedUserService: HaAuthenticatedUserService
-  ) {
+    private authenticatedUserService: HaAuthenticatedUserService) {
   }
 
   ngOnInit(): void {
@@ -39,6 +39,7 @@ export class HaLiveTaskOverviewComponent implements OnInit {
   setupLatestLiveTaskVersion(id: string): void {
     this.liveTaskService.getLatestLiveTaskVersionByLiveTaskId(id).subscribe(liveTaskVersion => {
       this.liveTaskVersion = liveTaskVersion;
+      this.isLoading = false;
     });
   }
 

@@ -1,8 +1,6 @@
 import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
-import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 import {TdTypeEntity} from '@monorepo/technical-doc';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 
@@ -18,7 +16,6 @@ export class HaPublicTechDocComponent implements OnInit {
   techDoc: TdTypeEntity;
   brickName: string;
   brickVersion: string;
-  activatedRoute: ActivatedRoute = this.route;
   isLoading: boolean = true;
   techDocNotFound: boolean = false;
 
@@ -26,16 +23,12 @@ export class HaPublicTechDocComponent implements OnInit {
 
   constructor(
     private brickService: HaBrickService,
-    private documentationService: HaDocumentationService,
-    private authUserService: HaAuthenticatedUserService,
     private route: ActivatedRoute,
     private router: Router,
     private metadataService: HaMetadataService,
     private transferState: TransferState,
-    @Inject(PLATFORM_ID) private platformId: object
-  ) {
+    @Inject(PLATFORM_ID) private platformId: object) {
   }
-
 
   ngOnInit(): void {
     this.TECH_DOC_KEY = makeStateKey<object>('techDoc');

@@ -29,8 +29,7 @@ export class HaPublicEditBrickFormComponent implements OnInit {
   constructor(
     private brickService: HaBrickService,
     private router: Router,
-    private snackBarService: FlSnackBarService
-  ) {
+    private snackBarService: FlSnackBarService) {
   }
 
   ngOnInit(): void {

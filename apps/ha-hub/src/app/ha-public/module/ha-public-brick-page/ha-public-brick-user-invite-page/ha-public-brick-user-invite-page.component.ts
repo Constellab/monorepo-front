@@ -19,8 +19,7 @@ export class HaPublicBrickUserInvitePageComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private brickService: HaBrickService,
-    private router: Router
-  ) {
+    private router: Router) {
   }
 
   ngOnInit(): void {

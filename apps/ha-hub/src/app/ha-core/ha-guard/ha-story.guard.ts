@@ -15,8 +15,7 @@ export class HaStoryGuard  {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private authUserService: HaAuthenticatedUserService,
-    private loginService: HaAuthService
-  ) {
+    private loginService: HaAuthService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

@@ -1,4 +1,9 @@
-<div class="main-div-v2" *ngIf="liveTask">
+<div class="g-flex main-div-v2" *ngIf="isLoading">
+  <fl-loader class="g-centered"></fl-loader>
+</div>
+
+
+<div class="main-div-v2" *ngIf="liveTask && !isLoading">
     <div class="main-header-info spacing-8-v2">
       <div>
         <h1 class="h1-v2 spacing-6-v2">{{liveTask.title}}</h1>

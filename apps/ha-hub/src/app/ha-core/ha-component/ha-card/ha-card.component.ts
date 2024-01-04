@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
 
 export enum HaCardBackground {
   card = 'card',
@@ -16,14 +16,11 @@ export enum HaCardBackground {
 })
 export class HaCardComponent implements AfterViewInit {
 
-  @Input()
-  border: boolean = false;
+  @Input() border: boolean = false;
 
-  @Input()
-  background: HaCardBackground | string = HaCardBackground.card;
+  @Input() background: HaCardBackground | string = HaCardBackground.card;
 
-  @Input()
-  innerCard: boolean = false;
+  @Input() innerCard: boolean = false;
 
   @ViewChild('card') card: ElementRef;
 

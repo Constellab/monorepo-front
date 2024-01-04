@@ -1,5 +1,8 @@
-<ng-container *ngIf="liveTaskVersion">
-  <div class="main-div-v2">
+<div class="g-flex main-div-v2" *ngIf="isLoading">
+  <fl-loader class="g-centered"></fl-loader>
+</div>
+
+<div class="main-div-v2" *ngIf="liveTaskVersion && !isLoading">
     <div class="spacing-8-v2">
       <ha-navigation-panel [navigationPanelItems]="navPanelItems" ></ha-navigation-panel>
     </div>
@@ -39,5 +42,4 @@
     </div>
     <ha-live-task-version-detail [liveTaskVersion]="liveTaskVersion" [isCreator]="isCreator" [isEditable]="liveTaskVersion.versionState == 'DRAFT'"
                                  (liveTaskVersionChangeEvent)="updateLiveTaskVersion($event)"></ha-live-task-version-detail>
-  </div>
-</ng-container>
+</div>

@@ -20,14 +20,14 @@ export class HaLiveTaskVersionsComponent implements OnInit {
   liveTask: HaLiveTask;
   isLiveTaskOwner: boolean;
   inputFile: any;
+  isLoading = true;
 
   constructor(
     private liveTaskService: HaLiveTaskService,
     private activatedRoute: ActivatedRoute,
     private snackBarService: FlSnackBarService,
     private authenticatedUserService: HaAuthenticatedUserService,
-    private dialogService: FlDialogService
-  ) {
+    private dialogService: FlDialogService) {
   }
 
   ngOnInit(): void {
@@ -40,6 +40,7 @@ export class HaLiveTaskVersionsComponent implements OnInit {
 
     this.liveTaskService.getPublishedLiveTaskVersions(this.activatedRoute.snapshot.params['id']).subscribe(liveTaskVersions => {
       this.liveTaskVersions = liveTaskVersions;
+      this.isLoading = false;
     });
   }
 

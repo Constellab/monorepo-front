@@ -62,8 +62,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
               private router: Router,
               private transferState: TransferState,
               @Inject(PLATFORM_ID) private platformId: object,
-              private metadataService: HaMetadataService,
-              private elementRef: ElementRef<HTMLElement>) {
+              private metadataService: HaMetadataService) {
   }
 
 

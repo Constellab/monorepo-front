@@ -39,8 +39,8 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     private authUserService: HaAuthenticatedUserService,
     @Inject(PLATFORM_ID) private platformId: object,
     private transferState: TransferState,
-    private metadataService: HaMetadataService
-  ) {
+    private metadataService: HaMetadataService) {
+
   }
 
   ngOnInit(): void {

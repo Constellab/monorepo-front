@@ -1,4 +1,8 @@
-<div class="description-div">
+<div class="g-flex" *ngIf="isLoading">
+  <fl-loader class="g-centered"></fl-loader>
+</div>
+
+<div class="description-div" *ngIf="!isLoading">
   <ha-card>
     <div class="card-title-v2 card-header spacing-4-v2">
       <div>
@@ -23,5 +27,5 @@
   </ha-card>
 </div>
 
-<ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion" [liveTaskVersion]="liveTaskVersion" [isCreator]="isCreator"
+<ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion && !isLoading" [liveTaskVersion]="liveTaskVersion" [isCreator]="isCreator"
                              [isEditable]="false" [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask.latestPublishVersion + ')'"></ha-live-task-version-detail>

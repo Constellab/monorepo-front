@@ -14,7 +14,7 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaStoryCoAuthorDialogComponent} from '../ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {ClRichText, ClRichTextI, ClStringHelper} from '@monorepo/core-lib';
+import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
 import {HaStoryFileDialogComponent, HaStoryFileFormData} from '../ha-story-file-dialog/ha-story-file-dialog.component';
 
 @Component({
@@ -58,8 +58,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     private dialogService: FlDialogService,
     private topicService: HaTopicService,
     private authenticatedUserService: HaAuthenticatedUserService,
-    private router: Router
-  ) {
+    private router: Router) {
   }
 
   ngOnInit(): void {
