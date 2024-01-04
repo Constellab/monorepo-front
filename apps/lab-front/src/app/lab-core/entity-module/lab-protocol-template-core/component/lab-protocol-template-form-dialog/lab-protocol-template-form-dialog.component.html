@@ -1,28 +1,28 @@
 <fl-dialog-header>
-  {{title | translate}}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="protocol-template-form" [formGroup]="formGp">
 
     <p class="g-text-light help-text" *ngIf="isCreateMode()">
-      {{'biox.protocol_template_explication' | translate}}
+      {{ 'biox.protocol_template_explication' | translate }}
     </p>
 
     <!--  name  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'name' | translate}}</mat-label>
+      <mat-label>{{ 'name' | translate }}</mat-label>
       <input matInput formControlName="name" required flInputMaxLength="255"
              [placeholder]="'name' | translate">
       <mat-error *ngIf="formGp.get('name').hasError('required')">
-        {{'name' | flErrorRequired}}
+        {{ 'name' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
 
     <!--  Description-->
-    <fl-text-editor [config]="textEditorConfig" formControlName="description"
-                    mode="JSON" class="text-editor"
-                    [placeholder]="'description' | translate"></fl-text-editor>
+    <te-text-editor [config]="textEditorConfig" formControlName="description"
+                    class="text-editor"
+                    [placeholder]="'description' | translate"></te-text-editor>
 
   </form>
 </mat-dialog-content>
@@ -31,7 +31,7 @@
 <div mat-dialog-actions>
   <button mat-flat-button color="primary" type="submit" form="protocol-template-form"
           class="g-centered-forced">
-    {{'save' | translate}}
+    {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

@@ -1,13 +1,14 @@
 import {LabBaseEntityWithUser, LabUser} from './lab-user.entity';
 import {Expose, Type} from 'class-transformer';
-import {FlDatasourcePaginated, FlQuillJson} from '@monorepo/front-core-lib';
+import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
 import {LabProject, LabProjectObject} from './lab-project.class';
 import {LabEntity} from '../global/lab-entity.entity';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {DateTime} from 'luxon';
 import {LabReportTemplate} from './lab-report-template.entity';
+import {TeTextEditorContent} from '@monorepo/text-editor';
 
-export type LabReportContent = FlQuillJson;
+export type LabReportContent = TeTextEditorContent;
 
 export class LabReport extends LabBaseEntityWithUser implements LabProjectObject {
 

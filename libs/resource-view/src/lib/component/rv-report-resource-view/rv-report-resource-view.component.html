@@ -8,9 +8,9 @@
   </div>
 
   <div class="g-text-centered">
-    <fl-text-editor-title-caption [title]="viewTitle" [caption]="caption"
-                                  (titleChange)="onTitleChange($event)" (captionChange)="onCaptionChange($event)"
-                                  [editable]="editable"></fl-text-editor-title-caption>
+    <te-title-caption [title]="viewTitle" [caption]="caption"
+                      (titleChange)="onTitleChange($event)" (captionChange)="onCaptionChange($event)"
+                      [editable]="editable"></te-title-caption>
 
     <rv-technical-info-button *ngIf="view" [technicalInfo]="view.technical_info"
                               class="g-button-icon-tiny g-text-light"></rv-technical-info-button>

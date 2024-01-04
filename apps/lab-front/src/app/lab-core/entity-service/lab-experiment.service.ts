@@ -4,7 +4,6 @@ import {
   FlApiService,
   FlEntityPaginatedDatasource,
   FlFileHelper,
-  FlQuillJson,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
 import {Observable, of, switchMap} from 'rxjs';
@@ -20,6 +19,7 @@ import {
   LabExperimentSearchFields
 } from '../entity-module/lab-experiment-core/model/lab-experiment-search.class';
 import {map} from 'rxjs/operators';
+import {TeTextEditorContent} from '@monorepo/text-editor';
 
 
 @Injectable({
@@ -75,7 +75,7 @@ export class LabExperimentService {
     });
   }
 
-  public updateDescription(experimentId: string, description: FlQuillJson): Observable<LabExperiment> {
+  public updateDescription(experimentId: string, description: TeTextEditorContent): Observable<LabExperiment> {
     return this.apiService.put(`${this.route}/${experimentId}/description`, description, LabExperiment);
   }
 

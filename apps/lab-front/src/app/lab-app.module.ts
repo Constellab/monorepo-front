@@ -20,7 +20,6 @@ import {
   flSetRootInjector,
   FlSnackBarModule,
   FlTagModule,
-  FlTextEditorModule,
   FlThemeService,
   FlTranslateModule,
   FlUserModule
@@ -99,11 +98,6 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlPortalActionsModule.forRoot(),
     FlAuthModule.forRoot(LabAuthService),
     FlTagModule.forRoot(LabTagService),
-    FlTextEditorModule.forRoot({
-      blots: [
-        // {blot: LabReportContentViewBlot, componentType: LabReportContentViewComponent},
-      ]
-    }),
     BnBioNetworkModule.forRoot(LabBioNetworkService),
     RvResourceViewModule.forRoot({availableViews: labConstResourceViewTypeInfos}),
     TdTechnicalDocModule.forRoot(LabTdServiceConfig),

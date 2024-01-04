@@ -52,10 +52,9 @@
           </p>
         </fl-article-left-side>
         <fl-article>
-          <fl-text-editor [(ngModel)]="content" mode="JSON"
-                          class="g-full-height g-print-section" scrollContainer="body"
+          <te-text-editor [(ngModel)]="content" class="g-full-height g-print-section"
                           (textChange)="onContentUpdate($event)" [config]="textEditorConfig"
-                          [placeholder]="'biox.report_placeholder' | translate" [autoFocus]="true"></fl-text-editor>
+                          [placeholder]="'biox.report_placeholder' | translate"></te-text-editor>
         </fl-article>
 
       </fl-article-container>

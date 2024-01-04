@@ -29,10 +29,10 @@
       <div>{{'biox.protocol_template_beta_warning' | translate}}</div>
     </fl-text-icon>
 
-    <fl-text-editor [config]="textEditorConfig"
-                    [(ngModel)]="template.description" mode="JSON" class="text-editor"
+    <te-text-editor [config]="textEditorConfig"
+                    [(ngModel)]="template.description" class="text-editor"
                     [placeholder]="'description' | translate"
-                    (textChange)="onDescriptionChanged($event)"></fl-text-editor>
+                    (textChange)="onDescriptionChanged($event)"></te-text-editor>
 
     <pr-workflow [workflow]="workflow" [mode$]="workflowMode$" [viewConfig]="viewConfig"
                  class="workflow"></pr-workflow>

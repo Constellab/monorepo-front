@@ -2,13 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {LabExperiment} from '../../../../../lab-core/model/entities/lab-experiment.entity';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
-import {
-  FlDebouncer,
-  FlDialogService,
-  FlQuillJson,
-  FlTextEditorBasicConfig,
-  FlTextEditorConfig
-} from '@monorepo/front-core-lib';
+import {FlDebouncer, FlDialogService} from '@monorepo/front-core-lib';
 import {LabExperimentService} from '../../../../../lab-core/entity-service/lab-experiment.service';
 import {LabProject} from '../../../../../lab-core/model/entities/lab-project.class';
 import {
@@ -16,6 +10,7 @@ import {
   LabManageEntityTagsDialogInput
 } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 import {LabTagDatasource} from '../../../../../lab-core/model/entities/lab-tag.entity';
+import {TeBasicConfig, TeTextEditorContent} from '@monorepo/text-editor';
 
 /**
  * Component inside LabExperimentDetailPage to show experiment information but not workflow
@@ -28,12 +23,12 @@ import {LabTagDatasource} from '../../../../../lab-core/model/entities/lab-tag.e
 export class LabExperimentDetailComponent implements OnInit, OnDestroy {
 
   experiment$: Observable<LabExperiment>;
-  description: FlQuillJson;
+  description: TeTextEditorContent;
   tags$: LabTagDatasource;
 
-  textEditorConfig: FlTextEditorConfig = new FlTextEditorBasicConfig();
+  textEditorConfig: TeBasicConfig = new TeBasicConfig();
 
-  private descriptionDebouncer: FlDebouncer<FlQuillJson>;
+  private descriptionDebouncer: FlDebouncer<TeTextEditorContent>;
 
   constructor(private experimentState: LabExperimentDetailPageState,
               private experimentService: LabExperimentService,
@@ -54,17 +49,17 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  onDescriptionChanged(value: FlQuillJson): void {
+  onDescriptionChanged(value: TeTextEditorContent): void {
     this.descriptionDebouncer.setValue(value);
   }
 
-  saveDescription(description: FlQuillJson): void {
+  saveDescription(description: TeTextEditorContent): void {
     this.experimentService.updateDescription(this.experimentState.currentExperiment.id, description).subscribe(
       () => this.saveDescriptionSuccess(this.description),
     );
   }
 
-  private saveDescriptionSuccess(description: FlQuillJson): void {
+  private saveDescriptionSuccess(description: TeTextEditorContent): void {
     this.experimentState.updateDescription(description);
   }
 

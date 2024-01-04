@@ -3,7 +3,6 @@ import {
   FlAdvancedSearchInput,
   FlApiService,
   FlEntityPaginatedDatasource,
-  FlQuillJson,
   FlSearchConverter,
   FlTextEditorUploadedImage
 } from '@monorepo/front-core-lib';
@@ -16,6 +15,7 @@ import {
   LabReportTemplateDatasource,
   LabReportTemplateForm
 } from '../model/entities/lab-report-template.entity';
+import {TeTextEditorContent, TeTextEditorHelper} from '@monorepo/text-editor';
 
 @Injectable({providedIn: 'root'})
 export class LabReportTemplateService {
@@ -39,9 +39,9 @@ export class LabReportTemplateService {
   }
 
 
-  public updateContent(id: string, content: FlQuillJson): Observable<LabReportTemplate> {
+  public updateContent(id: string, content: TeTextEditorContent): Observable<LabReportTemplate> {
     if (content == null) {
-      content = {ops: []};
+      content = TeTextEditorHelper.emptyContent();
     }
     return this.apiService.put(`${this.route}/${id}/content`, content, LabReportTemplate);
   }

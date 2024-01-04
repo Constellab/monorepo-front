@@ -1,57 +1,94 @@
-import {
-  FlDialogService,
-  FlQuillConfig,
-  FlTextEditorBlockAddButton,
-  FlTextEditorConfig,
-  FlTextEditorImageLoader,
-  FlTextEditorSnowButton,
-  FlTextEditorState
-} from '@monorepo/front-core-lib';
 import {LabReportTemplateService} from '../../../lab-core/entity-service/lab-report-template.service';
+import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
+import {Observable} from 'rxjs';
+import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 
-/**
- * Config for the text editor in the report
- */
-export class LabReportTemplateTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader {
-  constructor(private reportTemplateService: LabReportTemplateService,
-              private dialogService: FlDialogService) {
-    super();
+
+export class LabReportTemplateTextEditorImageConfig implements TeFigureBlockConfig {
+  constructor(private reportTemplateService: LabReportTemplateService) {
   }
 
-  getToolbarConfig(): any {
-    return FlQuillConfig.completeToolbarConfig;
+  imageUploader(file: File): Observable<TeUploadedImage> {
+    return this.reportTemplateService.uploadImage(file);
   }
 
-  getBlockAddButtons(state: FlTextEditorState): FlTextEditorBlockAddButton[] {
-    return [
-      {
-        icon: 'image', type: 'fileExplorer',
-        onAction: file => this.insertImageFromFile(file, state)
-      },
-      this.getCodeBlockAddButton(state),
-      this.getHintBlockAddButton(state),
-      this.getFormulaAddButton(state, this.dialogService),
-    ];
-  }
-
-  getSnowButtons(): FlTextEditorSnowButton[] {
-    return [];
-  }
-
-  public getImageUrl(filename: string): string {
+  getImageUrl(filename: string): string {
     return this.reportTemplateService.getImageUrl(filename);
-  }
-
-  onPasteImage(imgFile: File, state: FlTextEditorState): any {
-    return this.insertImageFromFile(imgFile, state);
-  }
-
-  private insertImageFromFile(file: File, textEditorState: FlTextEditorState): void {
-    const index = textEditorState.getCurrentSelectionIndex();
-    this.reportTemplateService.uploadImage(file).subscribe(
-      fileUrl => textEditorState.insertImageFromUrl(fileUrl, index)
-    );
   }
 
 
 }
+
+/**
+ * Config for the text editor in the report to support view in the editor
+ */
+export class LabReportTemplateTextEditorConfig extends TeCompleteConfig {
+
+  constructor(private reportTemplateService: LabReportTemplateService) {
+    super();
+  }
+
+
+  /**
+   * Get the complete config and add the view block and configure the image block
+   * @param envInjector
+   * @param applicationRef
+   */
+  getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
+    const tools = super.getTools(envInjector, applicationRef);
+
+    // configure and add the image block
+    const imageConfig = new LabReportTemplateTextEditorImageConfig(this.reportTemplateService);
+    tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
+
+    return tools;
+  }
+}
+
+
+/**
+ * Config for the text editor in the report
+ //  */
+// export class LabReportTemplateTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader {
+//   constructor(private reportTemplateService: LabReportTemplateService,
+//               private dialogService: FlDialogService) {
+//     super();
+//   }
+//
+//   getToolbarConfig(): any {
+//     return FlQuillConfig.completeToolbarConfig;
+//   }
+//
+//   getBlockAddButtons(state: FlTextEditorState): FlTextEditorBlockAddButton[] {
+//     return [
+//       {
+//         icon: 'image', type: 'fileExplorer',
+//         onAction: file => this.insertImageFromFile(file, state)
+//       },
+//       this.getCodeBlockAddButton(state),
+//       this.getHintBlockAddButton(state),
+//       this.getFormulaAddButton(state, this.dialogService),
+//     ];
+//   }
+//
+//   getSnowButtons(): FlTextEditorSnowButton[] {
+//     return [];
+//   }
+//
+//   public getImageUrl(filename: string): string {
+//     return this.reportTemplateService.getImageUrl(filename);
+//   }
+//
+//   onPasteImage(imgFile: File, state: FlTextEditorState): any {
+//     return this.insertImageFromFile(imgFile, state);
+//   }
+//
+//   private insertImageFromFile(file: File, textEditorState: FlTextEditorState): void {
+//     const index = textEditorState.getCurrentSelectionIndex();
+//     this.reportTemplateService.uploadImage(file).subscribe(
+//       fileUrl => textEditorState.insertImageFromUrl(fileUrl, index)
+//     );
+//   }
+//
+//
+// }

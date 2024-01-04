@@ -9,7 +9,6 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlQuillJson,
   FlSnackBarService
 } from '@monorepo/front-core-lib';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
@@ -17,12 +16,13 @@ import {PrWorkflow, PrWorkflowLayer, PrWorkflowNodeProtocol} from '@monorepo/pro
 import {LabWorkflowFactory} from '../model/lab-workflow.factory';
 import {LabTagService} from '../../../../lab-core/entity-service/lab-tag.service';
 import {LabTagDatasource} from '../../../../lab-core/model/entities/lab-tag.entity';
+import {TeTextEditorContent} from '@monorepo/text-editor';
 
 @Injectable()
 export class LabExperimentDetailPageState {
 
   private experiment$: BehaviorSubject<LabExperiment>;
-  private experimentDescription$: BehaviorSubject<FlQuillJson>;
+  private experimentDescription$: BehaviorSubject<TeTextEditorContent>;
   private tags$: LabTagDatasource;
 
   public workflow: PrWorkflow;
@@ -112,15 +112,15 @@ export class LabExperimentDetailPageState {
     return this.tags$;
   }
 
-  public getDescription$(): Observable<FlQuillJson> {
+  public getDescription$(): Observable<TeTextEditorContent> {
     return this.experimentDescription$.asObservable();
   }
 
-  public get currentDescription(): FlQuillJson {
+  public get currentDescription(): TeTextEditorContent {
     return this.experimentDescription$.value;
   }
 
-  public updateDescription(description: FlQuillJson): void {
+  public updateDescription(description: TeTextEditorContent): void {
     this.experimentDescription$.next(description);
   }
 

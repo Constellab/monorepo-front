@@ -43,8 +43,8 @@ import {TeTextEditorSsrComponent} from './component/te-text-editor-ssr/te-text-e
   ],
   exports: [
     TeTextEditorComponent,
-    TeFormulaComponent,
-    TeTextEditorSsrComponent
+    TeTextEditorSsrComponent,
+    TeTitleCaptionComponent,
   ],
   imports: [
     CommonModule,

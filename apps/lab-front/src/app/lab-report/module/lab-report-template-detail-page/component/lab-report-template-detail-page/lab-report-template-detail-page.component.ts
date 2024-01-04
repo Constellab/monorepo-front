@@ -1,17 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LabReport, LabReportContent} from '../../../../../lab-core/model/entities/lab-report.entity';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDebouncer,
-  FlDialogService,
-  FlTextEditorConfig
-} from '@monorepo/front-core-lib';
+import {FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService} from '@monorepo/front-core-lib';
 import {ActivatedRoute} from '@angular/router';
 import {LabRouterService} from '../../../../../lab-core/service/lab-router.service';
 import {LabReportTemplateService} from '../../../../../lab-core/entity-service/lab-report-template.service';
 import {LabReportTemplate} from '../../../../../lab-core/model/entities/lab-report-template.entity';
 import {LabReportTemplateTextEditorConfig} from '../../lab-report-template-text-editor-config.class';
+import {TeConfig} from '@monorepo/text-editor';
 
 @Component({
   selector: 'lab-report-template-detail-page',
@@ -23,7 +18,7 @@ export class LabReportTemplateDetailPageComponent implements OnInit, OnDestroy {
   reportTemplate: LabReportTemplate;
   content: LabReportContent;
 
-  textEditorConfig: FlTextEditorConfig;
+  textEditorConfig: TeConfig;
 
   isLoading: boolean = false;
 
@@ -53,7 +48,7 @@ export class LabReportTemplateDetailPageComponent implements OnInit, OnDestroy {
   private init(id: string): void {
 
     this.reportTemplateId = id;
-    this.textEditorConfig = new LabReportTemplateTextEditorConfig(this.reportTemplateService, this.dialogService);
+    this.textEditorConfig = new LabReportTemplateTextEditorConfig(this.reportTemplateService);
     this.isLoading = true;
     this.reportTemplateService.getReportTemplate(id).subscribe({
       next: (reportTemplate) => this.getReportTemplateSuccess(reportTemplate),

@@ -221,8 +221,9 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       defaultDescription: this.experimentState.currentDescription,
     };
 
+
     this.dialogService.openSmallDialog(LabProtocolTemplateFormDialogComponent,
-      {data: input}).afterClosed().subscribe();
+      {data: input, panelClass: 'g-dialog-main-background'}).afterClosed().subscribe();
   }
 
   resetExperiment(): void {

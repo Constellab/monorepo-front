@@ -1,11 +1,14 @@
-:host{
+:host {
   display: flex;
   flex-direction: column; // TODO TO REMOVE
+  min-height: 300px;
+  padding: 0 5px;
 }
 
 .text-container {
   // TODO to update
   //border: 1px solid white;
+  height: 100%;
 }
 
 .button {

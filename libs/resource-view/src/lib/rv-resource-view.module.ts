@@ -10,7 +10,6 @@ import {
   FlJsonEditorModule,
   FlKeyValueModule,
   FlLoaderModule,
-  FlTextEditorModule,
   FlThemeModule,
   FlTranslateModule,
   FlTranslateService,
@@ -36,6 +35,7 @@ import {RvViewHtmlComponent} from './component/rv-view-html/rv-view-html.compone
 import {ChChartModule} from '@monorepo/chart';
 import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
 import {RvViewTypeImageComponent} from './component/rv-view-type-image/rv-view-type-image.component';
+import {TeTextEditorModule} from '@monorepo/text-editor';
 
 @NgModule({
   imports: [
@@ -51,15 +51,15 @@ import {RvViewTypeImageComponent} from './component/rv-view-type-image/rv-view-t
     FlTranslateModule,
     FlDialogModule,
     FlKeyValueModule,
-    FlTextEditorModule,
     FlLoaderModule,
     FlImageModule,
+    FlThemeModule,
+    FlIconModule,
 
+    TeTextEditorModule, // for the te-title-caption component
     BnBioNetworkModule,
     ChChartModule,
     SpSpreadsheetModule,
-    FlThemeModule,
-    FlIconModule,
   ],
   declarations: [
     RvResourceViewComponent,
@@ -109,7 +109,7 @@ export class RvResourceViewModule {
   ): ModuleWithProviders<RvResourceViewModule> {
     return {
       ngModule: RvResourceViewModule,
-      providers: [{ provide: RV_MODULE_CONFIG, useValue: config }],
+      providers: [{provide: RV_MODULE_CONFIG, useValue: config}],
     };
   }
 }

@@ -1,10 +1,10 @@
 import {ClRichTextI} from '@monorepo/core-lib';
-import {OutputData} from '@editorjs/editorjs';
+import {TeTextEditorContent} from './te-text-editor.class';
 
 
 export class TeQuillMigrator {
 
-  private editorJsContent: OutputData;
+  private editorJsContent: TeTextEditorContent;
 
 
   constructor(private richText: ClRichTextI) {
@@ -17,14 +17,13 @@ export class TeQuillMigrator {
 
   }
 
-  public migrate(): OutputData {
+  public migrate(): TeTextEditorContent {
 
 
     for (let i = 0; i < this.richText.ops.length; i++) {
       const result = this.getBlockText(i);
       let currentText = result.text;
       i = result.index;
-
 
 
       const paragraphs = currentText.split('\n');
@@ -41,7 +40,7 @@ export class TeQuillMigrator {
       }
 
       if (i >= this.richText.ops.length) {
-        if(currentText.length > 0)
+        if (currentText.length > 0)
           this.addBlock('paragraph', {
             text: currentText,
           });
@@ -90,7 +89,7 @@ export class TeQuillMigrator {
         this.addBlock('video', op.insert.video);
       } else if (op.insert.customFormula) {
         this.addBlock('formula', op.insert.customFormula);
-      } else if(op.insert.resource_view){
+      } else if (op.insert.resource_view) {
         this.addBlock('resourceView', op.insert.resource_view);
       }
     }

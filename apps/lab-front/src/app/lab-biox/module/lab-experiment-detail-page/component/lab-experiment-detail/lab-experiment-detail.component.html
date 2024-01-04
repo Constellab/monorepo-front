@@ -22,8 +22,8 @@
     <fl-text-icon class="separator">
       <mat-icon flIcon="experiment"></mat-icon>
       <fl-key-value>
-        <fl-key>{{'biox.experiment_type' | translate}}</fl-key>
-        {{experiment.type.name | translate}}
+        <fl-key>{{ 'biox.experiment_type' | translate }}</fl-key>
+        {{ experiment.type.name | translate }}
       </fl-key-value>
     </fl-text-icon>
 
@@ -48,10 +48,10 @@
   </fl-article-left-side>
 
   <fl-article>
-    <fl-text-editor [config]="textEditorConfig"
-                    [(ngModel)]="description" mode="JSON" [disabled]="experiment.isValidated" class="text-editor"
+    <te-text-editor [config]="textEditorConfig"
+                    [(ngModel)]="description" [disabled]="experiment.isValidated" class="text-editor"
                     [placeholder]="'biox.experiment_description_placeholder' | translate"
-                    (textChange)="onDescriptionChanged($event)"></fl-text-editor>
+                    (textChange)="onDescriptionChanged($event)"></te-text-editor>
   </fl-article>
 
   <fl-article-right-side>

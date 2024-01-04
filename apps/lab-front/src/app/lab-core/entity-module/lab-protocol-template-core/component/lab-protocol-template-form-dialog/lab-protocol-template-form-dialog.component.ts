@@ -1,12 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {
-  FlFormDialogAbstractDirective,
-  FlFormDialogInput,
-  FlQuillJson,
-  FlSnackBarService,
-  FlTextEditorBasicConfig,
-  FlTextEditorConfig
-} from '@monorepo/front-core-lib';
+import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
 import {
   LabCreateProtocolTemplateDTO,
   LabProtocolTemplate
@@ -17,11 +10,12 @@ import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {LabProtocolService} from '../../../../entity-service/lab-protocol.service';
 import {LabProtocolTemplateService} from '../../../../entity-service/lab-protocol-template.service';
+import {TeBasicConfig, TeTextEditorContent} from '@monorepo/text-editor';
 
 export interface LabProtocolTemplateFormDialogInput extends FlFormDialogInput<LabProtocolTemplate> {
   protocolId?: string;
   defaultName?: string;
-  defaultDescription?: FlQuillJson;
+  defaultDescription?: TeTextEditorContent;
 }
 
 @Component({
@@ -32,7 +26,7 @@ export interface LabProtocolTemplateFormDialogInput extends FlFormDialogInput<La
 export class LabProtocolTemplateFormDialogComponent extends FlFormDialogAbstractDirective<LabCreateProtocolTemplateDTO>
   implements OnInit {
 
-  textEditorConfig: FlTextEditorConfig = new FlTextEditorBasicConfig();
+  textEditorConfig: TeBasicConfig = new TeBasicConfig();
 
   constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: LabProtocolTemplateFormDialogInput,
               private protocolService: LabProtocolService,

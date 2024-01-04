@@ -14,6 +14,7 @@ export * from './lib/component/te-video/te-video.component';
 export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
 export * from './lib/model/te-quill-migrator';
+export * from './lib/model/te-text-editor.class';
 
 // Block
 export * from './lib/block/te-code-block.class';

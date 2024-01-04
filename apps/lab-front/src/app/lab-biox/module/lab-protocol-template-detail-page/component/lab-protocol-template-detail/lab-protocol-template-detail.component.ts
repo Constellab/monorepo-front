@@ -10,21 +10,14 @@ import {
 } from '@monorepo/protocol';
 import {Observable, of} from 'rxjs';
 import {ClStringHelper} from '@monorepo/core-lib';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDebouncer,
-  FlDialogService,
-  FlQuillJson,
-  FlTextEditorBasicConfig,
-  FlTextEditorConfig
-} from '@monorepo/front-core-lib';
+import {FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService} from '@monorepo/front-core-lib';
 import {
   LabProtocolTemplateFormDialogComponent,
   LabProtocolTemplateFormDialogInput
 } from '../../../../../lab-core/entity-module/lab-protocol-template-core/component/lab-protocol-template-form-dialog/lab-protocol-template-form-dialog.component';
 import {LabProtocolTemplateService} from '../../../../../lab-core/entity-service/lab-protocol-template.service';
 import {LabRouterService} from '../../../../../lab-core/service/lab-router.service';
+import {TeBasicConfig, TeTextEditorContent} from '@monorepo/text-editor';
 
 @Component({
   selector: 'lab-protocol-template-detail',
@@ -40,10 +33,10 @@ export class LabProtocolTemplateDetailComponent implements OnInit, OnDestroy {
   workflow: PrWorkflow;
   workflowMode$: Observable<PrWorkflowMode> = of('readOnly');
 
-  downloadUrl: string
+  downloadUrl: string;
 
-  textEditorConfig: FlTextEditorConfig = new FlTextEditorBasicConfig();
-  private descriptionDebouncer: FlDebouncer<FlQuillJson>;
+  textEditorConfig: TeBasicConfig = new TeBasicConfig();
+  private descriptionDebouncer: FlDebouncer<TeTextEditorContent>;
 
 
   constructor(private actionState: PrWorkflowActionState,
@@ -69,11 +62,11 @@ export class LabProtocolTemplateDetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  onDescriptionChanged(value: FlQuillJson): void {
+  onDescriptionChanged(value: TeTextEditorContent): void {
     this.descriptionDebouncer.setValue(value);
   }
 
-  saveDescription(description: FlQuillJson): void {
+  saveDescription(description: TeTextEditorContent): void {
     this.protocolTemplateService.updateProtocolTemplate(this.template.id, {description: description}).subscribe();
   }
 

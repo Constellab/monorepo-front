@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {LabExperimentTableComponent} from './component/lab-experiment-table/lab-experiment-table.component';
 import {LabCoreModule} from '../../lab-core.module';
 import {RouterModule} from '@angular/router';
-import {LabExperimentCardComponent} from './component/lab-experiment-card/lab-experiment-card.component';
 import {
   LabExperimentFormDialogComponent
 } from './component/lab-experiment-form-dialog/lab-experiment-form-dialog.component';
@@ -37,7 +36,6 @@ import {LabTypeCoreModule} from '../lab-type-core/lab-type-core.module';
 @NgModule({
   declarations: [
     LabExperimentTableComponent,
-    LabExperimentCardComponent,
     LabExperimentFormDialogComponent,
     LabExperimentSearchComponent,
     LabExperimentSearchFormComponent,
@@ -50,7 +48,6 @@ import {LabTypeCoreModule} from '../lab-type-core/lab-type-core.module';
   ],
   exports: [
     LabExperimentTableComponent,
-    LabExperimentCardComponent,
     LabExperimentFormDialogComponent,
     LabExperimentSearchComponent,
     LabExperimentSearchFormComponent,
