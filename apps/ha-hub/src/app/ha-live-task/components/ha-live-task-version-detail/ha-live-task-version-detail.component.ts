@@ -6,6 +6,7 @@ import {FormControl} from '@ngneat/reactive-forms';
 import {TdParamSpecParamSet} from '@monorepo/technical-doc';
 import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
 import {HaCardBackground} from '../../../ha-core/ha-component/ha-card/ha-card.component';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-live-task-version-detail',
@@ -24,7 +25,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   isEditable: boolean;
 
   @Input()
-  sectionTitle: string = 'detail_of_the_version';
+  sectionTitle?: string;
 
   @Output() liveTaskVersionChangeEvent = new EventEmitter<HaLiveTaskVersion>();
 
@@ -40,10 +41,17 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
 
   constructor(private liveTaskService: HaLiveTaskService,
               private snackBarService: FlSnackBarService,
-              private dialogService: FlDialogService) {
+              private dialogService: FlDialogService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
+    if(this.sectionTitle == null){
+      this.translateService.get('detail_of_the_version').subscribe(value => {
+        this.sectionTitle = value;
+      });
+    }
+
     this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.dialogService, this.liveTaskVersion?.liveTask?.id);
     this.versionInfosFormControl.setValue(this.liveTaskVersion?.versionInfos);
     this.versionInfosFormControl.disable();

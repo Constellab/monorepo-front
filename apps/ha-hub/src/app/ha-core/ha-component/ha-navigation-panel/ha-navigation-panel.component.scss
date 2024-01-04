@@ -1,0 +1,16 @@
+.navigation-panel{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--card-background);
+  width: fit-content;
+}
+
+.navigation-panel-divider{
+  width: 16px;
+  height: 0;
+  border: 1px solid var(--light-color);
+}

@@ -1,3 +1,13 @@
+.live-task-navigation-panel{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--card-background);
+  width: fit-content;
+}
+
 .main-header-info{
   display: flex;
   flex-direction: row;

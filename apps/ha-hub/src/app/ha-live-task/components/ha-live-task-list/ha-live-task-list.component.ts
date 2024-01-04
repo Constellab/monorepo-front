@@ -12,6 +12,7 @@ import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaLiveTaskDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'ha-live-task-list',
@@ -21,7 +22,8 @@ import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 export class HaLiveTaskListComponent implements OnInit {
 
   liveTasksPaginated: HaLiveTaskDatasourcePaginated;
-  listSpaces: HaSpace[] = [];
+  listSpaces$: Observable<HaSpace[]>;
+  user: HaUser;
   spaceIdFilter: string[] = [];
   constructor(
     private liveTaskService: HaLiveTaskService,
@@ -36,10 +38,9 @@ export class HaLiveTaskListComponent implements OnInit {
     this.liveTasksPaginated = this.liveTaskService.getAllPaginated();
 
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
+      this.user = user;
       if(user) {
-        this.spaceService.getSpacesOfCurrentUser().subscribe((spaces: HaSpace[]) => {
-          this.listSpaces = spaces;
-        });
+        this.listSpaces$ = this.spaceService.getSpacesOfCurrentUser();
       }
     });
   }
@@ -54,7 +55,7 @@ export class HaLiveTaskListComponent implements OnInit {
 
     this.dialogService.openSmallDialog(HaLiveTaskCreateDialogComponent, {data: input}).afterClosed().subscribe((liveTaskVersion: HaLiveTaskVersion) => {
       if (liveTaskVersion && liveTaskVersion.liveTask) {
-        this.router.navigate(['live-tasks/' + liveTaskVersion.liveTask.id +'/detail/' + liveTaskVersion.id]);
+        this.router.navigate(['live-tasks/' + liveTaskVersion.liveTask.id +'/versions/' + liveTaskVersion.id]);
       }
     });
   }
@@ -75,5 +76,9 @@ export class HaLiveTaskListComponent implements OnInit {
       return;
     }
     this.liveTasksPaginated = this.liveTaskService.getAllWithSpacesFilterPaginated(this.spaceIdFilter);
+  }
+
+  onSpace(spaceId: string): void{
+    this.selectSpace(spaceId)
   }
 }

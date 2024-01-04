@@ -1,0 +1,7 @@
+<div class="space-list-div">
+  <mat-chip-option *ngFor="let space of  spaceList$ | async" color="warn" [value]="isSelected(space.id)"
+                   (click)="selectSpace(space.id)" class="space-list-option">
+    {{space.name}}
+  </mat-chip-option>
+</div>
+

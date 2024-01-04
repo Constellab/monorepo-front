@@ -22,6 +22,8 @@ import {HaLiveTaskOverviewComponent} from './components/ha-live-task-overview/ha
 import {HaLiveTaskCommentsComponent} from './components/ha-live-task-comments/ha-live-task-comments.component';
 import {HaLiveTaskVersionsComponent} from './components/ha-live-task-versions/ha-live-task-versions.component';
 import {HaCardComponent} from '../ha-core/ha-component/ha-card/ha-card.component';
+import {HaSpaceModule} from '../ha-space/ha-space.module';
+import {HaNavigationPanelComponent} from '../ha-core/ha-component/ha-navigation-panel/ha-navigation-panel.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import {HaCardComponent} from '../ha-core/ha-component/ha-card/ha-card.component
     FlInputFileModule,
     FlCodeEditorModule,
     HaCardComponent,
+    HaSpaceModule,
+    HaNavigationPanelComponent,
   ],
 })
 export class HaLiveTaskModule {}
