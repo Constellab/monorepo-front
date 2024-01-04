@@ -25,9 +25,3 @@
 
 <ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion" [liveTaskVersion]="liveTaskVersion" [isCreator]="isCreator"
                              [isEditable]="false" [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask.latestPublishVersion + ')'"></ha-live-task-version-detail>
-
-<ng-template #notPublishedDiv>
-  <div style="color: var(--warn-color)">
-    {{'not_published' | translate}}
-  </div>
-</ng-template>

@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FlBreadcrumbComponent} from './component/fl-breadcrumb/fl-breadcrumb.component';
 import {RouterModule} from '@angular/router';
 import {FlLimitHeightComponent} from './component/fl-limit-height/fl-limit-height.component';
 import {FlNewWebsiteVersionComponent} from './component/fl-new-website-version/fl-new-website-version.component';
@@ -31,7 +30,6 @@ import {MatButtonModule} from '@angular/material/button';
  */
 @NgModule({
   declarations: [
-    FlBreadcrumbComponent,
     FlLimitHeightComponent,
     FlNewWebsiteVersionComponent,
     FlChipComponent,
@@ -42,7 +40,6 @@ import {MatButtonModule} from '@angular/material/button';
     FlPinUnpinButtonComponent,
   ],
   exports: [
-    FlBreadcrumbComponent,
     FlLimitHeightComponent,
     FlChipComponent,
     FlSelectLanguageOptionsComponent,

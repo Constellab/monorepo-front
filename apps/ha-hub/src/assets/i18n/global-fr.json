@@ -32,6 +32,8 @@
   "type": "Type",
   "type_of_repository": "Type de repository",
   "version": "Version",
+  "versions_list": "Liste des versions",
+  "version_number": "Version {{number}}",
   "admin_dashboard": "Tableau de bord d’administration",
   "last_modification_info": "Informations sur la dernière modification",
   "repo_type": "Type de repository",

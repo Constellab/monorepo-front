@@ -48,9 +48,13 @@ export class HaLiveTaskOverviewComponent implements OnInit {
       this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.dialogService, this.liveTask?.id);
       this.descriptionFormControl.setValue(this.liveTask?.description);
       this.descriptionFormControl.disable();
-      this.authenticatedUserService.getUser().subscribe(user => {
-        this.isCreator = user?.id === this.liveTask?.createdBy.id;
-      });
+      this.setupIsCreator();
+    });
+  }
+
+  private setupIsCreator():void{
+    this.authenticatedUserService.getUser().subscribe(user => {
+      this.isCreator = user?.id === this.liveTask?.createdBy.id;
     });
   }
 

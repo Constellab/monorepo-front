@@ -19,7 +19,7 @@ const routes: Route[] = [
     redirectTo: ':id/'
   },
   {
-    path: ':id/detail/:versionId',
+    path: ':id/versions/:versionId',
     component: HaLiveTaskVersionPageComponent,
   },
   {

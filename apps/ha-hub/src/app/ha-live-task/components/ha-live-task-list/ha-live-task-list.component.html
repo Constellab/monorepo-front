@@ -11,18 +11,17 @@
   <div class="main-grid-v2">
 
     <div class="main-left-side-v2 spacing-8-v2">
-      <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" [color]="'accent'" class="space-list-option">
+      <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent" class="space-list-option">
         {{'public' | translate}}
       </mat-chip-option>
       <ng-container *haIsAuthenticated>
-        <mat-chip-option [value]="isSelected('my-live-tasks')" (click)="selectSpace('my-live-tasks')" [color]="'accent'" class="space-list-option">
+        <mat-chip-option [value]="isSelected('my-live-tasks')" (click)="selectSpace('my-live-tasks')" color="accent" class="space-list-option">
           {{'my_live_tasks' | translate}}
         </mat-chip-option>
         <div class="spacer-tiny-v2"></div>
-        <mat-chip-option *ngFor="let space of  listSpaces" color="warn" [value]="isSelected(space.id)"
-                         (click)="selectSpace(space.id)" class="space-list-option">
-          {{space.name}}
-        </mat-chip-option>
+        <ha-selectable-space-list *ngIf="user" [user]="user" (spaceSelectedEvent)="onSpace($event)">
+
+        </ha-selectable-space-list>
       </ng-container>
     </div>
 

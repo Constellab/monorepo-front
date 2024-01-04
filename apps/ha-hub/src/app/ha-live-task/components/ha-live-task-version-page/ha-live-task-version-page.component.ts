@@ -7,6 +7,7 @@ import {FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import {Observable} from 'rxjs';
+import {HaNavigationPanelItem} from '../../../ha-core/ha-component/ha-navigation-panel/ha-navigation-panel.component';
 
 @Component({
   selector: 'ha-live-task-version-page',
@@ -20,6 +21,8 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
   isLoading: boolean = true;
   isCreator: boolean = false;
   brickDependencies$: Observable<HaBrickVersion[]>;
+  navPanelItems: HaNavigationPanelItem[];
+
 
   constructor(private liveTaskService: HaLiveTaskService,
               private activatedRoute: ActivatedRoute,
@@ -67,6 +70,11 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
         this.isCreator = user?.id === this.liveTaskVersion?.liveTask.createdBy.id;
       });
       this.brickDependencies$ = this.liveTaskService.getLiveTaskVersionBrickDependencies(liveTaskVersionId);
+      this.navPanelItems = [
+        {title: this.liveTaskVersion.liveTask.title},
+        {title: 'versions_list', translateTitle: true},
+        {title: `V${this.liveTaskVersion.version}`}
+      ];
     });
   }
 

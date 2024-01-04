@@ -4,7 +4,7 @@
   <fl-input-file-container class="create-new-lt-version-bt" color="primary" *ngIf="isLiveTaskOwner && liveTask && latestVersionIsPublished()" [placeholder]="'create_new_live_task_version' | translate">
     <input flInputFile type="file" [strictMode]="true" [autoClearHtmlInput]="true" accept="application/json" (fileChange)="onFileSelected($any($event))">
   </fl-input-file-container>
-  <a *ngFor="let liveTaskVersion of liveTaskVersions" [routerLink]="'../detail/' + liveTaskVersion.id">
+  <a *ngFor="let liveTaskVersion of liveTaskVersions" [routerLink]="liveTaskVersion.id">
     <ha-card>
       <div class="live-task-version-card">
         <div class="live-task-version-inner-card">
