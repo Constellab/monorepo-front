@@ -1,9 +1,8 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
 import {FlCodeEditorLanguage, FlDebouncer, FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
 import {FormControl} from '@ngneat/reactive-forms';
-import {TdParamSpecParamSet} from '@monorepo/technical-doc';
 import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
 import {HaCardBackground} from '../../../ha-core/ha-component/ha-card/ha-card.component';
 import {TranslateService} from '@ngx-translate/core';
@@ -15,17 +14,13 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
 
-  @Input()
-  liveTaskVersion: HaLiveTaskVersion;
+  @Input() liveTaskVersion: HaLiveTaskVersion;
 
-  @Input()
-  isCreator: boolean;
+  @Input() isCreator: boolean;
 
-  @Input()
-  isEditable: boolean;
+  @Input() isEditable: boolean;
 
-  @Input()
-  sectionTitle?: string;
+  @Input() sectionTitle?: string;
 
   @Output() liveTaskVersionChangeEvent = new EventEmitter<HaLiveTaskVersion>();
 

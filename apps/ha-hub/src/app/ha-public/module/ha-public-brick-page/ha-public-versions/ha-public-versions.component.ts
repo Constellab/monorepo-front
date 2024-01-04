@@ -35,8 +35,7 @@ export class HaPublicVersionsComponent implements OnInit {
     private dialogService: FlDialogService,
     private router: Router,
     private metadataService: HaMetadataService,
-    private authUserService: HaAuthenticatedUserService
-  ) {
+    private authUserService: HaAuthenticatedUserService) {
   }
 
   ngOnInit(): void {

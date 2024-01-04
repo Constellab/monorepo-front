@@ -6,9 +6,6 @@ import {HaEnvironmentHelper} from '../ha-model/ha-config/ha-environment.helper';
 })
 export class HaRouterService {
 
-  constructor() {
-  }
-
   public static getAppUrl(): string {
     return HaEnvironmentHelper.getCommunityFrontUrl();
   }

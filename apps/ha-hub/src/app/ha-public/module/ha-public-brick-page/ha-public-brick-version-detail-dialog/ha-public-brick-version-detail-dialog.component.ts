@@ -2,8 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {HaBrickVersion} from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import {HaBrickVersionReferenceState, HaReferenceDTO} from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import {HaBrickVersionService} from '../../../../ha-core/ha-service/ha-brick-version.service';
-import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
-import {Observable} from 'rxjs';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
@@ -25,8 +23,7 @@ export class HaPublicBrickVersionDetailDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private input: HaBrickVersion,
-    private brickVersionService: HaBrickVersionService
-  ) {
+    private brickVersionService: HaBrickVersionService) {
   }
 
   ngOnInit(): void {

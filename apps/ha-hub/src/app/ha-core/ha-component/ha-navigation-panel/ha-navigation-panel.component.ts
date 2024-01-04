@@ -1,7 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {RouterLink, UrlSegment} from '@angular/router';
-import {FlTranslateModule} from '@monorepo/front-core-lib';
+import {Component, Input} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {HaCoreModule} from '../../ha-core.module';
 
 export interface HaNavigationPanelItem {
@@ -17,15 +15,9 @@ export interface HaNavigationPanelItem {
   templateUrl: './ha-navigation-panel.component.html',
   styleUrls: ['./ha-navigation-panel.component.scss']
 })
-export class HaNavigationPanelComponent implements OnInit{
+export class HaNavigationPanelComponent {
 
   @Input() navigationPanelItems: HaNavigationPanelItem[];
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   getUrl(navigationPanelItem: HaNavigationPanelItem, index: number): string {
     if (this.navigationPanelItems.length - 1 === index) return '.';

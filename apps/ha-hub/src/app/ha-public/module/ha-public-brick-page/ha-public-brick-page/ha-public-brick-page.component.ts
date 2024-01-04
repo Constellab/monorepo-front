@@ -1,8 +1,8 @@
-import {makeStateKey, StateKey, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey} from '@angular/core';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { TransferState } from '@angular/platform-browser';
+import {TransferState} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 
@@ -23,8 +23,7 @@ export class HaPublicBrickPageComponent implements OnInit {
     private router: Router,
     private metadataService: HaMetadataService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState
-  ) {
+    private transferState: TransferState) {
   }
 
   ngOnInit(): void {

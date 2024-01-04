@@ -1,33 +1,40 @@
-<div class="spacer-v2"></div>
-
-<div class="live-task-versions-list-div">
-  <fl-input-file-container class="create-new-lt-version-bt" color="primary" *ngIf="isLiveTaskOwner && liveTask && latestVersionIsPublished()" [placeholder]="'create_new_live_task_version' | translate">
-    <input flInputFile type="file" [strictMode]="true" [autoClearHtmlInput]="true" accept="application/json" (fileChange)="onFileSelected($any($event))">
-  </fl-input-file-container>
-  <a *ngFor="let liveTaskVersion of liveTaskVersions" [routerLink]="liveTaskVersion.id">
-    <ha-card>
-      <div class="live-task-version-card">
-        <div class="live-task-version-inner-card">
-          <ha-card [innerCard]="true" [background]="'main'">
-            <h2 class="h2-v2">{{ 'version' | translate }} {{ liveTaskVersion.version }}</h2>
-            <div *ngIf="liveTaskVersion.versionState == 'PUBLISHED'; else notPublishedDiv">
-              {{ 'published' | translate }}: {{ liveTaskVersion.createdAt | flDate: 'dd/MM/yyyy' }}
-            </div>
-          </ha-card>
-        </div>
-        <div class="live-task-version-bt-div">
-          <button mat-stroked-button class="g-button-small" type="button" color="primary"
-                  (click)="onCopyCode(liveTaskVersion, $event)">
-            {{ 'copy_code' | translate }}
-          </button>
-          <button mat-stroked-button class="g-button-small" type="button" color="primary" (click)="onCopyLink($event)">
-            {{ 'copy_link' | translate }}
-          </button>
-        </div>
-      </div>
-    </ha-card>
-  </a>
+<div class="g-flex" *ngIf="isLoading">
+  <fl-loader class="g-centered"></fl-loader>
 </div>
+
+<div *ngIf="!isLoading">
+  <div class="spacer-v2"></div>
+
+  <div class="live-task-versions-list-div">
+    <fl-input-file-container class="create-new-lt-version-bt" color="primary" *ngIf="isLiveTaskOwner && liveTask && latestVersionIsPublished()" [placeholder]="'create_new_live_task_version' | translate">
+      <input flInputFile type="file" [strictMode]="true" [autoClearHtmlInput]="true" accept="application/json" (fileChange)="onFileSelected($any($event))">
+    </fl-input-file-container>
+    <a *ngFor="let liveTaskVersion of liveTaskVersions" [routerLink]="liveTaskVersion.id">
+      <ha-card>
+        <div class="live-task-version-card">
+          <div class="live-task-version-inner-card">
+            <ha-card [innerCard]="true" [background]="'main'">
+              <h2 class="h2-v2">{{ 'version' | translate }} {{ liveTaskVersion.version }}</h2>
+              <div *ngIf="liveTaskVersion.versionState == 'PUBLISHED'; else notPublishedDiv">
+                {{ 'published' | translate }}: {{ liveTaskVersion.createdAt | flDate: 'dd/MM/yyyy' }}
+              </div>
+            </ha-card>
+          </div>
+          <div class="live-task-version-bt-div">
+            <button mat-stroked-button class="g-button-small" type="button" color="primary"
+                    (click)="onCopyCode(liveTaskVersion, $event)">
+              {{ 'copy_code' | translate }}
+            </button>
+            <button mat-stroked-button class="g-button-small" type="button" color="primary" (click)="onCopyLink($event)">
+              {{ 'copy_link' | translate }}
+            </button>
+          </div>
+        </div>
+      </ha-card>
+    </a>
+  </div>
+</div>
+
 
 <ng-template #notPublishedDiv>
   <div style="color: var(--warn-color)">

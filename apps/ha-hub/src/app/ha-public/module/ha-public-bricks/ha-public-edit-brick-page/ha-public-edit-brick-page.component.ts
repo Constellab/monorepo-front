@@ -9,9 +9,6 @@ export class HaPublicEditBrickPageComponent implements OnInit {
 
   loaded = false;
 
-  constructor() {
-  }
-
   ngOnInit(): void {
     this.loaded = true;
   }

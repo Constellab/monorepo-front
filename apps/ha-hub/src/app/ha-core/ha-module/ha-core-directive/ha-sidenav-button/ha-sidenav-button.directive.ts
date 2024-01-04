@@ -10,7 +10,7 @@ export class HaSidenavButtonDirective implements OnInit {
   windowSize: number;
 
   constructor(private elementRef: ElementRef,
-              private router: Router,) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
