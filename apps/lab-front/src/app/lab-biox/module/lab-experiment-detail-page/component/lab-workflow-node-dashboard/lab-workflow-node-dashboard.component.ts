@@ -121,4 +121,8 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
   convertLiveTaskCodeToTask(process: LabProcess): void {
     this.taskGeneratorService.generateTaskCodeFromLiveTask(process.id).subscribe();
   }
+
+  downloadLiveTaskFile(process: LabProcess): void {
+    this.taskGeneratorService.generateLiveTaskFile(process.id).subscribe();
+  }
 }

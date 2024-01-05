@@ -35,6 +35,11 @@
           <mat-icon>code</mat-icon>
         </button>
 
+        <button mat-icon-button type="button" (click)="downloadLiveTaskFile(process)" tabindex="-1"
+                [matTooltip]="'biox.convert_live_task_code_to_task' | translate" matTooltipPosition="below">
+          <mat-icon>download</mat-icon>
+        </button>
+
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
