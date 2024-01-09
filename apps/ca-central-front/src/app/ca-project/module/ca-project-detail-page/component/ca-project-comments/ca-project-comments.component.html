@@ -9,17 +9,16 @@
       </div>
     </div>
   </fl-infinite-scroll>
-  <div class="write-comment-div">
-    <fl-section [isLoading]="isLoading" [object]="formControl" class="section">
-      <ng-container *flSectionBody>
-        <fl-text-editor [formControl]="formControl" [config]="textEditorConfig" mode="JSON" [leftButtons]="false"
-                        [placeholder]="'write_a_comment' | translate"
-                        theme="VISIBLE_BUTTON" class="input-message" scrollContainer="child"
-                        (keydown.control.enter)="enterEvent($event)">
-        </fl-text-editor>
-      </ng-container>
-    </fl-section>
-  </div>
+  <fl-text-editor [formControl]="formControl" [config]="textEditorConfig" mode="JSON" [leftButtons]="false"
+                  [placeholder]="'write_a_comment' | translate"
+                  theme="VISIBLE_BUTTON" class="input-message" scrollContainer="child"
+                  (keydown.control.enter)="enterEvent($event)">
+  </fl-text-editor>
+
+  <!--    <te-text-editor [formControl]="formControl" [config]="textEditorConfig2"-->
+  <!--                    [placeholder]="'write_a_comment' | translate"-->
+  <!--                    (keydown.control.enter)="enterEvent($event)" class="text-editor">-->
+  <!--    </te-text-editor>-->
 
 </div>
 

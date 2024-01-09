@@ -64,7 +64,7 @@ export class TeHintBlock implements BlockTool {
   }
 
   get hintType(): TeHintType {
-    return this.data.hintType;
+    return this.data.hintType ?? 'info';
   }
 
   render(): HTMLElement {
@@ -80,11 +80,13 @@ export class TeHintBlock implements BlockTool {
       const divs = this.data.content.split('\n');
       for (const div of divs) {
         if (!div || div.length === 0) {
-          this.htmlElement.innerHTML += sanitizer.sanitize(SecurityContext.HTML, `<div><br></div>`);
+          this.htmlElement.innerHTML += `<div><br></div>`;
         } else {
           this.htmlElement.innerHTML += sanitizer.sanitize(SecurityContext.HTML, `<div>${div}</div>`);
         }
       }
+    }else{
+      this.htmlElement.innerHTML += `<div><br></div>`;
     }
 
     return this.htmlElement;

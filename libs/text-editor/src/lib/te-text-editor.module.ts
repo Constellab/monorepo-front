@@ -1,4 +1,4 @@
-import {Injector, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TeTextEditorComponent} from './component/te-text-editor/te-text-editor.component';
 import {TeFormulaComponent} from './component/te-formula/te-formula.component';
@@ -71,17 +71,8 @@ import {TeTextEditorSsrComponent} from './component/te-text-editor-ssr/te-text-e
   ],
 })
 export class TeTextEditorModule {
-  private static registered: boolean = false;
 
-  constructor(injector: Injector,
-              translateService: FlTranslateService) {
-    if (TeTextEditorModule.registered) return;
+  constructor(translateService: FlTranslateService) {
     translateService.addModuleTranslation('TeTextEditorModule', teTextEditorI18n);
-
-    //
-    // customElements.define(TeFormulaBlock.TAG_NAME,
-    //   createCustomElement(TeFormulaComponent, {injector: injector}));
-
-    TeTextEditorModule.registered = true;
   }
 }

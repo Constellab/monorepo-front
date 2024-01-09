@@ -11,6 +11,7 @@ export * from './lib/component/te-title-caption/te-title-caption.component';
 export * from './lib/component/te-video/te-video.component';
 
 // Model
+export * from './lib/model/te-block-factory.class';
 export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
 export * from './lib/model/te-quill-migrator';

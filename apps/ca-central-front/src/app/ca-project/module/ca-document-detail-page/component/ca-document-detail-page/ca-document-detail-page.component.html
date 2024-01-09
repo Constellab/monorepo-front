@@ -6,56 +6,46 @@
 
     <ng-template flSectionBody>
 
+      <div class="card-container g-layout-col">
+        <div *ngIf="document.inTrash" class="g-warn-text">
+          {{ 'document_in_trash' | translate }}
+        </div>
+        <div class="header">
+          <div class="g-layout-row g-layout-between-center">
+            <h1>{{ document.name }}</h1>
 
-      <fl-article-container>
-        <fl-article-left-side>
-          <fl-card>
-            <fl-card-body>
-              <fl-creation-info [user]="document.createdBy" [date]="document.createdAt">
-              </fl-creation-info>
+            <div class="g-print-hide g-layout-row g-layout-start-center">
+              <button mat-stroked-button type="button" (click)="toggleEditMode()"
+                      class="button g-button-small">
+                <mat-icon>{{contentFormControl.disabled  ? 'edit' : 'visibility' }}</mat-icon>
+                <span>{{ (contentFormControl.disabled ? 'edit' : 'view') | translate }}</span>
+              </button>
 
-              <fl-last-modification-info [user]="document.lastModifiedBy"
-                                         [date]="document.lastModifiedAt"></fl-last-modification-info>
+              <button mat-stroked-button type="button" (click)="print()" class="button g-button-small">
+                {{ 'print_document' | translate }}
+                <mat-icon>print</mat-icon>
+              </button>
 
-            </fl-card-body>
-          </fl-card>
-        </fl-article-left-side>
+              <ca-document-actions-menu [document]="document" [showViewLinks]="false"
+                                        (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
+            </div>
+          </div>
 
-        <fl-article>
-          <fl-card class="g-full-height">
-            <fl-card-body>
-              <div *ngIf="document.inTrash" class="g-warn-text">
-                {{'document_in_trash' | translate}}
-              </div>
-              <div class="header g-layout-row g-layout-between-center">
-                <h1>{{document.name}}</h1>
+          <fl-creation-info [user]="document.createdBy" [date]="document.createdAt">
+          </fl-creation-info>
 
-                <div class="g-print-hide g-layout-row g-layout-start-center">
-                  <button mat-stroked-button type="button" (click)="toggleEditMode()"
-                          class="button g-button-small">
-                    <mat-icon>{{editMode ? 'visibility' : 'edit'}}</mat-icon>
-                    <span>{{editMode ? 'view' : 'edit' | translate}}</span>
-                  </button>
-
-                  <button mat-stroked-button type="button" (click)="print()" class="button g-button-small">
-                    {{'print_document' | translate}}
-                    <mat-icon>print</mat-icon>
-                  </button>
-
-                  <ca-document-actions-menu [document]="document" [showViewLinks]="false"
-                                            (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
-                </div>
-              </div>
+          <fl-last-modification-info [user]="document.lastModifiedBy"
+                                     [date]="document.lastModifiedAt"></fl-last-modification-info>
+        </div>
 
 
-              <fl-text-editor [(ngModel)]="documentContent" [config]="textEditorConfig" mode="JSON"
-                              (textChange)="onContentUpdate($event)" [disabled]="!editMode" scrollContainer="body"
-                              class="g-full-height g-print-section"
-                              [ngClass]="{'text-editor-edit': editMode}"></fl-text-editor>
-            </fl-card-body>
-          </fl-card>
-        </fl-article>
-      </fl-article-container>
+        <te-text-editor [formControl]="contentFormControl" [config]="textEditorConfig"
+                        (textChange)="onContentUpdate($event)"
+                        class="g-full-height g-print-section text-editor g-article-width"
+                        [ngClass]="{'text-editor-edit': !contentFormControl.disabled}"></te-text-editor>
+
+
+      </div>
 
     </ng-template>
   </fl-section>

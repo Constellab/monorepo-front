@@ -1,8 +1,7 @@
 <fl-async-section [object]="content$" class="g-full-height">
   <ng-container *flSectionBody="content$ as content">
-    <fl-text-editor [ngModel]="content" mode="JSON" [disabled]="true"
+    <te-text-editor [ngModel]="content"  [disabled]="true"
                     class="g-full-height text-editor g-print-section"
-
-                    [config]="textEditorConfig"></fl-text-editor>
+                    [config]="textEditorConfig"></te-text-editor>
   </ng-container>
 </fl-async-section>

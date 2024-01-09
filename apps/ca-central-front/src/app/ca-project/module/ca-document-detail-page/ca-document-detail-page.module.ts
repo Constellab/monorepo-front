@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {CaDocumentDetailPageComponent} from './component/ca-document-detail-page/ca-document-detail-page.component';
 import {CaCoreModule} from '../../../ca-core/ca-core.module';
 import {CaProjectObjectCoreModule} from '../ca-project-object-core/ca-project-object-core.module';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CaDocumentCoreModule} from '../ca-document-core/ca-document-core.module';
 
 @NgModule({
@@ -11,6 +11,7 @@ import {CaDocumentCoreModule} from '../ca-document-core/ca-document-core.module'
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
 
     CaCoreModule,
     CaProjectObjectCoreModule,

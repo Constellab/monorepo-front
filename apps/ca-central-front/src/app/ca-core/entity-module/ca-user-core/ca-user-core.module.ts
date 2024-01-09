@@ -10,6 +10,7 @@ import {RouterModule} from '@angular/router';
 import {CaUserSearchComponent} from './component/ca-user-search/ca-user-search.component';
 import {CaUserSearchFormComponent} from './component/ca-user-search-form/ca-user-search-form.component';
 import {CaCoreModule} from '../../ca-core.module';
+import {CaUserMentionPortalComponent} from './component/ca-user-mention-portal/ca-user-mention-portal.component';
 
 /**
  * Module containing users component
@@ -21,6 +22,7 @@ import {CaCoreModule} from '../../ca-core.module';
     CaUserListInlineComponent,
     CaUserSearchComponent,
     CaUserSearchFormComponent,
+    CaUserMentionPortalComponent,
   ],
   exports: [
     CaAuthenticatedUserInlineComponent,
@@ -28,6 +30,7 @@ import {CaCoreModule} from '../../ca-core.module';
     CaUserListInlineComponent,
     CaUserSearchComponent,
     CaUserSearchFormComponent,
+    CaUserMentionPortalComponent,
   ],
   imports: [
     CommonModule,
@@ -36,7 +39,6 @@ import {CaCoreModule} from '../../ca-core.module';
 
     CaCoreModule,
     RouterModule,
-  ]
+  ],
 })
-export class CaUserCoreModule {
-}
+export class CaUserCoreModule {}

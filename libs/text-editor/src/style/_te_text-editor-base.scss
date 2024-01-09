@@ -24,6 +24,12 @@
     padding-bottom: 0 !important;
   }
 
+  .g-text-editor-hide-toolbar {
+    .ce-toolbar {
+      display: none;
+    }
+  }
+
 
   .g-text-editor {
     font-size: 13px;
@@ -139,6 +145,11 @@
       margin: 0;
       font-weight: 100;
       line-height: 1.35em;
+    }
+
+    // color the paragraph placeholder
+    .ce-paragraph[data-placeholder]:empty:before {
+      color: var(--light-color);
     }
 
     ///////////////////////// HEADER /////////////////////////

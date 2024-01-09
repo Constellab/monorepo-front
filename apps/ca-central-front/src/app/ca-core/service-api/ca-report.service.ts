@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {CaReport, CaResourceView} from '../model/entities/project/ca-report.class';
-import {FlApiService, FlQuillJson} from '@monorepo/front-core-lib';
+import {FlApiService} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
+import {OutputData} from '@editorjs/editorjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class CaReportService {
     return this.apiService.getById(this.route, id, CaReport);
   }
 
-  getContent(reportId: string): Observable<FlQuillJson> {
+  getContent(reportId: string): Observable<OutputData> {
     return this.apiService.get(`${this.route}/${reportId}/content`);
   }
 

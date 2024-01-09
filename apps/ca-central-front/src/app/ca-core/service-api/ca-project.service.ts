@@ -34,6 +34,7 @@ import {
   CaActivitySearch,
   CaActivitySearchFields
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
+import {OutputData} from '@editorjs/editorjs';
 
 /**
  * Service to manage project entity
@@ -259,7 +260,7 @@ export class CaProjectService {
     return this.apiService.post(`${this.route}/${projectId}/constellab-document`, {name: filename}, CaConstellabDocument);
   }
 
-  public updateConstellabDocument(documentId: string, content: ClRichTextI): Observable<CaConstellabDocument> {
+  public updateConstellabDocument(documentId: string, content: OutputData): Observable<CaConstellabDocument> {
     return this.apiService.put(`${this.route}/constellab-document/${documentId}`, content, CaConstellabDocument);
   }
 

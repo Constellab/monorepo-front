@@ -6,7 +6,7 @@ import {
   TeUploadedImage
 } from '@monorepo/text-editor';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
-import {LabReportContentViewBlot} from './lab-report-content-view.block';
+import {LabReportContentViewBlock} from './lab-report-content-view.block';
 import {LabReportService} from '../../../lab-core/entity-service/lab-report.service';
 import {Observable} from 'rxjs';
 
@@ -45,7 +45,7 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
     const tools = super.getTools(envInjector, applicationRef);
 
     // add the view block
-    tools.resourceView = teComponentBlockFactory(LabReportContentViewBlot, envInjector, applicationRef, this.reportId);
+    tools.resourceView = teComponentBlockFactory(LabReportContentViewBlock, envInjector, applicationRef, this.reportId);
 
     // configure and add the image block
     const imageConfig = new LabReportTextEditorImageConfig(this.reportService);

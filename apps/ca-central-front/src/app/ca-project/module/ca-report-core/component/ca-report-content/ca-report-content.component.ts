@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {FlQuillJson, FlTextEditorConfig} from '@monorepo/front-core-lib';
 import {CaReportService} from '../../../../../ca-core/service-api/ca-report.service';
-import {CaReportTextEditorConfig} from '../../model/ca-report-text-editor-config.class';
+import {CaReportTextEditorConfig2} from '../../model/ca-report-text-editor-config.class';
+import {OutputData} from '@editorjs/editorjs';
 
 /**
  * Component to show the report content in a disabled text editor
@@ -16,15 +16,16 @@ export class CaReportContentComponent implements OnInit {
 
   @Input() reportId: string;
 
-  content$: Observable<FlQuillJson>;
-  textEditorConfig: FlTextEditorConfig;
+  content$: Observable<OutputData>;
+  textEditorConfig: CaReportTextEditorConfig2;
 
 
-  constructor(private reportService: CaReportService) { }
+  constructor(private reportService: CaReportService) {
+  }
 
   ngOnInit(): void {
     this.content$ = this.reportService.getContent(this.reportId);
-    this.textEditorConfig = new CaReportTextEditorConfig(this.reportService, this.reportId);
+    this.textEditorConfig = new CaReportTextEditorConfig2(this.reportService, this.reportId);
   }
 
 }

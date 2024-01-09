@@ -3,15 +3,36 @@
   padding: var(--main-menu-margin) 1em 0 1em;
 }
 
-.section{
+.section {
   flex: 1;
 }
 
-.button{
+.card-container {
+  margin: auto;
+  height: 100%;
+  max-width: 100%;
+  background-color: var(--card-background);
+  border-radius: var(--card-radius);
+  padding: 1em;
+}
+
+.header {
+  padding-bottom: 1em;
+}
+
+.button {
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
 
-.text-editor-edit{
+
+.text-editor {
+  margin-bottom: 2em;
+  max-width: 100%;
+  flex: 1;
+}
+
+.text-editor-edit {
   border-color: var(--hover-color);
 }
+

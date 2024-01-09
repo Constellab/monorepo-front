@@ -2,8 +2,26 @@ import Header from '@editorjs/header';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {ToolboxConfig, TunesMenuConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {FlClipboardService, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
-import {BlockTool} from '@editorjs/editorjs/types/tools/block-tool';
+import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
+
+
+export class TeHeaderWithIdBlockConfig {
+  levels: number[];
+
+  defaultLevel: number;
+
+  /**
+   * If true the copy link button will be shown in the tune menu
+   */
+  showCopyLinkButton: boolean;
+}
+
+export const teHeaderWithIdBlockDefaultConfig: TeHeaderWithIdBlockConfig = {
+  levels: [2, 3, 4],
+  defaultLevel: 2,
+  showCopyLinkButton: false,
+}
 
 /**
  * Override header block to add an id attribute based on the text
@@ -11,6 +29,11 @@ import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
 export class TeHeaderWithIdBlock extends Header implements BlockTool {
 
   node: HTMLElement;
+
+  constructor(private options: BlockToolConstructorOptions) {
+    super(options);
+  }
+
 
   static get toolbox(): ToolboxConfig {
     // split the toolbox config into 3 individual buttons
@@ -55,7 +78,12 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
     return super.save(block);
   }
 
+  get config(): TeHeaderWithIdBlockConfig {
+    return this.options.config;
+  }
+
   renderSettings(): HTMLElement | TunesMenuConfig {
+    if (!this.config.showCopyLinkButton) return [];
     const translateService = flRootInjector.get(FlTranslateService);
     const clipboardService = flRootInjector.get(FlClipboardService);
     return [{

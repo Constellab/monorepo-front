@@ -97,6 +97,22 @@ export interface ClRichTextTitleAttribute {
   id?: string;
 }
 
+export interface ClRichTextMention {
+  type: 'mention';
+  userId: string;
+  fullname: string;
+}
+
+export interface ClRichTextMentionText {
+  type: 'text';
+  text: string;
+}
+
+export interface ClRichTextMentionBlockData {
+  elements: (ClRichTextMention | ClRichTextMentionText)[];
+}
+
+
 
 export class ClRichText {
 

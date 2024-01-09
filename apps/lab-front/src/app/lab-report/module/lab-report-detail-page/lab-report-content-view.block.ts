@@ -22,7 +22,7 @@ export interface LabReportContentView {
   caption: string;
 }
 
-export class LabReportContentViewBlot extends TeComponentBlock<LabReportContentViewComponent> {
+export class LabReportContentViewBlock extends TeComponentBlock<LabReportContentViewComponent> {
 
   constructor(protected options: BlockToolConstructorOptions,
               protected readonly envInjector: EnvironmentInjector,
@@ -36,7 +36,7 @@ export class LabReportContentViewBlot extends TeComponentBlock<LabReportContentV
 
   static override get toolbox(): ToolboxConfig {
     return {
-      title: LabReportContentViewBlot.translateService.translate('biox.report_resource_view'),
+      title: LabReportContentViewBlock.translateService.translate('biox.report_resource_view'),
       icon: '<span class="material-icons-outlined">add_chart</span>',
     };
   }
@@ -46,7 +46,7 @@ export class LabReportContentViewBlot extends TeComponentBlock<LabReportContentV
   }
 
   getTagName(): string {
-    return LabReportContentViewBlot.TAG_NAME;
+    return LabReportContentViewBlock.TAG_NAME;
   }
 
   initInputs(data: LabReportContentView): void {

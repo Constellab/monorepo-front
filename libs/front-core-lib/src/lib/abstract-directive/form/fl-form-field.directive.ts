@@ -60,7 +60,9 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
    * Disabled the input
    */
   @Input() set disabled(isDisabled: boolean) {
-    this._disabled = ClHelpService.coerceBooleanOrEmptyProperty(isDisabled);
+    const disabled = ClHelpService.coerceBooleanOrEmptyProperty(isDisabled);
+    if(this._disabled === disabled) return;
+    this._disabled = disabled;
     this.onDisableChange(this._disabled);
   }
 

@@ -17,8 +17,6 @@ import {
   FlOverlayRef,
   FlPortalService
 } from '@monorepo/front-core-lib';
-import {CaNotificationState} from '../../../../../ca-core/state/ca-notification.state';
-import {Router} from '@angular/router';
 import {ClRichText} from '@monorepo/core-lib';
 
 
@@ -34,22 +32,27 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
   currentUserId: string;
   textEditorConfig: CaCommentTextEditorConfig = new CaCommentTextEditorConfig(this.projectService,
     this.state.getProjectId$());
-  formControl: FormControl;
-  isLoading: boolean = false;
+  // textEditorConfig2: CaCommentTextEditor2Config;
+
+  formControl: FormControl = new FormControl({value: null}, [Validators.required, Validators.min(1)]);
   projectId: string;
 
   constructor(private state: CaProjectDetailState,
               private projectService: CaProjectService,
               private userService: CaAuthenticatedUserService,
               private portalService: FlPortalService,
-              private dialogService: FlDialogService,
-              private notificationState: CaNotificationState,
-              private router: Router) {
+              private dialogService: FlDialogService) {
   }
 
   ngOnInit(): void {
     this.project$ = this.state.getProject$();
-    this.formControl = new FormControl({value: null}, [Validators.required, Validators.min(1)]);
+
+    // this.textEditorConfig2 = new CaCommentTextEditor2Config(
+    //   this.state.getProjectId$().pipe(
+    //     mergeMap(projectId => this.projectService.getUsersOfProject(projectId)),
+    //     share()
+    //   )
+    // );
 
     this.project$.subscribe(project => {
       this.projectId = project.id;

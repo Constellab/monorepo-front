@@ -4,6 +4,7 @@ import {
   ElementRef,
   EnvironmentInjector,
   EventEmitter,
+  HostBinding,
   Input,
   OnDestroy,
   OnInit,
@@ -12,7 +13,7 @@ import {
   Self,
   ViewChild
 } from '@angular/core';
-import EditorJS, {API} from '@editorjs/editorjs';
+import EditorJS from '@editorjs/editorjs';
 import {TeConfig} from '../../model/te-config.class';
 import {FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
@@ -29,9 +30,13 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeTextEditorCont
 
   @Input() placeholder: string = '';
 
+  @HostBinding('class.g-text-editor-hide-toolbar')
+  @Input() hideToolbar: boolean = false;
+
   @Output() textChange: EventEmitter<TeTextEditorContent> = new EventEmitter<TeTextEditorContent>();
 
   @ViewChild('editorContainer', {static: true}) editorContainer: ElementRef<HTMLElement>;
+
 
   editor: EditorJS;
 
@@ -42,6 +47,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeTextEditorCont
   }
 
   ngOnInit(): void {
+
     this.editor = new EditorJS({
       placeholder: this.placeholder,
       holder: this.editorContainer.nativeElement,
@@ -50,22 +56,34 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeTextEditorCont
       inlineToolbar: this.config.getInlineToolbar(),
       readOnly: this.disabled,
       tools: this.config.getTools(this.envInjector, this.applicationRef),
-
-      onChange: (api: API, event: any) => {
-        this.editor.save().then((content: TeTextEditorContent) => this.setAndEmitValue(content));
-      },
-      defaultBlock: 'paragraph'
+      onChange: () => this.onTextEditorChange(),
+      defaultBlock: this.config.getDefaultBlock(),
     });
   }
+
+  private async onTextEditorChange(): Promise<void> {
+    // the save method can be called only if the editor is not in readOnly mode
+    if (this.editor.readOnly.isEnabled) return;
+    const outputData = await this.editor.save();
+    return this.setAndEmitValue(outputData);
+  }
+
 
   callChangeEvent(value: TeTextEditorContent): void {
     this.textChange.emit(value);
   }
 
   onDisableChange(disable: boolean): void {
-    if (!this.editor) return;
+    if (this.editor == null || this.editor.readOnly == null) return;
     if (disable !== this.editor.readOnly.isEnabled) {
-      this.editor.readOnly.toggle();
+
+      // if we disable it, we save the content first because the save
+      // method can be called only if the editor is not in readOnly mode
+      if (!this.editor.readOnly.isEnabled) {
+        this.onTextEditorChange().then(() => this.editor.readOnly.toggle(true));
+      } else {
+        this.editor.readOnly.toggle(false);
+      }
     }
   }
 
@@ -85,7 +103,6 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeTextEditorCont
     }
     this.value = obj;
   }
-
 
   printJson(): void {
     this.editor.save().then((content: TeTextEditorContent) => {

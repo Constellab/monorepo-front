@@ -6,9 +6,9 @@
 
 <div>
   <!-- Description-->
-  <fl-text-editor *ngIf="!(experiment.description | flRichTextIsEmpty); else noDesc"
+  <te-text-editor *ngIf="!(experiment.description | flRichTextIsEmpty); else noDesc"
                   [ngModel]="experiment.description" [disabled]="true"
-                  mode="JSON" [config]="textEditorConfig"></fl-text-editor>
+                  [config]="textEditorConfig"></te-text-editor>
   <ng-template #noDesc>
     <fl-error-text [errorMessage]="'no_description' | translate"></fl-error-text>
   </ng-template>

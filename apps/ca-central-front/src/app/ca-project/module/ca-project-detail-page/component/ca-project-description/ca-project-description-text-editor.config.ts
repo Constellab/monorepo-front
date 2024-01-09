@@ -1,60 +1,57 @@
-import {
-  FlDialogService, FlQuillConfig, FlTextEditorBlockAddButton,
-  FlTextEditorConfig,
-  FlTextEditorImageLoader, FlTextEditorSnowButton,
-  FlTextEditorState
-} from '@monorepo/front-core-lib';
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
-import {Observable} from 'rxjs';
+import {first, mergeMap, Observable} from 'rxjs';
+import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
+import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 
-export class CaProjectDescriptionTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader {
+export class CaProjectDescriptionTextEditorImageConfig implements TeFigureBlockConfig {
 
   private projectId: string;
 
   constructor(private projectId$: Observable<string>,
-              private projectService: CaProjectService,
-              private dialogService: FlDialogService) {
-    super();
+              private projectService: CaProjectService) {
+    // TODO TO IMPROVE
     this.projectId$.subscribe(projectId => this.projectId = projectId);
   }
 
-
-  getBlockAddButtons(state: FlTextEditorState): FlTextEditorBlockAddButton[] {
-    return [
-      {
-        icon: 'image', type: 'fileExplorer',
-        onAction: file => this.insertImageFromFile(file, state)
-      },
-      this.getCodeBlockAddButton(state),
-      this.getHintBlockAddButton(state),
-      this.getVideoAddButton(state, this.dialogService),
-      this.getFormulaAddButton(state, this.dialogService)
-    ];
+  imageUploader(file: File): Observable<TeUploadedImage> {
+    return this.projectId$.pipe(
+      first(),
+      mergeMap(
+        projectId => this.projectService.uploadDescriptionImage(projectId, file)
+      )
+    );
   }
 
   getImageUrl(filename: string): string {
     return this.projectService.getDescriptionImageUrl(this.projectId, filename);
   }
 
-  getSnowButtons(): FlTextEditorSnowButton[] {
-    return [];
+
+}
+
+/**
+ * Config for the text editor in the report to support view in the editor
+ */
+export class CaProjectDescriptionTextEditorConfig extends TeCompleteConfig {
+
+
+  constructor(private projectId$: Observable<string>,
+              private projectService: CaProjectService) {
+    super();
   }
 
-  getToolbarConfig(): any {
-    return FlQuillConfig.completeToolbarConfig;
+  /**
+   * Get the complete config and add the view block and configure the image block
+   * @param envInjector
+   * @param applicationRef
+   */
+  getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
+    const tools = super.getTools(envInjector, applicationRef);
+
+    // configure and add the image block
+    const imageConfig = new CaProjectDescriptionTextEditorImageConfig(this.projectId$, this.projectService);
+    tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
+
+    return tools;
   }
-
-  onPasteImage(imgFile: File, state: FlTextEditorState): any {
-    this.insertImageFromFile(imgFile, state);
-    return {ops: []} //Return the delta without modification with the image pasted
-  }
-
-  insertImageFromFile(file: File, textEditorState: FlTextEditorState): void {
-    const index = textEditorState.getCurrentSelectionIndex();
-    this.projectService.uploadDescriptionImage(this.projectId, file).subscribe(
-      fileUrl => textEditorState.insertImageFromUrl(fileUrl, index)
-    );
-  }
-
-
 }

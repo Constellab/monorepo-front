@@ -1,4 +1,4 @@
-import {ClRichTextI} from '@monorepo/core-lib';
+import {ClRichTextI, ClRichTextMentionBlockData} from '@monorepo/core-lib';
 import {TeTextEditorContent} from './te-text-editor.class';
 
 
@@ -48,6 +48,12 @@ export class TeQuillMigrator {
       }
 
       const op = this.richText.ops[i];
+
+      if (op.insert.mention) {
+        i = this.handleMention(i, currentText);
+        continue;
+      }
+
       // if a text was saved before
       if (currentText.length > 0) {
         // handle header
@@ -209,6 +215,47 @@ export class TeQuillMigrator {
     }
 
     this.addBlock('list', data);
+    return index - 1;
+  }
+
+  private handleMention(index: number, currentText: string): number {
+    const mention: ClRichTextMentionBlockData = {
+      elements: []
+    };
+    if (currentText) {
+      mention.elements.push({
+        type: 'text',
+        text: currentText
+      });
+    }
+
+    while (index < this.richText.ops.length) {
+      const op = this.richText.ops[index];
+
+      if (op.insert.mention) {
+        mention.elements.push({
+          type: 'mention',
+          userId: op.insert.mention.id,
+          fullname: op.insert.mention.value
+        });
+      }
+
+      index++;
+      const textResult = this.getBlockText(index);
+
+      if (textResult.text) {
+        mention.elements.push({
+          type: 'text',
+          text: textResult.text
+        });
+        index = textResult.index;
+      } else {
+        break;
+      }
+
+    }
+
+    this.addBlock('paragraphWithMention', mention);
     return index - 1;
   }
 

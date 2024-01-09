@@ -33,10 +33,6 @@ import {CaAuthService} from './ca-login/service/ca-auth.service';
 import {CaUserAccountsService} from './ca-core/service-api/ca-user-accounts.service';
 import {CaApiErrorService} from './ca-core/service/ca-api-error.service';
 import {rvDefaultViewTypeInfos, RvResourceViewModule} from '@monorepo/resource-view';
-import {CaReportContentViewBlot} from './ca-project/module/ca-report-core/model/ca-report-content-view.class';
-import {
-  CaReportContentViewComponent
-} from './ca-project/module/ca-report-core/component/ca-report-content-view/ca-report-content-view.component';
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {CaTdServiceConfig} from './ca-core/model/config/ca-td-service.config';
 import {PrProtocolModule} from '@monorepo/protocol';
@@ -98,9 +94,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlAuthModule.forRoot(CaAuthService, CaUserAccountsService),
     FlPortalActionsModule.forRoot(),
     FlTextEditorModule.forRoot({
-      blots: [
-        {blot: CaReportContentViewBlot, componentType: CaReportContentViewComponent}
-      ]
+      blots: []
     }),
 
     FlUserModule.forRoot(CaUserConfig),

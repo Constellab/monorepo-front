@@ -1,0 +1,14 @@
+.container {
+  border-radius: 5px;
+  overflow: hidden;
+  max-height: 30em;
+  background-color: var(--card-background);
+}
+
+.item{
+  padding: 0.5em 1em;
+}
+
+.item:hover, .selected {
+  background-color: var(--hover-color);
+}

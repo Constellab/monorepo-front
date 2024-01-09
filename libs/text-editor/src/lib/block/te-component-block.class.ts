@@ -1,9 +1,5 @@
 import {ApplicationRef, ComponentRef, createComponent, EnvironmentInjector, Type} from '@angular/core';
-import {
-  BlockTool,
-  BlockToolConstructable,
-  BlockToolConstructorOptions
-} from '@editorjs/editorjs/types/tools/block-tool';
+import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
 import {TeElementDirective} from '../model/te-element.directive';
@@ -87,32 +83,4 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
   // call by editorjs when the block is added manually (not called when the editor is initialized with this block)
   appendCallback(): void {
   }
-}
-
-/**
- * Factory function to create a block tool constructor for editor js configuration
- * This creates a dynamic class to pass the environment injector and application ref class
- * @param blockType
- * @param environmentInjector
- * @param applicationRef
- * @param additionalData
- */
-export function teComponentBlockFactory<T extends TeElementDirective = TeElementDirective>(
-  blockType: Type<TeComponentBlock<T>>,
-  environmentInjector: EnvironmentInjector,
-  applicationRef: ApplicationRef,
-  additionalData?: any): any {
-
-
-  // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
-  return class TeClass {
-    static toolbox = (blockType as BlockToolConstructable).toolbox;
-    static pasteConfig = (blockType as BlockToolConstructable).pasteConfig;
-    static conversionConfig = (blockType as BlockToolConstructable).conversionConfig;
-    static isReadOnlySupported = (blockType as BlockToolConstructable).isReadOnlySupported;
-
-    constructor(config: BlockToolConstructorOptions) {
-      return new blockType(config, environmentInjector, applicationRef, additionalData) as any;
-    }
-  };
 }

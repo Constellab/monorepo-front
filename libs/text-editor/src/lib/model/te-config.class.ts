@@ -2,11 +2,14 @@ import {ToolConstructable, ToolSettings} from '@editorjs/editorjs/types/tools';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 import Underline from '@editorjs/underline';
 import Strikethrough from '@sotaproject/strikethrough';
-import {TeHeaderWithIdBlock} from '../block/te-header-with-id-block.class';
+import {
+  TeHeaderWithIdBlock,
+  TeHeaderWithIdBlockConfig,
+  teHeaderWithIdBlockDefaultConfig
+} from '../block/te-header-with-id-block.class';
 import NestedList from '@editorjs/nested-list';
 import InlineCode from '@editorjs/inline-code';
 import Quote from '@editorjs/quote';
-import {teComponentBlockFactory} from '../block/te-component-block.class';
 import {TeFormulaBlock} from '../block/te-formula-block.class';
 import Table from '@editorjs/table';
 import Paragraph from '@editorjs/paragraph';
@@ -15,6 +18,7 @@ import {TeVideoBlock} from '../block/te-video-block.class';
 import {FlKeyboardKey, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {TeFigureBlock, TeFigureBlockConfig} from '../block/te-figure-block.class';
 import {TeCodeBlock} from '../block/te-code-block.class';
+import {teComponentBlockFactory} from './te-block-factory.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -28,6 +32,10 @@ export abstract class TeConfig {
 
   abstract getInlineToolbar(): string[];
 
+  public getDefaultBlock(): string {
+    return 'paragraph';
+  }
+
   getParagraphConfig(): ToolSettings {
     return {
       class: Paragraph,
@@ -38,13 +46,11 @@ export abstract class TeConfig {
     };
   }
 
-  getHeaderConfig(): ToolSettings {
+  getHeaderConfig(config: Partial<TeHeaderWithIdBlockConfig> = {}): ToolSettings {
+    config = Object.assign(teHeaderWithIdBlockDefaultConfig, config);
     return {
       class: TeHeaderWithIdBlock,
-      config: {
-        levels: [2, 3, 4],
-        defaultLevel: 2
-      },
+      config: config
     };
   }
 
