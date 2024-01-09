@@ -15,7 +15,7 @@ export * from './lib/model/te-block-factory.class';
 export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
 export * from './lib/model/te-quill-migrator';
-export * from './lib/model/te-text-editor.class';
+export * from './lib/model/te-rich-text.class';
 
 // Block
 export * from './lib/block/te-code-block.class';
@@ -25,3 +25,6 @@ export * from './lib/block/te-formula-block.class';
 export * from './lib/block/te-header-with-id-block.class';
 export * from './lib/block/te-hint-block.class';
 export * from './lib/block/te-video-block.class';
+
+// Pipe
+export * from './lib/pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';

@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CaProjectDetailState} from '../../state/ca-project-detail.state';
 import {debounceTime, Observable, Subscription, switchMap} from 'rxjs';
-import {FlDebouncer, FlQuillJson} from '@monorepo/front-core-lib';
+import {FlDebouncer} from '@monorepo/front-core-lib';
 import {FormControl} from '@angular/forms';
 import {CaProject} from '../../../../../ca-core/model/entities/project/ca-project.class';
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 import {CaProjectDescriptionTextEditorConfig} from './ca-project-description-text-editor.config';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 @Component({
   selector: 'ca-project-description',
@@ -52,13 +53,13 @@ export class CaProjectDescriptionComponent implements OnInit, OnDestroy {
     );
   }
 
-  private descriptionLoaded(description: FlQuillJson): void {
+  private descriptionLoaded(description: TeRichTextContent): void {
     // patch the value without emitting an event
     this.formControl.patchValue(description, {emitEvent: false});
     this.isLoading = false;
   }
 
-  private saveDescription(description: FlQuillJson): void {
+  private saveDescription(description: TeRichTextContent): void {
     this.state.updateDescription(description);
   }
 

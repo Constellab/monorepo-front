@@ -1,13 +1,13 @@
 import {LabBaseEntityWithUser} from './lab-user.entity';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {TeTextEditorContent} from '@monorepo/text-editor';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 
 export class LabReportTemplate extends LabBaseEntityWithUser {
 
   title: string;
 
-  content: TeTextEditorContent;
+  content: TeRichTextContent;
 
 
   toString(): string {

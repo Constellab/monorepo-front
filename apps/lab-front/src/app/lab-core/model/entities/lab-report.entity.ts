@@ -6,9 +6,9 @@ import {LabEntity} from '../global/lab-entity.entity';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {DateTime} from 'luxon';
 import {LabReportTemplate} from './lab-report-template.entity';
-import {TeTextEditorContent} from '@monorepo/text-editor';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
-export type LabReportContent = TeTextEditorContent;
+export type LabReportContent = TeRichTextContent;
 
 export class LabReport extends LabBaseEntityWithUser implements LabProjectObject {
 

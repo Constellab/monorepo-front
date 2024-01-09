@@ -10,7 +10,7 @@ import {
   LabManageEntityTagsDialogInput
 } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 import {LabTagDatasource} from '../../../../../lab-core/model/entities/lab-tag.entity';
-import {TeBasicConfig, TeTextEditorContent} from '@monorepo/text-editor';
+import {TeBasicConfig, TeRichTextContent} from '@monorepo/text-editor';
 
 /**
  * Component inside LabExperimentDetailPage to show experiment information but not workflow
@@ -23,12 +23,12 @@ import {TeBasicConfig, TeTextEditorContent} from '@monorepo/text-editor';
 export class LabExperimentDetailComponent implements OnInit, OnDestroy {
 
   experiment$: Observable<LabExperiment>;
-  description: TeTextEditorContent;
+  description: TeRichTextContent;
   tags$: LabTagDatasource;
 
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
 
-  private descriptionDebouncer: FlDebouncer<TeTextEditorContent>;
+  private descriptionDebouncer: FlDebouncer<TeRichTextContent>;
 
   constructor(private experimentState: LabExperimentDetailPageState,
               private experimentService: LabExperimentService,
@@ -49,17 +49,17 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  onDescriptionChanged(value: TeTextEditorContent): void {
+  onDescriptionChanged(value: TeRichTextContent): void {
     this.descriptionDebouncer.setValue(value);
   }
 
-  saveDescription(description: TeTextEditorContent): void {
+  saveDescription(description: TeRichTextContent): void {
     this.experimentService.updateDescription(this.experimentState.currentExperiment.id, description).subscribe(
       () => this.saveDescriptionSuccess(this.description),
     );
   }
 
-  private saveDescriptionSuccess(description: TeTextEditorContent): void {
+  private saveDescriptionSuccess(description: TeRichTextContent): void {
     this.experimentState.updateDescription(description);
   }
 

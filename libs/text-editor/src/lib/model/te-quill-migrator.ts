@@ -1,10 +1,10 @@
 import {ClRichTextI, ClRichTextMentionBlockData} from '@monorepo/core-lib';
-import {TeTextEditorContent} from './te-text-editor.class';
+import {TeRichTextContent} from './te-rich-text.class';
 
 
 export class TeQuillMigrator {
 
-  private editorJsContent: TeTextEditorContent;
+  private editorJsContent: TeRichTextContent;
 
 
   constructor(private richText: ClRichTextI) {
@@ -17,7 +17,7 @@ export class TeQuillMigrator {
 
   }
 
-  public migrate(): TeTextEditorContent {
+  public migrate(): TeRichTextContent {
 
 
     for (let i = 0; i < this.richText.ops.length; i++) {

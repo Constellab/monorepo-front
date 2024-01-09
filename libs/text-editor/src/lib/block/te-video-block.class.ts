@@ -1,8 +1,14 @@
 import {TeComponentBlock} from './te-component-block.class';
 import {TeVideoComponent} from '../component/te-video/te-video.component';
 import {Type} from '@angular/core';
-import {ClRichTextVideo} from '@monorepo/core-lib';
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
+
+export class TeVideoBlockData {
+  url: string;
+  title?: string;
+  caption?: string;
+}
+
 
 export class TeVideoBlock extends TeComponentBlock<TeVideoComponent> {
 
@@ -23,13 +29,13 @@ export class TeVideoBlock extends TeComponentBlock<TeVideoComponent> {
     return TeVideoBlock.TAG_NAME;
   }
 
-  initInputs(data: ClRichTextVideo): void {
+  initInputs(data: TeVideoBlockData): void {
     this.componentInstance.videoTitle = data?.title;
     this.componentInstance.caption = data?.caption;
     this.componentInstance.url = data?.url;
   }
 
-  save(): ClRichTextVideo {
+  save(): TeVideoBlockData {
     return {
       url: this.componentInstance.url,
       title: this.componentInstance.videoTitle,
@@ -37,7 +43,7 @@ export class TeVideoBlock extends TeComponentBlock<TeVideoComponent> {
     };
   }
 
-  validate(blockData: ClRichTextVideo): boolean {
+  validate(blockData: TeVideoBlockData): boolean {
     return blockData?.url?.length > 0;
   }
 

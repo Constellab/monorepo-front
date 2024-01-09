@@ -13,7 +13,7 @@ import {
   FlLoaderModule,
   FlResizeModule,
   FlTranslateModule,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import {TeTitleCaptionComponent} from './component/te-title-caption/te-title-caption.component';
 import {teTextEditorI18n} from './te-text-editor.i18n';
@@ -29,6 +29,7 @@ import {TeVideoComponent} from './component/te-video/te-video.component';
 import {TeFigureComponent} from './component/te-figure/te-figure.component';
 import {TeCodeComponent} from './component/te-code/te-code.component';
 import {TeTextEditorSsrComponent} from './component/te-text-editor-ssr/te-text-editor-ssr.component';
+import {TeRichTextIsEmptyPipe} from './pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
 
 @NgModule({
   declarations: [
@@ -40,11 +41,13 @@ import {TeTextEditorSsrComponent} from './component/te-text-editor-ssr/te-text-e
     TeFigureComponent,
     TeCodeComponent,
     TeTextEditorSsrComponent,
+    TeRichTextIsEmptyPipe,
   ],
   exports: [
     TeTextEditorComponent,
     TeTextEditorSsrComponent,
     TeTitleCaptionComponent,
+    TeRichTextIsEmptyPipe,
   ],
   imports: [
     CommonModule,
@@ -71,8 +74,10 @@ import {TeTextEditorSsrComponent} from './component/te-text-editor-ssr/te-text-e
   ],
 })
 export class TeTextEditorModule {
-
   constructor(translateService: FlTranslateService) {
-    translateService.addModuleTranslation('TeTextEditorModule', teTextEditorI18n);
+    translateService.addModuleTranslation(
+      'TeTextEditorModule',
+      teTextEditorI18n
+    );
   }
 }

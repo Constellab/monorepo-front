@@ -2,7 +2,6 @@ import {TeComponentBlock} from './te-component-block.class';
 import {TeFigureComponent} from '../component/te-figure/te-figure.component';
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {Type} from '@angular/core';
-import {ClRichTextFigure} from '@monorepo/core-lib';
 import {Observable} from 'rxjs';
 import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
 import {PasteEvent} from '@editorjs/editorjs';
@@ -11,6 +10,16 @@ export interface TeUploadedImage {
   filename: string;
   width: number;
   height: number;
+}
+
+export interface TeFigureBlockData {
+  filename: string;
+  title?: string;
+  caption?: string;
+  width: number;
+  height: number;
+  naturalWidth: number;
+  naturalHeight: number;
 }
 
 
@@ -61,17 +70,17 @@ export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
     return TeFigureBlock.TAG_NAME;
   }
 
-  initInputs(data: ClRichTextFigure): void {
+  initInputs(data: TeFigureBlockData): void {
     this.componentInstance.data = data;
     this.componentInstance.config = this.figureConfig;
   }
 
-  save(): ClRichTextFigure {
+  save(): TeFigureBlockData {
     return this.componentInstance.data;
   }
 
   // ignore the formula if it is empty
-  validate(blockData: ClRichTextFigure): boolean {
+  validate(blockData: TeFigureBlockData): boolean {
     return blockData?.filename?.length > 0;
   }
 

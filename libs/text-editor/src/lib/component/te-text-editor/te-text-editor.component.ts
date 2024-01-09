@@ -17,14 +17,14 @@ import EditorJS from '@editorjs/editorjs';
 import {TeConfig} from '../../model/te-config.class';
 import {FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
-import {TeTextEditorContent, TeTextEditorHelper} from '../../model/te-text-editor.class';
+import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
 
 @Component({
   selector: 'te-text-editor',
   templateUrl: './te-text-editor.component.html',
   styleUrl: './te-text-editor.component.scss',
 })
-export class TeTextEditorComponent extends FlFormFieldDirective<TeTextEditorContent> implements OnInit, OnDestroy {
+export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextContent> implements OnInit, OnDestroy {
 
   @Input({required: true}) config: TeConfig;
 
@@ -33,7 +33,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeTextEditorCont
   @HostBinding('class.g-text-editor-hide-toolbar')
   @Input() hideToolbar: boolean = false;
 
-  @Output() textChange: EventEmitter<TeTextEditorContent> = new EventEmitter<TeTextEditorContent>();
+  @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
 
   @ViewChild('editorContainer', {static: true}) editorContainer: ElementRef<HTMLElement>;
 
@@ -69,7 +69,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeTextEditorCont
   }
 
 
-  callChangeEvent(value: TeTextEditorContent): void {
+  callChangeEvent(value: TeRichTextContent): void {
     this.textChange.emit(value);
   }
 
@@ -87,7 +87,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeTextEditorCont
     }
   }
 
-  writeValue(obj: TeTextEditorContent): void {
+  writeValue(obj: TeRichTextContent): void {
     if (this.editor) {
       this.editor.isReady.then(() => {
         if (obj) {
@@ -99,19 +99,19 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeTextEditorCont
     }
 
     if (obj == null) {
-      obj = TeTextEditorHelper.emptyContent();
+      obj = TeRichText.emptyContent();
     }
     this.value = obj;
   }
 
   printJson(): void {
-    this.editor.save().then((content: TeTextEditorContent) => {
+    this.editor.save().then((content: TeRichTextContent) => {
       console.log('Article data: ', content);
     });
   }
 
   setSavedData(): void {
-    this.editor.save().then((content: TeTextEditorContent) => {
+    this.editor.save().then((content: TeRichTextContent) => {
       this.editor.render(content);
     });
   }

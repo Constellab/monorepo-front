@@ -48,7 +48,6 @@ import {FlTranslateModule} from '../fl-translate/fl-translate.module';
 
 import {FlTextEditorFigureComponent} from './component/fl-text-editor-figure/fl-text-editor-figure.component';
 import {FlImageModule} from '../fl-image/fl-image.module';
-import {FlRichTextIsEmptyPipe} from './pipe/fl-rich-text-is-empty/fl-rich-text-is-empty.pipe';
 
 @NgModule({
   declarations: [
@@ -63,14 +62,12 @@ import {FlRichTextIsEmptyPipe} from './pipe/fl-rich-text-is-empty/fl-rich-text-i
     FlTextEditorDirective,
     FlTextEditorFormulaComponent,
     FlTextEditorFormulaDialogComponent,
-    FlRichTextIsEmptyPipe,
   ],
   exports: [
     FlTextEditorComponent,
     FlTextEditorTitleCaptionComponent,
     FlTextEditorDirective,
     FlTextEditorFormulaComponent,
-    FlRichTextIsEmptyPipe,
   ],
   imports: [
     CommonModule,
@@ -145,7 +142,7 @@ export class FlTextEditorModule {
         if (!customElements.get(blot.blot.tagName.toLowerCase())) {
           customElements.define(
             blot.blot.tagName.toLowerCase(),
-            createCustomElement(blot.componentType, { injector: injector })
+            createCustomElement(blot.componentType, {injector: injector})
           );
         }
       }

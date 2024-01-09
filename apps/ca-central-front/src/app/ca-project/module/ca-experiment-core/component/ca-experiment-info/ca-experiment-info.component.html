@@ -6,7 +6,7 @@
 
 <div>
   <!-- Description-->
-  <te-text-editor *ngIf="!(experiment.description | flRichTextIsEmpty); else noDesc"
+  <te-text-editor *ngIf="!(experiment.description | teRichTextIsEmpty); else noDesc"
                   [ngModel]="experiment.description" [disabled]="true"
                   [config]="textEditorConfig"></te-text-editor>
   <ng-template #noDesc>

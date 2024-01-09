@@ -17,7 +17,7 @@ import {
 } from '../../../../../lab-core/entity-module/lab-protocol-template-core/component/lab-protocol-template-form-dialog/lab-protocol-template-form-dialog.component';
 import {LabProtocolTemplateService} from '../../../../../lab-core/entity-service/lab-protocol-template.service';
 import {LabRouterService} from '../../../../../lab-core/service/lab-router.service';
-import {TeBasicConfig, TeTextEditorContent} from '@monorepo/text-editor';
+import {TeBasicConfig, TeRichTextContent} from '@monorepo/text-editor';
 
 @Component({
   selector: 'lab-protocol-template-detail',
@@ -36,7 +36,7 @@ export class LabProtocolTemplateDetailComponent implements OnInit, OnDestroy {
   downloadUrl: string;
 
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
-  private descriptionDebouncer: FlDebouncer<TeTextEditorContent>;
+  private descriptionDebouncer: FlDebouncer<TeRichTextContent>;
 
 
   constructor(private actionState: PrWorkflowActionState,
@@ -62,11 +62,11 @@ export class LabProtocolTemplateDetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  onDescriptionChanged(value: TeTextEditorContent): void {
+  onDescriptionChanged(value: TeRichTextContent): void {
     this.descriptionDebouncer.setValue(value);
   }
 
-  saveDescription(description: TeTextEditorContent): void {
+  saveDescription(description: TeRichTextContent): void {
     this.protocolTemplateService.updateProtocolTemplate(this.template.id, {description: description}).subscribe();
   }
 

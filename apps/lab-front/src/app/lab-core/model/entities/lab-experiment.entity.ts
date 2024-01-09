@@ -13,7 +13,7 @@ import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {DateTime} from 'luxon';
 import {LabProject, LabProjectObject} from './lab-project.class';
 import {LabRunningProcessInfo} from './process/lab-process.entity';
-import {TeTextEditorContent} from '@monorepo/text-editor';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 export type LabExperimentStatus = 'DRAFT' | 'IN_QUEUE' | 'WAITING_FOR_CLI_PROCESS'
   | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN';
@@ -54,7 +54,7 @@ export class LabExperiment extends LabBaseEntityWithUser implements LabProjectOb
 
   title: string;
 
-  description: TeTextEditorContent;
+  description: TeRichTextContent;
 
   data: void;
 

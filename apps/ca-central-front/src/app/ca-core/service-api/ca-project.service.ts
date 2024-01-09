@@ -17,11 +17,10 @@ import {
   FlArrayObs,
   FlEntityArrayObs,
   FlEntityPaginatedDatasource,
-  FlQuillJson,
   FlSearchConverter,
   FlTextEditorUploadedImage,
 } from '@monorepo/front-core-lib';
-import {ClPage, ClPageI, ClRichTextFigure, ClRichTextI} from '@monorepo/core-lib';
+import {ClPage, ClPageI, ClRichTextI} from '@monorepo/core-lib';
 import {CaGroup} from '../model/entities/ca-group.entity';
 import {CaUser} from '../model/entities/ca-user.class';
 import {CaProjectComment, CaProjectCommentDatasourcePaginated} from '../model/entities/ca-comment.class';
@@ -34,7 +33,7 @@ import {
   CaActivitySearch,
   CaActivitySearchFields
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
-import {OutputData} from '@editorjs/editorjs';
+import {TeFigureBlockData, TeRichTextContent} from '@monorepo/text-editor';
 
 /**
  * Service to manage project entity
@@ -151,7 +150,7 @@ export class CaProjectService {
 
   /////////////////////////////////// DESCRIPTION //////////////////////////////////
 
-  public getProjectDescription(id: string): Observable<FlQuillJson> {
+  public getProjectDescription(id: string): Observable<TeRichTextContent> {
     return this.apiService.get(`${this.route}/${id}/description`);
   }
 
@@ -260,7 +259,7 @@ export class CaProjectService {
     return this.apiService.post(`${this.route}/${projectId}/constellab-document`, {name: filename}, CaConstellabDocument);
   }
 
-  public updateConstellabDocument(documentId: string, content: OutputData): Observable<CaConstellabDocument> {
+  public updateConstellabDocument(documentId: string, content: TeRichTextContent): Observable<CaConstellabDocument> {
     return this.apiService.put(`${this.route}/constellab-document/${documentId}`, content, CaConstellabDocument);
   }
 
@@ -268,7 +267,7 @@ export class CaProjectService {
     return this.apiService.get(`${this.route}/constellab-document/${documentId}`, CaConstellabDocument);
   }
 
-  public uploadConstellabDocumentImage(file: File, documentId: string): Observable<ClRichTextFigure> {
+  public uploadConstellabDocumentImage(file: File, documentId: string): Observable<TeFigureBlockData> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/constellab-document/${documentId}/image`, formData);

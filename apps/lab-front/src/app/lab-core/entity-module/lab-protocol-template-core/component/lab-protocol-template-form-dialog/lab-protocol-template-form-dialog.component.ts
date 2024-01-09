@@ -10,12 +10,12 @@ import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {LabProtocolService} from '../../../../entity-service/lab-protocol.service';
 import {LabProtocolTemplateService} from '../../../../entity-service/lab-protocol-template.service';
-import {TeBasicConfig, TeTextEditorContent} from '@monorepo/text-editor';
+import {TeBasicConfig, TeRichTextContent} from '@monorepo/text-editor';
 
 export interface LabProtocolTemplateFormDialogInput extends FlFormDialogInput<LabProtocolTemplate> {
   protocolId?: string;
   defaultName?: string;
-  defaultDescription?: TeTextEditorContent;
+  defaultDescription?: TeRichTextContent;
 }
 
 @Component({

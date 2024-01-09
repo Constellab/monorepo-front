@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CaReport, CaResourceView} from '../model/entities/project/ca-report.class';
 import {FlApiService} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
-import {OutputData} from '@editorjs/editorjs';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class CaReportService {
     return this.apiService.getById(this.route, id, CaReport);
   }
 
-  getContent(reportId: string): Observable<OutputData> {
+  getContent(reportId: string): Observable<TeRichTextContent> {
     return this.apiService.get(`${this.route}/${reportId}/content`);
   }
 

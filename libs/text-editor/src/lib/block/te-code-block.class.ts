@@ -3,8 +3,13 @@ import {FlCodeEditorLanguage, flRootInjector, FlTranslateService} from '@monorep
 import {TeComponentBlock} from './te-component-block.class';
 import {TeCodeComponent} from '../component/te-code/te-code.component';
 import {Type} from '@angular/core';
-import {ClRichTextCode} from '@monorepo/core-lib';
 import {FormControl} from '@angular/forms';
+
+export interface TeCodeBlockData {
+  code: string;
+  language: string;
+}
+
 
 export class TeCodeBlock extends TeComponentBlock<TeCodeComponent> {
 
@@ -28,12 +33,12 @@ export class TeCodeBlock extends TeComponentBlock<TeCodeComponent> {
     return TeCodeBlock.TAG_NAME;
   }
 
-  initInputs(data: ClRichTextCode): void {
+  initInputs(data: TeCodeBlockData): void {
     this.componentInstance.formControl = new FormControl({value: data.code, disabled: this.disabled});
     this.componentInstance.language = (data.language as FlCodeEditorLanguage) ?? 'python';
   }
 
-  save(): ClRichTextCode {
+  save(): TeCodeBlockData {
     return {
       code: this.componentInstance.formControl.value,
       language: this.componentInstance.language,
@@ -41,7 +46,7 @@ export class TeCodeBlock extends TeComponentBlock<TeCodeComponent> {
   }
 
   // ignore the formula if it is empty
-  validate(blockData: ClRichTextCode): boolean {
+  validate(blockData: TeCodeBlockData): boolean {
     return blockData.code?.length > 0;
   }
 }

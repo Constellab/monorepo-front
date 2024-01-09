@@ -4,13 +4,12 @@ import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.se
 import {CaConstellabDocument, CaDocument} from '../../../../../ca-core/model/entities/project/ca-document.class';
 import {FlDebouncer} from '@monorepo/front-core-lib';
 import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
-import {ClRichTextI} from '@monorepo/core-lib';
 import {
   CaDocumentActionEvent
 } from '../../../ca-document-core/component/ca-document-actions-menu/ca-document-actions-menu.component';
 import {CaDocumentTextEditorConfig2} from '../../../ca-document-core/ca-document-text-editor.config';
-import {OutputData} from '@editorjs/editorjs';
 import {FormControl} from '@angular/forms';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -23,13 +22,13 @@ import {FormControl} from '@angular/forms';
 export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
 
   document: CaDocument;
-  contentFormControl: FormControl<ClRichTextI> = new FormControl<ClRichTextI>({disabled: true, value: null});
+  contentFormControl: FormControl<TeRichTextContent> = new FormControl({disabled: true, value: null});
 
   textEditorConfig: CaDocumentTextEditorConfig2;
 
   isLoading: boolean = true;
 
-  private contentDebouncer: FlDebouncer<OutputData>;
+  private contentDebouncer: FlDebouncer<TeRichTextContent>;
 
 
   constructor(private route: ActivatedRoute,
@@ -58,17 +57,17 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
 
   private getDocumentSuccess(constellabDocument: CaConstellabDocument): void {
     this.document = constellabDocument.document;
-    this.contentFormControl.patchValue( constellabDocument.content);
+    this.contentFormControl.patchValue(constellabDocument.content);
     this.textEditorConfig = new CaDocumentTextEditorConfig2(constellabDocument.document.id,
       this.projectService);
     this.isLoading = false;
   }
 
-  onContentUpdate(content: OutputData): void {
+  onContentUpdate(content: TeRichTextContent): void {
     this.contentDebouncer.setValue(content);
   }
 
-  private saveContent(content: OutputData): void {
+  private saveContent(content: TeRichTextContent): void {
     this.projectService.updateConstellabDocument(this.document.id, content).subscribe(
       doc => this.document = doc.document
     );

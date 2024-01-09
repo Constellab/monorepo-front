@@ -5,7 +5,7 @@ import {CaProjectService} from '../../../../ca-core/service-api/ca-project.servi
 import {CaUser} from '../../../../ca-core/model/entities/ca-user.class';
 import {map} from 'rxjs/operators';
 import {CaAuthenticatedUserService} from '../../../../ca-core/service-api/ca-authenticated-user.service';
-import {FlArrayObs, FlEntityArrayObs, FlQueryParamHandler, FlQuillJson} from '@monorepo/front-core-lib';
+import {FlArrayObs, FlEntityArrayObs, FlQueryParamHandler} from '@monorepo/front-core-lib';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CaReport} from '../../../../ca-core/model/entities/project/ca-report.class';
 import {CaExperiment} from '../../../../ca-core/model/entities/project/ca-experiment.class';
@@ -15,6 +15,7 @@ import {CaBaseEntity} from '../../../../ca-core/model/entities/ca-base-entity.cl
 import {ClHelpService, ClSubscriptionHandler} from '@monorepo/core-lib';
 import {CaProjectObjectDetailState} from '../../ca-project-object-core/state/ca-project-object-detail.state';
 import {CaRouterService} from '../../../../ca-core/service/ca-router.service';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 export type CaProjectDetailRightPanel = {
   type: 'description' | 'report' | 'experiment' | 'comments' | 'settings';
@@ -158,7 +159,7 @@ export class CaProjectDetailState implements OnDestroy {
     );
   }
 
-  public updateDescription(description: FlQuillJson): void {
+  public updateDescription(description: TeRichTextContent): void {
     const project = this.getCurrentProject();
     this.projectService.updateDescription(project.id, description as any).subscribe();
   }

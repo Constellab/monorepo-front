@@ -15,7 +15,7 @@ import {ClHelpService, ClPageI} from '@monorepo/core-lib';
 import {LabExperiment} from '../model/entities/lab-experiment.entity';
 import {LabReportSearch, LabReportSearchFields} from '../entity-module/lab-report-core/model/lab-report-search.class';
 import {map} from 'rxjs/operators';
-import {TeTextEditorHelper} from '@monorepo/text-editor';
+import {TeRichText} from '@monorepo/text-editor';
 
 @Injectable({providedIn: 'root'})
 export class LabReportService {
@@ -56,7 +56,7 @@ export class LabReportService {
 
   public updateContent(id: string, content: LabReportContent): Observable<LabReport> {
     if (content == null) {
-      content = TeTextEditorHelper.emptyContent();
+      content = TeRichText.emptyContent();
     }
     return this.apiService.put(`${this.route}/${id}/content`, content, LabReport);
   }

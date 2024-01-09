@@ -35,6 +35,3 @@ export * from './model/fl-text-editor-link-without-target.class';
 export * from './model/fl-text-editor-module-config.class';
 export * from './model/fl-text-editor-video-blot.class';
 export * from './model/fl-quill-setup.class';
-
-// Pipes
-export * from './pipe/fl-rich-text-is-empty/fl-rich-text-is-empty.pipe';

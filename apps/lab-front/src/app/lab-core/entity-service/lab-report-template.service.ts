@@ -15,7 +15,7 @@ import {
   LabReportTemplateDatasource,
   LabReportTemplateForm
 } from '../model/entities/lab-report-template.entity';
-import {TeTextEditorContent, TeTextEditorHelper} from '@monorepo/text-editor';
+import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 
 @Injectable({providedIn: 'root'})
 export class LabReportTemplateService {
@@ -39,9 +39,9 @@ export class LabReportTemplateService {
   }
 
 
-  public updateContent(id: string, content: TeTextEditorContent): Observable<LabReportTemplate> {
+  public updateContent(id: string, content: TeRichTextContent): Observable<LabReportTemplate> {
     if (content == null) {
-      content = TeTextEditorHelper.emptyContent();
+      content = TeRichText.emptyContent();
     }
     return this.apiService.put(`${this.route}/${id}/content`, content, LabReportTemplate);
   }

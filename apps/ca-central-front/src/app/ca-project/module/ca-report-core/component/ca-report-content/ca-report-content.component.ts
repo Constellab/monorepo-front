@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CaReportService} from '../../../../../ca-core/service-api/ca-report.service';
 import {CaReportTextEditorConfig2} from '../../model/ca-report-text-editor-config.class';
-import {OutputData} from '@editorjs/editorjs';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 /**
  * Component to show the report content in a disabled text editor
@@ -16,7 +16,7 @@ export class CaReportContentComponent implements OnInit {
 
   @Input() reportId: string;
 
-  content$: Observable<OutputData>;
+  content$: Observable<TeRichTextContent>;
   textEditorConfig: CaReportTextEditorConfig2;
 
 

@@ -1,8 +1,17 @@
 import {ToolboxConfig, TunesMenuConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {ClRichTextFormula} from '@monorepo/core-lib';
 import {Type} from '@angular/core';
 import {TeComponentBlock} from './te-component-block.class';
 import {TeFormulaComponent} from '../component/te-formula/te-formula.component';
+
+
+/**
+ * Object representing the value stored to create a formula
+ */
+export interface TeFormulaBlockData {
+  formula: string;
+  title?: string;
+  caption?: string;
+}
 
 /**
  * Formula block for editor js
@@ -26,13 +35,13 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
     return TeFormulaBlock.TAG_NAME;
   }
 
-  initInputs(data: ClRichTextFormula): void {
+  initInputs(data: TeFormulaBlockData): void {
     this.componentInstance.formulaTitle = data?.title;
     this.componentInstance.caption = data?.caption;
     this.componentInstance.formula$.next(data?.formula);
   }
 
-  save(): ClRichTextFormula {
+  save(): TeFormulaBlockData {
     return {
       formula: this.componentInstance.formula$.value,
       title: this.componentInstance.formulaTitle,
@@ -41,7 +50,7 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
   }
 
   // ignore the formula if it is empty
-  validate(blockData: ClRichTextFormula): boolean {
+  validate(blockData: TeFormulaBlockData): boolean {
     return blockData?.formula?.length > 0;
   }
 
