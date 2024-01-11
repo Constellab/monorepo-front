@@ -4,12 +4,17 @@ import {RvResourceViewDirective, RvResourceViewPlotly,} from '@monorepo/resource
 import {FlResizeObservable} from '@monorepo/front-core-lib';
 import {debounceTime} from 'rxjs/operators';
 import {CommonModule} from '@angular/common';
+import * as Plotly from 'plotly.js';
 
+Plotly.newPlot(null, null, {updatemenus});
+// Plotly.newPlot()
 // we use the strict version of plotly even if it's not typed because the normal version
 // use eval (for webgl scatter) which requires unsafe-eval in the CSP
 // don't use the dist version because the webgl doesn't work in production mode
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const Plotly = require('plotly.js-strict-dist');
+// const Plotly = require('plotly.js-strict-dist');
+// import Plotly from 'plotly.js-strict-dist';
+
 
 /**
  * Standalone component to display a plotly view.
@@ -25,14 +30,30 @@ const Plotly = require('plotly.js-strict-dist');
 })
 export class RvViewPlotlyComponent
   extends RvResourceViewDirective<RvResourceViewPlotly>
-  implements OnInit, OnDestroy
-{
-  @ViewChild('plotlyContainer', { static: true })
+  implements OnInit, OnDestroy {
+  @ViewChild('plotlyContainer', {static: true})
   plotlyContainer: ElementRef<HTMLElement>;
 
   private resizeObs: FlResizeObservable;
 
   ngOnInit(): void {
+    // (this.view.data.layout as any).updatemenus = [{
+    //   y: 0.8,
+    //   yanchor: 'top',
+    //   buttons: [{
+    //     method: 'restyle',
+    //     args: ['line.color', 'red'],
+    //     label: 'red'
+    //   }, {
+    //     method: 'restyle',
+    //     args: ['line.color', 'blue'],
+    //     label: 'blue'
+    //   }, {
+    //     method: 'restyle',
+    //     args: ['line.color', 'green'],
+    //     label: 'green'
+    //   }]
+    // }];
     Plotly.newPlot(
       this.plotlyContainer.nativeElement,
       this.view.data.data,

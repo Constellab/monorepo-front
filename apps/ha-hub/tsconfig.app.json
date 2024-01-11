@@ -5,6 +5,6 @@
     "types": ["resize-observer-browser", "node"],
   },
   "files": ["src/main.ts", "src/main.server.ts", "server.ts"],
-  "include": ["src/**/*.d.ts"],
+  "include": ["src/**/*.d.ts", "../../libs/text-editor/src/types.d.ts", "../../libs/resource-view/src/types.d.ts"],
   "exclude": ["**/*.test.ts", "**/*.spec.ts", "jest.config.ts"]
 }
