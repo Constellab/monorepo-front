@@ -6,46 +6,48 @@
 
     <ng-template flSectionBody>
 
-      <div class="card-container g-layout-col">
-        <div *ngIf="document.inTrash" class="g-warn-text">
-          {{ 'document_in_trash' | translate }}
-        </div>
-        <div class="header">
-          <div class="g-layout-row g-layout-between-center">
-            <h1>{{ document.name }}</h1>
+      <fl-card class="card-container">
+        <fl-card-header>
+          <h1>{{ document.name }}</h1>
 
-            <div class="g-print-hide g-layout-row g-layout-start-center">
-              <button mat-stroked-button type="button" (click)="toggleEditMode()"
-                      class="button g-button-small">
-                <mat-icon>{{contentFormControl.disabled  ? 'edit' : 'visibility' }}</mat-icon>
-                <span>{{ (contentFormControl.disabled ? 'edit' : 'view') | translate }}</span>
-              </button>
+          <fl-card-actions class="g-print-hide">
+            <button mat-stroked-button type="button" (click)="toggleEditMode()"
+                    class="button g-button-small">
+              <mat-icon>{{ contentFormControl.disabled ? 'edit' : 'visibility' }}</mat-icon>
+              <span>{{ (contentFormControl.disabled ? 'edit' : 'view') | translate }}</span>
+            </button>
 
-              <button mat-stroked-button type="button" (click)="print()" class="button g-button-small">
-                {{ 'print_document' | translate }}
-                <mat-icon>print</mat-icon>
-              </button>
+            <button mat-stroked-button type="button" (click)="print()" class="button g-button-small">
+              {{ 'print_document' | translate }}
+              <mat-icon>print</mat-icon>
+            </button>
 
-              <ca-document-actions-menu [document]="document" [showViewLinks]="false"
-                                        (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
+            <ca-document-actions-menu [document]="document" [showViewLinks]="false"
+                                      (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
+          </fl-card-actions>
+        </fl-card-header>
+
+        <fl-card-body>
+          <div class="g-print-hide">
+            <div *ngIf="document.inTrash" class="g-warn-text">
+              {{ 'document_in_trash' | translate }}
             </div>
+
+            <fl-creation-info [user]="document.createdBy" [date]="document.createdAt">
+            </fl-creation-info>
+
+            <fl-last-modification-info [user]="document.lastModifiedBy"
+                                       [date]="document.lastModifiedAt"></fl-last-modification-info>
           </div>
 
-          <fl-creation-info [user]="document.createdBy" [date]="document.createdAt">
-          </fl-creation-info>
-
-          <fl-last-modification-info [user]="document.lastModifiedBy"
-                                     [date]="document.lastModifiedAt"></fl-last-modification-info>
-        </div>
-
-
-        <te-text-editor [formControl]="contentFormControl" [config]="textEditorConfig"
-                        (textChange)="onContentUpdate($event)"
-                        class="g-full-height g-print-section text-editor g-article-width"
-                        [ngClass]="{'text-editor-edit': !contentFormControl.disabled}"></te-text-editor>
+          <te-text-editor [formControl]="contentFormControl" [config]="textEditorConfig"
+                          (textChange)="onContentUpdate($event)"
+                          class="g-full-height g-print-section text-editor"
+                          [ngClass]="{'text-editor-edit': !contentFormControl.disabled}"></te-text-editor>
+        </fl-card-body>
 
 
-      </div>
+      </fl-card>
 
     </ng-template>
   </fl-section>

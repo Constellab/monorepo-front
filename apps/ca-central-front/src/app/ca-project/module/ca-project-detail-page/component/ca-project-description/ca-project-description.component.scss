@@ -1,14 +1,12 @@
 
-.section{
-  padding-top: 1em;
-  padding-right: 1em;
-  padding-left: 1em;
+.section {
+  padding: 1em;
+  //padding-right: 1em;
+  //padding-left: 1em;
+  box-sizing: border-box;
+  margin-bottom: 0;
 }
 
-.header{
-}
-
-
-.hide-border{
-  border-color: transparent;
-}
+//.text-editor{
+//  padding-bottom: 1em;
+//}

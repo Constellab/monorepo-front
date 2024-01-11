@@ -1,6 +1,6 @@
 <fl-section [isLoading]="isLoading" [object]="formControl" class="section">
 
-  <fl-section-header class="header">
+  <fl-section-header>
     <fl-text-icon *ngIf="project$ | async let project">
       <mat-icon flIcon="project"></mat-icon>
       <h2>{{ project.title | translate }}</h2>
@@ -15,7 +15,7 @@
 
   <ng-container *flSectionBody>
     <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
-                    [ngClass]="{'hide-border': !edit}"
+                    class="g-scrollable-element text-editor"
                     [placeholder]="'project_description_placeholder' | translate"></te-text-editor>
   </ng-container>
 </fl-section>

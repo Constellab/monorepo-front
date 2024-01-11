@@ -8,7 +8,7 @@
   <!-- Description-->
   <te-text-editor *ngIf="!(experiment.description | teRichTextIsEmpty); else noDesc"
                   [ngModel]="experiment.description" [disabled]="true"
-                  [config]="textEditorConfig"></te-text-editor>
+                  [config]="textEditorConfig" class="g-scrollable-element"></te-text-editor>
   <ng-template #noDesc>
     <fl-error-text [errorMessage]="'no_description' | translate"></fl-error-text>
   </ng-template>

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-experiment.class';
-import {FlArrayObs, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlArrayObs, FlTableColumnStatic} from '@monorepo/front-core-lib';
 
 /**
  * In the project detail page, show the list of experiments
@@ -21,10 +21,7 @@ export class CaExperimentsListComponent implements OnInit {
 
   @Input() mode: 'small' | 'large' = 'large';
 
-  columns: FlTableColumn<CaExperiment>[] = ['title', 'createdBy', 'status'];
-
-  constructor() {
-  }
+  columns: FlTableColumnStatic<CaExperiment>[] = ['title', 'createdBy', 'status'];
 
   ngOnInit(): void {
     this.columns = this.mode === 'small' ? ['title', 'status'] : ['title', 'createdBy', 'status', 'lastSync'];

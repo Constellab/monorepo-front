@@ -41,7 +41,9 @@ import {
 import {
   CaNotificationCoreModule
 } from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
-
+import {
+  CaExperimentsTableDialogComponent
+} from './component/ca-experiments-table-dialog/ca-experiments-table-dialog.component';
 
 @NgModule({
   declarations: [
@@ -58,12 +60,14 @@ import {
     CaExperimentTechnicalReportResourceInfoComponent,
     CaExperimentTableComponent,
     CaExperimentCardDetailComponent,
+    CaExperimentsTableDialogComponent,
   ],
   exports: [
     CaExperimentInfoComponent,
     CaExperimentsListComponent,
     CaExperimentTechnicalReportComponent,
     CaExperimentCardDetailComponent,
+    CaExperimentsTableDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -75,8 +79,7 @@ import {
     CaLabCoreModule,
     CaProjectObjectCoreModule,
     CaNotificationCoreModule,
-  ]
+  ],
 })
 export class CaExperimentCoreModule {
-
 }

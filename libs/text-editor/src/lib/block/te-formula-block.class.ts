@@ -22,7 +22,7 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
 
   static override get toolbox(): ToolboxConfig {
     return {
-      title: TeFormulaBlock.translateService.translate('flTextEditor.formula'),
+      title: TeFormulaBlock.translateService.translate('flFormula.formula'),
       icon: '<span class="material-icons-outlined">functions</span>',
     };
   }

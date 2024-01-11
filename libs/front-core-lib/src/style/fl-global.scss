@@ -279,14 +279,17 @@ figure {
 }
 
 /**************************** Other *****************************/
+:root{
+  --article-width: 60rem;
+}
 
 // Class to limit width of an element to keep it readable event it wide screes
 .g-max-article-width {
-  max-width: 60rem;
+  max-width: var(--article-width);
 }
 
 .g-article-width {
-  width: 60rem;
+  width: var(--article-width);
 }
 
 

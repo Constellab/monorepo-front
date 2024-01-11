@@ -27,6 +27,7 @@
   "reports": "Reports",
   "no_report": "No report",
   "report": "Report",
+  "report_associated_experiments": "Associated experiments",
   "url": "URL",
   "print_report": "Print",
   "project_shared_groups" : "Share",

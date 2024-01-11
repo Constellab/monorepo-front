@@ -10,14 +10,7 @@
 .card-container {
   margin: auto;
   height: 100%;
-  max-width: 100%;
-  background-color: var(--card-background);
-  border-radius: var(--card-radius);
-  padding: 1em;
-}
-
-.header {
-  padding-bottom: 1em;
+  width: var(--article-width);
 }
 
 .button {
@@ -28,6 +21,7 @@
 
 .text-editor {
   margin-bottom: 2em;
+  margin-top: 1em;
   max-width: 100%;
   flex: 1;
 }

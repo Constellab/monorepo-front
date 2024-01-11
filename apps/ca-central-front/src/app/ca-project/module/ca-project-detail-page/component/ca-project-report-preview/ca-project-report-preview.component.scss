@@ -1,4 +1,4 @@
-.container{
+.container {
   padding-top: 1em;
   height: 100%;
   display: grid;
@@ -7,17 +7,19 @@
   box-sizing: border-box;
 }
 
-.header{
+.header {
   margin-bottom: 1em;
   padding-left: 1em;
   padding-right: 1em;
 }
 
-.title{
+.title {
   word-break: break-word;
 }
 
-.report-content{
+.report-content {
   min-height: 0;
   min-width: 0; // limit width to parent width
+  padding: 0 1em 1em 1em;
+  box-sizing: border-box;
 }
