@@ -19,7 +19,7 @@ RUN npm run ca-central-front:build-prod
 FROM nginx:alpine
 
 # Get build result
-COPY --from=buildContainer /app/dist/apps/ca-central-front /usr/share/nginx/html
+COPY --from=buildContainer /app/dist/apps/ca-central-front/browser /usr/share/nginx/html
 
 # Copy the default nginx.conf
 COPY /apps/ca-central-front/nginx.conf /etc/nginx/conf.d/default.conf
