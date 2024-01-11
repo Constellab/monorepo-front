@@ -7,6 +7,7 @@ import {
 } from '../../model/td-resource-type.class';
 import {rvDefaultViewTypeInfos, RvResourceViewTypeInfo} from '@monorepo/resource-view';
 import {isPlatformBrowser} from '@angular/common';
+import hljs from 'highlight.js/lib/core';
 
 @Component({
   selector: 'td-resource-doc',
@@ -29,9 +30,7 @@ export class TdResourceDocComponent implements OnInit {
 
   getFunctionSignature(func: TdResourceFunction): string {
     if(isPlatformBrowser(this.platformId)){
-      const hljs = require('highlight.js');
-      const signature = hljs.highlight('python', this.getFunctionSignatureToString(func)).value;
-      return signature;
+      return hljs.highlight('python', this.getFunctionSignatureToString(func)).value;
     }
     return '';
   }

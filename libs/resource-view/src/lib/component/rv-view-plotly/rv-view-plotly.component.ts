@@ -4,16 +4,13 @@ import {RvResourceViewDirective, RvResourceViewPlotly,} from '@monorepo/resource
 import {FlResizeObservable} from '@monorepo/front-core-lib';
 import {debounceTime} from 'rxjs/operators';
 import {CommonModule} from '@angular/common';
-import * as Plotly from 'plotly.js';
 
-Plotly.newPlot(null, null, {updatemenus});
 // Plotly.newPlot()
 // we use the strict version of plotly even if it's not typed because the normal version
 // use eval (for webgl scatter) which requires unsafe-eval in the CSP
 // don't use the dist version because the webgl doesn't work in production mode
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-// const Plotly = require('plotly.js-strict-dist');
-// import Plotly from 'plotly.js-strict-dist';
+import Plotly from 'plotly.js-strict-dist';
 
 
 /**
