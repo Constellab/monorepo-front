@@ -6,8 +6,8 @@
 
     <ng-template flSectionBody>
 
-      <fl-card class="card-container">
-        <fl-card-header>
+      <div class="card-container">
+        <div class="g-layout-row g-layout-between-center">
           <h1>{{ document.name }}</h1>
 
           <fl-card-actions class="g-print-hide">
@@ -25,29 +25,27 @@
             <ca-document-actions-menu [document]="document" [showViewLinks]="false"
                                       (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
           </fl-card-actions>
-        </fl-card-header>
+        </div>
 
-        <fl-card-body>
-          <div class="g-print-hide">
-            <div *ngIf="document.inTrash" class="g-warn-text">
-              {{ 'document_in_trash' | translate }}
-            </div>
-
-            <fl-creation-info [user]="document.createdBy" [date]="document.createdAt">
-            </fl-creation-info>
-
-            <fl-last-modification-info [user]="document.lastModifiedBy"
-                                       [date]="document.lastModifiedAt"></fl-last-modification-info>
+        <div class="g-print-hide">
+          <div *ngIf="document.inTrash" class="g-warn-text">
+            {{ 'document_in_trash' | translate }}
           </div>
 
-          <te-text-editor [formControl]="contentFormControl" [config]="textEditorConfig"
-                          (textChange)="onContentUpdate($event)"
-                          class="g-full-height g-print-section text-editor"
-                          [ngClass]="{'text-editor-edit': !contentFormControl.disabled}"></te-text-editor>
-        </fl-card-body>
+          <fl-creation-info [user]="document.createdBy" [date]="document.createdAt">
+          </fl-creation-info>
+
+          <fl-last-modification-info [user]="document.lastModifiedBy"
+                                     [date]="document.lastModifiedAt"></fl-last-modification-info>
+        </div>
+
+        <te-text-editor [formControl]="contentFormControl" [config]="textEditorConfig"
+                        (textChange)="onContentUpdate($event)"
+                        class="g-print-section text-editor"
+                        [ngClass]="{'text-editor-edit': !contentFormControl.disabled}"></te-text-editor>
 
 
-      </fl-card>
+      </div>
 
     </ng-template>
   </fl-section>
