@@ -7,7 +7,7 @@ import {ClHelpService} from '@monorepo/core-lib';
 /**
  * Class to be extended by component that supports NgModel
  *
- * It provide simplification for NgModel methods, required and disable inputs
+ * It provides simplification for NgModel methods, required and disable inputs
  *
  * This can work with {@link FlFormFieldComponent} is the LibFormFieldDirective is provided by the extend class
  * Example --> providers: [{provide: LibFormFieldDirective, useExisting: LibColorSelectorComponent}]

@@ -19,6 +19,7 @@ import {FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
 
+
 @Component({
   selector: 'te-text-editor',
   templateUrl: './te-text-editor.component.html',
@@ -47,7 +48,13 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
   }
 
   ngOnInit(): void {
+    // use a timeout to let the disabled be set
+    // (because angular call the disabled with false before the init, and it is set to true after the init)
+    setTimeout(() => this.initEditor(), 0);
+  }
 
+
+  private initEditor(): void {
     this.editor = new EditorJS({
       placeholder: this.placeholder,
       holder: this.editorContainer.nativeElement,
@@ -60,6 +67,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
       defaultBlock: this.config.getDefaultBlock(),
     });
   }
+
 
   private async onTextEditorChange(): Promise<void> {
     // the save method can be called only if the editor is not in readOnly mode
