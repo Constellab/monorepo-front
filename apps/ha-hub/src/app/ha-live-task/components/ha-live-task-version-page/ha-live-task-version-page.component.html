@@ -29,14 +29,19 @@
               {{ 'copy_link' | translate }}
             </button>
           </div>
-          <div *ngIf="brickDependencies$">
-            <div>{{'necessary_bricks' | translate}} :</div>
-            <div class="brick-dependencies-div">
-              <mat-chip *ngFor="let brickDep of brickDependencies$ | async">
-                {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
-              </mat-chip>
-            </div>
-          </div>
+          <fl-async-section [object]="brickDependencies$" [emptyText]="''">
+            <ng-container *flSectionBody="brickDependencies$ as brickDependencies">
+              <div>
+                <div>{{'necessary_bricks' | translate}} :</div>
+                <div class="brick-dependencies-div">
+                  <mat-chip *ngFor="let brickDep of brickDependencies">
+                    {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
+                  </mat-chip>
+                </div>
+              </div>
+            </ng-container>
+          </fl-async-section>
+
         </ha-card>
       </div>
     </div>
