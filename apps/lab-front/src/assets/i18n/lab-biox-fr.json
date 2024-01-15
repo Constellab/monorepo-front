@@ -367,6 +367,7 @@
     "report_templates": "Modèles de rapport",
     "report_template": "Modèle de rapport",
     "convert_live_task_code_to_task": "Convertir le code de la live task en code de tâche",
+    "download_live_task_file": "Télécharger le fichier de la live task",
     "contain_process": "Contient le processus",
     "generated_by_process": "Généré par le processus",
     "update_report_project_help": "Lorsque vous modifiez le projet d'un rapport, le projet de toutes les expériences associées sera également mis à jour.",
