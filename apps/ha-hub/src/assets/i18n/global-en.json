@@ -32,6 +32,7 @@
   "type": "Type",
   "type_of_repository": "Type of repository",
   "version": "Version",
+  "versions_list": "Versions list",
   "admin_dashboard": "Admin dashboard",
   "last_modification_info": "Last modification info",
   "repo_type": "Type of repository",
