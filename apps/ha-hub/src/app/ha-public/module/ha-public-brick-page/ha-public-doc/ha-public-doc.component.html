@@ -41,10 +41,10 @@
 
       </div>
       <form class="documentation-form" *ngIf="!isLoading">
-        <fl-text-editor class="content-editor g-max-article-width" [formControl]="formCtrl"
-                        mode="JSON" scrollContainer="auto"
-                        [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [noHorizontalPadding]="true"
-                        flAutoScrollToAnchor [baseDelta]="documentation?.content" [anchor]="anchor"></fl-text-editor>
+        <te-text-editor [formControl]="formCtrl" [config]="textEditorConfig"
+                        (textChange)="onContentUpdate($event)"
+                        class="content-editor g-max-article-width"
+                        [ngClass]="{'text-editor-edit': !formCtrl.disabled}"></te-text-editor>
       </form>
     </div>
   </div>

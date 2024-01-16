@@ -11,6 +11,7 @@ import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {ClRichText, ClRichTextI, ClStringHelper} from '@monorepo/core-lib';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 import {HaStoryFile} from '../../../ha-core/ha-model/ha-entities/ha-story-file';
+import {TeRichText} from '@monorepo/text-editor';
 
 @Component({
   selector: 'ha-story-page',
@@ -23,7 +24,7 @@ export class HaStoryPageComponent implements OnInit {
 
   textEditorConfig: HaStoryTextEditorConfig;
 
-  formControl: FormControl<ClRichTextI> = new FormControl();
+  formControl: FormControl<TeRichText> = new FormControl();
 
   titles: any[];
 
@@ -42,10 +43,11 @@ export class HaStoryPageComponent implements OnInit {
   ngOnInit(): void {
     this.STORY_KEY = makeStateKey<object>('story');
 
-    this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.dialogService);
+
 
     this.activatedRoute.params.subscribe(params => {
       this.getStory(params.id);
+      this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, params.id);
     });
   }
 

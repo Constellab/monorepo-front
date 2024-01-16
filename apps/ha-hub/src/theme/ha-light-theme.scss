@@ -1,11 +1,8 @@
 @import "../../../../libs/front-core-lib/src/style/theme/base/base-light-theme";
-@import "../../../../libs/front-core-lib/src/style/theme/quill/quill-theme-light";
 
 // Style to highlight code in text editor
 @import 'highlight.js/styles/atom-one-light.css';
 
-// include dark theme for quill
-@include _quill-theme-light($theme);
 
 .g-dashboard-background {
   background-color: hsla(359, 0%, 100%, 1);

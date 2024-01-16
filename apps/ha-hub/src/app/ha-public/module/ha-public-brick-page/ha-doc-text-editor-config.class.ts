@@ -1,100 +1,45 @@
-import {
-  FlDialogService,
-  FlQuillConfig,
-  FlTextEditorBlockAddButton,
-  FlTextEditorConfig,
-  FlTextEditorImageLoader,
-  FlTextEditorSnowButton,
-  FlTextEditorState
-} from '@monorepo/front-core-lib';
 import {HaDocumentationService} from '../../../ha-core/ha-service/ha-documentation.service';
-import {HaPublicFindDocComponent} from './ha-public-find-doc/ha-public-find-doc.component';
-import {HaDocumentationSearchDTO} from '../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import {HaEnvironmentHelper} from '../../../ha-core/ha-model/ha-config/ha-environment.helper';
+import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
+import {ApplicationRef, EnvironmentInjector} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ClStringHelper} from '@monorepo/core-lib';
+
+export class HaDocTextEditorImageConfig implements TeFigureBlockConfig {
+
+
+  constructor(private docId: string,
+              private docService: HaDocumentationService) {
+  }
+
+  imageUploader(file: File): Observable<TeUploadedImage> {
+    return this.docService.uploadImage(file, this.docId);
+  }
+
+  getImageUrl(filename: string): string {
+    return ClStringHelper.isHttpLink(filename) ? filename : this.docService.getImageUrl(filename);
+  }
+}
 
 /**
- * Config for the text editor in the report
+ * Config for the text editor in the document page
  */
-export class HaDocTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader {
+export class HaDocTextEditorConfig extends TeCompleteConfig {
 
   constructor(private brickName: string,
               private major: string,
               private documentationName: string,
               private docService: HaDocumentationService,
-              private dialogService: FlDialogService,
               private docId: string) {
     super();
   }
 
-  getToolbarConfig(): any {
-    return FlQuillConfig.completeToolbarConfig;
-  }
+  getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
+    const tools = super.getTools(envInjector, applicationRef);
 
-  getSnowButtons(): FlTextEditorSnowButton[] {
-    return [];
-  }
+    // configure and add the image block
+    const imageConfig = new HaDocTextEditorImageConfig(this.docId, this.docService);
+    tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
-  getBlockAddButtons(state: FlTextEditorState): FlTextEditorBlockAddButton[] {
-    return [
-      {
-        icon: 'image', type: 'fileExplorer',
-        onAction: file => this.insertImageFromFile(file, state)
-      },
-      {
-        icon: 'add_link', type: 'button',
-        onAction: () => this.openSelectDocView(state)
-      },
-      this.getCodeBlockAddButton(state),
-      this.getHintBlockAddButton(state),
-      this.getVideoAddButton(state, this.dialogService),
-      this.getFormulaAddButton(state, this.dialogService)
-    ];
-  }
-
-  insertImageFromFile(file: File, textEditorState: FlTextEditorState): void {
-    const index = textEditorState.getCurrentSelectionIndex();
-    this.docService.uploadImage(file, this.docId).subscribe(
-      fileUrl => textEditorState.insertImageFromUrl(fileUrl, index)
-    );
-  }
-
-  public getImageUrl(filename: string): string {
-    return this.docService.getImageUrl(filename);
-  }
-
-  private openSelectDocView(textEditorState: FlTextEditorState): void {
-    const config: any = {
-      brickName: this.brickName,
-      major: this.major
-    };
-
-    this.dialogService.openMediumDialog(HaPublicFindDocComponent, {data: config}).afterClosed().subscribe((link) => {
-      if (link && link.id) {
-        this.documentationLink(textEditorState, link);
-      } else if (link && link.name) {
-        const index: number = textEditorState.getCurrentSelectionIndex();
-        textEditorState.insertLink(index, link.name, link.name);
-      }
-    });
-  }
-
-  //
-  // private insertLink(textEditorState: FlTextEditorState, link)
-
-  private documentationLink(textEditorState: FlTextEditorState, doc: HaDocumentationSearchDTO): void {
-    const index: number = textEditorState.getCurrentSelectionIndex();
-    const value: string = doc.anchor ?
-      `${HaEnvironmentHelper.getCommunityFrontUrl()}/bricks/${doc.brickName}/v${doc.major}/doc/${doc.completePath.slice(0, -1)}#${doc.anchor}`
-      : `${HaEnvironmentHelper.getCommunityFrontUrl()}/bricks/${doc.brickName}/v${doc.major}/doc/${doc.completePath}`;
-    const name: string = doc.anchor ?
-      (doc.name === this.documentationName ? doc.anchor : `${doc.name} > ${doc.anchor}`)
-      : doc.name;
-    textEditorState.insertLink(index, value, name);
-  }
-
-
-  onPasteImage(file: File, state: FlTextEditorState): any {
-    this.insertImageFromFile(file, state);
-    return {ops: []}; //Return the delta without modification with the image pasted
+    return tools;
   }
 }

@@ -1,11 +1,12 @@
 import {HaEntity} from './ha-entity.class';
 import {ClRichTextI} from '@monorepo/core-lib';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 export class HaDocumentation extends HaEntity {
 
   title: string;
 
-  content: ClRichTextI;
+  content: TeRichTextContent;
 
   path: string;
 
@@ -20,7 +21,7 @@ export class HaDocumentation extends HaEntity {
 
 
 export class HaDocumentationContentFormDTO extends HaEntity {
-  content: ClRichTextI;
+  content: TeRichTextContent;
 }
 
 export interface HaDocumentationSearchDTO {

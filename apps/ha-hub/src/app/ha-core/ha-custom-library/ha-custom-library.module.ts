@@ -17,7 +17,6 @@ import {
   FlPortalModule,
   FlSectionModule,
   FlSnackBarModule,
-  FlTextEditorModule,
   FlTextIconModule,
   FlThemeModule,
   FlTranslateModule,
@@ -25,6 +24,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {RvResourceViewModule} from '@monorepo/resource-view';
+import {TeTextEditorModule} from '@monorepo/text-editor';
 
 @NgModule({
   exports: [
@@ -38,7 +38,6 @@ import {RvResourceViewModule} from '@monorepo/resource-view';
     FlTranslateModule,
     FlSectionModule,
     FlAuthModule,
-    FlTextEditorModule,
     FlMenuDynamicModule,
     FlIconModule,
     FlArticleModule,
@@ -55,7 +54,8 @@ import {RvResourceViewModule} from '@monorepo/resource-view';
     //-------------------
 
     TdTechnicalDocModule,
-    RvResourceViewModule
+    RvResourceViewModule,
+    TeTextEditorModule
   ]
 })
 export class HaCustomLibraryModule {

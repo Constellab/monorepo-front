@@ -6,61 +6,69 @@
     </fl-text-icon>
   </a>
 </div>
-<div class="story-pannel" *ngIf="story">
-  <div class="story-content">
-    <h3>
-      {{story.title}}
-    </h3>
-    <p class="small-text user-date-info">
-      <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
-      <span class="g-text-small date-info">{{story.createdAt | flDate:'DATETIME_MED'}}</span>
-    </p>
-    <fl-key-value class="g-text-small co-author-key-val user-date-info" *ngIf="story.getCoAuthors().length > 0">
-      <fl-key>{{'coauthors' | translate}}</fl-key>
-      <span class="co-author-span">
-        <fl-user-inline *ngFor="let coAuthor of story.getCoAuthors()" [user]="coAuthor"
-                        [portalOnHover]="false"></fl-user-inline>
-      </span>
-    </fl-key-value>
+@if (story) {
+  <div class="story-pannel">
+    <div class="story-content">
+      <h3>
+        {{ story.title }}
+      </h3>
+      <p class="small-text user-date-info">
+        <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
+        <span class="g-text-small date-info">{{ story.createdAt | flDate:'DATETIME_MED' }}</span>
+      </p>
+      @if (story.getCoAuthors().length > 0) {
+        <fl-key-value class="g-text-small co-author-key-val user-date-info">
+          <fl-key>{{ 'coauthors' | translate }}</fl-key>
+          <span class="co-author-span">
+            @for (coAuthor of story.getCoAuthors(); track coAuthor.id) {
+              <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
+            }
+          </span>
+        </fl-key-value>
+      }
 
-
-    <fl-text-editor class="text-editor g-max-article-width" mode="JSON" scrollContainer="auto"
-                    [config]="textEditorConfig" [noHorizontalPadding]="true" flAutoScrollToAnchor [formControl]="formControl"
-                    [baseDelta]="story?.content">
-    </fl-text-editor>
+      <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
+                      class="text-editor g-max-article-width"></te-text-editor>
+    </div>
   </div>
-</div>
-<div class="right-div right-panel" *ngIf="titles && titles.length > 0 || story?.storyFiles && story?.storyFiles.length > 0">
-
-  <div class="files-div" *ngIf="story?.storyFiles && story?.storyFiles.length > 0">
-    <h6 class="side-box-title">
-      <fl-text-icon>
-        <mat-icon>description</mat-icon>
-        {{'attached_files' | translate}}
-      </fl-text-icon>
-    </h6>
-    <table>
-      <tr *ngFor="let file of story?.storyFiles" class="story-file">
-        <a type="button" [href]="downloadFile(file)" download>
-          <td>
-            {{file.humanName}}
-          </td>
+}
+@if (titles && titles.length > 0 || story?.storyFiles && story?.storyFiles.length > 0) {
+  <div class="right-div right-panel">
+    @if (story.storyFiles && story.storyFiles.length > 0) {
+      <div class="files-div">
+        <h6 class="side-box-title">
+          <fl-text-icon>
+            <mat-icon>description</mat-icon>
+            {{ 'attached_files' | translate }}
+          </fl-text-icon>
+        </h6>
+        <table>
+          @for (file of story.storyFiles; track file.id) {
+            <tr class="story-file">
+              <a type="button" [href]="downloadFile(file)" download>
+                <td>
+                  {{ file.humanName }}
+                </td>
+              </a>
+            </tr>
+          }
+        </table>
+      </div>
+    }
+    @if (titles && titles.length > 0) {
+      <h6 class="side-box-title">
+        <fl-text-icon>
+          <mat-icon>toc</mat-icon>
+          {{ 'table_of_contents' | translate }}
+        </fl-text-icon>
+      </h6>
+      @for (title of titles; track title) {
+        <a [routerLink]="'.'" [fragment]="title.id" class="title small-text"
+           [ngClass]="title.level === 2 ? ['big-title'] : ['small-title']">
+          {{ title.title }}
         </a>
-      </tr>
-    </table>
+      }
+    }
   </div>
+}
 
-  <ng-container *ngIf="titles && titles.length > 0">
-    <h6 class="side-box-title">
-      <fl-text-icon>
-        <mat-icon>toc</mat-icon>
-        {{'table_of_contents' | translate}}
-      </fl-text-icon>
-    </h6>
-    <a [routerLink]="'.'" *ngFor="let title of titles" [fragment]="title.id" class="title small-text"
-       [ngClass]="title.level === 2 ? ['big-title'] : ['small-title']">
-      {{title.title}}
-    </a>
-  </ng-container>
-
-</div>

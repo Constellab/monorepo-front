@@ -26,6 +26,7 @@ import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
 import {FormControl} from '@angular/forms';
+import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 
 @Component({
   selector: 'ha-public-doc-page',
@@ -39,7 +40,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   lastBrickName: string;
   brickVersion: string;
 
-  formCtrl = new FormControl<ClRichTextI>(null);
+  formCtrl = new FormControl<TeRichTextContent>(null);
 
   titles: any[] = [];
 
@@ -50,7 +51,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   anchor: string = null;
 
-  private contentDebouncer: FlDebouncer<ClRichTextI>;
+  private contentDebouncer: FlDebouncer<TeRichTextContent>;
   private lastUrl: string = null;
   private DOC_KEY: StateKey<object>;
 
@@ -140,13 +141,12 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.titles = [];
 
     if (doc.content) {
-      const richText = new ClRichText(doc.content);
-      this.titles = richText.getHeaders([2, 3]);
+      // TODO: Get titles
     }
 
     this.textEditorConfig =
       new HaDocTextEditorConfig(this.brickName, this.brickVersion, this.documentation.title,
-        this.documentationService, this.dialogService, this.documentation.id);
+        this.documentationService, this.documentation.id);
 
     this.isLoading = false;
 
@@ -156,15 +156,14 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       true, {brickTitle: this.brickName, docTitle: this.documentation.title});
   }
 
-  onContentUpdate(content: ClRichTextI): void {
+  onContentUpdate(content: TeRichTextContent): void {
     this.contentDebouncer.setValue(content);
     if (this.formCtrl.value) {
-      const richText = new ClRichText(content);
-      this.titles = richText.getHeaders([2, 3]);
+      // TODO : Get titles
     }
   }
 
-  private saveContent(value: ClRichTextI): void {
+  private saveContent(value: TeRichTextContent): void {
     if (this.documentation == null) return;
     this.isAdminOrBrickUser.subscribe(isAdmin => {
       if (isAdmin) {

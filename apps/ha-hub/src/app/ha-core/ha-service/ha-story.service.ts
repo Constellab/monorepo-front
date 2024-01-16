@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource, FlTextEditorUploadedImage} from '@monorepo/front-core-lib';
+import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
 import {
   HaCreateStoryDto,
   HaListStoryDto,
   HaMyStoriesDataSource,
-  HaStory, HaStoryCategory,
+  HaStory,
+  HaStoryCategory,
   HaStoryDataSourceDataDto,
   HaStoryDatasourcePaginated,
   HaStoryFilter
@@ -14,6 +15,7 @@ import {ClPage, ClRichTextI} from '@monorepo/core-lib';
 import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
 import {HaStoryAuthorInvite} from '../ha-model/ha-entities/ha-story-author-invite.class';
 import {HaStoryFile} from '../ha-model/ha-entities/ha-story-file';
+import {TeUploadedImage} from '@monorepo/text-editor';
 
 
 @Injectable({
@@ -111,7 +113,7 @@ export class HaStoryService {
     return this.apiService.getBaseRouteUrl(`${this.route}/get-file/${storyFileId}`);
   }
 
-  uploadImage(file: File, storyId: string): Observable<FlTextEditorUploadedImage> {
+  uploadImage(file: File, storyId: string): Observable<TeUploadedImage> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/image/${storyId}`, formData);

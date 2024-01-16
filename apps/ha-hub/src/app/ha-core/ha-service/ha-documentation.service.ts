@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {FlApiService, FlTextEditorUploadedImage} from '@monorepo/front-core-lib';
+import {FlApiService} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {HaDocumentation} from '../ha-model/ha-entities/ha-documentation.class';
 import {HaNodeDTO} from '../ha-model/ha-entities/ha-node.class';
-import {ClRichTextI} from '@monorepo/core-lib';
+import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 
 /**
  * Service to manage documentation entity
@@ -30,7 +30,7 @@ export class HaDocumentationService {
   /**
    * Call http updateContent
    */
-  public updateContent(id: string, content: ClRichTextI): Observable<HaDocumentation> {
+  public updateContent(id: string, content: TeRichTextContent): Observable<HaDocumentation> {
     return this.apiService.put(this.route + '/content/' + id, content);
   }
 
@@ -57,7 +57,7 @@ export class HaDocumentationService {
     return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
   }
 
-  uploadImage(file: File, docId: string): Observable<FlTextEditorUploadedImage> {
+  uploadImage(file: File, docId: string): Observable<TeUploadedImage> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/image/${docId}`, formData);

@@ -67,11 +67,6 @@
   <mat-error *ngIf="contentHasError">{{contentError | translate}}</mat-error>
   <form class="story-content-form" [formGroup]="formGp" id="story-content-form"
         [ngClass]="contentEditorIsFocused ? ['focus'] : []">
-    <fl-text-editor class="content-editor g-max-article-width" mode="JSON" scrollContainer="auto"
-                    formControlName="content"
-                    [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [noHorizontalPadding]="true"
-                    (focusin)="onFocus($event)" (focusout)="onUnFocus($event)">
-    </fl-text-editor>
   </form>
 
 </div>

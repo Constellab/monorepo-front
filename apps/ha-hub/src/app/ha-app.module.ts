@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule, TransferState} from '@angular/core';
+import {APP_INITIALIZER, Injector, NgModule, TransferState} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HaAppComponent} from './ha-app.component';
 import {
@@ -13,9 +13,8 @@ import {
   FlIconModule,
   flIconsDefault,
   FlPortalActionsModule,
-  FlPortalModule,
+  FlPortalModule, flSetRootInjector,
   FlSnackBarModule,
-  FlTextEditorModule,
   FlThemeService,
   FlTranslateModule,
   FlUserModule
@@ -90,9 +89,6 @@ function configureCaptcha(): FlCaptchaModuleConfig {
       iconFolder: 'assets/fl-mat-icons/',
       iconsToRegister: flIconsDefault,
     }),
-    FlTextEditorModule.forRoot({
-      blots: [],
-    }),
 
     RvResourceViewModule.forRoot({availableViews: rvDefaultViewTypeInfos}),
 
@@ -122,4 +118,8 @@ function configureCaptcha(): FlCaptchaModuleConfig {
   bootstrap: [HaAppComponent],
 })
 export class HaAppModule {
+  constructor(injector: Injector) {
+    // set the root injector in a variable
+    flSetRootInjector(injector);
+  }
 }

@@ -15,9 +15,7 @@
         "tsConfig": "apps/ha-hub/tsconfig.app.json",
         "server": "apps/ha-hub/src/main.server.ts",
         "prerender": false,
-        "ssr": {
-          "entry": "apps/ha-hub/server.ts"
-        },
+        "ssr": false,
         "assets": [
           "apps/ha-hub/src/assets",
           {
@@ -56,10 +54,8 @@
         ],
         "scripts": [],
         "allowedCommonJsDependencies": [
-          "quill",
           "luxon",
           "lodash.throttle",
-          "quill-delta-to-html",
           "plotly.js-strict-dist"
         ]
       },

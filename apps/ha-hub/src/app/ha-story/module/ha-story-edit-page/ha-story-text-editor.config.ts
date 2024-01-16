@@ -1,66 +1,41 @@
-import {
-  FlDialogService,
-  FlQuillConfig,
-  FlTextEditorBlockAddButton,
-  FlTextEditorConfig,
-  FlTextEditorImageLoader,
-  FlTextEditorSnowButton,
-  FlTextEditorState
-} from '@monorepo/front-core-lib';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
+import {ApplicationRef, EnvironmentInjector} from '@angular/core';
+import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
+import {Observable} from 'rxjs';
+import {ClStringHelper} from '@monorepo/core-lib';
+
+export class HaStoryTextEditorImageConfig implements TeFigureBlockConfig {
+
+
+  constructor(private storyId: string,
+              private storyService: HaStoryService) {
+  }
+
+  imageUploader(file: File): Observable<TeUploadedImage> {
+    return this.storyService.uploadImage(file, this.storyId);
+  }
+
+  getImageUrl(filename: string): string {
+    return ClStringHelper.isHttpLink(filename) ? filename : this.storyService.getImageUrl(filename);
+  }
+}
 
 /**
- * Config for the text editor in the report
+ * Config for the text editor in story pages
  */
-export class HaStoryTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader {
-
-  private storyId: string;
+export class HaStoryTextEditorConfig extends TeCompleteConfig {
   constructor(private storyService: HaStoryService,
-              private dialogService: FlDialogService,
-              storyId?: string) {
+              private storyId: string) {
     super();
-    if(storyId)
-      this.storyId = storyId;
   }
 
-  getToolbarConfig(): any {
-    return FlQuillConfig.completeToolbarConfig;
+  getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
+    const tools = super.getTools(envInjector, applicationRef);
+
+    // configure and add the image block
+    const imageConfig = new HaStoryTextEditorImageConfig(this.storyId, this.storyService);
+    tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
+
+    return tools;
   }
-
-  getSnowButtons(): FlTextEditorSnowButton[] {
-    return [];
-  }
-
-  getBlockAddButtons(state: FlTextEditorState): FlTextEditorBlockAddButton[] {
-    return [
-      {
-        icon: 'image', type: 'fileExplorer',
-        onAction: file => this.insertImageFromFile(file, state)
-      },
-      this.getCodeBlockAddButton(state),
-      this.getHintBlockAddButton(state),
-      this.getVideoAddButton(state, this.dialogService),
-      this.getFormulaAddButton(state, this.dialogService)
-    ];
-  }
-
-  insertImageFromFile(file: File, textEditorState: FlTextEditorState): void {
-    const index = textEditorState.getCurrentSelectionIndex();
-    this.storyService.uploadImage(file, this.storyId).subscribe(
-      fileUrl => {
-        textEditorState.insertImageFromUrl(fileUrl, index)
-      }
-    );
-  }
-
-  public getImageUrl(filename: string): string {
-    return this.storyService.getImageUrl(filename);
-  }
-
-  onPasteImage(file: File, state: FlTextEditorState): any {
-
-    this.insertImageFromFile(file, state);
-    return {ops: []} //Return the delta without modification with the image pasted
-  }
-
 }

@@ -221,8 +221,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       if(story == null) this.router.navigate(['/stories']);
       this.checkUserIsAuthorOrCoAuthor(story);
       this.story = story;
-      this.textEditorConfig =
-        new HaStoryTextEditorConfig(this.storyService, this.dialogService, this.story.id);
+      this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
       if (this.story.topics.length >= 5) this.topicControl.disable();
       this.formGp.patchValue(this.story);
     });
