@@ -7,6 +7,7 @@ import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.servic
 import {ActivatedRoute} from '@angular/router';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 @Component({
   selector: 'ha-live-task-overview',
@@ -45,8 +46,9 @@ export class HaLiveTaskOverviewComponent implements OnInit {
 
   private setupLiveTask(id: string): void {
     this.liveTaskService.getLiveTaskById(id).subscribe(liveTask => {
+      if(!liveTask) return;
       this.liveTask = liveTask;
-      this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.dialogService, this.liveTask?.id);
+      this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTask.id);
       this.descriptionFormControl.setValue(this.liveTask?.description);
       this.descriptionFormControl.disable();
       this.setupIsCreator();
@@ -59,7 +61,7 @@ export class HaLiveTaskOverviewComponent implements OnInit {
     });
   }
 
-  onDescriptionChange(description: Record<string, any>): void {
+  onDescriptionChange(description: TeRichTextContent): void {
     this.liveTask.description = description;
   }
 

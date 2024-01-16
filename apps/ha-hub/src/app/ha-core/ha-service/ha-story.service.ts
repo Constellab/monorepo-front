@@ -15,7 +15,7 @@ import {ClPage, ClRichTextI} from '@monorepo/core-lib';
 import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
 import {HaStoryAuthorInvite} from '../ha-model/ha-entities/ha-story-author-invite.class';
 import {HaStoryFile} from '../ha-model/ha-entities/ha-story-file';
-import {TeUploadedImage} from '@monorepo/text-editor';
+import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 
 
 @Injectable({
@@ -101,7 +101,7 @@ export class HaStoryService {
    * @param content new content
    * return a story
    */
-  public updateContent(id: string, content: ClRichTextI): Observable<HaStory> {
+  public updateContent(id: string, content: TeRichTextContent): Observable<HaStory> {
     return this.apiService.put(this.route + '/' + id + '/content', {content: content}, HaStory);
   }
 

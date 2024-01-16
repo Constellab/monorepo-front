@@ -6,67 +6,75 @@
     </fl-text-icon>
   </a>
 </div>
+@if(story){
+  <div class="main-div g-max-article-width">
+    <h2 id="storyTitle" flElementEditable (flElementValueChange)="onTitleChange($event)">
+      {{story.title}}
+    </h2>
+    <mat-form-field class="form-field">
+      <mat-label>{{'category' | translate}}</mat-label>
+      <mat-select [formControl]="formGp.controls.category" (valueChange)="onStoryCategoryChange($event)">
+        <mat-option *ngFor="let category of storyCategories" [value]="category">
+          {{category.toLowerCase() | translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>{{'topics' | translate}}</mat-label>
+      <mat-chip-grid #topicChipList>
+        <mat-chip-row *ngFor="let topic of story.topics" (removed)="removeTopic(topic)">
+          {{topic.name}}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
 
-<div class="main-div g-max-article-width" *ngIf="story">
-  <h2 id="storyTitle" flElementEditable (flElementValueChange)="onTitleChange($event)">
-    {{story.title}}
-  </h2>
-  <mat-form-field class="form-field">
-    <mat-label>{{'category' | translate}}</mat-label>
-    <mat-select [formControl]="formGp.controls.category" (valueChange)="onStoryCategoryChange($event)">
-      <mat-option *ngFor="let category of storyCategories" [value]="category">
-        {{category.toLowerCase() | translate}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field class="form-field">
-    <mat-label>{{'topics' | translate}}</mat-label>
-    <mat-chip-grid #topicChipList>
-      <mat-chip-row *ngFor="let topic of story.topics" (removed)="removeTopic(topic)">
-        {{topic.name}}
-        <button matChipRemove>
-          <mat-icon>cancel</mat-icon>
+        <input matInput flInputMaxLength="30" [formControl]="topicControl"
+               [matAutocomplete]="auto" [matChipInputFor]="topicChipList" #topicInput>
+      </mat-chip-grid>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn"
+                        (optionSelected)="onSelectTopic($event)">
+        <mat-option *ngFor="let topic of filteredTopics | async" [value]="topic">
+          {{topic.name}}
+        </mat-option>
+      </mat-autocomplete>
+      @if(canSaveTopic && story.topics.length < 5 && checkTopicControl()){
+        <mat-icon matSuffix (click)="saveTopic()"
+                  [matTooltip]="'create_new_story_topic' | translate" class="input-icon">
+          save
+        </mat-icon>
+      }
+    </mat-form-field>
+    <div class="buttons-div">
+      @if(story.status === 'DRAFT'){
+        <div>
+          <button mat-flat-button type="button" class="publish-story-bt" *haIsAuthenticated
+                  (click)="publish()" color="primary" [matTooltip]="'publish_the_story' | translate">
+            <fl-text-icon [iconPosition]="'end'">
+              <mat-icon>publish</mat-icon>
+              {{'publish_story' | translate}}
+            </fl-text-icon>
+          </button>
+        </div>
+      }
+      @if(isAuthor() | async){
+        <button mat-icon-button type="button" class="co-author-bt"
+                (click)="openCoAuthorDialog()" [matTooltip]="'open_story_coauthor_panel' | translate">
+          <mat-icon>group_add</mat-icon>
         </button>
-      </mat-chip-row>
-
-      <input matInput flInputMaxLength="30" [formControl]="topicControl"
-             [matAutocomplete]="auto" [matChipInputFor]="topicChipList" #topicInput>
-    </mat-chip-grid>
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn"
-                      (optionSelected)="onSelectTopic($event)">
-      <mat-option *ngFor="let topic of filteredTopics | async" [value]="topic">
-        {{topic.name}}
-      </mat-option>
-    </mat-autocomplete>
-    <mat-icon matSuffix *ngIf="canSaveTopic && story.topics.length < 5 && checkTopicControl()" (click)="saveTopic()"
-              [matTooltip]="'create_new_story_topic' | translate" class="input-icon">
-      save
-    </mat-icon>
-  </mat-form-field>
-
-  <div class="buttons-div">
-    <div *ngIf="story.status === 'DRAFT'">
-      <button mat-flat-button type="button" class="publish-story-bt" *haIsAuthenticated
-              (click)="publish()" color="primary" [matTooltip]="'publish_the_story' | translate">
-        <fl-text-icon [iconPosition]="'end'">
-          <mat-icon>publish</mat-icon>
-          {{'publish_story' | translate}}
-        </fl-text-icon>
+      }
+      <button mat-icon-button type="button" [class]="(isAuthor() | async) ? 'add-file-button-author' : 'add-file-button-co-author'" (click)="openStoryFileDialog()"
+              [matTooltip]="'open_story_files_panel' | translate">
+        <mat-icon>cloud_upload</mat-icon>
       </button>
     </div>
-    <button mat-icon-button type="button" class="co-author-bt" *ngIf="isAuthor() | async"
-            (click)="openCoAuthorDialog()" [matTooltip]="'open_story_coauthor_panel' | translate">
-      <mat-icon>group_add</mat-icon>
-    </button>
-    <button mat-icon-button type="button" [class]="(isAuthor() | async) ? 'add-file-button-author' : 'add-file-button-co-author'" (click)="openStoryFileDialog()"
-            [matTooltip]="'open_story_files_panel' | translate">
-      <mat-icon>cloud_upload</mat-icon>
-    </button>
+    @if(contentHasError){
+      <mat-error>{{contentError | translate}}</mat-error>
+    }
+    <form class="story-content-form" [formGroup]="formGp" id="story-content-form"
+          [ngClass]="contentEditorIsFocused ? ['focus'] : []">
+      <te-text-editor [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [formControlName]="'content'"></te-text-editor>
+    </form>
   </div>
+}
 
-  <mat-error *ngIf="contentHasError">{{contentError | translate}}</mat-error>
-  <form class="story-content-form" [formGroup]="formGp" id="story-content-form"
-        [ngClass]="contentEditorIsFocused ? ['focus'] : []">
-  </form>
-
-</div>

@@ -70,8 +70,9 @@ export class HaStoryPageComponent implements OnInit {
     this.story = story;
     this.formControl.setValue(this.story.content);
     this.formControl.disable({emitEvent: true});
-    this.titles = this.titles == null || this.titles.length == 0 ?
-      (new ClRichText(this.story.content)).getHeaders([2, 3]) : this.titles;
+    // TODO: get titles
+    // this.titles = this.titles == null || this.titles.length == 0 ?
+    //   (new ClRichText(this.story.content)).getHeaders([2, 3]) : this.titles;
     if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)) {
       this.transferState.set(this.STORY_KEY, {story: story, titles: this.titles});
     }

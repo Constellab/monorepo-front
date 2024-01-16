@@ -2,6 +2,8 @@ import {HaLiveTask} from './ha-live-task.class';
 import {HaEntity} from './ha-entity.class';
 import {FlEntity} from '@monorepo/front-core-lib';
 import {DateTime} from 'luxon';
+import {TdParamSpecs} from '@monorepo/technical-doc';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 export enum HaLiveTaskVersionState {
   PUBLISHED = 'PUBLISHED',
@@ -22,14 +24,14 @@ export class HaLiveTaskVersion implements FlEntity{
   version: number;
   liveTask: HaLiveTask;
   versionState: HaLiveTaskVersionState;
-  versionInfos?: Record<string, any>;
+  versionInfos?: TeRichTextContent;
   environment: string;
   type: HaLiveTaskVersionType;
   code: string;
   createdAt: DateTime;
   inputSpecs?: Record<string, any>;
   outputSpecs?: Record<string, any>;
-  configSpecs?: Record<string, any>;
+  configSpecs?: TdParamSpecs;
 }
 
 export class HaLiveTaskVersionFileInputBrick{

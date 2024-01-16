@@ -6,6 +6,8 @@ import {Type} from 'class-transformer';
 import {DateTime} from 'luxon';
 import {ClRichTextI} from '@monorepo/core-lib';
 import {HaStoryFile} from './ha-story-file';
+import {TdParamSpecs} from '@monorepo/technical-doc';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 export enum HaStoryStatus {
   DRAFT = 'DRAFT',
@@ -38,7 +40,7 @@ export class HaStoryAuthor {
 export class HaStory {
   id: string;
   title: string;
-  content: ClRichTextI;
+  content: TeRichTextContent;
 
   firstParagraph: string;
 
@@ -158,6 +160,6 @@ export type HaStoryDatasourcePaginated = FlDatasourcePaginated<HaListStoryDto>;
 export type HaMyStoriesDataSource = FlDatasourcePaginated<HaStoryDataSourceDataDto>;
 
 export class HaStoryContentFormDTO extends HaEntity {
-  content: ClRichTextI;
+  content: TeRichTextContent;
   category: HaStoryCategory;
 }

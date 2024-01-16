@@ -20,13 +20,15 @@
 
   <p class="left-side-div-title" flHide.lt-sm>{{'popular_topics' | translate}} :</p>
 
-  <mat-chip-listbox selectable multiple *ngIf="popularTopics$">
-    <mat-chip-option *ngFor="let topic of popularTopics$ | async" [value]="isSelected(topic)"
-                     (click)="selectTopic(topic)"
-                     style="cursor: pointer">
-      {{topic.name}}
-    </mat-chip-option>
-  </mat-chip-listbox>
+  @if(popularTopics$){
+    <mat-chip-listbox selectable multiple>
+      <mat-chip-option *ngFor="let topic of popularTopics$ | async" [value]="isSelected(topic)"
+                       (click)="selectTopic(topic)"
+                       style="cursor: pointer">
+        {{topic.name}}
+      </mat-chip-option>
+    </mat-chip-listbox>
+  }
 </div>
 
 <div class="main-panel">

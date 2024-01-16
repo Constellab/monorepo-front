@@ -16,6 +16,7 @@ import {HaStoryCoAuthorDialogComponent} from '../ha-story-co-author-dialog/ha-st
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
 import {HaStoryFileDialogComponent, HaStoryFileFormData} from '../ha-story-file-dialog/ha-story-file-dialog.component';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 @Component({
   selector: 'ha-story-edit-page',
@@ -31,7 +32,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   textEditorConfig: HaStoryTextEditorConfig;
 
   contentEditorIsFocused: boolean = false;
-  private contentDebouncer: FlDebouncer<ClRichTextI>;
+  private contentDebouncer: FlDebouncer<TeRichTextContent>;
 
   contentHasError: boolean = false;
 
@@ -148,7 +149,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  onContentUpdate(content: any): void {
+  onContentUpdate(content: TeRichTextContent): void {
     this.contentDebouncer.setValue(content);
   }
 
@@ -168,7 +169,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     return topic && topic.name ? topic.name : '';
   }
 
-  private saveContent(value: ClRichTextI): void {
+  private saveContent(value: TeRichTextContent): void {
     this.storyService.updateContent(this.story.id, value).subscribe();
   }
 

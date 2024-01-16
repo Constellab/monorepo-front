@@ -6,6 +6,7 @@ import {FormControl} from '@ngneat/reactive-forms';
 import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
 import {HaCardBackground} from '../../../ha-core/ha-component/ha-card/ha-card.component';
 import {TranslateService} from '@ngx-translate/core';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 @Component({
   selector: 'ha-live-task-version-detail',
@@ -47,7 +48,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.dialogService, this.liveTaskVersion?.liveTask?.id);
+    this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id);
     this.versionInfosFormControl.setValue(this.liveTaskVersion?.versionInfos);
     this.versionInfosFormControl.disable();
 
@@ -106,7 +107,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
     })
   }
 
-  onVersionInfosChange(versionInfos: Record<string, any>): void {
+  onVersionInfosChange(versionInfos: TeRichTextContent): void {
     this.liveTaskVersion.versionInfos = versionInfos;
   }
 

@@ -16,14 +16,10 @@
         </fl-text-icon>
       </button>
     </div>
-    <fl-text-editor
-      [class]="versionInfosDisabled ? 'version-infos-editor' : 'version-infos-active'" mode="JSON"
-      [disabled]="versionInfosDisabled || !isCreator || !isEditable"
-      [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)" [noPadding]="true"
-      [formControl]="versionInfosFormControl"
-      [baseDelta]="liveTaskVersion.versionInfos"
-      [leftButtons] = "false"
-      [placeholder]="'live_task_version_infos_place_holder' | translate"></fl-text-editor>
+    <te-text-editor [class]="versionInfosDisabled ? 'version-infos-editor' : 'version-infos-active'"
+                    [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)"
+                    [formControl]="versionInfosFormControl" [placeholder]="'live_task_version_infos_place_holder' | translate">
+    </te-text-editor>
   </ha-card>
 </div>
 
@@ -35,8 +31,8 @@
         <div class="card-title-v2 spacing-6-v2">
           {{'input' | translate}}
         </div>
-        <div *ngFor="let spec of liveTaskVersion?.inputSpecs.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.inputSpecs.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
-          <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.inputSpecs.specs[spec]">
+        <div *ngFor="let spec of liveTaskVersion?.inputSpecs?.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.inputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
+          <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.inputSpecs?.specs[spec]">
           </ha-live-task-version-detail-io>
         </div>
 
@@ -45,8 +41,8 @@
         <div class="card-title-v2 spacing-6-v2">
           {{'output' | translate}}
         </div>
-        <div *ngFor="let spec of liveTaskVersion?.outputSpecs.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.outputSpecs.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
-          <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.outputSpecs.specs[spec]">
+        <div *ngFor="let spec of liveTaskVersion?.outputSpecs?.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.outputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
+          <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.outputSpecs?.specs[spec]">
           </ha-live-task-version-detail-io>
         </div>
       </div>

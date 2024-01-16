@@ -16,13 +16,11 @@
       </button>
     </div>
     <div class="description-content-div" *ngIf="liveTask">
-      <fl-text-editor
-        [class]="descriptionEditorDisabled ? 'description-editor' : 'description-editor-active'" mode="JSON"
-        [disabled]="descriptionEditorDisabled || !isCreator"
-        [config]="textEditorConfig" (textChange)="onDescriptionChange($event)" [noPadding]="true"
+      <te-text-editor
+        [class]="descriptionEditorDisabled ? 'description-editor' : 'description-editor-active'"
+        [config]="textEditorConfig" (textChange)="onDescriptionChange($event)"
         [formControl]="descriptionFormControl"
-        [baseDelta]="liveTask.description"
-        [placeholder]="'live_task_description_place_holder' | translate"></fl-text-editor>
+        [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
     </div>
   </ha-card>
 </div>

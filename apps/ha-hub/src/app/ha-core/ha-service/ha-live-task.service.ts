@@ -8,8 +8,8 @@ import {
 import {Observable} from 'rxjs';
 import {HaLiveTaskVersion, HaLiveTaskVersionFileInput} from '../ha-model/ha-entities/ha-live-task-version.class';
 import {ClPage} from '@monorepo/core-lib';
-import {HaListStoryDto, HaStory, HaStoryDatasourcePaginated} from '../ha-model/ha-entities/ha-story.class';
 import {HaBrickVersion} from '../ha-model/ha-entities/ha-brick-version.class';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +39,8 @@ export class HaLiveTaskService {
   /**
    * Call http post to get all live tasks with spaces filter
    * @param spacesFilter
+   * @param page
+   * @param size
    * @return a list of live tasks
    */
   public getAllWithSpacesFilter(spacesFilter: string[], page: number, size: number): Observable<ClPage<HaLiveTask>> {
@@ -163,6 +165,7 @@ export class HaLiveTaskService {
   /**
    * Call http put to create a new draft version of a live task
    * @param liveTaskId
+   * @param liveTaskVersionFile
    * @return the created live task version
    */
   createNewDraftVersion(liveTaskId: string, liveTaskVersionFile: HaLiveTaskVersionFileInput): Observable<HaLiveTaskVersion> {
@@ -175,7 +178,7 @@ export class HaLiveTaskService {
    * @param versionInfos
    * @return the updated live task version
    */
-  saveLiveTaskVersionInfos(liveTaskVersionId: string, versionInfos: Record<string, any>): Observable<HaLiveTaskVersion> {
+  saveLiveTaskVersionInfos(liveTaskVersionId: string, versionInfos: TeRichTextContent): Observable<HaLiveTaskVersion> {
     return this.apiService.put(`${this.route}/version/${liveTaskVersionId}/infos`, versionInfos, HaLiveTaskVersion);
   }
 

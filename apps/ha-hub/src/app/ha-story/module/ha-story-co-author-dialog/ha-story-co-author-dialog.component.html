@@ -3,27 +3,33 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
+
   <div class="dialog-part">
     {{'coauthors' | translate}}:
-    <div *ngFor="let coAuthor of story?.getCoAuthors()" class="co-author-div">
-      <fl-user-inline [user]="coAuthor"></fl-user-inline>
-      <button mat-icon-button [matTooltip]="'remove_coauthor' | translate" (click)="openRemoveConfirmDialog(coAuthor)" color="warn">
-        <mat-icon>remove_circle_outline</mat-icon>
-      </button>
-    </div>
-
-    <div *ngIf="story?.getCoAuthors().length == 0" class="empty-zone-text">{{'no-coauthors' | translate}}</div>
+    @if (story?.getCoAuthors().length > 0){
+      <div *ngFor="let coAuthor of story.getCoAuthors()" class="co-author-div">
+        <fl-user-inline [user]="coAuthor"></fl-user-inline>
+        <button mat-icon-button [matTooltip]="'remove_coauthor' | translate" (click)="openRemoveConfirmDialog(coAuthor)" color="warn">
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </div>
+    } @else {
+      <div class="empty-zone-text">{{'no-coauthors' | translate}}</div>
+    }
   </div>
 
   <div>
     {{'pending_coauthor_invitations' | translate}}:
-    <div *ngFor="let pendingInvite of coAuthorPendingInvites" class="co-author-div">
-      <p>{{pendingInvite.email}}</p>
-      <button mat-icon-button [matTooltip]="'cancel_invitation' | translate" (click)="deleteCoAuthorInvite(pendingInvite.id)" color="warn">
-        <mat-icon>remove_circle_outline</mat-icon>
-      </button>
-    </div>
-    <div *ngIf="coAuthorPendingInvites?.length == 0" class="empty-zone-text">{{'no_pending_invitation' | translate}}</div>
+    @if(coAuthorPendingInvites.length > 0){
+      <div *ngFor="let pendingInvite of coAuthorPendingInvites" class="co-author-div">
+        <p>{{pendingInvite.email}}</p>
+        <button mat-icon-button [matTooltip]="'cancel_invitation' | translate" (click)="deleteCoAuthorInvite(pendingInvite.id)" color="warn">
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </div>
+    } @else {
+      <div class="empty-zone-text">{{'no_pending_invitation' | translate}}</div>
+    }
   </div>
 
   <div class="add-coauthor-div">

@@ -1,59 +1,38 @@
-import {
-  FlDialogService,
-  FlQuillConfig, FlTextEditorBlockAddButton,
-  FlTextEditorConfig,
-  FlTextEditorImageLoader,
-  FlTextEditorSnowButton, FlTextEditorState
-} from '@monorepo/front-core-lib';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
+import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
+import {Observable} from 'rxjs';
+import {ClStringHelper} from '@monorepo/core-lib';
+import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 
-export class HaLiveTaskTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader{
-  private liveTaskId: string;
+export class HaLiveTaskTextEditorImageConfig implements TeFigureBlockConfig {
 
   constructor(private liveTaskService: HaLiveTaskService,
-              private dialogService: FlDialogService,
-              liveTaskId?: string) {
+              private liveTaskId: string) {
+  }
+
+  imageUploader(file: File): Observable<TeUploadedImage> {
+    return this.liveTaskService.uploadImage(file, this.liveTaskId);
+  }
+
+  getImageUrl(filename: string): string {
+    return ClStringHelper.isHttpLink(filename) ? filename : this.liveTaskService.getImageUrl(filename);
+  }
+}
+
+export class HaLiveTaskTextEditorConfig extends TeCompleteConfig {
+
+  constructor(private liveTaskService: HaLiveTaskService,
+              private liveTaskId: string) {
     super();
-    if(liveTaskId)
-      this.liveTaskId = liveTaskId;
   }
 
-  getToolbarConfig(): any {
-    return FlQuillConfig.completeToolbarConfig;
-  }
+  getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
+    const tools = super.getTools(envInjector, applicationRef);
 
-  getSnowButtons(): FlTextEditorSnowButton[] {
-    return [];
-  }
+    // configure and add the image block
+    const imageConfig = new HaLiveTaskTextEditorImageConfig(this.liveTaskService, this.liveTaskId);
+    tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
-  getBlockAddButtons(state: FlTextEditorState): FlTextEditorBlockAddButton[] {
-    return [
-      {
-        icon: 'image', type: 'fileExplorer',
-        onAction: file => this.insertImageFromFile(file, state)
-      },
-      this.getCodeBlockAddButton(state),
-      this.getHintBlockAddButton(state),
-      this.getVideoAddButton(state, this.dialogService),
-      this.getFormulaAddButton(state, this.dialogService)
-    ];
-  }
-
-  insertImageFromFile(file: File, textEditorState: FlTextEditorState): void {
-    const index = textEditorState.getCurrentSelectionIndex();
-    this.liveTaskService.uploadImage(file, this.liveTaskId).subscribe(
-      fileUrl => {
-        textEditorState.insertImageFromUrl(fileUrl, index)
-      }
-    );
-  }
-
-  public getImageUrl(filename: string): string {
-    return this.liveTaskService.getImageUrl(filename);
-  }
-
-  onPasteImage(imgFile: File, state: FlTextEditorState): any {
-    this.insertImageFromFile(imgFile, state);
-    return {ops: []};
+    return tools;
   }
 }

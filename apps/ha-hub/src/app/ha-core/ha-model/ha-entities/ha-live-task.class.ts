@@ -3,6 +3,7 @@ import {HaSpace} from './ha-space.class';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
 import {HaListStoryDto} from './ha-story.class';
 import {HaLiveTaskVersionFileInput} from './ha-live-task-version.class';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 export enum HaLiveTaskType {
   PUBLIC = 'PUBLIC',
@@ -11,7 +12,7 @@ export enum HaLiveTaskType {
 
 export class HaLiveTask extends HaEntity {
   title: string;
-  description?: Record<string, any>;
+  description?: TeRichTextContent;
   space?: HaSpace;
   latestPublishVersion?: number;
 }

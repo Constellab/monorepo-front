@@ -233,5 +233,6 @@
   "environment_file": "Fichier d'environnement",
   "import_live_task_version_file": "Importer le fichier json de la version de live task",
   "live_task_version_file": "Fichier json de la version de live task",
-  "live_tasks_description": "Accéder aux live tasks"
+  "live_tasks_description": "Accéder aux live tasks",
+  "live_task_version_infos_place_holder": "Informations sur la version de live task"
 }
