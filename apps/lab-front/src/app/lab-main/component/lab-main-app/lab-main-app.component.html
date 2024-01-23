@@ -1,6 +1,6 @@
 <mat-sidenav-container class="page" autosize>
   <mat-sidenav mode="side" [opened]="true" position="start" [fixedInViewport]="true"
-               [ngClass]="toolbarColorClass | async" class="sidenav g-print-hide">
+               [ngClass]="toolbarColorClass$ | async" class="sidenav g-print-hide">
 
     <fl-expansion-menu [(expanded)]="menuExpanded">
 

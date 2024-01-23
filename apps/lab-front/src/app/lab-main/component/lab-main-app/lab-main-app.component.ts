@@ -33,6 +33,8 @@ export class LabMainAppComponent implements OnInit {
   logo = 'assets/fl-logo/constellab-logo.svg';
   spaceName?: string = null;
 
+  toolbarColorClass$: Observable<string>;
+
   constructor(private labEnvManager: LabEnvStore,
               private authenticatedUserService: LabAuthenticatedUserService,
               private systemService: LabSystemService,
@@ -49,6 +51,10 @@ export class LabMainAppComponent implements OnInit {
     this.setLabName('Lab');
     this.getLabInfo();
     this.checkBiota();
+
+    this.toolbarColorClass$ = this.labEnvManager.getLabEnvironment$().pipe(
+      map(env => env === 'prod' ? 'g-card-background' : 'g-accent-background')
+    );
   }
 
   private checkBiota(): void {
@@ -61,12 +67,6 @@ export class LabMainAppComponent implements OnInit {
     if (brick && brick.status.value !== 'CRITICAL') {
       this.accessibleLinks.push(labBiotaMenuLink);
     }
-  }
-
-  get toolbarColorClass(): Observable<string> {
-    return this.labEnvManager.getLabEnvironment$().pipe(
-      map(env => env === 'prod' ? 'g-card-background' : 'g-accent-background')
-    );
   }
 
   private getLabInfo(): void {

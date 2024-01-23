@@ -82,181 +82,182 @@
   body {
     background-color: $background-color;
     color: $foreground-color;
-  }
-
-  /**
-   Text with the colors of the palettes
-   */
-  .g-primary-text {
-    color: mat.get-color-from-palette($primary);
-  }
-
-  .g-accent-text {
-    color: mat.get-color-from-palette($accent);
-  }
-
-  .g-warn-text {
-    color: mat.get-color-from-palette($warn);
-  }
-
-  /**
-   Background color based on the theme and set the text color
-   */
-  .g-primary-background {
-    background-color: mat.get-color-from-palette($primary);
-    color: mat.get-color-from-palette($primary, default-contrast);
-  }
-
-  .g-accent-background {
-    background-color: mat.get-color-from-palette($accent);
-    color: mat.get-color-from-palette($accent, default-contrast);
-  }
-
-  .g-warn-background {
-    background-color: mat.get-color-from-palette($warn);
-    color: mat.get-color-from-palette($warn, default-contrast);
-  }
-
-  /**
-    Contrast text for palette. The best color (white or black) depending on the background
-   */
-  .g-primary-contrast {
-    color: mat.get-color-from-palette($primary, default-contrast);
-  }
-
-  .g-accent-contrast {
-    color: mat.get-color-from-palette($accent, default-contrast);
-  }
-
-  .g-warn-contrast {
-    color: mat.get-color-from-palette($warn, default-contrast);
-  }
-
-  /**
-    Text with other primary colors
-   */
-  .g-primary-text-extra-light {
-    color: mat.get-color-from-palette($primary, 50);
-  }
-
-  .g-primary-text-light {
-    color: mat.get-color-from-palette($primary, 200);
-  }
-
-  .g-primary-text-dark {
-    color: mat.get-color-from-palette($primary, 600);
-  }
-
-  .g-primary-text-extra-dark {
-    color: mat.get-color-from-palette($primary, 800);
-  }
 
 
-  /**
-   Background color based on the theme and set the text color
-   */
+    /**
+     Text with the colors of the palettes
+     */
+    .g-primary-text {
+      color: mat.get-color-from-palette($primary);
+    }
 
-  .g-primary-background-light {
-    background-color: mat.get-color-from-palette($primary, 200);
-    color: mat.get-color-from-palette($primary, '100-contrast');
-  }
+    .g-accent-text {
+      color: mat.get-color-from-palette($accent);
+    }
+
+    .g-warn-text {
+      color: mat.get-color-from-palette($warn);
+    }
+
+    /**
+     Background color based on the theme and set the text color
+     */
+    .g-primary-background {
+      background-color: mat.get-color-from-palette($primary);
+      color: mat.get-color-from-palette($primary, default-contrast);
+    }
+
+    .g-accent-background {
+      background-color: mat.get-color-from-palette($accent);
+      color: mat.get-color-from-palette($accent, default-contrast);
+    }
+
+    .g-warn-background {
+      background-color: mat.get-color-from-palette($warn);
+      color: mat.get-color-from-palette($warn, default-contrast);
+    }
+
+    /**
+      Contrast text for palette. The best color (white or black) depending on the background
+     */
+    .g-primary-contrast {
+      color: mat.get-color-from-palette($primary, default-contrast);
+    }
+
+    .g-accent-contrast {
+      color: mat.get-color-from-palette($accent, default-contrast);
+    }
+
+    .g-warn-contrast {
+      color: mat.get-color-from-palette($warn, default-contrast);
+    }
+
+    /**
+      Text with other primary colors
+     */
+    .g-primary-text-extra-light {
+      color: mat.get-color-from-palette($primary, 50);
+    }
+
+    .g-primary-text-light {
+      color: mat.get-color-from-palette($primary, 200);
+    }
+
+    .g-primary-text-dark {
+      color: mat.get-color-from-palette($primary, 600);
+    }
+
+    .g-primary-text-extra-dark {
+      color: mat.get-color-from-palette($primary, 800);
+    }
 
 
-  /**
-    Contrast border for palette. The best color (white or black) depending on the background
-   */
-  .g-primary-border-contrast {
-    border-color: mat.get-color-from-palette($primary, default-contrast);
-  }
+    /**
+     Background color based on the theme and set the text color
+     */
 
-  .g-accent-border-contrast {
-    color: mat.get-color-from-palette($accent, default-contrast);
-  }
-
-  .g-warn-border-contrast {
-    color: mat.get-color-from-palette($warn, default-contrast);
-  }
-
-  /**
-  * Border theme color
-  */
-  .g-primary-border {
-    border-color: mat.get-color-from-palette($primary);
-  }
-
-  .g-accent-border {
-    color: mat.get-color-from-palette($accent);
-  }
-
-  .g-warn-border {
-    color: mat.get-color-from-palette($warn);
-  }
+    .g-primary-background-light {
+      background-color: mat.get-color-from-palette($primary, 200);
+      color: mat.get-color-from-palette($primary, '100-contrast');
+    }
 
 
-  /**
-   * Define colors in the same color as text theme for text, background and border
-   */
-  .g-text-normal-color {
-    color: $foreground-color;
-  }
+    /**
+      Contrast border for palette. The best color (white or black) depending on the background
+     */
+    .g-primary-border-contrast {
+      border-color: mat.get-color-from-palette($primary, default-contrast);
+    }
+
+    .g-accent-border-contrast {
+      color: mat.get-color-from-palette($accent, default-contrast);
+    }
+
+    .g-warn-border-contrast {
+      color: mat.get-color-from-palette($warn, default-contrast);
+    }
+
+    /**
+    * Border theme color
+    */
+    .g-primary-border {
+      border-color: mat.get-color-from-palette($primary);
+    }
+
+    .g-accent-border {
+      color: mat.get-color-from-palette($accent);
+    }
+
+    .g-warn-border {
+      color: mat.get-color-from-palette($warn);
+    }
 
 
-  //////////////// OTHER /////////////////////
-  /**
-    Basic style of card
-  */
-  .g-card {
-    background-color: var(--card-background);
-    border-radius: var(--card-radius);
-  }
+    /**
+     * Define colors in the same color as text theme for text, background and border
+     */
+    .g-text-normal-color {
+      color: $foreground-color;
+    }
 
-  .g-card-background {
-    background-color: mat.get-color-from-palette($background, card);
-  }
 
-  .g-default-color-text {
-    color: $foreground-color;
-  }
+    //////////////// OTHER /////////////////////
+    /**
+      Basic style of card
+    */
+    .g-card {
+      background-color: var(--card-background);
+      border-radius: var(--card-radius);
+    }
 
-  // grey color working for both theme
-  .g-grey-background {
-    background-color: var(--hover-color);
-    color: white;
-  }
+    .g-card-background {
+      background-color: mat.get-color-from-palette($background, card);
+    }
 
-  .g-grey-text {
-    background-color: var(--hover-color);
-  }
+    .g-default-color-text {
+      color: $foreground-color;
+    }
 
-  .g-success-text {
-    color: $color-success;
-  }
+    // grey color working for both theme
+    .g-grey-background {
+      background-color: var(--hover-color);
+      color: white;
+    }
 
-  .g-warning-text {
-    color: $color-warning;
-  }
+    .g-grey-text {
+      background-color: var(--hover-color);
+    }
 
-  .g-error-text {
-    color: $color-error;
-  }
+    .g-success-text {
+      color: $color-success;
+    }
 
-  .g-success-background {
-    background-color: $color-success;
-    color: white;
-  }
+    .g-warning-text {
+      color: $color-warning;
+    }
 
-  .g-warning-background {
-    background-color: $color-warning;
-    color: white;
-  }
+    .g-error-text {
+      color: $color-error;
+    }
 
-  .g-error-background {
-    background-color: $color-error;
-    color: white;
-  }
+    .g-success-background {
+      background-color: $color-success;
+      color: white;
+    }
 
-  .g-primary-button-icon-border {
-    border: 1px solid mat.get-color-from-palette($primary) !important;
-    box-sizing: content-box !important;
+    .g-warning-background {
+      background-color: $color-warning;
+      color: white;
+    }
+
+    .g-error-background {
+      background-color: $color-error;
+      color: white;
+    }
+
+    .g-primary-button-icon-border {
+      border: 1px solid mat.get-color-from-palette($primary) !important;
+      box-sizing: content-box !important;
+    }
   }
 }
