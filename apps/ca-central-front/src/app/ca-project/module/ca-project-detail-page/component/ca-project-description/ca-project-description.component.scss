@@ -1,12 +1,12 @@
 
 .section {
   padding: 1em;
-  //padding-right: 1em;
-  //padding-left: 1em;
   box-sizing: border-box;
   margin-bottom: 0;
+  height: 100%;
 }
 
-//.text-editor{
-//  padding-bottom: 1em;
-//}
+.text-editor{
+  //padding-bottom: 1em;
+  height: 100%;
+}
