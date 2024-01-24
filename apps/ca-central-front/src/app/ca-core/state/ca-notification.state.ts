@@ -39,10 +39,12 @@ export class CaNotificationState implements OnDestroy {
 
   private readonly notificationMarkDebounceTime: number = 5000;
 
+  private readonly pageSize: number = 40;
+
   constructor(private notificationService: CaNotificationsService,
               private currentSpaceService: CaCurrentSpaceService) {
     this.notifications = new FlEntityPaginatedDatasource(
-      (page, size) => notificationService.getCurrentNotifications(page, size), 40,
+      (page, size) => notificationService.getCurrentNotifications(page, size), this.pageSize,
       true, true);
 
   }
@@ -80,10 +82,14 @@ export class CaNotificationState implements OnDestroy {
 
   public getNotReadNotificationsNumber(): Observable<number | string> {
     return this.getNotReadNotifications().pipe(map((notifications: CaNotification[]) => {
-      if (notifications.length > 0) {
-        return notifications.length;
-      } else {
+      if (notifications.length === 0) {
         return '';
+      }
+      // if all the notif are not loaded yet, we add a '+' to the number
+      else if (notifications.length % this.pageSize === 0) {
+        return notifications.length + '+';
+      } else {
+        return notifications.length;
       }
     }));
 
