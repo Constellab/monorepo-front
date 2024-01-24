@@ -48,6 +48,7 @@ import {
   LabReportTemplateCoreModule
 } from './lab-core/entity-module/lab-report-template-core/lab-report-template-core.module';
 import {LabCredentialsCoreModule} from './lab-core/entity-module/lab-credentials-core/lab-credentials-core.module';
+import {LabRichTextCoreModule} from './lab-core/entity-module/lab-rich-text-core/lab-rich-text-core.module';
 
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
@@ -111,6 +112,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     // in task config
     LabReportTemplateCoreModule,
     LabCredentialsCoreModule,
+    LabRichTextCoreModule,
 
     LabAppRoutingModule
   ],

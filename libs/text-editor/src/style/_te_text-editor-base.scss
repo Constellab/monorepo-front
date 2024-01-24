@@ -13,6 +13,18 @@
     font-family: "Roboto Serif", serif;
   }
 
+  // override the default behaviour to always have the toolbar on the left
+  .codex-editor--narrow {
+    .codex-editor__redactor {
+      margin-right: initial;
+    }
+
+    .ce-toolbar__actions {
+      right: initial;
+    }
+  }
+
+
   // tooltip
   .ct__content {
     background-color: var(--hover-color);

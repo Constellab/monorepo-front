@@ -2,8 +2,7 @@
  * Define the type of the param spec
  */
 export type TdParamSpecType =
-  'str'
-  | 'text'
+  'str' | 'text' | 'rich_text_param'
   | 'int'
   | 'float'
   | 'list'
@@ -91,7 +90,8 @@ export type TdParamSpecSimple =
   | TdParamOpenAiChat
   | TdParamSelectCredentials
   | TdParamSelectReportTemplate
-  | TdParamSelectReport;
+  | TdParamSelectReport
+  | TdParamRichText;
 
 /**
  * Param for short string
@@ -159,6 +159,10 @@ export interface TdParamSelectReportTemplate extends TdParamSpecBase {
 
 export interface TdParamSelectReport extends TdParamSpecBase {
   type: 'report_param';
+}
+
+export interface TdParamRichText extends TdParamSpecBase {
+  type: 'rich_text_param';
 }
 
 /**

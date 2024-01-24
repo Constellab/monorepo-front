@@ -5,6 +5,11 @@
   padding: 0 5px;
 }
 
+:host.include-tooltip-button{
+  // add padding to let the tooltip button be visible
+  padding-left: 50px;
+}
+
 .text-container {
   // TODO to update
   //border: 1px solid white;

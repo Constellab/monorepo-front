@@ -61,6 +61,7 @@ export class LabConfig extends LabBaseEntity {
   public getDynamicFormFieldsConfig(visibility?: TdParamSpecVisibility): FlDynamicFormGroupConfig {
     return this.convertToFieldConfigs(visibility);
   }
+
   /**
    * Method to convert the ConfigSpec to a FlDynamicFormFieldConfig to create a form
    */
@@ -150,6 +151,11 @@ export class LabConfig extends LabBaseEntity {
     } else if (spec.type === 'text') {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
       config.type = 'textarea';
+      config.fullWidth = true;
+      return config;
+    } else if (spec.type === 'rich_text_param') {
+      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+      config.type = 'rich_text';
       config.fullWidth = true;
       return config;
     } else {

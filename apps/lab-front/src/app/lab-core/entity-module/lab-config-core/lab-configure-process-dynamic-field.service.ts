@@ -22,6 +22,7 @@ import {
 import {
   LabSelectReportDynamicFieldComponent
 } from '../lab-report-core/component/lab-select-report-dynamic-field/lab-select-report-dynamic-field.component';
+import {LabRichTextDynamicFieldComponent} from '../lab-rich-text-core/component/lab-rich-text-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
@@ -37,6 +38,7 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
       'select_credentials': this.buildSelectCredentialsField,
       'select_report_template': this.buildSelectReportTemplateField,
       'select_report': this.buildSelectReportField,
+      'rich_text': this.buildRichTextField,
     };
 
     // for each code spec type, set the code editor component
@@ -76,4 +78,7 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
     return viewContainer.createComponent(LabSelectReportDynamicFieldComponent);
   }
 
+  private buildRichTextField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+    return viewContainer.createComponent(LabRichTextDynamicFieldComponent);
+  }
 }
