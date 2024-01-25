@@ -14,7 +14,7 @@ import {
 import {LabTagService} from '../../../../lab-core/entity-service/lab-tag.service';
 
 @Component({
-  selector: 'lab-lab-monitoring-tags-page',
+  selector: 'lab-monitoring-tags-page',
   templateUrl: './lab-monitoring-tags-page.component.html',
   styleUrls: ['./lab-monitoring-tags-page.component.scss'],
 })
@@ -49,7 +49,8 @@ export class LabMonitoringTagsPageComponent implements OnInit {
   }
 
   openTagHelpDialog(): void {
-    this.dialogService.openSmallDialog(LabTagHelpDialogComponent);
+    this.dialogService.openSmallDialog(LabTagHelpDialogComponent,
+      {panelClass: 'g-dialog-main-background'});
   }
 
   lastTagValueDeleted(tagKey: LabTagKeyModel): void {

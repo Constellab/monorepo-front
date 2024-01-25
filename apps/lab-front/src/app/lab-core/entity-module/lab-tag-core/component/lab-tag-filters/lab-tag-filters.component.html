@@ -2,8 +2,15 @@
 
   <mat-expansion-panel-header>
     <mat-panel-title>
-      {{'tags' | translate}}
+      {{ 'tags' | translate }}
     </mat-panel-title>
+
+    <mat-panel-description class="g-layout-row g-layout-end">
+      <a mat-icon-button [routerLink]="tagMonitoringRoute"
+         [matTooltip]="'go_to_tag_management' | translate">
+        <mat-icon>settings</mat-icon>
+      </a>
+    </mat-panel-description>
   </mat-expansion-panel-header>
 
   <fl-tag-list [tags]="selectedTags" class="g-text-small"
@@ -14,6 +21,7 @@
                     [allowUnknownTag]="false"></fl-add-tag-input>
 
   <fl-infinite-scroll [datasource]="tagKeys" class="tag-key-list g-infinite-table"
+                      [textNoResult]="'no_tags_filters' | translate"
                       textNoMoreResult="">
     <div class="g-layout-row-wrap g-layout-gap-05em g-text-small">
       <ng-container *ngFor="let tagKey of tagKeys | flDatasourceConnect | async">

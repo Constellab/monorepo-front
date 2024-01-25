@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
 /**
  * Simple dialog to show a help message to explain the use of a tag
@@ -8,11 +8,5 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './lab-tag-help-dialog.component.html',
   styleUrls: ['./lab-tag-help-dialog.component.scss']
 })
-export class LabTagHelpDialogComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class LabTagHelpDialogComponent {
 }

@@ -16,6 +16,7 @@ import {LabNavigableEntityCoreModule} from '../lab-navigable-entity-core/lab-nav
 import {LabTagListComponent} from './component/lab-tag-list/lab-tag-list.component';
 import {LabTagDetailPortalComponent} from './component/lab-tag-detail-portal/lab-tag-detail-portal.component';
 import {LabTagFiltersComponent} from './component/lab-tag-filters/lab-tag-filters.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {LabTagFiltersComponent} from './component/lab-tag-filters/lab-tag-filter
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
 
     LabCoreModule,
     LabNavigableEntityCoreModule,

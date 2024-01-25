@@ -11,6 +11,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
 import {NgControl} from '@angular/forms';
+import {LabRouterService} from '../../../../service/lab-router.service';
 
 /**
  * Component to select tag to filter the list of entity
@@ -30,6 +31,8 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
   selectedTags: FlTagDatasource = new FlTagDatasource();
 
   tagKeys: FlDatasourcePaginated<LabTagKeyModel>;
+
+  tagMonitoringRoute = LabRouterService.getMonitoringTagsRoute();
 
   constructor(@Optional() @Self() ngControl: NgControl,
               private tagService: LabTagService) {

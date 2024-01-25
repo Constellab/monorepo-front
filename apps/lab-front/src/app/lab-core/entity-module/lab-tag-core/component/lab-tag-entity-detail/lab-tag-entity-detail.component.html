@@ -12,7 +12,7 @@
 
   <!--   Values  -->
   <ng-template matExpansionPanelContent>
-    <fl-infinite-scroll [datasource]="tagValues" class="infinite-scroll">
+    <fl-infinite-scroll [datasource]="tagValues" class="infinite-scroll" textNoMoreResult="">
       <div *ngFor="let value of tagValues | flDatasourceConnect | async"
            class="value g-layout-row g-layout-start-center g-layout-gap-05em">
 
