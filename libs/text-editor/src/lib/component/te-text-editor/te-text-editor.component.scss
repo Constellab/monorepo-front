@@ -5,8 +5,8 @@
   padding: 0 5px;
 }
 
-:host.include-tooltip-button{
-  // add padding to let the tooltip button be visible
+:host.include-toolbar-button{
+  // add padding to left to include the toolbar button in this component
   padding-left: 50px;
 }
 
