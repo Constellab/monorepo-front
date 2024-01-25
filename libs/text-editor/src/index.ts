@@ -10,6 +10,7 @@ export * from './lib/component/te-text-editor/te-text-editor.component';
 export * from './lib/component/te-text-editor-browser-side/te-text-editor-browser-side.component';
 export * from './lib/component/te-text-editor-server-side/te-text-editor-server-side.component';
 export * from './lib/component/te-title-caption/te-title-caption.component';
+export * from './lib/component/te-variable-form/te-variable-form.component';
 export * from './lib/component/te-video/te-video.component';
 
 // Model
@@ -28,6 +29,9 @@ export * from './lib/block/te-formula-block.class';
 export * from './lib/block/te-header-with-id-block.class';
 export * from './lib/block/te-hint-block.class';
 export * from './lib/block/te-video-block.class';
+
+// Inline tool
+export * from './lib/inline-tool/te-variable-inline-tool.class';
 
 // Block tune
 export * from './lib/block-tune/te-drag-block-tune.class';

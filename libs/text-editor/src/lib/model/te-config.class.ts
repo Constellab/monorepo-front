@@ -21,6 +21,7 @@ import {teComponentBlockFactory} from './te-block-factory.class';
 import StrikethroughInlineTool from '../inline-tools/inline-tool-strikethrough';
 import {TeDragBlockTune} from '../block-tune/te-drag-block-tune.class';
 import {TeHelper} from './te.helper';
+import {teInlineToolFactory, TeVariableInlineToolClass} from '../inline-tool/te-variable-inline-tool.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -165,6 +166,7 @@ export class TeCompleteConfig extends TeConfig {
         class: InlineCode,
         shortcut: 'CMD+SHIFT+M',
       },
+      variable: teInlineToolFactory(TeVariableInlineToolClass, envInjector, applicationRef),
 
       // Other
       drag: TeDragBlockTune,
@@ -172,7 +174,7 @@ export class TeCompleteConfig extends TeConfig {
   }
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode'];
+    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'variable'];
   }
 
   getTunes(): string[] {
