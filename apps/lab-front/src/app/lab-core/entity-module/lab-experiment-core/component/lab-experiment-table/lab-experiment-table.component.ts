@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlArrayObs, FlTableColumnStatic, FlTag, FlTagSelectedEvent} from '@monorepo/front-core-lib';
+import {FlArrayObs, FlTableColumnStatic, FlTag} from '@monorepo/front-core-lib';
 import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
 import {ClHelpService} from '@monorepo/core-lib';
 
@@ -21,7 +21,7 @@ export class LabExperimentTableComponent {
 
   @Output() tagSelected: EventEmitter<FlTag> = new EventEmitter();
 
-  @Output() experimentDisassociate: EventEmitter<LabExperiment> = new EventEmitter();
+  @Output() experimentUnlink: EventEmitter<LabExperiment> = new EventEmitter();
 
   rowClicked(experiment: LabExperiment): void {
     if (this.rowSelectable) {
@@ -29,13 +29,8 @@ export class LabExperimentTableComponent {
     }
   }
 
-  onTagSelected(tagEvent: FlTagSelectedEvent): void {
-    ClHelpService.stopEventPropagation(tagEvent.event);
-    this.tagSelected.next(tagEvent.tag);
-  }
-
-  disassociateExperiment(experiment: LabExperiment, event: MouseEvent): void {
+  unlinkedExperiment(experiment: LabExperiment, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    this.experimentDisassociate.next(experiment);
+    this.experimentUnlink.next(experiment);
   }
 }

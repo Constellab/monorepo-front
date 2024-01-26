@@ -21,8 +21,8 @@ import {
 } from './component/lab-experiment-detail-header/lab-experiment-detail-header.component';
 import {LabExperimentDetailComponent} from './component/lab-experiment-detail/lab-experiment-detail.component';
 import {
-  LabExperimentAssociatedReportsComponent
-} from './component/lab-experiment-associated-reports/lab-experiment-associated-reports.component';
+  LabExperimentLinkedReportsComponent
+} from './component/lab-experiment-linked-reports/lab-experiment-linked-reports.component';
 import {RouterModule} from '@angular/router';
 import {LabTypeCoreModule} from '../../../lab-core/entity-module/lab-type-core/lab-type-core.module';
 import {LabProtocolConfigComponent} from './component/lab-protocol-config/lab-protocol-config.component';
@@ -75,7 +75,7 @@ import {LabTagCoreModule} from '../../../lab-core/entity-module/lab-tag-core/lab
     LabTaskSourceConfigComponent,
     LabExperimentDetailHeaderComponent,
     LabExperimentDetailComponent,
-    LabExperimentAssociatedReportsComponent,
+    LabExperimentLinkedReportsComponent,
     LabProtocolConfigComponent,
     LabConfigureProtocolDialogComponent,
     LabConfigureProtocolComponent,

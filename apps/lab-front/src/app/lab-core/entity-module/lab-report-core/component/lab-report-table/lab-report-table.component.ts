@@ -19,7 +19,7 @@ export class LabReportTableComponent {
 
   @Output() reportSelected: EventEmitter<LabReport> = new EventEmitter();
 
-  @Output() reportDisassociate: EventEmitter<LabReport> = new EventEmitter();
+  @Output() reportUnlink: EventEmitter<LabReport> = new EventEmitter();
 
 
   rowClicked(report: LabReport): void {
@@ -28,8 +28,8 @@ export class LabReportTableComponent {
     }
   }
 
-  disassociateReport(report: LabReport, event: MouseEvent): void {
+  unlinkReport(report: LabReport, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    this.reportDisassociate.next(report);
+    this.reportUnlink.next(report);
   }
 }

@@ -11,7 +11,7 @@ import {LabReportTemplate} from '../../../../model/entities/lab-report-template.
 
 export interface LabReportFormDialogInput extends FlFormDialogInput<LabReportForm> {
   reportId?: string;
-  experimentId?: string; // can be provided during create to associate the report directly to an experiment
+  experimentId?: string; // can be provided during create to link the report directly to an experiment
   project?: LabEntity;
   disableProject?: boolean;
 }

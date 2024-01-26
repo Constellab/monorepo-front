@@ -59,13 +59,13 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Disassociate report button -->
-  <ng-container matColumnDef="disassociate">
+  <!-- Unlinked report button -->
+  <ng-container matColumnDef="unlink">
     <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
     </mat-header-cell>
     <mat-cell *matCellDef="let report" class="g-table-icon-button-cell">
-      <button mat-icon-button type="button" (click)="disassociateReport(report, $event)"
-              [matTooltip]="'biox.report_disassociate_experiment' | translate">
+      <button mat-icon-button type="button" (click)="unlinkReport(report, $event)"
+              [matTooltip]="'biox.report_unlink_experiment' | translate">
         <mat-icon>clear</mat-icon>
       </button>
     </mat-cell>

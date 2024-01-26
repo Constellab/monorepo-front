@@ -16,22 +16,22 @@ import {
 } from '../../../../../lab-core/entity-module/lab-report-core/component/lab-select-report-dialog/lab-select-report-dialog.component';
 
 /**
- * Component inside the experiment detail to list the reports associated with the experiment
+ * Component inside the experiment detail to list the reports linked with the experiment
  */
 @Component({
-  selector: 'lab-experiment-associated-reports',
-  templateUrl: './lab-experiment-associated-reports.component.html',
-  styleUrls: ['./lab-experiment-associated-reports.component.scss']
+  selector: 'lab-experiment-linked-reports',
+  templateUrl: './lab-experiment-linked-reports.component.html',
+  styleUrls: ['./lab-experiment-linked-reports.component.scss']
 })
-export class LabExperimentAssociatedReportsComponent implements OnInit, OnDestroy {
+export class LabExperimentLinkedReportsComponent implements OnInit, OnDestroy {
 
   @Input() experimentId: string;
 
   reports: FlEntityArrayObs<LabReport>;
 
-  columns: FlTableColumnStatic<LabReport>[] = ['title', 'disassociate'];
+  columns: FlTableColumnStatic<LabReport>[] = ['title', 'unlink'];
 
-  private readonly actionName: string = 'experiment-associate-report';
+  private readonly actionName: string = 'experiment-link-report';
 
   private subscription: Subscription;
 
@@ -54,7 +54,7 @@ export class LabExperimentAssociatedReportsComponent implements OnInit, OnDestro
     }
   }
 
-  associateExperiment(): void {
+  linkExperiment(): void {
     this.dialogService.openBigDialog(LabSelectReportDialogComponent).afterClosed().subscribe(
       report => this.selectReportClosed(report)
     );
@@ -67,18 +67,18 @@ export class LabExperimentAssociatedReportsComponent implements OnInit, OnDestro
         action: this.reportService.addExperiment(report.id, this.experimentId).pipe(
           map(() => report) // map the report to get it after the action
         ),
-        text: {text: 'biox.experiment_associate_report', translateText: true},
+        text: {text: 'biox.experiment_link_report', translateText: true},
       }, true);
     }
   }
 
-  disassociateReport(report: LabReport): void {
+  unlinkReport(report: LabReport): void {
     this.reportService.removeExperimentWithConfirmation(report.id, this.experimentId).subscribe(
-      result => this.disassociateClosed(result, report)
+      result => this.unlinkClosed(result, report)
     );
   }
 
-  private disassociateClosed(result: FlConfirmDialogResult<void>, report: LabReport): void {
+  private unlinkClosed(result: FlConfirmDialogResult<void>, report: LabReport): void {
     if (result.choice) {
       this.reports.removeItem(report);
     }

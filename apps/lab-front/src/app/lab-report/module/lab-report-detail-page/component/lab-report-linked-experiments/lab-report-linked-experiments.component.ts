@@ -17,15 +17,15 @@ import {Subscription} from 'rxjs';
 import {LabReportDetailPageState} from '../../lab-report-detail-page.state';
 
 /**
- * Component to list the associated experiment of a report with
+ * Component to list the linked experiment of a report with
  * the possibility to delete or add a new
  */
 @Component({
-  selector: 'lab-report-associated-experiments',
-  templateUrl: './lab-report-associated-experiments.component.html',
-  styleUrls: ['./lab-report-associated-experiments.component.scss']
+  selector: 'lab-report-linked-experiments',
+  templateUrl: './lab-report-linked-experiments.component.html',
+  styleUrls: ['./lab-report-linked-experiments.component.scss']
 })
-export class LabReportAssociatedExperimentsComponent implements OnInit, OnDestroy {
+export class LabReportLinkedExperimentsComponent implements OnInit, OnDestroy {
 
   experiments: FlArrayObs<LabExperiment>;
 
@@ -33,7 +33,7 @@ export class LabReportAssociatedExperimentsComponent implements OnInit, OnDestro
 
   columns: FlTableColumnStatic<LabExperiment>[];
 
-  private readonly actionName: string = 'report-associate-experiment';
+  private readonly actionName: string = 'report-link-experiment';
 
   private subscription: Subscription;
 
@@ -48,7 +48,7 @@ export class LabReportAssociatedExperimentsComponent implements OnInit, OnDestro
     this.state.getReport$().subscribe(
       report => {
         this.canEdit = !report.isValidated;
-        this.columns = this.canEdit ? ['title', 'disassociate'] : ['title'];
+        this.columns = this.canEdit ? ['title', 'unlinked'] : ['title'];
       }
     );
 
@@ -65,7 +65,7 @@ export class LabReportAssociatedExperimentsComponent implements OnInit, OnDestro
     }
   }
 
-  associateExperiment(): void {
+  linkExperiment(): void {
     this.dialogService.openBigDialog(LabSelectExperimentDialogComponent).afterClosed().subscribe(
       experiment => this.selectExperimentClosed(experiment)
     );
@@ -76,18 +76,18 @@ export class LabReportAssociatedExperimentsComponent implements OnInit, OnDestro
       this.actionService.addAction({
         type: this.actionName,
         action: this.reportService.addExperiment(this.state.currentReport.id, experiment.id),
-        text: {text: 'biox.report_associate_experiment', translateText: true},
+        text: {text: 'biox.report_link_experiment', translateText: true},
       }, true);
     }
   }
 
-  disassociateExperiment(experiment: LabExperiment): void {
+  unlinkExperiment(experiment: LabExperiment): void {
     this.reportService.removeExperimentWithConfirmation(this.state.currentReport.id, experiment.id).subscribe(
-      result => this.disassociateClosed(result, experiment)
+      result => this.unlinkClosed(result, experiment)
     );
   }
 
-  private disassociateClosed(result: FlConfirmDialogResult<void>, experiment: LabExperiment): void {
+  private unlinkClosed(result: FlConfirmDialogResult<void>, experiment: LabExperiment): void {
     if (result.choice) {
       this.experiments.removeItem(experiment);
     }

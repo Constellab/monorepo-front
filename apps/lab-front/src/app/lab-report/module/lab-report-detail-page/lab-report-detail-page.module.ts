@@ -4,8 +4,8 @@ import {LabReportDetailPageComponent} from './component/lab-report-detail-page/l
 import {LabCoreModule} from '../../../lab-core/lab-core.module';
 import {FormsModule} from '@angular/forms';
 import {
-  LabReportAssociatedExperimentsComponent
-} from './component/lab-report-associated-experiments/lab-report-associated-experiments.component';
+  LabReportLinkedExperimentsComponent
+} from './component/lab-report-linked-experiments/lab-report-linked-experiments.component';
 import {RouterModule} from '@angular/router';
 import {
   LabViewConfigCoreModule
@@ -21,7 +21,7 @@ import {LabTagCoreModule} from '../../../lab-core/entity-module/lab-tag-core/lab
 @NgModule({
   declarations: [
     LabReportDetailPageComponent,
-    LabReportAssociatedExperimentsComponent,
+    LabReportLinkedExperimentsComponent,
     LabReportContentViewComponent
   ],
   imports: [

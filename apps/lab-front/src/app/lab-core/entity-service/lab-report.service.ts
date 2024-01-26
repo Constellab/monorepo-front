@@ -82,11 +82,11 @@ export class LabReportService {
 
   public removeExperimentWithConfirmation(reportId: string, experimentId: string): Observable<FlConfirmDialogResult<void>> {
     const input: FlConfirmDialogInput = {
-      title: 'biox.report_disassociate_experiment',
-      content: 'biox.report_disassociate_experiment_confirmation',
+      title: 'biox.report_unlink_experiment',
+      content: 'biox.report_unlink_experiment_confirmation',
       translateTitleAndContent: true,
       observable: this.removeExperiment(reportId, experimentId),
-      successMessage: 'biox.report_experiment_disassociated',
+      successMessage: 'biox.report_experiment_unlinked',
       translateMessage: true
     };
 

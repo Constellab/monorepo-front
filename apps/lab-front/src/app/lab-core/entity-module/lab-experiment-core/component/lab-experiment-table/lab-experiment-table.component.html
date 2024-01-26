@@ -72,13 +72,13 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Disassociate experiment -->
-  <ng-container matColumnDef="disassociate">
+  <!-- Unlinked experiment -->
+  <ng-container matColumnDef="unlinked">
     <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment" class="g-table-icon-button-cell">
-      <button mat-icon-button type="button" (click)="disassociateExperiment(experiment, $event)"
-              [matTooltip]="'biox.report_disassociate_experiment' | translate">
+      <button mat-icon-button type="button" (click)="unlinkedExperiment(experiment, $event)"
+              [matTooltip]="'biox.report_unlinked_experiment' | translate">
         <mat-icon>clear</mat-icon>
       </button>
     </mat-cell>
