@@ -11,12 +11,12 @@
 
       <fl-key-value *ngIf="progressBar.startedAt">
         <fl-key>{{'begin_date' | translate}}</fl-key>
-        {{progressBar.startedAt | flDate:'DATETIME_MED_WITH_SECONDS'}}
+        {{progressBar.startedAt | flDate:'DATE_TIME_WITH_SECONDS'}}
       </fl-key-value>
 
       <fl-key-value *ngIf="progressBar.endedAt">
         <fl-key>{{'end_date' | translate}}</fl-key>
-        {{progressBar.endedAt | flDate:'DATETIME_MED_WITH_SECONDS'}}
+        {{progressBar.endedAt | flDate:'DATE_TIME_WITH_SECONDS'}}
       </fl-key-value>
 
       <fl-text-icon *ngIf="progressBar.secondStart" class="g-text-light g-text-small" gap="5px">

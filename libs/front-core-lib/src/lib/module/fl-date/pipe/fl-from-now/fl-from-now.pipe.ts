@@ -16,10 +16,9 @@ export class FlFromNowPipe implements PipeTransform {
    *
    * Use the date local setup by the translate service
    * @param date date
-   * @param capitalize if true capitalize string
    */
-  transform(date: ClDateInput, capitalize: boolean = false): string {
-    return ClDateHelper.fromNow(date, capitalize);
+  transform(date: ClDateInput): string {
+    return ClDateHelper.fromNow(date);
   }
 
 }

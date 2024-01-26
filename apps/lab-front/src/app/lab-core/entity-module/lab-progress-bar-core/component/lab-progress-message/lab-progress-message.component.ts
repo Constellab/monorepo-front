@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {LabProgressMessage} from '../../../../model/entities/lab-progress-bar.entity';
 
 @Component({
@@ -6,13 +6,8 @@ import {LabProgressMessage} from '../../../../model/entities/lab-progress-bar.en
   templateUrl: './lab-progress-message.component.html',
   styleUrls: ['./lab-progress-message.component.scss']
 })
-export class LabProgressMessageComponent implements OnInit {
+export class LabProgressMessageComponent {
 
   @Input() progressMessage: LabProgressMessage;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

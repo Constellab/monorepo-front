@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ClDateInput} from '@monorepo/core-lib';
+import {Component, Input} from '@angular/core';
+import {ClDateFormat, ClDateInput} from '@monorepo/core-lib';
 import {TooltipPosition} from '@angular/material/tooltip';
 
 /**
@@ -10,21 +10,16 @@ import {TooltipPosition} from '@angular/material/tooltip';
   templateUrl: './fl-from-now.component.html',
   styleUrls: ['./fl-from-now.component.scss']
 })
-export class FlFromNowComponent implements OnInit {
+export class FlFromNowComponent {
 
   @Input() date: ClDateInput;
 
   @Input() prefix: string;
 
-  @Input() tooltipFormat: string = 'D HH:mm'
+  @Input() tooltipFormat: string = ClDateFormat.DATE_TIME;
 
   @Input() tooltipPosition: TooltipPosition = 'above';
 
   @Input() disabledTooltip: boolean = false;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

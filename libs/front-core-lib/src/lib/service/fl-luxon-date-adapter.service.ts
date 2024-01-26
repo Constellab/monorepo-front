@@ -11,15 +11,16 @@ import {DateTime, Info, Settings} from 'luxon';
  * See https://momentjs.com/docs/#/parsing/string-format/ form formats
  */
 import {DateAdapter, MAT_DATE_LOCALE, MatDateFormats} from '@angular/material/core';
+import {ClDateFormat} from '@monorepo/core-lib';
 
 export const flLuxonDateFormat: MatDateFormats = {
   parse: {
     // input supported by the date picker (like 04/09/1986 in local format)
-    dateInput: 'D',
+    dateInput: 'd/L/y',
   },
   display: {
     // displayed input value
-    dateInput: 'D',
+    dateInput: ClDateFormat.DATE,
     monthYearLabel: 'MMM yyyy',
     dateA11yLabel: 'DDD',
     monthYearA11yLabel: 'MMMM yyyy',
