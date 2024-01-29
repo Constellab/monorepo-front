@@ -1,8 +1,19 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlSavedSearch, FlSearchConfig, FlSearchState, FlThemeService} from '@monorepo/front-core-lib';
+import {
+  FlDialogService,
+  FlFormDialogInput,
+  FlSavedSearch,
+  FlSearchConfig,
+  FlSearchState,
+  FlThemeService
+} from '@monorepo/front-core-lib';
 import {LabReportTemplate, LabReportTemplateDatasource} from '../../../../model/entities/lab-report-template.entity';
 import {LabReportTemplateService} from '../../../../entity-service/lab-report-template.service';
 import {LabReportTemplateSearch, LabReportTemplateSearchFields} from '../../lab-report-template-search.class';
+import {LabRouterService} from '../../../../service/lab-router.service';
+import {
+  LabReportTemplateFormDialogComponent
+} from '../lab-report-template-form-dialog/lab-report-template-form-dialog.component';
 
 @Component({
   selector: 'lab-report-template-search',
@@ -22,7 +33,9 @@ export class LabReportTemplateSearchComponent implements OnInit {
 
   constructor(private searchState: FlSearchState<any>,
               private reportTemplateService: LabReportTemplateService,
-              private themeService: FlThemeService) {
+              private themeService: FlThemeService,
+              private dialogService: FlDialogService,
+              private routerService: LabRouterService) {
   }
 
   ngOnInit(): void {
@@ -58,6 +71,22 @@ export class LabReportTemplateSearchComponent implements OnInit {
 
   selectReport(reportTemplate: LabReportTemplate): void {
     this.reportTemplateSelected.next(reportTemplate);
+  }
+
+  openCreateReportTemplateDialog(): void {
+    const data: FlFormDialogInput = {
+      mode: 'create'
+    };
+
+    this.dialogService.openSmallDialog(LabReportTemplateFormDialogComponent, {data}).afterClosed().subscribe(
+      reportTemplate => this.onCreateClosed(reportTemplate)
+    );
+  }
+
+  private onCreateClosed(reportTemplate?: LabReportTemplate): void {
+    if (reportTemplate) {
+      this.routerService.navigatorToReportTemplateDetail(reportTemplate.id);
+    }
   }
 }
 

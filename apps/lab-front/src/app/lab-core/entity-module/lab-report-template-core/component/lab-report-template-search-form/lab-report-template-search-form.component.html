@@ -1,6 +1,6 @@
 <div class="form g-layout-col" [formGroup]="formGp">
 
-  <div class="g-full g-layout-gap-1em g-layout-row-wrap g-layout-between-center">
+  <div class="g-full g-layout-row-wrap g-layout-between-center">
 
     <!--  Title  -->
     <mat-form-field class="g-full">
@@ -21,14 +21,14 @@
 
 
     <!--  Creation date  -->
-    <div class="g-form-field-no-hint g-full g-form-field-compact">
+    <div class="g-full g-form-field-compact">
       <p class="g-text-small subtitle">{{'creation_date' | translate}}</p>
       <fl-search-date-interval formGroupName="createdAt">
       </fl-search-date-interval>
     </div>
 
     <!--  Last modification date  -->
-    <div class="g-form-field-no-hint g-full g-form-field-compact">
+    <div class="g-full g-form-field-compact">
       <p class="g-text-small subtitle">{{'last_modified_date' | translate}}</p>
       <fl-search-date-interval formGroupName="lastModifiedAt">
       </fl-search-date-interval>

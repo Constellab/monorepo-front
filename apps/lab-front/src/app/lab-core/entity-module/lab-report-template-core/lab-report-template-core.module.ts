@@ -24,6 +24,10 @@ import {RouterModule} from '@angular/router';
 import {
   LabSelectReportTemplateDialogComponent
 } from './component/lab-select-report-template-dialog/lab-select-report-template-dialog.component';
+import {
+  LabReportTemplateFormDialogComponent
+} from './component/lab-report-template-form-dialog/lab-report-template-form-dialog.component';
+import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,7 @@ import {
     LabReportTemplateSearchFormComponent,
     LabReportTemplateTableComponent,
     LabSelectReportTemplateDialogComponent,
+    LabReportTemplateFormDialogComponent,
   ],
   exports: [
     LabReportTemplateInlineComponent,
@@ -43,7 +48,8 @@ import {
     LabReportTemplateSearchFormComponent,
     LabReportTemplateTableComponent,
     LabSelectReportTemplateDialogComponent,
+    LabReportTemplateFormDialogComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, LabCoreModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LabCoreModule, LabProjectCoreModule],
 })
 export class LabReportTemplateCoreModule {}

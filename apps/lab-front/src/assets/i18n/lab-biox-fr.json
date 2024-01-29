@@ -361,6 +361,7 @@
     "view_settings": "Paramètres de la vue",
     "select_report": "Sélectionner un rapport",
     "create_report_template": "Créer un modèle de rapport",
+    "report_template_created": "Modèle de rapport créé",
     "delete_report_template": "Supprimer le modèle de rapport",
     "delete_report_template_confirmation": "Êtes-vous sûr de vouloir supprimer ce modèle de rapport ?",
     "report_template_deleted": "Modèle de rapport supprimé",

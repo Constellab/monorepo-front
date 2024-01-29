@@ -12,21 +12,20 @@
 
     <fl-text-icon>
       <mat-icon flIcon="report"></mat-icon>
-      <h2>{{'biox.reports' | translate}}</h2>
+      <h2>{{ 'biox.reports' | translate }}</h2>
     </fl-text-icon>
 
 
-    <fl-search-header-actions class="g-layout-row">
+    <fl-search-header-actions class="g-layout-row g-layout-start-center">
       <button mat-icon-button type="button" color="accent"
               [matTooltip]="'biox.create_report' | translate" matTooltipPosition="before"
               (click)="openCreateReportFormDialog()">
         <mat-icon>add</mat-icon>
       </button>
 
-      <button mat-icon-button type="button" color="accent"
-              [matTooltip]="'biox.report_templates' | translate" matTooltipPosition="before"
+      <button mat-stroked-button type="button" class="g-button-small report-template"
               (click)="openReportTemplatesSearch()">
-        <mat-icon flIcon="report"></mat-icon>
+        {{ 'biox.report_templates' | translate }}
       </button>
     </fl-search-header-actions>
   </fl-search-header>
