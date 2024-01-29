@@ -12,12 +12,17 @@
   min-height: 40px;
 }
 
-.workflow {
+// we can't set a class on the drawflow element because this break the translate
+// so we use the class added by drawflow
+.parent-drawflow {
   width: 100%;
-  min-height: 40em
+  min-height: 40em;
+  flex: 1 1 auto;
+  box-sizing: border-box;
 }
 
-.divider{
+
+.divider {
   width: 1px;
   background-color: var(--card-background);
   height: 70%;
