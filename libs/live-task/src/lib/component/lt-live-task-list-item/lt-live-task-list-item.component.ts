@@ -1,0 +1,35 @@
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {LtLiveTask} from '../../model/lt-live-task.class';
+
+export enum LtLiveTaskListItemColor {
+  MAIN = 'main',
+  CARD = 'card',
+}
+
+@Component({
+  selector: 'lt-live-task-list-item',
+  templateUrl: './lt-live-task-list-item.component.html',
+  styleUrls: ['./lt-live-task-list-item.component.scss']
+})
+export class LtLiveTaskListItemComponent implements AfterViewInit{
+  @Input()
+  liveTask: LtLiveTask;
+
+  @Input()
+  backgroundColor: LtLiveTaskListItemColor | string = LtLiveTaskListItemColor.CARD;
+
+  @ViewChild('mainCard') mainCardDiv: ElementRef;
+
+  @ViewChild('innerCard') innerCardDiv: ElementRef;
+
+  ngAfterViewInit() {
+    if (this.backgroundColor === LtLiveTaskListItemColor.MAIN) {
+      this.mainCardDiv.nativeElement.classList.add('main-bg');
+      this.innerCardDiv.nativeElement.classList.add('card-bg');
+    } else {
+      this.mainCardDiv.nativeElement.classList.add('card-bg');
+      this.innerCardDiv.nativeElement.classList.add('main-bg');
+    }
+  }
+
+}

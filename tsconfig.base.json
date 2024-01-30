@@ -31,7 +31,9 @@
       "@monorepo/resource-view": ["libs/resource-view/src/index.ts"],
       "@monorepo/spreadsheet": ["libs/spreadsheet/src/index.ts"],
       "@monorepo/technical-doc": ["libs/technical-doc/src/index.ts"],
-      "@monorepo/text-editor": ["libs/text-editor/src/index.ts"]
+      "@monorepo/text-editor": ["libs/text-editor/src/index.ts"],
+      "live-task": ["live-task/src/index.ts"],
+      "live-task-lib": ["live-task-lib/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

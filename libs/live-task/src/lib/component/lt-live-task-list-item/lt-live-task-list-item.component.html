@@ -1,0 +1,34 @@
+<div class="live-task-card" #mainCard >
+  <div class="card-left-info">
+    <h2 class="h2-v2 spacing-5-v2">{{ liveTask.title }}</h2>
+    <fl-key-value class="spacing-5-v2">
+      <fl-key>
+        {{ 'ltLiveTask.created_by' | translate }}
+      </fl-key>
+      <fl-user-inline [portalOnHover]="false" [showName]="true" [user]="liveTask.createdBy"></fl-user-inline>
+    </fl-key-value>
+    <div class="live-task-dates-div date-info-div">
+      <div class="live-task-date-div">
+        <p class="spacing-4-v2">{{ 'ltLiveTask.date_of_creation' | translate }} :</p>
+        <p><b>{{ liveTask.createdAt | flDate: 'dd/MM/yyyy' }}</b></p>
+      </div>
+      <div class="live-task-date-div">
+        <p class="spacing-4-v2">{{ 'ltLiveTask.last_modification' | translate }} :</p>
+        <p><b>{{ liveTask.lastModifiedAt | flDate: 'dd/MM/yyyy' }}</b></p>
+      </div>
+    </div>
+  </div>
+  <div class="live-task-card-inner" #innerCard>
+    <div>
+      <div class="spacing-4-v2">{{ 'ltLiveTask.version' | translate }} :</div>
+      <div class="spacing-6-v2" *ngIf="liveTask.latestPublishVersion">
+        <b>{{ 'ltLiveTask.version' | translate }} {{ liveTask.latestPublishVersion }}</b></div>
+      <div class="spacing-4-v2">{{ 'ltLiveTask.task_type' | translate }} :</div>
+      <div class="spacing-6-v2">
+        <button mat-stroked-button class="g-button-small"
+                [color]="liveTask.space == null ? 'accent' : 'warn'">{{ liveTask.space == null ? ('ltLiveTask.public' | translate) : liveTask.space.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

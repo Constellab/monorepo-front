@@ -16,22 +16,15 @@ import {TeRichTextContent} from '@monorepo/text-editor';
 export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
 
   @Input() liveTaskVersion: HaLiveTaskVersion;
-
   @Input() isCreator: boolean;
-
   @Input() isEditable: boolean;
-
   @Input() sectionTitle?: string;
-
   @Output() liveTaskVersionChangeEvent = new EventEmitter<HaLiveTaskVersion>();
-
   versionInfosDisabled = true;
   textEditorConfig: HaLiveTaskTextEditorConfig;
   versionInfosFormControl: FormControl<Record<string, any>> = new FormControl<Record<string, any>>(null);
-
   codeFormControl: FormControl<string> = new FormControl<string>(null);
   codeDebouncer: FlDebouncer<string>;
-
   environmentFormControl: FormControl<string> = new FormControl<string>(null);
   environmentDebouncer: FlDebouncer<string>;
 
@@ -47,24 +40,25 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
         this.sectionTitle = value;
       });
     }
-
     this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id);
     this.versionInfosFormControl.setValue(this.liveTaskVersion?.versionInfos);
     this.versionInfosFormControl.disable();
-
     this.codeFormControl.setValue(this.liveTaskVersion?.code);
     this.codeDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     this.codeDebouncer.getDebouncedValue().subscribe(value => this.onCodeChange(value));
     this.codeFormControl.value$.subscribe(code => {
       this.codeDebouncer.setValue(code);
     });
-
     this.environmentFormControl.setValue(this.liveTaskVersion?.environment);
     this.environmentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     this.environmentDebouncer.getDebouncedValue().subscribe(value => this.onEnvironmentChange(value));
     this.environmentFormControl.value$.subscribe(environment => {
       this.environmentDebouncer.setValue(environment);
     });
+    if(!this.isEditable || !this.isCreator){
+      this.codeFormControl.disable();
+      this.environmentFormControl.disable();
+    }
   }
 
   onEnvironmentChange(environment: string): void {
@@ -97,11 +91,9 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
       this.versionInfosFormControl.enable();
       return;
     }
-
     this.liveTaskService.saveLiveTaskVersionInfos(this.liveTaskVersion.id, this.liveTaskVersion.versionInfos).subscribe((liveTaskVersion) => {
-      if (liveTaskVersion) {
+      if (liveTaskVersion)
         this.liveTaskVersion = liveTaskVersion;
-      }
       this.versionInfosDisabled = true;
       this.versionInfosFormControl.disable();
     })

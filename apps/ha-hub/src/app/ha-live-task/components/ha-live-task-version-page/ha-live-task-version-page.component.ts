@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
 import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
@@ -28,7 +28,8 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private dialogService: FlDialogService,
               private snackBarService: FlSnackBarService,
-              private authenticatedUserService: HaAuthenticatedUserService) {
+              private authenticatedUserService: HaAuthenticatedUserService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -56,6 +57,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
     }).afterClosed().subscribe((result) => {
       if (result.choice && result.result != null) {
         this.liveTaskVersion = result.result;
+        this.router.navigate(['..'], {relativeTo: this.activatedRoute});
       }
     });
   }

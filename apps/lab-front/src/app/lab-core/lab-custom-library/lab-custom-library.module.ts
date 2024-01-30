@@ -47,6 +47,7 @@ import {BnBioNetworkModule} from '@monorepo/bio-network';
 import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
 import {ChChartModule} from '@monorepo/chart';
 import {TeTextEditorModule} from '@monorepo/text-editor';
+import {LtLiveTaskModule} from '../../../../../../libs/live-task/src';
 
 /**
  * Regrouped all the needed import for this app from library
@@ -104,6 +105,7 @@ import {TeTextEditorModule} from '@monorepo/text-editor';
     SpSpreadsheetModule,
     ChChartModule,
     TeTextEditorModule,
+    LtLiveTaskModule
   ]
 })
 export class LabCustomLibraryModule {

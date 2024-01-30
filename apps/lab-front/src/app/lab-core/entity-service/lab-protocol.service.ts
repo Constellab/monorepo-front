@@ -36,6 +36,11 @@ export class LabProtocolService {
       LabProtocolUpdateDTO);
   }
 
+  public addCommunityLiveTaskToProtocol(protocolId: string, liveTaskVersionId: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/add-community-live-task/${liveTaskVersionId}`, null,
+      LabProtocolUpdateDTO);
+  }
+
   /**
    * Route to add a process (from type) to an existing protocol (can be a sub protocol),
    * and link it to the output of an existing process

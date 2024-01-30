@@ -88,6 +88,7 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     entity.objectType = 'RESOURCE';
     entity.objectSubType = 'RESOURCE';
     entity.status = 'OK';
+    entity.brickVersion = resourceDto.brick_version;
     return entity;
   }
 
@@ -96,7 +97,7 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
       typing_name: this.typingName,
       human_name: this.humanName,
       short_description: this.shortDescription,
-      brick_version: this.parentVersion
+      brick_version: this.brickVersion
     }
   }
 

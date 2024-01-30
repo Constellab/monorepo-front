@@ -7,7 +7,7 @@ import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.servic
 import {ActivatedRoute} from '@angular/router';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 
 @Component({
   selector: 'ha-live-task-overview',

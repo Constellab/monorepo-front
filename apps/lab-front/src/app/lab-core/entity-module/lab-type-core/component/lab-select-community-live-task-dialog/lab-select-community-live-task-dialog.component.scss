@@ -1,0 +1,25 @@
+.live-tasks-list-div{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.live-task-card{
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  border-radius: 16px;
+  background: var(--main-background);
+  justify-content: space-between;
+}
+
+.live-task-card:hover{
+  cursor: pointer;
+}
+
+.live-task-card-inner{
+  width: 372px;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 8px;
+}

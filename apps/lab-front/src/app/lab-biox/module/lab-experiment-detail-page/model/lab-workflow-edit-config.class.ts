@@ -94,6 +94,15 @@ export class LabWorkflowEditConfig implements OnDestroy {
       });
   }
 
+  public addCommunityLiveTask(liveTaskVersionId: string, liveTaskTitle: string): void{
+    const obs = this.saveCommunityLiveTask(this.workflow.currentLayer.id, liveTaskVersionId);
+    this.addProcessAction(obs,
+      {
+        text: 'pr.adding_community_live_task', translateText: true,
+        translateParam: {param: {processName: liveTaskTitle}}
+      });
+  }
+
   public addSource(resourceId: string, resourceName: string): void {
     const obs = this.saveSource(this.workflow.currentLayer.id, resourceId);
 
@@ -533,6 +542,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   saveProcess(protocolId: string, typingName: string): Observable<LabProtocolUpdateDTO> {
     return this.protocolService.addProcessToProtocol(protocolId, typingName);
+  }
+
+  saveCommunityLiveTask(protocolId: string, liveTaskVersionId: string): Observable<LabProtocolUpdateDTO> {
+    return this.protocolService.addCommunityLiveTaskToProtocol(protocolId, liveTaskVersionId);
   }
 
   saveSource(protocolId: string, resourceId: string): Observable<LabProtocolUpdateDTO> {

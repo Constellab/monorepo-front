@@ -54,6 +54,10 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
     map(process => process.processTypingName === TdTypingName.task.pyLiveTask)
   );
 
+  isLiveTask$ = this.nodeState.getProcess$().pipe(
+    map(process => this.isLiveTask(process.processTypingName))
+  );
+
   constructor(private nodeState: LabWorkflowNodeDetailState,
               private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService,
@@ -64,6 +68,7 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   openTypingDoc(typingName: string): void {
@@ -124,5 +129,11 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
 
   downloadLiveTaskFile(process: LabProcess): void {
     this.taskGeneratorService.generateLiveTaskFile(process.id).subscribe();
+  }
+
+  private isLiveTask(typingName: string): boolean {
+    const liveTaskTypingNames = ['TASK.gws_core.RCondaLiveTask', 'TASK.gws_core.RMambaLiveTask', 'TASK.gws_core.PyCondaLiveTask',
+      'TASK.gws_core.PyMambaLiveTask', 'TASK.gws_core.PyPipenvLiveTask', 'TASK.gws_core.PyLiveTask'];
+    return liveTaskTypingNames.includes(typingName);
   }
 }

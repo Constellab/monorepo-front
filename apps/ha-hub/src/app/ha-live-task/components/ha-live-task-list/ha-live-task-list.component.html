@@ -30,42 +30,7 @@
          flInfiniteMode="auto">
       <a class="live-task-result-card-div" *ngFor="let liveTask of liveTasksPaginated.connect() | async"
          [routerLink]="liveTask.id">
-        <ha-card>
-          <div class="live-task-result-card">
-            <div class="card-left-info">
-              <h2 class="h2-v2 spacing-5-v2">{{ liveTask.title }}</h2>
-              <fl-key-value class="spacing-5-v2">
-                <fl-key>
-                  {{ 'created_by' | translate }}
-                </fl-key>
-                <fl-user-inline [portalOnHover]="false" [showName]="true" [user]="liveTask.createdBy"></fl-user-inline>
-              </fl-key-value>
-              <div class="live-task-dates-div date-info-div">
-                <div class="live-task-date-div">
-                  <p class="spacing-4-v2">{{ 'date_of_creation' | translate }} :</p>
-                  <p><b>{{ liveTask.createdAt | flDate: 'dd/MM/yyyy' }}</b></p>
-                </div>
-                <div class="live-task-date-div">
-                  <p class="spacing-4-v2">{{ 'last_modification' | translate }} :</p>
-                  <p><b>{{ liveTask.lastModifiedAt | flDate: 'dd/MM/yyyy' }}</b></p>
-                </div>
-              </div>
-            </div>
-            <div class="live-task-result-card-inner">
-              <ha-card [innerCard]="true" [background]="'main'">
-                <div class="spacing-4-v2">{{ 'version' | translate }} :</div>
-                <div class="spacing-6-v2" *ngIf="liveTask.latestPublishVersion; else notPublishedYetDiv">
-                  <b>{{ 'version' | translate }} {{ liveTask.latestPublishVersion }}</b></div>
-                <div class="spacing-4-v2">{{ 'task_type' | translate }} :</div>
-                <div class="spacing-6-v2">
-                  <button mat-stroked-button class="g-button-small"
-                          [color]="liveTask.space == null ? 'accent' : 'warn'">{{ liveTask.space == null ? ('public' | translate) : liveTask.space.name }}
-                  </button>
-                </div>
-              </ha-card>
-            </div>
-          </div>
-        </ha-card>
+        <lt-live-task-list-item [liveTask]="liveTask"></lt-live-task-list-item>
       </a>
     </div>
   </div>

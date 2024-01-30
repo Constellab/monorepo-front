@@ -45,6 +45,7 @@ export class HaLiveTaskVersionsComponent implements OnInit {
   }
 
   onCopyCode(liveTaskVersion: HaLiveTaskVersion, e: Event): void {
+    e.preventDefault();
     e.stopPropagation();
     navigator.clipboard.writeText(liveTaskVersion.code).then(() => {
       this.snackBarService.openSuccessMessage({text: 'code_copied_to_clipboard', translateText: true});
@@ -54,6 +55,7 @@ export class HaLiveTaskVersionsComponent implements OnInit {
   }
 
   onCopyLink(e: Event): void {
+    e.preventDefault();
     e.stopPropagation();
   }
 

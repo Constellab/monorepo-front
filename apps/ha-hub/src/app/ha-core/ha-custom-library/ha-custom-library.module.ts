@@ -25,6 +25,7 @@ import {
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {RvResourceViewModule} from '@monorepo/resource-view';
 import {TeTextEditorModule} from '@monorepo/text-editor';
+import {LtLiveTaskModule} from '../../../../../../libs/live-task/src';
 
 @NgModule({
   exports: [
@@ -55,7 +56,8 @@ import {TeTextEditorModule} from '@monorepo/text-editor';
 
     TdTechnicalDocModule,
     RvResourceViewModule,
-    TeTextEditorModule
+    TeTextEditorModule,
+    LtLiveTaskModule
   ]
 })
 export class HaCustomLibraryModule {

@@ -36,6 +36,7 @@
         </button>
 
         <button mat-icon-button type="button" (click)="downloadLiveTaskFile(process)" tabindex="-1"
+                *ngIf="isLiveTask$ | async"
                 [matTooltip]="'biox.download_live_task_file' | translate" matTooltipPosition="below">
           <mat-icon>download</mat-icon>
         </button>

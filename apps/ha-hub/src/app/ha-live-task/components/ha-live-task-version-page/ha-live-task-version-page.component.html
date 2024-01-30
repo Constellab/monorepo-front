@@ -12,11 +12,11 @@
         <h2 class="h2-v2 spacing-6-v2">{{'version' | translate}} {{liveTaskVersion?.version}}</h2>
         <div class="spacing-5-v2" *ngIf="liveTaskVersion?.liveTask.createdBy">
           <div>{{'created_by' | translate}} :</div>
-          <fl-user-inline [user]="liveTaskVersion?.liveTask.createdBy" [showName]="true" [portalOnHover]="false"></fl-user-inline>
+          <fl-user-inline [user]="liveTaskVersion.liveTask.createdBy" [showName]="true" [portalOnHover]="false"></fl-user-inline>
         </div>
         <div>
           <div>{{'date_of_creation' | translate}} : </div>
-          {{liveTaskVersion?.createdAt | flDate: 'dd/MM/yyyy'}}
+          {{liveTaskVersion.createdAt | flDate: 'dd/MM/yyyy'}}
         </div>
       </div>
       <div class="live-task-info-card">

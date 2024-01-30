@@ -13,6 +13,11 @@ import {
   LabSelectResourceDialogComponent
 } from '../../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
 import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class';
+import {LabTask} from '../../../../../lab-core/model/entities/process/lab-task.entity';
+import {
+  LabSelectCommunityLiveTaskDialogComponent
+} from '../../../../../lab-core/entity-module/lab-type-core/component/lab-select-community-live-task-dialog/lab-select-community-live-task-dialog.component';
+import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 
 /**
  * Actions button for the workflow
@@ -62,6 +67,21 @@ export class LabWorkflowActionsComponent implements OnInit {
     }
   }
 
+  addCommunityLiveTask(): void{
+    this.dialogService.openMediumDialog(LabSelectCommunityLiveTaskDialogComponent).afterClosed().subscribe(
+      liveTaskVersion => {
+        if(liveTaskVersion){
+          this.workflowEditState.addCommunityLiveTask(liveTaskVersion.id, liveTaskVersion.liveTask.title);
+        }
+      }
+    );
+  }
+
+  private onSelectCommunityLiveTask(communityLiveTask?: LabTypeEntity): void{
+    if (communityLiveTask) {
+      this.workflowEditState.addSource(communityLiveTask.id, communityLiveTask.name);
+    }
+  }
 
   start(): void {
     this.experimentState.start();

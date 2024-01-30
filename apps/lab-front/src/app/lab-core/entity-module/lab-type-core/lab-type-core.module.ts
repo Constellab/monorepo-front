@@ -15,6 +15,10 @@ import {LabProcessTypeTableComponent} from './component/lab-process-type-table/l
 import {RouterModule} from '@angular/router';
 import {LabTypeInlineComponent} from './component/lab-type-inline/lab-type-inline.component';
 import {LabSelectTypeComponent} from './component/lab-select-type/lab-select-type.component';
+import {
+  LabSelectCommunityLiveTaskDialogComponent
+} from './component/lab-select-community-live-task-dialog/lab-select-community-live-task-dialog.component';
+import {HaCardComponent} from '../../../../../../ha-hub/src/app/ha-core/ha-component/ha-card/ha-card.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,7 @@ import {LabSelectTypeComponent} from './component/lab-select-type/lab-select-typ
     LabProcessTypeTableComponent,
     LabTypeInlineComponent,
     LabSelectTypeComponent,
+    LabSelectCommunityLiveTaskDialogComponent
   ],
   exports: [
     LabTypeSearchFormComponent,
@@ -38,6 +43,7 @@ import {LabSelectTypeComponent} from './component/lab-select-type/lab-select-typ
     LabProcessTypeTableComponent,
     LabTypeInlineComponent,
     LabSelectTypeComponent,
+    LabSelectCommunityLiveTaskDialogComponent
   ],
   imports: [
     CommonModule,
@@ -47,6 +53,7 @@ import {LabSelectTypeComponent} from './component/lab-select-type/lab-select-typ
 
     LabCoreModule,
     LabBrickCoreModule,
+    HaCardComponent,
   ],
 })
 export class LabTypeCoreModule {
