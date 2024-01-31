@@ -28,6 +28,13 @@
       margin-right: initial;
       padding-right: initial;
     }
+
+    // replace the toolbox and popover on left
+    .ce-toolbox .ce-popover,
+    .ce-settings .ce-popover {
+      right: initial;
+      left: 0;
+    }
   }
 
   // tooltip
