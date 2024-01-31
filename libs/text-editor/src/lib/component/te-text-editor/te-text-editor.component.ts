@@ -31,7 +31,12 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
 
   @Input() hideToolbar: boolean = false;
 
-  @Input() includeTooltipButton: boolean = false;
+  /**
+   * If true an inline padding is added to include the tooltip button in this component
+   */
+  @HostBinding('class.include-toolbar-button')
+  @Input() includeToolbarButton: boolean = false;
+
 
   @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
 

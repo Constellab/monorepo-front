@@ -14,7 +14,7 @@
   </fl-section-header>
 
   <ng-container *flSectionBody>
-    <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
+    <te-text-editor [formControl]="formControl" [config]="textEditorConfig" [includeToolbarButton]="true"
                     class="g-scrollable-element text-editor"
                     [placeholder]="'project_description_placeholder' | translate"></te-text-editor>
   </ng-container>
