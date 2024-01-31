@@ -14,11 +14,13 @@ import Table from '@editorjs/table';
 import Paragraph from '@editorjs/paragraph';
 import {TeHintBlock} from '../block/te-hint-block.class';
 import {TeVideoBlock} from '../block/te-video-block.class';
-import {FlKeyboardKey, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
+import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {TeFigureBlock, TeFigureBlockConfig} from '../block/te-figure-block.class';
 import {TeCodeBlock} from '../block/te-code-block.class';
 import {teComponentBlockFactory} from './te-block-factory.class';
 import StrikethroughInlineTool from '../inline-tools/inline-tool-strikethrough';
+import {TeDragBlockTune} from '../block-tune/te-drag-block-tune.class';
+import {TeHelper} from './te.helper';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -26,13 +28,14 @@ export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 export abstract class TeConfig {
 
 
-  public static readonly TOOLBOX_OPEN_KEY = FlKeyboardKey.TAB;
-
   abstract getTools(envInjector: EnvironmentInjector,
                     applicationRef: ApplicationRef): TeTools;
 
   abstract getInlineToolbar(): string[];
 
+  getTunes(): string[] {
+    return ['drag'];
+  }
   public getDefaultBlock(): string {
     return 'paragraph';
   }
@@ -65,14 +68,14 @@ export abstract class TeConfig {
       },
       toolbox: [
         {
-          icon: '<span class="material-icons-outlined">format_list_bulleted</span>',
+          icon: TeHelper.getMatIconElement('format_list_bulleted'),
           title: translateService.translate('teTextEditor.list_unordered'),
           data: {
             style: 'unordered',
           },
         },
         {
-          icon: '<span class="material-icons-outlined">format_list_numbered</span>',
+          icon: TeHelper.getMatIconElement('format_list_numbered'),
           title: translateService.translate('teTextEditor.list_ordered'),
           data: {
             style: 'ordered',
@@ -150,6 +153,7 @@ export class TeCompleteConfig extends TeConfig {
         inlineToolbar: true,
       },
       video: teComponentBlockFactory(TeVideoBlock, envInjector, applicationRef),
+      drag: TeDragBlockTune,
     };
   }
 

@@ -4,6 +4,7 @@ import {ToolboxConfig, TunesMenuConfig} from '@editorjs/editorjs/types/tools/too
 import {FlClipboardService, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
+import {TeHelper} from '../model/te.helper';
 
 
 export class TeHeaderWithIdBlockConfig {
@@ -21,7 +22,7 @@ export const teHeaderWithIdBlockDefaultConfig: TeHeaderWithIdBlockConfig = {
   levels: [2, 3, 4],
   defaultLevel: 2,
   showCopyLinkButton: false,
-}
+};
 
 /**
  * Override header block to add an id attribute based on the text
@@ -87,7 +88,7 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
     const translateService = flRootInjector.get(FlTranslateService);
     const clipboardService = flRootInjector.get(FlClipboardService);
     return [{
-      icon: '<span class="material-icons-outlined">content_copy</span>',
+      icon: TeHelper.getMatIconElement('content_copy'),
       title: translateService.translate('teTextEditor.copy_link'),
       onActivate: () => {
 

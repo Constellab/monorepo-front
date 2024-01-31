@@ -3,7 +3,6 @@ import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/t
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
 import {TeElementDirective} from '../model/te-element.directive';
-import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
 
 /**
@@ -33,10 +32,6 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
     return false;
   }
 
-  static get translateService(): FlTranslateService {
-    return flRootInjector.get(FlTranslateService);
-  }
-
   abstract getComponentType(): Type<T>;
 
   abstract save(): BlockToolData;
@@ -55,10 +50,6 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
 
   get disabled(): boolean {
     return this.options.readOnly;
-  }
-
-  get translateService(): FlTranslateService {
-    return TeComponentBlock.translateService;
   }
 
   render(): HTMLElement {

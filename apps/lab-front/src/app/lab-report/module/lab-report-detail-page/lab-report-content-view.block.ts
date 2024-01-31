@@ -1,6 +1,6 @@
 import {LabReportContentViewComponent} from './component/lab-report-content-view/lab-report-content-view.component';
 import {PrConfigValues} from '@monorepo/protocol';
-import {TeComponentBlock} from '@monorepo/text-editor';
+import {TeComponentBlock, TeHelper} from '@monorepo/text-editor';
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {ApplicationRef, EnvironmentInjector, Type} from '@angular/core';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
@@ -36,8 +36,8 @@ export class LabReportContentViewBlock extends TeComponentBlock<LabReportContent
 
   static override get toolbox(): ToolboxConfig {
     return {
-      title: LabReportContentViewBlock.translateService.translate('biox.report_resource_view'),
-      icon: '<span class="material-icons-outlined">add_chart</span>',
+      title: TeHelper.getTranslateService().translate('biox.report_resource_view'),
+      icon: TeHelper.getMatIconElement('add_chart'),
     };
   }
 

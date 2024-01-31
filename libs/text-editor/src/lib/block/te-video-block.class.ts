@@ -2,6 +2,7 @@ import {TeComponentBlock} from './te-component-block.class';
 import {TeVideoComponent} from '../component/te-video/te-video.component';
 import {Type} from '@angular/core';
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
+import {TeHelper} from '../model/te.helper';
 
 export class TeVideoBlockData {
   url: string;
@@ -16,8 +17,8 @@ export class TeVideoBlock extends TeComponentBlock<TeVideoComponent> {
 
   static override get toolbox(): ToolboxConfig {
     return {
-      title: TeVideoBlock.translateService.translate('teTextEditor.youtube_video'),
-      icon: '<span class="material-icons-outlined">play_arrow</span>',
+      title: TeHelper.getTranslateService().translate('teTextEditor.youtube_video'),
+      icon: TeHelper.getMatIconElement('play_arrow'),
     };
   }
 

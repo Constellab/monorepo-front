@@ -3,6 +3,7 @@ import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {SecurityContext} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
+import {TeHelper} from '../model/te.helper';
 
 export type TeHintType = 'info' | 'warning' | 'science';
 
@@ -35,7 +36,7 @@ export class TeHintBlock implements BlockTool {
     const translateService = flRootInjector.get(FlTranslateService);
     return [
       {
-        icon: '<span class="material-icons-outlined">info</span>',
+        icon: TeHelper.getMatIconElement('info'),
         title: translateService.translate('teTextEditor.hint_classic'),
         data: {
           hintType: 'info',
@@ -43,14 +44,14 @@ export class TeHintBlock implements BlockTool {
 
       },
       {
-        icon: '<span class="material-icons-outlined">warning</span>',
+        icon: TeHelper.getMatIconElement('warning'),
         title: translateService.translate('teTextEditor.hint_warning'),
         data: {
           hintType: 'warning',
         } as TeHintBlockData,
       },
       {
-        icon: '<span class="material-icons-outlined">biotech</span>',
+        icon: TeHelper.getMatIconElement('biotech'),
         title: translateService.translate('teTextEditor.hint_scientific'),
         data: {
           hintType: 'science',
@@ -85,7 +86,7 @@ export class TeHintBlock implements BlockTool {
           this.htmlElement.innerHTML += sanitizer.sanitize(SecurityContext.HTML, `<div>${div}</div>`);
         }
       }
-    }else{
+    } else {
       this.htmlElement.innerHTML += `<div><br></div>`;
     }
 

@@ -1,9 +1,10 @@
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {FlCodeEditorLanguage, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
+import {FlCodeEditorLanguage} from '@monorepo/front-core-lib';
 import {TeComponentBlock} from './te-component-block.class';
 import {TeCodeComponent} from '../component/te-code/te-code.component';
 import {Type} from '@angular/core';
 import {FormControl} from '@angular/forms';
+import {TeHelper} from '../model/te.helper';
 
 export interface TeCodeBlockData {
   code: string;
@@ -16,10 +17,10 @@ export class TeCodeBlock extends TeComponentBlock<TeCodeComponent> {
   public static readonly TAG_NAME = 'te-code';
 
   static override get toolbox(): ToolboxConfig {
-    const translateService = flRootInjector.get(FlTranslateService);
+    const translateService = TeHelper.getTranslateService();
     return [
       {
-        icon: '<span class="material-icons-outlined">code</span>',
+        icon: TeHelper.getMatIconElement('code'),
         title: translateService.translate('teTextEditor.code'),
       }
     ];

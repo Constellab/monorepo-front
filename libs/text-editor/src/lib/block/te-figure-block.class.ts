@@ -5,6 +5,7 @@ import {Type} from '@angular/core';
 import {Observable} from 'rxjs';
 import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
 import {PasteEvent} from '@editorjs/editorjs';
+import {TeHelper} from '../model/te.helper';
 
 export interface TeUploadedImage {
   filename: string;
@@ -43,8 +44,8 @@ export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
 
   static override get toolbox(): ToolboxConfig {
     return {
-      title: TeFigureBlock.translateService.translate('teTextEditor.image'),
-      icon: '<span class="material-icons-outlined">image</span>',
+      title: TeHelper.getTranslateService().translate('teTextEditor.image'),
+      icon: TeHelper.getMatIconElement('image'),
     };
   }
 

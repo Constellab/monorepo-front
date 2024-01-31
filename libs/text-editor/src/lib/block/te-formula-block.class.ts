@@ -2,6 +2,7 @@ import {ToolboxConfig, TunesMenuConfig} from '@editorjs/editorjs/types/tools/too
 import {Type} from '@angular/core';
 import {TeComponentBlock} from './te-component-block.class';
 import {TeFormulaComponent} from '../component/te-formula/te-formula.component';
+import {TeHelper} from '../model/te.helper';
 
 
 /**
@@ -22,8 +23,8 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
 
   static override get toolbox(): ToolboxConfig {
     return {
-      title: TeFormulaBlock.translateService.translate('flFormula.formula'),
-      icon: '<span class="material-icons-outlined">functions</span>',
+      title: TeHelper.getTranslateService().translate('flFormula.formula'),
+      icon: TeHelper.getMatIconElement('functions'),
     };
   }
 
@@ -56,8 +57,8 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
 
   renderSettings(): HTMLElement | TunesMenuConfig {
     return [{
-      icon: '<span class="material-icons-outlined">edit</span>',
-      title: this.translateService.translate('flFormula.edit_formula'),
+      icon: TeHelper.getMatIconElement('edit'),
+      title: TeHelper.getTranslateService().translate('flFormula.edit_formula'),
       onActivate: () => this.componentInstance.updateFormula(),
     }];
   }

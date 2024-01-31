@@ -11,6 +11,7 @@
   // make the editor scrollable
   .g-text-editor {
     font-family: "Roboto Serif", serif;
+    word-break: break-word;
   }
 
   // override the default behaviour to always have the toolbar on the left
@@ -108,6 +109,12 @@
 
     .ce-popover-item__icon {
       background-color: var(--card-background);
+    }
+
+    // format the mat icons used in popup toolbar (tune)
+    .ce-popover-item__icon .material-icons-outlined{
+      font-size: 16px;
+      margin-left: 1px;
     }
 
     .ce-popover__nothing-found-message {

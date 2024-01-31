@@ -26,6 +26,7 @@ const teTextEditorI18nFr: FlLangTranslation = {
     list_ordered: 'Liste numérotée',
     image: 'Image',
     code: 'Code',
+    drag_block: 'Glisser le bloc',
   }
 };
 
@@ -50,6 +51,7 @@ const teTextEditorI18nEn: FlLangTranslation = {
     list_ordered: 'Ordered list',
     image: 'Image',
     code: 'Code',
+    drag_block: 'Drag block',
   }
 };
 

@@ -11,6 +11,7 @@ export * from './lib/component/te-title-caption/te-title-caption.component';
 export * from './lib/component/te-video/te-video.component';
 
 // Model
+export * from './lib/model/te.helper';
 export * from './lib/model/te-block-factory.class';
 export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
@@ -25,6 +26,9 @@ export * from './lib/block/te-formula-block.class';
 export * from './lib/block/te-header-with-id-block.class';
 export * from './lib/block/te-hint-block.class';
 export * from './lib/block/te-video-block.class';
+
+// Block tune
+export * from './lib/block-tune/te-drag-block-tune.class';
 
 // Pipe
 export * from './lib/pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';

@@ -8,6 +8,7 @@ import {
 import {CaUser} from '../entities/ca-user.class';
 import {Observable} from 'rxjs';
 import {ClRichTextMentionBlockData} from '@monorepo/core-lib';
+import {TeHelper} from '@monorepo/text-editor';
 
 // copy from the editorjs tutorial
 export class MarkerTool {
@@ -40,7 +41,7 @@ export class MarkerTool {
 
     this.tag = 'MARK';
     this.class = 'cdx-marker';
-    console.log('AAAAAAA')
+    console.log('AAAAAAA');
   }
 
   render(): any {
@@ -164,7 +165,7 @@ export class CaMentionBlock implements BlockTool {
    * @return {string}
    */
   get toolboxIcon(): any {
-    return `<span class="material-icons-outlined">person</span>`;
+    return TeHelper.getMatIconElement('person');
   }
 
   render(): HTMLElement {
