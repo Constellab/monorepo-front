@@ -8,10 +8,10 @@ import {
   CaLabInstanceUpdateDialogComponent,
   LabInstanceUpdateDialogInput
 } from '../ca-lab-instance-update-dialog/ca-lab-instance-update-dialog.component';
-import {FlDialogService, FlStatus} from '@monorepo/front-core-lib';
+import {FlDialogService, FlHorizontalNavBarItem, FlStatus} from '@monorepo/front-core-lib';
 import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
 import {CaLabInstanceDetailPageState} from '../../state/ca-lab-instance-detail-page.state';
-import {Observable} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {CaRouterService} from '../../../ca-core/service/ca-router.service';
 
@@ -25,13 +25,13 @@ import {CaRouterService} from '../../../ca-core/service/ca-router.service';
 })
 export class CaLabInstanceHeaderComponent implements OnInit {
 
+  navBarItems$: Observable<FlHorizontalNavBarItem[]>;
+
   labInstance$: Observable<CaLabInstance> = this.state.getLabInstance$();
   labStatus$: Observable<FlStatus<CaLabInstanceStatus>> = this.state.getStatus$().pipe(
     map(status => status.labStatus)
   );
 
-  isOwner$: Observable<boolean> = this.state.isLabOwner$();
-  isCloud$: Observable<boolean> = this.state.isCloud$();
 
   constructor(private dialogService: FlDialogService,
               private labInstanceService: CaLabInstanceService,
@@ -39,6 +39,46 @@ export class CaLabInstanceHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.navBarItems$ = combineLatest([
+      this.state.getLabInstance$(),
+      this.state.isLabOwner$()])
+      .pipe(
+        map(([labInstance, isOwner]) => this.init(labInstance, isOwner))
+      );
+  }
+
+  private init(lab: CaLabInstance, isOwner: boolean): FlHorizontalNavBarItem[] {
+    const items: FlHorizontalNavBarItem[] = [
+      {
+        label: {text: 'dashboard', translateText: true},
+        route: CaRouterService.getLabInstanceDetailRoute(lab.id),
+        icon: 'dashboard',
+        linkActiveExact: true
+      }
+    ];
+
+    if (isOwner) {
+      items.push({
+        label: {text: 'lab_configuration', translateText: true},
+        route: CaRouterService.getLabInstanceConfigRoute(lab.id),
+        icon: 'settings'
+      });
+    }
+    items.push({
+      label: {text: 'lab_usage', translateText: true},
+      route: CaRouterService.getLabInstanceUsageRoute(lab.id),
+      icon: 'data_usage'
+    });
+
+    if (lab.isCloud) {
+      items.push({
+        label: {text: 'lab_backup', translateText: true},
+        route: CaRouterService.getLabBackupRoute(lab.id),
+        icon: 'cloud_done'
+      });
+    }
+
+    return items;
   }
 
   openStatusHistoryDialog(labInstance: CaLabInstance): void {
@@ -63,22 +103,6 @@ export class CaLabInstanceHeaderComponent implements OnInit {
     if (labInstance) {
       this.state.updateLab(labInstance);
     }
-  }
-
-  getDetailRoute(labInstance: CaLabInstance): string {
-    return CaRouterService.getLabInstanceDetailRoute(labInstance.id);
-  }
-
-  getConfigRoute(labInstance: CaLabInstance): string {
-    return CaRouterService.getLabInstanceConfigRoute(labInstance.id);
-  }
-
-  getUsageRoute(labInstance: CaLabInstance): string {
-    return CaRouterService.getLabInstanceUsageRoute(labInstance.id);
-  }
-
-  getBackupRoute(labInstance: CaLabInstance): string{
-    return CaRouterService.getLabBackupRoute(labInstance.id);
   }
 
 }

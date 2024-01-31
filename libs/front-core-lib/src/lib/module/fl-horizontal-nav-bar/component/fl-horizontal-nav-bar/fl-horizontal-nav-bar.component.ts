@@ -1,9 +1,10 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {FlHorizontalNavBarItem} from '../../fl-horizontal-nav-bar.class';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {Observable, startWith} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {NavigationEnd, Router} from '@angular/router';
 
 /**
  * Horizontal navigation bar that takes full width of the screen
@@ -26,13 +27,33 @@ export class FlHorizontalNavBarComponent {
     map((state) => state.matches)
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  activeItem$: Observable<FlHorizontalNavBarItem> = this.router.events.pipe(
+    startWith(null),
+    filter(event => event == null || event instanceof NavigationEnd),
+    map(() => this.getActiveItem())
+  );
+
+  constructor(private breakpointObserver: BreakpointObserver,
+              private router: Router) {
   }
 
+
   openMenu(): void {
-    if (this.breakpointObserver.isMatched(this.smallScreenMatches) && this.trigger) {
-      this.trigger.openMenu();
+    this.trigger.openMenu();
+  }
+
+  private getActiveItem(): FlHorizontalNavBarItem {
+    for (const item of this.items) {
+      if (item.route && this.router.isActive(item.route, {
+        paths: item.linkActiveExact ? 'exact' : 'subset',
+        fragment: 'ignored',
+        matrixParams: 'ignored',
+        queryParams: 'ignored'
+      })) {
+        return item;
+      }
     }
+    return null;
   }
 
 

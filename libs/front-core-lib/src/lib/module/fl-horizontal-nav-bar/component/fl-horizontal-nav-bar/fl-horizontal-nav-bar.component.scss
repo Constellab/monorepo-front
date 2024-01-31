@@ -8,6 +8,10 @@
   padding: 1em;
 }
 
+.nav-container {
+  flex: 1;
+}
+
 .title-container {
   overflow: hidden;
   border-radius: var(--card-radius);
@@ -15,6 +19,7 @@
 }
 
 ////////////////// BIG MENU //////////////////
+
 .menu-active {
   color: var(--primary-color);
 }

@@ -8,13 +8,24 @@ import {RouterModule} from '@angular/router';
 import {FlIconModule} from '../fl-svg-icon/fl-icon.module';
 import {MatMenuModule} from '@angular/material/menu';
 import {LayoutModule} from '@angular/cdk/layout';
+import {
+  FlHorizontalNavBarTitleComponent
+} from './component/fl-horizontal-nav-bar-title/fl-horizontal-nav-bar-title.component';
+import {
+  FlHorizontalNavBarActionsComponent
+} from './component/fl-horizontal-nav-bar-actions/fl-horizontal-nav-bar-actions.component';
+import {FlTextIconModule} from '../fl-text-icon/fl-text-icon.module';
 
 @NgModule({
   declarations: [
-    FlHorizontalNavBarComponent
+    FlHorizontalNavBarComponent,
+    FlHorizontalNavBarTitleComponent,
+    FlHorizontalNavBarActionsComponent
   ],
   exports: [
-    FlHorizontalNavBarComponent
+    FlHorizontalNavBarComponent,
+    FlHorizontalNavBarTitleComponent,
+    FlHorizontalNavBarActionsComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +37,7 @@ import {LayoutModule} from '@angular/cdk/layout';
 
     FlTranslateModule,
     FlIconModule,
+    FlTextIconModule,
 
   ],
 })

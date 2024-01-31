@@ -24,7 +24,7 @@ export class FlDateRangeComponent implements OnInit {
   })
   @Input() endingDate?: DateTime;
 
-  @Input() dateFormat: ClDateFormatKey = 'DATE_TIME';
+  @Input() dateFormat: ClDateFormatKey = 'DATE';
 
   mode: 'between' | 'from' | 'to';
 
