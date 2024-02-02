@@ -16,11 +16,6 @@ export class LabCommunityApiService {
   }
 
   public getPublicLiveTask(): Observable<LabLiveTask[]> {
-    return this.apiService.get(`${this.route}/public`, LabLiveTask, {overrideApiUrl: LabEnvironmentHelper.getCommunityApiUrl()});
+    return this.apiService.get(`${this.route}/for-lab`, LabLiveTask, {overrideApiUrl: LabEnvironmentHelper.getCommunityApiUrl()});
   }
-
-  public getLiveTaskVersion(liveTaskId: string): Observable<any>{
-    return this.apiService.get(`${this.route}/${liveTaskId}/version/latest`, null, {overrideApiUrl: LabEnvironmentHelper.getCommunityApiUrl()});
-  }
-
 }

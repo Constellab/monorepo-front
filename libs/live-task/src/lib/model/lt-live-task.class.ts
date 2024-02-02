@@ -6,8 +6,8 @@ export class LtLiveTask {
   title: string;
   description?: TeRichTextContent;
   space?: any;
-  latestPublishVersion?: number;
+  latestPublishVersion: number;
   createdBy?: any;
-  createdAt: DateTime;
-  lastModifiedAt: DateTime;
+  createdAt?: DateTime;
+  lastModifiedAt?: DateTime;
 }

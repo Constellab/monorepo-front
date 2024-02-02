@@ -18,6 +18,7 @@ import {
   LabSelectCommunityLiveTaskDialogComponent
 } from '../../../../../lab-core/entity-module/lab-type-core/component/lab-select-community-live-task-dialog/lab-select-community-live-task-dialog.component';
 import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
+import {LabLiveTask} from '../../../../../lab-core/model/entities/lab-live-task.entity';
 
 /**
  * Actions button for the workflow
@@ -69,9 +70,9 @@ export class LabWorkflowActionsComponent implements OnInit {
 
   addCommunityLiveTask(): void{
     this.dialogService.openMediumDialog(LabSelectCommunityLiveTaskDialogComponent).afterClosed().subscribe(
-      liveTaskVersion => {
+      (liveTaskVersion: LabLiveTask) => {
         if(liveTaskVersion){
-          this.workflowEditState.addCommunityLiveTask(liveTaskVersion.id, liveTaskVersion.liveTask.title);
+          this.workflowEditState.addCommunityLiveTask(liveTaskVersion.id, liveTaskVersion.title);
         }
       }
     );

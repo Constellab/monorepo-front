@@ -4,10 +4,10 @@ import {DateTime} from 'luxon';
 
 export class LabLiveTask extends LabEntity {
   title: string;
-  description?: TeRichTextContent;
   space?: any;
-  latestPublishVersion?: number;
-  createdBy?: any;
-  createdAt: DateTime;
-  lastModifiedAt: DateTime;
+  created_at?: string;
+  last_modified_at?: string;
+  created_by?: any;
+  description?: TeRichTextContent;
+  latest_publish_version: number;
 }

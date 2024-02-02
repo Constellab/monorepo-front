@@ -3,6 +3,9 @@
 // Style to highlight code in text editor
 @import 'highlight.js/styles/monokai-sublime.css';
 
+@import "../../../../libs/text-editor/src/style/te-text-editor-dark";
+
+@include _te-text-editor-dark($theme);
 
 .g-dashboard-background {
   background-color:hsla(359,0%,13%,1);

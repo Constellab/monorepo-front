@@ -3,6 +3,9 @@
 // Style to highlight code in text editor
 @import 'highlight.js/styles/atom-one-light.css';
 
+@import "../../../../libs/text-editor/src/style/te-text-editor-light";
+
+@include _te-text-editor-light($theme);
 
 .g-dashboard-background {
   background-color: hsla(359, 0%, 100%, 1);

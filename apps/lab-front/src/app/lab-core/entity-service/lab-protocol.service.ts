@@ -9,6 +9,7 @@ import {
   LabProtocolTemplate
 } from '../model/entities/process/lab-protocol-template.entity';
 import {TdIOSpec} from '@monorepo/technical-doc';
+import {LabLiveTask} from '../model/entities/lab-live-task.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,11 @@ export class LabProtocolService {
    */
   public addProcessToProtocol(protocolId: string, processTypingName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/add-process/${processTypingName}`, null,
+      LabProtocolUpdateDTO);
+  }
+
+  public getCommunityAvailableLiveTask(): Observable<LabLiveTask[]> {
+    return this.apiService.post(`${this.baseRoute}/get-community-available-live-tasks`, null,
       LabProtocolUpdateDTO);
   }
 

@@ -6,7 +6,7 @@
   @if(liveTasks && liveTasks.length > 0){
     <div class="live-tasks-list-div">
       @for (liveTask of liveTasks; track liveTask.id) {
-        <lt-live-task-list-item [liveTask]="liveTask" (click)="loadLiveTask(liveTask.id)" [backgroundColor]="'main'"></lt-live-task-list-item>
+        <lt-live-task-list-item [liveTask]="pythonLabLiveTaskToLtLiveTask(liveTask)" (click)="loadLiveTask(liveTask)" [backgroundColor]="'main'"></lt-live-task-list-item>
       }
     </div>
   }
