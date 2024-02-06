@@ -15,10 +15,18 @@ export class LabReportTextEditorImageConfig implements TeFigureBlockConfig {
   }
 
   imageUploader(file: File): Observable<TeUploadedImage> {
+    if(!this.reportService){
+      console.error('No report service to upload the image');
+      return null;
+    }
     return this.reportService.uploadImage(file);
   }
 
   getImageUrl(filename: string): string {
+    if(!this.reportService){
+      console.error('No report service to get the image url');
+      return null;
+    }
     return this.reportService.getImageUrl(filename);
   }
 

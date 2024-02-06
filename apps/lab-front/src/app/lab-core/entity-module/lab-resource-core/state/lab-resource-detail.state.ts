@@ -292,8 +292,10 @@ export class LabResourceDetailState implements OnDestroy {
     this.createPortal(LabResourceViewPortalComponent, portalConfig, config);
   }
 
-  public createPortal(component: ComponentType<any>, config: FlPortalConfig, data: any = {}): FlOverlayRef {
-    return this.portalService.createPortal(component, config, data, this.viewContainerRef);
+  public createPortal(component: ComponentType<any>, config: FlPortalConfig, data: any = {},
+                      viewContainerRef: boolean = false): FlOverlayRef {
+    return this.portalService.createPortal(component, config, data,
+      viewContainerRef ? this.viewContainerRef : undefined);
   }
 
   public updateView(view: LabResourceView, viewOverlayRef: FlOverlayRef): void {

@@ -50,7 +50,7 @@ export class LabResourceDetailHeaderComponent {
         disposeOnBackdropClick: true,
         transparentBackdrop: true,
       });
-    this.state.createPortal(LabResourceAvailableViewsPortalComponent, config);
+    this.state.createPortal(LabResourceAvailableViewsPortalComponent, config, {}, true);
   }
 
   openResourceInfoDialog(): void {
