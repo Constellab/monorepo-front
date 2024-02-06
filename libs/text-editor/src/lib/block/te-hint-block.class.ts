@@ -73,7 +73,10 @@ export class TeHintBlock implements BlockTool {
     this.htmlElement.classList.add(`g-te-hint-${this.hintType}`);
     this.htmlElement.classList.add(`g-te-hint`);
     this.htmlElement.classList.add(`g-te-block`);
-    this.htmlElement.setAttribute('contenteditable', 'true');
+
+    if (!this.options.readOnly) {
+      this.htmlElement.setAttribute('contenteditable', 'true');
+    }
 
     if (this.data.content) {
       const sanitizer = flRootInjector.get(DomSanitizer);
