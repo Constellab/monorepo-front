@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {LabShareLinkService} from '../../../../lab-core/entity-service/lab-share-link.service';
 import {LabShareLink, LabShareLinkDatasource} from '../../../../lab-core/model/entities/lab-share.entity';
 import {FlTableColumnStatic} from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'lab-monitoring-share-links-page',
-  templateUrl: './lab-monitoring-share-links-page.component.html',
-  styleUrls: ['./lab-monitoring-share-links-page.component.scss']
+  selector: 'lab-monitoring-share-links',
+  templateUrl: './lab-monitoring-share-links.component.html',
+  styleUrls: ['./lab-monitoring-share-links.component.scss']
 })
-export class LabMonitoringShareLinksPageComponent implements OnInit {
+export class LabMonitoringShareLinksComponent {
 
   shareLinks: LabShareLinkDatasource = this.shareLinkService.getAllDatasource();
 
@@ -16,8 +16,4 @@ export class LabMonitoringShareLinksPageComponent implements OnInit {
 
   constructor(private shareLinkService: LabShareLinkService) {
   }
-
-  ngOnInit(): void {
-  }
-
 }

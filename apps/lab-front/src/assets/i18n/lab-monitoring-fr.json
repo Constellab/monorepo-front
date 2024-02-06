@@ -90,6 +90,21 @@
     "activity_object_type": "Type d'objet",
     "activity_object_id": "ID de l'objet",
     "activity_date": "Date",
-    "activity_user": "Utilisateur"
+    "activity_user": "Utilisateur",
+    "streamlit_app": "Application streamlit",
+    "streamlit_status": "Statut streamlit",
+    "streamlit_status_RUNNING": "EN COURS",
+    "streamlit_status_STOPPED": "ARRÊTÉ",
+    "streamlit_nb_of_connection": "Nombre de connexions",
+    "streamlit_running_apps": "Applications en cours",
+    "streamlit_no_running_app": "No running app",
+    "streamlit_app_url": "URL de l'application streamlit",
+    "streamlit_view_resource": "Voir la ressource streamlit",
+    "streamlit_app_code_path": "Chemin du code",
+    "streamlit_app_source_paths": "Chemins sources",
+    "streamlit_stop_app": "Arrêter l'application streamlit",
+    "streamlit_stop_app_confirmation": "Êtes-vous sûr de vouloir arrêter l'application streamlit ? Tous les tableaux de bord streamlit actuels seront fermés. L'application redémarrera automatiquement lorsqu'elle sera demandée.",
+    "streamlit_app_stopped": "Application streamlit arrêtée",
+    "other": "Autre"
   }
 }

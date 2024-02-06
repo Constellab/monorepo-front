@@ -4,11 +4,11 @@ import {LabBrickDataService} from '../../../../lab-core/service/lab-brick-data.s
 import {LabBrickDataArrayObs} from '../../../../lab-core/model/global/lab-brick-data.class';
 
 @Component({
-  selector: 'lab-monitoring-brick-data-page',
-  templateUrl: './lab-monitoring-brick-data-page.component.html',
-  styleUrls: ['./lab-monitoring-brick-data-page.component.scss']
+  selector: 'lab-monitoring-brick-data',
+  templateUrl: './lab-monitoring-brick-data.component.html',
+  styleUrls: ['./lab-monitoring-brick-data.component.scss']
 })
-export class LabMonitoringBrickDataPageComponent implements OnInit {
+export class LabMonitoringBrickDataComponent implements OnInit {
 
   brickDataList: LabBrickDataArrayObs;
 

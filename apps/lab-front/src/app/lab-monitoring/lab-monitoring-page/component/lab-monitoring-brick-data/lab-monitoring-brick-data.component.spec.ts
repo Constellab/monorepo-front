@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LabMonitoringBrickDataPageComponent} from './lab-monitoring-brick-data-page.component';
+import {LabMonitoringBrickDataComponent} from './lab-monitoring-brick-data.component';
 
 describe('LabBrickDataPageComponent', () => {
-  let component: LabMonitoringBrickDataPageComponent;
-  let fixture: ComponentFixture<LabMonitoringBrickDataPageComponent>;
+  let component: LabMonitoringBrickDataComponent;
+  let fixture: ComponentFixture<LabMonitoringBrickDataComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabMonitoringBrickDataPageComponent ]
+      declarations: [ LabMonitoringBrickDataComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LabMonitoringBrickDataPageComponent);
+    fixture = TestBed.createComponent(LabMonitoringBrickDataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

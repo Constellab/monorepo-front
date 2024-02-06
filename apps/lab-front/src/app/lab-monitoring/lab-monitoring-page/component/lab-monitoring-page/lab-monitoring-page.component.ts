@@ -32,19 +32,9 @@ export class LabMonitoringPageComponent {
       route: LabRouterService.getMonitoringVenvsRoute()
     },
     {
-      label: {text: 'monitoring.bricks_data', translateText: true},
-      icon: 'source',
-      route: LabRouterService.getMonitoringBrickDataRoute()
-    },
-    {
       label: {text: 'monitoring.logs', translateText: true},
       icon: 'description',
       route: LabRouterService.getMonitoringLogsRoute()
-    },
-    {
-      label: {text: 'biox.share_links', translateText: true},
-      icon: 'share',
-      route: LabRouterService.getMonitoringShareLinksRoute()
     },
     {
       label: {text: 'biox.credentials', translateText: true},
@@ -55,6 +45,11 @@ export class LabMonitoringPageComponent {
       label: {text: 'monitoring.activities', translateText: true},
       icon: 'task',
       route: LabRouterService.getMonitoringActivityRoute()
+    },
+    {
+      label: {text: 'monitoring.other', translateText: true},
+      icon: 'source',
+      route: LabRouterService.getOtherRoute()
     }
   ];
 

@@ -25,12 +25,12 @@ import {
 } from './component/lab-monitoring-usage-page/lab-monitoring-usage-page.component';
 import {LabMonitorCoreModule} from '../../lab-core/entity-module/lab-monitor-core/lab-monitor-core.module';
 import {
-  LabMonitoringShareLinksPageComponent
-} from './component/lab-monitoring-share-links-page/lab-monitoring-share-links-page.component';
+  LabMonitoringShareLinksComponent
+} from './component/lab-monitoring-share-links/lab-monitoring-share-links.component';
 import {LabShareCoreModule} from '../../lab-core/entity-module/lab-share-core/lab-share-core.module';
 import {
-  LabMonitoringBrickDataPageComponent
-} from './component/lab-monitoring-brick-data-page/lab-monitoring-brick-data-page.component';
+  LabMonitoringBrickDataComponent
+} from './component/lab-monitoring-brick-data/lab-monitoring-brick-data.component';
 import {LabBrickCoreModule} from '../../lab-core/entity-module/lab-brick-core/lab-brick-core.module';
 import {LabSynchroDialogComponent} from './component/lab-synchro-dialog/lab-synchro-dialog.component';
 import {
@@ -43,6 +43,12 @@ import {
 import {LabActivityCoreModule} from '../../lab-core/entity-module/lab-activity-core/lab-activity-core.module';
 import {LabMonitoringTagsPageComponent} from './component/lab-monitoring-tags-page/lab-monitoring-tags-page.component';
 import {LabTagCoreModule} from '../../lab-core/entity-module/lab-tag-core/lab-tag-core.module';
+import {
+  LabMonitoringStreamlitStatusComponent
+} from './component/lab-monitoring-streamlit-status/lab-monitoring-streamlit-status.component';
+import {
+  LabMonitoringOtherPageComponent
+} from './component/lab-monitoring-other-page/lab-monitoring-other-page.component';
 
 @NgModule({
   declarations: [
@@ -56,12 +62,14 @@ import {LabTagCoreModule} from '../../lab-core/entity-module/lab-tag-core/lab-ta
     LabMonitoringVenvsPageComponent,
     LabMonitoringLogsPageComponent,
     LabMonitoringUsagePageComponent,
-    LabMonitoringShareLinksPageComponent,
-    LabMonitoringBrickDataPageComponent,
+    LabMonitoringShareLinksComponent,
+    LabMonitoringBrickDataComponent,
     LabSynchroDialogComponent,
     LabMonitoringCredentialsPageComponent,
     LabMonitoringActivityPageComponent,
     LabMonitoringTagsPageComponent,
+    LabMonitoringStreamlitStatusComponent,
+    LabMonitoringOtherPageComponent,
   ],
   imports: [
     CommonModule,

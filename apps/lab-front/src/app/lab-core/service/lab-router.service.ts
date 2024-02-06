@@ -105,16 +105,8 @@ export class LabRouterService {
     return `${LabRouterService.getMonitoringRoute()}/venvs`;
   }
 
-  public static getMonitoringBrickDataRoute(): string {
-    return `${LabRouterService.getMonitoringRoute()}/bricks-data`;
-  }
-
   public static getMonitoringLogsRoute(): string {
     return `${LabRouterService.getMonitoringRoute()}/logs`;
-  }
-
-  public static getMonitoringShareLinksRoute(): string {
-    return `${LabRouterService.getMonitoringRoute()}/share-links`;
   }
 
   public static getMonitoringCredentialsRoute(): string {
@@ -125,6 +117,9 @@ export class LabRouterService {
     return `${LabRouterService.getMonitoringRoute()}/activity`;
   }
 
+  public static getOtherRoute(): string {
+    return `${LabRouterService.getMonitoringRoute()}/other`;
+  }
 
   /////////////////// NAVIGATE METHODS ///////////////////
   public navigateToAppRoute(): void {
