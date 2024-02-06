@@ -36,6 +36,7 @@ import {ChChartModule} from '@monorepo/chart';
 import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
 import {RvViewTypeImageComponent} from './component/rv-view-type-image/rv-view-type-image.component';
 import {TeTextEditorModule} from '@monorepo/text-editor';
+import {RvViewStreamlitComponent} from './component/rv-view-streamlit/rv-view-streamlit.component';
 
 @NgModule({
   imports: [
@@ -75,6 +76,7 @@ import {TeTextEditorModule} from '@monorepo/text-editor';
     RvViewImageComponent,
     RvViewHtmlComponent,
     RvViewTypeImageComponent,
+    RvViewStreamlitComponent,
   ],
   exports: [
     RvResourceViewComponent,
@@ -90,6 +92,7 @@ import {TeTextEditorModule} from '@monorepo/text-editor';
     RvViewImageComponent,
     RvViewHtmlComponent,
     RvViewTypeImageComponent,
+    RvViewStreamlitComponent,
   ],
 })
 export class RvResourceViewModule {

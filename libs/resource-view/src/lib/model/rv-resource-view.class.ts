@@ -22,6 +22,7 @@ export type RvResourceViewType =
   | 'heatmap-view'
   | 'html-view'
   | 'plotly-view'
+  | 'streamlit-view';
 
 export interface RvResourceViewBase {
   type: RvResourceViewType | string;
@@ -86,6 +87,13 @@ export interface RvResourceViewPlotly extends RvResourceViewBase {
   data: {
     data: any[];
     layout: any;
+  };
+}
+
+export interface RvResourceViewStreamlit extends RvResourceViewBase {
+  type: 'streamlit-view';
+  data: {
+    url: string;
   };
 }
 

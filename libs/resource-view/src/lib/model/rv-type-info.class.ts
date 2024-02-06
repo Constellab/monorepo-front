@@ -10,6 +10,7 @@ import {RvViewTextComponent} from '../component/rv-view-text/rv-view-text.compon
 import {FlThemeSwitch} from '@monorepo/front-core-lib';
 import {RvViewImageComponent} from '../component/rv-view-image/rv-view-image.component';
 import {RvViewHtmlComponent} from '../component/rv-view-html/rv-view-html.component';
+import {RvViewStreamlitComponent} from '../component/rv-view-streamlit/rv-view-streamlit.component';
 
 // Information of the view type
 export interface RvResourceViewTypeInfo {
@@ -184,6 +185,12 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
       load: () =>
         import('../component/rv-view-plotly/rv-view-plotly.component').then(m => m.RvViewPlotlyComponent),
     },
+    image: null
+  },
+  'streamlit-view': {
+    icon: 'multiline_chart',
+    text: 'Streamlit',
+    viewComponent: RvViewStreamlitComponent,
     image: null
   }
 };
