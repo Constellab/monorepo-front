@@ -2,6 +2,7 @@
   "monitoring": {
     "monitoring": "Monitoring",
     "dashboard": "Dashboard",
+    "lab_status": "Lab status",
     "lab_running": "The lab is up and running",
     "lab_not_running": "The lab is not running",
     "lab_no_brick_message": "No message",

@@ -5,11 +5,9 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalActionsService,
-  FlSnackBarService
+  FlPortalActionsService
 } from '@monorepo/front-core-lib';
 import {LabTypeService} from '../../../../lab-core/entity-service/lab-type.service';
-import {LabProjectService} from '../../../../lab-core/entity-service/lab-project.service';
 import {LabSynchroDialogComponent} from '../lab-synchro-dialog/lab-synchro-dialog.component';
 
 @Component({
@@ -26,8 +24,6 @@ export class LabInfoComponent implements OnInit {
   constructor(private systemService: LabSystemService,
               private typeService: LabTypeService,
               private dialogService: FlDialogService,
-              private projectService: LabProjectService,
-              private snackBarService: FlSnackBarService,
               private actionService: FlPortalActionsService) {
   }
 
