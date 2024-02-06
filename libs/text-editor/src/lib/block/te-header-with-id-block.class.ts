@@ -1,6 +1,6 @@
 import Header from '@editorjs/header';
 import {ClStringHelper} from '@monorepo/core-lib';
-import {ToolboxConfig, TunesMenuConfig} from '@editorjs/editorjs/types/tools/tool-settings';
+import {ToolboxConfig, TunesMenuConfig, TunesMenuConfigItem} from '@editorjs/editorjs/types/tools/tool-settings';
 import {FlClipboardService, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
@@ -84,7 +84,8 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
   }
 
   renderSettings(): HTMLElement | TunesMenuConfig {
-    if (!this.config.showCopyLinkButton) return [];
+    const settings: TunesMenuConfigItem[] = super.renderSettings() as TunesMenuConfigItem[];
+    if (!this.config.showCopyLinkButton) return settings;
     const translateService = flRootInjector.get(FlTranslateService);
     const clipboardService = flRootInjector.get(FlClipboardService);
     return [{
@@ -101,6 +102,7 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
             {text: 'teTextEditor.link_copied', translateText: true});
         }
       },
-    }];
+    }, ...settings
+    ];
   }
 }
