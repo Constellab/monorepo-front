@@ -33,9 +33,8 @@ export abstract class TeConfig {
 
   abstract getInlineToolbar(): string[];
 
-  getTunes(): string[] {
-    return ['drag'];
-  }
+  abstract getTunes(): string[];
+
   public getDefaultBlock(): string {
     return 'paragraph';
   }
@@ -107,12 +106,22 @@ export class TeBasicConfig extends TeConfig {
   getTools(): TeTools {
     return {
       paragraph: this.getParagraphConfig(),
-      underline: UnderlineInlineTool,
-      strikethrough: StrikethroughInlineTool,
       header: this.getHeaderConfig(),
       list: this.getListConfig(),
+
+      // Inline
+      underline: UnderlineInlineTool,
+      strikethrough: StrikethroughInlineTool,
+
+      // Other
+      drag: TeDragBlockTune,
     };
   }
+
+  getTunes(): string[] {
+    return ['drag'];
+  }
+
 
   getInlineToolbar(): string[] {
     return ['bold', 'italic', 'underline', 'strikethrough', 'link'];
@@ -124,16 +133,11 @@ export class TeCompleteConfig extends TeConfig {
   getTools(envInjector: EnvironmentInjector,
            applicationRef: ApplicationRef): TeTools {
     return {
+      // Block
       paragraph: this.getParagraphConfig(),
-      underline: UnderlineInlineTool,
-      strikethrough: StrikethroughInlineTool,
       header: this.getHeaderConfig(),
       list: this.getListConfig(),
       code: this.getCodeConfig(envInjector, applicationRef),
-      inlineCode: {
-        class: InlineCode,
-        shortcut: 'CMD+SHIFT+M',
-      },
       // TODO check if we keep the quote block
       quote: {
         class: Quote,
@@ -153,12 +157,26 @@ export class TeCompleteConfig extends TeConfig {
         inlineToolbar: true,
       },
       video: teComponentBlockFactory(TeVideoBlock, envInjector, applicationRef),
+
+      // Inline
+      underline: UnderlineInlineTool,
+      strikethrough: StrikethroughInlineTool,
+      inlineCode: {
+        class: InlineCode,
+        shortcut: 'CMD+SHIFT+M',
+      },
+
+      // Other
       drag: TeDragBlockTune,
     };
   }
 
   getInlineToolbar(): string[] {
     return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode'];
+  }
+
+  getTunes(): string[] {
+    return ['drag'];
   }
 
 }
