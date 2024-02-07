@@ -70,7 +70,7 @@ export class LabExperimentSearchComponent implements OnInit {
         default: true,
         filtersCriteria: {
           type: 'EXPERIMENT',
-          isValidated: false,
+          isNotValidated: false,
           isArchived: false
         } as Partial<LabExperimentSearchFields>
       },
@@ -83,7 +83,7 @@ export class LabExperimentSearchComponent implements OnInit {
         default: false,
         filtersCriteria: {
           type: 'EXPERIMENT',
-          isValidated: true,
+          isNotValidated: true,
           isArchived: false
         } as Partial<LabExperimentSearchFields>
       },

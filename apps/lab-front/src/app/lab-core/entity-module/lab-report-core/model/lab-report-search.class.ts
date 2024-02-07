@@ -25,7 +25,7 @@ export class LabReportSearchFields {
   @Type(() => FlSearchDateInterval)
   lastModifiedAt: FlSearchDateInterval;
 
-  isValidated: boolean;
+  isNotValidated: boolean;
   isArchived: boolean;
 
   id: string;
@@ -43,7 +43,7 @@ export class LabReportSearch {
     createdAt: 'creation_date',
     createdBy: 'created_by',
     lastModifiedAt: 'last_modified_date',
-    isValidated: 'biox.report_is_validated',
+    isNotValidated: 'biox.report_is_not_validated',
     isArchived: 'is_archived',
   };
 
@@ -58,8 +58,8 @@ export class LabReportSearch {
     createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
+    isNotValidated: {key: 'is_validated', operator: 'EQ', convertValue: LabSearchConverter.excludeAllOnCheck},
     isArchived: {key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
-    isValidated: {key: 'is_validated', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
     id: {key: 'id', operator: 'EQ'},
   };
 
@@ -79,7 +79,7 @@ export class LabReportSearch {
           to: [null],
         }),
         isArchived: [null],
-        isValidated: [null],
+        isNotValidated: [null],
         id: [null],
       }
     );

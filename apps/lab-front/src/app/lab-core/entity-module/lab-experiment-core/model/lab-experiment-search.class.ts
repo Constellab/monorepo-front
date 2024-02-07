@@ -32,7 +32,7 @@ export class LabExperimentSearchFields {
 
   @Type(() => FlSearchDateInterval)
   lastModifiedAt: FlSearchDateInterval;
-  isValidated: boolean;
+  isNotValidated: boolean;
   isArchived: boolean;
 
   @Type(() => LabTypeEntity)
@@ -55,7 +55,7 @@ export class LabExperimentSearch {
     createdAt: 'creation_date',
     createdBy: 'created_by',
     lastModifiedAt: 'last_modified_date',
-    isValidated: 'biox.experiment_is_validated',
+    isNotValidated: 'biox.experiment_is_not_validated',
     processTypingName: 'biox.contain_process'
   };
 
@@ -74,7 +74,7 @@ export class LabExperimentSearch {
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
     isArchived: {key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
-    isValidated: {key: 'is_validated', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
+    isNotValidated: {key: 'is_validated', operator: 'EQ', convertValue: LabSearchConverter.excludeAllOnCheck},
     processTypingName: {key: 'process_typing_name', operator: 'EQ',
       convertValue: (value: LabTypeEntity) => value?.typingName},
     id: {key: 'id', operator: 'EQ'},
@@ -98,7 +98,7 @@ export class LabExperimentSearch {
           to: [null],
         }),
         isArchived: [null],
-        isValidated: [null],
+        isNotValidated: [null],
         processTypingName: [null],
         id: [null],
       }

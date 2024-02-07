@@ -75,7 +75,7 @@ export class LabReportSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: true,
-        filtersCriteria: {isValidated: false, isArchived: false} as Partial<LabReportSearchFields>
+        filtersCriteria: {isNotValidated: false, isArchived: false} as Partial<LabReportSearchFields>
       },
       {
         searchName: 'lab-report',
@@ -84,7 +84,7 @@ export class LabReportSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: false,
-        filtersCriteria: {isValidated: true, isArchived: true} as Partial<LabReportSearchFields>
+        filtersCriteria: {isNotValidated: true, isArchived: true} as Partial<LabReportSearchFields>
       }
     ];
   }

@@ -15,4 +15,17 @@ export class LabSearchConverter {
       return null;
     }
   }
+
+  /**
+   * If false or null, return null (meaning no filters)
+   * If true, return false
+   * @param checked
+   */
+  public static excludeAllOnCheck(checked: boolean): boolean | null {
+    if (!checked) {
+      return null;
+    } else {
+      return false;
+    }
+  }
 }
