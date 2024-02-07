@@ -30,5 +30,6 @@ RUN sed -i -e 's/\r$//' /entrypoint.sh && \
     chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+CMD node app/dist/ha-hub/server/main.server.mjs
+EXPOSE 4000
 
-CMD ["node", "dist/apps/ha-hub/server/main"]
