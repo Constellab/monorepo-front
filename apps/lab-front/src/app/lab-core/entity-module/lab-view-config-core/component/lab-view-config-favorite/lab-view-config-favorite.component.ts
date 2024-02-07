@@ -25,12 +25,12 @@ export class LabViewConfigFavoriteComponent {
 
     if (this.isLoading) return;
 
-    this.viewConfig.flagged = !this.viewConfig.flagged;
+    this.viewConfig.isFavorite = !this.viewConfig.isFavorite;
 
     this.isLoading = true;
-    this.viewConfigService.updateFlagged(this.viewConfig.id, this.viewConfig.flagged).subscribe({
+    this.viewConfigService.updateFavorite(this.viewConfig.id, this.viewConfig.isFavorite).subscribe({
       next: entity => this.onSuccess(entity),
-      error: () => this.onError(this.viewConfig.flagged)
+      error: () => this.onError(this.viewConfig.isFavorite)
     });
   }
 
@@ -40,16 +40,16 @@ export class LabViewConfigFavoriteComponent {
   }
 
   private onError(highlighted: boolean): void {
-    this.viewConfig.flagged = !highlighted;
+    this.viewConfig.isFavorite = !highlighted;
     this.isLoading = false;
   }
 
 
   get fontSet(): string {
-    return this.viewConfig.flagged ? 'material-icons' : 'material-icons-outlined';
+    return this.viewConfig.isFavorite ? 'material-icons' : 'material-icons-outlined';
   }
 
   get tooltip(): string {
-    return this.viewConfig.flagged ? 'biox.view_favorite_tooltip' : 'biox.view_not_favorite_tooltip';
+    return this.viewConfig.isFavorite ? 'biox.view_favorite_tooltip' : 'biox.view_not_favorite_tooltip';
   }
 }

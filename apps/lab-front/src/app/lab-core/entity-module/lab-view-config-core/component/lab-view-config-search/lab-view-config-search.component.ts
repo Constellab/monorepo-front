@@ -57,7 +57,7 @@ export class LabViewConfigSearchComponent implements OnInit {
 
     this.searchState.init(config, this.datasource);
 
-    this.columns = ['title', 'resource', 'lastModifiedAt', 'tags', 'preview', 'flagged'];
+    this.columns = ['title', 'resource', 'lastModifiedAt', 'tags', 'preview', 'isFavorite'];
     // add the action column only when the search is in full page (view box)
     if (this.fullPageSearch) {
       this.columns.push('action');
@@ -69,8 +69,8 @@ export class LabViewConfigSearchComponent implements OnInit {
     // list of predefined search of the resources
     return [{
       searchName: 'lab-view-config',
-      id: 'flagged-views',
-      label: 'Flagged views',
+      id: 'favorite-views',
+      label: 'Favorite views',
       color: this.themeService.getCurrentThemeDetail().primary,
       version: 1,
       default: true,
@@ -82,7 +82,7 @@ export class LabViewConfigSearchComponent implements OnInit {
       color: this.themeService.getCurrentThemeDetail().primary,
       version: 1,
       default: false,
-      filtersCriteria: {includeNotFlagged: true} as Partial<LabViewConfigSearchFields>
+      filtersCriteria: {includeNotFavorite: true} as Partial<LabViewConfigSearchFields>
     }
     ];
   }

@@ -23,7 +23,7 @@ export class LabViewConfigSearchFields {
 
   tags: FlTag[];
 
-  includeNotFlagged: boolean;
+  includeNotFavorite: boolean;
 
   id: string;
 }
@@ -43,7 +43,7 @@ export class LabViewConfigSearch {
     // group the creation date into one chip
     createdAt: 'creation_date',
     tags: 'flTag.tags',
-    includeNotFlagged: 'biox.include_not_flagged_short'
+    includeNotFavorite: 'biox.view_include_not_favorite'
   };
 
 
@@ -57,7 +57,7 @@ export class LabViewConfigSearch {
     // Date
     createdAt: FlSearchConverter.dateInterval('created_at'),
     tags: {key: 'tags', operator: 'EQ'},
-    includeNotFlagged: {key: 'include_not_flagged', operator: 'EQ'},
+    includeNotFavorite: {key: 'include_not_favorite', operator: 'EQ'},
     id: {key: 'id', operator: 'EQ'}
   };
 
@@ -73,7 +73,7 @@ export class LabViewConfigSearch {
           to: [null],
         }),
         tags: [null],
-        includeNotFlagged: [null],
+        includeNotFavorite: [null],
         id: [null]
       }
     );
