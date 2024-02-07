@@ -1,12 +1,12 @@
 import {CaReportContentViewComponent} from '../component/ca-report-content-view/ca-report-content-view.component';
 import {RvConfigValues, RvResourceView} from '@monorepo/resource-view';
-import {FlQuillEmbed} from '@monorepo/front-core-lib';
 import {TeComponentBlock} from '@monorepo/text-editor';
 import {BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {ApplicationRef, EnvironmentInjector, Type} from '@angular/core';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
 import {CaReportService} from '../../../../ca-core/service-api/ca-report.service';
 import {map} from 'rxjs/operators';
+import {CaQuillEmbed} from '../../ca-text-editor/model/ca-quill-export.class';
 
 
 export interface CaReportViewConfig {
@@ -19,7 +19,7 @@ export interface CaReportViewConfig {
   caption: string;
 }
 
-export class CaReportContentViewBlot extends FlQuillEmbed {
+export class CaReportContentViewBlot extends CaQuillEmbed {
 
   static blotName = 'resource_view' as const;
   static tagName = 'ca-report-content-view';

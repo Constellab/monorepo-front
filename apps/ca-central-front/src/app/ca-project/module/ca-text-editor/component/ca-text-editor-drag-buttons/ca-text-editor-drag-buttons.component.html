@@ -1,0 +1,10 @@
+<ng-template #dragIndicator>
+  <button mat-icon-button class="drag-indicator text-editor-overlay" (mousedown)="onDragIndicatorMouseDown()"
+          [matTooltip]="'move_block'| translate">
+    <mat-icon>drag_indicator</mat-icon>
+  </button>
+</ng-template>
+
+<ng-template #dragBar>
+  <div class="drag-bar" [style.width]="barWidth"></div>
+</ng-template>

@@ -30,6 +30,12 @@ import {TeFigureComponent} from './component/te-figure/te-figure.component';
 import {TeCodeComponent} from './component/te-code/te-code.component';
 import {TeTextEditorSsrComponent} from './component/te-text-editor-ssr/te-text-editor-ssr.component';
 import {TeRichTextIsEmptyPipe} from './pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
+import {
+  TeTextEditorBrowserSideComponent
+} from './component/te-text-editor-browser-side/te-text-editor-browser-side.component';
+import {
+  TeTextEditorServerSideComponent
+} from './component/te-text-editor-server-side/te-text-editor-server-side.component';
 
 @NgModule({
   declarations: [
@@ -42,12 +48,16 @@ import {TeRichTextIsEmptyPipe} from './pipe/te-rich-text-is-empty/te-rich-text-i
     TeCodeComponent,
     TeTextEditorSsrComponent,
     TeRichTextIsEmptyPipe,
+    TeTextEditorBrowserSideComponent,
+    TeTextEditorServerSideComponent
   ],
   exports: [
     TeTextEditorComponent,
     TeTextEditorSsrComponent,
     TeTitleCaptionComponent,
     TeRichTextIsEmptyPipe,
+    TeTextEditorBrowserSideComponent,
+    TeTextEditorServerSideComponent
   ],
   imports: [
     CommonModule,

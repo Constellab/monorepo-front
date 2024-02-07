@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TeLinkDialogComponent} from './te-link-dialog.component';
 
-describe('FlTextEditorLinkDialogComponent', () => {
+describe('CaTextEditorLinkDialogComponent', () => {
   let component: TeLinkDialogComponent;
   let fixture: ComponentFixture<TeLinkDialogComponent>;
 

@@ -1,18 +1,18 @@
 import {ClStringHelper} from '@monorepo/core-lib';
 import {CaProjectService} from '../../service-api/ca-project.service';
-import {
-  FlTextEditorBlockAddButton,
-  FlTextEditorConfig,
-  FlTextEditorImageLoader,
-  FlTextEditorSnowButton,
-  FlTextEditorState
-} from '@monorepo/front-core-lib';
 import {EventEmitter} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CaUser} from '../entities/ca-user.class';
 import 'quill-mention';
+import {CaTextEditorConfig} from '../../../ca-project/module/ca-text-editor/model/ca-text-editor-config.class';
+import { CaTextEditorImageLoader } from '../../../ca-project/module/ca-text-editor/model/ca-text-editor-image.class';
+import {CaTextEditorState} from '../../../ca-project/module/ca-text-editor/state/ca-text-editor.state';
+import {
+  CaTextEditorBlockAddButton,
+  CaTextEditorSnowButton
+} from '../../../ca-project/module/ca-text-editor/model/ca-text-editor.class';
 
-export class CaCommentTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader {
+export class CaCommentTextEditorConfig extends CaTextEditorConfig implements CaTextEditorImageLoader {
 
   sendButtonEvent$: EventEmitter<boolean> = new EventEmitter<boolean>();
   sendEmojiButtonEvent$: EventEmitter<HTMLElement> = new EventEmitter<HTMLElement>();
@@ -33,7 +33,7 @@ export class CaCommentTextEditorConfig extends FlTextEditorConfig implements FlT
   }
 
 
-  onPasteImage(imgFile: File, state: FlTextEditorState): any {
+  onPasteImage(imgFile: File, state: CaTextEditorState): any {
     return this.insertImageFromFile(imgFile, state);
   }
 
@@ -41,7 +41,7 @@ export class CaCommentTextEditorConfig extends FlTextEditorConfig implements FlT
     return this.projectService.getCommentImageUrl(filename, this.projectId);
   }
 
-  getBlockAddButtons(): FlTextEditorBlockAddButton[] {
+  getBlockAddButtons(): CaTextEditorBlockAddButton[] {
     return [];
   }
 
@@ -76,12 +76,12 @@ export class CaCommentTextEditorConfig extends FlTextEditorConfig implements FlT
     };
   }
 
-  getSnowButtons(): FlTextEditorSnowButton[] {
+  getSnowButtons(): CaTextEditorSnowButton[] {
     return [
       {
         icon: 'image',
         type: 'fileExplorer',
-        onAction: (imgFile: File, state: FlTextEditorState) =>
+        onAction: (imgFile: File, state: CaTextEditorState) =>
           this.insertImageFromFile(
             new File([imgFile], ClStringHelper.generateUUID() + '.' + imgFile.name.split('.').pop(),
               {type: imgFile.type}),
@@ -102,7 +102,7 @@ export class CaCommentTextEditorConfig extends FlTextEditorConfig implements FlT
     ];
   }
 
-  insertImageFromFile(file: File, state: FlTextEditorState): void {
+  insertImageFromFile(file: File, state: CaTextEditorState): void {
     const index = state.getCurrentSelectionIndex();
     this.projectService.uploadCommentImage(file, this.projectId).subscribe(
       fileUrl => state.insertImageFromUrl(fileUrl, index)
@@ -122,12 +122,12 @@ export class CaCommentTextEditorConfig extends FlTextEditorConfig implements FlT
 
 export class CaEditCommentTextEditorConfig extends CaCommentTextEditorConfig {
 
-  getSnowButtons(): FlTextEditorSnowButton[] {
+  getSnowButtons(): CaTextEditorSnowButton[] {
     return [
       {
         icon: 'image',
         type: 'fileExplorer',
-        onAction: (imgBlob: Blob, state: FlTextEditorState) => this.insertImageFromFile(
+        onAction: (imgBlob: Blob, state: CaTextEditorState) => this.insertImageFromFile(
           new File([imgBlob], ClStringHelper.generateUUID(), {type: imgBlob.type}),
           state
         )

@@ -263,6 +263,7 @@ export class FlApiService {
    */
   public getUrlForId(route: string, id: string, overrideApiUrl?: string): string {
     const fullRoute = this.getBaseRouteUrl(route, overrideApiUrl);
+
     // is the route contain {id} we replace it with the id
     if (fullRoute.search('{id}') !== -1) {
       return fullRoute.replace('{id}', id.toString());

@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TeTitleCaptionComponent} from './te-title-caption.component';
 
-describe('FlTextEditorTitleCaptionComponent', () => {
+describe('CaTextEditorTitleCaptionComponent', () => {
   let component: TeTitleCaptionComponent;
   let fixture: ComponentFixture<TeTitleCaptionComponent>;
 

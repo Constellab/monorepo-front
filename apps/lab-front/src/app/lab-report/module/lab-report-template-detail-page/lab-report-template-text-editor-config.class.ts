@@ -59,7 +59,7 @@ export class LabReportTemplateTextEditorConfig extends TeCompleteConfig {
 //     return FlQuillConfig.completeToolbarConfig;
 //   }
 //
-//   getBlockAddButtons(state: FlTextEditorState): FlTextEditorBlockAddButton[] {
+//   getBlockAddButtons(state: CaTextEditorState): FlTextEditorBlockAddButton[] {
 //     return [
 //       {
 //         icon: 'image', type: 'fileExplorer',
@@ -79,11 +79,11 @@ export class LabReportTemplateTextEditorConfig extends TeCompleteConfig {
 //     return this.reportTemplateService.getImageUrl(filename);
 //   }
 //
-//   onPasteImage(imgFile: File, state: FlTextEditorState): any {
+//   onPasteImage(imgFile: File, state: CaTextEditorState): any {
 //     return this.insertImageFromFile(imgFile, state);
 //   }
 //
-//   private insertImageFromFile(file: File, textEditorState: FlTextEditorState): void {
+//   private insertImageFromFile(file: File, textEditorState: CaTextEditorState): void {
 //     const index = textEditorState.getCurrentSelectionIndex();
 //     this.reportTemplateService.uploadImage(file).subscribe(
 //       fileUrl => textEditorState.insertImageFromUrl(fileUrl, index)

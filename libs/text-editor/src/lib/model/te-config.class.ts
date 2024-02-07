@@ -1,7 +1,5 @@
 import {ToolConstructable, ToolSettings} from '@editorjs/editorjs/types/tools';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
-import Underline from '@editorjs/underline';
-import Strikethrough from '@sotaproject/strikethrough';
 import {
   TeHeaderWithIdBlock,
   TeHeaderWithIdBlockConfig,
@@ -9,6 +7,7 @@ import {
 } from '../block/te-header-with-id-block.class';
 import NestedList from '@editorjs/nested-list';
 import InlineCode from '@editorjs/inline-code';
+import UnderlineInlineTool from '../inline-tools/inline-tool-underline';
 import Quote from '@editorjs/quote';
 import {TeFormulaBlock} from '../block/te-formula-block.class';
 import Table from '@editorjs/table';
@@ -19,11 +18,13 @@ import {FlKeyboardKey, flRootInjector, FlTranslateService} from '@monorepo/front
 import {TeFigureBlock, TeFigureBlockConfig} from '../block/te-figure-block.class';
 import {TeCodeBlock} from '../block/te-code-block.class';
 import {teComponentBlockFactory} from './te-block-factory.class';
+import StrikethroughInlineTool from '../inline-tools/inline-tool-strikethrough';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
 
 export abstract class TeConfig {
+
 
   public static readonly TOOLBOX_OPEN_KEY = FlKeyboardKey.TAB;
 
@@ -103,8 +104,8 @@ export class TeBasicConfig extends TeConfig {
   getTools(): TeTools {
     return {
       paragraph: this.getParagraphConfig(),
-      underline: Underline,
-      strikethrough: Strikethrough,
+      underline: UnderlineInlineTool,
+      strikethrough: StrikethroughInlineTool,
       header: this.getHeaderConfig(),
       list: this.getListConfig(),
     };
@@ -121,8 +122,8 @@ export class TeCompleteConfig extends TeConfig {
            applicationRef: ApplicationRef): TeTools {
     return {
       paragraph: this.getParagraphConfig(),
-      underline: Underline,
-      strikethrough: Strikethrough,
+      underline: UnderlineInlineTool,
+      strikethrough: StrikethroughInlineTool,
       header: this.getHeaderConfig(),
       list: this.getListConfig(),
       code: this.getCodeConfig(envInjector, applicationRef),

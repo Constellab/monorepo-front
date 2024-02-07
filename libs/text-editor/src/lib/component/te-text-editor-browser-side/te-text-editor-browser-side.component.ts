@@ -1,0 +1,145 @@
+import {
+  ApplicationRef,
+  Component,
+  ElementRef,
+  EnvironmentInjector,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
+import {TeConfig} from '../../model/te-config.class';
+import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
+import {Observable} from 'rxjs';
+
+
+@Component({
+  selector: 'te-text-editor-browser-side',
+  templateUrl: './te-text-editor-browser-side.component.html',
+  styleUrl: './te-text-editor-browser-side.component.scss',
+})
+export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
+
+  @Input({required: true}) config: TeConfig;
+
+  @Input() placeholder: string = '';
+
+  @HostBinding('class.g-text-editor-hide-toolbar')
+  @Input() hideToolbar: boolean = false;
+
+  /**
+   * If true an inline padding is added to include the tooltip button in this component
+   */
+  @HostBinding('class.include-tooltip-button')
+  @Input() includeTooltipButton: boolean = false;
+
+  @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
+
+  @ViewChild('editorContainer', {static: true}) editorContainer: ElementRef<HTMLElement>;
+
+  @Input() value: TeRichTextContent;
+
+  @Input() disabled$: Observable<boolean>;
+
+  @Input()
+  disabled: boolean = false;
+
+  editor: any | null;
+
+  constructor(private envInjector: EnvironmentInjector,
+              private applicationRef: ApplicationRef) {
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.disabled$.subscribe((disabled: boolean) => {
+      this.disabled = !disabled;
+      if (this.editor) {
+        this.editor.readOnly.toggle(disabled);
+      }
+    });
+    setTimeout(async () => {
+      import('@editorjs/editorjs').then((module) => {
+        this.initEditor(module);
+      });
+    }, 0);
+  }
+
+  callChangeEvent(value: TeRichTextContent): void {
+    this.textChange.emit(value);
+  }
+
+  onDisableChange(disable: boolean): void {
+    if (this.editor == null || this.editor.readOnly == null) return;
+    if (disable !== this.editor.readOnly.isEnabled) {
+
+      // if we disable it, we save the content first because the save
+      // method can be called only if the editor is not in readOnly mode
+      if (!this.editor.readOnly.isEnabled) {
+        this.onTextEditorChange().then(() => this.editor.readOnly.toggle(true));
+      } else {
+        this.editor.readOnly.toggle(false);
+      }
+    }
+  }
+
+  writeValue(obj: TeRichTextContent): void {
+    if (this.editor) {
+      this.editor.isReady.then(() => {
+        if (obj) {
+          this.editor.render(obj);
+        } else {
+          this.editor.clear();
+        }
+      });
+    }
+
+    if (obj == null) {
+      obj = TeRichText.emptyContent();
+    }
+    this.value = obj;
+  }
+
+  printJson(): void {
+    this.editor.save().then((content: TeRichTextContent) => {
+      console.log('Article data: ', content);
+    });
+  }
+
+  setSavedData(): void {
+    this.editor.save().then((content: TeRichTextContent) => {
+      this.editor.render(content);
+    });
+  }
+
+  private async initEditor(module: any): Promise<void> {
+    this.editor = new module.default({
+      placeholder: this.placeholder,
+      holder: this.editorContainer.nativeElement,
+      data: this.value,
+      // set order for the inline tools
+      inlineToolbar: this.config.getInlineToolbar(),
+      readOnly: this.disabled,
+      tools: this.config.getTools(this.envInjector, this.applicationRef),
+      onChange: () => this.onTextEditorChange(),
+      defaultBlock: this.config.getDefaultBlock(),
+    })
+  }
+
+  private async onTextEditorChange(): Promise<void> {
+    // the save method can be called only if the editor is not in readOnly mode
+    if (this.editor.readOnly.isEnabled) return;
+    const outputData = await this.editor.save();
+    return this.textChange.emit(outputData);
+  }
+
+  ngOnDestroy(): void {
+    if (this.editor){
+      this.editor.destroy();
+    }
+  }
+
+
+}

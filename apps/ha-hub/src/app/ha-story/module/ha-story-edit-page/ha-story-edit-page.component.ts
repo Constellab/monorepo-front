@@ -28,7 +28,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   story: HaStory;
 
 
-  formGp: FormGroup<Partial<HaStoryContentFormDTO>>;
+  formGp: FormGroup<HaStoryContentFormDTO>;
   textEditorConfig: HaStoryTextEditorConfig;
 
   contentEditorIsFocused: boolean = false;
@@ -150,7 +150,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onContentUpdate(content: TeRichTextContent): void {
-    this.contentDebouncer.setValue(content);
+    //TODO: check if the content is different from the previous one
+    //this.contentDebouncer.setValue(content);
   }
 
   ngOnDestroy(): void {
@@ -283,5 +284,9 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   checkTopicControl(): boolean{
     return this.topicControl.value != null && this.topicControl.value != '' && typeof this.topicControl.value == 'string' && this.topicControl.value.trim() != '';
+  }
+
+  getContentFormControl(): FormControl<TeRichTextContent> {
+    return this.formGp.controls.content as any;
   }
 }

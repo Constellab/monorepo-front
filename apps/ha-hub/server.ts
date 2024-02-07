@@ -9,6 +9,14 @@ import {EnumChangefreq, SitemapItem, SitemapStream, streamToPromise} from 'sitem
 import axios from 'axios';
 import cookieParser from 'cookie-parser';
 
+environment.settings = {
+  apiUrl: process.env['API_URL'] || 'http://localhost:3333',
+  constellabApiUrl: process.env['CONSTELLAB_API_URL'] || 'https://api.preconstellab.com',
+  constellabFrontUrl: process.env['CONSTELLAB_FRONT_URL'] || 'https://preconstellab.com',
+  communityFrontUrl: process.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200',
+  captchaSiteKey: process.env['CAPTCHA_SITE_KEY'] || '123465',
+  googleAnalyticsId: process.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
+};
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -187,18 +195,6 @@ async function fetchStoriesMap(): Promise<SitemapItem[]> {
 
 function run(): void {
   const port = process.env['PORT'] || 4000;
-
-  environment.settings = {
-    apiUrl: process.env['API_URL'] || 'http://localhost:3333',
-    constellabApiUrl: process.env['CONSTELLAB_API_URL'] || 'https://api.preconstellab.com',
-    constellabFrontUrl: process.env['CONSTELLAB_FRONT_URL'] || 'https://preconstellab.com',
-    communityFrontUrl: process.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200',
-    captchaSiteKey: process.env['CAPTCHA_SITE_KEY'] || '123465',
-    googleAnalyticsId: process.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
-  };
-  console.log('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC')
-
-
   // Start up the Node server
   const server = app();
   server.listen(port, () => {

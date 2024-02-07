@@ -15,11 +15,5 @@ export let flRootInjector: Injector;
  * "TS2539: Cannot assign to 'AppInjector' because it is not a variable".
  */
 export function flSetRootInjector(injector: Injector): void {
-  if (flRootInjector) {
-    // Should not happen
-    console.error('Programming error: AppInjector was already set');
-  }
-  else {
     flRootInjector = injector;
-  }
 }

@@ -73,7 +73,7 @@
     }
     <form class="story-content-form" [formGroup]="formGp" id="story-content-form"
           [ngClass]="contentEditorIsFocused ? ['focus'] : []">
-      <te-text-editor [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [formControlName]="'content'"></te-text-editor>
+      <te-text-editor [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
     </form>
   </div>
 }

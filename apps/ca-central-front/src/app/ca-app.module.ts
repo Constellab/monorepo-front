@@ -21,7 +21,6 @@ import {
   FlPortalModule,
   flSetRootInjector,
   FlSnackBarModule,
-  FlTextEditorModule,
   FlThemeService,
   FlTranslateModule,
   FlUserModule
@@ -93,9 +92,6 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlCaptchaModule,
     FlAuthModule.forRoot(CaAuthService, CaUserAccountsService),
     FlPortalActionsModule.forRoot(),
-    FlTextEditorModule.forRoot({
-      blots: []
-    }),
 
     FlUserModule.forRoot(CaUserConfig),
 

@@ -28,10 +28,11 @@ export class HaLiveTaskPageComponent implements OnInit {
     this.liveTaskService.getLiveTaskById(this.activeRoute.snapshot.params.id).subscribe(liveTask => {
       if (liveTask == null) {
         this.router.navigate(['../'], {relativeTo: this.activeRoute});
+      } else {
+        this.liveTask = liveTask;
+        this.brickDependencies$ = this.liveTaskService.getLiveTaskBrickDependencies(this.liveTask.id);
+        this.isLoading = false;
       }
-      this.liveTask = liveTask;
-      this.brickDependencies$ = this.liveTaskService.getLiveTaskBrickDependencies(liveTask.id);
-      this.isLoading = false;
     });
 
     this.currentTab = this.activeRoute.snapshot.firstChild.url[0]?.path;

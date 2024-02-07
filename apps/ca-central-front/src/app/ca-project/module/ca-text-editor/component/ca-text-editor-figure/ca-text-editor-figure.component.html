@@ -1,0 +1,13 @@
+<figure contenteditable="false" #figure *ngIf="init">
+  <div flResize="bothKeepRatio" class="image-container" (flResizeChanged)="onImageResize($event)" [disabled$]="disabled$"
+       [style.width]="imageWidth + 'px'" [style.height]="imageHeight + 'px'">
+    <img [src]="sanitizedUrl" draggable="false" flImageFullscreen
+         [alt]="imageTitle" class="image">
+  </div>
+
+  <figcaption class="g-text-centered">
+    <ca-text-editor-title-caption [(title)]="imageTitle" [(caption)]="caption"
+                                  [editable]="(disabled$ | async) === false"></ca-text-editor-title-caption>
+  </figcaption>
+
+</figure>

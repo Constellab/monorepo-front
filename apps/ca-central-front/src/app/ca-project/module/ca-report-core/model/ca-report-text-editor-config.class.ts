@@ -1,10 +1,3 @@
-import {
-  FlQuillConfig,
-  FlTextEditorBlockAddButton,
-  FlTextEditorConfig,
-  FlTextEditorImageLoader,
-  FlTextEditorSnowButton
-} from '@monorepo/front-core-lib';
 import {CaReportService} from '../../../../ca-core/service-api/ca-report.service';
 import {Observable} from 'rxjs';
 import {CaResourceView} from '../../../../ca-core/model/entities/project/ca-report.class';
@@ -17,6 +10,13 @@ import {
 } from '@monorepo/text-editor';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 import {CaReportContentViewBlock} from './ca-report-content-view.class';
+import {CaTextEditorConfig} from '../../ca-text-editor/model/ca-text-editor-config.class';
+import {CaTextEditorImageLoader} from '../../ca-text-editor/model/ca-text-editor-image.class';
+import {
+  CaQuillConfig,
+  CaTextEditorBlockAddButton,
+  CaTextEditorSnowButton
+} from '../../ca-text-editor/model/ca-text-editor.class';
 
 export class CaReportTextEditorImageConfig implements TeFigureBlockConfig {
 
@@ -62,17 +62,17 @@ export class CaReportTextEditorConfig2 extends TeCompleteConfig {
 /**
  * Config for the text editor in the report
  */
-export class CaReportTextEditorConfig extends FlTextEditorConfig implements FlTextEditorImageLoader {
+export class CaReportTextEditorConfig extends CaTextEditorConfig implements CaTextEditorImageLoader {
 
   constructor(private reportService: CaReportService, private reportId: string) {
     super();
   }
 
   getToolbarConfig(): any {
-    return FlQuillConfig.completeToolbarConfig;
+    return CaQuillConfig.completeToolbarConfig;
   }
 
-  getBlockAddButtons(): FlTextEditorBlockAddButton[] {
+  getBlockAddButtons(): CaTextEditorBlockAddButton[] {
     return [];
   }
 
@@ -89,7 +89,7 @@ export class CaReportTextEditorConfig extends FlTextEditorConfig implements FlTe
     return null;
   }
 
-  getSnowButtons(): FlTextEditorSnowButton[] {
+  getSnowButtons(): CaTextEditorSnowButton[] {
     return [];
   }
 }

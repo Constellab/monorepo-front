@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TeFigureComponent} from './te-figure.component';
 
-describe('FlTextEditorFigureComponent', () => {
+describe('CaTextEditorFigureComponent', () => {
   let component: TeFigureComponent;
   let fixture: ComponentFixture<TeFigureComponent>;
 

@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TeVideoComponent} from './te-video.component';
 
-describe('FlTextEditorVideoComponent', () => {
+describe('CaTextEditorVideoComponent', () => {
   let component: TeVideoComponent;
   let fixture: ComponentFixture<TeVideoComponent>;
 

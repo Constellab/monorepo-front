@@ -1,12 +1,8 @@
 import {HaTopic,} from './ha-topic.class';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {HaEntity} from './ha-entity.class';
+import {FlDatasourcePaginated, FlEntity} from '@monorepo/front-core-lib';
 import {HaUser} from './ha-user';
-import {Type} from 'class-transformer';
 import {DateTime} from 'luxon';
-import {ClRichTextI} from '@monorepo/core-lib';
 import {HaStoryFile} from './ha-story-file';
-import {TdParamSpecs} from '@monorepo/technical-doc';
 import {TeRichTextContent} from '@monorepo/text-editor';
 
 export enum HaStoryStatus {
@@ -31,7 +27,6 @@ export class HaStoryAuthor {
   id: string;
   status: HaStoryAuthorStatus;
 
-  @Type(() => HaUser)
   user: HaUser;
 
   story: HaStory;
@@ -50,7 +45,6 @@ export class HaStory {
 
   topics: HaTopic[] = [];
 
-  @Type(() => HaStoryAuthor)
   storyAuthors: HaStoryAuthor[];
 
   createdAt: DateTime;
@@ -101,7 +95,6 @@ export class HaListStoryDto {
 
   category: HaStoryCategory;
 
-  @Type(() => HaStoryAuthor)
   storyAuthors: HaStoryAuthor[];
 
   publishedAt: DateTime;
@@ -125,7 +118,6 @@ export class HaStoryDataSourceDataDto {
   status: HaStoryStatus;
   createdAt: DateTime;
 
-  @Type(() => HaStoryAuthor)
   storyAuthors: HaStoryAuthor[];
 
   publishedAt: DateTime;
@@ -159,7 +151,8 @@ export type HaStoryDatasourcePaginated = FlDatasourcePaginated<HaListStoryDto>;
 
 export type HaMyStoriesDataSource = FlDatasourcePaginated<HaStoryDataSourceDataDto>;
 
-export class HaStoryContentFormDTO extends HaEntity {
+export class HaStoryContentFormDTO implements FlEntity {
+  id: string;
   content: TeRichTextContent;
   category: HaStoryCategory;
 }

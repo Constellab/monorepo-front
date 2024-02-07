@@ -43,7 +43,7 @@
           <p class="small-text"
              flHide.lt-sm>{{story.firstParagraph.length >= 100 ? (story.firstParagraph + '...') : story.firstParagraph}}</p>
           <p class="small-text user-info">
-            <fl-user-inline [user]="story?.getAuthor()" [portalOnHover]="false"></fl-user-inline>
+            <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
             <span
               class="g-text-small date-info">{{(story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt) | flDate:'DATETIME_MED'}}</span>
           </p>

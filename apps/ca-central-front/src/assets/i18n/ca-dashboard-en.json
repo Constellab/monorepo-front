@@ -140,5 +140,20 @@
   "project_main_storage_location": "Storage location",
   "project_backup_storage_location": "Backup storage region",
   "project_storage_location_same_error": "The storage and the backup storage must be in different locations",
-  "project_storage_configured": "Storage configured"
+  "project_storage_configured": "Storage configured",
+  "title": "Title",
+  "caption": "Caption",
+  "ok": "Ok",
+  "hint_classic": "Help",
+  "hint_warning": "Warning",
+  "hint_scientific": "Scientific info",
+  "move_block": "Drag to move",
+  "add_a_video": "Add a youtube video",
+  "video_url_error": "The video URL is not valid",
+  "not_youtube_link_error": "The link is not a youtube link",
+  "add_formula": "Add a formula",
+  "formula": "Formula",
+  "edit_formula": "Edit formula",
+  "formula_preview": "Preview",
+  "formula_help_text": "Formula editor is based on Tex notation, here is the documentation"
 }

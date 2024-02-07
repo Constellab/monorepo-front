@@ -13,12 +13,14 @@ import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
   FlSnackBarService,
-  FlTextEditorBasicConfig,
-  FlTextEditorConfig
 } from '@monorepo/front-core-lib';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
 import {DateTime} from 'luxon';
+import {
+  CaTextEditorBasicConfig
+} from '../../../../../ca-project/module/ca-text-editor/model/ca-text-editor-basic-config.class';
+import {CaTextEditorConfig} from '../../../../../ca-project/module/ca-text-editor/model/ca-text-editor-config.class';
 
 export interface CaProjectFormDialogInput extends FlFormDialogInput<CaProject> {
   level: CaProjectLevel;
@@ -42,7 +44,7 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
 
   isLoading: boolean = false;
 
-  textEditorConfig: FlTextEditorConfig = new FlTextEditorBasicConfig();
+  textEditorConfig: CaTextEditorConfig = new CaTextEditorBasicConfig();
 
   levelStatus = CaProjectLevelStatus;
 

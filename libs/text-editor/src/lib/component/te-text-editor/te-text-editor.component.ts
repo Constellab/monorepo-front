@@ -1,23 +1,21 @@
 import {
-  ApplicationRef,
   Component,
-  ElementRef,
-  EnvironmentInjector,
   EventEmitter,
-  HostBinding,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
   Optional,
   Output,
-  Self,
-  ViewChild
+  PLATFORM_ID,
+  Self
 } from '@angular/core';
-import EditorJS from '@editorjs/editorjs';
 import {TeConfig} from '../../model/te-config.class';
 import {FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
-import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
+import {TeRichTextContent} from '../../model/te-rich-text.class';
+import {Subject} from 'rxjs';
+import {isPlatformBrowser} from '@angular/common';
 
 
 @Component({
@@ -31,108 +29,48 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
 
   @Input() placeholder: string = '';
 
-  @HostBinding('class.g-text-editor-hide-toolbar')
   @Input() hideToolbar: boolean = false;
 
-  /**
-   * If true an inline padding is added to include the tooltip button in this component
-   */
-  @HostBinding('class.include-tooltip-button')
   @Input() includeTooltipButton: boolean = false;
 
   @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
 
-  @ViewChild('editorContainer', {static: true}) editorContainer: ElementRef<HTMLElement>;
+  browserSide: boolean = false;
 
-
-  editor: EditorJS;
+  editorDisabled$ = new Subject<boolean>();
 
   constructor(@Optional() @Self() ngControl: NgControl,
-              private envInjector: EnvironmentInjector,
-              private applicationRef: ApplicationRef) {
+              @Inject(PLATFORM_ID) private platformId: object) {
     super(ngControl);
   }
 
   ngOnInit(): void {
-    // use a timeout to let the disabled be set
-    // (because angular call the disabled with false before the init, and it is set to true after the init)
-    setTimeout(() => this.initEditor(), 0);
+    this.onValueChange();
   }
-
-
-  private initEditor(): void {
-    this.editor = new EditorJS({
-      placeholder: this.placeholder,
-      holder: this.editorContainer.nativeElement,
-      data: this.value,
-      // set order for the inline tools
-      inlineToolbar: this.config.getInlineToolbar(),
-      readOnly: this.disabled,
-      tools: this.config.getTools(this.envInjector, this.applicationRef),
-      onChange: () => this.onTextEditorChange(),
-      defaultBlock: this.config.getDefaultBlock(),
-    });
-  }
-
-
-  private async onTextEditorChange(): Promise<void> {
-    // the save method can be called only if the editor is not in readOnly mode
-    if (this.editor.readOnly.isEnabled) return;
-    const outputData = await this.editor.save();
-    return this.setAndEmitValue(outputData);
-  }
-
 
   callChangeEvent(value: TeRichTextContent): void {
     this.textChange.emit(value);
   }
 
   onDisableChange(disable: boolean): void {
-    if (this.editor == null || this.editor.readOnly == null) return;
-    if (disable !== this.editor.readOnly.isEnabled) {
-
-      // if we disable it, we save the content first because the save
-      // method can be called only if the editor is not in readOnly mode
-      if (!this.editor.readOnly.isEnabled) {
-        this.onTextEditorChange().then(() => this.editor.readOnly.toggle(true));
-      } else {
-        this.editor.readOnly.toggle(false);
-      }
-    }
+    this.disabled = disable;
+    this.editorDisabled$.next(disable);
   }
 
   writeValue(obj: TeRichTextContent): void {
-    if (this.editor) {
-      this.editor.isReady.then(() => {
-        if (obj) {
-          this.editor.render(obj);
-        } else {
-          this.editor.clear();
-        }
-      });
-    }
-
-    if (obj == null) {
-      obj = TeRichText.emptyContent();
-    }
     this.value = obj;
-  }
-
-  printJson(): void {
-    this.editor.save().then((content: TeRichTextContent) => {
-      console.log('Article data: ', content);
-    });
-  }
-
-  setSavedData(): void {
-    this.editor.save().then((content: TeRichTextContent) => {
-      this.editor.render(content);
-    });
+    this.onValueChange();
   }
 
   ngOnDestroy(): void {
-    this.editor.destroy();
+    this.editorDisabled$.complete();
   }
 
+  private onValueChange(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.browserSide = true;
+      this.editorDisabled$.next(this.disabled);
+    }
+  }
 
 }

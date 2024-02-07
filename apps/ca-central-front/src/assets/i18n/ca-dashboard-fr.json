@@ -140,5 +140,20 @@
   "project_main_storage_location": "Lieu du stockage",
   "project_backup_storage_location": "Lieu du stockage de backup",
   "project_storage_location_same_error": "Les lieux de stockage et de backup doivent être différentes",
-  "project_storage_configured": "Stockage configuré"
+  "project_storage_configured": "Stockage configuré",
+  "title": "Titre",
+  "caption": "Légende",
+  "ok": "Ok",
+  "hint_classic": "Aide",
+  "hint_warning": "Warning",
+  "hint_scientific": "Info scientifique",
+  "move_block": "Glisser pour déplacer",
+  "add_a_video": "Ajouter une vidéo youtube",
+  "video_url_error": "L'url de la vidéo youtube est invalide",
+  "not_youtube_link_error": "Ce n'est pas un lien de vidéo youtube",
+  "add_formula": "Ajouter une formule",
+  "formula": "Formule",
+  "edit_formula": "Éditer la formule",
+  "formula_preview": "Aperçu",
+  "formula_help_text": "L'éditeur de formule est basé sur le TeX, voici la documentation"
 }

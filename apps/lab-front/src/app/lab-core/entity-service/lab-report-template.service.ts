@@ -3,8 +3,7 @@ import {
   FlAdvancedSearchInput,
   FlApiService,
   FlEntityPaginatedDatasource,
-  FlSearchConverter,
-  FlTextEditorUploadedImage
+  FlSearchConverter
 } from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {ClHelpService, ClPageI} from '@monorepo/core-lib';
@@ -15,7 +14,7 @@ import {
   LabReportTemplateDatasource,
   LabReportTemplateForm
 } from '../model/entities/lab-report-template.entity';
-import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import {TeRichText, TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 
 @Injectable({providedIn: 'root'})
 export class LabReportTemplateService {
@@ -105,7 +104,7 @@ export class LabReportTemplateService {
     return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
   }
 
-  uploadImage(file: File): Observable<FlTextEditorUploadedImage> {
+  uploadImage(file: File): Observable<TeUploadedImage> {
     const formData = new FormData();
     formData.append('image', file);
     return this.apiService.post(`${this.route}/image`, formData).pipe(

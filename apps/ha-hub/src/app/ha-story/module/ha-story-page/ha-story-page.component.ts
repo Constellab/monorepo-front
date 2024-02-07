@@ -8,7 +8,7 @@ import {FormControl} from '@ngneat/reactive-forms';
 import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
-import {ClRichText, ClRichTextI, ClStringHelper} from '@monorepo/core-lib';
+import {ClStringHelper} from '@monorepo/core-lib';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 import {HaStoryFile} from '../../../ha-core/ha-model/ha-entities/ha-story-file';
 import {TeRichText} from '@monorepo/text-editor';
@@ -42,8 +42,6 @@ export class HaStoryPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.STORY_KEY = makeStateKey<object>('story');
-
-
 
     this.activatedRoute.params.subscribe(params => {
       this.getStory(params.id);

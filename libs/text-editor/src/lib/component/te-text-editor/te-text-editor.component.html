@@ -1,7 +1,10 @@
+@if (!browserSide) {
+  <te-text-editor-server-side [value]="value"></te-text-editor-server-side>
+} @else {
 
-<div #editorContainer class="text-container g-text-editor"></div>
+  <te-text-editor-browser-side [config]="config" [disabled$]="editorDisabled$" [placeholder]="placeholder"
+                               [hideToolbar]="hideToolbar" [disabled]="disabled"
+                               [includeTooltipButton]="includeTooltipButton" (textChange)="callChangeEvent($event)"
+                               [value]="value"></te-text-editor-browser-side>
+}
 
-<!--<button mat-button (click)="callBold()" class="button" type="button">Call bold</button>-->
-<!--<button mat-button (click)="printJson()" class="button" type="button">Print json</button>-->
-<!--<button mat-button (click)="setSavedData()" class="button" type="button">Set saved data</button>-->
-<!---->

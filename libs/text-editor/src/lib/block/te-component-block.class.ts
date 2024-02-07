@@ -62,6 +62,7 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
   }
 
   render(): HTMLElement {
+    console.log('RENDER')
     this.htmlElement = document.createElement(this.getTagName());
     this.htmlElement.classList.add('g-te-block');
     this.componentRef = createComponent(this.getComponentType(), {

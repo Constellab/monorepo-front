@@ -5,4 +5,4 @@ declare module '@editorjs/inline-code';
 declare module '@editorjs/quote';
 declare module '@editorjs/underline';
 declare module '@editorjs/table';
-declare module '@sotaproject/strikethrough';
+// declare module '@sotaproject/strikethrough';

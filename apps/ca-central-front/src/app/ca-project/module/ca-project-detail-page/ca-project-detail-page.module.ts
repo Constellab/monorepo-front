@@ -50,6 +50,7 @@ import {
 import {
   CaDocumentTrashListDialogComponent
 } from './component/ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
+import {CaTextEditorModule} from '../ca-text-editor/ca-text-editor.module';
 
 /**
  * Module for the project detail page
@@ -91,6 +92,9 @@ import {
     CaObjectStorageCoreModule,
     CaUserCoreModule,
     CaNotificationCoreModule,
+    CaTextEditorModule.forRoot({
+      blots: []
+    })
   ],
 })
 export class CaProjectDetailPageModule {

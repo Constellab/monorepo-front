@@ -32,7 +32,6 @@ import {
   FlSectionModule,
   FlSnackBarModule,
   FlStatusModule,
-  FlTextEditorModule,
   FlTextIconModule,
   FlTranslateModule,
   FlUserModule
@@ -71,7 +70,6 @@ import {TeTextEditorModule} from '@monorepo/text-editor';
     FlInfiniteScrollModule,
     FlDateModule,
     FlAuthModule,
-    FlTextEditorModule,
     FlArticleModule,
     FlPortalActionsModule,
     FlPortalModule,

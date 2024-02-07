@@ -5,6 +5,15 @@ import {environment} from '../../../../environments/ha-environment';
 export class HaEnvironmentHelper{
 
   public static getEnv(): HaEnvironment {
+    //TODO: FIX THIS
+    environment.settings = {
+      apiUrl: environment.settings.apiUrl || process.env['API_URL'] || 'http://localhost:3333',
+      constellabApiUrl: environment.settings.constellabApiUrl ||  process.env['CONSTELLAB_API_URL'] || 'https://api.preconstellab.com',
+      constellabFrontUrl: environment.settings.constellabFrontUrl ||  process.env['CONSTELLAB_FRONT_URL'] || 'https://preconstellab.com',
+      communityFrontUrl: environment.settings.communityFrontUrl || process.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200',
+      captchaSiteKey: environment.settings.captchaSiteKey || process.env['CAPTCHA_SITE_KEY'] || '123465',
+      googleAnalyticsId: environment.settings.googleAnalyticsId || process.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
+    };
     return environment;
   }
 

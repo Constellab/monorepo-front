@@ -11,15 +11,6 @@ import {
   CnSaveProjectDTO
 } from '../model/entities/project/ca-project.class';
 import {Observable} from 'rxjs';
-import {
-  FlAdvancedSearchInput,
-  FlApiService,
-  FlArrayObs,
-  FlEntityArrayObs,
-  FlEntityPaginatedDatasource,
-  FlSearchConverter,
-  FlTextEditorUploadedImage,
-} from '@monorepo/front-core-lib';
 import {ClPage, ClPageI, ClRichTextI} from '@monorepo/core-lib';
 import {CaGroup} from '../model/entities/ca-group.entity';
 import {CaUser} from '../model/entities/ca-user.class';
@@ -34,6 +25,14 @@ import {
   CaActivitySearchFields
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
 import {TeFigureBlockData, TeRichTextContent} from '@monorepo/text-editor';
+import {
+  FlAdvancedSearchInput,
+  FlApiService,
+  FlArrayObs,
+  FlEntityArrayObs,
+  FlEntityPaginatedDatasource, FlSearchConverter
+} from '@monorepo/front-core-lib';
+import {CaTextEditorUploadedImage} from '../../ca-project/module/ca-text-editor/model/ca-text-editor-image.class';
 
 /**
  * Service to manage project entity
@@ -158,7 +157,7 @@ export class CaProjectService {
     return this.apiService.put(`${this.route}/${id}/description`, description, CaProject);
   }
 
-  uploadDescriptionImage(projectId: string, file: File): Observable<FlTextEditorUploadedImage> {
+  uploadDescriptionImage(projectId: string, file: File): Observable<CaTextEditorUploadedImage> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/${projectId}/description/image`, formData);
@@ -193,7 +192,7 @@ export class CaProjectService {
     return this.apiService.delete(`${this.route}/${projectId}/comment/${commentId}/delete`, null);
   }
 
-  uploadCommentImage(file: File, projectId: string): Observable<FlTextEditorUploadedImage> {
+  uploadCommentImage(file: File, projectId: string): Observable<CaTextEditorUploadedImage> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/${projectId}/comment/image`, formData);

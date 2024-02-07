@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {ServerModule} from '@angular/platform-server';
+import {provideServerRendering, ServerModule} from '@angular/platform-server';
 
 import {HaAppModule} from './ha-app.module';
 import {HaAppComponent} from './ha-app.component';
@@ -9,6 +9,9 @@ import {HaAppComponent} from './ha-app.component';
   imports: [
     HaAppModule,
     ServerModule,
+  ],
+  providers: [
+    provideServerRendering()
   ],
   bootstrap: [HaAppComponent],
 })

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource, FlTextEditorUploadedImage} from '@monorepo/front-core-lib';
+import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
 import {
   HaCreateLiveTaskDto,
   HaLiveTask,
@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
 import {HaLiveTaskVersion, HaLiveTaskVersionFileInput} from '../ha-model/ha-entities/ha-live-task-version.class';
 import {ClPage} from '@monorepo/core-lib';
 import {HaBrickVersion} from '../ha-model/ha-entities/ha-brick-version.class';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 
 @Injectable({
   providedIn: 'root'
@@ -87,7 +87,7 @@ export class HaLiveTaskService {
    * @param liveTaskId
    * @return the uploaded image
    */
-  public uploadImage(file: File, liveTaskId: string): Observable<FlTextEditorUploadedImage> {
+  public uploadImage(file: File, liveTaskId: string): Observable<TeUploadedImage> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/image/${liveTaskId}`, formData);

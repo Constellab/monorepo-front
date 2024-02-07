@@ -15,4 +15,3 @@ export * from './fl-mouse-hover/fl-mouse-hover.directive';
 export * from './fl-outside-click/fl-outside-click.directive';
 
 // Export the models
-export * from '../fl-text-editor/model/fl-text-editor.class';

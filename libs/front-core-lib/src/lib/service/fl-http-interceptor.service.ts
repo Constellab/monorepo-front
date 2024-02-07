@@ -11,6 +11,7 @@ export class FlHttpInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add lang to the headers
+
     const lang: string = this.translateService.getUserLanguage();
 
 

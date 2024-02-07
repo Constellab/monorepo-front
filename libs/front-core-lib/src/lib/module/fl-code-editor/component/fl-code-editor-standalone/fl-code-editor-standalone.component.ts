@@ -1,6 +1,6 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild,} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {Component, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild,} from '@angular/core';
+import {CommonModule, isPlatformBrowser} from '@angular/common';
 import {EditorState, Extension} from '@codemirror/state';
 import {EditorView, keymap} from '@codemirror/view';
 import {basicSetup} from 'codemirror';
@@ -37,12 +37,19 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
   @ViewChild('editor', {static: true}) editor: ElementRef<HTMLElement>;
 
   private editorState: EditorState;
-  private editorView: EditorView;
+  private editorView: any;
 
-  constructor(private themeService: FlThemeService) {
+  constructor(private themeService: FlThemeService,
+              @Inject(PLATFORM_ID) private platformId: object) {
   }
 
   ngOnInit(): void {
+    if(isPlatformBrowser(this.platformId)){
+        this.initEditor();
+    }
+  }
+
+  private initEditor(): void {
     this.editorState = EditorState.create({
       doc: this.formCtrl.getRawValue(),
       extensions: [
@@ -171,6 +178,7 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.editorView.destroy();
+    if(this.editorView)
+      this.editorView.destroy();
   }
 }
