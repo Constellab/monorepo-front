@@ -33,8 +33,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   /**
    * If true an inline padding is added to include the tooltip button in this component
    */
-  @HostBinding('class.include-tooltip-button')
-  @Input() includeTooltipButton: boolean = false;
+  @HostBinding('class.include-toolbar-button')
+  @Input() includeToolbarButton: boolean = false;
 
   @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
 
