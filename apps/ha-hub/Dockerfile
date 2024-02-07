@@ -11,8 +11,6 @@ COPY . .
 
 RUN npm run ha-hub:build-prod
 
-RUN npm run ha-hub:build-prod-ssr
-
 FROM node:18-alpine3.17 as production
 
 WORKDIR /app
