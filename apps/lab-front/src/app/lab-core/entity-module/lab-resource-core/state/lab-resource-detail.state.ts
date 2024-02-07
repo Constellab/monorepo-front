@@ -48,7 +48,7 @@ export class LabResourceDetailState implements OnDestroy {
   private _selectedView: WritableSignal<FlStatusEvent<LabResourceView>> = signal(null);
   private _minimizedViews: WritableSignal<LabMinimizedView[]> = signal([]);
 
-  private flaggedViews: Record<string, LabViewConfigDatasource> = {};
+  private favoriteViews: Record<string, LabViewConfigDatasource> = {};
 
   // if true the query param handler will be updated
   private updateQueryParams: boolean;
@@ -224,8 +224,8 @@ export class LabResourceDetailState implements OnDestroy {
     }
   }
 
-  public getSelectedResourceFlaggedViews(): LabViewConfigDatasource {
-    return this.getFlaggedViews(this.selectedResourceId());
+  public getSelectedResourceFavoriteViews(): LabViewConfigDatasource {
+    return this.getFavoriteViews(this.selectedResourceId());
   }
 
   public minimizeView(view: LabResourceView): void {
@@ -250,14 +250,14 @@ export class LabResourceDetailState implements OnDestroy {
     });
   }
 
-  private getFlaggedViews(resourceId: string): LabViewConfigDatasource {
-    if (this.flaggedViews[resourceId] == null) {
-      this.flaggedViews[resourceId] = new FlEntityPaginatedDatasource(
+  private getFavoriteViews(resourceId: string): LabViewConfigDatasource {
+    if (this.favoriteViews[resourceId] == null) {
+      this.favoriteViews[resourceId] = new FlEntityPaginatedDatasource(
         (page, pageSize) => this.viewConfigService.getByResource(resourceId, true, page, pageSize),
         10, true, true
       );
     }
-    return this.flaggedViews[resourceId];
+    return this.favoriteViews[resourceId];
   }
 
   ////////////////////////////////////// VIEWS PORTAL /////////////////////////////////////
@@ -327,17 +327,17 @@ export class LabResourceDetailState implements OnDestroy {
   }
 
   /**
-   * Update a flagged view config in the datasource
+   * Update a favorite view config in the datasource
    * @param viewConfig
    */
   public updateViewConfig(viewConfig: LabViewConfig): void {
-    const datasource = this.getFlaggedViews(viewConfig.resource.id);
+    const datasource = this.getFavoriteViews(viewConfig.resource.id);
     if (datasource == null) return;
-    // remove the view config if it is not flagged anymore (if it exists in the datasource)
-    if (!viewConfig.flagged) {
+    // remove the view config if it is not favorite anymore (if it exists in the datasource)
+    if (!viewConfig.isFavorite) {
       datasource.removeItem(viewConfig);
     } else {
-      // add/update the view config if it is flagged and not in the datasource
+      // add/update the view config if it is favorite and not in the datasource
       datasource.addOrUpdateItem(viewConfig, () => true);
     }
   }

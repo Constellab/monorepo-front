@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlArrayObs, FlTableColumnStatic, FlTag, FlTagSelectedEvent} from '@monorepo/front-core-lib';
+import {FlArrayObs, FlTableColumnStatic, FlTag} from '@monorepo/front-core-lib';
 import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
-import {ClHelpService} from '@monorepo/core-lib';
-import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 import {LabRouterService} from '../../../../service/lab-router.service';
 import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource/lab-resource-view-type.class';
 
@@ -26,8 +24,7 @@ export class LabViewConfigTableComponent {
 
   @Output() viewConfigSelected: EventEmitter<LabViewConfig> = new EventEmitter();
 
-  constructor(private viewConfigService: LabViewConfigService,
-              private routerService: LabRouterService) {
+  constructor(private routerService: LabRouterService) {
   }
 
   rowClicked(viewConfig: LabViewConfig): void {
@@ -38,11 +35,6 @@ export class LabViewConfigTableComponent {
 
   onUpdate(viewConfig: LabViewConfig): void {
     this.datasource.updateItem(viewConfig);
-  }
-
-  onTagSelected(tagEvent: FlTagSelectedEvent): void {
-    ClHelpService.stopEventPropagation(tagEvent.event);
-    this.tagSelected.next(tagEvent.tag);
   }
 
   navigateToViewConfigPage(viewConfig: LabViewConfig): void {

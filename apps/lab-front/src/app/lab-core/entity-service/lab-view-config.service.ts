@@ -29,12 +29,12 @@ export class LabViewConfigService {
     return this.apiService.put(`${this.route}/${id}/title`, {title: title}, LabViewConfig);
   }
 
-  public updateFlagged(id: string, flagged: boolean): Observable<LabViewConfig> {
-    return this.apiService.put(`${this.route}/${id}/flagged`, {flagged: flagged}, LabViewConfig);
+  public updateFavorite(id: string, isFavorite: boolean): Observable<LabViewConfig> {
+    return this.apiService.put(`${this.route}/${id}/favorite`, {is_favorite: isFavorite}, LabViewConfig);
   }
 
-  public getByResource(resourceId: string, onlyFlagged: boolean, page: number, pageSize: number): Observable<ClPageI<LabViewConfig>> {
-    return this.apiService.get(`${this.route}/resource/${resourceId}/flag/${onlyFlagged}`, LabViewConfig,
+  public getByResource(resourceId: string, onlyFavorite: boolean, page: number, pageSize: number): Observable<ClPageI<LabViewConfig>> {
+    return this.apiService.get(`${this.route}/resource/${resourceId}/favorite/${onlyFavorite}`, LabViewConfig,
       {
         resultIsPaginated: true, page: page, pageSize: pageSize
       });

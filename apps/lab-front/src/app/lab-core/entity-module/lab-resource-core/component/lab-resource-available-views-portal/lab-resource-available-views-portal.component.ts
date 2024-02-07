@@ -14,7 +14,7 @@ import {LabViewConfig, LabViewConfigDatasource} from '../../../../model/entities
 export class LabResourceAvailableViewsPortalComponent {
 
   viewSpecs$: Observable<LabResourceViewSpec[]>;
-  favoritesViews$: LabViewConfigDatasource = this.state.getSelectedResourceFlaggedViews();
+  favoritesViews$: LabViewConfigDatasource = this.state.getSelectedResourceFavoriteViews();
 
   constructor(private state: LabResourceDetailState,
               private resourceService: LabResourceService,

@@ -1,6 +1,5 @@
 import {Expose} from 'class-transformer';
 import {LabResourceViewType} from './lab-resource-view.entity';
-import {LabFlaggedEntity} from '../../global/lab-flagged-entity.class';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
 import {PrConfigValues} from '@monorepo/protocol';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
@@ -8,7 +7,7 @@ import {LabBaseEntityWithUser} from '../lab-user.entity';
 /**
  * Represent a view config that the user viewed
  */
-export class LabViewConfig extends LabBaseEntityWithUser implements LabFlaggedEntity {
+export class LabViewConfig extends LabBaseEntityWithUser {
 
   title: string;
 
@@ -21,7 +20,8 @@ export class LabViewConfig extends LabBaseEntityWithUser implements LabFlaggedEn
   @Expose({name: 'config_values'})
   configValues: PrConfigValues;
 
-  flagged: boolean;
+  @Expose({name: 'is_favorite'})
+  isFavorite: boolean;
 
   resource: {
     id: string;

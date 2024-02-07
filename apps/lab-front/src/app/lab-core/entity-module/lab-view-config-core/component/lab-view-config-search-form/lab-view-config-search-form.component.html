@@ -4,13 +4,13 @@
 
     <!--  ViewType  -->
     <mat-form-field class="g-full">
-      <mat-label>{{'biox.view_type' | translate }}</mat-label>
+      <mat-label>{{ 'biox.view_type' | translate }}</mat-label>
       <mat-select formControlName="viewType" [placeholder]="'biox.view_type' | translate"
                   multiple>
         <mat-select-trigger *ngIf="formGp.value.viewType | labViewTypeInfo as viewType">
           <fl-text-icon>
             <mat-icon [flIcon]="viewType.icon"></mat-icon>
-            {{viewType.text | translate}}
+            {{ viewType.text | translate }}
           </fl-text-icon>
         </mat-select-trigger>
         <lab-select-view-type-options></lab-select-view-type-options>
@@ -19,7 +19,7 @@
 
     <!--  Title  -->
     <mat-form-field class="g-full">
-      <mat-label>{{'title' | translate }}</mat-label>
+      <mat-label>{{ 'title' | translate }}</mat-label>
       <input matInput formControlName="title" [placeholder]="'title' | translate" autocomplete="off">
     </mat-form-field>
 
@@ -27,7 +27,7 @@
     <mat-expansion-panel [expanded]="true" class="g-full" *ngIf="showProjectFilter">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{'biox.projects' | translate }}
+          {{ 'biox.projects' | translate }}
         </mat-panel-title>
       </mat-expansion-panel-header>
 
@@ -36,28 +36,26 @@
 
     <!--   Tags    -->
     <lab-tag-filters formControlName="tags" (selectionChange)="callSearch()"
-                       class="tags"></lab-tag-filters>
+                     class="tags"></lab-tag-filters>
 
     <!--  Id -->
     <mat-form-field class="g-search-field g-form-field-compact">
-      <mat-label>{{'id' | translate }}</mat-label>
+      <mat-label>{{ 'id' | translate }}</mat-label>
       <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
     </mat-form-field>
 
     <!--  Creation date  -->
     <div class="g-no-hint g-full g-form-field-compact">
-      <p class="g-text-small subtitle">{{'creation_date' | translate}}</p>
+      <p class="g-text-small subtitle">{{ 'creation_date' | translate }}</p>
       <fl-search-date-interval formGroupName="createdAt">
       </fl-search-date-interval>
     </div>
 
-<!--  Include none highlighted  -->
-    <mat-checkbox formControlName="includeNotFlagged"
+    <!--  Include not favorite  -->
+    <mat-checkbox formControlName="includeNotFavorite"
                   class="checkbox">
-      {{'biox.view_include_not_favorite' | translate }}
+      {{ 'biox.view_include_not_favorite' | translate }}
     </mat-checkbox>
-
-
 
 
   </div>

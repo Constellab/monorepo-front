@@ -18,7 +18,7 @@ export class LabResourceViewHistoricComponent implements OnInit {
 
   datasource: LabViewConfigDatasource;
 
-  columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'lastModifiedAt', 'flagged'];
+  columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'lastModifiedAt', 'isFavorite'];
 
   constructor(private viewConfigService: LabViewConfigService,
               private state: LabResourceDetailState) {
