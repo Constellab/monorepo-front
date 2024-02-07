@@ -7,6 +7,8 @@ export * from './lib/component/te-figure/te-figure.component';
 export * from './lib/component/te-formula/te-formula.component';
 export * from './lib/component/te-link-dialog/te-link-dialog.component';
 export * from './lib/component/te-text-editor/te-text-editor.component';
+export * from './lib/component/te-text-editor-browser-side/te-text-editor-browser-side.component';
+export * from './lib/component/te-text-editor-server-side/te-text-editor-server-side.component';
 export * from './lib/component/te-title-caption/te-title-caption.component';
 export * from './lib/component/te-video/te-video.component';
 
