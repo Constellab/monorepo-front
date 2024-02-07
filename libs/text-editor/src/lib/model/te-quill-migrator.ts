@@ -100,7 +100,6 @@ export class TeQuillMigrator {
       }
     }
 
-    console.log(this.editorJsContent);
     return this.editorJsContent;
   }
 

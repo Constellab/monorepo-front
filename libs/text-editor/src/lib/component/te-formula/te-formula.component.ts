@@ -22,11 +22,9 @@ export class TeFormulaComponent extends TeElementDirective implements OnInit {
 
   constructor(private dialogService: FlDialogService) {
     super();
-    console.log('TeFormulaComponent');
   }
 
   ngOnInit(): void {
-    console.log('TeFormulaComponent ngOnInit');
   }
 
   public openInitFormulaDialog(): void {

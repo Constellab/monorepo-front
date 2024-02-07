@@ -62,15 +62,14 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
     this.onValueChange();
   }
 
-  ngOnDestroy(): void {
-    this.editorDisabled$.complete();
-  }
-
   private onValueChange(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.browserSide = true;
-      this.editorDisabled$.next(this.disabled);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.editorDisabled$.complete();
   }
 
 }

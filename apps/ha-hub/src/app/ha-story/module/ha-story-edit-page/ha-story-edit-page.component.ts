@@ -117,7 +117,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   saveTopic(): void {
-    console.log('topicControl', this.topicControl.value);
     const topic: HaTopicDto = typeof this.topicControl.value === 'string' ?
       new HaTopicDto(this.topicControl.value) : new HaTopicDto(this.topicControl.value.name, this.topicControl.value.id);
 
@@ -150,8 +149,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onContentUpdate(content: TeRichTextContent): void {
-    //TODO: check if the content is different from the previous one
-    //this.contentDebouncer.setValue(content);
+    this.contentDebouncer.setValue(content);
   }
 
   ngOnDestroy(): void {
