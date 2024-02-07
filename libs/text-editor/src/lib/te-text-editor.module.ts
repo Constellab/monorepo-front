@@ -28,7 +28,6 @@ import {TeLinkDialogComponent} from './component/te-link-dialog/te-link-dialog.c
 import {TeVideoComponent} from './component/te-video/te-video.component';
 import {TeFigureComponent} from './component/te-figure/te-figure.component';
 import {TeCodeComponent} from './component/te-code/te-code.component';
-import {TeTextEditorSsrComponent} from './component/te-text-editor-ssr/te-text-editor-ssr.component';
 import {TeRichTextIsEmptyPipe} from './pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
 import {
   TeTextEditorBrowserSideComponent
@@ -46,14 +45,12 @@ import {
     TeVideoComponent,
     TeFigureComponent,
     TeCodeComponent,
-    TeTextEditorSsrComponent,
     TeRichTextIsEmptyPipe,
     TeTextEditorBrowserSideComponent,
     TeTextEditorServerSideComponent
   ],
   exports: [
     TeTextEditorComponent,
-    TeTextEditorSsrComponent,
     TeTitleCaptionComponent,
     TeRichTextIsEmptyPipe,
     TeTextEditorBrowserSideComponent,

@@ -1,7 +1,0 @@
-@defer (when browserSide){
-  @if(browserSide){
-    <te-text-editor [formControl]="control" [config]="config" [placeholder]="placeholder" [hideToolbar]="hideToolbar"
-                    (textChange)="callChangeEvent($event)"></te-text-editor>
-
-  }
-}
