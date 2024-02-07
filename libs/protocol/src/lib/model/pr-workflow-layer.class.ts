@@ -223,9 +223,8 @@ export class PrWorkflowLayer {
    * @private
    */
   public getRelativeNodePosition(nodeName: string, position: 'before' | 'after'): FlCoord {
-
     const node: PrWorkflowNode = this.findNodeByName(nodeName);
-    if (node == null || !node.hasCoords()) return {x: 0, y: 0};
+    if (node == null || !node.hasCoords()) return {x: null, y: null};
 
     // calculate the X pos based on relative node
     const baseNodeCoord = node.getCoords();

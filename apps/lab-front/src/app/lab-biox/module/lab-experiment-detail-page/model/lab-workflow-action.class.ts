@@ -18,4 +18,8 @@ export class LabProtocolUpdateDTO{
 
   @Expose({name: 'protocol_updated'})
   protocolUpdated: boolean;
+
+  @Expose({name: 'sub_protocols'})
+  @Type(() => LabProtocol)
+  subProtocols : LabProtocol[];
 }

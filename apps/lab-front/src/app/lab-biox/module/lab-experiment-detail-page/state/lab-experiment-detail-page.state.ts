@@ -244,6 +244,12 @@ export class LabExperimentDetailPageState {
     }
   }
 
+  public refreshProtocolsSuccess(protocols: LabProtocol[]): void {
+    for (const protocol of protocols) {
+      this.refreshProtocolSuccess(protocol);
+    }
+  }
+
   private refreshProtocolSuccess(protocol: LabProtocol): void {
 
     const layer = this.workflow.findLayerWithId(protocol.id);

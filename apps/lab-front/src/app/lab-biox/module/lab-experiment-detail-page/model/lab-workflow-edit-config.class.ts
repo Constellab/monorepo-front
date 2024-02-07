@@ -677,6 +677,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
       this.experimentState.refreshProcess(protocolUpdate.process);
     }
 
+    if(protocolUpdate.subProtocols){
+      this.experimentState.refreshProtocolsSuccess(protocolUpdate.subProtocols);
+    }
+
   }
 
   ngOnDestroy(): void {
