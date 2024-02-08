@@ -3,7 +3,7 @@
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border g-column-width-2">
-      <span> {{'name' | translate}}</span>
+      <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="g-cell-with-left-border g-column-width-2 name-cell"
               [style.border-left-color]="resource.experiment?.id | flStringToRgb">
@@ -13,7 +13,7 @@
               [matTooltip]="'databox.resource_see_children' | translate"
               [matTooltipDisabled]="expandedResource === resource"
               class="expand-button g-button-icon-small" flHide.xs>
-        <mat-icon>{{expandedResource === resource ? 'expand_less' : 'expand_more'}}</mat-icon>
+        <mat-icon>{{ expandedResource === resource ? 'expand_less' : 'expand_more' }}</mat-icon>
       </button>
 
       <!--   If there is no button, use to set a left padding before the name    -->
@@ -34,12 +34,12 @@
       <div class="name-container g-text-dense-height">
         <div [matTooltip]="resource.name"
              [matTooltipShowDelay]="1000" matTooltipPosition="after">
-          {{resource.name}}
+          {{ resource.name }}
         </div>
         <fl-text-icon class="g-text-tiny g-text-light" *ngIf="resource.experiment"
                       gap="0" flHide.xs>
           <mat-icon flIcon="experiment" class="g-icon-tiny"></mat-icon>
-          {{resource.experiment.title}}
+          {{ resource.experiment.title }}
         </fl-text-icon>
       </div>
     </mat-cell>
@@ -48,7 +48,7 @@
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'creation_info' | translate}}</span>
+      <span> {{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
       <fl-user-with-date [user]="resource.createdBy" [date]="resource.createdAt"></fl-user-with-date>
@@ -59,13 +59,13 @@
   <!-- Type -->
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'resource_type' | translate}}</span>
+      <span> {{ 'resource_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
       <div>
-        <div>{{resource.resourceTypeHumanName}}</div>
+        <div>{{ resource.resourceTypeHumanName }}</div>
         <div *ngIf="resource.fsNode?.size != null" class="g-text-light g-text-tiny g-text-dense-height">
-          {{resource.fsNode.size | flByteText}}
+          {{ resource.fsNode.size | flByteText }}
         </div>
       </div>
     </mat-cell>
@@ -74,11 +74,15 @@
   <!-- Tags -->
   <ng-container matColumnDef="tags">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'tags' | translate}}</span>
+      <span> {{ 'tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="tags">
-      <lab-tag-list [tags]="resource | labGetEntityTags"
-                   [tagSelectable]="tagSelectable"></lab-tag-list>
+      @defer (on viewport) {
+        <lab-tag-list [tags]="resource | labGetEntityTags"
+                      [tagSelectable]="tagSelectable"></lab-tag-list>
+      } @placeholder {
+        <div></div>
+      }
     </mat-cell>
   </ng-container>
 
@@ -125,7 +129,7 @@
     <mat-cell *matCellDef="let resource">
       <a mat-stroked-button [routerLink]="resource | labDetailRoute"
          target="_blank" class="g-button-small" (click)="openInNewTab($event)">
-        {{'biox.open_in_new_tab' | translate}}
+        {{ 'biox.open_in_new_tab' | translate }}
         <mat-icon>open_in_new</mat-icon>
       </a>
     </mat-cell>

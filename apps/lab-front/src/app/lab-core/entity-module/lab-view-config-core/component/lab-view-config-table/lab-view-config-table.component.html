@@ -3,13 +3,13 @@
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'title' | translate}}</span>
+      <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig">
       <div class="g-layout-row g-layout-start-center">
         <rv-view-type-image [viewType]="viewConfig.viewType" size="2em"
                             class="view-image" [viewTypesInfos]="labConstResourceViewTypeInfos"></rv-view-type-image>
-        <div>{{viewConfig.title}}</div>
+        <div>{{ viewConfig.title }}</div>
       </div>
     </mat-cell>
   </ng-container>
@@ -17,15 +17,15 @@
   <!-- Resource -->
   <ng-container matColumnDef="resource">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'resource' | translate}}</span>
+      <span>{{ 'resource' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig">
       <div>
-        <div class="name">{{viewConfig.resource.name}}</div>
+        <div class="name">{{ viewConfig.resource.name }}</div>
         <fl-text-icon class="g-text-tiny g-text-light" *ngIf="viewConfig.experiment"
                       gap="0">
           <mat-icon flIcon="experiment" class="g-icon-tiny"></mat-icon>
-          {{viewConfig.experiment.title}}
+          {{ viewConfig.experiment.title }}
         </fl-text-icon>
       </div>
     </mat-cell>
@@ -34,18 +34,22 @@
   <!-- Tags -->
   <ng-container matColumnDef="tags">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'tags' | translate}}</span>
+      <span> {{ 'tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="tags">
-      <lab-tag-list [tags]="resource | labGetEntityTags"
-                   [tagSelectable]="tagSelectable"></lab-tag-list>
+      @defer (on viewport) {
+        <lab-tag-list [tags]="resource | labGetEntityTags"
+                      [tagSelectable]="tagSelectable"></lab-tag-list>
+      } @placeholder {
+        <div></div>
+      }
     </mat-cell>
   </ng-container>
 
   <!-- Datetime -->
   <ng-container matColumnDef="lastModifiedAt">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'biox.view_config_date' | translate}}</span>
+      <span>{{ 'biox.view_config_date' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig">
       <fl-user-with-date [user]="viewConfig.lastModifiedBy" [date]="viewConfig.lastModifiedAt"></fl-user-with-date>
