@@ -1,4 +1,4 @@
-import {BrowserModule, provideClientHydration, withHttpTransferCacheOptions} from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, Injector, NgModule, TransferState} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HaAppComponent} from './ha-app.component';
@@ -35,7 +35,6 @@ import {HaMainModule} from './ha-main/ha-main.module';
 import {HaEnvironmentHelper} from './ha-core/ha-model/ha-config/ha-environment.helper';
 import {HaHttpInterceptorSsrService} from './ha-core/ha-service/ha-http-interceptor-ssr.service';
 import {rvDefaultViewTypeInfos, RvResourceViewModule} from '@monorepo/resource-view';
-import * as process from 'process';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();

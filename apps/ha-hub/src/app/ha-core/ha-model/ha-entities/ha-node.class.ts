@@ -1,10 +1,9 @@
 import {MatTreeFlatDataSource} from '@angular/material/tree';
 import {FlEntity} from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
-import {HaEntity} from './ha-entity.class';
+import {HaBaseEntity, HaEntity} from './ha-entity.class';
 
-export class HaNode{
-  id: string;
+export class HaNode extends HaBaseEntity{
 
   path: string;
 
@@ -20,6 +19,7 @@ export class HaNode{
   parentId: string;
 
   constructor(id: string, path: string, completePath: string, name: string, order: number, parentId: string, children?: HaNode[]) {
+    super();
     this.id = id;
     this.path = path;
     this.completePath = completePath;

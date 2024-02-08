@@ -10,7 +10,7 @@ import {HaEnvironment} from './ha-environment.class';
 export const environment: HaEnvironment = {
   production: true,
   settings: {
-    apiUrl: '',
+    apiUrl: 'http://localhost:3333',
     constellabApiUrl: '',
     constellabFrontUrl: '',
     communityFrontUrl: '',

@@ -60,4 +60,4 @@ import 'zone.js'; // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 // import reflect to make class-transform work
-import 'reflect-metadata/Reflect';
+import 'reflect-metadata';
