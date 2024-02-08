@@ -3,9 +3,9 @@ import {Type} from 'class-transformer';
 import {HaStory} from './ha-story.class';
 import {HaUser} from './ha-user';
 import {HaBrick} from './ha-brick.class';
+import {HaBaseEntity} from './ha-entity.class';
 
-export class HaBrickUserInvite{
-  id: number;
+export class HaBrickUserInvite extends HaBaseEntity{
 
   email: string;
 

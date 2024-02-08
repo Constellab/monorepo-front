@@ -2,11 +2,11 @@ import {HaStory} from './ha-story.class';
 import {Type} from 'class-transformer';
 import {HaUser} from './ha-user';
 import {HaInviteStatus} from './ha-invite';
+import {HaBaseEntity} from './ha-entity.class';
 
 
 
-export class HaStoryAuthorInvite{
-  id: string;
+export class HaStoryAuthorInvite extends HaBaseEntity{
 
   email: string;
 

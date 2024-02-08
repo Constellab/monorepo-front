@@ -11,25 +11,25 @@ COPY . .
 
 RUN npm run ha-hub:build-prod
 
+# Production step
 FROM node:18-alpine3.17 as production
 
 WORKDIR /app
 # Copy the entry point
-COPY apps/ha-hub/entrypoint.sh /entrypoint.sh
 
 COPY package*.json ./
 
 RUN npm ci --production
 
-COPY --from=buildContainer /app/dist ./dist
+COPY apps/ha-hub/entrypoint.sh /entrypoint.sh
 
-EXPOSE 4000
+COPY --from=buildContainer /app/dist /app/dist
 
 RUN sed -i -e 's/\r$//' /entrypoint.sh && \
 #    sed -i -e 's/\r$//' /etc/nginx/conf.d/default.conf && \
     chmod +x /entrypoint.sh
-
 ENTRYPOINT ["/entrypoint.sh"]
-CMD node app/dist/ha-hub/server/main.server.mjs
+
 EXPOSE 4000
+
 

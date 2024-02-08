@@ -7,6 +7,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/ha-hub",
         "index": "apps/ha-hub/src/index.html",
@@ -15,7 +16,9 @@
         "tsConfig": "apps/ha-hub/tsconfig.app.json",
         "server": "apps/ha-hub/src/main.server.ts",
         "prerender": false,
-        "ssr": true,
+        "ssr": {
+          "entry": "apps/ha-hub/server.ts"
+        },
         "assets": [
           "apps/ha-hub/src/assets",
           {

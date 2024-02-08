@@ -8,6 +8,10 @@ import {Type} from 'class-transformer';
 // this is because this is the main first import of class-transformer
 import 'reflect-metadata';
 
+export class HaBaseEntity implements FlEntity {
+  id: string;
+}
+
 export class HaEntity implements FlEntity {
   id: string;
   @ClLuxonDateTimeTransform()
