@@ -3,17 +3,17 @@
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'name' | translate}}</span>
+      <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
-      {{template.name}}
+      {{ template.name }}
     </mat-cell>
   </ng-container>
 
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'creation_info' | translate}}</span>
+      <span> {{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       <fl-user-with-date [user]="template.createdBy" [date]="template.createdAt"></fl-user-with-date>
@@ -24,10 +24,14 @@
   <!-- Tags -->
   <ng-container matColumnDef="tags">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'tags' | translate}}</span>
+      <span> {{ 'tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template" class="tags">
-      <lab-tag-list [tags]="template | labGetEntityTags"></lab-tag-list>
+      @defer (on viewport) {
+        <lab-tag-list [tags]="template | labGetEntityTags"></lab-tag-list>
+      } @placeholder {
+        <div></div>
+      }
     </mat-cell>
   </ng-container>
 
@@ -38,7 +42,7 @@
     <mat-cell *matCellDef="let template">
       <a mat-stroked-button [routerLink]="template | labDetailRoute"
          target="_blank" class="g-button-small" (click)="openInNewTab($event)">
-        {{'biox.open_in_new_tab' | translate}}
+        {{ 'biox.open_in_new_tab' | translate }}
         <mat-icon>open_in_new</mat-icon>
       </a>
     </mat-cell>
