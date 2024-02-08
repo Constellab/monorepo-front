@@ -11,7 +11,6 @@ import {LabEntity} from '../../global/lab-entity.entity';
 
 export type LabProcessClass = 'TASK' | 'PROTOCOL';
 
-
 export interface LabProcessErrorInfo {
   context: string;
   detail: string;
@@ -57,8 +56,11 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   @Expose({name: 'is_protocol'})
   isProtocol: boolean;
 
-  @Expose({name: 'brick_version'})
-  brickVersion: string;
+  @Expose({name: 'brick_version_on_create'})
+  brickVersionOnCreate: string;
+
+  @Expose({name: 'brick_version_on_run'})
+  brickVersionOnRun: string;
 
   @Expose({name: 'started_at'})
   @ClLuxonDateTimeTransform()
