@@ -105,7 +105,7 @@
         </fl-article-left-side>
         <fl-article>
           <te-text-editor class="g-full-height g-print-section" [config]="textEditorConfig"
-                          [(ngModel)]="content" [disabled]="!report.isValidated"
+                          [(ngModel)]="content" [disabled]="report.isValidated"
                           (textChange)="onContentUpdate($event)"></te-text-editor>
         </fl-article>
         <fl-article-right-side class="experiments">

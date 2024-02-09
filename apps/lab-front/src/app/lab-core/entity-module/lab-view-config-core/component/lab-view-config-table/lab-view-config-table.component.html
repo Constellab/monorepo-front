@@ -6,6 +6,10 @@
       <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig">
+      <!--    Invisible link  -->
+      <a *ngIf="!selectableRow" [routerLink]="viewConfig | labDetailRoute"
+         [target]="rowLinkTarget" class="g-row-link"></a>
+
       <div class="g-layout-row g-layout-start-center">
         <rv-view-type-image [viewType]="viewConfig.viewType" size="2em"
                             class="view-image" [viewTypesInfos]="labConstResourceViewTypeInfos"></rv-view-type-image>
@@ -90,20 +94,8 @@
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
-
-  <!-- Mode selectable -->
-  <ng-container *ngIf="selectableRow; else notSelectable">
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             (click)="rowClicked(row)">
-    </mat-row>
-  </ng-container>
-
-  <!-- Mode link -->
-  <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             (click)="navigateToViewConfigPage(row)">
-    </mat-row>
-  </ng-template>
-
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
+           (click)="rowClicked(row)">
+  </mat-row>
 
 </mat-table>

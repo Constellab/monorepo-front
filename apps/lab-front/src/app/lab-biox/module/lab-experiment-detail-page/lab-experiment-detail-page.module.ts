@@ -63,6 +63,12 @@ import {
   LabDynamicPortConfigDialogComponent
 } from './component/lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
 import {LabTagCoreModule} from '../../../lab-core/entity-module/lab-tag-core/lab-tag-core.module';
+import {
+  LabExperimentResetResultDialogComponent
+} from './component/lab-experiment-reset-result-dialog/lab-experiment-reset-result-dialog.component';
+import {
+  LabNavigableEntityCoreModule
+} from '../../../lab-core/entity-module/lab-navigable-entity-core/lab-navigable-entity-core.module';
 
 @NgModule({
   declarations: [
@@ -88,6 +94,7 @@ import {LabTagCoreModule} from '../../../lab-core/entity-module/lab-tag-core/lab
     LabWorkflowNodeDashboardComponent,
     LabWorkflowNodeIoPanelComponent,
     LabDynamicPortConfigDialogComponent,
+    LabExperimentResetResultDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -108,6 +115,7 @@ import {LabTagCoreModule} from '../../../lab-core/entity-module/lab-tag-core/lab
     LabProjectCoreModule,
     LabProtocolTemplateCoreModule,
     LabTagCoreModule,
+    LabNavigableEntityCoreModule,
   ],
 })
 export class LabExperimentDetailPageModule {

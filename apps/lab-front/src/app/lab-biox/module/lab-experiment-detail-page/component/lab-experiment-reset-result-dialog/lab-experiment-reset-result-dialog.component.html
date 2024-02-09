@@ -1,0 +1,22 @@
+<fl-dialog-header>
+  {{ title | flTranslatableText }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+
+  <p class="help-text g-text-light">{{ 'biox.reset_experiment_force_help' | translate }}</p>
+
+  <p class="help-text g-warn-text" *ngIf="containsValidatedExperiments">{{ 'biox.reset_impact_contains_validated_experiments' | translate }}</p>
+  <p class="help-text g-warn-text" *ngIf="containsValidatedReports">{{ 'biox.reset_impact_contains_validated_reports' | translate }}</p>
+
+  <lab-navigable-entity-groups [groups]="impactedEntities"></lab-navigable-entity-groups>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-stroked-button color="warn" type="button" (click)="forceReset()"
+          [disabled]="containsValidatedExperiments || containsValidatedReports">
+    {{ 'biox.force_reset' | translate }}
+    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+  </button>
+</div>

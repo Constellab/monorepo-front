@@ -1,4 +1,4 @@
-<mat-table mat-table [dataSource]="datasource" multiTemplateDataRows>
+<mat-table mat-table [dataSource]="datasource" [multiTemplateDataRows]="true">
 
   <!-- Name -->
   <ng-container matColumnDef="name">
@@ -7,6 +7,9 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="g-cell-with-left-border g-column-width-2 name-cell"
               [style.border-left-color]="resource.experiment?.id | flStringToRgb">
+
+      <a *ngIf="!selectableRow" [routerLink]="resource | labDetailRoute"
+         [target]="rowLinkTarget" class="g-row-link"></a>
 
       <button *ngIf="resource.hasChildren; else leftPadding" mat-icon-button type="button"
               (click)="toggleResourceChildren(resource, $event)"
@@ -42,6 +45,7 @@
           {{ resource.experiment.title }}
         </fl-text-icon>
       </div>
+
     </mat-cell>
   </ng-container>
 
@@ -164,18 +168,9 @@
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
-  <ng-container *ngIf="selectableRow; else notSelectable">
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             (click)="rowClicked(row)"></mat-row>
-    <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expandable-row"></mat-row>
-  </ng-container>
-
-  <!-- Mode link -->
-  <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             [routerLink]="row | labDetailRoute"></mat-row>
-    <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expandable-row"></mat-row>
-  </ng-template>
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
+           (click)="rowClicked(row)"></mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expandable-row"></mat-row>
 
 </mat-table>
 

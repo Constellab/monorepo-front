@@ -18,3 +18,15 @@ mat-table{
   padding-top: 2px;
   padding-bottom: 2px;
 }
+
+.mat-row{
+  position: relative;
+}
+
+.mat-row-link{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}

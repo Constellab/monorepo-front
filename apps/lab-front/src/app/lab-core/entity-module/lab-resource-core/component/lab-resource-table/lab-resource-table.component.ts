@@ -27,10 +27,12 @@ export class LabResourceTableComponent implements OnInit {
 
   @Input() datasource: FlArrayObs<LabResource>;
 
-  @Input() columns: FlTableColumnStatic<LabResource>[];
+  @Input() columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'created', 'viewResource'];
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() selectableRow: boolean = false;
+
+  @Input() rowLinkTarget: '_self' | '_blank' = '_self';
 
   @Input() tagSelectable: boolean = true;
 

@@ -5,10 +5,24 @@ import {
 } from './component/lab-navigable-entity-groups/lab-navigable-entity-groups.component';
 import {LabCoreModule} from '../../lab-core.module';
 import {RouterLink} from '@angular/router';
+import {
+  LabNavigableEntityInlineComponent
+} from './component/lab-navigable-entity-inline/lab-navigable-entity-inline.component';
+import {
+  LabNavigableEntitiesTableComponent
+} from './component/lab-navigable-entities-table/lab-navigable-entities-table.component';
 
 @NgModule({
-  declarations: [LabNavigableEntityGroupsComponent],
-  exports: [LabNavigableEntityGroupsComponent],
+  declarations: [
+    LabNavigableEntityGroupsComponent,
+    LabNavigableEntityInlineComponent,
+    LabNavigableEntitiesTableComponent
+  ],
+  exports: [
+    LabNavigableEntityGroupsComponent,
+    LabNavigableEntityInlineComponent,
+    LabNavigableEntitiesTableComponent
+  ],
   imports: [
     CommonModule,
 

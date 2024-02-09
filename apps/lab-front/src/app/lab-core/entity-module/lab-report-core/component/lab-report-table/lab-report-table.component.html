@@ -3,17 +3,21 @@
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border">
-      <span> {{'title' | translate}}</span>
+      <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let report" class="g-cell-with-left-border"
               [style.border-left-color]="report.project?.id | flStringToRgb">
 
+      <!--    Invisible link  -->
+      <a *ngIf="!rowSelectable" [routerLink]="report | labDetailRoute"
+         [target]="rowLinkTarget" class="g-row-link"></a>
+
       <div>
-        <div>{{report.title}}</div>
+        <div>{{ report.title }}</div>
         <fl-text-icon class="g-text-tiny g-text-light" *ngIf="report.project"
                       gap="0">
-          <mat-icon flIcon="experiment" class="g-icon-tiny"></mat-icon>
-          {{report.project.title}}
+          <mat-icon flIcon="project" class="g-icon-tiny"></mat-icon>
+          {{ report.project.title }}
         </fl-text-icon>
       </div>
 
@@ -32,7 +36,7 @@
   <!-- Creation -->
   <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'creation_info' | translate}}</span>
+      <span>{{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
@@ -42,7 +46,7 @@
   <!-- Last Modification -->
   <ng-container matColumnDef="lastModification">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'last_modification_info' | translate}}</span>
+      <span>{{ 'last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
@@ -52,7 +56,7 @@
   <!-- Last Synchro -->
   <ng-container matColumnDef="lastSynchro">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'biox.last_sync' | translate}}</span>
+      <span>{{ 'biox.last_sync' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date *ngIf="row.isSynced" [user]="row.lastSyncBy" [date]="row.lastSyncAt"></fl-user-with-date>
@@ -73,15 +77,7 @@
 
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <!-- Mode selectable -->
-  <ng-container *ngIf="rowSelectable; else notSelectable">
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             (click)="rowClicked(row)"></mat-row>
-  </ng-container>
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
+           (click)="rowClicked(row)"></mat-row>
 
-  <!-- Mode link -->
-  <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             [routerLink]="row | labDetailRoute"></mat-row>
-  </ng-template>
 </mat-table>

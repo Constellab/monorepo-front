@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {LabExperiment, LabExperimentSimpleForm} from '../../../../../lab-core/model/entities/lab-experiment.entity';
+import {
+  LabExperiment,
+  LabExperimentSimpleForm,
+  LabResetExperimentResult
+} from '../../../../../lab-core/model/entities/lab-experiment.entity';
 import {
   LabExperimentFormDialogComponent,
   LabExperimentFormDialogInput
@@ -9,6 +13,7 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
+  FlSnackBarService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
@@ -48,6 +53,10 @@ import {
   LabManageEntityTagsDialogComponent,
   LabManageEntityTagsDialogInput
 } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
+import {
+  LabExperimentResetResultDialogComponent,
+  LabExperimentResetResultDialogInput
+} from '../lab-experiment-reset-result-dialog/lab-experiment-reset-result-dialog.component';
 
 /**
  * Header for the experiment detail page
@@ -73,7 +82,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
               private queueService: LabQueueService,
               private translateService: FlTranslateService,
               private processService: LabProcessService,
-              private protocolService: LabProtocolService) {
+              private protocolService: LabProtocolService,
+              private snackBarService: FlSnackBarService) {
   }
 
   ngOnInit(): void {
@@ -231,9 +241,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       title: 'biox.reset_experiment',
       content: 'biox.reset_experiment_confirmation',
       translateTitleAndContent: true,
-      observable: this.experimentService.resetExperiment(this.experimentState.currentExperiment.id),
-      successMessage: 'biox.experiment_reset',
-      translateMessage: true
+      observable: this.experimentService.resetExperiment(this.experimentState.currentExperiment.id)
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
@@ -241,11 +249,28 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     );
   }
 
-  private onExperimentReset(experiment?: LabExperiment): void {
-    if (experiment) {
-      this.experimentState.updateExperiment(experiment, true);
+  private onExperimentReset(expResetResult?: LabResetExperimentResult): void {
+    if (expResetResult) {
+      if (expResetResult.success) {
+        this.experimentState.updateExperiment(expResetResult.experiment, true);
+        this.snackBarService.openSuccessMessage({text: 'biox.experiment_reset', translateText: true});
+      } else {
+        const data: LabExperimentResetResultDialogInput = {
+          impactedEntities: expResetResult.impactedEntities,
+          title: {text: 'biox.reset_experiment', translateText: true},
+          forceReset: () => this.experimentService.resetExperiment(expResetResult.experiment.id, true)
+        };
+
+        this.dialogService.openMediumDialog(LabExperimentResetResultDialogComponent, {
+          data: data,
+          panelClass: 'g-dialog-main-background'
+        }).afterClosed().subscribe(
+          result => this.onExperimentReset(result)
+        );
+      }
     }
   }
+
 
   deleteExperiment(): void {
     const experiment = this.experimentState.currentExperiment;

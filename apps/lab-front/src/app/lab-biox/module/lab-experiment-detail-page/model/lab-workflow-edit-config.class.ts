@@ -29,6 +29,11 @@ import {LabProtocolUpdateDTO} from './lab-workflow-action.class';
 import {LabExperimentDetailPageState} from '../state/lab-experiment-detail-page.state';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {TdIOSpec} from '@monorepo/technical-doc';
+import {LabProcessResetResult} from '../../../../lab-core/model/entities/lab-navigable-entity.entity';
+import {
+  LabExperimentResetResultDialogComponent,
+  LabExperimentResetResultDialogInput
+} from '../component/lab-experiment-reset-result-dialog/lab-experiment-reset-result-dialog.component';
 
 export enum LabWorkflowAction {
   ADD_PROCESS = 'workflow-add-process',
@@ -94,7 +99,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
       });
   }
 
-  public addCommunityLiveTask(liveTaskVersionId: string, liveTaskTitle: string): void{
+  public addCommunityLiveTask(liveTaskVersionId: string, liveTaskTitle: string): void {
     const obs = this.saveCommunityLiveTask(this.workflow.currentLayer.id, liveTaskVersionId);
     this.addProcessAction(obs,
       {
@@ -251,13 +256,6 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
   public resetProcess(protocolId: string, processInstanceName: string): void {
-    const obs = this.protocolService.resetProcessInProtocol(protocolId, processInstanceName);
-    const action: FlPortalAction = {
-      type: LabWorkflowAction.RESET_PROCESS,
-      action: obs,
-      text: {text: 'biox.resetting_process', translateText: true},
-    };
-
     const dialogInfo: FlConfirmDialogInput = {
       title: 'biox.reset_process',
       content: 'biox.reset_process_confirmation',
@@ -267,7 +265,13 @@ export class LabWorkflowEditConfig implements OnDestroy {
     this.dialogService.openConfirmDialog(dialogInfo).afterClosed().subscribe(
       (result: FlConfirmDialogResult) => {
         if (result.choice) {
-          this.actionsService.addAction(action, true);
+          const obs = this.resetProcessTest3(protocolId, processInstanceName).subscribe();
+          // const action: FlPortalAction = {
+          //   type: LabWorkflowAction.RESET_PROCESS,
+          //   action: obs,
+          //   text: {text: 'biox.resetting_process', translateText: true},
+          // };
+          // this.actionsService.addAction(action, true);
         }
       });
   }
@@ -645,7 +649,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
         switchMap(
           (result: FlConfirmDialogResult) => {
             if (result.choice) {
-              return this.actionsService.addAction(action, true);
+              return this.callProcessAction(process, action);
             } else {
               // revert the action if the user refuse
               if (revertIfRefuse) {
@@ -666,6 +670,66 @@ export class LabWorkflowEditConfig implements OnDestroy {
     }
   }
 
+  private callProcessAction(process: LabProcess, mainAction: FlPortalAction): Observable<FlPortalActionResult | null> {
+
+    return this.resetProcessTest3(process.parentProtocolId, process.instanceName).pipe(
+      switchMap(
+        resetResult => {
+          if(resetResult == null || !resetResult.success) {
+            // TODO check what to do
+            return of(null);
+          }
+
+          // update protocol based on reset result
+          if (resetResult.protocolUpdate) {
+            this.refreshProtocolAndParent(resetResult.protocolUpdate);
+          }
+
+          return this.actionsService.addAction(mainAction, true);
+        }
+      )
+    );
+  }
+
+  private resetProcessTest3(protocolId: string, processInstanceName: string): Observable<LabProcessResetResult | null> {
+    const obs = this.protocolService.resetProcessInProtocol(protocolId, processInstanceName);
+    const resetAction: FlPortalAction = {
+      type: LabWorkflowAction.RESET_PROCESS,
+      action: obs,
+      text: {text: 'biox.resetting_process', translateText: true},
+    };
+
+
+    const resetResult = this.actionsService.addAction(resetAction, true);
+
+    return resetResult.pipe(
+      switchMap(
+        (result: FlPortalActionResult<LabProcessResetResult>) => {
+          if (result.status === 'success') {
+            // if the reset was a success
+            if (result.result.success) {
+              // call the main action because the reset was a success
+              return of(result.result);
+            } else {
+              // if the reset was not a success because it needs a force reset
+              const dialogInput: LabExperimentResetResultDialogInput = {
+                impactedEntities: result.result.impactedEntities,
+                title: {text: 'biox.reset_process', translateText: true},
+                forceReset: () => this.protocolService.resetProcessInProtocol(protocolId, processInstanceName, true)
+              };
+
+              return this.dialogService.openMediumDialog(LabExperimentResetResultDialogComponent,
+                {data: dialogInput, panelClass: 'g-dialog-main-background'}).afterClosed();
+            }
+          } else {
+            // TODO check what to do
+            return of(null);
+          }
+        }
+      )
+    );
+  }
+
   // call after an update action has been performed to check if the protocol has been updated
   private refreshProtocolAndParent(protocolUpdate: LabProtocolUpdateDTO): void {
     if (!(protocolUpdate instanceof LabProtocolUpdateDTO)) return;
@@ -677,7 +741,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
       this.experimentState.refreshProcess(protocolUpdate.process);
     }
 
-    if(protocolUpdate.subProtocols){
+    if (protocolUpdate.subProtocols) {
       this.experimentState.refreshProtocolsSuccess(protocolUpdate.subProtocols);
     }
 

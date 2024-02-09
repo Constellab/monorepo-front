@@ -8,6 +8,11 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment" class="g-cell-with-left-border"
               [style.border-left-color]="experiment.project?.id | flStringToRgb">
+
+      <!--    Invisible link  -->
+      <a *ngIf="!rowSelectable" [routerLink]="experiment | labDetailRoute"
+         [target]="rowLinkTarget" class="g-row-link"></a>
+
       <div>
         <div class="title">{{ experiment.title }}</div>
         <fl-text-icon class="g-text-tiny g-text-light" *ngIf="experiment.project"
@@ -89,17 +94,8 @@
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
-  <!-- Mode selectable -->
-  <ng-container *ngIf="rowSelectable; else notSelectable">
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             (click)="rowClicked(row)">
-    </mat-row>
-  </ng-container>
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
+           (click)="rowClicked(row)">
+  </mat-row>
 
-  <!-- Mode link -->
-  <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns:columns;" class="g-table-row-selectable"
-             [routerLink]="row | labDetailRoute">
-    </mat-row>
-  </ng-template>
 </mat-table>
