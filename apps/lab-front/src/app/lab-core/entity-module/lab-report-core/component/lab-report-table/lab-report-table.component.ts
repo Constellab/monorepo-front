@@ -17,6 +17,8 @@ export class LabReportTableComponent {
   // when true, the row become clickable and reportSelected event is trigger
   @Input() rowSelectable: boolean = false;
 
+  @Input() rowLinkTarget: '_self' | '_blank' = '_self';
+
   @Output() reportSelected: EventEmitter<LabReport> = new EventEmitter();
 
   @Output() reportUnlink: EventEmitter<LabReport> = new EventEmitter();

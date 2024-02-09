@@ -13,16 +13,20 @@ export class LabViewConfigTableComponent {
 
   @Input() datasource: FlArrayObs<LabViewConfig>;
 
-  @Input() columns: FlTableColumnStatic<LabViewConfig>[];
+  @Input() columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'resource', 'lastModifiedAt', 'preview'];
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() selectableRow: boolean = false;
+
+  @Input() rowLinkTarget: '_self' | '_blank' = '_self';
 
   @Input() tagSelectable: boolean = true;
 
   @Output() tagSelected: EventEmitter<FlTag> = new EventEmitter();
 
   @Output() viewConfigSelected: EventEmitter<LabViewConfig> = new EventEmitter();
+
+  labConstResourceViewTypeInfos = labConstResourceViewTypeInfos;
 
   constructor(private routerService: LabRouterService) {
   }
@@ -37,9 +41,8 @@ export class LabViewConfigTableComponent {
     this.datasource.updateItem(viewConfig);
   }
 
+
   navigateToViewConfigPage(viewConfig: LabViewConfig): void {
     this.routerService.navigateToViewConfig(viewConfig.resource.id, viewConfig.id);
   }
-
-  protected readonly labConstResourceViewTypeInfos = labConstResourceViewTypeInfos;
 }

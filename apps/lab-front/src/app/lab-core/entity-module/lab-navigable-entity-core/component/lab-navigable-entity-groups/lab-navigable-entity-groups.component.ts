@@ -9,5 +9,4 @@ import {LabNavigableEntityGrouped} from '../../../../model/entities/lab-navigabl
 export class LabNavigableEntityGroupsComponent {
 
   @Input() groups: LabNavigableEntityGrouped[];
-
 }

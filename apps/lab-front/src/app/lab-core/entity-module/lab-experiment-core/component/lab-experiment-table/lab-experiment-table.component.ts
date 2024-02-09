@@ -17,6 +17,8 @@ export class LabExperimentTableComponent {
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() rowSelectable: boolean = false;
 
+  @Input() rowLinkTarget: '_self' | '_blank' = '_self';
+
   @Output() experimentSelected: EventEmitter<LabExperiment> = new EventEmitter();
 
   @Output() tagSelected: EventEmitter<FlTag> = new EventEmitter();

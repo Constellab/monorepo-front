@@ -11,6 +11,7 @@ import {
   LabExperiment,
   LabExperimentDatasource,
   LabExperimentSimpleForm,
+  LabResetExperimentResult,
   LabRunningExperimentInfo
 } from '../model/entities/lab-experiment.entity';
 import {ClHelpService, ClPageI} from '@monorepo/core-lib';
@@ -93,9 +94,8 @@ export class LabExperimentService {
     return this.apiService.post(`${this.route}/${experimentId}/stop`, null, LabExperiment);
   }
 
-  // stop (kill) an experiment
-  public resetExperiment(experimentId: string): Observable<LabExperiment> {
-    return this.apiService.put(`${this.route}/${experimentId}/reset`, null, LabExperiment);
+  public resetExperiment(experimentId: string, force: boolean = false): Observable<LabResetExperimentResult> {
+    return this.apiService.put(`${this.route}/${experimentId}/reset/${force}`, null, LabResetExperimentResult);
   }
 
   public validateExperiment(experimentId: string, projectId: string): Observable<LabExperiment> {
