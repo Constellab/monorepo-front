@@ -5,9 +5,9 @@ import {LabAppComponent} from './lab-app.component';
 import {LabMainModule} from './lab-main/lab-main.module';
 import {LabCoreModule} from './lab-core/lab-core.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {
-  FL_CAPTCHA_MODULE_CONFIG,
+  FL_CAPTCHA_MODULE_CONFIG, FL_TRANSLATE_MODULE_CONFIG,
   FlApiModule,
   FlAuthModule,
   FlCaptchaModule,
@@ -49,6 +49,8 @@ import {
 } from './lab-core/entity-module/lab-report-template-core/lab-report-template-core.module';
 import {LabCredentialsCoreModule} from './lab-core/entity-module/lab-credentials-core/lab-credentials-core.module';
 import {LabRichTextCoreModule} from './lab-core/entity-module/lab-rich-text-core/lab-rich-text-core.module';
+import {TranslateLoader} from '@ngx-translate/core';
+import {TranslationLoaderFactory} from '../../../ha-hub/src/app/ha-app.module';
 
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
@@ -124,6 +126,11 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     },
     {provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true},
     {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha},
+    {
+      provide: TranslateLoader,
+      useFactory: TranslationLoaderFactory,
+      deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
+    }
   ],
   bootstrap: [LabAppComponent],
 })

@@ -1,25 +1,14 @@
-import {APP_INITIALIZER, ModuleWithProviders, NgModule, TransferState} from '@angular/core';
+import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClient} from '@angular/common/http';
-import {FlTranslationLoader} from './fl-translation-loader';
-import {MissingTranslationHandler, TranslateLoader, TranslateModule, TranslatePipe} from '@ngx-translate/core';
+import {MissingTranslationHandler, TranslateModule, TranslatePipe} from '@ngx-translate/core';
 import {FlMissingTranslationLogService} from './service/fl-missing-translation-log.service';
 import {FlTranslateService} from './service/fl-translate.service';
 import {FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig} from './model/fl-translate-module-config';
 import {CookieService} from 'ngx-cookie-service';
 import {FlTranslatableTextPipe} from './pipe/fl-translatable-text.pipe';
 
-import {TranslateServerLoader} from './fl-translation-server-loader';
-
 // AoT requires an exported function for factories
 // load the translations
-export function TranslationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
-  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
-}
-
-export function FlTranslationServerLoader(transferState: TransferState, config: FlTranslateModuleConfig): TranslateServerLoader {
-  return new TranslateServerLoader(transferState, config.filenames, config.filePrefix, config.fileSuffix);
-}
 
 // init the translation
 export function initTranslateService(service: FlTranslateService): () => void {
@@ -77,15 +66,6 @@ export class FlTranslateModule {
    */
   public static forRoot2(): ModuleWithProviders<TranslateModule> {
     return TranslateModule.forRoot({
-      loader: (typeof window !== 'undefined' && window.document) ? {
-        provide: TranslateLoader,
-        useFactory: TranslationLoaderFactory,
-        deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
-      } : {
-        provide: TranslateLoader,
-        useFactory: FlTranslationServerLoader,
-        deps: [TransferState, FL_TRANSLATE_MODULE_CONFIG]
-      },
       missingTranslationHandler: {
         provide: MissingTranslationHandler,
         useExisting: FlMissingTranslationLogService

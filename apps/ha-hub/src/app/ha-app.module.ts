@@ -3,7 +3,7 @@ import {APP_INITIALIZER, Injector, NgModule, TransferState} from '@angular/core'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HaAppComponent} from './ha-app.component';
 import {
-  FL_CAPTCHA_MODULE_CONFIG,
+  FL_CAPTCHA_MODULE_CONFIG, FL_TRANSLATE_MODULE_CONFIG,
   FlApiModule,
   FlAuthModule,
   FlCaptchaModule,
@@ -17,13 +17,13 @@ import {
   flSetRootInjector,
   FlSnackBarModule,
   FlThemeService,
-  FlTranslateModule,
+  FlTranslateModule, FlTranslateModuleConfig, FlTranslationLoader,
   FlUserModule
 } from '@monorepo/front-core-lib';
 import {HaApiServiceConfig} from './ha-core/ha-model/ha-config/ha-api-module.config';
 import {HaApiErrorService} from './ha-core/ha-model/ha-config/ha-api-error.service';
 import {ClSupportedLanguage} from '@monorepo/core-lib';
-import {HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, provideHttpClient, withFetch} from '@angular/common/http';
 import {HaAppRoutingModule} from './ha-app-routing-module';
 import {HaCoreModule} from './ha-core/ha-core.module';
 import {HaAuthService} from './ha-core/ha-service/ha-auth.service';
@@ -35,6 +35,7 @@ import {HaMainModule} from './ha-main/ha-main.module';
 import {HaEnvironmentHelper} from './ha-core/ha-model/ha-config/ha-environment.helper';
 import {HaHttpInterceptorSsrService} from './ha-core/ha-service/ha-http-interceptor-ssr.service';
 import {rvDefaultViewTypeInfos, RvResourceViewModule} from '@monorepo/resource-view';
+import {TranslateLoader} from '@ngx-translate/core';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -49,6 +50,10 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     siteKey: HaEnvironmentHelper.getRecaptchaSiteKey(),
     isLocal: !HaEnvironmentHelper.isProduction()
   };
+}
+
+export function TranslationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
+  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
 }
 
 @NgModule({
@@ -117,7 +122,12 @@ function configureCaptcha(): FlCaptchaModuleConfig {
       multi: true,
     },
     {provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true},
-    {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha}
+    {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha},
+    {
+      provide: TranslateLoader,
+      useFactory: TranslationLoaderFactory,
+      deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
+    }
   ],
   bootstrap: [HaAppComponent],
 })
