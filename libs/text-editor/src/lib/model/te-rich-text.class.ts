@@ -32,8 +32,19 @@ export class TeRichText {
 
   public static getFirstParagraphText(content: TeRichTextContent): string {
     if (TeRichText.isEmpty(content)) return null;
-    const paragraph = content.blocks.find(block => block.type === TeBlockType.PARAGRAPH);
-    if (paragraph == null) return null;
-    return paragraph.data.text;
+    let result = '';
+    const paragraphBlocks = content.blocks.filter(block => block.type === TeBlockType.PARAGRAPH);
+    if (paragraphBlocks.length === 0) return null;
+    for (const block of paragraphBlocks) {
+
+      if (block.data && block.data.text && block.data.text.trim() !== ''){
+        if (result.length + block.data.text.trim().length > 200){
+          result += block.data.text.trim().substring(0, 200 - result.length) + '...';
+          break;
+        }
+        result += block.data.text.trim() + ' ';
+      }
+    }
+    return result;
   }
 }
