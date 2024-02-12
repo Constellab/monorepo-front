@@ -30,7 +30,7 @@ export class TeRichText {
     });
   }
 
-  public static getFirstParagraphText(content: TeRichTextContent): string {
+  public static getFirstParagraphsText(content: TeRichTextContent): string {
     if (TeRichText.isEmpty(content)) return null;
     let result = '';
     const paragraphBlocks = content.blocks.filter(block => block.type === TeBlockType.PARAGRAPH);
@@ -45,6 +45,6 @@ export class TeRichText {
         result += block.data.text.trim() + ' ';
       }
     }
-    return result;
+    return result.replace(/<[^>]*>/g, '');
   }
 }
