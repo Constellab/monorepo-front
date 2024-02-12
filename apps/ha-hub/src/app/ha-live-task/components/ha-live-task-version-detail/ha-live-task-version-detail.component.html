@@ -5,9 +5,9 @@
 <div class="spacing-7-v2" *ngIf="liveTaskVersion && (liveTaskVersion.versionInfos || isEditable)">
   <ha-card [background]="HaCardBackground.main" [border]="true">
     <div class="card-title-v2 card-header spacing-4-v2">
-      <div>
+      <h5>
         {{'info_about_this_version' | translate}}
-      </div>
+      </h5>
       <button mat-stroked-button color="primary"  class="g-button-small"
               *ngIf="isCreator && isEditable" (click)="onVersionInfosEditorButtonClick()">
         <fl-text-icon [iconPosition]="'end'">
@@ -28,22 +28,21 @@
   <ha-card>
     <div class="io-div">
       <div class="i-div" *ngIf="liveTaskVersion?.inputSpecs?.specs | flIsNotEmpty">
-        <div class="card-title-v2 spacing-6-v2">
+        <h5 class="spacing-6-v2">
           {{'input' | translate}}
-        </div>
+        </h5>
         <div *ngFor="let spec of liveTaskVersion?.inputSpecs?.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.inputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
-          <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.inputSpecs?.specs[spec]">
-          </ha-live-task-version-detail-io>
+<!--          <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.inputSpecs?.specs[spec]">-->
+<!--          </ha-live-task-version-detail-io>-->
+          <td-doc-io [ioSpec]="liveTaskVersion?.inputSpecs?.specs[spec]"></td-doc-io>
         </div>
-
       </div>
       <div class="o-div" *ngIf="liveTaskVersion?.outputSpecs?.specs | flIsNotEmpty">
-        <div class="card-title-v2 spacing-6-v2">
+        <h5 class="spacing-6-v2">
           {{'output' | translate}}
-        </div>
+        </h5>
         <div *ngFor="let spec of liveTaskVersion?.outputSpecs?.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.outputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
-          <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.outputSpecs?.specs[spec]">
-          </ha-live-task-version-detail-io>
+          <td-doc-io [ioSpec]="liveTaskVersion?.outputSpecs?.specs[spec]"></td-doc-io>
         </div>
       </div>
     </div>
@@ -52,9 +51,9 @@
 
 <div class="spacing-8-v2" *ngIf="liveTaskVersion?.configSpecs | flIsNotEmpty">
   <ha-card>
-    <div class="card-title-v2 spacing-6-v2">
+    <h5 class="card-title-v2 spacing-6-v2">
       {{'configuration' | translate}}
-    </div>
+    </h5>
     <td-config [configSpecs]="liveTaskVersion?.configSpecs"></td-config>
   </ha-card>
 </div>
@@ -64,9 +63,9 @@
 <div class="spacing-6-v2" *ngIf="((isEditable && isCreator) || liveTaskVersion?.environment | flIsNotEmpty) && liveTaskVersion?.type != 'PYTHON'">
   <ha-card>
     <div class="card-title-v2 card-header spacing-4-v2">
-      <div>
+      <h5>
         {{'environment_file' | translate}}
-      </div>
+      </h5>
       <div>
         <button mat-stroked-button color="primary" (click)="onCopy('environment_file')"  class="g-button-small">
           <fl-text-icon [iconPosition]="'end'">
@@ -83,9 +82,9 @@
 <div class="spacing-6-v2">
   <ha-card>
     <div class="card-title-v2 card-header spacing-4-v2">
-      <div>
+      <h5>
         {{'code' | translate}}
-      </div>
+      </h5>
       <div>
         <button mat-stroked-button color="primary" (click)="onCopy('code')" class="g-button-small">
           <fl-text-icon [iconPosition]="'end'">

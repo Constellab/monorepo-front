@@ -13,7 +13,6 @@
             <ha-card [background]="'warn'">
               {{'live_task_with_no_published_version' | translate}}
             </ha-card>
-
           </div>
         </a>
 
@@ -24,11 +23,11 @@
         <div class="live-task-dates-div date-info-div">
           <div class="live-task-date-div">
             <p class="spacing-4-v2">{{'date_of_creation' | translate}} :</p>
-            <p><b>{{liveTask.createdAt | flDate: 'dd/MM/yyyy'}}</b></p>
+            <b><fl-from-now [date]="liveTask.createdAt"></fl-from-now></b>
           </div>
           <div class="live-task-date-div">
             <p class="spacing-4-v2">{{'last_modification' | translate}} :</p>
-            <p><b>{{liveTask.lastModifiedAt | flDate: 'dd/MM/yyyy'}}</b></p>
+            <b><fl-from-now [date]="liveTask.lastModifiedAt"></fl-from-now></b>
           </div>
         </div>
       </div>
@@ -41,24 +40,27 @@
                   <div class="spacing-4-v2"><b>{{'version' | translate}} :</b></div>
                   <div *ngIf="liveTask.latestPublishVersion; else notPublishedDiv">{{'version' | translate}} {{liveTask.latestPublishVersion}}</div>
                 </div>
-                <div class="task-status-info-div">
-                  <div class="spacing-4-v2">{{'task_status' | translate}} :</div>
-                  <button mat-stroked-button color="primary" class="g-button-small">
-                    {{'copy_link' | translate}}
-                  </button>
-                </div>
-              </div>
-              <div class="published-bt-div">
-                <button mat-stroked-button color="primary" class="published-bt g-button-small">
-                  {{'published' | translate}}
-                </button>
+                  @if(false){
+                    <button mat-stroked-button color="primary" class="g-button-small">
+                      {{'copy_link' | translate}}
+                    </button>
+                  }
               </div>
             </div>
-            <div class="task-type-div spacing-6-v2">
-              <div class="spacing-4-v2">{{'task_type' | translate}} :</div>
-              <button mat-stroked-button class="g-button-small" [color]="liveTask.space == null ? 'accent' : 'warn'">
-                {{liveTask.space == null ? ('public' | translate) : liveTask.space.name}}
-              </button>
+            <div class="task-infos-div">
+              <div class="task-type-div spacing-6-v2">
+                <div class="spacing-4-v2">{{'task_visibility' | translate}} :</div>
+                <button mat-stroked-button class="g-button-small" [color]="liveTask.space == null ? 'accent' : 'warn'">
+                  {{liveTask.space == null ? ('public' | translate) : liveTask.space.name}}
+                </button>
+              </div>
+<!--              TODO: Live task type-->
+<!--              <div class="task-type-div spacing-6-v2">-->
+<!--                <div class="spacing-4-v2">{{'task_type' | translate}} :</div>-->
+<!--                <button mat-stroked-button class="g-button-small" color="warn">-->
+<!--                  {{liveTask.space == null ? ('public' | translate) : liveTask.space.name}}-->
+<!--                </button>-->
+<!--              </div>-->
             </div>
             <fl-async-section [object]="brickDependencies$" [emptyText]="''">
               <ng-container *flSectionBody="brickDependencies$ as brickDependencies">

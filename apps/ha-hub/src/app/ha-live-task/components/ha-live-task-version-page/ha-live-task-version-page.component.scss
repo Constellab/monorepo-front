@@ -44,6 +44,12 @@
   border: none;
 }
 
+.publish-lt-div{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
 .description-editor-active:hover, .description-editor-active:active, .description-editor-active:focus{
   border: var(--hover-color) 1px solid;
 }

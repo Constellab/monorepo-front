@@ -15,9 +15,6 @@ import {FlCodeEditorModule, FlInputFileModule, FlInputSearchModule} from '@monor
 import {
   HaLiveTaskVersionPageComponent
 } from './components/ha-live-task-version-page/ha-live-task-version-page.component';
-import {
-  HaLiveTaskVersionDetailIoComponent
-} from './components/ha-live-task-version-detail-io/ha-live-task-version-detail-io.component';
 import {HaLiveTaskOverviewComponent} from './components/ha-live-task-overview/ha-live-task-overview.component';
 import {HaLiveTaskCommentsComponent} from './components/ha-live-task-comments/ha-live-task-comments.component';
 import {HaLiveTaskVersionsComponent} from './components/ha-live-task-versions/ha-live-task-versions.component';
@@ -33,7 +30,6 @@ import {MatRippleModule} from "@angular/material/core";
     HaLiveTaskVersionDetailComponent,
     HaLiveTaskPageComponent,
     HaLiveTaskVersionPageComponent,
-    HaLiveTaskVersionDetailIoComponent,
     HaLiveTaskOverviewComponent,
     HaLiveTaskCommentsComponent,
     HaLiveTaskVersionsComponent,

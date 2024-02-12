@@ -11,6 +11,13 @@
 .live-task-dates-div{
   display: flex;
   flex-direction: row;
+  gap: 12px;
+}
+
+.task-infos-div{
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
 }
 
 .live-task-date-div:last-child{
