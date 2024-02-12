@@ -31,7 +31,7 @@ export class LtLiveTaskListItemComponent implements AfterViewInit{
   }
 
   getLiveTaskDescription(): string {
-    return TeRichText.getFirstParagraphText(this.liveTask.description);
+    return TeRichText.getFirstParagraphsText(this.liveTask.description);
   }
 
 }

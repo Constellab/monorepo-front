@@ -40,15 +40,14 @@
       <a class="story" *ngFor="let story of stories.connect() | async" [routerLink]="story | haDetailRoute">
         <div class="story-content">
           <h5>{{story.title}}</h5>
-          <p class="small-text"
-             flHide.lt-sm>{{story.firstParagraph.length >= 100 ? (story.firstParagraph + '...') : story.firstParagraph}}</p>
+          <p class="small-text">{{story.firstParagraph}}</p>
           <p class="small-text user-info">
             <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
             <span class="g-text-small date-info">
               <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
             </span>
           </p>
-          <mat-chip-listbox flHide.lt-sm>
+          <mat-chip-listbox>
             <mat-chip-option *ngFor="let storyTopic of story.getTopics()">
               {{storyTopic.name}}
             </mat-chip-option>
