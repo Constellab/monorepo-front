@@ -3,7 +3,7 @@
     <mat-icon>cached</mat-icon>
     <div>
       {{'lab_free_trial_in_progress' | translate: {
-      expirationDate: (freeTrialDto.freeTrial.expirationDate | flDate:'DATETIME_MED'),
+      expirationDate: (freeTrialDto.freeTrial.expirationDate | flDate:'DATE_TIME_WITH_SECONDS'),
       remainingHours: (freeTrialDto.remainingMilliseconds | flDuration:2: 'minutes')
     } }}
 
@@ -13,7 +13,7 @@
 
   <fl-text-icon *ngSwitchCase="'EXPIRED'">
     <mat-icon>clear</mat-icon>
-    {{'lab_free_trial_expired' | translate: {date: (freeTrialDto.deletionDate | flDate:'DATETIME_MED')} }}
+    {{'lab_free_trial_expired' | translate: {date: (freeTrialDto.deletionDate | flDate:'DATE_TIME_WITH_SECONDS')} }}
   </fl-text-icon>
 
   <fl-text-icon *ngSwitchCase="'EXPIRED_AND_DELETED'">
@@ -32,7 +32,7 @@
     <mat-icon>calendar_today</mat-icon>
     <fl-key-value>
       <fl-key>{{'lab_free_trial_start_date' | translate}}</fl-key>
-      {{freeTrialDto.freeTrial.createdAt | flDate:'DATETIME_MED'}}
+      {{freeTrialDto.freeTrial.createdAt | flDate:'DATE_TIME_WITH_SECONDS'}}
     </fl-key-value>
   </fl-text-icon>
 

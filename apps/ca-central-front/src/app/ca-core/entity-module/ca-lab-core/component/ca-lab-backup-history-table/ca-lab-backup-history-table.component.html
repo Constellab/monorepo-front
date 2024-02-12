@@ -7,8 +7,8 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
       <fl-status-chip [status]="row.status" size="small"></fl-status-chip>
-<!--      <fl-date-range [startingDate]="row.startedAt" [endingDate]="row.endedAt" dateFormat="DATETIME_MED"></fl-date-range>-->
-      {{row.startedAt | flDate: 'DATETIME_MED'}} ({{getDuration(row) | flDuration}})
+<!--      <fl-date-range [startingDate]="row.startedAt" [endingDate]="row.endedAt" dateFormat="DATE_TIME_WITH_SECONDS"></fl-date-range>-->
+      {{row.startedAt | flDate: 'DATE_TIME_WITH_SECONDS'}} ({{getDuration(row) | flDuration}})
     </mat-cell>
   </ng-container>
 
