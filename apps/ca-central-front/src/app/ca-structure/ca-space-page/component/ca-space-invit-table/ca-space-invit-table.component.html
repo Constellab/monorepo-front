@@ -27,7 +27,7 @@
       {{'invitation_valid_until' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div [matTooltip]="row.validUntil | flDate:'DATETIME_MED'"
+      <div [matTooltip]="row.validUntil | flDate:'DATE_TIME_WITH_SECONDS'"
            [ngClass]="{'g-warn-text' : !row.isValid()}">
         {{row.validUntil | flDate}}
       </div>
@@ -40,7 +40,7 @@
       {{'invitation_sent_the' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div [matTooltip]="row.createdAt | flDate:'DATETIME_MED'">
+      <div [matTooltip]="row.createdAt | flDate:'DATE_TIME'">
         {{row.createdAt | flDate}}
       </div>
     </mat-cell>
