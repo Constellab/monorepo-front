@@ -11,22 +11,32 @@
         <h1 class="h1-v2 spacing-6-v2">{{liveTaskVersion?.liveTask.title}}</h1>
         <h2 class="h2-v2 spacing-6-v2">{{'version' | translate}} {{liveTaskVersion?.version}}</h2>
         <div class="spacing-5-v2" *ngIf="liveTaskVersion?.liveTask.createdBy">
-          <div>{{'created_by' | translate}} :</div>
-          <fl-user-inline [user]="liveTaskVersion.liveTask.createdBy" [showName]="true" [portalOnHover]="false"></fl-user-inline>
+          <fl-user-with-date [user]="liveTaskVersion.liveTask.createdBy"
+                             [date]="liveTaskVersion.createdAt"></fl-user-with-date>
         </div>
-        <div>
-          <div>{{'date_of_creation' | translate}} : </div>
-          {{liveTaskVersion.createdAt | flDate: 'dd/MM/yyyy'}}
-        </div>
+
       </div>
       <div class="live-task-info-card">
         <ha-card>
           <div class="live-task-info-card-bt-div">
-            <button mat-stroked-button color="primary" class="spacing-6-v2" *ngIf="liveTaskVersion.versionState == 'DRAFT' && isCreator" (click)="publishLiveTaskVersion()">
-              {{ 'publish' | translate }}
-            </button>
-            <button mat-stroked-button color="primary" class="spacing-6-v2 copy-link-bt">
-              {{ 'copy_link' | translate }}
+            @if(liveTaskVersion.versionState == 'DRAFT' && isCreator){
+              <div class="publish-lt-div">
+                <button mat-stroked-button color="primary" class="spacing-6-v2" (click)="publishLiveTaskVersion()">
+                  {{ 'publish' | translate }}
+                </button>
+                <span class="g-text-small" style="color: var(--warn-color)">{{'warn_lt_version_not_published' | translate}}</span>
+              </div>
+            }
+            @if (false) {
+              <button mat-stroked-button color="primary" class="spacing-6-v2 copy-link-bt">
+                {{ 'copy_link' | translate }}
+              </button>
+            }
+          </div>
+          <div class="task-type-div spacing-6-v2">
+            <div class="spacing-4-v2">{{ 'task_type' | translate }} :</div>
+            <button mat-stroked-button class="g-button-small" color="warn">
+              {{ liveTaskVersion.type }}
             </button>
           </div>
           <fl-async-section [object]="brickDependencies$" [emptyText]="''">
@@ -41,7 +51,6 @@
               </div>
             </ng-container>
           </fl-async-section>
-
         </ha-card>
       </div>
     </div>

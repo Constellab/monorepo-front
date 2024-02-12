@@ -1,34 +1,41 @@
-<div class="live-task-card" #mainCard >
+<div class="live-task-card" #mainCard>
   <div class="card-left-info">
     <h2 class="h2-v2 spacing-5-v2">{{ liveTask.title }}</h2>
-    <fl-key-value class="spacing-5-v2">
-      <fl-key>
-        {{ 'ltLiveTask.created_by' | translate }}
-      </fl-key>
-      <fl-user-inline [portalOnHover]="false" [showName]="true" [user]="liveTask.createdBy"></fl-user-inline>
-    </fl-key-value>
-    <div class="live-task-dates-div date-info-div">
-      <div class="live-task-date-div">
-        <p class="spacing-4-v2">{{ 'ltLiveTask.date_of_creation' | translate }} :</p>
-        <p><b>{{ liveTask.createdAt | flDate: 'dd/MM/yyyy' }}</b></p>
-      </div>
-      <div class="live-task-date-div">
-        <p class="spacing-4-v2">{{ 'ltLiveTask.last_modification' | translate }} :</p>
-        <p><b>{{ liveTask.lastModifiedAt | flDate: 'dd/MM/yyyy' }}</b></p>
-      </div>
-    </div>
+    <p class="small-text user-date-info">
+      <fl-user-inline [user]="liveTask.createdBy" [portalOnHover]="false"></fl-user-inline>
+      <span class="g-text-small date-info">
+          <fl-from-now [date]="liveTask.lastModifiedAt"></fl-from-now>
+      </span>
+    </p>
+    <p class="lt-description g-text-small">
+      {{ getLiveTaskDescription() }}
+    </p>
   </div>
-  <div class="live-task-card-inner" #innerCard>
+  <div class="live-task-card-inner">
     <div>
-      <div class="spacing-4-v2">{{ 'ltLiveTask.version' | translate }} :</div>
-      <div class="spacing-6-v2" *ngIf="liveTask.latestPublishVersion">
-        <b>{{ 'ltLiveTask.version' | translate }} {{ liveTask.latestPublishVersion }}</b></div>
-      <div class="spacing-4-v2">{{ 'ltLiveTask.task_type' | translate }} :</div>
-      <div class="spacing-6-v2">
-        <button mat-stroked-button class="g-button-small"
-                [color]="liveTask.space == null ? 'accent' : 'warn'">{{ liveTask.space == null ? ('ltLiveTask.public' | translate) : liveTask.space.name }}
-        </button>
+      <p class="spacing-3-v2">{{ 'ltLiveTask.version' | translate }} :</p>
+      <p class="spacing-4-v2" *ngIf="liveTask.latestPublishVersion; else notPublishedYetDiv"><b>{{ 'ltLiveTask.version' | translate }} {{ liveTask.latestPublishVersion }}</b></p>
+      <div class="lt-infos-div">
+        <div>
+          <p class="spacing-3-v2">{{ 'ltLiveTask.task_visibility' | translate }} :</p>
+          <button mat-stroked-button class="g-button-small spacing-4-v2"
+                  [color]="liveTask.space == null ? 'accent' : 'warn'">{{ liveTask.space == null ? ('ltLiveTask.public' | translate) : liveTask.space.name }}
+          </button>
+        </div>
+<!--        <div>-->
+<!--          <p class="spacing-3-v2">{{ 'ltLiveTask.task_type' | translate }} :</p>-->
+<!--          <button mat-stroked-button class="g-button-small spacing-4-v2"-->
+<!--                  [color]="'warn'">{{ liveTask }}-->
+<!--          </button>-->
+<!--        </div>-->
       </div>
+
     </div>
   </div>
 </div>
+
+<ng-template #notPublishedYetDiv>
+  <div style="color: var(--warn-color)" class="g-text-small">
+    <b>{{ 'not_published' | translate }}</b>
+  </div>
+</ng-template>

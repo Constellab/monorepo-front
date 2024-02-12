@@ -33,9 +33,19 @@
 }
 
 .live-task-card-inner{
-  width: 372px;
-  border-radius: 8px;
-  padding: 8px;
+  width: 35%;
+  padding-left: 8px;
+  border-left: solid 1px var(--hover-color);
+}
+
+.lt-description{
+  margin-top: 8px;
+}
+
+.lt-infos-div{
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
 }
 
 .date-info-div{
@@ -50,6 +60,10 @@
   margin-bottom: 16px;
 }
 
+.spacing-3-v2{
+  margin-bottom: 6px;
+}
+
 .spacing-4-v2{
   margin-bottom: 8px;
 }
@@ -58,10 +72,18 @@
   margin-bottom: 12px;
 }
 
+.user-date-info{
+  display: flex;
+  align-items: center;
+}
+
+.date-info{
+  margin-left: 4px;
+  padding-left: 4px;
+  border-left: 1px solid var(--light-color);
+}
+
 @media (max-width: 672px){
-  .live-task-card-inner{
-    width: 241px;
-  }
 
   .live-task-dates-div{
     flex-direction: column;

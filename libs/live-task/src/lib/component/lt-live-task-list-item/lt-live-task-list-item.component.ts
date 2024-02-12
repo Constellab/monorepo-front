@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {LtLiveTask} from '../../model/lt-live-task.class';
+import {TeRichText} from '@monorepo/text-editor';
 
 export enum LtLiveTaskListItemColor {
   MAIN = 'main',
@@ -20,16 +21,17 @@ export class LtLiveTaskListItemComponent implements AfterViewInit{
 
   @ViewChild('mainCard') mainCardDiv: ElementRef;
 
-  @ViewChild('innerCard') innerCardDiv: ElementRef;
 
   ngAfterViewInit() {
     if (this.backgroundColor === LtLiveTaskListItemColor.MAIN) {
       this.mainCardDiv.nativeElement.classList.add('main-bg');
-      this.innerCardDiv.nativeElement.classList.add('card-bg');
     } else {
       this.mainCardDiv.nativeElement.classList.add('card-bg');
-      this.innerCardDiv.nativeElement.classList.add('main-bg');
     }
+  }
+
+  getLiveTaskDescription(): string {
+    return TeRichText.getFirstParagraphText(this.liveTask.description);
   }
 
 }

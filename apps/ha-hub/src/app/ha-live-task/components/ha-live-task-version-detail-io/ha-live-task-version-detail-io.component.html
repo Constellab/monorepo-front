@@ -1,9 +1,0 @@
-<div class="io-live-task-div">
-  <p class="spacing-4-v2" *ngIf="ioSpec?.human_name">{{ioSpec?.human_name}}</p>
-  <div class="code1-v2 spacing-4-v2" *ngIf="ioSpec?.short_description">{{ioSpec?.short_description}}</div>
-  <button mat-stroked-button type="button">
-    <div class="g-layout-row-wrap">
-      <td-io-resource *ngFor="let resourceType of ioSpec?.resource_types" [resource]="resourceType"></td-io-resource>
-    </div>
-  </button>
-</div>

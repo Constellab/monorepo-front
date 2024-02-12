@@ -29,4 +29,11 @@ export class TeRichText {
         ClHelpService.isNullOrEmpty(block.data.text.trim());
     });
   }
+
+  public static getFirstParagraphText(content: TeRichTextContent): string {
+    if (TeRichText.isEmpty(content)) return null;
+    const paragraph = content.blocks.find(block => block.type === TeBlockType.PARAGRAPH);
+    if (paragraph == null) return null;
+    return paragraph.data.text;
+  }
 }
