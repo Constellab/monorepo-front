@@ -14,6 +14,7 @@ import {
 import {TeConfig} from '../../model/te-config.class';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
 import {Observable} from 'rxjs';
+import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
 
 
 @Component({
@@ -115,7 +116,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   private async initEditor(module: any): Promise<void> {
-    this.editor = new module.default({
+    const config: EditorConfig = {
       placeholder: this.placeholder,
       holder: this.editorContainer.nativeElement,
       data: this.value,
@@ -125,7 +126,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       tools: this.config.getTools(this.envInjector, this.applicationRef),
       onChange: () => this.onTextEditorChange(),
       defaultBlock: this.config.getDefaultBlock(),
-    })
+      tunes: this.config.getTunes()
+    };
+    this.editor = new module.default(config);
   }
 
   private async onTextEditorChange(): Promise<void> {
@@ -136,7 +139,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.editor){
+    if (this.editor) {
       this.editor.destroy();
     }
   }

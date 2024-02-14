@@ -1,6 +1,6 @@
 import Header from '@editorjs/header';
 import {ClStringHelper} from '@monorepo/core-lib';
-import {ToolboxConfig, TunesMenuConfig, TunesMenuConfigItem} from '@editorjs/editorjs/types/tools/tool-settings';
+import {ToolboxConfig, TunesMenuConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {FlClipboardService, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
@@ -84,25 +84,54 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
   }
 
   renderSettings(): HTMLElement | TunesMenuConfig {
-    const settings: TunesMenuConfigItem[] = super.renderSettings() as TunesMenuConfigItem[];
-    if (!this.config.showCopyLinkButton) return settings;
+    // const settings: TunesMenuConfigItem[] = super.renderSettings() as TunesMenuConfigItem[];
+    // if (!this.config.showCopyLinkButton) return settings;
     const translateService = flRootInjector.get(FlTranslateService);
     const clipboardService = flRootInjector.get(FlClipboardService);
-    return [{
-      icon: TeHelper.getMatIconElement('content_copy'),
-      title: translateService.translate('teTextEditor.copy_link'),
-      onActivate: () => {
 
-        if (window) {
-          // copy url of the header with the anchor
-          const url = window.location.href;
-          const id = this.node.getAttribute('id');
-          const anchor = id ? `#${id}` : '';
-          clipboardService.copy(`${url}${anchor}`,
-            {text: 'teTextEditor.link_copied', translateText: true});
-        }
+    // using code from original header : https://github.com/editor-js/header/blob/master/src/index.js
+    const config: TunesMenuConfig = [
+      {
+        icon: 'H1',
+        title: translateService.translate('teTextEditor.header_1'),
+        onActivate: () => super.setLevel(2),
+        closeOnActivate: true,
+        isActive: super.currentLevel.number === 2,
       },
-    }, ...settings
+      {
+        icon: 'H2',
+        title: translateService.translate('teTextEditor.header_2'),
+        onActivate: () => super.setLevel(3),
+        closeOnActivate: true,
+        isActive: super.currentLevel.number === 3,
+      },
+      {
+        icon: 'H3',
+        title: translateService.translate('teTextEditor.header_3'),
+        onActivate: () => super.setLevel(4),
+        closeOnActivate: true,
+        isActive: super.currentLevel.number === 4,
+      }
     ];
+
+    if (this.config.showCopyLinkButton) {
+      config.unshift({
+        icon: TeHelper.getMatIconElement('content_copy'),
+        title: translateService.translate('teTextEditor.copy_link'),
+        onActivate: () => {
+
+          if (window) {
+            // copy url of the header with the anchor
+            const url = window.location.href;
+            const id = this.node.getAttribute('id');
+            const anchor = id ? `#${id}` : '';
+            clipboardService.copy(`${url}${anchor}`,
+              {text: 'teTextEditor.link_copied', translateText: true});
+          }
+        },
+      });
+    }
+
+    return config;
   }
 }
