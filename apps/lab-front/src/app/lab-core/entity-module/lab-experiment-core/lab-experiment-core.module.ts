@@ -15,8 +15,8 @@ import {
   LabExperimentStatusOptionsComponent
 } from './component/lab-experiment-status-options/lab-experiment-status-options.component';
 import {
-  LabExperimentTypeOptionsComponent
-} from './component/lab-experiment-type-options/lab-experiment-type-options.component';
+  LabExperimentCreationTypeOptionsComponent
+} from './component/lab-experiment-creation-type-options/lab-experiment-creation-type-options.component';
 import {
   LabSelectExperimentDialogComponent
 } from './component/lab-select-experiment-dialog/lab-select-experiment-dialog.component';
@@ -40,7 +40,7 @@ import {LabTypeCoreModule} from '../lab-type-core/lab-type-core.module';
     LabExperimentSearchComponent,
     LabExperimentSearchFormComponent,
     LabExperimentStatusOptionsComponent,
-    LabExperimentTypeOptionsComponent,
+    LabExperimentCreationTypeOptionsComponent,
     LabSelectExperimentDialogComponent,
     LabSelectExperimentComponent,
     LabRunningExperimentTableComponent,
@@ -52,7 +52,7 @@ import {LabTypeCoreModule} from '../lab-type-core/lab-type-core.module';
     LabExperimentSearchComponent,
     LabExperimentSearchFormComponent,
     LabExperimentStatusOptionsComponent,
-    LabExperimentTypeOptionsComponent,
+    LabExperimentCreationTypeOptionsComponent,
     LabSelectExperimentDialogComponent,
     LabSelectExperimentComponent,
     LabRunningExperimentTableComponent,

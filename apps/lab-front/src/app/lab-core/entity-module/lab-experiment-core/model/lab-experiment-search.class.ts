@@ -5,7 +5,7 @@ import {
   FlSearchDateInterval,
   FlTag
 } from '@monorepo/front-core-lib';
-import {LabExperimentStatus, LabExperimentType} from '../../../model/entities/lab-experiment.entity';
+import {LabExperimentCreationType, LabExperimentStatus} from '../../../model/entities/lab-experiment.entity';
 import {Type} from 'class-transformer';
 import {LabProject} from '../../../model/entities/lab-project.class';
 import {LabSearchConverter} from '../../../model/global/lab-search-converter.class';
@@ -17,7 +17,7 @@ import {LabTypeEntity} from '../../../model/entities/lab-type/lab-type.entity';
 export class LabExperimentSearchFields {
   title: string;
 
-  type: LabExperimentType;
+  creationType: LabExperimentCreationType;
   status: LabExperimentStatus;
   tags: FlTag[];
 
@@ -47,7 +47,7 @@ export class LabExperimentSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabExperimentSearchFields> = {
-    type: 'biox.experiment_type',
+    creationType: 'biox.experiment_creation_type',
     tags: 'flTag.tags',
     project: 'biox.project',
     isArchived: 'is_archived',
@@ -65,7 +65,7 @@ export class LabExperimentSearch {
    */
   public static advancedSearchConverter: FlSearchCriteriaConverter<LabExperimentSearchFields> = {
     title: {key: 'title', operator: 'CONTAINS'},
-    type: {key: 'type', operator: 'EQ'},
+    creationType: {key: 'creation_type', operator: 'EQ'},
     status: {key: 'status', operator: 'IN'},
     tags: {key: 'tags', operator: 'EQ'},
     project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
@@ -75,8 +75,10 @@ export class LabExperimentSearch {
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
     isArchived: {key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
     isNotValidated: {key: 'is_validated', operator: 'EQ', convertValue: LabSearchConverter.excludeAllOnCheck},
-    processTypingName: {key: 'process_typing_name', operator: 'EQ',
-      convertValue: (value: LabTypeEntity) => value?.typingName},
+    processTypingName: {
+      key: 'process_typing_name', operator: 'EQ',
+      convertValue: (value: LabTypeEntity) => value?.typingName
+    },
     id: {key: 'id', operator: 'EQ'},
   };
 
@@ -84,7 +86,7 @@ export class LabExperimentSearch {
     return new FormBuilder().group(
       {
         title: [null],
-        type: [null],
+        creationType: [null],
         status: [null],
         tags: [null],
         project: [null],

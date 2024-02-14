@@ -33,6 +33,11 @@ mat-table {
   margin-right: 0.5em;
 }
 
+// make the element over the a absolute element
+.over-link {
+  z-index: 10;
+}
+
 ///////////////////// SUB TABLE //////////////////////
 .expandable-row {
   min-height: 0;

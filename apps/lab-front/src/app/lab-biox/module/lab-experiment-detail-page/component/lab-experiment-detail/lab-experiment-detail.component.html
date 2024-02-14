@@ -19,11 +19,12 @@
                                [disabled]="!experiment.isInfoEditable()"></lab-project-inline-select>
 
     <!--  Type  -->
-    <fl-text-icon class="separator">
+    <fl-text-icon class="separator"
+                  [matTooltip]="('biox.experiment_creation_type_help_' + experiment.creationType) | translate">
       <mat-icon flIcon="experiment"></mat-icon>
       <fl-key-value>
-        <fl-key>{{ 'biox.experiment_type' | translate }}</fl-key>
-        {{ experiment.type.name | translate }}
+        <fl-key>{{ 'biox.experiment_creation_type' | translate }}</fl-key>
+        {{ ('biox.experiment_creation_type_' + experiment.creationType) | translate }}
       </fl-key-value>
     </fl-text-icon>
 

@@ -6,3 +6,7 @@ mat-table{
   margin-left: 0.5em;
 }
 
+// make the element over the a absolute element
+.over-link {
+  z-index: 10;
+}

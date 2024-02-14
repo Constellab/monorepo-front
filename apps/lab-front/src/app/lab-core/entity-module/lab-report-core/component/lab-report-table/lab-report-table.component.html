@@ -21,11 +21,11 @@
         </fl-text-icon>
       </div>
 
-      <mat-icon class="status-icon" *ngIf="report.isValidated"
+      <mat-icon class="status-icon over-link" *ngIf="report.isValidated"
                 [matTooltip]="'biox.report_validated' | translate" flIcon="validated">
       </mat-icon>
 
-      <mat-icon class="status-icon" *ngIf="report.isArchived"
+      <mat-icon class="status-icon over-link" *ngIf="report.isArchived"
                 [matTooltip]="'biox.report_archived' | translate" flIcon="archive">
       </mat-icon>
 
@@ -39,7 +39,8 @@
       <span>{{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
+      <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"
+                         class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 
@@ -49,7 +50,8 @@
       <span>{{ 'last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
+      <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"
+                         class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 
@@ -59,7 +61,8 @@
       <span>{{ 'biox.last_sync' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <fl-user-with-date *ngIf="row.isSynced" [user]="row.lastSyncBy" [date]="row.lastSyncAt"></fl-user-with-date>
+      <fl-user-with-date *ngIf="row.isSynced" [user]="row.lastSyncBy" [date]="row.lastSyncAt"
+                         class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 
@@ -69,7 +72,8 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let report" class="g-table-icon-button-cell">
       <button mat-icon-button type="button" (click)="unlinkReport(report, $event)"
-              [matTooltip]="'biox.report_unlink_experiment' | translate">
+              [matTooltip]="'biox.report_unlink_experiment' | translate"
+              class="over-link">
         <mat-icon>clear</mat-icon>
       </button>
     </mat-cell>

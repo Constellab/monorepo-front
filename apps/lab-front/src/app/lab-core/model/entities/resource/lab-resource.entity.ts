@@ -30,8 +30,7 @@ export class LabFsNodeEntity extends LabEntity {
   }
 }
 
-export type LabResourceOrigin = 'UPLOADED' | 'GENERATED' | 'IMPORTED' | 'EXPORTED' | 'TRANSFORMED'
-  | 'ACTIONS' | 'IMPORTED_FROM_LAB' | 'S3_PROJECT_STORAGE';
+export type LabResourceOrigin = 'UPLOADED' | 'GENERATED' | 'IMPORTED_FROM_LAB' | 'S3_PROJECT_STORAGE';
 
 export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEntity {
 
