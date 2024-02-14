@@ -284,9 +284,9 @@ export class LabResourceDetailState implements OnDestroy {
         disposeOnNavigation: true,
       });
 
-
     const config: LabResourceViewPortalInput = {
       labView: labView,
+      resourceState : this
     };
 
     this.createPortal(LabResourceViewPortalComponent, portalConfig, config);
