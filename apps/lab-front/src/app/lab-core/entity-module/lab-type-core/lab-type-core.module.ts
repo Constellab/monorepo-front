@@ -18,7 +18,6 @@ import {LabSelectTypeComponent} from './component/lab-select-type/lab-select-typ
 import {
   LabSelectCommunityLiveTaskDialogComponent
 } from './component/lab-select-community-live-task-dialog/lab-select-community-live-task-dialog.component';
-import {HaCardComponent} from '../../../../../../ha-hub/src/app/ha-core/ha-component/ha-card/ha-card.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +52,6 @@ import {HaCardComponent} from '../../../../../../ha-hub/src/app/ha-core/ha-compo
 
     LabCoreModule,
     LabBrickCoreModule,
-    HaCardComponent,
   ],
 })
 export class LabTypeCoreModule {

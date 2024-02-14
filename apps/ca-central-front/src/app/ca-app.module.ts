@@ -9,7 +9,8 @@ import {CaMainModule} from './ca-main/ca-main.module';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {
-  FL_CAPTCHA_MODULE_CONFIG, FL_TRANSLATE_MODULE_CONFIG,
+  FL_CAPTCHA_MODULE_CONFIG,
+  FL_TRANSLATE_MODULE_CONFIG,
   FlApiModule,
   FlAuthModule,
   FlCaptchaModule,
@@ -23,6 +24,8 @@ import {
   FlSnackBarModule,
   FlThemeService,
   FlTranslateModule,
+  FlTranslateModuleConfig,
+  FlTranslationLoader,
   FlUserModule
 } from '@monorepo/front-core-lib';
 import {caSvgIcons} from './ca-core/model/config/ca-svg-icon-config';
@@ -40,8 +43,10 @@ import {CaSpaceInterceptor} from './ca-core/interceptor/ca-space-interceptor.ser
 import {BnBioNetworkModule} from '@monorepo/bio-network';
 import {CaEnvironmentHelper} from './ca-core/utils/ca-environment.helper';
 import {TranslateLoader} from '@ngx-translate/core';
-import {TranslationLoaderFactory} from '../../../ha-hub/src/app/ha-app.module';
 
+export function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
+  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
+}
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
 }
@@ -117,7 +122,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha},
     {
       provide: TranslateLoader,
-      useFactory: TranslationLoaderFactory,
+      useFactory: translationLoaderFactory,
       deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
     },
     CookieService,
