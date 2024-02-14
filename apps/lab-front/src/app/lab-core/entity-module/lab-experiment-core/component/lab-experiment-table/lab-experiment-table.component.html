@@ -40,18 +40,25 @@
       <span>{{ 'status' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment">
+      <fl-status-chip [status]="experiment.status" mode="iconText" size="small">
+      </fl-status-chip>
+
       <mat-icon *ngIf="experiment.isValidated"
                 [matTooltip]="'biox.experiment_validated' | translate"
-                class="status-icon" flIcon="validated">
+                class="status-icon over-link" flIcon="validated">
       </mat-icon>
 
       <mat-icon *ngIf="experiment.isArchived"
                 [matTooltip]="'biox.experiment_archived' | translate"
-                class="status-icon" flIcon="archive">
+                class="status-icon over-link" flIcon="archive">
       </mat-icon>
 
-      <fl-status-chip [status]="experiment.status" mode="iconText" size="small">
-      </fl-status-chip>
+      <mat-icon *ngIf="experiment.isAuto()"
+                [matTooltip]="'biox.experiment_creation_type_help_AUTO' | translate"
+                class="status-icon over-link">
+        smart_toy
+      </mat-icon>
+
     </mat-cell>
   </ng-container>
 
@@ -61,7 +68,8 @@
       <span>{{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment">
-      <fl-user-with-date [user]="experiment.createdBy" [date]="experiment.createdAt"></fl-user-with-date>
+      <fl-user-with-date [user]="experiment.createdBy" [date]="experiment.createdAt"
+                         class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 
@@ -86,6 +94,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment" class="g-table-icon-button-cell">
       <button mat-icon-button type="button" (click)="unlinkedExperiment(experiment, $event)"
+              class=" over-link"
               [matTooltip]="'biox.report_unlinked_experiment' | translate">
         <mat-icon>clear</mat-icon>
       </button>

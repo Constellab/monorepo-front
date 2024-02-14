@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {LabSharedEntity} from '../../../../model/entities/lab-share.entity';
 
 
@@ -10,14 +10,8 @@ import {LabSharedEntity} from '../../../../model/entities/lab-share.entity';
   templateUrl: './lab-shared-entity-origin.component.html',
   styleUrls: ['./lab-shared-entity-origin.component.scss']
 })
-export class LabSharedEntityOriginComponent implements OnInit {
+export class LabSharedEntityOriginComponent {
 
   @Input() sharedEntity: LabSharedEntity;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
 }

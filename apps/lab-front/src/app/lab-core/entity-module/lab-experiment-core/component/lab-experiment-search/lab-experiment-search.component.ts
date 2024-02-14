@@ -69,7 +69,7 @@ export class LabExperimentSearchComponent implements OnInit {
         version: 1,
         default: true,
         filtersCriteria: {
-          type: 'EXPERIMENT',
+          creationType: 'MANUAL',
           isNotValidated: false,
           isArchived: false
         } as Partial<LabExperimentSearchFields>

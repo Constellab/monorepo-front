@@ -1,32 +1,37 @@
-mat-table{
+mat-table {
   cursor: pointer;
 }
 
-.table{
+.table {
   margin-bottom: 1em;
 }
 
-.title{
+.title {
   word-break: break-word;
 }
 
-.status-icon{
-  margin-right: 0.5em;
+.status-icon {
+  margin-left: 0.5em;
 }
 
-.tags{
+.tags {
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-.mat-row{
+.mat-row {
   position: relative;
 }
 
-.mat-row-link{
+.mat-row-link {
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
+}
+
+// make the element over the a absolute element
+.over-link {
+  z-index: 10;
 }

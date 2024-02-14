@@ -32,23 +32,9 @@ export const labExperimentStatusDict: FlStatusDict<LabExperimentStatus> = {
     FlStatusHelper.draftIcon)
 };
 
-
-export type LabExperimentType =
-  'EXPERIMENT'
-  | 'TRANSFORMER'
-  | 'IMPORTER'
-  | 'EXPORTER'
-  | 'FS_NODE_EXTRACTOR'
-  | 'RESOURCE_DOWNLOADER';
-
-export const labExperimentTypeDict: FlStatusDict<LabExperimentType> = {
-  EXPERIMENT: FlStatusHelper.getInfoStatus('EXPERIMENT', 'biox.experiment_type_experiment'),
-  TRANSFORMER: FlStatusHelper.getInfoStatus('TRANSFORMER', 'biox.experiment_type_transformer', 'transformer'),
-  IMPORTER: FlStatusHelper.getInfoStatus('IMPORTER', 'biox.experiment_type_importer'),
-  EXPORTER: FlStatusHelper.getInfoStatus('EXPORTER', 'biox.experiment_type_importer'),
-  FS_NODE_EXTRACTOR: FlStatusHelper.getInfoStatus('FS_NODE_EXTRACTOR', 'biox.experiment_type_extractor'),
-  RESOURCE_DOWNLOADER: FlStatusHelper.getInfoStatus('RESOURCE_DOWNLOADER', 'biox.experiment_type_downloader'),
-};
+export type LabExperimentCreationType =
+  'MANUAL'
+  | 'AUTO';
 
 export class LabExperiment extends LabBaseEntityWithUser implements LabProjectObject {
 
@@ -58,8 +44,8 @@ export class LabExperiment extends LabBaseEntityWithUser implements LabProjectOb
 
   data: void;
 
-  @FlStatusTransform(labExperimentTypeDict)
-  type: FlStatus<LabExperimentType>;
+  @Expose({name: 'creation_type'})
+  creationType: LabExperimentCreationType;
 
   @Type(() => LabEntity)
   protocol: LabEntity;
@@ -120,6 +106,10 @@ export class LabExperiment extends LabBaseEntityWithUser implements LabProjectOb
 
   isWaiting(): boolean {
     return this.status.value === 'IN_QUEUE';
+  }
+
+  isAuto(): boolean {
+    return this.creationType === 'AUTO';
   }
 
   toString(): string {

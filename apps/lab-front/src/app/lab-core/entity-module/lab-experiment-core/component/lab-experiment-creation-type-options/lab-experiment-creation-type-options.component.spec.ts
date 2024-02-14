@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LabExperimentTypeOptionsComponent} from './lab-experiment-type-options.component';
+import {LabExperimentCreationTypeOptionsComponent} from './lab-experiment-creation-type-options.component';
 
 describe('BioxExperimentTypeOptionsComponent', () => {
-  let component: LabExperimentTypeOptionsComponent;
-  let fixture: ComponentFixture<LabExperimentTypeOptionsComponent>;
+  let component: LabExperimentCreationTypeOptionsComponent;
+  let fixture: ComponentFixture<LabExperimentCreationTypeOptionsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabExperimentTypeOptionsComponent ]
+      declarations: [ LabExperimentCreationTypeOptionsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LabExperimentTypeOptionsComponent);
+    fixture = TestBed.createComponent(LabExperimentCreationTypeOptionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

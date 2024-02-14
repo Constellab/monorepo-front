@@ -17,3 +17,8 @@
   margin-right: 10px;
   padding: 6px;
 }
+
+// make the element over the a absolute element
+.over-link {
+  z-index: 10;
+}
