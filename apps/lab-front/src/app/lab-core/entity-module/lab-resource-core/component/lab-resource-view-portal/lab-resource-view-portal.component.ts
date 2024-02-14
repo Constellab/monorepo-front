@@ -1,4 +1,4 @@
-import {Component, Inject, Optional} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
 import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef} from '@monorepo/front-core-lib';
 import {RvViewConfig} from '@monorepo/resource-view';
@@ -20,6 +20,11 @@ export interface LabResourceViewPortalInput {
    * Override the edit view button action (to show a custom form for view config)
    */
   editView?: () => void;
+
+  /**
+   * Optional resource state to update the view config
+   */
+  resourceState?: LabResourceDetailState;
 }
 
 /**
@@ -45,7 +50,6 @@ export class LabResourceViewPortalComponent {
 
 
   constructor(@Inject(FL_PORTAL_DATA) private input: LabResourceViewPortalInput,
-              @Optional() private resourceState: LabResourceDetailState,
               private overlayRef: FlOverlayRef,
               private tagService: LabTagService,
               private viewConfigService: LabViewConfigService) {
@@ -76,25 +80,25 @@ export class LabResourceViewPortalComponent {
 
   onUpdate(viewConfig: LabViewConfig): void {
     this.labView.viewConfig = viewConfig;
-    if (this.resourceState) {
-      this.resourceState.updateViewConfig(viewConfig);
+    if (this.input.resourceState) {
+      this.input.resourceState.updateViewConfig(viewConfig);
     }
   }
 
   get resourceStateAccessible(): boolean {
-    return this.resourceState != null;
+    return this.input.resourceState != null;
   }
 
   dockView(): void {
-    if (this.resourceState) {
-      this.resourceState.setMainView(this.labView);
+    if (this.input.resourceState) {
+      this.input.resourceState.setMainView(this.labView);
       this.overlayRef.dispose();
     }
   }
 
   minimizeView(): void {
-    if (this.resourceState) {
-      this.resourceState.minimizeView(this.labView);
+    if (this.input.resourceState) {
+      this.input.resourceState.minimizeView(this.labView);
       this.overlayRef.dispose();
     }
   }
@@ -104,8 +108,8 @@ export class LabResourceViewPortalComponent {
       this.input.editView();
       return;
     }
-    if (this.resourceState) {
-      this.resourceState.updateView(this.labView, this.overlayRef);
+    if (this.input.resourceState) {
+      this.input.resourceState.updateView(this.labView, this.overlayRef);
     }
   }
 
