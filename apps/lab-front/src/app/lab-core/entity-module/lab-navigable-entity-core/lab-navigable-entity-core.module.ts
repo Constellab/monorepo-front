@@ -11,12 +11,16 @@ import {
 import {
   LabNavigableEntitiesTableComponent
 } from './component/lab-navigable-entities-table/lab-navigable-entities-table.component';
+import {
+  LabNavigableImpactDialogComponent
+} from './component/lab-navigable-impact-dialog/lab-navigable-impact-dialog.component';
 
 @NgModule({
   declarations: [
     LabNavigableEntityGroupsComponent,
     LabNavigableEntityInlineComponent,
-    LabNavigableEntitiesTableComponent
+    LabNavigableEntitiesTableComponent,
+    LabNavigableImpactDialogComponent
   ],
   exports: [
     LabNavigableEntityGroupsComponent,

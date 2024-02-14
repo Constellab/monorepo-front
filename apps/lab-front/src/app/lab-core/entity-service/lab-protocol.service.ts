@@ -10,7 +10,7 @@ import {
 } from '../model/entities/process/lab-protocol-template.entity';
 import {TdIOSpec} from '@monorepo/technical-doc';
 import {LabLiveTask} from '../model/entities/lab-live-task.entity';
-import {LabProcessResetResult} from '../model/entities/lab-navigable-entity.entity';
+import {LabNavigableEntityImpact} from '../model/entities/lab-navigable-entity.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -82,10 +82,14 @@ export class LabProtocolService {
     return this.apiService.delete(`${this.baseRoute}/${protocolId}/process/${processInstanceName}`, LabProtocolUpdateDTO);
   }
 
-  public resetProcessInProtocol(protocolId: string, processInstanceName: string,
-                                force: boolean = false): Observable<LabProcessResetResult> {
-    return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processInstanceName}/reset/${force}`,
-      null, LabProcessResetResult);
+  public resetProcessInProtocol(protocolId: string, processInstanceName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processInstanceName}/reset`,
+      null, LabProtocolUpdateDTO);
+  }
+
+  public checkImpactForProcessReset(protocolId: string, processInstanceName: string): Observable<LabNavigableEntityImpact> {
+    return this.apiService.get(`${this.baseRoute}/${protocolId}/process/${processInstanceName}/reset/check-impact`,
+      LabNavigableEntityImpact);
   }
 
   public runProcessInProtocol(protocolId: string, processInstanceName: string): Observable<LabProtocolUpdateDTO> {
