@@ -7,7 +7,8 @@ import {LabCoreModule} from './lab-core/lab-core.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {
-  FL_CAPTCHA_MODULE_CONFIG, FL_TRANSLATE_MODULE_CONFIG,
+  FL_CAPTCHA_MODULE_CONFIG,
+  FL_TRANSLATE_MODULE_CONFIG,
   FlApiModule,
   FlAuthModule,
   FlCaptchaModule,
@@ -22,6 +23,8 @@ import {
   FlTagModule,
   FlThemeService,
   FlTranslateModule,
+  FlTranslateModuleConfig,
+  FlTranslationLoader,
   FlUserModule
 } from '@monorepo/front-core-lib';
 import {labSvgIcons} from './lab-core/utils/lab-svg-icon-config';
@@ -50,8 +53,10 @@ import {
 import {LabCredentialsCoreModule} from './lab-core/entity-module/lab-credentials-core/lab-credentials-core.module';
 import {LabRichTextCoreModule} from './lab-core/entity-module/lab-rich-text-core/lab-rich-text-core.module';
 import {TranslateLoader} from '@ngx-translate/core';
-import {TranslationLoaderFactory} from '../../../ha-hub/src/app/ha-app.module';
 
+export function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
+  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
+}
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
@@ -128,7 +133,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha},
     {
       provide: TranslateLoader,
-      useFactory: TranslationLoaderFactory,
+      useFactory: translationLoaderFactory,
       deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
     }
   ],
