@@ -1,5 +1,5 @@
 import {LabEntity} from '../../global/lab-entity.entity';
-import {FlDatasourcePaginated, FlFileHelper} from '@monorepo/front-core-lib';
+import {FlFileHelper} from '@monorepo/front-core-lib';
 import {Expose, Type} from 'class-transformer';
 import {TdTypeObjectStatus} from '@monorepo/technical-doc';
 import {LabFlaggedEntity} from '../../global/lab-flagged-entity.class';
@@ -89,10 +89,6 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
   }
 
   isDeletable(): boolean {
-    return this.origin !== 'GENERATED' && this.origin !== 'S3_PROJECT_STORAGE';
+    return this.origin !== 'S3_PROJECT_STORAGE';
   }
-
 }
-
-
-export type LabResourceDatasource = FlDatasourcePaginated<LabResource>

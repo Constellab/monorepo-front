@@ -1,9 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  LabExperiment,
-  LabExperimentSimpleForm,
-  LabResetExperimentResult
-} from '../../../../../lab-core/model/entities/lab-experiment.entity';
+import {LabExperiment, LabExperimentSimpleForm,} from '../../../../../lab-core/model/entities/lab-experiment.entity';
 import {
   LabExperimentFormDialogComponent,
   LabExperimentFormDialogInput
@@ -13,6 +9,7 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
+  FlPortalActionResult,
   FlSnackBarService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
@@ -54,9 +51,9 @@ import {
   LabManageEntityTagsDialogInput
 } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 import {
-  LabExperimentResetResultDialogComponent,
-  LabExperimentResetResultDialogInput
-} from '../lab-experiment-reset-result-dialog/lab-experiment-reset-result-dialog.component';
+  LabNavigableEntityService,
+  LabNavigableImpactConfig
+} from '../../../../../lab-core/entity-module/lab-navigable-entity-core/lab-navigable-entity.service';
 
 /**
  * Header for the experiment detail page
@@ -83,7 +80,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
               private translateService: FlTranslateService,
               private processService: LabProcessService,
               private protocolService: LabProtocolService,
-              private snackBarService: FlSnackBarService) {
+              private snackBarService: FlSnackBarService,
+              private labNavigableService: LabNavigableEntityService) {
   }
 
   ngOnInit(): void {
@@ -237,37 +235,29 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   }
 
   resetExperiment(): void {
-    const data: FlConfirmDialogInput = {
-      title: 'biox.reset_experiment',
-      content: 'biox.reset_experiment_confirmation',
-      translateTitleAndContent: true,
-      observable: this.experimentService.resetExperiment(this.experimentState.currentExperiment.id)
+    const experiment = this.experimentState.currentExperiment;
+    const impactData: LabNavigableImpactConfig = {
+      title: {text: 'biox.reset_experiment', translateText: true},
+      confirmImpactConfirmText: {
+        text: 'biox.reset_exp_confirm_impact', translateText: true, translateParam: {
+          param: {title: experiment.title}
+        }
+      },
+      noImpactConfirmText: {text: 'biox.reset_experiment_confirmation', translateText: true},
+      checkImpact: () => this.experimentService.checkImpactForResetExperiment(experiment.id),
+      callAction: () => this.experimentService.resetExperiment(experiment.id)
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      (result: FlConfirmDialogResult) => this.onExperimentReset(result.result)
+    this.labNavigableService.callImpactMethodOnAction(impactData).subscribe(
+      result => this.onResetSuccess(result)
     );
   }
 
-  private onExperimentReset(expResetResult?: LabResetExperimentResult): void {
-    if (expResetResult) {
-      if (expResetResult.success) {
-        this.experimentState.updateExperiment(expResetResult.experiment, true);
-        this.snackBarService.openSuccessMessage({text: 'biox.experiment_reset', translateText: true});
-      } else {
-        const data: LabExperimentResetResultDialogInput = {
-          impactedEntities: expResetResult.impactedEntities,
-          title: {text: 'biox.reset_experiment', translateText: true},
-          forceReset: () => this.experimentService.resetExperiment(expResetResult.experiment.id, true)
-        };
 
-        this.dialogService.openMediumDialog(LabExperimentResetResultDialogComponent, {
-          data: data,
-          panelClass: 'g-dialog-main-background'
-        }).afterClosed().subscribe(
-          result => this.onExperimentReset(result)
-        );
-      }
+  private onResetSuccess(result: FlPortalActionResult<LabExperiment>): void {
+    if (result.status === 'success') {
+      this.experimentState.updateExperiment(result.result, true);
+      this.snackBarService.openSuccessMessage({text: 'biox.experiment_reset', translateText: true});
     }
   }
 
@@ -276,28 +266,30 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const experiment = this.experimentState.currentExperiment;
 
     let content = `</p>${this.translateService.translate('biox.delete_experiment_confirmation')}</p>`;
-
     if (experiment.isSynced) {
       content += `<p>${this.translateService.translate('biox.delete_experiment_sync_confirmation')}</p>`;
     }
 
-
-    const data: FlConfirmDialogInput = {
-      title: this.translateService.translate('biox.delete_experiment'),
-      content: content,
-      translateTitleAndContent: false,
-      observable: this.experimentService.deleteExperiment(experiment.id),
-      successMessage: 'biox.experiment_deleted',
-      translateMessage: true
+    const impactData: LabNavigableImpactConfig = {
+      title: {text: 'biox.delete_experiment', translateText: true},
+      confirmImpactConfirmText: {
+        text: 'biox.delete_exp_confirm_impact', translateText: true, translateParam: {
+          param: {title: experiment.title}
+        },
+      },
+      noImpactConfirmText: {text: content, translateText: false},
+      checkImpact: () => this.experimentService.checkImpactForResetExperiment(experiment.id),
+      callAction: () => this.experimentService.deleteExperiment(experiment.id)
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
+    this.labNavigableService.callImpactMethodOnAction(impactData).subscribe(
       result => this.onDeleteSuccess(result)
     );
   }
 
-  private onDeleteSuccess(result: FlConfirmDialogResult): void {
-    if (result.choice) {
+  private onDeleteSuccess(result: FlPortalActionResult<void>): void {
+    if (result.status === 'success') {
+      this.snackBarService.openSuccessMessage({text: 'biox.experiment_deleted', translateText: true});
       this.routerService.navigateToExperimentListRoute();
     }
   }

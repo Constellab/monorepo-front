@@ -14,7 +14,6 @@ import {DateTime} from 'luxon';
 import {LabProject, LabProjectObject} from './lab-project.class';
 import {LabRunningProcessInfo} from './process/lab-process.entity';
 import {TeRichTextContent} from '@monorepo/text-editor';
-import {LabNavigableEntityGrouped} from './lab-navigable-entity.entity';
 
 export type LabExperimentStatus = 'DRAFT' | 'IN_QUEUE' | 'WAITING_FOR_CLI_PROCESS'
   | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN';
@@ -152,14 +151,3 @@ export class LabRunningExperimentInfo extends LabEntity {
   };
 }
 
-export class LabResetExperimentResult {
-
-  success: boolean;
-
-  @Type(() => LabExperiment)
-  experiment: LabExperiment;
-
-  @Expose({name: 'impacted_entities'})
-  @Type(() => LabNavigableEntityGrouped)
-  impactedEntities?: LabNavigableEntityGrouped[];
-}

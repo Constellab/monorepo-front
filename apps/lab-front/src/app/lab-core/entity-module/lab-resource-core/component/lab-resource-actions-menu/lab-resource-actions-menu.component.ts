@@ -5,9 +5,10 @@ import {
   LabImportResourceDialogInput
 } from '../lab-import-resource-dialog/lab-import-resource-dialog.component';
 import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
   FlDialogService,
+  FlPortalActionResult,
+  FlSnackBarService,
+  FlTranslatableText,
   FlTranslateService
 } from '@monorepo/front-core-lib';
 import {LabUpdateResourceTypeComponent} from '../lab-update-resource-type/lab-update-resource-type.component';
@@ -25,6 +26,10 @@ import {
   LabResourceUpdateProjectDialogInput,
   LabResourceUpdateProjectDialogOutput
 } from '../lab-resource-update-project-dialog/lab-resource-update-project-dialog.component';
+import {
+  LabNavigableEntityService,
+  LabNavigableImpactConfig
+} from '../../../lab-navigable-entity-core/lab-navigable-entity.service';
 
 /**
  * Action menu button for resources, it has a ng-content for custom buttons
@@ -46,7 +51,9 @@ export class LabResourceActionsMenuComponent implements OnInit {
   constructor(private resourceService: LabResourceService,
               private dialogService: FlDialogService,
               private resourceDownloadService: LabResourceDownloadService,
-              private translateService: FlTranslateService) {
+              private translateService: FlTranslateService,
+              private snackBarService: FlSnackBarService,
+              private labImpactedService: LabNavigableEntityService) {
   }
 
   ngOnInit(): void {
@@ -103,31 +110,47 @@ export class LabResourceActionsMenuComponent implements OnInit {
   }
 
   deleteResource(): void {
+    let confirmImpactHelpText: FlTranslatableText;
     // build the confirmation message
     let confirmation = `<p>${this.translateService.translate('databox.delete_resource_confirmation')}</p>`;
     // for imported or transformed resources, we add an info message
-    if (this.resource.origin === 'IMPORTED') {
-      confirmation += `<p>${this.translateService.translate('databox.delete_imported_resource_confirmation')}</p>`;
-    } else if (this.resource.origin === 'TRANSFORMED') {
-      confirmation += `<p>${this.translateService.translate('databox.delete_transformed_resource_confirmation')}</p>`;
+    if (this.resource.experiment) {
+      confirmation += `<p>${this.translateService.translate('databox.delete_generated_resource_confirmation',
+        {param: {experimentTitle: this.resource.experiment.title}})}</p>`;
+      confirmImpactHelpText = {
+        text: 'biox.delete_resource_with_exp_confirm_impact', translateText: true, translateParam: {
+          param: {title: this.resource.name, experimentTitle: this.resource.experiment.title}
+        }
+      };
+    } else {
+      confirmImpactHelpText = {
+        text: 'biox.delete_resource_confirm_impact', translateText: true, translateParam: {
+          param: {title: this.resource.name}
+        }
+      };
     }
 
-    const input: FlConfirmDialogInput = {
-      title: this.translateService.translate('databox.delete_resource'),
-      content: confirmation,
-      translateTitleAndContent: false,
-      observable: this.resourceService.delete(this.resource.id),
-      successMessage: 'databox.resource_deleted',
-      translateMessage: true
+    const impactData: LabNavigableImpactConfig = {
+      title: {text: 'databox.delete_resource', translateText: true},
+      confirmImpactConfirmText: confirmImpactHelpText,
+      noImpactConfirmText: {text: confirmation, translateText: false},
+      checkImpact: () => this.resourceService.checkImpactForDeleteResource(this.resource.id),
+      callAction: () => this.resourceService.delete(this.resource.id)
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onDeleteResourceClosed(result)
+    this.labImpactedService.callImpactMethodOnAction(impactData).subscribe(
+      result => this.onResourceDeleteSuccess(result)
     );
   }
 
-  private onDeleteResourceClosed(result: FlConfirmDialogResult<void>): void {
-    if (result.choice) {
+
+  private onResourceDeleteSuccess(result: FlPortalActionResult): void {
+    if (result.status === 'success') {
+      if (this.resource.experiment) {
+        this.snackBarService.openSuccessMessage({text: 'databox.resource_and_experiment_deleted', translateText: true});
+      } else {
+        this.snackBarService.openSuccessMessage({text: 'databox.resource_deleted', translateText: true});
+      }
       this.delete.next(this.resource);
     }
   }

@@ -14,10 +14,11 @@
     "select_file_type": "Type du fichier",
     "select_folder_type": "Type du dossier",
     "delete_resource": "Supprimer la resource",
-    "delete_resource_confirmation": "Êtes-vous sûr de vouloir supprimer cette ressource ? Si la ressource est utilisée dans une experiment, elle ne pourra pas être supprimée.",
-    "delete_imported_resource_confirmation": "Cela va supprimer l'expérience 'Importer' qui à créée cette resource.",
-    "delete_transformed_resource_confirmation": "Cela va supprimer l'expérience 'Transformer' qui à créée cette resource.",
+    "delete_resource_confirmation": "Êtes-vous sûr de vouloir supprimer cette ressource ?",
+    "delete_generated_resource_confirmation": "Cette ressource a été générée par l'expérience '<strong>{{experimentTitle}}</strong>', si vous continuez l'expérience sera supprimée.",
     "resource_deleted": "Ressource supprimé",
-    "resource_see_children": "Voir les ressources filles"
+    "resource_see_children": "Voir les ressources filles",
+    "delete_resource_and_experiment": "Supprimer la ressource et l'expérience",
+    "resource_and_experiment_deleted": "Ressource et expérience supprimées"
   }
 }

@@ -107,10 +107,10 @@
     "stop_experiment_confirmation": "Êtes-vous sûr de vouloir arrêter l'expérience ?",
     "experiment_stopped": "Expérience arrêtée",
     "reset_experiment": "Réinitialiser l'expérience",
-    "reset_experiment_confirmation": "Êtes-vous sûr de vouloir réinitialiser l'expérience ? L'expérience ne peux pas être réinitialisée si une des resource de sortie de l'expérience est utilisée dans un autre expérience. Les resources générées seront supprimées et le status de l'expérience sera mis à brouillon.",
+    "reset_experiment_confirmation": "Êtes-vous sûr de vouloir réinitialiser l'expérience ? Les resources générées seront supprimées et le status de l'expérience sera mis à brouillon.",
     "experiment_reset": "Expérience réinitialisée",
     "delete_experiment": "Supprimer l'expérience",
-    "delete_experiment_confirmation": "Êtes-vous sûr de vouloir supprimer l'expérience ? L'expérience ne peux pas être supprimée si une des resource de sortie de l'expérience est utilisée dans un autre expérience. Les resources générées seront supprimées.",
+    "delete_experiment_confirmation": "Êtes-vous sûr de vouloir supprimer l'expérience ? Les resources générées seront supprimées.",
     "delete_experiment_sync_confirmation": "Cette expérience est synchronisée avec Space, elle sera aussi supprimée de du space.",
     "experiment_deleted": "Expérience supprimée",
     "advanced_configuration": "Configuration avancée",
@@ -378,6 +378,11 @@
     "reset_experiment_force_help": "Certains résultats (ressources) de cet expériment sont utilisés dans d'autres expériences et/ou rapports (listés ci-dessous). Si vous forcez la réinitialisation, les expériences (y compris leurs résultats) et les rapports suivants seront également supprimés.",
     "reset_impact_contains_validated_experiments": "Certains des expériences sont déjà validées, elles ne peuvent donc pas être supprimées. Vous ne pouvez pas forcer la réinitialisation.",
     "reset_impact_contains_validated_reports": "Certains des rapports sont déjà validés, ils ne peuvent donc pas être supprimés. Vous ne pouvez pas forcer la réinitialisation.",
-    "force_reset": "Forcer la réinitialisation"
+    "delete_exp_confirm_impact": "Certains résultats (ressources) de l'expérience '<strong>{{title}}</strong>' sont utilisés dans d'autres expériences et/ou rapports (listés ci-dessous). Si vous supprimez cette expérience, les expériences suivantes (ainsi que leurs résultats) et les rapports seront également supprimés.",
+    "reset_exp_confirm_impact": "Certains résultats (ressources) de l'expérience '<strong>{{title}}</strong>' sont utilisés dans d'autres expériences et/ou rapports (listés ci-dessous). Si vous réinitialisez cette expérience, les expériences suivantes (ainsi que leurs résultats) et les rapports seront également supprimés.",
+    "delete_resource_with_exp_confirm_impact": "<p>La ressource '<strong>{{title}}</strong>' a été générée par l'expérience '<strong>{{experimentTitle}}</strong>'. Si vous supprimez cette ressource, l'expérience sera également supprimée.</p><p>Certains résultats de l'expérience sont utilisés dans d'autres expériences et/ou rapports (listés ci-dessous). Si vous supprimez cette ressource, les expériences (y compris ses résultats) et les rapports suivants seront également supprimés.</p>",
+    "delete_resource_confirm_impact": "La ressource '<strong>{{title}}</strong>' est utilisée dans d'autres expériences et/ou rapports (listés ci-dessous). Si vous supprimez cette ressource, les expériences (y compris leurs résultats) et les rapports suivants seront également supprimés.",
+    "reset_process_confirm_impact": "Certains résultats (ressources) de l'expérience '<strong>{{title}}</strong>' sont utilisés dans d'autres expériences et/ou rapports (listés ci-dessous). Si vous réinitialisez ce processus, les expériences suivantes (ainsi que leurs résultats) et les rapports seront également supprimés.",
+    "force_action_confirm": "Êtes-vous sûr de vouloir forcer l'action ? Les expériences et rapports suivants seront supprimés et l'action exécutée."
   }
 }

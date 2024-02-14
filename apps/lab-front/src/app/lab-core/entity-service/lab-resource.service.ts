@@ -25,6 +25,7 @@ import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity
 import {PrConfigValues} from '@monorepo/protocol';
 import {LabSharedEntity} from '../model/entities/lab-share.entity';
 import {LabTransformerParams} from '../model/global/lab-transformer.class';
+import {LabNavigableEntityImpact} from '../model/entities/lab-navigable-entity.entity';
 
 
 @Injectable({
@@ -58,6 +59,10 @@ export class LabResourceService {
 
   public delete(id: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${id}`);
+  }
+
+  public checkImpactForDeleteResource(id: string): Observable<LabNavigableEntityImpact> {
+    return this.apiService.get(`${this.route}/${id}/delete/check-impact`, LabNavigableEntityImpact);
   }
 
   public updateName(id: string, name: string): Observable<LabResource> {

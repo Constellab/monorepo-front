@@ -6,9 +6,6 @@ import {LabViewConfig} from './resource/lab-view-config.entity';
 import {LabReportTemplate} from './lab-report-template.entity';
 import {LabProtocolTemplate} from './process/lab-protocol-template.entity';
 import {LabProject} from './lab-project.class';
-import {
-  LabProtocolUpdateDTO
-} from '../../../lab-biox/module/lab-experiment-detail-page/model/lab-workflow-action.class';
 
 export type LabEntityType = 'EXPERIMENT' | 'RESOURCE' | 'VIEW' | 'REPORT'
   | 'PROTOCOL_TEMPLATE' | 'REPORT_TEMPLATE' | 'PROJECT';
@@ -43,7 +40,12 @@ export class LabNavigableEntity {
   }
 }
 
-export const LabNavigableEntityGroupedFactory3: any = (json: any) => {
+/**
+ * Factory to create navigable entities based on type
+ * @param json
+ * @constructor
+ */
+export const LabNavigableEntityGroupedFactory: any = (json: any) => {
   switch (json.newObject.type) {
     case 'EXPERIMENT':
       return LabExperiment;
@@ -68,7 +70,7 @@ export const LabNavigableEntityGroupedFactory3: any = (json: any) => {
 export class LabNavigableEntityGrouped<T = any> {
   type: LabEntityType;
 
-  @Type(LabNavigableEntityGroupedFactory3)
+  @Type(LabNavigableEntityGroupedFactory)
   entities: T[];
 
   get typeIcon(): string {
@@ -76,17 +78,11 @@ export class LabNavigableEntityGrouped<T = any> {
   }
 }
 
-
-export class LabProcessResetResult {
-
-  success: boolean;
-
-  @Expose({name: 'protocol_update'})
-  @Type(() => LabProtocolUpdateDTO)
-  protocolUpdate: LabProtocolUpdateDTO;
+export class LabNavigableEntityImpact{
+  @Expose({name: 'has_entities'})
+  hasEntities: boolean;
 
   @Expose({name: 'impacted_entities'})
   @Type(() => LabNavigableEntityGrouped)
-  impactedEntities?: LabNavigableEntityGrouped[];
+  impactedEntities: LabNavigableEntityGrouped[];
 }
-
