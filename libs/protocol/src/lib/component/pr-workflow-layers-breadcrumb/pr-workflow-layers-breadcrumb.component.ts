@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {PrWorkflowLayer} from '../../model/pr-workflow-layer.class';
 import {PrWorkflowManagerState} from '../../state/pr-workflow-manager-state';
 
@@ -14,12 +14,16 @@ import {PrWorkflowManagerState} from '../../state/pr-workflow-manager-state';
 export class PrWorkflowLayersBreadcrumbComponent implements OnInit {
 
   layers$: Observable<PrWorkflowLayer[]>;
+  hasMultipleLayers$: Observable<boolean>;
 
   constructor(private workflowManager: PrWorkflowManagerState) {
   }
 
   ngOnInit(): void {
     this.layers$ = this.workflowManager.getCurrentLayerHierarchy$();
+    this.hasMultipleLayers$ = this.layers$.pipe(
+      map(layers => layers?.length > 1)
+    );
   }
 
   selectLayer(layerId: string): void {

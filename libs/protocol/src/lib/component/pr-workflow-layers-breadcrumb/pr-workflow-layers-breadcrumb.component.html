@@ -1,7 +1,8 @@
 <div class="g-text-light g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
   <ng-container *ngFor="let layer of layers$ | async; let last = last">
-    <div class="g-text-link" (click)="selectLayer(layer.id)">
-      {{layer.title}}
+    <div [ngClass]="{'g-text-link': hasMultipleLayers$ | async}"
+         (click)="selectLayer(layer.id)">
+      {{ layer.title }}
     </div>
 
     <span class="separator" *ngIf="!last">></span>
