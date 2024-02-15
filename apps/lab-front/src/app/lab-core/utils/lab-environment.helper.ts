@@ -1,8 +1,6 @@
 import {environment} from '../../../environments/lab-environment';
 import {LabEnvironment} from '../../../environments/lab-environment.class';
 
-export type LabCommunityTechnicalDocType = 'task' | 'resource' | 'protocol';
-
 /**
  * Static class to access environment
  *
@@ -75,13 +73,6 @@ export class LabEnvironmentHelper {
   ////////////////////// Community //////////////////////
   public static getCommunityFrontUrl(): string {
     return LabEnvironmentHelper.getEnv().settings.communityFrontUrl;
-  }
-
-  public static getCommunityTechnicalDocUrl(brickName: string, majorVersion: number,
-                                            objectType: LabCommunityTechnicalDocType,
-                                            objectName: string): string {
-    // eslint-disable-next-line max-len
-    return `${LabEnvironmentHelper.getCommunityFrontUrl()}/bricks/${brickName}/v${majorVersion}/doc/technical-folder/${objectType}/${objectName}`;
   }
 
   public static getCommunityApiUrl(): string {

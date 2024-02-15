@@ -3,19 +3,20 @@
   <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
+  <ng-container *ngIf="!readOnly">
+    <button mat-menu-item type="button" *ngIf="resource.isFsNode()"
+            (click)="openImportResource()" >
+      <mat-icon fontSet="material-icons" color="primary">system_update_alt</mat-icon>
+      <span class="g-primary-text">{{'biox.import_resource' | translate}}</span>
+    </button>
+  </ng-container>
+
   <button mat-menu-item type="button" *ngIf="resource.isDownloadable"
           (click)="downloadResource()">
     <mat-icon>cloud_download</mat-icon>
     <span>{{'biox.download_resource' | translate}}</span>
   </button>
 
-  <ng-container *ngIf="!readOnly">
-    <button mat-menu-item type="button" *ngIf="resource.isFsNode()"
-            (click)="openImportResource()">
-      <mat-icon fontSet="material-icons">system_update_alt</mat-icon>
-      <span>{{'biox.import_resource' | translate}}</span>
-    </button>
-  </ng-container>
 
   <ng-container *ngIf="resource.isUpdatable()">
     <button mat-menu-item type="button" (click)="openUpdateName()">

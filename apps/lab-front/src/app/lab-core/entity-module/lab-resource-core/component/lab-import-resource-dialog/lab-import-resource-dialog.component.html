@@ -1,16 +1,17 @@
 <fl-dialog-header>
-  {{'biox.import_resource' | translate}}
+  {{ 'biox.import_resource' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content class="content">
   <!--   Small explanation text     -->
   <div class="g-text-light help-text">
-    {{'biox.import_resource_text' | translate }}
+    {{ 'biox.import_resource_text' | translate }}
+    <a [href]="communityHelpUrl" target="_blank" class="g-text-link link">{{ 'biox.import_more_info' | translate }}</a>
   </div>
 
   <div class="g-text-centered">
     <button mat-stroked-button type="button" (click)="openImportSelectDialog()">
-      {{'biox.select_importer' | translate}}
+      {{ 'biox.select_importer' | translate }}
     </button>
   </div>
 
@@ -24,13 +25,23 @@
     <mat-divider class="divider"></mat-divider>
     <!--   Info about importer with button to see detail     -->
     <div class="g-layout-row g-layout-between-center">
-      <h2>{{selectedImporterType.humanName}}</h2>
+      <h2>{{ selectedImporterType.humanName }}</h2>
 
       <lab-type-show-detail-button [typingName]="selectedImporterType.typingName">
       </lab-type-show-detail-button>
     </div>
     <div class="g-text-light short-description">
-      {{selectedImporterType.shortDescription || selectedImporterType.humanName}}
+      {{ selectedImporterType.shortDescription || selectedImporterType.humanName }}
+    </div>
+
+    <!--  Show the input to output  -->
+    <div class="g-layout-row g-layout-center-center specs-container"
+         *ngIf="sourceSpec && targetSpec">
+      <td-doc-io [ioSpec]="sourceSpec"></td-doc-io>
+      <mat-icon class="g-icon-big spec-separator"
+                [matTooltip]="'biox.import_to' | translate">double_arrow
+      </mat-icon>
+      <td-doc-io [ioSpec]="targetSpec"></td-doc-io>
     </div>
 
     <div>
@@ -39,12 +50,12 @@
 
     <!--   If the import doesn't need config   -->
     <div *ngIf="showNoConfigMessage" class="g-text-light">
-      {{'biox.resource_import_no_config' | translate}}
+      {{ 'biox.resource_import_no_config' | translate }}
     </div>
 
     <button mat-flat-button color="primary" type="submit"
             class="g-centered-forced submit-button">
-      {{'biox.import_resource' | translate}}
+      {{ 'biox.import_resource' | translate }}
       <fl-button-loader *ngIf="callIsLoading"></fl-button-loader>
     </button>
   </form>

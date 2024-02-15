@@ -19,6 +19,10 @@ import {
   LabResourceAvailableViewsPortalComponent
 } from '../lab-resource-available-views-portal/lab-resource-available-views-portal.component';
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
+import {
+  LabImportResourceDialogComponent,
+  LabImportResourceDialogInput
+} from '../lab-import-resource-dialog/lab-import-resource-dialog.component';
 
 @Component({
   selector: 'lab-resource-detail-header',
@@ -108,6 +112,18 @@ export class LabResourceDetailHeaderComponent {
       resource => this.state.updateResource(resource)
     );
   }
+
+  openImportResource(): void {
+    const input: LabImportResourceDialogInput = {
+      resourceId: this.resource().id,
+      resourceHumanName: this.resource().resourceTypeHumanName,
+      resourceTypingName: this.resource().resourceTypingName,
+      nodeExtension: this.resource().fsNode.getExtension()
+    };
+
+    this.dialogService.openMediumDialog(LabImportResourceDialogComponent, {data: input});
+  }
+
 
 
 }

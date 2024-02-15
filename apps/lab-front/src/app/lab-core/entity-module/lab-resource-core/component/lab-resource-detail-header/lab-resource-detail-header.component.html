@@ -26,6 +26,11 @@
 
   <lab-flag-button [entity]="resource()" *ngIf="displayMode !== 'dense'"></lab-flag-button>
 
+  <button mat-stroked-button color="primary" type="button" *ngIf="resource().isFsNode()"
+          (click)="openImportResource()" class="g-button-small">
+    {{'biox.import_resource' | translate}}
+  </button>
+
   <button mat-stroked-button type="button" (click)="openViewSpecListPortal($event)"
           class="g-button-small button">
     {{'biox.views' | translate}}

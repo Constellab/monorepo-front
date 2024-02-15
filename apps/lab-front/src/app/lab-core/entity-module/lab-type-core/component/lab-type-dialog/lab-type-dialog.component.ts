@@ -5,9 +5,8 @@ import {LabTypeService} from '../../../../entity-service/lab-type.service';
 import {Observable, share} from 'rxjs';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {TdTypingName} from '@monorepo/technical-doc';
-import {LabCommunityTechnicalDocType, LabEnvironmentHelper} from '../../../../utils/lab-environment.helper';
 import {map} from 'rxjs/operators';
-import {ClVersion} from '@monorepo/core-lib';
+import {LabCommunityHelper} from '../../../../utils/lab-community.helper';
 
 export interface LabTypeDialogInput {
   typingName: string;
@@ -35,21 +34,7 @@ export class LabTypeDialogComponent {
 
   getCommunityUrl(type: LabTypeEntity): string {
     const typingName = new TdTypingName(type.typingName);
-    let docType: LabCommunityTechnicalDocType;
-    switch (type.objectType) {
-      case 'TASK':
-        docType = 'task';
-        break;
-      case 'RESOURCE':
-        docType = 'resource';
-        break;
-      case 'PROTOCOL':
-        docType = 'protocol';
-        break;
-    }
-    const version = ClVersion.fromString(type.brickVersion);
-    return LabEnvironmentHelper.getCommunityTechnicalDocUrl(typingName.brickName,
-      version.major, docType, typingName.uniqueName);
+    return LabCommunityHelper.getTechnicalDocUrl(typingName, type.brickVersion);
   }
 
 

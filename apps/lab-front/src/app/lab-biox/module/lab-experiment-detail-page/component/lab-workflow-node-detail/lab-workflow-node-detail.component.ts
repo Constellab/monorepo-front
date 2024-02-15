@@ -108,7 +108,7 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
     const data: LabTypeDialogInput = {
       typingName: typingName
     };
-    this.dialogService.openMediumDialog(LabTypeDialogComponent, {data: data});
+    this.dialogService.openMediumDialog(LabTypeDialogComponent, {data: data, panelClass: 'g-dialog-main-background'});
   }
 
   openProcessDashboard(): void {

@@ -15,9 +15,10 @@ import {
 } from '../../../lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
 import {LabTypeEntity} from '../../../../model/entities/lab-type/lab-type.entity';
 import {LabTypeService} from '../../../../entity-service/lab-type.service';
-import {TdTypingName} from '@monorepo/technical-doc';
+import {TdIOSpec, TdTypingName} from '@monorepo/technical-doc';
 import {PrConfigValues} from '@monorepo/protocol';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {LabCommunityHelper} from '../../../../utils/lab-community.helper';
 
 export interface LabImportResourceDialogInput {
   resourceId: string;
@@ -39,10 +40,15 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
   formGp: FormGroup<LabConfigureSpecsForm>;
 
   selectedImporterType: LabProcessType = null;
+  sourceSpec: TdIOSpec;
+  targetSpec: TdIOSpec;
+
   configData: LabConfig;
 
   processTypeIsLoading: boolean = false;
   callIsLoading: boolean = false;
+
+  communityHelpUrl = LabCommunityHelper.getImportResourceDocUrl();
 
   private detailOverlayRef: FlOverlayRef;
 
@@ -72,7 +78,8 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
         resourceTypingName: this.input.resourceTypingName,
         extension: this.input.nodeExtension
       },
-      title: 'biox.select_importer'
+      title: 'biox.select_importer',
+      helpText: {text: 'biox.select_importer_help', translateText: true}
     };
 
     this.dialogService.openBigDialog(LabSelectTypeDialogComponent, {data: input}).afterClosed().subscribe(
@@ -83,10 +90,7 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
   private loadImporterType(importerTypingName: string): void {
     if (importerTypingName == null || importerTypingName === this.selectedImporterType?.typingName) return;
 
-    this.formGp = null;
-    this.configData = null;
-    this.selectedImporterType = null;
-
+    this.setImporterType(null);
     this.processTypeIsLoading = true;
 
     // timeout is useful to let the page refresh to the is recreated even if
@@ -100,10 +104,23 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
 
   selectImporter(importer: LabProcessType): void {
     this.processTypeIsLoading = false;
+    this.setImporterType(importer);
+  }
 
-    this.selectedImporterType = importer;
-    this.configData = LabConfig.fromSpecs(importer.configSpecs);
-    this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.configData);
+  private setImporterType(importer?: LabProcessType): void {
+    if (importer == null) {
+      this.selectedImporterType = null;
+      this.sourceSpec = null;
+      this.targetSpec = null;
+      this.formGp = null;
+      this.configData = null;
+    } else {
+      this.selectedImporterType = importer;
+      this.sourceSpec = importer.getSourceInputSpec();
+      this.targetSpec = importer.getTargetOutputSpec();
+      this.configData = LabConfig.fromSpecs(importer.configSpecs);
+      this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.configData);
+    }
   }
 
   get showNoConfigMessage(): boolean {

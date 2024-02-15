@@ -159,6 +159,9 @@ export class LabResourceActionsMenuComponent implements OnInit {
     const data: LabTypeDialogInput = {
       typingName: this.resource.resourceTypingName
     };
-    this.dialogService.openMediumDialog(LabTypeDialogComponent, {data: data});
+    this.dialogService.openMediumDialog(LabTypeDialogComponent, {
+      data: data,
+      panelClass: 'g-dialog-main-background'
+    });
   }
 }

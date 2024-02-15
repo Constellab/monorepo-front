@@ -10,8 +10,6 @@ export interface TdTypeEntity {
 
   brickVersion?: string;
 
-  brickMajor?: number;
-
   humanName: string;
 
   shortDescription: string | undefined;
