@@ -67,7 +67,7 @@ export class PrWorkflow {
 
   public start(element: HTMLElement): void {
     this.editor = new Drawflow(element);
-    this.editor.zoom_value = 0.1;
+    this.editor.zoom_value = 0.05;
     // use always edit mode
     this.editor.editor_mode = 'edit';
 
