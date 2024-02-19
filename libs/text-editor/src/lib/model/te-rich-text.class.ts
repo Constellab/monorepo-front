@@ -52,6 +52,7 @@ export class TeRichText {
   }
 
   public static getTitles(content: TeRichTextContent, titleTypes: number[]): BlockToolData[] {
+    if (content == null || content.blocks == null) return [];
     const titleBlocks = content.blocks.filter(block => block.type === TeBlockType.HEADER && titleTypes.includes(block.data.level));
     return titleBlocks.map(block => {
       block.data.text = block.data.text.trim().replace(/<[^>]*>/g, '');

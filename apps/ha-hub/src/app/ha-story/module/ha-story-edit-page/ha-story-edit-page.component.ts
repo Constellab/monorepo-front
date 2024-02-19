@@ -178,16 +178,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     this.storyService.updateContent(this.story.id, value).subscribe();
   }
 
-  onFocus(event: any): void {
-    this.contentEditorIsFocused = true;
-  }
-
-  onUnFocus(event: any): void {
-    this.contentEditorIsFocused = false;
-  }
-
   publish(): void {
-
     if (TeRichText.getFiguresBlocks(this.formGp.get('contentEdition').value).length > 0 || this.story.mainPicture != null) {
       this.contentHasError = false;
       const input: FlConfirmDialogInput = {
@@ -295,7 +286,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   checkTopicControl(): boolean{
-    return this.topicControl.value != null && this.topicControl.value != '' && typeof this.topicControl.value == 'string' && this.topicControl.value.trim() != '';
+    return this.topicControl.value != null && this.topicControl.value != '' &&
+      typeof this.topicControl.value == 'string' && this.topicControl.value.trim() != '';
   }
 
   getStoryImageLink(imageName: string): string {
