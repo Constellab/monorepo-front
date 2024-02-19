@@ -11,14 +11,19 @@
 
     <fl-text-icon>
       <mat-icon flIcon="experiment"></mat-icon>
-      <h2>{{'biox.biox' | translate}}</h2>
+      <h2>{{ 'biox.biox' | translate }}</h2>
     </fl-text-icon>
 
-    <fl-search-header-actions>
+    <fl-search-header-actions class="g-layout-row g-layout-start-center">
       <button mat-icon-button type="button" color="accent"
               [matTooltip]="'biox.new_experiment' | translate" matTooltipPosition="before"
               (click)="createExperiment()">
         <mat-icon>add</mat-icon>
+      </button>
+
+      <button mat-stroked-button type="button" class="g-button-small protocol-template"
+              (click)="openProtocolTemplateSearch()">
+        {{ 'biox.protocol_templates' | translate }}
       </button>
     </fl-search-header-actions>
   </fl-search-header>

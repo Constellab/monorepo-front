@@ -1,7 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   FlDatasourcePaginated,
-  FlDialogService,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
@@ -9,7 +8,6 @@ import {
   FlThemeService
 } from '@monorepo/front-core-lib';
 import {LabProtocolTemplate} from '../../../../model/entities/process/lab-protocol-template.entity';
-import {LabRouterService} from '../../../../service/lab-router.service';
 import {LabProtocolTemplateService} from '../../../../entity-service/lab-protocol-template.service';
 import {
   LabProtocolTemplateSearch,
@@ -24,16 +22,16 @@ import {
 })
 export class LabProtocolTemplateSearchComponent implements OnInit {
 
+  @Input() rowSelectable: boolean = false;
+
   @Output() templateSelected: EventEmitter<LabProtocolTemplate> = new EventEmitter();
 
   datasource: FlDatasourcePaginated<LabProtocolTemplate>;
 
-  columns: FlTableColumnStatic<LabProtocolTemplate>[] = ['name', 'tags', 'created', 'openInNewTab'];
+  columns: FlTableColumnStatic<LabProtocolTemplate>[] = ['name', 'tags', 'created'];
 
   constructor(private searchState: FlSearchState<any>,
               private protocolTemplateService: LabProtocolTemplateService,
-              private dialogService: FlDialogService,
-              private routerService: LabRouterService,
               private themeService: FlThemeService) {
   }
 
@@ -52,6 +50,10 @@ export class LabProtocolTemplateSearchComponent implements OnInit {
 
     this.datasource = this.protocolTemplateService.getSearchDatasource();
     this.searchState.init(config, this.datasource);
+
+    if (this.rowSelectable) {
+      this.columns.push('openInNewTab');
+    }
   }
 
   private getSavedSearch(): FlSavedSearch[] {

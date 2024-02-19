@@ -13,10 +13,16 @@ export class LabProtocolTemplateTableComponent {
 
   @Input() columns: FlTableColumnStatic<LabProtocolTemplate>[];
 
+  @Input() rowSelectable: boolean = false;
+
+  @Input() rowLinkTarget: '_self' | '_blank' = '_self';
+
   @Output() templateSelected: EventEmitter<LabProtocolTemplate> = new EventEmitter();
 
   rowClicked(template: LabProtocolTemplate): void {
-    this.templateSelected.emit(template);
+    if (this.rowSelectable) {
+      this.templateSelected.emit(template);
+    }
   }
 
   openInNewTab(event: MouseEvent): void {

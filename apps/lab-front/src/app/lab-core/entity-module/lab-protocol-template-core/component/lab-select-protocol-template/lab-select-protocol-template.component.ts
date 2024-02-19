@@ -7,8 +7,10 @@ import {
 import {NgControl} from '@angular/forms';
 import {LabProtocolTemplateService} from '../../../../entity-service/lab-protocol-template.service';
 import {
-  LabSelectProtocolTemplateDialogComponent
+  LabSelectProtocolTemplateDialogComponent,
+  LabSelectProtocolTemplateDialogInput
 } from '../lab-select-protocol-template-dialog/lab-select-protocol-template-dialog.component';
+import {Observable} from 'rxjs';
 
 /**
  * Input/Select component to search for a Protocol template and select one.
@@ -44,8 +46,15 @@ export class LabSelectProtocolTemplateComponent extends FlFormFieldDirective<Lab
     this.datasource = this.protocolTemplateService.searchByNameDatasource();
 
     this.advancedButton = {
-      onClick: () => this.dialogService.openBigDialog(LabSelectProtocolTemplateDialogComponent).afterClosed()
+      onClick: () => this.openProtocolTemplateDialog(),
     };
+  }
+
+  private openProtocolTemplateDialog(): Observable<any> {
+    const data: LabSelectProtocolTemplateDialogInput = {
+      rowSelectable: true
+    };
+    return this.dialogService.openBigDialog(LabSelectProtocolTemplateDialogComponent, {data}).afterClosed();
   }
 
   callChangeEvent(value: LabProtocolTemplate): void {

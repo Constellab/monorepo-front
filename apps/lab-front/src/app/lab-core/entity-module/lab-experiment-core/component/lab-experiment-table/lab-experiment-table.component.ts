@@ -14,7 +14,6 @@ export class LabExperimentTableComponent {
 
   @Input() columns: FlTableColumnStatic<LabExperiment>[] = ['title', 'status', 'tags', 'createdAt'];
 
-  // when true, the row become clickable and resourceSelected event is trigger
   @Input() rowSelectable: boolean = false;
 
   @Input() rowLinkTarget: '_self' | '_blank' = '_self';

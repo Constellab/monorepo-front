@@ -1,6 +1,10 @@
-import {Component} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {LabProtocolTemplate} from '../../../../model/entities/process/lab-protocol-template.entity';
+
+export interface LabSelectProtocolTemplateDialogInput {
+  rowSelectable: boolean;
+}
 
 @Component({
   selector: 'lab-select-protocol-template-dialog',
@@ -9,7 +13,11 @@ import {LabProtocolTemplate} from '../../../../model/entities/process/lab-protoc
 })
 export class LabSelectProtocolTemplateDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<LabSelectProtocolTemplateDialogComponent>) {
+  rowSelectable: boolean;
+
+  constructor(private dialogRef: MatDialogRef<LabSelectProtocolTemplateDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) input: LabSelectProtocolTemplateDialogInput) {
+    this.rowSelectable = input.rowSelectable;
   }
 
   onTemplateSelected(template: LabProtocolTemplate): void {

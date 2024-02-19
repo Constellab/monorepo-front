@@ -1,7 +1,8 @@
 <fl-dialog-header>
-  {{'biox.select_protocol_template' | translate }}
+  {{ 'biox.select_protocol_template' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <lab-protocol-template-search (templateSelected)="onTemplateSelected($event)"></lab-protocol-template-search>
+  <lab-protocol-template-search [rowSelectable]="rowSelectable"
+                                (templateSelected)="onTemplateSelected($event)"></lab-protocol-template-search>
 </mat-dialog-content>

@@ -6,6 +6,9 @@
       <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
+      <!--    Invisible link  -->
+      <a *ngIf="!rowSelectable" [routerLink]="template | labDetailRoute"
+         [target]="rowLinkTarget" class="g-row-link"></a>
       {{ template.name }}
     </mat-cell>
   </ng-container>
@@ -52,7 +55,7 @@
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
-  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
            (click)="rowClicked(row)"></mat-row>
 
 

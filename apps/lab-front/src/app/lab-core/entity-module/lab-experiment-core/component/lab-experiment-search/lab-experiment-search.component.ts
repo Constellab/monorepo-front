@@ -14,6 +14,10 @@ import {LabExperimentService} from '../../../../entity-service/lab-experiment.se
 import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
 import {LabExperimentFormDialogComponent} from '../lab-experiment-form-dialog/lab-experiment-form-dialog.component';
 import {LabRouterService} from '../../../../service/lab-router.service';
+import {
+  LabSelectProtocolTemplateDialogComponent,
+  LabSelectProtocolTemplateDialogInput
+} from '../../../lab-protocol-template-core/component/lab-select-protocol-template-dialog/lab-select-protocol-template-dialog.component';
 
 
 @Component({
@@ -111,5 +115,12 @@ export class LabExperimentSearchComponent implements OnInit {
       tags: [tag]
     };
     this.searchState.callAdvancedSearchFromObject(search);
+  }
+
+  openProtocolTemplateSearch(): void {
+    const data: LabSelectProtocolTemplateDialogInput = {
+      rowSelectable: false
+    };
+    this.dialogService.openBigDialog(LabSelectProtocolTemplateDialogComponent, {data});
   }
 }

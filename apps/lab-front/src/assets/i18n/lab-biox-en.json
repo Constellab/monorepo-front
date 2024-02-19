@@ -297,6 +297,7 @@
     "delete_protocol_template_confirmation": "Are you sure you want to delete this protocol template ?",
     "protocol_template_deleted": "Protocol template deleted",
     "protocol_template": "Protocol template",
+    "protocol_templates": "Protocol templates",
     "select_protocol_template": "Select a protocol template",
     "protocol_template_explication": "This will create a protocol template. A protocol template can be used during the experiment creation to pre-configure it.",
     "protocol_template_beta_warning": "The protocol template feature is in beta. It is not yet possible to update a protocol template. If you want to update it, please create a new one from an experiment.",
