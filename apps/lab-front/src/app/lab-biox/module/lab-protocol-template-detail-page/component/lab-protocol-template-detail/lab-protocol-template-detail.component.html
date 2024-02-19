@@ -2,12 +2,12 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon flIcon="protocol_template"></mat-icon>
-      <h2>{{template.name | translate}}</h2>
+      <h2>{{ template.name | translate }}</h2>
     </fl-text-icon>
 
     <fl-card-actions>
       <a mat-icon-button [href]="downloadUrl" download
-              [matTooltip]="'biox.download_protocol_template' | translate">
+         [matTooltip]="'biox.download_protocol_template' | translate">
         <mat-icon>cloud_download</mat-icon>
       </a>
 
@@ -26,7 +26,7 @@
 
     <fl-text-icon class="g-text-light help-text">
       <mat-icon>warning</mat-icon>
-      <div>{{'biox.protocol_template_beta_warning' | translate}}</div>
+      <div>{{ 'biox.protocol_template_beta_warning' | translate }}</div>
     </fl-text-icon>
 
     <te-text-editor [config]="textEditorConfig"
@@ -34,7 +34,12 @@
                     [placeholder]="'description' | translate"
                     (textChange)="onDescriptionChanged($event)"></te-text-editor>
 
-    <pr-workflow [workflow]="workflow" [mode$]="workflowMode$" [viewConfig]="viewConfig"
-                 class="workflow"></pr-workflow>
+    <fl-section [object]="workflow" [isLoading]="workflowIsLoading">
+      <ng-container *flSectionBody>
+        <pr-workflow [workflow]="workflow" [mode$]="workflowMode$" [viewConfig]="viewConfig"
+                     class="workflow"></pr-workflow>
+      </ng-container>
+    </fl-section>
+
   </fl-card-body>
 </fl-card>

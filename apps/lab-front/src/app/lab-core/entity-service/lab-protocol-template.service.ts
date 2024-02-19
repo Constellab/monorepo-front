@@ -15,6 +15,7 @@ import {
   LabProtocolTemplateSearch,
   LabProtocolTemplateSearchFields
 } from '../entity-module/lab-protocol-template-core/model/lab-protocol-template-search.class';
+import {PrProtocolGraph} from '@monorepo/protocol';
 
 
 @Injectable({
@@ -30,6 +31,10 @@ export class LabProtocolTemplateService {
 
   public getProtocolTemplate(id: string): Observable<LabProtocolTemplate> {
     return this.apiService.get(`${this.route}/${id}`, LabProtocolTemplate);
+  }
+
+  public getProtocolTemplateGraph(id: string): Observable<PrProtocolGraph> {
+    return this.apiService.get(`${this.route}/${id}/graph`);
   }
 
   public updateProtocolTemplate(id: string, data: Partial<LabProtocolTemplate>): Observable<LabProtocolTemplate> {

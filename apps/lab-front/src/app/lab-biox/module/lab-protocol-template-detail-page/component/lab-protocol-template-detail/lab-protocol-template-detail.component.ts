@@ -2,6 +2,7 @@ import {Component, Input, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {LabProtocolTemplate} from '../../../../../lab-core/model/entities/process/lab-protocol-template.entity';
 import {
   PrConfigViewEmpty,
+  PrProtocolGraph,
   PrWorkflow,
   PrWorkflowActionState,
   PrWorkflowFactory,
@@ -26,10 +27,11 @@ import {TeBasicConfig, TeRichTextContent} from '@monorepo/text-editor';
 })
 export class LabProtocolTemplateDetailComponent implements OnInit, OnDestroy {
 
-
   @Input() template: LabProtocolTemplate;
 
   viewConfig = new PrConfigViewEmpty();
+
+  workflowIsLoading: boolean = false;
   workflow: PrWorkflow;
   workflowMode$: Observable<PrWorkflowMode> = of('readOnly');
 
@@ -51,15 +53,29 @@ export class LabProtocolTemplateDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.downloadUrl = this.protocolTemplateService.getProtocolTemplateDownloadUrl(this.template.id);
     this.actionState.init();
-    const factory = new PrWorkflowFactory(this.template.data, ClStringHelper.generateUUID(),
-      this.ngZone, this.workflowResourcesState);
-    this.workflow = factory.createWorkflow();
 
     // create a debouncer to save the description after x second of idle
     this.descriptionDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     this.descriptionDebouncer.getDebouncedValue().subscribe(
       value => this.saveDescription(value)
     );
+
+    this.getProtocolGraph();
+  }
+
+  private getProtocolGraph(): void {
+    this.workflowIsLoading = true;
+    this.protocolTemplateService.getProtocolTemplateGraph(this.template.id).subscribe({
+      next: (protocolGraph: PrProtocolGraph) => this.getProtocolGraphSuccess(protocolGraph),
+      error: () => this.workflowIsLoading = false
+    });
+  }
+
+  private getProtocolGraphSuccess(protocolGraph: PrProtocolGraph): void {
+    const factory = new PrWorkflowFactory(protocolGraph, ClStringHelper.generateUUID(),
+      this.ngZone, this.workflowResourcesState);
+    this.workflow = factory.createWorkflow();
+    this.workflowIsLoading = false;
   }
 
   onDescriptionChanged(value: TeRichTextContent): void {
