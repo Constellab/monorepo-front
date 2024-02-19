@@ -3,7 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
 import {HaStory} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import {HaStoryTextEditorConfig} from '../ha-story-edit-page/ha-story-text-editor.config';
-import {FlDialogService} from '@monorepo/front-core-lib';
 import {FormControl} from '@ngneat/reactive-forms';
 import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
 
@@ -38,10 +37,6 @@ export class HaStoryPageComponent implements OnInit {
   currentUser: HaUser;
 
   hasRightToEdit: boolean;
-
-  protected readonly screen = screen;
-
-  protected readonly window = window;
 
   constructor(private activatedRoute: ActivatedRoute,
               private storyService: HaStoryService,

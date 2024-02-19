@@ -3,7 +3,8 @@ import {APP_INITIALIZER, Injector, NgModule, TransferState} from '@angular/core'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HaAppComponent} from './ha-app.component';
 import {
-  FL_CAPTCHA_MODULE_CONFIG, FL_TRANSLATE_MODULE_CONFIG,
+  FL_CAPTCHA_MODULE_CONFIG,
+  FL_TRANSLATE_MODULE_CONFIG,
   FlApiModule,
   FlAuthModule,
   FlCaptchaModule,
@@ -11,13 +12,14 @@ import {
   FlDialogModule,
   FlHttpInterceptorService,
   FlIconModule,
-  flIconsDefault,
   FlPortalActionsModule,
   FlPortalModule,
   flSetRootInjector,
   FlSnackBarModule,
   FlThemeService,
-  FlTranslateModule, FlTranslateModuleConfig, FlTranslationLoader,
+  FlTranslateModule,
+  FlTranslateModuleConfig,
+  FlTranslationLoader,
   FlUserModule
 } from '@monorepo/front-core-lib';
 import {HaApiServiceConfig} from './ha-core/ha-model/ha-config/ha-api-module.config';
@@ -36,6 +38,7 @@ import {HaEnvironmentHelper} from './ha-core/ha-model/ha-config/ha-environment.h
 import {HaHttpInterceptorSsrService} from './ha-core/ha-service/ha-http-interceptor-ssr.service';
 import {rvDefaultViewTypeInfos, RvResourceViewModule} from '@monorepo/resource-view';
 import {TranslateLoader} from '@ngx-translate/core';
+import {haSvgIcons} from './ha-core/utils/ha-svg-icon-config';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -93,7 +96,7 @@ export function TranslationLoaderFactory(http: HttpClient, config: FlTranslateMo
 
     FlIconModule.forRoot({
       iconFolder: 'assets/fl-mat-icons/',
-      iconsToRegister: flIconsDefault,
+      iconsToRegister: haSvgIcons,
     }),
 
     RvResourceViewModule.forRoot({availableViews: rvDefaultViewTypeInfos}),

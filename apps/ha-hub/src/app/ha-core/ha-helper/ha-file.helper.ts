@@ -21,7 +21,7 @@ export class HaFileHelper {
     ]
     const extension = filename.split('.').pop();
     if (!availableFileExtensionsIcon.includes(extension))
-      return 'assets/file-icons/file-line-icon.svg';
-    return 'assets/file-icons/' + extension + '-file-icon.svg';
+      return 'file-line-icon';
+    return extension + '-file-icon';
   }
 }

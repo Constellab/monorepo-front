@@ -11,7 +11,7 @@
     <table>
       <tr *ngFor="let file of story?.storyFiles">
         <td class="left-cell" flElementEditable (flElementValueChange)="renameFile($event, file)">
-          <fl-text-icon [iconPosition]="'start'"><mat-icon><img [src]="getFileIcon(file.humanName)"/></mat-icon>{{file.humanName}}</fl-text-icon>
+          <fl-text-icon [iconPosition]="'start'"><mat-icon [svgIcon]="getFileIcon(file.humanName)"></mat-icon>{{file.humanName}}</fl-text-icon>
         </td>
         <td class="right-cell">
           <button mat-icon-button class="button" (click)="deleteFile(file)" [matTooltip]="'delete_story_file' | translate">
