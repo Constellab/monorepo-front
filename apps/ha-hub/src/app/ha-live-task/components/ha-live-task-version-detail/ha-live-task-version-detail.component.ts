@@ -32,7 +32,6 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
 
   constructor(private liveTaskService: HaLiveTaskService,
               private snackBarService: FlSnackBarService,
-              private dialogService: FlDialogService,
               private translateService: TranslateService) {
   }
 
@@ -46,7 +45,10 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
     this.versionInfosFormControl.setValue(this.liveTaskVersion?.versionInfos);
     this.versionInfosFormControl.disable();
 
-    this.paramsFormControl.setValue(this.liveTaskVersion?.params.join('\n'));
+    if (this.liveTaskVersion?.params != null) {
+      this.paramsFormControl.setValue(this.liveTaskVersion.params.join('\n'));
+    }
+
     this.paramsDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     this.paramsDebouncer.getDebouncedValue().subscribe(value => this.onParamsChange(value));
     this.paramsFormControl.value$.subscribe(params => {
@@ -83,7 +85,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
 
   onParamsChange(params: string): void {
     const paramsArray = params.split('\n');
-    if (params === this.liveTaskVersion.params.join('\n') || paramsArray.find(p => p.trim().length > 0) == null || !this.isEditable) {
+    if (params === this.liveTaskVersion?.params?.join('\n') || paramsArray.find(p => p.trim().length > 0) == null || !this.isEditable) {
       return;
     }
     this.liveTaskService.saveLiveTaskVersionParams(this.liveTaskVersion.id, paramsArray).subscribe(liveTaskVersion => {
@@ -101,7 +103,8 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   }
 
   onCopy(type: 'parameters' | 'code' | 'environment_file'): void {
-    navigator.clipboard.writeText(this.liveTaskVersion.params.join('\n')).then(() => {
+    if (this.liveTaskVersion && this.liveTaskVersion.params)
+    navigator.clipboard.writeText(this.liveTaskVersion?.params?.join('\n')).then(() => {
       this.snackBarService.openSuccessMessage({text: `${type}_copied_to_clipboard`, translateText: true});
     }).catch(() => {
       this.snackBarService.openErrorMessage('Error copying code to clipboard');
