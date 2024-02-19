@@ -8,13 +8,12 @@ export type PrProcessStatus = 'DRAFT' | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTI
 
 export const prProcessStatusDict: FlStatusDict<PrProcessStatus> = {
   DRAFT: FlStatusHelper.getDraftStatus('DRAFT'),
-  RUNNING: FlStatusHelper.getRunningStatus('RUNNING'),
+  RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'flStatus.running'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
   PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run',
     FlStatusHelper.draftIcon),
-  WAITING_FOR_CLI_PROCESS: FlStatusHelper.getInfoStatus('WAITING_FOR_CLI_PROCESS', 'pr.waiting_for_cli_process',
-    FlStatusHelper.runningIcon),
+  WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus('WAITING_FOR_CLI_PROCESS', 'pr.waiting_for_cli_process'),
 };
 
 /**

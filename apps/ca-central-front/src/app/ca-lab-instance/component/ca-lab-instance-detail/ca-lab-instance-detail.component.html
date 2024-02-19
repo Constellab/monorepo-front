@@ -1,13 +1,51 @@
 <fl-card class="g-full-height" *ngIf="labInstance$ | async as labInstance">
 
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon flIcon="lab"></mat-icon>
+      <h2>{{ labInstance.name | translate }}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+
+        <button mat-menu-item type="button" (click)="openLabUpdate(labInstance)">
+          <mat-icon>edit</mat-icon>
+          <span>{{'update_lab_instance_name' | translate}}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="openStatusHistoryDialog(labInstance)">
+          <mat-icon>history</mat-icon>
+          <span>{{ 'status_history' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="openCodelabInfo(labInstance)">
+          <mat-icon flIcon="code"></mat-icon>
+          <span>{{ 'codelab_info' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="openLabConfig(labInstance)">
+          <mat-icon>info</mat-icon>
+          {{ 'lab_installed_brick' | translate }}
+        </button>
+
+      </mat-menu>
+    </fl-card-actions>
+  </fl-card-header>
+
+
   <fl-card-body>
 
     <!--   Lab type   -->
     <fl-text-icon>
-      <mat-icon>{{labInstance.typeIcon}}</mat-icon>
+      <mat-icon>{{ labInstance.typeIcon }}</mat-icon>
       <fl-key-value>
-        <fl-key>{{'lab_instance_type' | translate}}</fl-key>
-        {{'lab_instance_type_' + labInstance.type | translate}}
+        <fl-key>{{ 'lab_instance_type' | translate }}</fl-key>
+        {{ 'lab_instance_type_' + labInstance.type | translate }}
       </fl-key-value>
     </fl-text-icon>
 
@@ -16,10 +54,10 @@
     <fl-text-icon *ngIf="labInstance.isOnServer">
       <mat-icon>link</mat-icon>
       <fl-key-value>
-        <fl-key>{{'url' | translate}}</fl-key>
+        <fl-key>{{ 'url' | translate }}</fl-key>
         <a [href]="labInstance.frontUrl" target="_blank" class="g-text-link"
            [matTooltip]="'open_lab_in_new_tab' | translate">
-          {{labInstance.frontUrl}}
+          {{ labInstance.frontUrl }}
         </a>
       </fl-key-value>
     </fl-text-icon>
@@ -28,7 +66,7 @@
     <fl-text-icon *ngIf="labInstance.region">
       <mat-icon>location_on</mat-icon>
       <fl-key-value class="key-val-inline">
-        <fl-key class="key">{{'region' | translate}}</fl-key>
+        <fl-key class="key">{{ 'region' | translate }}</fl-key>
         <ca-city [city]="labInstance.region.city" class="city"></ca-city>
       </fl-key-value>
     </fl-text-icon>
@@ -36,8 +74,8 @@
     <fl-text-icon *ngIf="labInstance.billingMode">
       <mat-icon>attach_money</mat-icon>
       <fl-key-value class="key-val-inline">
-        <fl-key class="key">{{'lab_billing_mode' | translate}}</fl-key>
-        {{'lab_billing_mode_' + labInstance.billingMode | translate}}
+        <fl-key class="key">{{ 'lab_billing_mode' | translate }}</fl-key>
+        {{ 'lab_billing_mode_' + labInstance.billingMode | translate }}
       </fl-key-value>
     </fl-text-icon>
 
@@ -45,27 +83,29 @@
     <fl-text-icon *ngIf="labInstance.desktopPlatform">
       <mat-icon>info</mat-icon>
       <fl-key-value>
-        <fl-key>{{'lab_desktop_platform' | translate}}</fl-key>
-        {{labInstance.desktopPlatform}}
+        <fl-key>{{ 'lab_desktop_platform' | translate }}</fl-key>
+        {{ labInstance.desktopPlatform }}
       </fl-key-value>
     </fl-text-icon>
 
     <!--   Trial   -->
     <fl-text-icon *ngIf="labInstance.isFreeTrial">
       <mat-icon>lightbulb</mat-icon>
-      {{'lab_free_trial_long' | translate}}
+      {{ 'lab_free_trial_long' | translate }}
     </fl-text-icon>
 
     <fl-text-icon *ngIf="labInstance.isDesktop">
       <mat-icon>help</mat-icon>
       <a [href]="desktopDocUrl" target="_blank" class="g-text-link">
-        {{'lab_desktop_how_to_link' | translate}}
+        {{ 'lab_desktop_how_to_link' | translate }}
       </a>
     </fl-text-icon>
 
+    <ca-lab-instance-current-task [showConfigRouteLink]="true"></ca-lab-instance-current-task>
+
   </fl-card-body>
 
-  <fl-card-footer class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+  <fl-card-footer class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
 
     <ng-container *ngIf="labInstance.isOnServer">
 
@@ -73,28 +113,15 @@
                            [labInstanceId]="labInstance.id" [isRunning]="labIsRunning$ | async"></ca-lab-login-button>
 
       <ca-lab-instance-start-stop *ngIf="labInstance.isCloud && (isOwner$ | async)"></ca-lab-instance-start-stop>
-
-      <button mat-stroked-button type="button" (click)="openCodelabInfo(labInstance)"
-              class="g-button-small">
-        <mat-icon flIcon="code"></mat-icon>
-        {{'codelab_info' | translate}}
-      </button>
-
     </ng-container>
 
     <ng-container *ngIf="labInstance.isDesktop">
       <button mat-stroked-button (click)="getDesktopConfigDownloadUrl(labInstance)"
               type="button">
         <mat-icon>cloud_download</mat-icon>
-        <span>{{'download_desktop_config' | translate}}</span>
+        <span>{{ 'download_desktop_config' | translate }}</span>
       </button>
     </ng-container>
-
-    <button mat-stroked-button type="button" (click)="openLabConfig(labInstance)"
-            class="g-button-small">
-      <mat-icon>info</mat-icon>
-      {{'brick_versions' | translate}}
-    </button>
 
 
   </fl-card-footer>

@@ -1,15 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CaLabInstance, CaLabInstanceStatus} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
-import {
-  CaStatusHistoryListDialogComponent,
-  CaStatusHistoryListDialogInput
-} from '../../../ca-core/module/ca-status/ca-status-history-list-dialog/ca-status-history-list-dialog.component';
-import {
-  CaLabInstanceUpdateDialogComponent,
-  LabInstanceUpdateDialogInput
-} from '../ca-lab-instance-update-dialog/ca-lab-instance-update-dialog.component';
-import {FlDialogService, FlHorizontalNavBarItem, FlStatus} from '@monorepo/front-core-lib';
-import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
+import {FlHorizontalNavBarItem, FlStatus} from '@monorepo/front-core-lib';
 import {CaLabInstanceDetailPageState} from '../../state/ca-lab-instance-detail-page.state';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -32,10 +23,7 @@ export class CaLabInstanceHeaderComponent implements OnInit {
     map(status => status.labStatus)
   );
 
-
-  constructor(private dialogService: FlDialogService,
-              private labInstanceService: CaLabInstanceService,
-              private state: CaLabInstanceDetailPageState) {
+  constructor(private state: CaLabInstanceDetailPageState) {
   }
 
   ngOnInit(): void {
@@ -79,30 +67,6 @@ export class CaLabInstanceHeaderComponent implements OnInit {
     }
 
     return items;
-  }
-
-  openStatusHistoryDialog(labInstance: CaLabInstance): void {
-    const dialogInput: CaStatusHistoryListDialogInput = {
-      statusHistoriesObs: this.labInstanceService.getStatusHistories(labInstance.id),
-    };
-    this.dialogService.openSmallDialog(CaStatusHistoryListDialogComponent, {data: dialogInput});
-  }
-
-  openLabUpdate(labInstance: CaLabInstance): void {
-    const input: LabInstanceUpdateDialogInput = {
-      id: labInstance.id,
-      name: labInstance.name,
-      desktopPlatform: labInstance.desktopPlatform
-    };
-    this.dialogService.openSmallDialog(CaLabInstanceUpdateDialogComponent, {data: input}).afterClosed().subscribe(
-      labInstance => this.onUpdateClosed(labInstance)
-    );
-  }
-
-  private onUpdateClosed(labInstance?: CaLabInstance): void {
-    if (labInstance) {
-      this.state.updateLab(labInstance);
-    }
   }
 
 }

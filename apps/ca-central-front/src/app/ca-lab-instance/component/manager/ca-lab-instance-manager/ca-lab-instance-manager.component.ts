@@ -8,6 +8,11 @@ import {CaLabInstanceDetailPageState} from '../../../state/ca-lab-instance-detai
 import {CaLabInstanceDetailServerState} from '../../../state/ca-lab-instance-detail-server.state';
 import {CaLabInstanceDetailManagerState} from '../../../state/ca-lab-instance-detail-manager.state';
 import {catchError, map} from 'rxjs/operators';
+import {
+  CaLabConfigDialogComponent,
+  CaLabConfigDialogInput
+} from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
+import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
 
 /**
  * Component only accessible by the admin
@@ -30,7 +35,8 @@ export class CaLabInstanceManagerComponent implements OnInit, OnDestroy {
   constructor(private dialogService: FlDialogService,
               private state: CaLabInstanceDetailPageState,
               private serverState: CaLabInstanceDetailServerState,
-              private managerState: CaLabInstanceDetailManagerState) {
+              private managerState: CaLabInstanceDetailManagerState,
+              private labInstanceService: CaLabInstanceService) {
   }
 
   ngOnInit(): void {
@@ -74,6 +80,17 @@ export class CaLabInstanceManagerComponent implements OnInit, OnDestroy {
 
     this.serverState.updateLabManager(managerVersion, recommendedVersion);
   }
+
+  openLabConfig(): void {
+    const input: CaLabConfigDialogInput = {
+      labConfig:  this.labInstanceService.getConfig(this.state.getLabInstanceId()),
+      title: {text: 'lab_installed_brick', translateText: true},
+      helpText: {text: 'lab_installed_brick_help', translateText: true}
+    }
+
+    this.dialogService.openSmallDialog(CaLabConfigDialogComponent, {data: input});
+  }
+
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();

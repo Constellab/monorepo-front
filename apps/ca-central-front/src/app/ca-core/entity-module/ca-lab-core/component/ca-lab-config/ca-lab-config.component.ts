@@ -1,25 +1,35 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaLabConfig} from '../../../../model/entities/lab/ca-lab-config.class';
 import {CaBrickVersionComplete} from '../../../../model/entities/ca-brick.class';
 import {CaCommunityHelper} from '../../../../utils/ca-community.helper';
+import {
+  CaBrickVersionDetailDialogComponent,
+  CaBrickVersionDetailDialogInput
+} from '../../../ca-brick-core/component/ca-brick-version-detail-dialog/ca-brick-version-detail-dialog.component';
+import {FlDialogService} from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ca-lab-config',
   templateUrl: './ca-lab-config.component.html',
   styleUrls: ['./ca-lab-config.component.scss']
 })
-export class CaLabConfigComponent implements OnInit {
+export class CaLabConfigComponent {
 
   @Input() labConfig: CaLabConfig;
 
-  constructor() {
+  constructor(private dialogService: FlDialogService) {
   }
-
-  ngOnInit(): void {
-  }
-
 
   getBrickLink(brickVersion: CaBrickVersionComplete): string {
     return CaCommunityHelper.getBrickUrl(brickVersion.brick.name, brickVersion.version);
+  }
+
+  openBrickVersionDetail(brickVersion: CaBrickVersionComplete): void {
+    const data: CaBrickVersionDetailDialogInput = {
+      brickName: brickVersion.brick.name,
+      brickVersion: brickVersion.version
+    };
+
+    this.dialogService.openSmallDialog(CaBrickVersionDetailDialogComponent, {data});
   }
 }

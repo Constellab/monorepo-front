@@ -19,6 +19,9 @@
 
   <fl-card-body>
 
+    <p class="g-text-light">{{'lab_create_green_option_help' | translate}}</p>
+
+
     <!--  Global status  -->
     <fl-async-section [arrayObs]="labGreenOptions$" emptyText="no_lab_green_option">
       <ng-container *flSectionBodyDatasource>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaStatusHistory} from '../../../model/entities/ca-status-history.class';
 
 /**
@@ -9,14 +9,8 @@ import {CaStatusHistory} from '../../../model/entities/ca-status-history.class';
   templateUrl: './ca-status-history-card.component.html',
   styleUrls: ['./ca-status-history-card.component.scss']
 })
-export class CaStatusHistoryCardComponent implements OnInit {
+export class CaStatusHistoryCardComponent {
 
   @Input() statusHistory: CaStatusHistory<any>;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
 }

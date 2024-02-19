@@ -4,9 +4,9 @@
   background-color: var(--main-background);
 }
 
-
-.save-button{
-  margin-top: 1em;
+.help-text{
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .button{
@@ -14,5 +14,9 @@
 }
 
 .glab-override{
+  margin-top: 1em;
+}
+
+.save-button{
   margin-top: 1em;
 }

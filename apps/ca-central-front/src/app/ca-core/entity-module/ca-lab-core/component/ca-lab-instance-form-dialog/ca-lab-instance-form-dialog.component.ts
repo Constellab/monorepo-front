@@ -58,7 +58,7 @@ export class CaLabInstanceFormDialogComponent extends FlFormDialogAbstractDirect
   }
 
   get title(): string {
-    return this.isCreateMode() ? 'create_lab_instance' : 'update_lab_instance';
+    return this.isCreateMode() ? 'create_lab_instance' : 'update_lab_instance_name';
   }
 
   ngOnInit(): void {

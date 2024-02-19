@@ -16,6 +16,14 @@ import {
   CaLabDesktopDownloadConfigInput
 } from '../desktop/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
 import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
+import {
+  CaStatusHistoryListDialogComponent,
+  CaStatusHistoryListDialogInput
+} from '../../../ca-core/module/ca-status/ca-status-history-list-dialog/ca-status-history-list-dialog.component';
+import {
+  CaLabInstanceUpdateDialogComponent,
+  LabInstanceUpdateDialogInput
+} from '../ca-lab-instance-update-dialog/ca-lab-instance-update-dialog.component';
 
 @Component({
   selector: 'ca-lab-instance-detail',
@@ -45,7 +53,11 @@ export class CaLabInstanceDetailComponent implements OnInit {
   }
 
   openLabConfig(labInstance: CaLabInstance): void {
-    const input: CaLabConfigDialogInput = this.labInstanceService.getConfig(labInstance.id);
+    const input: CaLabConfigDialogInput = {
+      labConfig:  this.labInstanceService.getConfig(labInstance.id),
+      title: {text: 'lab_installed_brick', translateText: true},
+      helpText: {text: 'lab_installed_brick_help', translateText: true}
+    }
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, {data: input});
   }
@@ -55,6 +67,30 @@ export class CaLabInstanceDetailComponent implements OnInit {
       labInstanceId: labInstance.id,
     }
     this.dialogService.openSmallDialog(CaLabDesktopDownloadConfigComponent, {data: input});
+  }
+
+  openStatusHistoryDialog(labInstance: CaLabInstance): void {
+    const dialogInput: CaStatusHistoryListDialogInput = {
+      statusHistoriesObs: this.labInstanceService.getStatusHistories(labInstance.id),
+    };
+    this.dialogService.openSmallDialog(CaStatusHistoryListDialogComponent, {data: dialogInput});
+  }
+
+  openLabUpdate(labInstance: CaLabInstance): void {
+    const input: LabInstanceUpdateDialogInput = {
+      id: labInstance.id,
+      name: labInstance.name,
+      desktopPlatform: labInstance.desktopPlatform
+    };
+    this.dialogService.openSmallDialog(CaLabInstanceUpdateDialogComponent, {data: input}).afterClosed().subscribe(
+      labInstance => this.onUpdateClosed(labInstance)
+    );
+  }
+
+  private onUpdateClosed(labInstance?: CaLabInstance): void {
+    if (labInstance) {
+      this.state.updateLab(labInstance);
+    }
   }
 
 }

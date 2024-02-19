@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaBrickVersion} from '../../../../model/entities/ca-brick.class';
+import {CaCommunityHelper} from '../../../../utils/ca-community.helper';
 
 /**
  * Simple component to show brick version detail
@@ -9,13 +10,12 @@ import {CaBrickVersion} from '../../../../model/entities/ca-brick.class';
   templateUrl: './ca-brick-version-detail.component.html',
   styleUrls: ['./ca-brick-version-detail.component.scss']
 })
-export class CaBrickVersionDetailComponent implements OnInit {
+export class CaBrickVersionDetailComponent {
 
   @Input() brickName: string;
   @Input() brickVersion: CaBrickVersion;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  get communityLink(): string {
+    return CaCommunityHelper.getBrickUrl(this.brickName, this.brickVersion.version);
   }
 }

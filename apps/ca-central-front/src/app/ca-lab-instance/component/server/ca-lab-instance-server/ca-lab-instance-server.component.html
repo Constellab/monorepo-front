@@ -17,6 +17,8 @@
 
   <fl-card-body>
 
+    <p class="g-text-light">{{'lab_server_section_help' | translate}}</p>
+
     <ng-container *ngIf="status$ | async as status">
       <div *ngIf="status.serverTaskStatus.value !== 'NONE'">
 

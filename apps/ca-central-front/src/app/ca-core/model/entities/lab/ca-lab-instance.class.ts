@@ -34,11 +34,11 @@ export type CaLabInstanceStatus =
 export const caLabInstanceStatusDict: FlStatusDict<CaLabInstanceStatus> = {
   LAB_RUNNING: FlStatusHelper.getRunningStatus('LAB_RUNNING'),
   SERVER_STOPPED: FlStatusHelper.getStoppedStatus('SERVER_STOPPED'),
-  SERVER_STARTING: FlStatusHelper.getWarningStatus('SERVER_STARTING', 'lab_starting'),
-  SERVER_STOPPING: FlStatusHelper.getWarningStatus('SERVER_STOPPING', 'lab_stopping'),
+  SERVER_STARTING: FlStatusHelper.getLoadingStatus('SERVER_STARTING', 'lab_starting'),
+  SERVER_STOPPING: FlStatusHelper.getLoadingStatus('SERVER_STOPPING', 'lab_stopping'),
   SERVER_RUNNING: FlStatusHelper.getInfoStatus('SERVER_RUNNING', 'lab_server_running'),
   SERVER_CONFIGURED: FlStatusHelper.getInfoStatus('SERVER_CONFIGURED', 'lab_server_configured'),
-  NO_SERVER: FlStatusHelper.getInfoStatus('NO_SERVER', 'lab_no_server'),
+  NO_SERVER: FlStatusHelper.getInfoStatus('NO_SERVER', 'lab_no_server', 'clear'),
 };
 
 export const caLabInstanceStatusTemp: CaLabInstanceStatus[] = [

@@ -26,7 +26,8 @@ export class FlStatusHelper {
   public static errorIcon: string = 'error';
   public static warningIcon: string = 'warnings';
   public static infoIcon: string = 'info';
-  public static runningIcon: string = 'loader'; // show a loader
+  public static runningIcon: string = 'cached';
+  public static loaderIcon: string = 'loader'; // show a loader if FlStatus.icon is equal to this value
   public static archivedIcon: string = 'inventory_2';
   public static draftIcon: string = 'hourglass_empty';
   public static stoppedIcon: string = 'stop';
@@ -68,7 +69,6 @@ export class FlStatusHelper {
   }
 
 
-
   public static getWarningStatus<STATUS = string>(value: STATUS,
                                                   name: string = 'flStatus.warning',
                                                   icon = FlStatusHelper.warningIcon): FlStatus<STATUS> {
@@ -97,6 +97,10 @@ export class FlStatusHelper {
 
   public static getRunningStatus<STATUS = string>(value: STATUS): FlStatus<STATUS> {
     return FlStatusHelper.getInfoStatus(value, 'flStatus.running', FlStatusHelper.runningIcon);
+  }
+
+  public static getLoadingStatus<STATUS = string>(value: STATUS, name: string): FlStatus<STATUS> {
+    return FlStatusHelper.getInfoStatus(value, name, FlStatusHelper.loaderIcon);
   }
 
   public static getArchivedStatus<STATUS = string>(value: STATUS): FlStatus<STATUS> {

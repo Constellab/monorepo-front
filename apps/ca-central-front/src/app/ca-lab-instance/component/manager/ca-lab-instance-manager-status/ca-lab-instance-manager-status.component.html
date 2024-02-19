@@ -2,13 +2,14 @@
   <!-- Current status -->
   <div *ngIf="currentStatus$ | async as currentStatus" class="current-status">
     <fl-text-icon>
-      <mat-icon [ngClass]="currentStatus.iconClass">{{currentStatus.icon}}</mat-icon>
-      {{currentStatus.text | translate}}
+      <mat-icon [ngClass]="currentStatus.iconClass">{{ currentStatus.icon }}</mat-icon>
+      {{ currentStatus.text | translate }}
 
       <button *ngIf="currentStatus.buttonText" mat-stroked-button class="status-action-button"
               type="button" (click)="currentStatusAction(currentStatus.buttonText)"
-              [disabled]="labStatus.currentTask && labStatus.currentTask.status.value === 'RUNNING'">
-        {{currentStatus.buttonText | translate}}
+              [disabled]="labStatus.currentTask && labStatus.currentTask.status.value === 'RUNNING'"
+              [matTooltip]="currentStatus.buttonTooltip | translate">
+        {{ currentStatus.buttonText | translate }}
       </button>
     </fl-text-icon>
   </div>
@@ -18,25 +19,25 @@
   <div *ngIf="labStatus.currentTask; else noTask">
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-      <span class="no-shrink">{{'lab_manager_task' | translate}} : </span>
+      <span class="no-shrink">{{ 'lab_manager_task' | translate }} : </span>
 
       <fl-loader size="small" *ngIf="labStatus.currentTask.status.value === 'RUNNING'; else finished"></fl-loader>
       <ng-template #finished>
         <fl-status-chip [status]="labStatus.currentTask.status" size="small"></fl-status-chip>
       </ng-template>
 
-      <div>{{labStatus.currentTask.name}} {{labStatus.currentTask.info}}</div>
+      <div>{{ labStatus.currentTask.name }} {{ labStatus.currentTask.info }}</div>
     </div>
   </div>
 
   <ng-template #noTask>
-    {{'lab_manager_no_task' | translate}}
+    {{ 'lab_manager_no_task' | translate }}
   </ng-template>
 
 
   <fl-key-value>
-    <fl-key>{{'lab_manager_version' | translate}}</fl-key>
-    {{labStatus.version}}
+    <fl-key>{{ 'lab_manager_version' | translate }}</fl-key>
+    {{ labStatus.version }}
   </fl-key-value>
 
   <ng-container *ngIf="recommendedVersion$ | async as recommendedVersion">
@@ -44,10 +45,12 @@
          class="version-warning">
       <fl-text-icon>
         <mat-icon color="warn">warnings</mat-icon>
-        {{'lab_manager_not_compatible_with_central' | translate: {
-        'labManagerVersion': labStatus.version,
-        'compatibleVersion': recommendedVersion
-      } }}
+        {{
+          'lab_manager_not_compatible_with_central' | translate: {
+            'labManagerVersion': labStatus.version,
+            'compatibleVersion': recommendedVersion
+          }
+        }}
       </fl-text-icon>
     </div>
   </ng-container>
@@ -58,21 +61,21 @@
 <div *ngIf="adminerUrl$ | async as adminerUrl">
   <fl-text-icon class="g-text-big g-warn-text">
     <mat-icon>warnings</mat-icon>
-    {{'lab_manager_adminer_running' | translate}}
+    {{ 'lab_manager_adminer_running' | translate }}
   </fl-text-icon>
 
   <fl-key-value>
-    <fl-key>{{'adminer_url' | translate}}</fl-key>
-    <a [href]="adminerUrl" class="g-text-link" target="_blank">{{adminerUrl}}</a>
+    <fl-key>{{ 'adminer_url' | translate }}</fl-key>
+    <a [href]="adminerUrl" class="g-text-link" target="_blank">{{ adminerUrl }}</a>
   </fl-key-value>
 
   <fl-key-value>
-    <fl-key>{{'adminer_gws_core_server' | translate}}</fl-key>
+    <fl-key>{{ 'adminer_gws_core_server' | translate }}</fl-key>
     <span>gws_core_prod_db | gws_core_dev_db</span>
   </fl-key-value>
 
   <fl-key-value>
-    <fl-key>{{'adminer_gws_biota_server' | translate}}</fl-key>
+    <fl-key>{{ 'adminer_gws_biota_server' | translate }}</fl-key>
     <span>gws_biota_db</span>
   </fl-key-value>
 </div>

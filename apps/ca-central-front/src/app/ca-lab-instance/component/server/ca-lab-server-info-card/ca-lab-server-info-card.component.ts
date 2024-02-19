@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaLabInstance} from '../../../../ca-core/model/entities/lab/ca-lab-instance.class';
 
 @Component({
@@ -6,14 +6,7 @@ import {CaLabInstance} from '../../../../ca-core/model/entities/lab/ca-lab-insta
   templateUrl: './ca-lab-server-info-card.component.html',
   styleUrls: ['./ca-lab-server-info-card.component.scss']
 })
-export class CaLabServerInfoCardComponent implements OnInit {
+export class CaLabServerInfoCardComponent {
 
   @Input() labInstance: CaLabInstance;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
 }

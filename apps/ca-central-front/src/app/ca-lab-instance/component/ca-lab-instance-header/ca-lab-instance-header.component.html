@@ -3,24 +3,13 @@
   <fl-horizontal-nav-bar [items]="navBarItems$ | async">
     <fl-horizontal-nav-bar-title>
       <fl-text-icon>
-        <mat-icon class="g-icon-big" flIcon="lab"></mat-icon>
+        <mat-icon flIcon="lab"></mat-icon>
         <h1>{{ labInstance.name }}</h1>
       </fl-text-icon>
     </fl-horizontal-nav-bar-title>
 
     <fl-horizontal-nav-bar-actions class="g-layout-row g-layout-start-center">
-      <button mat-icon-button type="button" (click)="openLabUpdate(labInstance)"
-              [matTooltip]="'update_lab_instance' | translate" class="g-button-action g-button-shadow">
-        <mat-icon>edit</mat-icon>
-      </button>
-
-      <button mat-icon-button type="button" (click)="openStatusHistoryDialog(labInstance)"
-              [matTooltip]="'status_history' | translate" class="g-button-action g-button-shadow">
-        <mat-icon>history</mat-icon>
-      </button>
-
-      <fl-status-chip [status]="labStatus$"
-                      class="g-text-big g-button-action">
+      <fl-status-chip [status]="labStatus$" class="g-text-big g-button-action">
       </fl-status-chip>
     </fl-horizontal-nav-bar-actions>
 

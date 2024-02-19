@@ -131,6 +131,9 @@ import {CaCloudProviderCoreModule} from '../ca-core/entity-module/ca-cloud-provi
 import {
   CaLabDockerContainerDetailsComponent
 } from './component/manager/ca-lab-docker-container-details/ca-lab-docker-container-details.component';
+import {
+  CaLabInstanceCurrentTaskComponent
+} from './component/ca-lab-instance-current-task/ca-lab-instance-current-task.component';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -183,6 +186,7 @@ import {
     CaLabBackupOptionsComponent,
     CaLabBackupHistoryComponent,
     CaLabDockerContainerDetailsComponent,
+    CaLabInstanceCurrentTaskComponent,
   ],
   imports: [
     CommonModule,

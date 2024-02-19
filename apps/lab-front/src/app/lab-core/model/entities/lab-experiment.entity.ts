@@ -25,9 +25,8 @@ export const labExperimentStatusDict: FlStatusDict<LabExperimentStatus> = {
   IN_QUEUE: FlStatusHelper.getInfoStatus('IN_QUEUE', 'biox.experiment_in_queue', FlStatusHelper.draftIcon),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
-  RUNNING: FlStatusHelper.getRunningStatus('RUNNING'),
-  WAITING_FOR_CLI_PROCESS: FlStatusHelper.getInfoStatus('WAITING_FOR_CLI_PROCESS', 'biox.experiment_waiting_for_cli',
-    FlStatusHelper.runningIcon),
+  RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'flStatus.running'),
+  WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus('WAITING_FOR_CLI_PROCESS', 'biox.experiment_waiting_for_cli'),
   PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run',
     FlStatusHelper.draftIcon)
 };

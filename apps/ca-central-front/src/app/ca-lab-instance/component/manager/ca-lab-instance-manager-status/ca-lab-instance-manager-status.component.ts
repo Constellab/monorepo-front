@@ -13,6 +13,7 @@ interface CaCurrentStatusInfo {
   icon: string;
   iconClass: string;
   buttonText?: string;
+  buttonTooltip?: string;
 }
 
 /**
@@ -56,7 +57,8 @@ export class CaLabInstanceManagerStatusComponent implements OnInit {
         text: 'lab_manager_not_initialized',
         icon: 'clear',
         iconClass: 'g-warn-text',
-        buttonText: 'lab_manager_initialize'
+        buttonText: 'lab_manager_initialize',
+        buttonTooltip: 'lab_initialize_help'
       };
       // if the lab manager was updated but the init was not done since
     } else if (labStatus.lastInitVersion && labStatus.lastInitVersion !== labStatus.version) {
@@ -65,7 +67,8 @@ export class CaLabInstanceManagerStatusComponent implements OnInit {
         text: 'lab_manager_not_initialized_since_new_version',
         icon: 'warnings',
         iconClass: 'g-warn-text',
-        buttonText: 'lab_manager_initialize'
+        buttonText: 'lab_manager_initialize',
+        buttonTooltip: 'lab_initialize_help'
       };
     } else if (labStatus.containersStatus.status.value === 'PARTIALLY_UP') {
       return {
@@ -73,7 +76,7 @@ export class CaLabInstanceManagerStatusComponent implements OnInit {
         text: 'lab_manager_some_apps_down',
         icon: 'clear',
         iconClass: 'g-warn-text',
-        buttonText: 'lab_manager_restart'
+        buttonTooltip: 'restart_lab_help'
       };
     } else if (labStatus.containersStatus.status.value === 'DOWN' || labStatus.containersStatus.status.value === 'STOP') {
       return {
@@ -81,7 +84,8 @@ export class CaLabInstanceManagerStatusComponent implements OnInit {
         text: 'lab_manager_all_apps_down',
         icon: 'clear',
         iconClass: 'g-warn-text',
-        buttonText: 'lab_manager_restart'
+        buttonText: 'lab_manager_restart',
+        buttonTooltip: 'restart_lab_help'
       };
     }
     return {
@@ -89,7 +93,8 @@ export class CaLabInstanceManagerStatusComponent implements OnInit {
       text: 'lab_manager_configured',
       icon: 'check',
       iconClass: 'g-success-text',
-      buttonText: 'lab_manager_restart'
+      buttonText: 'lab_manager_restart',
+      buttonTooltip: 'restart_lab_help'
     };
   }
 

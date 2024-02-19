@@ -6,7 +6,7 @@
       {{'lab_usage_period_from' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let status">
-      {{status.fromDate | flDate:'DATETIME_MED_WITH_SECONDS'}}
+      {{status.fromDate | flDate:'DATE_TIME_WITH_SECONDS'}}
     </mat-cell>
   </ng-container>
 
@@ -16,7 +16,7 @@
       {{'lab_usage_period_to' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let status">
-      {{status.toDate | flDate:'DATETIME_MED_WITH_SECONDS'}}
+      {{status.toDate | flDate:'DATE_TIME_WITH_SECONDS'}}
     </mat-cell>
   </ng-container>
 

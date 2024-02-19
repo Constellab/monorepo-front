@@ -3,7 +3,7 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon flIcon="project"></mat-icon>
-      <h2>{{'lab_projects' | translate}}</h2>
+      <h2>{{ 'lab_projects' | translate }}</h2>
     </fl-text-icon>
 
     <fl-card-actions *ngIf="isOwner$ | async">
@@ -15,6 +15,8 @@
   </fl-card-header>
 
   <fl-card-body>
+    <p class="g-text-light">{{ 'lab_projects_section_help' | translate }}</p>
+
     <fl-async-section [arrayObs]="datasource" emptyText="no_lab_project">
 
       <ng-container *flSectionBodyDatasource>

@@ -1,8 +1,10 @@
 <fl-dialog-header>
-  {{'lab_configuration' | translate}}
+  {{ title | flTranslatableText }}
 </fl-dialog-header>
 
 <mat-dialog-content>
+  <p class="g-text-light help-text">{{ helpText | flTranslatableText }}</p>
+
   <fl-async-section [object]="labConfig$">
     <ng-container *flSectionBody="labConfig$ as conf">
       <ca-lab-config [labConfig]="conf"></ca-lab-config>

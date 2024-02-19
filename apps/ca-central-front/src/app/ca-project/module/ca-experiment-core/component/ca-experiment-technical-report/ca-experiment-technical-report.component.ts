@@ -81,7 +81,12 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
   }
 
   openLabConfigDialog(): void {
-    const input: CaLabConfigDialogInput = this.experimentService.getExperimentLabConfig(this.experiment.id);
+    const input: CaLabConfigDialogInput = {
+      labConfig:  this.experimentService.getExperimentLabConfig(this.experiment.id),
+      title: {text: 'lab_configuration', translateText: true},
+      helpText: {text: 'experiment_brick_config_help', translateText: true}
+    }
+
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, {data: input});
   }
 

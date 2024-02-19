@@ -3,24 +3,29 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon>engineering</mat-icon>
-      <h2>{{'lab_manager' | translate}}</h2>
+      <h2>{{ 'lab_manager' | translate }}</h2>
     </fl-text-icon>
 
     <fl-card-actions class="action-buttons">
 
       <button mat-stroked-button type="button" class="g-button-small actions-button"
               (click)="updateLabManager()">
-        {{'lab_update_lab_manager' | translate}}
+        {{ 'lab_update_lab_manager' | translate }}
       </button>
 
       <button mat-stroked-button type="button" class="g-button-small" (click)="openStatusDialog()">
         <mat-icon>info</mat-icon>
-        <span>{{'lab_check_status' | translate}}</span>
+        <span>{{ 'lab_check_status' | translate }}</span>
+      </button>
+
+      <button mat-stroked-button type="button" class="g-button-small" (click)="openLabConfig()">
+        <mat-icon>info</mat-icon>
+        {{ 'lab_installed_brick' | translate }}
       </button>
 
       <button mat-stroked-button type="button" class="g-button-small button" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
-        <span>{{'lab_manager_refresh' | translate}}</span>
+        <span>{{ 'lab_manager_refresh' | translate }}</span>
         <fl-button-loader size="small" *ngIf="refreshIsLoading"></fl-button-loader>
       </button>
     </fl-card-actions>
@@ -28,8 +33,11 @@
 
   <fl-card-body>
 
+    <p class="g-text-light help-text">{{ 'lab_manager_section_help' | translate }}</p>
+
     <!--  Global status  -->
-    <fl-async-section [object]="labManagerStatus$" [isFlStatusEvent]="true" [showServerErrorText]="true" emptyText="lab_manager_not_running">
+    <fl-async-section [object]="labManagerStatus$" [isFlStatusEvent]="true" [showServerErrorText]="true"
+                      emptyText="lab_manager_not_running">
       <ng-container *flSectionBody>
         <ca-lab-instance-manager-status></ca-lab-instance-manager-status>
 
@@ -43,7 +51,7 @@
 
     <mat-expansion-panel class="advanced-config">
       <mat-expansion-panel-header>
-        {{'lab_manager_advanced_config' | translate}}
+        {{ 'lab_manager_advanced_config' | translate }}
       </mat-expansion-panel-header>
 
       <ca-lab-instance-manager-advanced></ca-lab-instance-manager-advanced>

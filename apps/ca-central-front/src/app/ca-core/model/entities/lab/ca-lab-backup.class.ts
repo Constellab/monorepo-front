@@ -16,7 +16,7 @@ export type CaLabBackupTriggerMode = 'MANUAL' | 'AUTOMATIC';
 export type CaLabBackupStatus = 'IN_PROGRESS' | 'SUCCESS' | 'ERROR';
 
 export const caLabBackupStatus: FlStatusDict<CaLabBackupStatus> = {
-  IN_PROGRESS: FlStatusHelper.getRunningStatus('IN_PROGRESS'),
+  IN_PROGRESS: FlStatusHelper.getLoadingStatus('IN_PROGRESS', 'flStatus.running'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
 };
