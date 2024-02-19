@@ -13,6 +13,12 @@
   padding: 8px;
 }
 
+.author-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .co-author-key-val{
   display: flex;
   flex-direction: row;
@@ -98,9 +104,18 @@
   width: 100%;
 }
 
+.story-files-div{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+
+}
+
 .story-file{
   font-size: 0.8em;
-  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .story-file:hover{
@@ -115,6 +130,8 @@
 .files-div{
   padding-bottom: 0.4em;
   border-bottom: 1px solid var(--hover-color);
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 1600px) {

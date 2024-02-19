@@ -235,5 +235,14 @@
   "import_live_task_version_file": "Import the live task version json file",
   "live_task_version_file": "Live task version file",
   "live_tasks_description": "List of live tasks page",
-  "live_task_version_infos_place_holder": "Describe your live task version"
+  "live_task_version_infos_place_holder": "Describe your live task version",
+  "delete_story_main_image": "Delete story main image",
+  "delete_story_main_image_content": "Are you sure you want to delete the main image of the story ? The first image of the story content will be used as the main image after deletion",
+  "delete_story": "Delete story",
+  "delete_story_content": "Are you sure you want to delete this story ?",
+  "story_deleted": "Story deleted",
+  "publish_story_modifications": "Publish story modifications",
+  "add_a_view_to_the_doc": "Add a view to the documentation",
+  "resource_view": "Resource view",
+  "add_a_view_to_the_story": "Add a view to the story"
 }

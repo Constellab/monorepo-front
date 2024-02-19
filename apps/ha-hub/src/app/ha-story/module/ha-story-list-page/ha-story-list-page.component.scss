@@ -91,11 +91,14 @@ h5 {
 .bt{
   width: 100%;
   border-radius: 18px !important;
-  background-color: var(--card-background);
   height: 56px;
   padding: 8px;
 }
 
+.bt-primary{
+  background-color: var(--primary-color);
+  color: var(--color-text-primary);
+}
 
 .left-side-div-categories{
   background-color: var(--card-background);

@@ -1,10 +1,13 @@
 import {OutputData} from '@editorjs/editorjs';
 import {ClHelpService} from '@monorepo/core-lib';
+import {BlockToolData} from '@editorjs/editorjs/types/tools';
 
 export type TeRichTextContent = OutputData;
 
 export enum TeBlockType {
   PARAGRAPH = 'paragraph',
+  HEADER = 'header',
+  FIGURE = 'figure',
 }
 
 export class TeRichText {
@@ -37,8 +40,8 @@ export class TeRichText {
     if (paragraphBlocks.length === 0) return null;
     for (const block of paragraphBlocks) {
 
-      if (block.data && block.data.text && block.data.text.trim() !== ''){
-        if (result.length + block.data.text.trim().length > 200){
+      if (block.data && block.data.text && block.data.text.trim() !== '') {
+        if (result.length + block.data.text.trim().length > 200) {
           result += block.data.text.trim().substring(0, 200 - result.length) + '...';
           break;
         }
@@ -46,5 +49,22 @@ export class TeRichText {
       }
     }
     return result.replace(/<[^>]*>/g, '');
+  }
+
+  public static getTitles(content: TeRichTextContent, titleTypes: number[]): BlockToolData[] {
+    const titleBlocks = content.blocks.filter(block => block.type === TeBlockType.HEADER && titleTypes.includes(block.data.level));
+    return titleBlocks.map(block => {
+      block.data.text = block.data.text.trim().replace(/<[^>]*>/g, '');
+      block.data.text = block.data.text.replace(/&nbsp;/g, '');
+      return block.data;
+    });
+  }
+
+  public static getFiguresBlocks(content: TeRichTextContent): BlockToolData[] {
+    return content.blocks.filter(block => block.type === TeBlockType.FIGURE);
+  }
+
+  public static isLinkInFigures(content: TeRichTextContent, link: string): boolean {
+    return TeRichText.getFiguresBlocks(content).some(block => block.data.filename === link);
   }
 }

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {HaDocumentation} from '../ha-model/ha-entities/ha-documentation.class';
 import {HaNodeDTO} from '../ha-model/ha-entities/ha-node.class';
 import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
+import {RvResourceView} from '@monorepo/resource-view';
 
 /**
  * Service to manage documentation entity
@@ -65,6 +66,16 @@ export class HaDocumentationService {
 
   getImageUrl(filename: string): string {
     return this.getFilePath(filename);
+  }
+
+
+  ////////////////////////////////// RESOURCE VIEW //////////////////////////////////
+  uploadDocResourceViewFile(docId: string, file: FormData): Observable<any>{
+    return this.apiService.post(`${this.route}/${docId}/upload-view`, file);
+  }
+
+  getView(filename: string): Observable<RvResourceView>{
+    return this.apiService.get(`${this.route}/view/${filename}`);
   }
 
 }

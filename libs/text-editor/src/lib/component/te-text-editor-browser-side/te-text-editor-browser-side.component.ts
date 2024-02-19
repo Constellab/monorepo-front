@@ -133,7 +133,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   private async onTextEditorChange(): Promise<void> {
     // the save method can be called only if the editor is not in readOnly mode
-    if (this.editor.readOnly.isEnabled) return;
+    if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
     const outputData = await this.editor.save();
     return this.textChange.emit(outputData);
   }

@@ -1,12 +1,7 @@
 import {Component, Inject, Input, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
-
-interface HaDocTitle {
-  title: string;
-  id: string;
-  level: number;
-}
+import {BlockToolData} from '@editorjs/editorjs/types/tools';
 
 @Component({
   selector: 'ha-public-brick-right-panel',
@@ -16,7 +11,7 @@ interface HaDocTitle {
 export class HaPublicBrickRightPanelComponent implements OnInit {
 
   @Input() brickName: string;
-  @Input() docTitles?: HaDocTitle[];
+  @Input() docTitles?: BlockToolData[];
 
   DOC_TITLES_KEY: StateKey<object>;
 
@@ -28,7 +23,7 @@ export class HaPublicBrickRightPanelComponent implements OnInit {
     this.DOC_TITLES_KEY = makeStateKey<object>('docTitles');
 
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_TITLES_KEY)) {
-      this.docTitles = this.transferState.get(this.DOC_TITLES_KEY, null) as HaDocTitle[];
+      this.docTitles = this.transferState.get(this.DOC_TITLES_KEY, null) as BlockToolData[];
       this.transferState.remove(this.DOC_TITLES_KEY);
     }
 

@@ -10,6 +10,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FlCoreDirectiveModule} from '../fl-core-directive/fl-core-directive.module';
+import {FlReshapeImageDialogComponent} from './fl-reshape-image-dialog/fl-reshape-image-dialog.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {FlLoaderModule} from '../fl-loader/fl-loader.module';
 
 /**
  * Module that contains Component to display Images.
@@ -17,8 +20,8 @@ import {FlCoreDirectiveModule} from '../fl-core-directive/fl-core-directive.modu
  * Contains: RoundImage
  */
 @NgModule({
-  declarations: [FlRoundImageComponent, FlImageFullscreenDirective, FlImageFullscreenTestComponent],
-  exports: [FlRoundImageComponent, FlImageFullscreenDirective],
+  declarations: [FlRoundImageComponent, FlImageFullscreenDirective, FlImageFullscreenTestComponent, FlReshapeImageDialogComponent],
+  exports: [FlRoundImageComponent, FlImageFullscreenDirective, FlReshapeImageDialogComponent],
   imports: [
     CommonModule,
 
@@ -28,6 +31,8 @@ import {FlCoreDirectiveModule} from '../fl-core-directive/fl-core-directive.modu
 
     FlDialogModule,
     FlCoreDirectiveModule,
+    TranslateModule,
+    FlLoaderModule,
   ],
 })
 export class FlImageModule {

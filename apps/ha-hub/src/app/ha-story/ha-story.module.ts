@@ -13,6 +13,12 @@ import { HaStoryInvitePageComponent } from './module/ha-story-invite-page/ha-sto
 import { HaStoryFileDialogComponent } from './module/ha-story-file-dialog/ha-story-file-dialog.component';
 import {FlInputFileModule} from '@monorepo/front-core-lib';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {
+  HaStoryContentViewComponent
+} from './module/ha-story-view/ha-story-content-view/ha-story-content-view.component';
+import {
+  HaStoryResourceViewInputDialogComponent
+} from './module/ha-story-view/ha-story-resource-view-input-dialog/ha-story-resource-view-input-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +30,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     HaStoryCoAuthorDialogComponent,
     HaStoryInvitePageComponent,
     HaStoryFileDialogComponent,
+    HaStoryContentViewComponent,
+    HaStoryResourceViewInputDialogComponent
   ],
   imports: [
     CommonModule,
