@@ -27,6 +27,7 @@ export class HaLiveTaskVersion implements FlEntity{
   versionInfos?: TeRichTextContent;
   environment: string;
   type: HaLiveTaskVersionType;
+  params: string[];
   code: string;
   createdAt: DateTime;
   inputSpecs?: Record<string, any>;
@@ -42,6 +43,7 @@ export class HaLiveTaskVersionFileInputBrick{
 export class HaLiveTaskVersionFileInput{
   json_version: number;
   code: string;
+  params: string[];
   environment: string;
   input_specs: Record<string, any>;
   output_specs: Record<string, any>;

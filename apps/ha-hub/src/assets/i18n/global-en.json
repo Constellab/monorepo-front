@@ -244,5 +244,8 @@
   "publish_story_modifications": "Publish story modifications",
   "add_a_view_to_the_doc": "Add a view to the documentation",
   "resource_view": "Resource view",
-  "add_a_view_to_the_story": "Add a view to the story"
+  "add_a_view_to_the_story": "Add a view to the story",
+  "copy_parameters": "Copy parameters",
+  "parameters_copied_to_clipboard": "Parameters copied to clipboard",
+  "parameters": "Parameters"
 }

@@ -58,9 +58,29 @@
   </ha-card>
 </div>
 
+@if(isEditable || (liveTaskVersion.params != null && liveTaskVersion.params.length > 0)){
+  <div class="spacing-6-v2">
+    <ha-card>
+      <div class="card-title-v2 card-header spacing-4-v2">
+        <h5>
+          {{'parameters' | translate}}
+        </h5>
+        <div>
+          <button mat-stroked-button color="primary" (click)="onCopy('parameters')"  class="g-button-small">
+            <fl-text-icon [iconPosition]="'end'">
+              <mat-icon>content_copy</mat-icon>
+              {{'copy_parameters' | translate}}
+            </fl-text-icon>
+          </button>
+        </div>
+      </div>
+      <fl-code-editor [language]="getLanguageCode()" [formCtrl]="paramsFormControl"></fl-code-editor>
+    </ha-card>
+  </div>
+}
 
 <!--TODO: Corriger le bug du changement de theme-->
-<div class="spacing-6-v2" *ngIf="((isEditable && isCreator) || liveTaskVersion?.environment | flIsNotEmpty) && liveTaskVersion?.type != 'PYTHON'">
+<div class="spacing-6-v2" *ngIf="((isEditable && isCreator) || liveTaskVersion?.environment | flIsNotEmpty) && liveTaskVersion.type !== 'PYTHON'">
   <ha-card>
     <div class="card-title-v2 card-header spacing-4-v2">
       <h5>

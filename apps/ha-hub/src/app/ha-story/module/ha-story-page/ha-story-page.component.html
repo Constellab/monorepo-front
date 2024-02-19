@@ -60,7 +60,7 @@
             <div class="story-file" [matTooltip]="file.humanName">
               <a type="button" [href]="downloadFile(file)" download>
                 <fl-text-icon>
-                  <mat-icon><img [src]="getFileIcon(file.humanName)"/></mat-icon>
+                  <mat-icon [svgIcon]="getFileIcon(file.humanName)"></mat-icon>
                   {{ file.humanName }}
                 </fl-text-icon>
               </a>

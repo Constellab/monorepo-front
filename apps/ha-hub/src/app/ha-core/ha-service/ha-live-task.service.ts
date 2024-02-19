@@ -125,6 +125,17 @@ export class HaLiveTaskService {
   }
 
   /**
+   * Call http put to update a live task version params
+   * @param liveTaskVersionId
+   * @param params
+   * @return the updated live task version
+   */
+  public saveLiveTaskVersionParams(liveTaskVersionId: string, params: string[]): Observable<HaLiveTaskVersion> {
+    const paramsData = {params: params};
+    return this.apiService.put(`${this.route}/version/${liveTaskVersionId}/params`, paramsData, HaLiveTaskVersion);
+  }
+
+  /**
    * Call http put to update a live task version code
    * @param liveTaskVersionId
    * @param code
