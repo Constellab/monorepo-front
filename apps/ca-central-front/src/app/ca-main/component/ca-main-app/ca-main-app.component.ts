@@ -11,6 +11,7 @@ import {Observable} from 'rxjs';
 import {CaCurrentSpaceService} from '../../../ca-core/service-api/ca-current-space.service';
 import {map} from 'rxjs/operators';
 import {CaNotificationState} from '../../../ca-core/state/ca-notification.state';
+import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper';
 
 /**
  * Main app component. Menu on the left and page on the right
@@ -45,7 +46,7 @@ export class CaMainAppComponent implements OnInit {
   ngOnInit(): void {
     this.initAccessibleLinks();
 
-    this.chatBotService.loadScript();
+    this.chatBotService.loadScript(CaEnvironmentHelper.isProduction());
 
     // if the current space has a photo, use it, otherwise, use the default logo of gencovery
     this.spaceLogo$ = this.currentSpaceService.getCurrentSpacePhoto$().pipe(

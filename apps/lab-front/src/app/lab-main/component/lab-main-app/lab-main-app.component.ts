@@ -44,7 +44,7 @@ export class LabMainAppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chatBotService.loadScript();
+    this.chatBotService.loadScript(LabEnvironmentHelper.isProduction());
 
     this.authenticatedUserService.loadAuthenticatedUser();
     // init lab name
