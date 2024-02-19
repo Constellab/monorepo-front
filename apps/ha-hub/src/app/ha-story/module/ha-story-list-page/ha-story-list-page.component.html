@@ -5,7 +5,8 @@
     {{'create_story' | translate}}
   </button>
 
-  <button mat-flat-button type="button" class="bt my-stories-bt" *haIsAuthenticated [routerLink]="'my-stories'">
+  <button mat-flat-button type="button" class="bt my-stories-bt" *haIsAuthenticated
+          (click)="selectMyStories()" [class]="myStoriesBool ? 'bt-primary' : ''">
     {{'my_stories' | translate}}
   </button>
 
@@ -39,12 +40,14 @@
     <div class="stories-list">
       <a class="story" *ngFor="let story of stories.connect() | async" [routerLink]="story | haDetailRoute">
         <div class="story-content">
-          <h5>{{story.title}}</h5>
+          <h5>{{story.title}}
+            <span *ngIf="story.publishedAt == null" style="color: var(--warn-color)">{{'not_published' | translate}}</span>
+          </h5>
           <p class="small-text">{{story.firstParagraph}}</p>
           <p class="small-text user-info">
             <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
             <span class="g-text-small date-info">
-              <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
+              <fl-from-now [date]="story.publishedAt == null || story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
             </span>
           </p>
           <mat-chip-listbox>

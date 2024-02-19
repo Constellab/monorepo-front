@@ -13,6 +13,7 @@ import {Observable} from 'rxjs';
 import {Validators} from '@angular/forms';
 import {ClHelpService} from '@monorepo/core-lib';
 import {HaStoryFile} from '../../../ha-core/ha-model/ha-entities/ha-story-file';
+import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
 
 export type HaStoryFileDialogInput = FlFormDialogInput<HaStoryFileFormData>;
 
@@ -124,6 +125,10 @@ export class HaStoryFileDialogComponent extends FlFormDialogAbstractDirective<Ha
         });
       }
     });
+  }
+
+  getFileIcon(humanName: string): string{
+    return HaFileHelper.getFileIcon(humanName);
   }
 
 }

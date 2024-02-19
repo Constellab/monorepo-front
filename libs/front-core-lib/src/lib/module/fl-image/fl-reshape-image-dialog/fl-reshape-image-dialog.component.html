@@ -1,0 +1,25 @@
+<fl-dialog-header>
+  {{'add_version' | translate}}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="image-div">
+    @if(fileLoading){
+      <fl-loader class="file-loader"></fl-loader>
+    } @else {
+      <img [src]="imageUrl" alt="image" class="image g-centered-forced">
+<!--      <div class="zone-select" [style.width]="width + 'px'" [style.height]="height + 'px'"-->
+<!--           [style.left]="'calc(50% - '+ width/2 +'px)'" [style.top]="'calc(50% - '+ height/2 +'px)'"></div>-->
+    }
+  </div>
+
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary"
+          class="g-centered-forced" (click)="save()">
+    {{'save' | translate}}
+    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+  </button>
+</div>

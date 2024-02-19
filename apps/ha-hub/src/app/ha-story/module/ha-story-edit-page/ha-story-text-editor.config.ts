@@ -1,8 +1,16 @@
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
-import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
+import {
+  TeCompleteConfig,
+  teComponentBlockFactory,
+  TeFigureBlockConfig,
+  TeTools,
+  TeUploadedImage
+} from '@monorepo/text-editor';
 import {Observable} from 'rxjs';
 import {ClStringHelper} from '@monorepo/core-lib';
+import {HaStoryContentViewBlock} from '../ha-story-view/ha-story-content-view.class';
+
 
 export class HaStoryTextEditorImageConfig implements TeFigureBlockConfig {
 
@@ -35,6 +43,9 @@ export class HaStoryTextEditorConfig extends TeCompleteConfig {
     // configure and add the image block
     const imageConfig = new HaStoryTextEditorImageConfig(this.storyId, this.storyService);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
+
+    // add the view block
+    tools.resourceView = teComponentBlockFactory(HaStoryContentViewBlock, envInjector, applicationRef, this.storyId);
 
     return tools;
   }

@@ -3,7 +3,13 @@ import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
 import {HaStory, HaStoryCategory, HaStoryContentFormDTO} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {FlConfirmDialogInput, FlDebouncer, FlDialogService, FlFormDialogInput} from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlDebouncer,
+  FlDialogService,
+  FlFormDialogInput,
+  FlReshapeImageDialogComponent
+} from '@monorepo/front-core-lib';
 import {HaStoryTextEditorConfig} from './ha-story-text-editor.config';
 import {mergeMap, Observable, of, startWith} from 'rxjs';
 import {HaTopic, HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
@@ -14,9 +20,9 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaStoryCoAuthorDialogComponent} from '../ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
+import {ClRichText, ClStringHelper} from '@monorepo/core-lib';
 import {HaStoryFileDialogComponent, HaStoryFileFormData} from '../ha-story-file-dialog/ha-story-file-dialog.component';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 
 @Component({
   selector: 'ha-story-edit-page',
@@ -25,9 +31,8 @@ import {TeRichTextContent} from '@monorepo/text-editor';
 })
 export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
+
   story: HaStory;
-
-
   formGp: FormGroup<HaStoryContentFormDTO>;
   textEditorConfig: HaStoryTextEditorConfig;
 
@@ -52,6 +57,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   storyCategories: string[] = Object.keys(HaStoryCategory);
 
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
+  @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
 
   constructor(
     private storyService: HaStoryService,
@@ -73,7 +79,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     this.contentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     this.contentDebouncer.getDebouncedValue().subscribe(
       value => {
-        if (this.story && this.story.content !== value) {
+        if (this.story && this.story.contentEdition !== value) {
           this.saveContent(value);
         }
       }
@@ -159,7 +165,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   buildForm(): void {
     this.formGp = new FormBuilder().group({
       id: [null],
-      content: [null],
+      contentEdition: [null],
       category: [null],
     });
   }
@@ -182,7 +188,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   publish(): void {
 
-    if (new ClRichText(this.formGp.get('content').value).getFirstFigureLink().length > 0) {
+    if (TeRichText.getFiguresBlocks(this.formGp.get('contentEdition').value).length > 0 || this.story.mainPicture != null) {
       this.contentHasError = false;
       const input: FlConfirmDialogInput = {
         title: 'publish_story',
@@ -204,6 +210,21 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  save(): void {
+    if (new ClRichText(this.formGp.get('contentEdition').value).getFirstFigureLink().length > 0 || this.story.mainPicture != null) {
+      this.contentHasError = false;
+      this.storyService.saveContent(this.story.id).subscribe((story) => {
+        this.story = story;
+        if (story) {
+          this.router.navigate(['/stories', story.id]);
+        }
+      });
+    } else {
+      this.contentHasError = true;
+      this.contentError = 'story_content_no_picture_error';
+    }
+  }
+
   private publishStory(): Observable<HaStory> {
     return this.storyService.publishStory(this.story.id);
   }
@@ -216,15 +237,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getStory(id: string): void {
-    this.storyService.getById(id).subscribe(story => {
-      if(story == null) this.router.navigate(['/stories']);
-      this.checkUserIsAuthorOrCoAuthor(story);
-      this.story = story;
-      this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
-      if (this.story.topics.length >= 5) this.topicControl.disable();
-      this.formGp.patchValue(this.story);
-    });
+  getContentFormControl(): FormControl<TeRichTextContent> {
+    return this.formGp.controls.contentEdition as any;
   }
 
   private checkUserIsAuthorOrCoAuthor(story: HaStory): void {
@@ -284,7 +298,78 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     return this.topicControl.value != null && this.topicControl.value != '' && typeof this.topicControl.value == 'string' && this.topicControl.value.trim() != '';
   }
 
-  getContentFormControl(): FormControl<TeRichTextContent> {
-    return this.formGp.controls.content as any;
+  getStoryImageLink(imageName: string): string {
+    return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
+  }
+
+  isMainImageInContent(): boolean {
+    return TeRichText.isLinkInFigures(this.story.contentEdition, this.story.mainPicture);
+  }
+
+  activeInput(): void {
+    this.inputPhoto.nativeElement.click();
+  }
+
+  onFileSelected(file: File | File[]): void {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.story.mainPicture = event.target.result;
+      };
+      reader.readAsDataURL(file as File);
+    }
+    this.dialogService.openMediumDialog(FlReshapeImageDialogComponent, {
+      data: {
+        file: file,
+        width: 174,
+        height: 168
+      }
+    }).afterClosed().subscribe((res) => {
+      if (res && res.choice && res.result) {
+        this.storyService.updateMainImage(this.story.id, res.result).subscribe((story) => {
+          this.story = story;
+        });
+      }
+    });
+  }
+
+  deleteImage(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'delete_story_main_image',
+      content: 'delete_story_main_image_content',
+      observable: this.storyService.deleteMainImage(this.story.id),
+      translateTitleAndContent: true
+
+    }
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
+      if (res.choice && res.result) {
+        this.story = res.result;
+      }
+    });
+  }
+
+  openDeleteStoryConfirmDialog(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'delete_story',
+      content: 'delete_story_content',
+      observable: this.storyService.delete(this.story.id),
+      translateTitleAndContent: true,
+      successMessage: 'story_deleted',
+      translateMessage: true
+    };
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(() => {
+      this.router.navigate(['/stories']);
+    });
+  }
+
+  private getStory(id: string): void {
+    this.storyService.getById(id).subscribe(story => {
+      if(story == null) this.router.navigate(['/stories']);
+      this.checkUserIsAuthorOrCoAuthor(story);
+      this.story = story;
+      this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
+      if (this.story.topics.length >= 5) this.topicControl.disable();
+      this.formGp.patchValue(this.story);
+    });
   }
 }

@@ -20,7 +20,7 @@
 
   <div>
     {{'pending_coauthor_invitations' | translate}}:
-    @if(coAuthorPendingInvites.length > 0){
+    @if(coAuthorPendingInvites?.length > 0){
       <div *ngFor="let pendingInvite of coAuthorPendingInvites" class="co-author-div">
         <p>{{pendingInvite.email}}</p>
         <button mat-icon-button [matTooltip]="'cancel_invitation' | translate" (click)="deleteCoAuthorInvite(pendingInvite.id)" color="warn">

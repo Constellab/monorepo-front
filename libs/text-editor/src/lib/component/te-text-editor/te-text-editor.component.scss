@@ -3,6 +3,7 @@
   flex-direction: column; // TODO TO REMOVE
   min-height: 300px;
   padding: 0 5px;
+  width: 100%;
 }
 
 :host.include-toolbar-button:not(.disabled){

@@ -36,6 +36,7 @@ export class HaStory {
   id: string;
   title: string;
   content: TeRichTextContent;
+  contentEdition: TeRichTextContent;
 
   firstParagraph: string;
 
@@ -153,6 +154,6 @@ export type HaMyStoriesDataSource = FlDatasourcePaginated<HaStoryDataSourceDataD
 
 export class HaStoryContentFormDTO implements FlEntity {
   id: string;
-  content: TeRichTextContent;
+  contentEdition: TeRichTextContent;
   category: HaStoryCategory;
 }

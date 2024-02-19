@@ -1,5 +1,5 @@
 <div class="navigation-div">
-  <a [routerLink]="'../../my-stories'" class="back-link">
+  <a [routerLink]="['/stories/' + story?.id]" class="back-link">
     <fl-text-icon [iconPosition]="'start'">
       <mat-icon>arrow_back</mat-icon>
       {{'back_to_my_stories' | translate}}
@@ -8,16 +8,30 @@
 </div>
 @if(story){
   <div class="main-div g-max-article-width">
-    <h2 id="storyTitle" flElementEditable (flElementValueChange)="onTitleChange($event)">
-      {{story.title}}
-    </h2>
+    <div class="title-image-div">
+      <h2 id="storyTitle" class="title-input" flElementEditable (flElementValueChange)="onTitleChange($event)">
+        {{ story.title }}
+      </h2>
+      <div class="story-image-preview" [style.background-image]="story.mainPicture ? 'url(\'' + getStoryImageLink(story.mainPicture) + '\')' : null">
+        @if (!story.mainPicture || isMainImageInContent()){
+          <div class="story-image-input" (click)="activeInput()">
+            <mat-icon class="g-icon-big">add_a_photo</mat-icon>
+          </div>
+          <input flInputFile type="file" accept="image/jpg,image/jpeg,image/png" (fileChange)="onFileSelected($event)"
+                 [strictMode]="true" [autoClearHtmlInput]="true" [hidden]="true" id="input-photo" #input>
+        } @else {
+          <mat-icon class="delete-image" (click)="deleteImage()" [matTooltip]="'delete' | translate">close</mat-icon>
+        }
+      </div>
+    </div>
+
     <mat-form-field class="form-field">
-      <mat-label>{{'category' | translate}}</mat-label>
       <mat-select [formControl]="formGp.controls.category" (valueChange)="onStoryCategoryChange($event)">
         <mat-option *ngFor="let category of storyCategories" [value]="category">
           {{category.toLowerCase() | translate}}
         </mat-option>
       </mat-select>
+      <mat-label>{{'category' | translate}}</mat-label>
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>{{'topics' | translate}}</mat-label>
@@ -57,6 +71,17 @@
           </button>
         </div>
       }
+      @if (story.status !== 'DRAFT' && story.contentEdition != story.content){
+        <div>
+          <button mat-flat-button type="button" class="save-story-bt" *haIsAuthenticated
+                  (click)="save()" color="primary" [matTooltip]="'save_the_story' | translate">
+            <fl-text-icon [iconPosition]="'end'">
+              <mat-icon>save</mat-icon>
+              {{'publish_story_modifications' | translate}}
+            </fl-text-icon>
+          </button>
+        </div>
+      }
       @if(isAuthor() | async){
         <button mat-icon-button type="button" class="co-author-bt"
                 (click)="openCoAuthorDialog()" [matTooltip]="'open_story_coauthor_panel' | translate">
@@ -75,6 +100,10 @@
           [ngClass]="contentEditorIsFocused ? ['focus'] : []">
       <te-text-editor [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
     </form>
+
+    <div class="delete-story-bt-div">
+      <button mat-flat-button color="warn" (click)="openDeleteStoryConfirmDialog()">{{ 'delete_story' | translate }}</button>
+    </div>
   </div>
 }
 

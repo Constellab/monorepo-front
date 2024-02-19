@@ -1,8 +1,15 @@
 import {HaDocumentationService} from '../../../ha-core/ha-service/ha-documentation.service';
-import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
+import {
+  TeCompleteConfig,
+  teComponentBlockFactory,
+  TeFigureBlockConfig,
+  TeTools,
+  TeUploadedImage
+} from '@monorepo/text-editor';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ClStringHelper} from '@monorepo/core-lib';
+import {HaDocContentViewBlock} from './ha-doc-view/ha-doc-content-view.class';
 
 export class HaDocTextEditorImageConfig implements TeFigureBlockConfig {
 
@@ -25,10 +32,7 @@ export class HaDocTextEditorImageConfig implements TeFigureBlockConfig {
  */
 export class HaDocTextEditorConfig extends TeCompleteConfig {
 
-  constructor(private brickName: string,
-              private major: string,
-              private documentationName: string,
-              private docService: HaDocumentationService,
+  constructor(private docService: HaDocumentationService,
               private docId: string) {
     super();
   }
@@ -39,6 +43,9 @@ export class HaDocTextEditorConfig extends TeCompleteConfig {
     // configure and add the image block
     const imageConfig = new HaDocTextEditorImageConfig(this.docId, this.docService);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
+
+    // add the view block
+    tools.resourceView = teComponentBlockFactory(HaDocContentViewBlock, envInjector, applicationRef, this.docId);
 
     return tools;
   }

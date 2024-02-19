@@ -16,6 +16,7 @@ import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
 import {HaStoryAuthorInvite} from '../ha-model/ha-entities/ha-story-author-invite.class';
 import {HaStoryFile} from '../ha-model/ha-entities/ha-story-file';
 import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
+import {RvResourceView} from '@monorepo/resource-view';
 
 
 @Injectable({
@@ -44,6 +45,15 @@ export class HaStoryService {
    */
   public getById(id: string): Observable<HaStory> {
     return this.apiService.getById(this.route, id, HaStory);
+  }
+
+  /**
+   * Call http delete to delete a story
+   * @param id id of the story
+   * return void
+   */
+  public delete(id: string): Observable<void> {
+    return this.apiService.delete(this.route + '/' + id);
   }
 
   /**
@@ -102,7 +112,21 @@ export class HaStoryService {
    * return a story
    */
   public updateContent(id: string, content: TeRichTextContent): Observable<HaStory> {
-    return this.apiService.put(this.route + '/' + id + '/content', {content: content}, HaStory);
+    return this.apiService.put(this.route + '/' + id + '/content-edition', {contentEdition: content}, HaStory);
+  }
+
+  public saveContent(id: string): Observable<HaStory>{
+    return this.apiService.put(this.route + '/' + id + '/content', {});
+  }
+
+  public updateMainImage(id: string, mainImage: File): Observable<HaStory> {
+    const formData = new FormData();
+    formData.append('file', mainImage);
+    return this.apiService.post(this.route + '/' + id + '/main-image', formData, HaStory);
+  }
+
+  public deleteMainImage(id: string): Observable<HaStory> {
+    return this.apiService.delete(this.route + '/' + id + '/main-image');
   }
 
   public getImagePath(filename: string): string {
@@ -125,6 +149,15 @@ export class HaStoryService {
 
   publishStory(id: string): Observable<HaStory> {
     return this.apiService.put(`${this.route}/${id}/publish`, {});
+  }
+
+  getMyStoriesForList(): HaStoryDatasourcePaginated {
+    return new FlEntityPaginatedDatasource((page, size) =>
+      this.getMyStoriesForListPaginated(page, size), 10);
+  }
+
+  private getMyStoriesForListPaginated(page: number, size: number): Observable<ClPage<HaListStoryDto>> {
+    return this.apiService.get(this.route + '/my', HaStory, {page: page, pageSize: size, resultIsPaginated: true});
   }
 
   getMyStories(): HaMyStoriesDataSource {
@@ -213,5 +246,13 @@ export class HaStoryService {
 
   deleteCoAuthorInvite(inviteId: string): Observable<void>{
     return this.apiService.delete(`${this.route}/invite/${inviteId}`);
+  }
+
+  uploadStoryResourceViewFile(storyId: string, file: FormData): Observable<any>{
+    return this.apiService.post(`${this.route}/${storyId}/upload-view`, file);
+  }
+
+  getView(filename: string): Observable<RvResourceView>{
+    return this.apiService.get(`${this.route}/view/${filename}`);
   }
 }

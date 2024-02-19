@@ -35,6 +35,10 @@ import {
 import {
   HaPublicBrickUserInvitePageComponent
 } from './ha-public-brick-user-invite-page/ha-public-brick-user-invite-page.component';
+import {
+  HaDocResourceViewInputDialogComponent
+} from './ha-doc-view/ha-doc-resource-view-input-dialog/ha-doc-resource-view-input-dialog.component';
+import {HaDocContentViewComponent} from './ha-doc-view/ha-doc-content-view/ha-doc-content-view.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +59,8 @@ import {
     HaPublicBrickUsersComponent,
     HaPublicInviteBrickUserDialogComponent,
     HaPublicBrickUserInvitePageComponent,
+    HaDocResourceViewInputDialogComponent,
+    HaDocContentViewComponent
   ],
   imports: [
     HaPublicCoreModule,

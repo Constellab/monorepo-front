@@ -24,9 +24,9 @@ import {
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
-import {ClRichText, ClRichTextI} from '@monorepo/core-lib';
 import {FormControl} from '@angular/forms';
 import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import {BlockToolData} from '@editorjs/editorjs/types/tools';
 
 @Component({
   selector: 'ha-public-doc-page',
@@ -42,7 +42,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   formCtrl = new FormControl<TeRichTextContent>(null);
 
-  titles: any[] = [];
+  titles: BlockToolData[] = [];
 
   isAdminOrBrickUser: Observable<boolean>;
   isLoading: boolean = false;
@@ -138,15 +138,17 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
     this.formCtrl.patchValue(doc.content);
     this.formCtrl.disable();
-    this.titles = [];
+    this.titles = TeRichText.getTitles(doc.content, [2, 3]);
+
 
     if (doc.content) {
       // TODO: Get titles
     }
 
+    console.log(this.documentation)
+
     this.textEditorConfig =
-      new HaDocTextEditorConfig(this.brickName, this.brickVersion, this.documentation.title,
-        this.documentationService, this.documentation.id);
+      new HaDocTextEditorConfig(this.documentationService, this.documentation.id);
 
     this.isLoading = false;
 

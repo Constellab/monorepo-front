@@ -12,6 +12,9 @@ import {ClStringHelper} from '@monorepo/core-lib';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 import {HaStoryFile} from '../../../ha-core/ha-model/ha-entities/ha-story-file';
 import {TeRichText} from '@monorepo/text-editor';
+import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
+import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
 
 @Component({
   selector: 'ha-story-page',
@@ -32,20 +35,35 @@ export class HaStoryPageComponent implements OnInit {
 
   storiesListRoute = HaRouterService.getStoriesListRoute();
 
+  currentUser: HaUser;
+
+  hasRightToEdit: boolean;
+
+  protected readonly screen = screen;
+
+  protected readonly window = window;
+
   constructor(private activatedRoute: ActivatedRoute,
-    private storyService: HaStoryService,
-    private dialogService: FlDialogService,
-    private metadataService: HaMetadataService,
-    @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState) {
+              private storyService: HaStoryService,
+              private metadataService: HaMetadataService,
+              @Inject(PLATFORM_ID) private platformId: object,
+              private transferState: TransferState,
+              private authenticatedUserService: HaAuthenticatedUserService) {
   }
 
   ngOnInit(): void {
     this.STORY_KEY = makeStateKey<object>('story');
 
     this.activatedRoute.params.subscribe(params => {
-      this.getStory(params.id);
       this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, params.id);
+      this.getCurrentUserBeforeStory(params.id);
+    });
+  }
+
+  private getCurrentUserBeforeStory(storyId: string): void {
+    this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
+      this.currentUser = user;
+      this.getStory(storyId);
     });
   }
 
@@ -64,27 +82,31 @@ export class HaStoryPageComponent implements OnInit {
     }
   }
 
+  getStoryImageLink(imageName: string): string {
+    return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
+  }
+
+  downloadFile(file: HaStoryFile): string {
+    // download file from server (not from the client)
+    return this.storyService.getStoryFilePath(file.id);
+  }
+
   private onStory(story: HaStory): void {
     this.story = story;
     this.formControl.setValue(this.story.content);
     this.formControl.disable({emitEvent: true});
-    // TODO: get titles
-    // this.titles = this.titles == null || this.titles.length == 0 ?
-    //   (new ClRichText(this.story.content)).getHeaders([2, 3]) : this.titles;
+    this.titles = TeRichText.getTitles(this.story.content, [2, 3]);
     if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)) {
       this.transferState.set(this.STORY_KEY, {story: story, titles: this.titles});
     }
+    this.hasRightToEdit = this.currentUser != null &&
+      this.story.storyAuthors.find(storyAuthor => storyAuthor.user.id === this.currentUser.id) != null;
     this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
     this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
     this.metadataService.addMetaTag('og:image', this.getStoryImageLink(this.story.mainPicture), false);
   }
 
-  getStoryImageLink(imageName: string): string {
-    return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
-  }
-
-  downloadFile(file: HaStoryFile): string{
-    // download file from server (not from the client)
-    return this.storyService.getStoryFilePath(file.id);
+  getFileIcon(filename: string): string {
+    return HaFileHelper.getFileIcon(filename);
   }
 }

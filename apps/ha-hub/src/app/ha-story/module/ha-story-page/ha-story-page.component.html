@@ -12,23 +12,36 @@
       <h3>
         {{ story.title }}
       </h3>
-      <p class="small-text user-date-info">
-        <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
-        <span class="g-text-small date-info">
+      <div class="author-div">
+        <div>
+          <p class="small-text user-date-info">
+            <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
+            <span class="g-text-small date-info">
           <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
         </span>
-      </p>
-      @if (story.getCoAuthors().length > 0) {
-        <fl-key-value class="g-text-small co-author-key-val user-date-info">
-          <fl-key>{{ 'coauthors' | translate }}</fl-key>
-          <span class="co-author-span">
+          </p>
+          @if (story.getCoAuthors().length > 0) {
+            <fl-key-value class="g-text-small co-author-key-val user-date-info">
+              <fl-key>{{ 'coauthors' | translate }}</fl-key>
+              <span class="co-author-span">
             @for (coAuthor of story.getCoAuthors(); track coAuthor.id) {
               <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
             }
           </span>
-        </fl-key-value>
-      }
-      <te-text-editor [formControl]="formControl" [config]="textEditorConfig"></te-text-editor>
+            </fl-key-value>
+          }
+        </div>
+        @if (hasRightToEdit) {
+          <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+story.id">
+            <fl-text-icon [iconPosition]="'end'">
+              <mat-icon>edit</mat-icon>
+              {{ 'edit' | translate }}
+            </fl-text-icon>
+          </a>
+        }
+      </div>
+      <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
+                      class="g-scrollable-element"></te-text-editor>
     </div>
   </div>
 }
@@ -42,17 +55,18 @@
             {{ 'attached_files' | translate }}
           </fl-text-icon>
         </h6>
-        <table>
+        <div class="story-files-div">
           @for (file of story.storyFiles; track file.id) {
-            <tr class="story-file">
+            <div class="story-file" [matTooltip]="file.humanName">
               <a type="button" [href]="downloadFile(file)" download>
-                <td>
+                <fl-text-icon>
+                  <mat-icon><img [src]="getFileIcon(file.humanName)"/></mat-icon>
                   {{ file.humanName }}
-                </td>
+                </fl-text-icon>
               </a>
-            </tr>
+            </div>
           }
-        </table>
+        </div>
       </div>
     }
     @if (titles && titles.length > 0) {
@@ -62,11 +76,12 @@
           {{ 'table_of_contents' | translate }}
         </fl-text-icon>
       </h6>
-      @for (title of titles; track title) {
-        <a [routerLink]="'.'" [fragment]="title.id" class="title small-text"
-           [ngClass]="title.level === 2 ? ['big-title'] : ['small-title']">
-          {{ title.title }}
-        </a>
+      @for (title of titles; track title.text) {
+        @if (title.level == 2) {
+          <a [routerLink]="'.'" [fragment]="title.text" class="title big-title small-text">{{ title.text }}</a>
+        } @else {
+          <a [routerLink]="'.'" [fragment]="title.text" class="title small-title small-text">{{ title.text }}</a>
+        }
       }
     }
   </div>

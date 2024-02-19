@@ -46,6 +46,8 @@ export class HaStoryListPageComponent implements OnInit {
     active: false
   }];
 
+  myStoriesBool: boolean = false;
+
   constructor(private dialogService: FlDialogService,
               private router: Router,
               private storyService: HaStoryService,
@@ -115,5 +117,13 @@ export class HaStoryListPageComponent implements OnInit {
 
   loadMoreResults(): void {
     this.stories.getNextPage();
+  }
+
+  selectMyStories(): void {
+    this.myStoriesBool = !this.myStoriesBool;
+    if (this.myStoriesBool)
+      this.stories = this.storyService.getMyStoriesForList();
+    else
+      this.stories = this.storyService.getAllPaginated();
   }
 }

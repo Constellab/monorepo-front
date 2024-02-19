@@ -90,7 +90,7 @@ export class ClStringHelper {
    * @param str string
    */
   public static isHttpLink(str: string): boolean {
-    return str.substring(0, 8) === 'https://' || str.substring(0, 7) === 'http://';
+    return str != null && str?.substring(0, 8) === 'https://' || str?.substring(0, 7) === 'http://';
   }
 
   /**
