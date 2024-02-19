@@ -78,8 +78,10 @@ export class LabMainAppComponent implements OnInit {
   private getSystemInfoSuccess(systemInfo: LabSystemInfo): void {
     this.setLabName(systemInfo.labName);
     if (systemInfo.space) {
-      this.logo = this.systemService.getSpacePhotoUrl(systemInfo.space.photo);
       this.spaceName = systemInfo.space.name;
+      if (systemInfo.space.photo) {
+        this.logo = this.systemService.getSpacePhotoUrl(systemInfo.space.photo);
+      }
     } else {
       console.error('No space found');
     }
