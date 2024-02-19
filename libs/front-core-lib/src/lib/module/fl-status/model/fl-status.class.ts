@@ -8,7 +8,7 @@ export interface FlStatus<STATUS = string> {
   name: string; // translatable name of the status
   textColorClass: string; // class used to color status text
   backgroundColorClass: string; // class used to color status background
-  icon: string; // icon of the status
+  icon: 'loader' | string; // icon of the status, if loader, a loader will be displayed (no icon)
 }
 
 /**
@@ -26,7 +26,7 @@ export class FlStatusHelper {
   public static errorIcon: string = 'error';
   public static warningIcon: string = 'warnings';
   public static infoIcon: string = 'info';
-  public static runningIcon: string = 'cached';
+  public static runningIcon: string = 'loader'; // show a loader
   public static archivedIcon: string = 'inventory_2';
   public static draftIcon: string = 'hourglass_empty';
   public static stoppedIcon: string = 'stop';

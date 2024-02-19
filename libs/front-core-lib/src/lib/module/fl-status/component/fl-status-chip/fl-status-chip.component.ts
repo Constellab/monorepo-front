@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {FlStatus} from '../../model/fl-status.class';
 import {Observable, of} from 'rxjs';
 import {TooltipPosition} from '@angular/material/tooltip';
@@ -14,7 +14,7 @@ export type FlStatusChipMode = 'iconText' | 'iconOnly' | 'textOnly';
   styleUrls: ['./fl-status-chip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlStatusChipComponent implements OnInit {
+export class FlStatusChipComponent {
 
   @Input() set status(status: FlStatus | Observable<FlStatus>) {
     if (status instanceof Observable) {
@@ -23,11 +23,6 @@ export class FlStatusChipComponent implements OnInit {
       this.status$ = of(status);
     }
   }
-
-  /**
-   * The position of the icon. Start --> the icon before the text. End --> the icon is after the text
-   */
-  @Input() iconPosition: 'start' | 'end' = 'start';
 
   /**
    * Display or not the icon or text
@@ -46,12 +41,6 @@ export class FlStatusChipComponent implements OnInit {
 
   status$: Observable<FlStatus>;
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
 
   get showIcon(): boolean {
     return this.mode === 'iconText' || this.mode === 'iconOnly';
@@ -61,12 +50,12 @@ export class FlStatusChipComponent implements OnInit {
     return this.mode === 'iconText' || this.mode === 'textOnly';
   }
 
-  get gap(): string {
-    return this.mode === 'iconText' ? '5px' : '0';
-  }
-
   get iconClass(): string {
     return this.size === 'normal' ? 'g-icon-small' : 'g-icon-tiny';
+  }
+
+  get loaderSize(): number {
+    return this.size === 'normal' ? 24 : 16;
   }
 
   // get tooltip value, take input value if provided, otherwise disable if text is shown

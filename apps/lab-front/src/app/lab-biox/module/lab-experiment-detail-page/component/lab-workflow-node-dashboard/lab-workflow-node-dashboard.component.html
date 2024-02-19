@@ -25,10 +25,6 @@
                   [matTooltip]="'biox.experiment_is_in_queue' | translate" matTooltipPosition="below">hourglass_empty
         </mat-icon>
 
-        <fl-loader *ngIf="isRunning$ | async" size="small"
-                   [matTooltip]="'biox.process_is_running' | translate" matTooltipPosition="below">
-        </fl-loader>
-
         <button mat-icon-button type="button" (click)="convertLiveTaskCodeToTask(process)" tabindex="-1"
                 *ngIf="isPyLiveTask$ | async"
                 [matTooltip]="'biox.convert_live_task_code_to_task' | translate" matTooltipPosition="below">

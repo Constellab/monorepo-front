@@ -43,9 +43,6 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
   nodeProcess$ = this.nodeState.getNode$();
 
   isEditable$ = this.experimentState.isEditable$();
-  isRunning$ = this.nodeState.getProcess$().pipe(
-    map(process => process.isRunning())
-  );
   isWaiting$ = this.experimentState.getExperiment$().pipe(
     map(experiment => experiment.isWaiting())
   );

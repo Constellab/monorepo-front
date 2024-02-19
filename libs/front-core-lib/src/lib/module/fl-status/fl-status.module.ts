@@ -9,6 +9,7 @@ import {FlTranslateModule} from '../fl-translate/fl-translate.module';
 import {FlTranslateService} from '../fl-translate/service/fl-translate.service';
 import {flStatusI18n} from './i18n/fl-status.i18n';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {FlLoaderModule} from '../fl-loader/fl-loader.module';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     FlIconModule,
     FlTextIconModule,
     FlTranslateModule,
+    FlLoaderModule,
 
     MatIconModule,
     MatTooltipModule,
-
   ]
 })
 export class FlStatusModule {
