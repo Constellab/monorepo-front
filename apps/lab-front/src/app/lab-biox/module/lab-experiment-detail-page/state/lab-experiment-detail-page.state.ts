@@ -190,23 +190,21 @@ export class LabExperimentDetailPageState {
     );
   }
 
-  public refreshProtocolAndParents(dbProtocol: LabProtocol): void {
+  /**
+   * Refresh the protocol passed as parameter directly and then others protocols
+   * @param dbProtocol
+   */
+  public refreshProtocolAndOthers(dbProtocol: LabProtocol): void {
     const protocol = this.workflow.findLayerWithId(dbProtocol.id);
     if (protocol == null) return;
 
     this.refreshProtocolSuccess(dbProtocol);
 
-    // also refresh the parent protocols if there are some
-    let parent = protocol.parentLayer;
-    const parentsIds = [];
-    while (parent != null) {
-      parentsIds.push(protocol.id);
-      parent = parent.parentLayer;
-    }
+    // refresh other protocols
+    const otherProtocols = this.getProtocols().filter(process => process.id !== dbProtocol.id)
+      .map(process => process.id);
+    this.refreshProtocols(otherProtocols).subscribe();
 
-    if (parentsIds.length > 0) {
-      this.refreshProtocols(parentsIds).subscribe();
-    }
     this.refreshExperiment();
   }
 

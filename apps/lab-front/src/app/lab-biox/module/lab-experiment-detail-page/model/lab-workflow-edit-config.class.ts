@@ -694,7 +694,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     if (!(protocolUpdate instanceof LabProtocolUpdateDTO)) return;
 
     if (protocolUpdate.protocolUpdated && protocolUpdate.protocol) {
-      this.experimentState.refreshProtocolAndParents(protocolUpdate.protocol);
+      this.experimentState.refreshProtocolAndOthers(protocolUpdate.protocol);
       // if the protocol has not been updated, we check if the process has been updated
     } else if (protocolUpdate.process) {
       this.experimentState.refreshProcess(protocolUpdate.process);
