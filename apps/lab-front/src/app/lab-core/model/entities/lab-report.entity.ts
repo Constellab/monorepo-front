@@ -14,8 +14,6 @@ export class LabReport extends LabBaseEntityWithUser implements LabProjectObject
 
   title: string;
 
-  content: LabReportContent;
-
   @Type(() => LabProject)
   project: LabProject;
 

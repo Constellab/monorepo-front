@@ -110,7 +110,7 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
 
   saveContent(content: LabReportContent): void {
     this.reportService.updateContent(this.state.currentReport.id, content).subscribe(
-      (value) => this.saveContentSuccess(value.content),
+      (value) => this.saveContentSuccess(value),
     );
   }
 

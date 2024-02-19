@@ -15,14 +15,14 @@ export class LabReportDetailPageState implements OnDestroy {
 
   public init(reportId: string): void {
     this.reportService.getReport(reportId).subscribe({
-      next: report => this.getReportSuccess(report),
+      next: report => this.report$.next(report),
       error: error => this.report$.error(error)
     });
-  }
 
-  private getReportSuccess(report: LabReport): void {
-    this.report$.next(report);
-    this.reportContent$.next(report.content);
+    this.reportService.getReportContent(reportId).subscribe({
+      next: content => this.reportContent$.next(content),
+      error: error => this.reportContent$.error(error)
+    });
   }
 
   public get currentReport(): LabReport {

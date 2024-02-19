@@ -53,11 +53,11 @@ export class LabReportService {
     };
   }
 
-  public updateContent(id: string, content: LabReportContent): Observable<LabReport> {
+  public updateContent(id: string, content: LabReportContent): Observable<LabReportContent> {
     if (content == null) {
       content = TeRichText.emptyContent();
     }
-    return this.apiService.put(`${this.route}/${id}/content`, content, LabReport);
+    return this.apiService.put(`${this.route}/${id}/content`, content);
   }
 
   public addViewToContent(id: string, viewConfigId: string): Observable<LabReport> {
@@ -101,6 +101,10 @@ export class LabReportService {
 
   public getReport(id: string): Observable<LabReport> {
     return this.apiService.getById(this.route, id, LabReport);
+  }
+
+  public getReportContent(id: string): Observable<LabReportContent> {
+    return this.apiService.get(`${this.route}/${id}/content`);
   }
 
   public getByExperiment(experimentId: string): Observable<LabReport[]> {
