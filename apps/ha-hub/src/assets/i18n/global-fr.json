@@ -248,5 +248,7 @@
   "add_a_view_to_the_story": "Ajouter une vue à la story",
   "copy_parameters": "Copier les paramètres",
   "parameters_copied_to_clipboard": "Paramètres copiés dans le presse-papier",
-  "parameters": "Paramètres"
+  "parameters": "Paramètres",
+  "saving_story_content": "Sauvegarde du contenu de la story",
+  "publish_story_with_modifications": "Modifier la story publiée avec les modifications du contenu"
 }

@@ -6,7 +6,7 @@
     </fl-text-icon>
   </a>
 </div>
-@if (story) {
+@if (story && story.getAuthor() != null) {
   <div class="story-pannel">
     <div class="story-content">
       <h3>
@@ -20,7 +20,7 @@
           <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
         </span>
           </p>
-          @if (story.getCoAuthors().length > 0) {
+          @if (story.getCoAuthors()?.length > 0) {
             <fl-key-value class="g-text-small co-author-key-val user-date-info">
               <fl-key>{{ 'coauthors' | translate }}</fl-key>
               <span class="co-author-span">

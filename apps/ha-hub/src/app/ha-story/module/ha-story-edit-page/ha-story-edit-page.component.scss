@@ -47,6 +47,13 @@ h2{
   border-radius: 0.5em;
 }
 
+.save-content-div{
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
+}
+
 .story-content-form:hover{
   border: 1px solid var(--color-foreground);
 }

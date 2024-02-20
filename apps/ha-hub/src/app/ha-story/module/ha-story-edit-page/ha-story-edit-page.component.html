@@ -71,24 +71,27 @@
           </button>
         </div>
       }
-      @if (story.status !== 'DRAFT' && story.contentEdition != story.content){
-        <div>
-          <button mat-flat-button type="button" class="save-story-bt" *haIsAuthenticated
-                  (click)="save()" color="primary" [matTooltip]="'save_the_story' | translate">
-            <fl-text-icon [iconPosition]="'end'">
-              <mat-icon>save</mat-icon>
+      @if (story.status !== 'DRAFT' && contentModified) {
+        <div class="save-content-div">
+          @if(syncWithBack){
+            <button mat-flat-button type="button" class="save-story-bt" *haIsAuthenticated
+                    (click)="save()" color="primary" [matTooltip]="'publish_story_with_modifications' | translate"
+                    [disabled]="!syncWithBack">
               {{'publish_story_modifications' | translate}}
-            </fl-text-icon>
-          </button>
+            </button>
+          } @else {
+            <fl-loader size="small" [matTooltip]="'saving_story_content' | translate"></fl-loader>
+          }
         </div>
       }
-      @if(isAuthor() | async){
+      @if (isAuthor) {
         <button mat-icon-button type="button" class="co-author-bt"
                 (click)="openCoAuthorDialog()" [matTooltip]="'open_story_coauthor_panel' | translate">
           <mat-icon>group_add</mat-icon>
         </button>
       }
-      <button mat-icon-button type="button" [class]="(isAuthor() | async) ? 'add-file-button-author' : 'add-file-button-co-author'" (click)="openStoryFileDialog()"
+      <button mat-icon-button type="button" [class]="isAuthor ? 'add-file-button-author' : 'add-file-button-co-author'"
+              (click)="openStoryFileDialog()"
               [matTooltip]="'open_story_files_panel' | translate">
         <mat-icon>cloud_upload</mat-icon>
       </button>

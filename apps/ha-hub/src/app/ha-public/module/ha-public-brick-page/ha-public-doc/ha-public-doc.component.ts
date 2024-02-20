@@ -145,8 +145,6 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       // TODO: Get titles
     }
 
-    console.log(this.documentation)
-
     this.textEditorConfig =
       new HaDocTextEditorConfig(this.documentationService, this.documentation.id);
 

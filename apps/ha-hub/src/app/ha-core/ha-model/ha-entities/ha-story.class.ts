@@ -38,8 +38,6 @@ export class HaStory {
   content: TeRichTextContent;
   contentEdition: TeRichTextContent;
 
-  firstParagraph: string;
-
   status: HaStoryStatus;
 
   mainPicture?: string;

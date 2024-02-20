@@ -54,7 +54,14 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   inputTopic: string = '';
 
+  isAuthor: boolean;
+
   storyCategories: string[] = Object.keys(HaStoryCategory);
+
+  syncWithBack: boolean = false;
+
+  contentModified: boolean = false;
+
 
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
@@ -155,11 +162,14 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onContentUpdate(content: TeRichTextContent): void {
+    this.formGp.controls.contentEdition.value = content;
+    this.syncWithBack = false;
     this.contentDebouncer.setValue(content);
   }
 
   ngOnDestroy(): void {
     this.contentDebouncer.complete();
+
   }
 
   buildForm(): void {
@@ -175,7 +185,11 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   private saveContent(value: TeRichTextContent): void {
-    this.storyService.updateContent(this.story.id, value).subscribe();
+    this.storyService.updateContent(this.story.id, value).subscribe((story) => {
+      this.story = story;
+      this.syncWithBack = true;
+      this.contentModified = !TeRichText.areSimilar(this.story.contentEdition, this.story.content);
+    });
   }
 
   publish(): void {
@@ -249,9 +263,10 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     this.addTopicToStory(event.option.value).subscribe();
   }
 
-  isAuthor(): Observable<boolean> {
+  isAuthor$(): Observable<boolean> {
     return this.authenticatedUserService.getUser().pipe(
       mergeMap((user: HaUser) => {
+        if (user == null || this.story == null) return of(false);
         return of(user.id === this.story.getAuthor().id);
       })
     );
@@ -359,9 +374,14 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       if(story == null) this.router.navigate(['/stories']);
       this.checkUserIsAuthorOrCoAuthor(story);
       this.story = story;
+      this.contentModified = !TeRichText.areSimilar(this.story.contentEdition, this.story.content);
+      this.syncWithBack = true;
       this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
       if (this.story.topics.length >= 5) this.topicControl.disable();
       this.formGp.patchValue(this.story);
+      this.isAuthor$().subscribe((isAuthor) => {
+        this.isAuthor = isAuthor;
+      });
     });
   }
 }

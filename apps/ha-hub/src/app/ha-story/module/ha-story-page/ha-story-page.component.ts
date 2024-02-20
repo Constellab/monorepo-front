@@ -87,6 +87,9 @@ export class HaStoryPageComponent implements OnInit {
   }
 
   private onStory(story: HaStory): void {
+    if (story == null) {
+      return;
+    }
     this.story = story;
     this.formControl.setValue(this.story.content);
     this.formControl.disable({emitEvent: true});
