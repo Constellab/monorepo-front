@@ -21,6 +21,8 @@ import {
   LabManageEntityTagsDialogComponent,
   LabManageEntityTagsDialogInput
 } from '../../../lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
+import {LabResourceService} from '../../../../entity-service/lab-resource.service';
+import {excludedViewInReport} from '../../../../model/entities/resource/lab-resource-view.entity';
 
 /**
  * Actions menu button for view configs, it has a ng-content for custom buttons
@@ -43,9 +45,12 @@ export class LabViewConfigActionsMenuComponent {
 
   addToReportIsLoading: boolean = false;
 
+  excludedViewInReport = excludedViewInReport;
+
   constructor(private dialogService: FlDialogService,
               private reportService: LabReportService,
-              private snackBarService: FlSnackBarService) {
+              private snackBarService: FlSnackBarService,
+              private resourceService: LabResourceService) {
   }
 
   get viewRoute(): { route: string, queryParams: any } {
@@ -116,6 +121,6 @@ export class LabViewConfigActionsMenuComponent {
   }
 
   downloadViewJsonFile(): void {
-    console.log(this.viewConfig)
+    this.resourceService.downloadResourceViewJsonFile(this.viewConfig.resource.id, this.viewConfig.viewName, this.viewConfig.configValues).subscribe();
   }
 }

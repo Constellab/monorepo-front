@@ -149,6 +149,19 @@ export class LabResourceService {
     return this.callResourceView(id, LabResourceService.defaultViewName, {}, saveViewConfig);
   }
 
+  public downloadResourceViewJsonFile(id: string, viewMethodName: string, configValue: PrConfigValues,
+                                      saveViewConfig: boolean = false): Observable<Blob> {
+    for (const key in configValue) {
+      if (configValue[key] == null) {
+        delete configValue[key];
+      }
+    }
+    return this.apiService.downloadFilePost(`${this.route}/${id}/views/${viewMethodName}/json-file`, {
+      values: configValue,
+      save_view_config: saveViewConfig
+    }, 'resource_view.json');
+  }
+
   //////////////////////////////////////// TRANSFORMERS  ///////////////////////////////////////
   /**
    * Create an experiment for a resource, with a list of transformers

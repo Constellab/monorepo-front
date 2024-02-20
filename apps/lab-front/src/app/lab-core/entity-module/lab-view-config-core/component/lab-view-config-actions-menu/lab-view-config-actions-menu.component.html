@@ -36,10 +36,12 @@
     <span>{{'biox.show_view_config' | translate}}</span>
   </button>
 
-  <button mat-menu-item type="button" (click)="downloadViewJsonFile()">
-    <mat-icon>cloud_download</mat-icon>
-    <span>{{'biox.download_view_json_file' | translate}}</span>
-  </button>
+  @if(!excludedViewInReport.includes(viewConfig.viewType)){
+    <button mat-menu-item type="button" (click)="downloadViewJsonFile()" >
+      <mat-icon>cloud_download</mat-icon>
+      <span>{{'biox.download_view_json_file' | translate}}</span>
+    </button>
+  }
 
   <a mat-menu-item type="button" target="_blank"
      [routerLink]="viewRoute.route" [queryParams]="viewRoute.queryParams">
