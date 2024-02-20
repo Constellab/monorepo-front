@@ -17,10 +17,6 @@ FROM node:18-alpine3.17 as production
 WORKDIR /app
 # Copy the entry point
 
-COPY package*.json ./
-
-RUN npm ci --production
-
 COPY apps/ha-hub/entrypoint.sh /entrypoint.sh
 
 COPY --from=buildContainer /app/dist /app/dist

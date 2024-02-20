@@ -84,7 +84,6 @@ export class TeRichText {
         }
       }
     }
-    console.log('SIMILAR CONTENTS');
     return true;
   }
 }
