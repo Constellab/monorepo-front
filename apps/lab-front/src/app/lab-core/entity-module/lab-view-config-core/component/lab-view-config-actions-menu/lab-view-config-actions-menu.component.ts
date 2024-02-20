@@ -114,4 +114,8 @@ export class LabViewConfigActionsMenuComponent {
 
     this.dialogService.openSmallDialog(FlPrettyJsonDialogComponent, {data});
   }
+
+  downloadViewJsonFile(): void {
+    console.log(this.viewConfig)
+  }
 }

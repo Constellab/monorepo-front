@@ -203,6 +203,7 @@
     "add_view_to_report": "Ajouter la vue a un rapport",
     "view_added_to_report": "Vue ajouté au rapport",
     "show_view_config": "Voir la configuration de la vue",
+    "download_view_json_file": "Télécharger le fichier JSON de la vue",
     "views": "Vues",
     "resource_view_historic": "Historique des vues",
     "experiments_that_use_the_resource": "Les expériences qui utilisent la ressources",

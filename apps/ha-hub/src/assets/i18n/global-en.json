@@ -247,5 +247,7 @@
   "add_a_view_to_the_story": "Add a view to the story",
   "copy_parameters": "Copy parameters",
   "parameters_copied_to_clipboard": "Parameters copied to clipboard",
-  "parameters": "Parameters"
+  "parameters": "Parameters",
+  "saving_story_content": "Saving story content",
+  "publish_story_with_modifications": "Modify the published story with content modifications"
 }

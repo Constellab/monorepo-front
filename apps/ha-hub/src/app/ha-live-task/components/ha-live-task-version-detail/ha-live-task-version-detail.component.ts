@@ -84,7 +84,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   }
 
   onParamsChange(params: string): void {
-    const paramsArray = params.split('\n');
+    const paramsArray = params?.split('\n');
     if (params === this.liveTaskVersion?.params?.join('\n') || paramsArray.find(p => p.trim().length > 0) == null || !this.isEditable) {
       return;
     }
