@@ -48,7 +48,7 @@
 
   </ng-container>
 
-  <ng-container *ngIf="process.isFinished()">
+  <ng-container *ngIf="process.wasRun()">
     <button mat-stroked-button type="button" (click)="resetProcess()"
             class="g-button-small element detail-button" color="warn">
       <mat-icon>restart_alt</mat-icon>

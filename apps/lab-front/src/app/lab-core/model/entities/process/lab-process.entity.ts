@@ -109,6 +109,10 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
     return this.status.value === 'SUCCESS' || this.status.value === 'ERROR';
   }
 
+  wasRun(): boolean {
+    return this.isFinished() || this.status.value === 'PARTIALLY_RUN';
+  }
+
   isRunning(): boolean {
     return this.status.value === 'RUNNING' || this.status.value === 'WAITING_FOR_CLI_PROCESS';
   }

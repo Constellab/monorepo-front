@@ -71,7 +71,7 @@
 
           </ng-container>
 
-          <ng-container *ngIf="process.isFinished()">
+          <ng-container *ngIf="process.wasRun()">
             <button mat-menu-item type="button" (click)="resetProcess()">
               <mat-icon color="warn">restart_alt</mat-icon>
               <span class="g-warn-text">{{'biox.reset_process' | translate}}</span>

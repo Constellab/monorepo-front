@@ -641,7 +641,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
       // if the action is attached to an existing node
       // we check if this is a finished process
     } else if (process && !this.experimentState.currentExperiment.isDraft() &&
-      process instanceof LabProcess && process.isFinished()) {
+      process instanceof LabProcess && process.wasRun()) {
 
       const resetObs = this.callResetProcess(process.parentProtocolId, process.instanceName,
         'biox.update_finished_process', 'biox.update_finished_process_confirmation');
