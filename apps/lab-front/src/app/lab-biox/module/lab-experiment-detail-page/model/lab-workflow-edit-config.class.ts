@@ -11,7 +11,7 @@ import {
   PrWorkflowNodeOuterface,
   PrWorkflowNodeProcess
 } from '@monorepo/protocol';
-import {Observable, of, Subscription, switchMap} from 'rxjs';
+import {Observable, of, Subscription, switchMap, tap} from 'rxjs';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
 import {Injectable, OnDestroy} from '@angular/core';
 import {
@@ -668,11 +668,19 @@ export class LabWorkflowEditConfig implements OnDestroy {
       {param: {title: this.experimentState.currentExperiment.title}});
 
     const impactData: LabNavigableImpactConfig = {
-      title: {text:title, translateText: true},
+      title: {text: title, translateText: true},
       confirmImpactConfirmText: `<p>${updateFinishedProcess}</p><p>${resetProcessImpact}</p>`,
       noImpactConfirmText: {text: noImpactConfirmText, translateText: true},
       checkImpact: () => this.protocolService.checkImpactForProcessReset(protocolId, processInstanceName),
-      callAction: () => this.protocolService.resetProcessInProtocol(protocolId, processInstanceName)
+      callAction: () => this.protocolService.resetProcessInProtocol(protocolId, processInstanceName).pipe(
+        // on reset result, refresh the protocol, the process will be refreshed by the event
+        // we need the protocol here because the next request (like configure process) might not refresh the protocol
+        tap((result: LabProtocolUpdateDTO) => {
+          if (result.protocolUpdated && result.protocol) {
+            this.experimentState.refreshProtocolAndOthers(result.protocol);
+          }
+        })
+      )
     };
 
     return this.labNavigableService.callImpactMethod(impactData).pipe(
