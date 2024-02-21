@@ -24,13 +24,11 @@ export interface PrProtocolGraph {
 export interface PrProtocol {
   brick_version: string;
 
-  human_name: string;
+  name: string;
 
   instance_name: string;
 
   process_typing_name: string;
-
-  short_description: string;
 
   config: PrConfig;
 
@@ -42,6 +40,11 @@ export interface PrProtocol {
   graph?: PrProtocolGraph;
 
   status: PrProcessStatus;
+
+  process_type: {
+    human_name: string;
+    short_description: string;
+  };
 }
 
 

@@ -141,11 +141,11 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
     return this.workflowResourcesState.getResourceFromObs(resourceId).pipe(
       map(resource => {
         if (resource?.status === 'success') {
-          return resource.object != null ? resource.object.name : this.node.currentObject.title;
+          return resource.object != null ? resource.object.name : this.node.currentObject.name;
         } else if (resource?.status === 'error') {
           return {text: 'pr.error', translateText: true};
         } else {
-          return this.node.currentObject.title;
+          return this.node.currentObject.name;
         }
       })
     );

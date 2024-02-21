@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 import {
   LabTypeDialogComponent,
@@ -43,7 +43,7 @@ import {LtLiveTaskHelper} from '../../../../../../../../../libs/live-task/src/li
   styleUrls: ['./lab-workflow-node-dashboard.component.scss'],
   providers: [LabWorkflowNodeDashboardState]
 })
-export class LabWorkflowNodeDashboardComponent implements OnInit {
+export class LabWorkflowNodeDashboardComponent {
 
   process$ = this.nodeState.getProcess$();
   nodeProcess$ = this.nodeState.getNode$();
@@ -68,10 +68,6 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
               private dashboardState: LabWorkflowNodeDashboardState,
               private workflowEditConfig: LabWorkflowEditConfig,
               private taskGeneratorService: LabTaskGeneratorService) {
-  }
-
-  ngOnInit(): void {
-
   }
 
   openTypingDoc(typingName: string): void {
@@ -143,4 +139,9 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
         }
       });
   }
+
+  updateProcessName(process: LabProcess, newName: string): void {
+    this.nodeState.updateProcessName(process, newName);
+  }
+
 }

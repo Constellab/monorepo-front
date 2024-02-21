@@ -45,7 +45,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
 
   getTitle$(): Observable<FlTranslatableText> {
     return this.getObject$().pipe(
-      map((process: PrProcess) => process.title ?? process.instanceName)
+      map((process: PrProcess) => process.name ?? process.instanceName)
     );
   }
 

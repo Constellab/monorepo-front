@@ -27,6 +27,8 @@ import {ClSubscriptionHandler} from '@monorepo/core-lib';
 import {
   LabWorkflowNodeDashboardComponent
 } from '../component/lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
+import {LabExperimentDetailPageState} from './lab-experiment-detail-page.state';
+import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -42,7 +44,9 @@ export class LabWorkflowNodeDetailState {
   constructor(private workflowEditConfig: LabWorkflowEditConfig,
               private actionState: PrWorkflowActionState,
               private dialogService: FlDialogService,
-              private viewContainerRef: ViewContainerRef) {
+              private viewContainerRef: ViewContainerRef,
+              private experimentState: LabExperimentDetailPageState,
+              private protocolService: LabProtocolService) {
   }
 
   public init(drawer: MatDrawer): void {
@@ -177,5 +181,15 @@ export class LabWorkflowNodeDetailState {
       saveViewConfig: true,
     };
     this.dialogService.openBigDialog(LabResourceViewDetailDialogComponent, {data: data});
+  }
+
+  updateProcessName(process: LabProcess, newName: string): void {
+    this.protocolService.renameProcess(process.parentProtocolId, process.instanceName, newName).subscribe(
+      process => this.onUpdateProcessNameSuccess(process),
+    );
+  }
+
+  private onUpdateProcessNameSuccess(process: LabProcess): void {
+    this.experimentState.refreshProcess(process);
   }
 }

@@ -3,8 +3,10 @@
   <div *ngIf="process$ | async as process" class="header">
     <div class="g-layout-row g-layout-between-start">
       <div>
-        <h2>{{process.instanceName}}</h2>
-        <p *ngIf="process.shortDescription">{{process.shortDescription}}</p>
+        <h2 flElementEditable (flElementValueChange)="updateProcessName(process, $event)">
+          {{process.name}}
+        </h2>
+        <p *ngIf="process.processType?.shortDescription">{{process.processType.shortDescription}}</p>
       </div>
 
       <div class="g-layout-row g-layout-start-center g-layout-gap-05em">

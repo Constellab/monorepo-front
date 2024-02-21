@@ -1,7 +1,7 @@
 <div class="node">
   <div class="node-main">
     <div class="node-l">
-      <h4>{{node.human_name}}
+      <h4>{{node.name}}
         <button type="button" (click)="openTechDocDialog()" mat-stroked-button
                 class="button-more-info g-button-small g-text-light">
           <fl-text-icon [iconPosition]="'end'">
@@ -22,9 +22,9 @@
         <fl-key>{{'type' | translate}}</fl-key>
         {{node.process_typing_name}}
       </fl-key-value>
-      <fl-key-value *ngIf="node.short_description">
+      <fl-key-value *ngIf="node.process_type?.short_description">
         <fl-key>{{'description' | translate}}</fl-key>
-        {{node.short_description}}
+        {{node.process_type.short_description}}
       </fl-key-value>
     </div>
     <div class="node-r">
@@ -39,6 +39,6 @@
 
   <div class="child-div" *ngIf="node.graph">
     <ca-experiment-technical-report-graph [graph]="node.graph"
-                                          [protocolName]="node.human_name"></ca-experiment-technical-report-graph>
+                                          [protocolName]="node.name"></ca-experiment-technical-report-graph>
   </div>
 </div>

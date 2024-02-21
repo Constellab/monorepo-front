@@ -27,7 +27,7 @@ export interface PrProcess {
 
   processTypingName: string;
 
-  title: string;
+  name: string;
 
   status: FlStatus<PrProcessStatus>;
 

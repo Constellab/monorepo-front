@@ -15,12 +15,10 @@ import {
   LabLiveTaskDatasourcePaginated
 } from '../model/entities/lab-live-task.entity';
 import {LabNavigableEntityImpact} from '../model/entities/lab-navigable-entity.entity';
+import {LabProcess} from '../model/entities/process/lab-process.entity';
 import {ClPage} from '@monorepo/core-lib';
 import {LabCommunitySpace} from '../model/entities/lab-community-space.entity';
 import {LtCreateLiveTaskFormData} from '@monorepo/live-task';
-import {
-  LabCreateCommunityLiveTaskDialogMode
-} from '../entity-module/lab-type-core/component/lab-create-community-live-task-dialog/lab-create-community-live-task-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -260,6 +258,11 @@ export class LabProtocolService {
       ioSpec, LabProtocolUpdateDTO);
   }
 
+  ///////////////////////////////////////////////// OTHERS /////////////////////////////////////////////////
+  public renameProcess(protocolId: string, processName: string, newName: string): Observable<LabProcess> {
+    return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processName}/rename`, {new_name: newName},
+      LabProcess);
+  }
 
   ///////////////////////////////////////////////// PROTOCOL TEMPLATE /////////////////////////////////////////////////
   public createProtocolTemplate(protocolId: string, template: LabCreateProtocolTemplateDTO): Observable<LabProtocolTemplate> {

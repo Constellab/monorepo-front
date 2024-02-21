@@ -7,7 +7,7 @@
       <div class="left-section">
         <div *ngFor="let process of processes" class="process" matRipple
              (click)="selectProcess(process)">
-          <div>{{ process.humanName }}</div>
+          <div>{{ process.name }}</div>
           <div class="g-text-small g-text-light">{{process.instanceName}}</div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import {TdTypingName} from '@monorepo/technical-doc';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {NgZone} from '@angular/core';
 import {FlCoord} from '@monorepo/front-core-lib';
-import {PrProtocolGraph, PrProtocolLayout, PrProtocol} from './pr-protocol.class';
+import {PrProtocol, PrProtocolGraph, PrProtocolLayout} from './pr-protocol.class';
 import {PrWorkflowResourcesState} from '../state/pr-workflow-resources.state';
 import {PrWorkflow} from './pr-workflow.class';
 import {PrWorkflowLayer} from './pr-workflow-layer.class';
@@ -73,19 +73,19 @@ export class PrWorkflowFactory {
     return layer;
   }
 
-  private createProcessNode(caProcess: PrProtocol, name: string, protocolId: string,
+  private createProcessNode(process: PrProtocol, name: string, protocolId: string,
                             layout?: FlCoord): PrWorkflowNodeProcess {
-    const prProcess = this.caProcessToPrProcess(caProcess, name, protocolId);
+    const prProcess = this.caProcessToPrProcess(process, name, protocolId);
 
     let processNode: PrWorkflowNodeProcess;
-    if (caProcess.process_typing_name === TdTypingName.task.source) {
+    if (process.process_typing_name === TdTypingName.task.source) {
       processNode = new PrWorkflowNodeSource(prProcess, this.resourceState);
-    } else if (caProcess.process_typing_name === TdTypingName.task.output.typingName) {
+    } else if (process.process_typing_name === TdTypingName.task.output.typingName) {
       processNode = new PrWorkflowNodeOutput(prProcess, this.resourceState);
-    } else if (caProcess.process_typing_name === TdTypingName.task.viewer) {
+    } else if (process.process_typing_name === TdTypingName.task.viewer) {
       processNode = new PrWorkflowNodeViewer(prProcess, this.resourceState);
-    } else if (caProcess.graph != null) {
-      const layer$: Observable<PrWorkflowLayer> = of(this.createLayer(caProcess.graph, false, prProcess.id, name));
+    } else if (process.graph != null) {
+      const layer$: Observable<PrWorkflowLayer> = of(this.createLayer(process.graph, false, prProcess.id, name));
       processNode = new PrWorkflowNodeProtocol(prProcess, layer$, this.resourceState);
     } else {
       processNode = new PrWorkflowNodeProcess(prProcess, this.resourceState);
@@ -98,17 +98,17 @@ export class PrWorkflowFactory {
     return processNode;
   }
 
-  private caProcessToPrProcess(caProcess: PrProtocol, name: string, protocolId: string): PrProcess {
+  private caProcessToPrProcess(process: PrProtocol, name: string, protocolId: string): PrProcess {
     return {
       id: ClStringHelper.generateUUID(),
       instanceName: name,
-      title: caProcess.human_name,
-      config: caProcess.config,
+      name: process.name,
+      config: process.config,
       parentProtocolId: protocolId,
-      outputs: caProcess.outputs,
-      inputs: caProcess.inputs,
-      processTypingName: caProcess.process_typing_name,
-      status: prProcessStatusDict[caProcess.status],
+      outputs: process.outputs,
+      inputs: process.inputs,
+      processTypingName: process.process_typing_name,
+      status: prProcessStatusDict[process.status],
       typeStatus: null,
     };
   }

@@ -19,6 +19,14 @@ export interface LabProcessErrorInfo {
 }
 
 
+export class LabProcessTypeName {
+  @Expose({name: 'human_name'})
+  humanName?: string;
+
+  @Expose({name: 'short_description'})
+  shortDescription?: string;
+}
+
 /**
  * Task or protocol inside a flow
  */
@@ -76,11 +84,10 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   @Expose({name: 'error_info'})
   errorInfo: LabProcessErrorInfo;
 
-  @Expose({name: 'human_name'})
-  humanName?: string;
+  @Expose({name: 'process_type'})
+  processType: LabProcessTypeName;
 
-  @Expose({name: 'short_description'})
-  shortDescription?: string;
+  name: string;
 
   @Expose({name: 'community_live_task_version_id'})
   communityLiveTaskVersionId?: string;
@@ -101,10 +108,6 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
 
   isViewer(): boolean {
     return this.processTypingName === TdTypingName.task.viewer;
-  }
-
-  get title(): string {
-    return this.humanName || this.instanceName;
   }
 
   isFinished(): boolean {

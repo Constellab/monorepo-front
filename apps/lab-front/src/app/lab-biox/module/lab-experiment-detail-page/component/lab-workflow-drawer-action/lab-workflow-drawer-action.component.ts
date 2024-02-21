@@ -23,5 +23,8 @@ export class LabWorkflowDrawerActionComponent implements OnInit {
     this.process$ = this.nodeDetailState.getProcess$();
   }
 
+  updateProcessName(process: LabProcess, newName: string): void {
+    this.nodeDetailState.updateProcessName(process, newName);
+  }
 
 }
