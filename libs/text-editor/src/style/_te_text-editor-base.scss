@@ -44,6 +44,7 @@
     border-radius: 5px;
   }
 
+  // remove the default bottom padding that is used to include the conversion toolbar
   .codex-editor__redactor {
     padding-bottom: 0 !important;
   }
@@ -141,6 +142,12 @@
       color: var(--light-color);
       background-color: var(--card-background);
       border-color: var(--hover-color);
+    }
+
+    // work with the codex-editor__redactor no padding to only create the conversion toolbar when needed
+    // this avoid to create a scrollbar when conversion toolbar is not showed
+    .ce-conversion-toolbar:not(.ce-conversion-toolbar--showed){
+      display: none;
     }
 
     .ce-conversion-tool--focused {
