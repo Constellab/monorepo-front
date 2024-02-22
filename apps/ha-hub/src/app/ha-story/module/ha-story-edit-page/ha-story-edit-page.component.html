@@ -1,8 +1,8 @@
 <div class="navigation-div">
-  <a [routerLink]="['/stories/' + story?.id]" class="back-link">
+  <a [routerLink]="story?.publishedAt == null ? ['/stories'] :['/stories/' + story?.id]" class="back-link">
     <fl-text-icon [iconPosition]="'start'">
       <mat-icon>arrow_back</mat-icon>
-      {{'back_to_my_stories' | translate}}
+      {{(story?.publishedAt == null ? 'back_to_stories_list' : 'back_to_my_story_page') | translate}}
     </fl-text-icon>
   </a>
 </div>

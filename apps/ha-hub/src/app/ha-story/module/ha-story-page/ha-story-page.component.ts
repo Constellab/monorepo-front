@@ -38,6 +38,8 @@ export class HaStoryPageComponent implements OnInit {
 
   hasRightToEdit: boolean;
 
+  storyCoAuthors: HaUser[] = [];
+
   constructor(private activatedRoute: ActivatedRoute,
               private storyService: HaStoryService,
               private metadataService: HaMetadataService,
@@ -97,11 +99,19 @@ export class HaStoryPageComponent implements OnInit {
     if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)) {
       this.transferState.set(this.STORY_KEY, {story: story, titles: this.titles});
     }
-    this.hasRightToEdit = this.currentUser != null &&
-      this.story.storyAuthors.find(storyAuthor => storyAuthor.user.id === this.currentUser.id) != null;
+    this.getStoryCoAuthors();
+
     this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
     this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
     this.metadataService.addMetaTag('og:image', this.getStoryImageLink(this.story.mainPicture), false);
+  }
+
+  private getStoryCoAuthors(): void {
+    this.storyService.getStoryCoAuthors(this.story.id).subscribe((coAuthors: HaUser[]) => {
+      this.storyCoAuthors = coAuthors;
+      this.hasRightToEdit = this.currentUser != null && (this.currentUser.id == this.story.createdBy.id ||
+        this.storyCoAuthors?.find(storyCoAuthor => storyCoAuthor.id === this.currentUser.id) != null);
+    });
   }
 
   getFileIcon(filename: string): string {

@@ -13,6 +13,7 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaLiveTaskDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import {Observable} from 'rxjs';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'ha-live-task-list',
@@ -25,6 +26,7 @@ export class HaLiveTaskListComponent implements OnInit {
   listSpaces$: Observable<HaSpace[]>;
   user: HaUser;
   spaceIdFilter: string[] = [];
+  titleFormControl: FormControl<string> = new FormControl<string>('');
   constructor(
     private liveTaskService: HaLiveTaskService,
     private dialogService: FlDialogService,
@@ -52,11 +54,12 @@ export class HaLiveTaskListComponent implements OnInit {
       mode: 'create'
     }
 
-    this.dialogService.openSmallDialog(HaLiveTaskCreateDialogComponent, {data: input}).afterClosed().subscribe((liveTaskVersion: HaLiveTaskVersion) => {
-      if (liveTaskVersion && liveTaskVersion.liveTask) {
-        this.router.navigate(['live-tasks/' + liveTaskVersion.liveTask.id +'/versions/' + liveTaskVersion.id]);
-      }
-    });
+    this.dialogService.openSmallDialog(HaLiveTaskCreateDialogComponent, {data: input}).afterClosed()
+      .subscribe((liveTaskVersion: HaLiveTaskVersion) => {
+        if (liveTaskVersion && liveTaskVersion.liveTask) {
+          this.router.navigate(['live-tasks/' + liveTaskVersion.liveTask.id +'/versions/' + liveTaskVersion.id]);
+        }
+      });
   }
 
   isSelected(spaceId: string): boolean {
@@ -70,14 +73,14 @@ export class HaLiveTaskListComponent implements OnInit {
       this.spaceIdFilter.push(spaceId);
     }
 
-    if (this.spaceIdFilter.length == 0) {
-      this.liveTasksPaginated = this.liveTaskService.getAllPaginated();
-      return;
-    }
-    this.liveTasksPaginated = this.liveTaskService.getAllWithSpacesFilterPaginated(this.spaceIdFilter);
+    this.liveTasksPaginated = this.liveTaskService.getAllWithFiltersPaginated(this.spaceIdFilter, this.titleFormControl.value);
   }
 
   onSpace(spaceId: string): void{
     this.selectSpace(spaceId)
+  }
+
+  search(): void {
+    this.liveTasksPaginated = this.liveTaskService.getAllWithFiltersPaginated(this.spaceIdFilter, this.titleFormControl.value);
   }
 }

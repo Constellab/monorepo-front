@@ -3,7 +3,6 @@ import {HaStoryListPageComponent} from './module/ha-story-list-page/ha-story-lis
 import {HaStoryEditPageComponent} from './module/ha-story-edit-page/ha-story-edit-page.component';
 import {HaStoryPageComponent} from './module/ha-story-page/ha-story-page.component';
 import {NgModule} from '@angular/core';
-import {HaStoryMyListComponent} from './module/ha-story-my-list/ha-story-my-list.component';
 import {HaLoginGuard} from '../ha-core/ha-guard/ha-login.guard';
 import {HaStoryGuard} from '../ha-core/ha-guard/ha-story.guard';
 import {HaStoryInvitePageComponent} from './module/ha-story-invite-page/ha-story-invite-page.component';
@@ -12,11 +11,6 @@ const routes: Route[] = [
   {
     path: '',
     component: HaStoryListPageComponent
-  },
-  {
-    path: 'my-stories',
-    component: HaStoryMyListComponent,
-    canActivate: [HaLoginGuard]
   },
   {
     path: 'edit/:id',

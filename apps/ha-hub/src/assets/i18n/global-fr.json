@@ -95,7 +95,6 @@
   "create_story": "Créer une Story",
   "story_created": "Story créée",
   "stories": "Stories",
-  "back_to_all_stories": "Retour à toutes les stories",
   "back_to_all_bricks": "Retour à toutes les briques",
   "publish_story": "Publier la story",
   "publish_story_dialog_content": "Êtes-vous sûr de vouloir publier cette story ?",
@@ -103,7 +102,8 @@
   "yes": "Oui",
   "no": "Non",
   "story_content_no_picture_error": "Le contenu de la story doit contenir au moins une image",
-  "back_to_my_stories": "Retour à mes stories",
+  "back_to_stories_list": "Retour à la liste des stories",
+  "back_to_my_story_page": "Retour à la page de ma story",
   "my_stories": "Mes stories",
   "created": "Créée",
   "status": "Statut",
@@ -250,5 +250,6 @@
   "parameters_copied_to_clipboard": "Paramètres copiés dans le presse-papier",
   "parameters": "Paramètres",
   "saving_story_content": "Sauvegarde du contenu de la story",
-  "publish_story_with_modifications": "Modifier la story publiée avec les modifications du contenu"
+  "publish_story_with_modifications": "Modifier la story publiée avec les modifications du contenu",
+  "search_by_title": "Rechercher par titre"
 }

@@ -37,19 +37,21 @@ export class HaLiveTaskService {
   }
 
   /**
-   * Call http post to get all live tasks with spaces filter
+   * Call http post to get all live tasks with filters
    * @param spacesFilter
+   * @param titleFilter
    * @param page
    * @param size
    * @return a list of live tasks
    */
-  public getAllWithSpacesFilter(spacesFilter: string[], page: number, size: number): Observable<ClPage<HaLiveTask>> {
-    return this.apiService.post(`${this.route}/spaces`, {spacesFilter: spacesFilter},HaLiveTask, {page: page, pageSize: size, resultIsPaginated: true});
+  public getAllWithFilters(spacesFilter: string[], titleFilter: string, page: number, size: number): Observable<ClPage<HaLiveTask>> {
+    return this.apiService.post(`${this.route}/filters`,
+      {spacesFilter: spacesFilter, titleFilter: titleFilter}, HaLiveTask, {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public getAllWithSpacesFilterPaginated(spacesFilter: string[]): HaLiveTaskDatasourcePaginated {
+  public getAllWithFiltersPaginated(spacesFilter: string[], titleFilter: string): HaLiveTaskDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAllWithSpacesFilter(spacesFilter, page, size), 10);
+      (page, size) => this.getAllWithFilters(spacesFilter, titleFilter, page, size), 10);
   }
 
   /**

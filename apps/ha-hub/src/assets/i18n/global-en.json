@@ -94,7 +94,6 @@
   "create_story": "Create Story",
   "story_created": "Story created",
   "stories": "Stories",
-  "back_to_all_stories": "Back to all stories",
   "back_to_all_bricks": "Back to all bricks",
   "publish_story": "Publish story",
   "publish_story_dialog_content": "Are you sure you want to publish this story ?",
@@ -102,7 +101,8 @@
   "yes": "Yes",
   "no": "No",
   "story_content_no_picture_error": "The story content must contain at least one picture",
-  "back_to_my_stories": "Back to my stories",
+  "back_to_stories_list": "Back to stories list",
+  "back_to_my_story_page": "Back to my story page",
   "my_stories": "My stories",
   "created": "Created",
   "status": "Status",
@@ -249,5 +249,6 @@
   "parameters_copied_to_clipboard": "Parameters copied to clipboard",
   "parameters": "Parameters",
   "saving_story_content": "Saving story content",
-  "publish_story_with_modifications": "Modify the published story with content modifications"
+  "publish_story_with_modifications": "Modify the published story with content modifications",
+  "search_by_title": "Search by title"
 }

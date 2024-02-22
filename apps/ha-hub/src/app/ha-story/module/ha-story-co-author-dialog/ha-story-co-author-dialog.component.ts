@@ -36,10 +36,9 @@ export interface HaCoAuthorEmail {
 })
 export class HaStoryCoAuthorDialogComponent extends FlFormDialogAbstractDirective<HaCoAuthorFormData, HaStory> implements OnInit {
 
-  coAuthors: HaCoAuthorEmail[];
   coAuthorPendingInvites: HaStoryAuthorInvite[];
   storyId: string;
-  story: HaStory;
+  storyCoAuthors: HaUser[];
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   constructor(snackBarService: FlSnackBarService,
               dialogRef: MatDialogRef<HaStoryCoAuthorDialogComponent>,
@@ -58,9 +57,8 @@ export class HaStoryCoAuthorDialogComponent extends FlFormDialogAbstractDirectiv
   }
 
   updateCoAuthors(): void {
-    this.storyService.getById(this.storyId).subscribe(story => {
-      this.story = story;
-      this.coAuthors = this.story.getCoAuthors();
+    this.storyService.getStoryCoAuthors(this.storyId).subscribe(storyCoAuthors => {
+      this.storyCoAuthors = storyCoAuthors;
     });
   }
 

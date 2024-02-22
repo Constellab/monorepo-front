@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HaCoreModule } from '../ha-core/ha-core.module';
 import { HaStoryCreateDialogComponent } from './module/ha-story-create-dialog/ha-story-create-dialog.component';
 import { CommonModule } from '@angular/common';
-import { HaStoryMyListComponent } from './module/ha-story-my-list/ha-story-my-list.component';
 import { HaStoryCoAuthorDialogComponent } from './module/ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import { HaStoryInvitePageComponent } from './module/ha-story-invite-page/ha-story-invite-page.component';
 import { HaStoryFileDialogComponent } from './module/ha-story-file-dialog/ha-story-file-dialog.component';
@@ -26,7 +25,6 @@ import {
     HaStoryEditPageComponent,
     HaStoryListPageComponent,
     HaStoryCreateDialogComponent,
-    HaStoryMyListComponent,
     HaStoryCoAuthorDialogComponent,
     HaStoryInvitePageComponent,
     HaStoryFileDialogComponent,

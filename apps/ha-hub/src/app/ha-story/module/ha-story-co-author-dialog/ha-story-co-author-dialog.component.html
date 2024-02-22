@@ -6,8 +6,8 @@
 
   <div class="dialog-part">
     {{'coauthors' | translate}}:
-    @if (story?.getCoAuthors().length > 0){
-      <div *ngFor="let coAuthor of story.getCoAuthors()" class="co-author-div">
+    @if (storyCoAuthors?.length > 0){
+      <div *ngFor="let coAuthor of storyCoAuthors" class="co-author-div">
         <fl-user-inline [user]="coAuthor"></fl-user-inline>
         <button mat-icon-button [matTooltip]="'remove_coauthor' | translate" (click)="openRemoveConfirmDialog(coAuthor)" color="warn">
           <mat-icon>remove_circle_outline</mat-icon>

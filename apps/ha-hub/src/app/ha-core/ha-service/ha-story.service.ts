@@ -17,6 +17,7 @@ import {HaStoryAuthorInvite} from '../ha-model/ha-entities/ha-story-author-invit
 import {HaStoryFile} from '../ha-model/ha-entities/ha-story-file';
 import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 import {RvResourceView} from '@monorepo/resource-view';
+import {HaUser} from '../ha-model/ha-entities/ha-user';
 
 
 @Injectable({
@@ -151,24 +152,14 @@ export class HaStoryService {
     return this.apiService.put(`${this.route}/${id}/publish`, {});
   }
 
-  getMyStoriesForList(): HaStoryDatasourcePaginated {
+  getMyStoriesForList(filters: HaStoryFilter): HaStoryDatasourcePaginated {
     return new FlEntityPaginatedDatasource((page, size) =>
-      this.getMyStoriesForListPaginated(page, size), 10);
+      this.getMyStoriesForListPaginated(filters, page, size), 10);
   }
 
-  private getMyStoriesForListPaginated(page: number, size: number): Observable<ClPage<HaListStoryDto>> {
-    return this.apiService.get(this.route + '/my', HaStory, {page: page, pageSize: size, resultIsPaginated: true});
+  private getMyStoriesForListPaginated(filters: HaStoryFilter, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
+    return this.apiService.post(this.route + '/my-filtered', filters, HaStory, {page: page, pageSize: size, resultIsPaginated: true});
   }
-
-  getMyStories(): HaMyStoriesDataSource {
-    return new FlEntityPaginatedDatasource((page, size) =>
-      this.getMyStoriesPaginated(page, size), 10);
-  }
-
-  private getMyStoriesPaginated(page: number, size: number): Observable<ClPage<HaStoryDataSourceDataDto>> {
-    return this.apiService.get(this.route + '/my', HaStory, {page: page, pageSize: size, resultIsPaginated: true});
-  }
-
 
   /***
    * Check if the current user is the story owner
@@ -176,6 +167,15 @@ export class HaStoryService {
    */
   isStoryOwnerOrCoAuthor(storyId: string): Observable<boolean> {
     return this.apiService.get(`${this.route}/${storyId}/is-owner-or-co-author`, Boolean);
+  }
+
+  /***
+   * Get story co-authors
+   * @param storyId story id
+   * @return co-authors users
+   */
+  getStoryCoAuthors(storyId: string): Observable<HaUser[]> {
+    return this.apiService.get(`${this.route}/${storyId}/co-authors`, HaUser);
   }
 
   /***

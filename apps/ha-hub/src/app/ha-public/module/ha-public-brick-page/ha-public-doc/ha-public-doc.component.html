@@ -49,7 +49,7 @@
     </div>
   </div>
 </div>
-<div class="right-panel right-div g-scrollable-element" *ngIf="documentation">
+<div class="right-panel right-div g-scrollable-element" *ngIf="documentation && titles?.length > 0">
   <div>
     <ha-public-brick-right-panel [brickName]="brickName"
                                  [docTitles]="titles"></ha-public-brick-right-panel>

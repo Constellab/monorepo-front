@@ -17,15 +17,8 @@ export enum HaStoryCategory {
   ARTICLE = 'ARTICLE'
 }
 
-
-export enum HaStoryAuthorStatus {
-  AUTHOR = 'AUTHOR',
-  COAUTHOR = 'COAUTHOR'
-}
-
 export class HaStoryAuthor {
   id: string;
-  status: HaStoryAuthorStatus;
 
   user: HaUser;
 
@@ -58,6 +51,8 @@ export class HaStory {
 
   storyFiles: HaStoryFile[];
 
+  createdBy: HaUser;
+
   init(story: HaStory): void {
     Object.assign(this, story);
   }
@@ -68,12 +63,12 @@ export class HaStory {
 
 
   getAuthor(): HaUser {
-    return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0]?.user;
+    return this.createdBy;
   }
 
   getCoAuthors(): HaUser[] {
-    return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.COAUTHOR)
-      .map(storyAuthor => storyAuthor.user);
+    console.log(this.storyAuthors)
+    return this.storyAuthors?.map(storyAuthor => storyAuthor.user);
   }
 }
 
@@ -91,6 +86,7 @@ export class HaListStoryDto {
   mainPicture?: string;
   topics?: HaTopic[];
   createdAt: DateTime;
+  createdBy: HaUser
 
   category: HaStoryCategory;
 
@@ -104,7 +100,7 @@ export class HaListStoryDto {
   }
 
   getAuthor(): HaUser {
-    return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
+    return this.createdBy;
   }
 }
 
@@ -124,13 +120,15 @@ export class HaStoryDataSourceDataDto {
 
   topics?: HaTopic[];
 
+  createdBy: HaUser;
+
   getTopics(): HaTopic[] {
     return this.topics.sort((a, b) => a.popularity - b.popularity);
   }
 
 
   getAuthor(): HaUser {
-    return this.storyAuthors.filter(storyAuthor => storyAuthor.status === HaStoryAuthorStatus.AUTHOR)[0].user;
+    return this.createdBy;
   }
 }
 

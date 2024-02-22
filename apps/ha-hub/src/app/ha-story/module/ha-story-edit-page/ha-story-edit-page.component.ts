@@ -318,13 +318,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onFileSelected(file: File | File[]): void {
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.story.mainPicture = event.target.result;
-      };
-      reader.readAsDataURL(file as File);
-    }
     this.dialogService.openMediumDialog(FlReshapeImageDialogComponent, {
       data: {
         file: file,
@@ -364,8 +357,10 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       successMessage: 'story_deleted',
       translateMessage: true
     };
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(() => {
-      this.router.navigate(['/stories']);
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
+      if (res && res.choice){
+        this.router.navigate(['/stories']);
+      }
     });
   }
 

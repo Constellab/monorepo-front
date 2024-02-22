@@ -2,7 +2,7 @@
   <a [routerLink]="storiesListRoute" class="back-link">
     <fl-text-icon [iconPosition]="'start'">
       <mat-icon>arrow_back</mat-icon>
-      {{'back_to_all_stories' | translate}}
+      {{'back_to_stories_list' | translate}}
     </fl-text-icon>
   </a>
 </div>
@@ -20,11 +20,11 @@
           <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
         </span>
           </p>
-          @if (story.getCoAuthors()?.length > 0) {
+          @if (storyCoAuthors?.length > 0) {
             <fl-key-value class="g-text-small co-author-key-val user-date-info">
               <fl-key>{{ 'coauthors' | translate }}</fl-key>
               <span class="co-author-span">
-            @for (coAuthor of story.getCoAuthors(); track coAuthor.id) {
+            @for (coAuthor of storyCoAuthors; track coAuthor.id) {
               <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
             }
           </span>
@@ -32,7 +32,8 @@
           }
         </div>
         @if (hasRightToEdit) {
-          <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+story.id">
+          {{'edit' | translate}}
+          <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+ story.id">
             <fl-text-icon [iconPosition]="'end'">
               <mat-icon>edit</mat-icon>
               {{ 'edit' | translate }}

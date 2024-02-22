@@ -18,6 +18,7 @@ import {HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {isPlatformBrowser} from '@angular/common';
 import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'ha-story-list-page',
@@ -48,6 +49,8 @@ export class HaStoryListPageComponent implements OnInit {
 
   myStoriesBool: boolean = false;
 
+  titleFormControl: FormControl<string> = new FormControl<string>('');
+
   constructor(private dialogService: FlDialogService,
               private router: Router,
               private storyService: HaStoryService,
@@ -65,6 +68,10 @@ export class HaStoryListPageComponent implements OnInit {
     }
   }
 
+  search(): void {
+    this.filters.title = this.titleFormControl.value;
+    this.getStoriesFiltered();
+  }
 
   openCreateStoryDialog(): void{
 
@@ -112,7 +119,10 @@ export class HaStoryListPageComponent implements OnInit {
   }
 
   getStoriesFiltered(): void {
-    this.stories = this.storyService.getAllPaginatedFiltered(this.filters);
+    if (this.myStoriesBool)
+      this.stories = this.storyService.getMyStoriesForList(this.filters);
+    else
+      this.stories = this.storyService.getAllPaginatedFiltered(this.filters);
   }
 
   loadMoreResults(): void {
@@ -121,9 +131,6 @@ export class HaStoryListPageComponent implements OnInit {
 
   selectMyStories(): void {
     this.myStoriesBool = !this.myStoriesBool;
-    if (this.myStoriesBool)
-      this.stories = this.storyService.getMyStoriesForList();
-    else
-      this.stories = this.storyService.getAllPaginated();
+    this.getStoriesFiltered();
   }
 }
