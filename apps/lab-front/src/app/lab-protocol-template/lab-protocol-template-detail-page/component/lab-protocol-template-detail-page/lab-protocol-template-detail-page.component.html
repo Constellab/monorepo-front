@@ -1,0 +1,30 @@
+<div class="g-page-fixed page">
+
+  <fl-async-section [object]="template$" class="g-flex-auto">
+
+    <ng-container *flSectionBody="template$ as template">
+      <lab-protocol-template-detail-header [template]="template"
+                                           class="g-card-background"></lab-protocol-template-detail-header>
+
+      <div class="g-full-height g-layout-col">
+
+        <mat-tab-group class="g-flex-auto g-mat-tab-full-height g-mat-tab-header-card-background"
+                       [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="tabIndexChange($event)">
+          <mat-tab [label]="'biox.experiment_workflow' | translate">
+            <ng-template matTabContent>
+              <lab-protocol-template-workflow [template]="template"></lab-protocol-template-workflow>
+            </ng-template>
+          </mat-tab>
+
+          <mat-tab [label]="'biox.protocol_template_detail' | translate">
+            <lab-protocol-template-detail [template]="template"></lab-protocol-template-detail>
+          </mat-tab>
+        </mat-tab-group>
+
+
+      </div>
+    </ng-container>
+
+  </fl-async-section>
+
+</div>

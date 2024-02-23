@@ -6,14 +6,10 @@ import {
 import {
   LabExperimentDetailPageComponent
 } from './module/lab-experiment-detail-page/component/lab-experiment-detail-page/lab-experiment-detail-page.component';
-import {
-  LabProtocolTemplateDetailPageComponent
-} from './module/lab-protocol-template-detail-page/component/lab-protocol-template-detail-page/lab-protocol-template-detail-page.component';
 
 const routes: Routes = [
   {path: '', component: LabExperimentsListPageComponent},
   {path: 'experiment/:id', component: LabExperimentDetailPageComponent},
-  {path: 'protocol-template/:id', component: LabProtocolTemplateDetailPageComponent},
 ];
 
 @NgModule({

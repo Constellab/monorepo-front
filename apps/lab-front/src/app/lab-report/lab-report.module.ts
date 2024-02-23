@@ -3,9 +3,6 @@ import {CommonModule} from '@angular/common';
 import {LabReportRoutingModule} from './lab-report-routing.module';
 import {LabReportSearchPageModule} from './module/lab-report-search-page/lab-report-search-page.module';
 import {LabReportDetailPageModule} from './module/lab-report-detail-page/lab-report-detail-page.module';
-import {
-  LabReportTemplateDetailPageModule
-} from './module/lab-report-template-detail-page/lab-report-template-detail-page.module';
 
 
 @NgModule({
@@ -15,7 +12,6 @@ import {
 
     LabReportSearchPageModule,
     LabReportDetailPageModule,
-    LabReportTemplateDetailPageModule,
 
     LabReportRoutingModule,
   ]

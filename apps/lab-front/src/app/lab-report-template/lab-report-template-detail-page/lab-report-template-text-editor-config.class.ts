@@ -1,4 +1,4 @@
-import {LabReportTemplateService} from '../../../lab-core/entity-service/lab-report-template.service';
+import {LabReportTemplateService} from '../../lab-core/entity-service/lab-report-template.service';
 import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
 import {Observable} from 'rxjs';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 /**
  * Menu bar that can grow and shrink.
@@ -8,16 +8,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   templateUrl: './fl-expansion-menu.component.html',
   styleUrls: ['./fl-expansion-menu.component.scss']
 })
-export class FlExpansionMenuComponent implements OnInit {
+export class FlExpansionMenuComponent {
 
   @Input() expanded: boolean = false;
   @Output() expandedChange: EventEmitter<boolean> = new EventEmitter();
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   get menuClass(): string {
     return this.expanded ? 'menu-large' : 'menu-small';

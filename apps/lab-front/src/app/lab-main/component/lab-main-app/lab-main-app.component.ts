@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {labBiotaMenuLink, MainMenuLink, mainMenuLinks} from '../../lab-main-menu-link.class';
+import {labBiotaMenuLink, LabMainMenuLink, mainMenuLinks} from '../../lab-main-menu-link.class';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {LabEnvStore} from '../../../lab-core/service/lab-env.store';
@@ -20,7 +20,7 @@ import {FlChatBotService} from '@monorepo/front-core-lib';
 })
 export class LabMainAppComponent implements OnInit {
 
-  accessibleLinks: MainMenuLink[] = mainMenuLinks;
+  accessibleLinks: LabMainMenuLink[] = mainMenuLinks;
 
   spaceAppUrl: string = LabEnvironmentHelper.getSpaceFrontAppUrl();
 

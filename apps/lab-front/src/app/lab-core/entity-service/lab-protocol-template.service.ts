@@ -41,6 +41,10 @@ export class LabProtocolTemplateService {
     return this.apiService.put(`${this.route}/${id}`, data, LabProtocolTemplate);
   }
 
+  public updateProtocolTemplateName(id: string, name: string): Observable<LabProtocolTemplate> {
+    return this.apiService.put(`${this.route}/${id}/name`, {name: name}, LabProtocolTemplate);
+  }
+
   public deleteProtocolTemplate(id: string): Observable<void> {
     return this.apiService.deleteById(this.route, id);
   }

@@ -109,7 +109,6 @@ export class FlTranslateService {
       case 'capitalize':
         return ClStringHelper.capitalize(text);
     }
-    return text;
   }
 
   /**

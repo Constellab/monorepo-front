@@ -5,9 +5,10 @@
 
       <div class="g-layout-row g-layout-start-center">
 
-        <div>
+        <fl-text-icon>
+          <mat-icon flIcon="report_template" class="g-icon-big"></mat-icon>
           <h2>{{'biox.report_template' | translate}} :</h2>
-        </div>
+        </fl-text-icon>
         <div class="g-flex-auto g-flex">
           <h2 flElementEditable (flElementValueChange)="updateTitle($event)">
             {{reportTemplate.title}}</h2>

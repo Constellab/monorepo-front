@@ -2,14 +2,16 @@ import {
   labConstBiotaFullRoute,
   labConstBioxFullRoute,
   labConstDataboxFullRoute,
+  labConstProtocolTemplateRoute,
   labConstReportFullRoute,
+  labConstReportTemplateFullRoute,
   labConstViewboxFullRoute
 } from '../lab-core/utils/lab-base-route';
 
 /**
  * Describe one main menu link button
  */
-export interface MainMenuLink {
+export interface LabMainMenuLink {
   route: string;
   label: string;
   icon: string;
@@ -17,7 +19,7 @@ export interface MainMenuLink {
 }
 
 // list of the main menu links buttons
-export const mainMenuLinks: MainMenuLink[] = [
+export const mainMenuLinks: LabMainMenuLink[] = [
   {
     label: 'biox.biox',
     icon: 'experiment',
@@ -36,11 +38,22 @@ export const mainMenuLinks: MainMenuLink[] = [
   {
     label: 'biox.reports',
     icon: 'report',
-    route: labConstReportFullRoute
+    route: labConstReportFullRoute,
+  },
+  {
+    label: 'biox.protocol_templates',
+    icon: 'protocol_template',
+    route: labConstProtocolTemplateRoute,
+    divider: true
+  },
+  {
+    label: 'biox.report_templates',
+    icon: 'report_template',
+    route: labConstReportTemplateFullRoute,
   },
 ];
 
-export const labBiotaMenuLink: MainMenuLink = {
+export const labBiotaMenuLink: LabMainMenuLink = {
   label: 'biota.biota',
   icon: 'database',
   route: labConstBiotaFullRoute,

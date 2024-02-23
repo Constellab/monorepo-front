@@ -10,6 +10,8 @@ export const labConstReportRoute = 'report';
 export const labConstViewboxRoute = 'viewbox';
 export const labConstMonitoringRoute = 'monitoring';
 export const labConstDocRoute = 'doc';
+export const labConstProtocolTemplateRoute = 'protocol-template';
+export const labConstReportTemplateRoute = 'report-template';
 export const labConstLoginRoute = '/login';
 
 export const labConstBioxFullRoute = `/${labConstBaseRoute}/${labConstBioxRoute}`;
@@ -19,4 +21,6 @@ export const labConstReportFullRoute = `/${labConstBaseRoute}/${labConstReportRo
 export const labConstViewboxFullRoute = `/${labConstBaseRoute}/${labConstViewboxRoute}`;
 export const labConstMonitoringFullRoute = `/${labConstBaseRoute}/${labConstMonitoringRoute}`;
 export const labConstDocFullRoute = `/${labConstBaseRoute}/${labConstDocRoute}`;
+export const labConstProtocolTemplateFullRoute = `/${labConstBaseRoute}/${labConstProtocolTemplateRoute}`;
+export const labConstReportTemplateFullRoute = `/${labConstBaseRoute}/${labConstReportTemplateRoute}`;
 

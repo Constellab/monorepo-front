@@ -30,6 +30,12 @@
       opacity: 0.7 !important;
       height: 34px !important;
       padding-left: 5px !important;
+      white-space: break-spaces;
+      line-height: 1em;
+    }
+
+    .expansion-menu-button mat-icon {
+      flex-shrink: 0;
     }
 
     .expansion-menu-button-small {

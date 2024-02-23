@@ -48,7 +48,7 @@ export const FL_ICON_MODULE =
 export const flIconsDefault: FlIcon[] = [
   {name: 'experiment', filename: 'flask-solid.svg'},
   {name: 'protocol', filename: 'cogs-solid.svg'},
-  {name: 'protocol_template', matIconName: 'description'},
+  {name: 'protocol_template', filename: 'protocol-template.svg'},
   {name: 'process', filename: 'cogs-solid.svg'},
   {name: 'lab', filename: 'microscope-solid.svg'},
   {name: 'project', filename: 'briefcase-solid.svg'},
@@ -56,7 +56,7 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'archive', matIconName: 'inventory_2'},
   {name: 'unarchive', matIconName: 'unarchive'},
   {name: 'report', matIconName: 'grading'},
-  {name: 'report_template', matIconName: 'grading'},
+  {name: 'report_template', filename: 'report-template.svg'},
   {name: 'resource', matIconName: 'folder'},
   {name: 'view', matIconName: 'insert_chart'},
   {name: 'smart_db', matIconName: 'search'},

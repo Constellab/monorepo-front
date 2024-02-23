@@ -5,7 +5,9 @@ import {
   labConstDataboxFullRoute,
   labConstDocFullRoute,
   labConstMonitoringFullRoute,
-  labConstReportFullRoute
+  labConstProtocolTemplateFullRoute,
+  labConstReportFullRoute,
+  labConstReportTemplateFullRoute
 } from '../utils/lab-base-route';
 import {Router} from '@angular/router';
 
@@ -37,8 +39,12 @@ export class LabRouterService {
     return `${labConstBioxFullRoute}/experiment/${id}`;
   }
 
+  public static getProtocolTemplatesRoute(): string {
+    return `${labConstProtocolTemplateFullRoute}`;
+  }
+
   public static getProtocolTemplateDetailRoute(id: string): string {
-    return `${labConstBioxFullRoute}/protocol-template/${id}`;
+    return `${labConstProtocolTemplateFullRoute}/${id}`;
   }
 
   public static getResourceDetailRoute(id: string): string {
@@ -73,7 +79,7 @@ export class LabRouterService {
   }
 
   public static getReportTemplateDetailRoute(id: string): string {
-    return `${labConstReportFullRoute}/template/${id}`;
+    return `${labConstReportTemplateFullRoute}/${id}`;
   }
 
   public static getDocRoute(): string {
@@ -140,6 +146,10 @@ export class LabRouterService {
 
   public navigateToResourceDetail(id: string): Promise<boolean> {
     return this.router.navigate([LabRouterService.getResourceDetailRoute(id)]);
+  }
+
+  public navigateToProtocolTemplates(): Promise<boolean> {
+    return this.router.navigate([LabRouterService.getProtocolTemplatesRoute()]);
   }
 
   public navigateToReportDetail(id: string): Promise<boolean> {

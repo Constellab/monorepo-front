@@ -47,6 +47,3 @@ export interface FlTranslateModuleConfig {
  */
 export const FL_TRANSLATE_MODULE_CONFIG =
   new InjectionToken<FlTranslateModuleConfig>('CORE_TRANSLATE_MODULE_CONFIG');
-
-export const FL_TRANSLATE_MODULE_CHILD =
-  new InjectionToken<FlTranslateModuleConfig>('FL_TRANSLATE_MODULE_CHILD');

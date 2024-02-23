@@ -1,0 +1,32 @@
+<fl-article-container class="container">
+
+  <fl-article-left-side>
+    <!--  Tags  -->
+    <div class="g-layout-row">
+      <lab-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"
+                    entityType="PROTOCOL_TEMPLATE" [entityId]="template.id"></lab-tag-list>
+      <button mat-icon-button type="button" class="g-button-icon-small"
+              (click)="openTagsFormDialog()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+
+    <!--  Created by & Last modified bt  -->
+    <p class="g-text-small g-text-light separator">
+      <fl-creation-info [user]="template.createdBy"
+                        [date]="template.createdAt"></fl-creation-info>
+    </p>
+    <p class="g-text-small g-text-light">
+      <fl-last-modification-info [user]="template.lastModifiedBy"
+                                 [date]="template.lastModifiedAt"></fl-last-modification-info>
+    </p>
+  </fl-article-left-side>
+
+  <fl-article>
+    <te-text-editor [config]="textEditorConfig"
+                    [(ngModel)]="template.description" class="text-editor"
+                    [placeholder]="'description' | translate"
+                    (textChange)="onDescriptionChanged($event)"></te-text-editor>
+  </fl-article>
+</fl-article-container>
+

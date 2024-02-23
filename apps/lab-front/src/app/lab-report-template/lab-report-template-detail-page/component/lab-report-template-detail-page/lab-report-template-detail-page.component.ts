@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {LabReport, LabReportContent} from '../../../../../lab-core/model/entities/lab-report.entity';
+import {LabReport, LabReportContent} from '../../../../lab-core/model/entities/lab-report.entity';
 import {FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService} from '@monorepo/front-core-lib';
 import {ActivatedRoute} from '@angular/router';
-import {LabRouterService} from '../../../../../lab-core/service/lab-router.service';
-import {LabReportTemplateService} from '../../../../../lab-core/entity-service/lab-report-template.service';
-import {LabReportTemplate} from '../../../../../lab-core/model/entities/lab-report-template.entity';
+import {LabRouterService} from '../../../../lab-core/service/lab-router.service';
+import {LabReportTemplateService} from '../../../../lab-core/entity-service/lab-report-template.service';
+import {LabReportTemplate} from '../../../../lab-core/model/entities/lab-report-template.entity';
 import {LabReportTemplateTextEditorConfig} from '../../lab-report-template-text-editor-config.class';
 import {TeConfig} from '@monorepo/text-editor';
 

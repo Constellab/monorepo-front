@@ -4,7 +4,7 @@ import {
   LabReportTemplateDetailPageComponent
 } from './component/lab-report-template-detail-page/lab-report-template-detail-page.component';
 import {FormsModule} from '@angular/forms';
-import {LabCoreModule} from '../../../lab-core/lab-core.module';
+import {LabCoreModule} from '../../lab-core/lab-core.module';
 
 @NgModule({
   declarations: [

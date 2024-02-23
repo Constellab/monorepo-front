@@ -3,10 +3,14 @@
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'title' | translate}}</span>
+      <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <span>{{row.title}}</span>
+      <span>{{ row.title }}</span>
+
+      <!--    Invisible link  -->
+      <a *ngIf="!rowSelectable" [routerLink]="row | labDetailRoute"
+         class="g-row-link"></a>
     </mat-cell>
   </ng-container>
 
@@ -14,7 +18,7 @@
   <!-- Creation -->
   <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'creation_info' | translate}}</span>
+      <span>{{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>
@@ -24,7 +28,7 @@
   <!-- Last Modification -->
   <ng-container matColumnDef="lastModification">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'last_modification_info' | translate}}</span>
+      <span>{{ 'last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
@@ -32,17 +36,8 @@
   </ng-container>
 
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <!-- Mode selectable -->
-  <ng-container *ngIf="rowSelectable; else notSelectable">
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             (click)="rowClicked(row)"></mat-row>
-  </ng-container>
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
+           (click)="rowClicked(row)"></mat-row>
 
-  <!-- Mode link -->
-  <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             [routerLink]="row | labDetailRoute"></mat-row>
-  </ng-template>
 </mat-table>

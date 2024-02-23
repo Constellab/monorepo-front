@@ -89,7 +89,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     // Setup translate module
     FlTranslateModule.forRoot({
       defaultLang: ClSupportedLanguage.en,
-      availableLang: [ClSupportedLanguage.en],
+      availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
       filenames: ['lab-global-', 'lab-biox-', 'lab-biota-', 'lab-databox-', 'lab-monitoring-']
     }),
     FlTranslateModule.forRoot2(),

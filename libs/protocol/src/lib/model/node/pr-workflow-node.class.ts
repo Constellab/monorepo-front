@@ -213,9 +213,9 @@ export abstract class PrWorkflowNode<T = any> {
     ports.push(port);
 
     if (type === 'input') {
-      this.inputPortsChange$.next(this.inputPorts);
+      this.inputPortsChange$.next(ports);
     } else {
-      this.outputPortsChange$.next(this.outputPorts);
+      this.outputPortsChange$.next(ports);
     }
 
     return port;

@@ -6,20 +6,30 @@ import {
 import {
   LabProtocolTemplateDetailComponent
 } from './component/lab-protocol-template-detail/lab-protocol-template-detail.component';
-import {LabCoreModule} from '../../../lab-core/lab-core.module';
+import {LabCoreModule} from '../../lab-core/lab-core.module';
 import {FormsModule} from '@angular/forms';
+import {
+  LabProtocolTemplateDetailHeaderComponent
+} from './component/lab-protocol-template-detail-header/lab-protocol-template-detail-header.component';
+import {
+  LabProtocolTemplateWorkflowComponent
+} from './component/lab-protocol-template-workflow/lab-protocol-template-workflow.component';
+import {LabTagCoreModule} from '../../lab-core/entity-module/lab-tag-core/lab-tag-core.module';
 
 
 @NgModule({
   declarations: [
     LabProtocolTemplateDetailPageComponent,
-    LabProtocolTemplateDetailComponent
+    LabProtocolTemplateDetailComponent,
+    LabProtocolTemplateDetailHeaderComponent,
+    LabProtocolTemplateWorkflowComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
 
     LabCoreModule,
+    LabTagCoreModule,
   ]
 })
 export class LabProtocolTemplateDetailPageModule {
