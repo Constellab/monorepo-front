@@ -51,12 +51,6 @@ export abstract class PrWorkflowNode<T = any> {
     );
   }
 
-  public deInitDrawflow(): void {
-    this.drawflowId = null;
-    this.getDrawflowNodeMethod = null;
-    this.titleSubscription?.unsubscribe();
-  }
-
   protected abstract initPorts(object: T): void;
 
   public abstract getHTML(): string;
@@ -366,11 +360,17 @@ export abstract class PrWorkflowNode<T = any> {
   }
 
 
+  public deInitDrawflow(): void {
+    this.drawflowId = null;
+    this.getDrawflowNodeMethod = null;
+    this.titleSubscription?.unsubscribe();
+  }
+
   public destroy(): void {
+    this.deInitDrawflow();
     this.object$.complete();
     this.inputPortsChange$.complete();
     this.outputPortsChange$.complete();
-    this.titleSubscription?.unsubscribe();
     const ports: PrWorkflowPort[] = [...this.inputPorts, ...this.outputPorts];
     for (const port of ports) {
       port.destroy();

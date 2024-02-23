@@ -224,6 +224,10 @@ export class LabExperimentDetailPageState {
     this.experimentSubscription?.unsubscribe();
   }
 
+  public deleteProtocol(protocolId: string): void {
+    this.workflow.deleteLayerAndChildren(protocolId);
+  }
+
   /////////////////////////////////// FLOW ////////////////////////////////////
 
   public getOrLoadLayer$(protocolId: string): Observable<PrWorkflowLayer> {

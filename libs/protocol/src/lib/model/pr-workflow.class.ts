@@ -205,6 +205,38 @@ export class PrWorkflow {
     });
   }
 
+  public deleteLayerAndChildren(layerId: string): void {
+    const layer = this.findLayerWithId(layerId);
+    if (layer == null) return;
+    const children = this.getChildrenLayers(layer);
+    for (const child of children) {
+      this.deleteLayer(child.id);
+    }
+    this.deleteLayer(layer.id);
+  }
+
+  private deleteLayer(layerId: string): void {
+    const layer = this.findLayerWithId(layerId);
+    if (layer == null) return;
+
+    layer.destroy();
+    const index = this.layers.indexOf(layer);
+    if (index > -1) {
+      this.layers.splice(index, 1);
+    }
+  }
+
+  private getChildrenLayers(layer: PrWorkflowLayer): PrWorkflowLayer[] {
+    const children = [];
+    for (const child of this.layers) {
+      if (child.parentLayer === layer) {
+        children.push(child);
+        children.push(...this.getChildrenLayers(child));
+      }
+    }
+    return children;
+  }
+
   ////////////////////// NODE ///////////////////////////
 
   private onNodeRemoved(nodeId: number): void {

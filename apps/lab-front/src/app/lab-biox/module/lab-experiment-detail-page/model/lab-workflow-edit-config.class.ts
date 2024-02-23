@@ -9,7 +9,8 @@ import {
   PrWorkflowNode,
   PrWorkflowNodeInterface,
   PrWorkflowNodeOuterface,
-  PrWorkflowNodeProcess
+  PrWorkflowNodeProcess,
+  PrWorkflowNodeProtocol
 } from '@monorepo/protocol';
 import {Observable, of, Subscription, switchMap, tap} from 'rxjs';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
@@ -468,6 +469,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
         // clear the node observable, if the deletion worked
         const info: LabWorkflowEventNodeAdditionalInfo = actionResult.additionalInformation;
         info.node.destroy();
+
+        if(info.node instanceof PrWorkflowNodeProtocol){
+          this.experimentState.deleteProtocol(info.node.currentObject.id);
+        }
       }
       // else if (actionResult.action.type === LabWorkflowAction.ADD_DYNAMIC_INPUT_PORT) {
       //   const protocolUpdate: LabProtocolUpdateDTO = actionResult.result;

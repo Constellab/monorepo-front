@@ -466,13 +466,6 @@ export class PrWorkflowLayer {
     }
   }
 
-  public destroy(): void {
-    // destroy all nodes
-    for (const node of this.nodes) {
-      node.destroy();
-    }
-  }
-
   /**
    * Create the node in the editor and init those values
    */
@@ -505,6 +498,13 @@ export class PrWorkflowLayer {
     this.editor = null;
     for (const node of this.nodes) {
       node.deInitDrawflow();
+    }
+  }
+
+  public destroy(): void {
+    // destroy all nodes
+    for (const node of this.nodes) {
+      node.destroy();
     }
   }
 
