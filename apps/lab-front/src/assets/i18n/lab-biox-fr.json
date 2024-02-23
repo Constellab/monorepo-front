@@ -327,6 +327,7 @@
     "process_is_running": "Le process est en cours d'exécution",
     "experiment_is_in_queue": "L'expérience est dans la file d'attente d'exécution",
     "save_config_and_run_process": "Sauvegarder la configuration et lancer le process",
+    "save_config_and_run_protocol": "Sauvegarder la configuration et lancer le protocole",
     "archive_experiment": "Archiver l'expérience",
     "archive_experiment_confirmation": "Êtes-vous sûr de vouloir archiver cette expérience ? Les ressources générées par cette expérience seront archivées également.",
     "experiment_archived": "Expérience archivée",

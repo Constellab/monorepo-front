@@ -6,7 +6,7 @@
 
       <div class="left-section">
         <div *ngFor="let process of processes" class="process" matRipple
-             (click)="selectProcess(process)">
+             (click)="selectProcess(process)" [ngClass]="{'process-selected': process.id === (selectedProcess$ | async)?.id}">
           <div>{{ process.name }}</div>
           <div class="g-text-small g-text-light">{{process.instanceName}}</div>
         </div>

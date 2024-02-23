@@ -1,7 +1,7 @@
 import {ClRecordTransform} from '@monorepo/core-lib';
-import {LabProtocolIOFace, LabProtocolLink} from '../lab-protocol-link.entity';
 import {Expose, Type} from 'class-transformer';
 import {LabProcess} from './lab-process.entity';
+import {PrProtocolIntOut, PrProtocolLink} from '@monorepo/protocol';
 
 export interface LabProcessLayout {
   x: number;
@@ -40,17 +40,14 @@ export class LabProtocolLayout {
 
 export class LabProtocolData {
 
-  @ClRecordTransform(LabProtocolIOFace)
-  interfaces: Record<string, LabProtocolIOFace>;
+  interfaces: Record<string, PrProtocolIntOut>;
 
-  @ClRecordTransform(LabProtocolIOFace)
-  outerfaces: Record<string, LabProtocolIOFace>;
+  outerfaces: Record<string, PrProtocolIntOut>;
 
   @ClRecordTransform(LabProcess)
   nodes: Record<string, LabProcess>;
 
-  @Type(() => LabProtocolLink)
-  links: LabProtocolLink[];
+  links: PrProtocolLink[];
 
   @Type(() => LabProtocolLayout)
   layout?: LabProtocolLayout;

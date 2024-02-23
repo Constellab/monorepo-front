@@ -12,14 +12,15 @@
       <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
         <fl-status-chip [status]="process.status"></fl-status-chip>
 
-        <ng-container  *ngIf="isEditable$ | async">
+        <ng-container *ngIf="isEditable$ | async">
           <button mat-icon-button type="button" (click)="saveConfig()" tabindex="-1"
                   [matTooltip]="'save' | translate" matTooltipPosition="below">
             <mat-icon>save</mat-icon>
           </button>
 
           <button mat-icon-button type="button" (click)="saveConfigAndRunProcess(process)" tabindex="-1"
-                  [matTooltip]="'biox.save_config_and_run_process' | translate" matTooltipPosition="below">
+                  [matTooltip]="(process.isProtocol ? 'biox.save_config_and_run_protocol':'biox.save_config_and_run_process') | translate"
+                  matTooltipPosition="below">
             <mat-icon>play_arrow</mat-icon>
           </button>
         </ng-container>
@@ -36,7 +37,7 @@
           <button mat-menu-item type="button"
                   (click)="openTypingDoc(process.processTypingName)">
             <mat-icon>info</mat-icon>
-            <span>{{'biox.process_type_doc' | translate}}</span>
+            <span>{{ 'biox.process_type_doc' | translate }}</span>
           </button>
 
           @if (isLiveTask$ | async){
@@ -52,18 +53,18 @@
 
             <button mat-menu-item type="button" (click)="openProgressDetails()">
               <mat-icon>description</mat-icon>
-              {{'biox.node_progress_detail' | translate}}
+              {{ 'biox.node_progress_detail' | translate }}
             </button>
 
 
             <button mat-menu-item type="button" (click)="openProcessLogs(process)">
               <mat-icon>description</mat-icon>
-              {{'biox.view_process_logs' | translate}}
+              {{ 'biox.view_process_logs' | translate }}
             </button>
 
             <button mat-menu-item type="button" (click)="openProcessMonitor(process)">
               <mat-icon>troubleshoot</mat-icon>
-              {{'biox.view_process_monitoring' | translate}}
+              {{ 'biox.view_process_monitoring' | translate }}
             </button>
 
           </ng-container>
@@ -71,7 +72,7 @@
           <ng-container *ngIf="process.wasRun()">
             <button mat-menu-item type="button" (click)="resetProcess()">
               <mat-icon color="warn">restart_alt</mat-icon>
-              <span class="g-warn-text">{{'biox.reset_process' | translate}}</span>
+              <span class="g-warn-text">{{ 'biox.reset_process' | translate }}</span>
             </button>
           </ng-container>
         </mat-menu>
@@ -101,7 +102,7 @@
 
     <div *ngIf="process.errorInfo && process.isError()" class="process-error"
          (click)="openProgressDetails()">
-      {{process.errorInfo.detail}}
+      {{ process.errorInfo.detail }}
     </div>
   </div>
 

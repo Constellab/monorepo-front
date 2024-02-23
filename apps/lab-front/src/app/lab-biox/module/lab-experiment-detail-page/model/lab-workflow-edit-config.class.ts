@@ -365,7 +365,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
               translateText: true,
               translateParam: {param: {name: node.getCurrentTitle()}}
             },
-            action: this.deleteInterface(workflowEvent.protocolId, node.getPort().name),
+            action: this.deleteInterface(workflowEvent.protocolId, node.interfaceName),
             additionalInformation: additionalInfo
           };
         } else if (node instanceof PrWorkflowNodeOuterface) {
@@ -376,7 +376,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
               translateText: true,
               translateParam: {param: {name: node.getCurrentTitle()}},
             },
-            action: this.deleteOuterface(workflowEvent.protocolId, node.getPort().name),
+            action: this.deleteOuterface(workflowEvent.protocolId, node.outerfaceName),
             additionalInformation: additionalInfo
           };
         } else {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {PrProtocolIntOut} from '@monorepo/protocol';
 
 @Component({
@@ -6,16 +6,8 @@ import {PrProtocolIntOut} from '@monorepo/protocol';
   templateUrl: './ca-experiment-technical-report-int-out.component.html',
   styleUrls: ['./ca-experiment-technical-report-int-out.component.scss']
 })
-export class CaExperimentTechnicalReportIntOutComponent implements OnInit {
+export class CaExperimentTechnicalReportIntOutComponent {
 
   @Input() intOut: PrProtocolIntOut;
-
-  @Input() isInterface: boolean;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
 }

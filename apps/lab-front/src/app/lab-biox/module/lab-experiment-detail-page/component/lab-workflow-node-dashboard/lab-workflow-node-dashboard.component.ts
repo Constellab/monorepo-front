@@ -80,7 +80,7 @@ export class LabWorkflowNodeDashboardComponent {
   saveConfigAndRunProcess(process: LabProcess): void {
     this.dashboardState.saveCurrentTaskConfig().subscribe(
       (result) => {
-        if (result && result.status === 'success') {
+        if (result  == null || result.status === 'success') {
           this.workflowEditConfig.runProcess(process.parentProtocolId, process.instanceName);
         }
       }

@@ -18,9 +18,10 @@
 
 }
 
-.process:hover{
+.process:hover, .process-selected{
   background-color: var(--hover-color);
 }
+
 
 .right-section{
   min-width: 20em;

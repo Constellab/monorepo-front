@@ -1,6 +1,7 @@
 import {LabProcessLayout, LabProtocol} from '../../../../lab-core/model/entities/process/lab-protocol.entity';
 import {
   PrAddNodeWithConnection,
+  PrProtocolLink,
   PrWorkflow,
   PrWorkflowLayer,
   PrWorkflowNodeOutput,
@@ -15,7 +16,6 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Injectable, NgZone} from '@angular/core';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
-import {LabProtocolLink} from '../../../../lab-core/model/entities/lab-protocol-link.entity';
 
 @Injectable()
 export class LabWorkflowFactory {
@@ -51,20 +51,20 @@ export class LabWorkflowFactory {
 
     for (const link of protocol.data.links) {
       layer.addPrConnection({
-        fromNode: link.from.nodeName,
+        fromNode: link.from.node,
         fromPort: link.from.port,
-        toNode: link.to.nodeName,
+        toNode: link.to.node,
         toPort: link.to.port
       });
     }
 
     for (const inter of Object.values(protocol.data.interfaces)) {
       const layout = protocolLayout?.getInterface(inter.name) ?? null;
-      layer.addInterface(inter.name, inter.to.nodeName, inter.to.port, layout);
+      layer.addInterface(inter.name, inter.process_instance_name, inter.port_name, layout);
     }
     for (const outer of Object.values(protocol.data.outerfaces)) {
       const layout = protocolLayout?.getOuterface(outer.name) ?? null;
-      layer.addOuterface(outer.name, outer.from.nodeName, outer.from.port, layout);
+      layer.addOuterface(outer.name, outer.process_instance_name, outer.port_name, layout);
     }
     layer.initNodesPositions();
 
@@ -97,15 +97,15 @@ export class LabWorkflowFactory {
     return processNode;
   }
 
-  public labProcessWithLinkToNodeWithLink(process: LabProcess, link: LabProtocolLink): PrAddNodeWithConnection {
+  public labProcessWithLinkToNodeWithLink(process: LabProcess, link: PrProtocolLink): PrAddNodeWithConnection {
     const node = this.labProcessToWorkflowNode(process);
 
     return {
       node: node,
       connection: {
-        fromNode: link.from.nodeName,
+        fromNode: link.from.node,
         fromPort: link.from.port,
-        toNode: link.to.nodeName,
+        toNode: link.to.node,
         toPort: link.to.port
       }
     };

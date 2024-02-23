@@ -327,6 +327,8 @@ figure {
   border: 1px solid transparent;
   outline: none;
   line-height: normal; // prevent cursor from being too high
+  min-width: 15px;
+  min-height: 25px;
 }
 
 .g-fl-element-editable:not(.g-fl-element-editable-true):not(.g-fl-element-editable-disabled):hover {

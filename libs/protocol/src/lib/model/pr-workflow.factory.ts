@@ -59,13 +59,13 @@ export class PrWorkflowFactory {
     for (const key of Object.keys(graph.interfaces)) {
       const inter = graph.interfaces[key];
       const interfaceLayout = layout?.interface_layouts[key] ?? null;
-      layer.addInterface(inter.name, inter.to.node, inter.to.port, interfaceLayout);
+      layer.addInterface(inter.name, inter.process_instance_name, inter.port_name, interfaceLayout);
     }
 
     for (const key of Object.keys(graph.outerfaces)) {
       const outer = graph.outerfaces[key];
       const outerfaceLayout = layout?.outerface_layouts[key] ?? null;
-      layer.addOuterface(outer.name, outer.from.node, outer.from.port, outerfaceLayout);
+      layer.addOuterface(outer.name, outer.process_instance_name, outer.port_name, outerfaceLayout);
     }
 
     layer.initNodesPositions();

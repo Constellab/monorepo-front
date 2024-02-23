@@ -54,8 +54,12 @@ export interface PrProtocolLink {
   to: PrProtocolLinkPart;
 }
 
-export interface PrProtocolIntOut extends PrProtocolLink {
+export interface PrProtocolIntOut {
   name: string;
+
+  process_instance_name: string;
+
+  port_name: string;
 }
 
 export interface PrProtocolLinkPart {
