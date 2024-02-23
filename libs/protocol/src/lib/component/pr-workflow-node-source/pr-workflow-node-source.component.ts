@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-process.directive';
 import {PrWorkflowNodeIo} from '../../model/node/pr-workflow-node-io.class';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {FlTranslatableText} from '@monorepo/front-core-lib';
+import {PrWorkflowMode} from '../../model/pr-workflow.class';
 
 @Component({
   selector: 'pr-workflow-node-source',
@@ -17,12 +18,17 @@ export class PrWorkflowNodeSourceComponent extends PrWorkflowNodeProcessDirectiv
 
   title$: Observable<FlTranslatableText>;
 
+  isEditMode$: Observable<boolean>;
+
 
   ngOnInit(): void {
     this.initNode();
     this.title$ = this.getResourceTitle(this.node.getResourceId$());
 
     this.resourceId$ = this.node.getResourceId$();
+    this.isEditMode$ = this.workflowManager.getMode$().pipe(
+      map((mode: PrWorkflowMode) => mode === 'edit')
+    );
   }
 
 

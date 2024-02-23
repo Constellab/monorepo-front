@@ -78,7 +78,7 @@ export class PrWorkflowFactory {
     const prProcess = this.caProcessToPrProcess(process, name, protocolId);
 
     let processNode: PrWorkflowNodeProcess;
-    if (process.process_typing_name === TdTypingName.task.source) {
+    if (process.process_typing_name === TdTypingName.task.source.typingName) {
       processNode = new PrWorkflowNodeSource(prProcess, this.resourceState);
     } else if (process.process_typing_name === TdTypingName.task.output.typingName) {
       processNode = new PrWorkflowNodeOutput(prProcess, this.resourceState);

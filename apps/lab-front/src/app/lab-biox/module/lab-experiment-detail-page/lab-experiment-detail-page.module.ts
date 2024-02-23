@@ -14,7 +14,6 @@ import {
   LabWorkflowDrawerActionComponent
 } from './component/lab-workflow-drawer-action/lab-workflow-drawer-action.component';
 import {LabWorkflowNodeConfigComponent} from './component/lab-workflow-node-config/lab-workflow-node-config.component';
-import {LabTaskSourceConfigComponent} from './component/lab-task-source-config/lab-task-source-config.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   LabExperimentDetailHeaderComponent
@@ -75,7 +74,6 @@ import {
     LabWorkflowNodeDetailComponent,
     LabWorkflowDrawerActionComponent,
     LabWorkflowNodeConfigComponent,
-    LabTaskSourceConfigComponent,
     LabExperimentDetailHeaderComponent,
     LabExperimentDetailComponent,
     LabExperimentLinkedReportsComponent,

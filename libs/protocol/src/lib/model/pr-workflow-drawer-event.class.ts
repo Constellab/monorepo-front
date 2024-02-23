@@ -19,7 +19,7 @@ export interface PrWorkflowActionBase {
  * Action called when selecting a workflow node
  */
 export interface PrWorkflowActionSelectNode extends PrWorkflowActionBase {
-  action: 'selectNode';
+  action: 'selectNode' | 'selectResource';
   processNode: PrWorkflowNodeProcess;
 }
 

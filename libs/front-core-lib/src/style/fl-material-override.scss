@@ -139,6 +139,20 @@ body {
     }
   }
 
+  .mdc-button.g-button-tiny {
+    font-size: 0.65rem;
+    padding-left: 1em;
+    padding-right: 1em;
+    line-height: 1em;
+    height: 25px;
+
+    // remove margin of icon
+    .material-icons, .material-icons-outlined {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+    }
+  }
   .mdc-icon-button.g-button-icon-border {
     border: 1px solid;
     // equalize border

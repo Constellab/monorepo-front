@@ -98,7 +98,7 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
 
   // return true if the process is of type Source
   isSource(): boolean {
-    return this.processTypingName === TdTypingName.task.source;
+    return this.processTypingName === TdTypingName.task.source.typingName;
   }
 
   // return true if the process is of type Output

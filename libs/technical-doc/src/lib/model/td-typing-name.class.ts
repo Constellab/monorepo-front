@@ -14,7 +14,10 @@ export class TdTypingName {
   };
 
   public static task = {
-    source: 'TASK.gws_core.Source',
+    source: {
+      typingName: 'TASK.gws_core.Source',
+      configName: 'resource_id'
+    },
     output: {
       typingName: 'TASK.gws_core.Sink',
       resourceInput: 'resource'

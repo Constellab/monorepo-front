@@ -3,24 +3,27 @@
   <div class="g-layout-col g-layout-between-center">
 
     <!-- Title   -->
-    <div class="name g- g-text-small">
+    <div class="name g-text-small">
       {{title$ | async | flTranslatableText}}
     </div>
 
 
     <!--  actions -->
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <button mat-icon-button type="button"
-              (click)="openNodeDetail()" [matTooltip]="'pr.open_node_detail' | translate">
-        <mat-icon>info</mat-icon>
-      </button>
 
-      <ng-container *ngIf="resourceId$ | async as resourceId">
-        <button *ngIf="resourceId" mat-icon-button (click)="openResourceDetail(resourceId)"
-                type="button" [matTooltip]="'resource' | translate">
-          <mat-icon flIcon="resource"></mat-icon>
+
+      @if(resourceId$ | async; as resourceId){
+        <button mat-stroked-button type="button" class="g-button-small button"
+                (click)="openResourceDetail(resourceId)">
+          <mat-icon>visibility</mat-icon>
+          {{'pr.resource' | translate}}
         </button>
-      </ng-container>
+      } @else if(isEditMode$ | async){
+        <button mat-stroked-button type="button" class="g-button-tiny button"
+                (click)="openSelectResource()">
+          {{'pr.select_resource' | translate}}
+        </button>
+      }
     </div>
   </div>
 

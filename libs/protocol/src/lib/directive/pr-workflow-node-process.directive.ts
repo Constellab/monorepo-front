@@ -68,6 +68,13 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
     });
   }
 
+  openSelectResource(): void {
+    this.actionState.newAction({
+      action: 'selectResource',
+      processNode: this.node,
+    });
+  }
+
   protected listenToNodeClick(): void {
     // retrieve the drawflow element that wrap the node
     const parent: HTMLElement = FlHtmlHelper.getParent(this.elementRef.nativeElement, {className: 'parent-node'});

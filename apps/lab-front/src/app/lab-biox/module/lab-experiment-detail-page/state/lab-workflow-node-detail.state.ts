@@ -6,6 +6,7 @@ import {
   PrWorkflowActionEvent,
   PrWorkflowActionShowView,
   PrWorkflowActionState,
+  PrWorkflowNode,
   PrWorkflowNodeProcess
 } from '@monorepo/protocol';
 import {MatDrawer} from '@angular/material/sidenav';
@@ -22,13 +23,17 @@ import {
   LabWorkflowEditConfig,
   LabWorkflowEventNodeAdditionalInfo
 } from '../model/lab-workflow-edit-config.class';
-import {TdIOSpec} from '@monorepo/technical-doc';
+import {TdIOSpec, TdTypingName} from '@monorepo/technical-doc';
 import {ClSubscriptionHandler} from '@monorepo/core-lib';
 import {
   LabWorkflowNodeDashboardComponent
 } from '../component/lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
 import {LabExperimentDetailPageState} from './lab-experiment-detail-page.state';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
+import {
+  LabSelectResourceDialogComponent
+} from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
+import {LabResource} from '../../../../lab-core/model/entities/resource/lab-resource.entity';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -78,6 +83,9 @@ export class LabWorkflowNodeDetailState {
         break;
       case 'showView':
         this.openViewDetail(action);
+        break;
+      case 'selectResource':
+        this.openResourceSelection(action.processNode);
         break;
 
     }
@@ -181,6 +189,20 @@ export class LabWorkflowNodeDetailState {
       saveViewConfig: true,
     };
     this.dialogService.openBigDialog(LabResourceViewDetailDialogComponent, {data: data});
+  }
+
+  private openResourceSelection(node: PrWorkflowNode): void {
+    this.dialogService.openBigDialog(LabSelectResourceDialogComponent).afterClosed().subscribe(
+      resource => this.onResourceSelectionClosed(node, resource)
+    );
+  }
+
+  private onResourceSelectionClosed(node: PrWorkflowNode, resource?: LabResource): void {
+    if (resource) {
+      this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.nodeName, {
+        [TdTypingName.task.source.configName]: resource.id
+      });
+    }
   }
 
   updateProcessName(process: LabProcess, newName: string): void {

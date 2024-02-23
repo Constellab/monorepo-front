@@ -22,7 +22,7 @@ import {
   LabDynamicPortConfigDialogInput
 } from '../lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
 
-type ConfigMode = 'config' | 'source' | 'view-task' | 'protocol' | null;
+type ConfigMode = 'config'  | 'view-task' | 'protocol' | null;
 
 @Component({
   selector: 'lab-workflow-node-detail',
@@ -55,10 +55,10 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
       process => this.getConfigMode(process)
     ));
     this.showConfigDashboard$ = this.configMode$.pipe(map(
-      mode => mode !== 'source' && mode !== 'view-task'
+      mode => mode !== 'view-task'
     ));
     this.showProgress$ = this.configMode$.pipe(map(
-      mode => mode !== 'source' && mode !== 'view-task'
+      mode => mode !== 'view-task'
     ));
     this.isEditable$ = this.experimentState.isEditable$();
 
@@ -71,7 +71,6 @@ export class LabWorkflowNodeDetailComponent implements OnInit {
   }
 
   private getConfigMode(process: LabProcess): ConfigMode {
-    if (process.isSource()) return 'source';
     if (process.isViewer()) return 'view-task';
     if (process.isProtocol) return 'protocol';
 

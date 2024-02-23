@@ -29,7 +29,9 @@ const prProtocolI18nFr: FlLangTranslation = {
     waiting_for_cli_process: "En attente",
     process_not_available: "Le process n'est pas disponible, vérifier le monitoring pour plus d'informations. L'expérience ne peut pas être exécutée",
     process_configuration: "Configuration",
-    adding_community_live_task: "Ajout de la live task de Community \'{{processName}}\'",
+    adding_community_live_task: "Ajout de la live task de Community '{{processName}}'",
+    select_resource: "Choisir une ressource",
+    resource: "Ressource",
   }
 };
 
@@ -57,7 +59,9 @@ const prProtocolI18nEn: FlLangTranslation = {
     waiting_for_cli_process: "Waiting",
     process_not_available: "The process is not available, check the monitoring for more information. The experiment can't be run",
     process_configuration: "Configuration",
-    adding_community_live_task: "Adding Community live task \'{{processName}}\'",
+    adding_community_live_task: "Adding Community live task '{{processName}}'",
+    select_resource: "Choose a resource",
+    resource: "Resource",
   }
 };
 

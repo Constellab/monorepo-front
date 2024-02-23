@@ -10,5 +10,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 100%;
-  margin-top: 0.5em;
+}
+
+.button {
+  --mdc-outlined-button-label-text-color: var(--primary-color-contrast);
 }
