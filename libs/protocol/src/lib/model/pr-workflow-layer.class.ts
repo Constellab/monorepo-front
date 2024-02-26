@@ -188,34 +188,39 @@ export class PrWorkflowLayer {
 
 
   public initNodesPositions(): void {
-    this.setNodesPositionRecursively(this.getRootNodes(), 0, 0);
+    this.setNodesPositionRecursively(this.getRootNodes(), 0, 0,);
   }
 
   /**
    * Set the node positions recursively
    */
   private setNodesPositionRecursively(nodes: PrWorkflowNode[],
-                                      posX: number, basePosY: number): number {
-    let currentPosY: number = basePosY - 1;
+                                      previousX: number, previousY: number): void {
+    let shiftY: number = 0;
     for (const node of nodes) {
-      // check if the node already has a position
-      if (node.hasCoords()) {
-        continue;
+
+      if (!node.hasCoords()) {
+        // specific case for the first node
+        if (previousX == 0) {
+          node.x = this.htmlOffsetX;
+        } else {
+          // convert the 2D position to coords
+          // Override the coords
+          node.x = this.htmlNodeWidth + this.htmlDefaultNodeSpaceX + previousX;
+        }
+
+        if (previousY == 0 && shiftY == 0) {
+          node.y = this.htmlOffsetY;
+        } else {
+          node.y = ((this.htmlNodeHeight + this.htmlDefaultNodeSpaceY) * shiftY) + previousY;
+        }
+        shiftY++;
       }
 
-      currentPosY++;
-
-      // convert the 2D position to coords
-      // Override the coords
-      node.x = ((this.htmlNodeWidth + this.htmlDefaultNodeSpaceX) * posX) + this.htmlOffsetX;
-      node.y = ((this.htmlNodeHeight + this.htmlDefaultNodeSpaceY) * currentPosY) + this.htmlOffsetY;
-
       const nextNodes = this.getNextNodes(node.nodeName);
-      currentPosY = this.setNodesPositionRecursively(nextNodes, posX + 1, currentPosY);
+      this.setNodesPositionRecursively(nextNodes, node.x, node.y);
     }
 
-    // can't return an Y lower than the base Y
-    return Math.max(currentPosY, basePosY);
   }
 
   /**
