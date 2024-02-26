@@ -120,7 +120,7 @@
     }
 
     // format the mat icons used in popup toolbar (tune)
-    .ce-popover-item__icon .material-icons-outlined{
+    .ce-popover-item__icon .material-icons-outlined {
       font-size: 16px;
       margin-left: 1px;
     }
@@ -146,7 +146,7 @@
 
     // work with the codex-editor__redactor no padding to only create the conversion toolbar when needed
     // this avoid to create a scrollbar when conversion toolbar is not showed
-    .ce-conversion-toolbar:not(.ce-conversion-toolbar--showed){
+    .ce-conversion-toolbar:not(.ce-conversion-toolbar--showed) {
       display: none;
     }
 
@@ -275,15 +275,7 @@
       border-radius: 3px;
     }
 
-    ///////////////////////// VARIABLE INLINE /////////////////////////
-    .g-text-editor-variable {
-      background-color: var(--card-background);
-      color: var(--color-foreground);
-      padding: 5px 7px;
-      //font-weight: bold;
-      font-size: 85%;
-      border-radius: 3px;
-    }
+
 
     ///////////////////////// HINT /////////////////////////
     .g-te-hint {
@@ -341,4 +333,14 @@
       color: var(--light-color);
     }
   }
+  ///////////////////////// VARIABLE /////////////////////////
+  .g-te-variable-form-hide {
+    display: none !important;
+  }
+
+
+  .g-te-variable-form-show {
+    display: block;
+  }
+
 }

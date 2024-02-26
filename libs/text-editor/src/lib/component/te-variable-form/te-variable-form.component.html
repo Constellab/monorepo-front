@@ -1,29 +1,51 @@
-<form [formGroup]="formGroup"
-      class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
+<fl-dialog-header>
+  {{ 'teTextEditor.variable' | translate }}
+</fl-dialog-header>
 
-  <!--  Name  -->
-  <mat-form-field class="g-search-field">
-    <mat-label>{{ 'name' | translate }}</mat-label>
-    <input matInput formControlName="name" required flInputMaxLength="50"
-           [placeholder]="'name' | translate">
-  </mat-form-field>
+<mat-dialog-content>
 
-  <!-- Type -->
-  <mat-form-field class="g-search-field">
-    <mat-label>{{ 'type' | translate }}</mat-label>
-    <mat-select formControlName="type">
-      <mat-option value="string">String</mat-option>
-      <mat-option value="number">Number</mat-option>
-      <mat-option value="boolean">Boolean</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <form [formGroup]="formGroup" id="te-variable-form"
+        (ngSubmit)="save()"
+        class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
+
+    <!--  Name  -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{ 'name' | translate }}</mat-label>
+      <input matInput formControlName="name" required flInputMaxLength="50"
+             [placeholder]="'name' | translate">
+    </mat-form-field>
+
+<!--    &lt;!&ndash; Type &ndash;&gt;-->
+<!--    <mat-form-field class="g-search-field">-->
+<!--      <mat-label>{{ 'type' | translate }}</mat-label>-->
+<!--      <mat-select formControlName="type">-->
+<!--        <mat-option value="string">String</mat-option>-->
+<!--        <mat-option value="number">Number</mat-option>-->
+<!--        <mat-option value="boolean">Boolean</mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
 
 
-  <!--  Description  -->
-  <mat-form-field class="g-full g-form-field-no-hint">
-    <mat-label>{{ 'description' | translate }}</mat-label>
-    <input matInput formControlName="description" required flInputMaxLength="255"
-           [placeholder]="'description' | translate">
-  </mat-form-field>
+    <!--  Description  -->
+    <mat-form-field class="g-full">
+      <mat-label>{{ 'description' | translate }}</mat-label>
+      <input matInput formControlName="description"
+             flInputMaxLength="255"
+             [placeholder]="'description' | translate">
+    </mat-form-field>
 
-</form>
+    <!--  Value  -->
+    <mat-form-field class="g-full g-form-field-no-hint">
+      <mat-label>{{ 'teTextEditor.value' | translate }}</mat-label>
+      <input matInput formControlName="value" [placeholder]="'teTextEditor.value' | translate">
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" type="submit" form="te-variable-form"
+          class="g-centered-forced">
+    {{ 'save' | translate }}
+  </button>
+</div>

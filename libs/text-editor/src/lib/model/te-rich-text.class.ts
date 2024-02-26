@@ -1,6 +1,7 @@
 import {OutputData} from '@editorjs/editorjs';
 import {ClHelpService} from '@monorepo/core-lib';
 import {BlockToolData} from '@editorjs/editorjs/types/tools';
+import {teVariableAttribute, TeVariableFormInfo, teVariableTagName} from './te-variable.class';
 
 export type TeRichTextContent = OutputData;
 
@@ -85,11 +86,35 @@ export class TeRichText {
       if (content1.blocks[i].type !== content2.blocks[i].type) return false;
 
       for (const key in content1.blocks[i].data) {
-        if (content1.blocks[i].data[key] !== content2.blocks[i].data[key]){
+        if (content1.blocks[i].data[key] !== content2.blocks[i].data[key]) {
           return false;
         }
       }
     }
     return true;
+  }
+
+  public static getVariables(content: TeRichTextContent): TeVariableFormInfo[] {
+    const variables: TeVariableFormInfo[] = [];
+    if (content == null || content.blocks == null) return variables;
+
+    for (const block of content.blocks) {
+      if (block.type === 'paragraph') {
+        const content = block.data.text;
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(content, 'text/html');
+
+        const spans: Element[] = doc.getElementsByTagName(teVariableTagName) as any;
+
+        for (const span of spans) {
+          const jsonAttribute = span.getAttribute(teVariableAttribute);
+          if (!jsonAttribute) continue;
+
+          variables.push(JSON.parse(jsonAttribute));
+        }
+      }
+    }
+    return variables;
   }
 }

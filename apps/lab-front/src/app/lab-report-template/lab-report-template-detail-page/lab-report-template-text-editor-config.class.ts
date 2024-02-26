@@ -1,5 +1,12 @@
 import {LabReportTemplateService} from '../../lab-core/entity-service/lab-report-template.service';
-import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
+import {
+  TeCompleteConfig,
+  TeFigureBlockConfig,
+  teInlineToolFactory,
+  TeTools,
+  TeUploadedImage,
+  TeVariableInlineToolClass
+} from '@monorepo/text-editor';
 import {Observable} from 'rxjs';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 
@@ -41,7 +48,16 @@ export class LabReportTemplateTextEditorConfig extends TeCompleteConfig {
     const imageConfig = new LabReportTemplateTextEditorImageConfig(this.reportTemplateService);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
+    tools.variable = teInlineToolFactory(TeVariableInlineToolClass, envInjector, applicationRef);
+
     return tools;
+  }
+
+
+  getInlineToolbar(): string[] {
+    const toolbar = super.getInlineToolbar();
+    toolbar.push('variable');
+    return toolbar;
   }
 }
 

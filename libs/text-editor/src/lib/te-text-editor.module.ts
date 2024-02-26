@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {Injector, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TeTextEditorComponent} from './component/te-text-editor/te-text-editor.component';
 import {TeFormulaComponent} from './component/te-formula/te-formula.component';
@@ -38,6 +38,9 @@ import {
 import {
   TeTextEditorServerSideComponent
 } from './component/te-text-editor-server-side/te-text-editor-server-side.component';
+import {createCustomElement} from '@angular/elements';
+import {TeVariableInlineComponent} from './component/te-variable-inline/te-variable-inline.component';
+import {teVariableTagName} from './model/te-variable.class';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,7 @@ import {
     TeTextEditorBrowserSideComponent,
     TeTextEditorServerSideComponent,
     TeVariableFormComponent,
+    TeVariableInlineComponent,
   ],
   exports: [
     TeTextEditorComponent,
@@ -87,10 +91,22 @@ import {
   ],
 })
 export class TeTextEditorModule {
-  constructor(translateService: FlTranslateService) {
+
+  static init: boolean = false;
+
+  constructor(translateService: FlTranslateService,
+              injector: Injector) {
     translateService.addModuleTranslation(
       'TeTextEditorModule',
       teTextEditorI18n
     );
+
+    if (!TeTextEditorModule.init) {
+      customElements.define(
+        teVariableTagName,
+        createCustomElement(TeVariableInlineComponent, {injector: injector})
+      );
+      TeTextEditorModule.init = true;
+    }
   }
 }

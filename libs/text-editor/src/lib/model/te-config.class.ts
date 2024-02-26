@@ -174,7 +174,7 @@ export class TeCompleteConfig extends TeConfig {
   }
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'variable'];
+    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode'];
   }
 
   getTunes(): string[] {

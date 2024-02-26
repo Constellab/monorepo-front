@@ -11,6 +11,7 @@ export * from './lib/component/te-text-editor-browser-side/te-text-editor-browse
 export * from './lib/component/te-text-editor-server-side/te-text-editor-server-side.component';
 export * from './lib/component/te-title-caption/te-title-caption.component';
 export * from './lib/component/te-variable-form/te-variable-form.component';
+export * from './lib/component/te-variable-inline/te-variable-inline.component';
 export * from './lib/component/te-video/te-video.component';
 
 // Model
@@ -20,6 +21,7 @@ export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
 export * from './lib/model/te-quill-migrator';
 export * from './lib/model/te-rich-text.class';
+export * from './lib/model/te-variable.class';
 
 // Block
 export * from './lib/block/te-code-block.class';

@@ -27,8 +27,11 @@ const teTextEditorI18nFr: FlLangTranslation = {
     image: 'Image',
     code: 'Code',
     drag_block: 'Glisser le bloc',
+    variable: 'Variable',
+    value: 'Valeur',
   }
 };
+
 
 const teTextEditorI18nEn: FlLangTranslation = {
   teTextEditor: {
@@ -52,6 +55,8 @@ const teTextEditorI18nEn: FlLangTranslation = {
     image: 'Image',
     code: 'Code',
     drag_block: 'Drag block',
+    variable: 'Variable',
+    value: 'Value',
   }
 };
 

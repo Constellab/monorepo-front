@@ -7,6 +7,8 @@ export class TeHelper {
 
   public static blockClass = 'ce-block';
   public static blockDropTargetClass = 'ce-block--drop-target';
+  public static blockParagraphClass = 'ce-paragraph';
+  public static blockParagraphTagName = 'DIV';
 
   /**
    * Extract the editor id from the editor html block element
@@ -22,7 +24,7 @@ export class TeHelper {
     return TeHelper.getBlockIdFromElement(element);
   }
 
-  public static getBLockElementFromElementOrChild(element: HTMLElement): HTMLElement | null {
+  public static getBlockElementFromElementOrChild(element: HTMLElement): HTMLElement | null {
     return FlHtmlHelper.getParent(element, {className: TeHelper.blockClass});
   }
 
@@ -61,4 +63,19 @@ export class TeHelper {
     button.innerHTML = `<div class="ce-popover-item__icon">${TeHelper.getMatIconElement(icon)}</div><div class="ce-popover-item__title">${title}</div>`;
     return button;
   }
+
+  public static extractTextFromDocumentFragment(fragment: DocumentFragment): string {
+    let text = '';
+
+    const children: HTMLElement[] = Array.from(fragment.childNodes) as any;
+    children.forEach(node => {
+      if (node.innerText) {
+        text += node.innerText;
+      }else if(node.textContent){
+        text += node.textContent;
+      }
+    });
+    return text;
+  }
+
 }

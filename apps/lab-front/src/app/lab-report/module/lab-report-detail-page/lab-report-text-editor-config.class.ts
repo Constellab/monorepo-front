@@ -2,8 +2,10 @@ import {
   TeCompleteConfig,
   teComponentBlockFactory,
   TeFigureBlockConfig,
+  teInlineToolFactory,
   TeTools,
-  TeUploadedImage
+  TeUploadedImage,
+  TeVariableInlineToolClass
 } from '@monorepo/text-editor';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 import {LabReportContentViewBlock} from './lab-report-content-view.block';
@@ -59,6 +61,14 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
     const imageConfig = new LabReportTextEditorImageConfig(this.reportService);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
+    tools.variable = teInlineToolFactory(TeVariableInlineToolClass, envInjector, applicationRef);
+
     return tools;
+  }
+
+  getInlineToolbar(): string[] {
+    const toolbar = super.getInlineToolbar();
+    toolbar.push('variable');
+    return toolbar;
   }
 }

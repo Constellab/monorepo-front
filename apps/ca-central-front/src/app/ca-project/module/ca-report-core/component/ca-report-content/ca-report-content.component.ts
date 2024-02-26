@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CaReportService} from '../../../../../ca-core/service-api/ca-report.service';
-import {CaReportTextEditorConfig2} from '../../model/ca-report-text-editor-config.class';
+import {CaReportTextEditorConfig} from '../../model/ca-report-text-editor-config.class';
 import {TeRichTextContent} from '@monorepo/text-editor';
 
 /**
@@ -17,7 +17,7 @@ export class CaReportContentComponent implements OnInit {
   @Input() reportId: string;
 
   content$: Observable<TeRichTextContent>;
-  textEditorConfig: CaReportTextEditorConfig2;
+  textEditorConfig: CaReportTextEditorConfig;
 
 
   constructor(private reportService: CaReportService) {
@@ -25,7 +25,7 @@ export class CaReportContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.content$ = this.reportService.getContent(this.reportId);
-    this.textEditorConfig = new CaReportTextEditorConfig2(this.reportService, this.reportId);
+    this.textEditorConfig = new CaReportTextEditorConfig(this.reportService, this.reportId);
   }
 
 }
