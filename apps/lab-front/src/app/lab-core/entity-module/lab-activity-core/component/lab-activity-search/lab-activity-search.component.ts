@@ -4,10 +4,9 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabActivity, LabActivityDatasource} from '../../../../model/entities/lab-activity.entity';
+import {LabActivityDatasource} from '../../../../model/entities/lab-activity.entity';
 import {LabActivityService} from '../../../../entity-service/lab-activity.service';
 import {LabActivitySearch, LabActivitySearchFields} from '../../model/lab-activity-search.class';
 
@@ -19,8 +18,6 @@ import {LabActivitySearch, LabActivitySearchFields} from '../../model/lab-activi
 })
 export class LabActivitySearchComponent implements OnInit {
   datasource: LabActivityDatasource;
-
-  columns: FlTableColumnStatic<LabActivity>[] = ['user', 'activityType', 'objectType', 'createdAt', 'objectId', 'link'];
 
   constructor(private searchState: FlSearchState<any>,
               private activityService: LabActivityService,

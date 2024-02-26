@@ -15,9 +15,9 @@ import {LabEntityType} from '../../../../model/entities/lab-navigable-entity.ent
 })
 export class LabActivityTableComponent {
 
-  @Input() datasource: LabActivityDatasource;
+  @Input({required: true}) datasource: LabActivityDatasource;
 
-  @Input() columns: FlTableColumnStatic<LabActivity>[];
+  @Input() columns: FlTableColumnStatic<LabActivity>[] = ['user', 'activityType', 'objectType', 'date', 'objectId', 'link'];
 
   showLink(activity: LabActivity): boolean {
     return activity.activityType !== ActivityType.DELETE &&
