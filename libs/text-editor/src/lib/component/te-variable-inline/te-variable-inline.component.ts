@@ -37,7 +37,7 @@ export class TeVariableInlineComponent implements OnInit {
 
   get tooltip(): string {
     if (!this.variable) return '';
-    return `${this.variable.name}\n${this.variable.description}`;
+    return `${this.variable.description}`;
   }
 
 

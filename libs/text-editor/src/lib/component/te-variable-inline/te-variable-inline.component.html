@@ -1,8 +1,8 @@
-<span [matTooltip]="tooltip" matTooltipClass="g-tooltip-multiline">
+<span [matTooltip]="tooltip">
 @if (!variable) {
   {{'teTextEditor.variable' | translate}}
 } @else if (variable.value) {
-  {{ variable.value }}
+  {{ variable.name }} : {{ variable.value }}
 } @else {
   {{ variable.name }}
 }

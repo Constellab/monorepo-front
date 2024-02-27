@@ -1,3 +1,6 @@
-<te-text-editor [formControl]="formCtrl" [placeholder]="placeholder"
-                [config]="config" [includeToolbarButton]="true"
-                class="g-max-article-width text-editor"></te-text-editor>
+<div class="g-max-article-width text-editor">
+  <te-text-editor [formControl]="formCtrl" [placeholder]="placeholder"
+                  [config]="config" [includeToolbarButton]="true"></te-text-editor>
+
+  <div class="g-text-light g-text-small" *ngIf="hint">{{ hint }}</div>
+</div>
