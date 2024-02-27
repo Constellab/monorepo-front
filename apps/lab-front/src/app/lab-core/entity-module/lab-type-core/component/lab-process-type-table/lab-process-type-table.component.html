@@ -4,19 +4,23 @@
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>
-      {{'name' | translate}}
+      {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let processType">
       <mat-icon *ngIf="processType.status === 'UNAVAILABLE'" color="warn"
                 class="type-unavailable" [matTooltip]="'biox.process_type_unavailable_error' | translate">
         error
       </mat-icon>
+
+      <mat-icon *ngIf="processType.icon" [flIcon]="processType.icon"
+                class="icon"></mat-icon>
+
       <div>
-        <div>{{processType.humanName}}</div>
+        <div>{{ processType.humanName }}</div>
         <div *ngIf="processType.deprecatedSince">
           <fl-chip size="tiny" class="g-warn-background"
                    [matTooltip]="processType.deprecatedMessage">
-            {{'biox.type_deprecated' | translate}}
+            {{ 'biox.type_deprecated' | translate }}
           </fl-chip>
         </div>
       </div>
@@ -27,10 +31,10 @@
   <!-- Sub type -->
   <ng-container matColumnDef="objectSubType">
     <mat-header-cell *matHeaderCellDef>
-      {{'biox.process_type_type' | translate}}
+      {{ 'biox.process_type_type' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let processType">
-      {{'biox.process_sub_type_' + processType.objectSubType | translate}}
+      {{ 'biox.process_sub_type_' + processType.objectSubType | translate }}
     </mat-cell>
   </ng-container>
 
@@ -48,11 +52,11 @@
   <!-- Dynamic columns -->
   <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
     <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
+      {{ column.columnName | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let obj">
       <div>
-        <span>{{obj[column.accessor]}}</span>
+        <span>{{ obj[column.accessor] }}</span>
       </div>
     </mat-cell>
   </ng-container>

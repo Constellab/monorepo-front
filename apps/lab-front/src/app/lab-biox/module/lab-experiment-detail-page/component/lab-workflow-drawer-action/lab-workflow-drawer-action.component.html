@@ -2,10 +2,14 @@
      *ngIf="process$ | async as process">
 
   <div class="header g-layout-row g-layout-between-center">
-    <div class="g-text-big title"
-         flElementEditable (flElementValueChange)="updateProcessName(process, $event)">
-      {{process.name}}
-    </div>
+    <fl-text-icon gap="0">
+      <mat-icon *ngIf="process.icon" [flIcon]="process.icon"
+                class="icon g-icon-big"></mat-icon>
+      <div class="g-text-big title"
+           flElementEditable (flElementValueChange)="updateProcessName(process, $event)">
+        {{ process.name }}
+      </div>
+    </fl-text-icon>
 
     <button mat-icon-button type="button" flDrawerClose tabindex="-1"
             [matTooltip]="'close' | translate">

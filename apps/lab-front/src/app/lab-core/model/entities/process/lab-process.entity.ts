@@ -25,6 +25,8 @@ export class LabProcessTypeName {
 
   @Expose({name: 'short_description'})
   shortDescription?: string;
+
+  icon?: string;
 }
 
 /**
@@ -91,6 +93,10 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
 
   @Expose({name: 'community_live_task_version_id'})
   communityLiveTaskVersionId?: string;
+
+  get icon(): string {
+    return this.processType?.icon;
+  }
 
   hasConfig(): boolean {
     return this.config?.hasConfigs() ?? false;

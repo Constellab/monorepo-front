@@ -66,6 +66,8 @@
       <span> {{ 'resource_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
+      <mat-icon  *ngIf="resource.typeIcon" [flIcon]="resource.typeIcon"
+                class="icon"></mat-icon>
       <div>
         <div>{{ resource.resourceTypeHumanName }}</div>
         <div *ngIf="resource.fsNode?.size != null" class="g-text-light g-text-tiny g-text-dense-height">

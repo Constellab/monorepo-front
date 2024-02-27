@@ -32,7 +32,7 @@ export const rvDefaultViewTypeIcon = 'multiline_chart';
  */
 export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTypeInfo> = {
   'json-view': {
-    icon: 'code',
+    icon: 'data_object',
     text: 'rvResourceView.resource_view_json',
     viewComponent: RvViewJsonComponent,
     image: null,

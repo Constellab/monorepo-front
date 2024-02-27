@@ -71,6 +71,9 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
   @Type(() => LabProject)
   project?: LabProject;
 
+  @Expose({name: 'type_icon'})
+  typeIcon?: string;
+
   isFsNode(): boolean {
     return this.fsNode != null;
   }

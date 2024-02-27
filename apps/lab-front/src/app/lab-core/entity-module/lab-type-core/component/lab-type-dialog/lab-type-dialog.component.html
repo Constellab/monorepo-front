@@ -2,7 +2,11 @@
   <ng-container *flSectionBody="type$ as type">
 
     <fl-dialog-header>
-      <h2>{{type.name}}</h2>
+      <fl-text-icon gap="0">
+        <mat-icon *ngIf="type.icon" class="g-icon-big icon"
+                  [flIcon]="type.icon"></mat-icon>
+        <h2>{{ type.name }}</h2>
+      </fl-text-icon>
     </fl-dialog-header>
 
     <mat-dialog-content class="g-layout-col">
@@ -10,14 +14,14 @@
         <a mat-stroked-button type="button" class="g-button-small detail-link"
            [routerLink]="detailRoute"
            target="_blank">
-          {{'biox.open_type_in_page' | translate}}
+          {{ 'biox.open_type_in_page' | translate }}
           <mat-icon>chevron_right</mat-icon>
         </a>
 
         <a mat-stroked-button type="button" class="g-button-small detail-link"
            [href]="technicalDocUrl$ | async"
            target="_blank" *ngIf="technicalDocUrl$ | async">
-          {{'biox.open_in_community' | translate}}
+          {{ 'biox.open_in_community' | translate }}
           <mat-icon>open_in_new</mat-icon>
         </a>
       </div>

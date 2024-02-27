@@ -44,6 +44,7 @@ export interface PrProtocol {
   process_type: {
     human_name: string;
     short_description: string;
+    icon: string;
   };
 }
 

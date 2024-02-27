@@ -59,6 +59,12 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
     );
   }
 
+  getIcon$(): Observable<string> {
+    return this.getObject$().pipe(
+      map((process: PrProcess) => process.icon)
+    );
+  }
+
   getConfigValues$(): Observable<PrConfigValues> {
     return this.getObject$().pipe(
       map((process: PrProcess) => process.config.values)

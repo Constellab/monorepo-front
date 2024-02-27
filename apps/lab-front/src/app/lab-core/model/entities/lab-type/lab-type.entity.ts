@@ -41,6 +41,8 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
   @Expose({name: 'additional_info'})
   additionalInfo: any;
 
+  icon?: string;
+
   parent?: {
     brick_version: string;
     human_name: string;
@@ -77,10 +79,25 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
   }
 
   toUrlJson(): Record<string, any> {
-    return {typing_name: this.typingName}
+    return {typing_name: this.typingName};
   }
 
-  public static fromResourceType(resourceDto: TdResourceTypeDTO): LabTypeEntity{
+  get iconWithDefault(): string {
+    return this.icon ?? this.defaultIcon;
+  }
+
+  get defaultIcon(): string {
+    switch (this.objectType) {
+      case 'RESOURCE':
+        return 'resource';
+      case 'PROTOCOL':
+        return 'protocol';
+      default:
+        return 'process';
+    }
+  }
+
+  public static fromResourceType(resourceDto: TdResourceTypeDTO): LabTypeEntity {
     const entity = new LabTypeEntity();
     entity.typingName = resourceDto.typing_name;
     entity.humanName = resourceDto.human_name;
@@ -92,13 +109,13 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     return entity;
   }
 
-  public toResourceType(): TdResourceTypeDTO{
+  public toResourceType(): TdResourceTypeDTO {
     return {
       typing_name: this.typingName,
       human_name: this.humanName,
       short_description: this.shortDescription,
       brick_version: this.brickVersion
-    }
+    };
   }
 
 }

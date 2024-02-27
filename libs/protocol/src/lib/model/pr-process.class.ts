@@ -40,4 +40,6 @@ export interface PrProcess {
   parentProtocolId: string;
 
   typeStatus?: TdTypeObjectStatus;
+
+  icon?: string;
 }

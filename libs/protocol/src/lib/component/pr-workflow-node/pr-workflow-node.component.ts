@@ -21,6 +21,7 @@ export class PrWorkflowNodeComponent extends PrWorkflowNodeProcessDirective impl
 
   title$: Observable<FlTranslatableText>;
   typeStatus$: Observable<TdTypeObjectStatus>;
+  icon$: Observable<string>;
 
   showConfigButton$: Observable<boolean> = this.workflowManager.getMode$().pipe(
     map((mode: PrWorkflowMode) => mode === 'edit')
@@ -33,6 +34,9 @@ export class PrWorkflowNodeComponent extends PrWorkflowNodeProcessDirective impl
     this.typeStatus$ = this.node.getObject$().pipe(
       map((object: PrProcess) => object.typeStatus)
     );
+    this.icon$ = this.node.getIcon$().pipe(
+      map((icon: string) => icon ?? 'info'
+    ));
     this.isProtocol = this.node instanceof PrWorkflowNodeProtocol;
 
     if (this.isProtocol) {
