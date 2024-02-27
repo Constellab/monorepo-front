@@ -1,7 +1,20 @@
 :host {
   width: 100%;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  box-sizing: border-box;
 }
 
-.text-editor{
+
+.container {
   margin: auto;
+}
+
+.title {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.text-editor {
+  flex: 1;
 }

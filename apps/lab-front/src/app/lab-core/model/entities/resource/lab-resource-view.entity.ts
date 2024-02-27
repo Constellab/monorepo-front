@@ -81,7 +81,11 @@ export class LabResourceView {
  */
 export interface LabResourceViewRichText extends RvResourceViewBase {
   type: 'rich-text-view';
-  data: { content: ClRichTextI };
+  data: {
+    title: string;
+    content: ClRichTextI;
+    report_id?: string;
+  };
 }
 
 //////////////////////////// TYPE THAT GROUP ALL VIEW TYPES /////////////////////////////

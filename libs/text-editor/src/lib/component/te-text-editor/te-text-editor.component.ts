@@ -49,7 +49,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
   }
 
   ngOnInit(): void {
-    this.onValueChange();
+    this.initPlatform();
   }
 
   callChangeEvent(value: TeRichTextContent): void {
@@ -63,10 +63,14 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
 
   writeValue(obj: TeRichTextContent): void {
     this.value = obj;
-    this.onValueChange();
+    this.initPlatform();
   }
 
-  private onValueChange(): void {
+  onTextChange(value: TeRichTextContent): void {
+    this.setAndEmitValue(value);
+  }
+
+  private initPlatform(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.browserSide = true;
     }

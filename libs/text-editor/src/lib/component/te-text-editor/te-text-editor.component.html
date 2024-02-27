@@ -4,7 +4,7 @@
 
   <te-text-editor-browser-side [config]="config" [disabled$]="editorDisabled$" [placeholder]="placeholder"
                                [hideToolbar]="hideToolbar" [disabled]="disabled"
-                               [includeToolbarButton]="includeToolbarButton" (textChange)="callChangeEvent($event)"
+                               [includeToolbarButton]="includeToolbarButton" (textChange)="onTextChange($event)"
                                [value]="value"></te-text-editor-browser-side>
 }
 
