@@ -4,7 +4,6 @@ import {LabResourceViewRichText} from '../../../../model/entities/resource/lab-r
 import {
   LabReportTextEditorConfig
 } from '../../../../../lab-report/module/lab-report-detail-page/lab-report-text-editor-config.class';
-import {LabReportService} from '../../../../entity-service/lab-report.service';
 
 @Component({
   selector: 'lab-resource-rich-text-view',
@@ -16,11 +15,7 @@ export class LabResourceRichTextViewComponent
 
   textEditorConfig: LabReportTextEditorConfig;
 
-  constructor(private reportService: LabReportService) {
-    super();
-  }
-
   ngOnInit(): void {
-    this.textEditorConfig = new LabReportTextEditorConfig(this.view.data.report_id, this.reportService);
+    this.textEditorConfig = new LabReportTextEditorConfig(this.view.data.report_id);
   }
 }

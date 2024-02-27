@@ -92,5 +92,6 @@ export interface LabResourceViewRichText extends RvResourceViewBase {
 export type LabResourceViewData = RvResourceView | LabResourceViewResourcesList |
   LabResourceViewFolder | LabResourceViewRichText;
 
-export const excludedViewInReport: string[] = ['view', 'folder-view', 'resources-list-view', 'empty-view', 'rich-text-view', 'streamlit-view'];
+export const excludedViewInReport: string[] = ['view', 'folder-view',
+  'resources-list-view', 'empty-view', 'rich-text-view', 'streamlit-view'];
 

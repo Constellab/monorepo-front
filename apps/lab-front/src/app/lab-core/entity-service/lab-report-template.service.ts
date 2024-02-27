@@ -8,13 +8,12 @@ import {
 import {Observable} from 'rxjs';
 import {ClHelpService, ClPageI} from '@monorepo/core-lib';
 import {LabReportSearch, LabReportSearchFields} from '../entity-module/lab-report-core/model/lab-report-search.class';
-import {map} from 'rxjs/operators';
 import {
   LabReportTemplate,
   LabReportTemplateDatasource,
   LabReportTemplateForm
 } from '../model/entities/lab-report-template.entity';
-import {TeRichText, TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
+import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 
 @Injectable({providedIn: 'root'})
 export class LabReportTemplateService {
@@ -96,32 +95,4 @@ export class LabReportTemplateService {
     return this.apiService.get(`${this.route}/resource/${resourceId}`, LabReportTemplate,
       {resultIsPaginated: true, page: page, pageSize: pageSize});
   }
-
-  ///////////////////////////////////////////// IMAGE /////////////////////////////////////////////
-
-
-  public getFilePath(filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
-  }
-
-  uploadImage(file: File): Observable<TeUploadedImage> {
-    const formData = new FormData();
-    formData.append('image', file);
-    return this.apiService.post(`${this.route}/image`, formData).pipe(
-      map(
-        (uploadedFile: any) => {
-          return {
-            filename: uploadedFile.filename,
-            width: uploadedFile.width,
-            height: uploadedFile.height,
-          };
-        }
-      )
-    );
-  }
-
-  getImageUrl(filename: string): string {
-    return this.getFilePath(filename);
-  }
-
 }

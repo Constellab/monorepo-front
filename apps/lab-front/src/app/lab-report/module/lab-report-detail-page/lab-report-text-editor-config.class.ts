@@ -1,47 +1,20 @@
 import {
   TeCompleteConfig,
   teComponentBlockFactory,
-  TeFigureBlockConfig,
   teInlineToolFactory,
   TeTools,
-  TeUploadedImage,
   TeVariableInlineToolClass
 } from '@monorepo/text-editor';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 import {LabReportContentViewBlock} from './lab-report-content-view.block';
-import {LabReportService} from '../../../lab-core/entity-service/lab-report.service';
-import {Observable} from 'rxjs';
-
-export class LabReportTextEditorImageConfig implements TeFigureBlockConfig {
-  constructor(private reportService?: LabReportService) {
-  }
-
-  imageUploader(file: File): Observable<TeUploadedImage> {
-    if(!this.reportService){
-      console.error('No report service to upload the image');
-      return null;
-    }
-    return this.reportService.uploadImage(file);
-  }
-
-  getImageUrl(filename: string): string {
-    if(!this.reportService){
-      console.error('No report service to get the image url');
-      return null;
-    }
-    return this.reportService.getImageUrl(filename);
-  }
-
-
-}
+import {LabRichTextTextEditorImageConfig} from '../../../lab-core/entity-service/lab-rich-text.service';
 
 /**
  * Config for the text editor in the report to support view in the editor
  */
 export class LabReportTextEditorConfig extends TeCompleteConfig {
 
-  constructor(private reportId?: string,
-              private reportService?: LabReportService) {
+  constructor(private reportId?: string) {
     super();
   }
 
@@ -58,7 +31,7 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
     tools.resourceView = teComponentBlockFactory(LabReportContentViewBlock, envInjector, applicationRef, this.reportId);
 
     // configure and add the image block
-    const imageConfig = new LabReportTextEditorImageConfig(this.reportService);
+    const imageConfig = new LabRichTextTextEditorImageConfig();
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass, envInjector, applicationRef);
