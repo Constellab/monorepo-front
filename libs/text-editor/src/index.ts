@@ -10,7 +10,7 @@ export * from './lib/component/te-text-editor/te-text-editor.component';
 export * from './lib/component/te-text-editor-browser-side/te-text-editor-browser-side.component';
 export * from './lib/component/te-text-editor-server-side/te-text-editor-server-side.component';
 export * from './lib/component/te-title-caption/te-title-caption.component';
-export * from './lib/component/te-variable-form/te-variable-form.component';
+export * from './lib/component/te-variable-form-dialog/te-variable-form-dialog.component';
 export * from './lib/component/te-variable-inline/te-variable-inline.component';
 export * from './lib/component/te-video/te-video.component';
 

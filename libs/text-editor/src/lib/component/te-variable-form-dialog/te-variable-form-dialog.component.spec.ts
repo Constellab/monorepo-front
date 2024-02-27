@@ -1,16 +1,16 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TeVariableFormComponent} from './te-variable-form.component';
+import {TeVariableFormDialogComponent} from './te-variable-form-dialog.component';
 
 describe('TeVariableFormComponent', () => {
-  let component: TeVariableFormComponent;
-  let fixture: ComponentFixture<TeVariableFormComponent>;
+  let component: TeVariableFormDialogComponent;
+  let fixture: ComponentFixture<TeVariableFormDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeVariableFormComponent],
+      declarations: [TeVariableFormDialogComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TeVariableFormComponent);
+    fixture = TestBed.createComponent(TeVariableFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

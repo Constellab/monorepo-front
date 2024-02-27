@@ -29,6 +29,9 @@ const teTextEditorI18nFr: FlLangTranslation = {
     drag_block: 'Glisser le bloc',
     variable: 'Variable',
     value: 'Valeur',
+    name: 'Nom',
+    description: 'Description',
+    save: 'Sauvegarder',
   }
 };
 
@@ -57,6 +60,9 @@ const teTextEditorI18nEn: FlLangTranslation = {
     drag_block: 'Drag block',
     variable: 'Variable',
     value: 'Value',
+    name: 'Name',
+    description: 'Description',
+    save: 'Save',
   }
 };
 

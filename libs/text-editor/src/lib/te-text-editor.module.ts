@@ -29,7 +29,7 @@ import {TeVideoComponent} from './component/te-video/te-video.component';
 import {TeFigureComponent} from './component/te-figure/te-figure.component';
 import {TeCodeComponent} from './component/te-code/te-code.component';
 import {TeRichTextIsEmptyPipe} from './pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
-import {TeVariableFormComponent} from './component/te-variable-form/te-variable-form.component';
+import {TeVariableFormDialogComponent} from './component/te-variable-form-dialog/te-variable-form-dialog.component';
 import {MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {
@@ -54,7 +54,7 @@ import {teVariableTagName} from './model/te-variable.class';
     TeRichTextIsEmptyPipe,
     TeTextEditorBrowserSideComponent,
     TeTextEditorServerSideComponent,
-    TeVariableFormComponent,
+    TeVariableFormDialogComponent,
     TeVariableInlineComponent,
   ],
   exports: [

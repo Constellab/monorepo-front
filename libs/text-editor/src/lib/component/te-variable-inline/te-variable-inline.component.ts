@@ -1,7 +1,11 @@
 import {Component, ElementRef, HostBinding, HostListener, Input, OnInit, Renderer2} from '@angular/core';
 import {FlDialogService} from '@monorepo/front-core-lib';
-import {TeVariableFormComponent} from '../te-variable-form/te-variable-form.component';
+import {
+  TeVariableFormDialogComponent,
+  TeVariableFormDialogInput
+} from '../te-variable-form-dialog/te-variable-form-dialog.component';
 import {teVariableAttribute, TeVariableFormInfo} from '../../model/te-variable.class';
+import {TeHelper} from '../../model/te.helper';
 
 /**
  * Component as angular element to display a variable in the text editor as inline element
@@ -21,6 +25,8 @@ export class TeVariableInlineComponent implements OnInit {
     this.openFormDialog();
   }
 
+  isEditable: boolean = false;
+
   constructor(private dialogService: FlDialogService,
               private elementRef: ElementRef<HTMLElement>,
               private renderer: Renderer2) {
@@ -29,16 +35,22 @@ export class TeVariableInlineComponent implements OnInit {
   ngOnInit(): void {
     const strVariable = this.elementRef.nativeElement.getAttribute(teVariableAttribute);
     this.variable = JSON.parse(strVariable);
+    this.isEditable = TeHelper.parentBlockParagraphIsEditable(this.elementRef.nativeElement);
   }
 
   get tooltip(): string {
-    if(!this.variable) return '';
+    if (!this.variable) return '';
     return `${this.variable.name}\n${this.variable.description}`;
   }
 
 
   openFormDialog(): void {
-    this.dialogService.openSmallDialog(TeVariableFormComponent, {data: this.variable}).afterClosed().subscribe(
+    const input: TeVariableFormDialogInput = {
+      data: this.variable,
+      isEditable: this.isEditable
+    };
+
+    this.dialogService.openSmallDialog(TeVariableFormDialogComponent, {data: input}).afterClosed().subscribe(
       value => this.onFormDialogClose(value)
     );
   }

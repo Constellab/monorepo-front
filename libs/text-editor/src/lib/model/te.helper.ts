@@ -60,10 +60,15 @@ export class TeHelper {
   public static generateTuneButton(title: string, icon: string): HTMLElement {
     const button = document.createElement('div');
     button.classList.add('ce-popover-item');
-    button.innerHTML = `<div class="ce-popover-item__icon">${TeHelper.getMatIconElement(icon)}</div><div class="ce-popover-item__title">${title}</div>`;
+    button.innerHTML =
+      `<div class="ce-popover-item__icon">${TeHelper.getMatIconElement(icon)}</div><div class="ce-popover-item__title">${title}</div>`;
     return button;
   }
 
+  /**
+   * For inline tools when wrapping, this get the text of the selected range
+   * @param fragment
+   */
   public static extractTextFromDocumentFragment(fragment: DocumentFragment): string {
     let text = '';
 
@@ -71,11 +76,21 @@ export class TeHelper {
     children.forEach(node => {
       if (node.innerText) {
         text += node.innerText;
-      }else if(node.textContent){
+      } else if (node.textContent) {
         text += node.textContent;
       }
     });
     return text;
+  }
+
+  /**
+   * Return true if the element is included in a block paragraph and the block paragraph has contenteditable = true
+   * @param element
+   */
+  public static parentBlockParagraphIsEditable(element: HTMLElement): boolean {
+    const block = FlHtmlHelper.getParent(element, {className: TeHelper.blockParagraphClass});
+    if (block == null) return false;
+    return block.getAttribute('contenteditable') === 'true';
   }
 
 }
