@@ -139,7 +139,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.editor) {
+    if (this.editor && this.editor.destroy) {
       this.editor.destroy();
     }
   }
