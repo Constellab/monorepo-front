@@ -1,9 +1,6 @@
 import {Component, ElementRef, HostBinding, HostListener, Input, OnInit, Renderer2} from '@angular/core';
 import {FlDialogService} from '@monorepo/front-core-lib';
-import {
-  TeVariableFormDialogComponent,
-  TeVariableFormDialogInput
-} from '../te-variable-form-dialog/te-variable-form-dialog.component';
+import {TeVariableFormDialogComponent,} from '../te-variable-form-dialog/te-variable-form-dialog.component';
 import {teVariableAttribute, TeVariableFormInfo} from '../../model/te-variable.class';
 import {TeHelper} from '../../model/te.helper';
 
@@ -25,7 +22,7 @@ export class TeVariableInlineComponent implements OnInit {
     this.openFormDialog();
   }
 
-  isEditable: boolean = false;
+  @HostBinding('class.is-editable') isEditable: boolean = false;
 
   constructor(private dialogService: FlDialogService,
               private elementRef: ElementRef<HTMLElement>,
@@ -45,12 +42,9 @@ export class TeVariableInlineComponent implements OnInit {
 
 
   openFormDialog(): void {
-    const input: TeVariableFormDialogInput = {
-      data: this.variable,
-      isEditable: this.isEditable
-    };
+    if (!this.isEditable) return;
 
-    this.dialogService.openSmallDialog(TeVariableFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(TeVariableFormDialogComponent, {data: this.variable}).afterClosed().subscribe(
       value => this.onFormDialogClose(value)
     );
   }

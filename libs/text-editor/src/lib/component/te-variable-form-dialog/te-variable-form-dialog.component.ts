@@ -3,10 +3,6 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TeVariableFormInfo, TeVariableFormType} from '../../model/te-variable.class';
 
-export interface TeVariableFormDialogInput {
-  data: TeVariableFormInfo;
-  isEditable: boolean;
-}
 
 @Component({
   selector: 'te-variable-form-dialog',
@@ -22,27 +18,18 @@ export class TeVariableFormDialogComponent implements OnInit {
     value: null as string
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: TeVariableFormDialogInput,
+  constructor(@Inject(MAT_DIALOG_DATA) private input: TeVariableFormInfo,
               private dialogRef: MatDialogRef<TeVariableFormDialogComponent>) {
   }
 
   ngOnInit(): void {
-    this.formGroup.patchValue(this.input.data);
-    if (!this.input.isEditable) {
-      this.formGroup.disable();
-    }
+    this.formGroup.patchValue(this.input);
   }
 
 
   save(): void {
-    if (!this.isEditable) this.dialogRef.close();
     if (this.formGroup.valid) {
       this.dialogRef.close(this.formGroup.value);
     }
   }
-
-  get isEditable(): boolean {
-    return this.input.isEditable;
-  }
-
 }
