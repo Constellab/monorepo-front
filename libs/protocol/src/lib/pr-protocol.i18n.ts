@@ -32,6 +32,8 @@ const prProtocolI18nFr: FlLangTranslation = {
     adding_community_live_task: "Ajout de la live task de Community '{{processName}}'",
     select_resource: "Choisir une ressource",
     resource: "Ressource",
+    open_protocol_detail: "Ouvrir le détail du protocole",
+    resource_load_error: "Erreur lors du chargement de la ressource.",
   }
 };
 
@@ -62,6 +64,8 @@ const prProtocolI18nEn: FlLangTranslation = {
     adding_community_live_task: "Adding Community live task '{{processName}}'",
     select_resource: "Choose a resource",
     resource: "Resource",
+    open_protocol_detail: "Open protocol detail",
+    resource_load_error: "Error while loading the resource.",
   }
 };
 

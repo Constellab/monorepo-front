@@ -26,7 +26,7 @@ export class PrWorkflowLayer {
   private readonly htmlNodeWidth: number = 200;
   private readonly htmlNodeHeight: number = 100;
   private readonly htmlDefaultNodeSpaceX: number = 30;
-  private readonly htmlDefaultNodeSpaceY: number = 10;
+  private readonly htmlDefaultNodeSpaceY: number = 20;
   private readonly htmlOffsetX: number = 10;
   private readonly htmlOffsetY: number = 10;
 

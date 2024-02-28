@@ -1,4 +1,4 @@
-:host{
+:host {
   display: block;
   width: 130px;
   max-width: 100%;
@@ -6,35 +6,10 @@
 }
 
 // from host binding
-:host.protocol{
+:host.protocol {
   width: 150px;
 }
 
-.text{
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 100%;
-}
-
-.title{
-  font-size: 0.8rem;
-  margin-top: 0.5em;
-}
-
-.name{
-  font-size: 0.65rem;
-}
-
-.expansion-content{
-  padding-top: 0.5em;
-}
-
-.error-icon{
-  margin-left: 5px;
-}
-
-.icon{
-  margin-left: 1px;
-  margin-right: 1px;
+.left {
+  left: 5px; // use to center more because this is a button
 }

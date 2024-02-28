@@ -3,9 +3,9 @@ import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-p
 import {map, Observable} from 'rxjs';
 import {PrWorkflowNodeProtocol} from '../../model/node/pr-workflow-node-protocol.class';
 import {FlTranslatableText} from '@monorepo/front-core-lib';
-import {TdTypeObjectStatus} from '@monorepo/technical-doc';
+import {ClHelpService} from '@monorepo/core-lib';
+import {PrWorkflowNodeIcon} from '../pr-workflow-node-content/pr-workflow-node-content.component';
 import {PrProcess} from '../../model/pr-process.class';
-import {PrWorkflowMode} from '../../model/pr-workflow.class';
 
 @Component({
   selector: 'pr-workflow-node',
@@ -20,24 +20,32 @@ export class PrWorkflowNodeComponent extends PrWorkflowNodeProcessDirective impl
   @HostBinding('class.protocol') isProtocol: boolean;
 
   title$: Observable<FlTranslatableText>;
-  typeStatus$: Observable<TdTypeObjectStatus>;
-
-  showConfigButton$: Observable<boolean> = this.workflowManager.getMode$().pipe(
-    map((mode: PrWorkflowMode) => mode === 'edit')
-  );
+  icon$: Observable<PrWorkflowNodeIcon>;
 
 
   ngOnInit(): void {
     this.initNode();
     this.title$ = this.node.getTitle$();
-    this.typeStatus$ = this.node.getObject$().pipe(
-      map((object: PrProcess) => object.typeStatus)
+    this.icon$ = this.node.getObject$().pipe(
+      map((process: PrProcess) => this.getIcon(process))
     );
     this.isProtocol = this.node instanceof PrWorkflowNodeProtocol;
 
     if (this.isProtocol) {
       this.layerIsLoading$ = (this.node as PrWorkflowNodeProtocol).subLayerIsLoading$();
     }
+  }
+
+  private getIcon(process: PrProcess): PrWorkflowNodeIcon {
+    if (process.typeStatus === 'UNAVAILABLE') {
+      return {
+        icon: 'error',
+        iconColor: 'warn',
+        iconTooltip: 'pr.process_not_available'
+      };
+    }
+    return {icon: process.icon ?? 'protocol'};
+
   }
 
   openNodeConfiguration(): void {
@@ -47,10 +55,16 @@ export class PrWorkflowNodeComponent extends PrWorkflowNodeProcessDirective impl
     });
   }
 
-  zoomInProtocol(): void {
+  zoomInProtocol(mouseEvent: MouseEvent): void {
+    ClHelpService.stopEventPropagation(mouseEvent);
     if (this.node instanceof PrWorkflowNodeProtocol) {
       this.workflowManager.selectLayer(this.node.currentObject.id, this.node);
     }
+  }
+
+
+  drawflowNodeClick(): void {
+    this.openNodeConfiguration();
   }
 
   ngOnDestroy(): void {

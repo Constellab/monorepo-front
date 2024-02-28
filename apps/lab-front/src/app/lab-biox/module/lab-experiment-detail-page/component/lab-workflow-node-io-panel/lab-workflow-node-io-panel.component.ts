@@ -6,6 +6,7 @@ import {filter, map} from 'rxjs/operators';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 import {ClHelpService} from '@monorepo/core-lib';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
+import {TooltipPosition} from '@angular/material/tooltip';
 
 /**
  * Object that include port and resource
@@ -152,6 +153,10 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
     } else {
       this.nodeState.deleteDynamicOutputPort(portName);
     }
+  }
+
+  get tooltipPosition(): TooltipPosition{
+    return this.mode === 'input' ? 'right' : 'left';
   }
 
   ngOnDestroy(): void {

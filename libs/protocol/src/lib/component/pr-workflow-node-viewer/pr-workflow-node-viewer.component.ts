@@ -46,4 +46,7 @@ export class PrWorkflowNodeViewerComponent extends PrWorkflowNodeProcessDirectiv
     return this.node.currentObject.config.values as TdTaskViewerConfig;
   }
 
+  drawflowNodeClick(): void {
+  }
+
 }

@@ -4,4 +4,7 @@ export interface PrResource extends FlEntity {
   name: string;
 
   resourceTypingName: string;
+
+  typeIcon?: string;
+
 }

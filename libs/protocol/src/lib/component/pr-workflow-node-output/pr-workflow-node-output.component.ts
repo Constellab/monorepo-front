@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {first, map, Observable} from 'rxjs';
 import {PrWorkflowNodeIo} from '../../model/node/pr-workflow-node-io.class';
 import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-process.directive';
-import {FlTranslatableText} from '@monorepo/front-core-lib';
+import {FlStatusEvent, FlTranslatableText} from '@monorepo/front-core-lib';
+import {PrResource} from '../../model/pr-resource.class';
+import {PrWorkflowNodeIcon} from '../pr-workflow-node-content/pr-workflow-node-content.component';
 
 @Component({
   selector: 'pr-workflow-node-output',
@@ -11,17 +13,48 @@ import {FlTranslatableText} from '@monorepo/front-core-lib';
 })
 export class PrWorkflowNodeOutputComponent extends PrWorkflowNodeProcessDirective implements OnInit {
 
-  resourceId$: Observable<string>;
-
   node: PrWorkflowNodeIo;
 
   title$: Observable<FlTranslatableText>;
+  icon$: Observable<PrWorkflowNodeIcon>;
+
 
   ngOnInit(): void {
     this.initNode();
 
-    this.resourceId$ = this.node.getResourceId$();
     this.title$ = this.getResourceTitle(this.node.getResourceId$());
+    this.icon$ = this.getResource(this.node.getResourceId$()).pipe(
+      map((resource: FlStatusEvent<PrResource>) => this.getResourceIcon(resource))
+    );
   }
+
+  private getResourceIcon(resource: FlStatusEvent<PrResource>): PrWorkflowNodeIcon {
+    const defaultIcon: PrWorkflowNodeIcon = {
+      icon: 'login',
+    };
+    if (!resource) return defaultIcon;
+
+    if (resource && resource.status === 'success' && resource.object.typeIcon != null) {
+      return {icon: resource.object.typeIcon};
+    }
+
+    if (resource.status === 'error') {
+      return {
+        icon: 'error',
+        iconTooltip: 'pr.resource_load_error'
+      };
+    }
+
+    return defaultIcon;
+  }
+
+  drawflowNodeClick(): void {
+    this.node.getResourceId$().pipe(first()).subscribe(resourceId => {
+      if (resourceId) {
+        this.openResourceDetail(resourceId);
+      }
+    });
+  }
+
 
 }

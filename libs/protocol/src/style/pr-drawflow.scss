@@ -15,40 +15,52 @@
   // style drawflow
   .drawflow .drawflow-node {
     width: initial;
-    border: 1px solid var(--card-background) !important;
+    //border: none;
     // Padding of the nodes
     padding: 5px 15px !important;
     border-radius: 30px;
+    //padding: 0 !important;
+    cursor: pointer !important;
+    border-width: 4px;
+    border-style: solid;
+
 
     // style for the process node
     &.node-process {
+      border-color: var(--hover-color);
       color: var(--color-foreground);
-      background-color: var(--card-background);
+      background-color: var(--main-background);
+      //background-color: transparent;
     }
 
     // style for interface nodes
     &.interface {
+      border-color: transparent;
       color: white;
       background-color: #569cd6;
     }
 
     // style for outerface nodes
     &.outerface {
+      border-color: transparent;
       color: white;
       background-color: #a0d982;
     }
 
     &.task-source {
+      border-color: transparent;
       color: mat.get-color-from-palette($primary, default-contrast);
       background-color: mat.get-color-from-palette($primary);
     }
 
     &.task-output {
+      border-color: transparent;
       color: mat.get-color-from-palette($warn, default-contrast);
       background-color: mat.get-color-from-palette($warn);
     }
 
     &.task-viewer {
+      border-color: transparent;
       color: mat.get-color-from-palette($accent, '100-contrast');
       background-color: mat.get-color-from-palette($accent, 100);
     }
@@ -61,12 +73,12 @@
 
     // adapt output position
     .output {
-      right: -7px;
+      right: -9px;
     }
 
     // adapt input position
     .input {
-      left: -23px;
+      left: -25px;
       cursor: auto;
     }
 

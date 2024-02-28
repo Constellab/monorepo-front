@@ -1,38 +1,31 @@
-<div class="g-layout-col g-layout-between-center">
+<pr-workflow-node-content [icon]="icon$ | async"
+                          [title]="title$ | async | flTranslatableText">
 
-  <!-- Title   -->
-  <div class="text title">
-    {{ title$ | async | flTranslatableText }}
-  </div>
-  <div class="text name g-text-light g-layout-row g-layout-start-center">
-    {{ subTitle$ | async }}
-    <mat-icon *ngIf="(typeStatus$ | async) === 'UNAVAILABLE'" color="warn"
-              class="error-icon" [matTooltip]="'pr.process_not_available' | translate">
-      error
-    </mat-icon>
-  </div>
 
-  <!--  actions -->
-  <div class="g-layout-row g-layout-start-center">
-
+  <pr-workflow-left-button *ngIf="isProtocol" class="left">
     <!--   Only for protocol, possibility to zoom in   -->
-    <button *ngIf="isProtocol" (click)="zoomInProtocol()" class="icon"
-            mat-icon-button type="button" [disabled]="layerIsLoading$ | async">
+    <button (click)="zoomInProtocol($event)" class="icon"
+            mat-icon-button type="button" [disabled]="layerIsLoading$ | async"
+            [matTooltip]="'pr.open_protocol_detail' | translate">
       <mat-icon>loupe</mat-icon>
     </button>
+  </pr-workflow-left-button>
 
-    <!--   Only in edit mode to open configuration   -->
-    <button *ngIf="showConfigButton$ | async" (click)="openNodeConfiguration()"
-            [matTooltip]="'pr.process_configuration' | translate"
-            mat-icon-button type="button" class="icon">
-      <mat-icon flIcon="process_config"></mat-icon>
-    </button>
-
-    <button mat-icon-button type="button" class="icon"
-            (click)="openNodeDetail()" [matTooltip]="'pr.open_node_detail' | translate">
-      <mat-icon>info</mat-icon>
-    </button>
-
-    <fl-status-chip mode="iconOnly" [status]="status$" class="icon"></fl-status-chip>
-  </div>
-</div>
+  <pr-workflow-right-button>
+    @if (status$ | async; as status) {
+      <div class="status">
+        @switch (status.value) {
+          @case ('SUCCESS') {
+            <mat-icon color="primary" [flIcon]="status.icon" [matTooltip]="status.name | translate"></mat-icon>
+          }
+          @case ('ERROR') {
+            <mat-icon color="warn" [flIcon]="status.icon" [matTooltip]="status.name | translate"></mat-icon>
+          }
+          @case ('RUNNING') {
+            <fl-loader [size]="20" [matTooltip]="status.name | translate"></fl-loader>
+          }
+        }
+      </div>
+    }
+  </pr-workflow-right-button>
+</pr-workflow-node-content>

@@ -3,12 +3,14 @@ import {PrWorkflowNodeProcess} from '../model/node/pr-workflow-node-process.clas
 import {PrWorkflowManagerState} from '../state/pr-workflow-manager-state';
 import {PrWorkflowActionState} from '../state/pr-workflow-action-state';
 import {
+  FlCoord,
   FlHtmlHelper,
   FlMenuDynamic,
   FlOverlayRef,
   FlPortalConnectedPosition,
   FlPortalService,
   FlStatus,
+  FlStatusEvent,
   FlTranslatableText
 } from '@monorepo/front-core-lib';
 import {
@@ -19,6 +21,7 @@ import {PrWorkflowPort} from '../model/pr-workflow-port.class';
 import {map, Observable} from 'rxjs';
 import {PrWorkflowNodeDirective} from './pr-workflow-node.directive';
 import {PrWorkflowResourcesState} from '../state/pr-workflow-resources.state';
+import {PrResource} from '../model/pr-resource.class';
 
 @Directive()
 export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirective implements OnDestroy {
@@ -34,15 +37,21 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
   status$: Observable<FlStatus>;
 
   private listener: () => void;
+  private listener2: () => void;
+
+  private mouseDownCoords: FlCoord;
 
   constructor(workflowManager: PrWorkflowManagerState,
               elementRef: ElementRef,
               protected actionState: PrWorkflowActionState,
               protected renderer: Renderer2,
               private portalService: FlPortalService,
-              protected workflowResourcesState: PrWorkflowResourcesState){
+              protected workflowResourcesState: PrWorkflowResourcesState) {
     super(workflowManager, elementRef);
   }
+
+  abstract drawflowNodeClick(): void;
+
 
   protected initNode(): void {
     super.initNode();
@@ -68,12 +77,6 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
     });
   }
 
-  openSelectResource(): void {
-    this.actionState.newAction({
-      action: 'selectResource',
-      processNode: this.node,
-    });
-  }
 
   protected listenToNodeClick(): void {
     // retrieve the drawflow element that wrap the node
@@ -82,6 +85,14 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
     if (parent == null) return;
 
     this.listener = this.renderer.listen(parent, 'click', event => this.onNodeClick(event));
+
+    this.listener2 = this.renderer.listen(parent, 'mousedown',
+      (event: MouseEvent) => {
+        this.mouseDownCoords = {
+          x: event.clientX,
+          y: event.clientY
+        };
+      });
   }
 
   private onNodeClick(event: PointerEvent): void {
@@ -105,7 +116,15 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
       if (port == null) return;
 
       this.onOutputClick(port, element);
+    } else {
+      // if the mouse didn't move from the mouse down to click event, we consider it as a click
+      if (this.mouseDownCoords != null && Math.abs(this.mouseDownCoords.x - event.clientX) < 5
+        && Math.abs(this.mouseDownCoords.y - event.clientY) < 5) {
+        this.drawflowNodeClick();
+      }
     }
+
+    this.mouseDownCoords = null;
   }
 
 
@@ -144,8 +163,13 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
   }
 
   // get the title of the process if it is linked to a Resource (process IO)
-  protected getResourceTitle(resourceId: Observable<string>): Observable<FlTranslatableText>{
-    return this.workflowResourcesState.getResourceFromObs(resourceId).pipe(
+  protected getResource(resourceId: Observable<string>): Observable<FlStatusEvent<PrResource>> {
+    return this.workflowResourcesState.getResourceFromObs(resourceId);
+  }
+
+  // get the title of the process if it is linked to a Resource (process IO)
+  protected getResourceTitle(resourceId: Observable<string>): Observable<FlTranslatableText> {
+    return this.getResource(resourceId).pipe(
       map(resource => {
         if (resource?.status === 'success') {
           return resource.object != null ? resource.object.name : this.node.currentObject.name;
@@ -161,6 +185,9 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
   ngOnDestroy(): void {
     if (this.listener) {
       this.listener();
+    }
+    if (this.listener2) {
+      this.listener2();
     }
   }
 }

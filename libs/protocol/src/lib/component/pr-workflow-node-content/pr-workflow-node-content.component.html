@@ -1,0 +1,14 @@
+<div class="g-layout-col g-layout-between-center container">
+
+  <mat-icon [flIcon]="icon.icon" class="icon" [matTooltip]="icon.iconTooltip | translate"
+            [color]="icon.iconColor"></mat-icon>
+
+  <ng-content select="pr-workflow-left-button"></ng-content>
+
+  <ng-content select="pr-workflow-right-button"></ng-content>
+
+  <!-- Title   -->
+  <div class="title">
+    {{ title }}
+  </div>
+</div>

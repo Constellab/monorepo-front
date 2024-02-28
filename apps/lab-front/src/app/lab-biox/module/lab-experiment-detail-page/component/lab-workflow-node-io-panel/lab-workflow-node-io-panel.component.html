@@ -14,7 +14,8 @@
         </div>
         <div class="delete-port">
           <button mat-icon-button type="button" class="g-button-icon-tiny "
-                  [matTooltip]="removePortTooltip | translate" *ngIf="isDynamicPorts$ | async"
+                  *ngIf="isDynamicPorts$ | async"
+                  [matTooltip]="removePortTooltip | translate" [matTooltipPosition]="tooltipPosition"
                   [disabled]="(isEditable$ | async) === false" (click)="removePort(port.port.name, $event)">
             <mat-icon>clear</mat-icon>
           </button>
@@ -24,7 +25,8 @@
 
     <div class="g-text-centered">
       <button mat-icon-button type="button" class="g-button-icon-tiny"
-              [matTooltip]="addPortTooltip | translate" *ngIf="isDynamicPorts$ | async"
+              *ngIf="isDynamicPorts$ | async"
+              [matTooltip]="addPortTooltip | translate" [matTooltipPosition]="tooltipPosition"
               [disabled]="(isEditable$ | async) === false" (click)="addPort()">
         <mat-icon>add</mat-icon>
       </button>
