@@ -150,10 +150,5 @@
   "move_block": "Glisser pour déplacer",
   "add_a_video": "Ajouter une vidéo youtube",
   "video_url_error": "L'url de la vidéo youtube est invalide",
-  "not_youtube_link_error": "Ce n'est pas un lien de vidéo youtube",
-  "add_formula": "Ajouter une formule",
-  "formula": "Formule",
-  "edit_formula": "Éditer la formule",
-  "formula_preview": "Aperçu",
-  "formula_help_text": "L'éditeur de formule est basé sur le TeX, voici la documentation"
+  "not_youtube_link_error": "Ce n'est pas un lien de vidéo youtube"
 }

@@ -1,9 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {
-  FlDialogService,
-  FlFormulaDialogComponent,
-  TeFormulaDialogInput
-} from '@monorepo/front-core-lib';
+import {Component, Input} from '@angular/core';
+import {FlDialogService, FlFormulaDialogComponent, TeFormulaDialogInput} from '@monorepo/front-core-lib';
 import {TeElementDirective} from '../../model/te-element.directive';
 import {BehaviorSubject} from 'rxjs';
 
@@ -12,7 +8,7 @@ import {BehaviorSubject} from 'rxjs';
   templateUrl: './te-formula.component.html',
   styleUrl: './te-formula.component.scss',
 })
-export class TeFormulaComponent extends TeElementDirective implements OnInit {
+export class TeFormulaComponent extends TeElementDirective {
 
   @Input() formulaTitle: string;
 
@@ -24,11 +20,8 @@ export class TeFormulaComponent extends TeElementDirective implements OnInit {
     super();
   }
 
-  ngOnInit(): void {
-  }
-
   public openInitFormulaDialog(): void {
-    // on init we check if we need to show formula dialog
+    // on init, we check if we need to show formula dialog
     if (!this.disabled) {
       const input: TeFormulaDialogInput = {
         mode: 'create'
@@ -44,7 +37,7 @@ export class TeFormulaComponent extends TeElementDirective implements OnInit {
       mode: 'update',
       object: this.formula$.value,
     };
-    this.dialogService.openSmallDialog(TeFormulaComponent, {data: input})
+    this.dialogService.openSmallDialog(FlFormulaDialogComponent, {data: input})
       .afterClosed().subscribe((formula: string) => this.setFormula(formula));
   }
 

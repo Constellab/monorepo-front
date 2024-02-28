@@ -49,6 +49,11 @@
     padding-bottom: 0 !important;
   }
 
+  // override the default css to svg that breaks all svg used inside the editor
+  .codex-editor svg{
+    max-height: initial;
+  }
+
   .g-text-editor-hide-toolbar {
     .ce-toolbar {
       display: none;

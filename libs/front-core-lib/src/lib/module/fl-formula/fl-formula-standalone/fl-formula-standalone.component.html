@@ -1,1 +1,5 @@
-<div #container></div>
+@if (katexResult) {
+  <div *ngIf="katexResult" [innerHTML]="katexResult"></div>
+} @else if (katexError) {
+  <div class="g-warn-text">{{katexError}}</div>
+}

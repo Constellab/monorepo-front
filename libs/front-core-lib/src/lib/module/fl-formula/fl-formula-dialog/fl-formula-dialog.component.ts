@@ -33,7 +33,7 @@ export class FlFormulaDialogComponent implements OnInit {
   }
 
   get title(): string {
-    return this.input.mode === 'create' ? 'flTextEditor.add_formula' : 'flTextEditor.edit_formula';
+    return this.input.mode === 'create' ? 'flFormula.add_formula' : 'flFormula.edit_formula';
   }
 
   submit(): void {
