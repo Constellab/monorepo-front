@@ -40,4 +40,10 @@ export class LabWorkflowNodeDashboardState {
     return this.workflowEditConfig.updateProcessConfig(this.task.parentProtocolId, this.task.instanceName, configValue);
   }
 
+  /**
+   * return truc if the config has changed compared to the current task
+   */
+  public configHasChanged(process: LabProcess): boolean {
+    return !this.task || this.task.id !== process.id || !this.task.config.valuesAreEqual(process.config);
+  }
 }

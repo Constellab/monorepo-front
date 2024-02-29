@@ -246,6 +246,10 @@ export class LabConfig extends LabBaseEntity {
     }
     return nullConfig;
   }
+
+  public valuesAreEqual(otherConfig: LabConfig): boolean {
+    return JSON.stringify(this.values) === JSON.stringify(otherConfig.values);
+  }
 }
 
 

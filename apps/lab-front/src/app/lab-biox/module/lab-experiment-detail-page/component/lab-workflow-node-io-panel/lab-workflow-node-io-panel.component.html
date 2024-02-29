@@ -10,15 +10,27 @@
 
         <div class="port-color" [style.background-color]="port.port.getDefaultColor()"></div>
         <div class="text">
-          {{ port.text | flTranslatableText}}
+          {{ port.text | flTranslatableText }}
         </div>
-        <div class="delete-port">
-          <button mat-icon-button type="button" class="g-button-icon-tiny "
-                  *ngIf="isDynamicPorts$ | async"
-                  [matTooltip]="removePortTooltip | translate" [matTooltipPosition]="tooltipPosition"
-                  [disabled]="(isEditable$ | async) === false" (click)="removePort(port.port.name, $event)">
-            <mat-icon>clear</mat-icon>
+        <div class="port-menu">
+          <button mat-icon-button [matMenuTriggerFor]="menu" class="g-button-icon-tiny"
+                  (click)="portMenuClick($event)"
+                  *ngIf="isDynamicPorts$ | async" [disabled]="(isEditable$ | async) === false">
+            <mat-icon>more_horiz</mat-icon>
           </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item type="button" class="g-button-icon-tiny"
+                    [disabled]="(isEditable$ | async) === false" (click)="openEditPortDialog(port.port)">
+              <mat-icon>edit</mat-icon>
+              {{ 'td.update_port' | translate }}
+            </button>
+
+            <button mat-menu-item type="button" class="g-button-icon-tiny"
+                    (click)="removePort(port.port.name)">
+              <mat-icon color="warn">clear</mat-icon>
+              <span class="g-warn-text">{{ removePortTooltip | translate }}</span>
+            </button>
+          </mat-menu>
         </div>
       </div>
     </ng-container>

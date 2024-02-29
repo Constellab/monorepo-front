@@ -1,8 +1,9 @@
 import {Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 import {LabConfigureProtocolComponent} from '../lab-configure-protocol/lab-configure-protocol.component';
 import {LabConfigureTaskComponent} from '../lab-configure-task/lab-configure-task.component';
+import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
 
 /**
  * Component inside LabConfigureProtocol to configure a process.
@@ -20,17 +21,21 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
 
   @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
 
-  constructor() {
+  private subscription: Subscription;
+
+  constructor(private nodeState: LabWorkflowNodeDashboardState) {
   }
 
   ngOnInit(): void {
-    this.process$.subscribe(
+    this.subscription = this.process$.subscribe(
       process => this.showProcessConfig(process)
     );
   }
 
 
   private showProcessConfig(process: LabProcess): void {
+    // Check if the config has changed since the last process to avoid reloading the component
+    if (!this.nodeState.configHasChanged(process)) return;
     this.clearViewRef();
 
     if (process.isProtocol) {
@@ -48,6 +53,7 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.clearViewRef();
+    this.subscription?.unsubscribe();
   }
 
 

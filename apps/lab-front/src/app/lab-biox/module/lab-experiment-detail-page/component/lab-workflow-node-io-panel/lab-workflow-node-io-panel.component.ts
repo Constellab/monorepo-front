@@ -7,6 +7,11 @@ import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.s
 import {ClHelpService} from '@monorepo/core-lib';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
 import {TooltipPosition} from '@angular/material/tooltip';
+import {
+  LabDynamicPortConfigDialogComponent,
+  LabDynamicPortConfigDialogInput
+} from '../lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
+import {FlDialogService} from '@monorepo/front-core-lib';
 
 /**
  * Object that include port and resource
@@ -49,7 +54,8 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
 
   constructor(private nodeState: LabWorkflowNodeDetailState,
               private resourceState: PrWorkflowResourcesState<LabResource>,
-              private experimentState: LabExperimentDetailPageState) {
+              private experimentState: LabExperimentDetailPageState,
+              private dialogService: FlDialogService) {
   }
 
   ngOnInit(): void {
@@ -145,9 +151,31 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  removePort(portName: string, event: MouseEvent): void {
+  portMenuClick(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
+  }
 
+  openEditPortDialog(port: PrWorkflowPort): void {
+    const input: LabDynamicPortConfigDialogInput = {
+      portType: this.mode,
+      portName: port.name,
+      spec: port.currentSpecs
+    };
+
+    this.dialogService.openSmallDialog(LabDynamicPortConfigDialogComponent,
+      {data: input}).afterClosed().subscribe(
+      config => {
+        if (config != null)
+          if (input.portType === 'input') {
+            this.nodeState.updateDynamicInputPort(input.portName, config);
+          } else {
+            this.nodeState.updateDynamicOutputPort(input.portName, config);
+          }
+      }
+    );
+  }
+
+  removePort(portName: string): void {
     if (this.mode === 'input') {
       this.nodeState.deleteDynamicInputPort(portName);
     } else {
@@ -155,7 +183,7 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  get tooltipPosition(): TooltipPosition{
+  get tooltipPosition(): TooltipPosition {
     return this.mode === 'input' ? 'right' : 'left';
   }
 
