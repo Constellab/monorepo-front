@@ -113,15 +113,18 @@ export class LabResourceActionsMenuComponent implements OnInit {
     let confirmImpactHelpText: FlTranslatableText;
     // build the confirmation message
     let confirmation = `<p>${this.translateService.translate('databox.delete_resource_confirmation')}</p>`;
+
+
     // for imported or transformed resources, we add an info message
     if (this.resource.experiment) {
       confirmation += `<p>${this.translateService.translate('databox.delete_generated_resource_confirmation',
         {param: {experimentTitle: this.resource.experiment.title}})}</p>`;
-      confirmImpactHelpText = {
-        text: 'biox.delete_resource_with_exp_confirm_impact', translateText: true, translateParam: {
-          param: {title: this.resource.name, experimentTitle: this.resource.experiment.title}
-        }
-      };
+
+      const deleteResourceWithExp = this.translateService.translate('biox.delete_resource_with_exp_confirm_impact',
+        {param: {title: this.resource.name, experimentTitle: this.resource.experiment.title}});
+      const resetProcessImpact = this.translateService.translate('biox.experiment_ressource_used_after',
+        {param: {title: this.resource.experiment.title}});
+      confirmImpactHelpText = `<p>${deleteResourceWithExp}</p><p>${resetProcessImpact}</p>`;
     } else {
       confirmImpactHelpText = {
         text: 'biox.delete_resource_confirm_impact', translateText: true, translateParam: {

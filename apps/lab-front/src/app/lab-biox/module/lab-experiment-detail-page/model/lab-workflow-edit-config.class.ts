@@ -669,7 +669,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     Observable<LabNavigableCallActionResult<LabProtocolUpdateDTO>> {
 
     const updateFinishedProcess = this.translateService.translate(noImpactConfirmText);
-    const resetProcessImpact = this.translateService.translate('biox.reset_process_confirm_impact',
+    const resetProcessImpact = this.translateService.translate('biox.experiment_ressource_used_after',
       {param: {title: this.experimentState.currentExperiment.title}});
 
     const impactData: LabNavigableImpactConfig = {

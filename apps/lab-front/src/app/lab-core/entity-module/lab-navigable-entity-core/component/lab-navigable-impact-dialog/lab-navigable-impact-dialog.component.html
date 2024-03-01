@@ -6,12 +6,22 @@
 
   <div class="help-text g-text-light" [innerHTML]="helpText | flTranslatableText"></div>
 
+  <h2 class="other-impacts">{{'biox.impacted_objects' | translate}}</h2>
+
+  <lab-navigable-entity-groups class="entities" [groups]="impactedEntities"></lab-navigable-entity-groups>
+
+
   <p class="g-warn-text"
      *ngIf="containsValidatedExperiments">{{ 'biox.reset_impact_contains_validated_experiments' | translate }}</p>
   <p class="g-warn-text"
      *ngIf="containsValidatedReports">{{ 'biox.reset_impact_contains_validated_reports' | translate }}</p>
 
-  <lab-navigable-entity-groups class="entities" [groups]="impactedEntities"></lab-navigable-entity-groups>
+  <fl-text-icon class="warn-confirmation" *ngIf="!containsValidatedExperiments && !containsValidatedReports">
+    <mat-icon color="warn" class="g-icon-big">warnings</mat-icon>
+    <div class="g-warn-text">
+      {{ 'biox.force_action_warning' | translate: {actionName: (title | flTranslatableText)} }}
+    </div>
+  </fl-text-icon>
 
 </mat-dialog-content>
 

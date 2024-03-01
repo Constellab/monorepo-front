@@ -239,10 +239,11 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const impactData: LabNavigableImpactConfig = {
       title: {text: 'biox.reset_experiment', translateText: true},
       confirmImpactConfirmText: {
-        text: 'biox.reset_exp_confirm_impact', translateText: true, translateParam: {
+        text: 'biox.experiment_ressource_used_after', translateText: true, translateParam: {
           param: {title: experiment.title}
         }
       },
+      confirm2: 'If you reset the experiment',
       noImpactConfirmText: {text: 'biox.reset_experiment_confirmation', translateText: true},
       checkImpact: () => this.experimentService.checkImpactForResetExperiment(experiment.id),
       callAction: () => this.experimentService.resetExperiment(experiment.id)
@@ -273,7 +274,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const impactData: LabNavigableImpactConfig = {
       title: {text: 'biox.delete_experiment', translateText: true},
       confirmImpactConfirmText: {
-        text: 'biox.delete_exp_confirm_impact', translateText: true, translateParam: {
+        text: 'biox.experiment_ressource_used_after', translateText: true, translateParam: {
           param: {title: experiment.title}
         },
       },

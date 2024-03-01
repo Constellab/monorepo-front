@@ -30,6 +30,7 @@ export interface LabNavigableImpactDialogInput {
 export class LabNavigableImpactDialogComponent implements OnInit {
   title: FlTranslatableText;
   helpText: FlTranslatableText;
+  confirm2: FlTranslatableText;
 
   impactedEntities: LabNavigableEntityGrouped[];
 
@@ -42,6 +43,7 @@ export class LabNavigableImpactDialogComponent implements OnInit {
               private translateService: FlTranslateService) {
     this.title = data.config.title;
     this.helpText = data.config.confirmImpactConfirmText;
+    this.confirm2 = data.config.confirm2;
     this.impactedEntities = data.impactedEntities;
   }
 

@@ -20,6 +20,7 @@ import {map} from 'rxjs/operators';
 export interface LabNavigableImpactConfig {
   title: FlTranslatableText;
   confirmImpactConfirmText: FlTranslatableText;
+  confirm2?: FlTranslatableText;
   noImpactConfirmText: FlTranslatableText;
   checkImpact: () => Observable<LabNavigableEntityImpact>;
   callAction: () => Observable<any>;
