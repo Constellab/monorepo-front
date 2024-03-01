@@ -9,7 +9,9 @@ export type PrWorkflowActionEvent =
   | PrWorkflowActionSelectInterface
   | PrWorkflowActionSelectOuterface
   | PrWorkflowActionShowResource
-  | PrWorkflowActionShowView;
+  | PrWorkflowActionShowView
+  | PrWorkflowActionShowNextExp
+  | PrWorkflowActionNavigateToExp;
 
 export interface PrWorkflowActionBase {
   action: string;
@@ -63,4 +65,15 @@ export interface PrWorkflowActionShowView extends PrWorkflowActionBase {
   resourceId: string;
   resourceName: string;
   config: TdTaskViewerConfig;
+}
+
+export interface PrWorkflowActionShowNextExp {
+  action: 'showNextExperiments';
+  resourceId: string;
+  element: HTMLElement;
+}
+
+export interface PrWorkflowActionNavigateToExp {
+  action: 'navigateToExperiment';
+  experimentId: string;
 }

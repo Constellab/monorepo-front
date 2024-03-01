@@ -1,19 +1,14 @@
 
 .icon {
-  font-size: 65px;
-  width: 65px;
-  height: 65px;
+  font-size: 55px;
+  width: 55px;
+  height: 55px;
 }
 
-.title {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 100%;
-  font-size: 0.8rem;
-  //margin-top: 0.5em;
-  position: absolute;
-  top: 100%;
-  padding-top: 5px;
-  color: var(--color-foreground);
+.icon2 {
+  //background-color: red;
+  //-webkit-mask-image: url("assets/fl-mat-icons/cogs-solid.svg");
+  //background-image: url(assets/fl-mat-icons/cogs-solid.svg);
+  width: 55px;
+  height: 55px;
 }

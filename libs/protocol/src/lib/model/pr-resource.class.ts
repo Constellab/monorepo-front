@@ -7,4 +7,9 @@ export interface PrResource extends FlEntity {
 
   typeIcon?: string;
 
+  experiment?: {
+    id: string;
+    title: string;
+  };
+
 }

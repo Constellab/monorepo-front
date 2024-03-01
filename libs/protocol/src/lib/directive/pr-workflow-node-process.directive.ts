@@ -3,6 +3,7 @@ import {PrWorkflowNodeProcess} from '../model/node/pr-workflow-node-process.clas
 import {PrWorkflowManagerState} from '../state/pr-workflow-manager-state';
 import {PrWorkflowActionState} from '../state/pr-workflow-action-state';
 import {
+  FlColorHelper,
   FlCoord,
   FlHtmlHelper,
   FlMenuDynamic,
@@ -11,6 +12,7 @@ import {
   FlPortalService,
   FlStatus,
   FlStatusEvent,
+  FlThemeService,
   FlTranslatableText
 } from '@monorepo/front-core-lib';
 import {
@@ -22,6 +24,7 @@ import {map, Observable} from 'rxjs';
 import {PrWorkflowNodeDirective} from './pr-workflow-node.directive';
 import {PrWorkflowResourcesState} from '../state/pr-workflow-resources.state';
 import {PrResource} from '../model/pr-resource.class';
+import {PrProcess} from '../model/pr-process.class';
 
 @Directive()
 export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirective implements OnDestroy {
@@ -45,8 +48,9 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
               elementRef: ElementRef,
               protected actionState: PrWorkflowActionState,
               protected renderer: Renderer2,
-              private portalService: FlPortalService,
-              protected workflowResourcesState: PrWorkflowResourcesState) {
+              protected portalService: FlPortalService,
+              protected workflowResourcesState: PrWorkflowResourcesState,
+              protected themeService: FlThemeService) {
     super(workflowManager, elementRef);
   }
 
@@ -56,11 +60,15 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
   protected initNode(): void {
     super.initNode();
 
-
     this.subTitle$ = this.node.getSubTitle$();
     this.status$ = this.node.getStatus$();
 
     this.listenToNodeClick();
+
+    // TODO to remove
+    this.node.getObject$().subscribe((process) => {
+      this.colorNode(process);
+    });
   }
 
   openNodeDetail(): void {
@@ -180,6 +188,34 @@ export abstract class PrWorkflowNodeProcessDirective extends PrWorkflowNodeDirec
         }
       })
     );
+  }
+
+  protected colorNode(node: PrProcess): void {
+
+    // retrieve the drawflow element that wrap the node
+    const parent: HTMLElement = FlHtmlHelper.getParent(this.elementRef.nativeElement, {className: 'node-process'});
+
+    if (parent == null) return;
+
+    const color = this.getNodeColor(node);
+    this.renderer.setStyle(parent, 'background-color', color);
+  }
+
+  protected getNodeColor(node: PrProcess): string {
+    // TODO TO REMOVE
+    if (node.processTypingName === 'TASK.gws_core.Wait') {
+      return '#c9c9c9';
+    }
+
+    let typingName: string;
+    if (Object.values(node.inputs.ports).length > 0) {
+      typingName = Object.values(node.inputs.ports)[0].specs.resource_types[0].typing_name;
+    } else if (Object.values(node.outputs.ports).length > 0) {
+      typingName = Object.values(node.outputs.ports)[0].specs.resource_types[0].typing_name;
+    } else {
+      typingName = node.processTypingName;
+    }
+    return FlColorHelper.stringToRGBColor(typingName);
   }
 
   ngOnDestroy(): void {

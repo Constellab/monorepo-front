@@ -1,8 +1,8 @@
-import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-process.directive';
 import {map, Observable} from 'rxjs';
 import {PrWorkflowNodeProtocol} from '../../model/node/pr-workflow-node-protocol.class';
-import {FlTranslatableText} from '@monorepo/front-core-lib';
+import {FlColorHelper, FlTranslatableText} from '@monorepo/front-core-lib';
 import {ClHelpService} from '@monorepo/core-lib';
 import {PrWorkflowNodeIcon} from '../pr-workflow-node-content/pr-workflow-node-content.component';
 import {PrProcess} from '../../model/pr-process.class';
@@ -16,8 +16,7 @@ export class PrWorkflowNodeComponent extends PrWorkflowNodeProcessDirective impl
 
   layerIsLoading$: Observable<boolean>;
 
-
-  @HostBinding('class.protocol') isProtocol: boolean;
+  isProtocol: boolean;
 
   title$: Observable<FlTranslatableText>;
   icon$: Observable<PrWorkflowNodeIcon>;
@@ -40,11 +39,20 @@ export class PrWorkflowNodeComponent extends PrWorkflowNodeProcessDirective impl
     if (process.typeStatus === 'UNAVAILABLE') {
       return {
         icon: 'error',
-        iconColor: 'warn',
+        iconColor: this.themeService.getCurrentThemeDetail().accent,
         iconTooltip: 'pr.process_not_available'
       };
     }
-    return {icon: process.icon ?? 'protocol'};
+
+    // todo to remove
+    if (process.processTypingName === 'TASK.gws_core.Wait') {
+      // return {img: 'https://avatars.githubusercontent.com/u/18176583?v=4'};
+      return {img: 'assets/fl-mat-icons/cogs-solid.svg'};
+    }
+
+    const nodeColor = this.getNodeColor(process);
+    const iconColor = FlColorHelper.getContrastColor(nodeColor);
+    return {icon: process.icon ?? 'protocol', iconColor: iconColor};
 
   }
 

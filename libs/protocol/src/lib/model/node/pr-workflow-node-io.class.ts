@@ -29,6 +29,10 @@ export abstract class PrWorkflowNodeIo extends PrWorkflowNodeProcess {
 
     if (portElement == null) return;
 
+    // const connectionElement = this.getConnectionElementFromPort(port);
+    // if (connectionElement) {
+    //   connectionElement.style.stroke = 'red';
+    // }
     if (resource) {
       this.setPortElementColor(portElement, tdGetTypingNameColor(resource.resourceTypingName));
     } else {

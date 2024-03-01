@@ -34,6 +34,7 @@ const prProtocolI18nFr: FlLangTranslation = {
     resource: "Ressource",
     open_protocol_detail: "Ouvrir le détail du protocole",
     resource_load_error: "Erreur lors du chargement de la ressource.",
+    open_resource_experiment: "Ouvrir l'expérience précédente",
   }
 };
 
@@ -66,6 +67,7 @@ const prProtocolI18nEn: FlLangTranslation = {
     resource: "Resource",
     open_protocol_detail: "Open protocol detail",
     resource_load_error: "Error while loading the resource.",
+    open_resource_experiment: "Open previous experiment",
   }
 };
 

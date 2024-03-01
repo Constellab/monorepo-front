@@ -5,6 +5,7 @@ import {first, map, Observable} from 'rxjs';
 import {FlStatusEvent, FlTranslatableText} from '@monorepo/front-core-lib';
 import {PrResource} from '../../model/pr-resource.class';
 import {PrWorkflowNodeIcon} from '../pr-workflow-node-content/pr-workflow-node-content.component';
+import {ClHelpService} from '@monorepo/core-lib';
 
 @Component({
   selector: 'pr-workflow-node-source',
@@ -18,11 +19,17 @@ export class PrWorkflowNodeSourceComponent extends PrWorkflowNodeProcessDirectiv
   title$: Observable<FlTranslatableText>;
   icon$: Observable<PrWorkflowNodeIcon>;
 
+  resourceExpId$: Observable<string>;
+
+
   ngOnInit(): void {
     this.initNode();
     this.title$ = this.getResourceTitle(this.node.getResourceId$());
     this.icon$ = this.getResource(this.node.getResourceId$()).pipe(
       map((resource: FlStatusEvent<PrResource>) => this.getResourceIcon(resource))
+    );
+    this.resourceExpId$ = this.getResource(this.node.getResourceId$()).pipe(
+      map((resource: FlStatusEvent<PrResource>) => this.getResourceExpId(resource))
     );
   }
 
@@ -45,6 +52,15 @@ export class PrWorkflowNodeSourceComponent extends PrWorkflowNodeProcessDirectiv
     return defaultIcon;
   }
 
+  private getResourceExpId(resource: FlStatusEvent<PrResource>): string | null {
+    if (!resource) return null;
+    if(resource.status === 'success' && resource.object.experiment){
+      return resource.object.experiment.id;
+    }
+
+    return null;
+  }
+
   drawflowNodeClick(): void {
     this.node.getResourceId$().pipe(first()).subscribe(resourceId => {
       if (resourceId) {
@@ -55,7 +71,6 @@ export class PrWorkflowNodeSourceComponent extends PrWorkflowNodeProcessDirectiv
     });
   }
 
-
   openSelectResource(): void {
     if (this.workflowManager.getCurrentMode() === 'edit') {
       this.actionState.newAction({
@@ -63,6 +78,14 @@ export class PrWorkflowNodeSourceComponent extends PrWorkflowNodeProcessDirectiv
         processNode: this.node,
       });
     }
+  }
+
+  navigateToExperiment(experimentId: string, event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    this.actionState.newAction({
+      action: 'navigateToExperiment',
+      experimentId: experimentId,
+    });
   }
 
 

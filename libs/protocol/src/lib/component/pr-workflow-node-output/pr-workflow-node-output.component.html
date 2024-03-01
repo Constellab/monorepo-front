@@ -1,3 +1,15 @@
-<pr-workflow-node-content [icon]="icon$ | async"
-                          [title]="title$ | async | flTranslatableText">
+<pr-workflow-node-content [icon]="icon$ | async">
+  <pr-workflow-node-content-bottom [matTooltip]="title$ | async | flTranslatableText"
+                              [matTooltipShowDelay]="1000">
+    {{ title$ | async | flTranslatableText }}
+  </pr-workflow-node-content-bottom>
 </pr-workflow-node-content>
+
+@if (resourceId$ | async; as resourceId) {
+  <button mat-icon-button type="button" class="g-button-icon-small next-exp"
+          (click)="openNextExperimentDialog(resourceId, $event)"
+          [matTooltip]="'biox.experiments_that_use_the_resource' | translate">
+    <mat-icon class="next-icon">arrow_forward</mat-icon>
+  </button>
+}
+

@@ -1,0 +1,14 @@
+<fl-portal>
+  <fl-portal-header>
+    <fl-text-icon>
+      <mat-icon flIcon="experiment"></mat-icon>
+      {{ 'biox.experiments_that_use_the_resource' | translate }}
+    </fl-text-icon>
+  </fl-portal-header>
+
+  <fl-portal-content>
+    <fl-infinite-table-container [datasource]="datasource">
+      <lab-experiment-table [datasource]="datasource" [columns]="columns"></lab-experiment-table>
+    </fl-infinite-table-container>
+  </fl-portal-content>
+</fl-portal>

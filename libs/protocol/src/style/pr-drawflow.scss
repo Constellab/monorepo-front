@@ -18,10 +18,9 @@
     //border: none;
     // Padding of the nodes
     padding: 5px 15px !important;
-    border-radius: 30px;
     //padding: 0 !important;
     cursor: pointer !important;
-    border-width: 4px;
+    border-width: 0;
     border-style: solid;
 
 
@@ -30,37 +29,39 @@
       border-color: var(--hover-color);
       color: var(--color-foreground);
       background-color: var(--main-background);
+      border-radius: 30px;
+      //background-color: white;
       //background-color: transparent;
+    }
+
+    &.interface, &.outerface, &.task-source, &.task-output, &.task-viewer {
+      border-radius: 10px;
+      border-color: transparent;
     }
 
     // style for interface nodes
     &.interface {
-      border-color: transparent;
       color: white;
       background-color: #569cd6;
     }
 
     // style for outerface nodes
     &.outerface {
-      border-color: transparent;
       color: white;
       background-color: #a0d982;
     }
 
     &.task-source {
-      border-color: transparent;
       color: mat.get-color-from-palette($primary, default-contrast);
       background-color: mat.get-color-from-palette($primary);
     }
 
     &.task-output {
-      border-color: transparent;
       color: mat.get-color-from-palette($warn, default-contrast);
       background-color: mat.get-color-from-palette($warn);
     }
 
     &.task-viewer {
-      border-color: transparent;
       color: mat.get-color-from-palette($accent, '100-contrast');
       background-color: mat.get-color-from-palette($accent, 100);
     }
@@ -73,12 +74,12 @@
 
     // adapt output position
     .output {
-      right: -9px;
+      right: -6px;
     }
 
     // adapt input position
     .input {
-      left: -25px;
+      left: -22px;
       cursor: auto;
     }
 
@@ -88,5 +89,15 @@
       overflow: initial !important;
     }
 
+  }
+
+  .drawflow .connection {
+    .main-path {
+      stroke: var(--hover-color);
+    }
+
+    .main-path.selected, .main-path:hover {
+      stroke: mat.get-color-from-palette($primary);
+    }
   }
 }

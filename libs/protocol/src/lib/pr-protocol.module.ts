@@ -42,8 +42,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {PrWorkflowEmptyResourcesState, PrWorkflowResourcesState} from './state/pr-workflow-resources.state';
 import {PrWorkflowNodeContentComponent} from './component/pr-workflow-node-content/pr-workflow-node-content.component';
-import {PrWorkflowLeftButtonComponent} from './component/pr-workflow-left-button/pr-workflow-left-button.component';
-import {PrWorkflowRightButtonComponent} from './component/pr-workflow-right-button/pr-workflow-right-button.component';
+import {
+  PrWorkflowNodeContentBottomComponent
+} from './component/pr-workflow-node-content-bottom/pr-workflow-node-content-bottom.component';
 
 
 @NgModule({
@@ -82,8 +83,7 @@ import {PrWorkflowRightButtonComponent} from './component/pr-workflow-right-butt
     PrWorkflowNodeViewerComponent,
     PrWorkflowProcessConfigInfoDialogComponent,
     PrWorkflowNodeContentComponent,
-    PrWorkflowLeftButtonComponent,
-    PrWorkflowRightButtonComponent
+    PrWorkflowNodeContentBottomComponent
   ]
 })
 export class PrProtocolModule {

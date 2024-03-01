@@ -16,6 +16,8 @@ export const prProcessStatusDict: FlStatusDict<PrProcessStatus> = {
   WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus('WAITING_FOR_CLI_PROCESS', 'pr.waiting_for_cli_process'),
 };
 
+
+
 /**
  * Task or protocol inside a flow
  */

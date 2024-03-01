@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {ThemePalette} from '@angular/material/core';
 
 export interface PrWorkflowNodeIcon{
-  icon: string;
+  icon?: string;
   iconTooltip?: string;
-  iconColor?: ThemePalette;
+  iconColor?: string;
+  img?: string;
 }
 
 @Component({
@@ -15,7 +15,4 @@ export interface PrWorkflowNodeIcon{
 export class PrWorkflowNodeContentComponent {
 
   @Input() icon: PrWorkflowNodeIcon;
-
-  @Input() title: string;
-
 }

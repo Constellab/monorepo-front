@@ -310,6 +310,20 @@ export abstract class PrWorkflowNode<T = any> {
       }));
   }
 
+  /////////////////////////////// CONNECTION //////////////////////////////
+  protected getConnectionElementFromPort(port: PrWorkflowPort): HTMLElement | null {
+    // retrieve the node HTML element
+    const element: HTMLElement = this.getHTMLElement();
+    if (element == null) return null;
+
+    const portNodeName = `node_in_node-${this.drawflowId}`;
+    const portName = this.getInputPortDrawflowName(port.name);
+    const portElement: Element = element.querySelector(`${portNodeName}.${portName}"]`);
+
+    if (portElement == null || !(portElement instanceof HTMLElement)) return null;
+    return portElement;
+  }
+
   /////////////////////////////// OTHER //////////////////////////////
 
   private getDrawflowNode(): DrawflowNode {

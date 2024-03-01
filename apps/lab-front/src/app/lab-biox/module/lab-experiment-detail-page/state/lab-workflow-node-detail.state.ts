@@ -17,7 +17,7 @@ import {
   LabResourceViewDetailDialogComponent,
   LabResourceViewDetailDialogInput
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import {FlDialogService, FlPortalConnectedPosition, FlPortalService} from '@monorepo/front-core-lib';
 import {
   LabWorkflowAction,
   LabWorkflowEditConfig,
@@ -34,6 +34,10 @@ import {
   LabSelectResourceDialogComponent
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
 import {LabResource} from '../../../../lab-core/model/entities/resource/lab-resource.entity';
+import {
+  LabExperimentsUsingResourcePortalComponent
+} from '../../../../lab-core/entity-module/lab-resource-core/component/lab-experiments-using-resource-portal/lab-experiments-using-resource-portal.component';
+import {LabRouterService} from '../../../../lab-core/service/lab-router.service';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -51,7 +55,9 @@ export class LabWorkflowNodeDetailState {
               private dialogService: FlDialogService,
               private viewContainerRef: ViewContainerRef,
               private experimentState: LabExperimentDetailPageState,
-              private protocolService: LabProtocolService) {
+              private protocolService: LabProtocolService,
+              private portalService: FlPortalService,
+              private routerService: LabRouterService) {
   }
 
   public init(drawer: MatDrawer): void {
@@ -87,7 +93,12 @@ export class LabWorkflowNodeDetailState {
       case 'selectResource':
         this.openResourceSelection(action.processNode);
         break;
-
+      case 'showNextExperiments':
+        this.openExperimentsUsingResourcePortal(action.resourceId, action.element);
+        break;
+      case 'navigateToExperiment':
+        this.routerService.navigateToExperimentDetail(action.experimentId);
+        break;
     }
   }
 
@@ -213,5 +224,16 @@ export class LabWorkflowNodeDetailState {
 
   private onUpdateProcessNameSuccess(process: LabProcess): void {
     this.experimentState.refreshProcess(process);
+  }
+
+  private openExperimentsUsingResourcePortal(resourceId: string, element: HTMLElement): void {
+    const position: FlPortalConnectedPosition[] = ['right', 'left', 'bottom', 'top'];
+
+    const config = this.portalService.configureRelativePortal(element, position, {
+      disposeOnOutsideClick: true,
+      disposeOnNavigation: true,
+    });
+
+    this.portalService.createPortal(LabExperimentsUsingResourcePortalComponent, config, resourceId);
   }
 }

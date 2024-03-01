@@ -1,6 +1,7 @@
 import {Directive, ElementRef, Host, Inject, Input, OnInit} from '@angular/core';
-import {MatIcon} from '@angular/material/icon';
+import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import {FL_ICON_MODULE, FlIcon, FlIconConfig, FlMatIcon, FlSvgIcon} from '../fl-icon-config.class';
+import {DomSanitizer} from '@angular/platform-browser';
 
 /**
  * directive to be placed on a mat-icon. It set the icon and support both
@@ -18,7 +19,9 @@ export class FlIconDirective implements OnInit {
 
   constructor(@Host() private matIcon: MatIcon,
               private elementRef: ElementRef<HTMLElement>,
-              @Inject(FL_ICON_MODULE) private config: FlIconConfig) {
+              @Inject(FL_ICON_MODULE) private config: FlIconConfig,
+              private matIconRegistry: MatIconRegistry,
+              private domSanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -26,6 +29,13 @@ export class FlIconDirective implements OnInit {
   }
 
   private setIcon(icon: string): void {
+    if (icon === 'http://localhost:3000/static/flask-solid.svg') {
+      this.matIconRegistry.addSvgIcon("waaaaaow",
+        this.domSanitizer.bypassSecurityTrustResourceUrl(icon)
+      );
+      this.setSvgIcon("waaaaaow");
+      return;
+    }
     if (icon == null) {
       this.setMatIcon(null);
       this.setSvgIcon(null);

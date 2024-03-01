@@ -5,6 +5,7 @@ import {PrWorkflowNodeProcessDirective} from '../../directive/pr-workflow-node-p
 import {FlStatusEvent, FlTranslatableText} from '@monorepo/front-core-lib';
 import {PrResource} from '../../model/pr-resource.class';
 import {PrWorkflowNodeIcon} from '../pr-workflow-node-content/pr-workflow-node-content.component';
+import {ClHelpService} from '@monorepo/core-lib';
 
 @Component({
   selector: 'pr-workflow-node-output',
@@ -18,6 +19,8 @@ export class PrWorkflowNodeOutputComponent extends PrWorkflowNodeProcessDirectiv
   title$: Observable<FlTranslatableText>;
   icon$: Observable<PrWorkflowNodeIcon>;
 
+  resourceId$: Observable<string>;
+
 
   ngOnInit(): void {
     this.initNode();
@@ -26,6 +29,8 @@ export class PrWorkflowNodeOutputComponent extends PrWorkflowNodeProcessDirectiv
     this.icon$ = this.getResource(this.node.getResourceId$()).pipe(
       map((resource: FlStatusEvent<PrResource>) => this.getResourceIcon(resource))
     );
+
+    this.resourceId$ = this.node.getResourceId$();
   }
 
   private getResourceIcon(resource: FlStatusEvent<PrResource>): PrWorkflowNodeIcon {
@@ -56,5 +61,13 @@ export class PrWorkflowNodeOutputComponent extends PrWorkflowNodeProcessDirectiv
     });
   }
 
+  openNextExperimentDialog(resourceId: string, event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
 
+    this.actionState.newAction({
+      action: 'showNextExperiments',
+      resourceId: resourceId,
+      element: event.target as HTMLElement
+    });
+  }
 }

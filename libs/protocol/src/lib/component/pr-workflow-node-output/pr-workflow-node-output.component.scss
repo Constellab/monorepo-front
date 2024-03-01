@@ -1,17 +1,17 @@
 :host {
   display: block;
-  width: 130px;
+  width: 50px;
   max-width: 100%;
   max-height: 100%;
 }
 
-.name {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 100%;
+.next-exp {
+  position: absolute;
+  right: -35px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.button {
-  --mdc-outlined-button-label-text-color: var(--warn-color-contrast);
+.next-icon{
+  color: var(--light-color);
 }
