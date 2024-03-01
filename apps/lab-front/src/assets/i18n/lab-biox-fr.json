@@ -308,6 +308,8 @@
     "import_protocol_template": "Importer un modèle de protocole",
     "select_protocol_template_help_text": "Vous pouvez sélectionner un modèle de protocole pour pré-configurer l'expérience.",
     "protocol_template_detail": "Détail",
+    "importing_protocol_template": "Importation du modèle de protocole...",
+    "protocol_template_imported": "Modèle de protocole importé",
     "experiment_with_same_name_exist": "{{count}} expérience avec le même nom existe",
     "credentials": "Identifiants",
     "create_credentials": "Créez des identifiants",

@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   FlDatasourcePaginated,
+  FlPortalAction,
+  FlPortalActionsService,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
@@ -13,6 +15,7 @@ import {
   LabProtocolTemplateSearch,
   LabProtocolTemplateSearchFields
 } from '../../model/lab-protocol-template-search.class';
+import {LabRouterService} from '../../../../service/lab-router.service';
 
 @Component({
   selector: 'lab-protocol-template-search',
@@ -32,7 +35,8 @@ export class LabProtocolTemplateSearchComponent implements OnInit {
 
   constructor(private searchState: FlSearchState<any>,
               private protocolTemplateService: LabProtocolTemplateService,
-              private themeService: FlThemeService) {
+              private themeService: FlThemeService,
+              private actionsService: FlPortalActionsService) {
   }
 
   ngOnInit(): void {
@@ -71,6 +75,17 @@ export class LabProtocolTemplateSearchComponent implements OnInit {
 
   selectTemplate(template: LabProtocolTemplate): void {
     this.templateSelected.next(template);
+  }
+
+  createFromFile(file: File): void {
+    const action: FlPortalAction = {
+      text: {text: 'biox.import_protocol_template', translateText: true},
+      type: 'importProtocolTemplate',
+      action: this.protocolTemplateService.createFromFile(file),
+      successLink: (result: LabProtocolTemplate) => LabRouterService.getProtocolTemplateDetailRoute(result.id)
+    };
+
+    this.actionsService.addAction(action, false);
   }
 }
 

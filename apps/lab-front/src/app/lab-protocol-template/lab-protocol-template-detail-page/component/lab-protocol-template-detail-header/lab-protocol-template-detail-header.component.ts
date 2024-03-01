@@ -1,7 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {LabProtocolTemplate} from '../../../../lab-core/model/entities/process/lab-protocol-template.entity';
 import {LabProtocolTemplateService} from '../../../../lab-core/entity-service/lab-protocol-template.service';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlPortalActionsService
+} from '@monorepo/front-core-lib';
 import {LabRouterService} from '../../../../lab-core/service/lab-router.service';
 
 @Component({
@@ -9,22 +14,15 @@ import {LabRouterService} from '../../../../lab-core/service/lab-router.service'
   templateUrl: './lab-protocol-template-detail-header.component.html',
   styleUrl: './lab-protocol-template-detail-header.component.scss'
 })
-export class LabProtocolTemplateDetailHeaderComponent implements OnInit{
+export class LabProtocolTemplateDetailHeaderComponent {
 
   @Input() template: LabProtocolTemplate;
 
-  downloadUrl: string;
-
-
   constructor(private protocolTemplateService: LabProtocolTemplateService,
               private dialogService: FlDialogService,
-              private routerService: LabRouterService) {
+              private routerService: LabRouterService,
+              private actionsService: FlPortalActionsService) {
   }
-
-  ngOnInit(): void {
-    this.downloadUrl = this.protocolTemplateService.getProtocolTemplateDownloadUrl(this.template.id);
-  }
-
 
   updateName(name: string): void {
     this.protocolTemplateService.updateProtocolTemplateName(this.template.id, name).subscribe(
@@ -32,6 +30,14 @@ export class LabProtocolTemplateDetailHeaderComponent implements OnInit{
         this.template.name = updatedProtocolTemplate.name;
       }
     );
+  }
+
+  downloadProtocolTemplate(): void {
+    this.actionsService.addAction({
+      type: 'download-protocol-template',
+      action: this.protocolTemplateService.downloadProtocolTemplate(this.template.id),
+      text: {text: 'biox.download_protocol_template', translateText: true}
+    });
   }
 
   openDeleteDialog(): void {

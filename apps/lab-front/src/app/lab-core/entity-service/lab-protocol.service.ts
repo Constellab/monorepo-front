@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {FlApiWithCacheService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import {FlApiWithCacheService, FlEntityPaginatedDatasource, FlFileHelper} from '@monorepo/front-core-lib';
+import {Observable, tap} from 'rxjs';
 import {LabProcessLayout, LabProtocol, LabProtocolLayout} from '../model/entities/process/lab-protocol.entity';
 import {LabProtocolUpdateDTO} from '../../lab-biox/module/lab-experiment-detail-page/model/lab-workflow-action.class';
 import {PrConfigValues} from '@monorepo/protocol';
@@ -269,8 +269,11 @@ export class LabProtocolService {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/template`, template, LabProtocolTemplate);
   }
 
-  public getProtocolTemplateDownloadUrl(protocolId: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.baseRoute}/${protocolId}/template/download`);
+  public downloadProtocolTemplate(protocolId: string): Observable<Blob> {
+    return this.apiService.get(`${this.baseRoute}/${protocolId}/template/download`, null,
+      {responseType: 'blob'}).pipe(
+      tap((result) => FlFileHelper.downloadBlob(result, 'protocol-template.json'))
+    );
   }
 
 }

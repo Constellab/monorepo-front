@@ -105,10 +105,10 @@
       {{'biox.create_protocol_template' | translate}}
     </button>
 
-    <a mat-menu-item [href]="downloadProtocolTemplateUrl$ | async" download>
+    <button mat-menu-item type="button" (click)="downloadProtocolTemplate(experiment)">
       <mat-icon>cloud_download</mat-icon>
       {{'biox.download_protocol_template' | translate}}
-    </a>
+    </button>
   </mat-menu>
 
   <!-- Monitoring menu -->

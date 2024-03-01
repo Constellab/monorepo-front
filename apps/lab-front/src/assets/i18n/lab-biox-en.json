@@ -308,6 +308,8 @@
     "import_protocol_template": "Import protocol template",
     "select_protocol_template_help_text": "You can select or import a protocol template to pre-configure the experiment.",
     "protocol_template_detail": "Details",
+    "importing_protocol_template": "Importing protocol template...",
+    "protocol_template_imported": "Protocol template imported",
     "experiment_with_same_name_exist": "{{count}} experiment(s) with the same name exist",
     "credentials": "Credentials",
     "create_credentials": "Create credentials",

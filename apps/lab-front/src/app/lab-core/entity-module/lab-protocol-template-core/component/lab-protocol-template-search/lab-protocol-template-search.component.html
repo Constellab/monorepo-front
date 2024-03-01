@@ -12,6 +12,15 @@
       <mat-icon flIcon="protocol_template"></mat-icon>
       <h2>{{'biox.protocol_template' | translate}}</h2>
     </fl-text-icon>
+
+    <fl-search-header-actions>
+      <!--   Import protocol template     -->
+      <fl-input-file-icon-container [matTooltip]="'biox.import_protocol_template' | translate" i
+                                    icon="upload_file" color="accent">
+        <input flInputFile [multiple]="false" type="file" accept="application/json"
+               (fileChange)="createFromFile($any($event))" [autoClearHtmlInput]="true">
+      </fl-input-file-icon-container>
+    </fl-search-header-actions>
   </fl-search-header>
 
 

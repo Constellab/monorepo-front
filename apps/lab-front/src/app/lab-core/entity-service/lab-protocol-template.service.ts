@@ -3,13 +3,14 @@ import {
   FlAdvancedSearchInput,
   FlApiService,
   FlEntityPaginatedDatasource,
+  FlFileHelper,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
 import {
   LabProtocolTemplate,
   LabProtocolTemplateDatasource
 } from '../model/entities/process/lab-protocol-template.entity';
-import {Observable} from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import {ClHelpService, ClPageI} from '@monorepo/core-lib';
 import {
   LabProtocolTemplateSearch,
@@ -35,6 +36,12 @@ export class LabProtocolTemplateService {
 
   public getProtocolTemplateGraph(id: string): Observable<PrProtocolGraph> {
     return this.apiService.get(`${this.route}/${id}/graph`);
+  }
+
+  public createFromFile(file: File): Observable<LabProtocolTemplate> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.apiService.post(`${this.route}/import-from-file`, formData, LabProtocolTemplate);
   }
 
   public updateProtocolTemplate(id: string, data: Partial<LabProtocolTemplate>): Observable<LabProtocolTemplate> {
@@ -84,8 +91,12 @@ export class LabProtocolTemplateService {
     });
   }
 
-  public getProtocolTemplateDownloadUrl(id: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${id}/download`);
+
+  public downloadProtocolTemplate(id: string): Observable<Blob> {
+    return this.apiService.get(`${this.route}/${id}/download`, null,
+      {responseType: 'blob'}).pipe(
+        tap((result) => FlFileHelper.downloadBlob(result, 'protocol-template.json'))
+    );
   }
 
 }

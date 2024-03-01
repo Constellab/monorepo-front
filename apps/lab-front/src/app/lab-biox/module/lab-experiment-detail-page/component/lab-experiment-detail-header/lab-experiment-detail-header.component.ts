@@ -10,6 +10,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlPortalActionResult,
+  FlPortalActionsService,
   FlSnackBarService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
@@ -67,10 +68,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
   experiment$: Observable<LabExperiment>;
 
-  downloadProtocolTemplateUrl$: Observable<string>;
-
   syncObjectFunc: (id: string) => Observable<LabExperiment>;
-
 
   constructor(private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService,
@@ -81,14 +79,12 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
               private processService: LabProcessService,
               private protocolService: LabProtocolService,
               private snackBarService: FlSnackBarService,
-              private labNavigableService: LabNavigableEntityService) {
+              private labNavigableService: LabNavigableEntityService,
+              private actionsService: FlPortalActionsService) {
   }
 
   ngOnInit(): void {
     this.experiment$ = this.experimentState.getExperiment$();
-    this.downloadProtocolTemplateUrl$ = this.experiment$.pipe(
-      map(experiment => this.protocolService.getProtocolTemplateDownloadUrl(experiment.protocol.id))
-    );
     this.syncObjectFunc = (id: string) => this.experimentService.syncWithSpace(id);
   }
 
@@ -232,6 +228,14 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
     this.dialogService.openSmallDialog(LabProtocolTemplateFormDialogComponent,
       {data: input, panelClass: 'g-dialog-main-background'}).afterClosed().subscribe();
+  }
+
+  downloadProtocolTemplate(experiment: LabExperiment): void {
+    this.actionsService.addAction({
+      type: 'download-protocol-template',
+      action: this.protocolService.downloadProtocolTemplate(experiment.protocol.id),
+      text: {text: 'biox.download_protocol_template', translateText: true}
+    });
   }
 
   resetExperiment(): void {
