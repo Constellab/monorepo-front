@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FlApiWithCacheService} from '@monorepo/front-core-lib';
+import {FlApiWithCacheService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {LabProcessLayout, LabProtocol, LabProtocolLayout} from '../model/entities/process/lab-protocol.entity';
 import {LabProtocolUpdateDTO} from '../../lab-biox/module/lab-experiment-detail-page/model/lab-workflow-action.class';
@@ -9,8 +9,18 @@ import {
   LabProtocolTemplate
 } from '../model/entities/process/lab-protocol-template.entity';
 import {TdIOSpec} from '@monorepo/technical-doc';
-import {LabLiveTask} from '../model/entities/lab-live-task.entity';
+import {
+  LabCreateCommunityLiveTaskVersionResDto,
+  LabLiveTask,
+  LabLiveTaskDatasourcePaginated
+} from '../model/entities/lab-live-task.entity';
 import {LabNavigableEntityImpact} from '../model/entities/lab-navigable-entity.entity';
+import {ClPage} from '@monorepo/core-lib';
+import {LabCommunitySpace} from '../model/entities/lab-community-space.entity';
+import {LtCreateLiveTaskFormData} from '@monorepo/live-task';
+import {
+  LabCreateCommunityLiveTaskDialogMode
+} from '../entity-module/lab-type-core/component/lab-create-community-live-task-dialog/lab-create-community-live-task-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -38,10 +48,56 @@ export class LabProtocolService {
       LabProtocolUpdateDTO);
   }
 
-  public getCommunityAvailableLiveTask(): Observable<LabLiveTask[]> {
-    return this.apiService.post(`${this.baseRoute}/get-community-available-live-tasks`, null,
-      LabProtocolUpdateDTO);
+  /**
+   * Call http post to get all live tasks with filters
+   * @param spacesFilter
+   * @param titleFilter
+   * @param personalOnly
+   * @param page
+   * @param size
+   * @return a list of live tasks
+   */
+  public getAllCommunityLiveTasksWithFilters(spacesFilter: string[], titleFilter: string, personalOnly: boolean,
+                                             page: number, size: number): Observable<ClPage<LabLiveTask>> {
+    return this.apiService.post(`${this.baseRoute}/get-community-available-live-tasks`,
+      {spacesFilter: spacesFilter, titleFilter: titleFilter, personalOnly: personalOnly},
+      LabLiveTask, {page: page, pageSize: size, resultIsPaginated: true});
   }
+
+  public getCommunityAvailableLiveTasksWithFiltersPaginated(spacesFilter: string[], titleFilter: string,
+                                                            personalOnly: boolean = false): LabLiveTaskDatasourcePaginated {
+    return new FlEntityPaginatedDatasource(
+      (page, size) => this.getAllCommunityLiveTasksWithFilters(spacesFilter, titleFilter, personalOnly, page, size), 10);
+  }
+
+  public getCurrentLiveTask(liveTaskVersionId: string): Observable<LabLiveTask> {
+    return this.apiService.get(`${this.baseRoute}/get-current-live-task/${liveTaskVersionId}`, LabLiveTask);
+  }
+
+
+  public createCommunityLiveTask(processId: string,
+                                 formData: LtCreateLiveTaskFormData): Observable<LabCreateCommunityLiveTaskVersionResDto>{
+    return this.apiService.post(`${this.baseRoute}/${processId}/create-community-live-task`,
+      formData, LabCreateCommunityLiveTaskVersionResDto);
+  }
+
+  public forkIntoNewCommunityLiveTask(processId: string,
+                                      formData: LtCreateLiveTaskFormData,
+                                      liveTaskVersionId: string): Observable<LabCreateCommunityLiveTaskVersionResDto>{
+    return this.apiService.post(`${this.baseRoute}/${processId}/fork-community-live-task/${liveTaskVersionId}`,
+      formData, LabCreateCommunityLiveTaskVersionResDto);
+  }
+
+  public addVersionToCommunityLiveTask(processId: string, liveTaskId: string): Observable<LabCreateCommunityLiveTaskVersionResDto> {
+    return this.apiService.post(`${this.baseRoute}/${processId}/add-version-to-community-live-task/${liveTaskId}`,
+      null, LabCreateCommunityLiveTaskVersionResDto);
+  }
+
+
+  public getCommunitySpaces(): Observable<LabCommunitySpace[]>{
+    return this.apiService.post(`${this.baseRoute}/get-community-available-spaces`, null);
+  }
+
 
   public addCommunityLiveTaskToProtocol(protocolId: string, liveTaskVersionId: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/add-community-live-task/${liveTaskVersionId}`, null,

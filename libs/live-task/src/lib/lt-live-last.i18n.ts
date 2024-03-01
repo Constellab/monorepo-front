@@ -10,6 +10,11 @@ const ltLiveTaskI18nFr: FlLangTranslation = {
     'task_visibility': 'Visibilité de la tâche',
     'version': 'Version',
     'public': 'Public',
+    'title': 'Title',
+    'space': 'Space',
+    'type': 'Type',
+    'create': 'Create',
+    'your_spaces': 'Vos spaces'
   }
 };
 
@@ -22,6 +27,11 @@ const ltLiveTaskI18nEn: FlLangTranslation = {
     'task_visibility': 'Task visibility',
     'version': 'Version',
     'public': 'Public',
+    'title': 'Title',
+    'space': 'Space',
+    'type': 'Type',
+    'create': 'Create',
+    'your_spaces': 'Your spaces'
   }
 };
 export const ltLiveTaskI18n: FlTranslateObject = {

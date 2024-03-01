@@ -47,7 +47,7 @@ import {BnBioNetworkModule} from '@monorepo/bio-network';
 import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
 import {ChChartModule} from '@monorepo/chart';
 import {TeTextEditorModule} from '@monorepo/text-editor';
-import {LtLiveTaskModule} from '../../../../../../libs/live-task/src';
+import {LtLiveTaskModule} from '@monorepo/live-task';
 
 /**
  * Regrouped all the needed import for this app from library

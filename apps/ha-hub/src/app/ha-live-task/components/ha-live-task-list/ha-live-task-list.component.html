@@ -29,12 +29,15 @@
          (flInfiniteScroll)="liveTasksPaginated.getNextPage()" [flInfiniteDisabled]="liveTasksPaginated?.isLoading || liveTasksPaginated?.page?.last"
          flInfiniteMode="auto">
       <div class="search-bar-title">
-        <mat-form-field class="search-bar">
+        <!--        <form>-->
+        <form type="submit" (ngSubmit)="search($event)">
+          <mat-form-field class="search-bar">
           <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
-          <button mat-icon-button matSuffix aria-label="Clear" (click)="search()">
-            <mat-icon>search</mat-icon>
-          </button>
-        </mat-form-field>
+            <button mat-icon-button matSuffix aria-label="Clear" (click)="search($event)">
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
       </div>
       <a class="live-task-result-card-div" *ngFor="let liveTask of liveTasksPaginated.connect() | async"
          [routerLink]="liveTask.id">

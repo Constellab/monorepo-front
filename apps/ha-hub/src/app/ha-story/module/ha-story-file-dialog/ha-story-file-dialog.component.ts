@@ -12,7 +12,7 @@ import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {Validators} from '@angular/forms';
 import {ClHelpService} from '@monorepo/core-lib';
-import {HaStoryFile} from '../../../ha-core/ha-model/ha-entities/ha-story-file';
+import {HaFile} from '../../../ha-core/ha-model/ha-entities/ha-file';
 import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
 
 export type HaStoryFileDialogInput = FlFormDialogInput<HaStoryFileFormData>;
@@ -100,7 +100,7 @@ export class HaStoryFileDialogComponent extends FlFormDialogAbstractDirective<Ha
     });
   }
 
-  deleteFile(file: HaStoryFile): void{
+  deleteFile(file: HaFile): void{
     this.story.storyFiles = this.story.storyFiles.filter((storyFile) => storyFile.id !== file.id);
 
     const action: FlPortalAction = {
@@ -114,8 +114,8 @@ export class HaStoryFileDialogComponent extends FlFormDialogAbstractDirective<Ha
     this.actionService.addAction(action, false);
   }
 
-  renameFile(event: string, file: HaStoryFile): void{
-    this.storyService.renameStoryFile(file.id, event).subscribe((storyFile: HaStoryFile) => {
+  renameFile(event: string, file: HaFile): void{
+    this.storyService.renameStoryFile(file.id, event).subscribe((storyFile: HaFile) => {
       if(storyFile){
         this.story.storyFiles = this.story.storyFiles.map((storyFile) => {
           if(storyFile.id === file.id){

@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {LabLiveTask} from '../../../../model/entities/lab-live-task.entity';
-import {LabProtocolService} from '../../../../entity-service/lab-protocol.service';
-import {LtLiveTask} from '../../../../../../../../../libs/live-task/src';
-import {DateTime} from 'luxon';
 
 /**
  * Dialog containing the community live task search to select one
@@ -16,34 +13,14 @@ import {DateTime} from 'luxon';
 export class LabSelectCommunityLiveTaskDialogComponent implements OnInit {
 
   title: string = 'biox.select_community_live_task';
-  liveTasks: LabLiveTask[];
 
-  constructor(private dialogRef: MatDialogRef<LabSelectCommunityLiveTaskDialogComponent>,
-              private protocolService: LabProtocolService) {
+  constructor(private dialogRef: MatDialogRef<LabSelectCommunityLiveTaskDialogComponent>,) {
   }
 
   ngOnInit(): void {
-    this.protocolService.getCommunityAvailableLiveTask().subscribe(liveTasks => {
-      this.liveTasks = liveTasks;
-    });
   }
 
-  loadLiveTask(liveTask: LabLiveTask): void {
+  onLiveTaskClick(liveTask: LabLiveTask): void {
     this.dialogRef.close(liveTask);
   }
-
-
-  pythonLabLiveTaskToLtLiveTask(liveTask: LabLiveTask): LtLiveTask {
-    const ltLiveTask = new LtLiveTask();
-    ltLiveTask.id = liveTask.id;
-    ltLiveTask.title = liveTask.title;
-    ltLiveTask.description = liveTask.description;
-    ltLiveTask.latestPublishVersion = liveTask.latest_publish_version;
-    ltLiveTask.createdAt = DateTime.fromISO(liveTask.created_at);
-    ltLiveTask.lastModifiedAt = DateTime.fromISO(liveTask.last_modified_at);
-    ltLiveTask.createdBy = liveTask.created_by;
-    ltLiveTask.space = liveTask.space;
-    return ltLiveTask;
-  }
-
 }

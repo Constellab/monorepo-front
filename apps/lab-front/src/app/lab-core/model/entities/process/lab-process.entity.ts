@@ -82,6 +82,8 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   @Expose({name: 'short_description'})
   shortDescription?: string;
 
+  @Expose({name: 'community_live_task_version_id'})
+  communityLiveTaskVersionId?: string;
 
   hasConfig(): boolean {
     return this.config?.hasConfigs() ?? false;

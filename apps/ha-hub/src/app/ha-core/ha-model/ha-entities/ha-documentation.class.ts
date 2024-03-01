@@ -1,6 +1,7 @@
 import {HaEntity} from './ha-entity.class';
 import {ClRichTextI} from '@monorepo/core-lib';
 import {TeRichTextContent} from '@monorepo/text-editor';
+import {HaFile} from './ha-file';
 
 export class HaDocumentation extends HaEntity {
 
@@ -17,6 +18,8 @@ export class HaDocumentation extends HaEntity {
   versionId: string;
 
   order: number;
+
+  docFiles: HaFile[];
 }
 
 

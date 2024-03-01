@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
-import {HaCreateLiveTaskDto, HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
+import {HaCreateLiveTaskDto} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
@@ -8,11 +8,11 @@ import {Observable} from 'rxjs';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
 import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import {HaSpaceService} from '../../../ha-core/ha-service/ha-space.service';
-import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {
   HaLiveTaskVersion,
   HaLiveTaskVersionFileInput
 } from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
+import {LtCreateLiveTaskFormData} from '@monorepo/live-task';
 
 export type HaCreateLiveTaskInput = FlFormDialogInput<HaCreateLiveTaskDto>;
 
@@ -21,22 +21,22 @@ export type HaCreateLiveTaskInput = FlFormDialogInput<HaCreateLiveTaskDto>;
   templateUrl: './ha-live-task-create-dialog.component.html',
   styleUrls: ['./ha-live-task-create-dialog.component.scss'],
 })
-export class HaLiveTaskCreateDialogComponent extends FlFormDialogAbstractDirective<HaCreateLiveTaskDto, HaLiveTaskVersion> implements OnInit {
+export class HaLiveTaskCreateDialogComponent extends
+  FlFormDialogAbstractDirective<HaCreateLiveTaskDto, HaLiveTaskVersion> implements OnInit {
 
-  userSpaces$: Observable<HaSpace[]>;
+  spaces$: Observable<HaSpace[]>;
   inputFile: any;
 
   constructor(snackBarService: FlSnackBarService,
               dialogRef: MatDialogRef<HaLiveTaskCreateDialogComponent>,
               @Inject(MAT_DIALOG_DATA) dialogInput: HaCreateLiveTaskInput,
               private liveTaskService: HaLiveTaskService,
-              private spaceService: HaSpaceService,
-              private authenticatedUserService: HaAuthenticatedUserService) {
+              private spaceService: HaSpaceService) {
     super(dialogInput, snackBarService, dialogRef);
   }
 
   ngOnInit(): void {
-    this.userSpaces$ = this.spaceService.getSpacesOfCurrentUser();
+    this.spaces$ = this.spaceService.getSpacesOfCurrentUser();
 
     this.init();
   }
@@ -91,5 +91,10 @@ export class HaLiveTaskCreateDialogComponent extends FlFormDialogAbstractDirecti
 
       reader.readAsText(event);
     }
+  }
+
+  onSubmitEvent(formValue: LtCreateLiveTaskFormData): void {
+    this.formGp.patchValue(formValue as HaCreateLiveTaskDto);
+    this.submit();
   }
 }

@@ -1,5 +1,4 @@
 import {HaLiveTask} from './ha-live-task.class';
-import {HaEntity} from './ha-entity.class';
 import {FlEntity} from '@monorepo/front-core-lib';
 import {DateTime} from 'luxon';
 import {TdParamSpecs} from '@monorepo/technical-doc';
@@ -16,7 +15,8 @@ export enum HaLiveTaskVersionType{
   MAMBA_PYTHON = 'MAMBA_PYTHON',
   PIP_PYTHON = 'PIP_PYTHON',
   CONDA_R = 'CONDA_R',
-  MAMBA_R = 'MAMBA_R'
+  MAMBA_R = 'MAMBA_R',
+  STREAMLIT = 'STREAMLIT',
 }
 
 export class HaLiveTaskVersion implements FlEntity{

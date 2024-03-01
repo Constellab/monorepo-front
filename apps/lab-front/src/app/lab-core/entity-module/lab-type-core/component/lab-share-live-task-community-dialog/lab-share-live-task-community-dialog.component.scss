@@ -1,0 +1,24 @@
+.content{
+  max-height: 80vh;
+  overflow-y: hidden;
+}
+
+.current-lt-div{
+  height: 4em;
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2em;
+}
+
+.all-lt-list-div{
+  height: calc(80vh - 7em);
+}
+
+.existant-lt-info-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}

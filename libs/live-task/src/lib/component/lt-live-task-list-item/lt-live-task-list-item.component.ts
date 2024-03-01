@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {LtLiveTask} from '../../model/lt-live-task.class';
 import {TeRichText} from '@monorepo/text-editor';
 
@@ -22,7 +22,7 @@ export class LtLiveTaskListItemComponent implements AfterViewInit{
   @ViewChild('mainCard') mainCardDiv: ElementRef;
 
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.backgroundColor === LtLiveTaskListItemColor.MAIN) {
       this.mainCardDiv.nativeElement.classList.add('main-bg');
     } else {

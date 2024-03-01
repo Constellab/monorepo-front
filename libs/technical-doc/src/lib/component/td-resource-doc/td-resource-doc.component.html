@@ -29,12 +29,25 @@
     </div>
     <div class="func-parameters" *ngIf="func.args.length > 0">
       {{'td.parameters' | translate}}:
-      <table>
+      <table class="func-parameters-table">
+        <tr>
+          <th class="func-parameters-element func-parameters-header">{{'td.name' | translate}}</th>
+          <th class="func-parameters-element func-parameters-header">{{'td.type' | translate}}</th>
+          <th class="func-parameters-element func-parameters-header">{{'td.default_value' | translate}}</th>
+          <th class="func-parameters-description func-parameters-header">{{'td.description' | translate}}</th>
+        </tr>
         <tr *ngFor="let arg of func.args">
-          <td class="func-parameters-name func-parameters-element">{{arg.arg_name}}</td>
-          <td class="func-parameters-type func-parameters-element"><code>{{getCleanType(arg.arg_type)}}</code></td>
-          <td class="func-parameters-element" *ngIf="arg.arg_default_value != 'None'">{{arg.arg_default_value}}</td>
-          <td class="func-parameters-element" *ngIf="func.doc != null && getFuncArgDoc(func, arg) != null">{{getFuncArgDoc(func, arg)}}</td>
+          <td class="func-parameters-element">{{arg.arg_name}}</td>
+          <td class="func-parameters-element"><code>{{getCleanType(arg.arg_type)}}</code></td>
+          <td class="func-parameters-element">
+            @if(arg.arg_default_value.length > 0){
+              {{arg.arg_default_value}}
+            }</td>
+          <td class="func-parameters-description">
+            @if(func.doc != null && getFuncArgDoc(func, arg) != null){
+              {{getFuncArgDoc(func, arg)}}
+            }
+          </td>
         </tr>
       </table>
     </div>

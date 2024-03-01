@@ -40,6 +40,8 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     functions: 'Fonctions',
     parameters: 'Paramètres',
     return_type: 'Type de retour',
+    name: 'Nom',
+    description: 'Description'
   }
 };
 
@@ -82,6 +84,8 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     functions: 'Functions',
     parameters: 'Parameters',
     return_type: 'Return type',
+    name: 'Name',
+    description: 'Description'
   }
 };
 

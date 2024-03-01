@@ -25,7 +25,9 @@ import {
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {RvResourceViewModule} from '@monorepo/resource-view';
 import {TeTextEditorModule} from '@monorepo/text-editor';
-import {LtLiveTaskModule} from '../../../../../../libs/live-task/src';
+import {LtLiveTaskModule} from '@monorepo/live-task';
+
+
 
 @NgModule({
   exports: [

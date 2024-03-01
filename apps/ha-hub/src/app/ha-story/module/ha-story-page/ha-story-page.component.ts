@@ -9,16 +9,17 @@ import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
-import {HaStoryFile} from '../../../ha-core/ha-model/ha-entities/ha-story-file';
+import {HaFile} from '../../../ha-core/ha-model/ha-entities/ha-file';
 import {TeRichText} from '@monorepo/text-editor';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
+import {HaStoryState} from '../../ha-story-core/state/ha-story.state';
 
 @Component({
   selector: 'ha-story-page',
   templateUrl: './ha-story-page.component.html',
-  styleUrls: ['./ha-story-page.component.scss']
+  styleUrls: ['./ha-story-page.component.scss'],
 })
 export class HaStoryPageComponent implements OnInit {
 
@@ -83,7 +84,7 @@ export class HaStoryPageComponent implements OnInit {
     return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
   }
 
-  downloadFile(file: HaStoryFile): string {
+  downloadFile(file: HaFile): string {
     // download file from server (not from the client)
     return this.storyService.getStoryFilePath(file.id);
   }

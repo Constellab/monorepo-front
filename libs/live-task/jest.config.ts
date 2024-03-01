@@ -1,9 +1,10 @@
 /* eslint-disable */
 export default {
   displayName: 'live-task',
-  preset: '../jest.preset.js',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../coverage/live-task',
+  globals: {},
+  coverageDirectory: '../../coverage/libs/live-task',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

@@ -1,4 +1,4 @@
-export class HaStoryFile {
+export class HaFile {
 
   id: string;
 

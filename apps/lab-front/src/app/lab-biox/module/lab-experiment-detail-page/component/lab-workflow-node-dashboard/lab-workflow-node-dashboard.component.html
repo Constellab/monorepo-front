@@ -25,18 +25,6 @@
                   [matTooltip]="'biox.experiment_is_in_queue' | translate" matTooltipPosition="below">hourglass_empty
         </mat-icon>
 
-        <button mat-icon-button type="button" (click)="convertLiveTaskCodeToTask(process)" tabindex="-1"
-                *ngIf="isPyLiveTask$ | async"
-                [matTooltip]="'biox.convert_live_task_code_to_task' | translate" matTooltipPosition="below">
-          <mat-icon>code</mat-icon>
-        </button>
-
-        <button mat-icon-button type="button" (click)="downloadLiveTaskFile(process)" tabindex="-1"
-                *ngIf="isLiveTask$ | async"
-                [matTooltip]="'biox.download_live_task_file' | translate" matTooltipPosition="below">
-          <mat-icon>download</mat-icon>
-        </button>
-
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -48,6 +36,13 @@
             <mat-icon>info</mat-icon>
             <span>{{'biox.process_type_doc' | translate}}</span>
           </button>
+
+          @if (isLiveTask$ | async){
+            <button mat-menu-item [matMenuTriggerFor]="liveTaskMenu">
+              <mat-icon flIcon="code"></mat-icon>
+              {{'biox.live_task' | translate}}
+            </button>
+          }
 
 
           <!--   Progress and logs infos     -->
@@ -77,6 +72,27 @@
               <span class="g-warn-text">{{'biox.reset_process' | translate}}</span>
             </button>
           </ng-container>
+        </mat-menu>
+
+        <mat-menu #liveTaskMenu>
+          <button mat-menu-item type="button" (click)="downloadLiveTaskFile(process)" tabindex="-1"
+                  [matTooltip]="'biox.download_live_task_file' | translate" matTooltipPosition="below">
+            <mat-icon>download</mat-icon>
+            {{'biox.download_live_task_file' | translate}}
+          </button>
+
+          <button mat-menu-item type="button" (click)="openShareCommunityLiveTaskDialog(process)" tabindex="-1"
+                  [matTooltip]="'biox.share_live_task_to_community' | translate" matTooltipPosition="below">
+            <mat-icon>share</mat-icon>
+            {{'biox.share_live_task_to_community' | translate}}
+          </button>
+
+          <button mat-menu-item type="button" (click)="convertLiveTaskCodeToTask(process)" tabindex="-1"
+                  *ngIf="isPyLiveTask$ | async"
+                  [matTooltip]="'biox.convert_live_task_code_to_task' | translate" matTooltipPosition="below">
+            <mat-icon>code</mat-icon>
+            {{'biox.convert_live_task_code_to_task' | translate}}
+          </button>
         </mat-menu>
       </div>
     </div>

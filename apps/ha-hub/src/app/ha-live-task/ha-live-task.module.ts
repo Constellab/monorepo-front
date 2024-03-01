@@ -6,7 +6,7 @@ import {HaLiveTaskListComponent} from './components/ha-live-task-list/ha-live-ta
 import {
   HaLiveTaskCreateDialogComponent
 } from './components/ha-live-task-create-dialog/ha-live-task-create-dialog.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   HaLiveTaskVersionDetailComponent
 } from './components/ha-live-task-version-detail/ha-live-task-version-detail.component';
@@ -46,6 +46,7 @@ import {MatRippleModule} from "@angular/material/core";
         HaSpaceModule,
         HaNavigationPanelComponent,
         MatRippleModule,
+        FormsModule,
     ],
 })
 export class HaLiveTaskModule {}

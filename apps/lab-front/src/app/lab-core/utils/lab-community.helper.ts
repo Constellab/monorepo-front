@@ -36,6 +36,9 @@ export class LabCommunityHelper {
     return docUrl;
   }
 
+  public static getLiveTasKVersionUrl(liveTaskId: string, versionId: string): string {
+    return `${this.getCommunityUrl()}/live-tasks/${liveTaskId}/versions/${versionId}`;
+  }
 
   /////////////////////////////////// SPECIFIC ROUTES //////////////////////////////////////
 

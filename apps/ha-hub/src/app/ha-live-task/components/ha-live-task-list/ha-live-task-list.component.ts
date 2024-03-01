@@ -26,7 +26,7 @@ export class HaLiveTaskListComponent implements OnInit {
   listSpaces$: Observable<HaSpace[]>;
   user: HaUser;
   spaceIdFilter: string[] = [];
-  titleFormControl: FormControl<string> = new FormControl<string>('');
+  titleFormControl: FormControl<string> = new FormControl('');
   constructor(
     private liveTaskService: HaLiveTaskService,
     private dialogService: FlDialogService,
@@ -80,7 +80,8 @@ export class HaLiveTaskListComponent implements OnInit {
     this.selectSpace(spaceId)
   }
 
-  search(): void {
+  search(event): void {
+    event.preventDefault();
     this.liveTasksPaginated = this.liveTaskService.getAllWithFiltersPaginated(this.spaceIdFilter, this.titleFormControl.value);
   }
 }

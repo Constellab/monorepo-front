@@ -2,7 +2,7 @@ import {HaTopic,} from './ha-topic.class';
 import {FlDatasourcePaginated, FlEntity} from '@monorepo/front-core-lib';
 import {HaUser} from './ha-user';
 import {DateTime} from 'luxon';
-import {HaStoryFile} from './ha-story-file';
+import {HaFile} from './ha-file';
 import {TeRichTextContent} from '@monorepo/text-editor';
 
 export enum HaStoryStatus {
@@ -49,7 +49,7 @@ export class HaStory {
 
   titlePath: string;
 
-  storyFiles: HaStoryFile[];
+  storyFiles: HaFile[];
 
   createdBy: HaUser;
 

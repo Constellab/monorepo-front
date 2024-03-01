@@ -25,6 +25,7 @@ export class TdResourceDocComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('resource', this.resource);
   }
 
 
@@ -40,7 +41,11 @@ export class TdResourceDocComponent implements OnInit {
   }
 
   getFunctionArgsToString(args: TdResourceFunctionArg[]): string{
-    return args.map(a => a.arg_name + ': ' + a.arg_type).join(', ');
+    return args.map(a => {
+      if(a.arg_default_value.length > 0)
+        return a.arg_name + ': ' + a.arg_type + ' = ' + a.arg_default_value;
+      return a.arg_name + ': ' + a.arg_type;
+    }).join(', ');
   }
 
   getFunctionCleanDocInfo(func: TdResourceFunction, getTechInfo: boolean = false): string[] {
@@ -52,7 +57,7 @@ export class TdResourceDocComponent implements OnInit {
     const techLines = [];
     for (const line of lines) {
       if (line.includes(':type') || line.includes(':param') || line.includes(':return') || line.includes(':rtype')) {
-        techLines.push(line);
+        techLines.push(line.trim());
       } else {
         cleanLines.push(line);
       }

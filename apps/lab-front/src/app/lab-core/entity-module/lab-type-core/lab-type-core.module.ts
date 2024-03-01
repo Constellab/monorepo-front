@@ -18,6 +18,16 @@ import {LabSelectTypeComponent} from './component/lab-select-type/lab-select-typ
 import {
   LabSelectCommunityLiveTaskDialogComponent
 } from './component/lab-select-community-live-task-dialog/lab-select-community-live-task-dialog.component';
+import {MatChipsModule} from "@angular/material/chips";
+import {
+  LabCreateCommunityLiveTaskDialogComponent
+} from './component/lab-create-community-live-task-dialog/lab-create-community-live-task-dialog.component';
+import {
+  LabShareLiveTaskCommunityDialogComponent
+} from './component/lab-share-live-task-community-dialog/lab-share-live-task-community-dialog.component';
+import {
+  LabSelectCommunityLiveTaskComponent
+} from './component/lab-select-community-live-task/lab-select-community-live-task.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +40,10 @@ import {
     LabProcessTypeTableComponent,
     LabTypeInlineComponent,
     LabSelectTypeComponent,
-    LabSelectCommunityLiveTaskDialogComponent
+    LabSelectCommunityLiveTaskDialogComponent,
+    LabCreateCommunityLiveTaskDialogComponent,
+    LabShareLiveTaskCommunityDialogComponent,
+    LabSelectCommunityLiveTaskComponent
   ],
   exports: [
     LabTypeSearchFormComponent,
@@ -42,7 +55,10 @@ import {
     LabProcessTypeTableComponent,
     LabTypeInlineComponent,
     LabSelectTypeComponent,
-    LabSelectCommunityLiveTaskDialogComponent
+    LabSelectCommunityLiveTaskDialogComponent,
+    LabCreateCommunityLiveTaskDialogComponent,
+    LabShareLiveTaskCommunityDialogComponent,
+    LabSelectCommunityLiveTaskComponent
   ],
   imports: [
     CommonModule,
@@ -52,6 +68,7 @@ import {
 
     LabCoreModule,
     LabBrickCoreModule,
+    MatChipsModule,
   ],
 })
 export class LabTypeCoreModule {

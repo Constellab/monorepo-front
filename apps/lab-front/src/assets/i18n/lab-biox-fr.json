@@ -42,6 +42,8 @@
     "add_selected_process": "Ajouter le process",
     "select_process": "Sélectionner un process",
     "select_community_live_task": "Sélectionner une live task de Community",
+    "public": "Public",
+    "search_by_title": "Rechercher par titre",
     "node_inputs": "Inputs",
     "node_outputs": "Outputs",
     "node_type": "Type",
@@ -382,6 +384,15 @@
     "delete_resource_with_exp_confirm_impact": "<p>La ressource '<strong>{{title}}</strong>' a été générée par l'expérience '<strong>{{experimentTitle}}</strong>'. Si vous supprimez cette ressource, l'expérience sera également supprimée.</p><p>Certains résultats de l'expérience sont utilisés dans d'autres expériences et/ou rapports (listés ci-dessous). Si vous supprimez cette ressource, les expériences (y compris ses résultats) et les rapports suivants seront également supprimés.</p>",
     "delete_resource_confirm_impact": "La ressource '<strong>{{title}}</strong>' est utilisée dans d'autres expériences et/ou rapports (listés ci-dessous). Si vous supprimez cette ressource, les expériences (y compris leurs résultats) et les rapports suivants seront également supprimés.",
     "reset_process_confirm_impact": "Certains résultats (ressources) de l'expérience '<strong>{{title}}</strong>' sont utilisés dans d'autres expériences et/ou rapports (listés ci-dessous). Si vous réinitialisez ce processus, les expériences suivantes (ainsi que leurs résultats) et les rapports seront également supprimés.",
-    "force_action_confirm": "Êtes-vous sûr de vouloir forcer l'action ? Les expériences et rapports suivants seront supprimés et l'action exécutée."
+    "force_action_confirm": "Êtes-vous sûr de vouloir forcer l'action ? Les expériences et rapports suivants seront supprimés et l'action exécutée.",
+    "create_community_live_task": "Créer une live task de Community",
+    "create_new_community_live_task": "Créer une nouvelle live task de Community",
+    "add_version_to_existant_live_task": "Ajouter une version à la live task existante '{{liveTaskTitle}}'",
+    "add_version_to_community_live_task": "Ajouter une version à la live task de Community",
+    "add_version_to_community_live_task_content": "Ajouter une version à la live task de Community '{{liveTaskTitle}}'",
+    "add_version_to_community_live_task_success": "Version ajoutée à la live task de Community",
+    "share_live_task_to_community": "Partager la live task dans Community",
+    "existent_lt_info": "Ou, ajouter une version à une live task de Community existante",
+    "live_task": "Live Task"
   }
 }

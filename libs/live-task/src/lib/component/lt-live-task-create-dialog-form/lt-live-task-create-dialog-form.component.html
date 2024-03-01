@@ -1,0 +1,51 @@
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="live-task-form" [formGroup]="formGp">
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'ltLiveTask.title' | translate }}</mat-label>
+      <input matInput [formControl]="formGp.controls.title" required flInputMaxLength="100"
+             [placeholder]="'ltLiveTask.title' | translate">
+      <mat-error *ngIf="formGp.get('title').hasError('required')">
+        {{ 'title' | flErrorRequired }}
+      </mat-error>
+    </mat-form-field>
+    <div class="">
+      <div class="">{{ 'ltLiveTask.type' | translate }}</div>
+      <div class="form-type-button-div">
+        <button mat-flat-button type="button"
+                [color]="(formGp.get('type').value === 'PUBLIC') ? 'primary' : ''"
+                (click)="formGp.get('type').setValue('PUBLIC')">
+          {{ 'ltLiveTask.public' | translate }}
+        </button>
+        <button mat-flat-button type="button"
+                [color]="(formGp.get('type').value === 'SPACE') ? 'primary' : ''" *ngIf="spaces$ | flIsNotEmpty"
+                (click)="formGp.get('type').setValue('SPACE')">
+          {{ 'ltLiveTask.space' | translate }}
+        </button>
+      </div>
+    </div>
+    @if(formGp.get('type').value === 'SPACE'){
+      <fl-async-section [object]="spaces$">
+        <ng-container *flSectionBody="spaces$ as spaces">
+          <div class="spaces-title">{{ 'ltLiveTask.your_spaces' | translate }}</div>
+          <mat-radio-group [formControlName]="'space'" [required]="true">
+            <div class="spaces-div">
+              <button mat-flat-button type="button" *ngFor="let space of spaces$ | async"
+                      [color]="(formGp.get('space').value === space) ? 'warn' : ''">
+                <mat-radio-button labelPosition="before" [value]="space">{{ space.name }}</mat-radio-button>
+              </button>
+            </div>
+          </mat-radio-group>
+        </ng-container>
+      </fl-async-section>
+    }
+    <ng-content></ng-content>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" type="submit" form="live-task-form" class="g-centered-forced"
+          [disabled]="!formGp.valid && !isLoading">
+    {{ 'ltLiveTask.create' | translate }}
+    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+  </button>
+</div>

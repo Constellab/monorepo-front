@@ -3,11 +3,7 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  @if(liveTasks && liveTasks.length > 0){
-    <div class="live-tasks-list-div">
-      @for (liveTask of liveTasks; track liveTask.id) {
-        <lt-live-task-list-item [liveTask]="pythonLabLiveTaskToLtLiveTask(liveTask)" (click)="loadLiveTask(liveTask)" [backgroundColor]="'main'"></lt-live-task-list-item>
-      }
-    </div>
-  }
+  <div class="content">
+    <lab-select-community-live-task (liveTaskSelected)="onLiveTaskClick($event)"></lab-select-community-live-task>
+  </div>
 </mat-dialog-content>

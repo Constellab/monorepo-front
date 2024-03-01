@@ -14,7 +14,7 @@ import {Observable} from 'rxjs';
 import {ClPage, ClRichTextI} from '@monorepo/core-lib';
 import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
 import {HaStoryAuthorInvite} from '../ha-model/ha-entities/ha-story-author-invite.class';
-import {HaStoryFile} from '../ha-model/ha-entities/ha-story-file';
+import {HaFile} from '../ha-model/ha-entities/ha-file';
 import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 import {RvResourceView} from '@monorepo/resource-view';
 import {HaUser} from '../ha-model/ha-entities/ha-user';
@@ -226,7 +226,7 @@ export class HaStoryService {
   }
 
 
-  uploadDocument(file: File, storyId: string): Observable<HaStoryFile>{
+  uploadDocument(file: File, storyId: string): Observable<HaFile>{
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/file/${storyId}`, formData);
@@ -236,8 +236,8 @@ export class HaStoryService {
     return this.apiService.delete(`${this.route}/file/${storyFileId}`);
   }
 
-  renameStoryFile(storyFileId: string, newName: string): Observable<HaStoryFile>{
-    return this.apiService.put(`${this.route}/file/${storyFileId}/rename`, {humanName: newName}, HaStoryFile);
+  renameStoryFile(storyFileId: string, newName: string): Observable<HaFile>{
+    return this.apiService.put(`${this.route}/file/${storyFileId}/rename`, {humanName: newName}, HaFile);
   }
 
   getStoryCoAuthorsPendingInvites(storyId: string): Observable<HaStoryAuthorInvite[]>{

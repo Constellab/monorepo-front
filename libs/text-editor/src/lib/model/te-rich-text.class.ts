@@ -66,6 +66,12 @@ export class TeRichText {
     return content.blocks.filter(block => block.type === TeBlockType.FIGURE);
   }
 
+  public static getFirstFigureLink(content: TeRichTextContent): string {
+    const figures = TeRichText.getFiguresBlocks(content);
+    if (figures.length === 0) return null;
+    return figures[0].data.filename;
+  }
+
   public static isLinkInFigures(content: TeRichTextContent, link: string): boolean {
     return TeRichText.getFiguresBlocks(content).some(block => block.data.filename === link);
   }

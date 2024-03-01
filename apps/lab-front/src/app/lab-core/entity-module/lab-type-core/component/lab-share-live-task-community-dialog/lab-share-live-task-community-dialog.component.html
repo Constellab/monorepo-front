@@ -1,0 +1,35 @@
+<fl-dialog-header>
+  {{ title | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="content">
+    @if(!isLoading || !liveTaskVersionId){
+      <div class="current-lt-div">
+        <div>
+          @if (currentLiveTask && currentLiveTask.created_by.id == currentUser.id) {
+            <div class="current-lt">
+              <button mat-flat-button (click)="openAddVersionConfirmDialog()" color="primary">
+                {{'biox.add_version_to_existant_live_task' | translate : {liveTaskTitle: currentLiveTask.title} }}</button>
+            </div>
+          }
+        </div>
+
+        <button (click)="openCreateCommunityLiveTaskDialog(liveTaskVersionId ? LabCreateCommunityLiveTaskDialogMode.FORK : LabCreateCommunityLiveTaskDialogMode.CREATE)"
+                mat-flat-button color="primary">{{ 'biox.create_new_community_live_task' | translate }}
+        </button>
+      </div>
+      @if((currentLiveTask && currentLiveTask.created_by.id == currentUser.id) || !liveTaskVersionId){
+        <div class="existant-lt-info-div">
+          <span>{{'biox.existent_lt_info' | translate}}</span>
+        </div>
+        <div class="all-lt-list-div">
+          <lab-select-community-live-task [personalOnly]="true"
+                                          (liveTaskSelected)="onSelectLiveTask($event)"></lab-select-community-live-task>
+        </div>
+      }
+    } @else {
+      <fl-loader></fl-loader>
+    }
+  </div>
+</mat-dialog-content>

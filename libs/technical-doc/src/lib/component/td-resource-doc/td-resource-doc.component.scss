@@ -35,14 +35,25 @@
   margin-top: 1em;
 }
 
+.func-parameters-table{
+  width: 100%;
+}
+
+.func-parameters-description{
+  width: 40%;
+}
+
 .func-parameters-element{
-  min-width: 12.5em;
+  width: 20%;
+}
+
+.func-parameters-header{
+  text-align: left;
 }
 
 .view-title{
   font-size: 1.3em;
   font-weight: bold;
-
   display: flex;
   flex-direction: row;
   align-items: center;

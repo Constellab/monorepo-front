@@ -1,21 +1,26 @@
 {
   "name": "live-task",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "live-task/src",
-  "prefix": "lib",
-  "tags": [],
   "projectType": "library",
+  "sourceRoot": "libs/live-task/src",
+  "prefix": "lt",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": ["{workspaceRoot}/coverage/libs/live-task"],
       "options": {
-        "jestConfig": "live-task/jest.config.ts"
+        "jestConfig": "libs/resource-view/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/resource-view/src/**/*.ts",
+          "libs/resource-view/src/**/*.html"
+        ]
+      }
     }
-  }
+  },
+  "tags": ["front"]
 }

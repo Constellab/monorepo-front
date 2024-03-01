@@ -20,7 +20,7 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaStoryCoAuthorDialogComponent} from '../ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {ClRichText, ClStringHelper} from '@monorepo/core-lib';
+import {ClStringHelper} from '@monorepo/core-lib';
 import {HaStoryFileDialogComponent, HaStoryFileFormData} from '../ha-story-file-dialog/ha-story-file-dialog.component';
 import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 
@@ -216,7 +216,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
-    if (new ClRichText(this.formGp.get('contentEdition').value).getFirstFigureLink().length > 0 || this.story.mainPicture != null) {
+    if (TeRichText.getFirstFigureLink(this.formGp.get('contentEdition').value).length > 0 || this.story.mainPicture != null) {
       this.contentHasError = false;
       this.storyService.saveContent(this.story.id).subscribe((story) => {
         this.story = story;

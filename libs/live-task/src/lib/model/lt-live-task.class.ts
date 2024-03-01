@@ -11,3 +11,19 @@ export class LtLiveTask {
   createdAt?: DateTime;
   lastModifiedAt?: DateTime;
 }
+
+export class LtSpace {
+  id: string;
+  name: string;
+}
+
+export enum LtLiveTaskType {
+  PUBLIC = 'PUBLIC',
+  SPACE = 'SPACE'
+}
+
+export class LtCreateLiveTaskFormData {
+  title: string;
+  type: LtLiveTaskType;
+  space?: LtSpace;
+}

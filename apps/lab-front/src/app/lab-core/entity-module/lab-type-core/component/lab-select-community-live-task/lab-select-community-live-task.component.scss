@@ -1,0 +1,66 @@
+:host{
+  height: 100%;
+}
+
+.content{
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  justify-content: space-between;
+  height: inherit;
+}
+
+.left-side{
+  width: 227px;
+  min-width: 227px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.right-side{
+  flex: auto;
+}
+
+.search-bar-title{
+  width: 100%;
+}
+
+.search-bar{
+  width: 100%;
+}
+
+.live-tasks-list-div{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-right: 1em;
+  height: calc(100% - 5em);
+}
+
+.live-task-card{
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  border-radius: 16px;
+  background: var(--main-background);
+  justify-content: space-between;
+}
+
+.live-task-card:hover{
+  cursor: pointer;
+}
+
+.live-task-card-inner{
+  width: 372px;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.space-list-option{
+  cursor: pointer;
+  width: fit-content !important;
+}

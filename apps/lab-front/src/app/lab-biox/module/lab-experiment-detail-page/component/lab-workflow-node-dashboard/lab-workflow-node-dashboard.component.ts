@@ -27,6 +27,12 @@ import {DateTime} from 'luxon';
 import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class';
 import {TdTypingName} from '@monorepo/technical-doc';
 import {LabTaskGeneratorService} from '../../../../../lab-core/service/lab-task-generator.service';
+import {LabCreateCommunityLiveTaskVersionResDto} from '../../../../../lab-core/model/entities/lab-live-task.entity';
+import {LabCommunityHelper} from '../../../../../lab-core/utils/lab-community.helper';
+import {
+  LabShareLiveTaskCommunityDialogComponent
+} from '../../../../../lab-core/entity-module/lab-type-core/component/lab-share-live-task-community-dialog/lab-share-live-task-community-dialog.component';
+import {LtLiveTaskHelper} from '../../../../../../../../../libs/live-task/src/lib/helper/lt-live-task.helper';
 
 /**
  * Complete dashboard to edit, view and run a workflow node
@@ -52,7 +58,7 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
   );
 
   isLiveTask$ = this.nodeState.getProcess$().pipe(
-    map(process => this.isLiveTask(process.processTypingName))
+    map(process => LtLiveTaskHelper.isLiveTask(process.processTypingName))
   );
 
   constructor(private nodeState: LabWorkflowNodeDetailState,
@@ -128,9 +134,13 @@ export class LabWorkflowNodeDashboardComponent implements OnInit {
     this.taskGeneratorService.generateLiveTaskFile(process.id).subscribe();
   }
 
-  private isLiveTask(typingName: string): boolean {
-    const liveTaskTypingNames = ['TASK.gws_core.RCondaLiveTask', 'TASK.gws_core.RMambaLiveTask', 'TASK.gws_core.PyCondaLiveTask',
-      'TASK.gws_core.PyMambaLiveTask', 'TASK.gws_core.PyPipenvLiveTask', 'TASK.gws_core.PyLiveTask'];
-    return liveTaskTypingNames.includes(typingName);
+  openShareCommunityLiveTaskDialog(process: LabProcess): void {
+    this.dialogService.openMediumDialog(LabShareLiveTaskCommunityDialogComponent,
+      {data: {processId: process.id, liveTaskVersionId: process.communityLiveTaskVersionId}})
+      .afterClosed().subscribe((res: LabCreateCommunityLiveTaskVersionResDto) => {
+        if (res) {
+          window.open(LabCommunityHelper.getLiveTasKVersionUrl(res.live_task_id, res.id), '_blank');
+        }
+      });
   }
 }
