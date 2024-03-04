@@ -8,6 +8,7 @@ import {
 import {rvDefaultViewTypeInfos, RvResourceViewTypeInfo} from '@monorepo/resource-view';
 import {isPlatformBrowser} from '@angular/common';
 import hljs from 'highlight.js/lib/core';
+import {ClStringHelper} from '@monorepo/core-lib';
 
 @Component({
   selector: 'td-resource-doc',
@@ -71,17 +72,27 @@ export class TdResourceDocComponent implements OnInit {
 
   getFuncArgDoc(func: TdResourceFunction, arg: TdResourceFunctionArg): string {
     const techDocLines = this.getFunctionCleanDocInfo(func, true);
-    let res: string;
+    let res: string = '';
     for (const line of techDocLines) {
       if (line.includes(':param ' + arg.arg_name)) {
-        res = line.replace(':param ' + arg.arg_name + ':', '');
-      } else if (line.includes(':type ' + arg.arg_name)) {
-        res = line.replace(':type ' + arg.arg_name + ':', '');
-      } else if (line.includes(':return ' + arg.arg_name)) {
-        res = line.replace(':return ' + arg.arg_name + ':', '');
+        res += line.replace(':param ' + arg.arg_name + ':', '');
       }
+      if (line.includes(':type ' + arg.arg_name)) {
+        res += line.replace(':type ' + arg.arg_name + ':', '');
+      }
+      if (line.includes(':return ' + arg.arg_name)) {
+        res += line.replace(':return ' + arg.arg_name + ':', '');
+      }
+      res += '\n'
     }
-    return res;
+
+    if(res.includes(arg.arg_type)){
+      res = res.replace(arg.arg_type, '');
+    }
+    if (res.includes(arg.arg_type + ', ')){
+      res = res.replace(arg.arg_type + ', ', '');
+    }
+    return ClStringHelper.capitalize(res.trim());
   }
 
   getCleanType(type: string): string{

@@ -1,5 +1,5 @@
-import {Injector, NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {Inject, Injector, NgModule, PLATFORM_ID} from '@angular/core';
+import {CommonModule, isPlatformBrowser} from '@angular/common';
 import {TeTextEditorComponent} from './component/te-text-editor/te-text-editor.component';
 import {TeFormulaComponent} from './component/te-formula/te-formula.component';
 import {
@@ -97,17 +97,20 @@ export class TeTextEditorModule {
   static init: boolean = false;
 
   constructor(translateService: FlTranslateService,
-              injector: Injector) {
+              injector: Injector,
+              @Inject(PLATFORM_ID) platformId: any) {
     translateService.addModuleTranslation(
       'TeTextEditorModule',
       teTextEditorI18n
     );
 
     if (!TeTextEditorModule.init) {
-      customElements.define(
-        teVariableTagName,
-        createCustomElement(TeVariableInlineComponent, {injector: injector})
-      );
+      if (isPlatformBrowser(platformId)) {
+        customElements.define(
+          teVariableTagName,
+          createCustomElement(TeVariableInlineComponent, {injector: injector})
+        );
+      }
       TeTextEditorModule.init = true;
     }
   }
