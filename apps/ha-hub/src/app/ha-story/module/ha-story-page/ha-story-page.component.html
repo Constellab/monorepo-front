@@ -32,7 +32,6 @@
           }
         </div>
         @if (hasRightToEdit) {
-          {{'edit' | translate}}
           <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+ story.id">
             <fl-text-icon [iconPosition]="'end'">
               <mat-icon>edit</mat-icon>
@@ -42,7 +41,7 @@
         }
       </div>
       <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
-                      class="g-scrollable-element"></te-text-editor>
+                      class="g-scrollable-element border-none"></te-text-editor>
     </div>
   </div>
 }

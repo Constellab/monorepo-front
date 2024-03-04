@@ -120,6 +120,10 @@ h5 {
   transform: translateX(-50%);
 }
 
+.border-none {
+  border: none !important;
+}
+
 @media (max-width: 1675px) {
   body{
     --margin-side: 50px;
