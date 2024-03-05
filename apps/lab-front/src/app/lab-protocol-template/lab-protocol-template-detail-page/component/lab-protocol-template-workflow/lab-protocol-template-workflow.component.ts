@@ -51,7 +51,7 @@ export class LabProtocolTemplateWorkflowComponent implements OnInit, OnDestroy {
 
   private getProtocolGraphSuccess(protocolGraph: PrProtocolGraph): void {
     const factory = new PrWorkflowFactory(protocolGraph, ClStringHelper.generateUUID(),
-      this.ngZone, this.workflowResourcesState);
+      this.ngZone, this.workflowResourcesState, this.actionState);
     this.workflow = factory.createWorkflow();
     this.workflowIsLoading = false;
   }

@@ -3,7 +3,7 @@ import {Expose, Type} from 'class-transformer';
 import {LabProgressBar, LabProgressMessage} from '../lab-progress-bar.entity';
 import {FlStatus, FlStatusTransform} from '@monorepo/front-core-lib';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
-import {TdTypeObjectStatus, TdTypingName} from '@monorepo/technical-doc';
+import {TdSimpleTypeEntity, TdTypeObjectStatus, TdTypingName} from '@monorepo/technical-doc';
 import {PrOI, PrProcess, PrProcessStatus, prProcessStatusDict} from '@monorepo/protocol';
 import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
@@ -16,17 +16,6 @@ export interface LabProcessErrorInfo {
   detail: string;
   instance_id: string;
   unique_code: string;
-}
-
-
-export class LabProcessTypeName {
-  @Expose({name: 'human_name'})
-  humanName?: string;
-
-  @Expose({name: 'short_description'})
-  shortDescription?: string;
-
-  icon?: string;
 }
 
 /**
@@ -87,16 +76,12 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   errorInfo: LabProcessErrorInfo;
 
   @Expose({name: 'process_type'})
-  processType: LabProcessTypeName;
+  processType: TdSimpleTypeEntity;
 
   name: string;
 
   @Expose({name: 'community_live_task_version_id'})
   communityLiveTaskVersionId?: string;
-
-  get icon(): string {
-    return this.processType?.icon;
-  }
 
   hasConfig(): boolean {
     return this.config?.hasConfigs() ?? false;

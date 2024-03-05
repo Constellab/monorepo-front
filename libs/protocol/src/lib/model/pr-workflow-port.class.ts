@@ -63,38 +63,25 @@ export class PrWorkflowPort {
     return this.OUTPUT_NAME_PREFIX + index.toString();
   }
 
-  /**
-   * return true if this port is compatible with the input port
-   * If both port have at least on common type
-   * If one is null, it is compatible with anything
-   */
-  public isCompatible(port: PrWorkflowPort): boolean {
-    // if (this.port.specs == null || port.port.specs == null) {
-    //   return true;
-    // }
+  public getDefaultColor$(): Observable<string> {
+    return this.getObject$().pipe(
+      map(port => {
+        if (port.specs == null || port.specs.resource_types.length === 0) {
+          return '#ffffff';
+        }
 
-    return true;
-    // for (const type of port.types) {
-    //   if (this.types.includes(type)) {
-    //     return true;
-    //   }
-    // }
-    // return false;
-  }
+        if(port.specs.resource_types[0].style?.background_color){
+          return port.specs.resource_types[0].style.background_color;
+        }
 
-  /**
-   * return the port color base on first type
-   */
-  public getDefaultColor(): string {
-    if (this.currentSpecs == null || this.currentSpecs.resource_types.length === 0) {
-      return '#ffffff';
-    } else {
-      if (this.currentSpecs.resource_types[0].typing_name == null || this.currentSpecs.resource_types[0].typing_name.length === 0) {
-        return '#ffffff';
-      } else {
-        return FlColorHelper.stringToRGBColor(this.currentSpecs.resource_types[0].typing_name);
-      }
-    }
+        if (port.specs.resource_types[0].typing_name == null || port.specs.resource_types[0].typing_name.length === 0) {
+          return '#ffffff';
+        } else {
+          return FlColorHelper.stringToRGBColor(port.specs.resource_types[0].typing_name);
+        }
+
+      })
+    );
   }
 
   public getResourceTypingNames(): string[] {

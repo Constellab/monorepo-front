@@ -1,10 +1,11 @@
 import {Component, Input} from '@angular/core';
+import {TdTypeStyleIconType} from '@monorepo/technical-doc';
 
 export interface PrWorkflowNodeIcon{
-  icon?: string;
+  icon: string;
+  iconType: TdTypeStyleIconType;
   iconTooltip?: string;
   iconColor?: string;
-  img?: string;
 }
 
 @Component({
@@ -14,5 +15,5 @@ export interface PrWorkflowNodeIcon{
 })
 export class PrWorkflowNodeContentComponent {
 
-  @Input() icon: PrWorkflowNodeIcon;
+  @Input({required: true}) icon: PrWorkflowNodeIcon;
 }

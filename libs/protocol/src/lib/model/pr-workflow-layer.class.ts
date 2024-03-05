@@ -1,4 +1,4 @@
-import Drawflow, {ConnectionEvent, ConnectionStartEvent} from 'drawflow';
+import Drawflow, {ConnectionEvent} from 'drawflow';
 import {PrWorkflowNode} from './node/pr-workflow-node.class';
 import {PrWorkflowConnection} from './pr-workflow-connection.class';
 import {PrWorkflowPort, PrWorkflowPortType} from './pr-workflow-port.class';
@@ -10,6 +10,9 @@ import {FlCoord} from '@monorepo/front-core-lib';
 import {PrWorkflowNodeProtocol} from './node/pr-workflow-node-protocol.class';
 import {PrProcess} from './pr-process.class';
 import {PrOI, PrPort} from './pr-io.class';
+import {ClSubscriptionHandler} from '@monorepo/core-lib';
+import {PrWorkflowResourcesState} from '../state/pr-workflow-resources.state';
+import {PrWorkflowActionState} from '../state/pr-workflow-action-state';
 
 export class PrWorkflowLayer {
 
@@ -21,7 +24,11 @@ export class PrWorkflowLayer {
 
   public parentLayer: PrWorkflowLayer = null;
 
+  private containerElement: HTMLElement;
   private editor: Drawflow;
+
+  protected subscriptions: ClSubscriptionHandler;
+
 
   private readonly htmlNodeWidth: number = 150;
   private readonly htmlNodeHeight: number = 110;
@@ -32,16 +39,20 @@ export class PrWorkflowLayer {
 
   constructor(public readonly id: string,
               public readonly drawflowId: string,
-              public readonly title: string) {
+              public readonly title: string,
+              private resourceState: PrWorkflowResourcesState,
+              private actionState: PrWorkflowActionState) {
   }
 
-  public static rootLayer(id: string): PrWorkflowLayer {
+  public static rootLayer(id: string, resourceState: PrWorkflowResourcesState,
+                          actionState: PrWorkflowActionState): PrWorkflowLayer {
     // for the root layer, the id MUST be home (required by drawflow)
-    return new PrWorkflowLayer(id, 'Home', 'Main protocol');
+    return new PrWorkflowLayer(id, 'Home', 'Main protocol', resourceState, actionState);
   }
 
-  public init(editor: Drawflow): void {
+  public init(editor: Drawflow, containerElement: HTMLElement): void {
     this.editor = editor;
+    this.containerElement = containerElement;
 
     for (const node of this.nodes) {
       this.createAndInitDrawflowNode(node);
@@ -51,12 +62,19 @@ export class PrWorkflowLayer {
     }
   }
 
-  // function to call when this layer is selected
-  // if node exists in this layer we reset their port color
   public initOnSelect(): void {
-    this.resetPortColors();
-  }
+    this.subscriptions = new ClSubscriptionHandler();
 
+    // color the ports of the nodes
+    for (const node of this.nodes) {
+      this.initNodePortColors(node);
+    }
+
+    // color the connections
+    for (const connection of this.connections) {
+      this.subscriptions.add(connection.colorInputConnection(this.containerElement));
+    }
+  }
 
   ///////////////////////////// NODE ////////////////////////////////
 
@@ -65,6 +83,16 @@ export class PrWorkflowLayer {
 
     if (this.isDrawflowReady()) {
       this.createAndInitDrawflowNode(node);
+      this.initNodePortColors(node);
+    }
+  }
+
+  private initNodePortColors(node: PrWorkflowNode): void {
+    for (const inputPort of node.inputPorts) {
+      node.colorPort(inputPort, 'input');
+    }
+    for (const outputPort of node.outputPorts) {
+      node.colorPort(outputPort, 'output');
     }
   }
 
@@ -252,19 +280,21 @@ export class PrWorkflowLayer {
 
   ////////////////////////////////// INTERFACE & OUTERFACE ////////////////////////////////
   public addInterface(interfaceName: string, nodeName: string, portName: string, coords?: FlCoord): void {
-    const node = this.findNodeByName(nodeName);
+    const node: PrWorkflowNodeProcess = this.findNodeByName(nodeName) as PrWorkflowNodeProcess;
 
     if (node == null) {
       console.error('[PrWorkflowLayer] can\'t find node with name ' + nodeName);
       return;
     }
     const port = node.findInputPortByName(portName);
-    const interfaceNode = new PrWorkflowNodeInterface({
-      // append 'i_' to name to make it unique with outerface
-      name: 'i_' + interfaceName,
-      portName: port.name,
-      portType: port.currentSpecs
-    }, this.id, interfaceName);
+    const interfaceNode = new PrWorkflowNodeInterface(
+      {
+        // append 'i_' to name to make it unique with outerface
+        name: 'i_' + interfaceName,
+        portName: port.name,
+        portType: port.currentSpecs
+      }, this.id, interfaceName, node, port,
+      this.resourceState, this.actionState);
 
     if (coords == null) {
       // calculate and set the position of the interface node
@@ -281,19 +311,21 @@ export class PrWorkflowLayer {
   }
 
   public addOuterface(outerfaceName: string, nodeName: string, portName: string, coords?: FlCoord): void {
-    const node = this.findNodeByName(nodeName);
+    const node: PrWorkflowNodeProcess = this.findNodeByName(nodeName) as PrWorkflowNodeProcess;
 
     if (node == null) {
       console.error('[PrWorkflowLayer] can\'t find node with name ' + nodeName);
       return;
     }
     const port = node.findOutputPortByName(portName);
-    const outerfaceNode = new PrWorkflowNodeOuterface({
-      // append 'o_' to name to make it unique with interface
-      name: 'o_' + outerfaceName,
-      portName: port.name,
-      portType: port.currentSpecs
-    }, this.id, outerfaceName);
+    const outerfaceNode = new PrWorkflowNodeOuterface(
+      {
+        // append 'o_' to name to make it unique with interface
+        name: 'o_' + outerfaceName,
+        portName: port.name,
+        portType: port.currentSpecs
+      }, this.id, outerfaceName, node, port,
+      this.resourceState, this.actionState);
 
     if (coords == null) {
       // calculate and set the position of the outerface node
@@ -318,6 +350,7 @@ export class PrWorkflowLayer {
 
     if (this.isDrawflowReady()) {
       this.createDrawflowConnection(connection);
+      this.subscriptions.add(connection.colorInputConnection(this.containerElement));
     }
   }
 
@@ -369,8 +402,6 @@ export class PrWorkflowLayer {
   // this method is triggered when the user manually creates a connection
   public saveUserConnectionAdded(outputNode: PrWorkflowNode, inputNode: PrWorkflowNode,
                                  outputPort: PrWorkflowPort, inputPort: PrWorkflowPort): PrWorkflowConnection | undefined {
-
-    this.resetPortColors();
 
     // only add the connection if it doesn't exist
     if (this.findConnection(outputNode.drawflowId, inputNode.drawflowId, outputPort.name, inputPort.name) != null) return null;
@@ -459,18 +490,6 @@ export class PrWorkflowLayer {
 
   ///////////////////////// OTHER //////////////////////////
 
-  public onConnectionStarted(event: ConnectionStartEvent): void {
-    const outputNode: PrWorkflowNode = this.findNodeByDrawflowId(event.output_id);
-    const port: PrWorkflowPort = outputNode.findOutputPortByDrawflowName(event.output_class);
-    this.disableIncompatiblePorts(outputNode, port);
-  }
-
-  public resetPortColors(): void {
-    for (const node of this.nodes) {
-      node.initPortColors();
-    }
-  }
-
   /**
    * Create the node in the editor and init those values
    */
@@ -483,18 +502,6 @@ export class PrWorkflowLayer {
     node.initNode(nodeId.toString(), (id: string) => this.editor.getNodeFromId(id));
   }
 
-  /**
-   * Disable incompatible port when a new connection starts
-   */
-  private disableIncompatiblePorts(outputNode: PrWorkflowNode, port: PrWorkflowPort): void {
-    for (const node of this.nodes) {
-      node.disableIncompatibleInputPort(port);
-      if (node.drawflowId !== outputNode.drawflowId) {
-        node.disableOutputPorts();
-      }
-    }
-  }
-
   public isDrawflowReady(): boolean {
     return this.editor != null;
   }
@@ -504,6 +511,8 @@ export class PrWorkflowLayer {
     for (const node of this.nodes) {
       node.deInitDrawflow();
     }
+
+    this.subscriptions?.unsubscribe();
   }
 
   public destroy(): void {

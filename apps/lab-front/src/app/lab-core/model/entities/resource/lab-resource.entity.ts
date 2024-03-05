@@ -1,10 +1,11 @@
 import {LabEntity} from '../../global/lab-entity.entity';
 import {FlFileHelper} from '@monorepo/front-core-lib';
 import {Expose, Type} from 'class-transformer';
-import {TdTypeObjectStatus} from '@monorepo/technical-doc';
+import {TdSimpleTypeEntity, TdTypeObjectStatus} from '@monorepo/technical-doc';
 import {LabFlaggedEntity} from '../../global/lab-flagged-entity.class';
 import {LabProject} from '../lab-project.class';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
+import {PrResource} from '@monorepo/protocol';
 
 /**
  * Represent a file or a folder link to the resource
@@ -32,7 +33,7 @@ export class LabFsNodeEntity extends LabEntity {
 
 export type LabResourceOrigin = 'UPLOADED' | 'GENERATED' | 'IMPORTED_FROM_LAB' | 'S3_PROJECT_STORAGE';
 
-export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEntity {
+export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEntity, PrResource {
 
   // typing name of the resource
   @Expose({name: 'resource_typing_name'})
@@ -71,8 +72,8 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
   @Type(() => LabProject)
   project?: LabProject;
 
-  @Expose({name: 'type_icon'})
-  typeIcon?: string;
+  @Expose({name: 'resource_type'})
+  resourceType?: TdSimpleTypeEntity;
 
   isFsNode(): boolean {
     return this.fsNode != null;

@@ -1,7 +1,7 @@
 import {FlStatus, FlStatusDict, FlStatusHelper} from '@monorepo/front-core-lib';
 import {PrOI} from './pr-io.class';
 import {PrConfig} from './pr-config.class';
-import {TdTypeObjectStatus} from '@monorepo/technical-doc';
+import {TdSimpleTypeEntity, TdTypeObjectStatus} from '@monorepo/technical-doc';
 
 export type PrProcessStatus = 'DRAFT' | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN' | 'WAITING_FOR_CLI_PROCESS';
 
@@ -15,7 +15,6 @@ export const prProcessStatusDict: FlStatusDict<PrProcessStatus> = {
     FlStatusHelper.draftIcon),
   WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus('WAITING_FOR_CLI_PROCESS', 'pr.waiting_for_cli_process'),
 };
-
 
 
 /**
@@ -43,5 +42,5 @@ export interface PrProcess {
 
   typeStatus?: TdTypeObjectStatus;
 
-  icon?: string;
+  processType?: TdSimpleTypeEntity;
 }

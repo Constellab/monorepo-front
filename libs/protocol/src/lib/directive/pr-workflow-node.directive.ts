@@ -1,61 +1,165 @@
-import {Directive, ElementRef, Input, OnDestroy} from '@angular/core';
-import {PrWorkflowNodeProcess} from '../model/node/pr-workflow-node-process.class';
+import {Directive, ElementRef, Input, OnDestroy, Renderer2} from '@angular/core';
 import {PrWorkflowManagerState} from '../state/pr-workflow-manager-state';
-import {FlHtmlHelper} from '@monorepo/front-core-lib';
-import {Subscription} from 'rxjs';
-import {PrWorkflowMode} from '../model/pr-workflow.class';
+import {
+  FlCoord,
+  FlHtmlHelper,
+  FlMenuDynamic,
+  FlOverlayRef,
+  FlPortalConnectedPosition,
+  FlPortalService
+} from '@monorepo/front-core-lib';
 import {PrWorkflowNode} from '../model/node/pr-workflow-node.class';
+import {ClSubscriptionHandler} from '@monorepo/core-lib';
+import {PrWorkflowPort} from '../model/pr-workflow-port.class';
+import {
+  PrWorkflowPortActionPortalComponent,
+  PrWorkflowPortActionPortalInput
+} from '../component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
 
 @Directive()
 export abstract class PrWorkflowNodeDirective implements OnDestroy {
+
+  static currentOverlayRef: FlOverlayRef = null;
+
 
   // Name of the node
   @Input() name: string;
 
   node: PrWorkflowNode;
 
-  private subscription: Subscription;
+  protected subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  // use to uniquely identify event function
-  private stopEventFunction = (event: any): void => event.stopImmediatePropagation();
+  private mouseClickListener: () => void;
+  private mouseDownListener: () => void;
+  private mouseDownCoords: FlCoord;
 
-  constructor(protected workflowManager: PrWorkflowManagerState,
-              protected elementRef: ElementRef) {
+  protected constructor(protected workflowManager: PrWorkflowManagerState,
+                        protected elementRef: ElementRef,
+                        protected renderer: Renderer2,
+                        protected portalService: FlPortalService) {
   }
 
   protected initNode(): void {
-    this.node = this.workflowManager.findNodeWithNameInCurrentLayer(this.name) as PrWorkflowNodeProcess;
+    this.node = this.workflowManager.findNodeWithNameInCurrentLayer(this.name);
     if (this.node == null) {
       console.error('Couldn\'t find node with name : ' + this.name);
     }
+    this.listenToNodeClick();
 
-    this.subscription = this.workflowManager.getMode$().subscribe((mode) => {
-      this.listenToNodeMouseDown(mode);
-    });
+    this.subscriptions.add(this.node.getNodeColor$().subscribe(color => {
+      this.colorNode(color);
+    }));
   }
 
-  protected listenToNodeMouseDown(mode: PrWorkflowMode): void {
-    // retrieve the drawflow element that wrap the node
-    const parent: HTMLElement = FlHtmlHelper.getParent(this.elementRef.nativeElement, {className: 'parent-node'});
 
+  protected colorNode(color: string): void {
+    // retrieve the drawflow element that wrap the node
+    const node: HTMLElement = this.getNodeElement();
+    if (node == null) return;
+
+    this.renderer.setStyle(node, 'background-color', color);
+  }
+
+  protected getNodeElement(): HTMLElement | null {
+    return FlHtmlHelper.getParent(this.elementRef.nativeElement, {className: 'drawflow-node'});
+  }
+
+  protected getNodeParentElement(): HTMLElement | null {
+    return FlHtmlHelper.getParent(this.elementRef.nativeElement, {className: 'parent-node'});
+  }
+
+  ////////////////////////////////////////////// HANDLE CLICK //////////////////////////////////////////////
+
+  protected listenToNodeClick(): void {
+    // retrieve the drawflow element that wrap the node
+    const parent: HTMLElement = this.getNodeParentElement();
     if (parent == null) return;
 
-    parent.querySelectorAll('.output').forEach((c: HTMLElement) => {
-      this.onNodeMouseDown(c, mode);
-    });
+    this.mouseClickListener = this.renderer.listen(parent, 'click', event => this.onNodeClick(event));
+
+    this.mouseDownListener = this.renderer.listen(parent, 'mousedown',
+      (event: MouseEvent) => {
+        this.mouseDownCoords = {
+          x: event.clientX,
+          y: event.clientY
+        };
+      });
   }
 
-  private onNodeMouseDown(c: HTMLElement, mode: PrWorkflowMode): void {
-    if (mode === 'readOnly') {
-      // disable the mouse event for read only mode
-      c.addEventListener('mousedown', this.stopEventFunction, true);
+  private onNodeClick(event: PointerEvent): void {
+    const element: HTMLElement = event.target as any;
+
+    const classes: string[] = FlHtmlHelper.domTokenListToArray(element.classList);
+
+    if (classes.includes('input')) {
+      const inputName: string = classes.find((cls) => cls.startsWith('input_'));
+      if (inputName == null) return;
+
+      const port = this.node.findInputPortByDrawflowName(inputName);
+      if (port == null) return;
+
+      this.onInputClick(port, element);
+    } else if (classes.includes('output')) {
+      const outputName: string = classes.find((cls) => cls.startsWith('output_'));
+      if (outputName == null) return;
+
+      const port = this.node.findOutputPortByDrawflowName(outputName);
+      if (port == null) return;
+
+      this.onOutputClick(port, element);
     } else {
-      c.removeEventListener('mousedown', this.stopEventFunction, true);
+      // if the mouse didn't move from the mouse down to click event, we consider it as a click
+      if (this.mouseDownCoords != null && Math.abs(this.mouseDownCoords.x - event.clientX) < 5
+        && Math.abs(this.mouseDownCoords.y - event.clientY) < 5) {
+        this.node.onNodeClick(event);
+      }
     }
+
+    this.mouseDownCoords = null;
+  }
+
+  onInputClick(port: PrWorkflowPort, element: Element): void {
+    const menuDynamics: FlMenuDynamic[] = this.workflowManager.viewConfig.getInputMenu(port, this.node,
+      this.workflowManager.getCurrentMode());
+    this.openPortPortal(port, menuDynamics, element);
+  }
+
+  onOutputClick(port: PrWorkflowPort, element: Element): void {
+    const menuDynamics: FlMenuDynamic[] = this.workflowManager.viewConfig.getOutputMenu(port, this.node,
+      this.workflowManager.getCurrentMode());
+    this.openPortPortal(port, menuDynamics, element);
+  }
+
+  // open the portal for the input or output port
+  private openPortPortal(port: PrWorkflowPort, menuDynamics: FlMenuDynamic[], element: Element): void {
+    const data: PrWorkflowPortActionPortalInput = {
+      port: port,
+      menuDynamics: menuDynamics
+    };
+
+    const position: FlPortalConnectedPosition[] = [
+      {originX: 'end', originY: 'bottom', overlayX: 'start', overlayY: 'top'},
+      'right', 'top', 'left', 'bottom'];
+
+    const config = this.portalService.configureRelativePortal(element, position, {
+      disposeOnOutsideClick: true,
+      disposeOnNavigation: true,
+    });
+
+    if (PrWorkflowNodeDirective.currentOverlayRef) {
+      PrWorkflowNodeDirective.currentOverlayRef.dispose();
+    }
+    PrWorkflowNodeDirective.currentOverlayRef = this.portalService.createPortal(PrWorkflowPortActionPortalComponent, config, data);
   }
 
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions?.unsubscribe();
+    if (this.mouseDownListener) {
+      this.mouseClickListener();
+    }
+    if (this.mouseDownListener) {
+      this.mouseDownListener();
+    }
   }
 }

@@ -4,6 +4,21 @@ export type TdTypeObjectSubType = 'TASK' | 'RESOURCE' | 'PROTOCOL' | 'TRANSFORME
 
 export type TdTypeObjectStatus = 'OK' | 'UNAVAILABLE';
 
+export type TdTypeStyleIconType = 'MATERIAL_ICON' | 'COMMUNITY_ICON' | 'COMMUNITY_IMAGE';
+
+export interface TdTypeStyle {
+  icon: string;
+  icon_type: TdTypeStyleIconType;
+  background_color?: string;
+  icon_color?: string;
+}
+
+export interface TdSimpleTypeEntity {
+  human_name?: string;
+  short_description?: string;
+  style?: TdTypeStyle;
+}
+
 export interface TdTypeEntity {
 
   typingName: string;
@@ -31,10 +46,12 @@ export interface TdTypeEntity {
   deprecatedSince: string | undefined;
 
   deprecatedMessage: string | undefined;
+
+  style: TdTypeStyle | undefined;
 }
 
 
-export interface TdUniqueType{
+export interface TdUniqueType {
   typingName: string;
 
   humanName: string;

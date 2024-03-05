@@ -1,6 +1,6 @@
 import {PrWorkflowNode} from './node/pr-workflow-node.class';
 import {PrWorkflowConnection} from './pr-workflow-connection.class';
-import Drawflow, {ConnectionEvent, ConnectionStartEvent} from 'drawflow';
+import Drawflow, {ConnectionEvent} from 'drawflow';
 import {PrWorkflowLayer} from './pr-workflow-layer.class';
 import {BehaviorSubject, map, Observable, Subject} from 'rxjs';
 import {NgZone} from '@angular/core';
@@ -40,6 +40,7 @@ export interface PrWorkflowNodeMovedEvent {
  */
 export class PrWorkflow {
 
+  private containerElement: HTMLElement;
   private editor: Drawflow;
 
   private readonly layers: PrWorkflowLayer[];
@@ -66,6 +67,7 @@ export class PrWorkflow {
 
 
   public start(element: HTMLElement): void {
+    this.containerElement = element;
     this.editor = new Drawflow(element);
     this.editor.zoom_value = 0.05;
     // use always edit mode
@@ -78,7 +80,6 @@ export class PrWorkflow {
       this.selectAndInitLayer(this.currentLayer);
     });
 
-
     this.initListeners();
   }
 
@@ -90,13 +91,6 @@ export class PrWorkflow {
       (connection) => this.ngZone.run(() => this.onConnectionRemoved(connection)));
 
     this.editor.on('nodeRemoved', node => this.ngZone.run(() => this.onNodeRemoved(node)));
-
-
-    this.editor.on('connectionStart',
-      event => this.ngZone.run(() => this.onConnectionStarted(event)));
-
-    this.editor.on('connectionCancel',
-      () => this.ngZone.run(() => this.onConnectionCanceled()));
 
     this.editor.on('nodeMoved',
       (node) => this.ngZone.run(() => this.onNodeMoved(node))
@@ -142,11 +136,11 @@ export class PrWorkflow {
       this.editor.changeModule(layer.drawflowId);
 
       if (initializeModule) {
-        layer.init(this.editor);
+        layer.init(this.editor, this.containerElement);
       }
-    }
 
-    layer.initOnSelect();
+      layer.initOnSelect();
+    }
   }
 
   public addLayer(layer: PrWorkflowLayer, parentLayerId: string = null, selectLayer: boolean = false): void {
@@ -175,14 +169,6 @@ export class PrWorkflow {
     return this.currentLayer$.asObservable().pipe(
       map(layer => layer.getLayerHierarchy())
     );
-  }
-
-  private onConnectionStarted(event: ConnectionStartEvent): void {
-    this.currentLayer.onConnectionStarted(event);
-  }
-
-  private onConnectionCanceled(): void {
-    this.currentLayer.resetPortColors();
   }
 
   public getRootLayer(): PrWorkflowLayer {
@@ -326,15 +312,11 @@ export class PrWorkflow {
     // check if the input is available and if the port are compatible
     // refuse if there are more than one connection (the new one is counting)
     const port = inputNode.findInputPortByDrawflowName(connectionEvent.input_class);
-    if (inputNode.countInputConnections(port.name) > 1 ||
-      !inputPort.isCompatible(outputPort)) {
+    if (inputNode.countInputConnections(port.name) > 1) {
 
       // remove the connection
       this.editor.removeSingleConnection(connectionEvent.output_id, connectionEvent.input_id,
         connectionEvent.output_class, connectionEvent.input_class);
-
-      // consider the connection was canceled
-      this.onConnectionCanceled();
       return;
     }
 

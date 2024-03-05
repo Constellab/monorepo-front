@@ -235,8 +235,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   public updateProcessConfig(protocolId: string, processInstanceName: string,
                              config: PrConfigValues): Observable<FlPortalActionResult | null> {
-    const node = this.getAndCheckProcessNode(protocolId, processInstanceName);
-    if (node == null) return of(null);
+    const labProcess = this.getAndCheckProcessNodeObject(protocolId, processInstanceName);
+    if (labProcess == null) return of(null);
 
     const obs = this.protocolService.saveProcessConfig(protocolId, processInstanceName, config);
     const action: FlPortalAction = {
@@ -244,12 +244,12 @@ export class LabWorkflowEditConfig implements OnDestroy {
       action: obs,
       text: {text: 'biox.saving_config', translateText: true},
     };
-    return this.executeUpdateAction(action, node.currentObject as LabProcess);
+    return this.executeUpdateAction(action, labProcess);
   }
 
   public runProcess(protocolId: string, processInstanceName: string): void {
-    const node = this.getAndCheckProcessNode(protocolId, processInstanceName);
-    if (node == null) return;
+    const labProcess = this.getAndCheckProcessNodeObject(protocolId, processInstanceName);
+    if (labProcess == null) return;
 
     const obs = this.protocolService.runProcessInProtocol(protocolId, processInstanceName);
     const action: FlPortalAction = {
@@ -257,7 +257,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
       action: obs,
       text: {text: 'biox.running_process', translateText: true},
     };
-    this.executeUpdateAction(action, node.currentObject as LabProcess);
+    this.executeUpdateAction(action, labProcess);
   }
 
   public resetProcess(protocolId: string, processInstanceName: string): void {
@@ -327,7 +327,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
 
-  private getAndCheckProcessNode(protocolId: string, processInstanceName: string): PrWorkflowNodeProcess {
+  private getAndCheckProcessNodeObject(protocolId: string, processInstanceName: string): LabProcess {
     const layer = this.workflow.findLayerWithId(protocolId);
     const node = layer.findNodeByName(processInstanceName);
 
@@ -336,12 +336,12 @@ export class LabWorkflowEditConfig implements OnDestroy {
       return null;
     }
 
-    if (!(node instanceof PrWorkflowNodeProcess)) {
-      console.error(`Node with name ${processInstanceName} in protocol ${protocolId} is not a process node, it can't be configured`);
+    if (!(node.currentObject instanceof LabProcess)) {
+      console.error(`Node object with name ${processInstanceName} in protocol ${protocolId} is not a process, it can't be configured`);
       return null;
     }
 
-    return node;
+    return node.currentObject;
   }
 
   private onWorkflowEvent(workflowEvent: PrWorkflowEvent): void {

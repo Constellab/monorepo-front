@@ -76,11 +76,7 @@ export class LabWorkflowNodeDetailState {
     if (action == null) return;
 
     switch (action.action) {
-      case 'selectNode':
-        this.setNode(action.processNode);
-        this.drawer.open();
-        break;
-      case 'configureNode':
+      case 'selectProcessNode':
         this.setNode(action.processNode);
         this.openProcessConfigDashboard();
         break;
@@ -90,7 +86,7 @@ export class LabWorkflowNodeDetailState {
       case 'showView':
         this.openViewDetail(action);
         break;
-      case 'selectResource':
+      case 'openSelectResource':
         this.openResourceSelection(action.processNode);
         break;
       case 'showNextExperiments':

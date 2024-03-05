@@ -14,13 +14,16 @@ import {PrWorkflowNodeOutput} from './node/pr-workflow-node-output.class';
 import {PrWorkflowNodeViewer} from './node/pr-workflow-node-viewer.class';
 import {PrWorkflowNodeProtocol} from './node/pr-workflow-node-protocol.class';
 import {PrProcess, prProcessStatusDict} from './pr-process.class';
+import {PrWorkflowNode} from './node/pr-workflow-node.class';
+import {PrWorkflowActionState} from '../state/pr-workflow-action-state';
 
 
 export class PrWorkflowFactory {
 
   constructor(private graph: PrProtocolGraph, private id: string,
               private ngZone: NgZone,
-              private resourceState: PrWorkflowResourcesState) {
+              private resourceState: PrWorkflowResourcesState,
+              private actionState: PrWorkflowActionState) {
   }
 
   public createWorkflow(): PrWorkflow {
@@ -33,9 +36,9 @@ export class PrWorkflowFactory {
 
     let layer: PrWorkflowLayer;
     if (rootLayer) {
-      layer = PrWorkflowLayer.rootLayer(id);
+      layer = PrWorkflowLayer.rootLayer(id, this.resourceState, this.actionState);
     } else {
-      layer = new PrWorkflowLayer(id, id, title);
+      layer = new PrWorkflowLayer(id, id, title, this.resourceState, this.actionState);
     }
 
     const layout: PrProtocolLayout = graph.layout;
@@ -74,21 +77,24 @@ export class PrWorkflowFactory {
   }
 
   private createProcessNode(process: PrProtocol, name: string, protocolId: string,
-                            layout?: FlCoord): PrWorkflowNodeProcess {
+                            layout?: FlCoord): PrWorkflowNode {
     const prProcess = this.caProcessToPrProcess(process, name, protocolId);
 
-    let processNode: PrWorkflowNodeProcess;
+    let processNode: PrWorkflowNode;
     if (process.process_typing_name === TdTypingName.task.source.typingName) {
-      processNode = new PrWorkflowNodeSource(prProcess, this.resourceState);
+      processNode = new PrWorkflowNodeSource(prProcess.instanceName, protocolId, prProcess,
+        this.resourceState, this.actionState);
     } else if (process.process_typing_name === TdTypingName.task.output.typingName) {
-      processNode = new PrWorkflowNodeOutput(prProcess, this.resourceState);
+      processNode = new PrWorkflowNodeOutput(prProcess.instanceName, protocolId, prProcess,
+        this.resourceState, this.actionState);
     } else if (process.process_typing_name === TdTypingName.task.viewer) {
-      processNode = new PrWorkflowNodeViewer(prProcess, this.resourceState);
+      processNode = new PrWorkflowNodeViewer(prProcess.instanceName, protocolId, prProcess,
+        this.resourceState, this.actionState);
     } else if (process.graph != null) {
       const layer$: Observable<PrWorkflowLayer> = of(this.createLayer(process.graph, false, prProcess.id, name));
-      processNode = new PrWorkflowNodeProtocol(prProcess, layer$, this.resourceState);
+      processNode = new PrWorkflowNodeProtocol(prProcess, layer$, this.resourceState, this.actionState);
     } else {
-      processNode = new PrWorkflowNodeProcess(prProcess, this.resourceState);
+      processNode = new PrWorkflowNodeProcess(prProcess, this.resourceState, this.actionState);
     }
 
     if (layout) {
@@ -110,7 +116,6 @@ export class PrWorkflowFactory {
       processTypingName: process.process_typing_name,
       status: prProcessStatusDict[process.status],
       typeStatus: null,
-      icon: process.process_type?.icon,
     };
   }
 

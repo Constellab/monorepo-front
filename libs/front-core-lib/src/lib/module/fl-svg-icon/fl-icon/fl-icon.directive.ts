@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Host, Inject, Input, OnInit} from '@angular/core';
+import {Directive, ElementRef, Host, Inject, Input} from '@angular/core';
 import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import {FL_ICON_MODULE, FlIcon, FlIconConfig, FlMatIcon, FlSvgIcon} from '../fl-icon-config.class';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -11,7 +11,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'mat-icon[flIcon]'
 })
-export class FlIconDirective implements OnInit {
+export class FlIconDirective {
 
   @Input() set flIcon(flIcon: string) {
     this.setIcon(flIcon);
@@ -24,15 +24,14 @@ export class FlIconDirective implements OnInit {
               private domSanitizer: DomSanitizer) {
   }
 
-  ngOnInit(): void {
-
-  }
-
   private setIcon(icon: string): void {
-    if (icon === 'http://localhost:3000/static/flask-solid.svg') {
+    if (icon === 'http://localhost:3000/static/007-data-collection.svg') {
+      // console.log('Registrering icon', icon);
+      // console.log(this.matIconRegistry.getNamedSvgIcon("waaaaaow"))
       this.matIconRegistry.addSvgIcon("waaaaaow",
         this.domSanitizer.bypassSecurityTrustResourceUrl(icon)
       );
+      // console.log(this.matIconRegistry.getNamedSvgIcon("waaaaaow"))
       this.setSvgIcon("waaaaaow");
       return;
     }

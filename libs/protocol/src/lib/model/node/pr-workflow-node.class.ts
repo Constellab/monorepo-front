@@ -1,9 +1,10 @@
 import {PrWorkflowPort, PrWorkflowPortType} from '../pr-workflow-port.class';
 import {DrawflowConnectionDetail, DrawflowNode} from 'drawflow';
 import {BehaviorSubject, combineLatest, map, Observable, of, Subscription} from 'rxjs';
-import {FlCoord, FlStatus, FlTranslatableText, FlTranslateService} from '@monorepo/front-core-lib';
+import {FlCoord, FlTranslatableText, FlTranslateService} from '@monorepo/front-core-lib';
 import {TdIOSpec, TdIOSpecs} from '@monorepo/technical-doc';
 import {PrPort} from '../pr-io.class';
+import {ClSubscriptionHandler} from '@monorepo/core-lib';
 
 
 /**
@@ -22,7 +23,7 @@ export abstract class PrWorkflowNode<T = any> {
   private inputPortsChange$: BehaviorSubject<PrWorkflowPort[]>;
   private outputPortsChange$: BehaviorSubject<PrWorkflowPort[]>;
 
-  private titleSubscription: Subscription;
+  private objectSubscription: ClSubscriptionHandler;
   private currentTitle: FlTranslatableText;
 
   public x: number = null;
@@ -44,11 +45,11 @@ export abstract class PrWorkflowNode<T = any> {
   public initNode(nodeId: string, getDrawflowNodeMethod: (id: string) => DrawflowNode): void {
     this.drawflowId = nodeId;
     this.getDrawflowNodeMethod = getDrawflowNodeMethod;
-    this.initPortColors();
+    this.objectSubscription = new ClSubscriptionHandler();
 
-    this.titleSubscription = this.getTitle$().subscribe(
+    this.objectSubscription.add(this.getTitle$().subscribe(
       title => this.currentTitle = title
-    );
+    ));
   }
 
   protected abstract initPorts(object: T): void;
@@ -59,9 +60,18 @@ export abstract class PrWorkflowNode<T = any> {
 
   public abstract getTitle$(): Observable<FlTranslatableText>;
 
-  public abstract getSubTitle$(): Observable<string>;
+  public abstract inputIsProvided$(portName: string): Observable<boolean>;
 
-  public abstract getStatus$(): Observable<FlStatus | null>;
+  public abstract outputIsProvided$(portName: string): Observable<boolean>;
+
+  public abstract getCurrentInputResourceId(portName: string): string | null;
+
+  public abstract getCurrentOutputResourceId(portName: string): string | null;
+
+  public abstract getNodeColor$(): Observable<string>;
+
+  // call when the HTML node is clicked
+  public abstract onNodeClick(event: MouseEvent): void;
 
   /////////////////////////////// OBJECT //////////////////////////////
 
@@ -112,20 +122,6 @@ export abstract class PrWorkflowNode<T = any> {
     return this.inputPorts.find(p => this.getInputPortDrawflowName(p.name) === drawflowName);
   }
 
-  /**
-   * For each input port,
-   * If it is not available --> disable it
-   * If is not compatible with arg port --> disable it
-   */
-  public disableIncompatibleInputPort(outputPort: PrWorkflowPort): void {
-    for (const port of this.inputPorts) {
-      if (this.countInputConnections(port.name) > 0 ||
-        !port.isCompatible(outputPort)) {
-        this.disabledPort(port);
-      }
-    }
-  }
-
   public hasInputs(): boolean {
     return this.countInputs() > 0;
   }
@@ -170,12 +166,6 @@ export abstract class PrWorkflowNode<T = any> {
     return this.outputPorts.find(p => this.getOutputPortDrawflowName(p.name) === drawflowName);
   }
 
-  public disableOutputPorts(): void {
-    for (const port of this.outputPorts) {
-      this.disabledPort(port);
-    }
-  }
-
   public hasOutputs(): boolean {
     return this.countOutputs() > 0;
   }
@@ -207,6 +197,16 @@ export abstract class PrWorkflowNode<T = any> {
   }
 
   /////////////////////////////// PORTS //////////////////////////////
+  // generate ports base on input or output spec
+  protected generatePorts(specs: Record<string, PrPort>, type: 'input' | 'output'): void {
+    if (specs) {
+      for (const property of Object.keys(specs)) {
+        const port = specs[property];
+        this.createPort(property, port, type);
+      }
+    }
+  }
+
   public createPort(portName: string, portObject: PrPort, type: PrWorkflowPortType): PrWorkflowPort {
     const port = new PrWorkflowPort(portName, portObject, type);
     const ports: PrWorkflowPort[] = type === 'input' ? this.inputPorts : this.outputPorts;
@@ -233,17 +233,6 @@ export abstract class PrWorkflowNode<T = any> {
     return port.type === 'input' ? this.getInputPortDrawflowName(port.name) : this.getOutputPortDrawflowName(port.name);
   }
 
-  /**
-   * set the port color based on port type
-   */
-  public initPortColors(): void {
-    for (const port of [...this.inputPorts, ...this.outputPorts]) {
-      const portElement: HTMLElement = this.getPortElement(port);
-      if (portElement) {
-        this.setPortElementColor(portElement, port.getDefaultColor());
-      }
-    }
-  }
 
   protected getPortElement(port: PrWorkflowPort): HTMLElement | null {
     // retrieve the node HTML element
@@ -260,22 +249,6 @@ export abstract class PrWorkflowNode<T = any> {
 
   protected setPortElementColor(portElement: HTMLElement, color: string): void {
     portElement.style.backgroundColor = color;
-  }
-
-  /**
-   * Mark the port as disable by setting its color to grey
-   * @param port
-   */
-  public disabledPort(port: PrWorkflowPort): void {
-    // retrieve the node HTML element
-    const element: HTMLElement = this.getHTMLElement();
-
-    const portElement: Element = element.getElementsByClassName(this.getPortDrawflowName(port))[0];
-
-    if (portElement && portElement instanceof HTMLElement) {
-      // set the color
-      portElement.style.backgroundColor = 'grey';
-    }
   }
 
   public findPortByName(name: string, portType: PrWorkflowPortType): PrWorkflowPort {
@@ -310,19 +283,24 @@ export abstract class PrWorkflowNode<T = any> {
       }));
   }
 
-  /////////////////////////////// CONNECTION //////////////////////////////
-  protected getConnectionElementFromPort(port: PrWorkflowPort): HTMLElement | null {
-    // retrieve the node HTML element
-    const element: HTMLElement = this.getHTMLElement();
-    if (element == null) return null;
-
-    const portNodeName = `node_in_node-${this.drawflowId}`;
-    const portName = this.getInputPortDrawflowName(port.name);
-    const portElement: Element = element.querySelector(`${portNodeName}.${portName}"]`);
-
-    if (portElement == null || !(portElement instanceof HTMLElement)) return null;
-    return portElement;
+  public colorPort(port: PrWorkflowPort, portType: PrWorkflowPortType): Subscription {
+    return this.getPortColor(port.name, portType).subscribe(
+      color => {
+        const portElement = this.getPortElement(port);
+        if (portElement) {
+          this.setPortElementColor(portElement, color);
+        }
+      }
+    );
   }
+
+  public getPortColor(name: string, portType: PrWorkflowPortType): Observable<string> {
+    const port = this.findPortByName(name, portType);
+    if (!port) return of('#ffffff');
+
+    return port.getDefaultColor$();
+  }
+
 
   /////////////////////////////// OTHER //////////////////////////////
 
@@ -334,7 +312,7 @@ export abstract class PrWorkflowNode<T = any> {
     return 'node-' + this.drawflowId;
   }
 
-  private getHTMLElement(): HTMLElement {
+  protected getHTMLElement(): HTMLElement {
     return document.getElementById(this.getHTMLId());
   }
 
@@ -377,7 +355,7 @@ export abstract class PrWorkflowNode<T = any> {
   public deInitDrawflow(): void {
     this.drawflowId = null;
     this.getDrawflowNodeMethod = null;
-    this.titleSubscription?.unsubscribe();
+    this.objectSubscription?.unsubscribe();
   }
 
   public destroy(): void {

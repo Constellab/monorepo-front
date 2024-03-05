@@ -3,7 +3,9 @@ import {
   PrAddNodeWithConnection,
   PrProtocolLink,
   PrWorkflow,
+  PrWorkflowActionState,
   PrWorkflowLayer,
+  PrWorkflowNode,
   PrWorkflowNodeOutput,
   PrWorkflowNodeProcess,
   PrWorkflowNodeProtocol,
@@ -22,7 +24,8 @@ export class LabWorkflowFactory {
 
   constructor(private ngZone: NgZone,
               private protocolService: LabProtocolService,
-              private resourceState: PrWorkflowResourcesState) {
+              private resourceState: PrWorkflowResourcesState,
+              private actionState: PrWorkflowActionState) {
   }
 
   public protocolToWorkflow(protocol: LabProtocol): PrWorkflow {
@@ -34,9 +37,10 @@ export class LabWorkflowFactory {
 
     let layer: PrWorkflowLayer;
     if (rootLayer) {
-      layer = PrWorkflowLayer.rootLayer(protocol.id);
+      layer = PrWorkflowLayer.rootLayer(protocol.id, this.resourceState, this.actionState);
     } else {
-      layer = new PrWorkflowLayer(protocol.id, protocol.id, protocol.instanceName);
+      layer = new PrWorkflowLayer(protocol.id, protocol.id, protocol.instanceName,
+        this.resourceState, this.actionState);
     }
 
     const protocolLayout = protocol.data.layout;
@@ -45,7 +49,7 @@ export class LabWorkflowFactory {
       const process: LabProcess = protocol.data.nodes[key];
       // retrieve the layout of the process if it exists
       const processLayout = protocolLayout?.getProcess(key) ?? null;
-      const node: PrWorkflowNodeProcess = this.labProcessToWorkflowNode(process, processLayout);
+      const node = this.labProcessToWorkflowNode(process, processLayout);
       layer.addNode(node);
     }
 
@@ -72,22 +76,25 @@ export class LabWorkflowFactory {
   }
 
 
-  public labProcessToWorkflowNode(process: LabProcess, processLayout?: LabProcessLayout): PrWorkflowNodeProcess {
+  public labProcessToWorkflowNode(process: LabProcess, processLayout?: LabProcessLayout): PrWorkflowNode {
 
-    let processNode: PrWorkflowNodeProcess;
+    let processNode: PrWorkflowNode;
     if (process.isSource()) {
-      processNode = new PrWorkflowNodeSource(process, this.resourceState);
+      processNode = new PrWorkflowNodeSource(process.instanceName, process.parentProtocolId, process,
+        this.resourceState, this.actionState);
     } else if (process.isOutput()) {
-      processNode = new PrWorkflowNodeOutput(process, this.resourceState);
+      processNode = new PrWorkflowNodeOutput(process.instanceName, process.parentProtocolId, process,
+        this.resourceState, this.actionState);
     } else if (process.isViewer()) {
-      processNode = new PrWorkflowNodeViewer(process, this.resourceState);
+      processNode = new PrWorkflowNodeViewer(process.instanceName, process.parentProtocolId, process,
+        this.resourceState, this.actionState);
     } else if (process.isProtocol) {
       const layer$: Observable<PrWorkflowLayer> = this.protocolService.getProtocol(process.id).pipe(
         map(protocol => this.createLayer(protocol, false))
       );
-      processNode = new PrWorkflowNodeProtocol(process, layer$, this.resourceState);
+      processNode = new PrWorkflowNodeProtocol(process, layer$, this.resourceState, this.actionState);
     } else {
-      processNode = new PrWorkflowNodeProcess(process, this.resourceState);
+      processNode = new PrWorkflowNodeProcess(process, this.resourceState, this.actionState);
     }
 
     // if the position of this process were saved in the protocol, use it

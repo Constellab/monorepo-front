@@ -1,16 +1,13 @@
 <div class="g-layout-col g-layout-between-center container">
 
-  @if (icon.icon) {
-    <mat-icon [flIcon]="icon.icon" class="icon" [matTooltip]="icon.iconTooltip | translate"
+  @if (icon.iconType === 'MATERIAL_ICON') {
+    <mat-icon [flIcon]="icon.icon" class="icon icon-material"
+              [matTooltip]="icon.iconTooltip | translate"
               [style.color]="icon.iconColor"></mat-icon>
-  } @else if (icon.img) {
-    <!--        <img [src]="icon.img" class="icon" [matTooltip]="icon.iconTooltip | translate">-->
-    <mat-icon class="icon" flIcon="http://localhost:3000/static/flask-solid.svg"
-              fontSet="material-icons-outlined"></mat-icon>
-    <!--    <svg [matTooltip]="icon.iconTooltip | translate" width="55" height="55">-->
-      <!--      <image xlink:href="assets/fl-mat-icons/cogs-solid.svg"  width="55" height="55"/>-->
-      <!--    </svg>-->
-      <!--    <div class="icon2"></div>-->
+  } @else if (icon.iconType === 'COMMUNITY_ICON') {
+    <mat-icon class="icon" [flIcon]="icon.icon" [style.color]="icon.iconColor"></mat-icon>
+  } @else {
+    <img [src]="icon.icon" alt="Task image" class="icon">
   }
 
   <ng-content select="pr-workflow-node-content-bottom"></ng-content>

@@ -1,4 +1,4 @@
-import {TdTypeEntity} from './td-type.class';
+import {TdTypeEntity, TdTypeStyle} from './td-type.class';
 import {TdParamSpecs} from './td-config-spec.class';
 
 export interface TdIOSpecs{
@@ -36,12 +36,13 @@ export interface TdIOSpec {
   sub_class?: boolean;
 }
 
+// TODO compare this types with TdTypeEntity, there are some similarities
 export interface TdResourceTypeDTO {
   typing_name: string;
 
   human_name: string;
 
-  short_description: string;
-
   brick_version: string;
+
+  style?: TdTypeStyle;
 }

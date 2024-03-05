@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {PrWorkflowNodeComponent} from './pr-workflow-node.component';
+import {PrWorkflowNodeProcessComponent} from './pr-workflow-node-process.component';
 
 describe('PrWorkflowNodeComponent', () => {
-  let component: PrWorkflowNodeComponent;
-  let fixture: ComponentFixture<PrWorkflowNodeComponent>;
+  let component: PrWorkflowNodeProcessComponent;
+  let fixture: ComponentFixture<PrWorkflowNodeProcessComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PrWorkflowNodeComponent]
+      declarations: [PrWorkflowNodeProcessComponent]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PrWorkflowNodeComponent);
+    fixture = TestBed.createComponent(PrWorkflowNodeProcessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

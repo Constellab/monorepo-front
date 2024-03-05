@@ -9,13 +9,10 @@ import {TdUniqueType} from '../../model/td-type.class';
   styleUrls: ['./td-io-resource.component.scss']
 })
 export class TdIoResourceComponent implements OnInit {
-  @Input()
-  resource: TdResourceTypeDTO;
+  @Input() resource: TdResourceTypeDTO;
+
   uniqueParent: TdUniqueType;
   color: string;
-
-  constructor() {
-  }
 
   ngOnInit(): void {
     this.uniqueParent = {
@@ -23,6 +20,7 @@ export class TdIoResourceComponent implements OnInit {
       version: this.resource.brick_version ? this.resource.brick_version : 'latest',
       humanName: this.resource.human_name
     };
-    this.color = FlColorHelper.stringToRGBColor(this.resource.typing_name);
+    this.color = this.resource.style?.background_color ??
+      FlColorHelper.stringToRGBColor(this.resource.typing_name);
   }
 }

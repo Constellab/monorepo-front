@@ -1,20 +1,27 @@
-import {PrWorkflowNode} from './pr-workflow-node.class';
 import {PrOuterface} from '../pr-interface.class';
 import {PrWorkflowPort} from '../pr-workflow-port.class';
-import {map, Observable, of} from 'rxjs';
-import {FlStatus} from '@monorepo/front-core-lib';
+import {map, Observable, of, switchMap} from 'rxjs';
+import {FlStatusEvent, FlThemeService} from '@monorepo/front-core-lib';
+import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
+import {PrResource} from '../pr-resource.class';
+import {PrWorkflowNodeProcess} from './pr-workflow-node-process.class';
+import {PrProcess} from '../pr-process.class';
+import {PrWorkflowNodeResource, PrWorkNodeIoExternalButton} from './pr-workflow-node-resource.class';
+import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
 
 
 /**
  * Node for the outerfaces
  */
-export class PrWorkflowNodeOuterface extends PrWorkflowNode<PrOuterface> {
+export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface> {
 
   // real name of the outerface (the name might have been changed to make it unique)
   public outerfaceName: string;
 
-  constructor(outerfaceNode: PrOuterface, parentLayerId: string, outerfaceName: string) {
-    super(outerfaceNode.name, parentLayerId, outerfaceNode);
+  constructor(outerfaceObject: PrOuterface, parentLayerId: string, outerfaceName: string,
+              private connectedNode: PrWorkflowNodeProcess, private connectedPort: PrWorkflowPort,
+              resourceState: PrWorkflowResourcesState, actionState: PrWorkflowActionState) {
+    super(outerfaceObject.name, parentLayerId, outerfaceObject, resourceState, actionState);
     this.outerfaceName = outerfaceName;
   }
 
@@ -22,32 +29,65 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNode<PrOuterface> {
     return 'outerface';
   }
 
-  getHTML(): string {
-    return `<pr-workflow-node-interface name="${this.nodeName}"></pr-workflow-node-interface>`;
-  }
-
-
   protected initPorts(object: PrOuterface): void {
-    // TODO check null
     this.createPort(object.portName, {specs: object.portType, resource_id: null}, 'input');
-  }
-
-  getStatus$(): Observable<FlStatus | null> {
-    return of(null);
-  }
-
-  getSubTitle$(): Observable<string> {
-    return of(null);
-  }
-
-  getTitle$(): Observable<string> {
-    return this.getObject$().pipe(
-      map(object => object.name)
-    );
   }
 
   getPort(): PrWorkflowPort {
     return this.inputPorts[0];
+  }
+
+  inputIsProvided$(): Observable<boolean> {
+    return this.connectedNode.outputIsProvided$(this.connectedPort.name);
+  }
+
+  outputIsProvided$(): Observable<boolean> {
+    return of(false);
+  }
+
+  getCurrentInputResourceId(): string | null {
+    return this.connectedNode.getCurrentInputResourceId(this.connectedPort.name);
+  }
+
+  getCurrentOutputResourceId(): string | null {
+    return null;
+  }
+
+
+  getResourceId$(): Observable<string> {
+    return this.connectedNode.getObject$().pipe(
+      map(process => process.outputs.ports[this.connectedPort.name]?.resource_id ?? null)
+    );
+  }
+
+
+  getResource$(): Observable<FlStatusEvent<PrResource>> {
+    return this.connectedNode.getObject$().pipe(
+      switchMap(node => this.resourceIsProvided(node))
+    );
+  }
+
+  private resourceIsProvided(process: PrProcess): Observable<FlStatusEvent<PrResource>> {
+    const resourceId = process.outputs.ports[this.connectedPort.name]?.resource_id ?? null;
+    if (!resourceId) return of(null);
+
+    return this.resourceState.getResource(resourceId);
+  }
+
+  protected getDefaultColor(): string {
+    return FlThemeService.getInstance().getCurrentThemeDetail().warn;
+  }
+
+  protected getDefaultName(): string {
+    return 'Outerface';
+  }
+
+  getExternalButtons$(): Observable<PrWorkNodeIoExternalButton | null> {
+    return undefined;
+  }
+
+  protected getDefaultIcon(): string {
+    return 'logout';
   }
 
 }

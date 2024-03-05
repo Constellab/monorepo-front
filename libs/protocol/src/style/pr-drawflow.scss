@@ -15,55 +15,21 @@
   // style drawflow
   .drawflow .drawflow-node {
     width: initial;
-    //border: none;
     // Padding of the nodes
     padding: 5px 15px !important;
-    //padding: 0 !important;
     cursor: pointer !important;
     border-width: 0;
-    border-style: solid;
 
 
     // style for the process node
     &.node-process {
-      border-color: var(--hover-color);
       color: var(--color-foreground);
       background-color: var(--main-background);
       border-radius: 30px;
-      //background-color: white;
-      //background-color: transparent;
     }
 
     &.interface, &.outerface, &.task-source, &.task-output, &.task-viewer {
-      border-radius: 10px;
-      border-color: transparent;
-    }
-
-    // style for interface nodes
-    &.interface {
-      color: white;
-      background-color: #569cd6;
-    }
-
-    // style for outerface nodes
-    &.outerface {
-      color: white;
-      background-color: #a0d982;
-    }
-
-    &.task-source {
-      color: mat.get-color-from-palette($primary, default-contrast);
-      background-color: mat.get-color-from-palette($primary);
-    }
-
-    &.task-output {
-      color: mat.get-color-from-palette($warn, default-contrast);
-      background-color: mat.get-color-from-palette($warn);
-    }
-
-    &.task-viewer {
-      color: mat.get-color-from-palette($accent, '100-contrast');
-      background-color: mat.get-color-from-palette($accent, 100);
+      border-radius: 5px;
     }
 
     // width and height of input and output port
@@ -97,6 +63,13 @@
     }
 
     .main-path.selected, .main-path:hover {
+      stroke: mat.get-color-from-palette($primary);
+    }
+  }
+
+  // when the resource is provided, change the color of the connection
+  .drawflow .connection.g-connection-resource-provided {
+    .main-path {
       stroke: mat.get-color-from-palette($primary);
     }
   }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {PrWorkflowActionEvent} from '../model/pr-workflow-drawer-event.class';
+import {PrWorkflowActionEvent} from '../model/pr-workflow-action-event.class';
 
 
 /**

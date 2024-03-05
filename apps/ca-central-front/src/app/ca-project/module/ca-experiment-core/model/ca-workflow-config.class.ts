@@ -1,4 +1,4 @@
-import {PrConfigView, PrWorkflowMode, PrWorkflowNodeProcess, PrWorkflowPort} from '@monorepo/protocol';
+import {PrConfigView, PrWorkflowMode, PrWorkflowNode, PrWorkflowPort} from '@monorepo/protocol';
 import {FlMenuDynamicButton, FlSnackBarService} from '@monorepo/front-core-lib';
 import {ClHelpService} from '@monorepo/core-lib';
 import {CaLabInstance} from '../../../../ca-core/model/entities/lab/ca-lab-instance.class';
@@ -12,7 +12,7 @@ export class CaWorkflowConfig extends PrConfigView {
   }
 
 
-  getInputMenu(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
+  getInputMenu(port: PrWorkflowPort, node: PrWorkflowNode,
                workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
     const resourceId: string = node.currentObject.inputs.ports[port.name]?.resource_id ?? null;
 
@@ -21,7 +21,7 @@ export class CaWorkflowConfig extends PrConfigView {
     ];
   }
 
-  getOutputMenu(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
+  getOutputMenu(port: PrWorkflowPort, node: PrWorkflowNode,
                 workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
     const resourceId: string = node.currentObject.outputs.ports[port.name]?.resource_id ?? null;
 

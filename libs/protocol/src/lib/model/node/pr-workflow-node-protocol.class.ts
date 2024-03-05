@@ -4,6 +4,7 @@ import {PrProcess} from '../pr-process.class';
 import {PrWorkflowLayer} from '../pr-workflow-layer.class';
 import {ClCachedObservable} from '@monorepo/core-lib';
 import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
+import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
 
 export class PrWorkflowNodeProtocol extends PrWorkflowNodeProcess {
 
@@ -12,8 +13,9 @@ export class PrWorkflowNodeProtocol extends PrWorkflowNodeProcess {
 
   constructor(process: PrProcess,
               subLayer$: Observable<PrWorkflowLayer>,
-              resourceState: PrWorkflowResourcesState) {
-    super(process, resourceState);
+              resourceState: PrWorkflowResourcesState,
+              actionState: PrWorkflowActionState) {
+    super(process, resourceState, actionState);
     this.layer$ = new ClCachedObservable(subLayer$);
   }
 

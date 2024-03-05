@@ -64,7 +64,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
 
 
     this.currentNodeSelected = this.actionState.getAction$().pipe(
-      filter(action => action?.action === 'selectNode'),
+      filter(action => action?.action === 'selectProcessNode'),
       tap(() => this.drawer.open()),
       map(action => (action as PrWorkflowActionSelectNode).processNode)
     );
@@ -82,10 +82,10 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
 
   openLabConfigDialog(): void {
     const input: CaLabConfigDialogInput = {
-      labConfig:  this.experimentService.getExperimentLabConfig(this.experiment.id),
+      labConfig: this.experimentService.getExperimentLabConfig(this.experiment.id),
       title: {text: 'lab_configuration', translateText: true},
       helpText: {text: 'experiment_brick_config_help', translateText: true}
-    }
+    };
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, {data: input});
   }
@@ -93,7 +93,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
   private onTechnicalReportSuccess(technicalReport: CaTechnicalReport): void {
     this.technicalReport = technicalReport;
     const factory = new PrWorkflowFactory(technicalReport.data.graph, ClStringHelper.generateUUID(),
-      this.ngZone, this.workflowResourcesState);
+      this.ngZone, this.workflowResourcesState, this.actionState);
     this.workflow = factory.createWorkflow();
   }
 

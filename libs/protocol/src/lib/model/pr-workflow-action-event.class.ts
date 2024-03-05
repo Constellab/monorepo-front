@@ -1,13 +1,10 @@
 import {PrWorkflowNodeProcess} from './node/pr-workflow-node-process.class';
-import {PrWorkflowNodeInterface} from './node/pr-workflow-node-interface.class';
-import {PrWorkflowNodeOuterface} from './node/pr-workflow-node-outerface.class';
 import {TdTaskViewerConfig} from '@monorepo/technical-doc';
+import {PrWorkflowNode} from './node/pr-workflow-node.class';
 
 export type PrWorkflowActionEvent =
   PrWorkflowActionSelectNode
-  | PrWorkflowActionConfigureNode
-  | PrWorkflowActionSelectInterface
-  | PrWorkflowActionSelectOuterface
+  | PrWorkflowActionOpenSelectResource
   | PrWorkflowActionShowResource
   | PrWorkflowActionShowView
   | PrWorkflowActionShowNextExp
@@ -21,32 +18,16 @@ export interface PrWorkflowActionBase {
  * Action called when selecting a workflow node
  */
 export interface PrWorkflowActionSelectNode extends PrWorkflowActionBase {
-  action: 'selectNode' | 'selectResource';
+  action: 'selectProcessNode';
   processNode: PrWorkflowNodeProcess;
 }
 
 /**
- * Action called when click on node configure
+ * Action called when selecting a workflow node
  */
-export interface PrWorkflowActionConfigureNode extends PrWorkflowActionBase {
-  action: 'configureNode';
-  processNode: PrWorkflowNodeProcess;
-}
-
-/**
- * Action called when selecting a workflow interface
- */
-export interface PrWorkflowActionSelectInterface extends PrWorkflowActionBase {
-  action: 'selectInterface';
-  interface: PrWorkflowNodeInterface;
-}
-
-/**
- * Action called when selecting a workflow outerface
- */
-export interface PrWorkflowActionSelectOuterface extends PrWorkflowActionBase {
-  action: 'selectOuterface';
-  node: PrWorkflowNodeOuterface;
+export interface PrWorkflowActionOpenSelectResource extends PrWorkflowActionBase {
+  action: 'openSelectResource';
+  processNode: PrWorkflowNode;
 }
 
 /**

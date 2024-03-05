@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {LabExperiment} from '../../../../../lab-core/model/entities/lab-experiment.entity';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
-import {FlDialogService} from '@monorepo/front-core-lib';
 import {MatDrawer} from '@angular/material/sidenav';
 import {first} from 'rxjs/operators';
 import {PrWorkflowActionState} from '@monorepo/protocol';
@@ -32,7 +31,6 @@ export class LabExperimentDetailPageComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private experimentState: LabExperimentDetailPageState,
-              private dialogService: FlDialogService,
               private actionState: PrWorkflowActionState,
               private nodeDetailState: LabWorkflowNodeDetailState) {
   }

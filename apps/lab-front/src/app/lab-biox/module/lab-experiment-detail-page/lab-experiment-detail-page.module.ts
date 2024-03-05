@@ -9,11 +9,6 @@ import {LabWorkflowComponent} from './component/lab-workflow/lab-workflow.compon
 import {LabResourceCoreModule} from '../../../lab-core/entity-module/lab-resource-core/lab-resource-core.module';
 import {LabConfigCoreModule} from '../../../lab-core/entity-module/lab-config-core/lab-config-core.module';
 import {LabWorkflowActionsComponent} from './component/lab-workflow-actions/lab-workflow-actions.component';
-import {LabWorkflowNodeDetailComponent} from './component/lab-workflow-node-detail/lab-workflow-node-detail.component';
-import {
-  LabWorkflowDrawerActionComponent
-} from './component/lab-workflow-drawer-action/lab-workflow-drawer-action.component';
-import {LabWorkflowNodeConfigComponent} from './component/lab-workflow-node-config/lab-workflow-node-config.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   LabExperimentDetailHeaderComponent
@@ -24,24 +19,13 @@ import {
 } from './component/lab-experiment-linked-reports/lab-experiment-linked-reports.component';
 import {RouterModule} from '@angular/router';
 import {LabTypeCoreModule} from '../../../lab-core/entity-module/lab-type-core/lab-type-core.module';
-import {LabProtocolConfigComponent} from './component/lab-protocol-config/lab-protocol-config.component';
 import {
   LabConfigureProtocolDialogComponent
 } from './component/lab-configure-protocol-dialog/lab-configure-protocol-dialog.component';
 import {LabConfigureProtocolComponent} from './component/lab-configure-protocol/lab-configure-protocol.component';
 import {LabConfigureProcessComponent} from './component/lab-configure-process/lab-configure-process.component';
 import {LabConfigureTaskComponent} from './component/lab-configure-task/lab-configure-task.component';
-import {
-  LabWorkflowNodeProgressComponent
-} from './component/lab-workflow-node-progress/lab-workflow-node-progress.component';
 import {LabEntityCoreModule} from '../../../lab-core/entity-module/lab-entity-core/lab-entity-core.module';
-import {
-  LabConfigureViewerDialogComponent
-} from './component/lab-configure-viewer-dialog/lab-configure-viewer-dialog.component';
-import {LabTaskViewerConfigComponent} from './component/lab-task-viewer-config/lab-task-viewer-config.component';
-import {
-  LabTaskViewerShowConfigComponent
-} from './component/lab-task-viewer-show-config/lab-task-viewer-show-config.component';
 import {LabReportCoreModule} from '../../../lab-core/entity-module/lab-report-core/lab-report-core.module';
 import {LabLogCoreModule} from '../../../lab-core/entity-module/lab-log-core/lab-log-core.module';
 import {LabMonitorCoreModule} from '../../../lab-core/entity-module/lab-monitor-core/lab-monitor-core.module';
@@ -71,21 +55,13 @@ import {
     LabExperimentDetailPageComponent,
     LabWorkflowComponent,
     LabWorkflowActionsComponent,
-    LabWorkflowNodeDetailComponent,
-    LabWorkflowDrawerActionComponent,
-    LabWorkflowNodeConfigComponent,
     LabExperimentDetailHeaderComponent,
     LabExperimentDetailComponent,
     LabExperimentLinkedReportsComponent,
-    LabProtocolConfigComponent,
     LabConfigureProtocolDialogComponent,
     LabConfigureProtocolComponent,
     LabConfigureProcessComponent,
     LabConfigureTaskComponent,
-    LabWorkflowNodeProgressComponent,
-    LabConfigureViewerDialogComponent,
-    LabTaskViewerConfigComponent,
-    LabTaskViewerShowConfigComponent,
     LabWorkflowNodeDashboardComponent,
     LabWorkflowNodeIoPanelComponent,
     LabDynamicPortConfigDialogComponent,

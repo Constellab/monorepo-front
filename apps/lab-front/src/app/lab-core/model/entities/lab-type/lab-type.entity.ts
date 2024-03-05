@@ -6,12 +6,14 @@ import {
   TdTypeEntity,
   TdTypeObjectStatus,
   TdTypeObjectSubType,
-  TdTypeObjectType
+  TdTypeObjectType,
+  TdTypeStyle
 } from '@monorepo/technical-doc';
 
 export interface LabFileTypeAdditionalInfo {
   default_extensions: string[];
 }
+
 
 export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSearchObjectToUrl {
   @Expose({name: 'object_type'})
@@ -41,7 +43,7 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
   @Expose({name: 'additional_info'})
   additionalInfo: any;
 
-  icon?: string;
+  style: TdTypeStyle;
 
   parent?: {
     brick_version: string;
@@ -83,7 +85,7 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
   }
 
   get iconWithDefault(): string {
-    return this.icon ?? this.defaultIcon;
+    return this.style?.icon ?? this.defaultIcon;
   }
 
   get defaultIcon(): string {
@@ -101,7 +103,6 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     const entity = new LabTypeEntity();
     entity.typingName = resourceDto.typing_name;
     entity.humanName = resourceDto.human_name;
-    entity.shortDescription = resourceDto.short_description;
     entity.objectType = 'RESOURCE';
     entity.objectSubType = 'RESOURCE';
     entity.status = 'OK';
@@ -113,8 +114,8 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     return {
       typing_name: this.typingName,
       human_name: this.humanName,
-      short_description: this.shortDescription,
-      brick_version: this.brickVersion
+      brick_version: this.brickVersion,
+      style: this.style
     };
   }
 

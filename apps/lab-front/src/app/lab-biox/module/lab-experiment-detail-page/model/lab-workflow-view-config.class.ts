@@ -1,11 +1,4 @@
-import {
-  PrConfigView,
-  PrWorkflowMode,
-  PrWorkflowNode,
-  PrWorkflowNodeProcess,
-  PrWorkflowNodeSource,
-  PrWorkflowPort
-} from '@monorepo/protocol';
+import {PrConfigView, PrWorkflowMode, PrWorkflowNode, PrWorkflowNodeSource, PrWorkflowPort} from '@monorepo/protocol';
 import {FlDialogService, FlMenuDynamicButton, FlSavedSearch, flThemeDetailLight} from '@monorepo/front-core-lib';
 import {
   LabResourceDetailDialogComponent
@@ -37,9 +30,9 @@ export class LabWorkflowViewConfig extends PrConfigView {
   }
 
 
-  getInputMenu(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
+  getInputMenu(port: PrWorkflowPort, node: PrWorkflowNode,
                workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
-    const resourceId: string = node.currentObject.inputs.ports[port.name]?.resource_id ?? null;
+    const resourceId: string = node.getCurrentInputResourceId(port.name);
 
     return [
       {
@@ -55,9 +48,9 @@ export class LabWorkflowViewConfig extends PrConfigView {
     ];
   }
 
-  getOutputMenu(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
+  getOutputMenu(port: PrWorkflowPort, node: PrWorkflowNode,
                 workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
-    const resourceId: string = node.currentObject.outputs.ports[port.name]?.resource_id ?? null;
+    const resourceId: string = node.getCurrentOutputResourceId(port.name);
 
     return [
       {
@@ -67,13 +60,13 @@ export class LabWorkflowViewConfig extends PrConfigView {
         onClick: () => this.addTaskOutput(node.nodeName, port.name),
         disabled: workflowMode === 'readOnly'
       },
-      {
-        type: 'button',
-        text: {text: 'biox.add_viewer', translateText: true},
-        icon: 'view',
-        onClick: () => this.addViewerToOutput(node.nodeName, port.name),
-        disabled: workflowMode === 'readOnly'
-      },
+      // {
+      //   type: 'button',
+      //   text: {text: 'biox.add_viewer', translateText: true},
+      //   icon: 'view',
+      //   onClick: () => this.addViewerToOutput(node.nodeName, port.name),
+      //   disabled: workflowMode === 'readOnly'
+      // },
       {
         type: 'button',
         text: {text: 'biox.add_transformer', translateText: true},
@@ -87,7 +80,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
   }
 
 
-  private openResourceSelection(port: PrWorkflowPort, node: PrWorkflowNodeProcess): void {
+  private openResourceSelection(port: PrWorkflowPort, node: PrWorkflowNode): void {
     // add a default search filtered by resource type
     const filter: Partial<LabResourceSearchFields> = {
       resourceTypingNames: port.currentSpecs.resource_types.map((type) => type.typing_name)
@@ -111,7 +104,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
     );
   }
 
-  private addSource(resource: LabResource | null, port: PrWorkflowPort, node: PrWorkflowNodeProcess): void {
+  private addSource(resource: LabResource | null, port: PrWorkflowPort, node: PrWorkflowNode): void {
     if (resource == null) return;
 
     this.editState.addSourceToProcessInput(resource.id, node.nodeName, port.name, resource.name);
@@ -135,7 +128,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
     };
   }
 
-  private getProcessSuggestionButton(port: PrWorkflowPort, node: PrWorkflowNodeProcess,
+  private getProcessSuggestionButton(port: PrWorkflowPort, node: PrWorkflowNode,
                                      portType: 'input' | 'output', workflowMode: PrWorkflowMode): FlMenuDynamicButton {
     return {
       type: 'button',
@@ -189,7 +182,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
 
 
   ///////////////////////////////// TRANSFORMER /////////////////////////////////
-  private openTransformerSelection(outputProcessName: string, port: PrWorkflowPort, node: PrWorkflowNodeProcess): void {
+  private openTransformerSelection(outputProcessName: string, port: PrWorkflowPort, node: PrWorkflowNode): void {
     const data: LabSelectTypeDialogInput = {
       searchConfig: {
         mode: 'transformer',

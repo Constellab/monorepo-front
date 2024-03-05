@@ -3,7 +3,7 @@ export * from './lib/pr-protocol.module';
 
 // model node
 export * from './lib/model/node/pr-workflow-node.class';
-export * from './lib/model/node/pr-workflow-node-io.class';
+export * from './lib/model/node/pr-workflow-node-resource.class';
 export * from './lib/model/node/pr-workflow-node-interface.class';
 export * from './lib/model/node/pr-workflow-node-outerface.class';
 export * from './lib/model/node/pr-workflow-node-process.class';
@@ -24,7 +24,7 @@ export * from './lib/model/pr-workflow.class';
 export * from './lib/model/pr-workflow.factory';
 export * from './lib/model/pr-workflow-action.class';
 export * from './lib/model/pr-workflow-connection.class';
-export * from './lib/model/pr-workflow-drawer-event.class';
+export * from './lib/model/pr-workflow-action-event.class';
 export * from './lib/model/pr-workflow-layer.class';
 export * from './lib/model/pr-workflow-port.class';
 
@@ -36,16 +36,12 @@ export * from './lib/state/pr-workflow-resources.state';
 
 // component
 export * from './lib/component/pr-workflow/pr-workflow.component';
-export * from './lib/component/pr-workflow-node/pr-workflow-node.component';
-export * from './lib/component/pr-workflow-node-source/pr-workflow-node-source.component';
-export * from './lib/component/pr-workflow-node-output/pr-workflow-node-output.component';
-export * from './lib/component/pr-workflow-node-interface/pr-workflow-node-interface.component';
+export * from './lib/component/pr-workflow-node-process/pr-workflow-node-process.component';
+export * from './lib/component/pr-workflow-node-resource/pr-workflow-node-resource.component';
 export * from './lib/component/pr-workflow-layers-breadcrumb/pr-workflow-layers-breadcrumb.component';
-export * from './lib/component/pr-workflow-node-viewer/pr-workflow-node-viewer.component';
 export * from './lib/component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
 export * from './lib/component/pr-workflow-process-config-info-dialog/pr-workflow-process-config-info-dialog.component';
 
 // directive
-export * from './lib/directive/pr-workflow-node-process.directive';
 export * from './lib/directive/pr-workflow-node.directive';
 
