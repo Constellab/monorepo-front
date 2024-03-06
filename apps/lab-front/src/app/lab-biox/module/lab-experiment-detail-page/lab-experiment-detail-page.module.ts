@@ -49,6 +49,9 @@ import {LabTagCoreModule} from '../../../lab-core/entity-module/lab-tag-core/lab
 import {
   LabNavigableEntityCoreModule
 } from '../../../lab-core/entity-module/lab-navigable-entity-core/lab-navigable-entity-core.module';
+import {
+  LabResourceNextObjectsPortalComponent
+} from './component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +68,7 @@ import {
     LabWorkflowNodeDashboardComponent,
     LabWorkflowNodeIoPanelComponent,
     LabDynamicPortConfigDialogComponent,
+    LabResourceNextObjectsPortalComponent,
   ],
   imports: [
     CommonModule,

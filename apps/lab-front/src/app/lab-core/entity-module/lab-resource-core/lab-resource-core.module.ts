@@ -92,9 +92,6 @@ import {
 import {
   LabResourceRichTextViewComponent
 } from './component/lab-resource-rich-text-view/lab-resource-rich-text-view.component';
-import {
-  LabExperimentsUsingResourcePortalComponent
-} from './component/lab-experiments-using-resource-portal/lab-experiments-using-resource-portal.component';
 
 @NgModule({
   declarations: [
@@ -134,7 +131,6 @@ import {
     LabResourceViewSpecCardComponent,
     LabResourceViewSpecCardComponent,
     LabResourceRichTextViewComponent,
-    LabExperimentsUsingResourcePortalComponent,
   ],
   exports: [
     LabResourceViewPortalComponent,
@@ -156,7 +152,6 @@ import {
     LabResourceUpdateProjectDialogComponent,
     LabResourceDetailComponent,
     LabResourceRichTextViewComponent,
-    LabExperimentsUsingResourcePortalComponent,
   ],
   imports: [
     CommonModule,
@@ -177,4 +172,5 @@ import {
     LabShareCoreModule,
   ],
 })
-export class LabResourceCoreModule {}
+export class LabResourceCoreModule {
+}

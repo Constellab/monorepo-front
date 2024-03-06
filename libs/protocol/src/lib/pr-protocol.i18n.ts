@@ -22,7 +22,7 @@ const prProtocolI18nFr: FlLangTranslation = {
     deleting_outerface: "Suppression de l'outerface '{{name}}'",
     adding_connection: "Ajout de la connexion",
     deleting_connection: "Suppression de la connexion",
-    human_name: "Nom humain",
+    human_name: "Nom",
     short_description: "Brève description",
     default_value: "Valeur par défaut",
     partially_run: "Partiellement exécuté",
@@ -35,6 +35,7 @@ const prProtocolI18nFr: FlLangTranslation = {
     open_protocol_detail: "Ouvrir le détail du protocole",
     resource_load_error: "Erreur lors du chargement de la ressource.",
     open_resource_experiment: "Ouvrir l'expérience précédente",
+    show_next_objects: "Afficher les objets suivants",
   }
 };
 
@@ -55,7 +56,7 @@ const prProtocolI18nEn: FlLangTranslation = {
     deleting_outerface: "Deleting outerface '{{name}}'",
     adding_connection: "Adding connection",
     deleting_connection: "Deleting connection",
-    human_name: "Human name",
+    human_name: "Name",
     short_description: "Short description",
     default_value: "Default value",
     partially_run: "Partially run",
@@ -68,6 +69,7 @@ const prProtocolI18nEn: FlLangTranslation = {
     open_protocol_detail: "Open protocol detail",
     resource_load_error: "Error while loading the resource.",
     open_resource_experiment: "Open previous experiment",
+    show_next_objects: "Show next objects",
   }
 };
 

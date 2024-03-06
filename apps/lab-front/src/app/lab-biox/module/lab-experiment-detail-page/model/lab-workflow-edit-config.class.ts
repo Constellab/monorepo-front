@@ -148,19 +148,6 @@ export class LabWorkflowEditConfig implements OnDestroy {
       });
   }
 
-  public addViewerToOutput(processNodeName: string, outputPortName: string): void {
-    // retrieve the protocol of the layer
-    const obs = this.saveViewer(this.workflow.currentLayer.id, processNodeName, outputPortName);
-
-    this.addProcessWithLinkAction(
-      obs,
-      processNodeName,
-      'after',
-      {
-        text: 'pr.adding_viewer', translateText: true,
-      });
-  }
-
   public addProcessConnectedToOutput(processTypingName: string, processHumanName: string,
                                      outputProcessName: string, outputPortName: string): void {
     const processWithLink$ = this.saveProcessConnectedToOutput(this.workflow.currentLayer.id,
@@ -563,10 +550,6 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   saveTaskOutput(protocolId: string, processNodeName: string, outputPortName: string): Observable<LabProtocolUpdateDTO> {
     return this.protocolService.addTaskOutput(protocolId, processNodeName, outputPortName);
-  }
-
-  saveViewer(protocolId: string, processName: string, outputPortName: string): Observable<LabProtocolUpdateDTO> {
-    return this.protocolService.addViewerToProcessOutput(protocolId, processName, outputPortName);
   }
 
 

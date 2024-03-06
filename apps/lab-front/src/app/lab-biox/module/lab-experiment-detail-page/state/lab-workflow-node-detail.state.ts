@@ -1,15 +1,13 @@
 import {Injectable, ViewContainerRef} from '@angular/core';
-import {BehaviorSubject, filter, firstValueFrom, Observable, switchMap} from 'rxjs';
+import {BehaviorSubject, filter, Observable, switchMap} from 'rxjs';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
-  PrConfigValues,
   PrWorkflowActionEvent,
   PrWorkflowActionShowView,
   PrWorkflowActionState,
   PrWorkflowNode,
   PrWorkflowNodeProcess
 } from '@monorepo/protocol';
-import {MatDrawer} from '@angular/material/sidenav';
 import {
   LabResourceDetailDialogComponent
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
@@ -35,8 +33,8 @@ import {
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
 import {LabResource} from '../../../../lab-core/model/entities/resource/lab-resource.entity';
 import {
-  LabExperimentsUsingResourcePortalComponent
-} from '../../../../lab-core/entity-module/lab-resource-core/component/lab-experiments-using-resource-portal/lab-experiments-using-resource-portal.component';
+  LabResourceNextObjectsPortalComponent
+} from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
 import {LabRouterService} from '../../../../lab-core/service/lab-router.service';
 
 /**
@@ -47,7 +45,6 @@ export class LabWorkflowNodeDetailState {
 
   private node$: BehaviorSubject<PrWorkflowNodeProcess>;
 
-  private drawer: MatDrawer;
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
   constructor(private workflowEditConfig: LabWorkflowEditConfig,
@@ -60,9 +57,8 @@ export class LabWorkflowNodeDetailState {
               private routerService: LabRouterService) {
   }
 
-  public init(drawer: MatDrawer): void {
+  public init(): void {
     this.node$ = new BehaviorSubject(null);
-    this.drawer = drawer;
 
     this.subscription.add(this.actionState.getAction$().subscribe(
       action => this.onNewAction(action)
@@ -120,9 +116,6 @@ export class LabWorkflowNodeDetailState {
 
   public setNode(node: PrWorkflowNodeProcess): void {
     this.node$.next(node);
-    if (node == null) {
-      this.drawer.close();
-    }
   }
 
   public getNode$(): Observable<PrWorkflowNodeProcess> {
@@ -135,18 +128,10 @@ export class LabWorkflowNodeDetailState {
       switchMap(node => node.getObject$() as Observable<LabProcess>));
   }
 
-  public getProcessPromise(): Promise<LabProcess> {
-    return firstValueFrom(this.getProcess$());
-  }
 
   public clear(): void {
     this.node$.complete();
     this.subscription?.unsubscribe();
-  }
-
-  public updateConfigValues(config: PrConfigValues): void {
-    const node = this.node$.value;
-    this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.nodeName, config);
   }
 
   public resetProcess(): void {
@@ -230,6 +215,6 @@ export class LabWorkflowNodeDetailState {
       disposeOnNavigation: true,
     });
 
-    this.portalService.createPortal(LabExperimentsUsingResourcePortalComponent, config, resourceId);
+    this.portalService.createPortal(LabResourceNextObjectsPortalComponent, config, resourceId);
   }
 }

@@ -114,10 +114,6 @@ export class LabWorkflowViewConfig extends PrConfigView {
     this.editState.addTaskOutput(processNodeName, outputPortName);
   }
 
-  private addViewerToOutput(processNodeName: string, outputPortName: string): void {
-    this.editState.addViewerToOutput(processNodeName, outputPortName);
-  }
-
   private getResourceDetailContextButton(resourceId: string | null): FlMenuDynamicButton {
     return {
       type: 'button',

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
 
 /**
@@ -9,15 +9,21 @@ import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-
   templateUrl: './fl-infinite-table-container.component.html',
   styleUrls: ['./fl-infinite-table-container.component.scss']
 })
-export class FlInfiniteTableContainerComponent implements OnInit {
+export class FlInfiniteTableContainerComponent {
 
   @Input() datasource: FlDatasourcePaginated<any>;
 
-  constructor() {
-  }
+  /**
+   * Text translated show if the datasource is empty.
+   * Set empty string to hide the text
+   */
+  @Input() textNoResult: string = 'no_result';
 
-  ngOnInit(): void {
-  }
+  /**
+   * Text translated showed if the last page is loaded and there is no more result
+   * Set empty string to hide the text
+   */
+  @Input() textNoMoreResult: string = 'no_more_result';
 
   loadMoreResults(): void {
     this.datasource.getNextPage();

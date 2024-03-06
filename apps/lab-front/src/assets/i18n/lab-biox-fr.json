@@ -1,6 +1,6 @@
 {
   "biox": {
-    "biox": "Expériences",
+    "experiments": "Expériences",
     "parameters": "Paramètres",
     "protocol_config": "Paramètres protocol",
     "interface": "Interface",
@@ -396,6 +396,9 @@
     "add_version_to_community_live_task_success": "Version ajoutée à la live task de Community",
     "share_live_task_to_community": "Partager la live task dans Community",
     "existent_lt_info": "Ou, ajouter une version à une live task de Community existante",
-    "live_task": "Live Task"
+    "live_task": "Live Task",
+    "resource_next_objects": "Objets suivants",
+    "no_experiment": "Aucune expérience",
+    "no_report": "Aucun rapport"
   }
 }

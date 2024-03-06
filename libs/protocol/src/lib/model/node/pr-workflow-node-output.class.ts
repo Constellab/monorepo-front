@@ -60,7 +60,7 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
         return {
           position: 'after',
           icon: 'arrow_forward',
-          tooltip: 'biox.experiments_that_use_the_resource',
+          tooltip: 'pr.show_next_objects',
           action: (event: MouseEvent) => {
             this.actionState.newAction({
               action: 'showNextExperiments',
