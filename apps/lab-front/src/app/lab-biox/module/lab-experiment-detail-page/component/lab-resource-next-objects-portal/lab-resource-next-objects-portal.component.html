@@ -10,7 +10,7 @@
       <h2>{{ 'biox.experiments' | translate }}</h2>
     </fl-text-icon>
     <fl-infinite-table-container [datasource]="experiments"
-                                 [textNoResult]="'biox.no_experiment' | translate" textNoMoreResult="">
+                                 textNoResult="biox.no_experiment" textNoMoreResult="">
       <lab-experiment-table [datasource]="experiments" [columns]="experimentColumns"></lab-experiment-table>
     </fl-infinite-table-container>
 
@@ -20,7 +20,7 @@
       <h2>{{ 'biox.reports' | translate }}</h2>
     </fl-text-icon>
     <fl-infinite-table-container [datasource]="reports"
-                                 [textNoResult]="'biox.no_report' | translate" textNoMoreResult="">
+                                 textNoResult="biox.no_report" textNoMoreResult="">
       <lab-report-table [datasource]="reports" [columns]="reportColumns"></lab-report-table>
     </fl-infinite-table-container>
   </fl-portal-content>

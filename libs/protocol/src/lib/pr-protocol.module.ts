@@ -4,12 +4,10 @@ import {PrWorkflowManagerState} from './state/pr-workflow-manager-state';
 import {PrWorkflowComponent} from './component/pr-workflow/pr-workflow.component';
 import {
   FlCoreComponentModule,
-  FlDrawerModule,
   FlIconModule,
   FlLoaderModule,
   FlMenuDynamicModule,
   FlPortalModule,
-  FlStatusModule,
   FlTranslateModule,
   FlTranslateService
 } from '@monorepo/front-core-lib';
@@ -53,18 +51,16 @@ import {
     MatButtonModule,
     MatMenuModule,
     MatSidenavModule,
+    MatTableModule,
 
-    FlStatusModule,
     FlTranslateModule,
     FlPortalModule,
     FlMenuDynamicModule,
-    FlDrawerModule,
     FlLoaderModule,
-    FlCoreComponentModule,
     FlIconModule,
+    FlCoreComponentModule,
 
     TdTechnicalDocModule,
-    MatTableModule,
   ],
   exports: [
     PrWorkflowComponent

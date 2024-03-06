@@ -9,6 +9,7 @@
                  (inputBlur)="markAsTouched()">
 
 
-  <lab-type-inline *flInputSearchOption="let type" [type]="type">
-  </lab-type-inline>
+  <td-type-inline *flInputSearchOption="datasource as type" [text]="type.humanName"
+                  [style]="type.style">
+  </td-type-inline>
 </fl-input-search>

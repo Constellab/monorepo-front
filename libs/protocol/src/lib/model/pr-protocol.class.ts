@@ -2,6 +2,7 @@ import {FlCoord} from '@monorepo/front-core-lib';
 import {PrOI} from './pr-io.class';
 import {PrProcessStatus} from './pr-process.class';
 import {PrConfig} from './pr-config.class';
+import {TdSimpleTypeEntity} from '@monorepo/technical-doc';
 
 export interface PrProtocolLayout {
   process_layouts: Record<string, FlCoord>;
@@ -41,11 +42,7 @@ export interface PrProtocol {
 
   status: PrProcessStatus;
 
-  process_type: {
-    human_name: string;
-    short_description: string;
-    icon: string;
-  };
+  process_type: TdSimpleTypeEntity;
 }
 
 

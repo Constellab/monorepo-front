@@ -10,6 +10,7 @@ import {FlFileHelper} from '../../../service/fl-file.helper';
 export class FlByteTextPipe implements PipeTransform {
 
   transform(value: number): string {
+    if (value == null) return null;
     return FlFileHelper.getFileSizeText(value);
   }
 

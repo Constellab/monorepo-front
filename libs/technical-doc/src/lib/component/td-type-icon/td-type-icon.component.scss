@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+}
+
+.icon {
+  display: flex;
+  // remove margin when used in mat-option
+  margin: 0;
+}

@@ -1,7 +1,7 @@
-import {TdTypeEntity, TdTypeStyle} from './td-type.class';
+import {TdTypeEntity, TdTypeRefDTO} from './td-type.class';
 import {TdParamSpecs} from './td-config-spec.class';
 
-export interface TdIOSpecs{
+export interface TdIOSpecs {
   specs: Record<string, TdIOSpec>;
 
   is_dynamic: boolean;
@@ -23,7 +23,7 @@ export interface TdProcessAdditionalInfoDTO {
 
 export interface TdIOSpec {
 
-  resource_types: TdResourceTypeDTO[];
+  resource_types: TdTypeRefDTO[];
 
   human_name: string;
 
@@ -34,15 +34,4 @@ export interface TdIOSpec {
   is_constant?: boolean;
 
   sub_class?: boolean;
-}
-
-// TODO compare this types with TdTypeEntity, there are some similarities
-export interface TdResourceTypeDTO {
-  typing_name: string;
-
-  human_name: string;
-
-  brick_version: string;
-
-  style?: TdTypeStyle;
 }

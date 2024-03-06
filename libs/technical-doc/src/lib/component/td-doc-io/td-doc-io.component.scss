@@ -1,14 +1,5 @@
-.io-div-head{
-  //display: flex;
-  margin-bottom: 1em;
-}
-
 .name-container{
   flex: 1 1 auto;
-}
-
-.io-div-head span{
-  padding-left: 1em;
 }
 
 .io-human-name{
@@ -17,16 +8,14 @@
   flex-shrink: 1;
 }
 
-
-
-.io-chip-div{
-  flex: auto;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row-reverse;
-  margin-left: 1em;
+.chip{
+  margin-left: 0.5em;
 }
 
-.chip{
-  margin-right: 1em;
+.resource-types{
+  margin-top: 5px;
+}
+
+.resource-type{
+  margin-right: 10px;
 }

@@ -2,10 +2,16 @@
   <ng-container *flSectionBody="type$ as type">
 
     <fl-dialog-header>
-      <fl-text-icon gap="0">
-        <mat-icon class="g-icon-big icon" [flIcon]="type.iconWithDefault"></mat-icon>
+      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+        <td-type-icon [icon]="type.style.icon"
+                      [iconColor]="type.style.icon_color"
+                      [iconType]="type.style.icon_type"
+                      [iconSize]="30"
+                      [style.background-color]="type.style.background_color"
+                      class="icon">
+        </td-type-icon>
         <h2>{{ type.name }}</h2>
-      </fl-text-icon>
+      </div>
     </fl-dialog-header>
 
     <mat-dialog-content class="g-layout-col">

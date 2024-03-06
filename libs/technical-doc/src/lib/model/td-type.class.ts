@@ -1,4 +1,4 @@
-export type TdTypeObjectType = 'TASK' | 'RESOURCE' | 'PROTOCOL' | 'MODEL';
+export type TdTypeObjectType = 'TASK' | 'RESOURCE' | 'PROTOCOL';
 
 export type TdTypeObjectSubType = 'TASK' | 'RESOURCE' | 'PROTOCOL' | 'TRANSFORMER' | 'IMPORTER' | 'EXPORTER';
 
@@ -9,13 +9,30 @@ export type TdTypeStyleIconType = 'MATERIAL_ICON' | 'COMMUNITY_ICON' | 'COMMUNIT
 export interface TdTypeStyle {
   icon: string;
   icon_type: TdTypeStyleIconType;
-  background_color?: string;
-  icon_color?: string;
+  background_color: string;
+  icon_color: string;
 }
 
+export const tdTypeStyleDefault: TdTypeStyle = {
+  icon: 'process',
+  icon_type: 'MATERIAL_ICON',
+  background_color: '#af3e01',
+  icon_color: '#ffffff'
+};
+
 export interface TdSimpleTypeEntity {
-  human_name?: string;
+  human_name: string;
   short_description?: string;
+  style?: TdTypeStyle;
+}
+
+export interface TdTypeRefDTO {
+  typing_name: string;
+
+  human_name: string;
+
+  brick_version: string;
+
   style?: TdTypeStyle;
 }
 
@@ -31,12 +48,6 @@ export interface TdTypeEntity {
 
   doc: string;
 
-  parentTypingName: string | undefined;
-
-  parentHumanName: string | undefined;
-
-  parentVersion: string | undefined;
-
   objectType: TdTypeObjectType;
 
   objectSubType: TdTypeObjectSubType;
@@ -47,14 +58,14 @@ export interface TdTypeEntity {
 
   deprecatedMessage: string | undefined;
 
-  style: TdTypeStyle | undefined;
-}
+  style: TdTypeStyle;
 
+  // TODO to check with val if we can convert to TdTypeRefDTO
+  parentTypingName: string | undefined;
 
-export interface TdUniqueType {
-  typingName: string;
+  parentHumanName: string | undefined;
 
-  humanName: string;
+  parentVersion: string | undefined;
 
-  version: string;
+  parentStyle: TdTypeStyle | undefined;
 }

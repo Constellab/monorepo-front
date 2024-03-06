@@ -1,14 +1,9 @@
 <div class="g-layout-col g-layout-between-center container">
 
-  @if (icon.iconType === 'MATERIAL_ICON') {
-    <mat-icon [flIcon]="icon.icon" class="icon icon-material"
-              [matTooltip]="icon.iconTooltip | translate"
-              [style.color]="icon.iconColor"></mat-icon>
-  } @else if (icon.iconType === 'COMMUNITY_ICON') {
-    <mat-icon class="icon" [flIcon]="icon.icon" [style.color]="icon.iconColor"></mat-icon>
-  } @else {
-    <img [src]="icon.icon" alt="Task image" class="icon">
-  }
-
+  <td-type-icon [icon]="icon.icon"
+                [iconType]="icon.iconType"
+                [iconColor]="icon.iconColor"
+                [iconSize]="55"
+                [matTooltip]="icon.iconTooltip | translate"></td-type-icon>
   <ng-content select="pr-workflow-node-content-bottom"></ng-content>
 </div>

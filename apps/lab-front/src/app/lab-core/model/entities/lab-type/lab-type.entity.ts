@@ -2,11 +2,11 @@ import {LabBaseEntity} from '../../global/lab-entity.entity';
 import {Expose} from 'class-transformer';
 import {FlDatasourcePaginated, FlSearchObjectToUrl} from '@monorepo/front-core-lib';
 import {
-  TdResourceTypeDTO,
   TdTypeEntity,
   TdTypeObjectStatus,
   TdTypeObjectSubType,
   TdTypeObjectType,
+  TdTypeRefDTO,
   TdTypeStyle
 } from '@monorepo/technical-doc';
 
@@ -45,12 +45,7 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
 
   style: TdTypeStyle;
 
-  parent?: {
-    brick_version: string;
-    human_name: string;
-    typing_name: string;
-  };
-
+  parent?: TdTypeRefDTO;
 
   doc: string | undefined;
 
@@ -76,6 +71,10 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     return this.parent?.brick_version ?? null;
   }
 
+  get parentStyle(): TdTypeStyle {
+    return this.parent?.style ?? null;
+  }
+
   toString(): string {
     return this.name;
   }
@@ -99,7 +98,7 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     }
   }
 
-  public static fromResourceType(resourceDto: TdResourceTypeDTO): LabTypeEntity {
+  public static fromResourceType(resourceDto: TdTypeRefDTO): LabTypeEntity {
     const entity = new LabTypeEntity();
     entity.typingName = resourceDto.typing_name;
     entity.humanName = resourceDto.human_name;
@@ -110,7 +109,7 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     return entity;
   }
 
-  public toResourceType(): TdResourceTypeDTO {
+  public toResourceType(): TdTypeRefDTO {
     return {
       typing_name: this.typingName,
       human_name: this.humanName,

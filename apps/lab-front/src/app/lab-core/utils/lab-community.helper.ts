@@ -47,5 +47,16 @@ export class LabCommunityHelper {
       'digital-lab/digital-resource', 'how-to-import-a-resource?');
   }
 
+  ///////////////////////// API //////////////////////////
+
+  public static getCommunityApiUrl(): string {
+    return LabEnvironmentHelper.getCommunityApiUrl();
+  }
+
+  public static getIconBaseApiUrl(): string {
+    // TODO TO REMOVE
+    return 'http://localhost:3000/static/'
+    // return this.getCommunityUrl() + '/icon';
+  }
 
 }

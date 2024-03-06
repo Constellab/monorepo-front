@@ -1,20 +1,20 @@
 <div>
   <div class="g-layout-row">
     <div class="name-container">
-      <div class="io-human-name g-text-dense-height">{{ioSpec.human_name}}</div>
+      <div class="io-human-name g-text-dense-height">{{ ioSpec.human_name }}</div>
       <div *ngIf="ioSpec.short_description" class="g-text-light g-text-dense-height">
-        {{ioSpec.short_description}}
+        {{ ioSpec.short_description }}
       </div>
     </div>
 
     <div class="g-layout-row-wrap g-layout-start-start">
       <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_optional"
                [matTooltip]="'td.optional_tooltip' | translate" size="small">
-        {{'td.optional' | translate}}
+        {{ 'td.optional' | translate }}
       </fl-chip>
       <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_constant"
                [matTooltip]="'td.constant_tooltip' | translate" size="small">
-        {{'td.constant' | translate}}
+        {{ 'td.constant' | translate }}
       </fl-chip>
     </div>
 
@@ -27,20 +27,21 @@
   </div>
 
 
-  <div class="g-layout-row-wrap">
-    <td-io-resource *ngFor="let resourceType of ioSpec.resource_types" [resource]="resourceType"></td-io-resource>
+  <div class="g-layout-row-wrap resource-types">
+    <td-io-resource *ngFor="let resourceType of ioSpec.resource_types" [resource]="resourceType"
+                    class="resource-type"></td-io-resource>
   </div>
 </div>
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item type="button" (click)="updateSpecClicked()">
     <mat-icon>edit</mat-icon>
-    <span>{{'td.update_port' | translate}}</span>
+    <span>{{ 'td.update_port' | translate }}</span>
   </button>
 
   <button mat-menu-item type="button" (click)="deleteSpecClicked()">
     <mat-icon color="warn">clear</mat-icon>
-    <span class="g-warn-text">{{'td.remove_port' | translate}}</span>
+    <span class="g-warn-text">{{ 'td.remove_port' | translate }}</span>
   </button>
 
 </mat-menu>

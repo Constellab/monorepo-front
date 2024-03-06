@@ -8,36 +8,42 @@ import {DomSanitizer} from '@angular/platform-browser';
  * mat icon and svg icon
  */
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'mat-icon[flIcon]'
 })
 export class FlIconDirective {
 
-  @Input() set flIcon(flIcon: string) {
+  @Input({required: true}) set flIcon(flIcon: string) {
     this.setIcon(flIcon);
   }
 
+  /**
+   * Use to store the dynamic registered icons
+   * Where the key is the url of the icon and the value is the name of the icon
+   */
+  private static dynamicRegisteredIcons: Record<string, string> = {};
+
   constructor(@Host() private matIcon: MatIcon,
-              private elementRef: ElementRef<HTMLElement>,
               @Inject(FL_ICON_MODULE) private config: FlIconConfig,
+              private elementRef: ElementRef<HTMLElement>,
               private matIconRegistry: MatIconRegistry,
               private domSanitizer: DomSanitizer) {
   }
 
   private setIcon(icon: string): void {
-    if (icon === 'http://localhost:3000/static/007-data-collection.svg') {
-      // console.log('Registrering icon', icon);
-      // console.log(this.matIconRegistry.getNamedSvgIcon("waaaaaow"))
-      this.matIconRegistry.addSvgIcon("waaaaaow",
-        this.domSanitizer.bypassSecurityTrustResourceUrl(icon)
-      );
-      // console.log(this.matIconRegistry.getNamedSvgIcon("waaaaaow"))
-      this.setSvgIcon("waaaaaow");
-      return;
-    }
     if (icon == null) {
       this.setMatIcon(null);
       this.setSvgIcon(null);
+      return;
+    }
+
+    if (icon.startsWith('https://') || icon.startsWith('http://')) {
+      if (!FlIconDirective.dynamicRegisteredIcons[icon]) {
+        const name = `dynamic_icon_${Object.keys(FlIconDirective.dynamicRegisteredIcons).length}`;
+        this.matIconRegistry.addSvgIcon(name, this.domSanitizer.bypassSecurityTrustResourceUrl(icon));
+        FlIconDirective.dynamicRegisteredIcons[icon] = name;
+      }
+
+      this.setSvgIcon(FlIconDirective.dynamicRegisteredIcons[icon]);
       return;
     }
 

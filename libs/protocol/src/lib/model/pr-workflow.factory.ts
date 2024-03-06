@@ -116,6 +116,7 @@ export class PrWorkflowFactory {
       processTypingName: process.process_typing_name,
       status: prProcessStatusDict[process.status],
       typeStatus: null,
+      processType: process.process_type
     };
   }
 

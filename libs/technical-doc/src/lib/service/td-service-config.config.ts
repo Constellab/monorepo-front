@@ -14,4 +14,6 @@ export abstract class TdServiceConfig {
   public abstract getTechnicalDocUrl(
     parentVersion: string,
     typingName: TdTypingName): TdTechnicalDocUrl; // boolean = isAbsolute ; string = link
+
+  public abstract getCommunityIconBaseApiUrl(): string;
 }
