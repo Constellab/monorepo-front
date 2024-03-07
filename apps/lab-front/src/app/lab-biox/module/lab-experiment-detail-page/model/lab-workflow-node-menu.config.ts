@@ -1,4 +1,10 @@
-import {PrConfigView, PrWorkflowMode, PrWorkflowNode, PrWorkflowNodeSource, PrWorkflowPort} from '@monorepo/protocol';
+import {
+  PrWorkflowMode,
+  PrWorkflowNode,
+  PrWorkflowNodeMenuConfig,
+  PrWorkflowNodeSource,
+  PrWorkflowPort
+} from '@monorepo/protocol';
 import {FlDialogService, FlMenuDynamicButton, FlSavedSearch, flThemeDetailLight} from '@monorepo/front-core-lib';
 import {
   LabResourceDetailDialogComponent
@@ -22,7 +28,7 @@ import {LabResource} from '../../../../lab-core/model/entities/resource/lab-reso
 import {ClHelpService} from '@monorepo/core-lib';
 import {LabWorkflowEditConfig} from './lab-workflow-edit-config.class';
 
-export class LabWorkflowViewConfig extends PrConfigView {
+export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
 
   constructor(private dialogService: FlDialogService,
               private editState: LabWorkflowEditConfig) {
@@ -57,7 +63,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
         type: 'button',
         text: {text: 'biox.add_output', translateText: true},
         icon: 'output',
-        onClick: () => this.addTaskOutput(node.nodeName, port.name),
+        onClick: () => this.addTaskOutput(node.instanceName, port.name),
         disabled: workflowMode === 'readOnly'
       },
       // {
@@ -71,7 +77,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
         type: 'button',
         text: {text: 'biox.add_transformer', translateText: true},
         icon: 'transformer',
-        onClick: () => this.openTransformerSelection(node.nodeName, port, node),
+        onClick: () => this.openTransformerSelection(node.instanceName, port, node),
         disabled: workflowMode === 'readOnly'
       },
       this.getProcessSuggestionButton(port, node, 'output', workflowMode),
@@ -107,7 +113,7 @@ export class LabWorkflowViewConfig extends PrConfigView {
   private addSource(resource: LabResource | null, port: PrWorkflowPort, node: PrWorkflowNode): void {
     if (resource == null) return;
 
-    this.editState.addSourceToProcessInput(resource.id, node.nodeName, port.name, resource.name);
+    this.editState.addSourceToProcessInput(resource.id, node.instanceName, port.name, resource.name);
   }
 
   private addTaskOutput(processNodeName: string, outputPortName: string): void {
@@ -156,9 +162,9 @@ export class LabWorkflowViewConfig extends PrConfigView {
       processType => {
         // if the process where suggested
         if (portType == 'input') {
-          this.addProcessConnectedToInput(processType, node.nodeName, port.name);
+          this.addProcessConnectedToInput(processType, node.instanceName, port.name);
         } else {
-          this.addProcessConnectedToOutput(processType, node.nodeName, port.name);
+          this.addProcessConnectedToOutput(processType, node.instanceName, port.name);
         }
       }
     );

@@ -1,18 +1,18 @@
 import Drawflow, {ConnectionEvent} from 'drawflow';
-import {PrWorkflowNode} from './node/pr-workflow-node.class';
+import {PrWorkflowNode} from '../node/pr-workflow-node.class';
 import {PrWorkflowConnection} from './pr-workflow-connection.class';
 import {PrWorkflowPort, PrWorkflowPortType} from './pr-workflow-port.class';
 import {PrConnection} from './pr-workflow-action.class';
-import {PrWorkflowNodeProcess} from './node/pr-workflow-node-process.class';
-import {PrWorkflowNodeInterface} from './node/pr-workflow-node-interface.class';
-import {PrWorkflowNodeOuterface} from './node/pr-workflow-node-outerface.class';
+import {PrWorkflowNodeProcess} from '../node/pr-workflow-node-process.class';
+import {PrWorkflowNodeInterface} from '../node/pr-workflow-node-interface.class';
+import {PrWorkflowNodeOuterface} from '../node/pr-workflow-node-outerface.class';
 import {FlCoord} from '@monorepo/front-core-lib';
-import {PrWorkflowNodeProtocol} from './node/pr-workflow-node-protocol.class';
-import {PrProcess} from './pr-process.class';
-import {PrOI, PrPort} from './pr-io.class';
+import {PrWorkflowNodeProtocol} from '../node/pr-workflow-node-protocol.class';
+import {PrProcess} from '../pr-process.class';
+import {PrOI, PrPort} from '../pr-io.class';
 import {ClSubscriptionHandler} from '@monorepo/core-lib';
-import {PrWorkflowResourcesState} from '../state/pr-workflow-resources.state';
-import {PrWorkflowActionState} from '../state/pr-workflow-action-state';
+import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
+import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
 
 export class PrWorkflowLayer {
 
@@ -106,7 +106,7 @@ export class PrWorkflowLayer {
   }
 
   public findNodeByName(nodeName: string): PrWorkflowNode {
-    return this.findNode((node) => node.nodeName === nodeName);
+    return this.findNode((node) => node.instanceName === nodeName);
   }
 
   public findNode(predicate: (node: PrWorkflowNode) => boolean): PrWorkflowNode {
@@ -148,7 +148,7 @@ export class PrWorkflowLayer {
     for (const currentPort of currentPorts) {
       // if a port is not in the object anymore, delete it
       if (!newPorts.ports[currentPort.name]) {
-        this.deleteNodePort(node.nodeName, currentPort.name, portType);
+        this.deleteNodePort(node.instanceName, currentPort.name, portType);
       } else {
         currentPort.updateObject(newPorts.ports[currentPort.name]);
       }
@@ -157,7 +157,7 @@ export class PrWorkflowLayer {
     for (const oiName of Object.keys(newPorts.ports)) {
       // if a port is in the object but not in the inputPorts, create it
       if (!node.findPortByName(oiName, portType)) {
-        this.addNodePort(node.nodeName, oiName, newPorts.ports[oiName], portType);
+        this.addNodePort(node.instanceName, oiName, newPorts.ports[oiName], portType);
       }
     }
   }
@@ -190,7 +190,7 @@ export class PrWorkflowLayer {
 
     for (const node of this.nodes) {
       // the nodes that are not connected to any other node (in input) are root nodes
-      if (this.connections.find(connection => connection.inputNode.nodeName === node.nodeName) == undefined) {
+      if (this.connections.find(connection => connection.inputNode.instanceName === node.instanceName) == undefined) {
         roots.push(node);
       }
     }
@@ -202,7 +202,7 @@ export class PrWorkflowLayer {
     const nextNodes: PrWorkflowNode[] = [];
 
     for (const connection of this.connections) {
-      if (connection.outputNode.nodeName === nodeName) {
+      if (connection.outputNode.instanceName === nodeName) {
         nextNodes.push(connection.inputNode);
       }
     }
@@ -245,7 +245,7 @@ export class PrWorkflowLayer {
         shiftY++;
       }
 
-      const nextNodes = this.getNextNodes(node.nodeName);
+      const nextNodes = this.getNextNodes(node.instanceName);
       this.setNodesPositionRecursively(nextNodes, node.x, node.y);
     }
 
@@ -525,7 +525,7 @@ export class PrWorkflowLayer {
   public exportLayout(): Record<string, FlCoord> {
     const layout: Record<string, FlCoord> = {};
     for (const node of this.nodes) {
-      layout[node.nodeName] = {x: node.x, y: node.y};
+      layout[node.instanceName] = {x: node.x, y: node.y};
     }
     return layout;
   }

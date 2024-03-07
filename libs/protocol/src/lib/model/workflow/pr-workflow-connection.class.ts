@@ -1,7 +1,7 @@
-import {PrWorkflowNode} from './node/pr-workflow-node.class';
+import {PrWorkflowNode} from '../node/pr-workflow-node.class';
 import {PrWorkflowPort} from './pr-workflow-port.class';
-import {PrWorkflowNodeInterface} from './node/pr-workflow-node-interface.class';
-import {PrWorkflowNodeOuterface} from './node/pr-workflow-node-outerface.class';
+import {PrWorkflowNodeInterface} from '../node/pr-workflow-node-interface.class';
+import {PrWorkflowNodeOuterface} from '../node/pr-workflow-node-outerface.class';
 import {Subscription} from 'rxjs';
 
 export class PrWorkflowConnection {
@@ -26,7 +26,7 @@ export class PrWorkflowConnection {
   }
 
   public isConnectedToNode(nodeName: string): boolean {
-    return this.outputNode.nodeName == nodeName || this.inputNode.nodeName == nodeName;
+    return this.outputNode.instanceName == nodeName || this.inputNode.instanceName == nodeName;
   }
 
   public colorInputConnection(containerElement: HTMLElement): Subscription {

@@ -27,7 +27,6 @@ export interface LabConfigureSpecsForm {
   protected: PrConfigValues;
 }
 
-
 /**
  * Config object for a process
  */
@@ -49,11 +48,6 @@ export class LabConfig extends LabBaseEntity {
     config.values = values ?? config.getDefaultConfig();
     return config;
   }
-
-  public updateConfig(config: PrConfigValues): void {
-    this.values = config;
-  }
-
 
   /**
    * Get a FlDynamicFormFieldConfig based on config spec and params to create a form
@@ -246,11 +240,9 @@ export class LabConfig extends LabBaseEntity {
     }
     return nullConfig;
   }
-
-  public valuesAreEqual(otherConfig: LabConfig): boolean {
-    return JSON.stringify(this.values) === JSON.stringify(otherConfig.values);
-  }
 }
+
+
 
 
 

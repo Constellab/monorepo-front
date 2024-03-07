@@ -3,13 +3,11 @@ import {Observable, of} from 'rxjs';
 import {FlStatusEvent} from '@monorepo/front-core-lib';
 
 
-export abstract class PrWorkflowResourcesState<T extends PrResource = PrResource> {
+export abstract class PrWorkflowResourcesState {
 
-  public abstract getResource(resourceId: string): Observable<FlStatusEvent<T>>;
+  public abstract getResource(resourceId: string): Observable<FlStatusEvent<PrResource>>;
 
-  public abstract getResourceFromObs(resourceId$: Observable<string | null>): Observable<FlStatusEvent<T>>;
-
-  public abstract getCurrentResource(resourceId: string): T | null;
+  public abstract getCurrentResource(resourceId: string): PrResource | null;
 }
 
 export class PrWorkflowEmptyResourcesState extends PrWorkflowResourcesState {
@@ -20,10 +18,5 @@ export class PrWorkflowEmptyResourcesState extends PrWorkflowResourcesState {
   getResource(): Observable<FlStatusEvent<PrResource>> {
     return of(null);
   }
-
-  getResourceFromObs(): Observable<FlStatusEvent<PrResource>> {
-    return of(null);
-  }
-
 
 }

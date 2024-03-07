@@ -5,6 +5,16 @@ import {TdSimpleTypeEntity, TdTypeObjectStatus} from '@monorepo/technical-doc';
 
 export type PrProcessStatus = 'DRAFT' | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN' | 'WAITING_FOR_CLI_PROCESS';
 
+export class PrProcessStatusHelper{
+  public static isFinished(status: PrProcessStatus): boolean {
+    return status === 'SUCCESS' || status === 'ERROR'
+  }
+
+  public static wasRun(status: PrProcessStatus): boolean {
+    return this.isFinished(status) || status === 'PARTIALLY_RUN';
+  }
+}
+
 
 export const prProcessStatusDict: FlStatusDict<PrProcessStatus> = {
   DRAFT: FlStatusHelper.getDraftStatus('DRAFT'),
@@ -43,4 +53,6 @@ export interface PrProcess {
   typeStatus?: TdTypeObjectStatus;
 
   processType?: TdSimpleTypeEntity;
+
+  isProtocol: boolean;
 }

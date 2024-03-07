@@ -95,7 +95,7 @@ export class LabProtocolTemplateService {
   public downloadProtocolTemplate(id: string): Observable<Blob> {
     return this.apiService.get(`${this.route}/${id}/download`, null,
       {responseType: 'blob'}).pipe(
-        tap((result) => FlFileHelper.downloadBlob(result, 'protocol-template.json'))
+      tap((result) => FlFileHelper.downloadBlob(result, 'protocol-template.json'))
     );
   }
 

@@ -18,13 +18,13 @@ export interface PrWorkNodeIoExternalButton {
  */
 export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> {
 
-  constructor(nodeName: string,
+  constructor(instanceName: string,
               // observable of the resource defined in the config
               parentLayerId: string,
               object: T,
               protected resourceState: PrWorkflowResourcesState,
               protected actionState: PrWorkflowActionState) {
-    super(nodeName, parentLayerId, object);
+    super(instanceName, parentLayerId, object);
   }
 
   protected abstract getDefaultIcon(): string;
@@ -49,7 +49,7 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
   }
 
   getHTML(): string {
-    return `<pr-workflow-node-resource name="${this.nodeName}"></pr-workflow-node-resource>`;
+    return `<pr-workflow-node-resource name="${this.instanceName}"></pr-workflow-node-resource>`;
   }
 
   getTitle$(): Observable<FlTranslatableText> {

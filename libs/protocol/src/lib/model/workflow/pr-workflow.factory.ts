@@ -3,19 +3,19 @@ import {TdTypingName} from '@monorepo/technical-doc';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {NgZone} from '@angular/core';
 import {FlCoord} from '@monorepo/front-core-lib';
-import {PrProtocol, PrProtocolGraph, PrProtocolLayout} from './pr-protocol.class';
-import {PrWorkflowResourcesState} from '../state/pr-workflow-resources.state';
+import {PrProtocol, PrProtocolGraph, PrProtocolLayout} from '../pr-protocol.class';
+import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
 import {PrWorkflow} from './pr-workflow.class';
 import {PrWorkflowLayer} from './pr-workflow-layer.class';
 
-import {PrWorkflowNodeProcess} from './node/pr-workflow-node-process.class';
-import {PrWorkflowNodeSource} from './node/pr-workflow-node-source.class';
-import {PrWorkflowNodeOutput} from './node/pr-workflow-node-output.class';
-import {PrWorkflowNodeViewer} from './node/pr-workflow-node-viewer.class';
-import {PrWorkflowNodeProtocol} from './node/pr-workflow-node-protocol.class';
-import {PrProcess, prProcessStatusDict} from './pr-process.class';
-import {PrWorkflowNode} from './node/pr-workflow-node.class';
-import {PrWorkflowActionState} from '../state/pr-workflow-action-state';
+import {PrWorkflowNodeProcess} from '../node/pr-workflow-node-process.class';
+import {PrWorkflowNodeSource} from '../node/pr-workflow-node-source.class';
+import {PrWorkflowNodeOutput} from '../node/pr-workflow-node-output.class';
+import {PrWorkflowNodeViewer} from '../node/pr-workflow-node-viewer.class';
+import {PrWorkflowNodeProtocol} from '../node/pr-workflow-node-protocol.class';
+import {PrProcess, prProcessStatusDict} from '../pr-process.class';
+import {PrWorkflowNode} from '../node/pr-workflow-node.class';
+import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
 
 
 export class PrWorkflowFactory {
@@ -28,6 +28,7 @@ export class PrWorkflowFactory {
 
   public createWorkflow(): PrWorkflow {
     const layer = this.createLayer(this.graph, true, this.id);
+
     return new PrWorkflow(layer, 'readOnly', this.ngZone);
   }
 
@@ -91,8 +92,8 @@ export class PrWorkflowFactory {
       processNode = new PrWorkflowNodeViewer(prProcess.instanceName, protocolId, prProcess,
         this.resourceState, this.actionState);
     } else if (process.graph != null) {
-      const layer$: Observable<PrWorkflowLayer> = of(this.createLayer(process.graph, false, prProcess.id, name));
-      processNode = new PrWorkflowNodeProtocol(prProcess, layer$, this.resourceState, this.actionState);
+      const layer: () => Observable<PrWorkflowLayer> = () => of(this.createLayer(process.graph, false, prProcess.id, name));
+      processNode = new PrWorkflowNodeProtocol(prProcess, layer, this.resourceState, this.actionState);
     } else {
       processNode = new PrWorkflowNodeProcess(prProcess, this.resourceState, this.actionState);
     }
@@ -116,8 +117,10 @@ export class PrWorkflowFactory {
       processTypingName: process.process_typing_name,
       status: prProcessStatusDict[process.status],
       typeStatus: null,
-      processType: process.process_type
+      processType: process.process_type,
+      isProtocol: process.graph != null,
     };
   }
+
 
 }

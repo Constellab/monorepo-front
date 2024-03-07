@@ -1,7 +1,6 @@
 import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {PrWorkflowNodeProcess, PrWorkflowPort, PrWorkflowResourcesState} from '@monorepo/protocol';
 import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
-import {LabResource} from '../../../../../lab-core/model/entities/resource/lab-resource.entity';
 import {filter, map} from 'rxjs/operators';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 import {ClHelpService} from '@monorepo/core-lib';
@@ -53,7 +52,7 @@ export class LabWorkflowNodeIoPanelComponent implements OnInit, OnDestroy {
 
 
   constructor(private nodeState: LabWorkflowNodeDetailState,
-              private resourceState: PrWorkflowResourcesState<LabResource>,
+              private resourceState: PrWorkflowResourcesState,
               private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService) {
   }

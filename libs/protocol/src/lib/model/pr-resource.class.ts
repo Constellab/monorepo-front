@@ -12,5 +12,4 @@ export interface PrResource extends FlEntity {
     id: string;
     title: string;
   };
-
 }

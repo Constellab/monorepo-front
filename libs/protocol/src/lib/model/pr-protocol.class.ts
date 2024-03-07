@@ -23,6 +23,7 @@ export interface PrProtocolGraph {
 }
 
 export interface PrProtocol {
+
   brick_version: string;
 
   name: string;

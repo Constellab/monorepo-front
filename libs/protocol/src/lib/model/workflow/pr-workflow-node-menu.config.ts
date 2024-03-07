@@ -1,9 +1,12 @@
 import {FlMenuDynamicButton} from '@monorepo/front-core-lib';
 import {PrWorkflowPort} from './pr-workflow-port.class';
 import {PrWorkflowMode} from './pr-workflow.class';
-import {PrWorkflowNode} from './node/pr-workflow-node.class';
+import {PrWorkflowNode} from '../node/pr-workflow-node.class';
 
-export abstract class PrConfigView {
+/**
+ * Class to override to configure the action menu for a node in the workflow
+ */
+export abstract class PrWorkflowNodeMenuConfig {
 
 
   // Node input & output dynamic menu
@@ -15,7 +18,7 @@ export abstract class PrConfigView {
 
 }
 
-export class PrConfigViewEmpty extends PrConfigView {
+export class PrWorkflowNodeMenuConfigEmpty extends PrWorkflowNodeMenuConfig {
 
   getInputMenu(): FlMenuDynamicButton[] {
     return [];

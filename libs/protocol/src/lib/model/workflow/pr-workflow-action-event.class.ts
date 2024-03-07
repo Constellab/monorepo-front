@@ -1,6 +1,6 @@
-import {PrWorkflowNodeProcess} from './node/pr-workflow-node-process.class';
+import {PrWorkflowNodeProcess} from '../node/pr-workflow-node-process.class';
 import {TdTaskViewerConfig} from '@monorepo/technical-doc';
-import {PrWorkflowNode} from './node/pr-workflow-node.class';
+import {PrWorkflowNode} from '../node/pr-workflow-node.class';
 
 export type PrWorkflowActionEvent =
   PrWorkflowActionSelectNode

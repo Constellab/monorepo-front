@@ -1,4 +1,4 @@
-import {PrWorkflowNode} from './node/pr-workflow-node.class';
+import {PrWorkflowNode} from '../node/pr-workflow-node.class';
 
 export interface PrAddNodeWithConnection {
 

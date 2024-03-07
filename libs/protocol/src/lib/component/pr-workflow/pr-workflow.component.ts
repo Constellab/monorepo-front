@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PrWorkflowManagerState} from '../../state/pr-workflow-manager-state';
-import {PrWorkflow, PrWorkflowMode} from '../../model/pr-workflow.class';
+import {PrWorkflow, PrWorkflowMode} from '../../model/workflow/pr-workflow.class';
 import {Observable} from 'rxjs';
-import {PrConfigView} from '../../model/pr-config-view.class';
+import {PrWorkflowNodeMenuConfig} from '../../model/workflow/pr-workflow-node-menu.config';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() mode$: Observable<PrWorkflowMode>;
 
-  @Input() viewConfig: PrConfigView;
+  @Input() viewConfig: PrWorkflowNodeMenuConfig;
 
   @ViewChild('workflow', {static: false}) container: ElementRef<HTMLElement>;
 

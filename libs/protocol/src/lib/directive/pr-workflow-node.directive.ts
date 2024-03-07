@@ -10,7 +10,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {PrWorkflowNode} from '../model/node/pr-workflow-node.class';
 import {ClSubscriptionHandler} from '@monorepo/core-lib';
-import {PrWorkflowPort} from '../model/pr-workflow-port.class';
+import {PrWorkflowPort} from '../model/workflow/pr-workflow-port.class';
 import {
   PrWorkflowPortActionPortalComponent,
   PrWorkflowPortActionPortalInput

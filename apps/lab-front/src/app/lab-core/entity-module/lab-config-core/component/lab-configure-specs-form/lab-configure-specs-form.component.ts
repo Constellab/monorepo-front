@@ -4,6 +4,7 @@ import {LabConfig, LabConfigureSpecsForm} from '../../../../model/entities/lab-c
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {ControlContainer} from '@angular/forms';
 import {LabConfigureProcessDynamicField} from '../../lab-configure-process-dynamic-field.service';
+import {PrConfig} from '@monorepo/protocol';
 
 
 /**
@@ -35,12 +36,13 @@ export class LabConfigureSpecsFormComponent implements OnInit {
   }
 
   // build the form group to configure specs
-  public static buildFormGroup(configData: LabConfig): FormGroup<LabConfigureSpecsForm> {
-    const value = configData.mergeConfigWithDefault();
+  public static buildFormGroup(configData: PrConfig): FormGroup<LabConfigureSpecsForm> {
+    const labConfig = LabConfig.fromSpecs(configData.specs, configData.values);
+    const value = labConfig.mergeConfigWithDefault();
 
     return new FormBuilder().group({
-      public: FlDynamicFormHelper.generateFormGroup(configData.getDynamicFormFieldsConfig('public'), value),
-      protected: FlDynamicFormHelper.generateFormGroup(configData.getDynamicFormFieldsConfig('protected'), value),
+      public: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('public'), value),
+      protected: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('protected'), value),
     });
   }
 

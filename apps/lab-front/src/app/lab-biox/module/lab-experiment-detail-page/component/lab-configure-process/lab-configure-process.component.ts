@@ -1,9 +1,9 @@
 import {Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
-import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 import {LabConfigureProtocolComponent} from '../lab-configure-protocol/lab-configure-protocol.component';
 import {LabConfigureTaskComponent} from '../lab-configure-task/lab-configure-task.component';
 import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
+import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 
 /**
  * Component inside LabConfigureProtocol to configure a process.

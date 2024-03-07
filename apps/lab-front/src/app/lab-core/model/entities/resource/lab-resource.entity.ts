@@ -33,7 +33,7 @@ export class LabFsNodeEntity extends LabEntity {
 
 export type LabResourceOrigin = 'UPLOADED' | 'GENERATED' | 'IMPORTED_FROM_LAB' | 'S3_PROJECT_STORAGE';
 
-export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEntity, PrResource {
+export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEntity {
 
   // typing name of the resource
   @Expose({name: 'resource_typing_name'})
@@ -93,5 +93,15 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
 
   isDeletable(): boolean {
     return this.origin !== 'S3_PROJECT_STORAGE';
+  }
+
+  toPrResource(): PrResource {
+    return {
+      id: this.id,
+      name: this.name,
+      resourceTypingName: this.resourceTypingName,
+      resourceType: this.resourceType,
+      experiment: this.experiment,
+    };
   }
 }

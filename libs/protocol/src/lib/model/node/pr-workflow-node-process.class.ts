@@ -3,7 +3,7 @@ import {PrProcess, PrProcessStatus} from '../pr-process.class';
 import {map, Observable} from 'rxjs';
 import {FlColorHelper, FlStatus, FlThemeService, FlTranslatableText} from '@monorepo/front-core-lib';
 import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
-import {PrWorkflowPortType} from '../pr-workflow-port.class';
+import {PrWorkflowPortType} from '../workflow/pr-workflow-port.class';
 import {PrWorkflowNodeIcon} from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
 import {TdTypeStyleIconType} from '@monorepo/technical-doc';
 import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
@@ -21,7 +21,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   }
 
   getHTML(): string {
-    return `<pr-workflow-node-process name="${this.nodeName}"></pr-workflow-node-process>`;
+    return `<pr-workflow-node-process name="${this.instanceName}"></pr-workflow-node-process>`;
   }
 
   protected initPorts(object: PrProcess): void {

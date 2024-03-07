@@ -103,13 +103,13 @@ export class LabWorkflowNodeDetailState {
   }
 
   /**
-   * If the current selected node is deleted, close the drawer
+   * If the current selected node is deleted, set current node to null
    * @param info
    * @private
    */
   private onNodeDeleted(info: LabWorkflowEventNodeAdditionalInfo): void {
     const node = this.node$.value;
-    if (info && node && info.node.nodeName == node.nodeName && info.node.parentLayerId == node.parentLayerId) {
+    if (info && node && info.node.instanceName == node.instanceName && info.node.parentLayerId == node.parentLayerId) {
       this.setNode(null);
     }
   }
@@ -125,7 +125,9 @@ export class LabWorkflowNodeDetailState {
   public getProcess$(): Observable<LabProcess> {
     return this.getNode$().pipe(
       filter(node => node != null),
-      switchMap(node => node.getObject$() as Observable<LabProcess>));
+      switchMap(node =>
+        this.experimentState.getLabProcess$(node.parentLayerId, node.instanceName))
+    );
   }
 
 
@@ -136,7 +138,7 @@ export class LabWorkflowNodeDetailState {
 
   public resetProcess(): void {
     const node = this.node$.value;
-    this.workflowEditConfig.resetProcess(node.parentLayerId, node.nodeName);
+    this.workflowEditConfig.resetProcess(node.parentLayerId, node.instanceName);
   }
 
   public createDynamicInputPort(): void {
@@ -191,7 +193,7 @@ export class LabWorkflowNodeDetailState {
 
   private onResourceSelectionClosed(node: PrWorkflowNode, resource?: LabResource): void {
     if (resource) {
-      this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.nodeName, {
+      this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.instanceName, {
         [TdTypingName.task.source.configName]: resource.id
       });
     }

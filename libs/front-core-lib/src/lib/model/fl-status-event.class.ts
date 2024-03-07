@@ -2,8 +2,6 @@ import {Observable, of, startWith} from 'rxjs';
 import {catchError, filter, map} from 'rxjs/operators';
 
 
-export type FlStatusEventType = 'waiting' | 'loading' | 'error' | 'success'
-
 /**
  * Simple class to generify status event (useful for subject with http calls=
  */
@@ -46,6 +44,25 @@ export function flStatutEvent<T>() {
       map((obj: T) => ({status: 'success', object: obj}) as FlStatusEventSuccess<T>),
       catchError((error: any) => (of({status: 'error', error: error} as FlStatusEventError))),
       startWith({status: 'loading'} as FlStatusEventEmpty)
+    );
+  };
+}
+
+/**
+ * Operator to apply a map function to the object of a FlStatusEvent if the status is success
+ */
+export function flStatutEventMap<T, K>(mapFunc: (obj: T) => K) {
+  return (source: Observable<FlStatusEvent<T>>): Observable<FlStatusEvent<K>> => {
+    return source.pipe(
+      map(
+        (obj: FlStatusEvent<T>): FlStatusEvent<K> => {
+          if (obj?.status === 'success') {
+            return {status: 'success', object: mapFunc(obj.object)};
+          } else {
+            return obj;
+          }
+        }
+      )
     );
   };
 }

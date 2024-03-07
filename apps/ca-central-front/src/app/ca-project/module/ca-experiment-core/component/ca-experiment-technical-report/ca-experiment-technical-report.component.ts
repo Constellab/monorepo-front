@@ -15,7 +15,7 @@ import {
 } from '@monorepo/protocol';
 import {filter, Observable, of, Subscription, tap} from 'rxjs';
 import {MatDrawer} from '@angular/material/sidenav';
-import {CaWorkflowConfig} from '../../model/ca-workflow-config.class';
+import {CaWorkflowNodeMenuConfig} from '../../model/ca-workflow-node-menu.config';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {map} from 'rxjs/operators';
 import {
@@ -40,7 +40,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
 
   workflowMode$: Observable<PrWorkflowMode> = of('readOnly');
 
-  workflowConfig: CaWorkflowConfig;
+  workflowConfig: CaWorkflowNodeMenuConfig;
 
   currentNodeSelected: Observable<PrWorkflowNodeProcess>;
 
@@ -59,7 +59,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
       (res: CaTechnicalReport) => this.onTechnicalReportSuccess(res)
     );
 
-    this.workflowConfig = new CaWorkflowConfig(this.experiment.labInstance, this.snackBarService);
+    this.workflowConfig = new CaWorkflowNodeMenuConfig(this.experiment.labInstance, this.snackBarService);
     this.actionState.init();
 
 

@@ -12,21 +12,23 @@ export * from './lib/model/node/pr-workflow-node-source.class';
 export * from './lib/model/node/pr-workflow-node-viewer.class';
 export * from './lib/model/node/pr-workflow-node-protocol.class';
 
+// model workflow
+export * from './lib/model/workflow/pr-workflow.class';
+export * from './lib/model/workflow/pr-workflow.factory';
+export * from './lib/model/workflow/pr-workflow-action.class';
+export * from './lib/model/workflow/pr-workflow-action-event.class';
+export * from './lib/model/workflow/pr-workflow-connection.class';
+export * from './lib/model/workflow/pr-workflow-layer.class';
+export * from './lib/model/workflow/pr-workflow-node-menu.config';
+export * from './lib/model/workflow/pr-workflow-port.class';
+
 // model
 export * from './lib/model/pr-config.class';
-export * from './lib/model/pr-config-view.class';
 export * from './lib/model/pr-interface.class';
 export * from './lib/model/pr-io.class';
 export * from './lib/model/pr-process.class';
 export * from './lib/model/pr-protocol.class';
 export * from './lib/model/pr-resource.class';
-export * from './lib/model/pr-workflow.class';
-export * from './lib/model/pr-workflow.factory';
-export * from './lib/model/pr-workflow-action.class';
-export * from './lib/model/pr-workflow-connection.class';
-export * from './lib/model/pr-workflow-action-event.class';
-export * from './lib/model/pr-workflow-layer.class';
-export * from './lib/model/pr-workflow-port.class';
 
 // state
 export * from './lib/state/pr-workflow-action-state';

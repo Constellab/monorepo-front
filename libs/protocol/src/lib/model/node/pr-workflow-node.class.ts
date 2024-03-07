@@ -1,4 +1,4 @@
-import {PrWorkflowPort, PrWorkflowPortType} from '../pr-workflow-port.class';
+import {PrWorkflowPort, PrWorkflowPortType} from '../workflow/pr-workflow-port.class';
 import {DrawflowConnectionDetail, DrawflowNode} from 'drawflow';
 import {BehaviorSubject, combineLatest, map, Observable, of, Subscription} from 'rxjs';
 import {FlCoord, FlTranslatableText, FlTranslateService} from '@monorepo/front-core-lib';
@@ -31,7 +31,7 @@ export abstract class PrWorkflowNode<T = any> {
 
   protected constructor(
     // unique node name in the layer
-    public readonly nodeName: string,
+    public readonly instanceName: string,
     public readonly parentLayerId: string,
     object: T) {
     this.object$ = new BehaviorSubject<T>(object);

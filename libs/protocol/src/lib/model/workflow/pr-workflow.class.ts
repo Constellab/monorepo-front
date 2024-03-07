@@ -1,12 +1,11 @@
-import {PrWorkflowNode} from './node/pr-workflow-node.class';
+import {PrWorkflowNode} from '../node/pr-workflow-node.class';
 import {PrWorkflowConnection} from './pr-workflow-connection.class';
 import Drawflow, {ConnectionEvent} from 'drawflow';
 import {PrWorkflowLayer} from './pr-workflow-layer.class';
 import {BehaviorSubject, map, Observable, Subject} from 'rxjs';
 import {NgZone} from '@angular/core';
 import {PrWorkflowPort} from './pr-workflow-port.class';
-import {PrWorkflowNodeProtocol} from './node/pr-workflow-node-protocol.class';
-import {PrWorkflowNodeProcess} from './node/pr-workflow-node-process.class';
+import {PrWorkflowNodeProtocol} from '../node/pr-workflow-node-protocol.class';
 
 export type PrWorkflowMode = 'edit' | 'readOnly';
 
@@ -102,10 +101,6 @@ export class PrWorkflow {
     return this.currentLayer$.value;
   }
 
-  public selectRootLayer(): void {
-    this.selectLayer(this.getRootLayer().id);
-  }
-
   public selectLayer(layerId: string): void {
     // do nothing if this is the current layer
     if (this.currentLayer.id === layerId) {
@@ -143,7 +138,7 @@ export class PrWorkflow {
     }
   }
 
-  public addLayer(layer: PrWorkflowLayer, parentLayerId: string = null, selectLayer: boolean = false): void {
+  public addLayer(layer: PrWorkflowLayer, parentLayerId: string, selectLayer: boolean = false): void {
     if (parentLayerId != null) {
       layer.parentLayer = this.findLayerWithId(parentLayerId);
     }
@@ -165,28 +160,28 @@ export class PrWorkflow {
     return this.layers.find(layer => layer.id === layerId);
   }
 
-  public getCurrentLayerHierarchy(): Observable<PrWorkflowLayer[]> {
+  public getCurrentLayerHierarchy$(): Observable<PrWorkflowLayer[]> {
     return this.currentLayer$.asObservable().pipe(
       map(layer => layer.getLayerHierarchy())
     );
   }
 
-  public getRootLayer(): PrWorkflowLayer {
-    return this.layers[0];
-  }
-
   public loadSubProtocolLayer(protocol: PrWorkflowNodeProtocol, selectLayer: boolean): void {
     const currentLayerId = this.currentLayer.id;
 
-    protocol.markSubLayerAsLoading();
-    protocol.getSubLayer$().subscribe({
+    protocol.setLoading(true);
+    protocol.loadSubLayer().subscribe({
       next: layer => {
         if (!this.hasLayer(layer.id)) {
           this.addLayer(layer, currentLayerId, selectLayer);
+        } else {
+          this.selectLayer(layer.id);
         }
+        protocol.setLoading(false);
       },
       error: (error) => {
         console.error(error);
+        protocol.setLoading(false);
       }
     });
   }
@@ -232,7 +227,7 @@ export class PrWorkflow {
       this.workflowEvent$.next({
         action: 'deleteNode',
         node: node,
-        connections: layer.findConnectionsByNode(node.nodeName),
+        connections: layer.findConnectionsByNode(node.instanceName),
         protocolId: this.currentLayer.id
       });
     }
@@ -246,22 +241,6 @@ export class PrWorkflow {
       }
     }
     return null;
-  }
-
-  public findNodeByProcessId(processId: string): PrWorkflowNodeProcess {
-    for (const layer of this.layers) {
-      const node = layer.findNodeByProcessId(processId);
-      if (node != null) {
-        return node;
-      }
-    }
-    return null;
-  }
-
-  public findNodeByName(layerId: string, nodeName: string): PrWorkflowNode {
-    const layer = this.findLayerWithId(layerId);
-    if (layer == null) return null;
-    return layer.findNodeByName(nodeName);
   }
 
   /**
@@ -284,14 +263,6 @@ export class PrWorkflow {
         protocolId: layer.id
       });
     }
-  }
-
-  public getAllProtocolNodes(): PrWorkflowNodeProtocol[] {
-    const nodes: PrWorkflowNodeProtocol[] = [];
-    for (const layer of this.layers) {
-      nodes.push(...layer.getSubProtocolNodes());
-    }
-    return nodes;
   }
 
   ////////////////////// CONNECTION ///////////////////////////
@@ -350,8 +321,8 @@ export class PrWorkflow {
       // was deleted because a node was deleted
       setTimeout(() => {
         layer.saveUserConnectionRemoved(connection);
-        if (layer.findNodeByName(connection.inputNode.nodeName) == null
-          || layer.findNodeByName(connection.outputNode.nodeName) == null) {
+        if (layer.findNodeByName(connection.inputNode.instanceName) == null
+          || layer.findNodeByName(connection.outputNode.instanceName) == null) {
           return;
         }
 

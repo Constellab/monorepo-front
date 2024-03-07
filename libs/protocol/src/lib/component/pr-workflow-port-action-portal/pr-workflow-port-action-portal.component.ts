@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef} from '@monorepo/front-core-lib';
 import {TdIOSpec} from '@monorepo/technical-doc';
-import {PrWorkflowPort} from '../../model/pr-workflow-port.class';
+import {PrWorkflowPort} from '../../model/workflow/pr-workflow-port.class';
 
 export interface PrWorkflowPortActionPortalInput {
   port: PrWorkflowPort;
