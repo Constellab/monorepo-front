@@ -22,6 +22,7 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
               // observable of the resource defined in the config
               parentLayerId: string,
               object: T,
+              protected showExternalButtons: boolean,
               protected resourceState: PrWorkflowResourcesState,
               protected actionState: PrWorkflowActionState) {
     super(instanceName, parentLayerId, object);

@@ -21,7 +21,7 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface>
   constructor(outerfaceObject: PrOuterface, parentLayerId: string, outerfaceName: string,
               private connectedNode: PrWorkflowNodeProcess, private connectedPort: PrWorkflowPort,
               resourceState: PrWorkflowResourcesState, actionState: PrWorkflowActionState) {
-    super(outerfaceObject.name, parentLayerId, outerfaceObject, resourceState, actionState);
+    super(outerfaceObject.name, parentLayerId, outerfaceObject, false, resourceState, actionState);
     this.outerfaceName = outerfaceName;
   }
 

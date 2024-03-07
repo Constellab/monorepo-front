@@ -53,6 +53,7 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
 
   // generate a button on the right to show the next experiments
   getExternalButtons$(): Observable<PrWorkNodeIoExternalButton | null> {
+    if(!this.showExternalButtons) return of(null);
     return this.getResourceId$().pipe(
       map(resourceId => {
         if (!resourceId) return null;

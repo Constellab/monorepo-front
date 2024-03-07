@@ -84,13 +84,13 @@ export class PrWorkflowFactory {
     let processNode: PrWorkflowNode;
     if (process.process_typing_name === TdTypingName.task.source.typingName) {
       processNode = new PrWorkflowNodeSource(prProcess.instanceName, protocolId, prProcess,
-        this.resourceState, this.actionState);
+        false, this.resourceState, this.actionState);
     } else if (process.process_typing_name === TdTypingName.task.output.typingName) {
       processNode = new PrWorkflowNodeOutput(prProcess.instanceName, protocolId, prProcess,
-        this.resourceState, this.actionState);
+        false, this.resourceState, this.actionState);
     } else if (process.process_typing_name === TdTypingName.task.viewer) {
       processNode = new PrWorkflowNodeViewer(prProcess.instanceName, protocolId, prProcess,
-        this.resourceState, this.actionState);
+        false, this.resourceState, this.actionState);
     } else if (process.graph != null) {
       const layer: () => Observable<PrWorkflowLayer> = () => of(this.createLayer(process.graph, false, prProcess.id, name));
       processNode = new PrWorkflowNodeProtocol(prProcess, layer, this.resourceState, this.actionState);

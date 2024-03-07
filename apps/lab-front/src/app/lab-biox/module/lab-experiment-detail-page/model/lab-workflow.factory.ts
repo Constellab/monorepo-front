@@ -83,13 +83,13 @@ export class LabWorkflowFactory {
     let processNode: PrWorkflowNode;
     if (process.isSource()) {
       processNode = new PrWorkflowNodeSource(process.instanceName, process.parentProtocolId, process.toPrProcess(),
-        this.resourceState, this.actionState);
+        true, this.resourceState, this.actionState);
     } else if (process.isOutput()) {
       processNode = new PrWorkflowNodeOutput(process.instanceName, process.parentProtocolId, process.toPrProcess(),
-        this.resourceState, this.actionState);
+        true, this.resourceState, this.actionState);
     } else if (process.isViewer()) {
       processNode = new PrWorkflowNodeViewer(process.instanceName, process.parentProtocolId, process.toPrProcess(),
-        this.resourceState, this.actionState);
+        true, this.resourceState, this.actionState);
     } else if (process.isProtocol) {
       const loadSubLayer: () => Observable<PrWorkflowLayer> = () => this.createSubLayer(process.id);
       processNode = new PrWorkflowNodeProtocol(process.toPrProcess(), loadSubLayer, this.resourceState, this.actionState);

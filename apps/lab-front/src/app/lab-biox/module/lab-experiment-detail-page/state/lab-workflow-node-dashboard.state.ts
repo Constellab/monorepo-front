@@ -39,7 +39,6 @@ export class LabWorkflowNodeDashboardState {
   private saveConfig(config: LabConfigureSpecsForm): Observable<FlPortalActionResult | null> {
     const configValue: PrConfigValues = {...config.public, ...config.protected};
     // update the task config values
-    this.task.config.values = configValue;
     return this.workflowEditConfig.updateProcessConfig(this.task.parentProtocolId, this.task.instanceName, configValue);
   }
 

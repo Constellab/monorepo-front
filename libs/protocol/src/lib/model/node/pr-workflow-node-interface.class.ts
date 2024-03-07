@@ -20,7 +20,7 @@ export class PrWorkflowNodeInterface extends PrWorkflowNodeResource<PrInterface>
   constructor(interfaceObject: PrInterface, parentLayerId: string, interfaceName: string,
               private connectedNode: PrWorkflowNodeProcess, private connectedPort: PrWorkflowPort,
               resourceState: PrWorkflowResourcesState, actionState: PrWorkflowActionState) {
-    super(interfaceObject.name, parentLayerId, interfaceObject, resourceState, actionState);
+    super(interfaceObject.name, parentLayerId,  interfaceObject,false, resourceState, actionState);
     this.interfaceName = interfaceName;
   }
 

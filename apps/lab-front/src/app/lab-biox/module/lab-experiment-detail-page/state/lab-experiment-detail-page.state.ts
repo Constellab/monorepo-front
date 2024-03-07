@@ -235,6 +235,12 @@ export class LabExperimentDetailPageState {
     if (layer) {
       layer.updateProcessObject(process.toPrProcess());
     }
+
+    // refresh the stored process
+    const subProtocol$ = this.protocols[process.parentProtocolId];
+    if(subProtocol$) {
+      subProtocol$.value.data.nodes[process.instanceName] = process;
+    }
   }
 
   private stopProtocolsRefresh(): void {
