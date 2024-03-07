@@ -78,14 +78,12 @@
         </mat-menu>
 
         <mat-menu #liveTaskMenu>
-          <button mat-menu-item type="button" (click)="downloadLiveTaskFile(process)" tabindex="-1"
-                  [matTooltip]="'biox.download_live_task_file' | translate" matTooltipPosition="below">
+          <button mat-menu-item type="button" (click)="downloadLiveTaskFile(process)" tabindex="-1">
             <mat-icon>download</mat-icon>
             {{'biox.download_live_task_file' | translate}}
           </button>
 
-          <button mat-menu-item type="button" (click)="openShareCommunityLiveTaskDialog(process)" tabindex="-1"
-                  [matTooltip]="'biox.share_live_task_to_community' | translate" matTooltipPosition="below">
+          <button mat-menu-item type="button" (click)="openShareCommunityLiveTaskDialog(process)" tabindex="-1">
             <mat-icon>share</mat-icon>
             {{'biox.share_live_task_to_community' | translate}}
           </button>

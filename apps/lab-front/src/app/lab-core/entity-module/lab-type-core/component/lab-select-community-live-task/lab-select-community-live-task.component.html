@@ -1,13 +1,11 @@
 <div class="content">
   <div class="left-side">
-    @if(!personalOnly){
-      <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent"
+    <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent"
                        class="space-list-option">
-        {{ 'biox.public' | translate }}
-      </mat-chip-option>
-      @if (spaces?.length > 0) {
-        <mat-divider></mat-divider>
-      }
+      {{ 'biox.public' | translate }}
+    </mat-chip-option>
+    @if (spaces?.length > 0) {
+      <mat-divider></mat-divider>
     }
     @for (space of spaces; track space.id) {
       <mat-chip-option [value]="isSelected(space.id)" (click)="selectSpace(space.id)" color="warn"

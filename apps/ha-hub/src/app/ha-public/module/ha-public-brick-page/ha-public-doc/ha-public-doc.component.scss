@@ -61,3 +61,39 @@ form{
   min-height: 20vh;
   max-height: calc(100vh - 126px);
 }
+
+.doc-files-div{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.doc-file{
+  font-size: 0.8em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.side-box-title{
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.files-div{
+  padding-bottom: 0.4em;
+  border-bottom: 1px solid var(--hover-color);
+  margin-bottom: 0.4em;
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-file:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}

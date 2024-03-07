@@ -82,6 +82,10 @@ export class HaDocumentationService {
 
   ////////////////////////////////// FILE //////////////////////////////////
 
+  public getDocFilePath(docFileId: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/get-file/${docFileId}`);
+  }
+
   uploadDocument(file: File, docId: string): Observable<HaFile>{
     const formData = new FormData();
     formData.append('file', file);

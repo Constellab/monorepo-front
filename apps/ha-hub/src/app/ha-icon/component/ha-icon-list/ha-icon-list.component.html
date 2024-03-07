@@ -1,0 +1,20 @@
+<div class="icons-list-div" *ngIf="icons"
+     (flInfiniteScroll)="loadMoreResults()" [flInfiniteDisabled]="icons.isLoading || icons?.page?.last"
+     flInfiniteMode="auto">
+
+  @for(icon of icons.connect() | async; track icon.technicalName){
+    <div class="icon-div" [haIconMouseHoverPortal]="icon">
+      <div class="icon-file-div">
+        @if(icon.type == 'ICON'){
+          <mat-icon class="icon" [svgIcon]="getIconSvg(icon.technicalName)">
+          </mat-icon>
+        } @else {
+          <img class="icon" [src]="getIconFileUrl(icon.technicalName)" />
+        }
+      </div>
+      <div class="icon-name-div">
+        <span class="icon-name">{{icon.name}}</span>
+      </div>
+    </div>
+  }
+</div>

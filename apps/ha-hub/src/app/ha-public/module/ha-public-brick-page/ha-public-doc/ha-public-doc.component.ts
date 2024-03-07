@@ -27,6 +27,12 @@ import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.serv
 import {FormControl} from '@angular/forms';
 import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 import {BlockToolData} from '@editorjs/editorjs/types/tools';
+import {
+  HaDocFileDialogComponent,
+  HaDocFileDialogInput
+} from '../ha-public-doc-file-dialog/ha-public-doc-file-dialog.component';
+import {HaFile} from '../../../../ha-core/ha-model/ha-entities/ha-file';
+import {HaFileHelper} from '../../../../ha-core/ha-helper/ha-file.helper';
 
 @Component({
   selector: 'ha-public-doc-page',
@@ -44,7 +50,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   titles: BlockToolData[] = [];
 
-  isAdminOrBrickUser: Observable<boolean>;
+  isCreatorOrBrickUser$: Observable<boolean>;
   isLoading: boolean = false;
   textEditorConfig: HaDocTextEditorConfig;
   docNotFound: boolean = false;
@@ -87,7 +93,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.brickName = brickName;
     this.brickVersion = brickVersion;
     this.brickService.getByName(this.brickName).subscribe(brick => {
-      this.isAdminOrBrickUser = this.authUserService.isAdminOrBrickUser(brick);
+      this.isCreatorOrBrickUser$ = this.authUserService.isBrickCreatorOrBrickUser(brick);
     });
     this.getActiveDoc();
   }
@@ -165,8 +171,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   private saveContent(value: TeRichTextContent): void {
     if (this.documentation == null) return;
-    this.isAdminOrBrickUser.subscribe(isAdmin => {
-      if (isAdmin) {
+    this.isCreatorOrBrickUser$.subscribe(hasRight => {
+      if (hasRight) {
         this.documentationService.updateContent(this.documentation.id, value).subscribe();
       }
     });
@@ -220,6 +226,26 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  openDocFileDialog(): void{
+    const input: HaDocFileDialogInput = {
+      mode: 'create',
+      object: {
+        doc: this.documentation
+      }
+    };
+    this.dialogService.openSmallDialog(HaDocFileDialogComponent, {data: input}).afterClosed().subscribe((res) =>{
+    })
+  }
+
+  downloadFile(file: HaFile): string {
+    // download file from server (not from the client)
+    return this.documentationService.getDocFilePath(file.id);
+  }
+
+  getFileIcon(filename: string): string {
+    return HaFileHelper.getFileIcon(filename);
   }
 
   ngOnDestroy(): void {

@@ -44,7 +44,7 @@ export class HaStoryFileDialogComponent extends FlFormDialogAbstractDirective<Ha
 
   buildForm(): FormGroup<HaStoryFileFormData> {
     return new FormBuilder().group({
-      newStoryFiles: [null, Validators.required],
+      newDocFiles: [null, Validators.required],
       story: [this.story, Validators.required]
     });
   }

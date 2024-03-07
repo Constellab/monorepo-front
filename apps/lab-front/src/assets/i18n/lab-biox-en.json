@@ -395,7 +395,9 @@
     "add_version_to_community_live_task_content": "Add version to the Community live task '{{liveTaskTitle}}'",
     "add_version_to_community_live_task_success": "Draft version added to the Community live task",
     "share_live_task_to_community": "Share live task to Community",
-    "existent_lt_info": "Or, create a new version to one of your Community live task from this task",
+    "existent_lt_info_1": "Select the linked Community live task version bellow to add a new version to it.",
+    "existent_lt_info_2": "Select one of your Community live tasks to create a new version from this live task.",
+    "my_live_tasks": "My live tasks",
     "live_task": "Live task"
   }
 }

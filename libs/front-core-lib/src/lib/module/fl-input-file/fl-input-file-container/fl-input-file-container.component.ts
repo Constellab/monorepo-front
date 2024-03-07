@@ -113,6 +113,9 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
     if (ngControl) {
       this.stateSubscription = ngControl.statusChanges.subscribe(
         () => {
+          if(this.inputFile?.value == null){
+            this.displayDefaultText();
+          }
           this.refreshRequired();
         }
       );
@@ -157,7 +160,6 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
   // display the input placeholder as a text
   private displayDefaultText(): void {
     this.hasValue = false;
-
     if(this.placeholder != null){
       this.placeholderText = this.placeholder;
     }

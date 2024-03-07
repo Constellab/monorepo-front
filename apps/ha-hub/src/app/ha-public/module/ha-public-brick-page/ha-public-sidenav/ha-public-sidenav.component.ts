@@ -65,7 +65,7 @@ export class HaPublicSidenavComponent implements OnInit {
 
   @Input() brick: HaBrick;
   searchTechDocControl = new FormControl<string>('');
-  isAdminOrBrickUser$: Observable<boolean>;
+  isCreatorOrBrickUser$: Observable<boolean>;
   brickId: string;
   brickName: string;
   brickVersion: string;
@@ -166,7 +166,7 @@ export class HaPublicSidenavComponent implements OnInit {
     this.DOCUMENTATIONS_KEY = makeStateKey<object>('DOCUMENTATIONS_KEY');
     this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
 
-    this.isAdminOrBrickUser$ = this.authenticatedUserService.isAdminOrBrickUser(this.brick);
+    this.isCreatorOrBrickUser$ = this.authenticatedUserService.isBrickCreatorOrBrickUser(this.brick);
 
     this.route.params.subscribe(params => {
       this.initCurrentCompletePath(params['version']);

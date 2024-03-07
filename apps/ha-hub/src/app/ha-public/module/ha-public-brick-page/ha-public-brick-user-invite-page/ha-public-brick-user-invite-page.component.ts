@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {HaBrickUserInvite} from '../../../../ha-core/ha-model/ha-entities/ha-brick-user-invite.class';
+import {HaBrickCoAuthorInvite} from '../../../../ha-core/entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 
 @Component({
   selector: 'ha-ha-public-brick-user-invite-page',
@@ -12,7 +12,7 @@ export class HaPublicBrickUserInvitePageComponent implements OnInit {
 
   token: string;
 
-  invite: HaBrickUserInvite;
+  invite: HaBrickCoAuthorInvite;
 
   isLoading = false;
 
@@ -30,7 +30,7 @@ export class HaPublicBrickUserInvitePageComponent implements OnInit {
   }
 
   checkValidity(): void {
-    this.brickService.isBrickUserInviteValid(this.token).subscribe(invite => {
+    this.brickService.isCoAuthorInviteValid(this.token).subscribe(invite => {
       this.invite = invite;
       if (!invite) {
         this.router.navigate(['/']);

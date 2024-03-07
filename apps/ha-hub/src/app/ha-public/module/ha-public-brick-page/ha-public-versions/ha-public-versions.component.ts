@@ -26,7 +26,7 @@ export class HaPublicVersionsComponent implements OnInit {
   brickVersions: HaBrickVersionDataSource;
   brickId: string;
   displayedColumns: FlTableColumn<HaBrickVersion>[] = ['version', 'repoType', 'lastModified', 'informations'];
-  isAdminOrBrickUser$: Observable<boolean>;
+  isCreatorOrBrickUser$: Observable<boolean>;
 
   constructor(
     private brickVersionService: HaBrickVersionService,
@@ -52,7 +52,7 @@ export class HaPublicVersionsComponent implements OnInit {
     this.metadataService.setPageTitle('ha.versions.brick.title', true, {brickTitle: brickName});
     this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true,{brickTitle: brickName});
     this.brickService.getByName(brickName).subscribe(brick => {
-      this.isAdminOrBrickUser$ = this.authUserService.isAdminOrBrickUser(brick);
+      this.isCreatorOrBrickUser$ = this.authUserService.isBrickCreatorOrBrickUser(brick);
       this.brickId = brick.id;
       this.setDataSource();
     });

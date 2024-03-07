@@ -13,7 +13,7 @@
         <h3>{{documentation.title}}</h3>
 
 
-        <button mat-icon-button type="button" *ngIf="isAdminOrBrickUser | async"
+        <button mat-icon-button type="button" *ngIf="isCreatorOrBrickUser$ | async"
                 [matMenuTriggerFor]="menu">
           <mat-icon>
             more_vert
@@ -49,10 +49,38 @@
     </div>
   </div>
 </div>
-<div class="right-panel right-div g-scrollable-element" *ngIf="documentation && titles?.length > 0">
-  <div>
-    <ha-public-brick-right-panel [brickName]="brickName"
-                                 [docTitles]="titles"></ha-public-brick-right-panel>
-  </div>
+<div class="right-panel right-div g-scrollable-element" *ngIf="documentation && (titles?.length > 0 || (documentation.docFiles?.length > 0 || (isCreatorOrBrickUser$ | async)))">
+  @if ((documentation.docFiles && documentation.docFiles.length > 0) || (isCreatorOrBrickUser$ | async)) {
+    <div class="files-div">
+      <h6 class="side-box-title">
+        <fl-text-icon>
+          <mat-icon>description</mat-icon>
+          {{ 'attached_files' | translate }}
+        </fl-text-icon>
+        <button mat-icon-button type="button" (click)="openDocFileDialog()" *ngIf="isCreatorOrBrickUser$ | async">
+          <mat-icon>cloud_upload</mat-icon>
+        </button>
+      </h6>
+
+      <div class="doc-files-div">
+        @for (file of documentation.docFiles; track file.id) {
+          <div class="doc-file" [matTooltip]="file.humanName">
+            <a type="button" [href]="downloadFile(file)" download>
+              <fl-text-icon>
+                <mat-icon [svgIcon]="getFileIcon(file.humanName)"></mat-icon>
+                {{ file.humanName }}
+              </fl-text-icon>
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  }
+  @if(titles && titles.length > 0){
+    <div>
+      <ha-public-brick-right-panel [brickName]="brickName"
+                                   [docTitles]="titles"></ha-public-brick-right-panel>
+    </div>
+  }
 </div>
 

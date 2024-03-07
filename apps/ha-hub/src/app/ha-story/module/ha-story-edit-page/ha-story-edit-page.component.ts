@@ -18,11 +18,14 @@ import {map} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {HaStoryCoAuthorDialogComponent} from '../ha-story-co-author-dialog/ha-story-co-author-dialog.component';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {HaStoryFileDialogComponent, HaStoryFileFormData} from '../ha-story-file-dialog/ha-story-file-dialog.component';
 import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import {
+  HaCoAuthorDialogComponent,
+  HaCreateStoryDtoInput
+} from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 
 @Component({
   selector: 'ha-story-edit-page',
@@ -273,16 +276,13 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   openCoAuthorDialog(): void {
-    const input: FlFormDialogInput<HaStory> = {
-      mode: 'update',
-      object: this.story
+    const input: HaCreateStoryDtoInput = {
+      id: this.story.id,
+      service: this.storyService,
+      inviteText: 'invite_story_coauthor_information'
     };
 
-    this.dialogService.openSmallDialog(HaStoryCoAuthorDialogComponent, {data: input}).afterClosed().subscribe((res) => {
-      if (res && res.choice && res.result) {
-        this.story = res.result;
-      }
-    });
+    this.dialogService.openSmallDialog(HaCoAuthorDialogComponent, {data: input}).afterClosed().subscribe();
   }
 
   openStoryFileDialog(): void{

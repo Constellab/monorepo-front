@@ -1,0 +1,55 @@
+<fl-dialog-header>
+  {{'create_icon' | translate}}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  @if(formGp){
+    <form (ngSubmit)="submit()" id="icon-form" [formGroup]="formGp">
+      <mat-form-field class="g-form-input">
+        <mat-label>{{'icon_technical_name' | translate}}</mat-label>
+        <input matInput formControlName="technicalName" required flInputMaxLength="30" [placeholder]="'icon_technical_name' | translate">
+        <mat-error *ngIf="formGp.get('technicalName').hasError('required')">
+          {{'icon_technical_name' | flErrorRequired}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="g-form-input">
+        <mat-label>{{'icon_name' | translate}}</mat-label>
+        <input matInput formControlName="name" required [placeholder]="'icon_name' | translate">
+        <mat-error *ngIf="formGp.get('name').hasError('required')">
+          {{'icon_name' | flErrorRequired}}
+        </mat-error>
+      </mat-form-field>
+
+      <p class="icon-sub-names-info">{{'icon_sub_names_info' | translate}}</p>
+      <mat-form-field class="g-form-input">
+        <mat-label>{{'icon_sub_names' | translate}}</mat-label>
+        <input matInput formControlName="subNames" required [placeholder]="'icon_sub_names' | translate">
+        <mat-error *ngIf="formGp.get('subNames').hasError('required')">
+          {{'icon_sub_names' | flErrorRequired}}
+        </mat-error>
+        <mat-error *ngIf="formGp.get('subNames').hasError('pattern')">
+          {{'icon_sub_names_pattern_error' | translate}}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="icon-input-file-div">
+        <fl-input-file-container color="primary" [placeholder]="'import_icon_file' | translate" class="bt-icon-div">
+          <input flInputFile type="file" [strictMode]="true" formControlName="file"
+                 accept="image/*" (fileChange)="onFileSelected()">
+        </fl-input-file-container>
+        <mat-error *ngIf="formGp.get('file').hasError('required') && input_file_trigered">
+          {{'file' | flErrorRequired}}
+        </mat-error>
+      </div>
+    </form>
+  }
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+
+  <button mat-flat-button color="primary" type="submit" form="icon-form" class="g-centered-forced">
+    {{'save' | translate}}
+    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+  </button>
+</div>

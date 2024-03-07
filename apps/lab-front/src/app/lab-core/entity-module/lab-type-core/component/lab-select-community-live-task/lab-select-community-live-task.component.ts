@@ -43,21 +43,13 @@ export class LabSelectCommunityLiveTaskComponent implements OnInit {
 
 
   pythonLabLiveTaskToLtLiveTask(liveTask: LabLiveTask): LtLiveTask {
-    const ltLiveTask = new LtLiveTask();
-    ltLiveTask.id = liveTask.id;
-    ltLiveTask.title = liveTask.title;
-    ltLiveTask.description = liveTask.description;
-    ltLiveTask.latestPublishVersion = liveTask.latest_publish_version;
-    ltLiveTask.createdAt = DateTime.fromISO(liveTask.created_at);
-    ltLiveTask.lastModifiedAt = DateTime.fromISO(liveTask.last_modified_at);
-    ltLiveTask.createdBy = liveTask.created_by;
-    ltLiveTask.space = liveTask.space;
-    return ltLiveTask;
+    return liveTask.toLtLiveTask();
   }
 
   search(): void {
     this.liveTasksDatasource =
-      this.protocolService.getCommunityAvailableLiveTasksWithFiltersPaginated(this.spaceIdFilter, this.titleFormControl.value, this.personalOnly);
+      this.protocolService.getCommunityAvailableLiveTasksWithFiltersPaginated(
+        this.spaceIdFilter, this.titleFormControl.value, this.personalOnly);
   }
 
   isSelected(spaceId: string): boolean {

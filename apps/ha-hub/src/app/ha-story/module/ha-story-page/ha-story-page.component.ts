@@ -14,7 +14,6 @@ import {TeRichText} from '@monorepo/text-editor';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
-import {HaStoryState} from '../../ha-story-core/state/ha-story.state';
 
 @Component({
   selector: 'ha-story-page',
@@ -108,7 +107,7 @@ export class HaStoryPageComponent implements OnInit {
   }
 
   private getStoryCoAuthors(): void {
-    this.storyService.getStoryCoAuthors(this.story.id).subscribe((coAuthors: HaUser[]) => {
+    this.storyService.getCoAuthors(this.story.id).subscribe((coAuthors: HaUser[]) => {
       this.storyCoAuthors = coAuthors;
       this.hasRightToEdit = this.currentUser != null && (this.currentUser.id == this.story.createdBy.id ||
         this.storyCoAuthors?.find(storyCoAuthor => storyCoAuthor.id === this.currentUser.id) != null);

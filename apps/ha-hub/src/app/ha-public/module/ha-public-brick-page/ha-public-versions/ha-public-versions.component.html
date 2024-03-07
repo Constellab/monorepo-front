@@ -1,5 +1,5 @@
 <div class="table-version">
-  <button mat-flat-button color="primary" *ngIf="isAdminOrBrickUser$ | async" class="button-add-version"
+  <button mat-flat-button color="primary" *ngIf="isCreatorOrBrickUser$ | async" class="button-add-version"
           (click)="openNewVersionDialog(brickId)">
     {{'add_version' | translate}}
   </button>

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {HaStoryAuthorInvite} from '../../../ha-core/ha-model/ha-entities/ha-story-author-invite.class';
+import {HaStoryCoAuthorInvite} from '../../../ha-core/entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 
 @Component({
   selector: 'ha-story-invite-page',
@@ -12,7 +12,7 @@ export class HaStoryInvitePageComponent implements OnInit {
 
   token: string;
 
-  invite: HaStoryAuthorInvite;
+  invite: HaStoryCoAuthorInvite;
 
   isLoading = false;
 
@@ -30,7 +30,7 @@ export class HaStoryInvitePageComponent implements OnInit {
   }
 
   checkValidity(): void {
-    this.storyService.isInvitationValid(this.token).subscribe(invite => {
+    this.storyService.isCoAuthorInviteValid(this.token).subscribe(invite => {
       this.invite = invite;
       if (!invite) {
         this.router.navigate(['/']);

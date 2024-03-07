@@ -3,7 +3,7 @@ import {HaCustomLibraryModule} from './ha-custom-library/ha-custom-library.modul
 import {HaCustomMaterialModule} from './ha-custom-material/ha-custom-material.module';
 import {HaCoreDirectiveModule} from './ha-module/ha-core-directive/ha-core-directive.module';
 import {HaCorePipeModule} from './ha-module/ha-core-pipe/ha-core-pipe.module';
-import {NgClass} from '@angular/common';
+import {CommonModule, NgClass} from '@angular/common';
 
 @NgModule({
   exports: [
@@ -13,7 +13,8 @@ import {NgClass} from '@angular/common';
     HaCorePipeModule,
   ],
   imports: [
-    NgClass
+    NgClass,
+    CommonModule
   ]
 })
 export class HaCoreModule {

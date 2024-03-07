@@ -12,6 +12,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HaCookieConsentComponent } from './ha-cookie-consent/ha-cookie-consent.component';
 import {HaLiveTaskModule} from '../ha-live-task/ha-live-task.module';
 import {HaSpaceModule} from '../ha-space/ha-space.module';
+import {HaIconsPageComponent} from '../ha-icon/component/ha-icons-page/ha-icons-page.component';
+import {HaIconModule} from '../ha-icon/ha-icon.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import {HaSpaceModule} from '../ha-space/ha-space.module';
     HaLoginPageComponent,
     HaHomeComponent,
     HaCookieConsentComponent,
+    HaIconsPageComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +33,7 @@ import {HaSpaceModule} from '../ha-space/ha-space.module';
     HaSpaceModule,
     HaLiveTaskModule,
     MatSlideToggleModule,
+    HaIconModule
   ],
 })
 export class HaMainModule {}

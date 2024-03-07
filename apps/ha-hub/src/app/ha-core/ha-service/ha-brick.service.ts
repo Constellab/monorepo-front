@@ -8,13 +8,16 @@ import {HaNewVersionDTO, HaReferenceDTO} from '../ha-model/ha-entities/ha-versio
 import {HaBrickVersion} from '../ha-model/ha-entities/ha-brick-version.class';
 import {TdTypeEntity} from '@monorepo/technical-doc';
 import {HaBrickUser} from '../ha-model/ha-entities/ha-brick-user';
-import {HaBrickUserInvite} from '../ha-model/ha-entities/ha-brick-user-invite.class';
 import {ClVersion} from '@monorepo/core-lib';
+import {HaBrickCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
+import {HaUser} from '../ha-model/ha-entities/ha-user';
+import {HaStory} from '../ha-model/ha-entities/ha-story.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HaBrickService {
+export class HaBrickService implements HaCoAuthorService {
   private readonly route: string = 'brick';
 
   constructor(private apiService: FlApiService) {
@@ -132,13 +135,31 @@ export class HaBrickService {
     return this.apiService.delete(`${this.route}/remove-brick-user/${brickUser.id}`);
   }
 
-  public isBrickUserInviteValid(token: string): Observable<HaBrickUserInvite> {
+  isCoAuthorInviteValid(token: string): Observable<HaBrickCoAuthorInvite> {
     return this.apiService.get(`${this.route}/invite/${token}/is-valid`);
   }
 
-  public acceptInvite(token: string): Observable<HaBrick> {
+  acceptInvite(token: string): Observable<HaBrick> {
     return this.apiService.put(`${this.route}/invite/${token}/accept`, {});
   }
 
+  deleteCoAuthorInvite(inviteId: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/invite/${inviteId}`);
+  }
 
+  getCoAuthors(brickId: string): Observable<HaUser[]> {
+    return this.apiService.get(`${this.route}/${brickId}/co-authors`, HaUser);
+  }
+
+  getCoAuthorsPendingInvites(brickId: string): Observable<HaBrickCoAuthorInvite[]> {
+    return this.apiService.get(`${this.route}/${brickId}/co-authors-pending-invites`, HaBrickCoAuthorInvite, {resultIsPaginated: false});
+  }
+
+  inviteCoAuthor(brickId: string, coAuthorMail: string): Observable<boolean> {
+    return this.apiService.post(`${this.route}/${brickId}/invite-co-author`, {coAuthorMail: coAuthorMail}, Boolean);
+  }
+
+  removeCoAuthor(brickId: string, coAuthorId: string): Observable<any> {
+    return this.apiService.put(`${this.route}/${brickId}/remove-co-author/${coAuthorId}`, {}, HaStory);
+  }
 }

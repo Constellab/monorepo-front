@@ -395,7 +395,9 @@
     "add_version_to_community_live_task_content": "Ajouter une version à la live task de Community '{{liveTaskTitle}}'",
     "add_version_to_community_live_task_success": "Version ajoutée à la live task de Community",
     "share_live_task_to_community": "Partager la live task dans Community",
-    "existent_lt_info": "Ou, ajouter une version à une live task de Community existante",
+    "existent_lt_info_1": "Sélectionner la live task de Community associée à cette tâche afin d'ajouter une version à cette live task.",
+    "existent_lt_info_2": "Sélectionner une de vos live tasks de Community existante pour ajouter une version à partir de cette live task.",
+    "my_live_tasks": "Mes live tasks",
     "live_task": "Live Task"
   }
 }

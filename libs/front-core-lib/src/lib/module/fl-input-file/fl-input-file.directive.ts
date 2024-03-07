@@ -104,7 +104,6 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
       this.clearInput(false);
     }
 
-
     // trigger change event to refresh button
     this.fileChange.emit(this.value);
   }

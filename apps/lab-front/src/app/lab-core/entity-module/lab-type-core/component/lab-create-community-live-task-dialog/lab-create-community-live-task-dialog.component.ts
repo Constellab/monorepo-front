@@ -24,7 +24,7 @@ export interface LabShareLiveTaskCommunityDialogData {
   styleUrls: ['./lab-create-community-live-task-dialog.component.scss']
 })
 export class LabCreateCommunityLiveTaskDialogComponent implements OnInit {
-  title: string;
+  title: string = 'biox.create_community_live_task';
   processId: string;
   spaces$: Observable<LtSpace[]>;
   formGp: FormGroup<LtCreateLiveTaskFormData>;
@@ -40,8 +40,6 @@ export class LabCreateCommunityLiveTaskDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title = this.mode === LabCreateCommunityLiveTaskDialogMode.CREATE ?
-      'biox.create_community_live_task' : 'biox.fork_community_live_task';
 
     this.spaces$ = this.protocolService.getCommunitySpaces();
 

@@ -36,7 +36,6 @@ export class HaLiveTaskListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.liveTasksPaginated = this.liveTaskService.getAllPaginated();
 
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
       this.user = user;
@@ -44,6 +43,7 @@ export class HaLiveTaskListComponent implements OnInit {
         this.listSpaces$ = this.spaceService.getSpacesOfCurrentUser();
       }
     });
+    this.updateLiveTask();
   }
 
 
@@ -72,8 +72,7 @@ export class HaLiveTaskListComponent implements OnInit {
     } else {
       this.spaceIdFilter.push(spaceId);
     }
-
-    this.liveTasksPaginated = this.liveTaskService.getAllWithFiltersPaginated(this.spaceIdFilter, this.titleFormControl.value);
+    this.updateLiveTask();
   }
 
   onSpace(spaceId: string): void{
@@ -82,6 +81,10 @@ export class HaLiveTaskListComponent implements OnInit {
 
   search(event): void {
     event.preventDefault();
+    this.updateLiveTask();
+  }
+
+  updateLiveTask(): void {
     this.liveTasksPaginated = this.liveTaskService.getAllWithFiltersPaginated(this.spaceIdFilter, this.titleFormControl.value);
   }
 }

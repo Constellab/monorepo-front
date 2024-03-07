@@ -39,6 +39,7 @@ import {
   HaDocResourceViewInputDialogComponent
 } from './ha-doc-view/ha-doc-resource-view-input-dialog/ha-doc-resource-view-input-dialog.component';
 import {HaDocContentViewComponent} from './ha-doc-view/ha-doc-content-view/ha-doc-content-view.component';
+import {HaDocFileDialogComponent} from './ha-public-doc-file-dialog/ha-public-doc-file-dialog.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import {HaDocContentViewComponent} from './ha-doc-view/ha-doc-content-view/ha-do
     HaPublicInviteBrickUserDialogComponent,
     HaPublicBrickUserInvitePageComponent,
     HaDocResourceViewInputDialogComponent,
-    HaDocContentViewComponent
+    HaDocContentViewComponent,
+    HaDocFileDialogComponent
   ],
   imports: [
     HaPublicCoreModule,

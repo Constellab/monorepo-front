@@ -5,6 +5,7 @@ import {Ha404Component} from '../ha-public/module/ha404/ha404.component';
 import {HaLoginPageComponent} from './ha-login-page/ha-login-page.component';
 import {HaHomeComponent} from './ha-home/ha-home.component';
 import {HaRouterService} from '../ha-core/ha-service/ha-router.service';
+import {HaIconsPageComponent} from '../ha-icon/component/ha-icons-page/ha-icons-page.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,16 @@ const routes: Routes = [
     path: 'live-tasks',
     component: HaMainComponent,
     loadChildren: () => import('../ha-live-task/ha-live-task.module').then(m => m.HaLiveTaskModule)
+  },
+  {
+    path: 'icons',
+    component: HaMainComponent,
+    children: [
+      {
+        path: '',
+        component: HaIconsPageComponent
+      }
+    ]
   },
   {
     path: 'login',

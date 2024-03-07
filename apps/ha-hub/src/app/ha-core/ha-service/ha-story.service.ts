@@ -3,27 +3,26 @@ import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-li
 import {
   HaCreateStoryDto,
   HaListStoryDto,
-  HaMyStoriesDataSource,
   HaStory,
   HaStoryCategory,
-  HaStoryDataSourceDataDto,
   HaStoryDatasourcePaginated,
   HaStoryFilter
 } from '../ha-model/ha-entities/ha-story.class';
 import {Observable} from 'rxjs';
-import {ClPage, ClRichTextI} from '@monorepo/core-lib';
+import {ClPage} from '@monorepo/core-lib';
 import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
-import {HaStoryAuthorInvite} from '../ha-model/ha-entities/ha-story-author-invite.class';
+import {HaStoryCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 import {HaFile} from '../ha-model/ha-entities/ha-file';
 import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 import {RvResourceView} from '@monorepo/resource-view';
 import {HaUser} from '../ha-model/ha-entities/ha-user';
+import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class HaStoryService {
+export class HaStoryService implements HaCoAuthorService{
   private readonly route: string = 'story';
 
   constructor(private apiService: FlApiService) {
@@ -130,10 +129,6 @@ export class HaStoryService {
     return this.apiService.delete(this.route + '/' + id + '/main-image');
   }
 
-  public getImagePath(filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
-  }
-
   public getStoryFilePath(storyFileId: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/get-file/${storyFileId}`);
   }
@@ -145,7 +140,7 @@ export class HaStoryService {
   }
 
   getImageUrl(filename: string): string {
-    return this.getImagePath(filename);
+    return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
   }
 
   publishStory(id: string): Observable<HaStory> {
@@ -174,7 +169,7 @@ export class HaStoryService {
    * @param storyId story id
    * @return co-authors users
    */
-  getStoryCoAuthors(storyId: string): Observable<HaUser[]> {
+  getCoAuthors(storyId: string): Observable<HaUser[]> {
     return this.apiService.get(`${this.route}/${storyId}/co-authors`, HaUser);
   }
 
@@ -203,15 +198,15 @@ export class HaStoryService {
    * @param storyAuthorId co author id
    * @return story
    */
-  removeStoryCoAuthor(storyId: string, storyAuthorId: string): Observable<HaStory> {
+  removeCoAuthor(storyId: string, storyAuthorId: string): Observable<HaStory> {
     return this.apiService.put(`${this.route}/${storyId}/remove-co-author/${storyAuthorId}`, {}, HaStory);
   }
 
   /***
    * Check if invitation is valid
    */
-  isInvitationValid(token: string): Observable<HaStoryAuthorInvite> {
-    return this.apiService.get(`${this.route}/invite/${token}/is-valid`, HaStoryAuthorInvite);
+  isCoAuthorInviteValid(token: string): Observable<HaStoryCoAuthorInvite> {
+    return this.apiService.get(`${this.route}/invite/${token}/is-valid`, HaStoryCoAuthorInvite);
   }
 
   /***
@@ -221,7 +216,7 @@ export class HaStoryService {
     return this.apiService.put(`${this.route}/invite/${token}/accept`, {});
   }
 
-  inviteStoryCoAuthor(storyId: string, coAuthorMail: string): Observable<boolean>{
+  inviteCoAuthor(storyId: string, coAuthorMail: string): Observable<boolean>{
     return this.apiService.post(`${this.route}/${storyId}/invite-co-author`, {coAuthorMail: coAuthorMail}, Boolean);
   }
 
@@ -240,8 +235,8 @@ export class HaStoryService {
     return this.apiService.put(`${this.route}/file/${storyFileId}/rename`, {humanName: newName}, HaFile);
   }
 
-  getStoryCoAuthorsPendingInvites(storyId: string): Observable<HaStoryAuthorInvite[]>{
-    return this.apiService.get(`${this.route}/${storyId}/co-authors-pending-invites`, HaStoryAuthorInvite, {resultIsPaginated: false});
+  getCoAuthorsPendingInvites(storyId: string): Observable<HaStoryCoAuthorInvite[]>{
+    return this.apiService.get(`${this.route}/${storyId}/co-authors-pending-invites`, HaStoryCoAuthorInvite, {resultIsPaginated: false});
   }
 
   deleteCoAuthorInvite(inviteId: string): Observable<void>{

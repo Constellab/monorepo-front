@@ -25,7 +25,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   latestBrickVersion: HaBrickVersion;
   lastVersion: ClVersion;
   references: HaReferenceDTO[];
-  isAdminOrBrickUser$: Observable<boolean>;
+  isCreatorOrBrickUser$: Observable<boolean>;
 
   BRICK_DESCRIPTION_VERSION_KEY: StateKey<object>;
   BRICK_DESCRIPTION_KEY: StateKey<object>;
@@ -68,7 +68,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
         this.transferState.set(this.BRICK_DESCRIPTION_KEY, brick);
       }
       this.onBrick(brick);
-      this.isAdminOrBrickUser$ = this.authUserService.isAdminOrBrickOwner(brick);
+      this.isCreatorOrBrickUser$ = this.authUserService.isBrickCreatorOrBrickUser(brick);
     });
   }
 

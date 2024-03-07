@@ -1,6 +1,6 @@
 <div class="main-container">
   <div class="left-panel">
-    <a routerLink="edit" *haIsAdmin>
+    <a routerLink="edit" *haIsAuthenticated>
       <button mat-flat-button type="button" class="bt first-bt">
         <mat-icon >add_circle</mat-icon>
         {{'create_brick' | translate}}

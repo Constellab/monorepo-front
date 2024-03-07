@@ -68,15 +68,15 @@ export class HaAuthenticatedUserService implements FlCleanableService {
     );
   }
 
-  public isAdminOrBrickUser(brick: HaBrick): Observable<boolean> {
+  public isBrickCreatorOrBrickUser(brick: HaBrick): Observable<boolean> {
     return this.getUser().pipe(
-      map(user => user != null && (user.category === HaUserCategory.ADMIN || brick?.brickUsers?.find(bU => bU.user.id == user.id) != null))
+      map(user => user != null && (user.id == brick?.createdBy?.id || brick?.brickUsers?.find(bU => bU.user.id == user.id) != null))
     );
   }
 
-  public isAdminOrBrickOwner(brick: HaBrick): Observable<boolean> {
+  public isBrickCreator(brick: HaBrick): Observable<boolean> {
     return this.getUser().pipe(
-      map(user => user != null && (user.category === HaUserCategory.ADMIN || brick?.createdBy?.id == user.id))
+      map(user => user != null && user.id == brick?.createdBy?.id)
     );
   }
 

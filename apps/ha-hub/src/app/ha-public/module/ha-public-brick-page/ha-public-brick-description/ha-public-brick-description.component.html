@@ -11,7 +11,9 @@
           lock
         </mat-icon>
         <mat-icon class="mat-primary icon check-icon">check</mat-icon>
-        <button mat-stroked-button type="button" (click)="createEditBrickDialog()" class="edit-brick-button" *haIsAdmin>{{'edit' | translate}}</button>
+        @if (isCreatorOrBrickUser$ | async){
+          <button mat-stroked-button type="button" (click)="createEditBrickDialog()" class="edit-brick-button">{{'edit' | translate}}</button>
+        }
       </div>
 
       <div class="description-div">
@@ -34,12 +36,12 @@
         <p class="g-scrollable-element tech-info">{{latestBrickVersion.repoType}}</p>
       </div>
 
-      <div class="tech-info-div" *ngIf="brick.gitRepo && isAdminOrBrickUser$ | async">
+      <div class="tech-info-div" *ngIf="brick.gitRepo && isCreatorOrBrickUser$ | async">
         {{'repo_git' | translate}} :
         <p class="g-scrollable-element tech-info">{{brick.gitRepo}}</p>
       </div>
 
-      <div class="tech-info-div" *ngIf="brick.pipRepo && isAdminOrBrickUser$ | async">
+      <div class="tech-info-div" *ngIf="brick.pipRepo && isCreatorOrBrickUser$ | async">
         {{'repo_pip' | translate}} :
         <p class="g-scrollable-element tech-info">{{brick.pipRepo}}</p>
       </div>
@@ -52,7 +54,7 @@
       </div>
     </div>
   </div>
-  <div class="right-side-div g-scrollable-element" *ngIf="brick && lastVersion && isAdminOrBrickUser$ | async">
+  <div class="right-side-div g-scrollable-element" *ngIf="brick && lastVersion">
     <ha-public-brick-users [brick]="brick" ></ha-public-brick-users>
   </div>
 </div>

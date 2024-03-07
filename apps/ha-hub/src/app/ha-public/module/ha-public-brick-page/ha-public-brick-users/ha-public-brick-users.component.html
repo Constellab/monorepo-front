@@ -1,16 +1,19 @@
 <div class="brick-user-div">
   <h5 class="brick-user-title">
-    <span>Users</span>
-    <button mat-icon-button (click)="openAddUserToBrickDialog()">
-      <mat-icon>group_add</mat-icon>
-    </button>
-  </h5>
-  <ng-container *ngFor="let brickUser of brickUsers">
-    <div class="brick-user-line">
-      <fl-user-inline [portalOnHover]="false" [user]="brickUser.user"></fl-user-inline>
-      <button mat-icon-button (click)="removeBrickUser(brickUser)">
-        <mat-icon>do_not_disturb_on</mat-icon>
+    <span>{{'authors' | translate}}</span>
+    @if (isCreator$ | async){
+      <button mat-icon-button (click)="openAddUserToBrickDialog()">
+        <mat-icon>group_add</mat-icon>
       </button>
+    }
+  </h5>
+  <div class="brick-user-line">
+    <fl-user-inline [portalOnHover]="false" [user]="brick.createdBy"></fl-user-inline>
+    <mat-icon>workspace_premium</mat-icon>
+  </div>
+  @for(brickUser of brickUsers; track brickUser.id){
+    <div class="brick-user-line">
+      <fl-user-inline [portalOnHover]="false" [user]="brickUser"></fl-user-inline>
     </div>
-  </ng-container>
+  }
 </div>
