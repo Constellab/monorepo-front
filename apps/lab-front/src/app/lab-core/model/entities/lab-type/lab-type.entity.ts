@@ -15,7 +15,7 @@ export interface LabFileTypeAdditionalInfo {
 }
 
 
-export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSearchObjectToUrl {
+export class LabTypeEntity extends LabBaseEntity implements FlSearchObjectToUrl {
   @Expose({name: 'object_type'})
   objectType: TdTypeObjectType;
 
@@ -51,28 +51,8 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
 
   status: TdTypeObjectStatus;
 
-  hasDocumentation(): boolean {
-    return this?.doc != null ?? false;
-  }
-
   get name(): string {
     return this.humanName;
-  }
-
-  get parentTypingName(): string {
-    return this.parent?.typing_name ?? null;
-  }
-
-  get parentHumanName(): string {
-    return this.parent?.human_name ?? null;
-  }
-
-  get parentVersion(): string {
-    return this.parent?.brick_version ?? null;
-  }
-
-  get parentStyle(): TdTypeStyle {
-    return this.parent?.style ?? null;
   }
 
   toString(): string {
@@ -81,21 +61,6 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
 
   toUrlJson(): Record<string, any> {
     return {typing_name: this.typingName};
-  }
-
-  get iconWithDefault(): string {
-    return this.style?.icon ?? this.defaultIcon;
-  }
-
-  get defaultIcon(): string {
-    switch (this.objectType) {
-      case 'RESOURCE':
-        return 'resource';
-      case 'PROTOCOL':
-        return 'protocol';
-      default:
-        return 'process';
-    }
   }
 
   public static fromResourceType(resourceDto: TdTypeRefDTO): LabTypeEntity {
@@ -109,13 +74,34 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     return entity;
   }
 
-  public toResourceType(): TdTypeRefDTO {
+  public toTypeRef(): TdTypeRefDTO {
     return {
       typing_name: this.typingName,
       human_name: this.humanName,
       brick_version: this.brickVersion,
       style: this.style
     };
+  }
+
+  public toTypeEntity(): TdTypeEntity {
+    return {
+      typingName: this.typingName,
+      brickVersion: this.brickVersion,
+      humanName: this.humanName,
+      shortDescription: this.shortDescription,
+      doc: this.doc,
+      objectType: this.objectType,
+      objectSubType: this.objectSubType,
+      status: this.status,
+      deprecatedSince: this.deprecatedSince,
+      deprecatedMessage: this.deprecatedMessage,
+      style: this.style,
+      parentTypingName: this.parent?.typing_name ?? null,
+      parentHumanName: this.parent?.human_name ?? null,
+      parentVersion: this.parent?.brick_version ?? null,
+      parentStyle: this.parent?.style ?? null
+    };
+
   }
 
 }

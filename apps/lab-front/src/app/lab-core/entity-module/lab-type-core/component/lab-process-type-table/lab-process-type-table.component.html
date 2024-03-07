@@ -12,16 +12,14 @@
         error
       </mat-icon>
 
-      <div>
-        <td-type-inline [text]="processType.humanName"
-                        [style]="processType.style"></td-type-inline>
-        <div *ngIf="processType.deprecatedSince">
-          <fl-chip size="tiny" class="g-warn-background"
-                   [matTooltip]="processType.deprecatedMessage">
-            {{ 'biox.type_deprecated' | translate }}
-          </fl-chip>
-        </div>
-      </div>
+      <td-type-inline [text]="processType.humanName"
+                      [style]="processType.style"></td-type-inline>
+
+      <fl-chip *ngIf="processType.deprecatedSince" size="tiny"
+               class="g-warn-background deprecated-chip"
+               [matTooltip]="processType.deprecatedMessage">
+        {{ 'biox.type_deprecated' | translate }}
+      </fl-chip>
     </mat-cell>
   </ng-container>
 

@@ -2,7 +2,7 @@ import {LabTypeEntity} from './lab-type.entity';
 import {Expose} from 'class-transformer';
 import {TdIOSpec, TdIOSpecs, TdParamSpecs, TdProcessAdditionalInfoDTO, TdProcessType} from '@monorepo/technical-doc';
 
-export class LabProcessType extends LabTypeEntity implements TdProcessType {
+export class LabProcessType extends LabTypeEntity {
 
   @Expose({name: 'input_specs'})
   inputSpecs: TdIOSpecs;
@@ -28,4 +28,14 @@ export class LabProcessType extends LabTypeEntity implements TdProcessType {
     return this.outputSpecs.specs['target'] ?? null;
   }
 
+
+  toTypeEntity(): TdProcessType {
+    return {
+      ...super.toTypeEntity(),
+      inputSpecs: this.inputSpecs,
+      outputSpecs: this.outputSpecs,
+      configSpecs: this.configSpecs,
+      additionalInfo: this.additionalInfo,
+    };
+  }
 }

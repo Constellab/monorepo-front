@@ -3,7 +3,7 @@ import {RvResourceViewType} from '@monorepo/resource-view';
 
 
 export interface TdResourceType extends TdTypeEntity {
-  methods?: TdResourceMethodList;
+  methods: TdResourceMethodList;
 }
 
 export interface TdResourceMethodList {

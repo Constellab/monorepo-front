@@ -12,7 +12,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class FlCallMethodPipe implements PipeTransform {
 
-  transform(object: any, method: () => any): any {
+  transform<T>(object: any, method: () => T): T {
     return method.bind(object)();
   }
 
