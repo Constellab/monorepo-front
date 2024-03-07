@@ -7,14 +7,14 @@ export type TdTypeObjectStatus = 'OK' | 'UNAVAILABLE';
 export type TdTypeStyleIconType = 'MATERIAL_ICON' | 'COMMUNITY_ICON' | 'COMMUNITY_IMAGE';
 
 export interface TdTypeStyle {
-  icon: string;
+  icon_technical_name: string;
   icon_type: TdTypeStyleIconType;
   background_color: string;
   icon_color: string;
 }
 
 export const tdTypeStyleDefault: TdTypeStyle = {
-  icon: 'process',
+  icon_technical_name: 'process',
   icon_type: 'MATERIAL_ICON',
   background_color: '#af3e01',
   icon_color: '#ffffff'

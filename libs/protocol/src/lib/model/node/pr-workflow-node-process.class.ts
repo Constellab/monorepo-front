@@ -118,8 +118,8 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
 
     let icon: string = 'protocol';
     let iconType: TdTypeStyleIconType = 'MATERIAL_ICON';
-    if (process.processType?.style?.icon) {
-      icon = process.processType.style.icon;
+    if (process.processType?.style?.icon_technical_name) {
+      icon = process.processType.style.icon_technical_name;
       iconType = process.processType.style.icon_type;
     }
 

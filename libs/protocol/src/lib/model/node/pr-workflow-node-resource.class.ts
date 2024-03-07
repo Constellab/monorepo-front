@@ -114,7 +114,7 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
       };
     }
 
-    if (resource && resource.status === 'success' && resource.object.resourceType?.style?.icon != null) {
+    if (resource && resource.status === 'success' && resource.object.resourceType?.style?.icon_technical_name != null) {
       let iconColor = resource.object.resourceType.style.icon_color;
       // calculate the icon color if not defined
       if (!iconColor) {
@@ -122,7 +122,7 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
         iconColor = FlColorHelper.getContrastColor(resourceColor);
       }
       return {
-        icon: resource.object.resourceType.style.icon, iconType: 'MATERIAL_ICON',
+        icon: resource.object.resourceType.style.icon_technical_name, iconType: 'MATERIAL_ICON',
         iconColor: iconColor
       };
     }
