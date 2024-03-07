@@ -13,14 +13,14 @@ import {TdServiceConfig} from '../../service/td-service-config.config';
 })
 export class TdTypeIconComponent {
 
-  @Input({required: true}) icon: string;
+  @Input({required: true}) iconTechnicalName: string;
 
   @Input({required: true}) iconType: TdTypeStyleIconType;
 
   /**
    * Size of the icon in pixels
    */
-  @Input() iconSize: number;
+  @Input({required: true}) iconSize: number;
 
   @Input() iconColor: string;
 
@@ -29,8 +29,8 @@ export class TdTypeIconComponent {
 
 
   get iconFull(): string {
-    if (this.iconType === 'MATERIAL_ICON') return this.icon;
-    return `${this.configService.getCommunityIconBaseApiUrl()}/${this.icon}`;
+    if (this.iconType === 'MATERIAL_ICON') return this.iconTechnicalName;
+    return `${this.configService.getCommunityIconBaseApiUrl()}/${this.iconTechnicalName}`;
   }
 
   get sizePx(): string {
