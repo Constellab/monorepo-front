@@ -15,42 +15,21 @@
   // style drawflow
   .drawflow .drawflow-node {
     width: initial;
-    border: 1px solid var(--card-background) !important;
     // Padding of the nodes
     padding: 5px 15px !important;
-    border-radius: 30px;
+    cursor: pointer !important;
+    border-width: 0;
+
 
     // style for the process node
     &.node-process {
       color: var(--color-foreground);
-      background-color: var(--card-background);
+      background-color: var(--main-background);
+      border-radius: 30px;
     }
 
-    // style for interface nodes
-    &.interface {
-      color: white;
-      background-color: #569cd6;
-    }
-
-    // style for outerface nodes
-    &.outerface {
-      color: white;
-      background-color: #a0d982;
-    }
-
-    &.task-source {
-      color: mat.get-color-from-palette($primary, default-contrast);
-      background-color: mat.get-color-from-palette($primary);
-    }
-
-    &.task-output {
-      color: mat.get-color-from-palette($warn, default-contrast);
-      background-color: mat.get-color-from-palette($warn);
-    }
-
-    &.task-viewer {
-      color: mat.get-color-from-palette($accent, '100-contrast');
-      background-color: mat.get-color-from-palette($accent, 100);
+    &.interface, &.outerface, &.task-source, &.task-output, &.task-viewer {
+      border-radius: 5px;
     }
 
     // width and height of input and output port
@@ -61,12 +40,12 @@
 
     // adapt output position
     .output {
-      right: -7px;
+      right: -6px;
     }
 
     // adapt input position
     .input {
-      left: -23px;
+      left: -22px;
       cursor: auto;
     }
 
@@ -76,5 +55,22 @@
       overflow: initial !important;
     }
 
+  }
+
+  .drawflow .connection {
+    .main-path {
+      stroke: var(--hover-color);
+    }
+
+    .main-path.selected, .main-path:hover {
+      stroke: mat.get-color-from-palette($primary);
+    }
+  }
+
+  // when the resource is provided, change the color of the connection
+  .drawflow .connection.g-connection-resource-provided {
+    .main-path {
+      stroke: mat.get-color-from-palette($primary);
+    }
   }
 }

@@ -13,12 +13,11 @@ import {
 import {LabTypeDialogComponent} from './component/lab-type-dialog/lab-type-dialog.component';
 import {LabProcessTypeTableComponent} from './component/lab-process-type-table/lab-process-type-table.component';
 import {RouterModule} from '@angular/router';
-import {LabTypeInlineComponent} from './component/lab-type-inline/lab-type-inline.component';
 import {LabSelectTypeComponent} from './component/lab-select-type/lab-select-type.component';
 import {
   LabSelectCommunityLiveTaskDialogComponent
 } from './component/lab-select-community-live-task-dialog/lab-select-community-live-task-dialog.component';
-import {MatChipsModule} from "@angular/material/chips";
+import {MatChipsModule} from '@angular/material/chips';
 import {
   LabCreateCommunityLiveTaskDialogComponent
 } from './component/lab-create-community-live-task-dialog/lab-create-community-live-task-dialog.component';
@@ -38,7 +37,6 @@ import {
     LabTypeDialogComponent,
     LabTypeShowDetailButtonComponent,
     LabProcessTypeTableComponent,
-    LabTypeInlineComponent,
     LabSelectTypeComponent,
     LabSelectCommunityLiveTaskDialogComponent,
     LabCreateCommunityLiveTaskDialogComponent,
@@ -53,7 +51,6 @@ import {
     LabTypeDialogComponent,
     LabTypeShowDetailButtonComponent,
     LabProcessTypeTableComponent,
-    LabTypeInlineComponent,
     LabSelectTypeComponent,
     LabSelectCommunityLiveTaskDialogComponent,
     LabCreateCommunityLiveTaskDialogComponent,

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {TdServiceConfig, TdTechnicalDocUrl, TdTypingName} from '@monorepo/technical-doc';
 import {LabRouterService} from './lab-router.service';
+import {LabCommunityHelper} from '../utils/lab-community.helper';
 
 /**
  * Class to configure the TdModule
@@ -14,6 +15,10 @@ export class LabTdServiceConfig extends TdServiceConfig {
       url: LabRouterService.getTechnicalDocRoute(typingName.typingName),
       isAbsolute: false
     };
+  }
+
+  getCommunityIconBaseApiUrl(): string {
+    return LabCommunityHelper.getIconBaseApiUrl();
   }
 
 

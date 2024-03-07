@@ -2,18 +2,20 @@ import {LabBaseEntity} from '../../global/lab-entity.entity';
 import {Expose} from 'class-transformer';
 import {FlDatasourcePaginated, FlSearchObjectToUrl} from '@monorepo/front-core-lib';
 import {
-  TdResourceTypeDTO,
   TdTypeEntity,
   TdTypeObjectStatus,
   TdTypeObjectSubType,
-  TdTypeObjectType
+  TdTypeObjectType,
+  TdTypeRefDTO,
+  TdTypeStyle
 } from '@monorepo/technical-doc';
 
 export interface LabFileTypeAdditionalInfo {
   default_extensions: string[];
 }
 
-export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSearchObjectToUrl {
+
+export class LabTypeEntity extends LabBaseEntity implements FlSearchObjectToUrl {
   @Expose({name: 'object_type'})
   objectType: TdTypeObjectType;
 
@@ -41,37 +43,16 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
   @Expose({name: 'additional_info'})
   additionalInfo: any;
 
-  icon?: string;
+  style: TdTypeStyle;
 
-  parent?: {
-    brick_version: string;
-    human_name: string;
-    typing_name: string;
-  };
-
+  parent?: TdTypeRefDTO;
 
   doc: string | undefined;
 
   status: TdTypeObjectStatus;
 
-  hasDocumentation(): boolean {
-    return this?.doc != null ?? false;
-  }
-
   get name(): string {
     return this.humanName;
-  }
-
-  get parentTypingName(): string {
-    return this.parent?.typing_name ?? null;
-  }
-
-  get parentHumanName(): string {
-    return this.parent?.human_name ?? null;
-  }
-
-  get parentVersion(): string {
-    return this.parent?.brick_version ?? null;
   }
 
   toString(): string {
@@ -82,26 +63,10 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     return {typing_name: this.typingName};
   }
 
-  get iconWithDefault(): string {
-    return this.icon ?? this.defaultIcon;
-  }
-
-  get defaultIcon(): string {
-    switch (this.objectType) {
-      case 'RESOURCE':
-        return 'resource';
-      case 'PROTOCOL':
-        return 'protocol';
-      default:
-        return 'process';
-    }
-  }
-
-  public static fromResourceType(resourceDto: TdResourceTypeDTO): LabTypeEntity {
+  public static fromResourceType(resourceDto: TdTypeRefDTO): LabTypeEntity {
     const entity = new LabTypeEntity();
     entity.typingName = resourceDto.typing_name;
     entity.humanName = resourceDto.human_name;
-    entity.shortDescription = resourceDto.short_description;
     entity.objectType = 'RESOURCE';
     entity.objectSubType = 'RESOURCE';
     entity.status = 'OK';
@@ -109,13 +74,34 @@ export class LabTypeEntity extends LabBaseEntity implements TdTypeEntity, FlSear
     return entity;
   }
 
-  public toResourceType(): TdResourceTypeDTO {
+  public toTypeRef(): TdTypeRefDTO {
     return {
       typing_name: this.typingName,
       human_name: this.humanName,
-      short_description: this.shortDescription,
-      brick_version: this.brickVersion
+      brick_version: this.brickVersion,
+      style: this.style
     };
+  }
+
+  public toTypeEntity(): TdTypeEntity {
+    return {
+      typingName: this.typingName,
+      brickVersion: this.brickVersion,
+      humanName: this.humanName,
+      shortDescription: this.shortDescription,
+      doc: this.doc,
+      objectType: this.objectType,
+      objectSubType: this.objectSubType,
+      status: this.status,
+      deprecatedSince: this.deprecatedSince,
+      deprecatedMessage: this.deprecatedMessage,
+      style: this.style,
+      parentTypingName: this.parent?.typing_name ?? null,
+      parentHumanName: this.parent?.human_name ?? null,
+      parentVersion: this.parent?.brick_version ?? null,
+      parentStyle: this.parent?.style ?? null
+    };
+
   }
 
 }

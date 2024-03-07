@@ -1,10 +1,10 @@
 import {PrWorkflowNode} from '../model/node/pr-workflow-node.class';
-import {PrWorkflow, PrWorkflowMode} from '../model/pr-workflow.class';
+import {PrWorkflow, PrWorkflowMode} from '../model/workflow/pr-workflow.class';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {PrWorkflowLayer} from '../model/pr-workflow-layer.class';
+import {PrWorkflowLayer} from '../model/workflow/pr-workflow-layer.class';
 import {PrWorkflowNodeProtocol} from '../model/node/pr-workflow-node-protocol.class';
-import {PrConfigView} from '../model/pr-config-view.class';
+import {PrWorkflowNodeMenuConfig} from '../model/workflow/pr-workflow-node-menu.config';
 
 
 /**
@@ -14,7 +14,7 @@ import {PrConfigView} from '../model/pr-config-view.class';
 export class PrWorkflowManagerState {
 
   public workflow: PrWorkflow = null;
-  public viewConfig: PrConfigView = null;
+  public viewConfig: PrWorkflowNodeMenuConfig = null;
 
   private workflowElement: HTMLElement;
 
@@ -34,7 +34,7 @@ export class PrWorkflowManagerState {
 
   public init(element: HTMLElement, workflow: PrWorkflow,
               mode$: Observable<PrWorkflowMode>,
-              viewConfig: PrConfigView): PrWorkflow {
+              viewConfig: PrWorkflowNodeMenuConfig): PrWorkflow {
     this.workflowElement = element;
     this.mode$ = mode$;
     this.currentMode = 'edit';
@@ -71,7 +71,7 @@ export class PrWorkflowManagerState {
 
 
   public getCurrentLayerHierarchy$(): Observable<PrWorkflowLayer[]> {
-    return this.workflow.getCurrentLayerHierarchy();
+    return this.workflow.getCurrentLayerHierarchy$();
   }
 
   //////////////////////// MODE ////////////////////////////

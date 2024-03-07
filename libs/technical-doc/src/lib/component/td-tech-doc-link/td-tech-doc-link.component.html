@@ -1,10 +1,11 @@
-<a class="resource-link"
-   [routerLink]="url" *ngIf="!isAbsolute">
-  {{_uniqueElement.humanName}}
-</a>
+@if (docUrl.isAbsolute) {
+  <a class="resource-link" [href]="docUrl.url" target="_blank">
+    <ng-content></ng-content>
+  </a>
+} @else {
+  <a class="resource-link" [routerLink]="docUrl.url" target="_blank">
+    <ng-content></ng-content>
+  </a>
+}
 
 
-<a class="resource-link"
-   [href]="url" *ngIf="isAbsolute" target="_blank">
-  {{_uniqueElement.humanName}}
-</a>

@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef} from '@monorepo/front-core-lib';
 import {TdIOSpec} from '@monorepo/technical-doc';
-import {PrWorkflowPort} from '../../model/pr-workflow-port.class';
+import {PrWorkflowPort} from '../../model/workflow/pr-workflow-port.class';
 
 export interface PrWorkflowPortActionPortalInput {
   port: PrWorkflowPort;
@@ -16,20 +16,15 @@ export interface PrWorkflowPortActionPortalInput {
   templateUrl: './pr-workflow-port-action-portal.component.html',
   styleUrls: ['./pr-workflow-port-action-portal.component.scss']
 })
-export class PrWorkflowPortActionPortalComponent implements OnInit {
+export class PrWorkflowPortActionPortalComponent {
 
   ioSpec: TdIOSpec;
   menuDynamics: FlMenuDynamic[];
 
-
-  constructor(@Inject(FL_PORTAL_DATA) private data: PrWorkflowPortActionPortalInput,
+  constructor(@Inject(FL_PORTAL_DATA) data: PrWorkflowPortActionPortalInput,
               private overlayRef: FlOverlayRef) {
     this.ioSpec = data.port.currentSpecs;
     this.menuDynamics = data.menuDynamics;
-  }
-
-  ngOnInit(): void {
-
   }
 
   closePortal(): void {

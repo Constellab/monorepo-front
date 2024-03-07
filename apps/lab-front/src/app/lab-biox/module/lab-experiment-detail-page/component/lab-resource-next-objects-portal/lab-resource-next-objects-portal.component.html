@@ -1,0 +1,27 @@
+<fl-portal class="portal">
+  <fl-portal-header>
+    {{ 'biox.resource_next_objects' | translate }}
+  </fl-portal-header>
+
+  <fl-portal-content>
+    <!--  Experiments  -->
+    <fl-text-icon>
+      <mat-icon flIcon="experiment"></mat-icon>
+      <h2>{{ 'biox.experiments' | translate }}</h2>
+    </fl-text-icon>
+    <fl-infinite-table-container [datasource]="experiments"
+                                 textNoResult="biox.no_experiment" textNoMoreResult="">
+      <lab-experiment-table [datasource]="experiments" [columns]="experimentColumns"></lab-experiment-table>
+    </fl-infinite-table-container>
+
+    <!--  Reports  -->
+    <fl-text-icon class="reports">
+      <mat-icon flIcon="report"></mat-icon>
+      <h2>{{ 'biox.reports' | translate }}</h2>
+    </fl-text-icon>
+    <fl-infinite-table-container [datasource]="reports"
+                                 textNoResult="biox.no_report" textNoMoreResult="">
+      <lab-report-table [datasource]="reports" [columns]="reportColumns"></lab-report-table>
+    </fl-infinite-table-container>
+  </fl-portal-content>
+</fl-portal>

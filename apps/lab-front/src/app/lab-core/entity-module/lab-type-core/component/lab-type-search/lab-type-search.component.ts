@@ -5,7 +5,7 @@ import {
   FlSearchConfig,
   FLSearchFunction,
   FlSearchState,
-  FlTableColumn,
+  FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
 import {LabTypeSearch, LabTypeSearchConfig, LabTypeSearchFields} from '../../model/lab-type-search.class';
@@ -30,7 +30,7 @@ export class LabTypeSearchComponent implements OnInit {
 
   @Output() typeSelected: EventEmitter<LabTypeEntity> = new EventEmitter();
 
-  columns: FlTableColumn<LabTypeEntity>[];
+  columns: FlTableColumnStatic<LabTypeEntity>[];
   datasource: LabTypeEntityDatasource;
 
   constructor(private searchState: FlSearchState<any>,
@@ -49,44 +49,31 @@ export class LabTypeSearchComponent implements OnInit {
         searchFunction = this.typeService.getAdvancedSearchFunction();
 
         hiddenFilters = {objectType: ['TASK', 'PROTOCOL']};
-        this.columns = [
-          'name',
-          {columnName: 'description', accessor: 'shortDescription'},
-          'objectSubType', 'detail'];
+        this.columns = ['name', 'description', 'objectSubType', 'detail'];
         break;
       case 'resource':
         searchFunction = this.typeService.getAdvancedSearchFunction();
 
         hiddenFilters = {objectType: ['RESOURCE']};
-        this.columns = [
-          'name',
-          {columnName: 'description', accessor: 'shortDescription'},
-          'objectSubType', 'detail'];
+        this.columns = ['name', 'description', 'objectSubType', 'detail'];
         break;
       case 'transformer':
         searchFunction = this.typeService.getTransformerAdvancedSearchFunction(this.config.resourceTypingNames);
 
         // don't set the objectSubType because it is always transformers
-        this.columns = [
-          'name',
-          {columnName: 'description', accessor: 'shortDescription'}, 'detail'];
+        this.columns = ['name', 'description', 'detail'];
         break;
       case 'importer':
         searchFunction = this.typeService.getImporterAdvancedSearchFunction(this.config.resourceTypingName,
           this.config.extension);
 
         // don't set the objectSubType because it is always importers
-        this.columns = [
-          'name',
-          {columnName: 'description', accessor: 'shortDescription'}, 'detail'];
+        this.columns = ['name', 'description', 'detail'];
         break;
       case 'processSuggestion':
         searchFunction = this.typeService.getProcessSuggestion(this.config.resourceTypingNames, this.config.suggestBy);
         hiddenFilters = {objectType: ['TASK', 'PROTOCOL']};
-        this.columns = [
-          'name',
-          {columnName: 'description', accessor: 'shortDescription'},
-          'objectSubType', 'detail'];
+        this.columns = ['name', 'description', 'objectSubType', 'detail'];
 
     }
 

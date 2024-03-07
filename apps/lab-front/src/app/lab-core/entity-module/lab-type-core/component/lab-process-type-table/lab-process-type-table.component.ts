@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlTableAbstractDirective} from '@monorepo/front-core-lib';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {LabTypeEntity, LabTypeEntityDatasource} from '../../../../model/entities/lab-type/lab-type.entity';
 import {ClHelpService} from '@monorepo/core-lib';
 
@@ -8,22 +8,16 @@ import {ClHelpService} from '@monorepo/core-lib';
   templateUrl: './lab-process-type-table.component.html',
   styleUrls: ['./lab-process-type-table.component.scss']
 })
-export class LabProcessTypeTableComponent extends FlTableAbstractDirective<LabTypeEntity>
-  implements OnInit {
+export class LabProcessTypeTableComponent {
 
-  @Input() datasource: LabTypeEntityDatasource;
+  @Input({required: true}) datasource: LabTypeEntityDatasource;
+
+  @Input({required: true}) columns: FlTableColumnStatic<LabTypeEntity>[];
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() rowSelectable: boolean = false;
 
   @Output() typeSelected: EventEmitter<LabTypeEntity> = new EventEmitter<LabTypeEntity>();
-
-  constructor() {
-    super(['name', 'detail', 'objectSubType']);
-  }
-
-  ngOnInit(): void {
-  }
 
   rowClicked(type: LabTypeEntity): void {
     if (this.rowSelectable) {

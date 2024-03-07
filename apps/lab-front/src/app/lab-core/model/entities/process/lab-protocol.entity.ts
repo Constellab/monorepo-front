@@ -85,14 +85,5 @@ export class LabProtocol extends LabProcess {
     protocol.data = LabProtocolData.empty();
     return protocol;
   }
-
-
-  getNodes(): Record<string, LabProcess> {
-    return this.data.nodes;
-  }
-
-  public getProcess(instanceName: string): LabProcess {
-    return this.getNodes()[instanceName];
-  }
 }
 

@@ -3,7 +3,7 @@ import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-pa
 import {Observable, of} from 'rxjs';
 import {PrWorkflow, PrWorkflowMode} from '@monorepo/protocol';
 import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class';
-import {LabWorkflowViewConfig} from '../../model/lab-workflow-view-config.class';
+import {LabWorkflowNodeMenuConfig} from '../../model/lab-workflow-node-menu.config';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {first} from 'rxjs/operators';
 
@@ -21,8 +21,7 @@ export class LabWorkflowComponent implements OnInit, AfterViewInit {
   workflow: PrWorkflow;
   mode$: Observable<PrWorkflowMode> = of('edit');
 
-  viewConfig: LabWorkflowViewConfig;
-
+  viewConfig: LabWorkflowNodeMenuConfig;
 
   constructor(private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService,
@@ -30,7 +29,7 @@ export class LabWorkflowComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.viewConfig = new LabWorkflowViewConfig(this.dialogService, this.editConfig);
+    this.viewConfig = new LabWorkflowNodeMenuConfig(this.dialogService, this.editConfig);
   }
 
 
@@ -40,7 +39,7 @@ export class LabWorkflowComponent implements OnInit, AfterViewInit {
 
   private loadExperimentFlow(): void {
     // wait for the main protocol to be loaded
-    this.experimentState.getMainProtocol$().pipe(first()).subscribe({
+    this.experimentState.isReady$().pipe(first()).subscribe({
       next: () => this.loadExperimentFlowSuccess(),
       error: () => this.onError()
     });

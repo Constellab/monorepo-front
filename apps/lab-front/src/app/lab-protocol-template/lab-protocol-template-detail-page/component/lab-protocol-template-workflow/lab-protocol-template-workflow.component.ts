@@ -1,12 +1,12 @@
 import {Component, Input, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {LabProtocolTemplate} from '../../../../lab-core/model/entities/process/lab-protocol-template.entity';
 import {
-  PrConfigViewEmpty,
   PrProtocolGraph,
   PrWorkflow,
   PrWorkflowActionState,
   PrWorkflowFactory,
   PrWorkflowMode,
+  PrWorkflowNodeMenuConfigEmpty,
   PrWorkflowResourcesState
 } from '@monorepo/protocol';
 import {Observable, of} from 'rxjs';
@@ -23,7 +23,7 @@ export class LabProtocolTemplateWorkflowComponent implements OnInit, OnDestroy {
   @Input() template: LabProtocolTemplate;
 
 
-  viewConfig = new PrConfigViewEmpty();
+  viewConfig = new PrWorkflowNodeMenuConfigEmpty();
 
   workflowIsLoading: boolean = false;
   workflow: PrWorkflow;
@@ -51,7 +51,7 @@ export class LabProtocolTemplateWorkflowComponent implements OnInit, OnDestroy {
 
   private getProtocolGraphSuccess(protocolGraph: PrProtocolGraph): void {
     const factory = new PrWorkflowFactory(protocolGraph, ClStringHelper.generateUUID(),
-      this.ngZone, this.workflowResourcesState);
+      this.ngZone, this.workflowResourcesState, this.actionState);
     this.workflow = factory.createWorkflow();
     this.workflowIsLoading = false;
   }

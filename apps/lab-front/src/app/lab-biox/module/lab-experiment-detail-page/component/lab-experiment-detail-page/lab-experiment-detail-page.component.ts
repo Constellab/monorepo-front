@@ -1,10 +1,8 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {LabExperiment} from '../../../../../lab-core/model/entities/lab-experiment.entity';
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
-import {FlDialogService} from '@monorepo/front-core-lib';
-import {MatDrawer} from '@angular/material/sidenav';
 import {first} from 'rxjs/operators';
 import {PrWorkflowActionState} from '@monorepo/protocol';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
@@ -23,8 +21,6 @@ import {LabWorkflowFactory} from '../../model/lab-workflow.factory';
 })
 export class LabExperimentDetailPageComponent implements OnInit, OnDestroy {
 
-  @ViewChild(MatDrawer, {static: true}) drawer: MatDrawer;
-
   experiment$: Observable<LabExperiment>;
 
   selectedTabIndex: number = 0;
@@ -32,7 +28,6 @@ export class LabExperimentDetailPageComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private experimentState: LabExperimentDetailPageState,
-              private dialogService: FlDialogService,
               private actionState: PrWorkflowActionState,
               private nodeDetailState: LabWorkflowNodeDetailState) {
   }
@@ -48,7 +43,7 @@ export class LabExperimentDetailPageComponent implements OnInit, OnDestroy {
     );
 
     this.actionState.init();
-    this.nodeDetailState.init(this.drawer);
+    this.nodeDetailState.init();
   }
 
   private init(experimentId: string): void {

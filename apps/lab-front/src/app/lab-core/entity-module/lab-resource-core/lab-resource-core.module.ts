@@ -172,4 +172,5 @@ import {
     LabShareCoreModule,
   ],
 })
-export class LabResourceCoreModule {}
+export class LabResourceCoreModule {
+}

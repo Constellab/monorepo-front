@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {LabBiotaData, LabBiotaDataDatasource} from '../model/lab-biota-data.class';
-import {LabViewModel} from '../../lab-core/model/global/lab-view-model.entity';
 import {ClPageI} from '@monorepo/core-lib';
 import {LabBiotaDatabaseSearch} from '../model/lab-biota-database.class';
 import {LabModelService} from '../../lab-core/service/lab-model.service';
@@ -22,7 +21,7 @@ export class LabBiotaDatabaseService {
   }
 
   public getDatabaseData(typingName: string, page: number, pageSize: number): Observable<ClPageI<LabBiotaData>> {
-    return this.apiService.get(`resource/${typingName}/`, LabViewModel,
+    return this.apiService.get(`resource/${typingName}/`, LabBiotaData,
       {resultIsPaginated: true, page: page, pageSize: pageSize});
   }
 

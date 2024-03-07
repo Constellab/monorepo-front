@@ -21,7 +21,7 @@ export interface LabMainMenuLink {
 // list of the main menu links buttons
 export const mainMenuLinks: LabMainMenuLink[] = [
   {
-    label: 'biox.biox',
+    label: 'biox.experiments',
     icon: 'experiment',
     route: labConstBioxFullRoute
   },

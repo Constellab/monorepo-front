@@ -1,0 +1,18 @@
+
+.external-button{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.before {
+  left: -35px;
+}
+
+.after {
+  right: -35px;
+}
+
+.icon{
+  color: var(--light-color);
+}

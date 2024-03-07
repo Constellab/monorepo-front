@@ -1,0 +1,13 @@
+:host {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+  position: absolute;
+  top: 100%;
+  padding-top: 5px;
+  color: var(--color-foreground);
+  // make the title little bit bigger than the node
+  max-width: 140%;
+  text-align: center;
+}

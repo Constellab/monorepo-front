@@ -6,7 +6,7 @@
         <h2 flElementEditable (flElementValueChange)="updateProcessName(process, $event)">
           {{process.name}}
         </h2>
-        <p *ngIf="process.processType?.shortDescription">{{process.processType.shortDescription}}</p>
+        <p *ngIf="process.processType?.short_description">{{process.processType.short_description}}</p>
       </div>
 
       <div class="g-layout-row g-layout-start-center g-layout-gap-05em">

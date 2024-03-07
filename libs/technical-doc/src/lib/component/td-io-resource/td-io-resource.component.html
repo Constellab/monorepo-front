@@ -1,4 +1,4 @@
-<div class="resource-color-link">
-  <div class="resource-color-div" [style.background-color]="color" ></div>
-  <td-tech-doc-link [uniqueElement]="uniqueParent"></td-tech-doc-link>
-</div>
+<td-tech-doc-link class="container" [typingName]="resource.typing_name" [version]="resource.brick_version">
+  <td-type-inline [text]="resource.human_name"
+                  [style]="resource.style"></td-type-inline>
+</td-tech-doc-link>

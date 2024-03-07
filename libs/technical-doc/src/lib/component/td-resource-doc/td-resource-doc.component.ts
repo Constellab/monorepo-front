@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, Input, PLATFORM_ID} from '@angular/core';
 import {
   TdResourceFunction,
   TdResourceFunctionArg,
@@ -15,23 +15,17 @@ import {ClStringHelper} from '@monorepo/core-lib';
   templateUrl: './td-resource-doc.component.html',
   styleUrls: ['./td-resource-doc.component.scss']
 })
-export class TdResourceDocComponent implements OnInit {
+export class TdResourceDocComponent {
 
-  @Input()
-  resource: TdResourceType;
+  @Input() resource: TdResourceType;
 
   views: RvResourceViewTypeInfo[] = [];
 
   constructor(@Inject(PLATFORM_ID) private platformId: any) {
   }
 
-  ngOnInit(): void {
-    console.log('resource', this.resource);
-  }
-
-
   getFunctionSignature(func: TdResourceFunction): string {
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       return hljs.highlight('python', this.getFunctionSignatureToString(func)).value;
     }
     return '';
@@ -41,16 +35,16 @@ export class TdResourceDocComponent implements OnInit {
     return 'def ' + func.name + '(' + this.getFunctionArgsToString(func.args) + ') -> ' + (func.return_type ? func.return_type : 'void');
   }
 
-  getFunctionArgsToString(args: TdResourceFunctionArg[]): string{
+  getFunctionArgsToString(args: TdResourceFunctionArg[]): string {
     return args.map(a => {
-      if(a.arg_default_value.length > 0)
+      if (a.arg_default_value.length > 0)
         return a.arg_name + ': ' + a.arg_type + ' = ' + a.arg_default_value;
       return a.arg_name + ': ' + a.arg_type;
     }).join(', ');
   }
 
   getFunctionCleanDocInfo(func: TdResourceFunction, getTechInfo: boolean = false): string[] {
-    if(!func.doc){
+    if (!func.doc) {
       return null;
     }
     const lines = func.doc.split('\n');
@@ -83,32 +77,32 @@ export class TdResourceDocComponent implements OnInit {
       if (line.includes(':return ' + arg.arg_name)) {
         res += line.replace(':return ' + arg.arg_name + ':', '');
       }
-      res += '\n'
+      res += '\n';
     }
 
-    if(res.includes(arg.arg_type)){
+    if (res.includes(arg.arg_type)) {
       res = res.replace(arg.arg_type, '');
     }
-    if (res.includes(arg.arg_type + ', ')){
+    if (res.includes(arg.arg_type + ', ')) {
       res = res.replace(arg.arg_type + ', ', '');
     }
     return ClStringHelper.capitalize(res.trim());
   }
 
-  getCleanType(type: string): string{
-    if(type.startsWith('typing')){
+  getCleanType(type: string): string {
+    if (type.startsWith('typing')) {
       return type.replace('typing.', '');
     }
     return type;
   }
 
-  getOrderedResourceViews(views: TdResourceView[]): TdResourceView[]{
+  getOrderedResourceViews(views: TdResourceView[]): TdResourceView[] {
     //return views with the default view first
     const orderedViews = [];
-    for(const v of views){
-      if(v.default_view){
+    for (const v of views) {
+      if (v.default_view) {
         orderedViews.unshift(v);
-      }else{
+      } else {
         orderedViews.push(v);
       }
     }

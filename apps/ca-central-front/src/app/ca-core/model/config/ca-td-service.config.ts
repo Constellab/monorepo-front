@@ -16,7 +16,10 @@ export class CaTdServiceConfig extends TdServiceConfig {
       isAbsolute: true,
       url: CaCommunityHelper.getTechnicalDocUrl(typingName.brickName, parentVersion, typingName)
     };
+  }
 
+  getCommunityIconBaseApiUrl(): string {
+    return CaCommunityHelper.getIconBaseApiUrl();
   }
 
 }

@@ -1,5 +1,5 @@
 import {ModuleWithProviders, NgModule, Provider, Type} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {TdResourceDocComponent} from './component/td-resource-doc/td-resource-doc.component';
 import {TdTechnicalDocComponent} from './component/td-technical-doc/td-technical-doc.component';
 import {RouterModule} from '@angular/router';
@@ -32,28 +32,33 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
-import {RvResourceViewModule} from "@monorepo/resource-view";
+import {RvResourceViewModule} from '@monorepo/resource-view';
+import {TdTypeIconComponent} from './component/td-type-icon/td-type-icon.component';
+import {tdTypeInlineComponent} from './component/td-type-inline/td-type-inline.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        MatIconModule,
-        MatChipsModule,
-        MatDividerModule,
-        MatTooltipModule,
-        MatButtonModule,
+  imports: [
+    CommonModule,
+    RouterModule,
+    NgOptimizedImage,
 
-        FlCorePipeModule,
-        FlCoreComponentModule,
-        FlTranslateModule,
-        FlKeyValueModule,
-        FlIconModule,
-        MatMenuModule,
-        FlTextIconModule,
-        FlThemeModule,
-        RvResourceViewModule,
-    ],
+    MatIconModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatMenuModule,
+
+    FlCorePipeModule,
+    FlCoreComponentModule,
+    FlTranslateModule,
+    FlKeyValueModule,
+    FlIconModule,
+    FlTextIconModule,
+    FlThemeModule,
+
+    RvResourceViewModule,
+  ],
   declarations: [
     TdResourceDocComponent,
     TdTechnicalDocComponent,
@@ -67,21 +72,25 @@ import {RvResourceViewModule} from "@monorepo/resource-view";
     TdTechnicalDocHeaderComponent,
     TdDocIoComponent,
     TdTypeUnavailableComponent,
-    TdTypingNamePipe
+    TdTypingNamePipe,
+    TdTypeIconComponent,
+    tdTypeInlineComponent
   ],
-    exports: [
-        TdTechnicalDocComponent,
-        TdResourceDocComponent,
-        TdMainDocComponent,
-        TdTechnicalDocHeaderComponent,
-        TdIoDocsComponent,
-        TdDocIoComponent,
-        TdTypeUnavailableComponent,
-        TdTypingNamePipe,
-        TdMarkdownPipe,
-        TdIoResourceComponent,
-        TdConfigComponent
-    ]
+  exports: [
+    TdTechnicalDocComponent,
+    TdResourceDocComponent,
+    TdMainDocComponent,
+    TdTechnicalDocHeaderComponent,
+    TdIoDocsComponent,
+    TdDocIoComponent,
+    TdTypeUnavailableComponent,
+    TdTypingNamePipe,
+    TdMarkdownPipe,
+    TdIoResourceComponent,
+    TdConfigComponent,
+    TdTypeIconComponent,
+    tdTypeInlineComponent,
+  ]
 })
 export class TdTechnicalDocModule {
 

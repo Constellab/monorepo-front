@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {map, Observable} from 'rxjs';
-import {PrWorkflowLayer} from '../../model/pr-workflow-layer.class';
+import {PrWorkflowLayer} from '../../model/workflow/pr-workflow-layer.class';
 import {PrWorkflowManagerState} from '../../state/pr-workflow-manager-state';
 
 /**

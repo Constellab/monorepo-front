@@ -34,7 +34,7 @@ export class LabDynamicPortConfigDialogComponent {
   portType: PrWorkflowPortType;
   formGp: FormGroup<LabFormType>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: LabDynamicPortConfigDialogInput,
+  constructor(@Inject(MAT_DIALOG_DATA) data: LabDynamicPortConfigDialogInput,
               private dialogRef: MatDialogRef<LabDynamicPortConfigDialogComponent>) {
 
     this.portType = data.portType;
@@ -54,7 +54,7 @@ export class LabDynamicPortConfigDialogComponent {
     if (this.formGp.valid) {
       const value = this.formGp.getRawValue();
       const spec: TdIOSpec = {
-        resource_types: [value.resourceType.toResourceType()],
+        resource_types: [value.resourceType.toTypeRef()],
         human_name: value.humanName,
         short_description: value.shortDescription,
         is_optional: value.isOptional,

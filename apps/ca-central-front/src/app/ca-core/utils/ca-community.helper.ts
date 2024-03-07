@@ -63,4 +63,8 @@ export class CaCommunityHelper {
   public static getTechnicalDocByPathApiUrl(): string {
     return this.getCommunityApiUrl() + '/brick/technical-doc-by-path';
   }
+
+  public static getIconBaseApiUrl(): string {
+    return this.getCommunityUrl() + '/icon';
+  }
 }

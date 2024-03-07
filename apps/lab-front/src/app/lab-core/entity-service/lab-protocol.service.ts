@@ -201,12 +201,6 @@ export class LabProtocolService {
       null, LabProtocolUpdateDTO);
   }
 
-  public addViewerToProcessOutput(protocolId: string, processName: string,
-                                  outputPortName: string): Observable<LabProtocolUpdateDTO> {
-    return this.apiService.post(`${this.baseRoute}/${protocolId}/add-viewer/${processName}/${outputPortName}`,
-      null, LabProtocolUpdateDTO);
-  }
-
   ///////////////////////////////////////////////// LAYOUT /////////////////////////////////////////////////
   public saveLayout(protocolId: string, layout: LabProtocolLayout): Observable<void> {
     return this.apiService.put(`${this.baseRoute}/${protocolId}/layout`, layout);

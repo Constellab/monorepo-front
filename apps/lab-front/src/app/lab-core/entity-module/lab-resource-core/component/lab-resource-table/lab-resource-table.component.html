@@ -66,14 +66,13 @@
       <span> {{ 'resource_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
-      <mat-icon  *ngIf="resource.typeIcon" [flIcon]="resource.typeIcon"
-                class="icon"></mat-icon>
-      <div>
-        <div>{{ resource.resourceTypeHumanName }}</div>
-        <div *ngIf="resource.fsNode?.size != null" class="g-text-light g-text-tiny g-text-dense-height">
-          {{ resource.fsNode.size | flByteText }}
+      @if (resource.resourceType) {
+        <div>
+          <td-type-inline [text]="resource.resourceType?.human_name"
+                          [style]="resource.resourceType?.style"
+                          [subText]="resource.fsNode?.size | flByteText"></td-type-inline>
         </div>
-      </div>
+      }
     </mat-cell>
   </ng-container>
 

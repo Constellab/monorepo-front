@@ -1,6 +1,6 @@
 {
   "biox": {
-    "biox": "Experiments",
+    "experiments": "Experiments",
     "parameters": "Parameters",
     "protocol_config": "Protocol parameters",
     "interface": "Interface",
@@ -398,6 +398,9 @@
     "existent_lt_info_1": "Select the linked Community live task version bellow to add a new version to it.",
     "existent_lt_info_2": "Select one of your Community live tasks to create a new version from this live task.",
     "my_live_tasks": "My live tasks",
-    "live_task": "Live task"
+    "live_task": "Live task",
+    "resource_next_objects": "Next objects",
+    "no_experiment": "No experiment",
+    "no_report": "No report"
   }
 }

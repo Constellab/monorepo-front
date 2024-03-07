@@ -15,5 +15,6 @@ export interface PrConfig {
   values: PrConfigValues;
 }
 
-
-
+export const prConfigValueAreEqual = (a: PrConfigValues, b: PrConfigValues): boolean => {
+  return JSON.stringify(a) === JSON.stringify(b);
+}

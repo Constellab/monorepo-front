@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  width: 100px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.bottom-content {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center flex-start;
+  align-items: center;
+}
+
+.status {
+  margin-right: 5px;
+  flex-shrink: 0;
+}
+
+.title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.protocol {
+  margin-left: 5px;
+  flex-shrink: 0;
+}
+
+

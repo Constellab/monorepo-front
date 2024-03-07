@@ -1,0 +1,16 @@
+<pr-workflow-node-content [icon]="icon$ | async">
+  <pr-workflow-node-content-bottom [matTooltip]="title$ | async | flTranslatableText"
+                                   [matTooltipShowDelay]="1000">
+    {{ title$ | async | flTranslatableText }}
+  </pr-workflow-node-content-bottom>
+</pr-workflow-node-content>
+
+@if (externalButton$ | async; as externalButton) {
+  <button mat-icon-button type="button" class="g-button-icon-small external-button"
+          [ngClass]="externalButton.position"
+          (click)="callExternalButton(externalButton, $event)"
+          [matTooltip]="externalButton.tooltip | translate">
+    <mat-icon class="icon" [flIcon]="externalButton.icon"></mat-icon>
+  </button>
+}
+

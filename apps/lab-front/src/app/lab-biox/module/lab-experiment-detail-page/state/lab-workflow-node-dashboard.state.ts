@@ -3,8 +3,9 @@ import {LabWorkflowEditConfig} from '../model/lab-workflow-edit-config.class';
 import {UntypedFormGroup} from '@angular/forms';
 import {FlFormHelper, FlPortalActionResult} from '@monorepo/front-core-lib';
 import {LabConfigureSpecsForm} from '../../../../lab-core/model/entities/lab-config.entity';
-import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {Observable, of} from 'rxjs';
+import {prConfigValueAreEqual, PrConfigValues} from '@monorepo/protocol';
+import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 
 /**
  * State for the node dashboard
@@ -36,8 +37,15 @@ export class LabWorkflowNodeDashboardState {
   }
 
   private saveConfig(config: LabConfigureSpecsForm): Observable<FlPortalActionResult | null> {
-    const configValue = {...config.public, ...config.protected};
+    const configValue: PrConfigValues = {...config.public, ...config.protected};
+    // update the task config values
     return this.workflowEditConfig.updateProcessConfig(this.task.parentProtocolId, this.task.instanceName, configValue);
   }
 
+  /**
+   * return truc if the config has changed compared to the current task
+   */
+  public configHasChanged(process: LabProcess): boolean {
+    return !this.task || this.task.id !== process.id || !prConfigValueAreEqual(this.task.config.values, process.config.values);
+  }
 }

@@ -4,25 +4,18 @@ import {PrWorkflowManagerState} from './state/pr-workflow-manager-state';
 import {PrWorkflowComponent} from './component/pr-workflow/pr-workflow.component';
 import {
   FlCoreComponentModule,
-  FlDrawerModule,
   FlIconModule,
   FlLoaderModule,
   FlMenuDynamicModule,
   FlPortalModule,
-  FlStatusModule,
   FlTranslateModule,
   FlTranslateService
 } from '@monorepo/front-core-lib';
 
-import {PrWorkflowNodeComponent} from './component/pr-workflow-node/pr-workflow-node.component';
+import {PrWorkflowNodeProcessComponent} from './component/pr-workflow-node-process/pr-workflow-node-process.component';
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {MatIconModule} from '@angular/material/icon';
 import {createCustomElement} from '@angular/elements';
-import {PrWorkflowNodeSourceComponent} from './component/pr-workflow-node-source/pr-workflow-node-source.component';
-import {PrWorkflowNodeOutputComponent} from './component/pr-workflow-node-output/pr-workflow-node-output.component';
-import {
-  PrWorkflowNodeInterfaceComponent
-} from './component/pr-workflow-node-interface/pr-workflow-node-interface.component';
 import {PrWorkflowActionState} from './state/pr-workflow-action-state';
 import {
   PrWorkflowLayersBreadcrumbComponent
@@ -32,7 +25,6 @@ import {
   PrWorkflowPortActionPortalComponent
 } from './component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {PrWorkflowNodeViewerComponent} from './component/pr-workflow-node-viewer/pr-workflow-node-viewer.component';
 import {
   PrWorkflowProcessConfigInfoDialogComponent
 } from './component/pr-workflow-process-config-info-dialog/pr-workflow-process-config-info-dialog.component';
@@ -41,6 +33,13 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {PrWorkflowEmptyResourcesState, PrWorkflowResourcesState} from './state/pr-workflow-resources.state';
+import {PrWorkflowNodeContentComponent} from './component/pr-workflow-node-content/pr-workflow-node-content.component';
+import {
+  PrWorkflowNodeContentBottomComponent
+} from './component/pr-workflow-node-content-bottom/pr-workflow-node-content-bottom.component';
+import {
+  PrWorkflowNodeResourceComponent
+} from './component/pr-workflow-node-resource/pr-workflow-node-resource.component';
 
 
 @NgModule({
@@ -52,32 +51,29 @@ import {PrWorkflowEmptyResourcesState, PrWorkflowResourcesState} from './state/p
     MatButtonModule,
     MatMenuModule,
     MatSidenavModule,
+    MatTableModule,
 
-    FlStatusModule,
     FlTranslateModule,
     FlPortalModule,
     FlMenuDynamicModule,
-    FlDrawerModule,
     FlLoaderModule,
-    FlCoreComponentModule,
     FlIconModule,
+    FlCoreComponentModule,
 
     TdTechnicalDocModule,
-    MatTableModule,
   ],
   exports: [
     PrWorkflowComponent
   ],
   declarations: [
     PrWorkflowComponent,
-    PrWorkflowNodeComponent,
-    PrWorkflowNodeSourceComponent,
-    PrWorkflowNodeOutputComponent,
-    PrWorkflowNodeInterfaceComponent,
+    PrWorkflowNodeProcessComponent,
     PrWorkflowLayersBreadcrumbComponent,
     PrWorkflowPortActionPortalComponent,
-    PrWorkflowNodeViewerComponent,
-    PrWorkflowProcessConfigInfoDialogComponent
+    PrWorkflowProcessConfigInfoDialogComponent,
+    PrWorkflowNodeContentComponent,
+    PrWorkflowNodeContentBottomComponent,
+    PrWorkflowNodeResourceComponent
   ]
 })
 export class PrProtocolModule {
@@ -87,28 +83,13 @@ export class PrProtocolModule {
 
     if (PrProtocolModule.registered) return;
 
-    customElements.define('pr-workflow-node',
-      createCustomElement(PrWorkflowNodeComponent, {
+    customElements.define('pr-workflow-node-process',
+      createCustomElement(PrWorkflowNodeProcessComponent, {
         injector
       }));
 
-    customElements.define('pr-workflow-node-source',
-      createCustomElement(PrWorkflowNodeSourceComponent, {
-        injector
-      }));
-
-    customElements.define('pr-workflow-node-output',
-      createCustomElement(PrWorkflowNodeOutputComponent, {
-        injector
-      }));
-
-    customElements.define('pr-workflow-node-viewer',
-      createCustomElement(PrWorkflowNodeViewerComponent, {
-        injector,
-      }));
-
-    customElements.define('pr-workflow-node-interface',
-      createCustomElement(PrWorkflowNodeInterfaceComponent, {
+    customElements.define('pr-workflow-node-resource',
+      createCustomElement(PrWorkflowNodeResourceComponent, {
         injector,
       }));
 

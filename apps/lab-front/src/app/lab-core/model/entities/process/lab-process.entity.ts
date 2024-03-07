@@ -1,10 +1,16 @@
-import {LabConfig} from '../lab-config.entity';
 import {Expose, Type} from 'class-transformer';
 import {LabProgressBar, LabProgressMessage} from '../lab-progress-bar.entity';
 import {FlStatus, FlStatusTransform} from '@monorepo/front-core-lib';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
-import {TdTypeObjectStatus, TdTypingName} from '@monorepo/technical-doc';
-import {PrOI, PrProcess, PrProcessStatus, prProcessStatusDict} from '@monorepo/protocol';
+import {TdSimpleTypeEntity, TdTypeObjectStatus, TdTypingName} from '@monorepo/technical-doc';
+import {
+  PrConfig,
+  PrOI,
+  PrProcess,
+  PrProcessStatus,
+  prProcessStatusDict,
+  PrProcessStatusHelper
+} from '@monorepo/protocol';
 import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {LabEntity} from '../../global/lab-entity.entity';
@@ -18,21 +24,10 @@ export interface LabProcessErrorInfo {
   unique_code: string;
 }
 
-
-export class LabProcessTypeName {
-  @Expose({name: 'human_name'})
-  humanName?: string;
-
-  @Expose({name: 'short_description'})
-  shortDescription?: string;
-
-  icon?: string;
-}
-
 /**
  * Task or protocol inside a flow
  */
-export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
+export class LabProcess extends LabBaseEntityWithUser {
 
   @Expose({name: 'process_typing_name'})
   processTypingName: string;
@@ -46,8 +41,7 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   @FlStatusTransform(prProcessStatusDict)
   status: FlStatus<PrProcessStatus>;
 
-  @Type(() => LabConfig)
-  config: LabConfig;
+  config: PrConfig;
 
   @Expose({name: 'instance_name'})
   instanceName: string;
@@ -87,20 +81,12 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   errorInfo: LabProcessErrorInfo;
 
   @Expose({name: 'process_type'})
-  processType: LabProcessTypeName;
+  processType: TdSimpleTypeEntity;
 
   name: string;
 
   @Expose({name: 'community_live_task_version_id'})
   communityLiveTaskVersionId?: string;
-
-  get icon(): string {
-    return this.processType?.icon;
-  }
-
-  hasConfig(): boolean {
-    return this.config?.hasConfigs() ?? false;
-  }
 
   // return true if the process is of type Source
   isSource(): boolean {
@@ -117,11 +103,11 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
   }
 
   isFinished(): boolean {
-    return this.status.value === 'SUCCESS' || this.status.value === 'ERROR';
+    return PrProcessStatusHelper.isFinished(this.status.value);
   }
 
   wasRun(): boolean {
-    return this.isFinished() || this.status.value === 'PARTIALLY_RUN';
+    return PrProcessStatusHelper.wasRun(this.status.value);
   }
 
   isRunning(): boolean {
@@ -134,6 +120,24 @@ export class LabProcess extends LabBaseEntityWithUser implements PrProcess {
 
   getProcessType(): LabProcessClass {
     return this.isProtocol ? 'PROTOCOL' : 'TASK';
+  }
+
+  toPrProcess(): PrProcess {
+    return {
+      id: this.id,
+      instanceName: this.instanceName,
+      processTypingName: this.processTypingName,
+      name: this.name,
+      status: this.status,
+      config: this.config,
+      inputs: this.inputs,
+      outputs: this.outputs,
+      parentProtocolId: this.parentProtocolId,
+      typeStatus: this.typeStatus,
+      processType: this.processType,
+      isProtocol: this.isProtocol,
+    };
+
   }
 }
 

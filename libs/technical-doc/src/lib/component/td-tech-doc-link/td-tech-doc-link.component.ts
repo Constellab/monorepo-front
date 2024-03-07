@@ -1,42 +1,26 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TdUniqueType} from '../../model/td-type.class';
-import {TdServiceConfig} from '../../service/td-service-config.config';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {TdServiceConfig, TdTechnicalDocUrl} from '../../service/td-service-config.config';
 import {TdTypingName} from '../../model/td-typing-name.class';
 
 @Component({
   selector: 'td-tech-doc-link',
   templateUrl: './td-tech-doc-link.component.html',
-  styleUrls: ['./td-tech-doc-link.component.scss']
+  styleUrls: ['./td-tech-doc-link.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TdTechDocLinkComponent implements OnInit {
+export class TdTechDocLinkComponent {
 
-  @Input() set uniqueElement(u: TdUniqueType) {
-    this._uniqueElement = u;
-    this.setup();
+  @Input({required: true}) typingName: string;
+
+  @Input({required: true}) version: string;
+
+  constructor(private tdServiceConfig: TdServiceConfig,) {
   }
 
-  _uniqueElement: TdUniqueType;
+  get docUrl(): TdTechnicalDocUrl {
+    const typingName: TdTypingName = new TdTypingName(this.typingName);
 
-  isAbsolute: boolean;
-  url: string;
-
-
-  constructor(
-    private tdServiceConfig: TdServiceConfig,
-  ) {
-  }
-
-  ngOnInit(): void {
-  }
-
-  private setup(): void {
-    const typingName: TdTypingName = new TdTypingName(this._uniqueElement.typingName);
-
-    const techDocUrl = this.tdServiceConfig.getTechnicalDocUrl(this._uniqueElement.version, typingName);
-
-
-    this.isAbsolute = techDocUrl.isAbsolute; // true if getTechnicalDocUrl returned an absolute url
-    this.url = techDocUrl.url;
+    return this.tdServiceConfig.getTechnicalDocUrl(this.version, typingName);
   }
 
 }

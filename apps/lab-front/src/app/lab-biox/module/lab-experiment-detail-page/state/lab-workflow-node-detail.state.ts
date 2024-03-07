@@ -1,15 +1,13 @@
 import {Injectable, ViewContainerRef} from '@angular/core';
-import {BehaviorSubject, filter, firstValueFrom, Observable, switchMap} from 'rxjs';
+import {BehaviorSubject, filter, Observable, switchMap} from 'rxjs';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
-  PrConfigValues,
   PrWorkflowActionEvent,
   PrWorkflowActionShowView,
   PrWorkflowActionState,
   PrWorkflowNode,
   PrWorkflowNodeProcess
 } from '@monorepo/protocol';
-import {MatDrawer} from '@angular/material/sidenav';
 import {
   LabResourceDetailDialogComponent
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
@@ -17,7 +15,7 @@ import {
   LabResourceViewDetailDialogComponent,
   LabResourceViewDetailDialogInput
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import {FlDialogService, FlPortalConnectedPosition, FlPortalService} from '@monorepo/front-core-lib';
 import {
   LabWorkflowAction,
   LabWorkflowEditConfig,
@@ -34,6 +32,10 @@ import {
   LabSelectResourceDialogComponent
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
 import {LabResource} from '../../../../lab-core/model/entities/resource/lab-resource.entity';
+import {
+  LabResourceNextObjectsPortalComponent
+} from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
+import {LabRouterService} from '../../../../lab-core/service/lab-router.service';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -43,7 +45,6 @@ export class LabWorkflowNodeDetailState {
 
   private node$: BehaviorSubject<PrWorkflowNodeProcess>;
 
-  private drawer: MatDrawer;
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
   constructor(private workflowEditConfig: LabWorkflowEditConfig,
@@ -51,12 +52,13 @@ export class LabWorkflowNodeDetailState {
               private dialogService: FlDialogService,
               private viewContainerRef: ViewContainerRef,
               private experimentState: LabExperimentDetailPageState,
-              private protocolService: LabProtocolService) {
+              private protocolService: LabProtocolService,
+              private portalService: FlPortalService,
+              private routerService: LabRouterService) {
   }
 
-  public init(drawer: MatDrawer): void {
+  public init(): void {
     this.node$ = new BehaviorSubject(null);
-    this.drawer = drawer;
 
     this.subscription.add(this.actionState.getAction$().subscribe(
       action => this.onNewAction(action)
@@ -70,11 +72,7 @@ export class LabWorkflowNodeDetailState {
     if (action == null) return;
 
     switch (action.action) {
-      case 'selectNode':
-        this.setNode(action.processNode);
-        this.drawer.open();
-        break;
-      case 'configureNode':
+      case 'selectProcessNode':
         this.setNode(action.processNode);
         this.openProcessConfigDashboard();
         break;
@@ -84,10 +82,15 @@ export class LabWorkflowNodeDetailState {
       case 'showView':
         this.openViewDetail(action);
         break;
-      case 'selectResource':
+      case 'openSelectResource':
         this.openResourceSelection(action.processNode);
         break;
-
+      case 'showNextExperiments':
+        this.openExperimentsUsingResourcePortal(action.resourceId, action.element);
+        break;
+      case 'navigateToExperiment':
+        this.routerService.navigateToExperimentDetail(action.experimentId);
+        break;
     }
   }
 
@@ -100,22 +103,19 @@ export class LabWorkflowNodeDetailState {
   }
 
   /**
-   * If the current selected node is deleted, close the drawer
+   * If the current selected node is deleted, set current node to null
    * @param info
    * @private
    */
   private onNodeDeleted(info: LabWorkflowEventNodeAdditionalInfo): void {
     const node = this.node$.value;
-    if (info && node && info.node.nodeName == node.nodeName && info.node.parentLayerId == node.parentLayerId) {
+    if (info && node && info.node.instanceName == node.instanceName && info.node.parentLayerId == node.parentLayerId) {
       this.setNode(null);
     }
   }
 
   public setNode(node: PrWorkflowNodeProcess): void {
     this.node$.next(node);
-    if (node == null) {
-      this.drawer.close();
-    }
   }
 
   public getNode$(): Observable<PrWorkflowNodeProcess> {
@@ -125,26 +125,20 @@ export class LabWorkflowNodeDetailState {
   public getProcess$(): Observable<LabProcess> {
     return this.getNode$().pipe(
       filter(node => node != null),
-      switchMap(node => node.getObject$() as Observable<LabProcess>));
+      switchMap(node =>
+        this.experimentState.getLabProcess$(node.parentLayerId, node.instanceName))
+    );
   }
 
-  public getProcessPromise(): Promise<LabProcess> {
-    return firstValueFrom(this.getProcess$());
-  }
 
   public clear(): void {
     this.node$.complete();
     this.subscription?.unsubscribe();
   }
 
-  public updateConfigValues(config: PrConfigValues): void {
-    const node = this.node$.value;
-    this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.nodeName, config);
-  }
-
   public resetProcess(): void {
     const node = this.node$.value;
-    this.workflowEditConfig.resetProcess(node.parentLayerId, node.nodeName);
+    this.workflowEditConfig.resetProcess(node.parentLayerId, node.instanceName);
   }
 
   public createDynamicInputPort(): void {
@@ -199,7 +193,7 @@ export class LabWorkflowNodeDetailState {
 
   private onResourceSelectionClosed(node: PrWorkflowNode, resource?: LabResource): void {
     if (resource) {
-      this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.nodeName, {
+      this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.instanceName, {
         [TdTypingName.task.source.configName]: resource.id
       });
     }
@@ -213,5 +207,16 @@ export class LabWorkflowNodeDetailState {
 
   private onUpdateProcessNameSuccess(process: LabProcess): void {
     this.experimentState.refreshProcess(process);
+  }
+
+  private openExperimentsUsingResourcePortal(resourceId: string, element: HTMLElement): void {
+    const position: FlPortalConnectedPosition[] = ['right', 'left', 'bottom', 'top'];
+
+    const config = this.portalService.configureRelativePortal(element, position, {
+      disposeOnOutsideClick: true,
+      disposeOnNavigation: true,
+    });
+
+    this.portalService.createPortal(LabResourceNextObjectsPortalComponent, config, resourceId);
   }
 }
