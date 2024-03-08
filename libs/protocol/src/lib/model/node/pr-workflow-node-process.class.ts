@@ -1,11 +1,10 @@
 import {PrWorkflowNode} from './pr-workflow-node.class';
 import {PrProcess, PrProcessStatus} from '../pr-process.class';
 import {map, Observable} from 'rxjs';
-import {FlColorHelper, FlStatus, FlThemeService, FlTranslatableText} from '@monorepo/front-core-lib';
+import {FlStatus, FlThemeService, FlTranslatableText} from '@monorepo/front-core-lib';
 import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
 import {PrWorkflowPortType} from '../workflow/pr-workflow-port.class';
 import {PrWorkflowNodeIcon} from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
-import {TdTypeStyleIconType} from '@monorepo/technical-doc';
 import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
 
 
@@ -96,8 +95,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   }
 
   public getNodeColor(process: PrProcess): string {
-    if (process.processType?.style?.background_color) return process.processType.style.background_color;
-    return FlColorHelper.stringToRGBColor(process.processTypingName);
+    return process.style.background_color;
   }
 
   public getIcon$(): Observable<PrWorkflowNodeIcon> {
@@ -116,21 +114,11 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
       };
     }
 
-    let icon: string = 'protocol';
-    let iconType: TdTypeStyleIconType = 'MATERIAL_ICON';
-    if (process.processType?.style?.icon_technical_name) {
-      icon = process.processType.style.icon_technical_name;
-      iconType = process.processType.style.icon_type;
-    }
-
-    let iconColor: string;
-    if (process?.processType?.style?.icon_color) {
-      iconColor = process.processType.style.icon_color;
-    } else {
-      const nodeColor = this.getNodeColor(process);
-      iconColor = FlColorHelper.getContrastColor(nodeColor);
-    }
-    return {icon: icon, iconColor: iconColor, iconType: iconType};
+    return {
+      icon: process.style.icon_technical_name,
+      iconColor: process.style.icon_color,
+      iconType: process.style.icon_type
+    };
   }
 
   onNodeClick(): void {

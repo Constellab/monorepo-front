@@ -1,7 +1,7 @@
 import {FlStatus, FlStatusDict, FlStatusHelper} from '@monorepo/front-core-lib';
 import {PrOI} from './pr-io.class';
 import {PrConfig} from './pr-config.class';
-import {TdSimpleTypeEntity, TdTypeObjectStatus} from '@monorepo/technical-doc';
+import {TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle} from '@monorepo/technical-doc';
 
 export type PrProcessStatus = 'DRAFT' | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN' | 'WAITING_FOR_CLI_PROCESS';
 
@@ -50,9 +50,11 @@ export interface PrProcess {
 
   parentProtocolId: string;
 
-  typeStatus?: TdTypeObjectStatus;
+  typeStatus: TdTypeObjectStatus | null;
 
-  processType?: TdSimpleTypeEntity;
+  processType: TdSimpleTypeEntity | null;
 
   isProtocol: boolean;
+
+  style: TdTypeStyle;
 }

@@ -23,7 +23,6 @@ export const tdTypeStyleDefault: TdTypeStyle = {
 export interface TdSimpleTypeEntity {
   human_name: string;
   short_description?: string;
-  style?: TdTypeStyle;
 }
 
 export interface TdTypeRefDTO {

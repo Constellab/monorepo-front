@@ -2,7 +2,7 @@ import {Expose, Type} from 'class-transformer';
 import {LabProgressBar, LabProgressMessage} from '../lab-progress-bar.entity';
 import {FlStatus, FlStatusTransform} from '@monorepo/front-core-lib';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
-import {TdSimpleTypeEntity, TdTypeObjectStatus, TdTypingName} from '@monorepo/technical-doc';
+import {TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle, TdTypingName} from '@monorepo/technical-doc';
 import {
   PrConfig,
   PrOI,
@@ -88,6 +88,8 @@ export class LabProcess extends LabBaseEntityWithUser {
   @Expose({name: 'community_live_task_version_id'})
   communityLiveTaskVersionId?: string;
 
+  style: TdTypeStyle;
+
   // return true if the process is of type Source
   isSource(): boolean {
     return this.processTypingName === TdTypingName.task.source.typingName;
@@ -136,6 +138,7 @@ export class LabProcess extends LabBaseEntityWithUser {
       typeStatus: this.typeStatus,
       processType: this.processType,
       isProtocol: this.isProtocol,
+      style: this.style
     };
 
   }

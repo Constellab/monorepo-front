@@ -1,7 +1,7 @@
 import {LabEntity} from '../../global/lab-entity.entity';
 import {FlFileHelper} from '@monorepo/front-core-lib';
 import {Expose, Type} from 'class-transformer';
-import {TdSimpleTypeEntity, TdTypeObjectStatus} from '@monorepo/technical-doc';
+import {TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle} from '@monorepo/technical-doc';
 import {LabFlaggedEntity} from '../../global/lab-flagged-entity.class';
 import {LabProject} from '../lab-project.class';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
@@ -21,10 +21,6 @@ export class LabFsNodeEntity extends LabEntity {
   name: string;
 
   path: string;
-
-  isImage(): boolean {
-    return FlFileHelper.extensionIsImage(this.getExtension());
-  }
 
   getExtension(): string {
     return FlFileHelper.getFileExtension(this.name);
@@ -75,6 +71,8 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
   @Expose({name: 'resource_type'})
   resourceType?: TdSimpleTypeEntity;
 
+  style: TdTypeStyle;
+
   isFsNode(): boolean {
     return this.fsNode != null;
   }
@@ -102,6 +100,7 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
       resourceTypingName: this.resourceTypingName,
       resourceType: this.resourceType,
       experiment: this.experiment,
+      style: this.style
     };
   }
 }

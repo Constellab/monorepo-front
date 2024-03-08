@@ -1,5 +1,5 @@
 import {Observable, of} from 'rxjs';
-import {TdTypingName} from '@monorepo/technical-doc';
+import {tdTypeStyleDefault, TdTypingName} from '@monorepo/technical-doc';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {NgZone} from '@angular/core';
 import {FlCoord} from '@monorepo/front-core-lib';
@@ -119,6 +119,7 @@ export class PrWorkflowFactory {
       typeStatus: null,
       processType: process.process_type,
       isProtocol: process.graph != null,
+      style: process.style ?? tdTypeStyleDefault
     };
   }
 
