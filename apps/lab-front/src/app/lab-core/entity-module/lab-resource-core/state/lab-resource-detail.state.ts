@@ -171,7 +171,6 @@ export class LabResourceDetailState implements OnDestroy {
   }
 
 
-
   public updateResource(resource: LabResource): void {
     this.resources.update(resources => {
       const index = resources.findIndex(r => r.id === resource.id);
@@ -286,7 +285,7 @@ export class LabResourceDetailState implements OnDestroy {
 
     const config: LabResourceViewPortalInput = {
       labView: labView,
-      resourceState : this
+      resourceState: this
     };
 
     this.createPortal(LabResourceViewPortalComponent, portalConfig, config);
@@ -302,7 +301,7 @@ export class LabResourceDetailState implements OnDestroy {
     const resource = this.resources().find(r => r.id === view.resourceId);
     if (resource == null) return;
     this.viewConfigState.openConfigPortal(view.viewConfig.viewName, view.title, true,
-      resource.id, resource.resourceTypingName, view.viewConfig.configValues).subscribe(
+      resource.id, resource.resourceTypingName, view.style, view.viewConfig.configValues).subscribe(
       result => this.onViewConfiguredClosed(resource.id, result, viewOverlayRef)
     );
   }
@@ -312,7 +311,7 @@ export class LabResourceDetailState implements OnDestroy {
   public openConfigPortal(view: LabResourceViewSpec): void {
     const resource = this.selectedResource();
     this.viewConfigState.openConfigPortal(view.methodName, view.getName(), view.hasConfigSpecs,
-      resource.id, resource.resourceTypingName).subscribe(
+      resource.id, resource.resourceTypingName, view.style).subscribe(
       result => this.onViewConfiguredClosed(resource.id, result)
     );
   }

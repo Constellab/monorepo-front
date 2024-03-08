@@ -18,6 +18,7 @@
                                        [name]="viewConfig.title"
                                        [user]="viewConfig.createdBy"
                                        [creationDate]="viewConfig.createdAt"
+                                       [style]="viewConfig.style"
                                        (click)="openFavoriteView(viewConfig)">
           </lab-resource-view-spec-card>
         </div>
@@ -30,6 +31,7 @@
                                    [viewType]="viewSpec.viewType"
                                    [name]="viewSpec.getName()"
                                    [shortDescription]="viewSpec.shortDescription"
+                                   [style]="viewSpec.style"
                                    (click)="openConfigPortal(viewSpec)">
       </lab-resource-view-spec-card>
     </div>

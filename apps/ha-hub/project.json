@@ -35,11 +35,6 @@
             "glob": "**/*",
             "input": "libs/front-core-lib/src/assets/font",
             "output": "assets/fl-font"
-          },
-          {
-            "glob": "**/*",
-            "input": "libs/resource-view/src/assets/views",
-            "output": "assets/views"
           }
         ],
         "styles": [

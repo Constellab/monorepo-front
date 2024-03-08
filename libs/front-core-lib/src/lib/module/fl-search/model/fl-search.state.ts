@@ -10,8 +10,6 @@ import {Subscription} from 'rxjs';
 import {ClCoreJsonConvert} from '@monorepo/core-lib';
 import {FlSavedSearch} from './fl-saved-search.class';
 
-type FlSearchMode = 'advanced' | 'default';
-
 
 /**
  * Use to manage the start of a search component.
@@ -172,43 +170,21 @@ export class FlSearchState<T> implements OnDestroy {
       return false;
     }
 
-    const mode: FlSearchMode = params?.mode as FlSearchMode;
 
-    switch (mode) {
-      case 'advanced':
-        const formValue: FlAdvancedSearchObject = FlSearchPageUrlHelper.advancedSearchFromString(params?.search);
+    const formValue: FlAdvancedSearchObject = FlSearchPageUrlHelper.advancedSearchFromString(params?.search);
 
-        if (formValue != null) {
-          try {
-            const filtersCriteria = ClCoreJsonConvert.deserialize(formValue.filtersCriteria, this.config.advancedFormClass);
-            this.callAdvancedSearchFromUrl(filtersCriteria, params.timestamp);
-            return true;
-          } catch {
-            return false;
-          }
-        }
-        return false;
-
-      case 'default':
-        // this.callDefaultSearch();
+    if (formValue != null) {
+      try {
+        const filtersCriteria = ClCoreJsonConvert.deserialize(formValue.filtersCriteria, this.config.advancedFormClass);
+        this.callAdvancedSearchFromUrl(filtersCriteria, params.timestamp);
         return true;
+      } catch {
+        return false;
+      }
     }
-
     return false;
   }
 
-
-  // search the default mode search in url
-  private saveDefaultSearchToURL(): void {
-    // save the criteria list in the url as query params
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: {mode: 'default'},
-      // replace the url because the default search is call on load
-      // so we don't need add historic
-      replaceUrl: true
-    });
-  }
 
   // save the advanced form search in the url
   // store the last search timestamp in state
@@ -227,7 +203,7 @@ export class FlSearchState<T> implements OnDestroy {
 
     // limit length to avoid URL problem
     if (searchString.length < 1700) {
-      const searchUrl = FlSearchPageUrlHelper.buildSearchUrlObject('advanced', searchString, timestamp);
+      const searchUrl = FlSearchPageUrlHelper.buildSearchUrlObject(searchString, timestamp);
       // save the criteria list in the url as query params
       this.router.navigate([], {
         relativeTo: this.route,

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {FlAdvancedSearchInput, FlApiService, FlSearchConverter, FLSearchFunction} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {ClPageI} from '@monorepo/core-lib';
-import {LabViewConfig} from '../model/entities/resource/lab-view-config.entity';
+import {LabViewConfig, LabViewType} from '../model/entities/resource/lab-view-config.entity';
 import {
   LabViewConfigSearch,
   LabViewConfigSearchFields
@@ -72,6 +72,11 @@ export class LabViewConfigService {
     return this.apiService.post(`${this.route}/search/report/${reportId}`, data, LabViewConfig, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
+  }
+
+  ///////////////////////////////////////////// VIEW TYPES /////////////////////////////////////////////
+  public getViewTypes(): Observable<LabViewType[]> {
+    return this.apiService.get(`${this.route}/types/list`, LabViewType);
   }
 
 

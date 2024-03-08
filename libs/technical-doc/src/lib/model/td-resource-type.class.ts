@@ -1,4 +1,4 @@
-import {TdTypeEntity} from './td-type.class';
+import {TdTypeEntity, TdTypeStyle} from './td-type.class';
 import {RvResourceViewType} from '@monorepo/resource-view';
 
 
@@ -33,4 +33,5 @@ export interface TdResourceView{
   default_view: boolean;
   has_config_specs: boolean;
   config_specs: Record<string, any>;
+  style: TdTypeStyle;
 }

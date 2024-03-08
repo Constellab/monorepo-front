@@ -1,25 +1,6 @@
-<!--  Full color-->
-<!--<div class="g-layout-row g-layout-start-center container"-->
-<!--     [style.background-color]="entityType.style.background_color"-->
-<!--     [style.color]="entityType.style.icon_color">-->
-<!--  <td-type-icon [icon]="entityType.style.icon"-->
-<!--                [iconType]="entityType.style.icon_type"-->
-<!--                [iconColor]="entityType.style.icon_color"-->
-<!--                [iconSize]="20"></td-type-icon>-->
-<!--  @if (showText) {-->
-<!--    <span class="text">{{ entityType.human_name }}</span>-->
-<!--  }-->
-<!--</div>-->
-
 <!-- Color only on logo-->
 <div class="g-layout-row g-layout-start-center">
-  <td-type-icon [iconTechnicalName]="styleWithDefault.icon_technical_name"
-                [iconType]="styleWithDefault.icon_type"
-                [iconColor]="styleWithDefault.icon_color"
-                [iconSize]="20"
-                [style.background-color]="styleWithDefault.background_color"
-                class="round-icon">
-  </td-type-icon>
+  <td-type-icon-badge [style]="styleWithDefault" [iconSize]="20"></td-type-icon-badge>
   <div class="text g-text-dense-height">
     <div>{{ text }}</div>
     @if (subText) {

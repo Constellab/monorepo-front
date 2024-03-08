@@ -5,5 +5,5 @@
 .icon {
   display: flex;
   // remove margin when used in mat-option
-  margin: 0;
+  margin: 0 !important;
 }

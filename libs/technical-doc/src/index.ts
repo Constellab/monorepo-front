@@ -21,6 +21,7 @@ export * from './lib/component/td-technical-doc/td-technical-doc.component';
 export * from './lib/component/td-technical-doc-header/td-technical-doc-header.component';
 export * from './lib/component/td-doc-io/td-doc-io.component';
 export * from './lib/component/td-type-icon/td-type-icon.component';
+export * from './lib/component/td-type-icon-badge/td-type-icon-badge.component';
 export * from './lib/component/td-type-inline/td-type-inline.component';
 export * from './lib/component/td-type-unavailable/td-type-unavailable.component';
 

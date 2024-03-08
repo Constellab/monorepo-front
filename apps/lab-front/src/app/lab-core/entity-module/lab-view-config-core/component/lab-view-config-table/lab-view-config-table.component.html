@@ -11,8 +11,7 @@
          [target]="rowLinkTarget" class="g-row-link"></a>
 
       <div class="g-layout-row g-layout-start-center">
-        <rv-view-type-image [viewType]="viewConfig.viewType" size="2em"
-                            class="view-image" [viewTypesInfos]="labConstResourceViewTypeInfos"></rv-view-type-image>
+        <td-type-icon-badge [style]="viewConfig.style" [iconSize]="25" class="view-image"></td-type-icon-badge>
         <div>{{ viewConfig.title }}</div>
       </div>
     </mat-cell>

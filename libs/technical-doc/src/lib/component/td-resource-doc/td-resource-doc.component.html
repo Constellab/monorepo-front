@@ -4,7 +4,7 @@
   <h4>{{'td.views' | translate}}</h4>
   <div *ngFor="let v of getOrderedResourceViews(resource.methods.views)"  class="method-card">
     <div class="view-title">
-      <rv-view-type-image [viewType]="v.view_type"></rv-view-type-image>
+      <td-type-icon-badge [style]="v.style" [iconSize]="30"></td-type-icon-badge>
       <span>{{v.human_name.toUpperCase() + ' - ' +  v.method_name + '()'}}</span>
       <mat-chip *ngIf="v.default_view" color="primary">{{'td.default_view' | translate}}</mat-chip>
     </div>

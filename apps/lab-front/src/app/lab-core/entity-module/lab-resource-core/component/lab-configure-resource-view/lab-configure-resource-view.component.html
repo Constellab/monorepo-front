@@ -1,7 +1,11 @@
 <fl-portal class="portal" flResize="both">
 
-  <fl-portal-header class="header" [enableDrag]="true">
-    <h2>{{title}}</h2>
+  <fl-portal-header class="header"
+                    [enableDrag]="true">
+    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+      <td-type-icon-badge [style]="viewStyle" [iconSize]="30"></td-type-icon-badge>
+      <h2>{{ title }}</h2>
+    </div>
   </fl-portal-header>
 
 
@@ -16,7 +20,7 @@
 
         <button mat-flat-button color="primary" type="submit" form="config-form"
                 class="g-centered-forced submit-button">
-          {{'ok' | translate}}
+          {{ 'ok' | translate }}
         </button>
       </ng-container>
     </fl-section>

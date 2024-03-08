@@ -2,23 +2,14 @@
   <fl-section-header class="header">
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <rv-view-type-image [viewType]="labView.viewType" size="1.75em" class="view-image" [viewTypesInfos]="labConstResourceViewTypeInfos"></rv-view-type-image>
-      <h2 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">{{labView.title}}</h2>
+      <td-type-icon-badge [style]="labView.style" [iconSize]="32"></td-type-icon-badge>
+      <h2 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">{{ labView.title }}</h2>
 
       <lab-view-config-favorite *ngIf="labView.viewConfig" [viewConfig]="labView.viewConfig"
                                 (update)="onUpdate($event)"></lab-view-config-favorite>
     </div>
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <a [routerLink]="labView.viewConfig.resource.id | labDetailRoute:'RESOURCE'"
-         *ngIf="labView.viewConfig.resource && showResourceName" class="g-text-link">
-        <fl-text-icon class="g-text-tiny g-text-light"
-                      gap="5px">
-          <mat-icon flIcon="resource" class="g-icon-tiny"></mat-icon>
-          {{labView.viewConfig.resource.name}}
-        </fl-text-icon>
-      </a>
-
       <lab-tag-list [tags]="tags" [tagSelectable]="false"
                     entityType="VIEW" [entityId]="labView.viewConfig.id"
                     class="g-text-small"></lab-tag-list>

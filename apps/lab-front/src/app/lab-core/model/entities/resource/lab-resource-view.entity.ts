@@ -4,7 +4,7 @@ import {LabResourceViewFolder} from './lab-resource-view-folder.class';
 import {LabViewConfig} from './lab-view-config.entity';
 import {ClRichTextI} from '@monorepo/core-lib';
 import {PrConfigValues} from '@monorepo/protocol';
-import {TdParamSpecs} from '@monorepo/technical-doc';
+import {TdParamSpecs, TdTypeStyle} from '@monorepo/technical-doc';
 
 // list of available view type
 export type LabResourceViewType = RvResourceViewType | 'view'
@@ -30,15 +30,14 @@ export class LabResourceViewSpec {
   @Expose({name: 'has_config_specs'})
   hasConfigSpecs: boolean;
 
+  @Expose({name: 'config_specs'})
+  configSpecs: TdParamSpecs;
+
+  style: TdTypeStyle;
+
   getName(): string {
     return this.humanName ?? this.methodName;
   }
-}
-
-export class LabResourceViewSpecComplete extends LabResourceViewSpec {
-
-  @Expose({name: 'config_specs'})
-  configSpecs: TdParamSpecs;
 }
 
 /**
@@ -68,12 +67,14 @@ export class LabResourceView {
 
   @Expose({name: 'view_config'})
   @Type(() => LabViewConfig)
-  viewConfig?: LabViewConfig;
+  viewConfig: LabViewConfig;
 
   title: string;
 
   @Expose({name: 'view_type'})
   viewType: LabResourceViewType;
+
+  style: TdTypeStyle;
 }
 
 /**

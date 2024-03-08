@@ -5,15 +5,13 @@
     <!--  ViewType  -->
     <mat-form-field class="g-full">
       <mat-label>{{ 'biox.view_type' | translate }}</mat-label>
-      <mat-select formControlName="viewType" [placeholder]="'biox.view_type' | translate"
-                  multiple>
-        <mat-select-trigger *ngIf="formGp.value.viewType | labViewTypeInfo as viewType">
-          <fl-text-icon>
-            <mat-icon [flIcon]="viewType.icon"></mat-icon>
-            {{ viewType.text | translate }}
-          </fl-text-icon>
+      <mat-select formControlName="viewType" [placeholder]="'biox.view_type' | translate">
+        <mat-select-trigger *ngIf="formGp.value.viewType">
+          <td-type-inline [style]="formGp.value.viewType.style"
+                          [text]="formGp.value.viewType.humanName"></td-type-inline>
         </mat-select-trigger>
         <lab-select-view-type-options></lab-select-view-type-options>
+
       </mat-select>
     </mat-form-field>
 

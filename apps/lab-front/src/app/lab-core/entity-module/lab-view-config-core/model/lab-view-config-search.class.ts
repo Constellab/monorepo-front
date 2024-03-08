@@ -9,11 +9,12 @@ import {
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabResourceViewType} from '../../../model/entities/resource/lab-resource-view.entity';
 import {LabProject} from '../../../model/entities/lab-project.class';
+import {LabViewType} from '../../../model/entities/resource/lab-view-config.entity';
 
 export class LabViewConfigSearchFields {
   title: string;
 
-  viewType: LabResourceViewType[];
+  viewType: LabViewType;
 
   @Type(() => LabProject)
   project: LabProject[];
@@ -29,9 +30,7 @@ export class LabViewConfigSearchFields {
 }
 
 export class LabViewConfigSearch {
-  // list of the view types that are not searchable
-  public static excludedViewTypes: LabResourceViewType[] = ['tabular-view', 'dataset-view', 'view', 'image-view', 'folder-view',
-    'resources-list-view'];
+
 
   /**
    * Const to configure Form Input Manager for advanced search
@@ -53,7 +52,7 @@ export class LabViewConfigSearch {
   public static advancedSearchConverter: FlSearchCriteriaConverter<LabViewConfigSearchFields> = {
     title: {key: 'title', operator: 'CONTAINS'},
     project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
-    viewType: {key: 'view_type', operator: 'IN', convertValue: LabViewConfigSearch.viewTypeConverter},
+    viewType: {key: 'view_type', operator: 'EQ', convertValue: LabViewConfigSearch.viewTypeConverter},
     // Date
     createdAt: FlSearchConverter.dateInterval('created_at'),
     tags: {key: 'tags', operator: 'EQ'},
@@ -82,17 +81,12 @@ export class LabViewConfigSearch {
 
   /**
    * Simple converter for the view type param to add similar view type when a type is selected
-   * @param viewTypes
+   * @param viewType
    * @private
    */
-  private static viewTypeConverter(viewTypes: LabResourceViewType[]): LabResourceViewType[] {
-    if (viewTypes == null) return null;
-    const vT: LabResourceViewType[] = [...viewTypes];
-    if (vT.includes('table-view')) {
-      vT.push('tabular-view', 'dataset-view');
-    }
-
-    return vT;
+  private static viewTypeConverter(viewType: LabViewType): LabResourceViewType {
+    if (viewType == null) return null;
+    return viewType.type;
   }
 
 }

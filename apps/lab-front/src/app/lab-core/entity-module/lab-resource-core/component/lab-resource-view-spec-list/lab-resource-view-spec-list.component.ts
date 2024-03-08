@@ -36,7 +36,7 @@ export class LabResourceViewSpecListComponent {
   // prepare the data and open the view configuration portal
   openConfigPortal(view: LabResourceViewSpec): void {
     this.viewConfigurerState.openConfigPortal(view.methodName, view.getName(), view.hasConfigSpecs, null,
-      this._resourceTypingName).subscribe(
+      this._resourceTypingName, view.style).subscribe(
       config => this.callView(config)
     );
   }

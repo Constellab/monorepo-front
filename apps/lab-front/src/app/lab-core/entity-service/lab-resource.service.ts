@@ -1,11 +1,5 @@
 import {Injectable} from '@angular/core';
-import {
-  FlAdvancedSearchInput,
-  FlApiService,
-  FlFileHelper,
-  FlSearchConverter,
-  FLSearchFunction
-} from '@monorepo/front-core-lib';
+import {FlAdvancedSearchInput, FlApiService, FlSearchConverter, FLSearchFunction} from '@monorepo/front-core-lib';
 import {Observable, of} from 'rxjs';
 import {LabResource} from '../model/entities/resource/lab-resource.entity';
 import {ClPageI} from '@monorepo/core-lib';
@@ -14,13 +8,11 @@ import {
   LabResourceView,
   LabResourceViewData,
   LabResourceViewSpec,
-  LabResourceViewSpecComplete,
 } from '../model/entities/resource/lab-resource-view.entity';
 import {
   LabResourceSearch,
   LabResourceSearchFields
 } from '../entity-module/lab-resource-core/model/lab-resource-search.class';
-import {LabResourceImporterType} from '../model/entities/resource/lab-resource.dto';
 import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
 import {PrConfigValues} from '@monorepo/protocol';
 import {LabSharedEntity} from '../model/entities/lab-share.entity';
@@ -99,8 +91,8 @@ export class LabResourceService {
   //////////////////////////////////////// RESOURCE TYPE ///////////////////////////////////////
 
   // get the view specs for a resource type
-  public getResourceTypeViewSpecsDetail(resourceTypingName: string, viewName: string): Observable<LabResourceViewSpecComplete> {
-    return this.apiService.get(`${this.resourceTypeRoute}/${resourceTypingName}/views/${viewName}/specs`, LabResourceViewSpecComplete);
+  public getResourceTypeViewSpecsDetail(resourceTypingName: string, viewName: string): Observable<LabResourceViewSpec> {
+    return this.apiService.get(`${this.resourceTypeRoute}/${resourceTypingName}/views/${viewName}/specs`, LabResourceViewSpec);
   }
 
   public getResourceViewsList(resourceTypingName: string): Observable<LabResourceViewSpec[]> {
@@ -114,8 +106,8 @@ export class LabResourceService {
 
 
   // get the view specs for a resource
-  public getResourceViewSpecsDetail(id: string, viewName: string): Observable<LabResourceViewSpecComplete> {
-    return this.apiService.get(`${this.route}/${id}/views/${viewName}/specs`, LabResourceViewSpecComplete);
+  public getResourceViewSpecsDetail(id: string, viewName: string): Observable<LabResourceViewSpec> {
+    return this.apiService.get(`${this.route}/${id}/views/${viewName}/specs`, LabResourceViewSpec);
   }
 
   /**
@@ -173,9 +165,6 @@ export class LabResourceService {
   }
 
   //////////////////////////////////////// IMPORTER  ///////////////////////////////////////
-  public getImporters(resourceTypingName: string, extension: string): Observable<LabResourceImporterType[]> {
-    return this.apiService.get(`${this.resourceTypeRoute}/${resourceTypingName}/${extension ?? ' '}/importer`, LabResourceImporterType);
-  }
 
   public callImporter(resourceId: string, importerType: string, config: PrConfigValues): Observable<LabResource> {
     return this.apiService.post(`${this.route}/${resourceId}/import/${importerType}`, config, LabResource);
@@ -189,14 +178,6 @@ export class LabResourceService {
 
   public exportResource(resourceId: string, exporterTypingName: string, config: PrConfigValues): Observable<LabResource> {
     return this.apiService.post(`${this.route}/${resourceId}/export/${exporterTypingName}`, config, LabResource);
-  }
-
-  public downloadResource(resourceId: string, exporterTypingName: string, config: PrConfigValues): void {
-    // create the download url, with config params
-    const fullUrl = this.apiService.getBaseRouteUrl(`resource/${resourceId}/download/${exporterTypingName}`) + '?' +
-      this.apiService.convertRecordToURLParams(config);
-
-    FlFileHelper.downloadUrl(fullUrl);
   }
 
   //////////////////////////////////////// SHARED RESOURCE ///////////////////////////////////////

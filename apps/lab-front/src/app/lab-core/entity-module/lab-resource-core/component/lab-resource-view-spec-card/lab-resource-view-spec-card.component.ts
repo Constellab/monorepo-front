@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {LabResourceViewType} from '../../../../model/entities/resource/lab-resource-view.entity';
 import {LabUser} from '../../../../model/entities/lab-user.entity';
 import {DateTime} from 'luxon';
-import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource/lab-resource-view-type.class';
+import {TdTypeStyle} from '@monorepo/technical-doc';
 
 @Component({
   selector: 'lab-resource-view-spec-card',
@@ -11,14 +11,16 @@ import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource
 })
 export class LabResourceViewSpecCardComponent {
 
-  @Input() viewType: LabResourceViewType;
+  @Input({required: true}) viewType: LabResourceViewType;
 
-  @Input() name: string;
+  @Input({required: true}) name: string;
 
-  @Input() shortDescription: string;
+  @Input({required: true}) style: TdTypeStyle;
 
   @Input() user: LabUser;
 
   @Input() creationDate: DateTime;
-  protected readonly labConstResourceViewTypeInfos = labConstResourceViewTypeInfos;
+
+  @Input() shortDescription: string;
+
 }

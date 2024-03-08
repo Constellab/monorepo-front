@@ -3,6 +3,7 @@ import {LabResourceViewType} from './lab-resource-view.entity';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
 import {PrConfigValues} from '@monorepo/protocol';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
+import {TdTypeStyle} from '@monorepo/technical-doc';
 
 /**
  * Represent a view config that the user viewed
@@ -23,6 +24,8 @@ export class LabViewConfig extends LabBaseEntityWithUser {
   @Expose({name: 'is_favorite'})
   isFavorite: boolean;
 
+  style: TdTypeStyle;
+
   resource: {
     id: string;
     name: string;
@@ -35,3 +38,14 @@ export class LabViewConfig extends LabBaseEntityWithUser {
 }
 
 export type LabViewConfigDatasource = FlDatasourcePaginated<LabViewConfig>;
+
+
+export class LabViewType {
+  type: LabResourceViewType;
+
+  @Expose({name: 'human_name'})
+  humanName: string;
+
+  style: TdTypeStyle;
+
+}

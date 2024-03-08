@@ -1,6 +1,7 @@
 <fl-portal class="portal" flResize="both" [style.width]="width" [style.height]="height">
   <fl-portal-header [enableDrag]="!editTitle">
     <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+      <td-type-icon-badge [style]="labView.style" [iconSize]="20"></td-type-icon-badge>
       <div class="title" [(flElementEditable)]="editTitle" [flElementIgnoreDrag]="true"
            [flElementDisabled]="labView.viewConfig == null"
            (flElementValueChange)="updateTitle($event)">

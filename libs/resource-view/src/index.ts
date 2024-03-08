@@ -14,7 +14,6 @@ export * from './lib/component/rv-view-network/rv-view-network.component';
 export * from './lib/component/rv-view-spreadsheet/rv-view-spreadsheet.component';
 export * from './lib/component/rv-view-streamlit/rv-view-streamlit.component';
 export * from './lib/component/rv-view-text/rv-view-text.component';
-export * from './lib/component/rv-view-type-image/rv-view-type-image.component';
 
 // model
 export * from './lib/model/rv-basic-plot-2d.class';

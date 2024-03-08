@@ -4,7 +4,6 @@ import {LabResourceView} from '../../../../model/entities/resource/lab-resource-
 import {RvViewConfig} from '@monorepo/resource-view';
 import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
 import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
-import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource/lab-resource-view-type.class';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
 import {LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
 
@@ -16,8 +15,6 @@ import {LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
 export class LabResourceViewDetailComponent implements OnInit {
 
   @Input() labView: LabResourceView;
-
-  @Input() showResourceName: boolean = true;
 
   tags: LabTagDatasource;
 
@@ -54,5 +51,4 @@ export class LabResourceViewDetailComponent implements OnInit {
     );
   }
 
-  protected readonly labConstResourceViewTypeInfos = labConstResourceViewTypeInfos;
 }

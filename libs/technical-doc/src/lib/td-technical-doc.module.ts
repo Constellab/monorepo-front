@@ -32,9 +32,9 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
-import {RvResourceViewModule} from '@monorepo/resource-view';
 import {TdTypeIconComponent} from './component/td-type-icon/td-type-icon.component';
 import {tdTypeInlineComponent} from './component/td-type-inline/td-type-inline.component';
+import {TdTypeIconBadgeComponent} from './component/td-type-icon-badge/td-type-icon-badge.component';
 
 @NgModule({
   imports: [
@@ -56,8 +56,6 @@ import {tdTypeInlineComponent} from './component/td-type-inline/td-type-inline.c
     FlIconModule,
     FlTextIconModule,
     FlThemeModule,
-
-    RvResourceViewModule,
   ],
   declarations: [
     TdResourceDocComponent,
@@ -74,7 +72,8 @@ import {tdTypeInlineComponent} from './component/td-type-inline/td-type-inline.c
     TdTypeUnavailableComponent,
     TdTypingNamePipe,
     TdTypeIconComponent,
-    tdTypeInlineComponent
+    tdTypeInlineComponent,
+    TdTypeIconBadgeComponent
   ],
   exports: [
     TdTechnicalDocComponent,
@@ -90,6 +89,7 @@ import {tdTypeInlineComponent} from './component/td-type-inline/td-type-inline.c
     TdConfigComponent,
     TdTypeIconComponent,
     tdTypeInlineComponent,
+    TdTypeIconBadgeComponent,
   ]
 })
 export class TdTechnicalDocModule {

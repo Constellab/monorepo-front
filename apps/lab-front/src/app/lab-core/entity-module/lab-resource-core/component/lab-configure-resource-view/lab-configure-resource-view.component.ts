@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {
-  LabResourceViewSpecComplete,
+  LabResourceViewSpec,
   LabResourceViewSpecWithConfig,
 } from '../../../../model/entities/resource/lab-resource-view.entity';
 import {LabConfig, LabConfigureSpecsForm} from '../../../../model/entities/lab-config.entity';
@@ -12,12 +12,14 @@ import {
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
 import {Observable} from 'rxjs';
 import {PrConfigValues} from '@monorepo/protocol';
+import {TdTypeStyle} from '@monorepo/technical-doc';
 
 export interface LabConfigureResourceViewInput {
   resourceTypingName: string;
   resourceId?: string;
   title: string;
   viewMethodName: string;
+  viewStyle: TdTypeStyle;
 
   preConfiguration?: LabResourceViewSpecWithConfig;
 }
@@ -49,6 +51,7 @@ export class LabConfigureResourceViewComponent implements OnInit {
 
   title: string;
   resourceTypingName: string;
+  viewStyle: TdTypeStyle;
 
   isLoading: boolean = true;
 
@@ -58,6 +61,7 @@ export class LabConfigureResourceViewComponent implements OnInit {
               private cdr: ChangeDetectorRef) {
     this.title = input.title;
     this.resourceTypingName = input.resourceTypingName;
+    this.viewStyle = input.viewStyle;
   }
 
   ngOnInit(): void {
@@ -67,7 +71,7 @@ export class LabConfigureResourceViewComponent implements OnInit {
   }
 
   private getViewSpecs(): void {
-    let obs: Observable<LabResourceViewSpecComplete>;
+    let obs: Observable<LabResourceViewSpec>;
 
     // get the resource view specs from the resourceId if provided
     if (this.input.resourceId) {
@@ -83,7 +87,7 @@ export class LabConfigureResourceViewComponent implements OnInit {
     });
   }
 
-  private init(specs: LabResourceViewSpecComplete): void {
+  private init(specs: LabResourceViewSpec): void {
     this.configs = LabConfig.fromSpecs(specs.configSpecs, this.input.preConfiguration?.viewConfigValues ?? {});
 
     this.formGp = new FormBuilder().group({
@@ -111,4 +115,6 @@ export class LabConfigureResourceViewComponent implements OnInit {
       viewConfigValues: {...formValue.viewConfig.public, ...formValue.viewConfig.protected},
     };
   }
+
+  protected readonly statusbar = statusbar;
 }

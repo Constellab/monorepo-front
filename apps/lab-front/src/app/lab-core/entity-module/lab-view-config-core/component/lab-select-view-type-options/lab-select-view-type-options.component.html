@@ -1,4 +1,3 @@
-<mat-option *ngFor="let key of viewTypes | flObjectKeys" [value]="key">
-  <mat-icon [flIcon]="viewTypes[key].icon"></mat-icon>
-  {{viewTypes[key].text | translate}}
+<mat-option *ngFor="let viewType of viewTypes$ | async " [value]="viewType">
+  <td-type-inline [style]="viewType.style" [text]="viewType.humanName"></td-type-inline>
 </mat-option>

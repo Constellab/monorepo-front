@@ -20,67 +20,31 @@ export const labConstResourceViewTypeInfos: Record<string, RvResourceViewTypeInf
   ...rvDefaultViewTypeInfos,
   // override the table view to add functionalities like chart from api
   'table-view': {
-    icon: 'calendar_view_month',
-    text: 'rvResourceView.resource_view_spreadsheet',
-    viewComponent: LabResourceViewSpreadsheetComponent,
-    image: {
-      lightTheme: 'assets/views/light/tabular-view.svg',
-      darkTheme: 'assets/views/dark/tabular-view.svg',
-    }
+    viewComponent: LabResourceViewSpreadsheetComponent
   },
   // override the table view to add functionalities like chart from api
   'tabular-view': {
-    icon: 'calendar_view_month',
-    text: 'rvResourceView.resource_view_spreadsheet',
-    viewComponent: LabResourceViewSpreadsheetComponent,
-    image: {
-      lightTheme: 'assets/views/light/tabular-view.svg',
-      darkTheme: 'assets/views/dark/tabular-view.svg',
-    }
+    viewComponent: LabResourceViewSpreadsheetComponent
   },
   // override the table view to add functionalities like chart from api
   'dataset-view': {
-    icon: 'calendar_view_month',
-    text: 'rvResourceView.resource_view_dataset_view',
-    viewComponent: LabResourceViewSpreadsheetComponent,
-    image: {
-      lightTheme: 'assets/views/light/tabular-view.svg',
-      darkTheme: 'assets/views/dark/tabular-view.svg',
-    }
+    viewComponent: LabResourceViewSpreadsheetComponent
   },
   // override the text view to enable pagination
   'text-view': {
-    icon: 'text_snippet',
-    text: 'rvResourceView.resource_view_text',
     viewComponent: LabResourceViewTextComponent,
-    image: null
   },
   view: {
-    icon: 'view_quilt',
-    text: 'biox.resource_view_base',
     viewComponent: null,
-    image: {
-      lightTheme: 'assets/views/light/default-view.svg',
-      darkTheme: 'assets/views/dark/default-view.svg',
-    }
   },
   'resources-list-view': {
-    icon: 'format_list_bulleted',
-    text: 'biox.resource_view_resources_list',
     viewComponent: LabResourceViewListComponent,
-    image: null
   },
   'folder-view': {
-    icon: 'folder',
-    text: 'biox.resource_view_folder',
     viewComponent: LabResourceViewFolderComponent,
-    image: null
   },
   'rich-text-view':{
-    icon: 'report',
-    text: 'biox.report',
     viewComponent: LabResourceRichTextViewComponent,
-    image: null
   }
 };
 

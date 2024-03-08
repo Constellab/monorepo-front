@@ -1,12 +1,13 @@
 <div class="view-spec g-layout-row g-layout-start-center" matRipple>
 
   <div class="view-image-container">
-    <rv-view-type-image [viewType]="viewType" size="2em" class="view-image" [viewTypesInfos]="labConstResourceViewTypeInfos"></rv-view-type-image>
+    <td-type-icon-badge [style]="style" [iconSize]="50"></td-type-icon-badge>
   </div>
 
   <div>
-    <div>{{name}}</div>
-    <p *ngIf="shortDescription" class="text g-text-tiny g-text-light">{{shortDescription}}</p>
-    <fl-user-with-date [user]="user" [date]="creationDate" *ngIf="user && creationDate"></fl-user-with-date>
+    <div>{{ name }}</div>
+    <p *ngIf="shortDescription" class="text g-text-tiny g-text-light">{{ shortDescription }}</p>
+    <fl-user-with-date [user]="user" [date]="creationDate" *ngIf="user && creationDate"
+                       class="g-text-tiny"></fl-user-with-date>
   </div>
 </div>

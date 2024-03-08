@@ -13,7 +13,6 @@ import {
   LabSelectViewTypeOptionsComponent
 } from './component/lab-select-view-type-options/lab-select-view-type-options.component';
 import {LabViewConfigTableComponent} from './component/lab-view-config-table/lab-view-config-table.component';
-import {LabViewTypeInfoPipe} from './pipe/lab-view-type-info.pipe';
 import {
   LabViewConfigActionsMenuComponent
 } from './component/lab-view-config-actions-menu/lab-view-config-actions-menu.component';
@@ -34,7 +33,6 @@ import {LabViewConfigFavoriteComponent} from './component/lab-view-config-favori
     LabSelectViewConfigDialogComponent,
     LabSelectViewTypeOptionsComponent,
     LabViewConfigTableComponent,
-    LabViewTypeInfoPipe,
     LabViewConfigActionsMenuComponent,
     LabUpdateViewConfigDialogComponent,
     LabViewConfigPreviewComponent,
@@ -45,7 +43,6 @@ import {LabViewConfigFavoriteComponent} from './component/lab-view-config-favori
     LabSelectViewConfigDialogComponent,
     LabSelectViewTypeOptionsComponent,
     LabViewConfigTableComponent,
-    LabViewTypeInfoPipe,
     LabViewConfigActionsMenuComponent,
     LabUpdateViewConfigDialogComponent,
     LabViewConfigPreviewComponent,
@@ -63,4 +60,5 @@ import {LabViewConfigFavoriteComponent} from './component/lab-view-config-favori
     LabProjectCoreModule,
   ],
 })
-export class LabViewConfigCoreModule {}
+export class LabViewConfigCoreModule {
+}

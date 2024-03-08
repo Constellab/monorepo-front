@@ -34,7 +34,6 @@ import {BnBioNetworkModule} from '@monorepo/bio-network';
 import {RvViewHtmlComponent} from './component/rv-view-html/rv-view-html.component';
 import {ChChartModule} from '@monorepo/chart';
 import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
-import {RvViewTypeImageComponent} from './component/rv-view-type-image/rv-view-type-image.component';
 import {TeTextEditorModule} from '@monorepo/text-editor';
 import {RvViewStreamlitComponent} from './component/rv-view-streamlit/rv-view-streamlit.component';
 
@@ -75,7 +74,6 @@ import {RvViewStreamlitComponent} from './component/rv-view-streamlit/rv-view-st
     RvReportResourceViewComponent,
     RvViewImageComponent,
     RvViewHtmlComponent,
-    RvViewTypeImageComponent,
     RvViewStreamlitComponent,
   ],
   exports: [
@@ -91,7 +89,6 @@ import {RvViewStreamlitComponent} from './component/rv-view-streamlit/rv-view-st
     RvReportResourceViewComponent,
     RvViewImageComponent,
     RvViewHtmlComponent,
-    RvViewTypeImageComponent,
     RvViewStreamlitComponent,
   ],
 })

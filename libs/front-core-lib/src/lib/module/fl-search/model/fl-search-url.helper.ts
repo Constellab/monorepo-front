@@ -11,7 +11,6 @@ export interface FlAdvancedSearchObject {
  * Object stored in the url to save the search
  */
 export interface FlSearchUrlObject {
-  mode: string;
   search: string;
   timestamp: string;
 }
@@ -27,12 +26,11 @@ export class FlSearchPageUrlHelper {
 
   /**
    * Method to convert search to query param for search page
-   * @param mode search mode
    * @param search search criteria
    * @param timestamp of the search
    */
-  public static buildSearchUrlObject(mode: string, search: string, timestamp: string): FlSearchUrlObject {
-    return {mode: mode, search: search, timestamp: timestamp};
+  public static buildSearchUrlObject(search: string, timestamp: string): FlSearchUrlObject {
+    return {search: search, timestamp: timestamp};
   }
 
   /**
