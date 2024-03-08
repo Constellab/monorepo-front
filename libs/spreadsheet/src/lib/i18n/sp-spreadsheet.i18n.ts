@@ -76,6 +76,9 @@ const spSpreadsheetI18nFr: FlLangTranslation = {
     header_type_FLOAT: 'Flottant',
     header_type_BOOLEAN: 'Booléen',
     header_type_OBJECT: 'Objet',
+    sort: 'Trie',
+    sort_ascending: 'Croissant',
+    sort_descending: 'Décroissant',
   },
 };
 
@@ -149,6 +152,9 @@ const spSpreadsheetI18nEn: FlLangTranslation = {
     header_type_FLOAT: 'Float',
     header_type_BOOLEAN: 'Boolean',
     header_type_OBJECT: 'Object',
+    sort: 'Sort',
+    sort_ascending: 'Ascending',
+    sort_descending: 'Descending',
   },
 };
 

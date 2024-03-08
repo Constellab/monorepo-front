@@ -12,6 +12,11 @@
       <span>{{'spSpreadsheet.header_type_' + headerInfo.type | translate}}</span>
     </fl-key-value>
 
+    <fl-key-value *ngIf="headerInfo.sort">
+      <fl-key>{{'spSpreadsheet.sort' | translate}}</fl-key>
+      <span>{{(headerInfo.sort === 'Ascending' ? 'spSpreadsheet.sort_ascending' : 'spSpreadsheet.sort_descending' )| translate}}</span>
+    </fl-key-value>
+
     <sp-spreadsheet-header-tags [tags]="headerInfo.tags" [tagColorer]="headerInfo.tagColorer"
                                 class="tags"></sp-spreadsheet-header-tags>
   </fl-portal-content>

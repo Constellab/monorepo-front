@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {debounceTime, map} from 'rxjs/operators';
 import {SpCellCoord} from './sp-cell-coord.class';
 import {
+  SpSheetColumnSortDirection,
   SpSheetHeader,
   SpSheetHeaderInfo,
   SpSheetHeaderInfoInput,
@@ -44,6 +45,11 @@ export class SpSheet {
 
   public rows: SpSheetHeaders = new SpSheetHeaders();
   public columns: SpSheetHeaders = new SpSheetHeaders();
+
+  public sort?: {
+    column: string;
+    direction: SpSheetColumnSortDirection;
+  };
 
   constructor(name: string) {
     this.name = name;
@@ -169,7 +175,7 @@ export class SpSheet {
 
   // get the real index of a column when including the offset
   public getColumnOffsetIndex(index: number): number {
-    return index + this.columnOffset ;
+    return index + this.columnOffset;
   }
 
   ////////////////////////////// COLUMN HEADER ////////////////////////////////
@@ -193,6 +199,7 @@ export class SpSheet {
             index: i,
             name: columnInfo.name,
             tags: columnInfo.tags,
+            sort: columnInfo.sort
           });
         }
         return columns;

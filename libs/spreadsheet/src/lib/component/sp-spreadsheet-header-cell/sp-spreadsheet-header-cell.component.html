@@ -1,13 +1,21 @@
 <div class="g-not-selectable g-text-centered container"
      flMouseHover [flMouseEnterDelay]="500" (flMouseEnter)="openHeaderPortal()" (flMouseLeave)="closePortal()">
-  <div class="index">{{index | SpCellHeader:type | async}}</div>
+  <div class="index">{{ index | SpCellHeader:type | async }}</div>
 
   <div class="grid-right g-layout-col">
-    <div class="g-text-tiny g-text-light header-name">{{header.name}}</div>
-    <div class="g-layout-row g-layout-center colors-container">
-      <div *ngFor="let color of colors$ | async" [style.background-color]="color"
-           class="color">
+    <div class="g-text-tiny g-text-light header-name">{{ header.name }}</div>
+    <div class="g-layout-row">
+      <div class="g-layout-row g-layout-center colors-container">
+        <div *ngFor="let color of colors$ | async" [style.background-color]="color"
+             class="color">
+        </div>
       </div>
+
+      @if (header.sort) {
+        <mat-icon class="g-icon-tiny">
+          {{ header.sort === 'Ascending' ? 'arrow_drop_up' : 'arrow_drop_down' }}
+        </mat-icon>
+      }
     </div>
   </div>
 </div>

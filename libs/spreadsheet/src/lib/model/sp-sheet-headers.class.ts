@@ -4,11 +4,13 @@ import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {FlColorHelper, FlTagColorer, FlTagHelper, FlTagWithColor} from '@monorepo/front-core-lib';
 
+export type SpSheetColumnSortDirection = 'Ascending' | 'Descending';
 
 export interface SpSheetHeader {
   index: number;
   name: string;
   tags: Record<string, string>;
+  sort?: SpSheetColumnSortDirection;
 }
 
 
@@ -17,7 +19,8 @@ export interface SpSheetRow extends SpSheetHeader {
 }
 
 // type of the header (mainly for column)
-export type SpSheetHeaderType = 'INTEGER'| 'FLOAT' | 'STRING' | 'BOOLEAN' | 'OBJECT';
+export type SpSheetHeaderType = 'INTEGER' | 'FLOAT' | 'STRING' | 'BOOLEAN' | 'OBJECT';
+
 
 /**
  * Input object about row or column information
@@ -36,6 +39,7 @@ export interface SpSheetHeaderInfo {
   tags?: Record<string, string>;
   tagColorer: FlTagColorer;
   type?: SpSheetHeaderType;
+  sort?: SpSheetColumnSortDirection;
 }
 
 
@@ -48,7 +52,10 @@ export class SpSheetHeaders {
 
   public tagColorer: FlTagColorer;
 
-  constructor(info: SpSheetHeaderInfoInput[] = []) {
+  constructor(info: SpSheetHeaderInfoInput[] = [], private sort?: {
+    headerName: string;
+    direction: SpSheetColumnSortDirection;
+  }) {
     this._info = info;
     this.initTagsColors();
   }
@@ -56,14 +63,15 @@ export class SpSheetHeaders {
   public getInfo(index: number): SpSheetHeaderInfo {
     // if it doesn't exist, return a default value
     if (!this._info || this._info[index] == null) {
-      return {name: '', tags: {}, tagColorer: this.tagColorer};
+      return {name: '', tags: {}, tagColorer: this.tagColorer, sort: null};
     }
     const headerInfo = this._info[index];
     return {
       name: headerInfo.name,
       tags: headerInfo.tags,
       tagColorer: this.tagColorer,
-      type: headerInfo.type
+      type: headerInfo.type,
+      sort: this.sort?.headerName === headerInfo.name ? this.sort.direction : null
     };
   }
 

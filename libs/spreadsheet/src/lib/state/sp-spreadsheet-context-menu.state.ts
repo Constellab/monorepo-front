@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {SpSpreadsheetSelectionState} from './sp-spreadsheet-selection.state';
 import {SpSpreadsheetActions} from './sp-spreadsheet-actions.state';
 import {SpSpreadsheetChartState} from './sp-spreadsheet-chart.state';
 import {SpSpreadsheetClipboardState} from './sp-spreadsheet-clipboard.state';
 import {SpSpreadsheetState} from './sp-spreadsheet.state';
-import {FlMenuDynamic, FlMenuDynamicService, FlPortalService} from '@monorepo/front-core-lib';
+import {FlMenuDynamic, FlMenuDynamicService} from '@monorepo/front-core-lib';
 
 
 /**
@@ -14,8 +13,6 @@ import {FlMenuDynamic, FlMenuDynamicService, FlPortalService} from '@monorepo/fr
 export class SpSpreadsheetContextMenu {
 
   constructor(private state: SpSpreadsheetState,
-              private selectionState: SpSpreadsheetSelectionState,
-              private portalService: FlPortalService,
               private action: SpSpreadsheetActions,
               private chartState: SpSpreadsheetChartState,
               private clipboardState: SpSpreadsheetClipboardState,

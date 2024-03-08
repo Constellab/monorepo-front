@@ -56,10 +56,15 @@ $cell-selected-border-color: #058989;
 
 .colors-container {
   height: 10px;
+  flex: 1;
 }
 
 .colors-container > *:not(:last-child) {
   margin-right: 2px;
+}
+
+.sort-direction {
+  flex-shrink: 0;
 }
 
 .color {

@@ -19,8 +19,6 @@ export class SpSpreadsheetHeaderInfoComponent  {
     this.headerInfo = headerInfo;
   }
 
-
-
   hasTitle(): boolean {
     return this.headerInfo.name != null && this.headerInfo.name.toString().length > 0;
   }
