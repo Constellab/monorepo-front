@@ -266,5 +266,10 @@
   "delete_icon": "Supprimer l'icône",
   "delete_icon_content": "Êtes-vous sûr de vouloir supprimer l'icône ? Si il est utilisé, il y aura des problèmes d'affichage",
   "icon_deleted": "Icône supprimée",
-  "search_icon": "Rechercher une icône"
+  "search_icon": "Rechercher une icône",
+  "icon_technical_name_pattern_error": "Le nom technique de l'icône doit contenir seulement des lettres, des nombres et des underscores",
+  "icon_sub_names_pattern_error": "Les surnoms de l'icône doivent être séparés par des virgules",
+  "icon_type": "Type d'icône",
+  "icon_from_material_are_allowed_text": "Les icônes Google Material sont également autorisées, veuillez retrouver les icônes compatibles ",
+  "here": "ici"
 }

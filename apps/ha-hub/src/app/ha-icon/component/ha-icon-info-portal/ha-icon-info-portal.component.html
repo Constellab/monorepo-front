@@ -1,6 +1,10 @@
 <div class="icon-info-div">
 
   <fl-key-value>
+    <fl-key>{{'icon_type' | translate}}</fl-key>
+    <b>{{(icon.type).substring('COMMUNITY_'.length)}}</b>
+  </fl-key-value>
+  <fl-key-value>
     <fl-key>{{'icon_name' | translate}}</fl-key>
     {{icon.name}}
   </fl-key-value>
@@ -9,7 +13,16 @@
     <b>{{icon.technicalName}}</b>
   </fl-key-value>
 
-  <button mat-flat-button *haIsAdmin color="warn" (click)="closeRefAndOpenDeleteDialog()">
-    {{'delete' | translate}}
-  </button>
+  <div class="buttons-div">
+    <button mat-stroked-button color="warn" (click)="closeRefAndOpenDeleteDialog()">
+      {{'delete' | translate}}
+    </button>
+    <button mat-stroked-button *haIsAdmin  (click)="closeRefAndOpenDeleteDialog()">
+      {{'edit' | translate}}
+    </button>
+    <button mat-stroked-button *haIsAdmin color="warn" (click)="closeRefAndOpenDeleteDialog()">
+      {{'delete' | translate}}
+    </button>
+  </div>
+
 </div>

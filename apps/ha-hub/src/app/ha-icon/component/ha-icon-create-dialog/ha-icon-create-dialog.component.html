@@ -17,11 +17,14 @@
         <mat-error *ngIf="formGp.get('technicalName').hasError('required')">
           {{'icon_technical_name' | flErrorRequired}}
         </mat-error>
+        <mat-error *ngIf="formGp.get('technicalName').hasError('pattern')">
+          {{'icon_technical_name_pattern_error' | translate}}
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="g-form-input">
         <mat-label>{{'icon_name' | translate}}</mat-label>
-        <input matInput formControlName="name" required [placeholder]="'icon_name' | translate">
+        <input matInput formControlName="name" required [placeholder]="'icon_name' | translate" flInputMaxLength="30">
         <mat-error *ngIf="formGp.get('name').hasError('required')">
           {{'icon_name' | flErrorRequired}}
         </mat-error>

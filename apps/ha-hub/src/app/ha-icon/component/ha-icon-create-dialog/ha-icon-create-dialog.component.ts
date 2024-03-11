@@ -37,7 +37,7 @@ export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<H
   buildForm(): FormGroup<HaIconCreateFormData> {
     return new FormBuilder().group({
       technicalName: [null, [Validators.required, Validators.max(30), Validators.pattern(/^[a-z0-9_]+$/)]],
-      name: [null, Validators.required],
+      name: [null, [Validators.required, Validators.max(30)]],
       subNames: [null, [Validators.required, Validators.pattern(/^[^\t\n\r"'`]+$/)]],
       type: [HnIconType.COMMUNITY_ICON, Validators.required],
       file: [null, Validators.required]

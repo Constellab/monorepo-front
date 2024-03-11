@@ -16,8 +16,8 @@
 }
 
 .icon-div{
-  width: 7em;
-  height: 7em;
+  width: 8em;
+  height: 8em;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,24 @@
   padding: 0.25em;
 }
 
+.icon-file-div{
+  width: calc(100% - 1em);
+  height: calc(100% - 1em);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .icon-div:hover{
   background-color: var(--hover-color);
   cursor: pointer;
+}
+
+.icon-name-div{
+  text-align: center;
+  min-height: 3em;
+}
+
+.icon-name{
+  font-size: small;
 }

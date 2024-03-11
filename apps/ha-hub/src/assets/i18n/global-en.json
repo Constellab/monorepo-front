@@ -266,5 +266,10 @@
   "delete_icon": "Delete icon",
   "delete_icon_content": "Are you sure you want to delete this icon ? If the icon is used, there will be some problems",
   "icon_deleted": "Icon deleted",
-  "search_icon": "Search icon"
+  "search_icon": "Search icon",
+  "icon_technical_name_pattern_error": "The icon technical name must contain only lowercase letters, numbers and underscores",
+  "icon_sub_names_pattern_error": "The icon sub names must contain only letters, numbers and be separated by a comma",
+  "icon_type": "Icon type",
+  "icon_from_material_are_allowed_text": "Google material icons are also allowed, you can find them ",
+  "here": "here"
 }
