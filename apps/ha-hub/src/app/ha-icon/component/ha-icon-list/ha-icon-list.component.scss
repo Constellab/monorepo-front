@@ -1,0 +1,32 @@
+.icons-list-div{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: center;
+}
+
+.icons-search-bar-div{
+  width: 100%;
+  margin-top: 30px;
+}
+
+.icons-search-bar{
+  width: 100%;
+}
+
+.icon-div{
+  width: 7em;
+  height: 7em;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25em;
+}
+
+.icon-div:hover{
+  background-color: var(--hover-color);
+  cursor: pointer;
+}

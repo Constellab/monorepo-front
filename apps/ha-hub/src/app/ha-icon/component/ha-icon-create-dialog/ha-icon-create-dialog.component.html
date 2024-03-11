@@ -5,6 +5,12 @@
 <mat-dialog-content>
   @if(formGp){
     <form (ngSubmit)="submit()" id="icon-form" [formGroup]="formGp">
+
+      <mat-radio-group formControlName="type" name="type" class="form-rb-list">
+        <mat-radio-button [value]="'COMMUNITY_ICON'" [checked]="true">{{'community_icon' | translate }}</mat-radio-button>
+        <mat-radio-button [value]="'COMMUNITY_IMAGE'">{{'community_image' | translate }}</mat-radio-button>
+      </mat-radio-group>
+
       <mat-form-field class="g-form-input">
         <mat-label>{{'icon_technical_name' | translate}}</mat-label>
         <input matInput formControlName="technicalName" required flInputMaxLength="30" [placeholder]="'icon_technical_name' | translate">

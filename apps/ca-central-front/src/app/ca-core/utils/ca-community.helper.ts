@@ -65,6 +65,6 @@ export class CaCommunityHelper {
   }
 
   public static getIconBaseApiUrl(): string {
-    return this.getCommunityUrl() + '/icon';
+    return this.getCommunityUrl() + '/icon/file';
   }
 }

@@ -1,7 +1,6 @@
 import {Component, Inject} from '@angular/core';
-import {FL_PORTAL_DATA} from '@monorepo/front-core-lib';
+import {FL_PORTAL_DATA, FlOverlayRef} from '@monorepo/front-core-lib';
 import {HaIcon} from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
-import {HaIconService} from '../../../ha-core/ha-service/ha-icon.service';
 
 @Component({
   selector: 'ha-icon-info-portal',
@@ -13,7 +12,11 @@ export class HaIconInfoPortalComponent {
   icon: HaIcon;
 
   constructor(@Inject(FL_PORTAL_DATA) icon: HaIcon,
-              private iconService: HaIconService) {
+              private readonly overlayRef: FlOverlayRef) {
     this.icon = icon;
+  }
+
+  closeRefAndOpenDeleteDialog(): void {
+    this.overlayRef.dispose(this.icon);
   }
 }

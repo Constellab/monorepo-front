@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HaIconMouseHoverPortalDirective} from './directive/ha-icon-mouse-hover-portal.directive';
 import {HaIconInfoPortalComponent} from './component/ha-icon-info-portal/ha-icon-info-portal.component';
 import {HaIconListComponent} from './component/ha-icon-list/ha-icon-list.component';
 import {HaIconCreateDialogComponent} from './component/ha-icon-create-dialog/ha-icon-create-dialog.component';
@@ -10,13 +9,11 @@ import {FlInputFileModule} from '@monorepo/front-core-lib';
 
 @NgModule({
   declarations: [
-    HaIconMouseHoverPortalDirective,
     HaIconInfoPortalComponent,
     HaIconListComponent,
     HaIconCreateDialogComponent
   ],
   exports: [
-    HaIconMouseHoverPortalDirective,
     HaIconInfoPortalComponent,
     HaIconListComponent,
     HaIconCreateDialogComponent

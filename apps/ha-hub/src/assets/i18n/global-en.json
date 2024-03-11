@@ -252,5 +252,19 @@
   "parameters": "Parameters",
   "saving_story_content": "Saving story content",
   "publish_story_with_modifications": "Modify the published story with content modifications",
-  "search_by_title": "Search by title"
+  "search_by_title": "Search by title",
+  "icons": "Icons",
+  "icon_technical_name": "Icon technical name",
+  "icon_name": "Icon name",
+  "create_icon": "Create icon",
+  "community_icon": "Community icon",
+  "community_image": "Community image",
+  "icon_sub_names_info": "The icon sub names are keywords that will be used to search the icon. Please separate the keywords with a comma",
+  "icon_sub_names": "Icon sub names",
+  "import_icon_file": "Import icon file",
+  "icon_created": "Icon created",
+  "delete_icon": "Delete icon",
+  "delete_icon_content": "Are you sure you want to delete this icon ? If the icon is used, there will be some problems",
+  "icon_deleted": "Icon deleted",
+  "search_icon": "Search icon"
 }

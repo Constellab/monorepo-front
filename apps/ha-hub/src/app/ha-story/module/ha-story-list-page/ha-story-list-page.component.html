@@ -34,7 +34,7 @@
 
 <div class="main-panel">
   <div class="stories-div" *ngIf="stories"
-       (flInfiniteScroll)="loadMoreResults()" [flInfiniteDisabled]="stories.isLoading || stories?.page.last"
+       (flInfiniteScroll)="loadMoreResults()" [flInfiniteDisabled]="stories?.isLoading || stories?.page?.last"
        flInfiniteMode="auto">
     <h1 class="title">{{'stories' | translate}}</h1>
     <div class="search-bar-title">

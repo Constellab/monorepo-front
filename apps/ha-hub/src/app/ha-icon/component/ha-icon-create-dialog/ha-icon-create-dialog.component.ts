@@ -39,7 +39,7 @@ export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<H
       technicalName: [null, [Validators.required, Validators.max(30), Validators.pattern(/^[a-z0-9_]+$/)]],
       name: [null, Validators.required],
       subNames: [null, [Validators.required, Validators.pattern(/^[^\t\n\r"'`]+$/)]],
-      type: [HnIconType.ICON, Validators.required],
+      type: [HnIconType.COMMUNITY_ICON, Validators.required],
       file: [null, Validators.required]
     });
   }

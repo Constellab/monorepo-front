@@ -87,6 +87,8 @@
   height: 100%;
   padding-bottom: 8px;
   width: 240px;
+  align-items: center;
+  justify-content: center;
 }
 
 .doc-nav-div h5{
@@ -119,16 +121,15 @@
     min-width: 0;
     margin-right: 15px;
   }
+
+  .option{
+    margin: auto 1.5rem;
+  }
 }
 
 @media (max-width: 900px) {
   .nav-bar{
-    padding: 16px 0 0 0;
-  }
-
-  .nav-bar{
-    margin-left: 48px;
-    width: calc(100% - 48px)
+    padding: 16px 8px 0 8px;
   }
 
   .nav-bar-links{
@@ -139,21 +140,18 @@
     margin: auto 1rem;
   }
 
-  .doc-menu-item{
-
+  .span-initials{
+    margin-right: 0;
   }
 }
 
-@media (max-width: 700px) {
-
-  .option{
-    margin: auto 0.5em;
-  }
-
-}
 
 @media (max-width: 590px) {
   .doc-nav-div{
     width: fit-content;
+  }
+
+  .option{
+    margin: auto 0.5em;
   }
 }

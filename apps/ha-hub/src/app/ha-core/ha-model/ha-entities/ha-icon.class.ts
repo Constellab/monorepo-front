@@ -1,8 +1,8 @@
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
 
 export enum HnIconType {
-  ICON = 'ICON',
-  IMAGE = 'IMAGE'
+  COMMUNITY_ICON = 'COMMUNITY_ICON',
+  COMMUNITY_IMAGE = 'COMMUNITY_IMAGE'
 }
 
 export class HaIcon {

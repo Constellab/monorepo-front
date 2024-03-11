@@ -252,5 +252,19 @@
   "parameters": "Paramètres",
   "saving_story_content": "Sauvegarde du contenu de la story",
   "publish_story_with_modifications": "Modifier la story publiée avec les modifications du contenu",
-  "search_by_title": "Rechercher par titre"
+  "search_by_title": "Rechercher par titre",
+  "icons": "Icônes",
+  "icon_technical_name": "Nom technique de l'icône",
+  "icon_name": "Nom de l'icône",
+  "create_icon": "Créer une icône",
+  "community_icon": "Community icon",
+  "community_image": "Community image",
+  "icon_sub_names_info": "Les surnoms de l'icône sont des mots clés utilisés pour les recherches. Veuillez les séparer par des virgules",
+  "icon_sub_names": "Surnoms de l'icône",
+  "import_icon_file": "Importer le fichier de l'icône",
+  "icon_created": "Icône créée",
+  "delete_icon": "Supprimer l'icône",
+  "delete_icon_content": "Êtes-vous sûr de vouloir supprimer l'icône ? Si il est utilisé, il y aura des problèmes d'affichage",
+  "icon_deleted": "Icône supprimée",
+  "search_icon": "Rechercher une icône"
 }

@@ -1,20 +1,25 @@
+<div class="icons-search-bar-div">
+  <form (ngSubmit)="search()">
+    <mat-form-field class="icons-search-bar">
+      <input matInput [formControl]="searchFormControl" placeholder="{{'search_icon' | translate}}">
+      <button mat-icon-button matSuffix aria-label="Clear" (click)="search()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+</div>
+
 <div class="icons-list-div" *ngIf="icons"
      (flInfiniteScroll)="loadMoreResults()" [flInfiniteDisabled]="icons.isLoading || icons?.page?.last"
      flInfiniteMode="auto">
 
-  @for(icon of icons.connect() | async; track icon.technicalName){
-    <div class="icon-div" [haIconMouseHoverPortal]="icon">
+  <div class="icon-div" *ngFor="let icon of icons.connect() | async" (click)="openIconInfoPortal($event, icon)">
       <div class="icon-file-div">
-        @if(icon.type == 'ICON'){
-          <mat-icon class="icon" [svgIcon]="getIconSvg(icon.technicalName)">
-          </mat-icon>
-        } @else {
-          <img class="icon" [src]="getIconFileUrl(icon.technicalName)" />
-        }
+        <td-type-icon [iconSize]="75" [iconTechnicalName]="icon.technicalName" [iconType]="icon.type"></td-type-icon>
       </div>
       <div class="icon-name-div">
         <span class="icon-name">{{icon.name}}</span>
       </div>
-    </div>
-  }
+  </div>
+
 </div>
