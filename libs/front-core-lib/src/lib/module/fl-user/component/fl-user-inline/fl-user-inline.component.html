@@ -1,7 +1,6 @@
 <div class="g-layout-row g-layout-start-center"
      [flUserMouseHoverPortal]="user" [flMouseEnterDelay]="750" [flDisabled]="!portalOnHover">
-  <fl-user-profile-picture [user]="user" class="person-picture"
-                           [size]="profilePictureSize"></fl-user-profile-picture>
+  <fl-user-profile-picture [user]="user" [size]="profilePictureSize"></fl-user-profile-picture>
 
   <div class="user-name" *ngIf="showName" [ngClass]="getTextSizeClass()">
     {{user?.fullname ? user.fullname : user?.firstname + ' ' + user?.lastname}}

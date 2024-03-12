@@ -8,25 +8,25 @@
     </a>
 
     <div class="nav-bar-links" *ngIf="currentUrlSegment.length > 0">
-      <h5 class="option" flHide.lt-md><a [routerLink]="getStoryListRoute()" >{{'stories' | translate}}</a></h5>
+      <h5 class="option" flHide.lt-md><a [routerLink]="getStoryListRoute()">{{ 'stories' | translate }}</a></h5>
       <a class="option" [routerLink]="getStoryListRoute()" flHide.gt-sm>
         <img class="option-icon" src="assets/fl-logo/stories-logo.svg"/>
       </a>
       <div [matMenuTriggerFor]="docMenu" class="doc-nav-div">
-        <img class="option doc-menu-bt option-icon" src="assets/fl-logo/doc_logo.svg"  flHide.gt-sm/>
-        <h5 class="option doc-menu-bt" flHide.lt-md>{{'documentation' | translate}}</h5>
+        <img class="option doc-menu-bt option-icon" src="assets/fl-logo/doc_logo.svg" flHide.gt-sm/>
+        <h5 class="option doc-menu-bt" flHide.lt-md>{{ 'documentation' | translate }}</h5>
       </div>
-      <h5 class="option" flHide.lt-md><a [routerLink]="getBrickListRoute()">{{'bricks' | translate}}</a></h5>
-      <a class="option"  flHide.gt-sm [routerLink]="getBrickListRoute()">
+      <h5 class="option" flHide.lt-md><a [routerLink]="getBrickListRoute()">{{ 'bricks' | translate }}</a></h5>
+      <a class="option" flHide.gt-sm [routerLink]="getBrickListRoute()">
         <img class="option-icon brick-icon" src="assets/fl-logo/bricks_logo.svg"/>
       </a>
 
-      <h5 class="option" flHide.lt-md><a [routerLink]="getLiveTaskRoute()">{{'live_tasks' | translate}}</a></h5>
+      <h5 class="option" flHide.lt-md><a [routerLink]="getLiveTaskRoute()">{{ 'live_tasks' | translate }}</a></h5>
 
       <mat-menu #docMenu="matMenu" xPosition="before">
-        <a mat-menu-item [routerLink]="getProductDocRoute()" class="doc-menu-item">{{'product_doc'| translate}}</a>
-        <a mat-menu-item [routerLink]="getTechDocRoute()" class="doc-menu-item">{{'tech_doc'| translate}}</a>
-        <a mat-menu-item [routerLink]="'/icons'" class="doc-menu-item">{{'icons'| translate}}</a>
+        <a mat-menu-item [routerLink]="getProductDocRoute()" class="doc-menu-item">{{ 'product_doc'| translate }}</a>
+        <a mat-menu-item [routerLink]="getTechDocRoute()" class="doc-menu-item">{{ 'tech_doc'| translate }}</a>
+        <a mat-menu-item [routerLink]="'/icons'" class="doc-menu-item">{{ 'icons'| translate }}</a>
       </mat-menu>
     </div>
 
@@ -46,19 +46,19 @@
       </button>
       <ng-container *ngIf="(userConnected$ | async) == null">
       <a [routerLink]="loginRoute" mat-flat-button flHide.lt-md>
-        {{'login' | translate}}
+        {{ 'login' | translate }}
       </a>
       </ng-container>
-      <fl-user-profile-picture [user]="user" [matMenuTriggerFor]="userMenu" *ngIf="userConnected$ | async as user"
-                               [border]="true">
+      <fl-user-profile-picture [user]="user" [matMenuTriggerFor]="userMenu"
+                               *ngIf="userConnected$ | async as user">
       </fl-user-profile-picture>
     </span>
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item [routerLink]="'/admin'" *haIsAdmin>{{'admin_dashboard' | translate}}</button>
-<!--      <button mat-menu-item (click)="selectLanguage(currentLanguage === lang.en ? lang.fr : lang.en)">-->
-<!--        {{ currentLanguage === lang.en ? ('switch_fr' | translate) : ('switch_en' | translate)}}-->
-<!--      </button>-->
-      <button mat-menu-item (click)="logout()">{{'logout' |translate}}</button>
+      <button mat-menu-item [routerLink]="'/admin'" *haIsAdmin>{{ 'admin_dashboard' | translate }}</button>
+      <!--      <button mat-menu-item (click)="selectLanguage(currentLanguage === lang.en ? lang.fr : lang.en)">-->
+      <!--        {{ currentLanguage === lang.en ? ('switch_fr' | translate) : ('switch_en' | translate)}}-->
+      <!--      </button>-->
+      <button mat-menu-item (click)="logout()">{{ 'logout' |translate }}</button>
     </mat-menu>
   </mat-toolbar>
 

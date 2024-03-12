@@ -61,5 +61,8 @@ export class LabAuthenticatedUserService implements FlCleanableService {
     return this.userSubject$.value;
   }
 
+  public getUser$(): Observable<LabUser> {
+    return this.userSubject$.asObservable();
+  }
 
 }

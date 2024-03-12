@@ -2,8 +2,7 @@
      [style.height]="circleSize"
      [style.width]="circleSize"
      [style.line-height]="circleSize"
-     [style.font-size]="fontSize+'em'"
-     [style.border]="border ? '1px solid var(--main-background)' : 'none'">
+     [style.font-size]="fontSize">
   <img [src]="imgSrc" class="user-icon-image"
        *ngIf="imgSrc; else noPhoto" [alt]="initials"/>
   <ng-template #noPhoto>

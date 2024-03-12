@@ -26,10 +26,6 @@
   height: 100%;
 }
 
-.bt-register{
-  margin-right: 0.5em !important;
-}
-
 .nav-bar{
   display: flex;
   height: 56px;
@@ -95,21 +91,9 @@
   margin: auto;
 }
 
-.round{
-  width: 1em;
-  height: 1em;
+.user-profile{
   border-radius: 50%;
-  border: 1px solid grey;
-  margin-right: 1em;
-  display: inline-block;
-}
-
-.round-light{
-  background-color: white;
-}
-
-.round-dark{
-  background-color: #424242;
+  border: 1px solid var(--main-background);
 }
 
 @media (max-width: 1160px) {

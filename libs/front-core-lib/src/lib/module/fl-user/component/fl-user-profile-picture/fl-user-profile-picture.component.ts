@@ -3,7 +3,7 @@ import {FlUserConfig} from '../../service/fl-user-config.config';
 import {FlUser} from '../../model/fl-user.class';
 
 
-export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | string | number;
+export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | number;
 
 @Component({
   selector: 'fl-user-profile-picture',
@@ -12,8 +12,7 @@ export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | string | num
 })
 export class FlUserProfilePictureComponent implements OnInit {
 
-  @Input() border: boolean = false;
-  @Input() set user(user: FlUser) {
+  @Input({required: true}) set user(user: FlUser) {
     this.setUser(user);
   }
 
@@ -24,7 +23,7 @@ export class FlUserProfilePictureComponent implements OnInit {
 
   circleSize: string;
 
-  fontSize: number;
+  fontSize: string;
 
   initials: string;
 
@@ -37,21 +36,21 @@ export class FlUserProfilePictureComponent implements OnInit {
 
     switch (this.size) {
       case 'small':
-        this.circleSize = '2.5em';
-        this.fontSize = 2.5 / 4;
+        this.circleSize = '28px';
+        this.fontSize = '12px';
         break;
       case 'medium':
         // same size as the icon button
         this.circleSize = '40px';
-        this.fontSize = 0.875;
+        this.fontSize = '15px';
         break;
       case 'big':
-        this.circleSize = '5.5em';
-        this.fontSize = 5.5 / 4;
+        this.circleSize = '80px';
+        this.fontSize = '23px';
         break;
       default:
-        this.circleSize = this.size + 'em';
-        this.fontSize = (+this.circleSize) / 4;
+        this.circleSize = this.size + 'rem';
+        this.fontSize = (this.size / 4) + 'rem';
     }
   }
 
@@ -60,7 +59,7 @@ export class FlUserProfilePictureComponent implements OnInit {
       this.initials = (user.firstname?.charAt(0) ?? '') + (user.lastname?.charAt(0) ?? '');
       if (user.photo) {
         this.imgSrc = this.userConfig.getUserPhotoUrl(user.photo);
-      }else{
+      } else {
         this.imgSrc = null;
       }
     } else {

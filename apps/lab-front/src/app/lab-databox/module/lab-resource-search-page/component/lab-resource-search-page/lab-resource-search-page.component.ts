@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
 /**
  * Page to search and navigate in resources
@@ -8,12 +8,5 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './lab-resource-search-page.component.html',
   styleUrls: ['./lab-resource-search-page.component.scss']
 })
-export class LabResourceSearchPageComponent implements OnInit {
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
+export class LabResourceSearchPageComponent {
 }

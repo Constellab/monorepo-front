@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FlUser} from '../../model/fl-user.class';
-import {FlUserProfilePictureSize} from '../fl-user-profile-picture/fl-user-profile-picture.component';
 
 @Component({
   selector: 'fl-user-inline',
@@ -9,7 +8,7 @@ import {FlUserProfilePictureSize} from '../fl-user-profile-picture/fl-user-profi
 })
 export class FlUserInlineComponent implements OnInit {
 
-  @Input() user: FlUser;
+  @Input({required: true}) user: FlUser;
 
   @Input() showName: boolean = true;
 
@@ -21,27 +20,21 @@ export class FlUserInlineComponent implements OnInit {
   /**
    * Default size of size in em
    */
-  @Input() profilePictureSize: FlUserProfilePictureSize = 'small';
-
-  constructor() { }
+  @Input() profilePictureSize: 'small' | 'medium' = 'small';
 
   ngOnInit(): void {
-    if(this.user && !this.user.fullname){
+    if (this.user && !this.user.fullname) {
       this.user.fullname = this.user.firstname + ' ' + this.user.lastname;
     }
   }
 
   getTextSizeClass(): string {
-    switch (this.profilePictureSize){
+    switch (this.profilePictureSize) {
       case 'small':
         return 'g-text-small';
       case 'medium':
         return 'g-text-normal';
-      case 'large':
-        return 'g-text-big';
     }
-
-    return null;
   }
 
 }

@@ -20,7 +20,7 @@
          [routerLink]="getNotificationLink(notif.link)" [queryParams]="getNotificationQueryParams(notif.link)"
          (click)="markAsRead(notif)">
         <div class="created-by-pp">
-          <fl-user-profile-picture [user]="notif.createdBy" size="4"></fl-user-profile-picture>
+          <fl-user-profile-picture [user]="notif.createdBy" [size]="4"></fl-user-profile-picture>
         </div>
         <div class="notification-content">
           <div class="notification-text" [matTooltip]="notif.text">{{notif.text}}</div>
