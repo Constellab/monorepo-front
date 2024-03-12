@@ -15,6 +15,9 @@ import {FlDynamicFieldInputComponent} from '../component/fl-dynamic-field-input/
 import {FlDynamicFieldSelectComponent} from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
 import {FlDynamicFieldListComponent} from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
 import {FlDynamicFieldBooleanComponent} from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
+import {
+  FlDynamicFieldSelectSearchComponent
+} from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent}
@@ -61,6 +64,9 @@ export class FlDynamicFieldConfigService {
         case 'select':
           viewComponentRef = this.createSelectComponent(viewContainer, config as FlDynamicFieldConfigSelect);
           break;
+        case 'select-search':
+          viewComponentRef = this.createSelectSearchComponent(viewContainer, config as FlDynamicFieldConfigSelect);
+          break;
         case 'list':
           viewComponentRef = this.createListComponent(viewContainer, config as FlDynamicFieldConfigList);
           break;
@@ -105,6 +111,13 @@ export class FlDynamicFieldConfigService {
     selectComponent.instance.selectOptions = config.selectOptions;
     selectComponent.instance.prefix = config.prefix;
     selectComponent.instance.suffix = config.suffix;
+    return selectComponent;
+  }
+
+  private createSelectSearchComponent(viewContainer: ViewContainerRef,
+                                      config: FlDynamicFieldConfigSelect): ComponentRef<FlDynamicFieldAbstractDirective> {
+    const selectComponent = viewContainer.createComponent(FlDynamicFieldSelectSearchComponent);
+    selectComponent.instance.selectOptions = config.selectOptions;
     return selectComponent;
   }
 

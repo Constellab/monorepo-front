@@ -1,7 +1,7 @@
 import {FlArrayObs} from './fl-array-obs.class';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {ClGetPageFunction, ClPageI} from '@monorepo/core-lib';
+import {ClGetPageFunction, ClPageI, ClStringHelper} from '@monorepo/core-lib';
 
 /**
  * Datasource that work with a method that returns paginated results.
@@ -196,4 +196,29 @@ export class FlBasicDatasourcePaginated<T> extends FlDatasourcePaginated<T> {
     return a === b;
   }
 
+  /**
+   * Create a string datasource paginated with static value. It supports search with a string contains
+   * @param array
+   */
+  public static fromStringArray(array: string[]): FlBasicDatasourcePaginated<string> {
+    return new FlBasicDatasourcePaginated((page, pageSize, requestData: string) => {
+
+      let filteredData: string[];
+      if (requestData) {
+        filteredData = array.filter((value) => ClStringHelper.stringContains(value, requestData,
+          true, true, true));
+      } else {
+        filteredData = array;
+      }
+
+      return of({
+        objects: filteredData,
+        currentPage: 0,
+        first: true,
+        last: true,
+        pageSize: filteredData.length,
+        totalElements: filteredData.length,
+      });
+    }, 0);
+  }
 }

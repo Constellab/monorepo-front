@@ -28,6 +28,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {FlCardModule} from '../fl-card/fl-card.module';
+import {
+  FlDynamicFieldSelectSearchComponent
+} from './component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
+import {FlInputSearchModule} from '../fl-input-search/fl-input-search.module';
+import {FlUserModule} from '../fl-user/fl-user.module';
 
 
 /**
@@ -46,6 +51,7 @@ import {FlCardModule} from '../fl-card/fl-card.module';
     FlDynamicFieldBooleanComponent,
     FlDynamicFieldListComponent,
     FlDynamicFieldTextareaComponent,
+    FlDynamicFieldSelectSearchComponent,
   ],
   exports: [
     FlDynamicFieldComponent,
@@ -54,6 +60,7 @@ import {FlCardModule} from '../fl-card/fl-card.module';
     FlDynamicFormArrayComponent,
     FlDynamicAbstractFormComponent,
     FlDynamicFieldTextareaComponent,
+    FlDynamicFieldSelectSearchComponent,
   ],
   imports: [
     CommonModule,
@@ -74,6 +81,8 @@ import {FlCardModule} from '../fl-card/fl-card.module';
     FlFormModule,
     FlSectionModule,
     FlCardModule,
+    FlInputSearchModule,
+    FlUserModule,
   ],
 })
 export class FlDynamicFieldModule {

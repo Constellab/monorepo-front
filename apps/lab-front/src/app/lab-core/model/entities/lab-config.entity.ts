@@ -6,6 +6,7 @@ import {
   FlDynamicFieldConfigInput,
   FlDynamicFieldConfigList,
   FlDynamicFieldConfigSelect,
+  FlDynamicFieldConfigSelectSearch,
   FlDynamicFieldConfigUnknown,
   FlDynamicFormAbstractControl,
   FlDynamicFormGroupConfig
@@ -102,11 +103,18 @@ export class LabConfig extends LabBaseEntity {
   private convertToControlConfig(spec: TdParamSpecSimple, defaultPlaceholder: string): FlDynamicFieldConfig {
     // create a select
     if (spec.allowed_values) {
-      const config: FlDynamicFieldConfigSelect = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'select';
-      config.selectOptions = spec.allowed_values;
-      config.suffix = spec.unit;
-      return config;
+      if (spec.allowed_values.length > 10) {
+        const config: FlDynamicFieldConfigSelectSearch = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+        config.type = 'select-search';
+        config.selectOptions = spec.allowed_values;
+        return config;
+      } else {
+        const config: FlDynamicFieldConfigSelect = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+        config.type = 'select';
+        config.selectOptions = spec.allowed_values;
+        config.suffix = spec.unit;
+        return config;
+      }
     } else if (spec.type === 'list') {
       const config: FlDynamicFieldConfigList = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
       config.type = 'list';

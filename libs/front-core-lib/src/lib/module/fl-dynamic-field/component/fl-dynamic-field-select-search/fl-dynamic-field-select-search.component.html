@@ -1,0 +1,15 @@
+<fl-input-search [selectedItem]="formCtrl.value"
+                 (selectedItemChange)="selectOption($event)"
+                 [datasource]="datasource"
+                 [placeholder]="placeholder"
+                 [required]="required"
+                 [disabled]="disabled"
+                 [minInputSearchLength]="0">
+
+
+  <div *flInputSearchOption="datasource as option">
+    {{ option }}
+  </div>
+</fl-input-search>
+
+<p *ngIf="hint" class="g-text-light g-text-small">{{ hint }}</p>

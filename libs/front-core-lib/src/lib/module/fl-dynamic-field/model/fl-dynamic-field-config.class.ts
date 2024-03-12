@@ -36,14 +36,20 @@ export interface FlDynamicFormArrayConfig extends FlDynamicFormConfigBase {
 /**
  * Configuration for a FormControl
  */
-export type FlDynamicFieldConfig = FlDynamicFieldConfigInput | FlDynamicFieldConfigSelect | FlDynamicFieldConfigList
-  | FlDynamicFieldConfigBoolean | FlDynamicFieldConfigTextArea | FlDynamicFieldConfigUnknown;
+export type FlDynamicFieldConfig =
+  FlDynamicFieldConfigInput
+  | FlDynamicFieldConfigSelect
+  | FlDynamicFieldConfigSelectSearch
+  | FlDynamicFieldConfigList
+  | FlDynamicFieldConfigBoolean
+  | FlDynamicFieldConfigTextArea
+  | FlDynamicFieldConfigUnknown;
 
 
 export interface FlDynamicFieldConfigBase extends FlDynamicFormConfigBase {
   controlType: 'formControl';
 
-  type: 'input' | 'select' | 'list' | 'boolean' | string;
+  type: 'input' | 'select' | 'select-search' | 'list' | 'boolean' | string;
 
   disabled?: boolean;
   required?: boolean;
@@ -75,6 +81,12 @@ export interface FlDynamicFieldConfigSelect extends FlDynamicFieldConfigMaterial
   type: 'select';
 
   selectOptions: any[];
+}
+
+export interface FlDynamicFieldConfigSelectSearch extends FlDynamicFieldConfigBase {
+  type: 'select-search';
+
+  selectOptions: string[];
 }
 
 export interface FlDynamicFieldConfigList extends FlDynamicFieldConfigMaterialInput {
