@@ -7,8 +7,8 @@
     <form (ngSubmit)="submit()" id="icon-form" [formGroup]="formGp">
 
       <mat-radio-group formControlName="type" name="type" class="form-rb-list">
-        <mat-radio-button [value]="'COMMUNITY_ICON'" [checked]="true">{{'community_icon' | translate }}</mat-radio-button>
-        <mat-radio-button [value]="'COMMUNITY_IMAGE'">{{'community_image' | translate }}</mat-radio-button>
+        <mat-radio-button [value]="'COMMUNITY_ICON'" [checked]="formGp.get('type').value == 'COMMUNITY_ICON'">{{'community_icon' | translate }}</mat-radio-button>
+        <mat-radio-button [value]="'COMMUNITY_IMAGE'" [checked]="formGp.get('type').value == 'COMMUNITY_IMAGE'">{{'community_image' | translate }}</mat-radio-button>
       </mat-radio-group>
 
       <mat-form-field class="g-form-input">

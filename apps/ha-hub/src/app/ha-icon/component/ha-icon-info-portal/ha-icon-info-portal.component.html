@@ -8,21 +8,22 @@
     <fl-key>{{'icon_name' | translate}}</fl-key>
     {{icon.name}}
   </fl-key-value>
+
   <fl-key-value>
-    <fl-key>{{'icon_technical_name' | translate}}</fl-key>
-    <b>{{icon.technicalName}}</b>
+    <fl-key>{{ 'icon_technical_name' | translate }}</fl-key>
+    <b>{{ icon.technicalName }}</b>
   </fl-key-value>
 
   <div class="buttons-div">
-    <button mat-stroked-button color="warn" (click)="closeRefAndOpenDeleteDialog()">
-      {{'delete' | translate}}
+    <button mat-icon-button color="primary" [matTooltip]="('copy' | translate) + ' ' + ('icon_technical_name' | translate)"
+            (click)="copyTechnicalName()">
+      <mat-icon>copy</mat-icon>
     </button>
-    <button mat-stroked-button *haIsAdmin  (click)="closeRefAndOpenDeleteDialog()">
-      {{'edit' | translate}}
+    <button mat-icon-button *haIsAdmin [matTooltip]="'edit' | translate" (click)="closeRefAndOpenEditDialog()">
+      <mat-icon>edit</mat-icon>
     </button>
-    <button mat-stroked-button *haIsAdmin color="warn" (click)="closeRefAndOpenDeleteDialog()">
-      {{'delete' | translate}}
+    <button mat-icon-button *haIsAdmin color="warn" [matTooltip]="'delete' | translate" (click)="closeRefAndOpenDeleteDialog()">
+      <mat-icon>delete</mat-icon>
     </button>
   </div>
-
 </div>

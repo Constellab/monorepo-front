@@ -7,12 +7,9 @@
   min-width: 18em;
 }
 
-.icon-info-div button{
-  margin: 0.75em auto 0 auto;
-}
-
 .buttons-div{
+  margin-top: 0.75em;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 0.5em;
 }
-

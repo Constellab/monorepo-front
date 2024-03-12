@@ -15,10 +15,12 @@ export class HaIcon {
 }
 
 export interface HaIconCreateDto {
+  id?: string;
   technicalName: string;
   name: string;
   subNames: string;
   type: HnIconType;
+  fileName?: string;
 }
 
 export interface HaIconCreateFormData extends HaIconCreateDto{

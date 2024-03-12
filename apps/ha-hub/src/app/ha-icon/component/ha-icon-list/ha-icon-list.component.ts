@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HaIcon, HaIconDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
 import {Subject} from 'rxjs';
 import {HaIconService} from '../../../ha-core/ha-service/ha-icon.service';
@@ -11,7 +11,10 @@ import {
 } from '@monorepo/front-core-lib';
 import {HaIconInfoPortalComponent} from '../ha-icon-info-portal/ha-icon-info-portal.component';
 import {FormControl} from '@ngneat/reactive-forms';
-import {isPlatformBrowser} from '@angular/common';
+import {
+  HaCreateIconDtoInput,
+  HaIconCreateDialogComponent
+} from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
 
 @Component({
   selector: 'ha-icon-list',
@@ -29,8 +32,7 @@ export class HaIconListComponent implements OnInit, OnDestroy {
 
   constructor(private readonly iconService: HaIconService,
               private readonly portalService: FlPortalService,
-              private readonly dialogService: FlDialogService,
-              @Inject(PLATFORM_ID) private platformId: Object) {
+              private readonly dialogService: FlDialogService,) {
   }
 
   ngOnInit(): void {
@@ -52,7 +54,6 @@ export class HaIconListComponent implements OnInit, OnDestroy {
   }
 
   private loadIcons(): void {
-    if(!isPlatformBrowser(this.platformId)) return;
     this.icons = this.iconService.getAllPaginated();
     this.searchFormControl.patchValue('');
   }
@@ -77,9 +78,32 @@ export class HaIconListComponent implements OnInit, OnDestroy {
         disposeOnOutsideClick: true,
       });
 
-    this.portalService.createPortal(HaIconInfoPortalComponent, config, icon).detachments().subscribe((res) => {
-      if (res) {
-        this.openDeleteIconConfirmDialog(icon);
+    this.portalService.createPortal(HaIconInfoPortalComponent, config, icon).detachments().subscribe((result) => {
+      if (result && result.res) {
+        if (result.res === 'DELETE')
+          this.openDeleteIconConfirmDialog(icon);
+        else if (result.res === 'EDIT')
+          this.openEditIconDialog(icon);
+      }
+    });
+  }
+
+  openEditIconDialog(icon: HaIcon): void {
+    const inputData: HaCreateIconDtoInput = {
+      mode: 'update',
+      object: {
+        type: icon.type,
+        technicalName: icon.technicalName,
+        name: icon.name,
+        subNames: icon.subNames.join(','),
+        id: icon.id,
+        fileName: icon.fileName,
+        file: {name: icon.fileName} as File
+      }
+    }
+    this.dialogService.openSmallDialog(HaIconCreateDialogComponent, {data: inputData}).afterClosed().subscribe((icon: HaIcon) => {
+      if (icon) {
+        this.loadIcons();
       }
     });
   }

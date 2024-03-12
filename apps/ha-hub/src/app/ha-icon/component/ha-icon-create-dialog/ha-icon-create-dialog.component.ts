@@ -22,12 +22,16 @@ export type HaCreateIconDtoInput = FlFormDialogInput<HaIconCreateFormData>;
 export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<HaIconCreateFormData, HaIcon> implements OnInit {
 
   input_file_trigered = false;
+  icon: HaIconCreateDto
 
   constructor(snackBarService: FlSnackBarService,
               dialogRef: MatDialogRef<HaIconCreateDialogComponent>,
               @Inject(MAT_DIALOG_DATA) dialogInput: HaCreateIconDtoInput,
               private iconService: HaIconService) {
     super(dialogInput, snackBarService, dialogRef);
+    if (this.dialogInput.mode === 'update') {
+      this.icon = this.dialogInput.object;
+    }
   }
 
   ngOnInit(): void {
@@ -59,11 +63,17 @@ export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<H
   }
 
   getUpdateSuccessMessage(): string {
-    return "";
+    return "icon_updated";
   }
 
-  update(formValue: HaIconCreateDto): Observable<HaIcon> {
-    return undefined;
+  update(formValue: HaIconCreateFormData): Observable<HaIcon> {
+    return this.iconService.update({
+      subNames: formValue.subNames,
+      name: formValue.name,
+      type: formValue.type,
+      technicalName: formValue.technicalName,
+      id: this.icon.id
+    }, formValue.file?.size > 0 ? formValue.file : null);
   }
 
   onFileSelected(): void {

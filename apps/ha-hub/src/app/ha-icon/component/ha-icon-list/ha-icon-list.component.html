@@ -13,7 +13,7 @@
      (flInfiniteScroll)="loadMoreResults()" [flInfiniteDisabled]="icons.isLoading || icons?.page?.last"
      flInfiniteMode="auto">
 
-  <div class="icon-div" *ngFor="let icon of icons.connect() | async" (click)="openIconInfoPortal($event, icon)">
+  <div class="icon-div" *ngFor="let icon of icons | flDatasourceConnect | async" (click)="openIconInfoPortal($event, icon)">
       <div class="icon-file-div">
         <td-type-icon [iconSize]="75" [iconTechnicalName]="icon.technicalName" [iconType]="icon.type"></td-type-icon>
       </div>

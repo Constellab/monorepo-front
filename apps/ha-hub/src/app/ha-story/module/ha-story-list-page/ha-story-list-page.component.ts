@@ -16,7 +16,6 @@ import {HaTopicService} from '../../../ha-core/ha-service/ha-topic.service';
 import {Observable} from 'rxjs';
 import {HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 import {ClStringHelper} from '@monorepo/core-lib';
-import {isPlatformBrowser} from '@angular/common';
 import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
 import {FormControl} from '@angular/forms';
 
@@ -62,10 +61,10 @@ export class HaStoryListPageComponent implements OnInit {
   ngOnInit(): void {
     this.metadataService.setPageTitle('ha.stories.title');
     this.metadataService.addMetaTag('description', 'ha.stories.description');
-    if(isPlatformBrowser(this.platformId)){
-      this.stories = this.storyService.getAllPaginated();
-      this.popularTopics$ = this.topicService.getPopularTopics();
-    }
+
+    this.stories = this.storyService.getAllPaginated();
+    this.popularTopics$ = this.topicService.getPopularTopics();
+
   }
 
   search(): void {

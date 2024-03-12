@@ -1,7 +1,8 @@
-import {Directive, ElementRef, Host, Inject, Input} from '@angular/core';
+import {Directive, ElementRef, Host, Inject, Input, PLATFORM_ID} from '@angular/core';
 import {MatIcon, MatIconRegistry} from '@angular/material/icon';
 import {FL_ICON_MODULE, FlIcon, FlIconConfig, FlMatIcon, FlSvgIcon} from '../fl-icon-config.class';
 import {DomSanitizer} from '@angular/platform-browser';
+import {isPlatformServer} from '@angular/common';
 
 /**
  * directive to be placed on a mat-icon. It set the icon and support both
@@ -26,11 +27,12 @@ export class FlIconDirective {
               @Inject(FL_ICON_MODULE) private config: FlIconConfig,
               private elementRef: ElementRef<HTMLElement>,
               private matIconRegistry: MatIconRegistry,
-              private domSanitizer: DomSanitizer) {
+              private domSanitizer: DomSanitizer,
+              @Inject(PLATFORM_ID) private platformId: any) {
   }
 
   private setIcon(icon: string): void {
-    if (icon == null) {
+    if (icon == null || isPlatformServer(this.platformId)) {
       this.setMatIcon(null);
       this.setSvgIcon(null);
       return;

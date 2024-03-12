@@ -52,8 +52,14 @@ export class HaIconService {
     const formData = new FormData();
     formData.append('icon', JSON.stringify(icon));
     formData.append('file', file);
-    console.log(formData.get('file'), formData.get('icon'))
     return this.apiService.post(this.route, formData);
+  }
+
+  public update(icon: HaIconCreateDto, file: File): Observable<HaIcon>{
+    const formData = new FormData();
+    formData.append('icon', JSON.stringify(icon));
+    formData.append('file', file);
+    return this.apiService.put(this.route, formData);
   }
 
   public delete(id: string): Observable<void> {

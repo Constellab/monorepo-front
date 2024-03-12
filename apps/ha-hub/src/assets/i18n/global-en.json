@@ -271,5 +271,7 @@
   "icon_sub_names_pattern_error": "The icon sub names must contain only letters, numbers and be separated by a comma",
   "icon_type": "Icon type",
   "icon_from_material_are_allowed_text": "Google material icons are also allowed, you can find them ",
-  "here": "here"
+  "here": "here",
+  "technical_name_copied_to_clipboard": "Technical name copied to clipboard",
+  "icon_updated": "Icon updated"
 }

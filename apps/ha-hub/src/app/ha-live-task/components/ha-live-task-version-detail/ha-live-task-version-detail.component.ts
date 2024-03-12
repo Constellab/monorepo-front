@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
-import {FlCodeEditorLanguage, FlDebouncer, FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
+import {FlCodeEditorLanguage, FlDebouncer, FlSnackBarService} from '@monorepo/front-core-lib';
 import {FormControl} from '@ngneat/reactive-forms';
 import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
 import {HaCardBackground} from '../../../ha-core/ha-component/ha-card/ha-card.component';
@@ -104,11 +104,11 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
 
   onCopy(type: 'parameters' | 'code' | 'environment_file'): void {
     if (this.liveTaskVersion && this.liveTaskVersion.params)
-    navigator.clipboard.writeText(this.liveTaskVersion?.params?.join('\n')).then(() => {
-      this.snackBarService.openSuccessMessage({text: `${type}_copied_to_clipboard`, translateText: true});
-    }).catch(() => {
-      this.snackBarService.openErrorMessage('Error copying code to clipboard');
-    });
+      navigator.clipboard.writeText(this.liveTaskVersion?.params?.join('\n')).then(() => {
+        this.snackBarService.openSuccessMessage({text: `${type}_copied_to_clipboard`, translateText: true});
+      }).catch(() => {
+        this.snackBarService.openErrorMessage('Error copying code to clipboard');
+      });
   }
 
   onVersionInfosEditorButtonClick(): void {
