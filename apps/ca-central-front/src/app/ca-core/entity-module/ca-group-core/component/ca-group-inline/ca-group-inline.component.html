@@ -1,19 +1,8 @@
-<a *ngIf="group.type === 'TEAM' && !disableLink; else noLink" [routerLink]="group | caDetailRoute"
-   class="text-link">
+@if (group.type === 'TEAM') {
   <fl-text-icon>
-    <mat-icon flIcon="group"></mat-icon>
-    <span>{{group.label}}</span>
+    <mat-icon flIcon="group" class="icon"></mat-icon>
+    <span>{{ group.label }}</span>
   </fl-text-icon>
-</a>
-
-<!-- No link for single user group -->
-<ng-template #noLink>
-  <fl-text-icon *ngIf="group.type === 'TEAM'; else singleUser">
-    <mat-icon flIcon="group"></mat-icon>
-    <span>{{group.label}}</span>
-  </fl-text-icon>
-
-  <ng-template #singleUser>
-    <fl-user-inline [user]="group.user"></fl-user-inline>
-  </ng-template>
-</ng-template>
+} @else {
+  <fl-user-inline [user]="group.user" [portalOnHover]="!disableUserPortal"></fl-user-inline>
+}
