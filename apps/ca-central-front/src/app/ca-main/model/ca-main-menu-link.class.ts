@@ -34,11 +34,6 @@ export const caMainMenuLinks: CaMainMenuLink[] = [
     route: CaRouterService.getMyTeamsRoute()
   },
   {
-    label: 'my_smart_db',
-    icon: 'smart_db',
-    route: CaRouterService.getMySmartDbsRoute(),
-  },
-  {
     label: 'admin_dashboard',
     icon: 'admin_panel_settings',
     route: CaRouterService.getAdminRoute(),
