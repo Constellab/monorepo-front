@@ -1,10 +1,11 @@
-import {Inject, Injectable, InjectionToken, Optional, PLATFORM_ID} from '@angular/core';
+import {Inject, Injectable, Optional, PLATFORM_ID} from '@angular/core';
 import {
   FlApiService,
   flAuthExpiredCookie,
   FlCleanableService,
   FlCleanerService,
-  FlTranslateService, REQUEST
+  FlTranslateService,
+  REQUEST
 } from '@monorepo/front-core-lib';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HaUser, HaUserCategory} from '../ha-model/ha-entities/ha-user';
@@ -39,7 +40,9 @@ export class HaAuthenticatedUserService implements FlCleanableService {
 
   public init(): void {
     if (this.hasAuthCookie()) {
+      console.log('AUTHUSER1')
       this.apiService.get(this.userRoute).subscribe((user: HaUser) => {
+        console.log('AUTHUSER2', user)
         this.translateService.changeAppLanguage(user.lang);
         this.userAuthenticated = user;
         this.userSubject.next(user);

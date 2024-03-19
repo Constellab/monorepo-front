@@ -27,6 +27,8 @@ export class TranslateServerLoader implements TranslateLoader {
               readFileSync(resolve(__dirname, `../browser/assets/i18n/${file}${lang}${this.suffix}`), 'utf8') :
               readFileSync(resolve(__dirname, `../../../apps/ha-hub/src/assets/i18n/${file}${lang}${this.suffix}`), 'utf8')
           ));
+          // eslint-disable-next-line max-len
+          // Object.assign(jsonData, JSON.parse(readFileSync(resolve(__dirname, `../browser/assets/i18n/${file}${lang}${this.suffix}`), 'utf8')));
         }
 
         // Here we save the translations in the transfer-state
