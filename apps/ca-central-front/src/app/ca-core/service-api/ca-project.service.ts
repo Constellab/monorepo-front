@@ -258,6 +258,10 @@ export class CaProjectService {
     return this.apiService.put(`${this.route}/document/${documentId}/restore-from-trash`, null, CaDocument);
   }
 
+  public emptyTrash(projectId: string): Observable<void> {
+    return this.apiService.put(`${this.route}/${projectId}/empty-trash`, null);
+  }
+
   //////////////////////////////////// CONSTELLAB DOCUMENT ///////////////////////////////////////////
 
   public createConstellabDocument(projectId: string, filename: string): Observable<CaConstellabDocument> {
