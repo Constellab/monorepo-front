@@ -27,6 +27,8 @@ export class HaLiveTaskListComponent implements OnInit {
   user: HaUser;
   spaceIdFilter: string[] = [];
   titleFormControl: FormControl<string> = new FormControl('');
+  myLTSelected: boolean = false;
+
   constructor(
     private liveTaskService: HaLiveTaskService,
     private dialogService: FlDialogService,

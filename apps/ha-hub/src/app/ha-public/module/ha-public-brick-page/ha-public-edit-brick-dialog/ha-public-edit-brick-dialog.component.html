@@ -24,6 +24,19 @@
         {{'public' | translate}}</mat-radio-button>
     </mat-radio-group>
 
+    <!--  space  -->
+    @if(formGp.value.visibility === 'private'){
+      <mat-label class="input-repo">{{'space' | translate}}</mat-label>
+      <div>
+        <mat-radio-group formControlName="space">
+          @for(space of spaces; track space.id){
+            <mat-radio-button [value]="space" class="radio-bt" [checked]="formGp.value.space.id === space.id">
+              {{space.name}}</mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
+    }
+
     <!--  pipRepo  -->
     <mat-form-field class="g-form-input input-repo" appearance="outline">
       <mat-label>{{'repo_pip' | translate}}</mat-label>

@@ -59,7 +59,7 @@ export class TdMarkdownPipe implements PipeTransform {
     };
 
     //return this.domSanitizer.sanitize(SecurityContext.NONE, marked.parse(value, {renderer: renderer}));
-    const parsedDoc: string = marked.parse(value, {renderer: renderer});
+    const parsedDoc: string = marked.parse(value, {renderer: renderer, mangle: false, headerIds: false});
     let safeDoc: string = this.domSanitizer.sanitize(SecurityContext.HTML, parsedDoc);
     for (const key of Object.keys(iframes)) {
       safeDoc = safeDoc.replace(key,

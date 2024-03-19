@@ -35,6 +35,13 @@ import {MatMenuModule} from '@angular/material/menu';
 import {TdTypeIconComponent} from './component/td-type-icon/td-type-icon.component';
 import {tdTypeInlineComponent} from './component/td-type-inline/td-type-inline.component';
 import {TdTypeIconBadgeComponent} from './component/td-type-icon-badge/td-type-icon-badge.component';
+import {
+  TdResourceDocFunctionSignatureComponent
+} from './component/td-resource-doc-function-signature/td-resource-doc-function-signature.component';
+import {
+  TdResourceDocFuncInfoComponent
+} from './component/td-resource-doc-func-info/td-resource-doc-func-info.component';
+import {TdCleanTypePipe} from './pipe/td-clean-type.pipe';
 
 @NgModule({
   imports: [
@@ -73,7 +80,10 @@ import {TdTypeIconBadgeComponent} from './component/td-type-icon-badge/td-type-i
     TdTypingNamePipe,
     TdTypeIconComponent,
     tdTypeInlineComponent,
-    TdTypeIconBadgeComponent
+    TdTypeIconBadgeComponent,
+    TdResourceDocFunctionSignatureComponent,
+    TdResourceDocFuncInfoComponent,
+    TdCleanTypePipe
   ],
   exports: [
     TdTechnicalDocComponent,
@@ -90,6 +100,9 @@ import {TdTypeIconBadgeComponent} from './component/td-type-icon-badge/td-type-i
     TdTypeIconComponent,
     tdTypeInlineComponent,
     TdTypeIconBadgeComponent,
+    TdResourceDocFunctionSignatureComponent,
+    TdResourceDocFuncInfoComponent,
+    TdCleanTypePipe
   ]
 })
 export class TdTechnicalDocModule {

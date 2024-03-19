@@ -6,6 +6,8 @@ import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {Router} from '@angular/router';
 import {FlGlobalValidators, FlSnackBarService} from '@monorepo/front-core-lib';
 import {HaAddVersionInput, HaRepoType} from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
+import {HaSpaceService} from '../../../../ha-core/ha-service/ha-space.service';
+import {HaSpace} from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
 
 @Component({
   selector: 'ha-public-edit-brick-form',
@@ -24,20 +26,23 @@ export class HaPublicEditBrickFormComponent implements OnInit {
   errorFileText: string;
   repoError: boolean;
   errorInput: Record<string, boolean> = {};
-  test: boolean;
+  spaces: HaSpace[];
 
   constructor(
     private brickService: HaBrickService,
     private router: Router,
-    private snackBarService: FlSnackBarService) {
+    private snackBarService: FlSnackBarService,
+    private spaceService: HaSpaceService) {
   }
 
   ngOnInit(): void {
-    this.buildForm();
+    this.spaceService.getSpacesOfCurrentUser().subscribe((spaces) => {
+      this.spaces = spaces;
+      this.buildForm();
+    });
   }
 
   buildForm(): void {
-
     this.formGp = new FormBuilder().group({
       name: [null, [Validators.required, Validators.pattern(/^\S*$/)]],
       description: [null, [Validators.required, Validators.maxLength(255)]],
@@ -51,14 +56,14 @@ export class HaPublicEditBrickFormComponent implements OnInit {
       references: [null],
       visibility: [HaBrickVisibility.PUBLIC],
       credentialUsername: [null],
-      credentialPassword: [null]
+      credentialPassword: [null],
+      space: [this.spaces[0]]
     });
-    this.test = this.formGp.value.visibility === 'public'
   }
 
   submit(): void {
-
     const formValue: Partial<HaBrickCreationDTO> = this.formGp.value;
+
     if (this.formGp.value.repoPip || this.formGp.value.repoGit) {
       this.repoError = false;
       this.formGp.controls.repoPip.removeValidators(Validators.required);
@@ -123,11 +128,14 @@ export class HaPublicEditBrickFormComponent implements OnInit {
               this.formGp.controls.references.setValue(this.inputFile.brickVersionReferences);
               this.formGp.controls.technicalInfo.setValue(this.inputFile.technicalInfo);
               this.formGp.controls.isBeta.setValue(this.inputFile.isBeta);
+
               if(this.formGp.controls.visibility.value === HaBrickVisibility.PRIVATE){
                 this.formGp.controls.visibility.setValue(HaBrickVisibility.PRIVATE);
               } else {
                 this.formGp.controls.visibility.setValue(HaBrickVisibility.PUBLIC);
               }
+              this.formGp.controls.space.setValue(this.spaces[0])
+
               this.formGp.controls.repoType.setValue(HaRepoType.PIP);
               if (this.inputFile.isBeta) {
                 this.formGp.controls.subPatch.setValue(this.inputFile.subPatch);

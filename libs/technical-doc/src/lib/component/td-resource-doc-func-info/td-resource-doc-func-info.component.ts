@@ -1,31 +1,26 @@
-import {Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
-import {
-  TdResourceFunction,
-  TdResourceFunctionArg,
-  TdResourceType,
-  TdResourceView
-} from '../../model/td-resource-type.class';
-import {rvDefaultViewTypeInfos, RvResourceViewTypeInfo} from '@monorepo/resource-view';
+import {Component, Input, OnInit} from '@angular/core';
+import {TdResourceFunction, TdResourceFunctionArg} from '../../model/td-resource-type.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 
 @Component({
-  selector: 'td-resource-doc',
-  templateUrl: './td-resource-doc.component.html',
-  styleUrls: ['./td-resource-doc.component.scss']
+  selector: 'td-resource-doc-func-info',
+  templateUrl: './td-resource-doc-func-info.component.html',
+  styleUrls: ['./td-resource-doc-func-info.component.scss']
 })
-export class TdResourceDocComponent implements OnInit {
+export class TdResourceDocFuncInfoComponent implements OnInit{
 
-  @Input() resource: TdResourceType;
+  @Input({required: true}) func: TdResourceFunction;
+  cleanedFuncDoc: string[];
+  funcAgrsDocs: string[] = [];
 
-  views: RvResourceViewTypeInfo[] = [];
-
-  orderedViews: TdResourceView[];
-
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.orderedViews = this.getOrderedResourceViews(this.resource.methods.views);
+    this.cleanedFuncDoc = this.getFunctionCleanDocInfo(this.func);
+    for (const arg of this.func.args) {
+      this.funcAgrsDocs.push(this.getFuncArgDoc(this.func, arg));
+    }
   }
 
   getFunctionCleanDocInfo(func: TdResourceFunction, getTechInfo: boolean = false): string[] {
@@ -52,6 +47,8 @@ export class TdResourceDocComponent implements OnInit {
   getFuncArgDoc(func: TdResourceFunction, arg: TdResourceFunctionArg): string {
     const techDocLines = this.getFunctionCleanDocInfo(func, true);
     let res: string = '';
+    if(techDocLines == null || techDocLines.length == 0)
+      return res;
     for (const line of techDocLines) {
       if (line.includes(':param ' + arg.arg_name)) {
         res += line.replace(':param ' + arg.arg_name + ':', '');
@@ -73,26 +70,4 @@ export class TdResourceDocComponent implements OnInit {
     }
     return ClStringHelper.capitalize(res.trim());
   }
-
-  getCleanType(type: string): string {
-    if (type.startsWith('typing')) {
-      return type.replace('typing.', '');
-    }
-    return type;
-  }
-
-  getOrderedResourceViews(views: TdResourceView[]): TdResourceView[] {
-    //return views with the default view first
-    const orderedViews = [];
-    for (const v of views) {
-      if (v.default_view) {
-        orderedViews.unshift(v);
-      } else {
-        orderedViews.push(v);
-      }
-    }
-    return orderedViews;
-  }
-
-  protected readonly rvDefaultViewTypeInfos = rvDefaultViewTypeInfos;
 }

@@ -113,6 +113,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     node.visibility = this.brick.visibility;
     node.credentialUsername = this.brick.credentialUsername;
     node.credentialPassword = this.brick.credentialPassword;
+    node.space = this.brick.space;
 
     const input: FlFormDialogInput<HaEditBrickDTO> = {
       mode: 'update',

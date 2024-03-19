@@ -24,6 +24,8 @@ export * from './lib/component/td-type-icon/td-type-icon.component';
 export * from './lib/component/td-type-icon-badge/td-type-icon-badge.component';
 export * from './lib/component/td-type-inline/td-type-inline.component';
 export * from './lib/component/td-type-unavailable/td-type-unavailable.component';
+export * from './lib/component/td-resource-doc-function-signature/td-resource-doc-function-signature.component';
+export * from './lib/component/td-resource-doc-func-info/td-resource-doc-func-info.component';
 
 //service
 export * from './lib/service/td-service-config.config';
@@ -32,4 +34,5 @@ export * from './lib/service/td-service-config.config';
 //pipe
 export * from './lib/pipe/td-markdown.pipe';
 export * from './lib/pipe/td-typing-name.pipe';
+export * from './lib/pipe/td-clean-type.pipe';
 

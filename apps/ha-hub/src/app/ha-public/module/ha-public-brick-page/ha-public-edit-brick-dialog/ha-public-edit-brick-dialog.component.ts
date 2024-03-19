@@ -6,6 +6,8 @@ import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {HaSpace} from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
+import {HaSpaceService} from '../../../../ha-core/ha-service/ha-space.service';
 
 @Component({
   selector: 'ha-ha-public-edit-brick-dialog',
@@ -16,12 +18,14 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
 
   isLoading: boolean = false;
   repoError: boolean;
+  spaces: HaSpace[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     protected dialogInput: FlFormDialogInput<HaEditBrickDTO>,
     snackBarService: FlSnackBarService,
     dialogRef: MatDialogRef<HaPublicEditBrickDialogComponent>,
+    private spaceService: HaSpaceService,
     private brickService: HaBrickService
   ) {
     super(dialogInput, snackBarService, dialogRef);
@@ -30,6 +34,9 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   ngOnInit(): void {
     this.init();
     this.formGp.value.id = this.dialogInput.object.id;
+    this.spaceService.getSpacesOfCurrentUser().subscribe((spaces: HaSpace[]) => {
+      this.spaces = spaces;
+    })
   }
 
   buildForm(): FormGroup<Partial<HaEditBrickDTO>> {
@@ -40,7 +47,8 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
       pipRepo: [null],
       visibility: [null],
       credentialUsername: [null],
-      credentialPassword: [null]
+      credentialPassword: [null],
+      space: [null]
     });
   }
 

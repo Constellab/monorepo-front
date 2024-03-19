@@ -77,11 +77,8 @@
         </fl-text-icon>
       </h6>
       @for (title of titles; track title.text) {
-        @if (title.level == 2) {
-          <a [routerLink]="'.'" [fragment]="title.text" class="title big-title small-text">{{ title.text }}</a>
-        } @else {
-          <a [routerLink]="'.'" [fragment]="title.text" class="title small-title small-text">{{ title.text }}</a>
-        }
+        <a [routerLink]="'.'" [fragment]="title.text.toLowerCase().replace(' ', '-')"
+           class="title small-text" [ngClass]="title.level === 2 ? 'big-title' : 'small-title'">{{ title.text }}</a>
       }
     }
   </div>

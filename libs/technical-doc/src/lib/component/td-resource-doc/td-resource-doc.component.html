@@ -2,14 +2,16 @@
 
 <div class="methods-div">
   <h4>{{'td.views' | translate}}</h4>
-  <div *ngFor="let v of getOrderedResourceViews(resource.methods.views)"  class="method-card">
-    <div class="view-title">
-      <td-type-icon-badge [style]="v.style" [iconSize]="30"></td-type-icon-badge>
-      <span>{{v.human_name.toUpperCase() + ' - ' +  v.method_name + '()'}}</span>
-      <mat-chip *ngIf="v.default_view" color="primary">{{'td.default_view' | translate}}</mat-chip>
+  @if(orderedViews && orderedViews.length > 0){
+    <div *ngFor="let v of orderedViews"  class="method-card">
+      <div class="view-title">
+        <td-type-icon-badge *ngIf="v.style" [style]="v.style" [iconSize]="30"></td-type-icon-badge>
+        <span>{{v.human_name.toUpperCase() + ' - ' +  v.method_name + '()'}}</span>
+        <mat-chip *ngIf="v.default_view" color="primary">{{'td.default_view' | translate}}</mat-chip>
+      </div>
+      <span class="view-description" *ngIf="v?.short_description">{{v.short_description}}</span>
     </div>
-    <span class="view-description" *ngIf="v?.short_description">{{v.short_description}}</span>
-  </div>
+  }
 </div>
 
 <div class="methods-div">
@@ -17,47 +19,15 @@
   <div class="method-card">
     <ng-container *ngFor="let func of resource.methods.funcs">
       <a class="func-code-line" [routerLink]="'.'" [fragment]="func.name">
-        <code [innerHTML]="getFunctionSignature(func)"></code>
+        <code>
+          <td-resource-doc-function-signature [func]="func"></td-resource-doc-function-signature>
+        </code>
         <br>
       </a>
     </ng-container>
   </div>
 
   <div *ngFor="let func of resource.methods.funcs" id="{{func.name}}" class="func">
-    {{func.name.toUpperCase()}}
-    <div class="func-doc" *ngIf="func.doc" [innerHTML]="getFunctionCleanDocInfo(func).join('\n') | tdMarkdown">
-    </div>
-    <div class="func-parameters" *ngIf="func.args.length > 0">
-      {{'td.parameters' | translate}}:
-      <table class="func-parameters-table">
-        <tr>
-          <th class="func-parameters-element func-parameters-header">{{'td.name' | translate}}</th>
-          <th class="func-parameters-element func-parameters-header">{{'td.type' | translate}}</th>
-          <th class="func-parameters-element func-parameters-header">{{'td.default_value' | translate}}</th>
-          <th class="func-parameters-description func-parameters-header">{{'td.description' | translate}}</th>
-        </tr>
-        <tr *ngFor="let arg of func.args">
-          <td class="func-parameters-element">{{arg.arg_name}}</td>
-          <td class="func-parameters-element"><code>{{getCleanType(arg.arg_type)}}</code></td>
-          <td class="func-parameters-element">
-            @if(arg.arg_default_value.length > 0){
-              {{arg.arg_default_value}}
-            }</td>
-          <td class="func-parameters-description">
-            @if(func.doc != null && getFuncArgDoc(func, arg) != null){
-              {{getFuncArgDoc(func, arg)}}
-            }
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div class="return-type-div" *ngIf="func.return_type != 'None' && func.return_type != null && getCleanType(func.return_type) != null">
-      {{'td.return_type' | translate}}:
-      <table>
-        <tr>
-          <td class="func-parameters-name func-parameters-element"><b><code>{{getCleanType(func.return_type)}}</code></b></td>
-        </tr>
-      </table>
-    </div>
+    <td-resource-doc-func-info [func]="func"></td-resource-doc-func-info>
   </div>
 </div>

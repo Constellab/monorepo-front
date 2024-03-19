@@ -8,7 +8,12 @@
     </a>
   </div>
   <div class="main-panel">
-    <h1 class="title">{{'bricks' | translate}}</h1>
+    <fl-text-icon>
+      <mat-icon class="g-icon-huge">
+        <img src="assets/fl-logo/bricks_logo.svg"/>
+      </mat-icon>
+      <h1 class="title">{{'bricks' | translate}}</h1>
+    </fl-text-icon>
     <div class="bricks-list">
       <a class="brick" *ngFor="let b of bricks; let i" [routerLink]="getBrickRoute(b)">
         <div class="brick-logo" [style.background-image]="
@@ -17,8 +22,10 @@
              [style.background-size]="b.imageLink ? '70%' : '100%'"></div>
         <div class="brick-info">
           <div class="brick-name-line">
-            <span>{{b.name}} <mat-icon *ngIf="b.visibility === 'private'" class="g-icon-small">lock</mat-icon></span>
-
+            <span>{{b.name}}</span>
+            <button mat-stroked-button [color]="b.visibility == 'public' ? 'accent' : 'warn'">
+              {{b.visibility == 'public' ? ('public' | translate) : b.space?.name}}
+            </button>
           </div>
           <div class="brick-description small-text" flHide.lt-sm>
             {{b.description.substring(0, 100) + (b.description.length > 100 ? '...' : '')}}

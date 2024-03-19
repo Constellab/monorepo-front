@@ -1,48 +1,56 @@
-<div class="main-div-v2">
-  <div class="spacer-v2"></div>
-  <div class="res-research-div">
-    <h2 class="h2-v2 spacing-8-v2">{{'research_results' | translate}} : </h2>
-    <button class="spacing-8-v2" mat-flat-button type="button" *haIsAuthenticated (click)="openCreateLiveTaskDialog()">
+<div class="left-panel" *haIsAuthenticated>
+  <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
+
+  <button mat-flat-button type="button" class="bt first-bt" (click)="openCreateLiveTaskDialog()">
       <mat-icon>add_circle</mat-icon>
-      {{'create_live_task' | translate}}
+    {{ 'create_live_task' | translate }}
     </button>
+  <button mat-flat-button type="button" class="bt my-lt-bt" *haIsAuthenticated
+          (click)="selectSpace('my-live-tasks')" [class]="isSelected('my-live-tasks') ? 'bt-primary' : ''">
+    {{ 'my_stories' | translate }}
+  </button>
+
+  <p class="left-side-div-title">{{ 'visibility' | translate }} :</p>
+
+  <div class="left-panel-buttons-div">
+    <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent"
+                     class="space-list-option">
+      <fl-text-icon [iconPosition]="'end'">
+        {{ 'public' | translate }}
+        <mat-icon>public</mat-icon>
+      </fl-text-icon>
+    </mat-chip-option>
+    <ha-selectable-space-list *ngIf="user" [user]="user" (spaceSelectedEvent)="onSpace($event)">
+
+    </ha-selectable-space-list>
   </div>
 
-  <div class="main-grid-v2">
+</div>
 
-    <div class="main-left-side-v2 spacing-8-v2">
-      <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent" class="space-list-option">
-        {{'public' | translate}}
-      </mat-chip-option>
-      <ng-container *haIsAuthenticated>
-        <mat-chip-option [value]="isSelected('my-live-tasks')" (click)="selectSpace('my-live-tasks')" color="accent" class="space-list-option">
-          {{'my_live_tasks' | translate}}
-        </mat-chip-option>
-        <div class="spacer-tiny-v2"></div>
-        <ha-selectable-space-list *ngIf="user" [user]="user" (spaceSelectedEvent)="onSpace($event)">
-
-        </ha-selectable-space-list>
-      </ng-container>
-    </div>
-
-    <div class="main-right-side-v2 live-tasks-list-div" *ngIf="liveTasksPaginated"
-         (flInfiniteScroll)="liveTasksPaginated.getNextPage()" [flInfiniteDisabled]="liveTasksPaginated?.isLoading || liveTasksPaginated?.page?.last"
-         flInfiniteMode="auto">
-      <div class="search-bar-title">
-        <!--        <form>-->
-        <form type="submit" (ngSubmit)="search($event)">
-          <mat-form-field class="search-bar">
+<div class="main-panel">
+  <div class="live-tasks-list-div" *ngIf="liveTasksPaginated"
+       (flInfiniteScroll)="liveTasksPaginated.getNextPage()"
+       [flInfiniteDisabled]="liveTasksPaginated?.isLoading || liveTasksPaginated?.page?.last"
+       flInfiniteMode="auto">
+    <fl-text-icon>
+      <mat-icon class="g-icon-huge">
+        <img src="assets/fl-logo/bricks_logo.svg"/>
+      </mat-icon>
+      <h1 class="title">{{'live_tasks' | translate}}</h1>
+    </fl-text-icon>
+    <div class="search-bar-title">
+      <form type="submit" (ngSubmit)="search($event)">
+        <mat-form-field class="search-bar">
           <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
-            <button mat-icon-button matSuffix aria-label="Clear" (click)="search($event)">
-              <mat-icon>search</mat-icon>
-            </button>
-          </mat-form-field>
-        </form>
-      </div>
-      <a class="live-task-result-card-div" *ngFor="let liveTask of liveTasksPaginated | flDatasourceConnect | async"
-         [routerLink]="liveTask.id">
-        <lt-live-task-list-item [liveTask]="liveTask"></lt-live-task-list-item>
-      </a>
+          <button mat-icon-button matSuffix aria-label="Clear" (click)="search($event)">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
     </div>
+    <a class="live-task-result-card-div" *ngFor="let liveTask of liveTasksPaginated | flDatasourceConnect | async"
+       [routerLink]="liveTask.id">
+      <lt-live-task-list-item [liveTask]="liveTask"></lt-live-task-list-item>
+    </a>
   </div>
 </div>

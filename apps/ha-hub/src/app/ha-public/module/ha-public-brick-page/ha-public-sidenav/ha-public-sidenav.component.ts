@@ -27,7 +27,8 @@ import {
   FlFormDialogInput,
   FlMenuDynamic,
   FlMenuDynamicService,
-  FlOverlayRef
+  FlOverlayRef,
+  FlPortalActionsService
 } from '@monorepo/front-core-lib';
 import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
 import {HaFolder} from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
@@ -156,7 +157,8 @@ export class HaPublicSidenavComponent implements OnInit {
     private changeDetectorRefs: ChangeDetectorRef,
     private authenticatedUserService: HaAuthenticatedUserService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState) {
+    private transferState: TransferState,
+    private portalActionsService: FlPortalActionsService) {
   }
 
   hasChild = (_: number, node: FlatNode): boolean => node.expandable;
@@ -334,12 +336,18 @@ export class HaPublicSidenavComponent implements OnInit {
       (res) => {
         if (res != null) {
           if (res[1] == HaNodeType.TEC) {
-            this.brickService.importTechnicalDocumentation({
-              brickName: this.brickName,
-              importFile: res[0]
-            }).subscribe(() => {
-              this.getTechnicalDocumentations();
-            });
+            this.portalActionsService.addAction({
+              action: this.brickService.importTechnicalDocumentation({
+                brickName: this.brickName,
+                importFile: res[0]
+              }),
+              text: 'updating_brick_tech_doc',
+              type: 'brick_tech_doc',
+            }).subscribe((res) => {
+              if (res) {
+                this.getTechnicalDocumentations();
+              }
+            })
           } else {
             this.getDocumentations();
           }
@@ -557,19 +565,6 @@ export class HaPublicSidenavComponent implements OnInit {
     if (!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
     const completePath: string = this.currentCompletePath.split('doc/')[1] + '/';
     return completePath == node.completePath;
-  }
-
-  isFolderNodeSelected(node: HaNode): boolean {
-    if (!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
-    const completePath: string = this.currentCompletePath.split('doc/')[1] + '/';
-    if (completePath.includes(node.completePath)) {
-      if (completePath.includes('technical-folder/'))
-        this.expandTechNode(node);
-      else
-        this.expandNode(node);
-      return true;
-    }
-    return false;
   }
 
   private expandNode(node: HaNode): void {

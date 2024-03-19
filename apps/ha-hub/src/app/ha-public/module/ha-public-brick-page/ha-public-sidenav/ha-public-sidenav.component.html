@@ -41,7 +41,7 @@
                      [cdkDragDisabled]="!(isCreatorOrBrickUser$ | async) || node.name == null" [cdkDragData]="node"
                      (mouseenter)="hoverId=node.id" (mouseleave)="hoverId=null"
                      class="sidenav-item small-text sidenav-item-with-icon g-drag-hide-placeholder icon-pointer"
-                     [ngClass]="isFolderNodeSelected(node) ? 'sidenav-item-selected' : ''"
+                     [ngClass]="currentCompletePath?.includes(node.completePath) ? 'sidenav-item-selected' : ''"
                      [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}" (click)="expansionModel.toggle(node)"
                      matTreeNodeToggle>
         <div *ngIf="node.id != null">
@@ -76,7 +76,7 @@
       </mat-tree-node>
 
       <mat-tree-node *matTreeNodeDef="let node;when: hasChild" class="sidenav-item sidenav-item-with-icon small-text icon-pointer"
-                     [ngClass]="isFolderNodeSelected(node) ? 'sidenav-item-selected' : ''"
+                     [ngClass]="currentCompletePath?.includes(node.completePath) ? 'sidenav-item-selected' : ''"
                      [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}" (click)="techExpansionModel.toggle(node)" matTreeNodeToggle>
         <div *ngIf="node.id != null">
           {{node.name}}

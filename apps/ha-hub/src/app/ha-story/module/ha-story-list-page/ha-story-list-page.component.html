@@ -36,7 +36,14 @@
   <div class="stories-div" *ngIf="stories"
        (flInfiniteScroll)="loadMoreResults()" [flInfiniteDisabled]="stories?.isLoading || stories?.page?.last"
        flInfiniteMode="auto">
-    <h1 class="title">{{'stories' | translate}}</h1>
+
+    <fl-text-icon>
+      <mat-icon class="g-icon-huge">
+        <img src="assets/fl-logo/stories-logo.svg"/>
+      </mat-icon>
+      <h1 class="title">{{ 'stories' | translate }}</h1>
+    </fl-text-icon>
+
     <div class="search-bar-title">
       <mat-form-field class="search-bar">
         <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">

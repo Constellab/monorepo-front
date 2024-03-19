@@ -62,7 +62,7 @@ import {teVariableTagName} from './model/te-variable.class';
     TeTitleCaptionComponent,
     TeRichTextIsEmptyPipe,
     TeTextEditorBrowserSideComponent,
-    TeTextEditorServerSideComponent
+    TeTextEditorServerSideComponent,
   ],
   imports: [
     CommonModule,

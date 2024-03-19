@@ -1,9 +1,10 @@
 .first-bt{
-  margin-top: 49px;
+  margin-top: 61px;
 }
 
 .title{
   margin-top: 16px;
+  margin-bottom: 12px;
 }
 
 .bricks-list {
@@ -22,6 +23,12 @@
   border-radius: 10px;
   display: flex;
   flex-direction: row;
+}
+
+.brick-name-line{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 @media (max-width: 450px) {

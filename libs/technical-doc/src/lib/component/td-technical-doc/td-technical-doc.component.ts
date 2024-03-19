@@ -8,6 +8,5 @@ import {TdTypeEntity} from '../../model/td-type.class';
 })
 export class TdTechnicalDocComponent {
 
-  @Input() technicalDoc: TdTypeEntity;
-
+  @Input({required: true}) technicalDoc: TdTypeEntity;
 }

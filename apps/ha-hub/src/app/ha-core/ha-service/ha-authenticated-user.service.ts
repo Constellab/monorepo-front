@@ -4,7 +4,7 @@ import {
   flAuthExpiredCookie,
   FlCleanableService,
   FlCleanerService,
-  FlTranslateService
+  FlTranslateService, REQUEST
 } from '@monorepo/front-core-lib';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HaUser, HaUserCategory} from '../ha-model/ha-entities/ha-user';
@@ -15,8 +15,6 @@ import {HaBrick} from '../ha-model/ha-entities/ha-brick.class';
 import {isPlatformServer} from '@angular/common';
 import {Request} from 'express';
 
-// Define the `Request` token
-export const REQUEST = new InjectionToken<Request>('REQUEST');
 
 @Injectable({
   providedIn: 'root'

@@ -2,6 +2,8 @@ import {HaEntity} from './ha-entity.class';
 import {HaReferenceDTO, HaRepoType} from './ha-version.class';
 import {HaBrickUser} from './ha-brick-user';
 import {ClVersion} from '@monorepo/core-lib';
+import {HaSpace} from './ha-space.class';
+import {Type} from 'class-transformer';
 
 export enum HaBrickVisibility {
   PRIVATE = 'private',
@@ -12,8 +14,6 @@ export class HaBrick extends HaEntity {
   name: string;
 
   description: string;
-
-  isCertified: boolean;
 
   gitRepo: string;
 
@@ -30,6 +30,9 @@ export class HaBrick extends HaEntity {
   credentialUsername?: string;
 
   credentialPassword?: string;
+
+  @Type(() => HaSpace)
+  space: HaSpace;
 }
 
 export class HaBrickCreationDTO {
@@ -46,19 +49,7 @@ export class HaBrickCreationDTO {
   subPatch?: number;
   technicalInfo?: Record<string, any>;
   references?: HaReferenceDTO[];
-
-  constructor(name: string, version: string, technicalInfo: Record<string, any>, references: HaReferenceDTO[]) {
-    this.name = name;
-    this.version = version;
-    this.technicalInfo = technicalInfo;
-    this.references = references;
-    this.description = '';
-    this.repoType = HaRepoType.PIP;
-    this.subPatch = 0;
-    this.repoGit = '';
-    this.repoPip = '';
-    this.visibility = HaBrickVisibility.PUBLIC;
-  }
+  space?: HaSpace;
 }
 
 
@@ -70,4 +61,5 @@ export class HaEditBrickDTO {
   visibility: HaBrickVisibility;
   credentialUsername?: string;
   credentialPassword?: string;
+  space?: HaSpace;
 }

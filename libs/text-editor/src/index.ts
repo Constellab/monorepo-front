@@ -14,6 +14,7 @@ export * from './lib/component/te-variable-form-dialog/te-variable-form-dialog.c
 export * from './lib/component/te-variable-inline/te-variable-inline.component';
 export * from './lib/component/te-video/te-video.component';
 
+
 // Model
 export * from './lib/model/te.helper';
 export * from './lib/model/te-block-factory.class';

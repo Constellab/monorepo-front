@@ -8,6 +8,7 @@ import {environment} from './src/environments/ha-environment';
 import {EnumChangefreq, SitemapItem, SitemapStream, streamToPromise} from 'sitemap';
 import axios from 'axios';
 import cookieParser from 'cookie-parser';
+import {REQUEST} from '@monorepo/front-core-lib';
 
 
 environment.settings = {
@@ -162,7 +163,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
           // provide the request object to the DI so it can be access in SSR
           // check if this is still useful with new hydrate method
           // TODO check if this is really useful once app built
-          {provide: 'REQUEST', useValue: req},
+          {provide: REQUEST, useValue: req},
         ],
       })
       .then((html) => res.send(html))
