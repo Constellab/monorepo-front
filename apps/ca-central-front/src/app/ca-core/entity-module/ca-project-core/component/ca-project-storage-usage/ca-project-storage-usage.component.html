@@ -1,0 +1,33 @@
+<fl-async-section [object]="storageUsage$">
+  <ng-container *flSectionBody="storageUsage$ as projectSize">
+    <div class="aggregation">
+      <fl-key-value>
+        <fl-key>
+          {{ 'total_size' | translate }}
+        </fl-key>
+        {{ projectSize.totalSize | flByteText }}
+      </fl-key-value>
+
+      <fl-key-value>
+        <fl-key>
+          {{ 'total_nb_of_documents' | translate }}
+        </fl-key>
+        {{ projectSize.totalDocuments }}
+      </fl-key-value>
+    </div>
+
+    <div class="details">{{ 'project_storage_details' | translate }}</div>
+    @for (key of projectSize.details | flObjectKeys; track key) {
+      <div class="g-text-small">
+        <fl-key-value>
+          <fl-key>
+            {{ ('project_size_' + key) | translate }}
+          </fl-key>
+          {{ projectSize.details[key].totalSize | flByteText }}
+          - {{ projectSize.details[key].totalDocuments }} {{ 'project_files' | translate }}
+        </fl-key-value>
+      </div>
+    }
+  </ng-container>
+</fl-async-section>
+

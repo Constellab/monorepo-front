@@ -11,7 +11,7 @@ import {
   CaSpaceFormDialogInput
 } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-form-dialog/ca-space-form-dialog.component';
 import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper';
-import {CaSpaceSettingsDto} from '../../../ca-core/model/entities/space/ca-space-form.class';
+import {CaSpaceSettingsDto} from '../../../ca-core/model/entities/space/ca-space.dto';
 
 /**
  * Portal to list the space of the user with possibility to switch between them

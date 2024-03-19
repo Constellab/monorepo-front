@@ -1,23 +1,21 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {ValidatorFn, Validators} from '@angular/forms';
+import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CaSaveSpaceDTO, CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space-form.class';
-import {
-  CaBucketLocationSelectMode
-} from '../../../ca-object-storage-core/component/ca-bucket-location-select-options/ca-bucket-location-select-options.component';
+import {CaCreateSpaceDTO, CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space.dto';
+import {CaSpaceStorageFormComponent} from '../ca-space-storage-form/ca-space-storage-form.component';
 
-export type CaSpaceFormDialogInput = FlFormDialogInput<CaSaveSpaceDTO>;
+export type CaSpaceFormDialogInput = FlFormDialogInput<CaCreateSpaceDTO>;
 
 @Component({
   selector: 'ca-space-form-dialog',
   templateUrl: './ca-space-form-dialog.component.html',
   styleUrls: ['./ca-space-form-dialog.component.scss']
 })
-export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<CaSaveSpaceDTO, CaSpaceSettingsDto>
+export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<CaCreateSpaceDTO, CaSpaceSettingsDto>
   implements OnInit {
 
   constructor(snackBarService: FlSnackBarService,
@@ -31,27 +29,19 @@ export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<Ca
     this.init();
   }
 
-  get title(): string {
-    return this.isCreateMode() ? 'create_space' : 'update_space';
-  }
-
-
-  buildForm(): FormGroup<CaSaveSpaceDTO> {
+  buildForm(): FormGroup<CaCreateSpaceDTO> {
     return new FormBuilder().group({
-      id: [null],
       name: [null, [Validators.required]],
-      defaultProjectStorageLocation: [null, [Validators.required]],
-      defaultProjectBackupStorageLocation: [null],
-      nbLicenses: [0, [Validators.required]],
-    }, {validator: this.differentProjectStorageValidator()});
+      defaultStorageLocations: CaSpaceStorageFormComponent.buildForm(),
+    });
   }
 
-  create(formValue: CaSaveSpaceDTO): Observable<CaSpaceSettingsDto> {
+  create(formValue: CaCreateSpaceDTO): Observable<CaSpaceSettingsDto> {
     return this.spaceService.create(formValue);
   }
 
-  update(formValue: CaSaveSpaceDTO): Observable<CaSpaceSettingsDto> {
-    return this.spaceService.update(formValue);
+  update(): Observable<CaSpaceSettingsDto> {
+    throw new Error('Method not implemented.');
   }
 
   getCreateSuccessMessage(): string {
@@ -59,25 +49,6 @@ export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<Ca
   }
 
   getUpdateSuccessMessage(): string {
-    return 'space_updated';
+    return '';
   }
-
-  private differentProjectStorageValidator(): ValidatorFn {
-    return (control: FormGroup<CaSaveSpaceDTO>): { [key: string]: any } => {
-      if (control.value.defaultProjectStorageLocation == null || control.value.defaultProjectBackupStorageLocation == null) return null;
-
-      if (control.value.defaultProjectStorageLocation.bucketId === control.value.defaultProjectBackupStorageLocation.bucketId) {
-        return {sameBackupStorage: true};
-      }
-      return null;
-    };
-  }
-
-  /**
-   * In create mode, we can only select cloud bucket because there is no lab in the new space.
-   */
-  getBucketLocationSelectMode(): CaBucketLocationSelectMode {
-    return this.isCreateMode() ? 'cloud' : 'all';
-  }
-
 }

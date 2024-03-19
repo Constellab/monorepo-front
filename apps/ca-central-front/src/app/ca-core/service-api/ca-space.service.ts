@@ -15,7 +15,14 @@ import {
   CaSpaceUserSearch,
   CaSpaceUserSearchFields
 } from '../entity-module/ca-space-core/model/ca-space-user-search.class';
-import {CaRequestNewLicensesDto, CaSaveSpaceDTO, CaSpaceSettingsDto} from '../model/entities/space/ca-space-form.class';
+import {
+  CaCreateSpaceDTO,
+  CaRequestNewLicensesDto,
+  CaSpaceSettingsDto,
+  CaSpaceStorage,
+  CaSpaceUpdateStorageLocationDTO
+} from '../model/entities/space/ca-space.dto';
+import {CaProjectStorageUsageDTO} from '../model/entities/project/ca-document.class';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +35,13 @@ export class CaSpaceService {
   }
 
 
-  create(object: CaSaveSpaceDTO): Observable<CaSpaceSettingsDto> {
+  create(object: CaCreateSpaceDTO): Observable<CaSpaceSettingsDto> {
     return this.apiService.post(this.route, object, CaSpaceSettingsDto);
   }
 
-  update(object: CaSaveSpaceDTO): Observable<CaSpaceSettingsDto> {
-    return this.apiService.put(this.route, object, CaSpaceSettingsDto);
+  public updateCurrentSpaceName(name: string): Observable<CaSpace> {
+    return this.apiService.put(`${this.route}/current-space/name/${name}`, null, CaSpace);
+
   }
 
   getById(id: string): Observable<CaSpace> {
@@ -95,6 +103,28 @@ export class CaSpaceService {
     return this.apiService.get(`${this.route}/search/name/${name}`, CaSpace, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
+  }
+
+  ////////////////////////////////// LICENSE //////////////////////////////////////
+  public updateNbLicenses(nbLicenses: number): Observable<CaSpaceSettingsDto> {
+    return this.apiService.put(`${this.route}/current-space/licenses/${nbLicenses}`, null, CaSpaceSettingsDto);
+  }
+
+  public requestNewLicenses(request: CaRequestNewLicensesDto): Observable<void> {
+    return this.apiService.post(`${this.route}/current-space/licenses/request-new-licenses`, request);
+  }
+
+  ////////////////////////////////// STORAGE //////////////////////////////////////
+  public updateCurrentSpaceStorageLocation(location: CaSpaceUpdateStorageLocationDTO): Observable<CaSpaceStorage> {
+    return this.apiService.put(`${this.route}/current-space/storage/location`, location, CaSpaceStorage);
+  }
+
+  public getCurrentSpaceStorage(): Observable<CaSpaceStorage> {
+    return this.apiService.get(`${this.route}/current-space/storage`, CaSpaceStorage);
+  }
+
+  public getCurrentSpaceStorageUsageDetail(): Observable<CaProjectStorageUsageDTO> {
+    return this.apiService.get(`${this.route}/current-space/storage/usage-detail`, CaProjectStorageUsageDTO);
   }
 
   ////////////////////////////////// USER //////////////////////////////////////
@@ -165,9 +195,6 @@ export class CaSpaceService {
 
 
   ////////////////////////////////// OTHERS //////////////////////////////////
-  public requestNewLicenses(spaceId: string, request: CaRequestNewLicensesDto): Observable<void> {
-    return this.apiService.post(`${this.route}/${spaceId}/request-new-licenses`, request);
-  }
 
   public generateAllUserPersonalSpace(): Observable<void> {
     return this.apiService.post(`${this.route}/generate-all-user-personal-space`, null);

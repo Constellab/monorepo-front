@@ -1,14 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CaSpace} from '../../../../ca-core/model/entities/space/ca-space.class';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlFormDialogInput
-} from '@monorepo/front-core-lib';
-import {
-  CaSpaceFormDialogComponent
-} from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-form-dialog/ca-space-form-dialog.component';
+import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
 import {CaSpaceService} from '../../../../ca-core/service-api/ca-space.service';
 import {CaRouterService} from '../../../../ca-core/service/ca-router.service';
 import {
@@ -18,7 +10,10 @@ import {
 import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-space.service';
 import {Observable} from 'rxjs';
 import {CaRequestNewLicensesComponent} from '../ca-request-new-licenses/ca-request-new-licenses.component';
-import {CaSaveSpaceDTO, CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-space-form.class';
+import {CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-space.dto';
+import {
+  CaSpaceLicenseFormDialogComponent
+} from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-license-form-dialog/ca-space-license-form-dialog.component';
 
 /**
  * Show all the information about a space
@@ -33,6 +28,7 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
   @Input() spaceSettings: CaSpaceSettingsDto;
 
   space$: Observable<CaSpace>;
+  isSpaceAdmin: boolean;
 
   constructor(private dialogService: FlDialogService,
               private spaceService: CaSpaceService,
@@ -42,6 +38,7 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.space$ = this.currentSpaceService.getCurrentSpace$();
+    this.isSpaceAdmin = this.currentSpaceService.isSpaceAdmin();
   }
 
   openUploadPhotoDialog(space: CaSpace): void {
@@ -60,21 +57,9 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
     }
   }
 
-  openUpdateDialog(space: CaSpace): void {
-    const data: FlFormDialogInput<CaSaveSpaceDTO> = {
-      mode: 'update',
-      object: {
-        id: space.id,
-        name: space.name,
-        defaultProjectStorageLocation: this.spaceSettings.defaultProjectStorageLocation,
-        defaultProjectBackupStorageLocation: this.spaceSettings.defaultBackupProjectStorageLocation,
-        nbLicenses: this.spaceSettings.nbLicenses
-      }
-    };
-
-    this.dialogService.openSmallDialog(CaSpaceFormDialogComponent, {data: data}).afterClosed().subscribe(
-      space => this.onUpdateClosed(space)
-    );
+  openUpdateLicense(nbOfLicenses: number): void {
+    this.dialogService.openSmallDialog(CaSpaceLicenseFormDialogComponent, {data: nbOfLicenses})
+      .afterClosed().subscribe((spaceSettingsDto: CaSpaceSettingsDto) => this.onUpdateClosed(spaceSettingsDto));
   }
 
   private onUpdateClosed(spaceSettingsDto?: CaSpaceSettingsDto): void {
@@ -105,8 +90,18 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
     }
   }
 
-  openRequestNewLicense(space: CaSpace): void {
-    this.dialogService.openMediumDialog(CaRequestNewLicensesComponent, {data: space.id});
+  openRequestNewLicense(): void {
+    this.dialogService.openMediumDialog(CaRequestNewLicensesComponent);
+  }
+
+  updateSpaceName(name: string): void {
+    this.spaceService.updateCurrentSpaceName(name).subscribe(
+      (space: CaSpace) => this.onUpdateSpaceNameSuccess(space)
+    );
+  }
+
+  private onUpdateSpaceNameSuccess(space: CaSpace): void {
+    this.currentSpaceService.setCurrentSpace(space);
   }
 
 }

@@ -10,12 +10,12 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class FlObjectKeysPipe implements PipeTransform {
 
-  transform(data: Record<string, unknown>): string[] {
+  transform<T extends string>(data: Record<T, unknown>): T[] {
     if (data == null) return [];
     if (data instanceof Array) {
       return data;
     }
-    return Object.keys(data);
+    return Object.keys(data) as T[];
   }
 
 }

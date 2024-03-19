@@ -17,7 +17,12 @@ import {CaUser} from '../model/entities/ca-user.class';
 import {CaProjectComment, CaProjectCommentDatasourcePaginated} from '../model/entities/ca-comment.class';
 import {CaProjectSearch, CaProjectSearchFields} from '../entity-module/ca-project-core/model/ca-project-search.class';
 import {CaBucketLocationDTO} from '../model/entities/ca-object-storage.class';
-import {CaConstellabDocument, CaDocument, CaDocumentDatasource} from '../model/entities/project/ca-document.class';
+import {
+  CaConstellabDocument,
+  CaDocument,
+  CaDocumentDatasource,
+  CaProjectStorageUsageDTO
+} from '../model/entities/project/ca-document.class';
 import {CaProjectUserConfig} from '../model/entities/project/ca-project-user.class';
 import {CaActivity} from '../model/entities/ca-activity.class';
 import {
@@ -30,7 +35,8 @@ import {
   FlApiService,
   FlArrayObs,
   FlEntityArrayObs,
-  FlEntityPaginatedDatasource, FlSearchConverter
+  FlEntityPaginatedDatasource,
+  FlSearchConverter
 } from '@monorepo/front-core-lib';
 import {CaTextEditorUploadedImage} from '../../ca-project/module/ca-text-editor/model/ca-text-editor-image.class';
 
@@ -289,6 +295,10 @@ export class CaProjectService {
   public findAccessibleProjectBucketLocation(page: number, size: number): Observable<ClPageI<CaBucketLocationDTO>> {
     return this.apiService.get(`${this.route}/storage/buckets`, CaBucketLocationDTO,
       {resultIsPaginated: true, page: page, pageSize: size});
+  }
+
+  public getProjectStorageSize(projectId: string): Observable<CaProjectStorageUsageDTO> {
+    return this.apiService.get(`${this.route}/${projectId}/storage/size`, CaProjectStorageUsageDTO);
   }
 
   /////////////////////////////// Project user ///////////////////////////////////////////
