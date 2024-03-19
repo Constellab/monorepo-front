@@ -40,9 +40,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
 
   public init(): void {
     if (this.hasAuthCookie()) {
-      console.log('AUTHUSER1')
       this.apiService.get(this.userRoute).subscribe((user: HaUser) => {
-        console.log('AUTHUSER2', user)
         this.translateService.changeAppLanguage(user.lang);
         this.userAuthenticated = user;
         this.userSubject.next(user);

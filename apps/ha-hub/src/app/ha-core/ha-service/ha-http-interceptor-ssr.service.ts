@@ -1,11 +1,10 @@
-import {Inject, Injectable, InjectionToken, Optional, PLATFORM_ID} from '@angular/core';
+import {Inject, Injectable, Optional, PLATFORM_ID} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {isPlatformServer} from '@angular/common';
 import {Request} from 'express';
+import {REQUEST} from '@monorepo/front-core-lib';
 
-// Define the `Request` token
-export const REQUEST = new InjectionToken<Request>('REQUEST');
 
 @Injectable()
 export class HaHttpInterceptorSsrService implements HttpInterceptor {
