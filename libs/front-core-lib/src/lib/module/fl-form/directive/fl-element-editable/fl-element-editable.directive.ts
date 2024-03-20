@@ -75,6 +75,10 @@ export class FlElementEditableDirective {
     if (event.key === FlKeyboardKey.ENTER && !this.flIgnoreEnterKey) {
       event.preventDefault();
       this.setNotEditable();
+    }else if(event.key === FlKeyboardKey.ESCAPE){
+      event.preventDefault();
+      this.elementRef.nativeElement.innerText = this.previousValue;
+      this.setNotEditable();
     }
   }
 
