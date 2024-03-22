@@ -1,0 +1,35 @@
+:host{
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-right: 2em;
+}
+
+h5{
+  font-size: 21.3px;
+  margin-block-start: 0;
+}
+
+.small-text {
+  font-size: 12px !important;
+}
+
+.lower-info-div{
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.user-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.date-info{
+  margin-left: 4px;
+  border-left: 1px solid var(--light-color);
+  padding-left: 4px;
+}

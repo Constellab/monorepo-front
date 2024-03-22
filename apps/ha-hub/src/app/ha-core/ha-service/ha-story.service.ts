@@ -4,7 +4,6 @@ import {
   HaCreateStoryDto,
   HaListStoryDto,
   HaStory,
-  HaStoryCategory,
   HaStoryDatasourcePaginated,
   HaStoryFilter
 } from '../ha-model/ha-entities/ha-story.class';
@@ -17,6 +16,7 @@ import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 import {RvResourceView} from '@monorepo/resource-view';
 import {HaUser} from '../ha-model/ha-entities/ha-user';
 import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
+import {CoStoryCategory} from '@monorepo/community-lib';
 
 
 @Injectable({
@@ -101,7 +101,7 @@ export class HaStoryService implements HaCoAuthorService{
    * @param category
    * return a story
    */
-  updateCategory(storyId: string, category: HaStoryCategory): Observable<HaStory> {
+  updateCategory(storyId: string, category: CoStoryCategory): Observable<HaStory> {
     return this.apiService.put(`${this.route}/${storyId}/category`, {category: category}, HaStory);
   }
 

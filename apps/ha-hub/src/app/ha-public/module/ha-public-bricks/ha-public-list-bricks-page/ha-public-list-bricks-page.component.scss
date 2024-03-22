@@ -2,51 +2,29 @@
   margin-top: 61px;
 }
 
+.search-bar-title{
+  width: 100%;
+}
+
+.search-bar{
+  width: 100%;
+}
+
 .title{
   margin-top: 16px;
   margin-bottom: 12px;
 }
 
-.bricks-list {
-  background-color: var(--card-background);
+.bricks-list{
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 8px;
-  border-radius: 18px;
-}
-
-.brick {
-  width: calc(50% - 20px);
-  padding: 8px;
-  background-color: var(--main-background);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .brick-name-line{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-@media (max-width: 450px) {
-  .bricks-list{
-    flex-direction: column;
-  }
-
-  .brick{
-    width: calc(100% - 20px);
-  }
-}
-
-.brick-logo{
-  width: 50px;
-  height: 50px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
 }
 
 .brick-info{

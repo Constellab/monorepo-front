@@ -25,7 +25,8 @@ import {
 import {TdTechnicalDocModule} from '@monorepo/technical-doc';
 import {RvResourceViewModule} from '@monorepo/resource-view';
 import {TeTextEditorModule} from '@monorepo/text-editor';
-import {LtLiveTaskModule} from '@monorepo/live-task';
+import {CoCommunityLibModule} from '@monorepo/community-lib';
+
 
 
 
@@ -59,7 +60,7 @@ import {LtLiveTaskModule} from '@monorepo/live-task';
     TdTechnicalDocModule,
     RvResourceViewModule,
     TeTextEditorModule,
-    LtLiveTaskModule
+    CoCommunityLibModule
   ]
 })
 export class HaCustomLibraryModule {

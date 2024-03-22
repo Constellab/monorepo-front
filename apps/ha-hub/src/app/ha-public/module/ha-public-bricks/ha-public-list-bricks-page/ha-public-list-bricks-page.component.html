@@ -8,33 +8,30 @@
     </a>
   </div>
   <div class="main-panel">
-    <fl-text-icon>
-      <mat-icon class="g-icon-huge">
-        <img src="assets/fl-logo/bricks_logo.svg"/>
-      </mat-icon>
-      <h1 class="title">{{'bricks' | translate}}</h1>
-    </fl-text-icon>
-    <div class="bricks-list">
-      <a class="brick" *ngFor="let b of bricks; let i" [routerLink]="getBrickRoute(b)">
-        <div class="brick-logo" [style.background-image]="
-              b.imageLink ? 'url(\''+ b.imageLink +'\')' :
-              'url(\'assets/fl-logo/logo.png\')'"
-             [style.background-size]="b.imageLink ? '70%' : '100%'"></div>
-        <div class="brick-info">
-          <div class="brick-name-line">
-            <span>{{b.name}}</span>
-            <button mat-stroked-button [color]="b.visibility == 'public' ? 'accent' : 'warn'">
-              {{b.visibility == 'public' ? ('public' | translate) : b.space?.name}}
+    <div class="stories-div" *ngIf="bricks"
+         (flInfiniteScroll)="loadMoreResults()" [flInfiniteDisabled]="bricks?.isLoading || bricks?.page?.last"
+         flInfiniteMode="auto">
+      <fl-text-icon>
+        <mat-icon class="g-icon-huge">
+          <img src="assets/fl-logo/bricks_logo.svg"/>
+        </mat-icon>
+        <h1 class="title">{{ 'bricks' | translate }}</h1>
+      </fl-text-icon>
+      <div class="search-bar-title">
+        <form type="submit" (ngSubmit)="search($event)">
+          <mat-form-field class="search-bar">
+            <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
+            <button mat-icon-button matSuffix aria-label="Clear" (click)="search($event)">
+              <mat-icon>search</mat-icon>
             </button>
-          </div>
-          <div class="brick-description small-text" flHide.lt-sm>
-            {{b.description.substring(0, 100) + (b.description.length > 100 ? '...' : '')}}
-          </div>
-          <div class="brick-version small-text">
-            {{b.lastVersion.toString()}}
-          </div>
-        </div>
-      </a>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="bricks-list">
+        <a *ngFor="let b of bricks | flDatasourceConnect  | async" [routerLink]="getBrickRoute(b)">
+          <co-brick-list-item [brick]="b"></co-brick-list-item>
+        </a>
+      </div>
     </div>
   </div>
 </div>

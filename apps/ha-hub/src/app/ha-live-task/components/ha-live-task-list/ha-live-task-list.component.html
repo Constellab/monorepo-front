@@ -50,7 +50,7 @@
     </div>
     <a class="live-task-result-card-div" *ngFor="let liveTask of liveTasksPaginated | flDatasourceConnect | async"
        [routerLink]="liveTask.id">
-      <lt-live-task-list-item [liveTask]="liveTask"></lt-live-task-list-item>
+      <co-live-task-list-item [liveTask]="liveTask" [backgroundColor]="'card'"></co-live-task-list-item>
     </a>
   </div>
 </div>

@@ -4,17 +4,11 @@ import {HaUser} from './ha-user';
 import {DateTime} from 'luxon';
 import {HaFile} from './ha-file';
 import {TeRichTextContent} from '@monorepo/text-editor';
+import {CoListStoryDto, CoStoryCategory} from '@monorepo/community-lib';
 
 export enum HaStoryStatus {
   DRAFT = 'DRAFT',
   PUBLISHED = 'PUBLISHED'
-}
-
-export enum HaStoryCategory {
-  DOCUMENTATION = 'DOCUMENTATION',
-  PRODUCT_DOCUMENTATION = 'PRODUCT_DOCUMENTATION',
-  USE_CASE = 'USE_CASE',
-  ARTICLE = 'ARTICLE'
 }
 
 export class HaStoryAuthor {
@@ -41,7 +35,7 @@ export class HaStory {
 
   createdAt: DateTime;
 
-  category: HaStoryCategory;
+  category: CoStoryCategory;
 
   publishedAt: DateTime;
 
@@ -52,6 +46,8 @@ export class HaStory {
   storyFiles: HaFile[];
 
   createdBy: HaUser;
+
+  likes: number;
 
   init(story: HaStory): void {
     Object.assign(this, story);
@@ -75,11 +71,11 @@ export class HaStory {
 export class HaCreateStoryDto {
   title: string;
 
-  category: HaStoryCategory;
+  category: CoStoryCategory;
 
 }
 
-export class HaListStoryDto {
+export class HaListStoryDto implements CoListStoryDto{
   id: string;
   title: string;
   firstParagraph: string;
@@ -87,28 +83,22 @@ export class HaListStoryDto {
   topics?: HaTopic[];
   createdAt: DateTime;
   createdBy: HaUser
-
-  category: HaStoryCategory;
-
-  storyAuthors: HaStoryAuthor[];
-
+  category: CoStoryCategory;
   publishedAt: DateTime;
   lastModifiedAt: DateTime;
+  likes: number;
 
   getTopics(): HaTopic[] {
     return this.topics.sort((a, b) => a.popularity - b.popularity);
   }
 
-  getAuthor(): HaUser {
-    return this.createdBy;
-  }
 }
 
 export class HaStoryDataSourceDataDto {
   id: string;
   title: string;
 
-  category: HaStoryCategory;
+  category: CoStoryCategory;
 
   status: HaStoryStatus;
   createdAt: DateTime;
@@ -151,5 +141,5 @@ export type HaMyStoriesDataSource = FlDatasourcePaginated<HaStoryDataSourceDataD
 export class HaStoryContentFormDTO implements FlEntity {
   id: string;
   contentEdition: TeRichTextContent;
-  category: HaStoryCategory;
+  category: CoStoryCategory;
 }

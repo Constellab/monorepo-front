@@ -50,9 +50,7 @@
             <div class="task-infos-div">
               <div class="task-type-div spacing-6-v2">
                 <div class="spacing-4-v2">{{'task_visibility' | translate}} :</div>
-                <button mat-stroked-button class="g-button-small" [color]="liveTask.space == null ? 'accent' : 'warn'">
-                  {{liveTask.space == null ? ('public' | translate) : liveTask.space.name}}
-                </button>
+                <co-visibility-badge [space]="liveTask.space"></co-visibility-badge>
               </div>
 <!--              TODO: Live task type-->
 <!--              <div class="task-type-div spacing-6-v2">-->

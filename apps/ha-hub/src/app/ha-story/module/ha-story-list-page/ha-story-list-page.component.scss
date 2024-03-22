@@ -48,14 +48,10 @@
   margin-bottom: 4px;
 }
 
-.story-image{
-  margin: 8px auto auto auto;
-  height: 168px;
-  width: 174px;
-  border-radius: 10px;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+.stories-list{
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 @media (max-width: 600px) {
@@ -74,7 +70,6 @@
   .story-image{
     height: 84px;
     width: 87px;
-    margin: 8px 8px 8px auto;
   }
 }
 

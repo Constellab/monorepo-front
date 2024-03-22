@@ -12,7 +12,7 @@ import {
   HaLiveTaskVersion,
   HaLiveTaskVersionFileInput
 } from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
-import {LtCreateLiveTaskFormData} from '@monorepo/live-task';
+import {CoCreateLiveTaskFormData} from '@monorepo/community-lib';
 
 export type HaCreateLiveTaskInput = FlFormDialogInput<HaCreateLiveTaskDto>;
 
@@ -93,7 +93,7 @@ export class HaLiveTaskCreateDialogComponent extends
     }
   }
 
-  onSubmitEvent(formValue: LtCreateLiveTaskFormData): void {
+  onSubmitEvent(formValue: CoCreateLiveTaskFormData): void {
     this.formGp.patchValue(formValue as HaCreateLiveTaskDto);
     this.submit();
   }

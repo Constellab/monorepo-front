@@ -4,13 +4,16 @@ import {HaBrickUser} from './ha-brick-user';
 import {ClVersion} from '@monorepo/core-lib';
 import {HaSpace} from './ha-space.class';
 import {Type} from 'class-transformer';
+import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
+import {CoBrick} from '@monorepo/community-lib';
+
 
 export enum HaBrickVisibility {
   PRIVATE = 'private',
   PUBLIC = 'public'
 }
 
-export class HaBrick extends HaEntity {
+export class HaBrick extends HaEntity implements CoBrick {
   name: string;
 
   description: string;
@@ -63,3 +66,5 @@ export class HaEditBrickDTO {
   credentialPassword?: string;
   space?: HaSpace;
 }
+
+export type HaBrickDatasourcePaginated = FlDatasourcePaginated<HaBrick>;

@@ -80,8 +80,8 @@ export class TeRichText {
   public static areSimilar(content1: TeRichTextContent, content2: TeRichTextContent): boolean {
     if (content1 == null && content2 == null) return true;
     if (content1 == null || content2 == null) return false;
-    if (content1.blocks.length !== content2.blocks.length) return false;
-    for (let i = 0; i < content1.blocks.length; i++) {
+    if (content1.blocks?.length !== content2.blocks?.length) return false;
+    for (let i = 0; i < content1.blocks?.length; i++) {
       if (content1.blocks[i].id !== content2.blocks[i].id) return false;
       if (content1.blocks[i].type !== content2.blocks[i].type) return false;
 

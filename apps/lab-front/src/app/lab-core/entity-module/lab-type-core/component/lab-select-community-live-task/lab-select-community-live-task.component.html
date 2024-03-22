@@ -30,8 +30,8 @@
          [flInfiniteDisabled]="liveTasksDatasource?.isLoading || liveTasksDatasource?.page?.last"
          flInfiniteMode="auto">
       <div *ngFor="let liveTask of liveTasksDatasource.connect() | async">
-        <lt-live-task-list-item [liveTask]="pythonLabLiveTaskToLtLiveTask(liveTask)" (click)="onLiveTaskClick(liveTask)"
-                                [backgroundColor]="'main'"></lt-live-task-list-item>
+        <co-live-task-list-item [liveTask]="pythonLabLiveTaskToCoLiveTask(liveTask)" (click)="onLiveTaskClick(liveTask)"
+                                [backgroundColor]="'main'"></co-live-task-list-item>
       </div>
     </div>
   </div>

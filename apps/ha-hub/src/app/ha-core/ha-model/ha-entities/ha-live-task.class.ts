@@ -3,7 +3,8 @@ import {HaSpace} from './ha-space.class';
 import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
 import {HaLiveTaskVersionFileInput} from './ha-live-task-version.class';
 import {TeRichTextContent} from '@monorepo/text-editor';
-import {LtCreateLiveTaskFormData, LtLiveTaskType} from '@monorepo/live-task';
+import {CoCreateLiveTaskFormData, CoLiveTaskType} from '@monorepo/community-lib';
+
 
 export class HaLiveTask extends HaEntity {
   title: string;
@@ -12,9 +13,9 @@ export class HaLiveTask extends HaEntity {
   latestPublishVersion: number;
 }
 
-export class HaCreateLiveTaskDto implements LtCreateLiveTaskFormData{
+export class HaCreateLiveTaskDto implements CoCreateLiveTaskFormData{
   title: string;
-  type: LtLiveTaskType;
+  type: CoLiveTaskType;
   space?: HaSpace;
   versionFile: HaLiveTaskVersionFileInput;
 }

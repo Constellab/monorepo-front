@@ -73,6 +73,19 @@ h5 {
   font-size: 9px;
 }
 
+.g-like-button:hover{
+  cursor: pointer;
+}
+
+.community-list-item-left-side{
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
+.community-list-item-right-side{
+  width: fit-content;
+}
 
 @media (max-width: 599px) {
   .g-page {

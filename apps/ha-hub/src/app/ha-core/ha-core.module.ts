@@ -14,7 +14,7 @@ import {CommonModule, NgClass} from '@angular/common';
   ],
   imports: [
     NgClass,
-    CommonModule
+    CommonModule,
   ]
 })
 export class HaCoreModule {

@@ -18,6 +18,7 @@ import {
   HaStoryResourceViewInputDialogComponent
 } from './module/ha-story-view/ha-story-resource-view-input-dialog/ha-story-resource-view-input-dialog.component';
 import {HaCoAuthorCoreModule} from '../ha-core/entity-module/ha-co-author-core/ha-co-author-core.module';
+import {HaUtilComponentCoreModule} from "../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
 
 @NgModule({
   declarations: [
@@ -30,17 +31,18 @@ import {HaCoAuthorCoreModule} from '../ha-core/entity-module/ha-co-author-core/h
     HaStoryContentViewComponent,
     HaStoryResourceViewInputDialogComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
 
-    HaStoryRoutingModule,
-    HaCoreModule,
-    FlInputFileModule,
-    MatTooltipModule,
+        HaStoryRoutingModule,
+        HaCoreModule,
+        FlInputFileModule,
+        MatTooltipModule,
 
-    HaCoAuthorCoreModule
-  ],
+        HaCoAuthorCoreModule,
+        HaUtilComponentCoreModule
+    ],
 })
 export class HaStoryModule {}

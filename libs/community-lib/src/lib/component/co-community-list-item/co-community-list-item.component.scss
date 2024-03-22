@@ -1,0 +1,36 @@
+:host{
+  height: fit-content;
+  width: inherit;
+}
+
+.community-list-item{
+  border-radius: 18px;
+  height: fit-content;
+  width: inherit;
+  display: flex;
+  padding: 16px;
+}
+
+.community-list-item-card-bg{
+  background-color: var(--card-background);
+}
+
+.community-list-item-main-bg{
+  background-color: var(--main-background);
+}
+
+.community-list-item-left-side{
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+}
+
+.community-list-item-right-side{
+  width: fit-content;
+}
+
+@media (max-width: 600px) {
+  :host {
+    min-height: 100px;
+  }
+}

@@ -6,7 +6,7 @@
     </fl-text-icon>
   </a>
 </div>
-@if (story && story.getAuthor() != null) {
+@if (story && story.createdBy != null) {
   <div class="story-pannel">
     <div class="story-content">
       <h3>
@@ -15,7 +15,7 @@
       <div class="author-div">
         <div>
           <p class="small-text user-date-info">
-            <fl-user-inline [user]="story.getAuthor()" [portalOnHover]="false"></fl-user-inline>
+            <fl-user-inline [user]="story.createdBy" [portalOnHover]="false"></fl-user-inline>
             <span class="g-text-small date-info">
           <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
         </span>
@@ -39,6 +39,18 @@
             </fl-text-icon>
           </a>
         }
+      </div>
+      <div class="story-sub-infos-div">
+        <div class="story-like-comment-infos-div">
+          <fl-text-icon>
+            @if (storyIsLiked){
+              <mat-icon fontSet="material-icons" class="g-like-button" (click)="unlikeStory()">thumb_up</mat-icon>
+            } @else {
+              <mat-icon class="g-like-button" (click)="likeStory()">thumb_up</mat-icon>
+            }
+            {{ story.likes }}
+          </fl-text-icon>
+        </div>
       </div>
       <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
                       class="g-scrollable-element border-none"></te-text-editor>

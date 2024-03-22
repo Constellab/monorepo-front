@@ -35,9 +35,7 @@
           </div>
           <div class="task-type-div spacing-6-v2">
             <div class="spacing-4-v2">{{ 'task_type' | translate }} :</div>
-            <button mat-stroked-button class="g-button-small" color="warn">
-              {{ liveTaskVersion.type }}
-            </button>
+            <div class="g-badge g-warn-background">{{liveTaskVersion.type}}</div>
           </div>
           <fl-async-section [object]="brickDependencies$" [emptyText]="''">
             <ng-container *flSectionBody="brickDependencies$ as brickDependencies">

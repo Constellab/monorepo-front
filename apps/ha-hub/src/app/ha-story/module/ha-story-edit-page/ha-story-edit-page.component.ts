@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {HaStory, HaStoryCategory, HaStoryContentFormDTO} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import {HaStory, HaStoryContentFormDTO} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {
@@ -26,6 +26,7 @@ import {
   HaCoAuthorDialogComponent,
   HaCreateStoryDtoInput
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
+import {CoStoryCategory} from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-story-edit-page',
@@ -59,7 +60,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   isAuthor: boolean;
 
-  storyCategories: string[] = Object.keys(HaStoryCategory);
+  storyCategories: string[] = Object.keys(CoStoryCategory);
 
   syncWithBack: boolean = false;
 
@@ -119,7 +120,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  onStoryCategoryChange(newCategory: HaStoryCategory): void {
+  onStoryCategoryChange(newCategory: CoStoryCategory): void {
     if(newCategory){
       this.storyService.updateCategory(this.story.id, newCategory).subscribe((story) => {
         this.story.category = story.category;
@@ -219,7 +220,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
-    if (TeRichText.getFirstFigureLink(this.formGp.get('contentEdition').value).length > 0 || this.story.mainPicture != null) {
+    if (TeRichText.getFirstFigureLink(this.formGp.get('contentEdition').value)?.length > 0 || this.story.mainPicture != null) {
       this.contentHasError = false;
       this.storyService.saveContent(this.story.id).subscribe((story) => {
         this.story = story;
@@ -369,7 +370,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       if(story == null) this.router.navigate(['/stories']);
       this.checkUserIsAuthorOrCoAuthor(story);
       this.story = story;
-      this.contentModified = !TeRichText.areSimilar(this.story.contentEdition, this.story.content);
+      this.contentModified = !TeRichText.areSimilar(this.story?.contentEdition, this.story?.content);
       this.syncWithBack = true;
       this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
       if (this.story.topics.length >= 5) this.topicControl.disable();

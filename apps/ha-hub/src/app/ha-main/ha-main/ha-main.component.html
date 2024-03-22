@@ -36,6 +36,10 @@
 
 
     <span class="span-initials">
+      <button mat-icon-button [style.color]="isDarkTheme ? 'white' : 'black'"
+              (click)="changeLanguage()" class="theme-button">
+        <mat-icon>language_french</mat-icon>
+      </button>
       <button mat-icon-button [style.color]="'white'"
               (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme" class="theme-button">
         <mat-icon>light_mode</mat-icon>

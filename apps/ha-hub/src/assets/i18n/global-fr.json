@@ -273,5 +273,6 @@
   "icon_from_material_are_allowed_text": "Les icônes Google Material sont également autorisées, veuillez retrouver les icônes compatibles ",
   "here": "ici",
   "technical_name_copied_to_clipboard": "Nom technique copié dans le presse-papier",
-  "icon_updated": "Icône mise à jour"
+  "icon_updated": "Icône mise à jour",
+  "language_changed": "Langue : {{lang}}"
 }

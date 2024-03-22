@@ -1,0 +1,26 @@
+{
+  "name": "community-lib",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/community-lib/src",
+  "prefix": "co",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/community-lib"],
+      "options": {
+        "jestConfig": "libs/community-lib/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/community-lib/src/**/*.ts",
+          "libs/community-lib/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["front"]
+}

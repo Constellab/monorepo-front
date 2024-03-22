@@ -15,7 +15,7 @@ import {HaPublicListBricksPageModule} from './module/ha-public-bricks/ha-public-
     HaPublicRoutingModule,
     HaPublicBrickPageModule,
     HaPublicListBricksPageModule,
-    HaCoreModule,
+    HaCoreModule
   ]
 })
 export class HaPublicModule {

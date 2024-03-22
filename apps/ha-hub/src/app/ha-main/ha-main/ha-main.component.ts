@@ -2,9 +2,8 @@ import {AfterContentInit, Component, Inject, OnInit, PLATFORM_ID} from '@angular
 import {Observable} from 'rxjs';
 import {HaUser} from '../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
-import {FlCookieService, FlDialogService, FlThemeService} from '@monorepo/front-core-lib';
+import {FlCookieService, FlSnackBarService, FlThemeService, FlTranslateService} from '@monorepo/front-core-lib';
 import {HaAuthService} from '../../ha-core/ha-service/ha-auth.service';
-import {HaApiServiceConfig} from '../../ha-core/ha-model/ha-config/ha-api-module.config';
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
 import {ActivatedRoute, UrlSegment} from '@angular/router';
 import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
@@ -39,6 +38,8 @@ export class HaMainComponent implements OnInit, AfterContentInit {
               private activatedRoute: ActivatedRoute,
               private themeService: FlThemeService,
               private cookieService: FlCookieService,
+              private translateService: FlTranslateService,
+              private snackBarService: FlSnackBarService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
@@ -97,6 +98,22 @@ export class HaMainComponent implements OnInit, AfterContentInit {
 
   isHome(): boolean {
     return this.currentUrlSegment.length === 0;
+  }
+
+  changeLanguage(): void {
+    const newLang = this.translateService.getUserLanguage() == ClSupportedLanguage.fr ?
+      ClSupportedLanguage.en : ClSupportedLanguage.fr;
+    this.translateService.changeAppLanguage(newLang);
+    this.snackBarService.openSuccessMessage(
+      {
+        text:'language_changed',
+        translateText: true,
+        translateParam: {
+          param: {
+            lang: newLang == ClSupportedLanguage.fr ? 'Français' : 'English'
+          }
+        }
+      });
   }
 
   selectTheme(theme: ClTheme): void {

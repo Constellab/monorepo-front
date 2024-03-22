@@ -6,7 +6,6 @@ import {
 } from '../ha-story-create-dialog/ha-story-create-dialog.component';
 import {
   HaStory,
-  HaStoryCategory,
   HaStoryDatasourcePaginated,
   HaStoryFilter
 } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
@@ -18,6 +17,7 @@ import {HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
 import {FormControl} from '@angular/forms';
+import {CoStoryCategory} from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-story-list-page',
@@ -33,16 +33,16 @@ export class HaStoryListPageComponent implements OnInit {
   filters: HaStoryFilter = new HaStoryFilter();
 
   categories: any[] = [{
-    cat: HaStoryCategory.ARTICLE,
+    cat: CoStoryCategory.ARTICLE,
     active: false
   }, {
-    cat: HaStoryCategory.DOCUMENTATION,
+    cat: CoStoryCategory.DOCUMENTATION,
     active: false
   }, {
-    cat: HaStoryCategory.PRODUCT_DOCUMENTATION,
+    cat: CoStoryCategory.PRODUCT_DOCUMENTATION,
     active: false
   }, {
-    cat: HaStoryCategory.USE_CASE,
+    cat: CoStoryCategory.USE_CASE,
     active: false
   }];
 
@@ -85,7 +85,10 @@ export class HaStoryListPageComponent implements OnInit {
     });
   }
 
-  getStoryImageLink(imageName: string): string {
+  getStoryImageLink(imageName?: string): string {
+    if (!imageName) {
+      return '';
+    }
     return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
   }
 

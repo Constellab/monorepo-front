@@ -4,8 +4,8 @@ import {LabProtocolService} from '../../../../entity-service/lab-protocol.servic
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {LtCreateLiveTaskFormData, LtSpace} from '@monorepo/live-task';
 import {LabCreateCommunityLiveTaskVersionResDto} from '../../../../model/entities/lab-live-task.entity';
+import {CoCreateLiveTaskFormData, CoSpace} from '@monorepo/community-lib';
 
 export enum LabCreateCommunityLiveTaskDialogMode {
   CREATE = 'CREATE',
@@ -26,8 +26,8 @@ export interface LabShareLiveTaskCommunityDialogData {
 export class LabCreateCommunityLiveTaskDialogComponent implements OnInit {
   title: string = 'biox.create_community_live_task';
   processId: string;
-  spaces$: Observable<LtSpace[]>;
-  formGp: FormGroup<LtCreateLiveTaskFormData>;
+  spaces$: Observable<CoSpace[]>;
+  formGp: FormGroup<CoCreateLiveTaskFormData>;
   mode: LabCreateCommunityLiveTaskDialogMode;
   liveTaskVersionId: string;
 
@@ -50,7 +50,7 @@ export class LabCreateCommunityLiveTaskDialogComponent implements OnInit {
     })
   }
 
-  submit(formData: LtCreateLiveTaskFormData): void {
+  submit(formData: CoCreateLiveTaskFormData): void {
     this.formGp.patchValue(formData);
     if (this.formGp.valid) {
       if (this.mode === LabCreateCommunityLiveTaskDialogMode.FORK) {

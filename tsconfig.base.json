@@ -32,7 +32,7 @@
       "@monorepo/spreadsheet": ["libs/spreadsheet/src/index.ts"],
       "@monorepo/technical-doc": ["libs/technical-doc/src/index.ts"],
       "@monorepo/text-editor": ["libs/text-editor/src/index.ts"],
-      "@monorepo/live-task": ["libs/live-task/src/index.ts"],
+      "@monorepo/community-lib": ["libs/community-lib/src/index.ts"],
     }
   },
   "exclude": ["node_modules", "tmp"]

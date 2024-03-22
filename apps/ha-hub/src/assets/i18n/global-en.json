@@ -273,5 +273,6 @@
   "icon_from_material_are_allowed_text": "Google material icons are also allowed, you can find them ",
   "here": "here",
   "technical_name_copied_to_clipboard": "Technical name copied to clipboard",
-  "icon_updated": "Icon updated"
+  "icon_updated": "Icon updated",
+  "language_changed": "Language : {{lang}}"
 }

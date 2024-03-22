@@ -1,14 +1,19 @@
 import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib';
+import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
-import {HaBrick, HaBrickCreationDTO, HaEditBrickDTO} from '../ha-model/ha-entities/ha-brick.class';
+import {
+  HaBrick,
+  HaBrickCreationDTO,
+  HaBrickDatasourcePaginated,
+  HaEditBrickDTO
+} from '../ha-model/ha-entities/ha-brick.class';
 import {HaNode} from '../ha-model/ha-entities/ha-node.class';
 import {HaDocumentation, HaDocumentationSearchDTO} from '../ha-model/ha-entities/ha-documentation.class';
 import {HaNewVersionDTO, HaReferenceDTO} from '../ha-model/ha-entities/ha-version.class';
 import {HaBrickVersion} from '../ha-model/ha-entities/ha-brick-version.class';
 import {TdTypeEntity} from '@monorepo/technical-doc';
 import {HaBrickUser} from '../ha-model/ha-entities/ha-brick-user';
-import {ClVersion} from '@monorepo/core-lib';
+import {ClPage, ClVersion} from '@monorepo/core-lib';
 import {HaBrickCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import {HaUser} from '../ha-model/ha-entities/ha-user';
@@ -49,11 +54,28 @@ export class HaBrickService implements HaCoAuthorService {
     return this.apiService.post(`${this.route}/doc/${brickName}/${version}`, {path: decodeURI(path)});
   }
 
-  /**
-   * Call http get
-   */
-  public get(): Observable<HaBrick[]> {
-    return this.apiService.get(this.route, HaBrick);
+  public getAllPaginated(): HaBrickDatasourcePaginated {
+    return new FlEntityPaginatedDatasource(
+      (page, size) => this.getAll(page, size), 10);
+  }
+
+
+  private getAll(page: number, size: number): Observable<ClPage<HaBrick>> {
+    return this.apiService.get(this.route, HaStory, {page: page, pageSize: size, resultIsPaginated: true});
+  }
+
+  public getAllWithFilters(spacesFilter: string[], titleFilter: string, page: number, size: number): Observable<ClPage<HaBrick>> {
+    return this.apiService.post(`${this.route}/filters`,
+      {spacesFilter: spacesFilter, titleFilter: titleFilter}, HaBrick, {
+        page: page,
+        pageSize: size,
+        resultIsPaginated: true
+      });
+  }
+
+  public getAllWithFiltersPaginated(spacesFilter: string[], titleFilter: string): HaBrickDatasourcePaginated {
+    return new FlEntityPaginatedDatasource(
+      (page, size) => this.getAllWithFilters(spacesFilter, titleFilter, page, size), 10);
   }
 
   /**

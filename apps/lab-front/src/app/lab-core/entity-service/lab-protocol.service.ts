@@ -18,7 +18,8 @@ import {LabNavigableEntityImpact} from '../model/entities/lab-navigable-entity.e
 import {LabProcess} from '../model/entities/process/lab-process.entity';
 import {ClPage} from '@monorepo/core-lib';
 import {LabCommunitySpace} from '../model/entities/lab-community-space.entity';
-import {LtCreateLiveTaskFormData} from '@monorepo/live-task';
+import {CoCreateLiveTaskFormData} from '@monorepo/community-lib';
+
 
 @Injectable({
   providedIn: 'root'
@@ -74,13 +75,13 @@ export class LabProtocolService {
 
 
   public createCommunityLiveTask(processId: string,
-                                 formData: LtCreateLiveTaskFormData): Observable<LabCreateCommunityLiveTaskVersionResDto>{
+                                 formData: CoCreateLiveTaskFormData): Observable<LabCreateCommunityLiveTaskVersionResDto>{
     return this.apiService.post(`${this.baseRoute}/${processId}/create-community-live-task`,
       formData, LabCreateCommunityLiveTaskVersionResDto);
   }
 
   public forkIntoNewCommunityLiveTask(processId: string,
-                                      formData: LtCreateLiveTaskFormData,
+                                      formData: CoCreateLiveTaskFormData,
                                       liveTaskVersionId: string): Observable<LabCreateCommunityLiveTaskVersionResDto>{
     return this.apiService.post(`${this.baseRoute}/${processId}/fork-community-live-task/${liveTaskVersionId}`,
       formData, LabCreateCommunityLiveTaskVersionResDto);

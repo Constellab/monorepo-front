@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LabLiveTask, LabLiveTaskDatasourcePaginated} from '../../../../model/entities/lab-live-task.entity';
 import {LabProtocolService} from '../../../../entity-service/lab-protocol.service';
-import {DateTime} from 'luxon';
 import {FormControl} from '@angular/forms';
 import {LabCommunitySpace} from '../../../../model/entities/lab-community-space.entity';
-import {LtLiveTask} from '@monorepo/live-task';
+import {CoLiveTask} from '@monorepo/community-lib';
 
 /**
  * Dialog containing the community live task search to select one
@@ -42,8 +41,8 @@ export class LabSelectCommunityLiveTaskComponent implements OnInit {
   }
 
 
-  pythonLabLiveTaskToLtLiveTask(liveTask: LabLiveTask): LtLiveTask {
-    return liveTask.toLtLiveTask();
+  pythonLabLiveTaskToCoLiveTask(liveTask: LabLiveTask): CoLiveTask {
+    return liveTask.toCoLiveTask();
   }
 
   search(): void {

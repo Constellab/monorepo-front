@@ -14,6 +14,7 @@ import {TeRichText} from '@monorepo/text-editor';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
+import {HaLikeStoryService} from '../../../ha-core/ha-service/ha-like-story.service';
 
 @Component({
   selector: 'ha-story-page',
@@ -40,12 +41,15 @@ export class HaStoryPageComponent implements OnInit {
 
   storyCoAuthors: HaUser[] = [];
 
+  storyIsLiked: boolean;
+
   constructor(private activatedRoute: ActivatedRoute,
               private storyService: HaStoryService,
               private metadataService: HaMetadataService,
               @Inject(PLATFORM_ID) private platformId: object,
               private transferState: TransferState,
-              private authenticatedUserService: HaAuthenticatedUserService) {
+              private authenticatedUserService: HaAuthenticatedUserService,
+              private likeStoryService: HaLikeStoryService) {
   }
 
   ngOnInit(): void {
@@ -54,6 +58,13 @@ export class HaStoryPageComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, params.id);
       this.getCurrentUserBeforeStory(params.id);
+      this.checkIfStoryIsLiked(params.id);
+    });
+  }
+
+  private checkIfStoryIsLiked(storyId: string): void {
+    this.likeStoryService.checkIfLiked(storyId).subscribe((isLiked) => {
+      this.storyIsLiked = isLiked;
     });
   }
 
@@ -116,5 +127,23 @@ export class HaStoryPageComponent implements OnInit {
 
   getFileIcon(filename: string): string {
     return HaFileHelper.getFileIcon(filename);
+  }
+
+  unlikeStory(): void {
+    this.likeStoryService.unlike(this.story.id).subscribe((story) => {
+      if (story != null) {
+        this.story = story;
+        this.storyIsLiked = false;
+      }
+    });
+  }
+
+  likeStory(): void {
+    this.likeStoryService.like(this.story.id).subscribe((story) => {
+      if (story != null) {
+        this.story = story;
+        this.storyIsLiked = true;
+      }
+    });
   }
 }

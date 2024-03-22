@@ -1,11 +1,11 @@
 import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import {HaBrick, HaBrickDatasourcePaginated} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
-import {ClVersion} from '@monorepo/core-lib';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -14,8 +14,10 @@ import {ClVersion} from '@monorepo/core-lib';
 })
 export class HaPublicListBricksPageComponent implements OnInit {
 
-  bricks: HaBrick[];
+  bricks: HaBrickDatasourcePaginated;
   BRICKS_KEY: StateKey<object>;
+  spaceIdFilter: string[] = [];
+  titleFormControl: FormControl<string> = new FormControl('');
 
   constructor(private haBrickService: HaBrickService,
               @Inject(PLATFORM_ID) private platformId: object,
@@ -28,30 +30,31 @@ export class HaPublicListBricksPageComponent implements OnInit {
     this.metadataService.addMetaTag('description', 'ha.bricks.description');
     this.BRICKS_KEY = makeStateKey('bricks');
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICKS_KEY)) {
-      this.bricks = this.transferState.get(this.BRICKS_KEY, null) as HaBrick[];
+      this.bricks = this.transferState.get(this.BRICKS_KEY, null) as HaBrickDatasourcePaginated;
       this.transferState.remove(this.BRICKS_KEY);
-      for (const b of this.bricks) {
-        b.lastVersion = new ClVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);
-      }
     }
 
-    this.setupBricks();
+    this.updateBricks();
   }
 
-  private setupBricks(): void {
-    this.haBrickService.get().subscribe((bricks: HaBrick[]) => {
-      for (const b of bricks) {
-        b.lastVersion = new ClVersion(b.lastVersion.major, b.lastVersion.minor, b.lastVersion.patch, b.lastVersion.subPatch);
-      }
-      this.bricks = bricks;
-      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICKS_KEY)) {
-        this.transferState.set(this.BRICKS_KEY, this.bricks);
-      }
-    });
+  loadMoreResults(): void {
+    this.bricks.getNextPage();
   }
 
   getBrickRoute(brick: HaBrick): string {
     return HaRouterService.getBrickPageRoute(brick.name);
   }
 
+  search(event): void {
+    event.preventDefault();
+    this.updateBricks();
+  }
+
+  updateBricks(): void {
+
+    this.bricks = this.haBrickService.getAllWithFiltersPaginated(this.spaceIdFilter, this.titleFormControl.value);
+    if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICKS_KEY)) {
+      this.transferState.set(this.BRICKS_KEY, this.bricks);
+    }
+  }
 }

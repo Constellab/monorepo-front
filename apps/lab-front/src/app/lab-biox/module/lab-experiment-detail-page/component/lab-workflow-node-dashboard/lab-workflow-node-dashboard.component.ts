@@ -32,7 +32,9 @@ import {LabCommunityHelper} from '../../../../../lab-core/utils/lab-community.he
 import {
   LabShareLiveTaskCommunityDialogComponent
 } from '../../../../../lab-core/entity-module/lab-type-core/component/lab-share-live-task-community-dialog/lab-share-live-task-community-dialog.component';
-import {LtLiveTaskHelper} from '../../../../../../../../../libs/live-task/src/lib/helper/lt-live-task.helper';
+import {CoLiveTaskHelper} from '@monorepo/community-lib';
+
+
 
 /**
  * Complete dashboard to edit, view and run a workflow node
@@ -58,7 +60,7 @@ export class LabWorkflowNodeDashboardComponent {
   );
 
   isLiveTask$ = this.nodeState.getProcess$().pipe(
-    map(process => LtLiveTaskHelper.isLiveTask(process.processTypingName))
+    map(process => CoLiveTaskHelper.isLiveTask(process.processTypingName))
   );
 
   constructor(private nodeState: LabWorkflowNodeDetailState,
