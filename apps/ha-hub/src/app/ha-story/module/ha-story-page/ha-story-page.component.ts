@@ -1,5 +1,5 @@
 import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
 import {HaStory} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import {HaStoryTextEditorConfig} from '../ha-story-edit-page/ha-story-text-editor.config';
@@ -15,6 +15,7 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
 import {HaLikeStoryService} from '../../../ha-core/ha-service/ha-like-story.service';
+import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
 
 @Component({
   selector: 'ha-story-page',
@@ -49,7 +50,9 @@ export class HaStoryPageComponent implements OnInit {
               @Inject(PLATFORM_ID) private platformId: object,
               private transferState: TransferState,
               private authenticatedUserService: HaAuthenticatedUserService,
-              private likeStoryService: HaLikeStoryService) {
+              private authService: HaAuthService,
+              private likeStoryService: HaLikeStoryService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -139,6 +142,11 @@ export class HaStoryPageComponent implements OnInit {
   }
 
   likeStory(): void {
+    if (!this.authService.hasAuthorizationCookie()){
+      // navigate to login page
+      this.router.navigate(['/login'])
+      return;
+    }
     this.likeStoryService.like(this.story.id).subscribe((story) => {
       if (story != null) {
         this.story = story;

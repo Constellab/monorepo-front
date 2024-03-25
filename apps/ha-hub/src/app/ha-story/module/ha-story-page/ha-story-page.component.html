@@ -44,7 +44,7 @@
         <div class="story-like-comment-infos-div">
           <fl-text-icon>
             @if (storyIsLiked){
-              <mat-icon fontSet="material-icons" class="g-like-button" (click)="unlikeStory()">thumb_up</mat-icon>
+              <mat-icon fontSet="material-icons" class="g-like-button" *haIsAuthenticated (click)="unlikeStory()">thumb_up</mat-icon>
             } @else {
               <mat-icon class="g-like-button" (click)="likeStory()">thumb_up</mat-icon>
             }
