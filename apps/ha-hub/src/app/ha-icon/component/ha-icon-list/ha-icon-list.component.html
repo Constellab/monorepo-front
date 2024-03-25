@@ -22,4 +22,10 @@
       </div>
   </div>
 
+
+
 </div>
+
+<button mat-flat-button color="primary" class="load-more-icons-button" (click)="loadMoreResults()" *ngIf="!icons.isLoading && !icons?.page?.last">
+  {{'load_more_icons' | translate}}
+</button>

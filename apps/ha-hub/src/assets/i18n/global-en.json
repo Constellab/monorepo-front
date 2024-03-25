@@ -274,5 +274,6 @@
   "here": "here",
   "technical_name_copied_to_clipboard": "Technical name copied to clipboard",
   "icon_updated": "Icon updated",
-  "language_changed": "Language : {{lang}}"
+  "language_changed": "Language : {{lang}}",
+  "load_more_icons": "Load more icons"
 }

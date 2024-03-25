@@ -1,9 +1,17 @@
+:host{
+  display: flex;
+  flex-direction: column;
+}
+
 .icons-list-div{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-content: baseline;
   gap: 1em;
   justify-content: center;
+  height: fit-content;
+  overflow-y: auto;
 }
 
 .icons-search-bar-div{
@@ -46,4 +54,8 @@
 
 .icon-name{
   font-size: small;
+}
+
+.load-more-icons-button{
+  margin: 0 auto;
 }

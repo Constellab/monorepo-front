@@ -16,12 +16,12 @@ export class HaIconService {
 
   public getAllPaginated(): HaIconDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAll(page, size), 10);
+      (page, size) => this.getAll(page, size), 20);
   }
 
   public getAllPaginatedFiltered(subNameFilter: string): HaIconDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAllByFilter(subNameFilter, page, size), 10);
+      (page, size) => this.getAllByFilter(subNameFilter, page, size), 20);
   }
 
   private getAll(page: number, size: number): Observable<ClPage<HaIcon>> {

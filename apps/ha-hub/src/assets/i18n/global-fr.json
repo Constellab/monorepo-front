@@ -274,5 +274,6 @@
   "here": "ici",
   "technical_name_copied_to_clipboard": "Nom technique copié dans le presse-papier",
   "icon_updated": "Icône mise à jour",
-  "language_changed": "Langue : {{lang}}"
+  "language_changed": "Langue : {{lang}}",
+  "load_more_icons": "Charger plus d'icônes"
 }
