@@ -11,6 +11,10 @@
   padding: 16px;
 }
 
+.community-list-item:hover{
+  cursor: pointer;
+}
+
 .community-list-item-card-bg{
   background-color: var(--card-background);
 }

@@ -1,38 +1,3 @@
-<!--<div class="live-task-card" #mainCard>-->
-<!--  <div class="card-left-info">-->
-<!--    <h2 class="h2-v2 spacing-5-v2">{{ liveTask.title }}</h2>-->
-<!--    <p class="small-text user-date-info">-->
-<!--      <fl-user-inline [user]="liveTask.createdBy" [portalOnHover]="false"></fl-user-inline>-->
-<!--      <span class="g-text-small date-info">-->
-<!--          <fl-from-now [date]="liveTask.lastModifiedAt"></fl-from-now>-->
-<!--      </span>-->
-<!--    </p>-->
-<!--    <p class="lt-description g-text-small">-->
-<!--      {{ description }}-->
-<!--  </div>-->
-<!--  <div class="live-task-card-inner">-->
-<!--    <div>-->
-<!--      <p class="spacing-3-v2">{{ 'coCommunityLib.version' | translate }} :</p>-->
-<!--      <p class="spacing-4-v2" *ngIf="liveTask.latestPublishVersion; else notPublishedYetDiv"><b>{{ 'coCommunityLib.version' | translate }} {{ liveTask.latestPublishVersion }}</b></p>-->
-<!--      <div class="lt-infos-div">-->
-<!--        <div>-->
-<!--          <p class="spacing-3-v2">{{ 'coCommunityLib.task_visibility' | translate }} :</p>-->
-<!--          @if(!liveTask.space){-->
-<!--            <div class="visibility-badge g-accent-background">-->
-<!--              {{'public' | translate}}-->
-<!--            </div>-->
-<!--          } @else {-->
-<!--            <div class="visibility-badge g-warn-background">-->
-<!--              {{liveTask.space.name}}-->
-<!--            </div>-->
-<!--          }-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
 <co-community-list-item
   [title]="liveTask.title"
   [description]="description"
@@ -46,15 +11,7 @@
       <div class="lt-infos-div">
         <div>
           <p class="spacing-3-v2">{{ 'coCommunityLib.task_visibility' | translate }} :</p>
-          @if(!liveTask.space){
-            <div class="visibility-badge g-accent-background">
-              {{'public' | translate}}
-            </div>
-          } @else {
-            <div class="visibility-badge g-warn-background">
-              {{liveTask.space.name}}
-            </div>
-          }
+          <co-visibility-badge [space]="liveTask?.space"></co-visibility-badge>
         </div>
       </div>
     </div>
