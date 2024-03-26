@@ -16,7 +16,7 @@ import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
 import {HaLikeStoryService} from '../../../ha-core/ha-service/ha-like-story.service';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
-import {FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
+import {FlPortalService} from '@monorepo/front-core-lib';
 import {CoCommentsPortalComponent, CoCommentsPortalConfig, CoCommentsPortalData} from '@monorepo/community-lib';
 import {HaCommentStoryService} from '../../../ha-core/ha-service/ha-comment-story.service';
 

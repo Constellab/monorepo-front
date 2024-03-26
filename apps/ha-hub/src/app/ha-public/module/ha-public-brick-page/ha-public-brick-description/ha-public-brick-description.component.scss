@@ -53,9 +53,18 @@
   width: 32px;
 }
 
-.title-div > .edit-brick-button{
+.brick-like-edit-button{
+  display: flex;
+  flex-direction: row;
+  gap: 1.75em;
   margin-left: auto;
-  margin-right: 11px;
+}
+
+.brick-like{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }
 
 .check-icon{

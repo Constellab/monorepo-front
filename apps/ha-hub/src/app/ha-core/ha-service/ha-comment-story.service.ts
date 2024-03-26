@@ -1,5 +1,5 @@
 import {FlApiService, FlDatasourcePaginated, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {CoAbstractComment, CoCommentService} from '@monorepo/community-lib';
+import {CoCommentService} from '@monorepo/community-lib';
 import {Observable} from 'rxjs';
 import {ClPage} from '@monorepo/core-lib';
 import {Injectable} from '@angular/core';

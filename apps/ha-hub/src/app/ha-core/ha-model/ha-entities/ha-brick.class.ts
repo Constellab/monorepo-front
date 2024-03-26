@@ -36,6 +36,10 @@ export class HaBrick extends HaEntity implements CoBrick {
 
   @Type(() => HaSpace)
   space: HaSpace;
+
+  likes: number;
+
+  comments: number;
 }
 
 export class HaBrickCreationDTO {

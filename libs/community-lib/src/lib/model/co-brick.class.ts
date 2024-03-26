@@ -16,4 +16,8 @@ export interface CoBrick {
   space: CoSpace;
 
   imageLink?: string;
+
+  likes: number;
+
+  comments: number;
 }

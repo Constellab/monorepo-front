@@ -74,6 +74,27 @@
   gap: 8px;
 }
 
+.create-like-comment-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.live-task-like-comment-infos-div{
+  display: flex;
+  flex-direction: row;
+  gap: 1.75em;
+  margin-left: auto;
+}
+
+.live-task-like-comment{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
 @media (max-width: 672px){
   .live-task-info-card{
     width: 295px;

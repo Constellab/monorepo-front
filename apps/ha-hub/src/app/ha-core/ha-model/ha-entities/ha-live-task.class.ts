@@ -11,6 +11,8 @@ export class HaLiveTask extends HaEntity {
   description?: TeRichTextContent;
   space?: any;
   latestPublishVersion: number;
+  likes: number;
+  comments: number;
 }
 
 export class HaCreateLiveTaskDto implements CoCreateLiveTaskFormData{

@@ -13,6 +13,8 @@ import {Observable} from 'rxjs';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {ClVersion} from '@monorepo/core-lib';
+import {HaLikeBrickService} from '../../../../ha-core/ha-service/ha-like-brick.service';
+import {HaAuthService} from '../../../../ha-core/ha-service/ha-auth.service';
 
 @Component({
   selector: 'ha-public-brick-description-page',
@@ -30,6 +32,8 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   BRICK_DESCRIPTION_VERSION_KEY: StateKey<object>;
   BRICK_DESCRIPTION_KEY: StateKey<object>;
 
+  brickIsLiked = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -39,7 +43,9 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     private authUserService: HaAuthenticatedUserService,
     @Inject(PLATFORM_ID) private platformId: object,
     private transferState: TransferState,
-    private metadataService: HaMetadataService) {
+    private metadataService: HaMetadataService,
+    private authService: HaAuthService,
+    private likeBrickService: HaLikeBrickService) {
 
   }
 
@@ -74,6 +80,9 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
 
   private onBrick(brick: HaBrick): void {
     this.brick = brick;
+    this.likeBrickService.checkIfLiked(brick.id).subscribe((isLiked) => {
+      this.brickIsLiked = isLiked;
+    });
     this.metadataService.setPageTitle('ha.brick.title', true, {title: brick.name});
     this.metadataService.addMetaTag('description', 'ha.brick.description', true, {description: brick.name});
   }
@@ -132,5 +141,36 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
         }
       }
     );
+  }
+
+  toggleLikeBrickButton(): void{
+    if(this.brickIsLiked){
+      this.unlikeBrick();
+    } else {
+      this.likeBrick();
+    }
+  }
+
+  private unlikeBrick(): void {
+    this.likeBrickService.unlike(this.brick.id).subscribe((brick) => {
+      if (brick != null) {
+        this.brick = brick;
+        this.brickIsLiked = false;
+      }
+    });
+  }
+
+  private likeBrick(): void {
+    if (!this.authService.hasAuthorizationCookie()){
+      // navigate to login page
+      this.router.navigate(['/login'])
+      return;
+    }
+    this.likeBrickService.like(this.brick.id).subscribe((brick) => {
+      if (brick != null) {
+        this.brick = brick;
+        this.brickIsLiked = true;
+      }
+    });
   }
 }

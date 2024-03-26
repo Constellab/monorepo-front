@@ -16,9 +16,34 @@
           </div>
         </a>
 
-        <div class="spacing-5-v2" *ngIf="liveTask.createdBy">
-          <div>{{'created_by' | translate}} :</div>
-          <fl-user-inline [user]="liveTask.createdBy" [showName]="true" [portalOnHover]="false"></fl-user-inline>
+        <div class="spacing-5-v2 create-like-comment-div" *ngIf="liveTask">
+          <div *ngIf="liveTask.createdBy">
+            <div>{{'created_by' | translate}} :</div>
+            <fl-user-inline [user]="liveTask.createdBy" [showName]="true" [portalOnHover]="false"></fl-user-inline>
+          </div>
+          <div>
+            <div class="live-task-like-comment-infos-div">
+              <div class="live-task-like-comment">
+                <button mat-icon-button (click)="toggleLikeLiveTaskButton()">
+                  @if (liveTaskIsLiked){
+                    <mat-icon fontSet="material-icons" class="g-like-button" *haIsAuthenticated>thumb_up</mat-icon>
+                  } @else {
+                    <mat-icon class="g-cursor-hover">thumb_up</mat-icon>
+                  }
+                </button>
+
+                {{ liveTask.likes }}
+              </div>
+              <div class="live-task-like-comment">
+                <button mat-icon-button (click)="openCommentsPannel()">
+                  <mat-icon>comment</mat-icon>
+                </button>
+                {{ liveTask.comments }}
+              </div>
+            </div>
+          </div>
+
+
         </div>
         <div class="live-task-dates-div date-info-div">
           <div class="live-task-date-div">

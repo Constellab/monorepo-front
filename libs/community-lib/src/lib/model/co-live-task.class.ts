@@ -12,6 +12,8 @@ export class CoLiveTask {
   createdBy?: FlUser;
   createdAt?: DateTime;
   lastModifiedAt?: DateTime;
+  likes: number;
+  comments: number;
 }
 
 export enum CoLiveTaskType {

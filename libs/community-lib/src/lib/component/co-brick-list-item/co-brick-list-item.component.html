@@ -2,10 +2,14 @@
   [title]="brick.name"
   [description]="brick.description"
   [user]="brick.createdBy"
-  [date]="brick.createdAt">
+  [date]="brick.createdAt"
+  [likes]="brick.likes">
+<!--  [comments]="brick.comments">-->
   <co-visibility-badge leftSide [space]="brick.space"></co-visibility-badge>
-  <div rightSide class="brick-logo" [style.background-image]="
+  <div rightSide class="brick-right-side">
+    <div class="brick-logo" [style.background-image]="
                             brick.imageLink ? 'url(\''+ brick.imageLink +'\')' :
                             'url(\'assets/fl-logo/logo.png\')'"
-       [style.background-size]="brick.imageLink ? '70%' : '100%'"></div>
+         [style.background-size]="brick.imageLink ? '70%' : '100%'"></div>
+  </div>
 </co-community-list-item>
