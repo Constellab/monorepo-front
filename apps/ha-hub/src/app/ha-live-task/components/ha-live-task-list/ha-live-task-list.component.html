@@ -7,7 +7,7 @@
     </button>
   <button mat-flat-button type="button" class="bt my-lt-bt" *haIsAuthenticated
           (click)="selectSpace('my-live-tasks')" [class]="isSelected('my-live-tasks') ? 'bt-primary' : ''">
-    {{ 'my_stories' | translate }}
+    {{ 'my_live_tasks' | translate }}
   </button>
 
   <p class="left-side-div-title">{{ 'visibility' | translate }} :</p>
@@ -21,7 +21,6 @@
       </fl-text-icon>
     </mat-chip-option>
     <ha-selectable-space-list *ngIf="user" [user]="user" (spaceSelectedEvent)="onSpace($event)">
-
     </ha-selectable-space-list>
   </div>
 

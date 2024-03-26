@@ -1,0 +1,51 @@
+:host{
+  height: inherit;
+  width: 100%;
+  background-color: var(--main-background);
+}
+
+.comments-portal-div{
+  padding: 1em 2em;
+  height: inherit;
+  overflow-y: auto;
+}
+
+.comments-portal{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.comment-write-card{
+  padding: 0.5em 0;
+  margin: 0.25em;
+}
+
+.comment-write-card-content{
+  margin: 0.5em 0;
+}
+
+.send-comment-bt{
+  margin-left: auto;
+}
+
+.text-editor{
+  height: fit-content;
+  min-height: 5em !important;
+}
+
+.comment-write-card-footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding: 0 16px;
+}
+
+.comments-list-div{
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}

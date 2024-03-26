@@ -49,6 +49,8 @@ export class HaStory {
 
   likes: number;
 
+  comments: number;
+
   init(story: HaStory): void {
     Object.assign(this, story);
   }
@@ -87,6 +89,7 @@ export class HaListStoryDto implements CoListStoryDto{
   publishedAt: DateTime;
   lastModifiedAt: DateTime;
   likes: number;
+  comments: number;
 
   getTopics(): HaTopic[] {
     return this.topics.sort((a, b) => a.popularity - b.popularity);

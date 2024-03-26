@@ -16,6 +16,10 @@ import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
 import {HaLikeStoryService} from '../../../ha-core/ha-service/ha-like-story.service';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
+import {FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
+import {CoCommentsPortalComponent, CoCommentsPortalConfig, CoCommentsPortalData} from '@monorepo/community-lib';
+import {HaCommentStoryService} from '../../../ha-core/ha-service/ha-comment-story.service';
+
 
 @Component({
   selector: 'ha-story-page',
@@ -44,6 +48,7 @@ export class HaStoryPageComponent implements OnInit {
 
   storyIsLiked: boolean;
 
+
   constructor(private activatedRoute: ActivatedRoute,
               private storyService: HaStoryService,
               private metadataService: HaMetadataService,
@@ -52,7 +57,9 @@ export class HaStoryPageComponent implements OnInit {
               private authenticatedUserService: HaAuthenticatedUserService,
               private authService: HaAuthService,
               private likeStoryService: HaLikeStoryService,
-              private router: Router) {
+              private router: Router,
+              private portalService: FlPortalService,
+              private commentStoryService: HaCommentStoryService) {
   }
 
   ngOnInit(): void {
@@ -132,7 +139,15 @@ export class HaStoryPageComponent implements OnInit {
     return HaFileHelper.getFileIcon(filename);
   }
 
-  unlikeStory(): void {
+  toggleLikeStoryButton(): void{
+    if(this.storyIsLiked){
+      this.unlikeStory();
+    } else {
+      this.likeStory();
+    }
+  }
+
+  private unlikeStory(): void {
     this.likeStoryService.unlike(this.story.id).subscribe((story) => {
       if (story != null) {
         this.story = story;
@@ -141,7 +156,7 @@ export class HaStoryPageComponent implements OnInit {
     });
   }
 
-  likeStory(): void {
+  private likeStory(): void {
     if (!this.authService.hasAuthorizationCookie()){
       // navigate to login page
       this.router.navigate(['/login'])
@@ -153,5 +168,14 @@ export class HaStoryPageComponent implements OnInit {
         this.storyIsLiked = true;
       }
     });
+  }
+
+  openCommentsPannel(): void {
+    this.portalService.createPortal(CoCommentsPortalComponent, CoCommentsPortalConfig.create(), {
+      service: this.commentStoryService,
+      user: this.currentUser,
+      entityId: this.story.id
+    } as CoCommentsPortalData).detachments();
+
   }
 }

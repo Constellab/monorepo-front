@@ -140,6 +140,11 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
     next();
   });
 
+  server.get('/test', (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.send('<!DOCTYPE html><html><body>Hello World!</body></html>');
+  });
+
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
@@ -165,9 +170,14 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
           {provide: REQUEST, useValue: req},
         ],
       })
-      .then((html) => res.send(html))
+      .then((html) => {
+        res.setHeader('Content-Type', 'text/html');
+        res.send(html)
+      })
       .catch((err) => next(err));
   });
+
+
 
   return server;
 }

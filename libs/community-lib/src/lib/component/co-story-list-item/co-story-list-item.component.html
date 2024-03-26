@@ -3,7 +3,8 @@
   [description]="story.firstParagraph"
   [user]="story.createdBy"
   [date]="!story.publishedAt || story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"
-  [likes]="story.likes">
+  [likes]="story.likes"
+  [comments]="story.comments">
   <div leftSide>
     @if(!story.publishedAt){
       <span [style.color]="'var(--warn-color)'">{{'coCommunityLib.no_published' | translate}}</span>

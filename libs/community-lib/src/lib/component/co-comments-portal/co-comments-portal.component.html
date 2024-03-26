@@ -1,0 +1,39 @@
+<div (flInfiniteScroll)="loadMoreResults()" [flInfiniteDisabled]="datasource?.isLoading || datasource?.page?.last"
+     flInfiniteMode="auto" class="comments-portal-div">
+  <div class="comments-portal">
+    <h4>Comments</h4>
+    <button mat-icon-button (click)="closePortal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-card class="comment-write-card" *ngIf="user">
+    <mat-card-header>
+      <fl-user-inline [user]="user" [portalOnHover]="false"></fl-user-inline>
+    </mat-card-header>
+    <mat-card-content class="comment-write-card-content">
+      <te-text-editor [config]="textEditorConfig" [formControl]="formControl"
+                      [placeholder]="'Write a comment'" class="text-editor"
+                      (textChange)="checkCommentValidity()"></te-text-editor>
+    </mat-card-content>
+    <mat-card-footer>
+      <div class="comment-write-card-footer">
+        <button mat-flat-button color="primary" [disabled]="!commentIsValid || isLoading" (click)="sendComment()">
+          <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+          @if(!isLoading){
+            Comment
+          }
+        </button>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+
+
+  <div class="comments-list-div">
+    <co-comment *ngFor="let comment of datasource | flDatasourceConnect | async" [comment]="comment">
+
+    </co-comment>
+  </div>
+</div>
+
+

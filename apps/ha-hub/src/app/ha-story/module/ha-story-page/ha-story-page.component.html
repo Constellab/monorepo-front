@@ -31,6 +31,25 @@
             </fl-key-value>
           }
         </div>
+        <div class="story-like-comment-infos-div">
+          <div class="story-like-comment">
+            <button mat-icon-button (click)="toggleLikeStoryButton()">
+              @if (storyIsLiked){
+                <mat-icon fontSet="material-icons" class="g-like-button" *haIsAuthenticated>thumb_up</mat-icon>
+              } @else {
+                <mat-icon class="g-cursor-hover">thumb_up</mat-icon>
+              }
+            </button>
+
+            {{ story.likes }}
+          </div>
+          <div class="story-like-comment">
+            <button mat-icon-button (click)="openCommentsPannel()">
+              <mat-icon>comment</mat-icon>
+            </button>
+            {{ story.comments }}
+          </div>
+        </div>
         @if (hasRightToEdit) {
           <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+ story.id">
             <fl-text-icon [iconPosition]="'end'">
@@ -40,18 +59,9 @@
           </a>
         }
       </div>
-      <div class="story-sub-infos-div">
-        <div class="story-like-comment-infos-div">
-          <fl-text-icon>
-            @if (storyIsLiked){
-              <mat-icon fontSet="material-icons" class="g-like-button" *haIsAuthenticated (click)="unlikeStory()">thumb_up</mat-icon>
-            } @else {
-              <mat-icon class="g-like-button" (click)="likeStory()">thumb_up</mat-icon>
-            }
-            {{ story.likes }}
-          </fl-text-icon>
-        </div>
-      </div>
+<!--      <div class="story-sub-infos-div">-->
+<!--        -->
+<!--      </div>-->
       <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
                       class="g-scrollable-element border-none"></te-text-editor>
     </div>

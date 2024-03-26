@@ -1,0 +1,9 @@
+<div class="comment-info-div">
+  <fl-user-inline [portalOnHover]="false" [user]="comment.createdBy"></fl-user-inline>
+  <span> - </span>
+  <fl-from-now [date]="comment.createdAt" class="comment-info-date"></fl-from-now>
+</div>
+
+<te-text-editor [config]="textEditorConfig" [formControl]="formControl" [disabled]="true" class="comment-content">
+
+</te-text-editor>

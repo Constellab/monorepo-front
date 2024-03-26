@@ -19,6 +19,7 @@ export class CoCommunityListItemComponent {
   @Input() user: FlUser;
   @Input() date: ClDateInput;
   @Input() likes: number = null;
+  @Input() comments: number = null;
   @Input() backgroundColor: CoCommunityListItemColor | string = CoCommunityListItemColor.CARD;
 
   constructor() {

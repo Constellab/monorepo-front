@@ -33,3 +33,10 @@ h5{
   border-left: 1px solid var(--light-color);
   padding-left: 4px;
 }
+
+.like-comment-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.75em;
+}

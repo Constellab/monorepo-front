@@ -17,6 +17,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .co-author-key-val{
@@ -65,6 +66,24 @@
   max-width: calc(100vw - 32px);
   padding: 16px;
   margin: 19px auto 8px auto;
+}
+
+.story-like-comment-infos-div{
+  display: flex;
+  flex-direction: row;
+  gap: 1.75em;
+  margin-left: auto;
+}
+
+.story-like-comment{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.author-div a{
+  margin-left: 2em;
 }
 
 @media (max-width: 900px) {
@@ -144,7 +163,6 @@
   justify-content: space-between;
   margin-top: 1em;
   border-top: 1px solid var(--hover-color);
-  border-bottom: 1px solid var(--hover-color);
   padding: 0.75em;
 }
 

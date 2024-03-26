@@ -250,4 +250,5 @@ export class HaStoryService implements HaCoAuthorService{
   getView(filename: string): Observable<RvResourceView>{
     return this.apiService.get(`${this.route}/view/${filename}`);
   }
+
 }

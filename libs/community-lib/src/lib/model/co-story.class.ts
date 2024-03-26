@@ -20,7 +20,7 @@ export class CoListStoryDto {
   publishedAt: DateTime;
   lastModifiedAt: DateTime;
   likes: number;
-
+  comments: number;
 }
 
 export interface CoStoryTopic {
