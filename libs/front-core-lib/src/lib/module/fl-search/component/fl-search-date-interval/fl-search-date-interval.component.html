@@ -5,7 +5,7 @@
     <mat-form-field class="g-search-field" appearance="outline">
       <mat-label>{{'flSearch.begin_date' | translate}}</mat-label>
       <input matInput formControlName="from" autocomplete="disabled"
-             [matDatepicker]="createdAtFrom" placeholder="{{'flSearch.begin_date' | translate}}">
+             [matDatepicker]="createdAtFrom" [placeholder]="'flDate.date_picker_placeholder' | translate">
       <mat-datepicker-toggle matSuffix [for]="createdAtFrom"></mat-datepicker-toggle>
       <mat-datepicker #createdAtFrom></mat-datepicker>
     </mat-form-field>
@@ -15,7 +15,7 @@
       <mat-label>{{'flSearch.end_date' | translate}}</mat-label>
       <input matInput formControlName="to" autocomplete="off"
              [min]="formGp.value.from"
-             [matDatepicker]="createdAtTo" placeholder="{{'flSearch.end_date' | translate}}">
+             [matDatepicker]="createdAtTo" [placeholder]="'flDate.date_picker_placeholder' | translate">
       <mat-datepicker-toggle matSuffix [for]="createdAtTo"></mat-datepicker-toggle>
       <mat-datepicker #createdAtTo></mat-datepicker>
     </mat-form-field>

@@ -1,9 +1,9 @@
 <mat-table mat-table [dataSource]="datasource">
 
-  <!-- Technical name -->
-  <ng-container matColumnDef="technicalName">
+  <!-- Name -->
+  <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>
-      {{'name' | translate}}
+      {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <div>
@@ -13,11 +13,21 @@
     </mat-cell>
   </ng-container>
 
+  <!-- Type -->
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'type' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.type }}
+    </mat-cell>
+  </ng-container>
+
 
   <!-- Cloud provider -->
   <ng-container matColumnDef="cloudProvider">
     <mat-header-cell *matHeaderCellDef>
-      {{'cloud_provider' | translate}}
+      {{ 'cloud_provider' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <ca-cloud-provider-inline *ngIf="row.cloudProvider" [cloudProvider]="row.cloudProvider">
@@ -28,27 +38,17 @@
   <!-- City -->
   <ng-container matColumnDef="city">
     <mat-header-cell *matHeaderCellDef>
-      {{'city' | translate}}
+      {{ 'city' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <ca-city [city]="row.city"></ca-city>
     </mat-cell>
   </ng-container>
 
-  <!-- Space -->
-  <ng-container matColumnDef="space">
-    <mat-header-cell *matHeaderCellDef>
-      {{'space' | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <ca-space-inline *ngIf="row.space" [space]="row.space"></ca-space-inline>
-    </mat-cell>
-  </ng-container>
-
   <!-- Last modified -->
   <ng-container matColumnDef="lastModified">
     <mat-header-cell *matHeaderCellDef>
-      {{'last_modification_info' | translate}}
+      {{ 'last_modification_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
@@ -70,13 +70,13 @@
         <button mat-menu-item type="button"
                 (click)="updateRegion(row)">
           <mat-icon>edit</mat-icon>
-          <span>{{'update_cloud_provider_region' | translate}}</span>
+          <span>{{ 'update_cloud_provider_region' | translate }}</span>
         </button>
 
         <button mat-menu-item type="button"
                 (click)="deleteRegion(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{'delete_cloud_provider_region' | translate}}</span>
+          <span class="g-warn-text">{{ 'delete_cloud_provider_region' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

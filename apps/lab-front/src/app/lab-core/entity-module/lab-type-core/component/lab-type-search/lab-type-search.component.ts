@@ -11,7 +11,7 @@ import {
 import {LabTypeSearch, LabTypeSearchConfig, LabTypeSearchFields} from '../../model/lab-type-search.class';
 import {LabTypeEntity, LabTypeEntityDatasource} from '../../../../model/entities/lab-type/lab-type.entity';
 import {LabTypeService} from '../../../../entity-service/lab-type.service';
-import {LabBrickGWS} from '../../../../model/entities/lab-brick.entity';
+import {TdBrick} from '@monorepo/technical-doc';
 
 
 @Component({
@@ -115,7 +115,7 @@ export class LabTypeSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: false,
-        filtersCriteria: {brick: [LabBrickGWS.GWS_CORE], includeDeprecated: false} as Partial<LabTypeSearchFields>
+        filtersCriteria: {brick: [TdBrick.GWS_CORE], includeDeprecated: false} as Partial<LabTypeSearchFields>
       }];
   }
 

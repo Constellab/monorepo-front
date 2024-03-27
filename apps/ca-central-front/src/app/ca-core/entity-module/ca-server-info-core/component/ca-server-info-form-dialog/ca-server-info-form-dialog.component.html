@@ -6,7 +6,7 @@
   <form (ngSubmit)="submit()" id="server-info-form" [formGroup]="formGp">
 
     <!--  Cloud provider  -->
-    <mat-form-field class="g-form-input" appearance="outline">
+    <mat-form-field class="g-form-input">
       <mat-label>{{'cloud_provider' | translate}}</mat-label>
       <mat-select formControlName="cloudProvider">
         <ca-select-cloud-provider-options></ca-select-cloud-provider-options>
@@ -17,17 +17,27 @@
     </mat-form-field>
 
     <!--  Name  -->
-    <mat-form-field class="g-form-input" appearance="outline">
+    <mat-form-field class="g-form-input">
       <mat-label>{{'name' | translate}}</mat-label>
-      <input matInput formControlName="name" required flInputMaxLength="30"
+      <input matInput formControlName="name" required flInputMaxLength="50"
              placeholder="{{'name' | translate}}">
       <mat-error *ngIf="formGp.get('name').hasError('required')">
         {{'name' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
 
+    <!--  Technical name  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'technical_name' | translate}}</mat-label>
+      <input matInput formControlName="technicalName" required flInputMaxLength="50"
+             placeholder="{{'technical_name' | translate}}">
+      <mat-error *ngIf="formGp.get('technicalName').hasError('required')">
+        {{'technical_name' | flErrorRequired}}
+      </mat-error>
+    </mat-form-field>
+
     <!--  Ram  -->
-    <mat-form-field class="g-form-input" appearance="outline">
+    <mat-form-field class="g-form-input">
       <mat-label>{{'ram' | translate}}</mat-label>
       <input matInput formControlName="ram" required
              placeholder="{{'ram' | translate}}" type="number">
@@ -41,7 +51,7 @@
 
     <div class="g-layout-row-wrap g-layout-evenly">
       <!--  Disk space  -->
-      <mat-form-field class="g-form-input input" appearance="outline">
+      <mat-form-field class="g-form-input input">
         <mat-label>{{'diskSpace' | translate}}</mat-label>
         <input matInput formControlName="diskSpace" required
                placeholder="{{'diskSpace' | translate}}" type="number">
@@ -54,7 +64,7 @@
       </mat-form-field>
 
       <!--  Disk type  -->
-      <mat-form-field class="g-form-input input" appearance="outline">
+      <mat-form-field class="g-form-input input">
         <mat-label>{{'diskType' | translate}}</mat-label>
         <mat-select formControlName="diskType">
           <ca-select-disk-type-options></ca-select-disk-type-options>
@@ -65,7 +75,7 @@
       </mat-form-field>
 
       <!--  Cpu count  -->
-      <mat-form-field class="g-form-input input" appearance="outline">
+      <mat-form-field class="g-form-input input">
         <mat-label>{{'cpuCount' | translate}}</mat-label>
         <input matInput formControlName="cpuCount" required
                placeholder="{{'cpuCount' | translate}}" type="number">
@@ -78,7 +88,7 @@
       </mat-form-field>
 
       <!--  Cpu type  -->
-      <mat-form-field class="g-form-input input" appearance="outline">
+      <mat-form-field class="g-form-input input">
         <mat-label>{{'cpuType' | translate}}</mat-label>
         <input matInput formControlName="cpuType" required
                placeholder="{{'cpuType' | translate}}" flInputMaxLength="30">
@@ -88,7 +98,7 @@
       </mat-form-field>
 
       <!--  Gpu count  -->
-      <mat-form-field class="g-form-input input" appearance="outline">
+      <mat-form-field class="g-form-input input">
         <mat-label>{{'gpuCount' | translate}}</mat-label>
         <input matInput formControlName="gpuCount"
                placeholder="{{'gpuCount' | translate}}" type="number">
@@ -98,7 +108,7 @@
       </mat-form-field>
 
       <!--  Gpu type  -->
-      <mat-form-field class="g-form-input input" appearance="outline">
+      <mat-form-field class="g-form-input input">
         <mat-label>{{'gpuType' | translate}}</mat-label>
         <input matInput formControlName="gpuType"
                placeholder="{{'gpuType' | translate}}" flInputMaxLength="30">

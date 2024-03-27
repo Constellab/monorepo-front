@@ -9,7 +9,8 @@ import {FlDatasource, FlTableColumnStatic} from '@monorepo/front-core-lib';
 })
 export class CaLabInstanceRunningStatusTableComponent {
 
-  @Input() datasource: FlDatasource<CaLabInstanceRunningStatus>;
+  @Input({required: true}) datasource: FlDatasource<CaLabInstanceRunningStatus>;
 
-  @Input() columns: FlTableColumnStatic<CaLabInstanceRunningStatus>[] = ['fromDate', 'toDate', 'duration'];
+  @Input() columns: FlTableColumnStatic<CaLabInstanceRunningStatus>[] =
+    ['fromDate', 'toDate', 'duration', 'price'];
 }

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {CaCoreModule} from '../ca-core/ca-core.module';
 import {CaLabInstanceRoutingModule} from './ca-lab-instance-routing.module';
 import {
@@ -134,6 +134,8 @@ import {
 import {
   CaLabInstanceCurrentTaskComponent
 } from './component/ca-lab-instance-current-task/ca-lab-instance-current-task.component';
+import {CaLabCreatePageComponent} from './component/create/ca-lab-create-page/ca-lab-create-page.component';
+import {CaLabSelectServerComponent} from './component/create/ca-lab-select-server/ca-lab-select-server.component';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -187,11 +189,14 @@ import {
     CaLabBackupHistoryComponent,
     CaLabDockerContainerDetailsComponent,
     CaLabInstanceCurrentTaskComponent,
+    CaLabCreatePageComponent,
+    CaLabSelectServerComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    NgOptimizedImage,
 
     CaCoreModule,
     CaLabCoreModule,
@@ -206,4 +211,5 @@ import {
     CaCloudProviderCoreModule,
   ],
 })
-export class CaLabInstanceModule {}
+export class CaLabInstanceModule {
+}

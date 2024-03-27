@@ -45,6 +45,7 @@ import {
 import {CaFreeTrialUpdateDto, CaLabFreeTrialGetDto} from '../model/entities/lab/ca-lab-free-trial.class';
 import {CaLabBackupHistory, CaLabBackupOption} from '../model/entities/lab/ca-lab-backup.class';
 import {
+  CaLabCloudCreateDTO,
   CaLabInstanceAdminForm,
   CaLabInstanceDesktopForm,
   CaRequestLabInstanceForm
@@ -63,6 +64,10 @@ export class CaLabInstanceService {
   public createAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
     return this.apiService.post(`${this.route}/admin`, entity, CaLabInstanceWithSpace,
       {serialization: CaLabInstanceAdminForm});
+  }
+
+  public createCloudLab(createLab: CaLabCloudCreateDTO): Observable<CaLabInstance>{
+    return this.apiService.post(`${this.route}/cloud`, createLab, CaLabInstance);
   }
 
   public updateAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {

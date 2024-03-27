@@ -20,6 +20,7 @@ import {
   CaServerInfoSearchFormComponent
 } from './component/ca-server-info-search-form/ca-server-info-search-form.component';
 import {CaSpaceCoreModule} from '../ca-space-core/ca-space-core.module';
+import {CaServerInfoPriceComponent} from './component/ca-server-info-price/ca-server-info-price.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {CaSpaceCoreModule} from '../ca-space-core/ca-space-core.module';
     CaServerInfoInlineComponent,
     CaServerInfoSearchComponent,
     CaServerInfoSearchFormComponent,
+    CaServerInfoPriceComponent,
   ],
   exports: [
     CaServerInfoDetailComponent,
@@ -41,6 +43,7 @@ import {CaSpaceCoreModule} from '../ca-space-core/ca-space-core.module';
     CaServerInfoInlineComponent,
     CaServerInfoSearchComponent,
     CaServerInfoSearchFormComponent,
+    CaServerInfoPriceComponent,
   ],
   imports: [
     CommonModule,

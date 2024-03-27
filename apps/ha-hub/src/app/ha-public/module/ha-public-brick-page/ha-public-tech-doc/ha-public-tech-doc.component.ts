@@ -1,7 +1,7 @@
 import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {TdTypeEntity} from '@monorepo/technical-doc';
+import {TdBrick, TdTypeEntity} from '@monorepo/technical-doc';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
@@ -37,7 +37,7 @@ export class HaPublicTechDocComponent implements OnInit {
 
   private getActiveDoc(): void {
     if (this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')) {
-      this.brickName = this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy';
+      this.brickName = this.router.url.includes('tech-doc') ? TdBrick.GWS_CORE : TdBrick.GWS_ACADEMY;
       this.brickVersion = 'latest';
     }
     this.route.params.subscribe(params => {

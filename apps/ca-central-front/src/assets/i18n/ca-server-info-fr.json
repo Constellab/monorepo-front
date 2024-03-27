@@ -5,11 +5,15 @@
   "ram": "Ram (Go)",
   "diskSpace": "Espace disque (Go)",
   "diskType": "Type de disque",
+  "disk": "Disque",
   "cpuCount": "Nb. CPU",
   "cpuType": "Type de CPU",
+  "cpu": "CPU",
   "gpuCount": "Nb. GPU",
   "gpuType": "Type de GPU",
+  "gpu": "GPU",
   "has_gpus": "A des GPU",
+  "technical_name": "Nom technique",
   "create_server_info": "Créer un serveur",
   "server_info_created": "Information de serveur créée",
   "update_server_info": "Modifier les infos du serveur",
@@ -60,5 +64,6 @@
   "delete_bucket": "Supprimer le bucket",
   "delete_bucket_confirm": "Êtes-vous sûr de vouloir supprimer ce bucket ?",
   "bucket_deleted": "Bucket supprimé",
-  "region_technical_name": "Nom technique"
+  "region_technical_name": "Nom technique",
+  "server_price_detail": "Prix (€ / heure)"
 }

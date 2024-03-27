@@ -1,5 +1,5 @@
 import {LabEnvironmentHelper} from './lab-environment.helper';
-import {TdTypingName} from '@monorepo/technical-doc';
+import {TdBrick, TdTypingName} from '@monorepo/technical-doc';
 
 export type LabBrickVersionPath = 'latest' | string;
 
@@ -7,10 +7,6 @@ export type LabBrickVersionPath = 'latest' | string;
  * Class to get url of the hub
  */
 export class LabCommunityHelper {
-
-  public static GWS_CORE_BRICK_NAME = 'gws_core';
-  public static GWS_ACADEMY_BRICK_NAME = 'gws_academy';
-
 
   ///////////////////////// FRONT //////////////////////////
 
@@ -43,7 +39,7 @@ export class LabCommunityHelper {
   /////////////////////////////////// SPECIFIC ROUTES //////////////////////////////////////
 
   public static getImportResourceDocUrl(): string {
-    return LabCommunityHelper.getDocUrl(LabCommunityHelper.GWS_ACADEMY_BRICK_NAME, 'latest',
+    return LabCommunityHelper.getDocUrl(TdBrick.GWS_ACADEMY, 'latest',
       'digital-lab/digital-resource', 'how-to-import-a-resource?');
   }
 

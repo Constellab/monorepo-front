@@ -10,6 +10,7 @@ import {
 import {ClPageI} from '@monorepo/core-lib';
 import {CaBucketFull} from '../model/entities/ca-object-storage.class';
 import {CaServerInfoSearch} from '../entity-module/ca-server-info-core/model/ca-server-info-search.class';
+import {CaCloudProviderRegion} from '../model/entities/ca-cloud-provider.class';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,22 @@ export class CaServerInfoService {
     return this.apiService.post(`${this.route}/search`, data, CaBucketFull, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
+  }
+
+  public findAvailableRegionsForServerInfo(serverInfoId: string): Observable<CaCloudProviderRegion[]> {
+    return this.apiService.get(`${this.route}/${serverInfoId}/regions`);
+  }
+
+  public findByStandardName(name: string): Observable<CaServerInfo[]> {
+    return this.apiService.get(`${this.route}/standard-name/${name}`);
+  }
+
+  /////////////////////////////////////// PRICE MANAGEMENT ///////////////////////////////////////
+  public getServerPrice(serverId: string): Observable<number> {
+    return this.apiService.get(`${this.route}/${serverId}/price`);
+  }
+
+  public getStoragePrice(): Observable<number> {
+    return this.apiService.get(`${this.route}/storage/price`);
   }
 }

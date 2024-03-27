@@ -1,7 +1,18 @@
-<fl-async-section [object]="labConfig$" class="section">
-  <ng-container *flSectionBody="labConfig$ as labConfig">
-    <ca-lab-instance-config-form [labConfig]="labConfig" [labInstanceId]="labInstanceId"
-                                 labType="CLOUD"
-                                 (labConfigured)="refreshStatus()"></ca-lab-instance-config-form>
+<fl-section [object]="labConfig" [isLoading]="getIsLoading" class="section">
+  <ng-container *flSectionBody>
+
+    <p class="help-text g-text-light">{{'lab_manager_config_section_help' | translate}}</p>
+
+    <ca-lab-instance-config-form [(labConfig)]="labConfig"
+                                 (labConfigChange)="onNewConfig()"></ca-lab-instance-config-form>
+
+    <p *ngIf="configHasChanged" class="help-text g-warn-text">
+      {{ 'lab_config_changed' | translate }}
+    </p>
+    <button mat-flat-button color="primary" type="button" (click)="saveConfig()"
+            class="g-centered-forced save-button">
+      {{ 'save' | translate }}
+      <fl-button-loader *ngIf="saveIsLoading"></fl-button-loader>
+    </button>
   </ng-container>
-</fl-async-section>
+</fl-section>

@@ -62,7 +62,7 @@
       <mat-form-field class="g-form-input half-input">
         <mat-label>{{'starting_date' | translate}}</mat-label>
         <input matInput formControlName="startingDate" required
-               [matDatepicker]="startingPicker" placeholder="{{'starting_date' | translate}}">
+               [matDatepicker]="startingPicker" [placeholder]="'flDate.date_picker_placeholder' | translate">
         <mat-datepicker-toggle matSuffix [for]="startingPicker"></mat-datepicker-toggle>
         <mat-datepicker #startingPicker startView="month"></mat-datepicker>
         <mat-error *ngIf="formGp.get('startingDate').hasError('required')">
@@ -74,7 +74,7 @@
       <mat-form-field class="g-form-input half-input">
         <mat-label>{{'ending_date' | translate}}</mat-label>
         <input matInput formControlName="endingDate" [min]="formGp.get('startingDate').value"
-               [matDatepicker]="endingPicker" placeholder="{{'ending_date' | translate}}">
+               [matDatepicker]="endingPicker" [placeholder]="'flDate.date_picker_placeholder' | translate">
         <mat-datepicker-toggle matSuffix [for]="endingPicker"></mat-datepicker-toggle>
         <mat-datepicker #endingPicker startView="month"></mat-datepicker>
         <!--        <mat-error *ngIf="formGp.get('endingDate').hasError('required')">-->

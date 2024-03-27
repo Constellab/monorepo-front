@@ -20,7 +20,7 @@
       <mat-label>{{'lab_free_trial_expiration_date' | translate}}</mat-label>
       <input matInput formControlName="expirationDate" required
              [matDatepicker]="startingPicker"
-             [placeholder]="'lab_free_trial_expiration_date' | translate">
+             [placeholder]="'flDate.date_picker_placeholder' | translate">
       <mat-datepicker-toggle matSuffix [for]="startingPicker"></mat-datepicker-toggle>
       <mat-datepicker #startingPicker startView="month"></mat-datepicker>
       <mat-error *ngIf="formGp.get('expirationDate').hasError('required')">

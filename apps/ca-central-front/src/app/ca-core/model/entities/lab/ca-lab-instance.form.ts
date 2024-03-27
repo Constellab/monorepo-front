@@ -8,6 +8,7 @@ import {
   CaLabInstanceType,
   CaLabInstanceVolumeType
 } from './ca-lab-instance.class';
+import {CaLabManagerConfig} from './ca-lab-manager.class';
 
 
 export class CaLabInstanceAdminForm {
@@ -65,3 +66,22 @@ export interface CaRequestLabInstanceForm {
   additionalInfo?: string;
 }
 
+export class CaLabCloudCreateDTO {
+  name: string;
+
+  @Type(() => CaServerInfo)
+  serverInfo: CaServerInfo;
+
+  @Type(() => CaCloudProviderRegion)
+  region: CaCloudProviderRegion;
+
+  volumeSize: number;
+
+  @Type(() => CaCloudProviderRegion)
+  dailyBackupRegion: CaCloudProviderRegion;
+
+  @Type(() => CaCloudProviderRegion)
+  weeklyBackupRegion: CaCloudProviderRegion;
+
+  labConfig: CaLabManagerConfig;
+}

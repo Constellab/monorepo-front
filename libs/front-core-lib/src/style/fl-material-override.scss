@@ -153,11 +153,6 @@ body {
       width: 18px;
     }
   }
-  .mdc-icon-button.g-button-icon-border {
-    border: 1px solid;
-    // equalize border
-    padding: 1px !important;
-  }
 
   // force the basic font family on the icon button
   // otherwise the icon on <a> tag are not vertically centered
@@ -421,7 +416,8 @@ body {
 
     // primary color for selected radio button
     &.mat-mdc-radio-checked {
-      border-color: var(--primary-color);
+      // use the MatPalette color of the radio button
+      border-color: var(--mdc-radio-selected-icon-color);
     }
   }
 

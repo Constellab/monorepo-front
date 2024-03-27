@@ -3,9 +3,15 @@
   <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
 
     <!--  Name  -->
-    <mat-form-field class="g-search-field-full">
+    <mat-form-field class="g-search-field">
       <mat-label>{{'name' | translate }}</mat-label>
       <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off">
+    </mat-form-field>
+
+    <!--  Name  -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{'technical_name' | translate }}</mat-label>
+      <input matInput formControlName="technicalName" [placeholder]="'technical_name' | translate" autocomplete="off">
     </mat-form-field>
 
     <!--  Cloud provider  -->

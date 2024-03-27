@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -17,8 +16,7 @@ import {
   CaBrickVersionDetailDialogComponent,
   CaBrickVersionDetailDialogInput
 } from '../../../ca-core/entity-module/ca-brick-core/component/ca-brick-version-detail-dialog/ca-brick-version-detail-dialog.component';
-import {CaBrickGWS} from '../../../ca-core/model/entities/ca-brick.class';
-import {CaLabInstanceType} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
+import {TdBrick} from '@monorepo/technical-doc';
 
 /**
  * Form to update the lab instance config
@@ -28,27 +26,19 @@ import {CaLabInstanceType} from '../../../ca-core/model/entities/lab/ca-lab-inst
   templateUrl: './ca-lab-instance-config-form.component.html',
   styleUrls: ['./ca-lab-instance-config-form.component.scss']
 })
-export class CaLabInstanceConfigFormComponent implements OnInit {
-  @Input() labInstanceId: string;
+export class CaLabInstanceConfigFormComponent {
 
-  @Input() labType: CaLabInstanceType;
+  @Input({required: true}) labConfig: CaLabManagerConfig;
 
-  @Input() labConfig: CaLabManagerConfig;
+  @Output() labConfigChange: EventEmitter<CaLabManagerConfig> = new EventEmitter<CaLabManagerConfig>();
 
   @Input() showAdvanced: boolean = true;
 
-  @Output() labConfigured: EventEmitter<void> = new EventEmitter<void>();
+  @Input() warningOnRemoveBrick: boolean = true;
 
-  isLoading: boolean = false;
 
-  configChanged: boolean = false;
-
-  constructor(private labInstanceService: CaLabInstanceService,
-              private snackBarService: FlSnackBarService,
+  constructor(private snackBarService: FlSnackBarService,
               private dialogService: FlDialogService) {
-  }
-
-  ngOnInit(): void {
   }
 
   openBrickVersionDetailDialog(brickVersionDTO: CaLabManagerBrickVersionDTO): void {
@@ -86,55 +76,36 @@ export class CaLabInstanceConfigFormComponent implements OnInit {
       this.labConfig.brickVersions.push(brickVersionDTO);
     }
     this.resetGlabTagToDefault();
-    this.configChanged = true;
+    this.labConfigChange.emit(this.labConfig);
   }
 
   openDeleteBrickConfirmDialog(brickVersionDTO: CaLabManagerBrickVersionDTO): void {
-    const data: FlConfirmDialogInput = {
-      title: 'lab_instance_remove_brick',
-      content: 'lab_instance_remove_brick_confirmation',
-      translateTitleAndContent: true,
-    };
+    if (this.warningOnRemoveBrick) {
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onDeleteBrickConfirmClosed(result, brickVersionDTO)
-    );
+      const data: FlConfirmDialogInput = {
+        title: 'lab_instance_remove_brick',
+        content: 'lab_instance_remove_brick_confirmation',
+        translateTitleAndContent: true,
+      };
+
+      this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
+        result => this.onDeleteBrickConfirmClosed(result, brickVersionDTO)
+      );
+    } else {
+      this.deleteBrickVersion(brickVersionDTO);
+    }
   }
 
   private onDeleteBrickConfirmClosed(result: FlConfirmDialogResult, brickVersionDTO: CaLabManagerBrickVersionDTO): void {
     if (result.choice) {
-      this.labConfig.brickVersions = this.labConfig.brickVersions.filter(brick => brick.name !== brickVersionDTO.name);
-      this.resetGlabTagToDefault();
-      this.configChanged = true;
+      this.deleteBrickVersion(brickVersionDTO);
     }
   }
 
-  save(): void {
-    if (!this.isLoading) {
-      this.updateConfig(this.labConfig);
-    }
-  }
-
-  private updateConfig(config: CaLabManagerConfig): void {
-    this.isLoading = true;
-    this.labInstanceService.updateConfig(this.labInstanceId, config).subscribe(
-      () => this.updateConfigSuccess(),
-      () => this.isLoading = false
-    );
-  }
-
-  private updateConfigSuccess(): void {
-    this.isLoading = false;
-    if (this.labType === 'CLOUD') {
-      this.snackBarService.openSuccessMessage({text: 'lab_instance_cloud_config_updated', translateText: true}, 10000);
-    } else {
-      this.snackBarService.openSuccessMessage({
-        text: 'lab_instance_desktop_config_updated',
-        translateText: true
-      }, 10000);
-    }
-    this.configChanged = false;
-    this.labConfigured.emit();
+  private deleteBrickVersion(brickVersionDTO: CaLabManagerBrickVersionDTO): void {
+    this.labConfig.brickVersions = this.labConfig.brickVersions.filter(brick => brick.name !== brickVersionDTO.name);
+    this.resetGlabTagToDefault();
+    this.labConfigChange.emit(this.labConfig);
   }
 
   resetGlabTagToDefault(): void {
@@ -143,6 +114,6 @@ export class CaLabInstanceConfigFormComponent implements OnInit {
 
   isConfigured(): boolean {
     return this.labConfig?.brickVersions?.length > 0 &&
-      this.labConfig.brickVersions.find(brick => brick.name === CaBrickGWS.GWS_CORE) != null;
+      this.labConfig.brickVersions.find(brick => brick.name === TdBrick.GWS_CORE) != null;
   }
 }

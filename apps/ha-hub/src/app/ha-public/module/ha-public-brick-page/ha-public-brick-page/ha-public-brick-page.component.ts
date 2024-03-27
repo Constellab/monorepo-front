@@ -5,6 +5,7 @@ import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
+import {TdBrick} from '@monorepo/technical-doc';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -30,7 +31,7 @@ export class HaPublicBrickPageComponent implements OnInit {
   ngOnInit(): void {
     this.BRICK_KEY = makeStateKey<HaBrick>('brick');
     if(this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')){
-      this.initBrick(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
+      this.initBrick(this.router.url.includes('tech-doc') ? TdBrick.GWS_CORE : TdBrick.GWS_ACADEMY);
     } else {
       this.activatedRoute.params.subscribe((params: Params) => {
 

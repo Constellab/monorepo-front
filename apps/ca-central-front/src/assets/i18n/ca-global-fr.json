@@ -250,5 +250,8 @@
   "activity_user_date": "Utilisateur/Date",
   "activities": "Activités",
   "info": "Info",
-  "lab_backup_history_sync": "Synchroniser"
+  "lab_backup_history_sync": "Synchroniser",
+  "next": "Next",
+  "back": "Retour",
+  "logo": "Logo"
 }

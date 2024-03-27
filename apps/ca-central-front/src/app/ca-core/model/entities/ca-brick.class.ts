@@ -2,13 +2,6 @@ import {CaEntity} from './ca-entity.entity';
 import {Type} from 'class-transformer';
 import {ClVersion} from '@monorepo/core-lib';
 
-/**
- * List of basic gws bricks
- */
-export enum CaBrickGWS {
-  GWS_CORE = 'gws_core'
-}
-
 export enum CaRepoType {
   PIP = 'PIP',
   GIT = 'GIT'

@@ -6,7 +6,6 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
   FlThemeService
 } from '@monorepo/front-core-lib';
 import {CaServerInfo, CaServerInfoDatasource} from '../../../../model/entities/ca-server-info.class';
@@ -23,9 +22,6 @@ import {CaServerInfoSearch, CaServerInfoSearchFields} from '../../model/ca-serve
 export class CaServerInfoSearchComponent implements OnInit {
 
   datasource: CaServerInfoDatasource;
-
-  columns: FlTableColumn<CaServerInfo>[] = ['cloudProvider', 'name', 'ram', 'diskSpace', 'diskType',
-    'cpuCount', 'cpuType', 'gpuCount', 'gpuType', 'actions'];
 
   constructor(private searchState: FlSearchState<any>,
               private serverInfoService: CaServerInfoService,

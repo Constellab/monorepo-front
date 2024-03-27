@@ -2,6 +2,7 @@ export * from './lib/td-technical-doc.module';
 
 
 // model
+export * from './lib/model/td-brick.class';
 export * from './lib/model/td-config-spec.class';
 export * from './lib/model/td-process-type.class';
 export * from './lib/model/td-resource-type.class';

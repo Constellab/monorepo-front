@@ -7,6 +7,8 @@ import {CaDiskType} from '../../../model/entities/ca-server-info.class';
 export class CaServerInfoSearchFields {
   name: string;
 
+  technicalName: string;
+
   @Type(() => CaCloudProvider)
   cloudProvider: CaCloudProvider;
 
@@ -33,6 +35,7 @@ export class CaServerInfoSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaServerInfoSearchFields> = {
+    technicalName: 'technical_name',
     cloudProvider: 'cloud_provider',
     ram: 'ram',
     hasGpu: 'has_gpus',
@@ -51,6 +54,7 @@ export class CaServerInfoSearch {
    */
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaServerInfoSearchFields> = {
     name: {key: 'name', operator: 'CONTAINS'},
+    technicalName: {key: 'technicalName', operator: 'CONTAINS'},
     cloudProvider: {key: 'cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     ram: {key: 'ram', operator: 'EQ'},
     diskSpace: {key: 'diskSpace', operator: 'EQ'},
@@ -65,6 +69,7 @@ export class CaServerInfoSearch {
     return new FormBuilder().group(
       {
         name: [null],
+        technicalName: [null],
         cloudProvider: [null],
         ram: [null],
         diskSpace: [null],

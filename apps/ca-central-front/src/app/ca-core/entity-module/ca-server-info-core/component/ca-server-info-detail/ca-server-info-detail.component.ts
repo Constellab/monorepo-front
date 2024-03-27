@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaServerInfo} from '../../../../model/entities/ca-server-info.class';
 
 @Component({
@@ -6,14 +6,7 @@ import {CaServerInfo} from '../../../../model/entities/ca-server-info.class';
   templateUrl: './ca-server-info-detail.component.html',
   styleUrls: ['./ca-server-info-detail.component.scss']
 })
-export class CaServerInfoDetailComponent implements OnInit {
+export class CaServerInfoDetailComponent {
 
-  @Input() serverInfo: CaServerInfo;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
+  @Input({required: true}) serverInfo: CaServerInfo;
 }

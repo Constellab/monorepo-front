@@ -16,8 +16,10 @@ export class CaServerInfo extends CaEntity {
   @Type(() => CaCloudProvider)
   cloudProvider: CaCloudProvider;
 
-  // the ram of the server in MB
   name: string;
+
+  // name of the server in the cloud provider
+  technicalName: string;
 
   // the ram of the server in MB
   ram: number;

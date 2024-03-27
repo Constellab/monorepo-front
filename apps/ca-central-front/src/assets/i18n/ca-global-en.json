@@ -249,5 +249,8 @@
   "activity_action_type": "Action type",
   "activity_user_date": "User/date",
   "activities": "Activities",
-  "info": "Info"
+  "info": "Info",
+  "next": "Next",
+  "back": "Back",
+  "logo": "Logo"
 }

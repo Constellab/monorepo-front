@@ -11,14 +11,7 @@
   </fl-section-header>
 
   <ng-container *flSectionBody>
-
-    <p class="help-text g-text-light">{{'lab_manager_config_section_help' | translate}}</p>
-
     <p *ngIf="!isConfigured()" class="help-text g-warn-text">{{'lab_not_configured_help' | translate}}</p>
-
-    <p *ngIf="configChanged" class="help-text g-warn-text">
-      {{'lab_config_changed' | translate}}
-    </p>
 
     <mat-list class="g-mat-list-dense">
       <mat-list-item *ngFor="let brickVersion of labConfig.brickVersions">
@@ -71,9 +64,5 @@
       </button>
     </mat-expansion-panel>
 
-    <button mat-flat-button color="primary" type="button" (click)="save()" class="g-centered-forced save-button">
-      {{'save' | translate}}
-      <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-    </button>
   </ng-container>
 </fl-section>

@@ -2,9 +2,9 @@
 
 
   <div>
-    <fl-key-value>
+    <fl-key-value class="g-layout-row g-layout-start-center">
       <fl-key>{{'cloud_provider' | translate}}</fl-key>
-      {{serverInfo.cloudProvider.name}}
+      <ca-cloud-provider-inline [cloudProvider]="serverInfo.cloudProvider"></ca-cloud-provider-inline>
     </fl-key-value>
     <fl-key-value>
       <fl-key>{{'name' | translate}}</fl-key>

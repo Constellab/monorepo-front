@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaServerInfo} from '../../../../model/entities/ca-server-info.class';
 import {CaServerInfoFormDialogComponent} from '../ca-server-info-form-dialog/ca-server-info-form-dialog.component';
 import {
@@ -7,7 +7,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlFormDialogInput,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {CaServerInfoService} from '../../../../service-api/ca-server-info.service';
 
@@ -16,16 +16,15 @@ import {CaServerInfoService} from '../../../../service-api/ca-server-info.servic
   templateUrl: './ca-server-info-table.component.html',
   styleUrls: ['./ca-server-info-table.component.scss']
 })
-export class CaServerInfoTableComponent extends FlTableAbstractDirective<CaServerInfo> implements OnInit {
+export class CaServerInfoTableComponent {
 
-  @Input() datasource: FlArrayObs<CaServerInfo>;
+  @Input({required: true}) datasource: FlArrayObs<CaServerInfo>;
+
+  @Input() columns: FlTableColumnStatic<CaServerInfo>[] = ['cloudProvider', 'name', 'technicalName', 'ram',
+    'disk', 'cpu', 'gpu', 'price', 'actions'];
 
   constructor(private dialogService: FlDialogService,
               private serverInfoService: CaServerInfoService) {
-    super(['cloudProvider', 'actions']);
-  }
-
-  ngOnInit(): void {
   }
 
   openEditServerInfo(serverInfo: CaServerInfo): void {

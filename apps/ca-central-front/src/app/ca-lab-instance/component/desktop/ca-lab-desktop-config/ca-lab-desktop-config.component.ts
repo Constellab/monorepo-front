@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
-import {Observable, of} from 'rxjs';
 import {CaLabManagerConfig} from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
 import {CaLabConfig} from '../../../../ca-core/model/entities/lab/ca-lab-config.class';
-import {catchError, map} from 'rxjs/operators';
 import {CaLabInstanceDetailPageState} from '../../../state/ca-lab-instance-detail-page.state';
 import {FlServerError, FlSnackBarService} from '@monorepo/front-core-lib';
 
@@ -14,9 +12,11 @@ import {FlServerError, FlSnackBarService} from '@monorepo/front-core-lib';
 })
 export class CaLabDesktopConfigComponent implements OnInit {
 
-  labInstanceId: string = this.state.getLabInstanceId();
+  labConfig: CaLabManagerConfig;
+  configHasChanged: boolean = false;
 
-  labConfig$: Observable<CaLabManagerConfig>;
+  getIsLoading: boolean = false;
+  saveIsLoading: boolean = false;
 
   constructor(private state: CaLabInstanceDetailPageState,
               private labInstanceService: CaLabInstanceService,
@@ -28,31 +28,60 @@ export class CaLabDesktopConfigComponent implements OnInit {
   }
 
   private getConfig(): void {
-    this.labConfig$ = this.labInstanceService.getConfig(this.labInstanceId, true).pipe(
-      map(config => this.convertToLabManagerConfig(config)),
-      catchError((error: FlServerError) => {
-        // if the configuration is not found, we return an empty config
-        if (error.nestedError?.code === 'error.lab_config_not_found') {
-          return of({
-            glabTag: null,
-            brickVersions: [],
-          });
-        } else {
-          this.snackBarService.openErrorMessage(error.message);
-          throw error;
-        }
-      })
-    );
+    this.getIsLoading = true;
+    this.labInstanceService.getConfig( this.state.getLabInstanceId(), true).subscribe({
+      next: config => this.getSuccess(config),
+      error: (error: FlServerError) => this.getError(error),
+    });
+  }
+
+  private getSuccess(labConfig: CaLabConfig): void {
+    this.labConfig = this.convertToLabManagerConfig(labConfig);
+    this.getIsLoading = false;
+  }
+
+  private getError(error: FlServerError): void {
+    // if the configuration is not found, we return an empty config
+    if (error.nestedError?.code === 'error.lab_config_not_found') {
+      const labConfig = new CaLabManagerConfig();
+      labConfig.brickVersions = [];
+      labConfig.glabTag = null;
+      this.labConfig = labConfig;
+    } else {
+      this.snackBarService.openErrorMessage(error.message);
+    }
+    this.getIsLoading = false;
   }
 
   private convertToLabManagerConfig(config: CaLabConfig): CaLabManagerConfig {
-    return {
-      brickVersions: config.brickVersions.map(brickVersion => ({
-        version: brickVersion.version,
-        name: brickVersion.brick.name,
-      })),
-      glabTag: null,
-    };
+    const labManagerConfig = new CaLabManagerConfig();
+    labManagerConfig.brickVersions = config.brickVersions.map(brickVersion => ({
+      version: brickVersion.version,
+      name: brickVersion.brick.name,
+    }));
+    labManagerConfig.glabTag = null;
+    return labManagerConfig;
+  }
+
+  onNewConfig(): void {
+    this.configHasChanged = true;
+  }
+
+  saveConfig(): void {
+    this.saveIsLoading = true;
+    this.labInstanceService.updateConfig( this.state.getLabInstanceId(), this.labConfig).subscribe({
+      next: () => this.saveSuccess(),
+      error: () => this.saveIsLoading = false,
+    });
+  }
+
+  private saveSuccess(): void {
+    this.saveIsLoading = false;
+    this.snackBarService.openSuccessMessage({
+      text: 'lab_instance_desktop_config_updated',
+      translateText: true
+    }, 10000);
+    this.configHasChanged = false;
   }
 
 }

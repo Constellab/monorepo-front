@@ -33,6 +33,7 @@ export class CaServerInfoFormDialogComponent extends FlFormDialogAbstractDirecti
       id: [null],
       cloudProvider: [null, Validators.required],
       name: [null, Validators.required],
+      technicalName: [null, Validators.required],
       ram: [null, [Validators.required, Validators.min(0)]],
       diskSpace: [null, [Validators.required, Validators.min(0)]],
       diskType: [null, Validators.required],

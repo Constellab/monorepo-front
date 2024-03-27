@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {CaCloudProvider, CaCloudProviderDatasource} from '../../../../model/entities/ca-cloud-provider.class';
 import {CaCloudProviderService} from '../../../../service-api/ca-cloud-provider.service';
@@ -17,18 +17,16 @@ import {
   templateUrl: './ca-cloud-provider-table.component.html',
   styleUrls: ['./ca-cloud-provider-table.component.scss']
 })
-export class CaCloudProviderTableComponent extends FlTableAbstractDirective<CaCloudProvider>
-  implements OnInit {
+export class CaCloudProviderTableComponent {
 
-  @Input() datasource: CaCloudProviderDatasource;
+  @Input({required: true}) datasource: CaCloudProviderDatasource;
+
+  @Input() columns: FlTableColumnStatic<CaCloudProvider>[] = ['name', 'description', 'created', 'lastModified', 'actions'];
 
   constructor(private cloudProviderService: CaCloudProviderService,
               private dialogService: FlDialogService) {
-    super(['created', 'lastModified', 'actions']);
   }
 
-  ngOnInit(): void {
-  }
 
   updateCloudProvider(cloudProvider: CaCloudProvider): void {
     const input: CaCloudProviderFormDialogInput = {

@@ -1,5 +1,5 @@
 import {CaEnvironmentHelper} from './ca-environment.helper';
-import {TdTypingName} from '@monorepo/technical-doc';
+import {TdBrick, TdTypingName} from '@monorepo/technical-doc';
 
 export type CaBrickVersionPath = 'latest' | string;
 
@@ -7,10 +7,6 @@ export type CaBrickVersionPath = 'latest' | string;
  * Class to get url of the hub
  */
 export class CaCommunityHelper {
-
-  public static GWS_CORE_BRICK_NAME = 'gws_core';
-  public static GWS_ACADEMY_BRICK_NAME = 'gws_academy';
-
 
   ///////////////////////// FRONT //////////////////////////
 
@@ -38,15 +34,15 @@ export class CaCommunityHelper {
   /////////////////////////////////// SPECIFIC ROUTES //////////////////////////////////////
 
   public static getDigitalLabOverviewRoute(): string{
-    return CaCommunityHelper.getDocUrl(CaCommunityHelper.GWS_ACADEMY_BRICK_NAME, 'latest', 'digital-lab/overview')
+    return CaCommunityHelper.getDocUrl(TdBrick.GWS_ACADEMY, 'latest', 'digital-lab/overview')
   }
 
   public static getDesktopDocUrl(): string {
-    return CaCommunityHelper.getDocUrl(CaCommunityHelper.GWS_ACADEMY_BRICK_NAME, 'latest', 'digital-lab/digital-lab-for-desktop')
+    return CaCommunityHelper.getDocUrl(TdBrick.GWS_ACADEMY, 'latest', 'digital-lab/digital-lab-for-desktop')
   }
 
   public static getDevEnvironmentUrl(): string {
-    return CaCommunityHelper.getDocUrl(CaCommunityHelper.GWS_CORE_BRICK_NAME, 'latest', 'developer-guide/dev-environment/getting-started')
+    return CaCommunityHelper.getDocUrl(TdBrick.GWS_CORE, 'latest', 'developer-guide/dev-environment/getting-started')
   }
 
 

@@ -1,62 +1,67 @@
 <fl-dialog-header>
-  {{title | translate}}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="cloud-provider-form" [formGroup]="formGp">
 
-    <!--  Name  -->
+    <!--  Type  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'region_technical_name' | translate}}</mat-label>
+      <mat-label>{{ 'type' | translate }}</mat-label>
+      <mat-select formControlName="type" required>
+        <mat-option value="SERVER">Server</mat-option>
+        <mat-option value="S3">S3</mat-option>
+      </mat-select>
+      <mat-error *ngIf="formGp.get('type').hasError('required')">
+        {{ 'type' | flErrorRequired }}
+      </mat-error>
+    </mat-form-field>
+
+    <!--  Technical name  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'region_technical_name' | translate }}</mat-label>
       <input matInput formControlName="technicalName" required flInputMaxLength="20"
              [placeholder]="'region_technical_name' | translate">
       <mat-error *ngIf="formGp.get('technicalName').hasError('required')">
-        {{'region_technical_name' | flErrorRequired}}
+        {{ 'region_technical_name' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
 
     <!--  Name  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'name' | translate}}</mat-label>
+      <mat-label>{{ 'name' | translate }}</mat-label>
       <input matInput formControlName="name" required flInputMaxLength="100"
              [placeholder]="'name' | translate">
       <mat-error *ngIf="formGp.get('name').hasError('required')">
-        {{'name' | flErrorRequired}}
+        {{ 'name' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
 
-
     <!--  Cloud provider  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'cloud_provider' | translate}}</mat-label>
+      <mat-label>{{ 'cloud_provider' | translate }}</mat-label>
       <mat-select formControlName="cloudProvider">
         <ca-select-cloud-provider-options></ca-select-cloud-provider-options>
       </mat-select>
       <mat-error *ngIf="formGp.get('cloudProvider').hasError('required')">
-        {{'cloud_provider' | flErrorRequired}}
+        {{ 'cloud_provider' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
 
     <!--  City  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'city' | translate}}</mat-label>
+      <mat-label>{{ 'city' | translate }}</mat-label>
       <mat-select formControlName="city" required>
         <ca-select-city-options></ca-select-city-options>
       </mat-select>
       <mat-error *ngIf="formGp.get('city').hasError('required')">
-        {{'city' | flErrorRequired}}
+        {{ 'city' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
 
-    <!--  Space  -->
-    <fl-form-field class="g-form-input">
-      <ca-select-space formControlName="space"
-                       [placeholder]="'space' | translate"></ca-select-space>
-    </fl-form-field>
-
     <!--  S3Endpoint  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'cloud_provider_region_s3_endpoint' | translate}}</mat-label>
+      <mat-label>{{ 'cloud_provider_region_s3_endpoint' | translate }}</mat-label>
       <input matInput formControlName="s3Endpoint" flInputMaxLength="255"
              [placeholder]="'cloud_provider_region_s3_endpoint' | translate">
     </mat-form-field>
@@ -67,7 +72,7 @@
 <div mat-dialog-actions>
   <button mat-flat-button color="primary" type="submit" form="cloud-provider-form"
           class="g-centered-forced">
-    {{'save' | translate}}
+    {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

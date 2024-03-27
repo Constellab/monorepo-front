@@ -3,12 +3,93 @@
   <!-- Cloud provider -->
   <ng-container matColumnDef="cloudProvider">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'cloud_provider' | translate}}</span>
+      <span>{{ 'cloud_provider' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <span>{{row.cloudProvider.name}}</span>
+      <span>{{ row.cloudProvider.name }}</span>
     </mat-cell>
   </ng-container>
+
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'name' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span>{{ row.name }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Technical name -->
+  <ng-container matColumnDef="technicalName">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'technical_name' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span class="technical-name">{{ row.technicalName }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Ram -->
+  <ng-container matColumnDef="ram">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'ram' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span>{{ row.ram }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Disk -->
+  <ng-container matColumnDef="disk">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'disk' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span>{{ row.diskSpace }} {{ 'flCoreComponent.giga_byte_symbole' | translate }} {{ row.diskType }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- CPU -->
+  <ng-container matColumnDef="cpu">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'cpu' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div>
+        <div>{{ row.cpuCount }}</div>
+        <div class="g-text-small g-text-light">{{ row.cpuType }}</div>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- GPU -->
+  <ng-container matColumnDef="gpu">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'gpu' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div>
+        <div>{{ row.gpuCount }}</div>
+        <div class="g-text-small g-text-light">{{ row.gpuType }}</div>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Price -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'server_price_detail' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @defer (on viewport) {
+        <ca-server-info-price [serverInfoId]="row.id"></ca-server-info-price>
+      } @placeholder {
+        <div></div>
+      }
+    </mat-cell>
+  </ng-container>
+
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
@@ -25,33 +106,21 @@
         <button mat-menu-item type="button"
                 (click)="openEditServerInfo(row)">
           <mat-icon>edit</mat-icon>
-          <span>{{'update_server_info' | translate}}</span>
+          <span>{{ 'update_server_info' | translate }}</span>
         </button>
 
 
         <button mat-menu-item type="button"
                 (click)="deleteServerInfo(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{'delete_server_info' | translate}}</span>
+          <span class="g-warn-text">{{ 'delete_server_info' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>
   </ng-container>
 
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let serverInfo">
-      <div>
-        <span>{{serverInfo[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
 
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: _columns;"></mat-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 </mat-table>
 

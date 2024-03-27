@@ -16,7 +16,7 @@ import {MatSelect} from '@angular/material/select';
 export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit, OnDestroy {
 
-  @Input() mode: 'all' | 'all-s3' | 'current-space' | 'current-space-s3' = 'current-space';
+  @Input({required: true}) mode: 'all' | 'S3' | 'SERVER';
 
   datasource: CaCloudProviderRegionDatasource;
   regions$: Observable<CaCloudProviderRegion[]>;
@@ -30,18 +30,15 @@ export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptio
   ngOnInit(): void {
     this.overrideCompareWithOnIds(this.select);
 
-    switch (this.mode){
+    switch (this.mode) {
       case 'all':
         this.datasource = this.cloudProviderService.getAllRegionsDatasource();
         break;
-      case 'all-s3':
-        this.datasource = this.cloudProviderService.getAllS3RegionsDatasource();
+      case 'S3':
+        this.datasource = this.cloudProviderService.getRegionsByType('S3');
         break;
-      case 'current-space':
-        this.datasource = this.cloudProviderService.getRegionsInCurrentSpaceDatasource();
-        break;
-      case 'current-space-s3':
-        this.datasource = this.cloudProviderService.getS3RegionsInCurrentSpaceDatasource();
+      case 'SERVER':
+        this.datasource = this.cloudProviderService.getRegionsByType('SERVER');
         break;
     }
     this.regions$ = this.datasource.connect();

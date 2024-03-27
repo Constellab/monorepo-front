@@ -13,6 +13,7 @@ import {Observable} from 'rxjs';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {ClVersion} from '@monorepo/core-lib';
+import {TdBrick} from '@monorepo/technical-doc';
 
 @Component({
   selector: 'ha-public-brick-description-page',
@@ -48,8 +49,8 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     this.BRICK_DESCRIPTION_VERSION_KEY = makeStateKey<object>('BRICK_DESCRIPTION_VERSION_KEY');
 
     if (this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')) {
-      this.setBrick(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
-      this.setLastBrickVersion(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
+      this.setBrick(this.router.url.includes('tech-doc') ? TdBrick.GWS_CORE : TdBrick.GWS_ACADEMY);
+      this.setLastBrickVersion(this.router.url.includes('tech-doc') ? TdBrick.GWS_CORE : TdBrick.GWS_ACADEMY);
     } else {
       this.route.parent.params.subscribe(params => {
         this.setLastBrickVersion(params.brickName);

@@ -1,0 +1,172 @@
+<div [formGroup]="formGp">
+
+
+  <!-- Server usage  -->
+  <div class="section">
+    <h2 class="title">{{ 'select_lab_usage' | translate }}</h2>
+    <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
+                     formControlName="usage">
+      @for (serverUsage of serverUsages; track serverUsage.name) {
+        <mat-radio-button [value]="serverUsage" class="radio-button" flRadioButtonBig
+                          color="accent">
+          <div>
+            {{ serverUsage.name }}
+          </div>
+          <div class="g-text-small g-text-light radio-description">
+            {{ serverUsage.description }}
+          </div>
+        </mat-radio-button>
+      }
+    </mat-radio-group>
+  </div>
+
+  <!--  Standard server  -->
+  @if (selectedUsage) {
+    <div class="section">
+
+      <h2 class="title">{{ 'select_lab_server' | translate }}</h2>
+
+      <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em cloud-provider-section"
+                       formControlName="standardServer">
+        @for (standardServer of selectedUsage.standardServers; track standardServer.name) {
+          <mat-radio-button [value]="standardServer" class="radio-button" flRadioButtonBig
+                            color="accent">
+            <div>
+              {{ standardServer.name }}
+            </div>
+
+            <div class="g-text-small g-text-light radio-description">
+              {{ standardServer.description }}
+            </div>
+          </mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+  }
+
+  <!-- Server info  -->
+  @if (serverInfo$) {
+    <div class="section">
+      <h2 class="title">{{ 'select_lab_cloud_provider' | translate }}</h2>
+
+      @if (serverInfo$ | async; as serverInfos) {
+
+        <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
+                         formControlName="serverInfo">
+          @for (serverInfo of serverInfos; track serverInfo.id) {
+            <mat-radio-button [value]="serverInfo" class="radio-button" flRadioButtonBig
+                              color="accent">
+              <ca-cloud-provider-inline [cloudProvider]="serverInfo.cloudProvider"></ca-cloud-provider-inline>
+
+              <div class="g-text-small g-text-light radio-description">
+                <div>{{ serverInfo.cloudProvider.description }}</div>
+                <div class="server-info">
+                  <!--      Info about the server for this cloud provider            -->
+
+                  <fl-key-value>
+                    <fl-key>{{ 'server_info_price' | translate }}</fl-key>
+                    <ca-server-info-price [serverInfoId]="serverInfo.id"></ca-server-info-price>
+                    {{ 'server_info_price_unit' | translate }}
+                  </fl-key-value>
+
+                  <fl-key-value>
+                    <fl-key>{{ 'cpuCount' | translate }}</fl-key>
+                    {{ serverInfo.cpuCount }} ({{ serverInfo.cpuType }})
+                  </fl-key-value>
+                  <fl-key-value>
+                    <fl-key>{{ 'ram' | translate }}</fl-key>
+                    {{ serverInfo.ram }}
+                  </fl-key-value>
+
+                  <!--  If there is a GPU  -->
+                  <ng-container *ngIf="serverInfo.gpuType">
+                    <fl-key-value>
+                      <fl-key>{{ 'gpuCount' }}</fl-key>
+                      {{ serverInfo.gpuCount }} ({{ serverInfo.gpuType }})
+                    </fl-key-value>
+                  </ng-container>
+                </div>
+              </div>
+            </mat-radio-button>
+          }
+        </mat-radio-group>
+      } @else {
+        <fl-loader></fl-loader>
+      }
+    </div>
+  }
+
+  <!-- Region -->
+  @if (regions$) {
+    <div class="section">
+      <h2 class="title">{{ 'select_lab_location' | translate }}</h2>
+
+      @if (regions$ | async; as regions) {
+        <mat-radio-group class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
+                         formControlName="region">
+          @for (region of regions; track region.id) {
+            <mat-radio-button [value]="region" class="radio-button" flRadioButtonBig
+                              color="accent">
+              <ca-cloud-provider-region-multilines [region]="region"></ca-cloud-provider-region-multilines>
+            </mat-radio-button>
+          }
+        </mat-radio-group>
+      } @else {
+        <fl-loader></fl-loader>
+      }
+
+    </div>
+  }
+
+  @if (formGp.get('region').valid) {
+
+
+    <!-- Daily backup region -->
+    <div class="section">
+      <h2 class="title">{{ 'create_lab_backup_title' | translate }}</h2>
+
+      <fl-text-icon class="help-section">
+        <mat-icon>info</mat-icon>
+        <p>{{ 'create_lab_backup_section' | translate }}</p>
+      </fl-text-icon>
+
+      @if (s3Regions | flDatasourceConnect | async; as s3Regions) {
+
+        <!-- Daily backup region -->
+        <h3 class="title">{{ 'daily_backup' | translate }}</h3>
+
+        <mat-radio-group class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
+                         formControlName="dailyBackupRegion">
+          @for (s3Region of s3Regions; track s3Region.id) {
+            <mat-radio-button [value]="s3Region" class="radio-button" flRadioButtonBig
+                              color="accent">
+              <ca-cloud-provider-region-multilines [region]="s3Region"></ca-cloud-provider-region-multilines>
+            </mat-radio-button>
+          }
+        </mat-radio-group>
+
+        <!-- Weeekly backup region -->
+        <h3 class="title">{{ 'weekly_backup' | translate }}</h3>
+
+        <mat-radio-group class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
+                         formControlName="weeklyBackupRegion">
+          @for (s3Region of s3Regions; track s3Region.id) {
+            <mat-radio-button [value]="s3Region" class="radio-button" flRadioButtonBig
+                              color="accent">
+              <ca-cloud-provider-region-multilines [region]="s3Region"></ca-cloud-provider-region-multilines>
+            </mat-radio-button>
+          }
+        </mat-radio-group>
+
+        <mat-error *ngIf="formGp.hasError('sameBackupRegion')" class="g-warn-text">
+          {{ 'lab_backups_same_region_error' | translate }}
+        </mat-error>
+      } @else {
+        <fl-loader></fl-loader>
+      }
+
+    </div>
+
+  }
+</div>
+
