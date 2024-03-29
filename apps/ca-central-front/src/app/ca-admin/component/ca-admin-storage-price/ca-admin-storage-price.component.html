@@ -1,0 +1,29 @@
+<fl-card>
+
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon class="g-icon-big">storage</mat-icon>
+      <h2>{{ 'storage_price' | translate }}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <!--   Decision tree   -->
+      <button mat-stroked-button type="button" class="g-button-small" (click)="openPricesDialog()">
+        {{ 'storage_prices' | translate }}
+      </button>
+
+    </fl-card-actions>
+  </fl-card-header>
+
+  <fl-card-body>
+    <fl-async-section [object]="currentPrice$">
+      <ng-container *flSectionBody="currentPrice$ as currentPrice">
+        <div class="g-text-big g-text-centered">
+          {{ currentPrice }} {{ 'storage_price_unit' | translate }}
+        </div>
+      </ng-container>
+    </fl-async-section>
+  </fl-card-body>
+
+
+</fl-card>

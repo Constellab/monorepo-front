@@ -8,7 +8,7 @@ import {
   CaLabInstanceAdminFormDialogComponent
 } from './component/ca-lab-instance-admin-form-dialog/ca-lab-instance-admin-form-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CaServerInfoCoreModule} from '../ca-server-info-core/ca-server-info-core.module';
+import {CaServerCoreModule} from '../ca-server-core/ca-server-core.module';
 import {
   CaLabInstanceStatusDialogComponent
 } from './component/ca-lab-instance-status-dialog/ca-lab-instance-status-dialog.component';
@@ -89,7 +89,7 @@ import {CaLabInlineComponent} from './component/ca-lab-inline/ca-lab-inline.comp
     FormsModule,
     ReactiveFormsModule,
 
-    CaServerInfoCoreModule,
+    CaServerCoreModule,
     CaSpaceCoreModule,
     CaConfigCoreModule,
     CaCloudProviderCoreModule,

@@ -9,7 +9,7 @@ import {
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {CaLabInstanceStatus, CaLabInstanceType} from '../../../model/entities/lab/ca-lab-instance.class';
 import {CaCity} from '../../../model/entities/ca-city.entity';
-import {CaServerInfo} from '../../../model/entities/ca-server-info.class';
+import {CaServerCloud} from '../../../model/entities/server/ca-server-cloud.class';
 import {CaSpace} from '../../../model/entities/space/ca-space.class';
 import {CaCloudProvider} from '../../../model/entities/ca-cloud-provider.class';
 
@@ -25,8 +25,8 @@ export class CaLabInstanceSearchFields {
   @Type(() => CaCity)
   city: CaCity;
 
-  @Type(() => CaServerInfo)
-  serverInfo: CaServerInfo;
+  @Type(() => CaServerCloud)
+  serverCloud: CaServerCloud;
 
   @Type(() => CaUser)
   createdBy: CaUser;
@@ -54,7 +54,7 @@ export class CaLabInstanceSearch {
     currentStatus: 'status',
     virtualHost: 'virtual_host',
     city: 'region',
-    serverInfo: 'server_info',
+    serverCloud: 'server_cloud',
     createdBy: 'created_by',
     createdAt: 'creation_date',
     space: 'space',
@@ -67,7 +67,7 @@ export class CaLabInstanceSearch {
     currentStatus: {key: 'currentStatus.status', operator: 'EQ'},
     virtualHost: {key: 'virtualHost', operator: 'MATCH'},
     city: {key: 'region.city.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    serverInfo: {key: 'serverInfo.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    serverCloud: {key: 'serverCloud.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdBy: {key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
@@ -83,7 +83,7 @@ export class CaLabInstanceSearch {
       currentStatus: null,
       virtualHost: null,
       city: null,
-      serverInfo: null,
+      serverCloud: null,
       createdBy: null,
       createdAt: new FormBuilder().group<FlSearchDateInterval>({
         from: [null],

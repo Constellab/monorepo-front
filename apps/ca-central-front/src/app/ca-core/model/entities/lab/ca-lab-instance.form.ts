@@ -1,4 +1,4 @@
-import {CaServerInfo} from '../ca-server-info.class';
+import {CaServerCloud} from '../server/ca-server-cloud.class';
 import {Type} from 'class-transformer';
 import {CaSpace} from '../space/ca-space.class';
 import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
@@ -17,8 +17,8 @@ export class CaLabInstanceAdminForm {
   type: CaLabInstanceType;
   virtualHost?: string;
 
-  @Type(() => CaServerInfo)
-  serverInfo?: CaServerInfo;
+  @Type(() => CaServerCloud)
+  serverCloud?: CaServerCloud;
 
   billingMode?: CaLabInstanceBillingMode;
   volumeSize?: number;
@@ -69,8 +69,8 @@ export interface CaRequestLabInstanceForm {
 export class CaLabCloudCreateDTO {
   name: string;
 
-  @Type(() => CaServerInfo)
-  serverInfo: CaServerInfo;
+  @Type(() => CaServerCloud)
+  serverCloud: CaServerCloud;
 
   @Type(() => CaCloudProviderRegion)
   region: CaCloudProviderRegion;

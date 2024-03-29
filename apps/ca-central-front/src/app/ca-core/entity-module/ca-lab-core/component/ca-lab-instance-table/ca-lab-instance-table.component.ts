@@ -32,7 +32,7 @@ export class CaLabInstanceTableComponent extends FlTableAbstractDirective<CaLabI
 
   constructor(private dialogService: FlDialogService,
               private labInstanceService: CaLabInstanceService) {
-    super(['space', 'name', 'createdBy', 'currentStatus', 'serverInfo', 'createdBy', 'actions']);
+    super(['space', 'name', 'createdBy', 'currentStatus', 'serverCloud', 'createdBy', 'actions']);
   }
 
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class CaLabInstanceTableComponent extends FlTableAbstractDirective<CaLabI
         name: labInstance.name,
         type: labInstance.type,
         virtualHost: labInstance.virtualHost,
-        serverInfo: labInstance.serverInfo,
+        serverCloud: labInstance.serverCloud,
         region: labInstance.region,
         codelabToken: labInstance.codelabToken,
         glabApiKey: labInstance.glabApiKey,

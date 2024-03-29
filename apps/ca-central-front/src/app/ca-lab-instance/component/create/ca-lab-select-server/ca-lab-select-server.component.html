@@ -1,88 +1,81 @@
 <div [formGroup]="formGp">
 
 
-  <!-- Server usage  -->
   <div class="section">
     <h2 class="title">{{ 'select_lab_usage' | translate }}</h2>
-    <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
-                     formControlName="usage">
-      @for (serverUsage of serverUsages; track serverUsage.name) {
-        <mat-radio-button [value]="serverUsage" class="radio-button" flRadioButtonBig
-                          color="accent">
-          <div>
-            {{ serverUsage.name }}
-          </div>
-          <div class="g-text-small g-text-light radio-description">
-            {{ serverUsage.description }}
-          </div>
-        </mat-radio-button>
-      }
-    </mat-radio-group>
+
+    <ca-server-decision-tree (standardServerChanged)="onDecisionTreeChange($event)"></ca-server-decision-tree>
   </div>
 
   <!--  Standard server  -->
-  @if (selectedUsage) {
+  @if (serverStandards$) {
     <div class="section">
 
       <h2 class="title">{{ 'select_lab_server' | translate }}</h2>
 
-      <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em cloud-provider-section"
-                       formControlName="standardServer">
-        @for (standardServer of selectedUsage.standardServers; track standardServer.name) {
-          <mat-radio-button [value]="standardServer" class="radio-button" flRadioButtonBig
-                            color="accent">
-            <div>
-              {{ standardServer.name }}
-            </div>
+      @if (serverStandards$ | async; as serverStandards) {
 
-            <div class="g-text-small g-text-light radio-description">
-              {{ standardServer.description }}
-            </div>
-          </mat-radio-button>
-        }
-      </mat-radio-group>
+        <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em cloud-provider-section"
+                         formControlName="standardServer">
+          @for (standardServer of serverStandards; track standardServer.id) {
+            <mat-radio-button [value]="standardServer" class="radio-button" flRadioButtonBig
+                              color="accent">
+              <div>
+                {{ standardServer.name }}
+              </div>
+
+              <div class="g-text-small g-text-light radio-description">
+                {{ standardServer.description }}
+              </div>
+
+              <div class="g-text-small g-text-light radio-description">
+                {{ standardServer.technicalDescription }}
+              </div>
+
+              <fl-key-value>
+                <fl-key>{{ 'server_price' | translate }}</fl-key>
+                <ca-server-standard-price [serverStandardId]="standardServer.id"></ca-server-standard-price>
+                {{ 'server_price_unit' | translate }}
+              </fl-key-value>
+            </mat-radio-button>
+          }
+        </mat-radio-group>
+      }
     </div>
   }
 
-  <!-- Server info  -->
-  @if (serverInfo$) {
+  <!-- Server cloud  -->
+  @if (serverClouds$) {
     <div class="section">
       <h2 class="title">{{ 'select_lab_cloud_provider' | translate }}</h2>
 
-      @if (serverInfo$ | async; as serverInfos) {
+      @if (serverClouds$ | async; as serverClouds) {
 
         <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
-                         formControlName="serverInfo">
-          @for (serverInfo of serverInfos; track serverInfo.id) {
-            <mat-radio-button [value]="serverInfo" class="radio-button" flRadioButtonBig
+                         formControlName="serverCloud">
+          @for (serverCloud of serverClouds; track serverCloud.id) {
+            <mat-radio-button [value]="serverCloud" class="radio-button" flRadioButtonBig
                               color="accent">
-              <ca-cloud-provider-inline [cloudProvider]="serverInfo.cloudProvider"></ca-cloud-provider-inline>
+              <ca-cloud-provider-inline [cloudProvider]="serverCloud.cloudProvider"></ca-cloud-provider-inline>
 
               <div class="g-text-small g-text-light radio-description">
-                <div>{{ serverInfo.cloudProvider.description }}</div>
+                <div>{{ serverCloud.cloudProvider.description }}</div>
                 <div class="server-info">
                   <!--      Info about the server for this cloud provider            -->
-
-                  <fl-key-value>
-                    <fl-key>{{ 'server_info_price' | translate }}</fl-key>
-                    <ca-server-info-price [serverInfoId]="serverInfo.id"></ca-server-info-price>
-                    {{ 'server_info_price_unit' | translate }}
-                  </fl-key-value>
-
                   <fl-key-value>
                     <fl-key>{{ 'cpuCount' | translate }}</fl-key>
-                    {{ serverInfo.cpuCount }} ({{ serverInfo.cpuType }})
+                    {{ serverCloud.cpuCount }} ({{ serverCloud.cpuType }})
                   </fl-key-value>
                   <fl-key-value>
                     <fl-key>{{ 'ram' | translate }}</fl-key>
-                    {{ serverInfo.ram }}
+                    {{ serverCloud.ram }}
                   </fl-key-value>
 
                   <!--  If there is a GPU  -->
-                  <ng-container *ngIf="serverInfo.gpuType">
+                  <ng-container *ngIf="serverCloud.gpuType">
                     <fl-key-value>
                       <fl-key>{{ 'gpuCount' }}</fl-key>
-                      {{ serverInfo.gpuCount }} ({{ serverInfo.gpuType }})
+                      {{ serverCloud.gpuCount }} ({{ serverCloud.gpuType }})
                     </fl-key-value>
                   </ng-container>
                 </div>

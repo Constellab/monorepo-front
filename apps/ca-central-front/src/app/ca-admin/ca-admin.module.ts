@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CaCoreModule} from '../ca-core/ca-core.module';
 import {CaAdminRoutingModule} from './ca-admin-routing.module';
-import {CaServerInfoCoreModule} from '../ca-core/entity-module/ca-server-info-core/ca-server-info-core.module';
+import {CaServerCoreModule} from '../ca-core/entity-module/ca-server-core/ca-server-core.module';
 import {CaLabCoreModule} from '../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
 import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space-core.module';
 import {CaAdminOthersPageComponent} from './component/ca-admin-others-page/ca-admin-others-page.component';
@@ -22,9 +22,7 @@ import {
 } from './component/ca-admin-lab-instances-page/ca-admin-lab-instances-page.component';
 import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
 import {CaAdminBucketsPageComponent} from './component/ca-admin-buckets-page/ca-admin-buckets-page.component';
-import {
-  CaAdminServerInfoPageComponent
-} from './component/ca-admin-server-info-page/ca-admin-server-info-page.component';
+import {CaAdminServerPageComponent} from './component/ca-admin-server-page/ca-admin-server-page.component';
 import {
   CaAdminCloudProviderRegionFormDialogComponent
 } from './component/ca-admin-cloud-provider-region-form-dialog/ca-admin-cloud-provider-region-form-dialog.component';
@@ -40,6 +38,10 @@ import {CaBucketSearchFormComponent} from './component/bucket/ca-bucket-search-f
 import {
   CaBucketCredentialsCoreModule
 } from '../ca-core/entity-module/ca-bucket-credentials-core/ca-bucket-credentials-core.module';
+import {
+  CaAdminServerStandardListComponent
+} from './component/ca-admin-server-standard-list/ca-admin-server-standard-list.component';
+import {CaAdminStoragePriceComponent} from './component/ca-admin-storage-price/ca-admin-storage-price.component';
 
 /**
  * Module only accessible by the admins
@@ -54,7 +56,7 @@ import {
     CaAdminUsersPageComponent,
     CaAdminLabInstancesPageComponent,
     CaAdminBucketsPageComponent,
-    CaAdminServerInfoPageComponent,
+    CaAdminServerPageComponent,
     CaAdminCloudProviderRegionFormDialogComponent,
     CaAdminCloudProviderRegionTableComponent,
 
@@ -62,6 +64,8 @@ import {
     CaBucketTableComponent,
     CaBucketSearchComponent,
     CaBucketSearchFormComponent,
+    CaAdminServerStandardListComponent,
+    CaAdminStoragePriceComponent,
   ],
   imports: [
     CommonModule,
@@ -69,7 +73,7 @@ import {
     ReactiveFormsModule,
 
     CaCoreModule,
-    CaServerInfoCoreModule,
+    CaServerCoreModule,
     CaLabCoreModule,
     CaSpaceCoreModule,
     CaCloudProviderCoreModule,

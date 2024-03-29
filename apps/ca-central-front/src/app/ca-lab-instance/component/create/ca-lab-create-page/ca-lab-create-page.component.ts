@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {CaLabInstance, CaLabInstanceWithSpace} from '../../../../ca-core/model/entities/lab/ca-lab-instance.class';
-import {CaServerInfoService} from '../../../../ca-core/service-api/ca-server-info.service';
+import {CaServerService} from '../../../../ca-core/service-api/ca-server.service';
 import {Observable, share} from 'rxjs';
 import {FlGlobalValidators, FlSnackBarService} from '@monorepo/front-core-lib';
 import {CaLabManagerConfig} from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
@@ -35,12 +35,12 @@ export class CaLabCreatePageComponent {
   readonly MIN_STORAGE_SIZE = 100;
   readonly MAX_STORAGE_SIZE = 4000;
 
-  storagePrice$: Observable<number> = this.serverInfoService.getStoragePrice().pipe(share());
+  storagePrice$: Observable<number> = this.serverService.getStorageCurrentPrice().pipe(share());
 
   createIsLoading: boolean = false;
 
   constructor(private _formBuilder: FormBuilder,
-              private serverInfoService: CaServerInfoService,
+              private serverService: CaServerService,
               private routerService: CaRouterService,
               private snackBarService: FlSnackBarService,
               private labService: CaLabInstanceService) {
@@ -83,7 +83,7 @@ export class CaLabCreatePageComponent {
   createLab(): void {
     const createLab: CaLabCloudCreateDTO = {
       name: this.nameForm.get('name').value,
-      serverInfo: this.serverForm.get('serverInfo').value,
+      serverCloud: this.serverForm.get('serverCloud').value,
       region: this.serverForm.get('region').value,
       volumeSize: this.storageForm.get('storageSize').value,
       labConfig: this.labConfig,

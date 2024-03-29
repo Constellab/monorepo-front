@@ -8,6 +8,7 @@ import {
   CaLabInstanceStatusDTO,
   CaLabInstanceStatusHistory,
   CaLabInstanceWithSpace,
+  CaLabServerInfoDTO,
 } from '../model/entities/lab/ca-lab-instance.class';
 import {
   FlAdvancedSearchInput,
@@ -153,6 +154,10 @@ export class CaLabInstanceService {
 
   public updateConfig(id: string, config: CaLabManagerConfig): Observable<void> {
     return this.apiService.put(`${this.route}/${id}/config`, config, CaLabManagerConfig);
+  }
+
+  public getLabServerInfo(id: string): Observable<CaLabServerInfoDTO>{
+    return this.apiService.get(`${this.route}/${id}/server-info`, CaLabServerInfoDTO);
   }
 
   //////////////////////////// STATUS ////////////////////////////////

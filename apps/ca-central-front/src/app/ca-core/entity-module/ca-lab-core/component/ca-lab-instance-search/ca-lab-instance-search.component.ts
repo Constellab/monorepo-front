@@ -106,10 +106,10 @@ export class CaLabInstanceSearchComponent implements OnInit {
     switch (this.mode) {
       case 'all':
         return ['name', 'space', 'currentStatus',
-          {accessor: 'virtualHost', columnName: 'virtual_host'}, 'serverInfo', 'actions'];
+          {accessor: 'virtualHost', columnName: 'virtual_host'}, 'serverCloud', 'actions'];
       case 'current-space':
         return ['name', 'currentStatus',
-          {accessor: 'virtualHost', columnName: 'virtual_host'}, 'serverInfo'];
+          {accessor: 'virtualHost', columnName: 'virtual_host'}, 'serverCloud'];
       default:
         throw new Error(`[CaLabInstanceSearchComponent] Unknown mode '${this.mode}'`);
     }

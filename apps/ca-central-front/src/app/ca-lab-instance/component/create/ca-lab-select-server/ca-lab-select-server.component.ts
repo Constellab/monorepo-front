@@ -6,84 +6,40 @@ import {
 import {CaCloudProviderService} from '../../../../ca-core/service-api/ca-cloud-provider.service';
 import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {CaServerInfo} from '../../../../ca-core/model/entities/ca-server-info.class';
-import {CaServerInfoService} from '../../../../ca-core/service-api/ca-server-info.service';
+import {CaServerCloud} from '../../../../ca-core/model/entities/server/ca-server-cloud.class';
+import {CaServerService} from '../../../../ca-core/service-api/ca-server.service';
 import {ClSubscriptionHandler} from '@monorepo/core-lib';
+import {CaServerStandard} from '../../../../ca-core/model/entities/server/ca-server-standard.class';
 
-
-interface CaRadioButton {
-  name: string;
-  description: string;
-}
-
-interface CaServerUsage extends CaRadioButton {
-  standardServers: CaRadioButton[];
-}
-
-const smallCompute: CaRadioButton = {
-  name: 'Small compute',
-  description: '2 CPU, 4 GB RAM'
-};
-
-const mediumCompute: CaRadioButton = {
-  name: 'Medium compute',
-  description: '4 CPU, 8 GB RAM'
-};
-
-const largeCompute: CaRadioButton = {
-  name: 'Large compute',
-  description: '8 CPU, 16 GB RAM'
-};
-
-const serverUsages: CaServerUsage[] = [
-  {
-    name: 'General purpose',
-    description: 'Standard servers',
-    standardServers: [smallCompute, mediumCompute, largeCompute]
-  },
-  {
-    name: 'Metagenomics',
-    description: 'Servers for metagenomics',
-    standardServers: [mediumCompute, largeCompute]
-  },
-  {
-    name: 'Statistics',
-    description: 'Servers for statistics',
-    standardServers: [smallCompute, mediumCompute]
-  }
-];
 
 export interface CaLabSelectServerForm {
-  usage: FormControl<CaServerUsage>;
-  standardServer: FormControl<CaRadioButton>;
-  serverInfo: FormControl<CaServerInfo>;
+  standardServer: FormControl<CaServerStandard>;
+  serverCloud: FormControl<CaServerCloud>;
   region: FormControl<CaCloudProviderRegion>;
   dailyBackupRegion: FormControl<CaCloudProviderRegion>;
   weeklyBackupRegion: FormControl<CaCloudProviderRegion>;
 }
-
 
 @Component({
   selector: 'ca-lab-select-server',
   templateUrl: './ca-lab-select-server.component.html',
   styleUrl: './ca-lab-select-server.component.scss'
 })
-export class CaLabSelectServerComponent implements OnInit, OnDestroy{
+export class CaLabSelectServerComponent implements OnInit, OnDestroy {
 
   @Input({required: true}) formGp: FormGroup<CaLabSelectServerForm>;
 
-  serverInfo$: Observable<CaServerInfo[]>;
+
+  serverStandards$: Observable<CaServerStandard[]>;
+  serverClouds$: Observable<CaServerCloud[]>;
   regions$: Observable<CaCloudProviderRegion[]>;
 
   s3Regions: CaCloudProviderRegionDatasource = this.cloudProviderService.getRegionsByType('S3');
 
 
-  serverUsages: CaServerUsage[] = serverUsages;
-
   formGroupOrders: Record<keyof CaLabSelectServerForm, number> = {
-    usage: 0,
     standardServer: 1,
-    serverInfo: 2,
+    serverCloud: 2,
     region: 3,
     dailyBackupRegion: 4,
     weeklyBackupRegion: 4
@@ -92,7 +48,7 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy{
   private subscriptions = new ClSubscriptionHandler();
 
   constructor(private cloudProviderService: CaCloudProviderService,
-              private serverInfoService: CaServerInfoService) {
+              private serverService: CaServerService) {
 
   }
 
@@ -105,12 +61,10 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy{
   }
 
 
-
   public static createFormGp(): FormGroup<CaLabSelectServerForm> {
     return new FormBuilder().group({
-      usage: [null, Validators.required],
       standardServer: [null, Validators.required],
-      serverInfo: [null, Validators.required],
+      serverCloud: [null, Validators.required],
       region: [null, Validators.required],
       dailyBackupRegion: [null, Validators.required],
       weeklyBackupRegion: [null, Validators.required]
@@ -134,6 +88,18 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy{
     };
   }
 
+  onDecisionTreeChange(serverStandardNames: string[]): void {
+    if (this.serverStandards$) {
+      this.formGp.reset(null);
+    }
+
+    if (serverStandardNames) {
+      this.serverStandards$ = this.serverService.findServerStandardByNames(serverStandardNames);
+    } else {
+      this.serverStandards$ = null;
+    }
+  }
+
   onChange(formName: keyof CaLabSelectServerForm, order: number, value: any): void {
     // clear all next form groups
     for (const [name, groupOrder] of Object.entries(this.formGroupOrders)) {
@@ -142,33 +108,26 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy{
       }
     }
 
-    if(formName === 'standardServer'){
-      const standardServer: CaRadioButton = value;
+    if (formName === 'standardServer') {
+      const standardServer: CaServerStandard = value;
       if (standardServer == null) {
-        this.serverInfo$ = null;
+        this.serverClouds$ = null;
       } else {
-        this.serverInfo$ = this.serverInfoService.findByStandardName(standardServer.name);
+        this.serverClouds$ = this.serverService.findServerCloudByStandardServer(standardServer.id);
       }
     }
 
-    if(formName === 'serverInfo'){
-      const serverInfo: CaServerInfo = value;
-      if (serverInfo == null) {
+    if (formName === 'serverCloud') {
+      const serverCloud: CaServerCloud = value;
+      if (serverCloud == null) {
         this.regions$ = null;
       } else {
-        this.regions$ = this.serverInfoService.findAvailableRegionsForServerInfo(serverInfo.id);
+        this.regions$ = this.serverService.findAvailableRegionsForServerCloud(serverCloud.id);
       }
     }
-  }
-
-  get selectedUsage(): CaServerUsage {
-    return this.formGp.get('usage').value;
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
-
-
 }

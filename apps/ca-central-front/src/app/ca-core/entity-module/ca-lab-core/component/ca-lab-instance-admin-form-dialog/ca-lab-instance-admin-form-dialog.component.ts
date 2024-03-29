@@ -57,7 +57,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       name: [null, [Validators.required, CaLabInstanceValidator.nameValidator()]],
       type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
       virtualHost: [null, [Validators.required, CaLabInstanceValidator.virtualHostDomainValidator(true)]],
-      serverInfo: [null, [Validators.required]],
+      serverCloud: [null, [Validators.required]],
       billingMode: [null, [Validators.required]],
       volumeSize: [null, [Validators.required, FlGlobalValidators.isInteger, Validators.min(50)]],
       volumeType: ['HIGH_SPEED', [Validators.required]],
@@ -81,7 +81,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
     switch (type) {
       case 'CLOUD':
         this.formGp.get('virtualHost').enable();
-        this.formGp.get('serverInfo').enable();
+        this.formGp.get('serverCloud').enable();
         this.formGp.get('billingMode').enable();
         this.formGp.get('volumeSize').enable();
         this.formGp.get('volumeType').enable();
@@ -104,7 +104,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
         this.formGp.get('labManagerApiKey').enable();
         this.formGp.get('codelabToken').enable();
 
-        this.formGp.get('serverInfo').disable();
+        this.formGp.get('serverCloud').disable();
         this.formGp.get('volumeSize').disable();
         this.formGp.get('volumeType').disable();
         this.formGp.get('billingMode').disable();
@@ -122,7 +122,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
         this.formGp.get('desktopPlatform').enable();
 
         this.formGp.get('virtualHost').disable();
-        this.formGp.get('serverInfo').disable();
+        this.formGp.get('serverCloud').disable();
         this.formGp.get('billingMode').disable();
         this.formGp.get('volumeSize').disable();
         this.formGp.get('volumeType').disable();

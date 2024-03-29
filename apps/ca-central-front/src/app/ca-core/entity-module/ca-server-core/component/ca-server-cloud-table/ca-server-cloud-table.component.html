@@ -1,0 +1,111 @@
+<mat-table mat-table [dataSource]="datasource">
+
+  <!-- Cloud provider -->
+  <ng-container matColumnDef="cloudProvider">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'cloud_provider' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <ca-cloud-provider-inline [cloudProvider]="row.cloudProvider"></ca-cloud-provider-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Technical name -->
+  <ng-container matColumnDef="technicalName">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'technical_name' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span class="technical-name">{{ row.technicalName }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Server standard -->
+  <ng-container matColumnDef="serverStandard">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'server_standard' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.serverStandard.name }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Ram -->
+  <ng-container matColumnDef="ram">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'ram' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span>{{ row.ram }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Disk -->
+  <ng-container matColumnDef="disk">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'disk' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span>{{ row.diskSpace }} {{ 'flCoreComponent.giga_byte_symbole' | translate }} {{ row.diskType }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- CPU -->
+  <ng-container matColumnDef="cpu">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'cpu' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div>
+        <div>{{ row.cpuCount }}</div>
+        <div class="g-text-small g-text-light">{{ row.cpuType }}</div>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- GPU -->
+  <ng-container matColumnDef="gpu">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'gpu' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div>
+        <div>{{ row.gpuCount }}</div>
+        <div class="g-text-small g-text-light">{{ row.gpuType }}</div>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
+    </mat-header-cell>
+    <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
+
+      <!--   Mat menu containing action buttons   -->
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+
+        <button mat-menu-item type="button"
+                (click)="openEditServerCloud(row)">
+          <mat-icon>edit</mat-icon>
+          <span>{{ 'update_server_cloud' | translate }}</span>
+        </button>
+
+
+        <button mat-menu-item type="button"
+                (click)="deleteServerCloud(row)">
+          <mat-icon color="warn">clear</mat-icon>
+          <span class="g-warn-text">{{ 'delete_server_cloud' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>
+

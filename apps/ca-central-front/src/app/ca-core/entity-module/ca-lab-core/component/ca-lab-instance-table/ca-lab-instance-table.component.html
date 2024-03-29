@@ -41,13 +41,13 @@
   </ng-container>
 
   <!-- Server info -->
-  <ng-container matColumnDef="serverInfo">
+  <ng-container matColumnDef="serverCloud">
     <mat-header-cell *matHeaderCellDef>
-      {{'server_info' | translate}}
+      {{'server_cloud' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
-      <ca-server-info-inline *ngIf="labInstance.serverInfo" [serverInfo]="labInstance.serverInfo">
-      </ca-server-info-inline>
+      <ca-server-cloud-inline *ngIf="labInstance.serverCloud" [serverCloud]="labInstance.serverCloud">
+      </ca-server-cloud-inline>
     </mat-cell>
   </ng-container>
 
