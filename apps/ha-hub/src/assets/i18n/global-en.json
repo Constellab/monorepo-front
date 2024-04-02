@@ -199,7 +199,7 @@
   "create_live_task_success": "Live task created successfully",
   "space": "Space",
   "your_spaces": "Your spaces",
-  "task_description": "Task description",
+  "live_task_description": "Live task description",
   "live_task_description_place_holder": "Describe your live task",
   "info_about_this_version": "Infos about this version",
   "code": "Code",
@@ -251,7 +251,8 @@
   "parameters_copied_to_clipboard": "Parameters copied to clipboard",
   "parameters": "Parameters",
   "saving_story_content": "Saving story content",
-  "publish_story_with_modifications": "Modify the published story with content modifications",
+  "publish_story_with_modifications": "Publish story modifications",
+  "story_modification_saved_to_draft": "Story modifications saved to draft",
   "search_by_title": "Search by title",
   "icons": "Icons",
   "icon_technical_name": "Icon technical name",
@@ -275,5 +276,6 @@
   "technical_name_copied_to_clipboard": "Technical name copied to clipboard",
   "icon_updated": "Icon updated",
   "language_changed": "Language : {{lang}}",
-  "load_more_icons": "Load more icons"
+  "load_more_icons": "Load more icons",
+  "updating_brick_tech_doc": "Updating brick technical documentation"
 }

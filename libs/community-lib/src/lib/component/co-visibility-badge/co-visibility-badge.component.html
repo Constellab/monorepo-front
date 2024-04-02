@@ -1,9 +1,15 @@
 @if (!space){
-  <div class="g-badge g-accent-background">
-    {{'public' | translate}}
+  <div class="g-badge g-accent-background visibility-badge-div">
+    <fl-text-icon [gap]="'6px'">
+      <mat-icon>public</mat-icon>
+      {{'public' | translate}}
+    </fl-text-icon>
   </div>
 } @else {
-  <div class="g-badge g-warn-background">
-    {{space.name}}
+  <div class="g-badge g-warn-background visibility-badge-div">
+    @if(space.photo){
+      <img [src]="space.photo" class="space-badge-photo"/>
+    }
+    {{space.name.trim()}}
   </div>
 }

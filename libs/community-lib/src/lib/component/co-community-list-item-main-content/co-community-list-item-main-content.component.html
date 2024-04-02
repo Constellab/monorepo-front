@@ -1,4 +1,10 @@
-<h5>{{title}}</h5>
+<span class="title-space-span">
+  <h5>{{title}}</h5>
+  @if(showVisibility){
+    <co-visibility-badge [space]="space"></co-visibility-badge>
+  }
+</span>
+
 <p class="small-text">{{description}}</p>
 <ng-content></ng-content>
 <div class="lower-info-div">
@@ -6,7 +12,7 @@
     <fl-user-inline [user]="user" [portalOnHover]="false"></fl-user-inline>
     <span class="g-text-small date-info">
       <fl-from-now [date]="date"></fl-from-now>
-  </span>
+    </span>
   </p>
   <div class="like-comment-div">
     @if(likes !== null){

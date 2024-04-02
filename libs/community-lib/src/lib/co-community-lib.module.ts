@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule, Provider, Type} from '@angular/core';
 import {
   FlCoreDirectiveModule,
   FlCorePipeModule,
@@ -38,6 +38,7 @@ import {TeTextEditorModule} from '@monorepo/text-editor';
 import {CoCommentComponent} from './component/co-comment/co-comment.component';
 import {CoCommentsPortalComponent} from './component/co-comments-portal/co-comments-portal.component';
 import {MatCardModule} from '@angular/material/card';
+import {CoServiceConfig} from './service/co-service-config.config';
 
 @NgModule({
   imports: [
@@ -91,5 +92,17 @@ import {MatCardModule} from '@angular/material/card';
 export class CoCommunityLibModule {
   constructor(translateService: FlTranslateService) {
     translateService.addModuleTranslation('CoCommunityLibModule', coCommunityLibI18n);
+  }
+
+  public static forRoot(apiServiceConfig: Type<CoServiceConfig>): ModuleWithProviders<CoCommunityLibModule> {
+
+    const providers: Provider[] = [
+      {provide: CoServiceConfig, useClass: apiServiceConfig}
+    ];
+
+    return {
+      ngModule: CoCommunityLibModule,
+      providers: providers
+    };
   }
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CoAbstractComment} from '../../model/co-abstract-comment.class';
+import {CoAbstractComment, CoCommentEntity} from '../../model/co-abstract-comment.class';
 import {TeBasicConfig, TeRichText} from '@monorepo/text-editor';
 import {FormControl} from '@ngneat/reactive-forms';
 
@@ -9,7 +9,7 @@ import {FormControl} from '@ngneat/reactive-forms';
   styleUrls: ['./co-comment.component.scss']
 })
 export class CoCommentComponent  implements OnInit{
-  @Input({required: true}) comment: CoAbstractComment;
+  @Input({required: true}) comment: CoAbstractComment<CoCommentEntity>;
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
   formControl: FormControl<TeRichText> = new FormControl<TeRichText>();
 

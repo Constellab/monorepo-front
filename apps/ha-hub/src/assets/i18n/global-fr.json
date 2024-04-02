@@ -199,7 +199,7 @@
   "create_live_task_success": "Live task créée avec succès",
   "space": "Space",
   "your_spaces": "Vos spaces",
-  "task_description": "Description de la tâche",
+  "live_task_description": "Description de la live task",
   "live_task_description_place_holder": "Décrivez votre live task",
   "info_about_this_version": "Informations sur cette version",
   "code": "Code",
@@ -251,7 +251,8 @@
   "parameters_copied_to_clipboard": "Paramètres copiés dans le presse-papier",
   "parameters": "Paramètres",
   "saving_story_content": "Sauvegarde du contenu de la story",
-  "publish_story_with_modifications": "Modifier la story publiée avec les modifications du contenu",
+  "publish_story_with_modifications": "Publie les modifications effectuees sur la story",
+  "story_modification_saved_to_draft": "Les modifications de la story ont été sauvegardées en tant que brouillon",
   "search_by_title": "Rechercher par titre",
   "icons": "Icônes",
   "icon_technical_name": "Nom technique de l'icône",
@@ -275,5 +276,6 @@
   "technical_name_copied_to_clipboard": "Nom technique copié dans le presse-papier",
   "icon_updated": "Icône mise à jour",
   "language_changed": "Langue : {{lang}}",
-  "load_more_icons": "Charger plus d'icônes"
+  "load_more_icons": "Charger plus d'icônes",
+  "updating_brick_tech_doc": "Mise à jour de la documentation technique de la brick"
 }

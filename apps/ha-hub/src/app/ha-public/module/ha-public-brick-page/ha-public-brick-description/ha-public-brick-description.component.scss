@@ -44,6 +44,7 @@
   max-width: 50%;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: 0.2em;
 }
 
 .title-div > .icon {
@@ -54,9 +55,10 @@
 }
 
 .brick-like-edit-button{
+  padding-left: 1em;
   display: flex;
   flex-direction: row;
-  gap: 1.75em;
+  gap: 1em;
   margin-left: auto;
 }
 

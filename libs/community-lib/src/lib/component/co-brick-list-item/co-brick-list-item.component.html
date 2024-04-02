@@ -1,11 +1,12 @@
 <co-community-list-item
   [title]="brick.name"
+  [space]="brick.space"
+  [showVisibility]="true"
   [description]="brick.description"
   [user]="brick.createdBy"
   [date]="brick.createdAt"
   [likes]="brick.likes">
 <!--  [comments]="brick.comments">-->
-  <co-visibility-badge leftSide [space]="brick.space"></co-visibility-badge>
   <div rightSide class="brick-right-side">
     <div class="brick-logo" [style.background-image]="
                             brick.imageLink ? 'url(\''+ brick.imageLink +'\')' :

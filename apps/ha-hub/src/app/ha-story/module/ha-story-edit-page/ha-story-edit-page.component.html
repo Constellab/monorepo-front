@@ -71,18 +71,22 @@
           </button>
         </div>
       }
-      @if (story.status !== 'DRAFT' && contentModified) {
+      @if (story.status !== 'DRAFT' && (contentModified || !syncWithBack)) {
         <div class="save-content-div">
+          <button mat-flat-button type="button" class="save-story-bt" *haIsAuthenticated
+                  (click)="save()" color="primary" [matTooltip]="'publish_story_with_modifications' | translate"
+                  [disabled]="!syncWithBack">
+            {{'publish_story_modifications' | translate}}
+          </button>
           @if(syncWithBack){
-            <button mat-flat-button type="button" class="save-story-bt" *haIsAuthenticated
-                    (click)="save()" color="primary" [matTooltip]="'publish_story_with_modifications' | translate"
-                    [disabled]="!syncWithBack">
-              {{'publish_story_modifications' | translate}}
-            </button>
+            <span class="g-text-small">
+              {{'story_modification_saved_to_draft' | translate}}
+            </span>
           } @else {
             <fl-loader size="small" [matTooltip]="'saving_story_content' | translate"></fl-loader>
           }
         </div>
+
       }
       @if (isAuthor) {
         <button mat-icon-button type="button" class="co-author-bt"
@@ -95,6 +99,9 @@
               [matTooltip]="'open_story_files_panel' | translate">
         <mat-icon>cloud_upload</mat-icon>
       </button>
+      <button mat-icon-button [matTooltip]="'delete_story' | translate" type="button" color="warn" (click)="openDeleteStoryConfirmDialog()" class="add-file-button-author">
+        <mat-icon>delete</mat-icon>
+      </button>
     </div>
     @if(contentHasError){
       <mat-error>{{contentError | translate}}</mat-error>
@@ -103,10 +110,6 @@
           [ngClass]="contentEditorIsFocused ? ['focus'] : []">
       <te-text-editor class="border-none" [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
     </form>
-
-    <div class="delete-story-bt-div">
-      <button mat-flat-button color="warn" (click)="openDeleteStoryConfirmDialog()">{{ 'delete_story' | translate }}</button>
-    </div>
   </div>
 }
 

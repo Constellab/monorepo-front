@@ -13,8 +13,9 @@ import {Observable} from 'rxjs';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {ClVersion} from '@monorepo/core-lib';
-import {HaLikeBrickService} from '../../../../ha-core/ha-service/ha-like-brick.service';
 import {HaAuthService} from '../../../../ha-core/ha-service/ha-auth.service';
+import {HaLikeService} from '../../../../ha-core/ha-service/ha-like.service';
+import {HaLikeType} from '../../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 
 @Component({
   selector: 'ha-public-brick-description-page',
@@ -45,7 +46,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     private transferState: TransferState,
     private metadataService: HaMetadataService,
     private authService: HaAuthService,
-    private likeBrickService: HaLikeBrickService) {
+    private likeService: HaLikeService) {
 
   }
 
@@ -80,7 +81,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
 
   private onBrick(brick: HaBrick): void {
     this.brick = brick;
-    this.likeBrickService.checkIfLiked(brick.id).subscribe((isLiked) => {
+    this.likeService.checkIfLiked(HaLikeType.BRICK_LIKE, brick.id).subscribe((isLiked) => {
       this.brickIsLiked = isLiked;
     });
     this.metadataService.setPageTitle('ha.brick.title', true, {title: brick.name});
@@ -152,7 +153,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   }
 
   private unlikeBrick(): void {
-    this.likeBrickService.unlike(this.brick.id).subscribe((brick) => {
+    this.likeService.unlike(HaLikeType.BRICK_LIKE, this.brick.id).subscribe((brick: HaBrick) => {
       if (brick != null) {
         this.brick = brick;
         this.brickIsLiked = false;
@@ -166,7 +167,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
       this.router.navigate(['/login'])
       return;
     }
-    this.likeBrickService.like(this.brick.id).subscribe((brick) => {
+    this.likeService.like(HaLikeType.BRICK_LIKE, this.brick.id).subscribe((brick: HaBrick) => {
       if (brick != null) {
         this.brick = brick;
         this.brickIsLiked = true;

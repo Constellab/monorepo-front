@@ -3,8 +3,9 @@ import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {Type} from 'class-transformer';
 import {HaUser} from './ha-user';
+import {HaBaseEntity} from './ha-entity.class';
 
-export abstract class HaAbstractLikeEntity implements FlEntity{
+export abstract class HaAbstractLikeEntity<T extends HaBaseEntity> implements FlEntity{
   id: string;
 
   @ClLuxonDateTimeTransform()
@@ -12,4 +13,6 @@ export abstract class HaAbstractLikeEntity implements FlEntity{
 
   @Type(() => HaUser)
   likedBy: HaUser;
+
+  abstract entity: T;
 }

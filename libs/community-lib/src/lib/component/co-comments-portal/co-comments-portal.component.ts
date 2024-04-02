@@ -1,16 +1,21 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef, FlUser} from '@monorepo/front-core-lib';
-import {CoAbstractComment} from '../../model/co-abstract-comment.class';
+import {CoAbstractComment, CoCommentEntity, CoCommentType} from '../../model/co-abstract-comment.class';
 import {TeBasicConfig, TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 import {FormControl} from '@ngneat/reactive-forms';
 import {CoCommentService} from '../../model/co-comment-service.interface';
 
 export interface CoCommentsPortalData {
   service: CoCommentService;
-  entityId: string;
+  entity: CoCommentsEntity;
+  commentType: CoCommentType;
   user: FlUser;
 }
 
+export interface CoCommentsEntity {
+  id: string;
+  comments: number;
+}
 @Component({
   selector: 'co-comments-portal',
   templateUrl: './co-comments-portal.component.html',
@@ -23,42 +28,46 @@ export class CoCommentsPortalComponent implements OnInit{
   formControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>();
   commentIsValid = false;
   user: FlUser;
-  entityId: string;
-  datasource: FlDatasourcePaginated<CoAbstractComment>;
+  entity: CoCommentsEntity;
+  datasource: FlDatasourcePaginated<CoAbstractComment<CoCommentEntity>>;
   isLoading = false;
-
+  commentType: CoCommentType
 
   constructor(@Inject(FL_PORTAL_DATA) data: CoCommentsPortalData,
               private overlayRef: FlOverlayRef) {
     this.commentService = data.service;
     this.user = data.user;
-    this.entityId = data.entityId;
+    this.entity = data.entity;
+    this.commentType = data.commentType;
+    console.log('data', data)
   }
 
   ngOnInit(): void {
-    this.datasource = this.commentService.getComments(this.entityId);
+    this.datasource = this.commentService.getComments(this.commentType, this.entity.id);
   }
 
-  closePortal() {
-    this.overlayRef.dispose();
+  closePortal(): void {
+    this.overlayRef.dispose(this.entity.comments);
   }
 
   checkCommentValidity(): void {
     this.commentIsValid = !TeRichText.isEmpty(this.formControl.value);
   }
 
-  sendComment() {
+  sendComment(): void {
     if (this.commentIsValid){
       this.isLoading = true;
-      this.commentService.sendComment(this.formControl.value, this.entityId).subscribe((comment: CoAbstractComment) => {
-        this.formControl.setValue(null);
-        this.datasource.unshiftItem(comment);
-        this.isLoading = false;
-      });
+      this.commentService.sendComment(this.commentType, this.formControl.value, this.entity.id)
+        .subscribe((comment: CoAbstractComment<CoCommentEntity>) => {
+          this.formControl.patchValue(TeRichText.emptyContent());
+          this.datasource.unshiftItem(comment);
+          this.entity.comments++;
+          this.isLoading = false;
+        });
     }
   }
 
-  loadMoreResults() {
+  loadMoreResults(): void {
     this.datasource.getNextPage();
   }
 }

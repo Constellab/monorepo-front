@@ -4,13 +4,19 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import {Observable} from 'rxjs';
-import {HaLikeLiveTaskService} from '../../../ha-core/ha-service/ha-like-live-task.service';
-import {HaCommentLiveTaskService} from '../../../ha-core/ha-service/ha-comment-live-task.service';
-import {CoCommentsPortalComponent, CoCommentsPortalConfig, CoCommentsPortalData} from '@monorepo/community-lib';
+import {
+  CoCommentsPortalComponent,
+  CoCommentsPortalConfig,
+  CoCommentsPortalData,
+  CoCommentType
+} from '@monorepo/community-lib';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
 import {FlPortalService} from '@monorepo/front-core-lib';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
+import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
+import {HaCommentService} from '../../../ha-core/ha-service/ha-comment.service';
 
 
 @Component({
@@ -34,8 +40,8 @@ export class HaLiveTaskPageComponent implements OnInit {
     private portalService: FlPortalService,
     private authenticatedUserService: HaAuthenticatedUserService,
     private authService: HaAuthService,
-    private likeLiveTaskService: HaLikeLiveTaskService,
-    private commentLiveTaskService: HaCommentLiveTaskService){
+    private likeService: HaLikeService,
+    private commentService: HaCommentService) {
   }
 
   ngOnInit(): void {
@@ -58,10 +64,14 @@ export class HaLiveTaskPageComponent implements OnInit {
     this.currentTab = this.activeRoute.snapshot.firstChild.url[0]?.path;
   }
 
-  private checkIfLiveTaskIsLiked(liveTaskId: string): void {
-    this.likeLiveTaskService.checkIfLiked(liveTaskId).subscribe((isLiked) => {
-      this.liveTaskIsLiked = isLiked;
-    });
+  openCommentsPannel(): void {
+    this.portalService.createPortal(CoCommentsPortalComponent, CoCommentsPortalConfig.create(), {
+      service: this.commentService,
+      user: this.currentUser,
+      entity: this.liveTask,
+      commentType: CoCommentType.LIVE_TASK_COMMENT
+    } as CoCommentsPortalData).detachments();
+
   }
 
   toggleLikeLiveTaskButton(): void{
@@ -72,8 +82,14 @@ export class HaLiveTaskPageComponent implements OnInit {
     }
   }
 
+  private checkIfLiveTaskIsLiked(liveTaskId: string): void {
+    this.likeService.checkIfLiked(HaLikeType.LIVE_TASK_LIKE, liveTaskId).subscribe((isLiked) => {
+      this.liveTaskIsLiked = isLiked;
+    });
+  }
+
   private unlikeLiveTask(): void {
-    this.likeLiveTaskService.unlike(this.liveTask.id).subscribe((liveTask) => {
+    this.likeService.unlike(HaLikeType.LIVE_TASK_LIKE, this.liveTask.id).subscribe((liveTask: HaLiveTask) => {
       if (liveTask != null) {
         this.liveTask = liveTask;
         this.liveTaskIsLiked = false;
@@ -87,20 +103,11 @@ export class HaLiveTaskPageComponent implements OnInit {
       this.router.navigate(['/login'])
       return;
     }
-    this.likeLiveTaskService.like(this.liveTask.id).subscribe((liveTask) => {
+    this.likeService.like(HaLikeType.LIVE_TASK_LIKE, this.liveTask.id).subscribe((liveTask: HaLiveTask) => {
       if (liveTask != null) {
         this.liveTask = liveTask;
         this.liveTaskIsLiked = true;
       }
     });
-  }
-
-  openCommentsPannel(): void {
-    this.portalService.createPortal(CoCommentsPortalComponent, CoCommentsPortalConfig.create(), {
-      service: this.commentLiveTaskService,
-      user: this.currentUser,
-      entityId: this.liveTask.id
-    } as CoCommentsPortalData).detachments();
-
   }
 }

@@ -3,7 +3,16 @@ import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {DateTime} from 'luxon';
 import {TeRichTextContent} from '@monorepo/text-editor';
 
-export abstract class CoAbstractComment implements FlEntity{
+export enum CoCommentType {
+  STORY_COMMENT = 'story',
+  LIVE_TASK_COMMENT = 'live-task',
+}
+
+export interface CoCommentEntity extends FlEntity{
+  comments: number;
+}
+
+export abstract class CoAbstractComment<T extends CoCommentEntity> implements FlEntity {
   id: string;
 
   @ClLuxonDateTimeTransform()
@@ -17,4 +26,6 @@ export abstract class CoAbstractComment implements FlEntity{
   lastModifiedBy: FlUser;
 
   content: TeRichTextContent;
+
+  abstract entity: T;
 }

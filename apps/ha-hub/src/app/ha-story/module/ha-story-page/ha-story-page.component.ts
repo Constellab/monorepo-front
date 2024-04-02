@@ -14,12 +14,17 @@ import {TeRichText} from '@monorepo/text-editor';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
-import {HaLikeStoryService} from '../../../ha-core/ha-service/ha-like-story.service';
+import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
 import {FlPortalService} from '@monorepo/front-core-lib';
-import {CoCommentsPortalComponent, CoCommentsPortalConfig, CoCommentsPortalData} from '@monorepo/community-lib';
-import {HaCommentStoryService} from '../../../ha-core/ha-service/ha-comment-story.service';
-
+import {
+  CoCommentsPortalComponent,
+  CoCommentsPortalConfig,
+  CoCommentsPortalData,
+  CoCommentType
+} from '@monorepo/community-lib';
+import {HaCommentService} from '../../../ha-core/ha-service/ha-comment.service';
+import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 
 @Component({
   selector: 'ha-story-page',
@@ -56,10 +61,10 @@ export class HaStoryPageComponent implements OnInit {
               private transferState: TransferState,
               private authenticatedUserService: HaAuthenticatedUserService,
               private authService: HaAuthService,
-              private likeStoryService: HaLikeStoryService,
+              private likeService: HaLikeService,
               private router: Router,
               private portalService: FlPortalService,
-              private commentStoryService: HaCommentStoryService) {
+              private commentService: HaCommentService) {
   }
 
   ngOnInit(): void {
@@ -73,7 +78,7 @@ export class HaStoryPageComponent implements OnInit {
   }
 
   private checkIfStoryIsLiked(storyId: string): void {
-    this.likeStoryService.checkIfLiked(storyId).subscribe((isLiked) => {
+    this.likeService.checkIfLiked(HaLikeType.STORY_LIKE, storyId).subscribe((isLiked) => {
       this.storyIsLiked = isLiked;
     });
   }
@@ -148,7 +153,7 @@ export class HaStoryPageComponent implements OnInit {
   }
 
   private unlikeStory(): void {
-    this.likeStoryService.unlike(this.story.id).subscribe((story) => {
+    this.likeService.unlike(HaLikeType.STORY_LIKE, this.story.id).subscribe((story: HaStory) => {
       if (story != null) {
         this.story = story;
         this.storyIsLiked = false;
@@ -162,7 +167,7 @@ export class HaStoryPageComponent implements OnInit {
       this.router.navigate(['/login'])
       return;
     }
-    this.likeStoryService.like(this.story.id).subscribe((story) => {
+    this.likeService.like(HaLikeType.STORY_LIKE, this.story.id).subscribe((story: HaStory) => {
       if (story != null) {
         this.story = story;
         this.storyIsLiked = true;
@@ -172,10 +177,11 @@ export class HaStoryPageComponent implements OnInit {
 
   openCommentsPannel(): void {
     this.portalService.createPortal(CoCommentsPortalComponent, CoCommentsPortalConfig.create(), {
-      service: this.commentStoryService,
+      service: this.commentService,
       user: this.currentUser,
-      entityId: this.story.id
-    } as CoCommentsPortalData).detachments();
+      entity: this.story,
+      commentType: CoCommentType.STORY_COMMENT
+    } as CoCommentsPortalData);
 
   }
 }

@@ -39,6 +39,8 @@ import {HaHttpInterceptorSsrService} from './ha-core/ha-service/ha-http-intercep
 import {rvDefaultViewTypeInfos, RvResourceViewModule} from '@monorepo/resource-view';
 import {TranslateLoader} from '@ngx-translate/core';
 import {haSvgIcons} from './ha-core/utils/ha-svg-icon-config';
+import {CoCommunityLibModule} from '@monorepo/community-lib';
+import {HaCoServiceConfig} from './ha-core/ha-model/ha-config/ha-co-service.config';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -100,6 +102,8 @@ export function TranslationLoaderFactory(http: HttpClient, config: FlTranslateMo
     }),
 
     RvResourceViewModule.forRoot({availableViews: rvDefaultViewTypeInfos}),
+
+    CoCommunityLibModule.forRoot(HaCoServiceConfig),
 
     HaMainModule
   ],

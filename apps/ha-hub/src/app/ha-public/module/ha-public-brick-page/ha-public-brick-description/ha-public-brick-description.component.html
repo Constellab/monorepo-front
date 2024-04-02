@@ -4,27 +4,24 @@
       <div class="title-div">
         <img [src]="brick.imageLink ? brick.imageLink : 'assets/fl-logo/logo.png'" class="brick-icon">
         <h2>{{brick.name}}</h2>
-        <mat-icon *ngIf="brick.visibility === 'public'" class="icon" matTooltip="{{'public_brick' | translate}}">
-          public
-        </mat-icon>
-        <mat-icon *ngIf="brick.visibility === 'private'" class="icon" matTooltip="{{'private_brick' | translate}}">
-          lock
-        </mat-icon>
-        <mat-icon class="mat-primary icon check-icon">check</mat-icon>
+        <co-visibility-badge [space]="brick.space">
+
+        </co-visibility-badge>
         <div>
 
         </div>
         <div class="brick-like-edit-button">
           <div class="brick-like">
-            <button mat-icon-button (click)="toggleLikeBrickButton()">
+            <button mat-flat-button (click)="toggleLikeBrickButton()">
               @if (brickIsLiked){
                 <mat-icon fontSet="material-icons" class="g-like-button" *haIsAuthenticated>thumb_up</mat-icon>
               } @else {
                 <mat-icon class="g-cursor-hover">thumb_up</mat-icon>
               }
+              {{ brick.likes }}
             </button>
 
-            {{ brick.likes }}
+
           </div>
           @if (isCreatorOrBrickUser$ | async){
             <button mat-stroked-button type="button" (click)="createEditBrickDialog()" class="edit-brick-button">{{'edit' | translate}}</button>

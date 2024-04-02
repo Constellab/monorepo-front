@@ -70,7 +70,9 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
 
     if (this.node.innerText.trim() == '') return this.node;
 
-    const id = ClStringHelper.toKebabCase(this.node.innerText);
+    let id = ClStringHelper.toKebabCase(this.node.innerText);
+    //remove all special characters and numbers
+    id = id.replace(/[^a-zA-Z-]/g, '');
     this.node.setAttribute('id', id);
     return this.node;
   }

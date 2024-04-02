@@ -1,5 +1,8 @@
 export * from './lib/co-community-lib.module';
 
+// Services
+export * from './lib/service/co-service-config.config';
+
 // Components
 export * from './lib/component/co-live-task-list-item/co-live-task-list-item.component';
 export * from './lib/component/co-live-task-create-dialog-form/co-live-task-create-dialog-form.component';

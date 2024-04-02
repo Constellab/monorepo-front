@@ -15,7 +15,10 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     'type': 'Type',
     'create': 'Create',
     'your_spaces': 'Vos spaces',
-    'no_published': 'Non publié'
+    'no_published': 'Non publié',
+    'write_a_comment': 'Écrire un commentaire',
+    'comment': 'Commentaire',
+    'comments': 'Commentaires',
   }
 };
 
@@ -33,7 +36,10 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     'type': 'Type',
     'create': 'Create',
     'your_spaces': 'Your spaces',
-    'no_published': 'Not published'
+    'no_published': 'Not published',
+    'write_a_comment': 'Write a comment',
+    'comment': 'Comment',
+    'comments': 'Comments',
   }
 };
 export const coCommunityLibI18n: FlTranslateObject = {

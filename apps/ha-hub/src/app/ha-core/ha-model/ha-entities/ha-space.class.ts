@@ -4,7 +4,7 @@ import {CoSpace} from '@monorepo/community-lib';
 
 export class HaSpace extends HaEntity implements CoSpace{
   name: string;
-  photo: string;
+  photo?: string;
   domain: string;
   space: HaSpace;
 }

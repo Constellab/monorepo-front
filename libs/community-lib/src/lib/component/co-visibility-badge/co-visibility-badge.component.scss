@@ -1,0 +1,17 @@
+.visibility-badge-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  height: 1.75em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.space-badge-photo{
+  height: 90%;
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid var(--main-background);
+}

@@ -17,8 +17,8 @@
           <p class="small-text user-date-info">
             <fl-user-inline [user]="story.createdBy" [portalOnHover]="false"></fl-user-inline>
             <span class="g-text-small date-info">
-          <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
-        </span>
+              <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
+            </span>
           </p>
           @if (storyCoAuthors?.length > 0) {
             <fl-key-value class="g-text-small co-author-key-val user-date-info">
@@ -33,21 +33,23 @@
         </div>
         <div class="story-like-comment-infos-div">
           <div class="story-like-comment">
-            <button mat-icon-button (click)="toggleLikeStoryButton()">
+            <button mat-flat-button (click)="toggleLikeStoryButton()">
               @if (storyIsLiked){
                 <mat-icon fontSet="material-icons" class="g-like-button" *haIsAuthenticated>thumb_up</mat-icon>
               } @else {
                 <mat-icon class="g-cursor-hover">thumb_up</mat-icon>
               }
+              {{ story.likes }}
             </button>
 
-            {{ story.likes }}
+
           </div>
           <div class="story-like-comment">
-            <button mat-icon-button (click)="openCommentsPannel()">
+            <button mat-flat-button (click)="openCommentsPannel()">
               <mat-icon>comment</mat-icon>
+              {{ story.comments }}
             </button>
-            {{ story.comments }}
+
           </div>
         </div>
         @if (hasRightToEdit) {
@@ -99,8 +101,10 @@
         </fl-text-icon>
       </h6>
       @for (title of titles; track title.text) {
-        <a [routerLink]="'.'" [fragment]="title.text.toLowerCase().replace(' ', '-')"
-           class="title small-text" [ngClass]="title.level === 2 ? 'big-title' : 'small-title'">{{ title.text }}</a>
+        <a [routerLink]="'.'" [fragment]="title.text.toLowerCase().replaceAll(' ', '-')"
+           class="title small-text" [ngClass]="title.level === 2 ? 'big-title' : 'small-title'">
+          {{ title.text }}
+        </a>
       }
     }
   </div>
