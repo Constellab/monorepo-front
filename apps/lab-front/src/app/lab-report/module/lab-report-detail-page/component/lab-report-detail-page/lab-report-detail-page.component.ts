@@ -75,9 +75,11 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
   }
 
   updateProject(project: LabProject): void {
-    this.reportService.updateProject(this.state.currentReport.id, project?.id ?? null).subscribe(
-      report => this.state.updateReport(report)
-    );
+    this.reportService.updateProject(this.state.currentReport.id, project?.id ?? null).subscribe({
+      next: report => this.state.updateReport(report),
+      // call refresh report to set the project back
+      error: () => this.state.refreshReport()
+    });
   }
 
   updateReport(): void {

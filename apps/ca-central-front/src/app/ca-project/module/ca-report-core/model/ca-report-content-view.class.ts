@@ -1,12 +1,11 @@
 import {CaReportContentViewComponent} from '../component/ca-report-content-view/ca-report-content-view.component';
-import {RvConfigValues, RvResourceView} from '@monorepo/resource-view';
+import {RvConfigValues} from '@monorepo/resource-view';
 import {TeComponentBlock} from '@monorepo/text-editor';
 import {BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {ApplicationRef, EnvironmentInjector, Type} from '@angular/core';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
 import {CaReportService} from '../../../../ca-core/service-api/ca-report.service';
 import {map} from 'rxjs/operators';
-import {CaQuillEmbed} from '../../ca-text-editor/model/ca-quill-export.class';
 
 
 export interface CaReportViewConfig {
@@ -17,35 +16,6 @@ export interface CaReportViewConfig {
   view_config: RvConfigValues;
   title: string;
   caption: string;
-}
-
-export class CaReportContentViewBlot extends CaQuillEmbed {
-
-  static blotName = 'resource_view' as const;
-  static tagName = 'ca-report-content-view';
-  static className = 'g-quill-block';
-
-  private readonly storedValue: RvResourceView;
-
-  static create(value: CaReportViewConfig): any {
-    const node: HTMLElement = super.create(value) as any;
-
-    // pass data to the component via the node
-    const component: CaReportContentViewComponent = node as any;
-    component.viewConfig = value;
-
-    return node;
-  }
-
-  constructor(node: Node, value: any) {
-    super(node);
-    this.storedValue = value;
-  }
-
-  value(): { resource_view: RvResourceView } {
-
-    return {[CaReportContentViewBlot.blotName]: this.storedValue};
-  }
 }
 
 export class CaReportContentViewBlock extends TeComponentBlock<CaReportContentViewComponent> {
@@ -74,10 +44,11 @@ export class CaReportContentViewBlock extends TeComponentBlock<CaReportContentVi
 
     // load the view
     const reportService = this.envInjector.get(CaReportService);
-    this.componentInstance.view$ = reportService.getView(this.additionalData, data.filename).pipe(
+    this.componentInstance.view$ = reportService.getView(this.additionalData, data.id).pipe(
       map(reportView => reportView.view)
     );
   }
+
 
   // this is only for read only mode
   save(): BlockToolData {

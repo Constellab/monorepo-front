@@ -17,7 +17,7 @@ export class FlUserProfilePictureComponent implements OnInit {
   }
 
   /**
-   * Default size of size in em
+   * Default size, if number is provided it will be used as rem
    */
   @Input() size: FlUserProfilePictureSize = 'medium';
 

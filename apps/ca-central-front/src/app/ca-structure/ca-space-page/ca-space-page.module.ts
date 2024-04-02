@@ -50,6 +50,10 @@ import {
 import {
   CaBucketCredentialsCoreModule
 } from '../../ca-core/entity-module/ca-bucket-credentials-core/ca-bucket-credentials-core.module';
+import {CaCurrentSpaceStorageComponent} from './component/ca-current-space-storage/ca-current-space-storage.component';
+import {
+  CaCurrentSpaceStorageDetailComponent
+} from './component/ca-current-space-storage-detail/ca-current-space-storage-detail.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +71,8 @@ import {
     CaCurrentSpaceProjectsPageComponent,
     CaCurrentSpaceTeamsPageComponent,
     CaCurrentSpaceOtherPageComponent,
+    CaCurrentSpaceStorageComponent,
+    CaCurrentSpaceStorageDetailComponent,
   ],
   exports: [
     CaSpaceInvitFormDialogComponent,
@@ -89,4 +95,5 @@ import {
     CaBucketCredentialsCoreModule,
   ],
 })
-export class CaSpacePageModule {}
+export class CaSpacePageModule {
+}

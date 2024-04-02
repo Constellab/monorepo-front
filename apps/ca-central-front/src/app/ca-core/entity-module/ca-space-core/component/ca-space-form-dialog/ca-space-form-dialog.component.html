@@ -1,71 +1,21 @@
 <fl-dialog-header>
-  {{title | translate}}
+  {{ 'create_space' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="space-form" [formGroup]="formGp">
 
-    <!--  Label  -->
+    <!--  Name  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'name' | translate}}</mat-label>
+      <mat-label>{{ 'name' | translate }}</mat-label>
       <input matInput formControlName="name" required flInputMaxLength="100"
              [placeholder]="'name' | translate">
       <mat-error *ngIf="formGp.get('name').hasError('required')">
-        {{'name' | flErrorRequired}}
+        {{ 'name' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
 
-
-    <!--  Nb of licences  -->
-    <mat-form-field class="g-form-input" *caIsAdmin>
-      <mat-label>{{'nb_of_licenses' | translate}}</mat-label>
-      <input matInput formControlName="nbLicenses" required type="number"
-             [placeholder]="'nb_of_licenses' | translate" min="0">
-      <mat-error *ngIf="formGp.get('nbLicenses').hasError('required')">
-        {{'nb_of_licenses' | flErrorRequired}}
-      </mat-error>
-    </mat-form-field>
-
-    <!--  Default storage location  -->
-    <mat-form-field class="g-form-input">
-      <mat-label>{{'space_project_default_storage_location' | translate}}</mat-label>
-      <mat-select formControlName="defaultProjectStorageLocation" required
-                  [placeholder]="'space_project_default_storage_location' | translate">
-        <mat-select-trigger *ngIf="formGp.get('defaultProjectStorageLocation').value">
-          <ca-bucket-location-inline [bucketLocation]="formGp.get('defaultProjectStorageLocation').value"></ca-bucket-location-inline>
-        </mat-select-trigger>
-        <ca-bucket-location-select-options [mode]="getBucketLocationSelectMode()"></ca-bucket-location-select-options>
-      </mat-select>
-      <mat-hint>
-        {{'space_project_default_storage_location_help' | translate}}
-      </mat-hint>
-      <mat-error *ngIf="formGp.get('defaultProjectStorageLocation').hasError('required')">
-        {{'space_project_default_storage_location' | flErrorRequired}}
-      </mat-error>
-    </mat-form-field>
-
-    <!--  Default backup storage location  -->
-    <mat-form-field class="g-form-input">
-      <mat-label>{{'space_default_project_backup_storage_location' | translate}}</mat-label>
-      <mat-select formControlName="defaultProjectBackupStorageLocation"
-                  [placeholder]="'space_default_project_backup_storage_location' | translate">
-        <mat-select-trigger *ngIf="formGp.get('defaultProjectBackupStorageLocation').value">
-          <ca-bucket-location-inline [bucketLocation]="formGp.get('defaultProjectBackupStorageLocation').value"></ca-bucket-location-inline>
-        </mat-select-trigger>
-        <ca-bucket-location-select-options [mode]="getBucketLocationSelectMode()"></ca-bucket-location-select-options>
-      </mat-select>
-      <mat-hint>
-        {{'space_default_project_backup_storage_location_help' | translate}}
-      </mat-hint>
-      <mat-error *ngIf="formGp.get('defaultProjectBackupStorageLocation').hasError('required')">
-        {{'space_default_project_backup_storage_location' | flErrorRequired}}
-      </mat-error>
-    </mat-form-field>
-
-    <mat-error *ngIf="formGp.hasError('sameBackupStorage')">
-      {{'project_storage_location_same_error' | translate}}
-    </mat-error>
-
+    <ca-space-storage-form [formGp]="$any(formGp.get('defaultStorageLocations'))"></ca-space-storage-form>
 
   </form>
 </mat-dialog-content>
@@ -73,7 +23,7 @@
 <div mat-dialog-actions>
   <button mat-flat-button color="primary" type="submit" form="space-form"
           class="g-centered-forced">
-    {{'save' | translate}}
+    {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

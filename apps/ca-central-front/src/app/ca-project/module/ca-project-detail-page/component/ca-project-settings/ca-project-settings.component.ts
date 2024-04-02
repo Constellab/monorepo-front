@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
 import {CaProjectDetailState} from '../../state/ca-project-detail.state';
 import {map} from 'rxjs/operators';
@@ -8,16 +8,14 @@ import {map} from 'rxjs/operators';
   templateUrl: './ca-project-settings.component.html',
   styleUrls: ['./ca-project-settings.component.scss']
 })
-export class CaProjectSettingsComponent implements OnInit {
+export class CaProjectSettingsComponent {
 
   // only allow storage setting for root projects
   showStorageSettings$: Observable<boolean> = this.state.getProject$().pipe(
     map(project => project.isRoot())
   );
 
-  constructor(private state: CaProjectDetailState) { }
-
-  ngOnInit(): void {
+  constructor(private state: CaProjectDetailState) {
   }
 
 }

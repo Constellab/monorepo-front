@@ -3,7 +3,7 @@
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
   <ng-container *ngIf="showViewLinks">
-    <a mat-menu-item type="button" *ngIf="document.isConstellabDocument; else normalDoc"
+    <a mat-menu-item type="button" *ngIf="document.type === 'CONSTELLAB_DOCUMENT'; else normalDoc"
        [routerLink]="document | caDetailRoute">
       <mat-icon>visibility</mat-icon>
       <span>{{'view_document' | translate}}</span>

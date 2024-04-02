@@ -74,10 +74,10 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
   }
 
   onDocumentAction(event: CaDocumentActionEvent): void {
-    if (event.action === 'update') {
-      this.document = event.document;
-    } else if (event.action === 'delete') {
+    if (event.action === 'delete') {
       this.routerService.navigateToProjectDetail(this.document.projectId);
+    } else {
+      this.document = event.document;
     }
   }
 

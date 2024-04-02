@@ -74,9 +74,11 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
   }
 
   updateProject(project: LabProject): void {
-    this.experimentService.updateProject(this.experimentState.currentExperiment.id, project?.id ?? null).subscribe(
-      experiment => this.experimentState.updateExperiment(experiment)
-    );
+    this.experimentService.updateProject(this.experimentState.currentExperiment.id, project?.id ?? null).subscribe({
+      next: experiment => this.experimentState.updateExperiment(experiment),
+      // call refresh experiment to set the project back
+      error: () => this.experimentState.refreshExperiment()
+    });
   }
 
   ngOnDestroy(): void {

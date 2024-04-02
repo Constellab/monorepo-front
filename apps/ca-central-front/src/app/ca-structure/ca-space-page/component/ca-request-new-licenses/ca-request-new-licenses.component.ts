@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {CaSpaceService} from '../../../../ca-core/service-api/ca-space.service';
 import {FlSnackBarService} from '@monorepo/front-core-lib';
 import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CaRequestNewLicensesDto} from '../../../../ca-core/model/entities/space/ca-space-form.class';
+import {MatDialogRef} from '@angular/material/dialog';
+import {CaRequestNewLicensesDto} from '../../../../ca-core/model/entities/space/ca-space.dto';
 
 @Component({
   selector: 'ca-request-new-licenses',
@@ -17,8 +17,7 @@ export class CaRequestNewLicensesComponent implements OnInit {
 
   formGroup: FormGroup<CaRequestNewLicensesDto>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private spaceId: string,
-              private dialogRef: MatDialogRef<CaRequestNewLicensesComponent>,
+  constructor(private dialogRef: MatDialogRef<CaRequestNewLicensesComponent>,
               private spaceService: CaSpaceService,
               private snackBarService: FlSnackBarService) {
   }
@@ -38,7 +37,7 @@ export class CaRequestNewLicensesComponent implements OnInit {
 
   private sendRequest(request: CaRequestNewLicensesDto): void {
     this.isLoading = true;
-    this.spaceService.requestNewLicenses(this.spaceId, request).subscribe({
+    this.spaceService.requestNewLicenses(request).subscribe({
       next: () => this.onSuccess(),
       error: () => this.isLoading = false
     });

@@ -103,7 +103,8 @@ export class CaProjectDocumentsListComponent implements OnInit, OnDestroy {
       projectId: await firstValueFrom(this.state.getProjectId$())
     };
 
-    this.dialogService.openMediumDialog(CaDocumentTrashListDialogComponent, {data: input}).afterClosed()
+    this.dialogService.openMediumDialog(CaDocumentTrashListDialogComponent,
+      {data: input, autoFocus: false}).afterClosed()
       .subscribe(restoredDocs => this.onDocumentInTrashClosed(restoredDocs));
   }
 
