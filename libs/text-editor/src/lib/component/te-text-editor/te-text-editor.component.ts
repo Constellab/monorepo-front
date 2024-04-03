@@ -27,7 +27,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
 
   @Input({required: true}) config: TeConfig;
 
-  @Input() placeholder: string = '';
+  @Input() placeholder: string;
 
   @Input() hideToolbar: boolean = false;
 

@@ -2,13 +2,13 @@ import {ApplicationRef, ComponentRef, createComponent, EnvironmentInjector, Type
 import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
-import {TeElementDirective} from '../model/te-element.directive';
+import {TeElementBlockDirective} from '../model/te-element.directive';
 import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
 
 /**
  * Custom abstract class for editor js block to support angular component
  */
-export abstract class TeComponentBlock<T extends TeElementDirective> implements BlockTool {
+export abstract class TeComponentBlock<T extends TeElementBlockDirective> implements BlockTool {
 
   protected htmlElement: HTMLElement;
 
@@ -73,5 +73,6 @@ export abstract class TeComponentBlock<T extends TeElementDirective> implements 
 
   // call by editorjs when the block is added manually (not called when the editor is initialized with this block)
   appendCallback(): void {
+    this.componentInstance.newElement = true;
   }
 }

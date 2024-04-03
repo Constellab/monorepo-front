@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Observable} from 'rxjs';
 import {RvResourceView} from '@monorepo/resource-view';
-import {TeElementDirective} from '@monorepo/text-editor';
+import {TeElementBlockDirective} from '@monorepo/text-editor';
 import {HaStoryViewConfig} from '../ha-story-content-view.class';
 
 @Component({
@@ -9,7 +9,7 @@ import {HaStoryViewConfig} from '../ha-story-content-view.class';
   templateUrl: './ha-story-content-view.component.html',
   styleUrls: ['./ha-story-content-view.component.scss']
 })
-export class HaStoryContentViewComponent extends TeElementDirective {
+export class HaStoryContentViewComponent extends TeElementBlockDirective {
 
   @Input() viewConfig: HaStoryViewConfig;
 

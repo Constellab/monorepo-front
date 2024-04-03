@@ -1,7 +1,7 @@
 import {InlineTool, SanitizerConfig} from '@editorjs/editorjs';
 import {IconStrikethrough} from '@codexteam/icons';
 
-export default class StrikethroughInlineTool implements InlineTool{
+export default class TeStrikethroughInlineTool implements InlineTool{
 
   /**
    * Specifies Tool as Inline Toolbar Tool

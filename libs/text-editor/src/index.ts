@@ -31,9 +31,16 @@ export * from './lib/block/te-figure-block.class';
 export * from './lib/block/te-formula-block.class';
 export * from './lib/block/te-header-with-id-block.class';
 export * from './lib/block/te-hint-block.class';
+export * from './lib/block/te-paragraph.class';
 export * from './lib/block/te-video-block.class';
 
 // Inline tool
+export * from './lib/inline-tool/te-clean-style-inline-tool.class';
+export * from './lib/inline-tool/te-component-inline-tool.class';
+export * from './lib/inline-tool/te-fake-inline-tool.class';
+export * from './lib/inline-tool/te-inline-tool.factory';
+export * from './lib/inline-tool/te-strikethrough-inline-tool.class';
+export * from './lib/inline-tool/te-underline-inline-tool.class';
 export * from './lib/inline-tool/te-variable-inline-tool.class';
 
 // Block tune

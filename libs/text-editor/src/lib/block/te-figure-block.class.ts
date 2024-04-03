@@ -91,8 +91,4 @@ export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
       this.componentInstance.onFileSelected((event.detail as any).file);
     }
   }
-
-  override appendCallback(): void {
-    this.componentInstance.openFileSelector();
-  }
 }

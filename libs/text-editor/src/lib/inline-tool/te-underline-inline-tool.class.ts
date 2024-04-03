@@ -1,7 +1,7 @@
 import {InlineTool, SanitizerConfig} from '@editorjs/editorjs';
 import {IconUnderline} from '@codexteam/icons';
 
-export default class UnderlineInlineTool implements InlineTool{
+export class TeUnderlineInlineTool implements InlineTool{
 
   /**
    * Specifies Tool as Inline Toolbar Tool

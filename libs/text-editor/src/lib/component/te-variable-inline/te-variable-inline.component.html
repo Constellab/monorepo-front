@@ -1,9 +1,9 @@
 <span [matTooltip]="tooltip">
-@if (!variable) {
+@if (!data) {
   {{'teTextEditor.variable' | translate}}
-} @else if (variable.value) {
-  {{ variable.name }} : {{ variable.value }}
+} @else if (data.value) {
+  {{ data.name }} : {{ data.value }}
 } @else {
-  {{ variable.name }}
+  {{ data.name }}
 }
 </span>

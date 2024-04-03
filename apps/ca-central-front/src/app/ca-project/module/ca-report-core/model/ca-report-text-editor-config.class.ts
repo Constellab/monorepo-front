@@ -48,15 +48,13 @@ export class CaReportTextEditorConfig extends TeCompleteConfig {
     // add the view block
     tools.resourceView = teComponentBlockFactory(CaReportContentViewBlock, envInjector, applicationRef, this.reportId);
 
-    tools.variable = teInlineToolFactory(TeVariableInlineToolClass, envInjector, applicationRef);
+    tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
 
     return tools;
   }
 
   getInlineToolbar(): string[] {
-    const toolbar = super.getInlineToolbar();
-    toolbar.push('variable');
-    return toolbar;
+    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'variable', 'cleanStyle'];
   }
 
 }

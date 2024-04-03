@@ -8,4 +8,3 @@ export interface TeVariableFormInfo {
 }
 
 export const teVariableTagName = 'te-variable-inline';
-export const teVariableAttribute = 'data-jsondata';

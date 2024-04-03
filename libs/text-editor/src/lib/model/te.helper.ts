@@ -1,5 +1,7 @@
 import {FlHtmlHelper, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 
+export type TeListType = 'unordered' | 'ordered';
+
 /**
  * Helper to complete the text editor api
  */
@@ -19,9 +21,9 @@ export class TeHelper {
   }
 
   public static getBlockIdFromElementOrChild(element: HTMLElement): string | null {
-    const blockElement = FlHtmlHelper.getParent(element, {className: TeHelper.blockClass});
+    const blockElement = TeHelper.getBlockElementFromElementOrChild(element);
     if (blockElement == null) return null;
-    return TeHelper.getBlockIdFromElement(element);
+    return TeHelper.getBlockIdFromElement(blockElement);
   }
 
   public static getBlockElementFromElementOrChild(element: HTMLElement): HTMLElement | null {
@@ -91,6 +93,15 @@ export class TeHelper {
     const block = FlHtmlHelper.getParent(element, {className: TeHelper.blockParagraphClass});
     if (block == null) return false;
     return block.getAttribute('contenteditable') === 'true';
+  }
+
+  public static getListData(text: string, listType: TeListType = 'unordered'):any {
+    return {
+      style: listType,
+      items: [{
+        content: text
+      }]
+    };
   }
 
 }

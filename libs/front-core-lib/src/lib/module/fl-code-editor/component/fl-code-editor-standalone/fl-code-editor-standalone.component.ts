@@ -30,9 +30,11 @@ import {perl} from '@codemirror/legacy-modes/mode/perl';
   styleUrls: ['./fl-code-editor-standalone.component.scss'],
 })
 export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
-  @Input() language: FlCodeEditorLanguage;
+  @Input({required: true}) language: FlCodeEditorLanguage;
 
-  @Input() formCtrl: FormControl;
+  @Input({required: true}) formCtrl: FormControl;
+
+  @Input() focus: boolean = false;
 
   @ViewChild('editor', {static: true}) editor: ElementRef<HTMLElement>;
 
@@ -44,8 +46,8 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if(isPlatformBrowser(this.platformId)){
-        this.initEditor();
+    if (isPlatformBrowser(this.platformId)) {
+      this.initEditor();
     }
   }
 
@@ -70,6 +72,10 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
       state: this.editorState,
       parent: this.editor.nativeElement,
     });
+
+    if (this.focus) {
+      this.editorView.focus();
+    }
   }
 
   private getLanguage(language: FlCodeEditorLanguage): Extension {
@@ -178,7 +184,7 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.editorView)
+    if (this.editorView)
       this.editorView.destroy();
   }
 }

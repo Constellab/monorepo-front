@@ -3,7 +3,7 @@ import {LabResourceService} from '../../../../../lab-core/entity-service/lab-res
 import {LabResourceViewData} from '../../../../../lab-core/model/entities/resource/lab-resource-view.entity';
 import {Observable} from 'rxjs';
 import {RvViewConfig} from '@monorepo/resource-view';
-import {TeElementDirective} from '@monorepo/text-editor';
+import {TeElementBlockDirective} from '@monorepo/text-editor';
 
 /**
  * Component used in the Text editor to show a resource view
@@ -13,7 +13,7 @@ import {TeElementDirective} from '@monorepo/text-editor';
   templateUrl: './lab-report-content-view.component.html',
   styleUrls: ['./lab-report-content-view.component.scss']
 })
-export class LabReportContentViewComponent extends TeElementDirective {
+export class LabReportContentViewComponent extends TeElementBlockDirective {
 
   @Input() resourceId: string;
 

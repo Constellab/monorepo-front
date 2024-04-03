@@ -16,13 +16,18 @@ export class TeHeaderWithIdBlockConfig {
    * If true the copy link button will be shown in the tune menu
    */
   showCopyLinkButton: boolean;
+
+  placeholder: string;
 }
 
-export const teHeaderWithIdBlockDefaultConfig: TeHeaderWithIdBlockConfig = {
-  levels: [2, 3, 4],
-  defaultLevel: 2,
-  showCopyLinkButton: false,
-};
+export function teGetHeaderWithIdBlockDefaultConfig(): TeHeaderWithIdBlockConfig {
+  return {
+    levels: [2, 3, 4],
+    defaultLevel: 2,
+    showCopyLinkButton: false,
+    placeholder: TeHelper.getTranslateService().translate('teTextEditor.title')
+  }
+}
 
 /**
  * Override header block to add an id attribute based on the text

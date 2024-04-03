@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, SecurityContext} from '@angular/core';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {ClYoutubeHelper} from '@monorepo/core-lib';
-import {TeElementDirective} from '../../model/te-element.directive';
+import {TeElementBlockDirective} from '../../model/te-element.directive';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {TeLinkDialogComponent, TeLinkDialogInput} from '../te-link-dialog/te-link-dialog.component';
 
@@ -11,7 +11,7 @@ import {TeLinkDialogComponent, TeLinkDialogInput} from '../te-link-dialog/te-lin
   templateUrl: './te-video.component.html',
   styleUrls: ['./te-video.component.scss']
 })
-export class TeVideoComponent extends TeElementDirective implements OnInit {
+export class TeVideoComponent extends TeElementBlockDirective implements OnInit {
 
   @Input() url: string;
 

@@ -15,6 +15,8 @@ import {TeConfig} from '../../model/te-config.class';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
 import {Observable} from 'rxjs';
 import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
+import {FlTranslateService} from '@monorepo/front-core-lib';
+import {teGetI18nConfig} from '../../te-text-editor.i18n';
 
 
 @Component({
@@ -26,7 +28,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   @Input({required: true}) config: TeConfig;
 
-  @Input() placeholder: string = '';
+  @Input() placeholder: string;
 
   @HostBinding('class.g-text-editor-hide-toolbar')
   @Input() hideToolbar: boolean = false;
@@ -45,13 +47,15 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   @Input() disabled$: Observable<boolean>;
 
+  // TODO TO FIX
   @Input()
   disabled: boolean = false;
 
   editor: any | null;
 
   constructor(private envInjector: EnvironmentInjector,
-              private applicationRef: ApplicationRef) {
+              private applicationRef: ApplicationRef,
+              private translateService: FlTranslateService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -117,7 +121,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   private async initEditor(module: any): Promise<void> {
     const config: EditorConfig = {
-      placeholder: this.placeholder,
+      placeholder: this.placeholder ?? this.translateService.translate('teTextEditor.placeholder'),
       holder: this.editorContainer.nativeElement,
       data: this.value,
       // set order for the inline tools
@@ -126,7 +130,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       tools: this.config.getTools(this.envInjector, this.applicationRef),
       onChange: () => this.onTextEditorChange(),
       defaultBlock: this.config.getDefaultBlock(),
-      tunes: this.config.getTunes()
+      tunes: this.config.getTunes(),
+      i18n: teGetI18nConfig(this.translateService)
     };
     this.editor = new module.default(config);
   }
