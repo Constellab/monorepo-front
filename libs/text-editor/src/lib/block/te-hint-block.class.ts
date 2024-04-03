@@ -17,7 +17,7 @@ export interface TeHintBlockData {
  */
 export class TeHintBlock implements BlockTool {
 
-  private htmlElement: HTMLElement;
+  private node: HTMLElement;
 
 
   constructor(protected options: BlockToolConstructorOptions) {
@@ -69,13 +69,15 @@ export class TeHintBlock implements BlockTool {
   }
 
   render(): HTMLElement {
-    this.htmlElement = document.createElement('div');
-    this.htmlElement.classList.add(`g-te-hint-${this.hintType}`);
-    this.htmlElement.classList.add(`g-te-hint`);
-    this.htmlElement.classList.add(`g-te-block`);
+    this.node = document.createElement('div');
+    this.node.classList.add(`g-te-hint-${this.hintType}`);
+    this.node.classList.add(`g-te-hint`);
+    this.node.classList.add(`g-te-block`);
 
     if (!this.options.readOnly) {
-      this.htmlElement.setAttribute('contenteditable', 'true');
+      this.node.setAttribute('contenteditable', 'true');
+      this.node.addEventListener('keydown', (event: KeyboardEvent) =>
+        TeHelper.convertBlockToParagraphIfEmpty(event, this.node, this.options));
     }
 
     if (this.data.content) {
@@ -84,16 +86,16 @@ export class TeHintBlock implements BlockTool {
       const divs = this.data.content.split('\n');
       for (const div of divs) {
         if (!div || div.length === 0) {
-          this.htmlElement.innerHTML += `<div><br></div>`;
+          this.node.innerHTML += `<div><br></div>`;
         } else {
-          this.htmlElement.innerHTML += sanitizer.sanitize(SecurityContext.HTML, `<div>${div}</div>`);
+          this.node.innerHTML += sanitizer.sanitize(SecurityContext.HTML, `<div>${div}</div>`);
         }
       }
     } else {
-      this.htmlElement.innerHTML += `<div><br></div>`;
+      this.node.innerHTML += `<div><br></div>`;
     }
 
-    return this.htmlElement;
+    return this.node;
   }
 
 
@@ -101,7 +103,7 @@ export class TeHintBlock implements BlockTool {
     return {
       hintType: this.data.hintType,
       // save the content without the divs and replace them by \n
-      content: this.htmlElement.innerHTML
+      content: this.node.innerHTML
         .replace(/<\/div><div>/g, '\n')
         .replace(/<div>/g, '')
         .replace(/<\/div>/g, ''),

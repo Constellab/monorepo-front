@@ -5,7 +5,6 @@ import {
   TeHeaderWithIdBlock,
   TeHeaderWithIdBlockConfig
 } from '../block/te-header-with-id-block.class';
-import NestedList from '@editorjs/nested-list';
 import InlineCode from '@editorjs/inline-code';
 import {TeFormulaBlock} from '../block/te-formula-block.class';
 import Table from '@editorjs/table';
@@ -19,11 +18,12 @@ import TeStrikethroughInlineTool from '../inline-tool/te-strikethrough-inline-to
 import {TeDragBlockTune} from '../block-tune/te-drag-block-tune.class';
 import {TeHelper} from './te.helper';
 import {TeVariableInlineToolClass} from '../inline-tool/te-variable-inline-tool.class';
-import {TeParagraph} from '../block/te-paragraph.class';
+import {TeParagraphBlock} from '../block/te-paragraph-block.class';
 import {teInlineToolFactory} from '../inline-tool/te-inline-tool.factory';
 import {TeUnderlineInlineTool} from '../inline-tool/te-underline-inline-tool.class';
 import {TeCleanStyleInlineTool} from '../inline-tool/te-clean-style-inline-tool.class';
 import {TeFakeInlineTool} from '../inline-tool/te-fake-inline-tool.class';
+import {TeNestedListBlock} from '../block/te-nested-list-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -44,7 +44,7 @@ export abstract class TeConfig {
 
   getParagraphConfig(): ToolSettings {
     return {
-      class: TeParagraph,
+      class: TeParagraphBlock,
       inlineToolbar: true,
       config: {
         preserveBlank: true,
@@ -66,7 +66,7 @@ export abstract class TeConfig {
   getListConfig(): ToolSettings {
     const translateService = flRootInjector.get(FlTranslateService);
     return {
-      class: NestedList,
+      class: TeNestedListBlock,
       inlineToolbar: true,
       config: {
         defaultStyle: 'unordered'

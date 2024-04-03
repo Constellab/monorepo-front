@@ -1,7 +1,7 @@
 import Header from '@editorjs/header';
-import {ClStringHelper} from '@monorepo/core-lib';
+import {ClHelpService, ClStringHelper} from '@monorepo/core-lib';
 import {ToolboxConfig, TunesMenuConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {FlClipboardService, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
+import {FlClipboardService, FlKeyboardKey, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
 import {TeHelper} from '../model/te.helper';
@@ -26,7 +26,7 @@ export function teGetHeaderWithIdBlockDefaultConfig(): TeHeaderWithIdBlockConfig
     defaultLevel: 2,
     showCopyLinkButton: false,
     placeholder: TeHelper.getTranslateService().translate('teTextEditor.title')
-  }
+  };
 }
 
 /**
@@ -73,12 +73,36 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
   render(): HTMLElement {
     this.node = super.render();
 
+    if (!this.options.readOnly) {
+      this.node.addEventListener('keydown', (event: KeyboardEvent) =>
+        TeHelper.convertBlockToParagraphIfEmpty(event, this.node, this.options));
+    }
+
     if (this.node.innerText.trim() == '') return this.node;
 
     const id = ClStringHelper.toKebabCase(this.node.innerText);
     this.node.setAttribute('id', id);
+
+
     return this.node;
   }
+
+  private checkAndCovertToList(event: KeyboardEvent): void {
+    // if key is backspace and the text is empty, convert to text
+    if (event.key == FlKeyboardKey.BACKSPACE && this.node.innerText.trim() == '') {
+      const index = this.options.api.blocks.getBlockIndex(this.options.block.id);
+
+      this.options.api.blocks.convert(this.options.block.id, 'paragraph');
+
+      ClHelpService.stopEventPropagation(event);
+
+      // set the caret on the new list element
+      setTimeout(() => {
+        this.options.api.caret.setToBlock(index, 'start');
+      }, 0);
+    }
+  }
+
 
   save(block: HTMLElement): BlockToolData {
     return super.save(block);

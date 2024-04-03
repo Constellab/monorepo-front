@@ -1,4 +1,6 @@
-import {FlHtmlHelper, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
+import {FlHtmlHelper, FlKeyboardKey, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
+import {BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
+import {ClHelpService} from '@monorepo/core-lib';
 
 export type TeListType = 'unordered' | 'ordered';
 
@@ -95,13 +97,54 @@ export class TeHelper {
     return block.getAttribute('contenteditable') === 'true';
   }
 
-  public static getListData(text: string, listType: TeListType = 'unordered'):any {
+  public static getListData(text: string, listType: TeListType = 'unordered'): any {
     return {
       style: listType,
       items: [{
         content: text
       }]
     };
+  }
+
+  /**
+   * Method to convert a block to a paragraph if the block is empty and the backspace key is pressed
+   * @param event
+   * @param node
+   * @param options
+   */
+  public static convertBlockToParagraphIfEmpty(event: KeyboardEvent, node: HTMLElement,
+                                               options: BlockToolConstructorOptions): void {
+    // if key is backspace and the text is empty, convert to text
+    if (event.key == FlKeyboardKey.BACKSPACE && node.innerText.trim() == '') {
+      // cancel the backspace event
+      ClHelpService.stopEventPropagation(event);
+
+      const index = options.api.blocks.getBlockIndex(options.block.id);
+
+      options.api.blocks.delete(index);
+      options.api.blocks.insert('paragraph', {}, null, index);
+
+      // set the caret on the new paragraph element
+      options.api.caret.setToBlock(index, 'start');
+    }
+
+    // if key is backspace and the cursor is at the beginning of the text, convert to text
+    // like notion but hard to implement
+    // if (event.key == FlKeyboardKey.BACKSPACE && window.getSelection().anchorOffset == 0) {
+    //   // cancel the backspace event
+    //   ClHelpService.stopEventPropagation(event);
+    //
+    //   const index = options.api.blocks.getBlockIndex(options.block.id);
+    //   const content = node.innerText;
+    //
+    //   options.api.blocks.delete(index);
+    //   options.api.blocks.insert('paragraph', {
+    //     text: content
+    //   }, null, index);
+    //
+    //   // set the caret on the new paragraph element
+    //   options.api.caret.setToBlock(index, 'start');
+    // }
   }
 
 }

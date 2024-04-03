@@ -7,7 +7,9 @@ import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 /**
  * Standard paragraph with custom actions
  */
-export class TeParagraph extends Paragraph implements BlockTool {
+export class TeParagraphBlock extends Paragraph implements BlockTool {
+
+  node: HTMLElement;
 
   constructor(private options: BlockToolConstructorOptions) {
     super(options);
@@ -25,11 +27,14 @@ export class TeParagraph extends Paragraph implements BlockTool {
   }
 
   render(): HTMLElement {
-    const element: HTMLElement = super.render();
+    this.node = super.render();
 
-    element.addEventListener('keyup', (event: KeyboardEvent) => this.checkAndCovertToList(event.target as HTMLElement));
+    if (!this.options.readOnly) {
+      this.node.addEventListener('keyup',
+        (event: KeyboardEvent) => this.checkAndCovertToList(event.target as HTMLElement));
+    }
 
-    return element;
+    return this.node;
   }
 
   /**
@@ -42,30 +47,28 @@ export class TeParagraph extends Paragraph implements BlockTool {
     const innerText = target.innerHTML.replace('&nbsp;', ' ');
     if (innerText.startsWith('- ') || innerText.startsWith('1. ')) {
       const blockId = TeHelper.getBlockIdFromElementOrChild(target);
+      const index = this.options.api.blocks.getBlockIndex(this.options.block.id);
 
-      if (blockId) {
-        const index = this.options.api.blocks.getBlockIndex(blockId);
-
-        // get the content without the bullet point and list type
-        let content: string;
-        let listType: TeListType;
-        if (innerText.startsWith('- ')) {
-          content = innerText.replace('- ', '');
-          listType = 'unordered';
-        } else {
-          content = innerText.replace('1.', '');
-          listType = 'ordered';
-        }
-
-
-        // convert the block to a list block
-        this.options.api.blocks.convert(blockId, 'list', TeHelper.getListData(content, listType));
-
-        // set the caret on the new list element
-        setTimeout(() => {
-          this.options.api.caret.setToBlock(index, 'start');
-        }, 0);
+      // get the content without the bullet point and list type
+      let content: string;
+      let listType: TeListType;
+      if (innerText.startsWith('- ')) {
+        content = innerText.replace('- ', '');
+        listType = 'unordered';
+      } else {
+        content = innerText.replace('1.', '');
+        listType = 'ordered';
       }
+
+
+      // convert the block to a list block
+      this.options.api.blocks.convert(blockId, 'list', TeHelper.getListData(content, listType));
+
+      // set the caret on the new list element
+      setTimeout(() => {
+        this.options.api.caret.setToBlock(index, 'start');
+      }, 0);
+
     }
   }
 }

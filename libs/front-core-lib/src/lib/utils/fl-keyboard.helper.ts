@@ -8,7 +8,8 @@ export enum FlKeyboardKey {
   ARROW_UP = 'ArrowUp',
   PAGE_DOWN = 'PageDown',
   PAGE_UP = 'PageUp',
-  TAB = 'Tab'
+  TAB = 'Tab',
+  BACKSPACE = 'Backspace'
 }
 
 
