@@ -52,6 +52,7 @@ import {
 import {
   LabResourceNextObjectsPortalComponent
 } from './component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
+import {LabSystemCoreModule} from '../../../lab-core/entity-module/lab-system-core/lab-system-core.module';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import {
     LabProtocolTemplateCoreModule,
     LabTagCoreModule,
     LabNavigableEntityCoreModule,
+    LabSystemCoreModule,
   ],
 })
 export class LabExperimentDetailPageModule {

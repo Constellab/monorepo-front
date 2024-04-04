@@ -1,0 +1,22 @@
+<fl-dialog-header>
+  {{ 'monitoring.installed_packages' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+
+  <fl-async-section [object]="pipPackages$">
+
+    <ng-container *flSectionBody="pipPackages$ as pipPackages">
+
+      @for (pipPackage of pipPackages; track pipPackage.name) {
+        <fl-key-value>
+          <fl-key>{{ pipPackage.name }}</fl-key>
+          {{ pipPackage.version }}
+        </fl-key-value>
+      }
+    </ng-container>
+
+
+  </fl-async-section>
+
+</mat-dialog-content>

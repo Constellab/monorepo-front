@@ -9,6 +9,9 @@ import {
 } from '@monorepo/front-core-lib';
 import {LabTypeService} from '../../../../lab-core/entity-service/lab-type.service';
 import {LabSynchroDialogComponent} from '../lab-synchro-dialog/lab-synchro-dialog.component';
+import {
+  LabPipPackagesDialogComponent
+} from '../../../../lab-core/entity-module/lab-system-core/component/lab-pip-packages-dialog/lab-pip-packages-dialog.component';
 
 @Component({
   selector: 'lab-info',
@@ -83,6 +86,11 @@ export class LabInfoComponent implements OnInit {
         text: {text: 'monitoring.clean_lab', translateText: true},
       }, true);
     }
+  }
+
+
+  openPipPackageList(): void{
+    this.dialogService.openSmallDialog(LabPipPackagesDialogComponent);
   }
 }
 

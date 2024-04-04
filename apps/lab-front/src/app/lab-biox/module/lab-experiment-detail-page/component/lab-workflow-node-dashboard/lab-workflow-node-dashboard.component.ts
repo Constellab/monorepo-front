@@ -33,7 +33,9 @@ import {
   LabShareLiveTaskCommunityDialogComponent
 } from '../../../../../lab-core/entity-module/lab-type-core/component/lab-share-live-task-community-dialog/lab-share-live-task-community-dialog.component';
 import {CoLiveTaskHelper} from '@monorepo/community-lib';
-
+import {
+  LabPipPackagesDialogComponent
+} from '../../../../../lab-core/entity-module/lab-system-core/component/lab-pip-packages-dialog/lab-pip-packages-dialog.component';
 
 
 /**
@@ -126,6 +128,10 @@ export class LabWorkflowNodeDashboardComponent {
 
   convertLiveTaskCodeToTask(process: LabProcess): void {
     this.taskGeneratorService.generateTaskCodeFromLiveTask(process.id).subscribe();
+  }
+
+  openPipPackageList(): void{
+    this.dialogService.openSmallDialog(LabPipPackagesDialogComponent);
   }
 
   downloadLiveTaskFile(process: LabProcess): void {

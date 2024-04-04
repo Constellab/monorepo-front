@@ -105,6 +105,7 @@
     "streamlit_stop_app": "Arrêter l'application streamlit",
     "streamlit_stop_app_confirmation": "Êtes-vous sûr de vouloir arrêter l'application streamlit ? Tous les tableaux de bord streamlit actuels seront fermés. L'application redémarrera automatiquement lorsqu'elle sera demandée.",
     "streamlit_app_stopped": "Application streamlit arrêtée",
-    "other": "Autre"
+    "other": "Autre",
+    "installed_packages": "Packages installés"
   }
 }
