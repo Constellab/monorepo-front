@@ -278,5 +278,8 @@
   "icon_updated": "Icon updated",
   "language_changed": "Language : {{lang}}",
   "load_more_icons": "Load more icons",
-  "updating_brick_tech_doc": "Updating brick technical documentation"
+  "updating_brick_tech_doc": "Updating brick technical documentation",
+  "write_a_comment": "Write a comment",
+  "comment": "Comment",
+  "comments": "Comments"
 }

@@ -17,14 +17,15 @@ import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
 import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
 import {FlPortalService} from '@monorepo/front-core-lib';
-import {
-  CoCommentsPortalComponent,
-  CoCommentsPortalConfig,
-  CoCommentsPortalData,
-  CoCommentType
-} from '@monorepo/community-lib';
 import {HaCommentService} from '../../../ha-core/ha-service/ha-comment.service';
 import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
+import {
+  HaCommentsPortalConfig
+} from '../../../ha-core/entity-module/ha-comments-core/model/ha-comments-portal-config.class';
+import {HaCommentType} from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
+import {
+  HaCommentsPortalComponent, HaCommentsPortalData
+} from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
 
 @Component({
   selector: 'ha-story-page',
@@ -176,12 +177,11 @@ export class HaStoryPageComponent implements OnInit {
   }
 
   openCommentsPannel(): void {
-    this.portalService.createPortal(CoCommentsPortalComponent, CoCommentsPortalConfig.create(), {
-      service: this.commentService,
+    this.portalService.createPortal(HaCommentsPortalComponent, HaCommentsPortalConfig.create(), {
       user: this.currentUser,
       entity: this.story,
-      commentType: CoCommentType.STORY_COMMENT
-    } as CoCommentsPortalData);
+      commentType: HaCommentType.STORY_COMMENT
+    } as HaCommentsPortalData);
 
   }
 }

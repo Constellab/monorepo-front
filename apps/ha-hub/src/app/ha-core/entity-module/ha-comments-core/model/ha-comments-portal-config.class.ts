@@ -1,8 +1,8 @@
 import {FlPortalConfig} from '@monorepo/front-core-lib';
 import {GlobalPositionStrategy} from '@angular/cdk/overlay';
 
-export class CoCommentsPortalConfig extends FlPortalConfig{
-  static create(): CoCommentsPortalConfig {
+export class HaCommentsPortalConfig extends FlPortalConfig{
+  static create(): HaCommentsPortalConfig {
     const config: FlPortalConfig = new FlPortalConfig().configureOverlay({
       disposeOnOutsideClick: true,
       height: '100vh',

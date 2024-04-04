@@ -19,14 +19,13 @@ export class HaLiveTaskOverviewComponent implements OnInit {
   liveTask: HaLiveTask;
   liveTaskVersion: HaLiveTaskVersion;
   textEditorConfig: HaLiveTaskTextEditorConfig;
-  descriptionFormControl: FormControl<Record<string, any>> = new FormControl<Record<string, any>>(null);
+  descriptionFormControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>();
   descriptionEditorDisabled: boolean = true;
   isCreator: boolean = false;
   isLoading: boolean = true;
   constructor(
     private liveTaskService: HaLiveTaskService,
     private activeRoute: ActivatedRoute,
-    private dialogService: FlDialogService,
     private authenticatedUserService: HaAuthenticatedUserService) {
   }
 

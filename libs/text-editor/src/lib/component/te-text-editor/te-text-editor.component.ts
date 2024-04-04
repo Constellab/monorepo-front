@@ -13,7 +13,7 @@ import {
 import {TeConfig} from '../../model/te-config.class';
 import {FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
-import {TeRichTextContent} from '../../model/te-rich-text.class';
+import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
 import {Subject} from 'rxjs';
 import {isPlatformBrowser} from '@angular/common';
 
@@ -23,7 +23,7 @@ import {isPlatformBrowser} from '@angular/common';
   templateUrl: './te-text-editor.component.html',
   styleUrl: './te-text-editor.component.scss',
 })
-export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextContent> implements OnInit, OnDestroy {
+export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextContent> implements OnInit {
 
   @Input({required: true}) config: TeConfig;
 
@@ -41,7 +41,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
 
   browserSide: boolean = false;
 
-  editorDisabled$ = new Subject<boolean>();
+  initValue: TeRichTextContent;
 
   constructor(@Optional() @Self() ngControl: NgControl,
               @Inject(PLATFORM_ID) private platformId: object) {
@@ -58,10 +58,15 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
 
   onDisableChange(disable: boolean): void {
     this.disabled = disable;
-    this.editorDisabled$.next(disable);
   }
 
   writeValue(obj: TeRichTextContent): void {
+    if (obj == null){
+      obj = TeRichText.emptyContent();
+    }
+    if (this.initValue == null) {
+      this.initValue = obj;
+    }
     this.value = obj;
     this.initPlatform();
   }
@@ -74,10 +79,6 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
     if (isPlatformBrowser(this.platformId)) {
       this.browserSide = true;
     }
-  }
-
-  ngOnDestroy(): void {
-    this.editorDisabled$.complete();
   }
 
 }

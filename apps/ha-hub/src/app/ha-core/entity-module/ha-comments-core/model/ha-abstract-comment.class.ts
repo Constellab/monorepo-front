@@ -3,16 +3,16 @@ import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 import {DateTime} from 'luxon';
 import {TeRichTextContent} from '@monorepo/text-editor';
 
-export enum CoCommentType {
+export enum HaCommentType {
   STORY_COMMENT = 'story',
   LIVE_TASK_COMMENT = 'live-task',
 }
 
-export interface CoCommentEntity extends FlEntity{
+export interface HaCommentEntity extends FlEntity{
   comments: number;
 }
 
-export abstract class CoAbstractComment<T extends CoCommentEntity> implements FlEntity {
+export abstract class HaAbstractComment<T extends HaCommentEntity> implements FlEntity {
   id: string;
 
   @ClLuxonDateTimeTransform()

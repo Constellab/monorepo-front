@@ -278,5 +278,8 @@
   "icon_updated": "Icône mise à jour",
   "language_changed": "Langue : {{lang}}",
   "load_more_icons": "Charger plus d'icônes",
-  "updating_brick_tech_doc": "Mise à jour de la documentation technique de la brick"
+  "updating_brick_tech_doc": "Mise à jour de la documentation technique de la brick",
+  "write_a_comment": "Écrire un commentaire",
+  "comment": "Commentaire",
+  "comments": "Commentaires"
 }

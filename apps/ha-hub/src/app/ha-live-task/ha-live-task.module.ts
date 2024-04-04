@@ -23,6 +23,7 @@ import {HaSpaceModule} from '../ha-space/ha-space.module';
 import {HaNavigationPanelComponent} from '../ha-core/ha-component/ha-navigation-panel/ha-navigation-panel.component';
 import {MatRippleModule} from "@angular/material/core";
 import {HaUtilComponentCoreModule} from "../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
+import {HaCommentsCoreModule} from '../ha-core/entity-module/ha-comments-core/ha-comments-core.module';
 
 @NgModule({
   declarations: [
@@ -36,19 +37,20 @@ import {HaUtilComponentCoreModule} from "../ha-core/entity-module/ha-util-compon
     HaLiveTaskVersionsComponent,
   ],
     imports: [
-        CommonModule,
-        HaLiveTaskRoutingModule,
-        HaCoreModule,
-        ReactiveFormsModule,
-        FlInputSearchModule,
-        FlInputFileModule,
-        FlCodeEditorModule,
-        HaCardComponent,
-        HaSpaceModule,
-        HaNavigationPanelComponent,
-        MatRippleModule,
-        FormsModule,
-        HaUtilComponentCoreModule,
+      CommonModule,
+      HaLiveTaskRoutingModule,
+      HaCoreModule,
+      ReactiveFormsModule,
+      FlInputSearchModule,
+      FlInputFileModule,
+      FlCodeEditorModule,
+      HaCardComponent,
+      HaSpaceModule,
+      HaNavigationPanelComponent,
+      MatRippleModule,
+      FormsModule,
+      HaUtilComponentCoreModule,
+      HaCommentsCoreModule
     ],
 })
 export class HaLiveTaskModule {}

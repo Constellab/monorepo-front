@@ -1,5 +1,6 @@
 import {ModuleWithProviders, NgModule, Provider, Type} from '@angular/core';
 import {
+  FlCardModule,
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDateModule,
@@ -35,38 +36,35 @@ import {CoStoryListItemComponent} from './component/co-story-list-item/co-story-
 import {MatChipsModule} from '@angular/material/chips';
 import {CoBrickListItemComponent} from './component/co-brick-list-item/co-brick-list-item.component';
 import {TeTextEditorModule} from '@monorepo/text-editor';
-import {CoCommentComponent} from './component/co-comment/co-comment.component';
-import {CoCommentsPortalComponent} from './component/co-comments-portal/co-comments-portal.component';
-import {MatCardModule} from '@angular/material/card';
 import {CoServiceConfig} from './service/co-service-config.config';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FlDateModule,
-        FlKeyValueModule,
-        FlTranslateModule,
-        FlUserModule,
-        MatButtonModule,
-        FlCoreDirectiveModule,
-        FlCorePipeModule,
-        FlDialogModule,
-        FlLoaderModule,
-        MatDialogActions,
-        MatDialogContent,
-        MatFormFieldModule,
-        MatInputModule,
-        MatRadioModule,
-        ReactiveFormsModule,
-        FlSectionModule,
-        FlTextIconModule,
-        MatIconModule,
-        MatChipsModule,
-        FlInfiniteScrollModule,
-        TeTextEditorModule,
-        MatCardModule,
-        FormsModule
-    ],
+  imports: [
+    CommonModule,
+    FlDateModule,
+    FlKeyValueModule,
+    FlTranslateModule,
+    FlUserModule,
+    MatButtonModule,
+    FlCoreDirectiveModule,
+    FlCorePipeModule,
+    FlDialogModule,
+    FlLoaderModule,
+    MatDialogActions,
+    MatDialogContent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    FlSectionModule,
+    FlTextIconModule,
+    MatIconModule,
+    MatChipsModule,
+    FlInfiniteScrollModule,
+    TeTextEditorModule,
+    FormsModule,
+    FlCardModule
+  ],
   declarations: [
     CoLiveTaskListItemComponent,
     CoLiveTaskCreateDialogFormComponent,
@@ -75,8 +73,6 @@ import {CoServiceConfig} from './service/co-service-config.config';
     CoVisibilityBadgeComponent,
     CoStoryListItemComponent,
     CoBrickListItemComponent,
-    CoCommentComponent,
-    CoCommentsPortalComponent
   ],
   exports: [
     CoLiveTaskListItemComponent,
@@ -86,8 +82,6 @@ import {CoServiceConfig} from './service/co-service-config.config';
     CoVisibilityBadgeComponent,
     CoStoryListItemComponent,
     CoBrickListItemComponent,
-    CoCommentComponent,
-    CoCommentsPortalComponent
   ],
 })
 export class CoCommunityLibModule {

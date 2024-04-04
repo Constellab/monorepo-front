@@ -4,12 +4,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import {Observable} from 'rxjs';
-import {
-  CoCommentsPortalComponent,
-  CoCommentsPortalConfig,
-  CoCommentsPortalData,
-  CoCommentType
-} from '@monorepo/community-lib';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
 import {FlPortalService} from '@monorepo/front-core-lib';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
@@ -17,6 +11,14 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
 import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import {HaCommentService} from '../../../ha-core/ha-service/ha-comment.service';
+import {
+  HaCommentsPortalConfig
+} from '../../../ha-core/entity-module/ha-comments-core/model/ha-comments-portal-config.class';
+import {HaCommentType} from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
+import {
+  HaCommentsPortalComponent,
+  HaCommentsPortalData
+} from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
 
 
 @Component({
@@ -62,12 +64,11 @@ export class HaLiveTaskPageComponent implements OnInit {
   }
 
   openCommentsPannel(): void {
-    this.portalService.createPortal(CoCommentsPortalComponent, CoCommentsPortalConfig.create(), {
-      service: this.commentService,
+    this.portalService.createPortal(HaCommentsPortalComponent, HaCommentsPortalConfig.create(), {
       user: this.currentUser,
       entity: this.liveTask,
-      commentType: CoCommentType.LIVE_TASK_COMMENT
-    } as CoCommentsPortalData).detachments();
+      commentType: HaCommentType.LIVE_TASK_COMMENT
+    } as HaCommentsPortalData).detachments();
 
   }
 

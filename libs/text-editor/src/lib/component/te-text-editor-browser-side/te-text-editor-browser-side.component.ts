@@ -7,14 +7,16 @@ import {
   HostBinding,
   Input,
   OnDestroy,
-  OnInit,
-  Output,
+  OnInit, Optional,
+  Output, Self,
   ViewChild
 } from '@angular/core';
 import {TeConfig} from '../../model/te-config.class';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
 import {Observable} from 'rxjs';
 import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
+import {FlFormFieldDirective} from '@monorepo/front-core-lib';
+import {NgControl} from '@angular/forms';
 
 
 @Component({
@@ -22,7 +24,7 @@ import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
   templateUrl: './te-text-editor-browser-side.component.html',
   styleUrl: './te-text-editor-browser-side.component.scss',
 })
-export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
+export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRichTextContent> implements OnInit, OnDestroy {
 
   @Input({required: true}) config: TeConfig;
 
@@ -41,26 +43,16 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   @ViewChild('editorContainer', {static: true}) editorContainer: ElementRef<HTMLElement>;
 
-  @Input() value: TeRichTextContent;
-
-  @Input() disabled$: Observable<boolean>;
-
-  @Input()
-  disabled: boolean = false;
-
   editor: any | null;
 
-  constructor(private envInjector: EnvironmentInjector,
-              private applicationRef: ApplicationRef) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private envInjector: EnvironmentInjector,
+    private applicationRef: ApplicationRef) {
+    super(ngControl);
   }
 
   async ngOnInit(): Promise<void> {
-    this.disabled$.subscribe((disabled: boolean) => {
-      this.disabled = !disabled;
-      if (this.editor) {
-        this.editor.readOnly.toggle(disabled);
-      }
-    });
     setTimeout(async () => {
       import('@editorjs/editorjs').then((module) => {
         this.initEditor(module);
@@ -87,6 +79,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   writeValue(obj: TeRichTextContent): void {
+    console.log('WRITE', obj, obj == this.value)
+    if (this.value == obj) return;
+
     if (this.editor) {
       this.editor.isReady.then(() => {
         if (obj) {
@@ -103,19 +98,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     this.value = obj;
   }
 
-  printJson(): void {
-    this.editor.save().then((content: TeRichTextContent) => {
-      console.log('Article data: ', content);
-    });
-  }
-
-  setSavedData(): void {
-    this.editor.save().then((content: TeRichTextContent) => {
-      this.editor.render(content);
-    });
-  }
-
   private async initEditor(module: any): Promise<void> {
+    console.log('INIT', this.value)
     const config: EditorConfig = {
       placeholder: this.placeholder,
       holder: this.editorContainer.nativeElement,
@@ -129,13 +113,15 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       tunes: this.config.getTunes()
     };
     this.editor = new module.default(config);
+    console.log('EDITOR', this.editor)
   }
 
   private async onTextEditorChange(): Promise<void> {
     // the save method can be called only if the editor is not in readOnly mode
     if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
+
     const outputData = await this.editor.save();
-    return this.textChange.emit(outputData);
+    this.setAndEmitValue(outputData);
   }
 
   ngOnDestroy(): void {

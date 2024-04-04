@@ -42,6 +42,8 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
 
   private scrollToAnchor(anchor: string): void {
+    if (!anchor) return;
+
     if (anchor.includes('%')) {
       return;
     }
