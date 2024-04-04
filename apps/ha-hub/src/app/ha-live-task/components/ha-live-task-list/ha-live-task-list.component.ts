@@ -44,13 +44,13 @@ export class HaLiveTaskListComponent implements OnInit {
         this.listSpaces$ = this.spaceService.getSpacesOfCurrentUser();
       }
     });
+    this.liveTasksPaginated = this.liveTaskService.getAllWithFiltersPaginated();
     this.updateLiveTask();
   }
 
 
 
   openCreateLiveTaskDialog(): void {
-
     const input: HaCreateLiveTaskInput = {
       mode: 'create'
     }
@@ -86,6 +86,9 @@ export class HaLiveTaskListComponent implements OnInit {
   }
 
   updateLiveTask(): void {
-    this.liveTasksPaginated = this.liveTaskService.getAllWithFiltersPaginated(this.spaceIdFilter, this.titleFormControl.value);
+    this.liveTasksPaginated.getFirstPage({
+      spacesFilter: this.spaceIdFilter,
+      titleFilter: this.titleFormControl.value
+    });
   }
 }

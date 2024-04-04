@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CoLiveTask} from '../../model/co-live-task.class';
 import {TeRichText} from '@monorepo/text-editor';
-import {CoCommunityListItemColor} from '../co-community-list-item/co-community-list-item.component';
 
 
 @Component({
@@ -12,9 +11,6 @@ import {CoCommunityListItemColor} from '../co-community-list-item/co-community-l
 export class CoLiveTaskListItemComponent implements OnInit {
   @Input()
   liveTask: CoLiveTask;
-
-  @Input()
-  backgroundColor: CoCommunityListItemColor | string = CoCommunityListItemColor.CARD;
 
   description: string;
 

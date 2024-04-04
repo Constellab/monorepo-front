@@ -56,25 +56,9 @@ export class HaStoryService implements HaCoAuthorService{
     return this.apiService.delete(this.route + '/' + id);
   }
 
-  /**
-   * Call http get to get all stories paginated
-   * @param page page number
-   * @param size page size
-   * return a list of stories paginated
-   */
-  private getAll(page: number, size: number): Observable<ClPage<HaListStoryDto>> {
-    return this.apiService.get(this.route, HaStory, {page: page, pageSize: size, resultIsPaginated: true});
-  }
-
-  public getAllPaginated(): HaStoryDatasourcePaginated {
+  public getAllPaginatedFiltered(): HaStoryDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAll(page, size), 10);
-  }
-
-
-  public getAllPaginatedFiltered(filters: HaStoryFilter): HaStoryDatasourcePaginated {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAllByFilter(filters, page, size), 10);
+      (page, size, filters) => this.getAllByFilter(filters, page, size), 10, false);
   }
 
   private getAllByFilter(filters: HaStoryFilter, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
@@ -147,12 +131,12 @@ export class HaStoryService implements HaCoAuthorService{
     return this.apiService.put(`${this.route}/${id}/publish`, {});
   }
 
-  getMyStoriesForList(filters: HaStoryFilter): HaStoryDatasourcePaginated {
-    return new FlEntityPaginatedDatasource((page, size) =>
-      this.getMyStoriesForListPaginated(filters, page, size), 10);
+  getMyStoriesForList(): HaStoryDatasourcePaginated {
+    return new FlEntityPaginatedDatasource((page, size, filters) =>
+      this.getMyStoriesForListPaginated(page, size, filters), 10, false);
   }
 
-  private getMyStoriesForListPaginated(filters: HaStoryFilter, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
+  private getMyStoriesForListPaginated(page: number, size: number, filters: HaStoryFilter): Observable<ClPage<HaListStoryDto>> {
     return this.apiService.post(this.route + '/my-filtered', filters, HaStory, {page: page, pageSize: size, resultIsPaginated: true});
   }
 

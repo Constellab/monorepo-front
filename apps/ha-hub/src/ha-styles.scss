@@ -137,6 +137,55 @@ h5 {
   border: none !important;
 }
 
+.first-bt{
+  margin-top: 77px;
+}
+
+.list-section{
+
+  .section-title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .search-bar-title{
+    width: 100%;
+  }
+
+  .title{
+    margin-top: 16px;
+    margin-bottom: 12px;
+    font-size: 67.3px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 80px;
+    letter-spacing: normal;
+    text-align: left;
+    height: 80px;
+  }
+
+  .section-search-bar{
+    width: 100%;
+  }
+
+  .section-title-icon{
+    width: 52px;
+    height: 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+  }
+  .section-title-icon img{
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
 @media (max-width: 1675px) {
   body{
     --margin-side: 50px;

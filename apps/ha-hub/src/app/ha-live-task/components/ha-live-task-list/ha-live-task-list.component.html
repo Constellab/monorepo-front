@@ -5,8 +5,8 @@
       <mat-icon>add_circle</mat-icon>
     {{ 'create_live_task' | translate }}
     </button>
-  <button mat-flat-button type="button" class="bt my-lt-bt" *haIsAuthenticated
-          (click)="selectSpace('my-live-tasks')" [class]="isSelected('my-live-tasks') ? 'bt-primary' : ''">
+  <button mat-flat-button type="button" class="bt my-lt-bt" (click)="selectSpace('my-live-tasks')"
+          [class]="isSelected('my-live-tasks') ? 'bt-primary' : ''">
     {{ 'my_live_tasks' | translate }}
   </button>
 
@@ -27,21 +27,18 @@
 </div>
 
 <div class="main-panel">
-  <div class="live-tasks-list-div" *ngIf="liveTasksPaginated"
-       (flInfiniteScroll)="liveTasksPaginated.getNextPage()"
-       [flInfiniteDisabled]="liveTasksPaginated?.isLoading || liveTasksPaginated?.page?.last"
-       flInfiniteMode="auto">
-    <fl-text-icon>
-      <mat-icon class="g-icon-huge">
+  <fl-infinite-scroll [datasource]="liveTasksPaginated" infiniteMode="auto" class="list-section">
+    <div class="section-title">
+      <div class="section-title-icon">
         <img src="assets/fl-logo/bricks_logo.svg"/>
-      </mat-icon>
+      </div>
       <h1 class="title">{{'live_tasks' | translate}}</h1>
-    </fl-text-icon>
+    </div>
     <div class="search-bar-title">
       <form type="submit" (ngSubmit)="search($event)">
-        <mat-form-field class="search-bar">
+        <mat-form-field class="section-search-bar">
           <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
-          <button mat-icon-button matSuffix aria-label="Clear" (click)="search($event)">
+          <button mat-icon-button matSuffix (click)="search($event)">
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
@@ -49,7 +46,7 @@
     </div>
     <a class="live-task-result-card-div" *ngFor="let liveTask of liveTasksPaginated | flDatasourceConnect | async"
        [routerLink]="liveTask.id">
-      <co-live-task-list-item [liveTask]="liveTask" [backgroundColor]="'card'"></co-live-task-list-item>
+      <co-live-task-list-item [liveTask]="liveTask"></co-live-task-list-item>
     </a>
-  </div>
+  </fl-infinite-scroll>
 </div>

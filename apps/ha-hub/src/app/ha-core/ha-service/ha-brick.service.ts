@@ -73,9 +73,9 @@ export class HaBrickService implements HaCoAuthorService {
       });
   }
 
-  public getAllWithFiltersPaginated(spacesFilter: string[], titleFilter: string): HaBrickDatasourcePaginated {
+  public getAllWithFiltersPaginated(): HaBrickDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAllWithFilters(spacesFilter, titleFilter, page, size), 10);
+      (page, size, requestData) => this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), 10, false);
   }
 
   /**
@@ -183,5 +183,10 @@ export class HaBrickService implements HaCoAuthorService {
 
   removeCoAuthor(brickId: string, coAuthorId: string): Observable<any> {
     return this.apiService.put(`${this.route}/${brickId}/remove-co-author/${coAuthorId}`, {}, HaStory);
+  }
+
+  ////////////////////////////////////////// USER RIGHTS ON BRICK //////////////////////////////
+  checkUserRights(brickId: string, fullRight: boolean = true): Observable<boolean> {
+    return this.apiService.post(`${this.route}/check-user-rights`, {brickId: brickId, fullRight: fullRight});
   }
 }

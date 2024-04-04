@@ -16,13 +16,13 @@
   </p>
   <div class="like-comment-div">
     @if(likes !== null){
-      <fl-text-icon [iconPosition]="'start'" [gap]="'8px'">
+      <fl-text-icon iconPosition="start" [gap]="'8px'">
         <mat-icon>thumb_up</mat-icon>
         {{likes}}
       </fl-text-icon>
     }
     @if(comments !== null){
-      <fl-text-icon [iconPosition]="'start'" [gap]="'8px'">
+      <fl-text-icon iconPosition="start" [gap]="'8px'">
         <mat-icon>comment</mat-icon>
         {{comments}}
       </fl-text-icon>

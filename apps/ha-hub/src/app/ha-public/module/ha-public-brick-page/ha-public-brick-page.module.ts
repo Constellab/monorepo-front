@@ -40,6 +40,9 @@ import {
 } from './ha-doc-view/ha-doc-resource-view-input-dialog/ha-doc-resource-view-input-dialog.component';
 import {HaDocContentViewComponent} from './ha-doc-view/ha-doc-content-view/ha-doc-content-view.component';
 import {HaDocFileDialogComponent} from './ha-public-doc-file-dialog/ha-public-doc-file-dialog.component';
+import {
+    HaUtilComponentCoreModule
+} from "../../../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
 
 @NgModule({
   declarations: [
@@ -64,19 +67,20 @@ import {HaDocFileDialogComponent} from './ha-public-doc-file-dialog/ha-public-do
     HaDocContentViewComponent,
     HaDocFileDialogComponent
   ],
-  imports: [
-    HaPublicCoreModule,
-    HaCoreModule,
-    CommonModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    FlDateModule,
-    MatCardModule,
-    FlKeyValueModule,
-    MatRadioModule,
-    FormsModule,
-    MatTooltipModule,
-    FlInputFileModule,
-  ],
+    imports: [
+        HaPublicCoreModule,
+        HaCoreModule,
+        CommonModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        FlDateModule,
+        MatCardModule,
+        FlKeyValueModule,
+        MatRadioModule,
+        FormsModule,
+        MatTooltipModule,
+        FlInputFileModule,
+        HaUtilComponentCoreModule,
+    ],
 })
 export class HaPublicBrickPageModule {}

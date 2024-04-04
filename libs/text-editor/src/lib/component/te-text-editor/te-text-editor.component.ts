@@ -1,5 +1,5 @@
 import {
-  Component,
+  Component, ElementRef,
   EventEmitter,
   Inject,
   Input,
@@ -8,7 +8,7 @@ import {
   Optional,
   Output,
   PLATFORM_ID,
-  Self
+  Self, ViewChild
 } from '@angular/core';
 import {TeConfig} from '../../model/te-config.class';
 import {FlFormFieldDirective} from '@monorepo/front-core-lib';

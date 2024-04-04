@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef, FlUser} from '@monorepo/front-core-lib';
 import {CoAbstractComment, CoCommentEntity, CoCommentType} from '../../model/co-abstract-comment.class';
-import {TeBasicConfig, TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import {TeBasicConfig, TeRichText, TeRichTextContent, TeTextEditorComponent} from '@monorepo/text-editor';
 import {FormControl} from '@ngneat/reactive-forms';
 import {CoCommentService} from '../../model/co-comment-service.interface';
 
@@ -23,9 +23,11 @@ export interface CoCommentsEntity {
 })
 export class CoCommentsPortalComponent implements OnInit{
 
+  @ViewChild('editorComponent') editorComponent: any;
+
   commentService: CoCommentService;
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
-  formControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>();
+  // formControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>();
   commentIsValid = false;
   user: FlUser;
   entity: CoCommentsEntity;
@@ -39,7 +41,6 @@ export class CoCommentsPortalComponent implements OnInit{
     this.user = data.user;
     this.entity = data.entity;
     this.commentType = data.commentType;
-    console.log('data', data)
   }
 
   ngOnInit(): void {
@@ -51,15 +52,17 @@ export class CoCommentsPortalComponent implements OnInit{
   }
 
   checkCommentValidity(): void {
-    this.commentIsValid = !TeRichText.isEmpty(this.formControl.value);
+    this.commentIsValid = !TeRichText.isEmpty(this.editorComponent?._value);
+    this.editorComponent._value = TeRichText.emptyContent();
+    console.log(this.editorComponent?._value, this.editorComponent)
   }
 
   sendComment(): void {
     if (this.commentIsValid){
       this.isLoading = true;
-      this.commentService.sendComment(this.commentType, this.formControl.value, this.entity.id)
+      this.commentService.sendComment(this.commentType, this.editorComponent?._value, this.entity.id)
         .subscribe((comment: CoAbstractComment<CoCommentEntity>) => {
-          this.formControl.patchValue(TeRichText.emptyContent());
+          // this.editorComponent.disable();
           this.datasource.unshiftItem(comment);
           this.entity.comments++;
           this.isLoading = false;

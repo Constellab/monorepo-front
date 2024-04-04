@@ -53,6 +53,8 @@ import {
 import {LabCredentialsCoreModule} from './lab-core/entity-module/lab-credentials-core/lab-credentials-core.module';
 import {LabRichTextCoreModule} from './lab-core/entity-module/lab-rich-text-core/lab-rich-text-core.module';
 import {TranslateLoader} from '@ngx-translate/core';
+import {CoCommunityLibModule} from '@monorepo/community-lib';
+import {LabCoServiceConfig} from './lab-core/model/config/lab-co-service-config.service';
 
 export function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -113,6 +115,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlCaptchaModule,
 
     PrProtocolModule.forRoot(LabWorkflowResourcesState),
+    CoCommunityLibModule.forRoot(LabCoServiceConfig),
 
 
     // import core module here because they have dynamic field component required

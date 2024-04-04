@@ -33,23 +33,8 @@
         </div>
         <div class="story-like-comment-infos-div">
           <div class="story-like-comment">
-            <button mat-flat-button (click)="toggleLikeStoryButton()">
-              @if (storyIsLiked){
-                <mat-icon fontSet="material-icons" class="g-like-button" *haIsAuthenticated>thumb_up</mat-icon>
-              } @else {
-                <mat-icon class="g-cursor-hover">thumb_up</mat-icon>
-              }
-              {{ story.likes }}
-            </button>
-
-
-          </div>
-          <div class="story-like-comment">
-            <button mat-flat-button (click)="openCommentsPannel()">
-              <mat-icon>comment</mat-icon>
-              {{ story.comments }}
-            </button>
-
+            <ha-like-button (clicked)="toggleLikeStoryButton()" [isLiked]="storyIsLiked" [likesCount]="story.likes"></ha-like-button>
+            <ha-comment-button (clicked)="openCommentsPannel()" [commentsCount]="story.comments"></ha-comment-button>
           </div>
         </div>
         @if (hasRightToEdit) {

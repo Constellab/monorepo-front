@@ -21,7 +21,7 @@ import {MatDialogActions, MatDialogContent} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatRadioModule} from "@angular/material/radio";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {
   CoLiveTaskCreateDialogFormComponent
 } from './component/co-live-task-create-dialog-form/co-live-task-create-dialog-form.component';
@@ -41,31 +41,32 @@ import {MatCardModule} from '@angular/material/card';
 import {CoServiceConfig} from './service/co-service-config.config';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FlDateModule,
-    FlKeyValueModule,
-    FlTranslateModule,
-    FlUserModule,
-    MatButtonModule,
-    FlCoreDirectiveModule,
-    FlCorePipeModule,
-    FlDialogModule,
-    FlLoaderModule,
-    MatDialogActions,
-    MatDialogContent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatRadioModule,
-    ReactiveFormsModule,
-    FlSectionModule,
-    FlTextIconModule,
-    MatIconModule,
-    MatChipsModule,
-    FlInfiniteScrollModule,
-    TeTextEditorModule,
-    MatCardModule
-  ],
+    imports: [
+        CommonModule,
+        FlDateModule,
+        FlKeyValueModule,
+        FlTranslateModule,
+        FlUserModule,
+        MatButtonModule,
+        FlCoreDirectiveModule,
+        FlCorePipeModule,
+        FlDialogModule,
+        FlLoaderModule,
+        MatDialogActions,
+        MatDialogContent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatRadioModule,
+        ReactiveFormsModule,
+        FlSectionModule,
+        FlTextIconModule,
+        MatIconModule,
+        MatChipsModule,
+        FlInfiniteScrollModule,
+        TeTextEditorModule,
+        MatCardModule,
+        FormsModule
+    ],
   declarations: [
     CoLiveTaskListItemComponent,
     CoLiveTaskCreateDialogFormComponent,

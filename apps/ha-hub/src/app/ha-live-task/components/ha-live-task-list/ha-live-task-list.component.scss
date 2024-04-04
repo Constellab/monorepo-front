@@ -1,7 +1,3 @@
-.search-bar{
-  width: 100%;
-}
-
 .left-panel-buttons-div{
   display: flex;
   flex-direction: column;
@@ -20,29 +16,10 @@
   color: var(--color-text-primary);
 }
 
-.first-bt{
-  margin-top: 77px;
-}
-
-.title{
-  margin-top: 16px;
-  margin-bottom: 12px;
-}
-
 .res-research-div{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-h1{
-  font-size: 67.3px;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 80px;
-  letter-spacing: normal;
-  text-align: left;
-  height: 80px;
 }
 
 .live-tasks-list-div{

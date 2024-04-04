@@ -34,6 +34,13 @@ export class HaPublicListBricksPageComponent implements OnInit {
       this.transferState.remove(this.BRICKS_KEY);
     }
 
+    if(this.bricks == null) {
+      this.bricks = this.haBrickService.getAllWithFiltersPaginated();
+      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICKS_KEY)) {
+        this.transferState.set(this.BRICKS_KEY, this.bricks);
+      }
+    }
+
     this.updateBricks();
   }
 
@@ -51,10 +58,9 @@ export class HaPublicListBricksPageComponent implements OnInit {
   }
 
   updateBricks(): void {
-
-    this.bricks = this.haBrickService.getAllWithFiltersPaginated(this.spaceIdFilter, this.titleFormControl.value);
-    if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICKS_KEY)) {
-      this.transferState.set(this.BRICKS_KEY, this.bricks);
-    }
+    this.bricks.getFirstPage({
+      spacesFilter: this.spaceIdFilter,
+      titleFilter: this.titleFormControl.value
+    })
   }
 }

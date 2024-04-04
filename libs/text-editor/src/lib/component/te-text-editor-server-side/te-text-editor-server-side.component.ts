@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import edjsHTML from 'editorjs-html';
 import {TeRichTextContent} from '@monorepo/text-editor';
 
@@ -14,13 +14,15 @@ export class TeTextEditorServerSideComponent implements OnInit{
   value: TeRichTextContent;
 
   edjsParser = edjsHTML();
+
+  htmlValue: string;
+
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
     if (this.value != null){
       let HTML = this.edjsParser.parse(this.value as any);
-      HTML = HTML.map((row: any) => row instanceof Error ? '' : row)
-      this.elementRef.nativeElement.innerHTML = '<div class="g-text-editor">' + HTML.join('<br>') + '</div>';
+      this.htmlValue = HTML.map((row: any) => row instanceof Error ? '' : row).join('<br>');
     }
   }
 

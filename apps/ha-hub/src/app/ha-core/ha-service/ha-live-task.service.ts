@@ -49,9 +49,10 @@ export class HaLiveTaskService {
       {spacesFilter: spacesFilter, titleFilter: titleFilter}, HaLiveTask, {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public getAllWithFiltersPaginated(spacesFilter: string[], titleFilter: string): HaLiveTaskDatasourcePaginated {
+  public getAllWithFiltersPaginated(): HaLiveTaskDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAllWithFilters(spacesFilter, titleFilter, page, size), 10);
+      (page, size, requestData) =>
+        this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), 10, false);
   }
 
   /**

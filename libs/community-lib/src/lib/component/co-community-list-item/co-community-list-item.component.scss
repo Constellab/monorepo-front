@@ -1,26 +1,20 @@
 :host{
   height: fit-content;
   width: inherit;
+  background-color: inherit;
 }
 
 .community-list-item{
-  border-radius: 18px;
+  background-color: inherit;
   height: fit-content;
   width: inherit;
   display: flex;
   padding: 16px;
+  border-radius: 18px;
 }
 
 .community-list-item:hover{
   cursor: pointer;
-}
-
-.community-list-item-card-bg{
-  background-color: var(--card-background);
-}
-
-.community-list-item-main-bg{
-  background-color: var(--main-background);
 }
 
 .community-list-item-left-side{

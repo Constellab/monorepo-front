@@ -20,15 +20,6 @@
               </div>
             </ha-card>
           </div>
-          <div class="live-task-version-bt-div">
-            <button mat-stroked-button class="g-button-small" type="button" color="primary"
-                    (click)="onCopyCode(liveTaskVersion, $event)">
-              {{ 'copy_code' | translate }}
-            </button>
-            <button mat-stroked-button class="g-button-small" type="button" color="primary" (click)="onCopyLink($event)">
-              {{ 'copy_link' | translate }}
-            </button>
-          </div>
         </div>
       </ha-card>
     </a>
@@ -37,7 +28,7 @@
 
 
 <ng-template #notPublishedDiv>
-  <div style="color: var(--warn-color)">
+  <div class="g-warn-text">
     {{'not_published' | translate}}
   </div>
 </ng-template>

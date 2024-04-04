@@ -5,9 +5,10 @@
   [date]="!story.publishedAt || story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"
   [likes]="story.likes"
   [comments]="story.comments">
+
   <div leftSide>
     @if(!story.publishedAt){
-      <span [style.color]="'var(--warn-color)'">{{'coCommunityLib.no_published' | translate}}</span>
+      <span class="g-warn-text">{{'coCommunityLib.no_published' | translate}}</span>
     }
     <mat-chip-listbox>
       <mat-chip-option *ngFor="let topic of topics">
@@ -15,6 +16,7 @@
       </mat-chip-option>
     </mat-chip-listbox>
   </div>
+
   <div rightSide [style.background-image]="'url(\'' + imageLink + '\')'"
        class="story-image"></div>
 </co-community-list-item>

@@ -8,12 +8,12 @@ import {HaSidenavButtonDirective} from './ha-sidenav-button/ha-sidenav-button.di
   declarations: [
     HaIsAdminDirective,
     HaIsAuthenticatedDirective,
-    HaSidenavButtonDirective
+    HaSidenavButtonDirective,
   ],
   exports: [
     HaIsAdminDirective,
     HaIsAuthenticatedDirective,
-    HaSidenavButtonDirective
+    HaSidenavButtonDirective,
   ],
   imports: [CommonModule],
 })

@@ -54,22 +54,22 @@ export class HaStoryListPageComponent implements OnInit {
               private router: Router,
               private storyService: HaStoryService,
               private topicService: HaTopicService,
-              private metadataService: HaMetadataService,
-              @Inject(PLATFORM_ID) private platformId: any) {
+              private metadataService: HaMetadataService) {
   }
 
   ngOnInit(): void {
     this.metadataService.setPageTitle('ha.stories.title');
     this.metadataService.addMetaTag('description', 'ha.stories.description');
 
-    this.stories = this.storyService.getAllPaginated();
     this.popularTopics$ = this.topicService.getPopularTopics();
+
+    this.getStoriesFiltered();
 
   }
 
   search(): void {
     this.filters.title = this.titleFormControl.value;
-    this.getStoriesFiltered();
+    this.updateStories();
   }
 
   openCreateStoryDialog(): void{
@@ -98,7 +98,7 @@ export class HaStoryListPageComponent implements OnInit {
     } else {
       this.filters.topics.push(topic.id);
     }
-    this.getStoriesFiltered();
+    this.updateStories();
   }
 
   isSelected(topic: HaTopicDto): boolean {
@@ -117,14 +117,20 @@ export class HaStoryListPageComponent implements OnInit {
       }
       return cat;
     });
-    this.getStoriesFiltered();
+    this.updateStories();
   }
 
   getStoriesFiltered(): void {
     if (this.myStoriesBool)
-      this.stories = this.storyService.getMyStoriesForList(this.filters);
+      this.stories = this.storyService.getMyStoriesForList();
     else
-      this.stories = this.storyService.getAllPaginatedFiltered(this.filters);
+      this.stories = this.storyService.getAllPaginatedFiltered();
+
+    this.updateStories();
+  }
+
+  private updateStories(): void {
+    this.stories.getFirstPage(this.filters);
   }
 
   loadMoreResults(): void {

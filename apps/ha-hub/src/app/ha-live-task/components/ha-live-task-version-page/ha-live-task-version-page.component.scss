@@ -1,13 +1,3 @@
-.live-task-navigation-panel{
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  padding: 8px;
-  border-radius: 8px;
-  background: var(--card-background);
-  width: fit-content;
-}
-
 .main-header-info{
   display: flex;
   flex-direction: row;
@@ -23,35 +13,11 @@
   flex-direction: row;
   justify-content: space-between;
 }
-.published-bt{
-  margin-left: auto;
-}
-
-.description-div{
-  margin-top: 32px;
-}
-
-.description-content-div{
-  min-height: 1.5em;
-  margin-top: 12px;
-}
-
-.description-editor{
-  border: none;
-}
-
-.description-editor-active{
-  border: none;
-}
 
 .publish-lt-div{
   display: flex;
   flex-direction: row;
   gap: 8px;
-}
-
-.description-editor-active:hover, .description-editor-active:active, .description-editor-active:focus{
-  border: var(--hover-color) 1px solid;
 }
 
 .brick-dependencies-div{

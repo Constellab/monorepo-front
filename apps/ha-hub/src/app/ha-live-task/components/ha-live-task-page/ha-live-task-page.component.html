@@ -24,22 +24,9 @@
           <div>
             <div class="live-task-like-comment-infos-div">
               <div class="live-task-like-comment">
-                <button mat-flat-button (click)="toggleLikeLiveTaskButton()">
-                  @if (liveTaskIsLiked){
-                    <mat-icon fontSet="material-icons" class="g-like-button" *haIsAuthenticated>thumb_up</mat-icon>
-                  } @else {
-                    <mat-icon class="g-cursor-hover">thumb_up</mat-icon>
-                  }
-                  {{ liveTask.likes }}
-                </button>
+                <ha-like-button (clicked)="toggleLikeLiveTaskButton()" [isLiked]="liveTaskIsLiked" [likesCount]="liveTask.likes"></ha-like-button>
 
-
-              </div>
-              <div class="live-task-like-comment">
-                <button mat-flat-button (click)="openCommentsPannel()">
-                  <mat-icon>comment</mat-icon>
-                  {{ liveTask.comments }}
-                </button>
+                <ha-comment-button [commentsCount]="liveTask.comments" (clicked)="openCommentsPannel()"></ha-comment-button>
 
               </div>
             </div>
@@ -107,11 +94,11 @@
 
     <div class="tabs-buttons-div spacing-8-v2">
       <a mat-stroked-button [routerLink]="'.'" routerLinkActive="active"
-         #rlaOverview="routerLinkActive" [color]="rlaOverview.isActive && !rlaVersions.isActive ? 'primary' : null">
+         #overview="routerLinkActive" [color]="overview.isActive && !versions.isActive ? 'primary' : ''">
         {{'overview' | translate}}
       </a>
       <a mat-stroked-button [routerLink]="'versions'" routerLinkActive="active"
-         #rlaVersions="routerLinkActive" [color]="rlaVersions.isActive ? 'primary' : null">
+         #versions="routerLinkActive" [color]="versions?.isActive ? 'primary' : ''">
         {{'versions' | translate}}
       </a>
     </div>
@@ -121,7 +108,7 @@
 
 
 <ng-template #notPublishedDiv>
-  <div style="color: var(--warn-color)">
+  <div class="g-warn-text">
     {{'not_published' | translate}}
   </div>
 </ng-template>

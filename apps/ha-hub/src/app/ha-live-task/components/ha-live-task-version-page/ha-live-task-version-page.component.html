@@ -24,13 +24,8 @@
                 <button mat-stroked-button color="primary" class="spacing-6-v2" (click)="publishLiveTaskVersion()">
                   {{ 'publish' | translate }}
                 </button>
-                <span class="g-text-small" style="color: var(--warn-color)">{{'warn_lt_version_not_published' | translate}}</span>
+                <span class="g-text-small g-warn-text">{{'warn_lt_version_not_published' | translate}}</span>
               </div>
-            }
-            @if (false) {
-              <button mat-stroked-button color="primary" class="spacing-6-v2 copy-link-bt">
-                {{ 'copy_link' | translate }}
-              </button>
             }
           </div>
           <div class="task-type-div spacing-6-v2">

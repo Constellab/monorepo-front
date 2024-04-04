@@ -4,8 +4,7 @@
   [user]="liveTask.createdBy"
   [date]="liveTask.lastModifiedAt"
   [likes]="liveTask.likes"
-  [comments]="liveTask.comments"
-  [backgroundColor]="backgroundColor">
+  [comments]="liveTask.comments">
   <div rightSide class="live-task-card-inner">
     <div>
       <p class="spacing-3-v2">{{ 'coCommunityLib.version' | translate }} :</p>
@@ -21,7 +20,7 @@
 </co-community-list-item>
 
 <ng-template #notPublishedYetDiv>
-  <div style="color: var(--warn-color)" class="g-text-small">
+  <div class="g-warn-text g-text-small">
     <b>{{ 'not_published' | translate }}</b>
   </div>
 </ng-template>

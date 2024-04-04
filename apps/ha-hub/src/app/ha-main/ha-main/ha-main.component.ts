@@ -22,6 +22,8 @@ export class HaMainComponent implements OnInit, AfterContentInit {
 
   loginRoute: string = HaRouterService.getLoginRoute();
 
+  adminRoute: string = HaRouterService.getAdminRoute();
+
   currentUrlSegment: UrlSegment[];
 
   currentTheme: ClTheme;
@@ -32,6 +34,17 @@ export class HaMainComponent implements OnInit, AfterContentInit {
 
   isDarkTheme: boolean;
 
+  storyListRoute = HaRouterService.getStoriesListRoute();
+
+  brickListRoute = HaRouterService.getBrickListRoute();
+
+  productDocRoute = HaRouterService.getSimpleProductDocRoute();
+
+  techDocRoute = HaRouterService.getSimpleTechDocRoute();
+
+  liveTaskRoute = HaRouterService.getLiveTaskListRoute();
+
+  communityLogo: string;
 
   constructor(private authUserService: HaAuthenticatedUserService,
               private authService: HaAuthService,
@@ -49,6 +62,7 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     });
     this.currentTheme = this.themeService.getCurrentTheme();
     this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
+    this.setCommunityLogo();
     this.authUserService.getUser().subscribe(user => {
       if (user != null) {
         this.authUserService.changeTheme(this.currentTheme).subscribe();
@@ -56,6 +70,12 @@ export class HaMainComponent implements OnInit, AfterContentInit {
       }
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
     });
+  }
+
+  setCommunityLogo(): void{
+    this.communityLogo = this.isDarkTheme ?
+      'assets/fl-logo/community-logo-text-white.svg':
+      'assets/fl-logo/community-logo-text-black.svg';
   }
 
   ngAfterContentInit(): void {
@@ -74,30 +94,6 @@ export class HaMainComponent implements OnInit, AfterContentInit {
 
   logout(): void {
     this.authService.logout().subscribe();
-  }
-
-  getStoryListRoute(): string {
-    return HaRouterService.getStoriesListRoute();
-  }
-
-  getBrickListRoute(): string {
-    return HaRouterService.getBrickListRoute();
-  }
-
-  getProductDocRoute(): string {
-    return HaRouterService.getSimpleProductDocRoute();
-  }
-
-  getTechDocRoute(): string {
-    return HaRouterService.getSimpleTechDocRoute();
-  }
-
-  getLiveTaskRoute(): string {
-    return HaRouterService.getLiveTaskListRoute();
-  }
-
-  isHome(): boolean {
-    return this.currentUrlSegment.length === 0;
   }
 
   changeLanguage(): void {
@@ -121,12 +117,8 @@ export class HaMainComponent implements OnInit, AfterContentInit {
       this.themeService.changeTheme(theme);
       this.currentTheme = theme;
       this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
+      this.setCommunityLogo();
     }
-  }
-
-  getCommunityLogo(): string {
-    return this.currentTheme === this.theme.LIGHT_THEME ? 'assets/fl-logo/community-logo-text-black.svg' :
-      'assets/fl-logo/community-logo-text-white.svg';
   }
 
   private setGoogleAnalytics(): void {

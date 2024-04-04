@@ -28,7 +28,6 @@ export class HaLiveTaskPageComponent implements OnInit {
 
   liveTask: HaLiveTask;
   brickDependencies$: Observable<HaBrickVersion[]>;
-  currentTab: string;
   isLoading = true;
   liveTaskIsLiked = false;
   currentUser: HaUser;
@@ -60,8 +59,6 @@ export class HaLiveTaskPageComponent implements OnInit {
     });
 
     this.checkIfLiveTaskIsLiked(this.activeRoute.snapshot.params.id);
-
-    this.currentTab = this.activeRoute.snapshot.firstChild.url[0]?.path;
   }
 
   openCommentsPannel(): void {

@@ -8,8 +8,7 @@
       <div class="existant-lt-info-div">
         <span>{{'biox.existent_lt_info_1' | translate}}</span>
       </div>
-      <co-live-task-list-item class="current-live-task" [liveTask]="currentLiveTask.toCoLiveTask()" (click)="onSelectLiveTask(currentLiveTask)"
-                              [backgroundColor]="'main'"></co-live-task-list-item>
+      <co-live-task-list-item class="current-live-task" [liveTask]="currentLiveTask.toCoLiveTask()" (click)="onSelectLiveTask(currentLiveTask)"></co-live-task-list-item>
       <mat-divider class="divider"></mat-divider>
     }
     @if(!isLoading || !liveTaskVersionId){

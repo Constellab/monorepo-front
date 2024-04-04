@@ -2,7 +2,7 @@
   <form (ngSubmit)="search()">
     <mat-form-field class="icons-search-bar">
       <input matInput [formControl]="searchFormControl" placeholder="{{'search_icon' | translate}}">
-      <button mat-icon-button matSuffix aria-label="Clear" (click)="search()">
+      <button mat-icon-button matSuffix (click)="search()">
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
@@ -21,8 +21,6 @@
         <span class="icon-name">{{icon.name}}</span>
       </div>
   </div>
-
-
 
 </div>
 

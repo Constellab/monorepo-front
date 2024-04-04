@@ -1,5 +1,6 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="live-task-form" [formGroup]="formGp">
+
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'coCommunityLib.title' | translate }}</mat-label>
       <input matInput [formControl]="formGp.controls.title" required flInputMaxLength="100"
@@ -8,7 +9,8 @@
         {{ 'title' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
-    <div class="">
+
+    <div>
       <div class="">{{ 'coCommunityLib.type' | translate }}</div>
       <div class="form-type-button-div">
         <button mat-flat-button type="button"
@@ -17,12 +19,13 @@
           {{ 'coCommunityLib.public' | translate }}
         </button>
         <button mat-flat-button type="button"
-                [color]="(formGp.get('type').value === 'SPACE') ? 'primary' : ''" *ngIf="spaces$ | flIsNotEmpty"
+                [color]="(formGp.get('type').value === 'SPACE') ? 'primary' : ''" *ngIf="spaces$"
                 (click)="formGp.get('type').setValue('SPACE')">
           {{ 'coCommunityLib.space' | translate }}
         </button>
       </div>
     </div>
+
     @if(formGp.get('type').value === 'SPACE'){
       <fl-async-section [object]="spaces$">
         <ng-container *flSectionBody="spaces$ as spaces">
@@ -38,6 +41,7 @@
         </ng-container>
       </fl-async-section>
     }
+
     <ng-content></ng-content>
   </form>
 </mat-dialog-content>

@@ -25,7 +25,7 @@
     <mat-chip-listbox selectable multiple>
       <mat-chip-option *ngFor="let topic of popularTopics$ | async" [value]="isSelected(topic)"
                        (click)="selectTopic(topic)"
-                       style="cursor: pointer">
+                        class="g-cursor-hover">
         {{topic.name}}
       </mat-chip-option>
     </mat-chip-listbox>
@@ -33,22 +33,20 @@
 </div>
 
 <div class="main-panel">
-  <div class="stories-div" *ngIf="stories"
-       (flInfiniteScroll)="loadMoreResults()" [flInfiniteDisabled]="stories?.isLoading || stories?.page?.last"
-       flInfiniteMode="auto">
+  <fl-infinite-scroll *ngIf="stories" [datasource]="stories" infiniteMode="auto" class="list-section">
 
-    <fl-text-icon>
-      <mat-icon class="g-icon-huge">
+    <div class="section-title">
+      <div class="section-title-icon">
         <img src="assets/fl-logo/stories-logo.svg"/>
-      </mat-icon>
+      </div>
       <h1 class="title">{{ 'stories' | translate }}</h1>
-    </fl-text-icon>
+    </div>
 
     <div class="search-bar-title">
       <form (submit)="search()">
-        <mat-form-field class="search-bar">
+        <mat-form-field class="section-search-bar">
           <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
-          <button mat-icon-button matSuffix aria-label="Clear" (click)="search()">
+          <button mat-icon-button matSuffix (click)="search()">
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
@@ -59,7 +57,6 @@
       <a *ngFor="let story of stories | flDatasourceConnect  | async" [routerLink]="story.publishedAt == null ? 'edit/' + story.id: (story | haDetailRoute)">
         <co-story-list-item [story]="story" [imageLink]="getStoryImageLink(story?.mainPicture)"></co-story-list-item>
       </a>
-      <fl-infinite-load-more-result [datasource]="stories"></fl-infinite-load-more-result>
     </div>
-  </div>
+  </fl-infinite-scroll>
 </div>

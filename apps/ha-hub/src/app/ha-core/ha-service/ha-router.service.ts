@@ -24,6 +24,10 @@ export class HaRouterService {
     return '/login';
   }
 
+  public static getAdminRoute(): string {
+    return '/admin';
+  }
+
   public static getSimpleProductDocRoute(): string {
     return '/product-doc';
   }

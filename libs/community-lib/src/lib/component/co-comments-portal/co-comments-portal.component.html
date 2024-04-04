@@ -12,7 +12,7 @@
       <fl-user-inline [user]="user" [portalOnHover]="false"></fl-user-inline>
     </mat-card-header>
     <mat-card-content class="comment-write-card-content">
-      <te-text-editor [config]="textEditorConfig" [formControl]="formControl"
+      <te-text-editor #editorComponent [config]="textEditorConfig"
                       [placeholder]="'coCommunityLib.write_a_comment' | translate" class="text-editor"
                       (textChange)="checkCommentValidity()" (keydown.control.enter)="sendComment()" ></te-text-editor>
     </mat-card-content>

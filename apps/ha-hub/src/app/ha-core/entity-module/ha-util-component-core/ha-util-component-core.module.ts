@@ -1,23 +1,18 @@
 import {NgModule} from '@angular/core';
-import {HaVisibilityBadgeComponent} from './component/ha-visibility-badge/ha-visibility-badge.component';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HaCoreModule} from '../../ha-core.module';
-import {HaCommunityListItemComponent} from './component/ha-community-list-item/ha-community-list-item.component';
-import {
-  HaCommunityListItemMainContentComponent
-} from './component/ha-community-list-item-main-content/ha-community-list-item-main-content.component';
+import {HaLikeButtonComponent} from './component/ha-like-button/ha-like-button.component';
+import {HaCommentButtonComponent} from './component/ha-comment-button/ha-comment-button.component';
 
 @NgModule({
   declarations: [
-    HaVisibilityBadgeComponent,
-    HaCommunityListItemComponent,
-    HaCommunityListItemMainContentComponent
+    HaLikeButtonComponent,
+    HaCommentButtonComponent
   ],
   exports: [
-    HaVisibilityBadgeComponent,
-    HaCommunityListItemComponent,
-    HaCommunityListItemMainContentComponent
+    HaLikeButtonComponent,
+    HaCommentButtonComponent
   ],
   imports: [
     CommonModule,
