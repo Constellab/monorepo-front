@@ -4,9 +4,9 @@
     <div class="g-layout-row g-layout-between-start">
       <div>
         <h2 flElementEditable (flElementValueChange)="updateProcessName(process, $event)">
-          {{process.name}}
+          {{ process.name }}
         </h2>
-        <p *ngIf="process.processType?.short_description">{{process.processType.short_description}}</p>
+        <p *ngIf="process.processType?.short_description">{{ process.processType.short_description }}</p>
       </div>
 
       <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
@@ -40,10 +40,10 @@
             <span>{{ 'biox.process_type_doc' | translate }}</span>
           </button>
 
-          @if (isLiveTask$ | async){
+          @if (isLiveTask$ | async) {
             <button mat-menu-item [matMenuTriggerFor]="liveTaskMenu">
               <mat-icon flIcon="code"></mat-icon>
-              {{'biox.live_task' | translate}}
+              {{ 'biox.live_task' | translate }}
             </button>
           }
 
@@ -78,22 +78,26 @@
         </mat-menu>
 
         <mat-menu #liveTaskMenu>
-          <button mat-menu-item type="button" (click)="downloadLiveTaskFile(process)" tabindex="-1">
+          <button mat-menu-item type="button" (click)="downloadLiveTaskFile(process)">
             <mat-icon>download</mat-icon>
-            {{'biox.download_live_task_file' | translate}}
+            {{ 'biox.download_live_task_file' | translate }}
           </button>
 
-          <button mat-menu-item type="button" (click)="openShareCommunityLiveTaskDialog(process)" tabindex="-1">
+          <button mat-menu-item type="button" (click)="openShareCommunityLiveTaskDialog(process)">
             <mat-icon>share</mat-icon>
-            {{'biox.share_live_task_to_community' | translate}}
+            {{ 'biox.share_live_task_to_community' | translate }}
           </button>
 
-          <button mat-menu-item type="button" (click)="convertLiveTaskCodeToTask(process)" tabindex="-1"
-                  *ngIf="isPyLiveTask$ | async"
-                  [matTooltip]="'biox.convert_live_task_code_to_task' | translate" matTooltipPosition="below">
-            <mat-icon>code</mat-icon>
-            {{'biox.convert_live_task_code_to_task' | translate}}
-          </button>
+          @if (isPyLiveTask$ | async) {
+            <button mat-menu-item type="button" (click)="convertLiveTaskCodeToTask(process)">
+              <mat-icon>code</mat-icon>
+              {{ 'biox.convert_live_task_code_to_task' | translate }}
+            </button>
+            <button mat-menu-item type="button" (click)="openPipPackageList()">
+              <mat-icon>inventory_2</mat-icon>
+              {{ 'monitoring.installed_packages' | translate }}
+            </button>
+          }
         </mat-menu>
       </div>
     </div>

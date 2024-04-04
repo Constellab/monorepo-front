@@ -331,15 +331,15 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
   private saveNodePosition(node: PrWorkflowNode, protocolId: string): void {
-    if (node instanceof PrWorkflowNodeProcess) {
-      // save the node positions
-      this.protocolService.saveProcessLayout(protocolId, node.instanceName,
-        node.getCoords()).subscribe();
-    } else if (node instanceof PrWorkflowNodeInterface) {
+    if (node instanceof PrWorkflowNodeInterface) {
       this.protocolService.saveInterfaceLayout(protocolId, node.interfaceName,
         node.getCoords()).subscribe();
     } else if (node instanceof PrWorkflowNodeOuterface) {
       this.protocolService.saveOuterfaceLayout(protocolId, node.outerfaceName,
+        node.getCoords()).subscribe();
+    } else {
+      // save the node positions
+      this.protocolService.saveProcessLayout(protocolId, node.instanceName,
         node.getCoords()).subscribe();
     }
   }
@@ -632,7 +632,6 @@ export class LabWorkflowEditConfig implements OnDestroy {
   public getActions$(actions: LabWorkflowAction[]): Observable<FlPortalActionResult> {
     return this.actionsService.getResult$(actions);
   }
-
 
 
   /////////////////////////////////////////////// OTHER ///////////////////////////////////////////////

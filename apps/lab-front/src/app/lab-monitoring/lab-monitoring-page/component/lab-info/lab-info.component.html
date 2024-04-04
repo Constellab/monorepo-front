@@ -33,17 +33,26 @@
         <div class="action">
           <button mat-stroked-button type="button" class="g-button-small action-button"
                   (click)="syncLab()">
+            <mat-icon>refresh</mat-icon>
             {{ 'monitoring.synchronize_lab' | translate }}
           </button>
 
           <button mat-stroked-button type="button" class="g-button-small action-button"
                   (click)="cleanLab()">
+            <mat-icon>delete</mat-icon>
             {{ 'monitoring.clean_lab' | translate }}
           </button>
 
           <button mat-stroked-button type="button" class="g-button-small action-button"
                   (click)="deleteUnavailableTypings()">
+            <mat-icon>delete</mat-icon>
             {{ 'monitoring.delete_unavailable_typings' | translate }}
+          </button>
+
+          <button mat-stroked-button type="button" class="g-button-small action-button"
+                  (click)="openPipPackageList()">
+            <mat-icon>inventory_2</mat-icon>
+            {{ 'monitoring.installed_packages' | translate }}
           </button>
         </div>
       </div>

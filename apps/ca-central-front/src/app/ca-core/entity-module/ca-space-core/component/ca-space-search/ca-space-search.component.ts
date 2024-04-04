@@ -16,7 +16,7 @@ import {
   CaSpaceFormDialogComponent,
   CaSpaceFormDialogInput
 } from '../ca-space-form-dialog/ca-space-form-dialog.component';
-import {CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space-form.class';
+import {CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space.dto';
 
 
 @Component({

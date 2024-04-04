@@ -51,6 +51,9 @@ import {
   CaDocumentTrashListDialogComponent
 } from './component/ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
 import {CaTextEditorModule} from '../ca-text-editor/ca-text-editor.module';
+import {
+  CaProjectStorageUsageSectionComponent
+} from './component/ca-project-storage-usage-section/ca-project-storage-usage-section.component';
 
 /**
  * Module for the project detail page
@@ -73,6 +76,7 @@ import {CaTextEditorModule} from '../ca-text-editor/ca-text-editor.module';
     CaProjectDocumentsListComponent,
     CaProjectUserConfigDialogComponent,
     CaDocumentTrashListDialogComponent,
+    CaProjectStorageUsageSectionComponent,
   ],
   imports: [
     CommonModule,

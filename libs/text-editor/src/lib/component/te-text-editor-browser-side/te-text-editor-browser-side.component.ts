@@ -15,6 +15,8 @@ import {TeConfig} from '../../model/te-config.class';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
 import {Observable} from 'rxjs';
 import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
+import {FlTranslateService} from '@monorepo/front-core-lib';
+import {teGetI18nConfig} from '../../te-text-editor.i18n';
 import {FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
 
@@ -28,7 +30,7 @@ export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRic
 
   @Input({required: true}) config: TeConfig;
 
-  @Input() placeholder: string = '';
+  @Input() placeholder: string;
 
   @HostBinding('class.g-text-editor-hide-toolbar')
   @Input() hideToolbar: boolean = false;
@@ -48,7 +50,8 @@ export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRic
   constructor(
     @Optional() @Self() ngControl: NgControl,
     private envInjector: EnvironmentInjector,
-    private applicationRef: ApplicationRef) {
+    private applicationRef: ApplicationRef,
+    private translateService: FlTranslateService) {
     super(ngControl);
   }
 
@@ -98,10 +101,22 @@ export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRic
     this.value = obj;
   }
 
+  printJson(): void {
+    this.editor.save().then((content: TeRichTextContent) => {
+      console.log('Article data: ', content);
+    });
+  }
+
+  setSavedData(): void {
+    this.editor.save().then((content: TeRichTextContent) => {
+      this.editor.render(content);
+    });
+  }
+
   private async initEditor(module: any): Promise<void> {
     console.log('INIT', this.value)
     const config: EditorConfig = {
-      placeholder: this.placeholder,
+      placeholder: this.placeholder ?? this.translateService.translate('teTextEditor.placeholder'),
       holder: this.editorContainer.nativeElement,
       data: this.value,
       // set order for the inline tools
@@ -110,7 +125,8 @@ export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRic
       tools: this.config.getTools(this.envInjector, this.applicationRef),
       onChange: () => this.onTextEditorChange(),
       defaultBlock: this.config.getDefaultBlock(),
-      tunes: this.config.getTunes()
+      tunes: this.config.getTunes(),
+      i18n: teGetI18nConfig(this.translateService)
     };
     this.editor = new module.default(config);
     console.log('EDITOR', this.editor)

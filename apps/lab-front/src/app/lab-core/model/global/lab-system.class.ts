@@ -21,3 +21,8 @@ export class LabSystemInfo {
   id: string;
 
 }
+
+export class LabPipPackage{
+  name: string;
+  version: string;
+}

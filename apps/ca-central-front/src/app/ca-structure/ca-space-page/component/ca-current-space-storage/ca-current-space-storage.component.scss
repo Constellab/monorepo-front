@@ -1,0 +1,26 @@
+.button{
+  margin-left: 1em;
+}
+
+.container {
+  margin-left: 3em;
+  margin-top: 1em;
+}
+
+.circle-container {
+  position: relative;
+}
+
+.circle-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 25px;
+  width: 100%;
+}
+
+.usage-detail {
+  margin-top: 0.5em;
+  text-align: center;
+}

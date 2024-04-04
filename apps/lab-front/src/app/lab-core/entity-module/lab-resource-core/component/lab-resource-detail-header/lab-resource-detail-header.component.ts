@@ -116,7 +116,7 @@ export class LabResourceDetailHeaderComponent {
   openImportResource(): void {
     const input: LabImportResourceDialogInput = {
       resourceId: this.resource().id,
-      resourceHumanName: this.resource().resourceTypeHumanName,
+      resourceHumanName: this.resource().resourceType.human_name,
       resourceTypingName: this.resource().resourceTypingName,
       nodeExtension: this.resource().fsNode.getExtension()
     };

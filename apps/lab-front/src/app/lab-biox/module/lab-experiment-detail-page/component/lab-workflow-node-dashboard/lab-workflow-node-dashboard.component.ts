@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {LabWorkflowNodeDetailState} from '../../state/lab-workflow-node-detail.state';
 import {
   LabTypeDialogComponent,
@@ -33,7 +33,9 @@ import {
   LabShareLiveTaskCommunityDialogComponent
 } from '../../../../../lab-core/entity-module/lab-type-core/component/lab-share-live-task-community-dialog/lab-share-live-task-community-dialog.component';
 import {CoLiveTaskHelper} from '@monorepo/community-lib';
-
+import {
+  LabPipPackagesDialogComponent
+} from '../../../../../lab-core/entity-module/lab-system-core/component/lab-pip-packages-dialog/lab-pip-packages-dialog.component';
 
 
 /**
@@ -63,6 +65,7 @@ export class LabWorkflowNodeDashboardComponent {
     map(process => CoLiveTaskHelper.isLiveTask(process.processTypingName))
   );
 
+
   constructor(private nodeState: LabWorkflowNodeDetailState,
               private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService,
@@ -82,11 +85,23 @@ export class LabWorkflowNodeDashboardComponent {
   saveConfigAndRunProcess(process: LabProcess): void {
     this.dashboardState.saveCurrentTaskConfig().subscribe(
       (result) => {
-        if (result  == null || result.status === 'success') {
+        if (result == null || result.status === 'success') {
           this.workflowEditConfig.runProcess(process.parentProtocolId, process.instanceName);
         }
       }
     );
+  }
+
+  // save config on ctrl + s
+  @HostListener('window:keydown', ['$event'])
+  private keyEvent(event: KeyboardEvent): void {
+    if (event.ctrlKey && event.key === 's') {
+      // prevent saving when there is another dialog opened
+      if (this.dialogService.numberOfOpenedDialog() <= 1) {
+        this.saveConfig();
+        event.preventDefault();
+      }
+    }
   }
 
   saveConfig(): void {
@@ -128,18 +143,26 @@ export class LabWorkflowNodeDashboardComponent {
     this.taskGeneratorService.generateTaskCodeFromLiveTask(process.id).subscribe();
   }
 
+  openPipPackageList(): void {
+    this.dialogService.openSmallDialog(LabPipPackagesDialogComponent);
+  }
+
   downloadLiveTaskFile(process: LabProcess): void {
     this.taskGeneratorService.generateLiveTaskFile(process.id).subscribe();
   }
 
   openShareCommunityLiveTaskDialog(process: LabProcess): void {
     this.dialogService.openMediumDialog(LabShareLiveTaskCommunityDialogComponent,
-      {data: {processId: process.id, liveTaskVersionId: process.communityLiveTaskVersionId}})
-      .afterClosed().subscribe((res: LabCreateCommunityLiveTaskVersionResDto) => {
-        if (res) {
-          window.open(LabCommunityHelper.getLiveTasKVersionUrl(res.live_task_id, res.id), '_blank');
+      {
+        data: {
+          processId: process.id,
+          liveTaskVersionId: process.communityLiveTaskVersionId
         }
-      });
+      }).afterClosed().subscribe((res: LabCreateCommunityLiveTaskVersionResDto) => {
+      if (res) {
+        window.open(LabCommunityHelper.getLiveTasKVersionUrl(res.live_task_id, res.id), '_blank');
+      }
+    });
   }
 
   updateProcessName(process: LabProcess, newName: string): void {

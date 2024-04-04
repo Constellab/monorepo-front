@@ -1,7 +1,8 @@
 import {OutputData} from '@editorjs/editorjs';
 import {ClHelpService} from '@monorepo/core-lib';
 import {BlockToolData} from '@editorjs/editorjs/types/tools';
-import {teVariableAttribute, TeVariableFormInfo, teVariableTagName} from './te-variable.class';
+import {TeVariableFormInfo, teVariableTagName} from './te-variable.class';
+import {TeElementInlineDirective} from './te-element.directive';
 
 export type TeRichTextContent = OutputData;
 
@@ -108,7 +109,7 @@ export class TeRichText {
         const spans: Element[] = doc.getElementsByTagName(teVariableTagName) as any;
 
         for (const span of spans) {
-          const jsonAttribute = span.getAttribute(teVariableAttribute);
+          const jsonAttribute = span.getAttribute(TeElementInlineDirective.dataAttribute);
           if (!jsonAttribute) continue;
 
           variables.push(JSON.parse(jsonAttribute));

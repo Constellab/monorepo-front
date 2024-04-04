@@ -23,9 +23,11 @@ import {FormControl} from '@angular/forms';
 })
 export class FlCodeEditorComponent implements OnInit, OnDestroy {
 
-  @Input() language: FlCodeEditorLanguage;
+  @Input({required: true}) language: FlCodeEditorLanguage;
 
-  @Input() formCtrl: FormControl;
+  @Input({required: true}) formCtrl: FormControl;
+
+  @Input() focus: boolean = false;
 
   @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
 
@@ -39,6 +41,7 @@ export class FlCodeEditorComponent implements OnInit, OnDestroy {
     this.componentRef = this.viewContainer.createComponent(FlCodeEditorStandaloneComponent);
     this.componentRef.instance.formCtrl = this.formCtrl;
     this.componentRef.instance.language = this.language;
+    this.componentRef.instance.focus = this.focus;
 
     // use change detection to force the OnInit of LabPythonEditorComponent to be called
     // because of the parent ChangeDetectionStrategy.OnPush, the OnInit of the lazy loaded

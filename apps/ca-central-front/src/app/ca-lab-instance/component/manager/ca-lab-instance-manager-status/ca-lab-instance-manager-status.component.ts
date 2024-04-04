@@ -76,6 +76,7 @@ export class CaLabInstanceManagerStatusComponent implements OnInit {
         text: 'lab_manager_some_apps_down',
         icon: 'clear',
         iconClass: 'g-warn-text',
+        buttonText: 'lab_manager_restart',
         buttonTooltip: 'restart_lab_help'
       };
     } else if (labStatus.containersStatus.status.value === 'DOWN' || labStatus.containersStatus.status.value === 'STOP') {

@@ -3,7 +3,12 @@
 
     <ng-container *flSectionBody="type$ as type">
       <fl-article-container>
-        <fl-article class="article">
+        <fl-article>
+          <div class="g-layout-row g-layout-center-center g-layout-gap-05em">
+            <td-type-icon-badge [style]="type.style" [iconSize]="30"></td-type-icon-badge>
+            <h1>{{type.name}}</h1>
+          </div>
+
           <lab-type-detail [type]="type"></lab-type-detail>
         </fl-article>
       </fl-article-container>

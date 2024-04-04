@@ -46,6 +46,14 @@ export class LabReportDetailPageState implements OnDestroy {
     this.report$.next(currentReport);
   }
 
+  public refreshReport(): void {
+    this.reportService.getReport(this.currentReport.id).subscribe({
+      next: report => this.report$.next(report),
+      error: error => this.report$.error(error)
+    });
+
+  }
+
   public updateContent(content: LabReportContent): void {
     this.reportContent$.next(content);
   }

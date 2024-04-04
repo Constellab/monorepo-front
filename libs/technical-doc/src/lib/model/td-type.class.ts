@@ -33,6 +33,8 @@ export interface TdTypeRefDTO {
   brick_version: string;
 
   style?: TdTypeStyle;
+
+  short_description?: string;
 }
 
 export interface TdTypeEntity {

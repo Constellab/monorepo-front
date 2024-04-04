@@ -1,9 +1,9 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {LabTechnicalDocComponent} from './component/lab-technical-doc/lab-technical-doc.component';
+import {LabTechnicalDocPageComponent} from './component/lab-technical-doc-page/lab-technical-doc-page.component';
 
 const routes: Routes = [
-  {path: 'technical-doc/:typingName', component: LabTechnicalDocComponent},
+  {path: 'technical-doc/:typingName', component: LabTechnicalDocPageComponent},
 ];
 
 @NgModule({

@@ -144,7 +144,7 @@ export class LabExperimentDetailPageState {
     this.experimentDescription$.next(description);
   }
 
-  private refreshExperiment(): void {
+  public refreshExperiment(): void {
     this.experimentSubscription = this.experimentService.getExperiment(this.currentExperiment.id).subscribe(
       experiment => this.updateExperiment(experiment)
     );

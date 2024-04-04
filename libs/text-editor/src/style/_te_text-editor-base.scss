@@ -7,13 +7,6 @@
   $warn: map-get($mat-theme, warn);
   $foreground: map-get($mat-theme, foreground);
 
-
-  // make the editor scrollable
-  .g-text-editor {
-    font-family: "Roboto Serif", serif;
-    word-break: break-word;
-  }
-
   // override the default behaviour to always have the toolbar on the left
   .codex-editor--narrow {
     .codex-editor__redactor {
@@ -50,7 +43,7 @@
   }
 
   // override the default css to svg that breaks all svg used inside the editor
-  .codex-editor svg{
+  .codex-editor svg {
     max-height: initial;
   }
 
@@ -68,7 +61,10 @@
 
 
   .g-text-editor {
-    font-size: 13px;
+    font-size: 14px;
+    word-break: break-word;
+    font-family: "Poppins", "Helvetica Neue", sans-serif;
+    font-weight: 100;
 
     // force the block to be behind the popover
     .ce-block__content {
@@ -94,16 +90,19 @@
       background-color: var(--hover-color);
     }
 
-
-    //.cdx-button:hover {
-    //  background-color: #2f2f2f;
-    //}
+    .ce-toolbar__plus,
+    .ce-toolbar__settings-btn,
+    .ce-toolbar__plus svg,
+    .ce-toolbar__settings-btn svg {
+      width: 28px;
+      height: 28px;
+    }
 
     ////////////////////////////// POPUP TOOLBAR //////////////////////////////
 
     .ce-popover {
       //background-color: red;
-      --color-border: var(--hover-color);
+      --color-border: transparent;
       --color-shadow: transparent;
       --color-background: var(--card-background);
       --color-text-primary: var(--light-color);
@@ -113,25 +112,51 @@
       --color-text-icon-active: var(--light-color);
       --color-background-icon-active: var(--hover-color);
       --color-background-item-focus: var(--hover-color);
-      --color-shadow-item-focus: var(--light-color);
+      --color-shadow-item-focus: transparent;
       --color-background-item-hover: var(--hover-color);
-      --color-background-item-confirm: var(--hover-color);
-      --color-background-item-confirm-hover: var(--hover-color);
+      --color-background-item-confirm: var(--warn-color);
+      --color-background-item-confirm-hover: var(--warn-color);
+      --width: 300px;
+      --max-height: 375px;
+      --padding: 6px 0;
+      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    .ce-popover__items, .ce-popover__custom-content {
+      padding-inline: 6px;
     }
 
 
-    .ce-popover-item__icon {
+    .ce-popover-item__icon, .ce-conversion-tool__icon {
       background-color: var(--card-background);
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      border: 1px solid var(--hover-color);
+      box-shadow: none;
+      // make the text icon in button bold
+      font-weight: bold;
+
+      // format the mat icons used in popup toolbar (tune)
+      .material-icons-outlined {
+        font-size: 25px;
+        margin-left: 1px;
+      }
+
+      svg {
+        width: 35px;
+        height: 35px;
+      }
     }
 
-    // format the mat icons used in popup toolbar (tune)
-    .ce-popover-item__icon .material-icons-outlined {
-      font-size: 16px;
-      margin-left: 1px;
+    // make the text icon in button bold
+    .ce-inline-toolbar__dropdown-content {
+      font-weight: bold;
     }
 
     .ce-popover__nothing-found-message {
       color: var(--light-color);
+      padding: 6px;
     }
 
     .cdx-search-field__input, .cdx-search-field__icon svg {
@@ -139,14 +164,21 @@
     }
 
     .cdx-search-field {
-      border-color: var(--hover-color);
+      border: none;
+      padding-inline: 6px;
     }
 
     ///////////////////////// INLINE TOOLBAR & CONVERSION TOOL/////////////////////////
-    .ce-inline-toolbar, .ce-conversion-toolbar, .ce-conversion-tool__icon {
+    .ce-inline-toolbar, .ce-conversion-toolbar {
       color: var(--light-color);
       background-color: var(--card-background);
-      border-color: var(--hover-color);
+      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+      border: none;
+    }
+
+    // reduce the size of the mat icon used in the inline toolbar
+    .ce-inline-toolbar__buttons .material-icons-outlined{
+      font-size: 18px;
     }
 
     // work with the codex-editor__redactor no padding to only create the conversion toolbar when needed
@@ -157,6 +189,7 @@
 
     .ce-conversion-tool--focused {
       background-color: var(--hover-color) !important;
+      box-shadow: none;
     }
 
     .ce-conversion-tool:hover, .ce-inline-tool:hover, .ce-inline-toolbar__dropdown:hover {
@@ -175,6 +208,9 @@
       color: var(--light-color);
     }
 
+    .ce-popover-item--confirmation .ce-popover-item__title {
+      color: var(--warn-color-contrast);
+    }
 
     ///////////////////////// BLOCK /////////////////////////
 
@@ -189,52 +225,66 @@
 
     ///////////////////////// PARAGRAPH /////////////////////////
     .ce-paragraph, p {
-      padding: 0;
+      padding: 5px 0;
       margin: 0;
-      font-weight: 100;
-      line-height: 1.35em;
+      line-height: 1.50em;
     }
 
     // color the paragraph placeholder
     .ce-paragraph[data-placeholder]:empty:before {
       color: var(--light-color);
+      cursor: text;
     }
+
+    // use to show the placeholder on focused paragraph if empty
+    .ce-block .ce-paragraph[data-placeholder]:empty:focus-within:before {
+      opacity: 0.5;
+    }
+
 
     ///////////////////////// HEADER /////////////////////////
     h1 {
       font-size: 24px;
       font-weight: bold;
-      margin-top: 0.8em;
-      margin-bottom: 0.5em;
+      margin-top: 1em
     }
 
     h2 {
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 1.5em;
-      margin-bottom: 0.5em;
-      border-top: 1px solid var(--hover-color);
-      padding-top: 1.5em;
+      font-weight: 600;
+      font-size: 1.875em;
+      line-height: 1.3;
+      margin-top: 1em;
+      margin-bottom: 4px;
     }
 
     h3 {
-      font-size: 18px;
-      font-weight: 200;
-      margin-top: 0.8em;
-      margin-bottom: 0.5em;
+      font-weight: 600;
+      font-size: 1.5em;
+      line-height: 1.3;
+      margin-top: 1em;
+      margin-bottom: 4px;
     }
 
     h4 {
-      font-size: 16px;
-      font-weight: 100;
-      margin-top: 0.8em;
-      margin-bottom: 0.5em;
+      font-weight: 600;
+      font-size: 1.25em;
+      line-height: 1.3;
+      margin-top: 1em;
+      margin-bottom: 4px;
+    }
+
+    // always show the placeholder of header if empty
+    .ce-header[data-placeholder]:empty:before {
+      display: block !important;
+      opacity: 0.5;
+      font-weight: inherit;
+      color: var(--light-color);
+      cursor: text;
     }
 
     //////////////////// LIST ////////////////////
-    // add a margin at the bottom of the list block
+    // Style for the root list
     .cdx-nested-list:not(.cdx-nested-list__item-children) {
-      margin-bottom: 1em;
       margin-left: 1.5em;
     }
 
@@ -250,13 +300,47 @@
       margin: 4px 0;
     }
 
+    // style for the unordered list bullet (max depth 6)
+    .cdx-nested-list--unordered > .cdx-nested-list__item {
+      &:before {
+        content: '●';
+      }
+
+      .cdx-nested-list--unordered > .cdx-nested-list__item {
+        &:before {
+          content: '○';
+        }
+
+        .cdx-nested-list--unordered > .cdx-nested-list__item {
+          &:before {
+            content: '■';
+          }
+
+          .cdx-nested-list--unordered > .cdx-nested-list__item {
+            &:before {
+              content: '●';
+            }
+
+            .cdx-nested-list--unordered > .cdx-nested-list__item {
+              &:before {
+                content: '○';
+              }
+
+              .cdx-nested-list--unordered > .cdx-nested-list__item {
+                &:before {
+                  content: '■';
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     ///////////////////////// LINK /////////////////////////
     a {
-      position: relative;
-      white-space: initial !important;
       color: var(--light-color);
-      font-weight: bold;
-      text-decoration: none;
+      text-decoration: underline;
     }
 
     a:hover {
@@ -267,20 +351,8 @@
     blockquote {
       margin-top: 2em;
       margin-bottom: 2em;
-      border-left-color: var(--card-background);
+      border-left-color: var(--hover-color);
     }
-
-    ///////////////////////// CODE INLINE /////////////////////////
-    code {
-      background-color: var(--card-background);
-      color: var(--color-foreground);
-      padding: 5px 7px;
-      //font-weight: bold;
-      font-size: 85%;
-      border-radius: 3px;
-    }
-
-
 
     ///////////////////////// HINT /////////////////////////
     .g-te-hint {
@@ -323,6 +395,8 @@
       --color-background: var(--card-background);
       --color-background-hover: var(--hover-color);
       --color-text-secondary: var(--hover-color);
+      --color-background-confirm: var(--warn-color);
+      --color-background-confirm-hover: var(--warn-color);
     }
 
     //.tc-cell
@@ -337,15 +411,29 @@
     .tc-add-row:hover svg, .tc-add-column:hover svg {
       color: var(--light-color);
     }
-  }
-  ///////////////////////// VARIABLE /////////////////////////
-  .g-te-variable-form-hide {
-    display: none !important;
-  }
+
+    // Style header cells
+    .tc-cell[heading] {
+      font-weight: bold;
+      background-color: var(--card-background);
+    }
 
 
-  .g-te-variable-form-show {
-    display: block;
+    ///////////////////////// INLINE TOOLS  /////////////////////////
+    code, te-variable-inline {
+      padding: 3px 7px;
+      font-size: 85%;
+      border-radius: 3px;
+      display: inline;
+      line-height: normal;
+      font-family: "Poppins", "Helvetica Neue", sans-serif;
+    }
+
+    ///////////////////////// CODE INLINE /////////////////////////
+    code {
+      background-color: var(--hover-color);
+      color: #e8912d
+    }
   }
 
 }

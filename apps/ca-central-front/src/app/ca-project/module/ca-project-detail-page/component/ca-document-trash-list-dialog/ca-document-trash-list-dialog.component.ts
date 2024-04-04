@@ -5,6 +5,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {
   CaDocumentActionEvent
 } from '../../../ca-document-core/component/ca-document-actions-menu/ca-document-actions-menu.component';
+import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
 
 export interface CaDocumentTrashListDialogInput {
   projectId: string;
@@ -24,10 +25,11 @@ export class CaDocumentTrashListDialogComponent {
 
   restoredDocuments: CaDocument[] = [];
 
-  constructor(documentService: CaProjectService,
-              @Inject(MAT_DIALOG_DATA) input: CaDocumentTrashListDialogInput,
-              private dialogRef: MatDialogRef<CaDocumentTrashListDialogComponent>) {
-    this.documentDatasource = documentService.getTrashedDocuments(input.projectId);
+  constructor(private projectService: CaProjectService,
+              @Inject(MAT_DIALOG_DATA) private input: CaDocumentTrashListDialogInput,
+              private dialogRef: MatDialogRef<CaDocumentTrashListDialogComponent>,
+              private dialogService: FlDialogService) {
+    this.documentDatasource = projectService.getTrashedDocuments(input.projectId);
 
     this.dialogRef.backdropClick()
       .subscribe(() => this.dialogRef.close(this.restoredDocuments));
@@ -36,6 +38,27 @@ export class CaDocumentTrashListDialogComponent {
   onDocumentAction(event: CaDocumentActionEvent): void {
     if (event.action === 'restoreFromTrash') {
       this.restoredDocuments.push(event.document);
+    }
+  }
+
+  emptyTrash(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'empty_trash',
+      content: 'empty_trash_confirmation',
+      translateTitleAndContent: true,
+      observable: this.projectService.emptyTrash(this.input.projectId),
+      successMessage: 'trash_emptied',
+      translateMessage: true
+    }
+
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
+      result => this.onEmptyClosed(result)
+    );
+  }
+
+  private onEmptyClosed(result: FlConfirmDialogResult<void>){
+    if(result.choice){
+      this.documentDatasource.getFirstPage();
     }
   }
 

@@ -1,27 +1,29 @@
 import {ToolConstructable, ToolSettings} from '@editorjs/editorjs/types/tools';
 import {ApplicationRef, EnvironmentInjector} from '@angular/core';
 import {
+  teGetHeaderWithIdBlockDefaultConfig,
   TeHeaderWithIdBlock,
-  TeHeaderWithIdBlockConfig,
-  teHeaderWithIdBlockDefaultConfig
+  TeHeaderWithIdBlockConfig
 } from '../block/te-header-with-id-block.class';
-import NestedList from '@editorjs/nested-list';
 import InlineCode from '@editorjs/inline-code';
-import UnderlineInlineTool from '../inline-tools/inline-tool-underline';
-import Quote from '@editorjs/quote';
 import {TeFormulaBlock} from '../block/te-formula-block.class';
 import Table from '@editorjs/table';
-import Paragraph from '@editorjs/paragraph';
 import {TeHintBlock} from '../block/te-hint-block.class';
 import {TeVideoBlock} from '../block/te-video-block.class';
 import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {TeFigureBlock, TeFigureBlockConfig} from '../block/te-figure-block.class';
 import {TeCodeBlock} from '../block/te-code-block.class';
 import {teComponentBlockFactory} from './te-block-factory.class';
-import StrikethroughInlineTool from '../inline-tools/inline-tool-strikethrough';
+import TeStrikethroughInlineTool from '../inline-tool/te-strikethrough-inline-tool.class';
 import {TeDragBlockTune} from '../block-tune/te-drag-block-tune.class';
 import {TeHelper} from './te.helper';
-import {teInlineToolFactory, TeVariableInlineToolClass} from '../inline-tool/te-variable-inline-tool.class';
+import {TeVariableInlineToolClass} from '../inline-tool/te-variable-inline-tool.class';
+import {TeParagraphBlock} from '../block/te-paragraph-block.class';
+import {teInlineToolFactory} from '../inline-tool/te-inline-tool.factory';
+import {TeUnderlineInlineTool} from '../inline-tool/te-underline-inline-tool.class';
+import {TeCleanStyleInlineTool} from '../inline-tool/te-clean-style-inline-tool.class';
+import {TeFakeInlineTool} from '../inline-tool/te-fake-inline-tool.class';
+import {TeNestedListBlock} from '../block/te-nested-list-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -42,26 +44,29 @@ export abstract class TeConfig {
 
   getParagraphConfig(): ToolSettings {
     return {
-      class: Paragraph,
+      class: TeParagraphBlock,
       inlineToolbar: true,
       config: {
         preserveBlank: true,
-      }
+      },
     };
   }
 
+
   getHeaderConfig(config: Partial<TeHeaderWithIdBlockConfig> = {}): ToolSettings {
-    config = Object.assign(teHeaderWithIdBlockDefaultConfig, config);
+    config = Object.assign(teGetHeaderWithIdBlockDefaultConfig(), config);
     return {
       class: TeHeaderWithIdBlock,
-      config: config
+      config: config,
+      // use the fake to show the toolbar to have access to convert to paragraph
+      inlineToolbar: ['fake'],
     };
   }
 
   getListConfig(): ToolSettings {
     const translateService = flRootInjector.get(FlTranslateService);
     return {
-      class: NestedList,
+      class: TeNestedListBlock,
       inlineToolbar: true,
       config: {
         defaultStyle: 'unordered'
@@ -111,8 +116,10 @@ export class TeBasicConfig extends TeConfig {
       list: this.getListConfig(),
 
       // Inline
-      underline: UnderlineInlineTool,
-      strikethrough: StrikethroughInlineTool,
+      underline: TeUnderlineInlineTool,
+      strikethrough: TeStrikethroughInlineTool,
+      cleanStyle: TeCleanStyleInlineTool,
+      fake: TeFakeInlineTool,
 
       // Other
       drag: TeDragBlockTune,
@@ -125,7 +132,7 @@ export class TeBasicConfig extends TeConfig {
 
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link'];
+    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
   }
 }
 
@@ -139,20 +146,13 @@ export class TeCompleteConfig extends TeConfig {
       header: this.getHeaderConfig(),
       list: this.getListConfig(),
       code: this.getCodeConfig(envInjector, applicationRef),
-      // TODO check if we keep the quote block
-      quote: {
-        class: Quote,
-        inlineToolbar: true,
-        shortcut: 'CMD+SHIFT+O',
-        config: {
-          quotePlaceholder: 'Enter a quote',
-          captionPlaceholder: 'Quote\'s author',
-        },
-      },
       formula: {
         class: teComponentBlockFactory(TeFormulaBlock, envInjector, applicationRef),
       },
-      table: Table,
+      table: {
+        class: Table,
+        inlineToolbar: true,
+      },
       hint: {
         class: TeHintBlock,
         inlineToolbar: true,
@@ -160,13 +160,15 @@ export class TeCompleteConfig extends TeConfig {
       video: teComponentBlockFactory(TeVideoBlock, envInjector, applicationRef),
 
       // Inline
-      underline: UnderlineInlineTool,
-      strikethrough: StrikethroughInlineTool,
+      underline: TeUnderlineInlineTool,
+      strikethrough: TeStrikethroughInlineTool,
       inlineCode: {
         class: InlineCode,
         shortcut: 'CMD+SHIFT+M',
       },
-      variable: teInlineToolFactory(TeVariableInlineToolClass, envInjector, applicationRef),
+      variable: teInlineToolFactory(TeVariableInlineToolClass),
+      cleanStyle: TeCleanStyleInlineTool,
+      fake: TeFakeInlineTool,
 
       // Other
       drag: TeDragBlockTune,
@@ -174,11 +176,10 @@ export class TeCompleteConfig extends TeConfig {
   }
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode'];
+    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'cleanStyle'];
   }
 
   getTunes(): string[] {
     return ['drag'];
   }
-
 }

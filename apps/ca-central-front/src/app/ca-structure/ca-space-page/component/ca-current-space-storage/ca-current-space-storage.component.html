@@ -1,0 +1,63 @@
+<fl-card>
+
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon class="g-icon-big">data_usage</mat-icon>
+      <h2>{{ 'storage_usage' | translate }}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      @if (spaceStorage$ | async; as spaceStorage) {
+        <button mat-stroked-button type="button" class="g-button-small"
+                (click)="updateDefaultStorage(spaceStorage)">
+          {{ 'update_space_default_storage' | translate }}
+        </button>
+      }
+
+      <button mat-stroked-button type="button" class="g-button-small button"
+              (click)="openStorageDetail()">
+        {{ 'project_storage_details' | translate }}
+      </button>
+    </fl-card-actions>
+
+  </fl-card-header>
+
+  <fl-card-body>
+    <fl-async-section [object]="spaceStorage$">
+      <ng-container *flSectionBody="spaceStorage$ as spaceStorage">
+
+        <!--    Storage usage    -->
+        <div class="container g-layout-col g-layout-center-center">
+          <div class="circle-container">
+
+            <mat-progress-spinner mode="determinate"
+                                  [color]="spinnerColor(spaceStorage.storageUsagePercent)"
+                                  [value]="spaceStorage.storageUsagePercent"></mat-progress-spinner>
+            <div class="circle-text">
+              {{ spaceStorage.storageUsagePercent | number:'1.0-0' }} %
+            </div>
+          </div>
+
+          <div class="usage-detail g-text-light">
+            {{ spaceStorage.storageUsage | flByteText }} / {{ spaceStorage.storageLimit | flByteText }}
+          </div>
+        </div>
+
+
+        <!--    Default storage location    -->
+        <fl-key-value *ngIf="spaceStorage.defaultProjectStorageLocation">
+          <fl-key>{{ 'space_project_default_storage_location' | translate }}</fl-key>
+          <ca-bucket-location-inline
+            [bucketLocation]="spaceStorage.defaultProjectStorageLocation"></ca-bucket-location-inline>
+        </fl-key-value>
+
+        <fl-key-value *ngIf="spaceStorage.defaultBackupProjectStorageLocation">
+          <fl-key>{{ 'space_default_project_backup_storage_location' | translate }}</fl-key>
+          <ca-bucket-location-inline
+            [bucketLocation]="spaceStorage.defaultBackupProjectStorageLocation"></ca-bucket-location-inline>
+        </fl-key-value>
+
+      </ng-container>
+    </fl-async-section>
+  </fl-card-body>
+</fl-card>

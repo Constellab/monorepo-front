@@ -1,10 +1,17 @@
 
 .page {
   min-height: 100vh;
+  --expanded-menu-large-width: 12rem;
+  --expanded-menu-small-width: 50px;
 }
 
 .sidenav {
   height: 100vh;
+  position: fixed;
+  border-right: 1px solid var(--hover-color);
+  top: 0;
+  bottom: 0;
+  transform: none;
 }
 
 .lab-name {
@@ -26,6 +33,7 @@
   display: flex;
   place-content: center flex-start;
   align-items: center;
+  margin-top: 0.5em;
 }
 
 // align the button on the left
@@ -74,6 +82,7 @@
 
 .content {
   min-height: 100vh;
+  flex: 1;
 }
 
 @media print {
@@ -81,4 +90,14 @@
     margin-left: 0 !important;
   }
 }
+
+.content-expanded {
+  margin-left: var(--expanded-menu-large-width);
+}
+
+.content-not-expanded {
+  margin-left: var(--expanded-menu-small-width);
+}
+
+
 

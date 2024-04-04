@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnInit, SecurityContext, TemplateRef, ViewChild} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {TeElementDirective} from '../../model/te-element.directive';
+import {TeElementBlockDirective} from '../../model/te-element.directive';
 import {FlInputFileDirective, FlResizeEvent} from '@monorepo/front-core-lib';
 import {Observable, of} from 'rxjs';
 import {TeFigureBlockConfig, TeFigureBlockData, TeUploadedImage} from '../../block/te-figure-block.class';
@@ -14,7 +14,7 @@ import {ClHelpService} from '@monorepo/core-lib';
   templateUrl: './te-figure.component.html',
   styleUrls: ['./te-figure.component.scss']
 })
-export class TeFigureComponent extends TeElementDirective implements OnInit {
+export class TeFigureComponent extends TeElementBlockDirective implements OnInit {
 
   @Input() data: TeFigureBlockData;
 
@@ -49,6 +49,10 @@ export class TeFigureComponent extends TeElementDirective implements OnInit {
     }
 
     this.disabled$ = of(this.disabled);
+
+    if(this.newElement){
+      this.openFileSelector();
+    }
   }
 
   private initImage(data: TeFigureBlockData): void {
@@ -73,7 +77,7 @@ export class TeFigureComponent extends TeElementDirective implements OnInit {
     this.data.height = resizeEvent.height;
   }
 
-  public openFileSelector(): void {
+  private openFileSelector(): void {
     setTimeout(() => this.inputFile.nativeElement.click(), 0);
   }
 

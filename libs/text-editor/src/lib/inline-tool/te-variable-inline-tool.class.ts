@@ -1,27 +1,14 @@
-import {
-  InlineTool,
-  InlineToolConstructable,
-  InlineToolConstructorOptions
-} from '@editorjs/editorjs/types/tools/inline-tool';
 import {SanitizerConfig} from '@editorjs/editorjs';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
-import {teVariableAttribute, TeVariableFormInfo, teVariableTagName} from '../model/te-variable.class';
+import {TeVariableFormInfo, teVariableTagName} from '../model/te-variable.class';
 import {TeHelper} from '../model/te.helper';
+import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
+import {TeComponentInlineTool} from './te-component-inline-tool.class';
 
 
-export class TeVariableInlineToolClass implements InlineTool {
+export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableFormInfo> {
 
-  inlineButton: HTMLElement;
-
-  private variableElement: HTMLElement;
-
-  constructor(private config: InlineToolConstructorOptions,
-              protected readonly envInjector: EnvironmentInjector,
-              protected readonly applicationRef: ApplicationRef) {
-  }
-
-  static get isInline(): boolean {
-    return true;
+  static override get title(): string {
+    return flRootInjector.get(FlTranslateService).translate('teTextEditor.variable');
   }
 
   public static get sanitize(): SanitizerConfig {
@@ -34,140 +21,49 @@ export class TeVariableInlineToolClass implements InlineTool {
     } as SanitizerConfig;
   }
 
-
-  checkState(): boolean {
-    const termTag = this.config.api.selection.findParentTag(teVariableTagName);
-
-    const isVariable = !!termTag;
-    this.inlineButton.classList.toggle(this.config.api.styles.inlineToolButtonActive, isVariable);
-    return isVariable;
+  getInlineElementTag(): string {
+    return teVariableTagName;
   }
 
-  render(): HTMLElement {
-    // only allow the variable in a paragraph
-    if(!this.selectionIsInParagraph()) return undefined;
 
+  renderInlineButton(): HTMLElement {
     const button = document.createElement('button');
     button.type = 'button';
-    button.classList.add(this.config.api.styles.inlineToolButton, 'g-text-editor-inline-button');
-    button.innerHTML = 'X';
+    button.classList.add(this.options.api.styles.inlineToolButton, 'g-text-editor-inline-button');
+    button.innerHTML = '(x)';
 
+    // hide the button if the context is not a paragraph
+    if (!this.selectionIsInParagraph()) {
+      button.style.display = 'none';
+    }
     this.inlineButton = button;
     return button;
   }
 
-  surround(range: Range): void {
-    range.cloneContents().parentNode
-    const termWrapper = this.getVariableElement();
 
-    /**
-     * If start or end of selection is in the highlighted block
-     */
-    if (termWrapper) {
-      this.unwrap(termWrapper);
-    } else {
-      this.wrap(range);
-    }
-  }
-
-  wrap(range: Range): void {
-    // only allow the variable in a paragraph
-    if(!this.selectionIsInParagraph()) return;
-
+  getDefaultData(range: Range): TeVariableFormInfo {
     // use to retrieve the text of the selected range
     const fragment = range.extractContents();
     const selectText = TeHelper.extractTextFromDocumentFragment(fragment);
 
-    this.variableElement = document.createElement(teVariableTagName);
-
-    const defaultInfo: TeVariableFormInfo = {
+    return {
       name: selectText,
       description: '',
       type: 'string',
       value: null
     };
-    this.variableElement.setAttribute(teVariableAttribute, JSON.stringify(defaultInfo));
-
-    range.insertNode(this.variableElement);
-    /**
-     * Expand (add) selection to highlighted block
-     */
-    // this.config.api.selection.expandToTag(this.variableElement);
   }
 
-  /**
-   * Unwrap term-tag
-   *
-   * @param {HTMLElement} termWrapper - term wrapper tag
-   */
-  unwrap(termWrapper: HTMLElement): void {
-    /**
-     * Expand selection to all term-tag
-     */
-    this.config.api.selection.expandToTag(termWrapper);
-
-    const sel = window.getSelection();
-    const range = sel.getRangeAt(0);
-
-    const unwrappedContent = range.extractContents();
-
-    /**
-     * Remove empty term-tag
-     */
-    termWrapper.parentNode.removeChild(termWrapper);
-
-    /**
-     * Insert extracted content
-     */
-    range.insertNode(unwrappedContent);
-
-    /**
-     * Restore selection
-     */
-    sel.removeAllRanges();
-    sel.addRange(range);
+  getWrapper(): HTMLElement | undefined {
+    // only allow the variable in a paragraph
+    if (!this.selectionIsInParagraph()) return undefined;
+    return document.createElement(teVariableTagName);
   }
 
-  private getVariableElement(): HTMLElement {
-    if (this.variableElement) return this.variableElement;
-    const variableElement = this.config.api.selection.findParentTag(teVariableTagName);
-    if (!variableElement) return null;
-    this.variableElement = variableElement;
-    return variableElement;
-  }
 
   private selectionIsInParagraph(): boolean {
-    const parent = this.config.api.selection.findParentTag(TeHelper.blockParagraphTagName,
+    const parent = this.options.api.selection.findParentTag(TeHelper.blockParagraphTagName,
       TeHelper.blockParagraphClass);
     return parent != null;
   }
-
 }
-
-/**
- * Factory function to create a block tool constructor for editor js configuration
- * This allow to pass environment injector, application ref and additional data to block constructor
- * @param blockType
- * @param environmentInjector
- * @param applicationRef
- * @param additionalData
- */
-export function teInlineToolFactory(
-  blockType: any,
-  environmentInjector: EnvironmentInjector,
-  applicationRef: ApplicationRef,
-  additionalData?: any): any {
-
-
-  // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
-  return class TeClass {
-    static isInline = (blockType as InlineToolConstructable).isInline;
-    static title = (blockType as InlineToolConstructable).title;
-    static sanitize = (blockType as InlineToolConstructable).sanitize;
-
-    constructor(config: InlineToolConstructorOptions) {
-      return new blockType(config, environmentInjector, applicationRef, additionalData) as any;
-    }
-  };
-}
-

@@ -1,5 +1,5 @@
 import {ApplicationRef, EnvironmentInjector, Type} from '@angular/core';
-import {TeElementDirective} from './te-element.directive';
+import {TeElementBlockDirective} from './te-element.directive';
 import {TeComponentBlock} from '../block/te-component-block.class';
 import {
   BlockTool,
@@ -41,7 +41,7 @@ export function teSimpleBlockFactory(
  * @param applicationRef
  * @param additionalData
  */
-export function teComponentBlockFactory<T extends TeElementDirective = TeElementDirective>(
+export function teComponentBlockFactory<T extends TeElementBlockDirective = TeElementBlockDirective>(
   blockType: Type<TeComponentBlock<T>>,
   environmentInjector: EnvironmentInjector,
   applicationRef: ApplicationRef,

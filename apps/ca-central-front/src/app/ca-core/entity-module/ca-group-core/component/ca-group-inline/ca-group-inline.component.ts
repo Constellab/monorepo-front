@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaGroup} from '../../../../model/entities/ca-group.entity';
 
 /**
@@ -9,16 +9,10 @@ import {CaGroup} from '../../../../model/entities/ca-group.entity';
   templateUrl: './ca-group-inline.component.html',
   styleUrls: ['./ca-group-inline.component.scss']
 })
-export class CaGroupInlineComponent implements OnInit {
+export class CaGroupInlineComponent {
 
-  @Input() group: CaGroup;
+  @Input({required: true}) group: CaGroup;
 
-  @Input() disableLink: boolean = false;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  @Input() disableUserPortal: boolean = false;
 
 }
