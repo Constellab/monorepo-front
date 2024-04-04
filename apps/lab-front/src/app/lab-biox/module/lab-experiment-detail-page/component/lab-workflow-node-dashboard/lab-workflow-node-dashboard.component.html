@@ -88,7 +88,7 @@
             {{ 'biox.share_live_task_to_community' | translate }}
           </button>
 
-          @if (isLiveTask$ | async) {
+          @if (isPyLiveTask$ | async) {
             <button mat-menu-item type="button" (click)="convertLiveTaskCodeToTask(process)">
               <mat-icon>code</mat-icon>
               {{ 'biox.convert_live_task_code_to_task' | translate }}
