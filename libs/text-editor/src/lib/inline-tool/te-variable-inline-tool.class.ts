@@ -15,8 +15,6 @@ export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableF
     return {
       ['te-variable-inline']: {
         'data-jsondata': true,
-        class: true,
-
       }
     } as SanitizerConfig;
   }
@@ -59,6 +57,8 @@ export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableF
     if (!this.selectionIsInParagraph()) return undefined;
     return document.createElement(teVariableTagName);
   }
+
+
 
 
   private selectionIsInParagraph(): boolean {

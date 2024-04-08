@@ -113,7 +113,7 @@ export class TeHelper {
    * @param options
    */
   public static convertBlockToParagraphIfEmpty(event: KeyboardEvent, node: HTMLElement,
-                                               options: BlockToolConstructorOptions): void {
+                                               options: BlockToolConstructorOptions): boolean {
     // if key is backspace and the text is empty, convert to text
     if (event.key == FlKeyboardKey.BACKSPACE && node.innerText.trim() == '') {
       // cancel the backspace event
@@ -126,7 +126,9 @@ export class TeHelper {
 
       // set the caret on the new paragraph element
       options.api.caret.setToBlock(index, 'start');
+      return true;
     }
+    return false;
 
     // if key is backspace and the cursor is at the beginning of the text, convert to text
     // like notion but hard to implement
@@ -147,4 +149,46 @@ export class TeHelper {
     // }
   }
 
+  /**
+   * When the cursor if at the end of the line, inside an inline tool, create a space on the right arrow
+   * This is to prevent the cursor from moving to the next block.
+   * @param event
+   * @private
+   */
+  public static handleRightArrow(event: KeyboardEvent): void {
+
+    // get the element where the caret is with standard browser api
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const node = range.endContainer;
+    const cursorContainer: HTMLElement = node.parentNode as HTMLElement;
+
+    const editableContainer = FlHtmlHelper.getParent(cursorContainer, {attribute: {contenteditable: 'true'}});
+
+    if (!editableContainer || !node) return;
+
+    let lastChild = editableContainer.lastChild;
+    if (lastChild.nodeType === Node.TEXT_NODE && lastChild.textContent === '') {
+      lastChild = lastChild.parentElement;
+    }
+
+    // if the cursor is at the end of the element
+    if (range.endOffset === node.textContent.length) {
+
+      // Case where there is nothing after the cursor
+      if (cursorContainer === lastChild) {
+        // Append a space to the end of the div's content
+        editableContainer.innerHTML += '&nbsp;';
+
+        ClHelpService.stopEventPropagation(event);
+        FlHtmlHelper.setCursorAtElementEnd(editableContainer);
+        // Case where there is only a space after the cursor
+        // we don't add the space as it is already there, but we move the cursor to the end of the div
+        // TODO check if this is fixed in next version of editorjs current (0.29.1) because this was working before
+      } else if (lastChild.previousSibling === cursorContainer && lastChild.textContent.trim() === '') {
+        ClHelpService.stopEventPropagation(event);
+        FlHtmlHelper.setCursorAtElementEnd(lastChild);
+      }
+    }
+  }
 }

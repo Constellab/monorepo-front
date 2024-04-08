@@ -29,7 +29,9 @@ export class TeVariableFormDialogComponent implements OnInit {
 
   save(): void {
     if (this.formGroup.valid) {
-      this.dialogRef.close(this.formGroup.value);
+      const value = this.formGroup.value;
+      value.name = value.name.trim();
+      this.dialogRef.close(value);
     }
   }
 }
