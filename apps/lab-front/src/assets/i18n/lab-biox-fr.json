@@ -175,6 +175,8 @@
     "folder_extract_folder": "Extraire le dossier",
     "extract_fs_node_help": "L'extraction va créer une nouvelle ressource (fichier ou dossier) qui référence le fichier ou dossier que vous avez sélectionné. Cette ressource pourra ensuite être utilisée dans une expérience.",
     "folder_view_sub_files": "View file",
+    "folder_copy_node_path": "Copier le chemin",
+    "folder_node_path_copied": "Chemin copié",
     "view_type": "Type de vue",
     "view_config_date": "Dernière vue",
     "view_config_select": "Sélectionner une config de vue",

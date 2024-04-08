@@ -175,6 +175,8 @@
     "folder_extract_folder": "Extract folder",
     "extract_fs_node_help": "The extraction will create a new resource (file or folder) that reference the file or folder you selected. This resource can then be used in an experiment.",
     "folder_view_sub_files": "View file",
+    "folder_copy_node_path": "Copy path",
+    "folder_node_path_copied": "Path copied",
     "view_type": "View type",
     "view_config_date": "Last viewed",
     "view_config_select": "Select a view config",

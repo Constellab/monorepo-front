@@ -4,7 +4,13 @@ import {
   LabResourceViewFolderContent,
   LabResourceViewFolderContentFlat
 } from '../../../../model/entities/resource/lab-resource-view-folder.class';
-import {FlDialogService, FlFlatTreeControl, FlMenuDynamic, FlMenuDynamicService} from '@monorepo/front-core-lib';
+import {
+  FlClipboardService,
+  FlDialogService,
+  FlFlatTreeControl,
+  FlMenuDynamic,
+  FlMenuDynamicService
+} from '@monorepo/front-core-lib';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {LabFileResourceService} from '../../../../entity-service/lab-file-resource.service';
 import {
@@ -35,7 +41,8 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
               private dialogService: FlDialogService,
               private routerService: LabRouterService,
               private menuDynamicService: FlMenuDynamicService,
-              @Optional() private resourceState: LabResourceDetailState) {
+              @Optional() private resourceState: LabResourceDetailState,
+              private clipboardService: FlClipboardService) {
     super();
   }
 
@@ -154,6 +161,21 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
         icon: 'drive_file_move'
       });
     }
+
+    // button to copy the node path
+    menuDynamic.push({
+      type: 'button',
+      text: {
+        text: 'biox.folder_copy_node_path',
+        translateText: true
+      },
+      onClick: () => this.clipboardService.copy(this.getNodePath(node), {
+        text: 'biox.folder_node_path_copied',
+        translateText: true
+      }),
+      icon: 'content_copy'
+    });
+
     this.menuDynamicService.openDynamicMenuAbsolute(menuDynamic, event);
   }
 
