@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FlApiService, FlFileHelper} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import {LabResource} from '../model/entities/resource/lab-resource.entity';
 import {HttpEvent} from '@angular/common/http';
 import {LabTypeEntity} from '../model/entities/lab-type/lab-type.entity';
@@ -62,6 +62,13 @@ export class LabFileResourceService {
 
   public callFolderSubFileView(id: string, subFilePath: string): Observable<LabResourceView> {
     return this.apiService.post(`${this.route}/${id}/folder/sub-file-view`, {sub_file_path: subFilePath}, LabResourceView);
+  }
+
+  public downloadFolderSubFile(id: string, subFilePath: string): Observable<any> {
+    return this.apiService.post(`${this.route}/${id}/folder/download-sub-node`,
+      {sub_file_path: subFilePath}, null, {responseType: 'blob'}).pipe(
+        tap(blob => FlFileHelper.downloadBlob(blob, FlFileHelper.extractFilenameFromFullPath(subFilePath)))
+    );
   }
 
   //////////////////////////////////////////// FILE TYPE ////////////////////////////////////////
