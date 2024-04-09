@@ -5,7 +5,7 @@ import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.cla
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import {Observable} from 'rxjs';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
-import {FlPortalService} from '@monorepo/front-core-lib';
+import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService, FlPortalService} from '@monorepo/front-core-lib';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
@@ -42,7 +42,7 @@ export class HaLiveTaskPageComponent implements OnInit {
     private authenticatedUserService: HaAuthenticatedUserService,
     private authService: HaAuthService,
     private likeService: HaLikeService,
-    private commentService: HaCommentService) {
+    private dialogService: FlDialogService) {
   }
 
   ngOnInit(): void {
@@ -105,6 +105,27 @@ export class HaLiveTaskPageComponent implements OnInit {
       if (liveTask != null) {
         this.liveTask = liveTask;
         this.liveTaskIsLiked = true;
+      }
+    });
+  }
+
+  onTitleChange(title: string): void {
+    this.liveTaskService.updateTitle(this.liveTask.id, title).subscribe((liveTask: HaLiveTask) => {
+    });
+  }
+
+  deleteLiveTask(): void {
+    const confirmDeleteDialogInput: FlConfirmDialogInput = {
+      title: 'delete_livetask',
+      content: 'delete_livetask_content',
+      successMessage: 'livetask_deleted',
+      translateTitleAndContent: true,
+      translateMessage: true,
+      observable: this.liveTaskService.deleteLiveTask(this.liveTask.id),
+    };
+    this.dialogService.openConfirmDialog(confirmDeleteDialogInput).afterClosed().subscribe((res: FlConfirmDialogResult) => {
+      if (res.choice) {
+        this.router.navigate(['../'], {relativeTo: this.activeRoute});
       }
     });
   }

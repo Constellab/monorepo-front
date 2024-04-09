@@ -72,7 +72,7 @@ import {CoServiceConfig} from './service/co-service-config.config';
     CoCommunityListItemMainContentComponent,
     CoVisibilityBadgeComponent,
     CoStoryListItemComponent,
-    CoBrickListItemComponent,
+    CoBrickListItemComponent
   ],
   exports: [
     CoLiveTaskListItemComponent,
@@ -81,7 +81,7 @@ import {CoServiceConfig} from './service/co-service-config.config';
     CoCommunityListItemMainContentComponent,
     CoVisibilityBadgeComponent,
     CoStoryListItemComponent,
-    CoBrickListItemComponent,
+    CoBrickListItemComponent
   ],
 })
 export class CoCommunityLibModule {

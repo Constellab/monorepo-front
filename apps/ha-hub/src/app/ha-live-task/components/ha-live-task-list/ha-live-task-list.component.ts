@@ -14,6 +14,7 @@ import {HaLiveTaskDatasourcePaginated} from '../../../ha-core/ha-model/ha-entiti
 import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
+import {ClStringHelper} from "@monorepo/core-lib";
 
 @Component({
   selector: 'ha-live-task-list',
@@ -23,7 +24,6 @@ import {FormControl} from '@angular/forms';
 export class HaLiveTaskListComponent implements OnInit {
 
   liveTasksPaginated: HaLiveTaskDatasourcePaginated;
-  listSpaces$: Observable<HaSpace[]>;
   user: HaUser;
   spaceIdFilter: string[] = [];
   titleFormControl: FormControl<string> = new FormControl('');
@@ -32,17 +32,13 @@ export class HaLiveTaskListComponent implements OnInit {
     private liveTaskService: HaLiveTaskService,
     private dialogService: FlDialogService,
     private router: Router,
-    private authenticatedUserService: HaAuthenticatedUserService,
-    private spaceService: HaSpaceService) {
+    private authenticatedUserService: HaAuthenticatedUserService) {
   }
 
   ngOnInit(): void {
 
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
       this.user = user;
-      if(user) {
-        this.listSpaces$ = this.spaceService.getSpacesOfCurrentUser();
-      }
     });
     this.liveTasksPaginated = this.liveTaskService.getAllWithFiltersPaginated();
     this.updateLiveTask();
@@ -91,4 +87,6 @@ export class HaLiveTaskListComponent implements OnInit {
       titleFilter: this.titleFormControl.value
     });
   }
+
+    protected readonly ClStringHelper = ClStringHelper;
 }

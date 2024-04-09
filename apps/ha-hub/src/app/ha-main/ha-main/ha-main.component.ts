@@ -46,6 +46,7 @@ export class HaMainComponent implements OnInit, AfterContentInit {
 
   communityLogo: string;
 
+
   constructor(private authUserService: HaAuthenticatedUserService,
               private authService: HaAuthService,
               private activatedRoute: ActivatedRoute,
@@ -97,9 +98,10 @@ export class HaMainComponent implements OnInit, AfterContentInit {
   }
 
   changeLanguage(): void {
-    const newLang = this.translateService.getUserLanguage() == ClSupportedLanguage.fr ?
+    const newLang = this.currentLanguage == ClSupportedLanguage.fr ?
       ClSupportedLanguage.en : ClSupportedLanguage.fr;
     this.translateService.changeAppLanguage(newLang);
+    this.currentLanguage = newLang;
     this.snackBarService.openSuccessMessage(
       {
         text:'language_changed',

@@ -24,6 +24,8 @@ import {FlPinUnpinButtonComponent} from './component/fl-pin-unpin-button/fl-pin-
 import {MatOptionModule} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
+import {FlFileTextIconComponent} from './component/fl-file-text-icon/fl-file-text-icon.component';
+import {FlTextIconModule} from '../fl-text-icon/fl-text-icon.module';
 
 /**
  * Core modules containing components
@@ -38,6 +40,7 @@ import {MatButtonModule} from '@angular/material/button';
     FlSelectUserCategoryOptionComponent,
     FlErrorTextComponent,
     FlPinUnpinButtonComponent,
+    FlFileTextIconComponent
   ],
   exports: [
     FlLimitHeightComponent,
@@ -47,6 +50,7 @@ import {MatButtonModule} from '@angular/material/button';
     FlSelectUserCategoryOptionComponent,
     FlErrorTextComponent,
     FlPinUnpinButtonComponent,
+    FlFileTextIconComponent
   ],
   imports: [
     CommonModule,
@@ -64,6 +68,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule,
     MatButtonModule,
     MatOptionModule,
+    FlTextIconModule,
   ]
 })
 export class FlCoreComponentModule {

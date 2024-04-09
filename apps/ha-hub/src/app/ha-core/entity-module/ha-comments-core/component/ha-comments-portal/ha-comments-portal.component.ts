@@ -1,9 +1,8 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef, FlUser} from '@monorepo/front-core-lib';
-import {TeBasicConfig, TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import {TeBasicConfig, TeRichText} from '@monorepo/text-editor';
 import {HaAbstractComment, HaCommentEntity, HaCommentType} from '../../model/ha-abstract-comment.class';
 import {HaCommentService} from '../../../../ha-service/ha-comment.service';
-import {FormControl} from '@ngneat/reactive-forms';
 
 export interface HaCommentsPortalData {
   entity: HaCommentsEntity;
@@ -22,15 +21,15 @@ export interface HaCommentsEntity {
 })
 export class HaCommentsPortalComponent implements OnInit{
 
-  @ViewChild('editorComponent') editorComponent: any;
-
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
   commentIsValid = false;
   user: FlUser;
   entity: HaCommentsEntity;
   datasource: FlDatasourcePaginated<HaAbstractComment<HaCommentEntity>>;
   isLoading = false;
-  commentType: HaCommentType
+  commentType: HaCommentType;
+  commentInputData = TeRichText.emptyContent();
+
 
   constructor(@Inject(FL_PORTAL_DATA) data: HaCommentsPortalData,
               private overlayRef: FlOverlayRef,
@@ -49,15 +48,16 @@ export class HaCommentsPortalComponent implements OnInit{
   }
 
   checkCommentValidity(): void {
-    this.commentIsValid = !TeRichText.isEmpty(this.editorComponent?.value);
+    this.commentIsValid = !TeRichText.isEmpty(this.commentInputData);
   }
 
   sendComment(): void {
     if (this.commentIsValid){
       this.isLoading = true;
-      this.commentService.sendComment(this.commentType, this.editorComponent?._value, this.entity.id)
+
+      this.commentService.sendComment(this.commentType, this.commentInputData, this.entity.id)
         .subscribe((comment: HaAbstractComment<HaCommentEntity>) => {
-          this.editorComponent.value = TeRichText.emptyContent();
+          this.commentInputData = TeRichText.emptyContent();
           this.datasource.unshiftItem(comment);
           this.entity.comments++;
           this.isLoading = false;

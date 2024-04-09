@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, ElementRef, Inject, Input, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
 import {TdResourceFunction, TdResourceFunctionArg} from '../../model/td-resource-type.class';
 import {isPlatformBrowser} from '@angular/common';
 import hljs from 'highlight.js/lib/core';
@@ -12,12 +12,13 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
 
   @Input({required: true}) func: TdResourceFunction;
 
-  constructor(private elementRef: ElementRef,
-              @Inject(PLATFORM_ID) private platformId: any) {
+  @ViewChild('signature', {static: true}) signature: ElementRef;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
   }
 
   ngOnInit(): void {
-    this.elementRef.nativeElement.innerHTML = this.getFunctionSignature(this.func);
+    this.signature.nativeElement.innerHTML = this.getFunctionSignature(this.func)
   }
 
   getFunctionSignature(func: TdResourceFunction): string {

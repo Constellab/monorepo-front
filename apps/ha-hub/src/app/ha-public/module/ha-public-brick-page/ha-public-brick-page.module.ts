@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {HaPublicBrickPageComponent} from './ha-public-brick-page/ha-public-brick-page.component';
-import {HaPublicCoreModule} from '../ha-public-core/ha-public-core.module';
 import {HaCoreModule} from '../../../ha-core/ha-core.module';
 import {HaPublicSidenavComponent} from './ha-public-sidenav/ha-public-sidenav.component';
 import {CommonModule} from '@angular/common';
@@ -39,9 +38,8 @@ import {
   HaDocResourceViewInputDialogComponent
 } from './ha-doc-view/ha-doc-resource-view-input-dialog/ha-doc-resource-view-input-dialog.component';
 import {HaDocContentViewComponent} from './ha-doc-view/ha-doc-content-view/ha-doc-content-view.component';
-import {HaDocFileDialogComponent} from './ha-public-doc-file-dialog/ha-public-doc-file-dialog.component';
 import {
-    HaUtilComponentCoreModule
+  HaUtilComponentCoreModule
 } from "../../../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
 
 @NgModule({
@@ -65,22 +63,20 @@ import {
     HaPublicBrickUserInvitePageComponent,
     HaDocResourceViewInputDialogComponent,
     HaDocContentViewComponent,
-    HaDocFileDialogComponent
   ],
-    imports: [
-        HaPublicCoreModule,
-        HaCoreModule,
-        CommonModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        FlDateModule,
-        MatCardModule,
-        FlKeyValueModule,
-        MatRadioModule,
-        FormsModule,
-        MatTooltipModule,
-        FlInputFileModule,
-        HaUtilComponentCoreModule,
-    ],
+  imports: [
+    HaCoreModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    FlDateModule,
+    MatCardModule,
+    FlKeyValueModule,
+    MatRadioModule,
+    FormsModule,
+    MatTooltipModule,
+    FlInputFileModule,
+    HaUtilComponentCoreModule,
+  ],
 })
 export class HaPublicBrickPageModule {}

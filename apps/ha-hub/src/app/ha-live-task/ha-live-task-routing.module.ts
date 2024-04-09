@@ -15,15 +15,15 @@ const routes: Route[] = [
     component: HaLiveTaskListComponent
   },
   {
-    path: ':id',
-    redirectTo: ':id/'
+    path: ':id/:title',
+    redirectTo: ':id/:title/'
   },
   {
     path: ':id/versions/:versionId',
     component: HaLiveTaskVersionPageComponent,
   },
   {
-    path: ':id',
+    path: ':id/:title/',
     component: HaLiveTaskPageComponent,
     children: [
       {

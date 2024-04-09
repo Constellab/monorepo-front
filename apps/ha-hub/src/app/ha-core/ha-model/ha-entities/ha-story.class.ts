@@ -2,7 +2,7 @@ import {HaTopic,} from './ha-topic.class';
 import {FlDatasourcePaginated, FlEntity} from '@monorepo/front-core-lib';
 import {HaUser} from './ha-user';
 import {DateTime} from 'luxon';
-import {HaFile} from './ha-file';
+import {HaFile} from '../../entity-module/ha-file-core/model/ha-file';
 import {TeRichTextContent} from '@monorepo/text-editor';
 import {CoListStoryDto, CoStoryCategory} from '@monorepo/community-lib';
 
@@ -50,6 +50,14 @@ export class HaStory {
   likes: number;
 
   comments: number;
+
+  get files(): HaFile[] {
+    return this.storyFiles;
+  }
+
+  set files(files: HaFile[]) {
+    this.storyFiles = files;
+  }
 
   init(story: HaStory): void {
     Object.assign(this, story);

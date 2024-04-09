@@ -73,6 +73,10 @@ export class HaLiveTaskService {
     return this.apiService.post(this.route, createLiveTaskDto, HaLiveTask);
   }
 
+  public updateTitle(liveTaskId: string, title: string): Observable<HaLiveTask> {
+    return this.apiService.put(`${this.route}/${liveTaskId}/title`, {title: title}, HaLiveTask);
+  }
+
   /**
    * Call http put to update a live task description
    * @param liveTaskId
@@ -102,6 +106,10 @@ export class HaLiveTaskService {
 
   public getImageUrl(filename: string): string {
     return this.getImagePath(filename);
+  }
+
+  public deleteLiveTask(id: string): Observable<any> {
+    return this.apiService.delete(`${this.route}/${id}`);
   }
 
 

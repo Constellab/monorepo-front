@@ -34,6 +34,10 @@ export class FlElementEditableDirective {
 
   @Input() flElementValue: string = null;
 
+  @Input() maxLength: number = null;
+
+  @Input() minLength: number = null;
+
   /**
    * Event triggered on blur event with the new text value
    */
@@ -102,8 +106,14 @@ export class FlElementEditableDirective {
     this.renderer.removeAttribute(this.elementRef.nativeElement, 'contentEditable');
 
     // only emit if value has changed
-    if (this.previousValue !== this.elementRef.nativeElement.innerText) {
-      this.flElementValueChange.emit(this.elementRef.nativeElement.innerText);
+    const newValue = this.elementRef.nativeElement.innerText;
+    if ((this.minLength && newValue.length < this.minLength) || (this.maxLength && newValue.length > this.maxLength)) {
+      this.elementRef.nativeElement.innerText = this.previousValue;
+      return;
+    }
+
+    if (this.previousValue !== newValue) {
+      this.flElementValueChange.emit(newValue);
     }
   }
 

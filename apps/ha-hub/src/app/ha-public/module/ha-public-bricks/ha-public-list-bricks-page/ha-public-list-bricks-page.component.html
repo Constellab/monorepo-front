@@ -1,12 +1,34 @@
-<div class="main-container">
-  <div class="left-panel">
-    <a routerLink="edit" *haIsAuthenticated>
-      <button mat-flat-button type="button" class="bt first-bt">
-        <mat-icon >add_circle</mat-icon>
-        {{'create_brick' | translate}}
-      </button>
-    </a>
+<div class="left-panel" *haIsAuthenticated>
+  <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
+
+  <a routerLink="edit">
+    <button mat-flat-button type="button" class="bt first-bt">
+      <mat-icon >add_circle</mat-icon>
+      {{'create_brick' | translate}}
+    </button>
+  </a>
+<!--  <button mat-flat-button type="button" class="bt my-lt-bt" (click)="selectSpace('my-live-tasks')"-->
+<!--          [class]="isSelected('my-live-tasks') ? 'bt-primary' : ''">-->
+<!--    {{ 'my_live_tasks' | translate }}-->
+<!--  </button>-->
+
+  <p class="left-side-div-title">{{ 'visibility' | translate }} :</p>
+
+  <div class="left-panel-buttons-div">
+    <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent"
+                     class="space-list-option">
+      <fl-text-icon [iconPosition]="'end'">
+        {{ 'public' | translate }}
+        <mat-icon>public</mat-icon>
+      </fl-text-icon>
+    </mat-chip-option>
+    <ha-selectable-space-list *ngIf="user" [user]="user" (spaceSelectedEvent)="onSpace($event)">
+    </ha-selectable-space-list>
   </div>
+
+</div>
+
+<div class="main-container">
   <div class="main-panel">
     <fl-infinite-scroll *ngIf="bricks" [datasource]="bricks" infiniteMode="auto" class="list-section">
       <div class="section-title">

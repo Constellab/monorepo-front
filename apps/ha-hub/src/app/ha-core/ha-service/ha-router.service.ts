@@ -49,7 +49,9 @@ export class HaRouterService {
     return '/live-tasks/';
   }
 
-
+  public static getLiveTaskRoute(id: string, titlePath: string): string {
+    return `${this.getLiveTaskListRoute()}${id}/${titlePath}`;
+  }
   ////////////////////////// STORIES ////////////////////////////////
   public static getStoriesListRoute(): string {
     return '/stories/';

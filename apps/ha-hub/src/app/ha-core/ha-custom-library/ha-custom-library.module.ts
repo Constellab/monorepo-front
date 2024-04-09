@@ -10,7 +10,7 @@ import {
   FlDialogModule,
   FlFormModule,
   FlIconModule,
-  FlInfiniteScrollModule,
+  FlInfiniteScrollModule, FlInputFileModule,
   FlKeyValueModule,
   FlLoaderModule,
   FlMenuDynamicModule, FlPortalActionsModule,
@@ -54,6 +54,7 @@ import {CoCommunityLibModule} from '@monorepo/community-lib';
     FlKeyValueModule,
     FlInfiniteScrollModule,
     FlPortalActionsModule,
+    FlInputFileModule,
 
     //-------------------
 

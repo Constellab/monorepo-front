@@ -38,6 +38,15 @@ export class ClStringHelper {
     return containerStr.indexOf(partialStr) !== -1;
   }
 
+
+  public static getCleanUrlPath(str: string): string {
+    if (str == null) return null;
+    if (typeof str !== 'string') {
+      str = (str as any).toString();
+    }
+    return this.toKebabCase(this.toIdForUrl(this.removeAccentFromString(str)));
+  }
+
   /**
    * Replace all the accent in a string with the corresponding letter
    *
@@ -146,6 +155,15 @@ export class ClStringHelper {
   }
 
   /**
+   * Return true if the input string is an email
+   * @param str
+   */
+  public static isUUID(str: string): boolean {
+    const regex = new RegExp(/^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$/i);
+    return regex.test(str);
+  }
+
+  /**
    * Return all the indexes of the search str in str
    * From: https://stackoverflow.com/questions/3410464/how-to-find-indices-of-all-occurrences-of-one-string-in-another-in-javascript
    * @param searchStr sub string to search in str
@@ -220,6 +238,10 @@ export class ClStringHelper {
    * @param str
    */
   public static toIdForUrl(str: string): string{
+    if (str == null) return null;
+    if (typeof str !== 'string') {
+      str = (str as any).toString();
+    }
     str = str.replace(new RegExp(/[&?~/|\\'"[()\]%!§:;.,*^¨}{@°`]/g), '');
     str.replace('--', '-');
     while(str[0] == '-'){

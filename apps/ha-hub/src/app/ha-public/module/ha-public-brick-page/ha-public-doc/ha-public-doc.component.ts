@@ -27,12 +27,11 @@ import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.serv
 import {FormControl} from '@angular/forms';
 import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 import {BlockToolData} from '@editorjs/editorjs/types/tools';
+import {HaFile} from '../../../../ha-core/entity-module/ha-file-core/model/ha-file';
 import {
-  HaDocFileDialogComponent,
-  HaDocFileDialogInput
-} from '../ha-public-doc-file-dialog/ha-public-doc-file-dialog.component';
-import {HaFile} from '../../../../ha-core/ha-model/ha-entities/ha-file';
-import {HaFileHelper} from '../../../../ha-core/ha-helper/ha-file.helper';
+  HaFileDialogComponent, HaFileDialogInput
+} from '../../../../ha-core/entity-module/ha-file-core/component/ha-file-dialog/ha-file-dialog.component';
+
 
 @Component({
   selector: 'ha-public-doc-page',
@@ -56,6 +55,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   docNotFound: boolean = false;
 
   anchor: string = null;
+
+  currentDocTitle = '';
 
   private contentDebouncer: FlDebouncer<TeRichTextContent>;
   private lastUrl: string = null;
@@ -141,6 +142,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   private onDocLoaded(doc: HaDocumentation): void {
     this.docNotFound = false;
     this.documentation = doc;
+    this.currentDocTitle = doc.title;
 
     this.formCtrl.patchValue(doc.content);
     this.formCtrl.disable();
@@ -229,14 +231,14 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   }
 
   openDocFileDialog(): void{
-    const input: HaDocFileDialogInput = {
+    const input: HaFileDialogInput = {
       mode: 'create',
       object: {
-        doc: this.documentation
+        entity: this.documentation,
+        service: this.documentationService
       }
     };
-    this.dialogService.openSmallDialog(HaDocFileDialogComponent, {data: input}).afterClosed().subscribe((res) =>{
-    })
+    this.dialogService.openSmallDialog(HaFileDialogComponent, {data: input}).afterClosed().subscribe()
   }
 
   downloadFile(file: HaFile): string {
@@ -244,8 +246,24 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     return this.documentationService.getDocFilePath(file.id);
   }
 
-  getFileIcon(filename: string): string {
-    return HaFileHelper.getFileIcon(filename);
+  onTitleChange(title: string): void {
+    if (title.length == 0 || title.length > 50) return;
+    this.documentationService.update({id: this.documentation.id, title: title}).subscribe(documentation => {
+      if(documentation){
+        this.documentation = documentation;
+        // Change url without reloading
+        this.router.navigate(['..', documentation.path], {relativeTo: this.route});
+      }
+    });
+  }
+
+  checkTitleLength(): boolean{
+    console.log('TEST', this.currentDocTitle.length > 50);
+    return this.currentDocTitle.length > 50;
+  }
+
+  titleCurrentValue(): string{
+    return this.currentDocTitle;
   }
 
   ngOnDestroy(): void {

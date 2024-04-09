@@ -14,6 +14,11 @@
   flex-direction: column;
 }
 
+.func-code-line{
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
 .func-code-line:hover{
   cursor: pointer;
   text-decoration: underline;

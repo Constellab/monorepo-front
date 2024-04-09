@@ -2,9 +2,9 @@
   <te-text-editor-server-side [value]="value"></te-text-editor-server-side>
 } @else {
 
-  <te-text-editor-browser-side [config]="config" [placeholder]="placeholder"
-                               [hideToolbar]="hideToolbar" [disabled]="disabled"
+  <te-text-editor-browser-side [config]="config" [disabled$]="editorDisabled$" [placeholder]="placeholder"
+                               [hideToolbar]="hideToolbar" [disabled]="disabled" [value$]="value$"
                                [includeToolbarButton]="includeToolbarButton" (textChange)="onTextChange($event)"
-                               [(ngModel)]="value"></te-text-editor-browser-side>
+                               [value]="value"></te-text-editor-browser-side>
 }
 

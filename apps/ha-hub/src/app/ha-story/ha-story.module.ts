@@ -8,7 +8,6 @@ import {HaCoreModule} from '../ha-core/ha-core.module';
 import {HaStoryCreateDialogComponent} from './module/ha-story-create-dialog/ha-story-create-dialog.component';
 import {CommonModule} from '@angular/common';
 import {HaStoryInvitePageComponent} from './module/ha-story-invite-page/ha-story-invite-page.component';
-import {HaStoryFileDialogComponent} from './module/ha-story-file-dialog/ha-story-file-dialog.component';
 import {FlInputFileModule} from '@monorepo/front-core-lib';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {
@@ -20,6 +19,7 @@ import {
 import {HaCoAuthorCoreModule} from '../ha-core/entity-module/ha-co-author-core/ha-co-author-core.module';
 import {HaUtilComponentCoreModule} from "../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
 import {HaCommentsCoreModule} from '../ha-core/entity-module/ha-comments-core/ha-comments-core.module';
+import {HaFileCoreModule} from '../ha-core/entity-module/ha-file-core/ha-file-core.module';
 
 @NgModule({
   declarations: [
@@ -28,23 +28,23 @@ import {HaCommentsCoreModule} from '../ha-core/entity-module/ha-comments-core/ha
     HaStoryListPageComponent,
     HaStoryCreateDialogComponent,
     HaStoryInvitePageComponent,
-    HaStoryFileDialogComponent,
     HaStoryContentViewComponent,
     HaStoryResourceViewInputDialogComponent
   ],
-    imports: [
-      CommonModule,
-      FormsModule,
-      ReactiveFormsModule,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
-      HaStoryRoutingModule,
-      HaCoreModule,
-      FlInputFileModule,
-      MatTooltipModule,
+    HaStoryRoutingModule,
+    HaCoreModule,
+    FlInputFileModule,
+    MatTooltipModule,
 
-      HaCoAuthorCoreModule,
-      HaUtilComponentCoreModule,
-      HaCommentsCoreModule
-    ],
+    HaCoAuthorCoreModule,
+    HaUtilComponentCoreModule,
+    HaCommentsCoreModule,
+    HaFileCoreModule
+  ],
 })
 export class HaStoryModule {}

@@ -9,11 +9,10 @@ import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
-import {HaFile} from '../../../ha-core/ha-model/ha-entities/ha-file';
+import {HaFile} from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
 import {TeRichText} from '@monorepo/text-editor';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {HaFileHelper} from '../../../ha-core/ha-helper/ha-file.helper';
 import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
 import {FlPortalService} from '@monorepo/front-core-lib';
@@ -24,7 +23,8 @@ import {
 } from '../../../ha-core/entity-module/ha-comments-core/model/ha-comments-portal-config.class';
 import {HaCommentType} from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {
-  HaCommentsPortalComponent, HaCommentsPortalData
+  HaCommentsPortalComponent,
+  HaCommentsPortalData
 } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
 
 @Component({
@@ -64,8 +64,7 @@ export class HaStoryPageComponent implements OnInit {
               private authService: HaAuthService,
               private likeService: HaLikeService,
               private router: Router,
-              private portalService: FlPortalService,
-              private commentService: HaCommentService) {
+              private portalService: FlPortalService) {
   }
 
   ngOnInit(): void {
@@ -139,10 +138,6 @@ export class HaStoryPageComponent implements OnInit {
       this.hasRightToEdit = this.currentUser != null && (this.currentUser.id == this.story.createdBy.id ||
         this.storyCoAuthors?.find(storyCoAuthor => storyCoAuthor.id === this.currentUser.id) != null);
     });
-  }
-
-  getFileIcon(filename: string): string {
-    return HaFileHelper.getFileIcon(filename);
   }
 
   toggleLikeStoryButton(): void{

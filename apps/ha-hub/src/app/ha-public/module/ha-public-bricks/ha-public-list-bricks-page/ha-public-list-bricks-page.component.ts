@@ -6,6 +6,8 @@ import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service'
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {FormControl} from '@angular/forms';
+import {HaUser} from '../../../../ha-core/ha-model/ha-entities/ha-user';
+import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -18,14 +20,19 @@ export class HaPublicListBricksPageComponent implements OnInit {
   BRICKS_KEY: StateKey<object>;
   spaceIdFilter: string[] = [];
   titleFormControl: FormControl<string> = new FormControl('');
+  user: HaUser;
 
   constructor(private haBrickService: HaBrickService,
               @Inject(PLATFORM_ID) private platformId: object,
               private transferState: TransferState,
-              private metadataService: HaMetadataService) {
+              private metadataService: HaMetadataService,
+              private authenticatedUserService: HaAuthenticatedUserService){
   }
 
   ngOnInit(): void {
+    this.authenticatedUserService.getUser().subscribe(user => {
+      this.user = user;
+    });
     this.metadataService.setPageTitle('ha.bricks.title');
     this.metadataService.addMetaTag('description', 'ha.bricks.description');
     this.BRICKS_KEY = makeStateKey('bricks');
@@ -62,5 +69,22 @@ export class HaPublicListBricksPageComponent implements OnInit {
       spacesFilter: this.spaceIdFilter,
       titleFilter: this.titleFormControl.value
     })
+  }
+
+  isSelected(spaceId: string): boolean {
+    return this.spaceIdFilter.find((id) => id == spaceId) != null;
+  }
+
+  selectSpace(spaceId: string): void {
+    if(this.isSelected(spaceId)){
+      this.spaceIdFilter = this.spaceIdFilter.filter((id) => id != spaceId);
+    } else {
+      this.spaceIdFilter.push(spaceId);
+    }
+    this.updateBricks();
+  }
+
+  onSpace(spaceId: string): void{
+    this.selectSpace(spaceId)
   }
 }

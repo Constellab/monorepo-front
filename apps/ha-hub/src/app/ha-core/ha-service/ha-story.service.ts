@@ -11,18 +11,19 @@ import {Observable} from 'rxjs';
 import {ClPage} from '@monorepo/core-lib';
 import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
 import {HaStoryCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
-import {HaFile} from '../ha-model/ha-entities/ha-file';
+import {HaFile} from '../entity-module/ha-file-core/model/ha-file';
 import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 import {RvResourceView} from '@monorepo/resource-view';
 import {HaUser} from '../ha-model/ha-entities/ha-user';
 import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import {CoStoryCategory} from '@monorepo/community-lib';
+import {HaFileServiceInterface} from '../entity-module/ha-file-core/model/ha-file-service.interface';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class HaStoryService implements HaCoAuthorService{
+export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>{
   private readonly route: string = 'story';
 
   constructor(private apiService: FlApiService) {
@@ -205,17 +206,17 @@ export class HaStoryService implements HaCoAuthorService{
   }
 
 
-  uploadDocument(file: File, storyId: string): Observable<HaFile>{
+  uploadFile(file: File, storyId: string): Observable<HaFile>{
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/file/${storyId}`, formData);
   }
 
-  deleteStoryFile(storyFileId: string): Observable<void>{
+  deleteFile(storyFileId: string): Observable<void>{
     return this.apiService.delete(`${this.route}/file/${storyFileId}`);
   }
 
-  renameStoryFile(storyFileId: string, newName: string): Observable<HaFile>{
+  renameFile(storyFileId: string, newName: string): Observable<HaFile>{
     return this.apiService.put(`${this.route}/file/${storyFileId}/rename`, {humanName: newName}, HaFile);
   }
 

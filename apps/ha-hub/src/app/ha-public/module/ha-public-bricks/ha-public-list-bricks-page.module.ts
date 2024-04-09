@@ -7,27 +7,27 @@ import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HaCoreModule} from '../../../ha-core/ha-core.module';
 import {MatRadioModule} from '@angular/material/radio';
-import {HaPublicCoreModule} from '../ha-public-core/ha-public-core.module';
 import {FlInputFileModule, FlKeyValueModule} from '@monorepo/front-core-lib';
 import {
-    HaUtilComponentCoreModule
+  HaUtilComponentCoreModule
 } from "../../../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
+import {HaSpaceModule} from "../../../ha-space/ha-space.module";
 
 
 @NgModule({
   declarations: [HaPublicListBricksPageComponent, HaPublicEditBrickPageComponent, HaPublicEditBrickFormComponent],
-    imports: [
-        CommonModule,
-        TranslateModule,
-        ReactiveFormsModule,
-        HaCoreModule,
-        MatRadioModule,
-        HaPublicCoreModule,
-        FlKeyValueModule,
-        FlInputFileModule,
-        HaUtilComponentCoreModule,
-        FormsModule
-    ]
+  imports: [
+    CommonModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    HaCoreModule,
+    MatRadioModule,
+    FlKeyValueModule,
+    FlInputFileModule,
+    HaUtilComponentCoreModule,
+    FormsModule,
+    HaSpaceModule
+  ]
 })
 export class HaPublicListBricksPageModule {
 

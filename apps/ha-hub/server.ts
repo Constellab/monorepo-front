@@ -9,6 +9,7 @@ import {EnumChangefreq, SitemapItem, SitemapStream, streamToPromise} from 'sitem
 import axios from 'axios';
 import cookieParser from 'cookie-parser';
 import {REQUEST} from '@monorepo/front-core-lib';
+import {ClStringHelper} from '@monorepo/core-lib';
 
 
 environment.settings = {
@@ -140,11 +141,6 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
     next();
   });
 
-  server.get('/test', (req, res) => {
-    res.setHeader('Content-Type', 'text/html');
-    res.send('<!DOCTYPE html><html><body>Hello World!</body></html>');
-  });
-
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
@@ -152,10 +148,36 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
     maxAge: '1y'
   }));
 
-
   // All regular routes use the Angular engine
-  server.get('*', (req, res, next) => {
+  server.get('*', async (req, res, next) => {
     const {protocol, originalUrl, baseUrl, headers} = req;
+
+    // 301 redirection for stories
+    if (req.originalUrl.includes('stories') && req.originalUrl.split('/').length < 5 && req.originalUrl.split('/').length > 2){
+      const id = req.originalUrl.split('/')[2];
+      if(id && id.length > 0 && ClStringHelper.isUUID(id)){
+        const title =req.originalUrl.split('/')[3];
+        const realTitle = await getStoryTitle(id);
+        const realTitleFormatted = ClStringHelper.getCleanUrlPath(realTitle);
+        if(realTitleFormatted !== title){
+          return res.redirect(301, `/stories/${id}/${realTitleFormatted}`);
+        }
+      }
+    }
+
+    if (req.originalUrl.includes('live-tasks') && req.originalUrl.split('/').length > 2){
+      const id = req.originalUrl.split('/')[2];
+      if (id && id.length > 0 && ClStringHelper.isUUID(id)){
+        const title = req.originalUrl.split('/')[3];
+        const realTitle = await getLiveTaskTitle(id) as string;
+        const realTitleFormatted = ClStringHelper.getCleanUrlPath(realTitle);
+        if(realTitleFormatted !== title){
+          return res.redirect(301, `/live-tasks/${id}/${realTitleFormatted}`);
+        }
+      }
+    }
+
+
     commonEngine
       .render({
         bootstrap: AppServerModule,
@@ -200,6 +222,26 @@ async function fetchStoriesMap(): Promise<SitemapItem[]> {
   } catch (error) {
     console.error('Error fetching stories URLs:', error);
     return [];
+  }
+}
+
+async function getStoryTitle(id: string): Promise<string>{
+  try {
+    const response = await axios.get(`${environment.settings.apiUrl}/story/title/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching story title:', error);
+    return '';
+  }
+}
+
+async function getLiveTaskTitle(id: string): Promise<string>{
+  try {
+    const response = await axios.get(`${environment.settings.apiUrl}/live-task/${id}/title`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching live task title:', error);
+    return '';
   }
 }
 

@@ -25,7 +25,6 @@ export class HaIconsPageComponent {
       object: null
     }
     this.dialogService.openSmallDialog(HaIconCreateDialogComponent, {data: inputData}).afterClosed().subscribe((icon: HaIcon) => {
-      console.log('ICON', icon)
       if (icon) {
         this.reloadList$.next(true);
       }

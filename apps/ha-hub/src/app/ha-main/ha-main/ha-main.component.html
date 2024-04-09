@@ -36,9 +36,9 @@
 
 
     <span class="span-initials">
-      <button mat-icon-button
-              (click)="changeLanguage()" class="g-text-light">
-        <mat-icon>language_french</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="langMenu"
+               class="g-text-light">
+        <mat-icon>language</mat-icon>
       </button>
       <button mat-icon-button
               (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme" class="g-text-light">
@@ -57,9 +57,22 @@
                                *ngIf="userConnected$ | async as user">
       </fl-user-profile-picture>
     </span>
+    <mat-menu #langMenu='matMenu'>
+      <button mat-menu-item (click)="changeLanguage()">
+        @if(currentLanguage === 'fr'){
+            English
+        } @else {
+          Français
+        }
+      </button>
+    </mat-menu>
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item [routerLink]="adminRoute" *haIsAdmin>{{ 'admin_dashboard' | translate }}</button>
-      <button mat-menu-item (click)="logout()">{{ 'logout' |translate }}</button>
+      <button mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
+        {{ 'admin_dashboard' | translate }}
+      </button>
+      <button mat-menu-item (click)="logout()">
+        {{ 'logout' |translate }}
+      </button>
     </mat-menu>
   </mat-toolbar>
 

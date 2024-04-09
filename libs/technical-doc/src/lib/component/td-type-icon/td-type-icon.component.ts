@@ -27,7 +27,6 @@ export class TdTypeIconComponent {
   constructor(private configService: TdServiceConfig) {
   }
 
-
   get iconFull(): string {
     if (this.iconType === 'MATERIAL_ICON') return this.iconTechnicalName;
     return `${this.configService.getCommunityIconBaseApiUrl()}/${this.iconTechnicalName}`;

@@ -18,7 +18,6 @@ export class CoVisibilityBadgeComponent implements OnInit{
   ngOnInit(): void {
     if(this.space && this.space.photo){
       this.space.photo = this.coServiceConfig.getSpacePhotoUrl(this.space.photo);
-      console.log('photo: ', this.space.photo)
     }
   }
 

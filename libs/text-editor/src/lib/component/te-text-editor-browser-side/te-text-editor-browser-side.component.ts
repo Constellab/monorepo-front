@@ -7,8 +7,8 @@ import {
   HostBinding,
   Input,
   OnDestroy,
-  OnInit, Optional,
-  Output, Self,
+  OnInit,
+  Output,
   ViewChild
 } from '@angular/core';
 import {TeConfig} from '../../model/te-config.class';
@@ -17,8 +17,7 @@ import {Observable} from 'rxjs';
 import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
 import {FlTranslateService} from '@monorepo/front-core-lib';
 import {teGetI18nConfig} from '../../te-text-editor.i18n';
-import {FlFormFieldDirective} from '@monorepo/front-core-lib';
-import {NgControl} from '@angular/forms';
+import EditorJS from '@editorjs/editorjs';
 
 
 @Component({
@@ -26,7 +25,7 @@ import {NgControl} from '@angular/forms';
   templateUrl: './te-text-editor-browser-side.component.html',
   styleUrl: './te-text-editor-browser-side.component.scss',
 })
-export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRichTextContent> implements OnInit, OnDestroy {
+export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   @Input({required: true}) config: TeConfig;
 
@@ -45,26 +44,37 @@ export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRic
 
   @ViewChild('editorContainer', {static: true}) editorContainer: ElementRef<HTMLElement>;
 
+  @Input() value: TeRichTextContent;
+
+  @Input() disabled$: Observable<boolean>;
+
+  @Input() value$: Observable<TeRichTextContent>;
+
+  @Input()
+  disabled: boolean = false;
+
   editor: any | null;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private envInjector: EnvironmentInjector,
-    private applicationRef: ApplicationRef,
-    private translateService: FlTranslateService) {
-    super(ngControl);
+  constructor(private envInjector: EnvironmentInjector,
+              private applicationRef: ApplicationRef,
+              private translateService: FlTranslateService) {
   }
 
   async ngOnInit(): Promise<void> {
+    this.disabled$.subscribe((disabled: boolean) => {
+      this.disabled = disabled;
+      this.onDisableChange(this.disabled)
+    });
+
+    this.value$.subscribe((value: TeRichTextContent) => {
+      this.writeValue(value);
+    });
+
     setTimeout(async () => {
       import('@editorjs/editorjs').then((module) => {
         this.initEditor(module);
       });
     }, 0);
-  }
-
-  callChangeEvent(value: TeRichTextContent): void {
-    this.textChange.emit(value);
   }
 
   onDisableChange(disable: boolean): void {
@@ -82,9 +92,6 @@ export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRic
   }
 
   writeValue(obj: TeRichTextContent): void {
-    console.log('WRITE', obj, obj == this.value)
-    if (this.value == obj) return;
-
     if (this.editor) {
       this.editor.isReady.then(() => {
         if (obj) {
@@ -101,20 +108,7 @@ export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRic
     this.value = obj;
   }
 
-  printJson(): void {
-    this.editor.save().then((content: TeRichTextContent) => {
-      console.log('Article data: ', content);
-    });
-  }
-
-  setSavedData(): void {
-    this.editor.save().then((content: TeRichTextContent) => {
-      this.editor.render(content);
-    });
-  }
-
   private async initEditor(module: any): Promise<void> {
-    console.log('INIT', this.value)
     const config: EditorConfig = {
       placeholder: this.placeholder ?? this.translateService.translate('teTextEditor.placeholder'),
       holder: this.editorContainer.nativeElement,
@@ -129,15 +123,18 @@ export class TeTextEditorBrowserSideComponent extends FlFormFieldDirective<TeRic
       i18n: teGetI18nConfig(this.translateService)
     };
     this.editor = new module.default(config);
-    console.log('EDITOR', this.editor)
+    if(this.value){
+      this.editor.isReady.then(() => {
+        this.editor.render(this.value);
+      });
+    }
   }
 
   private async onTextEditorChange(): Promise<void> {
     // the save method can be called only if the editor is not in readOnly mode
     if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
-
     const outputData = await this.editor.save();
-    this.setAndEmitValue(outputData);
+    return this.textChange.emit(outputData);
   }
 
   ngOnDestroy(): void {

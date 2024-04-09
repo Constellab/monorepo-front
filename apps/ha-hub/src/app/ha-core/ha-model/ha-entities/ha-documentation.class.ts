@@ -1,7 +1,7 @@
 import {HaEntity} from './ha-entity.class';
 import {ClRichTextI} from '@monorepo/core-lib';
 import {TeRichTextContent} from '@monorepo/text-editor';
-import {HaFile} from './ha-file';
+import {HaFile} from '../../entity-module/ha-file-core/model/ha-file';
 
 export class HaDocumentation extends HaEntity {
 
@@ -20,6 +20,14 @@ export class HaDocumentation extends HaEntity {
   order: number;
 
   docFiles: HaFile[];
+
+  get files(): HaFile[] {
+    return this.docFiles;
+  }
+
+  set files(files: HaFile[]) {
+    this.docFiles = files;
+  }
 }
 
 

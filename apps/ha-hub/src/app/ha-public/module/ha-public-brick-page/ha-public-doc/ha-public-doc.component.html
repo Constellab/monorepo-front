@@ -10,7 +10,9 @@
   <div class="doc-div" *ngIf="!isLoading && documentation">
     <div class="doc-div-content g-max-article-width">
       <div class="doc-title-div">
-        <h3>{{documentation.title}}</h3>
+        <h3 flElementEditable (flElementValueChange)="onTitleChange($event)"
+            [flElementValue]="titleCurrentValue()" [maxLength]="50" [minLength]="2"
+            [flElementDisabled]="!(isCreatorOrBrickUser$ | async)">{{documentation.title}}</h3>
 
 
         <button mat-icon-button type="button" *ngIf="isCreatorOrBrickUser$ | async"
@@ -57,7 +59,8 @@
           <mat-icon>description</mat-icon>
           {{ 'attached_files' | translate }}
         </fl-text-icon>
-        <button mat-icon-button type="button" (click)="openDocFileDialog()" *ngIf="isCreatorOrBrickUser$ | async">
+        <button mat-icon-button type="button" (click)="openDocFileDialog()" *ngIf="isCreatorOrBrickUser$ | async"
+                [matTooltip]="'attach_a_file_to_the_doc' | translate">
           <mat-icon>cloud_upload</mat-icon>
         </button>
       </h6>
@@ -65,11 +68,9 @@
       <div class="doc-files-div">
         @for (file of documentation.docFiles; track file.id) {
           <div class="doc-file" [matTooltip]="file.humanName">
-            <a type="button" [href]="downloadFile(file)" download>
-              <fl-text-icon>
-                <mat-icon [svgIcon]="getFileIcon(file.humanName)"></mat-icon>
-                {{ file.humanName }}
-              </fl-text-icon>
+            <a type="button" [href]="downloadFile(file)" download [matTooltip]="'download_attached_file' | translate">
+              <fl-file-text-icon [name]="file.humanName">
+              </fl-file-text-icon>
             </a>
           </div>
         }

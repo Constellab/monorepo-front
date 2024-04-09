@@ -50,7 +50,7 @@ export class FlCodeEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.componentRef.destroy();
+    this.componentRef?.destroy();
   }
 
 }

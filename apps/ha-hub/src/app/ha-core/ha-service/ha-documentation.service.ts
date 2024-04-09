@@ -5,7 +5,8 @@ import {HaDocumentation} from '../ha-model/ha-entities/ha-documentation.class';
 import {HaNodeDTO} from '../ha-model/ha-entities/ha-node.class';
 import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 import {RvResourceView} from '@monorepo/resource-view';
-import {HaFile} from '../ha-model/ha-entities/ha-file';
+import {HaFile} from '../entity-module/ha-file-core/model/ha-file';
+import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-file-service.interface';
 
 /**
  * Service to manage documentation entity
@@ -13,7 +14,7 @@ import {HaFile} from '../ha-model/ha-entities/ha-file';
 @Injectable({
   providedIn: 'root'
 })
-export class HaDocumentationService {
+export class HaDocumentationService implements HaFileServiceInterface<HaDocumentation> {
 
   private readonly route: string = 'documentation';
 
@@ -86,17 +87,17 @@ export class HaDocumentationService {
     return this.apiService.getBaseRouteUrl(`${this.route}/get-file/${docFileId}`);
   }
 
-  uploadDocument(file: File, docId: string): Observable<HaFile>{
+  uploadFile(file: File, docId: string): Observable<HaFile>{
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/file/${docId}`, formData);
   }
 
-  deleteDocFile(docFileId: string): Observable<void>{
+  deleteFile(docFileId: string): Observable<void>{
     return this.apiService.delete(`${this.route}/file/${docFileId}`);
   }
 
-  renameDocFile(docFileId: string, newName: string): Observable<HaFile>{
+  renameFile(docFileId: string, newName: string): Observable<HaFile>{
     return this.apiService.put(`${this.route}/file/${docFileId}/rename`, {humanName: newName}, HaFile);
   }
 
