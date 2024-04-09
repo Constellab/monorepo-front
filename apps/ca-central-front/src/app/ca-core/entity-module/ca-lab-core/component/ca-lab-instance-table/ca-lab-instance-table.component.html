@@ -3,7 +3,7 @@
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>
-      {{'name' | translate}}
+      {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
       <ca-lab-inline [lab]="labInstance"></ca-lab-inline>
@@ -13,7 +13,7 @@
   <!-- Space -->
   <ng-container matColumnDef="space">
     <mat-header-cell *matHeaderCellDef>
-      {{'space' | translate}}
+      {{ 'space' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
       <ca-space-inline [space]="labInstance.space"></ca-space-inline>
@@ -23,17 +23,28 @@
   <!-- Current status -->
   <ng-container matColumnDef="currentStatus">
     <mat-header-cell *matHeaderCellDef>
-      {{'status' | translate}}
+      {{ 'status' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
       <fl-status-chip [status]="labInstance.currentStatus.status"></fl-status-chip>
     </mat-cell>
   </ng-container>
 
+  <!-- Virtual host -->
+  <ng-container matColumnDef="virtualHost">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'virtual_host' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let labInstance">
+      {{ labInstance.virtualHost }}
+    </mat-cell>
+  </ng-container>
+
+
   <!-- Created By -->
   <ng-container matColumnDef="createdBy">
     <mat-header-cell *matHeaderCellDef>
-      {{'created_by' | translate}}
+      {{ 'created_by' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
       <fl-user-inline [user]="labInstance.createdBy"></fl-user-inline>
@@ -43,7 +54,7 @@
   <!-- Server info -->
   <ng-container matColumnDef="serverInfo">
     <mat-header-cell *matHeaderCellDef>
-      {{'server_info' | translate}}
+      {{ 'server_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
       <ca-server-info-inline *ngIf="labInstance.serverInfo" [serverInfo]="labInstance.serverInfo">
@@ -66,21 +77,21 @@
         <a mat-menu-item type="button" [caExternalSpaceLink]="getLabInstanceRoute(labInstance)"
            [caExternalSpaceDomain]="labInstance.space.domain">
           <mat-icon>visibility</mat-icon>
-          <span>{{'detail' | translate}}</span>
+          <span>{{ 'detail' | translate }}</span>
         </a>
 
         <button mat-menu-item type="button" (click)="openUpdateDialog(labInstance)">
           <mat-icon>edit</mat-icon>
-          <span>{{'edit' | translate}}</span>
+          <span>{{ 'edit' | translate }}</span>
         </button>
         <button mat-menu-item type="button" (click)="openStatusDialog(labInstance)">
           <mat-icon>info</mat-icon>
-          <span>{{'lab_check_status' | translate}}</span>
+          <span>{{ 'lab_check_status' | translate }}</span>
         </button>
 
         <button mat-menu-item type="button" (click)="openDeleteDialog(labInstance)">
           <mat-icon color="warn">delete</mat-icon>
-          <span class="g-warn-text">{{'delete' | translate}}</span>
+          <span class="g-warn-text">{{ 'delete' | translate }}</span>
         </button>
       </mat-menu>
 
@@ -88,27 +99,15 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let labInstance">
-      <div>
-        <span>{{labInstance[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
 
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <ng-container *ngIf="!disableLink; else noLink">
-    <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
+    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
              [routerLink]="row | caDetailRoute"></mat-row>
   </ng-container>
   <ng-template #noLink>
-    <mat-row *matRowDef="let row; columns: _columns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
   </ng-template>
 </mat-table>
 

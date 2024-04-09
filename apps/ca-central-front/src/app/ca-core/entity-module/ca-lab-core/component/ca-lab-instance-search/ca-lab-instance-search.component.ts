@@ -5,7 +5,7 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
+  FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
 import {CaLabInstance, CaLabInstanceDatasource} from '../../../../model/entities/lab/ca-lab-instance.class';
@@ -34,7 +34,7 @@ export class CaLabInstanceSearchComponent implements OnInit {
 
   datasource: CaLabInstanceDatasource;
 
-  columns: FlTableColumn<CaLabInstance>[];
+  columns: FlTableColumnStatic<CaLabInstance>[];
 
 
   constructor(private searchState: FlSearchState<any>,
@@ -102,14 +102,12 @@ export class CaLabInstanceSearchComponent implements OnInit {
     }
   }
 
-  private getColumns(): FlTableColumn<CaLabInstance>[] {
+  private getColumns(): FlTableColumnStatic<CaLabInstance>[] {
     switch (this.mode) {
       case 'all':
-        return ['name', 'space', 'currentStatus',
-          {accessor: 'virtualHost', columnName: 'virtual_host'}, 'serverInfo', 'actions'];
+        return ['name', 'space', 'currentStatus', 'virtualHost', 'serverInfo', 'actions'];
       case 'current-space':
-        return ['name', 'currentStatus',
-          {accessor: 'virtualHost', columnName: 'virtual_host'}, 'serverInfo'];
+        return ['name', 'currentStatus', 'virtualHost', 'serverInfo'];
       default:
         throw new Error(`[CaLabInstanceSearchComponent] Unknown mode '${this.mode}'`);
     }

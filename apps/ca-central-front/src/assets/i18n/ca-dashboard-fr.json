@@ -1,8 +1,8 @@
 {
   "welcome_message": "Bienvenue dans l'espace de {{name}}",
-  "my_projects": "Mes projets",
+  "my_projects": "Projets",
   "no_project": "Aucun projet",
-  "my_smart_db": "Mes smartDB",
+  "my_smart_db": "SmartDB",
   "no_smart_db": "Aucune smartDB",
   "ACTIVE": "Actif",
   "IN_PROGRESS": "En cours",

@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FlTableColumnStatic} from '@monorepo/front-core-lib';
 import {CaDocument, CaDocumentDatasource} from '../../../../../ca-core/model/entities/project/ca-document.class';
 import {CaDocumentActionEvent} from '../ca-document-actions-menu/ca-document-actions-menu.component';
+import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
+import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
 
 @Component({
   selector: 'ca-document-table',
@@ -17,6 +19,19 @@ export class CaDocumentTableComponent {
   @Input() columns: FlTableColumnStatic<CaDocument>[] = ['name', 'size', 'creationInfo', 'actions'];
 
   @Output() documentAction: EventEmitter<CaDocumentActionEvent> = new EventEmitter();
+
+  constructor(private projectService: CaProjectService,
+              private routerService: CaRouterService) {
+  }
+
+  openDocumentPreview(document: CaDocument): void {
+    if (document.type === 'CONSTELLAB_DOCUMENT') {
+      this.routerService.navigateToDocumentDetail(document.id);
+    } else {
+      const url = this.projectService.getDocumentPreviewUrl(document.projectId, document.name);
+      window.open(url, '_blank');
+    }
+  }
 
   onDocumentAction(event: CaDocumentActionEvent): void {
     if (event.action === 'update') {
