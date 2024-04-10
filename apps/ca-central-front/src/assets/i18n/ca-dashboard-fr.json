@@ -62,7 +62,7 @@
   "validation_info": "Validé",
   "project_level_nb": "Nom de niveaux du projet (no modifiable une fois le projet créé)",
   "project_leader": "Responsable",
-  "project_description_placeholder": "Décrivez votre projet ici",
+  "project_description_placeholder": "Décrivez votre projet ici, utilisez la touch / pour les commandes...",
   "show_project_description": "Afficher la description du projet",
   "show_project_comments": "Afficher les commentaires du projet",
   "open_details": "Ouvrir le détail",
