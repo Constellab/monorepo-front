@@ -44,11 +44,12 @@
 // TODO TO REMOVE
 .input-message {
   min-height: 0 !important;
-  width: 97%;
+  width: calc(97% - 30px);
   max-height: 30em;
   display: flex;
   flex-direction: column;
   border: none !important;
+  position: relative;
 }
 
 .text-editor {

@@ -26,11 +26,12 @@
 }
 
 .input-message {
-  min-height: 0 !important;
+  min-height: 8em !important;
   width: 97%;
   max-height: 30em;
   display: flex;
   flex-direction: column;
   border: none !important;
+  position: relative;
 }
 
