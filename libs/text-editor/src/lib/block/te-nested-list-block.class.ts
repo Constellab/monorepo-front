@@ -35,4 +35,68 @@ export class TeNestedListBlock extends NestedList implements BlockTool {
       TeHelper.handleRightArrow(event);
     }
   }
+
+
+  /**
+   * Handle UL, OL and LI tags paste and returns List data
+   *
+   * Override default method to fix nested list
+   * @param {HTMLUListElement|HTMLOListElement|HTMLLIElement} element
+   * @returns
+   */
+  pasteHandler(element: HTMLElement): any {
+    element = this.fixNestedList(element);
+    return super.pasteHandler(element);
+  }
+
+  /**
+   * Method to fix some pasted nested list
+   * If the nested list is not well formatted, it will fix it. This can happens when copy paste form word
+   * Input :
+   * <ul>
+   *   <li>Coffee</li>
+   *   <li>Tea</li>
+   *   <ul>
+   *     <li>Black tea</li>
+   *   </ul>
+   * </ul>
+   *
+   * Output :
+   * <ul>
+   *   <li>Coffee</li>
+   *   <li>Tea
+   *      <ul>
+   *        <li>Black tea</li>
+   *      </ul>
+   *   </li>
+   * </ul>
+   * @param ulElement
+   */
+  fixNestedList(ulElement: HTMLElement): HTMLElement {
+
+    for (let i = 0; i < ulElement.children.length; i++) {
+      const child: HTMLElement = ulElement.children[i] as HTMLElement;
+
+      if (child.tagName === 'UL') {
+        this.fixNestedList(child);
+        // move the ul inside the previous li
+        const li = ulElement.children[i - 1];
+        li.appendChild(child);
+        continue;
+      }
+
+      if (child.tagName === 'LI') {
+        const ul = child.querySelector('ul');
+        if (ul) {
+          const fixedUl = this.fixNestedList(ul);
+          child.appendChild(fixedUl);
+        }
+      }
+    }
+
+
+    return ulElement;
+  }
+
+
 }
