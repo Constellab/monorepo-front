@@ -18,7 +18,7 @@ export class HaLiveTaskVersionsComponent implements OnInit {
 
   liveTaskVersions: HaLiveTaskVersion[];
   liveTask: HaLiveTask;
-  isLiveTaskOwner: boolean;
+  canEdit: boolean;
   inputFile: any;
   isLoading = true;
 
@@ -34,7 +34,12 @@ export class HaLiveTaskVersionsComponent implements OnInit {
     this.authenticatedUserService.getUser().subscribe((user) => {
       this.liveTaskService.getLiveTaskById(this.activatedRoute.snapshot.params['id']).subscribe(liveTask => {
         this.liveTask = liveTask;
-        this.isLiveTaskOwner = user && user.id === liveTask?.createdBy.id;
+        this.canEdit = user && user.id === liveTask?.createdBy.id;
+        if (user && !this.canEdit){
+          this.liveTaskService.getCoAuthors(this.liveTask.id).subscribe(coAuthors => {
+            this.canEdit = coAuthors.some(coAuthor => coAuthor.id === user.id);
+          });
+        }
       });
     });
 

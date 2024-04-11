@@ -11,6 +11,8 @@
   background-color: var(--card-background);
   border-radius: 18px;
   padding: 8px;
+  max-height: 85vh;
+  overflow-y: auto;
 }
 
 .author-div{

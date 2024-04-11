@@ -7,7 +7,7 @@
     <div class="main-header-info spacing-8-v2">
       <div class="main-header-left-side">
         <h1 class="h1-v2 spacing-6-v2 title" flElementEditable (flElementValueChange)="onTitleChange($event)"
-            [flElementDisabled]="!(currentUser?.id === liveTask?.createdBy?.id)">{{liveTask.title}}</h1>
+            [flElementDisabled]="!canEditLt">{{liveTask.title}}</h1>
         <a [routerLink]="'versions'">
           <div class="spacing-6-v2" *ngIf="liveTask.latestPublishVersion == null">
             <ha-card [background]="'warn'">
@@ -57,9 +57,15 @@
                   </div>
                 </div>
                   @if(currentUser?.id == liveTask?.createdBy?.id){
-                    <button mat-stroked-button color="warn" class="g-button-small" (click)="deleteLiveTask()">
-                      {{'delete' | translate}}
-                    </button>
+                    <div class="creator-bts-div">
+                      <button mat-icon-button type="button" class="co-author-bt"
+                              (click)="openCoAuthorDialog()" [matTooltip]="'open_live_task_coauthor_panel' | translate">
+                        <mat-icon>group_add</mat-icon>
+                      </button>
+                      <button mat-stroked-button color="warn" class="g-button-small" (click)="deleteLiveTask()">
+                        {{'delete' | translate}}
+                      </button>
+                    </div>
                   }
               </div>
             </div>

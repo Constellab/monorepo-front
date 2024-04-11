@@ -19,10 +19,10 @@
             (click)="copyTechnicalName()">
       <mat-icon>copy</mat-icon>
     </button>
-    <button mat-icon-button *haIsAdmin [matTooltip]="'edit' | translate" (click)="closeRefAndOpenEditDialog()">
+    <button mat-icon-button *haIsGencoveryMember [matTooltip]="'edit' | translate" (click)="closeRefAndOpenEditDialog()">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button *haIsAdmin color="warn" [matTooltip]="'delete' | translate" (click)="closeRefAndOpenDeleteDialog()">
+    <button mat-icon-button *haIsGencoveryMember color="warn" [matTooltip]="'delete' | translate" (click)="closeRefAndOpenDeleteDialog()">
       <mat-icon>delete</mat-icon>
     </button>
   </div>

@@ -8,6 +8,7 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import {Observable} from 'rxjs';
 import {HaNavigationPanelItem} from '../../../ha-core/ha-component/ha-navigation-panel/ha-navigation-panel.component';
+import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 
 @Component({
   selector: 'ha-live-task-version-page',
@@ -19,7 +20,8 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
   liveTaskVersion: HaLiveTaskVersion;
   textEditorConfig: HaLiveTaskTextEditorConfig;
   isLoading: boolean = true;
-  isCreator: boolean = false;
+  canEditChecked: boolean = false;
+  canEdit: boolean = false;
   brickDependencies$: Observable<HaBrickVersion[]>;
   navPanelItems: HaNavigationPanelItem[];
 
@@ -68,7 +70,12 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
       this.textEditorConfig =
         new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id);
       this.authenticatedUserService.getUser().subscribe(user => {
-        this.isCreator = user?.id === this.liveTaskVersion?.liveTask.createdBy.id;
+        this.canEdit = user?.id === this.liveTaskVersion?.liveTask.createdBy.id;
+        if (user && !this.canEdit) {
+          this.checkIfCoAuthor(user);
+        } else {
+          this.canEditChecked = true;
+        }
       });
       this.brickDependencies$ = this.liveTaskService.getLiveTaskVersionBrickDependencies(liveTaskVersionId);
       this.navPanelItems = [
@@ -77,6 +84,13 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
         {title: `V${this.liveTaskVersion.version}`}
       ];
       this.isLoading = false;
+    });
+  }
+
+  private checkIfCoAuthor(user: HaUser): void{
+    this.liveTaskService.getCoAuthors(this.liveTaskVersion.liveTask.id).subscribe(coAuthors => {
+      this.canEdit = coAuthors.some(coAuthor => coAuthor.id === user.id);
+      this.canEditChecked = true;
     });
   }
 

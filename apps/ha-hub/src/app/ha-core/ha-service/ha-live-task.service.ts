@@ -10,11 +10,14 @@ import {HaLiveTaskVersion, HaLiveTaskVersionFileInput} from '../ha-model/ha-enti
 import {ClPage} from '@monorepo/core-lib';
 import {HaBrickVersion} from '../ha-model/ha-entities/ha-brick-version.class';
 import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
+import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
+import {HaUser} from '../ha-model/ha-entities/ha-user';
+import {HaLiveTaskCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HaLiveTaskService {
+export class HaLiveTaskService implements HaCoAuthorService {
   private readonly route: string = 'live-task';
 
   constructor(private apiService: FlApiService) {
@@ -220,5 +223,35 @@ export class HaLiveTaskService {
    */
   getLiveTaskVersionBrickDependencies(liveTaskVersionId: string): Observable<HaBrickVersion[]> {
     return this.apiService.get(`${this.route}/version/${liveTaskVersionId}/brick-dependencies`, HaBrickVersion);
+  }
+
+  ////////////////////////////////////////// CO AUTHORS //////////////////////////////////////////
+
+  acceptInvite(token: string): Observable<HaLiveTask> {
+    return this.apiService.put(`${this.route}/invite/${token}/accept`, {}, HaLiveTask);
+  }
+
+  deleteCoAuthorInvite(inviteId: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/invite/${inviteId}`);
+  }
+
+  getCoAuthors(id: string): Observable<HaUser[]> {
+    return this.apiService.get(`${this.route}/${id}/co-authors`, HaUser);
+  }
+
+  getCoAuthorsPendingInvites(id: string): Observable<HaLiveTaskCoAuthorInvite[]> {
+    return this.apiService.get(`${this.route}/${id}/co-authors-pending-invites`, HaLiveTaskCoAuthorInvite, {resultIsPaginated: false});
+  }
+
+  inviteCoAuthor(id: string, coAuthorMail: string): Observable<boolean> {
+    return this.apiService.post(`${this.route}/${id}/invite-co-author`, {coAuthorMail: coAuthorMail}, Boolean);
+  }
+
+  isCoAuthorInviteValid(token: string): Observable<HaLiveTaskCoAuthorInvite> {
+    return this.apiService.get(`${this.route}/invite/${token}/is-valid`, HaLiveTaskCoAuthorInvite);
+  }
+
+  removeCoAuthor(id: string, coAuthorId: string): Observable<HaLiveTask> {
+    return this.apiService.put(`${this.route}/${id}/remove-co-author/${coAuthorId}`, {}, HaLiveTask);
   }
 }

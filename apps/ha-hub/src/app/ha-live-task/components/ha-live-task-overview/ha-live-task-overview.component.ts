@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
 import {FormControl} from '@ngneat/reactive-forms';
-import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
+import {HaLiveTask, HaLiveTaskCoAuthor} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
 import {ActivatedRoute} from '@angular/router';
-import {FlDialogService} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import {TeRichTextContent} from '@monorepo/text-editor';
+import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 
 @Component({
   selector: 'ha-live-task-overview',
@@ -21,8 +21,9 @@ export class HaLiveTaskOverviewComponent implements OnInit {
   textEditorConfig: HaLiveTaskTextEditorConfig;
   descriptionFormControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>();
   descriptionEditorDisabled: boolean = true;
-  isCreator: boolean = false;
+  canEditLt: boolean = false;
   isLoading: boolean = true;
+  liveTaskCoAuthors: HaUser[];
   constructor(
     private liveTaskService: HaLiveTaskService,
     private activeRoute: ActivatedRoute,
@@ -50,13 +51,21 @@ export class HaLiveTaskOverviewComponent implements OnInit {
       this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTask.id);
       this.descriptionFormControl.setValue(this.liveTask?.description);
       this.descriptionFormControl.disable();
-      this.setupIsCreator();
+      this.setupCoAuthors();
     });
   }
 
-  private setupIsCreator():void{
+  private setupCoAuthors(): void{
+    this.liveTaskService.getCoAuthors(this.liveTask.id).subscribe(coAuthors => {
+      this.liveTaskCoAuthors = coAuthors;
+      this.setupCanEdit();
+    });
+  }
+
+  private setupCanEdit():void{
     this.authenticatedUserService.getUser().subscribe(user => {
-      this.isCreator = user?.id === this.liveTask?.createdBy.id;
+      this.canEditLt = (user?.id === this.liveTask?.createdBy.id ||
+        this.liveTaskCoAuthors?.some(coAuthor => coAuthor.id === user?.id));
     });
   }
 

@@ -8,6 +8,8 @@ import {
 import {HaLiveTaskOverviewComponent} from './components/ha-live-task-overview/ha-live-task-overview.component';
 import {HaLiveTaskCommentsComponent} from './components/ha-live-task-comments/ha-live-task-comments.component';
 import {HaLiveTaskVersionsComponent} from './components/ha-live-task-versions/ha-live-task-versions.component';
+import {HaLoginGuard} from '../ha-core/ha-guard/ha-login.guard';
+import {HaLiveTaskInvitePageComponent} from './components/ha-live-task-invite-page/ha-live-task-invite-page.component';
 
 const routes: Route[] = [
   {
@@ -15,15 +17,12 @@ const routes: Route[] = [
     component: HaLiveTaskListComponent
   },
   {
+    path: 'invite/:token',
+    component: HaLiveTaskInvitePageComponent,
+    canActivate: [HaLoginGuard]
+  },
+  {
     path: ':id/:title',
-    redirectTo: ':id/:title/'
-  },
-  {
-    path: ':id/versions/:versionId',
-    component: HaLiveTaskVersionPageComponent,
-  },
-  {
-    path: ':id/:title/',
     component: HaLiveTaskPageComponent,
     children: [
       {
@@ -40,15 +39,10 @@ const routes: Route[] = [
       }
     ]
   },
-  // {
-  //   path: 'edit/:id',
-  //   component: HaStoryEditPageComponent,
-  //   canActivate: [HaStoryGuard]
-  // },
-  // {
-  //   path: ':id',
-  //   component: HaStoryPageComponent
-  // },
+  {
+    path: ':id/:title/versions/:versionId',
+    component: HaLiveTaskVersionPageComponent,
+  },
 ]
 
 @NgModule({

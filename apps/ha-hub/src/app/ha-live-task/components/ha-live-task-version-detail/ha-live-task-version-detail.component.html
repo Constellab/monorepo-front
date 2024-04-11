@@ -8,8 +8,8 @@
       <h5>
         {{'info_about_this_version' | translate}}
       </h5>
-      <button mat-stroked-button color="primary"  class="g-button-small"
-              *ngIf="isCreator && isEditable" (click)="onVersionInfosEditorButtonClick()">
+      <button mat-stroked-button color="primary" class="g-button-small"
+              *ngIf="canEdit && isEditable" (click)="onVersionInfosEditorButtonClick()">
         <fl-text-icon [iconPosition]="'end'">
           <mat-icon>{{versionInfosDisabled ? 'edit' : 'save'}}</mat-icon>
           {{versionInfosDisabled ? ('edit' | translate) : ('save' | translate)}}
@@ -80,7 +80,7 @@
 }
 
 <!--TODO: Corriger le bug du changement de theme-->
-<div class="spacing-6-v2" *ngIf="((isEditable && isCreator) || liveTaskVersion?.environment | flIsNotEmpty) && liveTaskVersion.type !== 'PYTHON'">
+<div class="spacing-6-v2" *ngIf="((isEditable && canEdit) || liveTaskVersion?.environment | flIsNotEmpty) && liveTaskVersion.type !== 'PYTHON'">
   <ha-card>
     <div class="card-title-v2 card-header spacing-4-v2">
       <h5>

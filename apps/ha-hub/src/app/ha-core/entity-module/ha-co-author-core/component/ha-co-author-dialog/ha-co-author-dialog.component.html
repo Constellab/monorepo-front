@@ -47,8 +47,9 @@
         </mat-error>
       </mat-form-field>
 
-      <button mat-icon-button [matTooltip]="'send_invitation' | translate" class="invite-button" (click)="checkAndSendInvite()">
+      <button mat-icon-button [matTooltip]="'send_invitation' | translate" class="invite-button" (click)="checkAndSendInvite()" [disabled]="isLoading">
         <mat-icon>send</mat-icon>
+        <fl-button-loader *ngIf="isLoading"></fl-button-loader>
       </button>
     </div>
 

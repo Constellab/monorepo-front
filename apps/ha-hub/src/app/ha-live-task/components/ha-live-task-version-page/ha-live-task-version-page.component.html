@@ -19,7 +19,7 @@
       <div class="live-task-info-card">
         <ha-card>
           <div class="live-task-info-card-bt-div">
-            @if(liveTaskVersion.versionState == 'DRAFT' && isCreator){
+            @if(liveTaskVersion.versionState == 'DRAFT' && canEdit){
               <div class="publish-lt-div">
                 <button mat-stroked-button color="primary" class="spacing-6-v2" (click)="publishLiveTaskVersion()">
                   {{ 'publish' | translate }}
@@ -47,6 +47,8 @@
         </ha-card>
       </div>
     </div>
-    <ha-live-task-version-detail [liveTaskVersion]="liveTaskVersion" [isCreator]="isCreator" [isEditable]="liveTaskVersion.versionState == 'DRAFT'"
+  @if(canEditChecked){
+    <ha-live-task-version-detail [liveTaskVersion]="liveTaskVersion" [canEdit]="canEdit" [isEditable]="liveTaskVersion.versionState == 'DRAFT'"
                                  (liveTaskVersionChangeEvent)="updateLiveTaskVersion($event)"></ha-live-task-version-detail>
+  }
 </div>

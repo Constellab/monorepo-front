@@ -28,4 +28,8 @@ export class HaSpaceService {
   public getSpacesOfCurrentUser(): Observable<HaSpace[]> {
     return this.apiService.get(`${this.route}/current-user`, HaSpace);
   }
+
+  public isGencoveryMember(): Observable<boolean> {
+    return this.apiService.get(`${this.route}/is-gencovery-member`);
+  }
 }

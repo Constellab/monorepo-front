@@ -8,7 +8,7 @@
       <div>
         {{'live_task_description' | translate}}
       </div>
-      <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()" *ngIf="isCreator">
+      <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()" *ngIf="canEditLt">
         <fl-text-icon [iconPosition]="'end'">
           <mat-icon>{{descriptionEditorDisabled ? 'edit' : 'save'}}</mat-icon>
           {{descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate)}}
@@ -25,5 +25,5 @@
   </ha-card>
 </div>
 
-<ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion && !isLoading" [liveTaskVersion]="liveTaskVersion" [isCreator]="isCreator"
+<ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion && !isLoading" [liveTaskVersion]="liveTaskVersion" [canEdit]="canEditLt"
                              [isEditable]="false" [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask.latestPublishVersion + ')'"></ha-live-task-version-detail>

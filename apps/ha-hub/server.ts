@@ -177,7 +177,6 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
       }
     }
 
-
     commonEngine
       .render({
         bootstrap: AppServerModule,
@@ -198,9 +197,6 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
       })
       .catch((err) => next(err));
   });
-
-
-
   return server;
 }
 

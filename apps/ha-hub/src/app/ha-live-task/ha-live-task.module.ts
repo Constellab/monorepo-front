@@ -24,6 +24,7 @@ import {HaNavigationPanelComponent} from '../ha-core/ha-component/ha-navigation-
 import {MatRippleModule} from "@angular/material/core";
 import {HaUtilComponentCoreModule} from "../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
 import {HaCommentsCoreModule} from '../ha-core/entity-module/ha-comments-core/ha-comments-core.module';
+import {HaLiveTaskInvitePageComponent} from './components/ha-live-task-invite-page/ha-live-task-invite-page.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {HaCommentsCoreModule} from '../ha-core/entity-module/ha-comments-core/ha
     HaLiveTaskOverviewComponent,
     HaLiveTaskCommentsComponent,
     HaLiveTaskVersionsComponent,
+    HaLiveTaskInvitePageComponent
   ],
     imports: [
       CommonModule,

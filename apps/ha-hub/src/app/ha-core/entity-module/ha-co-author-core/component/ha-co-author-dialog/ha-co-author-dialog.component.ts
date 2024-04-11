@@ -31,6 +31,7 @@ export class HaCoAuthorDialogComponent implements OnInit {
   service: HaCoAuthorService;
   coAuthors: HaUser[];
   inviteText: string;
+  isLoading = false;
 
   constructor(private snackBarService: FlSnackBarService,
               @Inject(MAT_DIALOG_DATA) dialogInput: HaCreateStoryDtoInput,
@@ -105,11 +106,13 @@ export class HaCoAuthorDialogComponent implements OnInit {
   checkAndSendInvite(): void {
     if (this.formGp.controls.coAuthorMail.valid) {
       const inviteMail: string = this.formGp.controls.coAuthorMail.value;
+      this.isLoading = true;
       this.service.inviteCoAuthor(this.id, inviteMail).subscribe(result => {
         if (result) {
           this.snackBarService.openSuccessMessage({text: 'invitation_sent_successfully', translateText: true});
           this.updateCoAuthorsInvitation();
           this.formGp.controls.coAuthorMail.patchValue(null);
+          this.isLoading = false;
         }
       });
     }

@@ -10,7 +10,6 @@ import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
 import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
-import {HaCommentService} from '../../../ha-core/ha-service/ha-comment.service';
 import {
   HaCommentsPortalConfig
 } from '../../../ha-core/entity-module/ha-comments-core/model/ha-comments-portal-config.class';
@@ -19,6 +18,10 @@ import {
   HaCommentsPortalComponent,
   HaCommentsPortalData
 } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
+import {
+  HaCoAuthorDialogComponent,
+  HaCreateStoryDtoInput
+} from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 
 
 @Component({
@@ -33,6 +36,7 @@ export class HaLiveTaskPageComponent implements OnInit {
   isLoading = true;
   liveTaskIsLiked = false;
   currentUser: HaUser;
+  canEditLt = false;
 
   constructor(
     private liveTaskService: HaLiveTaskService,
@@ -52,11 +56,19 @@ export class HaLiveTaskPageComponent implements OnInit {
 
     this.liveTaskService.getLiveTaskById(this.activeRoute.snapshot.params.id).subscribe(liveTask => {
       if (liveTask == null) {
-        this.router.navigate(['../'], {relativeTo: this.activeRoute});
+        this.router.navigate(['../../'], {relativeTo: this.activeRoute});
       } else {
         this.liveTask = liveTask;
         this.brickDependencies$ = this.liveTaskService.getLiveTaskBrickDependencies(this.liveTask.id);
         this.isLoading = false;
+        if (this.currentUser != null) {
+          this.canEditLt = this.currentUser.id === this.liveTask.createdBy.id;
+          if (!this.canEditLt) {
+            this.liveTaskService.getCoAuthors(this.liveTask.id).subscribe((coAuthors) => {
+              this.canEditLt = coAuthors.some(coAuthor => coAuthor.id === this.currentUser.id);
+            });
+          }
+        }
       }
     });
 
@@ -112,6 +124,16 @@ export class HaLiveTaskPageComponent implements OnInit {
   onTitleChange(title: string): void {
     this.liveTaskService.updateTitle(this.liveTask.id, title).subscribe((liveTask: HaLiveTask) => {
     });
+  }
+
+  openCoAuthorDialog(): void{
+    const input: HaCreateStoryDtoInput = {
+      id: this.liveTask.id,
+      service: this.liveTaskService,
+      inviteText: 'invite_live_task_coauthor_information'
+    };
+
+    this.dialogService.openSmallDialog(HaCoAuthorDialogComponent, {data: input}).afterClosed().subscribe();
   }
 
   deleteLiveTask(): void {

@@ -16,7 +16,7 @@ import {TeRichTextContent} from '@monorepo/text-editor';
 export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
 
   @Input() liveTaskVersion: HaLiveTaskVersion;
-  @Input() isCreator: boolean;
+  @Input() canEdit: boolean;
   @Input() isEditable: boolean;
   @Input() sectionTitle?: string;
   @Output() liveTaskVersionChangeEvent = new EventEmitter<HaLiveTaskVersion>();
@@ -68,7 +68,8 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
     this.environmentFormControl.value$.subscribe(environment => {
       this.environmentDebouncer.setValue(environment);
     });
-    if(!this.isEditable || !this.isCreator){
+
+    if(!this.isEditable || !this.canEdit){
       this.codeFormControl.disable();
       this.environmentFormControl.disable();
       this.paramsFormControl.disable();
