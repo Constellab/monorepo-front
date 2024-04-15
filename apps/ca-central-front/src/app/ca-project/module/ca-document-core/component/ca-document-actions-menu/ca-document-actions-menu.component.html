@@ -1,4 +1,4 @@
-<button mat-icon-button [matMenuTriggerFor]="menu">
+<button mat-icon-button [matMenuTriggerFor]="menu" (click)="cancelEvent($event)">
   <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
@@ -6,43 +6,43 @@
     <a mat-menu-item type="button" *ngIf="document.type === 'CONSTELLAB_DOCUMENT'; else normalDoc"
        [routerLink]="document | caDetailRoute">
       <mat-icon>visibility</mat-icon>
-      <span>{{'view_document' | translate}}</span>
+      <span>{{ 'view_document' | translate }}</span>
     </a>
 
     <ng-template #normalDoc>
       <a mat-menu-item type="button" [href]="getDocumentPreviewUrl()" target="_blank">
         <mat-icon>visibility</mat-icon>
-        <span>{{'preview_document' | translate}}</span>
+        <span>{{ 'preview_document' | translate }}</span>
       </a>
 
       <a mat-menu-item type="button" [href]="getDocumentDownloadUrl()" download>
         <mat-icon>cloud_download</mat-icon>
-        <span>{{'download_document' | translate}}</span>
+        <span>{{ 'download_document' | translate }}</span>
       </a>
     </ng-template>
   </ng-container>
 
   <button mat-menu-item type="button" (click)="renameDocument()">
     <mat-icon>edit</mat-icon>
-    <span>{{'rename_document' | translate}}</span>
+    <span>{{ 'rename_document' | translate }}</span>
   </button>
 
   <button mat-menu-item type="button"
           (click)="moveToTrash()" *ngIf="!document.inTrash; else inTrash">
     <mat-icon color="warn">clear</mat-icon>
-    <span class="g-warn-text">{{'move_document_to_trash' | translate}}</span>
+    <span class="g-warn-text">{{ 'move_document_to_trash' | translate }}</span>
   </button>
 
   <ng-template #inTrash>
     <button mat-menu-item type="button" (click)="restoreFromTrash()">
       <mat-icon>restore_from_trash</mat-icon>
-      <span>{{'restore_document_from_trash' | translate}}</span>
+      <span>{{ 'restore_document_from_trash' | translate }}</span>
     </button>
 
     <button mat-menu-item type="button"
             (click)="deleteDocument()">
       <mat-icon color="warn">delete_forever</mat-icon>
-      <span class="g-warn-text">{{'delete_document' | translate}}</span>
+      <span class="g-warn-text">{{ 'delete_document' | translate }}</span>
     </button>
   </ng-template>
 </mat-menu>

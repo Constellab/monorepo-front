@@ -11,7 +11,6 @@ import {CaDocumentActionsMenuComponent} from './component/ca-document-actions-me
 import {
   CaNotificationCoreModule
 } from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
-import {LabCorePipeModule} from '../../../../../../lab-front/src/app/lab-core/lab-core-pipe/lab-core-pipe.module';
 
 
 @NgModule({
@@ -33,7 +32,6 @@ import {LabCorePipeModule} from '../../../../../../lab-front/src/app/lab-core/la
 
     CaCoreModule,
     CaNotificationCoreModule,
-    LabCorePipeModule,
   ],
 })
 export class CaDocumentCoreModule {
