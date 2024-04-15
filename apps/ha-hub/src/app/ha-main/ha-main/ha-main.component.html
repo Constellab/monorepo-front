@@ -1,4 +1,4 @@
-<div class="main" [ngClass]="currentUrlSegment?.length === 0 ? 'g-dashboard-background' : ''">
+<div class="main">
   <mat-toolbar class="nav-bar">
     <a routerLink="/" class="gencovery-hub-logo gencovery-logo" flHide.lt-lg>
       <img alt="" [src]="communityLogo"/>
@@ -12,16 +12,18 @@
       <a class="option" [routerLink]="storyListRoute" flHide.gt-sm>
         <img class="option-icon" src="assets/fl-logo/stories-logo.svg"/>
       </a>
-      <div [matMenuTriggerFor]="docMenu" class="doc-nav-div">
-        <img class="option doc-menu-bt option-icon" src="assets/fl-logo/doc_logo.svg" flHide.gt-sm/>
-        <h5 class="option doc-menu-bt" flHide.lt-md>{{ 'documentation' | translate }}</h5>
-      </div>
+
+      <h5 class="option" flHide.lt-md><a [routerLink]="liveTaskRoute">{{ 'live_tasks' | translate }}</a></h5>
+
       <h5 class="option" flHide.lt-md><a [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a></h5>
       <a class="option" flHide.gt-sm [routerLink]="brickListRoute">
         <img class="option-icon brick-icon" src="assets/fl-logo/bricks_logo.svg"/>
       </a>
 
-      <h5 class="option" flHide.lt-md><a [routerLink]="liveTaskRoute">{{ 'live_tasks' | translate }}</a></h5>
+      <div [matMenuTriggerFor]="docMenu" class="doc-nav-div">
+        <img class="option doc-menu-bt option-icon" src="assets/fl-logo/doc_logo.svg" flHide.gt-sm/>
+        <h5 class="option doc-menu-bt" flHide.lt-md>{{ 'documentation' | translate }}</h5>
+      </div>
 
       <mat-menu #docMenu="matMenu" xPosition="before">
         <a mat-menu-item [routerLink]="productDocRoute" class="doc-menu-item">{{ 'product_doc'| translate }}</a>
@@ -60,9 +62,9 @@
     <mat-menu #langMenu='matMenu'>
       <button mat-menu-item (click)="changeLanguage()">
         @if(currentLanguage === 'fr'){
-            English
+          {{ 'english' | translate }}
         } @else {
-          Français
+          {{ 'french' | translate }}
         }
       </button>
     </mat-menu>

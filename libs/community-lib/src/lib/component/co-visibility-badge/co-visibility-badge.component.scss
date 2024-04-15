@@ -12,6 +12,12 @@
 .space-badge-photo{
   width: 25px;
   border-radius: 50%;
-  background-color: white;
-  border: 1px solid black;
+}
+
+.public-badge-div{
+  border: solid 3px var(--accent-color);
+}
+
+.space-badge-div{
+  border: solid 3px var(--warn-color);
 }

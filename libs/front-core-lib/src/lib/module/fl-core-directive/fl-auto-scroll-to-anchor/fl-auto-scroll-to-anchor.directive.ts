@@ -51,9 +51,11 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     anchor = anchor.replace(/[^a-zA-Z-]/g, '');
 
     const children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
+
     if (children) {
       children.scrollIntoView(true);
     }
+
   }
 
   ngOnDestroy(): void {

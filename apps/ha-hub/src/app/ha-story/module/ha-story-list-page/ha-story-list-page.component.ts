@@ -1,14 +1,10 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {
   HaCreateStoryDtoInput,
   HaStoryCreateDialogComponent
 } from '../ha-story-create-dialog/ha-story-create-dialog.component';
-import {
-  HaStory,
-  HaStoryDatasourcePaginated,
-  HaStoryFilter
-} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import {HaStory, HaStoryDatasourcePaginated, HaStoryFilter} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import {Router} from '@angular/router';
 import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
 import {HaTopicService} from '../../../ha-core/ha-service/ha-topic.service';

@@ -52,10 +52,10 @@ export class HaLiveTaskService implements HaCoAuthorService {
       {spacesFilter: spacesFilter, titleFilter: titleFilter}, HaLiveTask, {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public getAllWithFiltersPaginated(): HaLiveTaskDatasourcePaginated {
+  public getAllWithFiltersPaginated(pageSize: number = 10): HaLiveTaskDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
-        this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), 10, false);
+        this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), pageSize, false);
   }
 
   /**

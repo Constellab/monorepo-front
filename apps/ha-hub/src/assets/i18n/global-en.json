@@ -290,5 +290,11 @@
   "download_attached_file": "Download attached file",
   "file_too_large_error": "The file is too large, the maximum size is 20MB",
   "delete_doc_file": "Delete documentation file",
-  "upload-document": "Upload document"
+  "upload-document": "Upload document",
+  "french": "French",
+  "english": "English",
+  "go_to_stories": "Go to stories",
+  "go_to_bricks": "Go to bricks",
+  "go_to_live_tasks": "Go to live tasks",
+  "getting_started": "Getting started"
 }

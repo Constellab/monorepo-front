@@ -292,5 +292,11 @@
   "download_attached_file": "Télécharger le fichier joint",
   "file_too_large_error": "Le fichier est trop volumineux, la taille maximale autorisée est de 20 Mb",
   "delete_doc_file": "Supprimer le fichier attaché à la documentation",
-  "upload-document": "Upload un document"
+  "upload-document": "Upload un document",
+  "french": "Français",
+  "english": "Anglais",
+  "go_to_stories": "Aller aux stories",
+  "go_to_bricks": "Aller aux bricks",
+  "go_to_live_tasks": "Aller aux live tasks",
+  "getting_started": "Getting Started"
 }

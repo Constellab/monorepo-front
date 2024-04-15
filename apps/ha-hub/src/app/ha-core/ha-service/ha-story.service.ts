@@ -57,9 +57,9 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.delete(this.route + '/' + id);
   }
 
-  public getAllPaginatedFiltered(): HaStoryDatasourcePaginated {
+  public getAllPaginatedFiltered(pageSize: number =10): HaStoryDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size, filters) => this.getAllByFilter(filters, page, size), 10, false);
+      (page, size, filters) => this.getAllByFilter(filters, page, size), pageSize, false);
   }
 
   private getAllByFilter(filters: HaStoryFilter, page: number, size: number): Observable<ClPage<HaListStoryDto>> {

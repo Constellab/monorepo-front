@@ -73,9 +73,9 @@ export class HaBrickService implements HaCoAuthorService {
       });
   }
 
-  public getAllWithFiltersPaginated(): HaBrickDatasourcePaginated {
+  public getAllWithFiltersPaginated(pageSize = 10): HaBrickDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size, requestData) => this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), 10, false);
+      (page, size, requestData) => this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), pageSize, false);
   }
 
   /**
