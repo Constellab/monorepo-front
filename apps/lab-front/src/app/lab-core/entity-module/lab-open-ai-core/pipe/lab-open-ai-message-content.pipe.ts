@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import hljs from 'highlight.js/lib/core';
+import {TeHighlight} from '@monorepo/technical-doc';
 
 @Pipe({
   name: 'labOpenAiMessageContent'
@@ -16,7 +16,7 @@ export class LabOpenAiMessageContentPipe implements PipeTransform {
     // apply hljs.highlight to all values between ```python and ```
     const regex = /```([\s\S]*?)```/g;
     return value.replace(regex, (match, p1) => {
-      return '<code>' + hljs.highlight(p1, {language: 'python'}).value + '</code>';
+      return '<code>' + TeHighlight.highlight(p1, 'python') + '</code>';
     });
   }
 

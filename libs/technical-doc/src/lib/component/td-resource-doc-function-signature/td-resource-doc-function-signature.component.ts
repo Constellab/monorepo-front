@@ -1,7 +1,7 @@
 import {Component, ElementRef, Inject, Input, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
 import {TdResourceFunction, TdResourceFunctionArg} from '../../model/td-resource-type.class';
 import {isPlatformBrowser} from '@angular/common';
-import hljs from 'highlight.js/lib/core';
+import {TeHighlight} from '../../model/td-highlight.class';
 
 @Component({
   selector: 'td-resource-doc-function-signature',
@@ -23,7 +23,7 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
 
   getFunctionSignature(func: TdResourceFunction): string {
     if (isPlatformBrowser(this.platformId)) {
-      return hljs.highlight('python', this.getFunctionSignatureToString(func)).value;
+      return TeHighlight.highlight(this.getFunctionSignatureToString(func), 'python');
     }
     return '';
   }

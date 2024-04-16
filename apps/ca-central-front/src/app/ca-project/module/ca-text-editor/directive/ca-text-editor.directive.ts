@@ -15,7 +15,6 @@ import Quill from 'quill';
 import {ScrollDispatcher} from '@angular/cdk/overlay';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
-import hljs from 'highlight.js/lib/core';
 import {CaTextEditorState} from '../state/ca-text-editor.state';
 import {CaTextEditorConfig} from '../model/ca-text-editor-config.class';
 import {CaQuillJson} from '../model/ca-text-editor.class';
@@ -72,9 +71,6 @@ export class CaTextEditorDirective implements OnInit, OnDestroy {
       {
         theme: 'bubble',
         modules: {
-          syntax: {
-            highlight: (text: string) => hljs.highlight(text, {language: 'python'}).value
-          }, // Include syntax module
           toolbar: this.config.getToolbarConfig()
         },
         placeholder: '',

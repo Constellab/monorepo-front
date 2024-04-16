@@ -21,8 +21,6 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 import {ScrollDispatcher} from '@angular/cdk/overlay';
 import {CaTextEditorState} from '../../state/ca-text-editor.state';
-import hljs from 'highlight.js/lib/core';
-import python from 'highlight.js/lib/languages/python';
 import QuillType from 'quill';
 import {CaTextEditorsManagerState} from '../../state/ca-text-editors-manager.state';
 import {CaTextEditorConfig} from '../../model/ca-text-editor-config.class';
@@ -31,7 +29,6 @@ import {ClStringHelper} from '@monorepo/core-lib';
 import {QuillDeltaToHtmlConverter} from 'quill-delta-to-html';
 import {FlFormFieldDirective, FlHtmlHelper, FlOverlayRef} from '@monorepo/front-core-lib';
 
-hljs.registerLanguage('python', python);
 
 /**
  * HTML --> Get HTML and generate HTML
@@ -140,9 +137,6 @@ export class CaTextEditorComponent extends FlFormFieldDirective<string> implemen
 
 
     let modules: any = {
-      syntax: {
-        highlight: (text: string) => hljs.highlight(text, {language: 'python'}).value
-      }, // Include syntax module
       toolbar: this.config.getToolbarConfig(),
       clipboard: {
         matchVisual: false

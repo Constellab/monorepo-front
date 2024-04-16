@@ -2,15 +2,13 @@ import {Pipe, PipeTransform, SecurityContext} from '@angular/core';
 import {marked} from 'marked';
 import {DomSanitizer, SafeHtml, SafeResourceUrl} from '@angular/platform-browser';
 import {ClStringHelper, ClYoutubeHelper} from '@monorepo/core-lib';
-import hljs from 'highlight.js';
 import {markedHighlight} from 'marked-highlight';
-
+import {TeHighlight} from '../model/td-highlight.class';
 
 marked.use(markedHighlight({
   langPrefix: 'hljs language-',
   highlight(code, lang) {
-    const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-    return hljs.highlight(code, {language}).value;
+    return TeHighlight.highlight(code, lang);
   }
 }));
 
