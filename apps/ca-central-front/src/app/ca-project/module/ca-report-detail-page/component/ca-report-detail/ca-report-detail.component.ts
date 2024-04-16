@@ -2,11 +2,19 @@ import {Component, Input} from '@angular/core';
 import {CaReport} from '../../../../../ca-core/model/entities/project/ca-report.class';
 import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-experiment.class';
 import {CaExperimentService} from '../../../../../ca-core/service-api/ca-experiment.service';
-import {FlArrayObs, FlDialogService, FlEntityArrayObs} from '@monorepo/front-core-lib';
+import {
+  FlArrayObs,
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlEntityArrayObs
+} from '@monorepo/front-core-lib';
 import {
   CaExperimentsListDialogInput,
   CaExperimentsTableDialogComponent
 } from '../../../ca-experiment-core/component/ca-experiments-table-dialog/ca-experiments-table-dialog.component';
+import {CaReportService} from '../../../../../ca-core/service-api/ca-report.service';
+import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
 
 @Component({
   selector: 'ca-report-detail',
@@ -20,7 +28,9 @@ export class CaReportDetailComponent {
   experiments: FlArrayObs<CaExperiment>;
 
   constructor(private experimentService: CaExperimentService,
-              private dialogService: FlDialogService) {
+              private dialogService: FlDialogService,
+              private reportService: CaReportService,
+              private routerService: CaRouterService) {
   }
 
   printReport(): void {
@@ -38,5 +48,25 @@ export class CaReportDetailComponent {
     };
 
     this.dialogService.openMediumDialog(CaExperimentsTableDialogComponent, {data: input});
+  }
+
+  deleteReport(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'delete_report',
+      content: 'delete_report_confirmation',
+      translateTitleAndContent: true,
+      observable: this.reportService.deleteReport(this.report.id),
+      successMessage: 'report_deleted',
+      translateMessage: true
+    };
+
+    this.dialogService.openConfirmDialog(input).afterClosed()
+      .subscribe(result => this.onReportDeleted(result));
+  }
+
+  private onReportDeleted(result: FlConfirmDialogResult): void {
+    if (result.choice) {
+      this.routerService.navigateToProjectDetail(this.report.projectId);
+    }
   }
 }

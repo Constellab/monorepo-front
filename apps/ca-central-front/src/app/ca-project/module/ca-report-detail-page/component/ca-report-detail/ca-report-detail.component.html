@@ -5,15 +5,21 @@
 
     <fl-card-actions class="g-print-hide">
       <button mat-stroked-button type="button" (click)="openExperimentsListDialog()"
-              class="g-button-small">
+              class="g-button-small button">
         {{ 'experiments' | translate }}
         <mat-icon flIcon="experiment"></mat-icon>
       </button>
 
       <button mat-stroked-button type="button" (click)="printReport()"
-              class="g-button-small print-button">
+              class="g-button-small button">
         {{ 'print_report' | translate }}
         <mat-icon>print</mat-icon>
+      </button>
+
+      <button mat-icon-button type="button" (click)="deleteReport()"
+              class="g-button-small button" color="warn" *caIsAdmin
+              [matTooltip]="'delete_report' | translate">
+        <mat-icon>delete</mat-icon>
       </button>
     </fl-card-actions>
   </fl-card-header>

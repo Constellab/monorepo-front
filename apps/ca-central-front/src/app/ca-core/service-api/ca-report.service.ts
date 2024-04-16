@@ -30,6 +30,10 @@ export class CaReportService {
     return this.apiService.get(`${this.route}/${reportId}/content`);
   }
 
+  deleteReport(reportId: string): Observable<void>{
+    return this.apiService.delete(`${this.route}/${reportId}`);
+  }
+
   ////////////////////////////// METHOD FOR TEXT EDITOR //////////////////////////
 
   getImageUrl(reportId: string, filename: string): string {
