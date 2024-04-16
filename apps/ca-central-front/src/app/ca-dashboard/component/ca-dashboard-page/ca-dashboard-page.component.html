@@ -7,11 +7,6 @@
         <h1 *ngIf="currentSpace$ | async as currentSpace">
           {{'welcome_message' | translate:{name: currentSpace.name} }}
         </h1>
-        <div class="date g-text-small g-text-light"
-             flHide.lt-md>
-          {{currentDate | date:'EEEE MMMM d, y'}}
-        </div>
-
       </div>
       <div class="g-flex-auto">
         <ca-user-list-inline [userDatasource]="spaceUsers" [disabled]="true"></ca-user-list-inline>
