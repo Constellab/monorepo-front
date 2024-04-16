@@ -9,6 +9,7 @@ import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-ver
 import {Observable} from 'rxjs';
 import {HaNavigationPanelItem} from '../../../ha-core/ha-component/ha-navigation-panel/ha-navigation-panel.component';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
+import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-live-task-version-page',
@@ -59,7 +60,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
     }).afterClosed().subscribe((result) => {
       if (result.choice && result.result != null) {
         this.liveTaskVersion = result.result;
-        this.router.navigate(['..'], {relativeTo: this.activatedRoute});
+        this.router.navigate([HaRouterService.getLiveTaskVersionRoute(this.liveTaskVersion)]);
       }
     });
   }

@@ -1,29 +1,63 @@
-<div class="g-flex" *ngIf="isLoading">
-  <fl-loader class="g-centered"></fl-loader>
-</div>
+@if(liveTask){
+  <h3 flElementEditable (flElementValueChange)="onTitleChange($event)"
+      [flElementDisabled]="!canEditLt">
+    {{ liveTask.title }}
+  </h3>
+  <div class="lt-utils-div">
+    <p class="small-text user-date-info">
+      <fl-user-inline [user]="liveTask.createdBy" [portalOnHover]="false"></fl-user-inline>
+      <span class="g-text-small date-info">
+      <fl-from-now [date]="liveTask.createdAt" *ngIf="liveTask.latestPublishVersion > 0; else notPublished"></fl-from-now>
+    </span>
+    </p>
+    <div class="lt-buttons">
+      <co-visibility-badge [space]="liveTask.space"></co-visibility-badge>
+      <ha-like-button (clicked)="toggleLikeLiveTaskButton()" [isLiked]="liveTaskIsLiked"
+                      [likesCount]="liveTask.likes"></ha-like-button>
 
-<div class="description-div" *ngIf="!isLoading">
-  <ha-card>
-    <div class="card-title-v2 card-header spacing-4-v2">
-      <div>
-        {{'live_task_description' | translate}}
-      </div>
-      <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()" *ngIf="canEditLt">
-        <fl-text-icon [iconPosition]="'end'">
-          <mat-icon>{{descriptionEditorDisabled ? 'edit' : 'save'}}</mat-icon>
-          {{descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate)}}
-        </fl-text-icon>
+      <ha-comment-button [commentsCount]="liveTask.comments" (clicked)="openCommentsPannel()"></ha-comment-button>
+
+      <button *ngIf="currentUser?.id == liveTask?.createdBy?.id"
+              mat-icon-button color="warn" (click)="deleteLiveTask()" class="delete-lt-button">
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
-    <div class="description-content-div" *ngIf="liveTask">
-      <te-text-editor
-        [class]="descriptionEditorDisabled ? 'description-editor' : 'description-editor-active'"
-        [config]="textEditorConfig" (textChange)="onDescriptionChange($event)"
-        [formControl]="descriptionFormControl"
-        [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
-    </div>
-  </ha-card>
-</div>
+  </div>
 
-<ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion && !isLoading" [liveTaskVersion]="liveTaskVersion" [canEdit]="canEditLt"
-                             [isEditable]="false" [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask.latestPublishVersion + ')'"></ha-live-task-version-detail>
+  <div class="g-flex" *ngIf="isLoading">
+    <fl-loader class="g-centered"></fl-loader>
+  </div>
+
+  <div class="description-div" *ngIf="!isLoading">
+    <ha-card>
+      <div class="card-title-v2 card-header spacing-4-v2">
+        <div>
+          {{'live_task_description' | translate}}
+        </div>
+        <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()" *ngIf="canEditLt">
+          <fl-text-icon [iconPosition]="'end'">
+            <mat-icon>{{descriptionEditorDisabled ? 'edit' : 'save'}}</mat-icon>
+            {{descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate)}}
+          </fl-text-icon>
+        </button>
+      </div>
+      <div class="description-content-div" *ngIf="liveTask">
+        <te-text-editor
+          [class]="descriptionEditorDisabled ? 'description-editor' : 'description-editor-active'"
+          [config]="textEditorConfig" (textChange)="onDescriptionChange($event)"
+          [formControl]="descriptionFormControl"
+          [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
+      </div>
+    </ha-card>
+  </div>
+
+  <ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion && !isLoading" [liveTaskVersion]="liveTaskVersion" [canEdit]="canEditLt"
+                               [isEditable]="false" [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask.latestPublishVersion + ')'"></ha-live-task-version-detail>
+
+}
+
+<ng-template #notPublished>
+    <span class="g-warn-text">
+      {{ 'not_published' | translate }}
+    </span>
+</ng-template>

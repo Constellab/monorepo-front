@@ -23,7 +23,7 @@ import {ClStringHelper} from '@monorepo/core-lib';
 import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 import {
   HaCoAuthorDialogComponent,
-  HaCreateStoryDtoInput
+  HaCoAuthorsDialogInput
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import {CoStoryCategory} from '@monorepo/community-lib';
 import {
@@ -279,7 +279,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   openCoAuthorDialog(): void {
-    const input: HaCreateStoryDtoInput = {
+    const input: HaCoAuthorsDialogInput = {
       id: this.story.id,
       service: this.storyService,
       inviteText: 'invite_story_coauthor_information'

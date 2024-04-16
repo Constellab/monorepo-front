@@ -7,6 +7,8 @@ import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text
 import {HaCardBackground} from '../../../ha-core/ha-component/ha-card/ha-card.component';
 import {TranslateService} from '@ngx-translate/core';
 import {TeRichTextContent} from '@monorepo/text-editor';
+import {Observable} from 'rxjs';
+import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 
 @Component({
   selector: 'ha-live-task-version-detail',
@@ -29,6 +31,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   codeDebouncer: FlDebouncer<string>;
   environmentFormControl: FormControl<string> = new FormControl<string>(null);
   environmentDebouncer: FlDebouncer<string>;
+  brickDependencies$: Observable<HaBrickVersion[]>;
 
   constructor(private liveTaskService: HaLiveTaskService,
               private snackBarService: FlSnackBarService,
@@ -44,6 +47,8 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
     this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id);
     this.versionInfosFormControl.setValue(this.liveTaskVersion?.versionInfos);
     this.versionInfosFormControl.disable();
+
+    this.brickDependencies$ = this.liveTaskService.getLiveTaskVersionBrickDependencies(this.liveTaskVersion.id);
 
     if (this.liveTaskVersion?.params != null) {
       this.paramsFormControl.setValue(this.liveTaskVersion.params.join('\n'));

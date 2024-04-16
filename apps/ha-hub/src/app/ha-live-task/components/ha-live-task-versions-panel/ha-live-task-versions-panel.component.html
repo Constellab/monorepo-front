@@ -1,0 +1,29 @@
+<div class="live-task-versions-panel">
+  <h5 class="lt-versions-panel-title">
+    <span>{{ 'versions_list' | translate }}</span>
+    @if (canEditLt && liveTask && liveTaskVersions && liveTaskVersions[0].versionState == 'PUBLISHED') {
+      <button mat-icon-button (click)="file.click()" [matTooltip]="'select_file_to_create_live_task_version' | translate">
+        <mat-icon>add</mat-icon>
+      </button>
+      <input flInputFile flHide type="file" #file [strictMode]="true" [autoClearHtmlInput]="true" accept="application/json"
+             (fileChange)="onFileSelected($any($event))">
+    }
+  </h5>
+  <div class="lt-versions-list g-scrollable-element">
+    <a class="lt-versions-list-item" [routerLink]="'./'">Overview</a>
+    @for(ltVersion of liveTaskVersions; track ltVersion.id) {
+      <a class="lt-versions-list-item" [routerLink]="'version/' + ltVersion.id">
+        V{{ltVersion.version}}
+        <span class="g-text-small">
+          <fl-from-now *ngIf="ltVersion.versionState == 'PUBLISHED'; else notPublished" [date]="ltVersion.createdAt"></fl-from-now>
+        </span>
+      </a>
+    }
+  </div>
+
+  <ng-template #notPublished>
+    <span class="g-warn-text">
+      {{ 'not_published' | translate }}
+    </span>
+  </ng-template>
+</div>

@@ -298,5 +298,7 @@
   "go_to_stories": "Aller aux stories",
   "go_to_bricks": "Aller aux bricks",
   "go_to_live_tasks": "Aller aux live tasks",
-  "getting_started": "Getting Started"
+  "getting_started": "Getting Started",
+  "select_file_to_create_live_task_version": "Sélectionner un fichier pour créer une nouvelle version de live task",
+  "back_to_live_tasks_list": "Retour à la liste des live tasks"
 }

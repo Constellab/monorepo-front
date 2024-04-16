@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HaEnvironmentHelper} from '../ha-model/ha-config/ha-environment.helper';
+import {HaLiveTaskVersion} from '../ha-model/ha-entities/ha-live-task-version.class';
+import {ClStringHelper} from '@monorepo/core-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +58,12 @@ export class HaRouterService {
   public static getLiveTaskRoute(id: string, titlePath: string): string {
     return `${this.getLiveTaskListRoute()}${id}/${titlePath}`;
   }
+
+  public static getLiveTaskVersionRoute(liveTaskVersion: HaLiveTaskVersion): string{
+    return `${this.getLiveTaskRoute(liveTaskVersion.liveTask.id,
+      ClStringHelper.getCleanUrlPath(liveTaskVersion.liveTask.title))}/version/${liveTaskVersion.id}`;
+  }
+
   ////////////////////////// STORIES ////////////////////////////////
   public static getStoriesListRoute(): string {
     return '/stories/';

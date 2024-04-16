@@ -1,52 +1,43 @@
-<div class="g-flex main-div-v2" *ngIf="isLoading">
+<div class="g-flex" *ngIf="isLoading">
   <fl-loader class="g-centered"></fl-loader>
 </div>
 
-<div class="main-div-v2" *ngIf="liveTaskVersion && !isLoading">
-    <div class="spacing-8-v2">
-      <ha-navigation-panel [navigationPanelItems]="navPanelItems" ></ha-navigation-panel>
-    </div>
-    <div class="main-header-info">
-      <div>
-        <h1 class="h1-v2 spacing-6-v2">{{liveTaskVersion?.liveTask.title}}</h1>
-        <h2 class="h2-v2 spacing-6-v2">{{'version' | translate}} {{liveTaskVersion?.version}}</h2>
-        <div class="spacing-5-v2" *ngIf="liveTaskVersion?.liveTask.createdBy">
-          <fl-user-with-date [user]="liveTaskVersion.liveTask.createdBy"
-                             [date]="liveTaskVersion.createdAt"></fl-user-with-date>
-        </div>
+<div *ngIf="liveTaskVersion && !isLoading">
+  <div class="live-task-version-title">
+    <h3>{{ liveTaskVersion?.liveTask.title }}</h3>
+    <div class="g-badge g-warn-background">{{ liveTaskVersion.type }}</div>
+  </div>
 
+
+  <div class="live-task-infos-div">
+    <h4>{{ 'version' | translate }} {{ liveTaskVersion?.version }}</h4>
+    @if (liveTaskVersion.versionState == 'DRAFT' && canEdit) {
+      <div class="live-task-infos">
+        <span class="g-text-small g-warn-text">{{'warn_lt_version_not_published' | translate}}</span>
+        <button mat-stroked-button color="primary" (click)="publishLiveTaskVersion()">
+          {{ 'publish' | translate }}
+        </button>
       </div>
-      <div class="live-task-info-card">
-        <ha-card>
-          <div class="live-task-info-card-bt-div">
-            @if(liveTaskVersion.versionState == 'DRAFT' && canEdit){
-              <div class="publish-lt-div">
-                <button mat-stroked-button color="primary" class="spacing-6-v2" (click)="publishLiveTaskVersion()">
-                  {{ 'publish' | translate }}
-                </button>
-                <span class="g-text-small g-warn-text">{{'warn_lt_version_not_published' | translate}}</span>
-              </div>
-            }
-          </div>
-          <div class="task-type-div spacing-6-v2">
-            <div class="spacing-4-v2">{{ 'task_type' | translate }} :</div>
-            <div class="g-badge g-warn-background">{{liveTaskVersion.type}}</div>
-          </div>
-          <fl-async-section [object]="brickDependencies$" [emptyText]="''">
-            <ng-container *flSectionBody="brickDependencies$ as brickDependencies">
-              <div>
-                <div>{{'necessary_bricks' | translate}} :</div>
-                <div class="brick-dependencies-div">
-                  <mat-chip *ngFor="let brickDep of brickDependencies">
-                    {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}
-                  </mat-chip>
-                </div>
-              </div>
-            </ng-container>
-          </fl-async-section>
-        </ha-card>
-      </div>
-    </div>
+    }
+  </div>
+
+<!--  <div class="live-task-info-card">-->
+<!--        <ha-card>-->
+
+<!--          <fl-async-section [object]="brickDependencies$" [emptyText]="''">-->
+<!--            <ng-container *flSectionBody="brickDependencies$ as brickDependencies">-->
+<!--              <div>-->
+<!--                <div>{{'necessary_bricks' | translate}} :</div>-->
+<!--                <div class="brick-dependencies-div">-->
+<!--                  <mat-chip *ngFor="let brickDep of brickDependencies">-->
+<!--                    {{brickDep?.brickMajorVersion?.brick?.name}} {{brickDep?.version}}-->
+<!--                  </mat-chip>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </ng-container>-->
+<!--          </fl-async-section>-->
+<!--        </ha-card>-->
+<!--    </div>-->
   @if(canEditChecked){
     <ha-live-task-version-detail [liveTaskVersion]="liveTaskVersion" [canEdit]="canEdit" [isEditable]="liveTaskVersion.versionState == 'DRAFT'"
                                  (liveTaskVersionChangeEvent)="updateLiveTaskVersion($event)"></ha-live-task-version-detail>

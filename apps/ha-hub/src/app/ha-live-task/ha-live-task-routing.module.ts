@@ -6,8 +6,6 @@ import {
   HaLiveTaskVersionPageComponent
 } from './components/ha-live-task-version-page/ha-live-task-version-page.component';
 import {HaLiveTaskOverviewComponent} from './components/ha-live-task-overview/ha-live-task-overview.component';
-import {HaLiveTaskCommentsComponent} from './components/ha-live-task-comments/ha-live-task-comments.component';
-import {HaLiveTaskVersionsComponent} from './components/ha-live-task-versions/ha-live-task-versions.component';
 import {HaLoginGuard} from '../ha-core/ha-guard/ha-login.guard';
 import {HaLiveTaskInvitePageComponent} from './components/ha-live-task-invite-page/ha-live-task-invite-page.component';
 
@@ -30,19 +28,11 @@ const routes: Route[] = [
         component: HaLiveTaskOverviewComponent
       },
       {
-        path: 'comments',
-        component: HaLiveTaskCommentsComponent
-      },
-      {
-        path: 'versions',
-        component: HaLiveTaskVersionsComponent
+        path: 'version/:versionId',
+        component: HaLiveTaskVersionPageComponent
       }
     ]
-  },
-  {
-    path: ':id/:title/versions/:versionId',
-    component: HaLiveTaskVersionPageComponent,
-  },
+  }
 ]
 
 @NgModule({

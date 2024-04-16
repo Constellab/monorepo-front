@@ -20,15 +20,37 @@
   gap: 8px;
 }
 
-.brick-dependencies-div{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 8px;
-}
 
 @media (max-width: 320px){
   .live-task-info-card{
     width: 272px;
   }
+}
+
+.live-task-version-title{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  h3{
+    flex: auto;
+  }
+
+  div{
+  }
+}
+
+
+.live-task-infos-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.live-task-infos{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
 }

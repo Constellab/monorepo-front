@@ -4,7 +4,7 @@ import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {
   HaCoAuthorDialogComponent,
-  HaCreateStoryDtoInput
+  HaCoAuthorsDialogInput
 } from '../../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import {HaUser} from '../../../../ha-core/ha-model/ha-entities/ha-user';
 import {Observable} from 'rxjs';
@@ -36,7 +36,7 @@ export class HaPublicBrickUsersComponent implements OnInit {
   }
 
   openAddUserToBrickDialog(): void {
-    const input: HaCreateStoryDtoInput = {
+    const input: HaCoAuthorsDialogInput = {
       id: this.brick.id,
       service: this.brickService,
       inviteText: 'invite_brick_coauthor_information'

@@ -1,5 +1,4 @@
 <div class="home">
-
   <div class="bg-first-section-div">
     <div class="g-dashboard-background background">
     </div>
@@ -20,7 +19,10 @@
   </div>
 
   <div class="home-section main-panel">
-    <h2>{{ 'stories' | translate }}</h2>
+    <a [routerLink]="storyListRoute">
+      <h2>{{ 'stories' | translate }}</h2>
+    </a>
+    {{ 'stories_description' | translate}}
     <div class="home-list-div">
       <a *ngFor="let story of stories$ | flDatasourceConnect | async" [routerLink]="(story | haDetailRoute)">
         <co-story-list-item class="home-card" [story]="story"
@@ -31,7 +33,10 @@
   </div>
 
   <div class="home-section  main-panel">
-    <h2>{{ 'live_tasks' | translate }}</h2>
+    <a [routerLink]="liveTaskListRoute">
+      <h2>{{ 'live_tasks' | translate }}</h2>
+    </a>
+    {{'live_tasks_description' | translate}}
     <div class="home-list-div">
       <a *ngFor="let liveTask of liveTasks$ | flDatasourceConnect | async" [routerLink]="(liveTask | haDetailRoute)">
         <co-live-task-list-item class="home-card" [liveTask]="liveTask"></co-live-task-list-item>
@@ -41,7 +46,10 @@
   </div>
 
   <div class="home-section main-panel">
-    <h2>{{ 'bricks' | translate }}</h2>
+    <a [routerLink]="brickListRoute">
+      <h2>{{ 'bricks' | translate }}</h2>
+    </a>
+    {{'bricks_description' | translate}}
     <div class="home-list-div">
       <a *ngFor="let brick of bricks$ | flDatasourceConnect | async" [routerLink]="(brick | haDetailRoute)">
         <co-brick-list-item class="home-card" [brick]="brick"></co-brick-list-item>

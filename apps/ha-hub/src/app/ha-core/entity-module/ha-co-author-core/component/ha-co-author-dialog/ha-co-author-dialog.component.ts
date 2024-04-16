@@ -7,7 +7,7 @@ import {HaCoAuthorService} from '../../model/ha-co-author-service';
 import {HaCoAuthorInvite} from '../../model/ha-co-author-invite.class';
 import {HaUser} from '../../../../ha-model/ha-entities/ha-user';
 
-export interface HaCreateStoryDtoInput {
+export interface HaCoAuthorsDialogInput {
   id: string;
   service: HaCoAuthorService;
   inviteText: string;
@@ -34,7 +34,7 @@ export class HaCoAuthorDialogComponent implements OnInit {
   isLoading = false;
 
   constructor(private snackBarService: FlSnackBarService,
-              @Inject(MAT_DIALOG_DATA) dialogInput: HaCreateStoryDtoInput,
+              @Inject(MAT_DIALOG_DATA) dialogInput: HaCoAuthorsDialogInput,
               private dialogService: FlDialogService) {
     this.id = dialogInput.id;
     this.service = dialogInput.service;

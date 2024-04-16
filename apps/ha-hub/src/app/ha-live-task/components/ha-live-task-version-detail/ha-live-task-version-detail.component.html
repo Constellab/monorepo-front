@@ -1,6 +1,19 @@
 <div class="spacer-v2"></div>
 
-<h2 class="h2-v2 spacing-6-v2">{{sectionTitle}}</h2>
+<h4 class="spacing-6-v2">{{ sectionTitle }}</h4>
+
+<fl-async-section [object]="brickDependencies$" [emptyText]="''">
+  <ng-container *flSectionBody="brickDependencies$ as brickDependencies">
+    <div>
+      <div>{{ 'necessary_bricks' | translate }} :</div>
+      <div class="brick-dependencies-div">
+        <mat-chip *ngFor="let brickDep of brickDependencies">
+          {{ brickDep?.brickMajorVersion?.brick?.name }} {{ brickDep?.version }}
+        </mat-chip>
+      </div>
+    </div>
+  </ng-container>
+</fl-async-section>
 
 <div class="spacing-7-v2" *ngIf="liveTaskVersion && (liveTaskVersion.versionInfos || isEditable)">
   <ha-card [background]="HaCardBackground.main" [border]="true">
