@@ -1,6 +1,6 @@
-import {AfterViewInit, Directive, ElementRef, Inject, OnDestroy, PLATFORM_ID} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Inject, Input, OnDestroy, PLATFORM_ID} from '@angular/core';
 import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 
 /**
  * Auto scroll to anchor in element
@@ -11,6 +11,9 @@ import {Observable, Subscription} from 'rxjs';
 })
 export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
+  @Input() hasIsLoaded = false;
+  @Input() isLoaded$: Subject<boolean> = null;
+
   subscriptions: Subscription[] = [];
   fragment: Observable<string>;
 
@@ -18,7 +21,6 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     private elementRef: ElementRef<HTMLElement>,
     private route: ActivatedRoute,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: object
   ) {
   }
 
@@ -37,6 +39,14 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
         this.scrollToAnchor(anchor);
       }
     }));
+
+    if (this.hasIsLoaded){
+      this.isLoaded$.subscribe((loaded) => {
+        if (loaded){
+          this.scrollToAnchor(this.route.snapshot.fragment);
+        }
+      })
+    }
   }
 
 
@@ -50,25 +60,18 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
     anchor = anchor.replace(/[^a-zA-Z-]/g, '');
 
-    let children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
+    const children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
 
-    if (!children) {
-      // TODO: check if there is a better way to do the scroll on init
-      setTimeout(() => {
-        children = this.elementRef.nativeElement.querySelector(`#${anchor}`);
 
-        if (children) {
-          children.scrollIntoView(true);
-        }
-      }, 400);
-    } else {
+    if(children){
       children.scrollIntoView(true);
     }
-
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    if(this.isLoaded$)
+      this.isLoaded$.unsubscribe();
   }
 
 }

@@ -13,11 +13,10 @@ import {
 } from '@angular/core';
 import {TeConfig} from '../../model/te-config.class';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
 import {FlTranslateService} from '@monorepo/front-core-lib';
 import {teGetI18nConfig} from '../../te-text-editor.i18n';
-import EditorJS from '@editorjs/editorjs';
 
 
 @Component({
@@ -54,6 +53,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   disabled: boolean = false;
 
   editor: any | null;
+
+  isLoaded$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private envInjector: EnvironmentInjector,
               private applicationRef: ApplicationRef,
@@ -126,6 +127,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     if(this.value){
       this.editor.isReady.then(() => {
         this.editor.render(this.value);
+        this.isLoaded$.next(true);
       });
     }
   }
@@ -141,6 +143,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     if (this.editor && this.editor.destroy) {
       this.editor.destroy();
     }
+    this.isLoaded$.complete();
   }
 
 
