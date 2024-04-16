@@ -37,7 +37,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.setLiveTaskVersion(params['versionId']);
+      this.setLiveTaskVersion(params['id'], params['versionNumber']);
     });
   }
 
@@ -65,8 +65,8 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
     });
   }
 
-  private setLiveTaskVersion(liveTaskVersionId: string): void {
-    this.liveTaskService.getLiveTaskVersionById(liveTaskVersionId).subscribe(liveTaskVersion => {
+  private setLiveTaskVersion(liveTaskId: string, liveTaskVersionNumber: string): void {
+    this.liveTaskService.getLiveTaskVersionByVersionNumber(liveTaskId, liveTaskVersionNumber).subscribe(liveTaskVersion => {
       this.liveTaskVersion = liveTaskVersion;
       this.textEditorConfig =
         new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id);
@@ -78,7 +78,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
           this.canEditChecked = true;
         }
       });
-      this.brickDependencies$ = this.liveTaskService.getLiveTaskVersionBrickDependencies(liveTaskVersionId);
+      this.brickDependencies$ = this.liveTaskService.getLiveTaskVersionBrickDependencies(this.liveTaskVersion.id);
       this.navPanelItems = [
         {title: this.liveTaskVersion.liveTask.title},
         {title: 'versions_list', translateTitle: true},

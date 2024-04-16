@@ -14,12 +14,12 @@
       <div class="">{{ 'coCommunityLib.type' | translate }}</div>
       <div class="form-type-button-div">
         <button mat-flat-button type="button"
-                [color]="(formGp.get('type').value === 'PUBLIC') ? 'primary' : ''"
+                [color]="(formGp.get('type').value === 'PUBLIC') ? 'accent' : ''"
                 (click)="formGp.get('type').setValue('PUBLIC')">
           {{ 'coCommunityLib.public' | translate }}
         </button>
         <button mat-flat-button type="button"
-                [color]="(formGp.get('type').value === 'SPACE') ? 'primary' : ''" *ngIf="spaces$"
+                [color]="(formGp.get('type').value === 'SPACE') ? 'warn' : ''" *ngIf="spaces$"
                 (click)="formGp.get('type').setValue('SPACE')">
           {{ 'coCommunityLib.space' | translate }}
         </button>
@@ -32,9 +32,15 @@
           <div class="spaces-title">{{ 'coCommunityLib.your_spaces' | translate }}</div>
           <mat-radio-group [formControlName]="'space'" [required]="true">
             <div class="spaces-div">
-              <button mat-flat-button type="button" *ngFor="let space of spaces$ | async"
-                      [color]="(formGp.get('space').value === space) ? 'warn' : ''">
-                <mat-radio-button labelPosition="before" [value]="space">{{ space.name }}</mat-radio-button>
+              <button mat-flat-button type="button" *ngFor="let space of spaces$ | async" class="space-button">
+                <mat-radio-button labelPosition="before" [value]="space" [color]="'warn'">
+                  <div class="space-info">
+                    @if(space.photo){
+                      <img [src]="getSpacePhoto(space.photo)"/>
+                    }
+                    {{ space.name }}
+                  </div>
+                </mat-radio-button>
               </button>
             </div>
           </mat-radio-group>

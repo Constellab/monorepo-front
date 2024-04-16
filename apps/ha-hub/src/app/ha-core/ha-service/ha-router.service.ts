@@ -61,7 +61,7 @@ export class HaRouterService {
 
   public static getLiveTaskVersionRoute(liveTaskVersion: HaLiveTaskVersion): string{
     return `${this.getLiveTaskRoute(liveTaskVersion.liveTask.id,
-      ClStringHelper.getCleanUrlPath(liveTaskVersion.liveTask.title))}/version/${liveTaskVersion.id}`;
+      ClStringHelper.getCleanUrlPath(liveTaskVersion.liveTask.title))}/version/${liveTaskVersion.version}`;
   }
 
   ////////////////////////// STORIES ////////////////////////////////

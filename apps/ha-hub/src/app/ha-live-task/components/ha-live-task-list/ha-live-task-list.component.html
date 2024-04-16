@@ -15,9 +15,9 @@
   <div class="left-panel-buttons-div">
     <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent"
                      class="space-list-option">
-      <fl-text-icon [iconPosition]="'end'">
-        {{ 'public' | translate }}
+      <fl-text-icon [iconPosition]="'start'">
         <mat-icon>public</mat-icon>
+        {{ 'public' | translate }}
       </fl-text-icon>
     </mat-chip-option>
     <ha-selectable-space-list *ngIf="user" [user]="user" (spaceSelectedEvent)="onSpace($event)">

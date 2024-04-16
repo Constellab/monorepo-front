@@ -50,9 +50,18 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
     anchor = anchor.replace(/[^a-zA-Z-]/g, '');
 
-    const children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
+    let children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
 
-    if (children) {
+    if (!children) {
+      // TODO: check if there is a better way to do the scroll on init
+      setTimeout(() => {
+        children = this.elementRef.nativeElement.querySelector(`#${anchor}`);
+
+        if (children) {
+          children.scrollIntoView(true);
+        }
+      }, 400);
+    } else {
       children.scrollIntoView(true);
     }
 

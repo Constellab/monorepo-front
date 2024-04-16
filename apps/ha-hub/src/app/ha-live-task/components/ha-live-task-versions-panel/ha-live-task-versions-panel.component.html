@@ -12,7 +12,7 @@
   <div class="lt-versions-list g-scrollable-element">
     <a class="lt-versions-list-item" [routerLink]="'./'">Overview</a>
     @for(ltVersion of liveTaskVersions; track ltVersion.id) {
-      <a class="lt-versions-list-item" [routerLink]="'version/' + ltVersion.id">
+      <a class="lt-versions-list-item" [routerLink]="'version/' + ltVersion.version">
         V{{ltVersion.version}}
         <span class="g-text-small">
           <fl-from-now *ngIf="ltVersion.versionState == 'PUBLISHED'; else notPublished" [date]="ltVersion.createdAt"></fl-from-now>

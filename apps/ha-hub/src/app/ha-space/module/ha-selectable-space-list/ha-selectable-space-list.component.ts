@@ -3,6 +3,7 @@ import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaSpaceService} from '../../../ha-core/ha-service/ha-space.service';
 import {Observable} from 'rxjs';
 import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
+import {HaCoServiceConfig} from '../../../ha-core/ha-model/ha-config/ha-co-service.config';
 
 @Component({
   selector: 'ha-selectable-space-list',
@@ -19,11 +20,13 @@ export class HaSelectableSpaceListComponent implements OnInit{
 
   selectedSpaces: string[] = [];
 
-  constructor(private spaceService: HaSpaceService) {
+  constructor(private spaceService: HaSpaceService,
+              private coServiceConfig: HaCoServiceConfig) {
   }
 
   ngOnInit(): void{
     this.spaceList$ = this.spaceService.getSpacesOfCurrentUser();
+
   }
 
   isSelected(spaceId: string): boolean {
@@ -39,5 +42,13 @@ export class HaSelectableSpaceListComponent implements OnInit{
     }
     this.spaceSelectedEvent.emit(spaceId);
   }
+
+  getSpacePhoto(photo: string): string {
+    if (photo) {
+      return this.coServiceConfig.getSpacePhotoUrl(photo);
+    }
+    return null;
+  }
+
 
 }

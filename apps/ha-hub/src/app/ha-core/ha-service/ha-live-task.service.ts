@@ -119,12 +119,13 @@ export class HaLiveTaskService implements HaCoAuthorService {
   //////////////////////////////////// Live Task Version //////////////////////////////////////
 
   /**
-   * Call http get to get a live task version by id
-   * @param id
-   * @return a live task version
+   * Call http get to get a live task version by live task id and version number
+   * @param liveTaskId
+   * @param versionNumber
+   * @return the live task version
    */
-  public getLiveTaskVersionById(id: string): Observable<HaLiveTaskVersion> {
-    return this.apiService.get(this.route + '/version/' + id, HaLiveTaskVersion);
+  public getLiveTaskVersionByVersionNumber(liveTaskId: string, versionNumber: string): Observable<HaLiveTaskVersion> {
+    return this.apiService.get(`${this.route}/${liveTaskId}/version/${versionNumber}`, HaLiveTaskVersion);
   }
 
   /**

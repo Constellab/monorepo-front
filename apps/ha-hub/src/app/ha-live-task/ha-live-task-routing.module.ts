@@ -28,7 +28,7 @@ const routes: Route[] = [
         component: HaLiveTaskOverviewComponent
       },
       {
-        path: 'version/:versionId',
+        path: 'version/:versionNumber',
         component: HaLiveTaskVersionPageComponent
       }
     ]

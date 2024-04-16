@@ -1,7 +1,12 @@
 <div class="space-list-div">
   <mat-chip-option *ngFor="let space of  spaceList$ | async" color="warn" [value]="isSelected(space.id)"
                    (click)="selectSpace(space.id)" class="space-list-option">
-    {{space.name}}
+    <div class="visibility-badge-div">
+      @if(space.photo){
+        <img [src]="getSpacePhoto(space.photo)" class="space-badge-photo"/>
+      }
+      {{space.name}}
+    </div>
   </mat-chip-option>
 </div>
 

@@ -123,8 +123,8 @@
   "webinaires": "Webinaires",
   "forum": "Forum",
   "create_brick": "Create brick",
-  "bricks_description": "Get Access to Technical Documentations",
-  "stories_description": "Read and share tutorials, use-case and other articles",
+  "bricks_description": "Explore and share Constellab libraries, access detailed documentation",
+  "stories_description": "Read and share use cases, tutorials, articles and ideas",
   "copyright": "Copyright © 2023 Gencovery Inc. All rights reserved.",
   "related_tags": "Related tags",
   "constellab_description": "Your constellation of digital labs for empowering collaborative R&D",
@@ -238,7 +238,7 @@
   "environment_file": "Environment file",
   "import_live_task_version_file": "Import the live task version json file",
   "live_task_version_file": "Live task version file",
-  "live_tasks_description": "List of live tasks page",
+  "live_tasks_description": "Explore and share code snippets to empower collaboration",
   "live_task_version_infos_place_holder": "Describe your live task version",
   "delete_story_main_image": "Delete story main image",
   "delete_story_main_image_content": "Are you sure you want to delete the main image of the story ? The first image of the story content will be used as the main image after deletion",
@@ -298,5 +298,8 @@
   "go_to_live_tasks": "Go to live tasks",
   "getting_started": "Getting started",
   "select_file_to_create_live_task_version": "Select a file to create a new live task version",
-  "back_to_live_tasks_list": "Back to live tasks list"
+  "back_to_live_tasks_list": "Back to live tasks list",
+  "product_doc_description": "Learn how to use Constellab with a series of tutorial and videos",
+  "tech_doc_description": "Learn how to code in Constellab, from simple live task to fully integrated bricks",
+  "icons_description": "List of icons available in Constellab to style your task, resource and live tasks"
 }

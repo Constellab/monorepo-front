@@ -64,19 +64,29 @@
     <div class="section-div">
       <a class="home-card-div" [routerLink]="productDocRoute">
         <h4>{{ 'product_doc' | translate }}</h4>
+        <p>
+          {{ 'product_doc_description' | translate}}
+        </p>
       </a>
       <a class="home-card-div" [routerLink]="techDocRoute">
         <h4>{{ 'tech_doc' | translate }}</h4>
+        <p>
+          {{ 'tech_doc_description' | translate}}
+        </p>
       </a>
       <a class="home-card-div" [routerLink]="iconsRoute">
         <h4>{{ 'icons' | translate }}</h4>
+        <p>
+          {{ 'icons_description' | translate}}
+        </p>
       </a>
     </div>
 
     <a class="space-card" [href]="constellabUrl" target="_blank">
       <img src="assets/fl-logo/constellab-logo.svg"/>
       <div class="space-card-content">
-        <h4>Constellab
+        <h4>
+          Constellab
           <mat-icon>arrow_outward</mat-icon>
         </h4>
         {{ 'constellab_description' | translate }}
