@@ -5,7 +5,6 @@ import {
   HostBinding,
   Inject,
   Input,
-  NgZone,
   OnDestroy,
   OnInit,
   Optional,
@@ -16,7 +15,7 @@ import {
   Self,
   ViewChild
 } from '@angular/core';
-import {CaQuillJson, CaTextEditorBlockAddButton} from '../../model/ca-text-editor.class';
+import {CaQuillJson} from '../../model/ca-text-editor.class';
 import {NgControl} from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser';
 import {DOCUMENT, isPlatformBrowser} from '@angular/common';
@@ -24,17 +23,13 @@ import {ScrollDispatcher} from '@angular/cdk/overlay';
 import {CaTextEditorState} from '../../state/ca-text-editor.state';
 import hljs from 'highlight.js/lib/core';
 import python from 'highlight.js/lib/languages/python';
-import QuillType, {BoundsStatic, RangeStatic} from 'quill';
+import QuillType from 'quill';
 import {CaTextEditorsManagerState} from '../../state/ca-text-editors-manager.state';
 import {CaTextEditorConfig} from '../../model/ca-text-editor-config.class';
 import {CaQuillScrollContainer, CaQuillSetup} from '../../model/ca-quill-setup.class';
 import {ClStringHelper} from '@monorepo/core-lib';
-import BlockBlot from 'parchment/dist/src/blot/block';
 import {QuillDeltaToHtmlConverter} from 'quill-delta-to-html';
-import {FlFormFieldDirective, FlHtmlHelper, FlOverlayRef, FlPortalService} from '@monorepo/front-core-lib';
-import {
-  CaTextEditorBlockAddButtonComponent
-} from '../ca-text-editor-block-add-button/ca-text-editor-block-add-button.component';
+import {FlFormFieldDirective, FlHtmlHelper, FlOverlayRef} from '@monorepo/front-core-lib';
 
 hljs.registerLanguage('python', python);
 
@@ -67,8 +62,6 @@ export class CaTextEditorComponent extends FlFormFieldDirective<string> implemen
   @Input() autoFocus: boolean = false;
 
   @Input() theme: 'VISIBLE_BUTTON' | 'OVERRIDE_BUTTON' = 'OVERRIDE_BUTTON';
-
-  @Input() leftButtons: boolean = true;
 
   @HostBinding('class.ql-no-padding')
   @Input() noPadding: boolean = false;
@@ -107,8 +100,6 @@ export class CaTextEditorComponent extends FlFormFieldDirective<string> implemen
               @Inject(DOCUMENT) private document: Document,
               private scrollDispatcher: ScrollDispatcher,
               private elementRef: ElementRef<HTMLElement>,
-              private portalService: FlPortalService,
-              private zone: NgZone,
               private state: CaTextEditorState,
               private managerState: CaTextEditorsManagerState,
               private renderer: Renderer2,
@@ -197,7 +188,6 @@ export class CaTextEditorComponent extends FlFormFieldDirective<string> implemen
     }
 
     this.quill.on('text-change', () => this.setAndEmitValue(this.getQuillValue()));
-    this.quill.on('editor-change', (changeEvent: any, obj: any) => this.onEditorChange(changeEvent, obj));
 
     if (isPlatformBrowser(this.platformId) && this.anchor != null) {
       const anchorElement = this.elementRef.nativeElement.querySelector(`#${this.anchor}`);
@@ -272,41 +262,6 @@ export class CaTextEditorComponent extends FlFormFieldDirective<string> implemen
     this.quill.setContents(delta, 'silent');
   }
 
-  private onEditorChange(changeEvent: 'text-change' | 'selection-change', obj: any): void {
-    if (changeEvent === 'selection-change' && this.leftButtons) {
-      this.showAddButton(obj);
-    }
-  }
-
-  private showAddButton(range: RangeStatic): void {
-    const buttons = this.config.getBlockAddButtons(this.state);
-    if (range == null || this.disabled || buttons.length === 0) return;
-
-    this.zone.run(() => {
-
-      this.closeBlockAddButtonOverlay();
-      if (range.length === 0) {
-        const scroll: any = this.quill.scroll;
-        import('quill').then((quillImport) => {
-          const FlQuillBlock = quillImport.default.import('blots/block') as typeof BlockBlot;
-          const [block] = scroll.descendant(FlQuillBlock, range.index);
-          if (block != null && block.domNode.firstChild instanceof HTMLBRElement) {
-            const lineBounds: BoundsStatic = this.quill.getBounds(range.index, range.length);
-            this.showBlockAddButton(lineBounds, buttons);
-          }
-        });
-      }
-    });
-  }
-
-  private showBlockAddButton(lineBounds: BoundsStatic, buttons: CaTextEditorBlockAddButton[]): void {
-    const editorPosition = this.editorElement.nativeElement.getBoundingClientRect();
-    const config = this.portalService.configureAbsolutePortal({
-      top: (editorPosition.top + lineBounds.top - 7) + 'px',
-      left: (editorPosition.left + lineBounds.left - 50) + 'px'
-    }, {scrollStrategy: this.portalService.getCloseOnScrollStrategy()});
-    this.blockAddButtonOverlay = this.portalService.createPortal(CaTextEditorBlockAddButtonComponent, config, buttons);
-  }
 
   private closeBlockAddButtonOverlay(): void {
     this.blockAddButtonOverlay?.dispose();

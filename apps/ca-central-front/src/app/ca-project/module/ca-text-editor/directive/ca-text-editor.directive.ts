@@ -21,7 +21,6 @@ import {CaTextEditorConfig} from '../model/ca-text-editor-config.class';
 import {CaQuillJson} from '../model/ca-text-editor.class';
 import {CaTextEditorsManagerState} from '../state/ca-text-editors-manager.state';
 import {CaQuillScrollContainer, CaQuillSetup} from '../model/ca-quill-setup.class';
-import {FlPortalService} from '@monorepo/front-core-lib';
 
 type CaTextEditorMode = 'HTML' | 'JSON'
 
@@ -52,7 +51,6 @@ export class CaTextEditorDirective implements OnInit, OnDestroy {
               private elementRef: ElementRef,
               private scrollDispatcher: ScrollDispatcher,
               private sanitizer: DomSanitizer,
-              private portalService: FlPortalService,
               private managerState: CaTextEditorsManagerState,
               renderer: Renderer2,
               // eslint-disable-next-line @typescript-eslint/ban-types

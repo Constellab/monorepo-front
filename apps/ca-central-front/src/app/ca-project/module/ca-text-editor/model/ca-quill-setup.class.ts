@@ -64,8 +64,4 @@ export class CaQuillSetup {
     return firstDelta == delta ? {ops: []} : delta;
   }
 
-  public static addMatcherText(index: number, text: string, state: CaTextEditorState): any{
-    return state.insertText(index, text);
-  }
-
 }

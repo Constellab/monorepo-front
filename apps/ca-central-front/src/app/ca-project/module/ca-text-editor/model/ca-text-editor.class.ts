@@ -24,19 +24,6 @@ export interface CaTextEditorSnowButton {
  */
 export class CaQuillConfig {
 
-  /**
-   * Complete toolbar config to enable tools
-   * See https://quilljs.com/docs/modules/toolbar/
-   */
-  public static completeToolbarConfig: any[] = [
-    ['bold', 'italic', 'underline', 'strike'],
-    ['clean'],
-    [{list: 'ordered'}, {list: 'bullet'}],
-    [{header: [2, 3, false]}],
-    [{align: []}, {indent: '-1'}, {indent: '+1'}],
-    ['link', 'blockquote', 'code'],
-  ];
-
   public static simpleToolbarConfig: any[] = [
     ['bold', 'italic', 'underline'],
     [{list: 'ordered'}, {list: 'bullet'}],

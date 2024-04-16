@@ -3,8 +3,7 @@ import Quill, {RangeStatic} from 'quill';
 import {CaTextEditorUploadedImage} from '../model/ca-text-editor-image.class';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {CaTextEditorConfig} from '../model/ca-text-editor-config.class';
-import {CaTextEditorHintType} from '../model/ca-text-editor-hint-blot.class';
-import {ClRichTextFigure, ClRichTextFormula, ClRichTextVideo, ClYoutubeHelper} from '@monorepo/core-lib';
+import {ClRichTextFigure} from '@monorepo/core-lib';
 
 @Injectable()
 export class CaTextEditorState implements OnDestroy {
@@ -17,10 +16,6 @@ export class CaTextEditorState implements OnDestroy {
   private outsideClick$: Subject<MouseEvent> = new Subject();
 
   public config: CaTextEditorConfig;
-
-  constructor() {
-  }
-
 
   public init(quill: Quill, config: CaTextEditorConfig, textEditorContainer: HTMLElement, disabled: boolean): void {
     this.quill = quill;
@@ -39,41 +34,6 @@ export class CaTextEditorState implements OnDestroy {
       naturalHeight: image.height
     };
     return this.insertEmbed(index, 'figure', figure);
-  }
-
-  public insertCodeBlock(): void {
-    this.quill.format('code-block', true);
-  }
-
-  public insertBlockQuote(): void {
-    this.quill.format('blockquote', true);
-  }
-
-  public insertHint(hintType: CaTextEditorHintType): void {
-    this.quill.format('hint', hintType);
-  }
-
-  public insertVideo(url: string, index: number): void {
-    const embedUrl = ClYoutubeHelper.convertToEmbedUrl(url);
-    if (embedUrl == null) return;
-
-    const data: ClRichTextVideo = {
-      url: embedUrl,
-      title: '',
-      caption: ''
-    };
-    this.insertEmbed(index, 'video', data);
-  }
-
-  public insertFormula(formula: string, index: number): void {
-    const value: ClRichTextFormula = {
-      formula: formula
-    };
-    this.quill.insertEmbed(index, 'customFormula', value);
-  }
-
-  public insertLink(index: number, link: string, linkName: string): any {
-    return this.quill.insertText(index, linkName, 'link', link, 'user');
   }
 
   public createLink(index: number, link: string, linkName: string): any {
@@ -97,11 +57,6 @@ export class CaTextEditorState implements OnDestroy {
     return this.quill.insertEmbed(index, type, value, 'user');
   }
 
-  public removeFormat(): void {
-    const selection = this.getCurrentSelection();
-    this.quill.removeFormat(selection.index, selection.length);
-  }
-
   public getCurrentSelection(): RangeStatic {
     return this.quill.getSelection(true);
   }
@@ -109,11 +64,6 @@ export class CaTextEditorState implements OnDestroy {
 
   public getCurrentSelectionIndex(): number {
     return this.getCurrentSelection().index;
-  }
-
-  // Remove the content from index to index + size and return the new delta
-  public removeContent(index: number, size: number): any {
-    return this.quill.deleteText(index, 0);
   }
 
   //////////////////////////////////////// ELEMENT MANIP /////////////////////////////////
