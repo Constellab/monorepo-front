@@ -9,7 +9,7 @@
     </div>
 
     <div caTextEditor mode="JSON" [config]="textEditorConfig" [value]="getCommentContent()"
-         class="message" *ngIf="(isEditMode$ | async) === false" [dense]="true"></div>
+         class="message" *ngIf="!(isEditMode$ | async)" [dense]="true"></div>
 
     <div class="edit-comment-div" *ngIf="isEditMode$ | async">
       <fl-section [isLoading]="isLoading" [object]="formControl" class="section">
