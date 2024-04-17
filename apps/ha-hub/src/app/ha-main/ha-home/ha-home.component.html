@@ -13,7 +13,10 @@
       </div>
 
       <a mat-stroked-button class="getting-started-button" [routerLink]="productDocRoute">
-        {{ 'getting_started' | translate }}
+        <fl-text-icon iconPosition="end">
+          {{ 'getting_started' | translate }}
+          <mat-icon>chevron_right</mat-icon>
+        </fl-text-icon>
       </a>
     </div>
   </div>
@@ -29,7 +32,12 @@
                             [imageLink]="getStoryImageLink(story?.mainPicture)"></co-story-list-item>
       </a>
     </div>
-    <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">{{ 'go_to_stories' | translate }}</a>
+    <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">
+      <fl-text-icon iconPosition="end">
+        {{ 'go_to_stories' | translate }}
+        <mat-icon>chevron_right</mat-icon>
+      </fl-text-icon>
+    </a>
   </div>
 
   <div class="home-section  main-panel">
@@ -42,7 +50,12 @@
         <co-live-task-list-item class="home-card" [liveTask]="liveTask"></co-live-task-list-item>
       </a>
     </div>
-    <a mat-stroked-button [routerLink]="liveTaskListRoute" class="go-to-button">{{ 'go_to_live_tasks' | translate }}</a>
+    <a mat-stroked-button [routerLink]="liveTaskListRoute" class="go-to-button">
+      <fl-text-icon iconPosition="end">
+        {{ 'go_to_live_tasks' | translate }}
+        <mat-icon>chevron_right</mat-icon>
+      </fl-text-icon>
+    </a>
   </div>
 
   <div class="home-section main-panel">
@@ -52,10 +65,15 @@
     {{'bricks_description' | translate}}
     <div class="home-list-div">
       <a *ngFor="let brick of bricks$ | flDatasourceConnect | async" [routerLink]="(brick | haDetailRoute)">
-        <co-brick-list-item class="home-card" [brick]="brick"></co-brick-list-item>
+        <co-brick-list-item class="home-card" [brick]="brick" [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
       </a>
     </div>
-    <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">{{ 'go_to_bricks' | translate }}</a>
+    <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">
+      <fl-text-icon iconPosition="end">
+        {{ 'go_to_bricks' | translate }}
+        <mat-icon>chevron_right</mat-icon>
+      </fl-text-icon>
+    </a>
   </div>
 
   <div class="home-section main-panel">

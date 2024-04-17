@@ -54,6 +54,10 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     this.BRICK_DESCRIPTION_KEY = makeStateKey<object>('BRICK_DESCRIPTION_KEY');
     this.BRICK_DESCRIPTION_VERSION_KEY = makeStateKey<object>('BRICK_DESCRIPTION_VERSION_KEY');
 
+    this.init();
+  }
+
+  private init(): void {
     if (this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')) {
       this.setBrick(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
       this.setLastBrickVersion(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
@@ -124,6 +128,7 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     node.credentialUsername = this.brick.credentialUsername;
     node.credentialPassword = this.brick.credentialPassword;
     node.space = this.brick.space;
+    node.imageLink = this.brick.imageLink;
 
     const input: FlFormDialogInput<HaEditBrickDTO> = {
       mode: 'update',
@@ -135,11 +140,8 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
 
   private openSmallDialog(input: any): void {
     this.dialogService.openMediumDialog(HaPublicEditBrickDialogComponent, {data: input}).afterClosed().subscribe(
-      (res: HaBrick) => {
-        if (res != null) {
-          this.brick = res;
-          this.setLastBrickVersion(this.brick.name);
-        }
+      () => {
+        this.init();
       }
     );
   }

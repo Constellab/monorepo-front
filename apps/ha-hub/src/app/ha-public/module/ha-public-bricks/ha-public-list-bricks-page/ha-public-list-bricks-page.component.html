@@ -49,7 +49,7 @@
       </div>
       <div class="bricks-list">
         <a *ngFor="let b of bricks | flDatasourceConnect  | async" [routerLink]="getBrickRoute(b)">
-          <co-brick-list-item [brick]="b"></co-brick-list-item>
+          <co-brick-list-item [brick]="b" [brickImage]="b.imageLink | haBrickImage"></co-brick-list-item>
         </a>
       </div>
     </fl-infinite-scroll>

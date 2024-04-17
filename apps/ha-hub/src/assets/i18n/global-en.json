@@ -301,5 +301,6 @@
   "back_to_live_tasks_list": "Back to live tasks list",
   "product_doc_description": "Learn how to use Constellab with a series of tutorial and videos",
   "tech_doc_description": "Learn how to code in Constellab, from simple live task to fully integrated bricks",
-  "icons_description": "List of icons available in Constellab to style your task, resource and live tasks"
+  "icons_description": "List of icons available in Constellab to style your task, resource and live tasks",
+  "brick_image_updated": "Brick image updated"
 }

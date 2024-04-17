@@ -303,5 +303,6 @@
   "back_to_live_tasks_list": "Retour à la liste des live tasks",
   "product_doc_description": "Apprenez à utiliser Constellab grâce à une série de tutoriels et de vidéos",
   "tech_doc_description": "Apprenez à coder dans Constellab, d'une simple live task à des bricks entièrement intégrées",
-  "icons_description": "Liste des icônes disponibles dans Constellab pour styliser vos tâches, ressources et live tasks"
+  "icons_description": "Liste des icônes disponibles dans Constellab pour styliser vos tâches, ressources et live tasks",
+  "brick_image_updated": "Image de la brique mise à jour"
 }

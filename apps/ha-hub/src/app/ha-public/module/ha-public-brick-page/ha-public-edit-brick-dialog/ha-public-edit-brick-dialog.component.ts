@@ -20,6 +20,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   repoError: boolean;
   spaces: HaSpace[];
 
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     protected dialogInput: FlFormDialogInput<HaEditBrickDTO>,
@@ -48,7 +49,8 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
       visibility: [null],
       credentialUsername: [null],
       credentialPassword: [null],
-      space: [null]
+      space: [null],
+      imageLink: [null]
     });
   }
 
@@ -75,7 +77,6 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   }
 
   update(formValue: HaEditBrickDTO): Observable<HaBrick> {
-
     return this.brickService.editBrick(formValue);
   }
 
@@ -85,6 +86,14 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
 
   getUpdateSuccessMessage(): string {
     return 'brick_updated';
+  }
+
+  onFileSelected(file: File | File[]): void {
+    this.brickService.editBrickImage(this.formGp.value.id, file as File).subscribe((image) => {
+      this.brickService.deleteBrickImage(this.formGp.value.imageLink).subscribe();
+      this.formGp.controls.imageLink.patchValue(image.filename);
+      this.snackBarService.openSuccessMessage({text: 'brick_image_updated', translateText: true});
+    });
   }
 
 }

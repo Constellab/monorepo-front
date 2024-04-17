@@ -8,4 +8,5 @@ import {CoBrick} from '../../model/co-brick.class';
 })
 export class CoBrickListItemComponent {
   @Input({required: true}) brick: CoBrick;
+  @Input({required: true}) brickImage: string;
 }

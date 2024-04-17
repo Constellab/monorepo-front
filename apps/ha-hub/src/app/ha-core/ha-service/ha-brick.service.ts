@@ -128,6 +128,20 @@ export class HaBrickService implements HaCoAuthorService {
     return this.apiService.put(`${this.route}/edit`, editedBrick);
   }
 
+  public editBrickImage(brickId: string, image: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', image);
+    return this.apiService.put(`${this.route}/edit-image/${brickId}`, formData);
+  }
+
+  getImageUrl(filename: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
+  }
+
+  deleteBrickImage(filename: string): Observable<any> {
+    return this.apiService.delete(`${this.route}/image/${filename}`);
+  }
+
   //VERIFY IF BRICK IT'S A NEW BRICK VERSION
   public isActualBrickAndNewVersion(brickId: string, inputBrickName: string, inputBrickVersion: string): Observable<[boolean, boolean]> {
     return this.apiService.post(`${this.route}/is-actual-brick-and-new-version`, {

@@ -8,9 +8,6 @@
   [likes]="brick.likes">
 <!--  [comments]="brick.comments">-->
   <div rightSide class="brick-right-side">
-    <div class="brick-logo" [style.background-image]="
-                            brick.imageLink ? 'url(\''+ brick.imageLink +'\')' :
-                            'url(\'assets/fl-logo/logo.png\')'"
-         [style.background-size]="brick.imageLink ? '70%' : '100%'"></div>
+    <div class="brick-logo" [style.background-image]="'url(' + brickImage + ')'"></div>
   </div>
 </co-community-list-item>

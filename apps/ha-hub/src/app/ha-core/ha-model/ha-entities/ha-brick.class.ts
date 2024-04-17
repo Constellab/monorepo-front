@@ -57,6 +57,7 @@ export class HaBrickCreationDTO {
   technicalInfo?: Record<string, any>;
   references?: HaReferenceDTO[];
   space?: HaSpace;
+  imageLink?: string;
 }
 
 
@@ -69,6 +70,7 @@ export class HaEditBrickDTO {
   credentialUsername?: string;
   credentialPassword?: string;
   space?: HaSpace;
+  imageLink?: string;
 }
 
 export type HaBrickDatasourcePaginated = FlDatasourcePaginated<HaBrick>;

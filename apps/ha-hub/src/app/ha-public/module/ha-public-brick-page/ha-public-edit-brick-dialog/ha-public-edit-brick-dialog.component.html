@@ -4,6 +4,14 @@
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="edit-form" [formGroup]="formGp" class="g-layout-col">
+
+    <div class="brick-image-div" (click)="input.click()">
+      <img [src]="formGp.value.imageLink | haBrickImage">
+      <mat-icon class="edit-icon">add_a_photo</mat-icon>
+      <input flInputFile type="file" accept="image/jpg,image/jpeg,image/png" (fileChange)="onFileSelected($event)"
+             [strictMode]="true" [autoClearHtmlInput]="true" [hidden]="true" id="input-photo" #input>
+    </div>
+
     <!--  description  -->
     <mat-form-field class="g-form-input" appearance="outline">
       <mat-label>{{'description' | translate}}</mat-label>
