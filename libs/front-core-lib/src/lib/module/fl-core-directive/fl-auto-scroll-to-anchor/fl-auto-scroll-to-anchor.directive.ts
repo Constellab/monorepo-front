@@ -1,6 +1,6 @@
-import {AfterViewInit, Directive, ElementRef, Inject, Input, OnDestroy, PLATFORM_ID} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, Input, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
-import {Observable, Subject, Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 /**
  * Auto scroll to anchor in element
@@ -12,7 +12,7 @@ import {Observable, Subject, Subscription} from 'rxjs';
 export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
   @Input() hasIsLoaded = false;
-  @Input() isLoaded$: Subject<boolean> = null;
+  @Input() isLoaded$: Observable<boolean> = null;
 
   subscriptions: Subscription[] = [];
   fragment: Observable<string>;
@@ -41,11 +41,11 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     }));
 
     if (this.hasIsLoaded){
-      this.isLoaded$.subscribe((loaded) => {
+      this.subscriptions.push(this.isLoaded$.subscribe((loaded) => {
         if (loaded){
           this.scrollToAnchor(this.route.snapshot.fragment);
         }
-      })
+      }));
     }
   }
 
@@ -70,8 +70,6 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
-    if(this.isLoaded$)
-      this.isLoaded$.unsubscribe();
   }
 
 }
