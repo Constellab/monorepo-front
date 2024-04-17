@@ -143,7 +143,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     if (this.editor && this.editor.destroy) {
       this.editor.destroy();
     }
-    this.isLoaded$.complete();
+    //this.isLoaded$.complete();
   }
 
 
