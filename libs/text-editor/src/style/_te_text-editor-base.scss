@@ -177,7 +177,7 @@
     }
 
     // reduce the size of the mat icon used in the inline toolbar
-    .ce-inline-toolbar__buttons .material-icons-outlined{
+    .ce-inline-toolbar__buttons .material-icons-outlined {
       font-size: 18px;
     }
 
@@ -237,8 +237,9 @@
     }
 
     // use to show the placeholder on focused paragraph if empty
-    .ce-block .ce-paragraph[data-placeholder]:empty:focus-within:before {
-      opacity: 0.5;
+    .ce-block .ce-paragraph[data-placeholder]:empty:focus-within:before,
+    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder]:empty:before {
+      opacity: 0.5 !important;
     }
 
 

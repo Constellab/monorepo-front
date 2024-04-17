@@ -8,7 +8,7 @@
 
       <div class="card-container">
         <div class="g-layout-row g-layout-between-center">
-          <h1>{{ document.name }}</h1>
+          <h1 flElementEditable (flElementValueChange)="renameDocument($event)">{{ document.name }}</h1>
 
           <fl-card-actions class="g-print-hide">
             <button mat-stroked-button type="button" (click)="toggleEditMode()"

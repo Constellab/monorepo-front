@@ -85,7 +85,7 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   private buildForm(): void {
     this.formArray = new FormArray<LabFsNodeWithType>([]);
     this.formGp = new FormBuilder().group({
-      nodeMode: this.selectedNodes === 'folder' ? 'folder' : 'files',
+      nodeMode: this.selectedNodes === 'files' ? 'files' : 'folder',
       files: this.formArray
     });
   }

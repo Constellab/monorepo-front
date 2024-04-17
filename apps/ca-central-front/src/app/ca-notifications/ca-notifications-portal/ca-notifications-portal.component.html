@@ -11,9 +11,9 @@
       </div>
       <mat-divider class="divider"></mat-divider>
       <div class="g-layout-row">
-        <span>{{'most_recent' | translate}}</span>
+        <span>{{ 'most_recent' | translate }}</span>
         <span class="g-text-link read-all-text"
-              (click)="markAllNotificationsAsRead()">{{'mark_all_as_read' | translate}}</span>
+              (click)="markAllNotificationsAsRead()">{{ 'mark_all_as_read' | translate }}</span>
       </div>
 
       <a *ngFor="let notif of notifications.connect() | async" class="notification"
@@ -23,15 +23,19 @@
           <fl-user-profile-picture [user]="notif.createdBy" [size]="4"></fl-user-profile-picture>
         </div>
         <div class="notification-content">
-          <div class="notification-text" [matTooltip]="notif.text">{{notif.text}}</div>
+          <div class="notification-text g-text-dense-height"
+               [matTooltip]="notif.text" [matTooltipShowDelay]="1000">{{ notif.text }}</div>
 
-          <fl-text-icon iconPosition="start" [gap]="'3px'">
 
-            <mat-icon class="g-icon-tiny" [flIcon]="getNotificationObjectIcon(notif.objectType)"></mat-icon>
-            <span class="notification-text2">{{notif.text2}}</span>
+          <!--      Detail informations    -->
+          <fl-text-icon iconPosition="start" gap="3px">
+            <mat-icon class="g-icon-tiny g-text-light"
+                      [flIcon]="getNotificationObjectIcon(notif.objectType)">
+            </mat-icon>
+            <span class="g-text-tiny g-text-light">{{ notif.text2 }}</span>
           </fl-text-icon>
 
-          <div class="notification-date">
+          <div class="g-text-tiny g-text-light">
             <fl-from-now [date]="notif.createdAt"></fl-from-now>
           </div>
         </div>

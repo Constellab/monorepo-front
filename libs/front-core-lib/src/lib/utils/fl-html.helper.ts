@@ -3,6 +3,7 @@ export interface FlHtmlFindParentOptions {
   className?: string;
   tagName?: string;
   element?: HTMLElement;
+  attribute?: Record<string, string>
 }
 
 /**
@@ -74,10 +75,28 @@ export class FlHtmlHelper {
         if (current.tagName === parent.tagName.toUpperCase()) return current;
       } else if (parent.className) {
         if (current.classList.contains(parent.className)) return current;
+      } else if (parent.attribute) {
+        if (FlHtmlHelper.hasAttributes(current, parent.attribute)) return current;
       }
       current = current.parentElement;
     }
 
     return null;
+  }
+
+  public static hasAttributes(element: HTMLElement, attributes: Record<string, string>): boolean {
+    for (const key in attributes) {
+      if (element.getAttribute(key) !== attributes[key]) return false;
+    }
+    return true;
+  }
+
+  public static setCursorAtElementEnd(element: Node): void {
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    range.collapse(false);
+    selection.removeAllRanges();
+    selection.addRange(range);
   }
 }

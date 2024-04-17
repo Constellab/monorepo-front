@@ -95,9 +95,12 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  renameDocument(newTitle: string): void {
+    this.projectService.renameDocument(this.document.id, newTitle).subscribe();
+  }
+
+
   ngOnDestroy(): void {
     this.contentDebouncer?.markForComplete();
   }
-
-  protected readonly focus = focus;
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaLabInstance, CaLabInstanceWithSpace} from '../../../../model/entities/lab/ca-lab-instance.class';
 import {
   CaLabInstanceAdminFormDialogComponent,
@@ -9,7 +9,7 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {
   CaLabInstanceStatusDialogComponent
@@ -24,18 +24,16 @@ import {ClHelpService} from '@monorepo/core-lib';
   templateUrl: './ca-lab-instance-table.component.html',
   styleUrls: ['./ca-lab-instance-table.component.scss']
 })
-export class CaLabInstanceTableComponent extends FlTableAbstractDirective<CaLabInstance> implements OnInit {
+export class CaLabInstanceTableComponent {
 
-  @Input() datasource: FlArrayObs<CaLabInstance | CaLabInstanceWithSpace>;
+  @Input({required: true}) datasource: FlArrayObs<CaLabInstance | CaLabInstanceWithSpace>;
+
+  @Input({required: true}) columns: FlTableColumnStatic<CaLabInstance>[];
 
   @Input() disableLink: boolean = false;
 
   constructor(private dialogService: FlDialogService,
               private labInstanceService: CaLabInstanceService) {
-    super(['space', 'name', 'createdBy', 'currentStatus', 'serverInfo', 'createdBy', 'actions']);
-  }
-
-  ngOnInit(): void {
   }
 
   getLabInstanceRoute(labInstance: CaLabInstanceWithSpace): string {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CaDocument} from '../../../../../ca-core/model/entities/project/ca-document.class';
 import {
   CaDocumentNameFormDialogComponent,
@@ -6,6 +6,7 @@ import {
 } from '../ca-document-name-form-dialog/ca-document-name-form-dialog.component';
 import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
+import {ClHelpService} from '@monorepo/core-lib';
 
 export interface CaDocumentActionEvent {
   action: 'update' | 'delete' | 'moveToTrash' | 'restoreFromTrash';
@@ -17,7 +18,7 @@ export interface CaDocumentActionEvent {
   templateUrl: './ca-document-actions-menu.component.html',
   styleUrls: ['./ca-document-actions-menu.component.scss']
 })
-export class CaDocumentActionsMenuComponent implements OnInit {
+export class CaDocumentActionsMenuComponent {
 
   @Input() document: CaDocument;
 
@@ -29,7 +30,8 @@ export class CaDocumentActionsMenuComponent implements OnInit {
               private projectService: CaProjectService) {
   }
 
-  ngOnInit(): void {
+  cancelEvent(event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
   }
 
   getDocumentPreviewUrl(): string {

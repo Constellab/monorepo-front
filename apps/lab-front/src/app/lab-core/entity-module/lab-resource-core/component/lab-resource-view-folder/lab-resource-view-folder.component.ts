@@ -4,7 +4,15 @@ import {
   LabResourceViewFolderContent,
   LabResourceViewFolderContentFlat
 } from '../../../../model/entities/resource/lab-resource-view-folder.class';
-import {FlDialogService, FlFlatTreeControl, FlMenuDynamic, FlMenuDynamicService} from '@monorepo/front-core-lib';
+import {
+  FlClipboardService,
+  FlDialogService,
+  FlFlatTreeControl,
+  FlMenuDynamic,
+  FlMenuDynamicService,
+  FlPortalAction,
+  FlPortalActionsService
+} from '@monorepo/front-core-lib';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {LabFileResourceService} from '../../../../entity-service/lab-file-resource.service';
 import {
@@ -35,7 +43,9 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
               private dialogService: FlDialogService,
               private routerService: LabRouterService,
               private menuDynamicService: FlMenuDynamicService,
-              @Optional() private resourceState: LabResourceDetailState) {
+              @Optional() private resourceState: LabResourceDetailState,
+              private clipboardService: FlClipboardService,
+              private actionService: FlPortalActionsService) {
     super();
   }
 
@@ -154,12 +164,48 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
         icon: 'drive_file_move'
       });
     }
+
+    // button to download
+    menuDynamic.push({
+      type: 'button',
+      text: {
+        text: 'biox.download_folder_sub_node',
+        translateText: true
+      },
+      onClick: () => this.downloadFolderSubFile(node),
+      icon: 'cloud_download'
+    });
+
+    // button to copy the node path
+    menuDynamic.push({
+      type: 'button',
+      text: {
+        text: 'biox.folder_copy_node_path',
+        translateText: true
+      },
+      onClick: () => this.clipboardService.copy(this.getNodePath(node), {
+        text: 'biox.folder_node_path_copied',
+        translateText: true
+      }),
+      icon: 'content_copy'
+    });
+
     this.menuDynamicService.openDynamicMenuAbsolute(menuDynamic, event);
   }
 
   // open the dialog to select the node type
   private callFileView(node: LabResourceViewFolderContentFlat): void {
     this.resourceState.callView(this.fileService.callFolderSubFileView(this.resourceId, this.getNodePath(node)), node.name);
+  }
+
+  private downloadFolderSubFile(node: LabResourceViewFolderContentFlat): void {
+    const action: FlPortalAction = {
+      type: 'download-folder-sub-node',
+      action: this.fileService.downloadFolderSubFile(this.resourceId, this.getNodePath(node)),
+      text: {text: 'biox.folder_sub_node_downloading', translateText: true},
+    }
+
+    this.actionService.addAction(action);
   }
 
 }

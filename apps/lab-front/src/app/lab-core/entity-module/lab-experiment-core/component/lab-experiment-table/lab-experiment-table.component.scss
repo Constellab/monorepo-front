@@ -23,14 +23,6 @@ mat-table {
   position: relative;
 }
 
-.mat-row-link {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-}
-
 // make the element over the a absolute element
 .over-link {
   z-index: 10;
