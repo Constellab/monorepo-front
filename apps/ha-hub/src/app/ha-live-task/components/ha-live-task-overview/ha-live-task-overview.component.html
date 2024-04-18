@@ -28,28 +28,29 @@
     <fl-loader class="g-centered"></fl-loader>
   </div>
 
-  <div class="description-div" *ngIf="!isLoading">
-    <ha-card>
-      <div class="card-title-v2 card-header spacing-4-v2">
+  <fl-card *ngIf="!isLoading">
+    <fl-card-header>
+      <div class="card-header">
         <div>
-          {{'live_task_description' | translate}}
+          {{ 'live_task_description' | translate }}
         </div>
-        <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()" *ngIf="canEditLt">
+        <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()"
+                *ngIf="canEditLt">
           <fl-text-icon [iconPosition]="'end'">
-            <mat-icon>{{descriptionEditorDisabled ? 'edit' : 'save'}}</mat-icon>
-            {{descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate)}}
+            <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
+            {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}
           </fl-text-icon>
         </button>
       </div>
-      <div class="description-content-div" *ngIf="liveTask">
-        <te-text-editor
-          [class]="descriptionEditorDisabled ? 'description-editor' : 'description-editor-active'"
-          [config]="textEditorConfig" (textChange)="onDescriptionChange($event)"
-          [formControl]="descriptionFormControl"
-          [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
-      </div>
-    </ha-card>
-  </div>
+    </fl-card-header>
+    <fl-card-body>
+      <te-text-editor
+        [class]="descriptionEditorDisabled ? 'description-editor' : 'description-editor-active'"
+        [config]="textEditorConfig" (textChange)="onDescriptionChange($event)"
+        [formControl]="descriptionFormControl"
+        [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
+    </fl-card-body>
+  </fl-card>
 
   <ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion && !isLoading" [liveTaskVersion]="liveTaskVersion" [canEdit]="canEditLt"
                                [isEditable]="false" [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask.latestPublishVersion + ')'"></ha-live-task-version-detail>

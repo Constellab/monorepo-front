@@ -65,4 +65,12 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'transformer', matIconName: 'move_down'},
   {name: 'validated', matIconName: 'verified'},
   {name: 'check_fill', filename: 'check-fill.svg'},
+  {name: 'docx_file_icon', filename: 'docx-file-icon.svg'},
+  {name: 'pptx_file_icon', filename: 'pptx-file-icon.svg'},
+  {name: 'csv_file_icon', filename: 'csv-file-icon.svg'},
+  {name: 'pdf_file_icon', filename: 'pdf-file-icon.svg'},
+  {name: 'py_file_icon', filename: 'py-file-icon.svg'},
+  {name: 'txt_file_icon', filename: 'txt-file-icon.svg'},
+  {name: 'zip_file_icon', filename: 'zip-file-icon.svg'},
+  {name: 'json_file_icon', filename: 'json-file-icon.svg'},
 ]

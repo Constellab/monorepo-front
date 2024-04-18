@@ -17,7 +17,6 @@ import {
 } from './components/ha-live-task-version-page/ha-live-task-version-page.component';
 import {HaLiveTaskOverviewComponent} from './components/ha-live-task-overview/ha-live-task-overview.component';
 import {HaLiveTaskCommentsComponent} from './components/ha-live-task-comments/ha-live-task-comments.component';
-import {HaLiveTaskVersionsComponent} from './components/ha-live-task-versions/ha-live-task-versions.component';
 import {HaCardComponent} from '../ha-core/ha-component/ha-card/ha-card.component';
 import {HaSpaceModule} from '../ha-space/ha-space.module';
 import {HaNavigationPanelComponent} from '../ha-core/ha-component/ha-navigation-panel/ha-navigation-panel.component';
@@ -38,7 +37,6 @@ import {
     HaLiveTaskVersionPageComponent,
     HaLiveTaskOverviewComponent,
     HaLiveTaskCommentsComponent,
-    HaLiveTaskVersionsComponent,
     HaLiveTaskInvitePageComponent,
     HaLiveTaskVersionsPanelComponent
   ],

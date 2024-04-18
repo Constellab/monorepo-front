@@ -19,6 +19,17 @@ h4{
   margin: 1em auto;
   color: white;
   border-color: white;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  vertical-align: middle;
+  gap: 8px;
+
+  .bt-icon{
+    height: fit-content;
+    align-items: center;
+    font-size: 32px;
+  }
 }
 
 .home-section{

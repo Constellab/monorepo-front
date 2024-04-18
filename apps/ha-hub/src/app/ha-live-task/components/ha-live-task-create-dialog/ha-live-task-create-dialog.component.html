@@ -4,7 +4,7 @@
 
 <co-live-task-create-dialog-form [formGp]="formGp" [spaces$]="spaces$" (submitEvent)="onSubmitEvent($event)">
   <div>
-    <div class="spacing-4-v2">{{'live_task_version_file' | translate}}</div>
+    <div class="live-task-version-file-div">{{'live_task_version_file' | translate}}</div>
     <fl-input-file-container color="primary" [placeholder]="'import_live_task_version_file' | translate">
       <input flInputFile type="file" [strictMode]="true" [autoClearHtmlInput]="true" accept="application/json" (fileChange)="onFileSelected($any($event))">
     </fl-input-file-container>

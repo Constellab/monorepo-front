@@ -69,3 +69,33 @@
   gap: 8px;
   margin-bottom: 1.5em;
 }
+
+
+.info-version-card {
+  background-color: var(--main-background);
+  border: 2px solid var(--hover-color);
+}
+
+
+.io-card-div {
+  display: flex;
+  flex-direction: row;
+  gap: 64px;
+
+  .io-card-div-column {
+    width: calc(50% - 32px);
+  }
+}
+
+.spacer {
+  border: 2px solid var(--hover-color);
+  margin: 32px 0;
+}
+
+.detail-version-title{
+  margin-bottom: 16px;
+}
+
+.lt-version-detail-card {
+  margin-bottom: 32px;
+}

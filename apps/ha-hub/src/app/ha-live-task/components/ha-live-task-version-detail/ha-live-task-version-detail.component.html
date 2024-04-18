@@ -1,6 +1,6 @@
-<div class="spacer-v2"></div>
+<div class="spacer"></div>
 
-<h4 class="spacing-6-v2">{{ sectionTitle }}</h4>
+<h4 class="detail-version-title">{{ sectionTitle }}</h4>
 
 <fl-async-section [object]="brickDependencies$" [emptyText]="''">
   <ng-container *flSectionBody="brickDependencies$ as brickDependencies">
@@ -15,118 +15,142 @@
   </ng-container>
 </fl-async-section>
 
-<div class="spacing-7-v2" *ngIf="liveTaskVersion && (liveTaskVersion.versionInfos || isEditable)">
-  <ha-card [background]="HaCardBackground.main" [border]="true">
-    <div class="card-title-v2 card-header spacing-4-v2">
+
+<fl-card class="lt-version-detail-card info-version-card"
+         *ngIf="liveTaskVersion && (liveTaskVersion.versionInfos || isEditable)">
+  <fl-card-header>
+    <div class="card-header">
       <h5>
-        {{'info_about_this_version' | translate}}
+        {{ 'info_about_this_version' | translate }}
       </h5>
       <button mat-stroked-button color="primary" class="g-button-small"
               *ngIf="canEdit && isEditable" (click)="onVersionInfosEditorButtonClick()">
         <fl-text-icon [iconPosition]="'end'">
-          <mat-icon>{{versionInfosDisabled ? 'edit' : 'save'}}</mat-icon>
-          {{versionInfosDisabled ? ('edit' | translate) : ('save' | translate)}}
+          <mat-icon>{{ versionInfosDisabled ? 'edit' : 'save' }}</mat-icon>
+          {{ versionInfosDisabled ? ('edit' | translate) : ('save' | translate) }}
         </fl-text-icon>
       </button>
     </div>
+  </fl-card-header>
+  <fl-card-body>
     <te-text-editor [class]="versionInfosDisabled ? 'version-infos-editor' : 'version-infos-active'"
                     [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)"
-                    [formControl]="versionInfosFormControl" [placeholder]="'live_task_version_infos_place_holder' | translate">
+                    [formControl]="versionInfosFormControl"
+                    [placeholder]="'live_task_version_infos_place_holder' | translate">
     </te-text-editor>
-  </ha-card>
-</div>
+  </fl-card-body>
+</fl-card>
 
 
-<div class="spacing-8-v2" *ngIf="(liveTaskVersion?.inputSpecs?.specs | flIsNotEmpty) || (liveTaskVersion?.outputSpecs?.specs | flIsNotEmpty)">
-  <ha-card>
-    <div class="io-div">
-      <div class="i-div" *ngIf="liveTaskVersion?.inputSpecs?.specs | flIsNotEmpty">
-        <h5 class="spacing-6-v2">
+<fl-card class="lt-version-detail-card"
+         *ngIf="(liveTaskVersion?.inputSpecs?.specs | flIsNotEmpty) || (liveTaskVersion?.outputSpecs?.specs | flIsNotEmpty)">
+  <fl-card-header>
+    <div class="io-card-div">
+      <h5 class="io-card-div-column">
           {{'input' | translate}}
         </h5>
-        <div *ngFor="let spec of liveTaskVersion?.inputSpecs?.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.inputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
-<!--          <ha-live-task-version-detail-io [ioSpec]="liveTaskVersion?.inputSpecs?.specs[spec]">-->
-<!--          </ha-live-task-version-detail-io>-->
+      <h5 class="io-card-div-column">
+        {{ 'output' | translate }}
+      </h5>
+      </div>
+  </fl-card-header>
+  <fl-card-body>
+    <div class="io-card-div">
+      <div class="io-card-div-column">
+        <div *ngFor="let spec of liveTaskVersion?.inputSpecs?.specs | flObjectKeys; index as i"
+             [class]="i < (liveTaskVersion?.inputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
           <td-doc-io [ioSpec]="liveTaskVersion?.inputSpecs?.specs[spec]"></td-doc-io>
         </div>
       </div>
-      <div class="o-div" *ngIf="liveTaskVersion?.outputSpecs?.specs | flIsNotEmpty">
-        <h5 class="spacing-6-v2">
-          {{'output' | translate}}
-        </h5>
-        <div *ngFor="let spec of liveTaskVersion?.outputSpecs?.specs | flObjectKeys; index as i" [class]="i < (liveTaskVersion?.outputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
+      <div class="io-card-div-column">
+        <div *ngFor="let spec of liveTaskVersion?.outputSpecs?.specs | flObjectKeys; index as i"
+             [class]="i < (liveTaskVersion?.outputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
           <td-doc-io [ioSpec]="liveTaskVersion?.outputSpecs?.specs[spec]"></td-doc-io>
         </div>
+        </div>
       </div>
-    </div>
-  </ha-card>
-</div>
+  </fl-card-body>
+</fl-card>
 
-<div class="spacing-8-v2" *ngIf="liveTaskVersion?.configSpecs | flIsNotEmpty">
-  <ha-card>
-    <h5 class="card-title-v2 spacing-6-v2">
-      {{'configuration' | translate}}
+
+<fl-card class="lt-version-detail-card" *ngIf="liveTaskVersion?.configSpecs | flIsNotEmpty">
+  <fl-card-header>
+    <h5>
+      {{ 'configuration' | translate }}
     </h5>
+  </fl-card-header>
+  <fl-card-body>
     <td-config [configSpecs]="liveTaskVersion?.configSpecs"></td-config>
-  </ha-card>
-</div>
+  </fl-card-body>
+</fl-card>
+
 
 @if(isEditable || (liveTaskVersion.params != null && liveTaskVersion.params.length > 0)){
-  <div class="spacing-6-v2">
-    <ha-card>
-      <div class="card-title-v2 card-header spacing-4-v2">
+
+  <fl-card class="lt-version-detail-card">
+    <fl-card-header>
+      <div class="card-header">
         <h5>
-          {{'parameters' | translate}}
+          {{ 'parameters' | translate }}
         </h5>
         <div>
-          <button mat-stroked-button color="primary" (click)="onCopy('parameters')"  class="g-button-small">
+          <button mat-stroked-button color="primary" (click)="onCopy('parameters')" class="g-button-small">
             <fl-text-icon [iconPosition]="'end'">
               <mat-icon>content_copy</mat-icon>
-              {{'copy_parameters' | translate}}
+              {{ 'copy_parameters' | translate }}
             </fl-text-icon>
           </button>
         </div>
       </div>
+    </fl-card-header>
+    <fl-card-body>
       <fl-code-editor [language]="getLanguageCode()" [formCtrl]="paramsFormControl"></fl-code-editor>
-    </ha-card>
-  </div>
+    </fl-card-body>
+  </fl-card>
 }
 
 <!--TODO: Corriger le bug du changement de theme-->
-<div class="spacing-6-v2" *ngIf="((isEditable && canEdit) || liveTaskVersion?.environment | flIsNotEmpty) && liveTaskVersion.type !== 'PYTHON'">
-  <ha-card>
-    <div class="card-title-v2 card-header spacing-4-v2">
-      <h5>
-        {{'environment_file' | translate}}
-      </h5>
-      <div>
-        <button mat-stroked-button color="primary" (click)="onCopy('environment_file')"  class="g-button-small">
-          <fl-text-icon [iconPosition]="'end'">
-            <mat-icon>content_copy</mat-icon>
-            {{'copy_environment' | translate}}
-          </fl-text-icon>
-        </button>
+@if (((isEditable && canEdit) || liveTaskVersion?.environment | flIsNotEmpty) && liveTaskVersion.type !== 'PYTHON') {
+  <fl-card class="lt-version-detail-card">
+    <fl-card-header>
+      <div class="card-header">
+        <h5>
+          {{ 'environment_file' | translate }}
+        </h5>
+        <div>
+          <button mat-stroked-button color="primary" (click)="onCopy('environment_file')" class="g-button-small">
+            <fl-text-icon [iconPosition]="'end'">
+              <mat-icon>content_copy</mat-icon>
+              {{ 'copy_environment' | translate }}
+            </fl-text-icon>
+          </button>
+        </div>
       </div>
-    </div>
-    <fl-code-editor [language]="getLanguageEnvironment()" [formCtrl]="environmentFormControl"></fl-code-editor>
-  </ha-card>
-</div>
+    </fl-card-header>
+    <fl-card-body>
+      <fl-code-editor [language]="getLanguageEnvironment()" [formCtrl]="environmentFormControl"></fl-code-editor>
+    </fl-card-body>
+  </fl-card>
+}
 
-<div class="spacing-6-v2">
-  <ha-card>
-    <div class="card-title-v2 card-header spacing-4-v2">
+<fl-card class="lt-version-detail-card">
+  <fl-card-header>
+    <div class="card-header">
       <h5>
-        {{'code' | translate}}
+        {{ 'code' | translate }}
       </h5>
       <div>
         <button mat-stroked-button color="primary" (click)="onCopy('code')" class="g-button-small">
           <fl-text-icon [iconPosition]="'end'">
             <mat-icon>content_copy</mat-icon>
-            {{'copy_code' | translate}}
+            {{ 'copy_code' | translate }}
           </fl-text-icon>
         </button>
       </div>
     </div>
+  </fl-card-header>
+  <fl-card-body>
     <fl-code-editor [language]="getLanguageCode()" [formCtrl]="codeFormControl"></fl-code-editor>
-  </ha-card>
-</div>
+  </fl-card-body>
+</fl-card>
+
