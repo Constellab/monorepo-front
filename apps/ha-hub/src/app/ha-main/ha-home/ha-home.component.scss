@@ -34,7 +34,7 @@ h4{
 
 .home-section{
   text-align: center;
-  min-height: 90vh;
+  margin-bottom: 5em;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -167,7 +167,7 @@ h4{
 }
 
 .space-card{
-  margin: auto auto 2em auto;
+  margin: 4em auto 2em auto;
   padding: 8px;
   border-radius: 18px;
   background-color: var(--card-background);
