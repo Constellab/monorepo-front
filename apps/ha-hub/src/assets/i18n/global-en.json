@@ -233,6 +233,7 @@
   "create_new_live_task_version_content": "This action will create a new draft version of the live task",
   "live_task_version_created": "Live task version created",
   "my_live_tasks": "My live tasks",
+  "my_bricks": "My bricks",
   "live_task_with_no_published_version": "Live task with no published version",
   "live_tasks": "Live tasks",
   "environment_file": "Environment file",

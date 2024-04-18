@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {HaSpaceService} from '../../../ha-core/ha-service/ha-space.service';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {Router} from '@angular/router';
 import {
@@ -11,10 +10,9 @@ import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-t
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaLiveTaskDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
-import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import {Observable} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {ClStringHelper} from "@monorepo/core-lib";
+import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-live-task-list',
@@ -54,7 +52,7 @@ export class HaLiveTaskListComponent implements OnInit {
     this.dialogService.openSmallDialog(HaLiveTaskCreateDialogComponent, {data: input}).afterClosed()
       .subscribe((liveTaskVersion: HaLiveTaskVersion) => {
         if (liveTaskVersion && liveTaskVersion.liveTask) {
-          this.router.navigate(['live-tasks/' + liveTaskVersion.liveTask.id +'/versions/' + liveTaskVersion.id]);
+          this.router.navigate([HaRouterService.getLiveTaskVersionRoute(liveTaskVersion)]);
         }
       });
   }

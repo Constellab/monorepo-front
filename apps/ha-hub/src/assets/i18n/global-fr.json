@@ -235,6 +235,7 @@
   "create_new_live_task_version_content": "Cette action créera une nouvelle version de live task, vous pourrez ensuite la publier",
   "live_task_version_created": "Version de live task créée",
   "my_live_tasks": "Mes live tasks",
+  "my_bricks": "Mes bricks",
   "live_task_with_no_published_version": "Live task sans version publiée",
   "live_tasks": "Live tasks",
   "environment_file": "Fichier d'environnement",

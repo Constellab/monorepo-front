@@ -60,7 +60,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
     }).afterClosed().subscribe((result) => {
       if (result.choice && result.result != null) {
         this.liveTaskVersion = result.result;
-        this.router.navigate([HaRouterService.getLiveTaskVersionRoute(this.liveTaskVersion)]);
+        this.router.navigate([HaRouterService.getLiveTaskRoute(this.liveTaskVersion.liveTask.id, this.liveTaskVersion.liveTask.title)]);
       }
     });
   }

@@ -1,16 +1,14 @@
 <div class="left-panel" *haIsAuthenticated>
   <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
 
-  <a routerLink="edit">
-    <button mat-flat-button type="button" class="bt first-bt">
+  <a mat-flat-button routerLink="edit" class="bt first-bt">
       <mat-icon >add_circle</mat-icon>
       {{'create_brick' | translate}}
-    </button>
   </a>
-<!--  <button mat-flat-button type="button" class="bt my-lt-bt" (click)="selectSpace('my-live-tasks')"-->
-<!--          [class]="isSelected('my-live-tasks') ? 'bt-primary' : ''">-->
-<!--    {{ 'my_live_tasks' | translate }}-->
-<!--  </button>-->
+  <button mat-flat-button type="button" class="bt my-bricks-bt" (click)="selectSpace('my-bricks')"
+          [class]="isSelected('my-bricks') ? 'bt-primary' : ''">
+    {{ 'my_bricks' | translate }}
+  </button>
 
   <p class="left-side-div-title">{{ 'visibility' | translate }} :</p>
 

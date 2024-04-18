@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HaIcon, HaIconDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
-import {Subject} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {HaIconService} from '../../../ha-core/ha-service/ha-icon.service';
 import {
   FlConfirmDialogInput,
@@ -24,8 +24,8 @@ import {
 export class HaIconListComponent implements OnInit, OnDestroy {
 
   @Input()
-  reloadList$: Subject<boolean> = new Subject<boolean>();
-
+  reloadList$: Observable<boolean> = new Observable<boolean>();
+  reloadListSubscription: Subscription;
   icons: HaIconDatasourcePaginated;
 
   searchFormControl: FormControl<string> = new FormControl('');
@@ -38,7 +38,7 @@ export class HaIconListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadIcons();
 
-    this.reloadList$.subscribe((value: boolean) => {
+    this.reloadListSubscription = this.reloadList$.subscribe((value: boolean) => {
       if (value) {
         this.loadIcons();
       }
@@ -50,7 +50,7 @@ export class HaIconListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.reloadList$.unsubscribe();
+    this.reloadListSubscription.unsubscribe();
   }
 
   private loadIcons(): void {

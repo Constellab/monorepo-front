@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {Subject} from 'rxjs';
 import {
@@ -12,7 +12,7 @@ import {HaIcon} from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
   templateUrl: './ha-icons-page.component.html',
   styleUrls: ['./ha-icons-page.component.scss']
 })
-export class HaIconsPageComponent {
+export class HaIconsPageComponent implements OnDestroy{
 
   reloadList$ = new Subject<boolean>();
 
@@ -29,5 +29,9 @@ export class HaIconsPageComponent {
         this.reloadList$.next(true);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.reloadList$.complete();
   }
 }
