@@ -7,7 +7,8 @@
 
     <div class="brick-image-div" (click)="input.click()">
       <img [src]="formGp.value.imageLink | haBrickImage">
-      <mat-icon class="edit-icon">add_a_photo</mat-icon>
+      <mat-icon class="edit-icon" *ngIf="!isPhotoLoading">add_a_photo</mat-icon>
+      <fl-loader class="edit-icon" *ngIf="isPhotoLoading"></fl-loader>
       <input flInputFile type="file" accept="image/jpg,image/jpeg,image/png" (fileChange)="onFileSelected($event)"
              [strictMode]="true" [autoClearHtmlInput]="true" [hidden]="true" id="input-photo" #input>
     </div>

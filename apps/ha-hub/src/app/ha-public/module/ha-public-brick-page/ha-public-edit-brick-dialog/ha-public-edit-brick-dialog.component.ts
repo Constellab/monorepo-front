@@ -18,7 +18,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   isLoading: boolean = false;
   repoError: boolean;
   spaces: HaSpace[];
-
+  isPhotoLoading = false;
 
   constructor(private spaceService: HaSpaceService,
               private brickService: HaBrickService) {
@@ -82,9 +82,13 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   }
 
   onFileSelected(file: File | File[]): void {
+    if(this.isPhotoLoading)
+      return;
+    this.isPhotoLoading = true;
     this.brickService.editBrickImage(this.formGp.value.id, file as File).subscribe((image) => {
       this.brickService.deleteBrickImage(this.formGp.value.imageLink).subscribe();
       this.formGp.controls.imageLink.patchValue(image.filename);
+      this.isPhotoLoading = false;
       this.snackBarService.openSuccessMessage({text: 'brick_image_updated', translateText: true});
     });
   }

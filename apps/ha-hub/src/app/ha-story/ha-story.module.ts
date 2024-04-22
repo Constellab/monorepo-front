@@ -20,6 +20,7 @@ import {HaCoAuthorCoreModule} from '../ha-core/entity-module/ha-co-author-core/h
 import {HaUtilComponentCoreModule} from "../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
 import {HaCommentsCoreModule} from '../ha-core/entity-module/ha-comments-core/ha-comments-core.module';
 import {HaFileCoreModule} from '../ha-core/entity-module/ha-file-core/ha-file-core.module';
+import {HaPublicBrickPageModule} from "../ha-public/module/ha-public-brick-page/ha-public-brick-page.module";
 
 @NgModule({
   declarations: [
@@ -31,20 +32,21 @@ import {HaFileCoreModule} from '../ha-core/entity-module/ha-file-core/ha-file-co
     HaStoryContentViewComponent,
     HaStoryResourceViewInputDialogComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
 
-    HaStoryRoutingModule,
-    HaCoreModule,
-    FlInputFileModule,
-    MatTooltipModule,
+        HaStoryRoutingModule,
+        HaCoreModule,
+        FlInputFileModule,
+        MatTooltipModule,
 
-    HaCoAuthorCoreModule,
-    HaUtilComponentCoreModule,
-    HaCommentsCoreModule,
-    HaFileCoreModule
-  ],
+        HaCoAuthorCoreModule,
+        HaUtilComponentCoreModule,
+        HaCommentsCoreModule,
+        HaFileCoreModule,
+        HaPublicBrickPageModule
+    ],
 })
 export class HaStoryModule {}

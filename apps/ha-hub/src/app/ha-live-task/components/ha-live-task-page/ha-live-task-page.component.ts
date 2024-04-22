@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
@@ -10,6 +10,9 @@ import {
   HaCoAuthorsDialogInput
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
+import {first} from 'rxjs';
+import {ClStringHelper} from '@monorepo/core-lib';
+import {HaHttpRedirectionService} from '../../../ha-core/ha-service/ha-http-redirection.service';
 
 
 @Component({
@@ -25,11 +28,13 @@ export class HaLiveTaskPageComponent implements OnInit {
   canEditLt = false;
   ltCoAuthors: HaUser[];
   liveTaskListRoute= HaRouterService.getLiveTaskListRoute();
+  notFound: boolean = false;
+  paramTitle: string;
 
   constructor(
     private liveTaskService: HaLiveTaskService,
     private activeRoute: ActivatedRoute,
-    private router: Router,
+    private httpRedirectionService: HaHttpRedirectionService,
     private authenticatedUserService: HaAuthenticatedUserService,
     private dialogService: FlDialogService) {
   }
@@ -39,26 +44,46 @@ export class HaLiveTaskPageComponent implements OnInit {
       this.currentUser = user;
     });
 
-    this.liveTaskService.getLiveTaskById(this.activeRoute.snapshot.params.id).subscribe(liveTask => {
-      if (liveTask == null) {
-        this.router.navigate(['../../'], {relativeTo: this.activeRoute});
-      } else {
-        this.liveTask = liveTask;
-        if (this.currentUser != null) {
-          this.canEditLt = this.currentUser.id === this.liveTask.createdBy.id;
-          if (!this.canEditLt) {
-            this.liveTaskService.getCoAuthors(this.liveTask.id).subscribe((coAuthors) => {
-              this.ltCoAuthors = coAuthors;
-              this.canEditLt = coAuthors.some(coAuthor => coAuthor.id === this.currentUser.id);
+    this.activeRoute.params.pipe(first()).subscribe((params) => {
+      this.paramTitle = params.title;
+      this.liveTaskService.getLiveTaskById(params.id).subscribe({
+        next: (liveTask) => {
+          if (liveTask) {
+            this.liveTask = liveTask;
+
+            if (this.paramTitle !== ClStringHelper.getCleanUrlPath(this.liveTask.title)) {
+              this.httpRedirectionService.redirectTo(
+                HaRouterService.getLiveTaskRoute(this.liveTask.id, ClStringHelper.getCleanUrlPath(this.liveTask.title)));
+            }
+
+            if (this.currentUser != null) {
+              this.canEditLt = this.currentUser.id === this.liveTask.createdBy.id;
+              if (!this.canEditLt) {
+                this.setCoAuthors();
+              } else {
+                this.isLoading = false;
+              }
+            } else {
               this.isLoading = false;
-            });
+            }
           } else {
+            this.notFound = true;
             this.isLoading = false;
           }
-        } else {
+        },
+        error: () => {
+          this.notFound = true;
           this.isLoading = false;
         }
-      }
+      });
+    });
+  }
+
+  private setCoAuthors(): void {
+    this.liveTaskService.getCoAuthors(this.liveTask.id).subscribe((coAuthors) => {
+      this.ltCoAuthors = coAuthors;
+      this.canEditLt = coAuthors.some(coAuthor => coAuthor.id === this.currentUser.id);
+      this.isLoading = false;
     });
   }
 

@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import {Observable} from 'rxjs';
+import {first, Observable} from 'rxjs';
 import {HaNavigationPanelItem} from '../../../ha-core/ha-component/ha-navigation-panel/ha-navigation-panel.component';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
@@ -25,6 +25,8 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
   canEdit: boolean = false;
   brickDependencies$: Observable<HaBrickVersion[]>;
   navPanelItems: HaNavigationPanelItem[];
+
+  notFound: boolean = false;
 
 
   constructor(private liveTaskService: HaLiveTaskService,
@@ -66,25 +68,36 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
   }
 
   private setLiveTaskVersion(liveTaskId: string, liveTaskVersionNumber: string): void {
-    this.liveTaskService.getLiveTaskVersionByVersionNumber(liveTaskId, liveTaskVersionNumber).subscribe(liveTaskVersion => {
-      this.liveTaskVersion = liveTaskVersion;
-      this.textEditorConfig =
-        new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id);
-      this.authenticatedUserService.getUser().subscribe(user => {
-        this.canEdit = user?.id === this.liveTaskVersion?.liveTask.createdBy.id;
-        if (user && !this.canEdit) {
-          this.checkIfCoAuthor(user);
-        } else {
-          this.canEditChecked = true;
+    this.liveTaskService.getLiveTaskVersionByVersionNumber(liveTaskId, liveTaskVersionNumber).subscribe({
+      next: liveTaskVersion => {
+        if (liveTaskVersion == null) {
+          this.notFound = true;
+          this.isLoading = false;
+          return;
         }
-      });
-      this.brickDependencies$ = this.liveTaskService.getLiveTaskVersionBrickDependencies(this.liveTaskVersion.id);
-      this.navPanelItems = [
-        {title: this.liveTaskVersion.liveTask.title},
-        {title: 'versions_list', translateTitle: true},
-        {title: `V${this.liveTaskVersion.version}`}
-      ];
-      this.isLoading = false;
+        this.liveTaskVersion = liveTaskVersion;
+        this.textEditorConfig =
+          new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id);
+        this.authenticatedUserService.getUser().subscribe(user => {
+          this.canEdit = user?.id === this.liveTaskVersion?.liveTask.createdBy.id;
+          if (user && !this.canEdit) {
+            this.checkIfCoAuthor(user);
+          } else {
+            this.canEditChecked = true;
+          }
+        });
+        this.brickDependencies$ = this.liveTaskService.getLiveTaskVersionBrickDependencies(this.liveTaskVersion.id);
+        this.navPanelItems = [
+          {title: this.liveTaskVersion.liveTask.title},
+          {title: 'versions_list', translateTitle: true},
+          {title: `V${this.liveTaskVersion.version}`}
+        ];
+        this.isLoading = false;
+      },
+      error: () => {
+        this.notFound = true;
+        this.isLoading = false;
+      }
     });
   }
 

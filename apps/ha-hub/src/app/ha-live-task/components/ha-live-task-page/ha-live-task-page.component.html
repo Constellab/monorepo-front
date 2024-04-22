@@ -1,9 +1,6 @@
 <div class="live-task-page-div">
-  <div class="g-flex main-panel" *ngIf="isLoading">
-    <fl-loader class="g-centered"></fl-loader>
-  </div>
 
-  <div class="left-panel" *ngIf="!isLoading">
+  <div class="left-panel" *ngIf="!isLoading && !notFound">
     <a [routerLink]="liveTaskListRoute" class="back-link">
       <fl-text-icon [iconPosition]="'start'">
         <mat-icon>arrow_back</mat-icon>
@@ -13,12 +10,20 @@
     <ha-live-task-versions-panel [liveTask]="liveTask" [canEditLt]="canEditLt"></ha-live-task-versions-panel>
   </div>
 
-  <div class="main-panel" *ngIf="liveTask && !isLoading">
-    <router-outlet></router-outlet>
+  <div class="main-panel">
+    @if (liveTask && !isLoading && !notFound) {
+      <router-outlet></router-outlet>
+    } @else if (notFound && !isLoading) {
+      <ha-ha404></ha-ha404>
+    } @else {
+      <div class="g-flex">
+        <fl-loader></fl-loader>
+      </div>
+    }
   </div>
 
 
-  <div class="right-panel" *ngIf="liveTask">
+  <div class="right-panel" *ngIf="liveTask && !isLoading && !notFound">
     <div class="lt-user-div">
       <h5 class="lt-user-title">
         <span>{{ 'authors' | translate }}</span>

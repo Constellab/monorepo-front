@@ -33,7 +33,7 @@
     </div>
   </fl-card-header>
   <fl-card-body>
-    <te-text-editor [class]="versionInfosDisabled ? 'version-infos-editor' : 'version-infos-active'"
+    <te-text-editor class="version-infos-editor"
                     [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)"
                     [formControl]="versionInfosFormControl"
                     [placeholder]="'live_task_version_infos_place_holder' | translate">

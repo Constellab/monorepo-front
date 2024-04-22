@@ -27,6 +27,7 @@ import {HaLiveTaskInvitePageComponent} from './components/ha-live-task-invite-pa
 import {
   HaLiveTaskVersionsPanelComponent
 } from './components/ha-live-task-versions-panel/ha-live-task-versions-panel.component';
+import {HaPublicBrickPageModule} from "../ha-public/module/ha-public-brick-page/ha-public-brick-page.module";
 
 @NgModule({
   declarations: [
@@ -40,21 +41,22 @@ import {
     HaLiveTaskInvitePageComponent,
     HaLiveTaskVersionsPanelComponent
   ],
-  imports: [
-    CommonModule,
-    HaLiveTaskRoutingModule,
-    HaCoreModule,
-    ReactiveFormsModule,
-    FlInputSearchModule,
-    FlInputFileModule,
-    FlCodeEditorModule,
-    HaCardComponent,
-    HaSpaceModule,
-    HaNavigationPanelComponent,
-    MatRippleModule,
-    FormsModule,
-    HaUtilComponentCoreModule,
-    HaCommentsCoreModule
-  ],
+    imports: [
+        CommonModule,
+        HaLiveTaskRoutingModule,
+        HaCoreModule,
+        ReactiveFormsModule,
+        FlInputSearchModule,
+        FlInputFileModule,
+        FlCodeEditorModule,
+        HaCardComponent,
+        HaSpaceModule,
+        HaNavigationPanelComponent,
+        MatRippleModule,
+        FormsModule,
+        HaUtilComponentCoreModule,
+        HaCommentsCoreModule,
+        HaPublicBrickPageModule
+    ],
 })
 export class HaLiveTaskModule {}

@@ -136,6 +136,28 @@ export class TeBasicConfig extends TeConfig {
   }
 }
 
+export class TeOnlyInlineConfig extends TeConfig{
+  override getTools(): TeTools {
+    return {
+      paragraph: this.getParagraphConfig(),
+      list: this.getListConfig(),
+
+      underline: TeUnderlineInlineTool,
+      strikethrough: TeStrikethroughInlineTool,
+      cleanStyle: TeCleanStyleInlineTool,
+      fake: TeFakeInlineTool
+    }
+  }
+
+  getInlineToolbar(): string[] {
+    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
+  }
+
+  getTunes(): string[] {
+    return [];
+  }
+}
+
 export class TeCompleteConfig extends TeConfig {
 
   getTools(envInjector: EnvironmentInjector,

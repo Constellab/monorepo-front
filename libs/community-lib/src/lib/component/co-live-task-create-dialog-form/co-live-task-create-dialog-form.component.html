@@ -11,19 +11,21 @@
     </mat-form-field>
 
     <div>
-      <div class="">{{ 'coCommunityLib.type' | translate }}</div>
-      <div class="form-type-button-div">
-        <button mat-flat-button type="button"
-                [color]="(formGp.get('type').value === 'PUBLIC') ? 'accent' : ''"
-                (click)="formGp.get('type').setValue('PUBLIC')">
-          {{ 'coCommunityLib.public' | translate }}
-        </button>
-        <button mat-flat-button type="button"
-                [color]="(formGp.get('type').value === 'SPACE') ? 'warn' : ''" *ngIf="spaces$"
-                (click)="formGp.get('type').setValue('SPACE')">
-          {{ 'coCommunityLib.space' | translate }}
-        </button>
-      </div>
+      <div class="">{{ 'coCommunityLib.visibility' | translate }}</div>
+      <mat-radio-group [formControlName]="'type'" [required]="true">
+        <div class="spaces-div">
+          <button mat-flat-button type="button" class="space-button">
+            <mat-radio-button labelPosition="before" [value]="'PUBLIC'" [color]="'primary'">
+              {{ 'coCommunityLib.public' | translate }}
+            </mat-radio-button>
+          </button>
+          <button mat-flat-button type="button" class="space-button">
+            <mat-radio-button labelPosition="before" [value]="'SPACE'" [color]="'primary'">
+              {{ 'coCommunityLib.space' | translate }}
+            </mat-radio-button>
+          </button>
+        </div>
+      </mat-radio-group>
     </div>
 
     @if(formGp.get('type').value === 'SPACE'){
@@ -33,7 +35,7 @@
           <mat-radio-group [formControlName]="'space'" [required]="true">
             <div class="spaces-div">
               <button mat-flat-button type="button" *ngFor="let space of spaces$ | async" class="space-button">
-                <mat-radio-button labelPosition="before" [value]="space" [color]="'warn'">
+                <mat-radio-button labelPosition="before" [value]="space" [color]="'primary'">
                   <div class="space-info">
                     @if(space.photo){
                       <img [src]="getSpacePhoto(space.photo)"/>

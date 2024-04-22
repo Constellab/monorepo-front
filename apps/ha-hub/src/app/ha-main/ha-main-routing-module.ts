@@ -51,7 +51,7 @@ const routes: Routes = [
     component: HaLoginPageComponent,
   },
   {
-    path: '**',
+    path: '',
     component: HaMainComponent,
     children: [
       {
@@ -59,8 +59,12 @@ const routes: Routes = [
         component: HaHomeComponent
       },
       {
-        path: '**',
+        path: '404',
         component: Ha404Component
+      },
+      {
+        path: '**',
+        redirectTo: '404'
       }
     ]
   }

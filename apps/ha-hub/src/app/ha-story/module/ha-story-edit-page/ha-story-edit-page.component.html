@@ -6,7 +6,7 @@
     </fl-text-icon>
   </a>
 </div>
-@if(story){
+@if(story && !notFound){
   <div class="main-div g-max-article-width">
     <div class="title-image-div">
       <h2 id="storyTitle" class="title-input" flElementEditable (flElementValueChange)="onTitleChange($event)">
@@ -110,6 +110,11 @@
           [ngClass]="contentEditorIsFocused ? ['focus'] : []">
       <te-text-editor class="border-none" [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
     </form>
+  </div>
+} @else if(notFound) {
+
+  <div class="main-panel">
+    <ha-ha404></ha-ha404>
   </div>
 }
 

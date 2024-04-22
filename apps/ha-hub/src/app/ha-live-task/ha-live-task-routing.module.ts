@@ -20,6 +20,10 @@ const routes: Route[] = [
     canActivate: [HaLoginGuard]
   },
   {
+    path: ':id',
+    component: HaLiveTaskPageComponent
+  },
+  {
     path: ':id/:title',
     component: HaLiveTaskPageComponent,
     children: [

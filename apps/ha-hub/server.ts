@@ -9,7 +9,7 @@ import {EnumChangefreq, SitemapItem, SitemapStream, streamToPromise} from 'sitem
 import axios from 'axios';
 import cookieParser from 'cookie-parser';
 import {REQUEST} from '@monorepo/front-core-lib';
-import {ClStringHelper} from '@monorepo/core-lib';
+import {HaMetadataNamesConfig} from './src/app/ha-core/ha-model/ha-config/ha-metadata-names.config';
 
 
 environment.settings = {
@@ -148,35 +148,10 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
     maxAge: '1y'
   }));
 
+
   // All regular routes use the Angular engine
   server.get('*', async (req, res, next) => {
     const {protocol, originalUrl, baseUrl, headers} = req;
-
-    // 301 redirection for stories
-    if (req.originalUrl.includes('stories') && req.originalUrl.split('/').length < 5 && req.originalUrl.split('/').length > 2){
-      const id = req.originalUrl.split('/')[2];
-      if(id && id.length > 0 && ClStringHelper.isUUID(id)){
-        const title =req.originalUrl.split('/')[3];
-        const realTitle = await getStoryTitle(id);
-        const realTitleFormatted = ClStringHelper.getCleanUrlPath(realTitle);
-        if(realTitleFormatted !== title){
-          return res.redirect(301, `/stories/${id}/${realTitleFormatted}`);
-        }
-      }
-    }
-
-    if (req.originalUrl.includes('live-tasks') && req.originalUrl.split('/').length > 2){
-      const id = req.originalUrl.split('/')[2];
-      if (id && id.length > 0 && ClStringHelper.isUUID(id)){
-        const title = req.originalUrl.split('/')[3];
-        const realTitle = await getLiveTaskTitle(id) as string;
-        const realTitleFormatted = ClStringHelper.getCleanUrlPath(realTitle);
-        if(realTitleFormatted !== title){
-          return res.redirect(301, `/live-tasks/${id}/${realTitleFormatted}`);
-        }
-      }
-    }
-
     commonEngine
       .render({
         bootstrap: AppServerModule,
@@ -193,6 +168,20 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
       })
       .then((html) => {
         res.setHeader('Content-Type', 'text/html');
+        // Check for redirection
+        const metaTagRedirect = getMetaTagContent(html, HaMetadataNamesConfig.REDIRECT_URL);
+
+        if (metaTagRedirect != null) {
+          return res.redirect(302, metaTagRedirect);
+        }
+
+        // Check if 404
+        const metaTag404 = getMetaTagContent(html, HaMetadataNamesConfig.NOT_FOUND_URL);
+
+        if (metaTag404 != null) {
+          res.status(404);
+        }
+
         res.send(html)
       })
       .catch((err) => next(err));
@@ -221,24 +210,11 @@ async function fetchStoriesMap(): Promise<SitemapItem[]> {
   }
 }
 
-async function getStoryTitle(id: string): Promise<string>{
-  try {
-    const response = await axios.get(`${environment.settings.apiUrl}/story/title/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching story title:', error);
-    return '';
-  }
-}
-
-async function getLiveTaskTitle(id: string): Promise<string>{
-  try {
-    const response = await axios.get(`${environment.settings.apiUrl}/live-task/${id}/title`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching live task title:', error);
-    return '';
-  }
+function getMetaTagContent(html: string, tagName: string): string {
+  const regex = new RegExp(`<meta\\s+name="${tagName}"\\s+content="(.+)"\\s*\\/?>`, 'i');
+  const match = html.match(regex);
+  const content = match ? match[1] : null;
+  return content?.split('"')[0];
 }
 
 

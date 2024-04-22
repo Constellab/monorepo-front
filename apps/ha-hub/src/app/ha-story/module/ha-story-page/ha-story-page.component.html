@@ -6,7 +6,7 @@
     </fl-text-icon>
   </a>
 </div>
-@if (story && story.createdBy != null) {
+@if (story && story.createdBy != null && !notFound) {
   <div class="story-pannel">
     <div class="story-content">
       <h3>
@@ -46,15 +46,22 @@
           </a>
         }
       </div>
-<!--      <div class="story-sub-infos-div">-->
-<!--        -->
-<!--      </div>-->
       <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
                       class="g-scrollable-element border-none"></te-text-editor>
     </div>
   </div>
+} @else if(notFound) {
+  <div class="main-panel">
+    <ha-ha404></ha-ha404>
+  </div>
+}@else{
+  <div class="main-panel">
+    <fl-loader></fl-loader>
+  </div>
 }
-@if (titles && titles.length > 0 || story?.storyFiles && story?.storyFiles.length > 0) {
+
+
+@if ((titles && titles.length > 0 || story?.storyFiles && story?.storyFiles.length > 0) && !notFound) {
   <div class="right-div right-panel g-scrollable-element">
     @if (story.storyFiles && story.storyFiles.length > 0) {
       <div class="files-div">

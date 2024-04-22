@@ -16,7 +16,6 @@ import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
 import {FlPortalService} from '@monorepo/front-core-lib';
-import {HaCommentService} from '../../../ha-core/ha-service/ha-comment.service';
 import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import {
   HaCommentsPortalConfig
@@ -26,6 +25,8 @@ import {
   HaCommentsPortalComponent,
   HaCommentsPortalData
 } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
+import {first} from 'rxjs';
+import {HaHttpRedirectionService} from '../../../ha-core/ha-service/ha-http-redirection.service';
 
 @Component({
   selector: 'ha-story-page',
@@ -54,6 +55,10 @@ export class HaStoryPageComponent implements OnInit {
 
   storyIsLiked: boolean;
 
+  notFound = false;
+
+  paramTitle: string;
+
 
   constructor(private activatedRoute: ActivatedRoute,
               private storyService: HaStoryService,
@@ -64,23 +69,28 @@ export class HaStoryPageComponent implements OnInit {
               private authService: HaAuthService,
               private likeService: HaLikeService,
               private router: Router,
-              private portalService: FlPortalService) {
+              private portalService: FlPortalService,
+              private httpRedirectionService: HaHttpRedirectionService) {
   }
 
   ngOnInit(): void {
     this.STORY_KEY = makeStateKey<object>('story');
 
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.pipe(first()).subscribe(params => {
       this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, params.id);
+      this.paramTitle = params.title;
       this.getCurrentUserBeforeStory(params.id);
       this.checkIfStoryIsLiked(params.id);
     });
   }
 
-  private checkIfStoryIsLiked(storyId: string): void {
-    this.likeService.checkIfLiked(HaLikeType.STORY_LIKE, storyId).subscribe((isLiked) => {
-      this.storyIsLiked = isLiked;
-    });
+  openCommentsPannel(): void {
+    this.portalService.createPortal(HaCommentsPortalComponent, HaCommentsPortalConfig.create(), {
+      user: this.currentUser,
+      entity: this.story,
+      commentType: HaCommentType.STORY_COMMENT
+    } as HaCommentsPortalData);
+
   }
 
   private getCurrentUserBeforeStory(storyId: string): void {
@@ -90,19 +100,15 @@ export class HaStoryPageComponent implements OnInit {
     });
   }
 
-  private getStory(id: string): void {
-    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.STORY_KEY)) {
-      const story: HaStory = new HaStory();
-      const result: any = this.transferState.get(this.STORY_KEY, null);
-      story.init(result.story as HaStory);
-      this.titles = result.titles;
-      this.onStory(story);
-      this.transferState.remove(this.STORY_KEY);
-    } else {
-      this.storyService.getById(id).subscribe((story: HaStory) => {
-        this.onStory(story);
-      });
-    }
+  private checkIfStoryIsLiked(storyId: string): void {
+    this.likeService.checkIfLiked(HaLikeType.STORY_LIKE, storyId).subscribe({
+      next: (isLiked: boolean) => {
+        this.storyIsLiked = isLiked;
+      },
+      error: () => {
+        this.redirect404();
+      }
+    });
   }
 
   getStoryImageLink(imageName: string): string {
@@ -114,22 +120,24 @@ export class HaStoryPageComponent implements OnInit {
     return this.storyService.getStoryFilePath(file.id);
   }
 
-  private onStory(story: HaStory): void {
-    if (story == null) {
-      return;
+  private getStory(id: string): void {
+    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.STORY_KEY)) {
+      const story: HaStory = new HaStory();
+      const result: any = this.transferState.get(this.STORY_KEY, null);
+      story.init(result.story as HaStory);
+      this.titles = result.titles;
+      this.onStory(story);
+      this.transferState.remove(this.STORY_KEY);
+    } else {
+      this.storyService.getById(id).subscribe({
+        next: (story: HaStory) => {
+          this.onStory(story);
+        },
+        error: () => {
+          this.redirect404();
+        }
+      });
     }
-    this.story = story;
-    this.formControl.setValue(this.story.content);
-    this.formControl.disable({emitEvent: true});
-    this.titles = TeRichText.getTitles(this.story.content, [2, 3]);
-    if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)) {
-      this.transferState.set(this.STORY_KEY, {story: story, titles: this.titles});
-    }
-    this.getStoryCoAuthors();
-
-    this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
-    this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
-    this.metadataService.addMetaTag('og:image', this.getStoryImageLink(this.story.mainPicture), false);
   }
 
   private getStoryCoAuthors(): void {
@@ -171,12 +179,32 @@ export class HaStoryPageComponent implements OnInit {
     });
   }
 
-  openCommentsPannel(): void {
-    this.portalService.createPortal(HaCommentsPortalComponent, HaCommentsPortalConfig.create(), {
-      user: this.currentUser,
-      entity: this.story,
-      commentType: HaCommentType.STORY_COMMENT
-    } as HaCommentsPortalData);
+  private onStory(story: HaStory): void {
+    if (story == null) {
+      return;
+    }
+    this.story = story;
 
+    // verif if redirection needed
+    if (this.paramTitle != ClStringHelper.getCleanUrlPath(this.story.title)) {
+      this.httpRedirectionService.redirectTo(
+        HaRouterService.getStoryRoute(this.story.id, ClStringHelper.getCleanUrlPath(this.story.title)));
+    }
+
+    this.formControl.setValue(this.story.content);
+    this.formControl.disable({emitEvent: true});
+    this.titles = TeRichText.getTitles(this.story.content, [2, 3]);
+    if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)) {
+      this.transferState.set(this.STORY_KEY, {story: story, titles: this.titles});
+    }
+    this.getStoryCoAuthors();
+
+    this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
+    this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});
+    this.metadataService.addMetaTag('og:image', this.getStoryImageLink(this.story.mainPicture), false);
+  }
+
+  private redirect404(): void {
+    this.notFound = true;
   }
 }

@@ -69,6 +69,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   contentModified: boolean = false;
 
+  notFound: boolean = false;
+
 
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
@@ -85,7 +87,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.buildForm();
 
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.pipe().subscribe(params => {
       this.getStory(params.id);
     });
 
@@ -256,7 +258,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   private checkUserIsAuthorOrCoAuthor(story: HaStory): void {
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
       if (user.id !== story.getAuthor().id && !story.getCoAuthors().find(coAuthor => coAuthor.id === user.id)) {
-        this.router.navigate(['/stories', story.id]);
+        this.notFound = true;
       }
     });
   }
@@ -370,18 +372,27 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   private getStory(id: string): void {
-    this.storyService.getById(id).subscribe(story => {
-      if(story == null) this.router.navigate(['/stories']);
-      this.checkUserIsAuthorOrCoAuthor(story);
-      this.story = story;
-      this.contentModified = !TeRichText.areSimilar(this.story?.contentEdition, this.story?.content);
-      this.syncWithBack = true;
-      this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
-      if (this.story.topics.length >= 5) this.topicControl.disable();
-      this.formGp.patchValue(this.story);
-      this.isAuthor$().subscribe((isAuthor) => {
-        this.isAuthor = isAuthor;
-      });
+    this.storyService.getById(id).subscribe({
+      next: story => {
+        if(story == null){
+          this.notFound = true;
+          return;
+        }
+        this.checkUserIsAuthorOrCoAuthor(story);
+
+        this.story = story;
+        this.contentModified = !TeRichText.areSimilar(this.story?.contentEdition, this.story?.content);
+        this.syncWithBack = true;
+        this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
+        if (this.story.topics.length >= 5) this.topicControl.disable();
+        this.formGp.patchValue(this.story);
+        this.isAuthor$().subscribe((isAuthor) => {
+          this.isAuthor = isAuthor;
+        });
+      },
+      error: error => {
+        this.notFound = true;
+      }
     });
   }
 }

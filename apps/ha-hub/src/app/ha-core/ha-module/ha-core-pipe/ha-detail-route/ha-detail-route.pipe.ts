@@ -13,7 +13,7 @@ export class HaDetailRoutePipe implements PipeTransform {
 
   transform(value: any): string {
     if (value instanceof HaStory) {
-      return HaRouterService.getStoryRoute(value.id, ClStringHelper.getCleanUrlPath(value.titlePath));
+      return HaRouterService.getStoryRoute(value.id, ClStringHelper.getCleanUrlPath(value.titlePath))+'azeazeaz';
     }
 
     if (value instanceof HaLiveTask) {

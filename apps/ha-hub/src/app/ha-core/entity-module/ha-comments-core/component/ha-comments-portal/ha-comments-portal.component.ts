@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef, FlUser} from '@monorepo/front-core-lib';
-import {TeBasicConfig, TeRichText} from '@monorepo/text-editor';
+import {TeOnlyInlineConfig, TeRichText} from '@monorepo/text-editor';
 import {HaAbstractComment, HaCommentEntity, HaCommentType} from '../../model/ha-abstract-comment.class';
 import {HaCommentService} from '../../../../ha-service/ha-comment.service';
 
@@ -21,7 +21,7 @@ export interface HaCommentsEntity {
 })
 export class HaCommentsPortalComponent implements OnInit{
 
-  textEditorConfig: TeBasicConfig = new TeBasicConfig();
+  textEditorConfig: TeOnlyInlineConfig = new TeOnlyInlineConfig();
   commentIsValid = false;
   user: FlUser;
   entity: HaCommentsEntity;

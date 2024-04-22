@@ -11,10 +11,6 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
-
-  .delete-lt-button{
-    background-color: rgba(255, 0, 0, 0.1);
-  }
 }
 
 .user-date-info{
@@ -38,14 +34,4 @@
   border: none;
   padding: 0.5em 0;
   min-height: 1.5em;
-}
-
-.description-editor-active{
-  border: none;
-  padding: 0.5em 0;
-  min-height: 1.5em;
-}
-
-.description-editor-active:hover, .description-editor-active:active, .description-editor-active:focus{
-  border: var(--hover-color) 1px solid;
 }

@@ -6,6 +6,7 @@ import {NgModule} from '@angular/core';
 import {HaLoginGuard} from '../ha-core/ha-guard/ha-login.guard';
 import {HaStoryGuard} from '../ha-core/ha-guard/ha-story.guard';
 import {HaStoryInvitePageComponent} from './module/ha-story-invite-page/ha-story-invite-page.component';
+import {Ha404Component} from '../ha-public/module/ha404/ha404.component';
 
 const routes: Route[] = [
   {
@@ -16,6 +17,10 @@ const routes: Route[] = [
     path: 'edit/:id',
     component: HaStoryEditPageComponent,
     canActivate: [HaStoryGuard]
+  },
+  {
+    path: '404',
+    component: Ha404Component
   },
   {
     path: 'invite/:token',

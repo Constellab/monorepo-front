@@ -25,3 +25,6 @@
                                  (liveTaskVersionChangeEvent)="updateLiveTaskVersion($event)"></ha-live-task-version-detail>
   }
 </div>
+<div *ngIf="!isLoading && notFound">
+  <ha-ha404 ></ha-ha404>
+</div>

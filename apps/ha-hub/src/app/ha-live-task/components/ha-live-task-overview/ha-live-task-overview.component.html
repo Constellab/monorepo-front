@@ -18,7 +18,7 @@
       <ha-comment-button [commentsCount]="liveTask.comments" (clicked)="openCommentsPannel()"></ha-comment-button>
 
       <button *ngIf="currentUser?.id == liveTask?.createdBy?.id"
-              mat-icon-button color="warn" (click)="deleteLiveTask()" class="delete-lt-button">
+              mat-icon-button color="warn" (click)="deleteLiveTask()">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
@@ -45,7 +45,7 @@
     </fl-card-header>
     <fl-card-body>
       <te-text-editor
-        [class]="descriptionEditorDisabled ? 'description-editor' : 'description-editor-active'"
+        class="description-editor"
         [config]="textEditorConfig" (textChange)="onDescriptionChange($event)"
         [formControl]="descriptionFormControl"
         [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>

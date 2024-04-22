@@ -13,12 +13,13 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     'title': 'Title',
     'space': 'Space',
     'type': 'Type',
-    'create': 'Create',
-    'your_spaces': 'Vos spaces',
+    'create': 'Créer',
+    'your_spaces': 'Sélectionner le space de la live task',
     'no_published': 'Non publié',
     'write_a_comment': 'Écrire un commentaire',
     'comment': 'Commentaire',
     'comments': 'Commentaires',
+    'visibility': 'Visibilité',
   }
 };
 
@@ -35,11 +36,12 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     'space': 'Space',
     'type': 'Type',
     'create': 'Create',
-    'your_spaces': 'Your spaces',
+    'your_spaces': 'Select the space of the live task',
     'no_published': 'Not published',
     'write_a_comment': 'Write a comment',
     'comment': 'Comment',
     'comments': 'Comments',
+    'visibility': 'Visibility',
   }
 };
 export const coCommunityLibI18n: FlTranslateObject = {
