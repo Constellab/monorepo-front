@@ -238,8 +238,12 @@
 
     // use to show the placeholder on focused paragraph if empty
     .ce-block .ce-paragraph[data-placeholder]:empty:focus-within:before,
-    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder]:empty:before {
+    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder][contenteditable=true]:empty:before {
       opacity: 0.5 !important;
+    }
+    // hide placeholder when text editor is disabled
+    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder][contenteditable=false]:empty:before {
+      opacity: 0 !important;
     }
 
 
@@ -422,7 +426,7 @@
 
     ///////////////////////// INLINE TOOLS  /////////////////////////
     code, te-variable-inline {
-      padding: 3px 7px;
+      padding: 2px 7px;
       font-size: 85%;
       border-radius: 3px;
       display: inline;

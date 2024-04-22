@@ -14,7 +14,7 @@ import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
 import {TeFigureBlock, TeFigureBlockConfig} from '../block/te-figure-block.class';
 import {TeCodeBlock} from '../block/te-code-block.class';
 import {teComponentBlockFactory} from './te-block-factory.class';
-import TeStrikethroughInlineTool from '../inline-tool/te-strikethrough-inline-tool.class';
+import {TeStrikethroughInlineTool} from '../inline-tool/te-strikethrough-inline-tool.class';
 import {TeDragBlockTune} from '../block-tune/te-drag-block-tune.class';
 import {TeHelper} from './te.helper';
 import {TeVariableInlineToolClass} from '../inline-tool/te-variable-inline-tool.class';
