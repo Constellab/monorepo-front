@@ -41,6 +41,9 @@ import {
 } from './component/ca-lab-backup-history-table/ca-lab-backup-history-table.component';
 import {CaSelectLabComponent} from './component/ca-select-lab/ca-select-lab.component';
 import {CaLabInlineComponent} from './component/ca-lab-inline/ca-lab-inline.component';
+import {
+  CaLabContestFormDialogComponent
+} from './component/ca-lab-contest-form-dialog/ca-lab-contest-form-dialog.component';
 
 /**
  * Core module for Lab and LabInstance
@@ -64,6 +67,7 @@ import {CaLabInlineComponent} from './component/ca-lab-inline/ca-lab-inline.comp
     CaLabBackupHistoryTableComponent,
     CaSelectLabComponent,
     CaLabInlineComponent,
+    CaLabContestFormDialogComponent,
   ],
   exports: [
     CaLabInstanceCardComponent,

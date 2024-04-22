@@ -336,5 +336,7 @@
   "brick_list": "Liste des briques",
   "view_in_community": "Voir dans community",
   "restart_lab_help": "Cela arrêtera et redémarrera le lab. Les briques listées dans la section du Lab manager seront installées. Les données du lab ne sont pas affectées.",
-  "lab_initialize_help": "Cela va démarrer le lab. Les briques listées dans la section du Lab manager seront installées."
+  "lab_initialize_help": "Cela va démarrer le lab. Les briques listées dans la section du Lab manager seront installées.",
+  "create_lab_contest": "Créer un lab de concours",
+  "lab_contest_created": "Lab de concours créé"
 }

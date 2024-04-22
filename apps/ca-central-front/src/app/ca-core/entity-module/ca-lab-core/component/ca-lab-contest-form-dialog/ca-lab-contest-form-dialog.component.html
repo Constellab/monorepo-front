@@ -1,0 +1,36 @@
+<fl-dialog-header>
+  {{ 'create_lab_contest' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="lab-contest-form" [formGroup]="formGp">
+
+
+    <!--  User  -->
+    <fl-form-field>
+      <fl-select-user formControlName="user" [placeholder]="'user' | translate"
+                       [required]="true"></fl-select-user>
+      <mat-error *ngIf="formGp.get('user').hasError('required')">
+        {{ 'user' | flErrorRequired }}
+      </mat-error>
+    </fl-form-field>
+
+    <!--  Space  -->
+    <fl-form-field>
+      <ca-select-space formControlName="space" [placeholder]="'space' | translate"
+                       [required]="true"></ca-select-space>
+      <mat-error *ngIf="formGp.get('space').hasError('required')">
+        {{ 'space' | flErrorRequired }}
+      </mat-error>
+    </fl-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" type="submit" form="lab-contest-form"
+          class="g-centered-forced">
+    {{ 'save' | translate }}
+    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+  </button>
+</div>

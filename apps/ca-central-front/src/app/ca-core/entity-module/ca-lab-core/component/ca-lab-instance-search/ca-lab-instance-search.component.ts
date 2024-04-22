@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
+  FlFormDialogInput,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
@@ -16,6 +17,7 @@ import {
   CaLabInstanceAdminFormDialogInput
 } from '../ca-lab-instance-admin-form-dialog/ca-lab-instance-admin-form-dialog.component';
 import {CaLabInstanceSearchMode} from '../ca-lab-instance-search-form/ca-lab-instance-search-form.component';
+import {CaLabContestFormDialogComponent} from '../ca-lab-contest-form-dialog/ca-lab-contest-form-dialog.component';
 
 @Component({
   selector: 'ca-lab-instance-search',
@@ -119,6 +121,17 @@ export class CaLabInstanceSearchComponent implements OnInit {
     };
 
     this.dialogService.openMediumDialog(CaLabInstanceAdminFormDialogComponent, {data: dialogInput}).afterClosed()
+      .subscribe(
+        labInstance => this.onCreateLabInstanceClosed(labInstance)
+      );
+  }
+
+  openCreateContestLabForm(): void {
+    const dialogInput: FlFormDialogInput = {
+      mode: 'create'
+    };
+
+    this.dialogService.openMediumDialog(CaLabContestFormDialogComponent, {data: dialogInput}).afterClosed()
       .subscribe(
         labInstance => this.onCreateLabInstanceClosed(labInstance)
       );

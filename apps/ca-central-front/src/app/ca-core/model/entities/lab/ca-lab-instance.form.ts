@@ -8,6 +8,7 @@ import {
   CaLabInstanceType,
   CaLabInstanceVolumeType
 } from './ca-lab-instance.class';
+import {CaUser} from '../ca-user.class';
 
 
 export class CaLabInstanceAdminForm {
@@ -65,3 +66,9 @@ export interface CaRequestLabInstanceForm {
   additionalInfo?: string;
 }
 
+export class CaLabContestForm {
+  @Type(() => CaUser)
+  user: CaUser;
+  @Type(() => CaSpace)
+  space: CaSpace;
+}

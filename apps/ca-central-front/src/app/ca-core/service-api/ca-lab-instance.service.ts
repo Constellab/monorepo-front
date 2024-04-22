@@ -45,6 +45,7 @@ import {
 import {CaFreeTrialUpdateDto, CaLabFreeTrialGetDto} from '../model/entities/lab/ca-lab-free-trial.class';
 import {CaLabBackupHistory, CaLabBackupOption} from '../model/entities/lab/ca-lab-backup.class';
 import {
+  CaLabContestForm,
   CaLabInstanceAdminForm,
   CaLabInstanceDesktopForm,
   CaRequestLabInstanceForm
@@ -381,6 +382,11 @@ export class CaLabInstanceService {
     return this.apiService.delete(`${this.route}/free-trial/${id}`, CaLabFreeTrialGetDto);
   }
 
+  //////////////////////////// CONTEST ////////////////////////////////
+  public createContestLab(entity: CaLabContestForm): Observable<CaLabInstanceWithSpace> {
+    return this.apiService.post(`${this.route}/contest`, entity, CaLabInstanceWithSpace,
+      {serialization: CaLabContestForm});
+  }
   //////////////////////////// KPI ////////////////////////////////
 
   public getRunningKpi(id: string, request: CaLabInstanceStatusRunRequest): Observable<CaLabInstanceStatusRunResponse> {

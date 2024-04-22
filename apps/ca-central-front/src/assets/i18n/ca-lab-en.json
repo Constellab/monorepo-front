@@ -337,5 +337,7 @@
   "brick_list": "Bricks list",
   "view_in_community": "View in community",
   "restart_lab_help": "This will stop and start the lab. The brick listed in Lab manager section will be installed. The lab data are not affected.",
-  "lab_initialize_help": "This will start the lab. The brick listed in Lab manager section will be installed."
+  "lab_initialize_help": "This will start the lab. The brick listed in Lab manager section will be installed.",
+  "create_lab_contest": "Create lab contest",
+  "lab_contest_created": "Lab contest created"
 }

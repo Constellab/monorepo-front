@@ -4,14 +4,20 @@
     <fl-search-header>
       <fl-text-icon>
         <mat-icon flIcon="lab"></mat-icon>
-        <h2>{{'lab_instances' | translate}}</h2>
+        <h2>{{ 'lab_instances' | translate }}</h2>
       </fl-text-icon>
 
-      <fl-search-header-actions class="g-layout-row g-layout-start-center">
-        <button mat-icon-button type="button" *caIsAdmin
+      <fl-search-header-actions class="g-layout-row g-layout-start-center" *caIsAdmin>
+        <button mat-icon-button type="button"
                 (click)="openCreateLabInstanceForm()"
                 [matTooltip]="'create_lab_instance' | translate">
           <mat-icon>add</mat-icon>
+        </button>
+
+        <button mat-stroked-button type="button"
+                class="g-button-small"
+                (click)="openCreateContestLabForm()">
+          {{ 'create_lab_contest' | translate }}
         </button>
       </fl-search-header-actions>
     </fl-search-header>
