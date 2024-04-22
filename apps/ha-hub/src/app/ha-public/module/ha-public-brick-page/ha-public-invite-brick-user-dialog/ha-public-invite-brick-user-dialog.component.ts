@@ -1,9 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
 import {HaBrickUser} from '../../../../ha-core/ha-model/ha-entities/ha-brick-user';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {Validators} from '@angular/forms';
 
@@ -18,15 +17,10 @@ export interface HaInviteBrickUserFormData {
   styleUrls: ['./ha-public-invite-brick-user-dialog.component.css']
 })
 export class HaPublicInviteBrickUserDialogComponent
-  extends FlFormDialogAbstractDirective<HaInviteBrickUserFormData, HaBrickUser> implements OnInit{
+  extends FlFormDialogAbstractDirective<HaInviteBrickUserFormData, HaBrickUser> implements OnInit {
 
-  brickId: string;
-  constructor(snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<HaPublicInviteBrickUserDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) dialogInput: any,
-              private brickService: HaBrickService) {
-    super(dialogInput, snackBarService, dialogRef);
-    this.brickId = dialogInput.object.id;
+  constructor(private brickService: HaBrickService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -39,7 +33,7 @@ export class HaPublicInviteBrickUserDialogComponent
     });
   }
 
-  create(formValue: HaInviteBrickUserFormData): Observable<HaBrickUser> {
+  create(): Observable<HaBrickUser> {
     throw new Error('Method not implemented.');
   }
 
@@ -52,8 +46,8 @@ export class HaPublicInviteBrickUserDialogComponent
   }
 
   update(formValue: HaInviteBrickUserFormData): Observable<HaBrickUser> {
-    if(this.formGp.valid) {
-      return this.brickService.inviteUser(this.brickId, formValue.email);
+    if (this.formGp.valid) {
+      return this.brickService.inviteUser(this.dialogInput.object.id, formValue.email);
     }
 
     return null;

@@ -1,4 +1,4 @@
-import {Component, ComponentRef, Inject, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, ComponentRef, inject, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {
   FlDynamicFieldConfig,
   FlDynamicFormGroupComponent,
@@ -7,7 +7,6 @@ import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
   FlFormHelper,
-  FlSnackBarService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
 import {
@@ -18,7 +17,7 @@ import {
   CaLabGreenOptionType
 } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
@@ -38,6 +37,7 @@ export interface CaLabGreenOptionFormDialogInput extends FlFormDialogInput<CaLab
 export class CaLabGreenOptionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabGreenOptionFormDto, CaLabGreenOption>
   implements OnInit, OnDestroy {
+  dialogInput: CaLabGreenOptionFormDialogInput = inject(MAT_DIALOG_DATA);
 
   greenOptionType: any = CaLabGreenOptionType;
 
@@ -47,12 +47,9 @@ export class CaLabGreenOptionFormDialogComponent
   private viewComponentRef: ComponentRef<FlDynamicFormGroupComponent>;
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: CaLabGreenOptionFormDialogInput,
-              private labInstanceService: CaLabInstanceService,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<CaLabGreenOptionFormDialogComponent>,
+  constructor(private labInstanceService: CaLabInstanceService,
               private translateService: FlTranslateService) {
-    super(dialogInput, snackBarService, dialogRef);
+    super();
   }
 
   ngOnInit(): void {

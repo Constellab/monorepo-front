@@ -1,11 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {CaGroup, CaSaveTeamDTO} from '../../../../model/entities/ca-group.entity';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {CaGroupService} from '../../../../service-api/ca-group.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 export type CaTeamFormDialogInput = FlFormDialogInput<CaSaveTeamDTO>;
 
@@ -17,11 +16,8 @@ export type CaTeamFormDialogInput = FlFormDialogInput<CaSaveTeamDTO>;
 export class CaTeamFormDialogComponent extends FlFormDialogAbstractDirective<CaSaveTeamDTO, CaGroup>
   implements OnInit {
 
-  constructor(snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<CaTeamFormDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) dialogInput: CaTeamFormDialogInput,
-              private groupService: CaGroupService) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private groupService: CaGroupService) {
+    super();
   }
 
   ngOnInit(): void {

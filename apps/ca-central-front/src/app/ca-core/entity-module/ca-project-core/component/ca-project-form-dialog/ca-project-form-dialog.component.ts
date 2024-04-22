@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ValidatorFn, Validators} from '@angular/forms';
 import {
   CaProject,
@@ -9,12 +9,8 @@ import {
 import {CaProjectService} from '../../../../service-api/ca-project.service';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
-import {
-  FlFormDialogAbstractDirective,
-  FlFormDialogInput,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FlFormDialogAbstractDirective, FlFormDialogInput,} from '@monorepo/front-core-lib';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
 import {DateTime} from 'luxon';
 import {
@@ -40,6 +36,8 @@ export interface CaProjectFormDialogInput extends FlFormDialogInput<CaProject> {
 })
 export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<CnSaveProjectDTO, CaProject> implements OnInit {
 
+  dialogInput: CaProjectFormDialogInput = inject(MAT_DIALOG_DATA);
+
   formGp: FormGroup<CnSaveProjectDTO>;
 
   isLoading: boolean = false;
@@ -48,12 +46,9 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
 
   levelStatus = CaProjectLevelStatus;
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: CaProjectFormDialogInput,
-              private projectService: CaProjectService,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<CaProjectFormDialogComponent>,
+  constructor(private projectService: CaProjectService,
               private spaceService: CaSpaceService) {
-    super(dialogInput, snackBarService, dialogRef);
+    super();
   }
 
   async ngOnInit(): Promise<void> {
@@ -135,7 +130,7 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
 
   private differentStorageValidator(): ValidatorFn {
     return (control: FormGroup<CnSaveProjectDTO>): { [key: string]: any } => {
-      if(control.value.mainStorage == null || control.value.backupStorage == null) return null;
+      if (control.value.mainStorage == null || control.value.backupStorage == null) return null;
 
       if (control.value.mainStorage.bucketId === control.value.backupStorage.bucketId) {
         return {sameBackupStorage: true};

@@ -1,11 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
 import {HaBrick, HaEditBrickDTO} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {HaSpace} from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
 import {HaSpaceService} from '../../../../ha-core/ha-service/ha-space.service';
 
@@ -21,15 +20,9 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   spaces: HaSpace[];
 
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    protected dialogInput: FlFormDialogInput<HaEditBrickDTO>,
-    snackBarService: FlSnackBarService,
-    dialogRef: MatDialogRef<HaPublicEditBrickDialogComponent>,
-    private spaceService: HaSpaceService,
-    private brickService: HaBrickService
-  ) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private spaceService: HaSpaceService,
+              private brickService: HaBrickService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -37,7 +30,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
     this.formGp.value.id = this.dialogInput.object.id;
     this.spaceService.getSpacesOfCurrentUser().subscribe((spaces: HaSpace[]) => {
       this.spaces = spaces;
-    })
+    });
   }
 
   buildForm(): FormGroup<Partial<HaEditBrickDTO>> {
@@ -59,7 +52,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   }
 
   submit(): void {
-    if(!this.formGp.value.gitRepo && !this.formGp.value.pipRepo){
+    if (!this.formGp.value.gitRepo && !this.formGp.value.pipRepo) {
       this.repoError = true;
       this.formGp.controls.pipRepo.setValidators(Validators.required);
       this.formGp.controls.gitRepo.setValidators(Validators.required);
@@ -67,7 +60,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
       this.repoError = false;
       this.formGp.controls.pipRepo.removeValidators(Validators.required);
       this.formGp.controls.gitRepo.removeValidators(Validators.required);
-      if(this.formGp.valid){
+      if (this.formGp.valid) {
         this.update(this.formGp.value as HaEditBrickDTO).subscribe({
           next: newEntity => this.onSaveSuccess(newEntity, this.getUpdateSuccessMessage()),
           error: () => this.isLoading = false

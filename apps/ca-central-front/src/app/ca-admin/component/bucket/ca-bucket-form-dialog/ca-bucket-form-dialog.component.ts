@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {
   CaBucketContentType,
   CaBucketFull,
@@ -9,7 +9,6 @@ import {CaObjectStorageService} from '../../../../ca-core/service-api/ca-object-
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 export type CaBucketFormDialogInput = FlFormDialogInput<CaBucketFull>;
 
@@ -25,11 +24,8 @@ export class CaBucketFormDialogComponent
   contentTypes = CaBucketContentType;
   bucketTypes = CaBucketType;
 
-  constructor(@Inject(MAT_DIALOG_DATA) dialogInput: CaBucketFormDialogInput,
-              private objectStorageService: CaObjectStorageService,
-              protected snackBarService: FlSnackBarService,
-              protected dialogRef: MatDialogRef<CaBucketFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private objectStorageService: CaObjectStorageService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -37,7 +33,7 @@ export class CaBucketFormDialogComponent
 
     if (this.isUpdateMode() && this.dialogInput.object.bucketType) {
       this.onBucketTypeChange(this.dialogInput.object.bucketType);
-    }else{
+    } else {
       this.onBucketTypeChange(CaBucketType.NORMAL);
     }
   }
@@ -72,7 +68,7 @@ export class CaBucketFormDialogComponent
     this.formGp.updateValueAndValidity();
   }
 
-  showRegion(): boolean{
+  showRegion(): boolean {
     return this.formGp.get('bucketType').value === CaBucketType.NORMAL;
   }
 

@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, inject, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {Validators} from '@angular/forms';
@@ -9,7 +9,7 @@ import {
   CaLabInstanceUserRole
 } from '../../../../ca-core/model/entities/lab/ca-lab-instance-user.class';
 import {CaUser} from '../../../../ca-core/model/entities/ca-user.class';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 export interface LabInstanceUserFormDialogInput extends FlFormDialogInput<CaLabInstanceUserForm> {
   labInstanceId: string;
@@ -30,11 +30,11 @@ export class CaLabInstanceUserFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabInstanceUserForm, CaLabInstanceUser>
   implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: LabInstanceUserFormDialogInput,
-              private labInstanceService: CaLabInstanceService,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<CaLabInstanceUserFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  dialogInput: LabInstanceUserFormDialogInput = inject(MAT_DIALOG_DATA);
+
+
+  constructor(private labInstanceService: CaLabInstanceService) {
+    super();
   }
 
   ngOnInit(): void {

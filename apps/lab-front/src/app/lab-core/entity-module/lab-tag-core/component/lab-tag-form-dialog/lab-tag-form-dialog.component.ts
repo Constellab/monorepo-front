@@ -1,17 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {
-  FlFormDialogAbstractDirective,
-  FlFormDialogInput,
-  FlSnackBarService,
-  FlTag,
-  FlTagHelper
-} from '@monorepo/front-core-lib';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlTag, FlTagHelper} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {LabCreateTagResponse} from '../../../../model/entities/lab-tag.entity';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabTagService} from '../../../../entity-service/lab-tag.service';
 import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 
 /**
@@ -27,11 +20,8 @@ export class LabTagFormDialogComponent extends FlFormDialogAbstractDirective<FlT
 
   maxLength = FlTagHelper.MAX_LENGTH;
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: FlFormDialogInput<FlTag>,
-              private tagService: LabTagService,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<LabTagFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private tagService: LabTagService) {
+    super();
   }
 
   ngOnInit(): void {

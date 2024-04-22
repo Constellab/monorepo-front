@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, inject, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {ValidatorFn, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CaProjectStorageDTO} from '../../../../../ca-core/model/entities/project/ca-project.class';
 
 
@@ -24,11 +24,11 @@ export class CaProjectConfigureStorageComponent
   extends FlFormDialogAbstractDirective<CaProjectStorageDTO>
   implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: CaProjectConfigureStorageInput,
-              dialogRef: MatDialogRef<CaProjectConfigureStorageComponent>,
-              snackBarService: FlSnackBarService,
-              private projectService: CaProjectService) {
-    super(input, snackBarService, dialogRef);
+  dialogInput: CaProjectConfigureStorageInput = inject(MAT_DIALOG_DATA);
+
+
+  constructor(private projectService: CaProjectService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -37,8 +37,8 @@ export class CaProjectConfigureStorageComponent
 
   buildForm(): FormGroup<CaProjectStorageDTO> {
     return new FormBuilder().group({
-      mainStorage: [{value: null, disabled: this.input.object.mainStorage != null}, Validators.required],
-      backupStorage: [{value: null, disabled: this.input.object.backupStorage != null}],
+      mainStorage: [{value: null, disabled: this.dialogInput.object.mainStorage != null}, Validators.required],
+      backupStorage: [{value: null, disabled: this.dialogInput.object.backupStorage != null}],
     }, {validator: this.differentBackupStorageValidator()});
   }
 
@@ -56,7 +56,7 @@ export class CaProjectConfigureStorageComponent
   }
 
   update(formValue: CaProjectStorageDTO): Observable<CaProjectStorageDTO> {
-    return this.projectService.createProjectBuckets(this.input.projectId, formValue);
+    return this.projectService.createProjectBuckets(this.dialogInput.projectId, formValue);
   }
 
   private differentBackupStorageValidator(): ValidatorFn {

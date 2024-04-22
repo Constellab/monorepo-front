@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, inject, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {
   LabCreateProtocolTemplateDTO,
   LabProtocolTemplate
 } from '../../../../model/entities/process/lab-protocol-template.entity';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -25,15 +25,13 @@ export interface LabProtocolTemplateFormDialogInput extends FlFormDialogInput<La
 })
 export class LabProtocolTemplateFormDialogComponent extends FlFormDialogAbstractDirective<LabCreateProtocolTemplateDTO>
   implements OnInit {
+  dialogInput: LabProtocolTemplateFormDialogInput = inject(MAT_DIALOG_DATA);
 
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: LabProtocolTemplateFormDialogInput,
-              private protocolService: LabProtocolService,
-              private protocolTemplateService: LabProtocolTemplateService,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<LabProtocolTemplateFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private protocolService: LabProtocolService,
+              private protocolTemplateService: LabProtocolTemplateService) {
+    super();
   }
 
   ngOnInit(): void {

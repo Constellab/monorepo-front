@@ -1,11 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {CaServerInfo} from '../../../../model/entities/ca-server-info.class';
 import {CaServerInfoService} from '../../../../service-api/ca-server-info.service';
 import {Observable} from 'rxjs';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
 
 /**
  * Dialog to create or update a server info
@@ -17,11 +16,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class CaServerInfoFormDialogComponent extends FlFormDialogAbstractDirective<CaServerInfo> implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) dialogInput: FlFormDialogInput<CaServerInfo>,
-              private serverInfoService: CaServerInfoService,
-              protected snackBarService: FlSnackBarService,
-              protected dialogRef: MatDialogRef<CaServerInfoFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private serverInfoService: CaServerInfoService) {
+    super();
   }
 
   ngOnInit(): void {

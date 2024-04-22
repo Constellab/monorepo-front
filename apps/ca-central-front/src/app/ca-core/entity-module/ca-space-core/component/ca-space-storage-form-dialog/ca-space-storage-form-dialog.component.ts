@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, inject, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {CaSpaceStorage, CaSpaceUpdateStorageLocationDTO} from '../../../../model/entities/space/ca-space.dto';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
 import {FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
@@ -17,12 +17,10 @@ export type CaSpaceStorageFormDialogInput = FlFormDialogInput<CaSpaceUpdateStora
 })
 export class CaSpaceStorageFormDialogComponent extends FlFormDialogAbstractDirective<CaSpaceUpdateStorageLocationDTO, CaSpaceStorage>
   implements OnInit {
+  dialogInput: CaSpaceStorageFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<CaSpaceStorageFormDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) dialogInput: CaSpaceStorageFormDialogInput,
-              private spaceService: CaSpaceService) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private spaceService: CaSpaceService) {
+    super();
   }
 
   ngOnInit(): void {

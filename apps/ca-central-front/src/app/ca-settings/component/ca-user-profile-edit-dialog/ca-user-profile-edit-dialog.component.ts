@@ -1,16 +1,11 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {CaUser} from '../../../ca-core/model/entities/ca-user.class';
-import {
-  FlFormDialogAbstractDirective,
-  FlFormDialogInput,
-  FlImageHelper,
-  FlSnackBarService
-} from '@monorepo/front-core-lib';
+import {FlFormDialogAbstractDirective, FlFormDialogInput, FlImageHelper} from '@monorepo/front-core-lib';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'ca-user-profile-edit-dialog',
@@ -20,9 +15,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 export class CaUserProfileEditDialogComponent extends FlFormDialogAbstractDirective<Partial<CaUser>, CaUser>
   implements OnInit {
 
+  dialogInput: FlFormDialogInput<CaUser> = inject(MAT_DIALOG_DATA);
+
+
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
   editPhotoImgElement: HTMLImageElement;
-  user: CaUser;
   isLoadingImport: boolean;
   newImageFile: File;
   errorFile: boolean;
@@ -30,12 +27,8 @@ export class CaUserProfileEditDialogComponent extends FlFormDialogAbstractDirect
   currentImgLink: string;
   photoDiv: HTMLDivElement;
 
-  constructor(snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<CaUserProfileEditDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) dialogInput: FlFormDialogInput<Partial<CaUser>>,
-              private authenticatedUserService: CaAuthenticatedUserService) {
-    super(dialogInput, snackBarService, dialogRef);
-    this.user = dialogInput.object as CaUser;
+  constructor(private authenticatedUserService: CaAuthenticatedUserService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -111,7 +104,7 @@ export class CaUserProfileEditDialogComponent extends FlFormDialogAbstractDirect
 
   activeInput(event: Event): void {
     this.photoDiv = event.currentTarget as HTMLDivElement;
-    if (this.user.photo) {
+    if (this.dialogInput.object.photo) {
       this.editPhotoImgElement = this.photoDiv.querySelector('img');
       this.currentImgLink = this.editPhotoImgElement.src;
     }
@@ -126,7 +119,7 @@ export class CaUserProfileEditDialogComponent extends FlFormDialogAbstractDirect
     } else {
 
       this.editPhotoImgElement = this.photoDiv.querySelector('img');
-      console.log(this.editPhotoImgElement)
+      console.log(this.editPhotoImgElement);
       this.editPhotoImgElement.style.display = 'block';
       this.editPhotoImgElement.src = URL.createObjectURL(b);
     }

@@ -1,12 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, inject, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {LabReport, LabReportForm} from '../../../../model/entities/lab-report.entity';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {Validators} from '@angular/forms';
 import {LabReportService} from '../../../../entity-service/lab-report.service';
 import {LabEntity} from '../../../../model/global/lab-entity.entity';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {LabReportTemplate} from '../../../../model/entities/lab-report-template.entity';
 
 export interface LabReportFormDialogInput extends FlFormDialogInput<LabReportForm> {
@@ -23,13 +23,10 @@ export interface LabReportFormDialogInput extends FlFormDialogInput<LabReportFor
 })
 export class LabReportFormDialogComponent extends FlFormDialogAbstractDirective<LabReportForm, LabReport> implements OnInit {
 
-  dialogInput: LabReportFormDialogInput;
+  dialogInput: LabReportFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private reportService: LabReportService,
-              @Inject(MAT_DIALOG_DATA) dialogInput: LabReportFormDialogInput,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<LabReportFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private reportService: LabReportService) {
+    super();
   }
 
   ngOnInit(): void {

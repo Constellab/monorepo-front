@@ -1,11 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {Validators} from '@angular/forms';
 import {CaCloudProviderService} from '../../../ca-core/service-api/ca-cloud-provider.service';
 import {CaCloudProviderRegion} from '../../../ca-core/model/entities/ca-cloud-provider.class';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProviderRegion>;
 
@@ -24,11 +23,8 @@ export class CaAdminCloudProviderRegionFormDialogComponent
   implements OnInit {
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) dialogInput: CaCloudProviderRegionFormDialogInput,
-              private cloudProviderService: CaCloudProviderService,
-              protected snackBarService: FlSnackBarService,
-              protected dialogRef: MatDialogRef<CaAdminCloudProviderRegionFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private cloudProviderService: CaCloudProviderService) {
+    super();
   }
 
   ngOnInit(): void {

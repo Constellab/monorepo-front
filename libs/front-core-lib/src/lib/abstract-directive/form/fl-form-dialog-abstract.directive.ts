@@ -1,5 +1,5 @@
-import {Directive} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {Directive, inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {FlSnackBarService} from '../../module/fl-snack-bar/fl-snack-bar.service';
 import {FlFormDialogInput} from '../../model/fl-form.class';
@@ -16,14 +16,13 @@ import {FormGroup} from '@ngneat/reactive-forms';
 @Directive()
 export abstract class FlFormDialogAbstractDirective<FORM_TYPE, ENTITY = FORM_TYPE> {
 
+  dialogInput: FlFormDialogInput<FORM_TYPE> = inject(MAT_DIALOG_DATA);
+  snackBarService = inject(FlSnackBarService);
+  dialogRef = inject(MatDialogRef);
+
   formGp: FormGroup<FORM_TYPE>;
 
   isLoading: boolean = false;
-
-  protected constructor(protected dialogInput: FlFormDialogInput<FORM_TYPE>,
-                        protected snackBarService: FlSnackBarService,
-                        protected dialogRef: MatDialogRef<any>) {
-  }
 
   abstract buildForm(): FormGroup<FORM_TYPE>;
 

@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {
   HaAddVersionInput,
@@ -9,7 +9,6 @@ import {
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'ha-public-add-version-dialog',
@@ -18,7 +17,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class HaPublicAddVersionDialogComponent extends FlFormDialogAbstractDirective<Partial<HaNewVersionDTO>> implements OnInit {
 
-  isLoading: boolean = false;
   brickId: string;
   isUpdate: boolean = false;
   inputFile: HaAddVersionInput;
@@ -26,14 +24,8 @@ export class HaPublicAddVersionDialogComponent extends FlFormDialogAbstractDirec
   errorFileText: string;
   isLoadingImport: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    protected dialogInput: FlFormDialogInput<HaNewVersionDTO>,
-    private brickService: HaBrickService,
-    snackBarService: FlSnackBarService,
-    dialogRef: MatDialogRef<HaPublicAddVersionDialogComponent>
-  ) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private brickService: HaBrickService) {
+    super();
   }
 
   ngOnInit(): void {

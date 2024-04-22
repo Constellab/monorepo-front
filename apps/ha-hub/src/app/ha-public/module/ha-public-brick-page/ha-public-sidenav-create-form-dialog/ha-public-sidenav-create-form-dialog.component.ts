@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
 import {HaFolder} from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
 import {HaFolderService} from '../../../../ha-core/ha-service/ha-folder.service';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
@@ -8,7 +8,6 @@ import {Observable} from 'rxjs';
 import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
 import {HaNodeDTO, HaNodeType} from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'ha-public-sidenav-create-form-dialog',
@@ -17,24 +16,19 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class HaPublicSidenavCreateFormDialogComponent extends FlFormDialogAbstractDirective<Partial<HaNodeDTO>> implements OnInit {
 
-  isLoading: boolean = false;
   isLoadingImport: boolean = false;
   isUpdate: boolean = false;
   type: string;
   errorFile: boolean;
   errorFileText: string;
 
-  static isValidTechDocFile(file: any): boolean{
+  static isValidTechDocFile(file: any): boolean {
     return file.brick_name != null && file.brick_version != null && file.json_version != null;
   }
 
-  constructor(@Inject(MAT_DIALOG_DATA)
-              protected dialogInput: FlFormDialogInput<HaNodeDTO>,
-              private folderService: HaFolderService,
-              private documentationService: HaDocumentationService,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<HaPublicSidenavCreateFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private folderService: HaFolderService,
+              private documentationService: HaDocumentationService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -81,7 +75,7 @@ export class HaPublicSidenavCreateFormDialogComponent extends FlFormDialogAbstra
 
       reader.onload = (e: any) => {
         const srcResult = JSON.parse(e.target.result);
-        if(HaPublicSidenavCreateFormDialogComponent.isValidTechDocFile(srcResult)){
+        if (HaPublicSidenavCreateFormDialogComponent.isValidTechDocFile(srcResult)) {
           this.dialogRef.close([srcResult, HaNodeType.TEC]);
           this.isLoading = false;
         } else {

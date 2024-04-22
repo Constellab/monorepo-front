@@ -1,11 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabExperiment, LabExperimentSimpleForm} from '../../../../model/entities/lab-experiment.entity';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {Observable, of} from 'rxjs';
 import {LabExperimentService} from '../../../../entity-service/lab-experiment.service';
 import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {catchError, map} from 'rxjs/operators';
 import {ClHelpService} from '@monorepo/core-lib';
 
@@ -25,16 +25,15 @@ export interface LabExperimentFormDialogInput extends FlFormDialogInput<LabExper
 export class LabExperimentFormDialogComponent extends FlFormDialogAbstractDirective<LabExperimentSimpleForm, LabExperiment>
   implements OnInit {
 
+  dialogInput: LabExperimentFormDialogInput = inject(MAT_DIALOG_DATA);
+
   sameTitleCount$: Observable<number>;
 
   // only provided in update mode
   private originalName: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: LabExperimentFormDialogInput,
-              private experimentService: LabExperimentService,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<LabExperimentFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private experimentService: LabExperimentService) {
+    super();
   }
 
   ngOnInit(): void {

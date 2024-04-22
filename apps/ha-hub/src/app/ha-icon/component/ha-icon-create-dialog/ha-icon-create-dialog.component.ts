@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, inject, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {
   HaIcon,
   HaIconCreateDto,
@@ -8,7 +8,7 @@ import {
 } from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {HaIconService} from '../../../ha-core/ha-service/ha-icon.service';
 import {Validators} from '@angular/forms';
 
@@ -21,14 +21,13 @@ export type HaCreateIconDtoInput = FlFormDialogInput<HaIconCreateFormData>;
 })
 export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<HaIconCreateFormData, HaIcon> implements OnInit {
 
-  input_file_trigered = false;
-  icon: HaIconCreateDto
+  dialogInput: HaCreateIconDtoInput = inject(MAT_DIALOG_DATA);
 
-  constructor(snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<HaIconCreateDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) dialogInput: HaCreateIconDtoInput,
-              private iconService: HaIconService) {
-    super(dialogInput, snackBarService, dialogRef);
+  input_file_trigered = false;
+  icon: HaIconCreateDto;
+
+  constructor(private iconService: HaIconService) {
+    super();
     if (this.dialogInput.mode === 'update') {
       this.icon = this.dialogInput.object;
     }
@@ -50,20 +49,20 @@ export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<H
 
   create(formValue: HaIconCreateFormData): Observable<HaIcon> {
     return this.iconService.create({
-      subNames: formValue.subNames,
-      name: formValue.name,
-      type: formValue.type,
-      technicalName: formValue.technicalName
-    },
-    formValue.file);
+        subNames: formValue.subNames,
+        name: formValue.name,
+        type: formValue.type,
+        technicalName: formValue.technicalName
+      },
+      formValue.file);
   }
 
   getCreateSuccessMessage(): string {
-    return "icon_created";
+    return 'icon_created';
   }
 
   getUpdateSuccessMessage(): string {
-    return "icon_updated";
+    return 'icon_updated';
   }
 
   update(formValue: HaIconCreateFormData): Observable<HaIcon> {

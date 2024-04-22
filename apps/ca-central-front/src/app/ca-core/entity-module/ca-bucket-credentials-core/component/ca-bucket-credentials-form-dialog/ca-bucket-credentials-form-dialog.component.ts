@@ -1,14 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {CaBucketCredentials, CaBucketCredentialsFull} from '../../../../model/entities/ca-object-storage.class';
-import {
-  CaCloudProviderFormDialogInput
-} from '../../../ca-cloud-provider-core/component/ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
 import {CaObjectStorageService} from '../../../../service-api/ca-object-storage.service';
 import {Observable} from 'rxjs';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 export type CaBucketCredentialsFormDialogInput = FlFormDialogInput<CaBucketCredentialsFull>;
 
@@ -21,13 +17,9 @@ export class CaBucketCredentialsFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaBucketCredentialsFull>, CaBucketCredentials>
   implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) dialogInput: CaCloudProviderFormDialogInput,
-              private objectStorageService: CaObjectStorageService,
-              protected snackBarService: FlSnackBarService,
-              protected dialogRef: MatDialogRef<CaBucketCredentialsFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private objectStorageService: CaObjectStorageService) {
+    super();
   }
-
 
   ngOnInit(): void {
     this.init();

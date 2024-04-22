@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, inject, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 interface CaDocumentNameForm {
   name: string;
@@ -25,14 +25,13 @@ export interface CaDocumentNameFormDialogInput extends FlFormDialogInput<CaDocum
   styleUrls: ['./ca-document-name-form-dialog.component.scss']
 })
 export class CaDocumentNameFormDialogComponent extends FlFormDialogAbstractDirective<CaDocumentNameForm, any>
-
   implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: CaDocumentNameFormDialogInput,
-              private projectService: CaProjectService,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<CaDocumentNameFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  dialogInput: CaDocumentNameFormDialogInput = inject(MAT_DIALOG_DATA);
+
+
+  constructor(private projectService: CaProjectService) {
+    super();
   }
 
   ngOnInit(): void {

@@ -1,24 +1,15 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   CaLabDesktopPlatform,
   CaLabInstance,
   CaLabInstanceType,
   CaLabInstanceWithSpace
 } from '../../../../model/entities/lab/ca-lab-instance.class';
-import {
-  FlFormDialogAbstractDirective,
-  FlFormDialogInput,
-  FlPlatformService,
-  FlSnackBarService
-} from '@monorepo/front-core-lib';
+import {FlFormDialogAbstractDirective, FlFormDialogInput, FlPlatformService} from '@monorepo/front-core-lib';
 import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {
-  CaLabInstanceAdminFormDialogInput
-} from '../ca-lab-instance-admin-form-dialog/ca-lab-instance-admin-form-dialog.component';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CaLabInstanceValidator} from '../../../../model/entities/lab/ca-lab-instance.validator';
 
 export type CaLabInstanceFormDialogInput = FlFormDialogInput<CaLabInstanceForm>;
@@ -49,12 +40,9 @@ export class CaLabInstanceFormDialogComponent extends FlFormDialogAbstractDirect
 
   maxNameLength = CaLabInstance.MAX_NAME_LENGTH;
 
-  constructor(snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<CaLabInstanceFormDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) dialogInput: CaLabInstanceAdminFormDialogInput,
-              private labInstanceService: CaLabInstanceService,
+  constructor(private labInstanceService: CaLabInstanceService,
               private platformService: FlPlatformService) {
-    super(dialogInput, snackBarService, dialogRef);
+    super();
   }
 
   get title(): string {

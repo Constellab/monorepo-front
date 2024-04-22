@@ -1,4 +1,4 @@
-import {Component, ComponentRef, Inject, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, ComponentRef, inject, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {
   FlDynamicAbstractFormComponent,
   FlDynamicFormAbstractControl,
@@ -7,8 +7,7 @@ import {
   FlDynamicFormHelper,
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
-  FlFormHelper,
-  FlSnackBarService
+  FlFormHelper
 } from '@monorepo/front-core-lib';
 import {
   LabCredentials,
@@ -19,7 +18,7 @@ import {
   LabSaveCredentialsDTO
 } from '../../../../model/entities/lab-credentials.entity';
 import {Observable, of} from 'rxjs';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {AbstractControl, Validators} from '@angular/forms';
 import {ClHelpService} from '@monorepo/core-lib';
@@ -43,6 +42,7 @@ interface LabCredentialsOtherFormData {
 })
 export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirective<LabSaveCredentialsDTO, LabCredentials>
   implements OnInit {
+  dialogInput: LabCredentialsFormDialogInput = inject(MAT_DIALOG_DATA);
 
   sameNameExist$: Observable<boolean>;
 
@@ -55,11 +55,8 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
 
   private viewComponentRef: ComponentRef<FlDynamicAbstractFormComponent>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: LabCredentialsFormDialogInput,
-              private credentialsService: LabCredentialsService,
-              snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<LabCredentialsFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private credentialsService: LabCredentialsService) {
+    super();
   }
 
   ngOnInit(): void {
