@@ -6,9 +6,9 @@
   <form (ngSubmit)="submit()" id="license-form">
 
     <!--  Nb of licences  -->
-    <mat-form-field class="g-form-input" *caIsAdmin>
+    <mat-form-field class="g-form-input">
       <mat-label>{{ 'nb_of_licenses' | translate }}</mat-label>
-      <input matInput formControlName="nbLicenses" required type="number"
+      <input matInput required type="number"
              [formControl]="formCtrl"
              [placeholder]="'nb_of_licenses' | translate" min="0">
       <mat-error *ngIf="formCtrl.hasError('required')">
