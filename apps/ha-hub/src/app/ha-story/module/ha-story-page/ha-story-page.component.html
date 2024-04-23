@@ -68,7 +68,7 @@
           @for (file of story.storyFiles; track file.id) {
             <div class="story-file" [matTooltip]="file.humanName">
               <a type="button" [href]="downloadFile(file)" download>
-                <fl-file-text-icon [name]="file.humanName"></fl-file-text-icon>
+                <fl-file-text-icon [filename]="file.humanName"></fl-file-text-icon>
               </a>
             </div>
           }

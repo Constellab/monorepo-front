@@ -64,7 +64,7 @@
         @for (file of documentation.docFiles; track file.id) {
           <div class="doc-file" [matTooltip]="file.humanName">
             <a type="button" [href]="downloadFile(file)" download [matTooltip]="'download_attached_file' | translate">
-              <fl-file-text-icon [name]="file.humanName">
+              <fl-file-text-icon [filename]="file.humanName">
               </fl-file-text-icon>
             </a>
           </div>

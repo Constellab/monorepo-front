@@ -25,7 +25,7 @@ export class CaDocumentTableComponent {
   }
 
   openDocumentPreview(document: CaDocument): void {
-    if (document.type === 'CONSTELLAB_DOCUMENT') {
+    if (document.isConstellabDocument()) {
       this.routerService.navigateToDocumentDetail(document.id);
     } else {
       const url = this.projectService.getDocumentPreviewUrl(document.projectId, document.name);

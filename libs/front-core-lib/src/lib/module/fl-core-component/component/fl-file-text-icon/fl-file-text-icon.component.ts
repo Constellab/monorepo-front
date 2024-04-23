@@ -1,5 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {FlFileHelper} from '@monorepo/front-core-lib';
 
+/**
+ * Show an icon based on the file extension
+ */
 @Component({
   selector: 'fl-file-text-icon',
   templateUrl: './fl-file-text-icon.component.html',
@@ -7,22 +11,21 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class FlFileTextIconComponent implements OnInit {
 
-  @Input({required: true}) name: string;
+  @Input({required: true}) filename: string;
+
   icon: string;
 
-
-  constructor() {
-  }
-
   ngOnInit(): void {
-    this.icon = this.getFileIcon(this.name);
+    this.icon = this.getFileIcon(this.filename);
   }
 
   private getFileIcon(filename: string): string {
-    const extension = filename.split('.').pop();
+    const extension = FlFileHelper.getFileExtension(filename);
+
+    if (!extension) return 'description';
 
     // Get the flIcon name based on the file extension
-    switch (extension.toLowerCase()){
+    switch (extension.toLowerCase()) {
       case 'csv':
       case 'xls':
       case 'xlsx':
@@ -50,7 +53,7 @@ export class FlFileTextIconComponent implements OnInit {
       case 'py':
         return 'py_file_icon';
       default:
-        return 'insert_drive_file';
+        return 'description';
     }
   }
 }

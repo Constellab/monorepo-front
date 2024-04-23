@@ -17,6 +17,10 @@ export class CaDocument extends CaBaseEntity {
   type: 'UPLOADED_DOCUMENT' | 'CONSTELLAB_DOCUMENT';
 
   inTrash: boolean;
+
+  isConstellabDocument(): boolean {
+    return this.type === 'CONSTELLAB_DOCUMENT';
+  }
 }
 
 export type CaDocumentDatasource = FlDatasourcePaginated<CaDocument>;
