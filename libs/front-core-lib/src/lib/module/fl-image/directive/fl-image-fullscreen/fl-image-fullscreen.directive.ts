@@ -1,5 +1,5 @@
 import {Component, Directive, ElementRef, HostListener, Inject, Renderer2} from '@angular/core';
-import {FlDialogService} from '../../fl-dialog/fl-dialog.service';
+import {FlDialogService} from '../../../fl-dialog/fl-dialog.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 interface FlImageFullscreenDialogInput {

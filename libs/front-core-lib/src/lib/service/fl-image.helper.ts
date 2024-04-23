@@ -1,18 +1,31 @@
+
+export interface FlCompressBlobOption{
+  /**
+   * The maximum width of the compressed image
+   */
+  resizeWidthMax: number;
+
+  /**
+   * The width of the image after the crop (default is resizeWidthMax)
+   */
+  cropWidth?: number;
+
+  /**
+   * The height of the image after the crop (default is resizeHeightMax)
+   */
+  cropHeight: number;
+
+}
+
 export class FlImageHelper{
-  constructor() {
-  }
 
   /***
    * Use this method to compress and resize a blob
    *
    * @param blob is the blob to resize
-   * @param resizeWidthMax is the maximum width of the compressed image
-   * @param resizeHeightMax is the maximum height of the compressed image
-   * @param cropWidth is the width of the image after the crop (default is resizeWidthMax)
-   * @param cropHeight is the height of the image after the crop (default is resizeHeightMax)
+   * @param options is the options to resize the image
    */
-  public static async compressBlob(blob: Blob, resizeWidthMax: number, resizeHeightMax: number,
-                                   cropWidth: number = resizeWidthMax, cropHeight: number = resizeHeightMax): Promise<Blob>{
+  public static async compressBlob(blob: Blob, options: FlCompressBlobOption): Promise<File>{
     const blobUrl: string = URL.createObjectURL(blob);
     const loadImage = (url: string): Promise<HTMLImageElement> => new Promise((resolve, reject) => {
       const img = new Image();
@@ -21,10 +34,11 @@ export class FlImageHelper{
       img.src = url;
     });
     const img = await loadImage(blobUrl);
-    let [newWidth, newHeight] = FlImageHelper.calculateSize(img, resizeWidthMax);
+    let [newWidth, newHeight] = FlImageHelper.calculateSize(img, options.resizeWidthMax);
     const canvas: HTMLCanvasElement = document.createElement('canvas');
+    const cropWidth: number = options.cropWidth ?? options.resizeWidthMax;
     canvas.width = cropWidth;
-    canvas.height = cropHeight;
+    canvas.height = options.cropHeight;
     let xBegin: number = 0;
     let yBegin: number = 0;
     if (newWidth > cropWidth) {
@@ -32,21 +46,21 @@ export class FlImageHelper{
     } else {
       newWidth = cropWidth;
     }
-    if (newHeight > cropHeight) {
-      yBegin = Math.round((newHeight - cropHeight) / 2);
+    if (newHeight > options.cropHeight) {
+      yBegin = Math.round((newHeight - options.cropHeight) / 2);
     } else {
-      newHeight = cropHeight;
+      newHeight = options.cropHeight;
     }
 
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, -xBegin, -yBegin, newWidth, newHeight);
-    return new Promise(resolve => canvas.toBlob(resolve));
+    const compressedBlob: Blob = await new Promise(resolve => canvas.toBlob(resolve));
+    return FlImageHelper.blobToFile(compressedBlob);
   }
 
   /***
    * Calcul the new size of the image
    * @param img
-   * @param maxH
    * @param maxW
    */
   public static calculateSize(img: HTMLImageElement, maxW: number = 960): [number, number] {
@@ -59,5 +73,13 @@ export class FlImageHelper{
     }
 
     return [width, height];
+  }
+
+  public static blobToUrl(blob: Blob): string {
+    return URL.createObjectURL(blob);
+  }
+
+  public static blobToFile(blob: Blob): File {
+    return new File([blob], 'image.png', {type: 'image/png'});
   }
 }

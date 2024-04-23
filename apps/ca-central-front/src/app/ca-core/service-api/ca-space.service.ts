@@ -85,6 +85,10 @@ export class CaSpaceService {
     return this.apiService.put(`${this.route}/${spaceId}/photo`, formData, CaSpace);
   }
 
+  public deleteSpacePhoto(spaceId: string): Observable<CaSpace> {
+    return this.apiService.delete(`${this.route}/${spaceId}/photo`, CaSpace);
+  }
+
   public getSpacePhoto(filename: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/photo/${filename}`);
   }

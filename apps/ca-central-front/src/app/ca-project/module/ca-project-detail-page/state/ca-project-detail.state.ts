@@ -151,7 +151,7 @@ export class CaProjectDetailState implements OnDestroy {
   }
 
   public canEditProject$(): Observable<boolean> {
-    const user = this.authenticatedUserService.getUser();
+    const user = this.authenticatedUserService.getCurrentUser();
 
     return this.getProject$(false).pipe(
       map(project => this.authenticatedUserService.isCurrentSpaceAdmin() ||

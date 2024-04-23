@@ -44,7 +44,7 @@ export class CaCommentDivComponent implements OnInit {
 
   ngOnInit(): void {
     this.buttons = [];
-    if (this.authUserService.getUser().id === this.comment.createdBy.id && this.comment.createdAt.diffNow('minute').as('minute') > -5) {
+    if (this.authUserService.getCurrentUser().id === this.comment.createdBy.id && this.comment.createdAt.diffNow('minute').as('minute') > -5) {
       this.buttons.push(
         {
           icon: 'edit',

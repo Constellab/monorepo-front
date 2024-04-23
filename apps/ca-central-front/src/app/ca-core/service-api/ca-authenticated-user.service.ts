@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {CaUser} from '../model/entities/ca-user.class';
-import {BehaviorSubject, mergeMap, Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 import {
   FlApiService,
@@ -50,16 +50,7 @@ export class CaAuthenticatedUserService implements FlCleanableService {
     );
   }
 
-  /**
-   * Call the get user information route and store the user in the service
-   */
-  public loadAuthenticatedUser(): Observable<CaUser> {
-    return this.apiService.get(this.currentUserRoute, CaUser).pipe(
-      map(user => this.storeUserAuthenticated(user))
-    );
-  }
-
-  public getUser(): CaUser {
+  public getCurrentUser(): CaUser {
     if (this.userAuthenticated == null) {
       console.error('The user is not loaded yet');
       return null;
@@ -67,12 +58,8 @@ export class CaAuthenticatedUserService implements FlCleanableService {
     return this.userAuthenticated;
   }
 
-  /**
-   * For dev environment
-   * @param domain
-   */
-  public setCurrentSpaceDomainDev(domain: string): void {
-    this.currentSpaceService.setCurrentSpaceDomainDev(domain);
+  public getUser$(): Observable<CaUser> {
+    return this.userSubject.asObservable();
   }
 
   private storeCurrentAuthenticatedInfo(spaceInfo: CaSpaceInfoDto): CaSpaceInfoDto {
@@ -141,18 +128,33 @@ export class CaAuthenticatedUserService implements FlCleanableService {
     this.notifyUserChange();
   }
 
-  public editUser(newUserInfo: Partial<CaUser>, newUserPhoto: File): Observable<CaUser> {
+  public uploadPhoto(file: File): Observable<CaUser> {
+    const formData = new FormData();
+    formData.append('photo', file);
+    return this.apiService.put(this.currentUserRoute + '/photo', formData, CaUser).pipe(
+      tap((user) => {
+        this.userAuthenticated = user;
+        this.notifyUserChange();
+      })
+    );
+  }
 
-    if (newUserPhoto) {
-      const formData = new FormData();
-      formData.append('photo', newUserPhoto);
-      return this.apiService.put(this.currentUserRoute + '/photo/' + newUserInfo.id, formData).pipe(
-        mergeMap(() => this.apiService.put(this.currentUserRoute + '/edit', newUserInfo, CaUser)),
-        map((res) => res)
-      );
-    } else {
-      return this.apiService.put(this.currentUserRoute + '/edit', newUserInfo, CaUser);
-    }
+  public deletePhoto(): Observable<CaUser> {
+    return this.apiService.delete(this.currentUserRoute + '/photo', CaUser).pipe(
+      tap((user) => {
+        this.userAuthenticated = user;
+        this.notifyUserChange();
+      })
+    );
+  }
+
+  public editUser(newUserInfo: Partial<CaUser>,): Observable<CaUser> {
+    return this.apiService.put(this.currentUserRoute + '/edit', newUserInfo, CaUser).pipe(
+      tap((user) => {
+        this.userAuthenticated = user;
+        this.notifyUserChange();
+      })
+    );
   }
 
   public has2FA(): Observable<boolean> {

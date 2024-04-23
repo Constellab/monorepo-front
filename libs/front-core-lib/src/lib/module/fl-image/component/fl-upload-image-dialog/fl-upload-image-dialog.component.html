@@ -1,0 +1,45 @@
+<fl-dialog-header>
+  {{ dialogInput.config.title | flTranslatableText }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+
+
+  @if (dialogInput.config.helpText) {
+    <div class="help-text g-text-light g-text-centered">
+      {{ dialogInput.config.helpText | flTranslatableText }}
+    </div>
+  }
+
+  <fl-input-file-container color="primary" [autoClear]="true"
+                           [placeholder]="'flImage.select_another_image' | translate"
+                           class="g-centered-forced">
+    <input flInputFile type="file" accept="image/*"
+           (fileChange)="onNewFile($any($event))"
+           [strictMode]="true" [autoClearHtmlInput]="true">
+  </fl-input-file-container>
+
+
+  <mat-divider class="divider"></mat-divider>
+
+  @if (compressIsLoading) {
+    <div class="g-text-centered">
+      <fl-loader size="large"></fl-loader>
+    </div>
+  } @else {
+    <img [src]="compressImageSrc" alt="New image" class="g-centered-forced"
+         [width]="dialogInput.config.imagePreviewWidth"
+         [height]="dialogInput.config.imagePreviewHeight"
+         [ngClass]="{'round': dialogInput.config.roundImage}">
+  }
+
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary"
+          class="g-centered-forced" (click)="save()">
+    {{ 'save' | translate }}
+    <fl-button-loader *ngIf="uploadIsLoading"></fl-button-loader>
+  </button>
+</div>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {CaAuthService} from '../../../ca-login/service/ca-auth.service';
 import {Router} from '@angular/router';
 import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper';
@@ -11,16 +11,12 @@ import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper'
   templateUrl: './ca-user-settings-dialog.component.html',
   styleUrls: ['./ca-user-settings-dialog.component.scss']
 })
-export class CaUserSettingsDialogComponent implements OnInit {
+export class CaUserSettingsDialogComponent {
 
   logoutIsLoading: boolean = false;
 
   constructor(private authService: CaAuthService,
               private router: Router) {
-  }
-
-  ngOnInit(): void {
-
   }
 
   logout(): void {

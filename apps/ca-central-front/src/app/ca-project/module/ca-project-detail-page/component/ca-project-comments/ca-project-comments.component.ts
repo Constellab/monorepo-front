@@ -64,7 +64,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.currentUserId = this.userService.getUser().id;
+    this.currentUserId = this.userService.getCurrentUser().id;
 
     this.textEditorConfig.sendButtonEvent$.subscribe(btEvent => {
       if (btEvent) {

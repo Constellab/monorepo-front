@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import {FlReshapeImageDialogComponent} from './fl-reshape-image-dialog.component';
+import {FlUploadImageDialogComponent} from './fl-upload-image-dialog.component';
 
 describe('FlReshapeImageDialogComponent', () => {
-  let component: FlReshapeImageDialogComponent;
-  let fixture: ComponentFixture<FlReshapeImageDialogComponent>;
+  let component: FlUploadImageDialogComponent;
+  let fixture: ComponentFixture<FlUploadImageDialogComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlReshapeImageDialogComponent ]
+      declarations: [ FlUploadImageDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FlReshapeImageDialogComponent);
+    fixture = TestBed.createComponent(FlUploadImageDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

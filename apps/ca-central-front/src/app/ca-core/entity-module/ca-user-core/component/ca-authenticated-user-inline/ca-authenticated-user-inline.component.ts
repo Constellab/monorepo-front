@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CaUser} from '../../../../model/entities/ca-user.class';
 import {CaAuthenticatedUserService} from '../../../../service-api/ca-authenticated-user.service';
 import {CaRouterService} from '../../../../service/ca-router.service';
+import {Observable} from 'rxjs';
 
 /**
  * Component to display the current user photo, name and job
@@ -15,7 +16,7 @@ export class CaAuthenticatedUserInlineComponent implements OnInit {
 
   @Input() showName: boolean = true;
 
-  authenticatedUser: CaUser;
+  user$: Observable<CaUser>;
 
   route: string;
 
@@ -23,8 +24,8 @@ export class CaAuthenticatedUserInlineComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticatedUser = this.authenticatedUserService.getUser();
-    this.route = CaRouterService.getUserDetailRoute(this.authenticatedUser.id);
+    this.user$ = this.authenticatedUserService.getUser$();
+    this.route = CaRouterService.getUserDetailRoute(this.authenticatedUserService.getCurrentUser().id);
   }
 
 }

@@ -1,0 +1,11 @@
+<div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+
+  <div>{{ 'language' | translate }}</div>
+  <mat-form-field>
+    <mat-label>{{ 'language' | translate }}</mat-label>
+    <mat-select [(ngModel)]="language" (selectionChange)="onLangChange($event)"
+                [placeholder]="'language' | translate">
+      <fl-select-language-options></fl-select-language-options>
+    </mat-select>
+  </mat-form-field>
+</div>

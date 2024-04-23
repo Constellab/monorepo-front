@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {CaCurrentSpacePageComponent} from './component/ca-current-space-page/ca-current-space-page.component';
 import {CaCoreModule} from '../../ca-core/ca-core.module';
 import {CaSpaceCoreModule} from '../../ca-core/entity-module/ca-space-core/ca-space-core.module';
@@ -9,9 +9,6 @@ import {CaGroupCoreModule} from '../../ca-core/entity-module/ca-group-core/ca-gr
 import {
   CaSpaceUserRoleDialogComponent
 } from './component/ca-space-user-role-dialog/ca-space-user-role-dialog.component';
-import {
-  CaSpaceUploadPhotoDialogComponent
-} from './component/ca-space-upload-photo-dialog/ca-space-upload-photo-dialog.component';
 import {CaSpaceInvitTableComponent} from './component/ca-space-invit-table/ca-space-invit-table.component';
 import {
   CaSpaceInvitFormDialogComponent
@@ -55,12 +52,12 @@ import {
   CaCurrentSpaceStorageDetailComponent
 } from './component/ca-current-space-storage-detail/ca-current-space-storage-detail.component';
 
+
 @NgModule({
   declarations: [
     CaCurrentSpacePageComponent,
     CaCurrentSpaceDetailComponent,
     CaSpaceUserRoleDialogComponent,
-    CaSpaceUploadPhotoDialogComponent,
     CaSpaceInvitTableComponent,
     CaSpaceInvitFormDialogComponent,
     CaCurrentSpaceInvitListComponent,
@@ -93,6 +90,7 @@ import {
     CaCloudProviderCoreModule,
     CaObjectStorageCoreModule,
     CaBucketCredentialsCoreModule,
+    NgOptimizedImage,
   ],
 })
 export class CaSpacePageModule {

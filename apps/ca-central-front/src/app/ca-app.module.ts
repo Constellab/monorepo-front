@@ -47,6 +47,7 @@ import {TranslateLoader} from '@ngx-translate/core';
 export function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
 }
+
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
 }
@@ -84,7 +85,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlTranslateModule.forRoot({
       defaultLang: ClSupportedLanguage.en,
       availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
-      filenames: ['ca-global-', 'ca-dashboard-', 'ca-settings-', 'ca-server-info-', 'ca-lab-', 'ca-smart-db-']
+      filenames: ['ca-global-', 'ca-dashboard-', 'ca-server-info-', 'ca-lab-', 'ca-smart-db-']
     }),
     FlTranslateModule.forRoot2(),
 

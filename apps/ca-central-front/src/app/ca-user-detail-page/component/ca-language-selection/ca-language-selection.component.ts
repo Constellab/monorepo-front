@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ClSupportedLanguage} from '@monorepo/core-lib';
 import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
 import {MatSelectChange} from '@angular/material/select';
+import {ClSupportedLanguage} from '@monorepo/core-lib';
 
 /**
  * Component to change the app language of the current user
@@ -23,7 +23,7 @@ export class CaLanguageSelectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.language = this.authenticatedUserService.getUser().lang;
+    this.language = this.authenticatedUserService.getCurrentUser().lang;
     this.previousValue = this.language;
   }
 

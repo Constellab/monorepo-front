@@ -1,23 +1,11 @@
 <fl-dialog-header>
-  {{ 'edit' |translate }}
+  {{ 'edit_profile' |translate }}
 </fl-dialog-header>
 
 
 <mat-dialog-content>
 
   <form (ngSubmit)="submit()" id="edit-user-form" [formGroup]="formGp" class="g-layout-col">
-
-    <div class="g-centered-forced photo" (click)="activeInput($event)">
-
-      <div class="photo-over">
-        <mat-icon class="photo-icon">add_a_photo</mat-icon>
-      </div>
-      <input flInputFile type="file" accept="image/jpg,image/jpeg,image/png" (fileChange)="onFileSelected($event)"
-             [strictMode]="true" [autoClearHtmlInput]="true" [hidden]="true" id="input-photo" #input>
-      <fl-user-profile-picture [user]=" dialogInput.object" size="big">
-
-      </fl-user-profile-picture>
-    </div>
 
     <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
       <mat-form-field class="half-input">
@@ -57,7 +45,7 @@
 
     <mat-form-field class="g-form-input">
       <mat-label>{{'biography' | translate}}</mat-label>
-      <textarea matInput formControlName="biography" class="biography-input" flInputMaxLength="500"></textarea>
+      <textarea matInput formControlName="biography" class="biography-input" flInputMaxLength="255"></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>

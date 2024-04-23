@@ -1,12 +1,11 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {CaMainAppComponent} from './component/ca-main-app/ca-main-app.component';
 import {CaMainRoutingModule} from './ca-main-routing.module';
 import {CaCoreModule} from '../ca-core/ca-core.module';
 import {CaNotificationsModule} from '../ca-notifications/ca-notifications.module';
 import {CaMySpacesPortalComponent} from './component/ca-my-spaces-portal/ca-my-spaces-portal.component';
 import {CaSpaceCoreModule} from '../ca-core/entity-module/ca-space-core/ca-space-core.module';
-import {MatBadgeModule} from '@angular/material/badge';
 import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
 
 /**
@@ -19,6 +18,7 @@ import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-co
   ],
   imports: [
     CommonModule,
+    NgOptimizedImage,
 
     CaCoreModule,
     CaSpaceCoreModule,
@@ -28,7 +28,6 @@ import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-co
     CaMainRoutingModule,
     CaCoreModule,
     CaNotificationsModule,
-    MatBadgeModule
   ]
 })
 export class CaMainModule {

@@ -45,6 +45,8 @@ export class CaSpacePhotoComponent implements OnInit, OnDestroy {
   private initSpace(space: CaSpace): void {
     if (!ClHelpService.isNullOrEmpty(space.photo)) {
       this.photo = this.spaceService.getSpacePhoto(space.photo);
+    }else{
+      this.photo = null;
     }
     this.initial = space.name.charAt(0).toUpperCase();
     this.label = space.name;

@@ -26,7 +26,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {FlFileTextIconComponent} from './component/fl-file-text-icon/fl-file-text-icon.component';
 import {FlTextIconModule} from '../fl-text-icon/fl-text-icon.module';
-import {FlIconModule} from "../fl-svg-icon/fl-icon.module";
+import {FlIconModule} from '../fl-svg-icon/fl-icon.module';
 
 /**
  * Core modules containing components
@@ -53,25 +53,25 @@ import {FlIconModule} from "../fl-svg-icon/fl-icon.module";
     FlPinUnpinButtonComponent,
     FlFileTextIconComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
 
-        FlLoaderModule,
-        FlTranslateModule,
-        FlCorePipeModule,
-        FlCoreDirectiveModule,
+    FlLoaderModule,
+    FlTranslateModule,
+    FlCorePipeModule,
+    FlCoreDirectiveModule,
 
-        // Material
-        MatTooltipModule,
-        MatIconModule,
-        MatButtonModule,
-        MatOptionModule,
-        FlTextIconModule,
-        FlIconModule,
-    ]
+    // Material
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonModule,
+    MatOptionModule,
+    FlTextIconModule,
+    FlIconModule,
+  ]
 })
 export class FlCoreComponentModule {
 

@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CaSpace} from '../../../../ca-core/model/entities/space/ca-space.class';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlUploadImageDialogConfig
+} from '@monorepo/front-core-lib';
 import {CaSpaceService} from '../../../../ca-core/service-api/ca-space.service';
 import {CaRouterService} from '../../../../ca-core/service/ca-router.service';
-import {
-  CaSpaceUploadPhotoDialogComponent,
-  CaSpaceUploadPhotoDialogInput
-} from '../ca-space-upload-photo-dialog/ca-space-upload-photo-dialog.component';
 import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-space.service';
 import {Observable} from 'rxjs';
 import {CaRequestNewLicensesComponent} from '../ca-request-new-licenses/ca-request-new-licenses.component';
@@ -14,6 +15,7 @@ import {CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-sp
 import {
   CaSpaceLicenseFormDialogComponent
 } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-license-form-dialog/ca-space-license-form-dialog.component';
+import {map} from 'rxjs/operators';
 
 /**
  * Show all the information about a space
@@ -28,6 +30,10 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
   @Input() spaceSettings: CaSpaceSettingsDto;
 
   space$: Observable<CaSpace>;
+  spaceImage$: Observable<string>;
+  imageConfig$: Observable<FlUploadImageDialogConfig>;
+  deleteImageConfig: Observable<FlConfirmDialogInput>;
+
   isSpaceAdmin: boolean;
 
   constructor(private dialogService: FlDialogService,
@@ -39,23 +45,43 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
   ngOnInit(): void {
     this.space$ = this.currentSpaceService.getCurrentSpace$();
     this.isSpaceAdmin = this.currentSpaceService.isSpaceAdmin();
+    this.spaceImage$ = this.currentSpaceService.getCurrentSpacePhoto$();
+
+    this.imageConfig$ = this.currentSpaceService.getCurrentSpace$().pipe(
+      map(space => ({
+        title: {text: 'space_upload_photo', translateText: true},
+        helpText: {text: 'image_square_help', translateText: true},
+        imagePreviewWidth: 200,
+        imagePreviewHeight: 200,
+        roundImage: true,
+        compressOptions: {
+          cropWidth: 300,
+          cropHeight: 300,
+          resizeWidthMax: 300,
+        },
+        uploadImage: (file: File) => this.spaceService.uploadSpacePhoto(space.id, file),
+        uploadImageSuccessMessage: {text: 'space_photo_uploaded', translateText: true}
+      }))
+    );
+
+    this.deleteImageConfig = this.currentSpaceService.getCurrentSpace$().pipe(
+      map(space => ({
+        title: 'space_delete_photo',
+        content: 'space_delete_photo_confirmation',
+        translateMessage: true,
+        observable: this.spaceService.deleteSpacePhoto(space.id),
+        successMessage: 'space_photo_deleted',
+        translateTitleAndContent: true
+      }))
+    );
   }
 
-  openUploadPhotoDialog(space: CaSpace): void {
-    const data: CaSpaceUploadPhotoDialogInput = {
-      spaceId: space.id
-    };
-
-    this.dialogService.openSmallDialog(CaSpaceUploadPhotoDialogComponent,
-      {data: data}).afterClosed().subscribe(
-      (result: CaSpace) => this.onUploadPhotoClosed(result));
-  }
-
-  private onUploadPhotoClosed(space?: CaSpace): void {
+  onSpaceUpdate(space?: CaSpace): void {
     if (space) {
       this.currentSpaceService.setCurrentSpace(space);
     }
   }
+
 
   openUpdateLicense(nbOfLicenses: number): void {
     this.dialogService.openSmallDialog(CaSpaceLicenseFormDialogComponent, {data: nbOfLicenses})

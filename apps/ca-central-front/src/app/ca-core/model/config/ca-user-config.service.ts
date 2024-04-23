@@ -39,7 +39,7 @@ export class CaUserConfig extends FlUserConfig {
   }
 
   getAuthenticatedUser(): CaUser {
-    return this.authenticatedUserService.getUser();
+    return this.authenticatedUserService.getCurrentUser();
   }
 
 }

@@ -64,14 +64,14 @@
 }
 
 .logo {
-  width: 36px;
-  max-height: 40px;
+  border-radius: 50%;
 }
 
 .space-name {
   overflow: hidden;
   line-height: 1.2em;
-  margin-left: 15px;
+  margin-left: 7px;
+  word-break: break-word;
 }
 
 .space-name:hover {
@@ -115,6 +115,7 @@
 .reduce-button {
   margin-bottom: 1em;
 }
+
 @media print {
   // use to hide menu on print
   .content {

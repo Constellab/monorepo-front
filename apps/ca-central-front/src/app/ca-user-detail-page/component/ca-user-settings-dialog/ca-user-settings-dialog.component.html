@@ -1,10 +1,8 @@
-<div>
+<fl-dialog-header>
+  {{ 'settings' | translate }}
+</fl-dialog-header>
 
-  <h1 class="g-page-title">{{'profile' | translate}}</h1>
-
-  <ca-user-profile-section></ca-user-profile-section>
-
-  <h1 class="g-page-title g-section">{{'settings' | translate}}</h1>
+<mat-dialog-content>
 
   <ca-user-two-fa-toggle></ca-user-two-fa-toggle>
 
@@ -12,12 +10,12 @@
 
   <ca-language-selection class="g-section"></ca-language-selection>
 
-  <div class="g-section">
+
+  <div class="g-section g-text-centered">
     <button mat-flat-button type="button" color="warn" (click)="logout()">
       <mat-icon>logout</mat-icon>
-      {{'flAuth.logout' | translate}}
+      {{ 'flAuth.logout' | translate }}
       <fl-button-loader *ngIf="logoutIsLoading"></fl-button-loader>
     </button>
   </div>
-</div>
-
+</mat-dialog-content>

@@ -9,13 +9,7 @@
           {{ 'request_new_licenses' | translate }}
         </button>
 
-
-        <button mat-icon-button type="button" class="button" (click)="openUploadPhotoDialog(space)"
-                [matTooltip]="'space_upload_photo' | translate">
-          <mat-icon>photo_camera</mat-icon>
-        </button>
-
-        <button mat-icon-button type="button" class="button"(click)="openUpdateLicense(spaceSettings.nbLicenses)"
+        <button mat-icon-button type="button" class="button" (click)="openUpdateLicense(spaceSettings.nbLicenses)"
                 [matTooltip]="'update_space_license' | translate" *caIsAdmin>
           <mat-icon>edit</mat-icon>
         </button>
@@ -30,7 +24,11 @@
 
   <fl-card-body>
     <div class="g-layout-col g-layout-start-center">
-      <ca-space-photo size="big" [space]="space$"></ca-space-photo>
+      <fl-update-image-container [uploadConfig]="imageConfig$ | async" [deleteConfig]="deleteImageConfig | async"
+                       [showDelete]="!!space.photo"
+                       (imageChanged)="onSpaceUpdate($event)" (imageDeleted)="onSpaceUpdate($event)">
+        <ca-space-photo size="big" [space]="space$"></ca-space-photo>
+      </fl-update-image-container>
       <h1 class="title" flElementEditable
           (flElementValueChange)="updateSpaceName($event)"
           [flElementDisabled]="!isSpaceAdmin">{{ space.name }}</h1>

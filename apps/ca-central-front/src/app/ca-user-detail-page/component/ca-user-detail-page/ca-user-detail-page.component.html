@@ -1,43 +1,64 @@
-<fl-async-section [object]="user$">
-  <ng-container *flSectionBody="user$ as user">
+<div class="g-page page">
+  <fl-async-section [object]="user$">
+    <ng-container *flSectionBody="user$ as user">
 
-    <div class="header">
-      <div class="header-div">
-        <fl-user-profile-picture flHide.lt-md [user]="user" [size]="7" class="user-pp"></fl-user-profile-picture>
-        <fl-user-profile-picture flHide.gt-xs [user]="user" [size]="6" class="user-pp"></fl-user-profile-picture>
-        <div class="base-info">
-          <h2>{{user.firstname}} {{user.lastname}}</h2>
-          <fl-text-icon iconPosition="start" *ngIf="user.company">
-            <mat-icon flIcon="space"></mat-icon>
-            {{user.company}}
-          </fl-text-icon>
-          <fl-text-icon iconPosition="start" *ngIf="user.activity">
-            <mat-icon flIcon="badge"></mat-icon>
-            {{user.activity}}
-          </fl-text-icon>
-        </div>
-        <button class="button-settings" mat-stroked-button type="button"
-                *ngIf="currentUser.id === user.id" (click)="openSettings()"
-                flClass.xs="g-button-small">
-          <fl-text-icon iconPosition="start">
-            <mat-icon flIcon="settings" flClass.xs="g-button-icon-small"></mat-icon>
-            {{'Settings' | translate}}
-          </fl-text-icon>
-        </button>
-      </div>
-    </div>
+      <fl-card>
 
-    <div class="profile">
-      <div class="biography">
-        <p>{{user.biography}}</p>
-      </div>
-    </div>
+        @if (isCurrentUser) {
+          <fl-card-header>
+            <fl-card-actions>
+              <button class="g-button-small" mat-stroked-button type="button"
+                      (click)="openEditProfileDialog(user)">
+                <mat-icon>edit</mat-icon>
+                {{ 'edit_profile' | translate }}
+              </button>
 
+              <button class="g-button-small button-settings"
+                      mat-stroked-button type="button"
+                      (click)="openSettings()">
+                <mat-icon>settings</mat-icon>
+                {{ 'settings' | translate }}
+              </button>
+            </fl-card-actions>
+          </fl-card-header>
+        }
+
+        <fl-card-body>
+          <div class="g-layout-row g-layout-center-center">
+            <fl-update-image-container [uploadConfig]="imageConfig" [disabled]="!isCurrentUser"
+                             [deleteConfig]="deleteImageConfig" [showDelete]="!!user.photo">
+              <fl-user-profile-picture [user]="user" [size]="10"></fl-user-profile-picture>
+            </fl-update-image-container>
+          </div>
+
+          <h2 class="g-text-centered text">{{ user.firstname }} {{ user.lastname }}</h2>
+
+          @if (user.company) {
+            <fl-text-icon class="g-centered text">
+              <mat-icon>business</mat-icon>
+              {{ user.company }}
+            </fl-text-icon>
+          }
+
+          @if (user.activity) {
+            <fl-text-icon class="g-centered text">
+              <mat-icon>badge</mat-icon>
+              {{ user.activity }}
+            </fl-text-icon>
+          }
+
+          @if (user.biography) {
+            <p class="g-centered g-max-article-width biography">{{ user.biography }}</p>
+          }
+        </fl-card-body>
+      </fl-card>
+
+    </ng-container>
+  </fl-async-section>
+
+
+  <ng-container *caIsAdmin>
+    <ca-user-spaces-list class="g-section" [userId]="id"></ca-user-spaces-list>
+    <ca-lab-free-trial-card-info *caIsAdmin class="g-section" [userId]="id"></ca-lab-free-trial-card-info>
   </ng-container>
-</fl-async-section>
-
-
-<ng-container *caIsAdmin>
-  <ca-user-spaces-list class="g-section" [userId]="id"></ca-user-spaces-list>
-  <ca-lab-free-trial-card-info *caIsAdmin class="g-section" [userId]="id"></ca-lab-free-trial-card-info>
-</ng-container>
+</div>

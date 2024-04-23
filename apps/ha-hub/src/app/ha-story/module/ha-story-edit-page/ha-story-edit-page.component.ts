@@ -8,7 +8,7 @@ import {
   FlDebouncer,
   FlDialogService,
   FlFormDialogInput,
-  FlReshapeImageDialogComponent
+  FlUploadImageDialogComponent
 } from '@monorepo/front-core-lib';
 import {HaStoryTextEditorConfig} from './ha-story-text-editor.config';
 import {mergeMap, Observable, of, startWith} from 'rxjs';
@@ -27,7 +27,8 @@ import {
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import {CoStoryCategory} from '@monorepo/community-lib';
 import {
-  HaFileDialogComponent, HaFileDialogObjectInput
+  HaFileDialogComponent,
+  HaFileDialogObjectInput
 } from '../../../ha-core/entity-module/ha-file-core/component/ha-file-dialog/ha-file-dialog.component';
 
 @Component({
@@ -322,7 +323,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onFileSelected(file: File | File[]): void {
-    this.dialogService.openMediumDialog(FlReshapeImageDialogComponent, {
+    this.dialogService.openMediumDialog(FlUploadImageDialogComponent, {
       data: {
         file: file,
         width: 174,

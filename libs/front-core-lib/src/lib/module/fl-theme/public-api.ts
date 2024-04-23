@@ -8,3 +8,6 @@ export * from './pipe/fl-theme-switch.pipe';
 // models
 export * from './model/fl-theme-detail.class';
 export * from './model/fl-theme-switch.class';
+
+// services
+export * from './fl-theme.service';

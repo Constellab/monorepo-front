@@ -8,7 +8,6 @@ import {
   caConstLabInstancesRoute,
   caConstMyProjectsRoute,
   caConstProjectRoute,
-  caConstSettingsRoute,
   caConstSmartDbRoute,
   caConstStructureRoute,
   caConstUserPageRoute
@@ -73,12 +72,6 @@ const routes: Route[] = [
         path: caConstUserPageRoute,
         loadChildren: () => import('../ca-user-detail-page/ca-user-detail-page.module')
           .then(m => m.CaUserDetailPageModule)
-      },
-
-      //////////////////////// SETTINGS /////////////////////////
-      {
-        path: caConstSettingsRoute,
-        loadChildren: () => import('../ca-settings/ca-settings.module').then(m => m.CaSettingsModule)
       },
     ]
   }
