@@ -41,7 +41,7 @@ export class CaCurrentSpaceStorageComponent {
   updateStorageLimit(spaceStorage: CaSpaceStorage): void {
     const data: CaStorageLimitUpdateDialogInput = {
       mode: 'update',
-      object: {limit: spaceStorage.storageLimit}
+      object: {limit: spaceStorage.cloudStorageLimit}
     };
 
     this.dialogService.openSmallDialog(CaCurrentSpaceUpdateStorageDialogComponent, {data: data})

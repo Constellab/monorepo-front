@@ -19,6 +19,9 @@ import {CaStatusModule} from '../../module/ca-status/ca-status.module';
 import {CaNotificationCoreModule} from '../ca-notification-core/ca-notification-core.module';
 import {CaObjectStorageCoreModule} from '../ca-object-storage-core/ca-object-storage-core.module';
 import {CaProjectStorageUsageComponent} from './component/ca-project-storage-usage/ca-project-storage-usage.component';
+import {
+  CaProjectStorageLocationUsageComponent
+} from './component/ca-project-storage-location-usage/ca-project-storage-location-usage.component';
 
 /**
  * Importable module to get project components and pipe
@@ -37,6 +40,7 @@ import {CaProjectStorageUsageComponent} from './component/ca-project-storage-usa
     CaProjectSearchComponent,
     CaProjectSearchFormComponent,
     CaProjectStorageUsageComponent,
+    CaProjectStorageLocationUsageComponent,
   ],
   exports: [
     // Component

@@ -168,6 +168,8 @@
   "project_files": "file(s)",
   "project_storage_usage": "Storage usage",
   "project_storage_details": "Detail",
+  "project_storage_cloud": "Cloud storage",
+  "project_storage_datahub": "Datahub storage",
   "storage_usage": "Storage usage",
   "update_space_default_storage": "Update default storage",
   "space_default_storage_updated": "Default storage updated",

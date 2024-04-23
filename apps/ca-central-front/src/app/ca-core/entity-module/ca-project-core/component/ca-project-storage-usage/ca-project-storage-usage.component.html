@@ -1,32 +1,37 @@
 <fl-async-section [object]="storageUsage$">
-  <ng-container *flSectionBody="storageUsage$ as projectSize">
+  <ng-container *flSectionBody="storageUsage$ as storageUsage">
     <div class="aggregation">
       <fl-key-value>
         <fl-key>
           {{ 'total_size' | translate }}
         </fl-key>
-        {{ projectSize.totalSize | flByteText }}
+        {{ storageUsage.totalSize | flByteText }}
       </fl-key-value>
 
       <fl-key-value>
         <fl-key>
           {{ 'total_nb_of_documents' | translate }}
         </fl-key>
-        {{ projectSize.totalDocuments }}
+        {{ storageUsage.totalDocuments }}
       </fl-key-value>
     </div>
 
-    <div class="details">{{ 'project_storage_details' | translate }}</div>
-    @for (key of projectSize.details | flObjectKeys; track key) {
-      <div class="g-text-small">
-        <fl-key-value>
-          <fl-key>
-            {{ ('project_size_' + key) | translate }}
-          </fl-key>
-          {{ projectSize.details[key].totalSize | flByteText }}
-          - {{ projectSize.details[key].totalDocuments }} {{ 'project_files' | translate }}
-        </fl-key-value>
-      </div>
+    @if (storageUsage.cloudDetails) {
+      <fl-text-icon class="details">
+        <mat-icon>cloud</mat-icon>
+        {{ 'project_storage_cloud' | translate }}
+      </fl-text-icon>
+      <ca-project-storage-location-usage [storageLocation]="storageUsage.cloudDetails"
+                                         [showTotalInfo]="storageUsage.hasMultipleStorageLocations()"></ca-project-storage-location-usage>
+    }
+
+    @if (storageUsage.dataHubDetails) {
+      <fl-text-icon class="details">
+        <mat-icon flIcon="lab"></mat-icon>
+        {{ 'project_storage_datahub' | translate }}
+      </fl-text-icon>
+      <ca-project-storage-location-usage [storageLocation]="storageUsage.dataHubDetails"
+                                         [showTotalInfo]="storageUsage.hasMultipleStorageLocations()"></ca-project-storage-location-usage>
     }
   </ng-container>
 </fl-async-section>

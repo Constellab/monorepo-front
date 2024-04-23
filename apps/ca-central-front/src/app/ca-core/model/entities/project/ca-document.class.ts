@@ -39,13 +39,31 @@ export enum CaProjectDocumentStorageType {
   COMMENT = 'COMMENT'
 }
 
-export class CaProjectStorageUsageDetailDTO {
+export class CaStorageUsageDTO {
   totalSize: number;
-
   totalDocuments: number;
 }
 
-export class CaProjectStorageUsageDTO extends CaProjectStorageUsageDetailDTO {
-  @ClRecordTransform(CaProjectStorageUsageDetailDTO)
-  details: Record<CaProjectDocumentStorageType, CaProjectStorageUsageDetailDTO>;
+export class CaStorageLocationUsageDTO {
+  totalSize: number;
+  totalDocuments: number;
+
+  @ClRecordTransform(CaStorageUsageDTO)
+  details: Record<CaProjectDocumentStorageType, CaStorageUsageDTO>;
+}
+
+export class CaProjectStorageUsageDTO {
+  totalSize: number;
+  totalDocuments: number;
+
+  @Type(() => CaStorageLocationUsageDTO)
+  cloudDetails: CaStorageLocationUsageDTO;
+
+  @Type(() => CaStorageLocationUsageDTO)
+  dataHubDetails: CaStorageLocationUsageDTO;
+
+  hasMultipleStorageLocations(): boolean{
+    return this.dataHubDetails != null && this.cloudDetails != null;
+  }
+
 }

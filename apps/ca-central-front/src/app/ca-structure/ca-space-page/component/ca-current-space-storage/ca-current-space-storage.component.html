@@ -37,15 +37,15 @@
           <div class="circle-container">
 
             <mat-progress-spinner mode="determinate"
-                                  [color]="spinnerColor(spaceStorage.storageUsagePercent)"
-                                  [value]="spaceStorage.storageUsagePercent"></mat-progress-spinner>
+                                  [color]="spinnerColor(spaceStorage.cloudStorageUsagePercent)"
+                                  [value]="spaceStorage.cloudStorageUsagePercent"></mat-progress-spinner>
             <div class="circle-text">
-              {{ spaceStorage.storageUsagePercent | number:'1.0-0' }} %
+              {{ spaceStorage.cloudStorageUsagePercent | number:'1.0-0' }} %
             </div>
           </div>
 
           <div class="usage-detail g-text-light">
-            {{ spaceStorage.storageUsage | flByteText }} / {{ spaceStorage.storageLimit | flByteText }}
+            {{ spaceStorage.cloudStorageUsage | flByteText }} / {{ spaceStorage.cloudStorageLimit | flByteText }}
           </div>
         </div>
 

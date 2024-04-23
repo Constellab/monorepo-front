@@ -40,8 +40,8 @@ export interface CaSpaceUpdateStorageLocationDTO {
 
 
 export class CaSpaceStorage {
-  storageLimit: number;
-  storageUsage: number;
+  cloudStorageLimit: number;
+  cloudStorageUsage: number;
 
   @Type(() => CaBucketLocationDTO)
   defaultProjectStorageLocation: CaBucketLocationDTO;
@@ -49,7 +49,7 @@ export class CaSpaceStorage {
   @Type(() => CaBucketLocationDTO)
   defaultBackupProjectStorageLocation ?: CaBucketLocationDTO;
 
-  get storageUsagePercent(): number {
-    return this.storageUsage / this.storageLimit * 100;
+  get cloudStorageUsagePercent(): number {
+    return this.cloudStorageUsage / this.cloudStorageLimit * 100;
   }
 }

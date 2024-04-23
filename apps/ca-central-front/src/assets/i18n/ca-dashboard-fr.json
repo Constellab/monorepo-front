@@ -168,6 +168,8 @@
   "project_files": "fichier(s)",
   "project_storage_usage": "Utilisation du stockage",
   "project_storage_details": "Détail",
+  "project_storage_cloud": "Stockage cloud",
+  "project_storage_datahub": "Stockage datahub",
   "storage_usage": "Storage usage",
   "update_space_default_storage": "Modifier le stockage par défaut",
   "space_default_storage_updated": "Espace de stockage par défaut mis à jour",
