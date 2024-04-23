@@ -73,10 +73,6 @@ const routes: Route[] = [
       {
         path: '',
         component: HaPublicBrickDescriptionComponent
-      },
-      {
-        path: '**',
-        redirectTo: ''
       }
     ]
   },

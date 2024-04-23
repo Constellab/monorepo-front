@@ -74,7 +74,6 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.DOC_KEY = makeStateKey<object>('doc');
 
     this.activatedRoute.parent.parent.url.subscribe(url => {
-      console.log('Parent url', url)
       this.init(url[0].path, url[1].path);
     });
 
@@ -119,27 +118,23 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       const docId = url[url.length - 1].path;
       if (this.lastDocId == docId) return;
       this.lastDocId = docId;
-      if (ClStringHelper.isUUID(docId)) {
-        this.documentationService.getById(docId).subscribe(doc => {
-          if (doc) {
-            this.onDocLoaded(doc);
-          } else {
-            this.docNotFound = true;
-          }
-        });
-        if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)) {
-          const doc: HaDocumentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
-          if (doc) {
-            this.onDocLoaded(doc);
-          } else {
-            this.docNotFound = true;
-          }
-          this.transferState.remove(this.DOC_KEY);
+      this.documentationService.getById(docId).subscribe(doc => {
+        if (doc) {
+          this.onDocLoaded(doc);
         } else {
-          this.setDocumentation(docId);
+          this.docNotFound = true;
         }
+      });
+      if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)) {
+        const doc: HaDocumentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
+        if (doc) {
+          this.onDocLoaded(doc);
+        } else {
+          this.docNotFound = true;
+        }
+        this.transferState.remove(this.DOC_KEY);
       } else {
-        this.docNotFound = true;
+        this.setDocumentation(docId);
       }
     });
   }
@@ -240,23 +235,29 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.documentation = null;
     this.docNotFound = false;
-    this.documentationService.getById(docId).subscribe(doc => {
-      if (doc) {
-        if (isPlatformServer(this.platformId)) {
-          if (this.transferState.hasKey(this.DOC_KEY)) {
-            this.documentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
-          } else {
-            this.transferState.set(this.DOC_KEY, doc);
+    this.documentationService.getById(docId).subscribe({
+      next: doc => {
+        if (doc) {
+          if (isPlatformServer(this.platformId)) {
+            if (this.transferState.hasKey(this.DOC_KEY)) {
+              this.documentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
+            } else {
+              this.transferState.set(this.DOC_KEY, doc);
+            }
           }
+          this.onDocLoaded(doc);
+          if (this.documentation.completePath + this.documentation.id != this.currentUrl) {
+            this.httpRedirectionService.redirectTo(HaRouterService.getDocumentationRoute(
+              this.brickName, this.brickVersion, this.documentation.completePath, this.documentation.id
+            ));
+          }
+        } else {
+          this.docNotFound = true;
         }
-        this.onDocLoaded(doc);
-        if (this.documentation.completePath + this.documentation.id != this.currentUrl) {
-          this.httpRedirectionService.redirectTo(HaRouterService.getDocumentationRoute(
-            this.brickName, this.brickVersion, this.documentation.completePath, this.documentation.id
-          ));
-        }
-      } else {
+      },
+      error: () => {
         this.docNotFound = true;
+        this.isLoading = false;
       }
     });
   }
