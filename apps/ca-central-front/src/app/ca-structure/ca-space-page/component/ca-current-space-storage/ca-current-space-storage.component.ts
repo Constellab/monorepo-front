@@ -11,6 +11,10 @@ import {
 import {
   CaCurrentSpaceStorageDetailComponent
 } from '../ca-current-space-storage-detail/ca-current-space-storage-detail.component';
+import {
+  CaCurrentSpaceUpdateStorageDialogComponent,
+  CaStorageLimitUpdateDialogInput
+} from '../ca-current-space-update-storage-dialog/ca-current-space-update-storage-dialog.component';
 
 /**
  * Component to show information about the current space storage
@@ -32,6 +36,16 @@ export class CaCurrentSpaceStorageComponent {
 
   spinnerColor(usagePercent: number): ThemePalette {
     return usagePercent > 80 ? 'warn' : 'primary';
+  }
+
+  updateStorageLimit(spaceStorage: CaSpaceStorage): void {
+    const data: CaStorageLimitUpdateDialogInput = {
+      mode: 'update',
+      object: {limit: spaceStorage.storageLimit}
+    };
+
+    this.dialogService.openSmallDialog(CaCurrentSpaceUpdateStorageDialogComponent, {data: data})
+      .afterClosed().subscribe(spaceStorage => this.onUpdateClosed(spaceStorage));
   }
 
   updateDefaultStorage(spaceStorage: CaSpaceStorage): void {

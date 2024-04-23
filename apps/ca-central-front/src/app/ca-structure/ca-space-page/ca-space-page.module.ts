@@ -51,6 +51,9 @@ import {CaCurrentSpaceStorageComponent} from './component/ca-current-space-stora
 import {
   CaCurrentSpaceStorageDetailComponent
 } from './component/ca-current-space-storage-detail/ca-current-space-storage-detail.component';
+import {
+  CaCurrentSpaceUpdateStorageDialogComponent
+} from './component/ca-current-space-update-storage-dialog/ca-current-space-update-storage-dialog.component';
 
 
 @NgModule({
@@ -70,6 +73,7 @@ import {
     CaCurrentSpaceOtherPageComponent,
     CaCurrentSpaceStorageComponent,
     CaCurrentSpaceStorageDetailComponent,
+    CaCurrentSpaceUpdateStorageDialogComponent,
   ],
   exports: [
     CaSpaceInvitFormDialogComponent,

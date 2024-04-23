@@ -131,6 +131,10 @@ export class CaSpaceService {
     return this.apiService.get(`${this.route}/current-space/storage/usage-detail`, CaProjectStorageUsageDTO);
   }
 
+  public updateCurrentSpaceStorageLimit(storageLimit: number): Observable<CaSpaceStorage> {
+    return this.apiService.put(`${this.route}/current-space/storage/limit/${storageLimit}`, null, CaSpaceStorage);
+  }
+
   ////////////////////////////////// USER //////////////////////////////////////
   public getUsersOfSpace(spaceId: string, page: number, size: number): Observable<ClPage<CaSpaceUser>> {
     return this.apiService.get(`${this.route}/${spaceId}/user`, CaSpaceUser,

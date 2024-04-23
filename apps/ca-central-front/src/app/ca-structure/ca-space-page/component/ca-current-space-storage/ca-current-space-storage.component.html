@@ -7,8 +7,14 @@
     </fl-text-icon>
 
     <fl-card-actions>
+
       @if (spaceStorage$ | async; as spaceStorage) {
         <button mat-stroked-button type="button" class="g-button-small"
+                (click)="updateStorageLimit(spaceStorage)" *caIsAdmin>
+          {{ 'update_space_storage' | translate }}
+        </button>
+
+        <button mat-stroked-button type="button" class="g-button-small button"
                 (click)="updateDefaultStorage(spaceStorage)">
           {{ 'update_space_default_storage' | translate }}
         </button>
