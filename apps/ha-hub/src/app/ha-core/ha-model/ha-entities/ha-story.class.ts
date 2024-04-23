@@ -11,7 +11,7 @@ export enum HaStoryStatus {
   PUBLISHED = 'PUBLISHED'
 }
 
-export class HaStoryAuthor {
+export class HaStoryCoAuthor {
   id: string;
 
   user: HaUser;
@@ -31,7 +31,7 @@ export class HaStory {
 
   topics: HaTopic[] = [];
 
-  storyAuthors: HaStoryAuthor[];
+  storyCoAuthors: HaStoryCoAuthor[];
 
   createdAt: DateTime;
 
@@ -73,8 +73,8 @@ export class HaStory {
   }
 
   getCoAuthors(): HaUser[] {
-    console.log(this.storyAuthors)
-    return this.storyAuthors?.map(storyAuthor => storyAuthor.user);
+    console.log(this.storyCoAuthors)
+    return this.storyCoAuthors?.map(storyAuthor => storyAuthor.user);
   }
 }
 
@@ -114,7 +114,7 @@ export class HaStoryDataSourceDataDto {
   status: HaStoryStatus;
   createdAt: DateTime;
 
-  storyAuthors: HaStoryAuthor[];
+  storyAuthors: HaStoryCoAuthor[];
 
   publishedAt: DateTime;
   lastModifiedAt: DateTime;

@@ -13,7 +13,6 @@ import {Observable} from 'rxjs';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {ClVersion} from '@monorepo/core-lib';
-import {TdBrick} from '@monorepo/technical-doc';
 import {HaAuthService} from '../../../../ha-core/ha-service/ha-auth.service';
 import {HaLikeService} from '../../../../ha-core/ha-service/ha-like.service';
 import {HaLikeType} from '../../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
@@ -59,15 +58,10 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   }
 
   private init(): void {
-    if (this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')) {
-      this.setBrick(this.router.url.includes('tech-doc') ? TdBrick.GWS_CORE : TdBrick.GWS_ACADEMY);
-      this.setLastBrickVersion(this.router.url.includes('tech-doc') ? TdBrick.GWS_CORE : TdBrick.GWS_ACADEMY);
-    } else {
-      this.route.parent.params.subscribe(params => {
-        this.setLastBrickVersion(params.brickName);
-        this.setBrick(params.brickName);
-      });
-    }
+    this.route.parent.params.subscribe(params => {
+      this.setLastBrickVersion(params.brickName);
+      this.setBrick(params.brickName);
+    });
   }
 
   private setBrick(brickName: string): void {

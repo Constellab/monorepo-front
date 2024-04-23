@@ -48,10 +48,10 @@ export class HaBrickService implements HaCoAuthorService {
   }
 
   /**
-   * Call http post to get the brick current doc
+   * Call http get to get brick getting started documentation
    */
-  public getDocByPath(brickName: string, path: string, version: string): Observable<HaDocumentation> {
-    return this.apiService.post(`${this.route}/doc/${brickName}/${version}`, {path: decodeURI(path)});
+  public getBrickGettingStarted(brickName: string, version: string): Observable<HaDocumentation> {
+    return this.apiService.get(`${this.route}/first-doc/${brickName}/${version}`);
   }
 
   public getAllPaginated(): HaBrickDatasourcePaginated {

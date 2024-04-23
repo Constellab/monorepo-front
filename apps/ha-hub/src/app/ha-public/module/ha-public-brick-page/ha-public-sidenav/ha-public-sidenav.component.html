@@ -26,7 +26,7 @@
                      class="sidenav-item small-text sidenav-item-with-icon g-drag-hide-placeholder"
                      [ngClass]="isDocNodeSelected(node) ? 'sidenav-item-selected' : ''"
                      [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}">
-        <a [routerLink]="'doc/' + node.completePath"
+        <a [routerLink]="'doc/' + node.completePath + '/' + node.id"
            [relativeTo]="activatedRoute" [routerLinkActive]="'active'" *ngIf="node.id != null">
           {{node.name}}
         </a>

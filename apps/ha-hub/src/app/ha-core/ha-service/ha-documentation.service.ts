@@ -21,6 +21,10 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
   constructor(private apiService: FlApiService) {
   }
 
+  public getGettingStartedDoc(): Observable<HaDocumentation> {
+    return this.apiService.get(`${this.route}/getting-started`);
+  }
+
 
   /**
    * Call http get one by id

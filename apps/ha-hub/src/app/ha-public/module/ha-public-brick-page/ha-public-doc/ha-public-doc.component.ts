@@ -1,14 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  Inject,
-  makeStateKey,
-  OnDestroy,
-  OnInit,
-  PLATFORM_ID,
-  StateKey,
-  TransferState
-} from '@angular/core';
+import {Component, Inject, makeStateKey, OnDestroy, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
@@ -29,8 +19,12 @@ import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 import {BlockToolData} from '@editorjs/editorjs/types/tools';
 import {HaFile} from '../../../../ha-core/entity-module/ha-file-core/model/ha-file';
 import {
-  HaFileDialogComponent, HaFileDialogInput
+  HaFileDialogComponent,
+  HaFileDialogInput
 } from '../../../../ha-core/entity-module/ha-file-core/component/ha-file-dialog/ha-file-dialog.component';
+import {ClStringHelper} from '@monorepo/core-lib';
+import {HaHttpRedirectionService} from '../../../../ha-core/ha-service/ha-http-redirection.service';
+import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
 
 
 @Component({
@@ -57,34 +51,38 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   anchor: string = null;
 
   currentDocTitle = '';
+  lastDocId: string;
+  currentUrl: string;
 
   private contentDebouncer: FlDebouncer<TeRichTextContent>;
-  private lastUrl: string = null;
   private DOC_KEY: StateKey<object>;
 
   constructor(private brickService: HaBrickService,
               private documentationService: HaDocumentationService,
               private authUserService: HaAuthenticatedUserService,
               private dialogService: FlDialogService,
-              private route: ActivatedRoute,
+              private activatedRoute: ActivatedRoute,
               private router: Router,
               private transferState: TransferState,
               @Inject(PLATFORM_ID) private platformId: object,
               private metadataService: HaMetadataService,
-              private elementRef: ElementRef<HTMLElement>) {
+              private httpRedirectionService: HaHttpRedirectionService) {
   }
 
 
   ngOnInit(): void {
     this.DOC_KEY = makeStateKey<object>('doc');
 
-    this.route.parent.parent.url.subscribe(url => this.init(url[0].path, url[1].path));
+    this.activatedRoute.parent.parent.url.subscribe(url => {
+      console.log('Parent url', url)
+      this.init(url[0].path, url[1].path);
+    });
 
     //create a debouncer to save the description after x second of idle
     this.contentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     this.contentDebouncer.getDebouncedValue().subscribe(value => this.saveContent(value));
 
-    this.route.fragment.subscribe(anchor => {
+    this.activatedRoute.fragment.subscribe(anchor => {
       this.anchor = anchor;
     });
   }
@@ -99,9 +97,36 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.getActiveDoc();
   }
 
+  onTitleChange(title: string): void {
+    if (title.length == 0 || title.length > 50) return;
+    this.documentationService.update({id: this.documentation.id, title: title}).subscribe(documentation => {
+      if (documentation) {
+        this.documentation = documentation;
+        this.httpRedirectionService.redirectTo(HaRouterService.getDocumentationRoute(
+          this.brickName, this.brickVersion, this.documentation.completePath, this.documentation.id
+        ));
+      }
+    });
+  }
+
   private getActiveDoc(): void {
-    this.route.url.subscribe((url: UrlSegment[]) => {
-      if ((this.lastBrickName != this.brickName || url.toString() != this.lastUrl) && this.lastUrl != '') {
+    this.activatedRoute.url.subscribe((url: UrlSegment[]) => {
+      if(url.length == 1 && url[0]?.path == 'getting-started'){
+        this.redirectToGettingStartedDoc();
+        return;
+      }
+      this.currentUrl = url.join('/');
+      const docId = url[url.length - 1].path;
+      if (this.lastDocId == docId) return;
+      this.lastDocId = docId;
+      if (ClStringHelper.isUUID(docId)) {
+        this.documentationService.getById(docId).subscribe(doc => {
+          if (doc) {
+            this.onDocLoaded(doc);
+          } else {
+            this.docNotFound = true;
+          }
+        });
         if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)) {
           const doc: HaDocumentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
           if (doc) {
@@ -111,30 +136,20 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
           }
           this.transferState.remove(this.DOC_KEY);
         } else {
-          this.getDocumentationByPath(url);
+          this.setDocumentation(docId);
         }
+      } else {
+        this.docNotFound = true;
       }
-      this.lastUrl = url.toString();
     });
   }
 
-  private getDocumentationByPath(url: UrlSegment[]): void {
-    this.isLoading = true;
-    this.documentation = null;
-    this.docNotFound = false;
-    const path: string = url.join('/') + '/';
-    this.brickService.getDocByPath(this.brickName, path, this.brickVersion).subscribe(doc => {
+  private redirectToGettingStartedDoc(): void {
+    this.brickService.getBrickGettingStarted(this.brickName, this.brickVersion).subscribe(doc => {
       if (doc) {
-        if (isPlatformServer(this.platformId)) {
-          if (this.transferState.hasKey(this.DOC_KEY)) {
-            this.documentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
-          } else {
-            this.transferState.set(this.DOC_KEY, doc);
-          }
-        }
-        this.onDocLoaded(doc);
-      } else {
-        this.docNotFound = true;
+        this.httpRedirectionService.redirectTo(HaRouterService.getDocumentationRoute(
+          this.brickName, this.brickVersion, doc.completePath, doc.id
+        ));
       }
     });
   }
@@ -142,6 +157,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   private onDocLoaded(doc: HaDocumentation): void {
     this.docNotFound = false;
     this.documentation = doc;
+
     this.currentDocTitle = doc.title;
 
     this.formCtrl.patchValue(doc.content);
@@ -220,14 +236,29 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.openSmallDialog(input);
   }
 
-  private openSmallDialog(input: any): void {
-    this.dialogService.openSmallDialog(HaPublicSidenavCreateFormDialogComponent, {data: input}).afterClosed().subscribe(
-      (res: HaDocumentation) => {
-        if (res != null) {
-          this.router.navigate(['..', res.path], {relativeTo: this.route});
+  private setDocumentation(docId: string): void {
+    this.isLoading = true;
+    this.documentation = null;
+    this.docNotFound = false;
+    this.documentationService.getById(docId).subscribe(doc => {
+      if (doc) {
+        if (isPlatformServer(this.platformId)) {
+          if (this.transferState.hasKey(this.DOC_KEY)) {
+            this.documentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
+          } else {
+            this.transferState.set(this.DOC_KEY, doc);
+          }
         }
+        this.onDocLoaded(doc);
+        if (this.documentation.completePath + this.documentation.id != this.currentUrl) {
+          this.httpRedirectionService.redirectTo(HaRouterService.getDocumentationRoute(
+            this.brickName, this.brickVersion, this.documentation.completePath, this.documentation.id
+          ));
+        }
+      } else {
+        this.docNotFound = true;
       }
-    );
+    });
   }
 
   openDocFileDialog(): void{
@@ -246,20 +277,14 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     return this.documentationService.getDocFilePath(file.id);
   }
 
-  onTitleChange(title: string): void {
-    if (title.length == 0 || title.length > 50) return;
-    this.documentationService.update({id: this.documentation.id, title: title}).subscribe(documentation => {
-      if(documentation){
-        this.documentation = documentation;
-        // Change url without reloading
-        this.router.navigate(['..', documentation.path], {relativeTo: this.route});
+  private openSmallDialog(input: any): void {
+    this.dialogService.openSmallDialog(HaPublicSidenavCreateFormDialogComponent, {data: input}).afterClosed().subscribe(
+      (res: HaDocumentation) => {
+        if (res != null) {
+          this.router.navigate(['..', res.path], {relativeTo: this.activatedRoute});
+        }
       }
-    });
-  }
-
-  checkTitleLength(): boolean{
-    console.log('TEST', this.currentDocTitle.length > 50);
-    return this.currentDocTitle.length > 50;
+    );
   }
 
   titleCurrentValue(): string{

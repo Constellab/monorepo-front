@@ -31,14 +31,6 @@ export class HaRouterService {
     return '/admin';
   }
 
-  public static getSimpleProductDocRoute(): string {
-    return '/product-doc';
-  }
-
-  public static getSimpleTechDocRoute(): string {
-    return '/tech-doc';
-  }
-
   public static getProductDocRoute(): string {
     return `/bricks/${TdBrick.GWS_ACADEMY}/latest/doc/getting-started`;
   }
@@ -84,8 +76,8 @@ export class HaRouterService {
     return `${this.getBrickPageRoute(brickName, brickMajor)}doc/`;
   }
 
-  public static getDocumentationRoute(brickName: string, brickMajor: string, completePath: string): string {
-    return `${this.getBrickDocsPageRoute(brickName, brickMajor)}${completePath}`;
+  public static getDocumentationRoute(brickName: string, brickMajor: string, completePath: string, id: string): string {
+    return `${this.getBrickDocsPageRoute(brickName, brickMajor)}${completePath}${id}`;
   }
 
   public static getTechnicalDocRoute(parentBrickName: string, parentVersion: string,

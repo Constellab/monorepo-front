@@ -27,8 +27,8 @@ export class HaHomeComponent implements OnInit {
   liveTaskListRoute: string = HaRouterService.getLiveTaskListRoute();
   brickListRoute: string = HaRouterService.getBrickListRoute();
 
-  techDocRoute: string = HaRouterService.getSimpleTechDocRoute();
-  productDocRoute: string = HaRouterService.getSimpleProductDocRoute();
+  techDocRoute: string = HaRouterService.getTechDocRoute();
+  productDocRoute: string = HaRouterService.getProductDocRoute();
   iconsRoute: string = HaRouterService.getIconsRoute();
 
   constructor(private metadataService: HaMetadataService,

@@ -1,5 +1,4 @@
 import {HaEntity} from './ha-entity.class';
-import {ClRichTextI} from '@monorepo/core-lib';
 import {TeRichTextContent} from '@monorepo/text-editor';
 import {HaFile} from '../../entity-module/ha-file-core/model/ha-file';
 

@@ -38,9 +38,9 @@ export class HaMainComponent implements OnInit, AfterContentInit {
 
   brickListRoute = HaRouterService.getBrickListRoute();
 
-  productDocRoute = HaRouterService.getSimpleProductDocRoute();
+  productDocRoute = HaRouterService.getProductDocRoute();
 
-  techDocRoute = HaRouterService.getSimpleTechDocRoute();
+  techDocRoute = HaRouterService.getTechDocRoute();
 
   liveTaskRoute = HaRouterService.getLiveTaskListRoute();
 

@@ -1,11 +1,10 @@
 import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
-import {TdBrick} from '@monorepo/technical-doc';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -21,7 +20,6 @@ export class HaPublicBrickPageComponent implements OnInit {
   constructor(
     private brickService: HaBrickService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
     private metadataService: HaMetadataService,
     @Inject(PLATFORM_ID) private platformId: object,
     private transferState: TransferState
@@ -30,19 +28,17 @@ export class HaPublicBrickPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.BRICK_KEY = makeStateKey<HaBrick>('brick');
-    if(this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')){
-      this.initBrick(this.router.url.includes('tech-doc') ? TdBrick.GWS_CORE : TdBrick.GWS_ACADEMY);
-    } else {
-      this.activatedRoute.params.subscribe((params: Params) => {
 
-        // If the version is not latest, then add noindex meta tag to avoid duplicated indexed pages
-        if(params.version != 'latest'){
-          this.metadataService.addMetaTag('robots', 'noindex');
-        }
+    this.activatedRoute.params.subscribe((params: Params) => {
 
-        this.initBrick(params.brickName);
-      });
-    }
+      // If the version is not latest, then add noindex meta tag to avoid duplicated indexed pages
+      if (params.version != 'latest') {
+        this.metadataService.addMetaTag('robots', 'noindex');
+      }
+
+      this.initBrick(params.brickName);
+    });
+
   }
 
   private initBrick(name: string): void{
@@ -55,14 +51,19 @@ export class HaPublicBrickPageComponent implements OnInit {
       return;
     }
 
-    this.brickService.getByName(name).subscribe((brick: HaBrick) => {
-      if(!brick) {
+    this.brickService.getByName(name).subscribe({
+      next: (brick: HaBrick) => {
+        if (!brick) {
+          this.brickNotFound = true;
+          return;
+        }
+        this.brick = brick;
+        if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICK_KEY)) {
+          this.transferState.set(this.BRICK_KEY, brick);
+        }
+      },
+      error: () => {
         this.brickNotFound = true;
-        return;
-      }
-      this.brick = brick;
-      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICK_KEY)) {
-        this.transferState.set(this.BRICK_KEY, brick);
       }
     });
   }

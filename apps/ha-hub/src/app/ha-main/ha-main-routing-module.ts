@@ -4,7 +4,6 @@ import {HaMainComponent} from './ha-main/ha-main.component';
 import {Ha404Component} from '../ha-public/module/ha404/ha404.component';
 import {HaLoginPageComponent} from './ha-login-page/ha-login-page.component';
 import {HaHomeComponent} from './ha-home/ha-home.component';
-import {HaRouterService} from '../ha-core/ha-service/ha-router.service';
 import {HaIconsPageComponent} from '../ha-icon/component/ha-icons-page/ha-icons-page.component';
 
 const routes: Routes = [
@@ -12,14 +11,6 @@ const routes: Routes = [
     path: 'admin',
     component: HaMainComponent,
     loadChildren: () => import('../ha-admin/ha-admin.module').then(m => m.HaAdminModule)
-  },
-  {
-    path: 'tech-doc',
-    redirectTo: HaRouterService.getTechDocRoute()
-  },
-  {
-    path: 'product-doc',
-    redirectTo: HaRouterService.getProductDocRoute()
   },
   {
     path: 'bricks',
