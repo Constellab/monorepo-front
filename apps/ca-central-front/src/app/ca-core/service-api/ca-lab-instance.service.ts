@@ -43,7 +43,7 @@ import {
   CaLabInstanceStatusRunResponse
 } from '../model/entities/lab/ca-lab-instance-status.dto';
 import {CaFreeTrialUpdateDto, CaLabFreeTrialGetDto} from '../model/entities/lab/ca-lab-free-trial.class';
-import {CaLabBackupHistory, CaLabBackupOption} from '../model/entities/lab/ca-lab-backup.class';
+import {CaLabBackupHistory, CaLabBackupStatusDTO} from '../model/entities/lab/ca-lab-backup.class';
 import {
   CaLabContestForm,
   CaLabInstanceAdminForm,
@@ -295,8 +295,12 @@ export class CaLabInstanceService {
     return this.apiService.post(`${this.route}/${id}/backup/sync`, null);
   }
 
-  public getBackupOptions(id: string): Observable<CaLabBackupOption> {
-    return this.apiService.get(`${this.route}/${id}/backup-options`, CaLabBackupOption);
+  public getBackupsStatus(id: string): Observable<CaLabBackupStatusDTO[]> {
+    return this.apiService.get(`${this.route}/${id}/backup/statuses`, CaLabBackupStatusDTO);
+  }
+
+  public getBackupsStatusAdmin(id: string): Observable<CaLabBackupStatusDTO[]> {
+    return this.apiService.get(`${this.route}/${id}/backup/statuses/admin`, CaLabBackupStatusDTO);
   }
 
   public getBackupHistory(id: string, page: number, size: number): Observable<ClPageI<CaLabBackupHistory>> {
@@ -305,6 +309,10 @@ export class CaLabInstanceService {
       pageSize: size,
       resultIsPaginated: true
     });
+  }
+
+  public deleteLabBackups(id: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/${id}/backup`, null);
   }
 
   //////////////////////////// SERVER ////////////////////////////////

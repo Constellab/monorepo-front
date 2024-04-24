@@ -1,0 +1,60 @@
+<mat-table mat-table [dataSource]="datasource">
+
+  <!-- Frequency -->
+  <ng-container matColumnDef="frequency">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'lab_backup_frequency' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ ('lab_backup_frequency_' + row.frequency) | translate }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Region -->
+  <ng-container matColumnDef="region">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'lab_backup_location' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <ca-bucket-region-inline [region]="row.region"></ca-bucket-region-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Status -->
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'status' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-status-chip [status]="row.status"></fl-status-chip>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last backup -->
+  <ng-container matColumnDef="lastBackup">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'lab_last_backup' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @if (row.lastSuccessBackupSize && row.lastSuccessBackupAt) {
+        {{ row.lastSuccessBackupAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
+        ({{ row.lastSuccessBackupSize | flByteText }} / {{ row.labVolumeSize }} {{ 'flCoreComponent.giga_byte_symbole' | translate }})
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Bucket info -->
+  <ng-container matColumnDef="bucketInfo">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'lab_backup_bucket_info' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start">
+      <div>{{row.sizeInBucket | flByteText}}</div>
+      <div>{{row.nbDocumentsInBucket}} {{'lab_backup_bucket_files' | translate}}</div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>
+

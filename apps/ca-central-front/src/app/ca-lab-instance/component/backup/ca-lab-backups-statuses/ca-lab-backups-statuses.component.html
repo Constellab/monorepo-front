@@ -1,0 +1,29 @@
+<fl-card>
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>info</mat-icon>
+      <h2>{{ 'lab_backup_statuses' | translate }}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <button mat-stroked-button type="button" class="g-button-small"
+              (click)="openLabBackupStatusesAdmin()" *caIsAdmin>
+        {{ 'lab_backup_statuses_details' | translate }}
+      </button>
+
+      <button mat-stroked-button type="button" class="g-button-small delete-button"
+              color="warn"
+              (click)="deleteLabBackups()">
+        {{ 'lab_delete_backup' | translate }}
+      </button>
+    </fl-card-actions>
+  </fl-card-header>
+
+  <fl-card-body>
+    <fl-async-section [arrayObs]="backupsStatuses">
+      <ng-container *flSectionBody>
+        <ca-lab-backup-status-table [datasource]="backupsStatuses"></ca-lab-backup-status-table>
+      </ng-container>
+    </fl-async-section>
+  </fl-card-body>
+</fl-card>

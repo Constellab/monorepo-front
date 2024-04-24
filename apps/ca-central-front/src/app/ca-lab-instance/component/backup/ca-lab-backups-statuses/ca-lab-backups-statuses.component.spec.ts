@@ -1,16 +1,16 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CaLabBackupOptionsComponent} from './ca-lab-backup-options.component';
+import {CaLabBackupsStatusesComponent} from './ca-lab-backups-statuses.component';
 
 describe('CaLabBackupOptionsComponent', () => {
-  let component: CaLabBackupOptionsComponent;
-  let fixture: ComponentFixture<CaLabBackupOptionsComponent>;
+  let component: CaLabBackupsStatusesComponent;
+  let fixture: ComponentFixture<CaLabBackupsStatusesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabBackupOptionsComponent],
+      declarations: [CaLabBackupsStatusesComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CaLabBackupOptionsComponent);
+    fixture = TestBed.createComponent(CaLabBackupsStatusesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

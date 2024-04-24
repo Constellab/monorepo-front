@@ -125,7 +125,9 @@ import {
 import {
   CaLabBackupDetailPageComponent
 } from './component/backup/ca-lab-backup-detail-page/ca-lab-backup-detail-page.component';
-import {CaLabBackupOptionsComponent} from './component/backup/ca-lab-backup-options/ca-lab-backup-options.component';
+import {
+  CaLabBackupsStatusesComponent
+} from './component/backup/ca-lab-backups-statuses/ca-lab-backups-statuses.component';
 import {CaLabBackupHistoryComponent} from './component/backup/ca-lab-backup-history/ca-lab-backup-history.component';
 import {CaCloudProviderCoreModule} from '../ca-core/entity-module/ca-cloud-provider-core/ca-cloud-provider-core.module';
 import {
@@ -134,6 +136,12 @@ import {
 import {
   CaLabInstanceCurrentTaskComponent
 } from './component/ca-lab-instance-current-task/ca-lab-instance-current-task.component';
+import {
+  CaLabBackupStatusTableComponent
+} from './component/backup/ca-lab-backup-status-table/ca-lab-backup-status-table.component';
+import {
+  CaLabBackupsStatusesAdminComponent
+} from './component/backup/ca-lab-backups-statuses-admin/ca-lab-backups-statuses-admin.component';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -183,10 +191,12 @@ import {
     CaLabInstanceUsagePageComponent,
     CaLabInstanceRunningStatusTableComponent,
     CaLabBackupDetailPageComponent,
-    CaLabBackupOptionsComponent,
+    CaLabBackupsStatusesComponent,
     CaLabBackupHistoryComponent,
     CaLabDockerContainerDetailsComponent,
     CaLabInstanceCurrentTaskComponent,
+    CaLabBackupStatusTableComponent,
+    CaLabBackupsStatusesAdminComponent,
   ],
   imports: [
     CommonModule,
@@ -206,4 +216,5 @@ import {
     CaCloudProviderCoreModule,
   ],
 })
-export class CaLabInstanceModule {}
+export class CaLabInstanceModule {
+}
