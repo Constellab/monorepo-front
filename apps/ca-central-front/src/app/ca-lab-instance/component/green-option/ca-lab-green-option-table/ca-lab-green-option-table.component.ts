@@ -20,9 +20,9 @@ import {
 })
 export class CaLabGreenOptionTableComponent {
 
-  @Input() datasource: FlArrayObs<CaLabGreenOption>;
+  @Input({required: true}) datasource: FlArrayObs<CaLabGreenOption>;
 
-  @Input() columns: FlTableColumnStatic<CaLabGreenOption>[];
+  @Input({required: true}) columns: FlTableColumnStatic<CaLabGreenOption>[];
 
   constructor(private labInstanceService: CaLabInstanceService,
               private dialogService: FlDialogService) {

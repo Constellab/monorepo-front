@@ -11,7 +11,7 @@
     <mat-form-field class="g-form-input">
       <mat-label>{{'biox.share_link_valid_until' | translate}}</mat-label>
       <input matInput formControlName="validUntil"
-             [matDatepicker]="endingPicker" [placeholder]="'biox.share_link_valid_until' | translate">
+             [matDatepicker]="endingPicker" [placeholder]="'flDate.date_picker_placeholder' | translate">
       <mat-datepicker-toggle matSuffix [for]="endingPicker"></mat-datepicker-toggle>
       <mat-datepicker #endingPicker startView="month"></mat-datepicker>
       <mat-error *ngIf="formGp.get('validUntil').hasError('required')">

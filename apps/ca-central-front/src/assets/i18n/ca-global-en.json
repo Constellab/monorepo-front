@@ -259,4 +259,8 @@
   "activities": "Activities",
   "info": "Info",
   "image_square_help": "We recommend to upload a square image, otherwise it will be cropped."
+  "info": "Info",
+  "next": "Next",
+  "back": "Back",
+  "logo": "Logo"
 }

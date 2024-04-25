@@ -47,7 +47,7 @@ export class CaLabInstanceTableComponent {
         name: labInstance.name,
         type: labInstance.type,
         virtualHost: labInstance.virtualHost,
-        serverInfo: labInstance.serverInfo,
+        serverCloud: labInstance.serverCloud,
         region: labInstance.region,
         codelabToken: labInstance.codelabToken,
         glabApiKey: labInstance.glabApiKey,

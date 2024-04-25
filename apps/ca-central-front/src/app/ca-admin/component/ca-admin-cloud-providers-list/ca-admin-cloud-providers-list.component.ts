@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {CaCloudProvider, CaCloudProviderDatasource} from '../../../ca-core/model/entities/ca-cloud-provider.class';
 import {CaCloudProviderService} from '../../../ca-core/service-api/ca-cloud-provider.service';
-import {FlDialogService, FlTableColumn} from '@monorepo/front-core-lib';
+import {FlDialogService} from '@monorepo/front-core-lib';
 import {
   CaCloudProviderFormDialogComponent,
   CaCloudProviderFormDialogInput
@@ -12,17 +12,13 @@ import {
   templateUrl: './ca-admin-cloud-providers-list.component.html',
   styleUrls: ['./ca-admin-cloud-providers-list.component.scss']
 })
-export class CaAdminCloudProvidersListComponent implements OnInit {
+export class CaAdminCloudProvidersListComponent {
 
   cloudProviders: CaCloudProviderDatasource = this.cloudProviderService.findAllDatasource();
 
-  displayedColumns: FlTableColumn<CaCloudProvider>[] = ['name', 'created', 'lastModified', 'actions'];
 
   constructor(private cloudProviderService: CaCloudProviderService,
               private dialogService: FlDialogService) {
-  }
-
-  ngOnInit(): void {
   }
 
   openCreateDialog(): void {

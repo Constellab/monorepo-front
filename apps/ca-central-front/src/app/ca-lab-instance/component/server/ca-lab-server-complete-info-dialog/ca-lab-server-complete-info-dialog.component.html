@@ -6,7 +6,7 @@
 <mat-dialog-content>
   <fl-async-section [object]="serverInfo$">
     <ng-container *flSectionBody="serverInfo$ as serverInfo">
-      <ca-lab-server-complete-info [serverInfo]="serverInfo"></ca-lab-server-complete-info>
+      <ca-lab-server-complete-info [serverCompleteInfo]="serverInfo"></ca-lab-server-complete-info>
     </ng-container>
   </fl-async-section>
 </mat-dialog-content>

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {CaCloudProviderTableComponent} from './component/ca-cloud-provider-table/ca-cloud-provider-table.component';
 import {CaCoreModule} from '../../ca-core.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -17,6 +17,9 @@ import {
   CaCloudProviderRegionInlineComponent
 } from './component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import {CaConfigCoreModule} from '../ca-config-core/ca-config-core.module';
+import {
+  CaCloudProviderRegionMultilinesComponent
+} from './component/ca-cloud-provider-region-multilines/ca-cloud-provider-region-multilines.component';
 
 
 @NgModule({
@@ -27,6 +30,7 @@ import {CaConfigCoreModule} from '../ca-config-core/ca-config-core.module';
     CaCloudProviderInlineComponent,
     CaSelectCloudProviderRegionOptionsComponent,
     CaCloudProviderRegionInlineComponent,
+    CaCloudProviderRegionMultilinesComponent,
   ],
   exports: [
     CaCloudProviderTableComponent,
@@ -35,6 +39,7 @@ import {CaConfigCoreModule} from '../ca-config-core/ca-config-core.module';
     CaCloudProviderInlineComponent,
     CaSelectCloudProviderRegionOptionsComponent,
     CaCloudProviderRegionInlineComponent,
+    CaCloudProviderRegionMultilinesComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +48,7 @@ import {CaConfigCoreModule} from '../ca-config-core/ca-config-core.module';
 
     CaCoreModule,
     CaConfigCoreModule,
+    NgOptimizedImage,
   ],
 })
 export class CaCloudProviderCoreModule {

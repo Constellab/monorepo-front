@@ -25,7 +25,7 @@ export class CaAdminCloudProviderRegionTableComponent {
   @Input() datasource: CaCloudProviderRegionDatasource;
 
   @Input() columns: FlTableColumnStatic<CaCloudProviderRegion>[] =
-    ['technicalName', 'cloudProvider', 'city', 'space', 'lastModified', 'actions'];
+    ['name', 'type', 'cloudProvider', 'city', 'lastModified', 'actions'];
 
   constructor(private cloudProviderService: CaCloudProviderService,
               private dialogService: FlDialogService) {

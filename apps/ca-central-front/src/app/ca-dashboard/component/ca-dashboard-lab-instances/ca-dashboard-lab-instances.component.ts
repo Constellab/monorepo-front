@@ -22,6 +22,7 @@ export class CaDashboardLabInstancesComponent implements OnInit {
   labInstancesDatasource: CaLabInstanceDatasource;
 
   myLabInstancesRoute: string = CaRouterService.getMyLabInstancesRoute();
+  createLabRoute: string = CaRouterService.getCreateLabRoute();
 
   constructor(private labInstanceService: CaLabInstanceService,
               private dialogService: FlDialogService,

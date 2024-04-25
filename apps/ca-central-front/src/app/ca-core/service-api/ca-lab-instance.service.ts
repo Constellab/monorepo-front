@@ -8,6 +8,7 @@ import {
   CaLabInstanceStatusDTO,
   CaLabInstanceStatusHistory,
   CaLabInstanceWithSpace,
+  CaLabServerInfoDTO,
 } from '../model/entities/lab/ca-lab-instance.class';
 import {
   FlAdvancedSearchInput,
@@ -46,6 +47,7 @@ import {CaFreeTrialUpdateDto, CaLabFreeTrialGetDto} from '../model/entities/lab/
 import {CaLabBackupHistory, CaLabBackupStatusDTO} from '../model/entities/lab/ca-lab-backup.class';
 import {
   CaLabContestForm,
+  CaLabCloudCreateDTO,
   CaLabInstanceAdminForm,
   CaLabInstanceDesktopForm,
   CaRequestLabInstanceForm
@@ -64,6 +66,10 @@ export class CaLabInstanceService {
   public createAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
     return this.apiService.post(`${this.route}/admin`, entity, CaLabInstanceWithSpace,
       {serialization: CaLabInstanceAdminForm});
+  }
+
+  public createCloudLab(createLab: CaLabCloudCreateDTO): Observable<CaLabInstance>{
+    return this.apiService.post(`${this.route}/cloud`, createLab, CaLabInstance);
   }
 
   public updateAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
@@ -149,6 +155,10 @@ export class CaLabInstanceService {
 
   public updateConfig(id: string, config: CaLabManagerConfig): Observable<void> {
     return this.apiService.put(`${this.route}/${id}/config`, config, CaLabManagerConfig);
+  }
+
+  public getLabServerInfo(id: string): Observable<CaLabServerInfoDTO>{
+    return this.apiService.get(`${this.route}/${id}/server-info`, CaLabServerInfoDTO);
   }
 
   //////////////////////////// STATUS ////////////////////////////////

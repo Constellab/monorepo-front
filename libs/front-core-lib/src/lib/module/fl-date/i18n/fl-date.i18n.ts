@@ -10,6 +10,7 @@ const flDateI18nFr: FlLangTranslation = {
     created_by: 'Created by',
     last_modified_by: 'Last modified by',
     last_sync_by: 'Dernière synchronisation par',
+    date_picker_placeholder: "jj/mm/aaaa"
   }
 };
 
@@ -18,6 +19,7 @@ const flDateI18nEn: FlLangTranslation = {
     created_by: 'Créé par',
     last_modified_by: 'Dernière modification par',
     last_sync_by: 'Last synchronisation by',
+    date_picker_placeholder: "dd/mm/yyyy"
   }
 };
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CaServerCompleteInfo} from '../../../../ca-core/model/entities/lab/ca-lab-server.class';
 
 @Component({
@@ -6,14 +6,8 @@ import {CaServerCompleteInfo} from '../../../../ca-core/model/entities/lab/ca-la
   templateUrl: './ca-lab-server-complete-info.component.html',
   styleUrls: ['./ca-lab-server-complete-info.component.scss']
 })
-export class CaLabServerCompleteInfoComponent implements OnInit {
+export class CaLabServerCompleteInfoComponent {
 
-  @Input() serverInfo: CaServerCompleteInfo;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
+  @Input({required: true}) serverCompleteInfo: CaServerCompleteInfo;
 
 }

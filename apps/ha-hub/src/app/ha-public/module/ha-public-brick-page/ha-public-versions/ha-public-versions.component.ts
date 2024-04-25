@@ -15,6 +15,7 @@ import {HaNodeDTO} from '../../../../ha-core/ha-model/ha-entities/ha-node.class'
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {Observable} from 'rxjs';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
+import {TdBrick} from '@monorepo/technical-doc';
 
 @Component({
   selector: 'ha-public-versions-page',
@@ -40,7 +41,7 @@ export class HaPublicVersionsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.router.url.includes('tech-doc') || this.router.url.includes('product-doc')) {
-      this.init(this.router.url.includes('tech-doc') ? 'gws_core' : 'gws_academy');
+      this.init(this.router.url.includes('tech-doc') ? TdBrick.GWS_CORE : TdBrick.GWS_ACADEMY);
     } else {
       this.route.parent.url.subscribe(url => {
         this.init(url[0].path);

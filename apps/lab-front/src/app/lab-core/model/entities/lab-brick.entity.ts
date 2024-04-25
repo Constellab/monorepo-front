@@ -56,14 +56,6 @@ export class LabBrickEntity extends LabEntity {
   }
 }
 
-/**
- * List of basic gws bricks
- */
-export enum LabBrickGWS {
-  GWS_CORE = 'gws_core',
-  GWS_BIOTA = 'gws_biota',
-}
-
 export class LabBrickMigration {
   @ClVersionTransform()
   version: ClVersion;

@@ -107,9 +107,9 @@ export class CaLabInstanceSearchComponent implements OnInit {
   private getColumns(): FlTableColumnStatic<CaLabInstance>[] {
     switch (this.mode) {
       case 'all':
-        return ['name', 'space', 'currentStatus', 'virtualHost', 'serverInfo', 'actions'];
+        return ['name', 'space', 'currentStatus', 'virtualHost', 'serverCloud', 'actions'];
       case 'current-space':
-        return ['name', 'currentStatus', 'virtualHost', 'serverInfo'];
+        return ['name', 'currentStatus', 'virtualHost', 'serverCloud'];
       default:
         throw new Error(`[CaLabInstanceSearchComponent] Unknown mode '${this.mode}'`);
     }

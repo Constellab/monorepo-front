@@ -1,13 +1,13 @@
 import {TestBed} from '@angular/core/testing';
 
-import {CaServerInfoService} from './ca-server-info.service';
+import {CaServerService} from './ca-server.service';
 
-describe('ServerInfoService', () => {
-  let service: CaServerInfoService;
+describe('serverService', () => {
+  let service: CaServerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CaServerInfoService);
+    service = TestBed.inject(CaServerService);
   });
 
   it('should be created', () => {

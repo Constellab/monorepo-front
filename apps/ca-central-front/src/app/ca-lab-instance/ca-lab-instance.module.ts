@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {CaCoreModule} from '../ca-core/ca-core.module';
 import {CaLabInstanceRoutingModule} from './ca-lab-instance-routing.module';
 import {
@@ -7,7 +7,7 @@ import {
 } from './component/ca-lab-instance-detail-page/ca-lab-instance-detail-page.component';
 import {CaLabInstanceDetailComponent} from './component/ca-lab-instance-detail/ca-lab-instance-detail.component';
 import {CaLabCoreModule} from '../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
-import {CaServerInfoCoreModule} from '../ca-core/entity-module/ca-server-info-core/ca-server-info-core.module';
+import {CaServerCoreModule} from '../ca-core/entity-module/ca-server-core/ca-server-core.module';
 import {CaMyLabInstancesPageComponent} from './component/ca-my-lab-instances-page/ca-my-lab-instances-page.component';
 import {
   CaLabInstanceUsersListComponent
@@ -142,6 +142,8 @@ import {
 import {
   CaLabBackupsStatusesAdminComponent
 } from './component/backup/ca-lab-backups-statuses-admin/ca-lab-backups-statuses-admin.component';
+import {CaLabCreatePageComponent} from './component/create/ca-lab-create-page/ca-lab-create-page.component';
+import {CaLabSelectServerComponent} from './component/create/ca-lab-select-server/ca-lab-select-server.component';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -197,15 +199,18 @@ import {
     CaLabInstanceCurrentTaskComponent,
     CaLabBackupStatusTableComponent,
     CaLabBackupsStatusesAdminComponent,
+    CaLabCreatePageComponent,
+    CaLabSelectServerComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    NgOptimizedImage,
 
     CaCoreModule,
     CaLabCoreModule,
-    CaServerInfoCoreModule,
+    CaServerCoreModule,
     CaBrickCoreModule,
     CaProjectCoreModule,
     CaConfigCoreModule,

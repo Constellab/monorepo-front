@@ -12,6 +12,7 @@ import {
 } from '../../../../ca-core/model/entities/lab/ca-lab-instance-status.dto';
 import {FlArrayObs} from '@monorepo/front-core-lib';
 import {map} from 'rxjs/operators';
+import {ClDateHelper} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-lab-instance-usage',
@@ -26,13 +27,15 @@ export class CaLabInstanceUsageComponent implements OnInit, OnDestroy {
   customPeriod: CaLabInstanceStatusRunPeriod = CaLabInstanceStatusRunPeriod.CUSTOM;
 
   formGroup = new FormBuilder().group({
-    period: [CaLabInstanceStatusRunPeriod.LAST_WEEK as CaLabInstanceStatusRunPeriod, Validators.required],
+    period: [CaLabInstanceStatusRunPeriod.CURRENT_MONTH, Validators.required],
     customStartDate: [null as DateTime],
     customEndDate: [null as DateTime],
   });
 
   runResponse$: Observable<CaLabInstanceStatusRunResponse>;
   runStatuses$: FlArrayObs<CaLabInstanceRunningStatus>;
+
+  currentDate = ClDateHelper.getDate();
 
   private subscription: Subscription;
 

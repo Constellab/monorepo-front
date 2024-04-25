@@ -5,7 +5,7 @@
       <div class="g-layout-row g-layout-between-stretch g-section">
         <ca-lab-instance-detail class="half-section"></ca-lab-instance-detail>
 
-        <ca-lab-server-info-card *ngIf="labInstance.isCloud" [labInstance]="labInstance"
+        <ca-lab-server-info-card *ngIf="labInstance.isCloud" [labInstanceId]="labInstance.id"
                                  class="half-section"></ca-lab-server-info-card>
 
       </div>

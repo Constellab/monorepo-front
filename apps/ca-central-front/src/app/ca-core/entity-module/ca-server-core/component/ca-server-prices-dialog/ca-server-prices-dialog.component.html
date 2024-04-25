@@ -1,0 +1,15 @@
+<fl-dialog-header>
+  {{ 'server_prices_detail' | translate: {serverName: standardServer.name} }}
+
+  <fl-dialog-header-actions>
+    <button mat-icon-button type="button" (click)="createPrice()"
+            [matTooltip]="'create_server_price' | translate">
+      <mat-icon>add</mat-icon>
+    </button>
+  </fl-dialog-header-actions>
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <ca-server-price-table [datasource]="prices" [serverStandardId]="standardServer.id"
+                         (priceDeleted)="refreshPrices()"></ca-server-price-table>
+</mat-dialog-content>

@@ -1,9 +1,30 @@
 <mat-table mat-table [dataSource]="datasource">
 
+
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'name' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <ca-cloud-provider-inline [cloudProvider]="row"></ca-cloud-provider-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Description -->
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'description' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.description }}
+    </mat-cell>
+  </ng-container>
+
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>
-      {{'creation_info' | translate}}
+      {{ 'creation_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>
@@ -13,7 +34,7 @@
   <!-- Last modified -->
   <ng-container matColumnDef="lastModified">
     <mat-header-cell *matHeaderCellDef>
-      {{'last_modification_info' | translate}}
+      {{ 'last_modification_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
@@ -36,34 +57,21 @@
         <button mat-menu-item type="button"
                 (click)="updateCloudProvider(row)">
           <mat-icon>edit</mat-icon>
-          <span>{{'update_cloud_provider' | translate}}</span>
+          <span>{{ 'update_cloud_provider' | translate }}</span>
         </button>
 
 
         <button mat-menu-item type="button"
                 (click)="deleteCloudProvider(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{'delete_cloud_provider' | translate}}</span>
+          <span class="g-warn-text">{{ 'delete_cloud_provider' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>
   </ng-container>
 
 
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let user">
-      <div>
-        <span>{{user[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
-
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: _columns;"></mat-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 </mat-table>
 

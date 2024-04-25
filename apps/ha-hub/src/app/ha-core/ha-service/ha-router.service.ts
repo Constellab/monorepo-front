@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HaEnvironmentHelper} from '../ha-model/ha-config/ha-environment.helper';
 import {HaLiveTaskVersion} from '../ha-model/ha-entities/ha-live-task-version.class';
 import {ClStringHelper} from '@monorepo/core-lib';
+import {TdBrick} from '@monorepo/technical-doc';
 
 @Injectable({
   providedIn: 'root'
@@ -39,11 +40,11 @@ export class HaRouterService {
   }
 
   public static getProductDocRoute(): string {
-    return '/bricks/gws_academy/latest/doc/getting-started';
+    return `/bricks/${TdBrick.GWS_ACADEMY}/latest/doc/getting-started`;
   }
 
   public static getTechDocRoute(): string {
-    return '/bricks/gws_core/latest/doc/getting-started';
+    return `/bricks/${TdBrick.GWS_CORE}/latest/doc/getting-started`;
   }
 
   public static getIconsRoute(): string {

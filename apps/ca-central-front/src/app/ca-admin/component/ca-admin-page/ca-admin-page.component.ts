@@ -34,7 +34,7 @@ export class CaAdminPageComponent {
       route: CaRouterService.getAdminBucketsRoute()
     },
     {
-      label: {text: 'server_info_list', translateText: true},
+      label: {text: 'servers', translateText: true},
       icon: 'dns',
       route: CaRouterService.getAdminServersInfoRoute()
     },

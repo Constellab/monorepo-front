@@ -1,0 +1,94 @@
+<mat-table mat-table [dataSource]="datasource">
+
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'name' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.name }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Description -->
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'description' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div class="g-text-small">{{ row.description }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Technical Description -->
+  <ng-container matColumnDef="technicalDescription">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'server_standard_technical_description' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div class="g-text-small">{{ row.technicalDescription }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Price -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'server_price_detail' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @defer (on viewport) {
+        <ca-server-standard-price [serverStandardId]="row.id"></ca-server-standard-price>
+      } @placeholder {
+        <div></div>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last modified -->
+  <ng-container matColumnDef="lastModified">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'last_modification_info' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
+    </mat-header-cell>
+    <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
+
+      <!--   Mat menu containing action buttons   -->
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+
+        <button mat-menu-item type="button"
+                (click)="openServerPricesDialog(row)">
+          <mat-icon>euro</mat-icon>
+          <span>{{ 'server_prices' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button"
+                (click)="updateServerStandard(row)">
+          <mat-icon>edit</mat-icon>
+          <span>{{ 'update_server_standard' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button"
+                (click)="deleteServerStandard(row)">
+          <mat-icon color="warn">clear</mat-icon>
+          <span class="g-warn-text">{{ 'delete_server_standard' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>
+

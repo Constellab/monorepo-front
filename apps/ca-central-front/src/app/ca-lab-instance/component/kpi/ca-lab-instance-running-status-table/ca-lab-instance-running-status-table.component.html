@@ -30,6 +30,29 @@
     </mat-cell>
   </ng-container>
 
+  <!-- Price -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef>
+      {{'lab_usage_price' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let status">
+      <div *ngIf="status.billInfo">
+        <fl-key-value>
+          <fl-key>{{'lab_usage_billed_hours' | translate}}</fl-key>
+          {{status.billInfo.nbOfHours}}
+        </fl-key-value>
+        <fl-key-value>
+          <fl-key>{{'server_price_detail' | translate}}</fl-key>
+          {{status.billInfo.pricePerHour}}
+        </fl-key-value>
+        <fl-key-value>
+          <fl-key>{{'lab_usage_total_price' | translate}}</fl-key>
+          {{status.billInfo.totalPrice | number:'1.2-2'}} €
+        </fl-key-value>
+      </div>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
   <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 </mat-table>

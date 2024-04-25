@@ -1,6 +1,6 @@
 import {CaBaseEntity} from '../ca-base-entity.class';
 import {CaStatusHistory} from '../ca-status-history.class';
-import {CaServerInfo} from '../ca-server-info.class';
+import {CaServerCloud} from '../server/ca-server-cloud.class';
 import {
   FlEntityPaginatedDatasource,
   FlStatus,
@@ -11,7 +11,7 @@ import {
 import {Type} from 'class-transformer';
 import {CaSpace} from '../space/ca-space.class';
 import {CaLabInstanceUserRole} from './ca-lab-instance-user.class';
-import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
+import {CaCloudProvider, CaCloudProviderRegion} from '../ca-cloud-provider.class';
 import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
 
@@ -84,8 +84,8 @@ export class CaLabInstance extends CaBaseEntity {
   @Type(() => CaCloudProviderRegion)
   region: CaCloudProviderRegion;
 
-  @Type(() => CaServerInfo)
-  serverInfo: CaServerInfo;
+  @Type(() => CaServerCloud)
+  serverCloud: CaServerCloud;
 
   billingMode: CaLabInstanceBillingMode;
   volumeSize: number;
@@ -138,11 +138,11 @@ export class CaLabInstance extends CaBaseEntity {
   }
 
   get typeIcon(): string {
-    if(this.isFreeTrial){
+    if (this.isFreeTrial) {
       return 'timelapse';
     }
 
-    switch (this.type){
+    switch (this.type) {
       case 'CLOUD':
         return 'cloud';
       case 'DESKTOP':
@@ -153,14 +153,14 @@ export class CaLabInstance extends CaBaseEntity {
   }
 
   get typeTooltip(): string {
-    if(this.isFreeTrial){
+    if (this.isFreeTrial) {
       return 'lab_free_trial_long';
     }
 
     return 'lab_instance_type_' + this.type;
   }
 
-  toString(): string{
+  toString(): string {
     return this.name;
   }
 }
@@ -168,6 +168,9 @@ export class CaLabInstance extends CaBaseEntity {
 export class CaLabInstanceWithSpace extends CaLabInstance {
   @Type(() => CaSpace)
   space: CaSpace;
+
+  @Type(() => CaServerCloud)
+  serverCloud: CaServerCloud;
 }
 
 
@@ -213,4 +216,22 @@ export class CaLabInstanceStatusDTO {
 
 export interface CaLabInstanceDesktopConfig {
   glabTag: 'beta' | 'latest' | string;
+}
+
+export class CaLabServerInfoDTO {
+  name: string;
+
+  @Type(() => CaCloudProvider)
+  cloudProvider: CaCloudProvider;
+
+  cpuType: string;
+  cpuCount: number;
+
+  ram: number;
+
+  gpuType: string;
+  gpuCount: number;
+
+  volumeSize: number;
+  volumeType: CaLabInstanceVolumeType;
 }

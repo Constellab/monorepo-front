@@ -31,6 +31,8 @@ export class CaCloudProviderFormDialogComponent extends FlFormDialogAbstractDire
     return new FormBuilder().group({
       id: [null],
       name: [null, Validators.required],
+      description: [null],
+      logo: [null],
     });
   }
 

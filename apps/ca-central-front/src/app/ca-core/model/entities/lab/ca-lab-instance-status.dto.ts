@@ -4,24 +4,14 @@ import {Type} from 'class-transformer';
 import {FlArrayObs} from '@monorepo/front-core-lib';
 
 export enum CaLabInstanceStatusRunPeriod {
+  CURRENT_MONTH = 'CURRENT_MONTH',
+  CURRENT_YEAR = 'CURRENT_YEAR',
   LAST_WEEK = 'LAST_WEEK',
   LAST_MONTH = 'LAST_MONTH',
   LAST_YEAR = 'LAST_YEAR',
   ALL = 'ALL',
   CUSTOM = 'CUSTOM',
 }
-
-
-export class CaLabInstanceRunningStatus {
-  @ClLuxonDateTimeTransform()
-  fromDate: DateTime;
-  @ClLuxonDateTimeTransform()
-  toDate: DateTime;
-
-  // in seconds
-  duration: number;
-}
-
 
 export class CaLabInstanceStatusRunRequest {
   period: CaLabInstanceStatusRunPeriod;
@@ -31,6 +21,28 @@ export class CaLabInstanceStatusRunRequest {
 
   @ClLuxonDateTransform()
   customEndDate?: DateTime;
+}
+
+/**
+ * Only for hourly billed lab instances, it contains the price for the running period
+ */
+export class CaLabInstanceRunningStatusBilling{
+  nbOfHours: number;
+  pricePerHour: number;
+  totalPrice: number;
+}
+
+export class CaLabInstanceRunningStatus {
+  @ClLuxonDateTimeTransform()
+  fromDate: DateTime;
+  @ClLuxonDateTimeTransform()
+  toDate: DateTime;
+
+  @Type(() => CaLabInstanceRunningStatusBilling)
+  billInfo?: CaLabInstanceRunningStatusBilling;
+
+  // in seconds
+  duration: number;
 }
 
 export class CaLabInstanceStatusRunResponse {
@@ -43,6 +55,9 @@ export class CaLabInstanceStatusRunResponse {
 
   // in seconds
   runningDuration: number;
+
+  @Type(() => CaLabInstanceRunningStatusBilling)
+  billInfo?: CaLabInstanceRunningStatusBilling;
 
   @Type(() => CaLabInstanceRunningStatus)
   statuses: CaLabInstanceRunningStatus[];

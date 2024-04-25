@@ -24,6 +24,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 /**
@@ -51,6 +52,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatSlideToggleModule,
     MatBadgeModule,
     MatTabsModule,
+    MatStepperModule,
 
     MatDialogModule,
     MatSnackBarModule,

@@ -10,8 +10,9 @@ import {LabSystemService} from '../../../lab-core/service/lab-system.service';
 import {Title} from '@angular/platform-browser';
 import {LabSystemInfo} from '../../../lab-core/model/global/lab-system.class';
 import {LabBrickService} from '../../../lab-core/entity-service/lab-brick.service';
-import {LabBrickEntity, LabBrickGWS} from '../../../lab-core/model/entities/lab-brick.entity';
+import {LabBrickEntity} from '../../../lab-core/model/entities/lab-brick.entity';
 import {FlChatBotService} from '@monorepo/front-core-lib';
+import {TdBrick} from '@monorepo/technical-doc';
 
 @Component({
   selector: 'lab-main-app',
@@ -58,7 +59,7 @@ export class LabMainAppComponent implements OnInit {
   }
 
   private checkBiota(): void {
-    this.brickService.getBrick(LabBrickGWS.GWS_BIOTA).subscribe(
+    this.brickService.getBrick(TdBrick.GWS_BIOTA).subscribe(
       brick => this.checkBiotaSuccess(brick)
     );
   }

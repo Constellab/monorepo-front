@@ -5,7 +5,8 @@ import {
   CaCloudProvider,
   CaCloudProviderDatasource,
   CaCloudProviderRegion,
-  CaCloudProviderRegionDatasource
+  CaCloudProviderRegionDatasource,
+  CaCloudProviderRegionType
 } from '../model/entities/ca-cloud-provider.class';
 import {ClPageI} from '@monorepo/core-lib';
 
@@ -46,6 +47,7 @@ export class CaCloudProviderService {
     );
   }
 
+
   ////////////////// REGIONS //////////////////
   public createRegion(region: Partial<CaCloudProviderRegion>): Observable<CaCloudProviderRegion> {
     return this.apiService.post(this.regionsRoute, region, CaCloudProviderRegion);
@@ -61,31 +63,18 @@ export class CaCloudProviderService {
 
   public getAllRegionsDatasource(): CaCloudProviderRegionDatasource {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.getRegionsObs('', page, pageSize), 20
+      (page: number, pageSize: number) => this.apiService.get(this.regionsRoute, CaCloudProviderRegion, {
+        page: page, pageSize: pageSize, resultIsPaginated: true
+      }), 20
     );
   }
 
-  public getAllS3RegionsDatasource(): CaCloudProviderRegionDatasource {
+  public getRegionsByType(type: CaCloudProviderRegionType): CaCloudProviderRegionDatasource {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.getRegionsObs('/s3', page, pageSize), 20
+      (page: number, pageSize: number) => this.apiService.get(`${this.regionsRoute}/type/${type}`, CaCloudProviderRegion, {
+        page: page, pageSize: pageSize, resultIsPaginated: true
+      }), 20
     );
   }
 
-  public getRegionsInCurrentSpaceDatasource(): CaCloudProviderRegionDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.getRegionsObs('/current-space', page, pageSize), 20
-    );
-  }
-
-  public getS3RegionsInCurrentSpaceDatasource(): CaCloudProviderRegionDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.getRegionsObs('/current-space/s3', page, pageSize), 20
-    );
-  }
-
-  private getRegionsObs(subRoute: string, page: number, size: number): Observable<ClPageI<CaCloudProviderRegion>> {
-    return this.apiService.get(this.regionsRoute + subRoute, CaCloudProviderRegion, {
-      page: page, pageSize: size, resultIsPaginated: true
-    });
-  }
 }
