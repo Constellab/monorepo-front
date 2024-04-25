@@ -24,7 +24,9 @@ export class CaStoragePriceFormDialogComponent
 
   buildForm(): FormGroup<CaCreateStoragePriceDTO> {
     return new FormBuilder().group({
-      price: [null, [Validators.required, Validators.min(0)]],
+      volumeStoragePrice: [null, [Validators.required, Validators.min(0)]],
+      backupStoragePrice: [null, [Validators.required, Validators.min(0)]],
+      backupTransfertPrice: [null, [Validators.required, Validators.min(0)]],
       startDate: [null, Validators.required],
     });
   }

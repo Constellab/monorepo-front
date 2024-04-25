@@ -7,6 +7,16 @@ export class CaStoragePrice extends CaBaseEntity {
 
   price: number;
 
+  volumeStoragePrice: number;
+
+  backupStoragePrice: number;
+
+  backupTransfertPrice: number;
+
+  totalPrice: number;
+
+  totalPriceDescription: string;
+
   @ClLuxonDateTimeTransform()
   startDate: DateTime;
 
@@ -17,7 +27,11 @@ export class CaStoragePrice extends CaBaseEntity {
 export type CaStoragePriceDatasource = FlEntityArrayObs<CaStoragePrice>;
 
 export class CaCreateStoragePriceDTO {
-  price: number;
+  volumeStoragePrice: number;
+
+  backupStoragePrice: number;
+
+  backupTransfertPrice: number;
 
   @ClLuxonDateTransform()
   startDate: DateTime;

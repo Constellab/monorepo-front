@@ -18,9 +18,31 @@
   <fl-card-body>
     <fl-async-section [object]="currentPrice$">
       <ng-container *flSectionBody="currentPrice$ as currentPrice">
-        <div class="g-text-big g-text-centered">
-          {{ currentPrice }} {{ 'storage_price_unit' | translate }}
-        </div>
+
+        <fl-key-value>
+          <fl-key>{{ 'volume_storage_price' | translate }}</fl-key>
+          {{ currentPrice.volumeStoragePrice }} {{ 'storage_price_unit' | translate }}
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{ 'backup_storage_price' | translate }}</fl-key>
+          {{ currentPrice.backupStoragePrice }} {{ 'storage_price_unit' | translate }}
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{ 'backup_transfert_price' | translate }}</fl-key>
+          {{ currentPrice.backupTransfertPrice }} {{ 'storage_price_unit' | translate }}
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{ 'storage_total_price' | translate }}</fl-key>
+          {{ currentPrice.totalPrice }} {{ 'storage_price_unit' | translate }} ({{ currentPrice.totalPriceDescription }})
+        </fl-key-value>
+
+
+        <!--        <div class="g-text-big g-text-centered">-->
+        <!--          {{ currentPrice }} {{ 'storage_price_unit' | translate }}-->
+        <!--        </div>-->
       </ng-container>
     </fl-async-section>
   </fl-card-body>

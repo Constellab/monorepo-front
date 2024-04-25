@@ -1,33 +1,65 @@
 <mat-table mat-table [dataSource]="datasource">
 
-  <!-- Price -->
-  <ng-container matColumnDef="price">
+  <!-- Volume storage price -->
+  <ng-container matColumnDef="volumeStoragePrice">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{ 'storage_price_detail' | translate }}</span>
+      <div>
+        <div>{{ 'volume_storage_price' | translate }}</div>
+        <div class="g-text-tiny g-text-light">{{ 'storage_price_unit' | translate }}</div>
+      </div>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{ row.price }}
+      {{ row.volumeStoragePrice }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Backup storage price -->
+  <ng-container matColumnDef="backupStoragePrice">
+    <mat-header-cell *matHeaderCellDef>
+      <div>
+        <div>{{ 'backup_storage_price' | translate }}</div>
+        <div class="g-text-tiny g-text-light">{{ 'storage_price_unit' | translate }}</div>
+      </div>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.backupStoragePrice }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Backup transfer price -->
+  <ng-container matColumnDef="backupTransfertPrice">
+    <mat-header-cell *matHeaderCellDef>
+      <div>
+        <div>{{ 'backup_transfert_price' | translate }}</div>
+        <div class="g-text-tiny g-text-light">{{ 'storage_price_unit' | translate }}</div>
+      </div>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.backupTransfertPrice }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Total price -->
+  <ng-container matColumnDef="totalPrice">
+    <mat-header-cell *matHeaderCellDef>
+      <div>
+        <div>{{ 'storage_total_price' | translate }}</div>
+        <div class="g-text-tiny g-text-light">{{ 'storage_price_unit' | translate }}</div>
+      </div>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.totalPrice }}
     </mat-cell>
   </ng-container>
 
 
-  <!-- Start date -->
-  <ng-container matColumnDef="startDate">
+  <!-- Dates -->
+  <ng-container matColumnDef="dates">
     <mat-header-cell *matHeaderCellDef>
-      {{ 'server_price_start_date' | translate }}
+      {{ 'storages_dates' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div>{{ row.startDate  | flDate }}</div>
-    </mat-cell>
-  </ng-container>
-
-  <!-- End date -->
-  <ng-container matColumnDef="endDate">
-    <mat-header-cell *matHeaderCellDef>
-      {{ 'server_price_end_date' | translate }}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <div>{{ row.endDate  | flDate }}</div>
+      <div>{{ row.startDate  | flDate }} - {{ row.endDate  | flDate }}</div>
     </mat-cell>
   </ng-container>
 

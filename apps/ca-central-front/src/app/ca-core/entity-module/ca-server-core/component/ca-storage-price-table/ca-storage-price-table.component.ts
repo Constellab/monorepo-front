@@ -18,7 +18,9 @@ export class CaStoragePriceTableComponent {
   @Input({required: true}) datasource: CaStoragePriceDatasource;
 
   @Input() columns: FlTableColumnStatic<CaStoragePrice>[] =
-    ['price', 'startDate', 'endDate', 'lastModified', 'actions'];
+    ['volumeStoragePrice', 'backupStoragePrice', 'backupTransfertPrice',
+      'totalPrice',
+      'dates', 'lastModified', 'actions'];
 
   @Output() priceDeleted: EventEmitter<CaStoragePrice> = new EventEmitter<CaStoragePrice>();
 

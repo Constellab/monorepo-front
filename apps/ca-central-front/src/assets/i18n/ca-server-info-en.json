@@ -93,12 +93,16 @@
   "upload_server_decision_tree": "Upload server decision tree",
   "server_decision_tree_uploaded": "Server decision tree uploaded",
   "storage_price": "Storage price",
+  "volume_storage_price": "Volume storage price",
+  "backup_storage_price": "Backup storage price",
+  "backup_transfert_price" : "Backup transfert price",
   "storage_price_unit": " € / GB / month",
-  "storage_price_detail": "Price (€ / GB / month)",
   "storage_prices": "All storage prices",
   "create_storage_price": "Create storage price",
   "storage_price_created": "Storage price created",
   "delete_storage_price": "Delete storage price",
   "delete_storage_price_confirm": "Are you sure you want to delete this storage price? The end date of the previous price will be automatically updated.",
-  "storage_price_deleted": "Storage price deleted"
+  "storage_price_deleted": "Storage price deleted",
+  "storages_dates": "Dates",
+  "storage_total_price": "Total price"
 }

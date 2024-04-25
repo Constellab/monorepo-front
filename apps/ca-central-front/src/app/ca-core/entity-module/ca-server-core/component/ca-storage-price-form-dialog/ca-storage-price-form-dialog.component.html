@@ -5,14 +5,38 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="storage-price-form" [formGroup]="formGp">
 
-    <!--  Price  -->
+    <!--  Volume storage price  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{ 'server_price' | translate }}</mat-label>
-      <input matInput formControlName="price" required type="number"
-             [placeholder]="'server_price' | translate">
+      <mat-label>{{ 'volume_storage_price' | translate }}</mat-label>
+      <input matInput formControlName="volumeStoragePrice" required type="number"
+             [placeholder]="'volume_storage_price' | translate">
 
       <mat-hint>{{ 'storage_price_unit' | translate }}</mat-hint>
-      <mat-error *ngIf="formGp.get('price').invalid">
+      <mat-error *ngIf="formGp.get('volumeStoragePrice').invalid">
+        {{ 'server_price_error' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <!--  Backup storage price  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'backup_storage_price' | translate }}</mat-label>
+      <input matInput formControlName="backupStoragePrice" required type="number"
+             [placeholder]="'backup_storage_price' | translate">
+
+      <mat-hint>{{ 'storage_price_unit' | translate }}</mat-hint>
+      <mat-error *ngIf="formGp.get('backupStoragePrice').invalid">
+        {{ 'server_price_error' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <!--  Backup transfert price  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'backup_transfert_price' | translate }}</mat-label>
+      <input matInput formControlName="backupTransfertPrice" required type="number"
+             [placeholder]="'backup_transfert_price' | translate">
+
+      <mat-hint>{{ 'storage_price_unit' | translate }}</mat-hint>
+      <mat-error *ngIf="formGp.get('backupTransfertPrice').invalid">
         {{ 'server_price_error' | translate }}
       </mat-error>
     </mat-form-field>

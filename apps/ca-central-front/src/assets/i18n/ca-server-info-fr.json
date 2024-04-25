@@ -93,11 +93,16 @@
   "upload_server_decision_tree": "Uploader l'arbre de décision des serveurs",
   "server_decision_tree_uploaded": "Arbre de décision des serveurs uploadé",
   "storage_price": "Prix du stockage",
+  "volume_storage_price": "Prix du stockage de volume",
+  "backup_storage_price": "Prix du stockage de sauvegarde",
+  "backup_transfert_price" : "Prix du transfert de sauvegarde",
   "storage_price_unit": " € / Go / mois",
-  "storage_price_detail": "Prix du stockage (€ / Go / mois)",
   "storage_prices": "Tous les prix du stockage",
   "create_storage_price": "Créer un prix de stockage",
   "storage_price_created": "Prix de stockage créé",
   "delete_storage_price": "Supprimer le prix de stockage",
   "delete_storage_price_confirm": "Êtes-vous sûr de vouloir supprimer ce prix de stockage ? La date de fin du prix précédent sera automatiquement mise à jour.",
-  "storage_price_deleted": "Prix de stockage supprimé"
+  "storage_price_deleted": "Prix de stockage supprimé",
+  "storages_dates": "Dates",
+  "storage_total_price": "Prix total"
+}
