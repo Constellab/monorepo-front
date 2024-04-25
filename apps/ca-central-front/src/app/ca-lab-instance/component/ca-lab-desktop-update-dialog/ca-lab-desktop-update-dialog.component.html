@@ -1,5 +1,5 @@
 <fl-dialog-header>
-  {{'update_lab_instance_name' | translate}}
+  {{'update_lab' | translate}}
 </fl-dialog-header>
 
 <mat-dialog-content>
@@ -19,7 +19,7 @@
     </mat-form-field>
 
     <!--  Desktop Platform  -->
-    <div *ngIf="isDesktop()" class="desktop-platform">
+    <div class="desktop-platform">
       {{'lab_desktop_platform' | translate}}
       <mat-radio-group formControlName="desktopPlatform" required>
         <mat-radio-button value="WINDOWS" color="primary">Windows</mat-radio-button>

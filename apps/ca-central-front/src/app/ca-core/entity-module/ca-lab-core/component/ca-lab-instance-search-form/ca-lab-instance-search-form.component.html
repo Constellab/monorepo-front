@@ -72,6 +72,12 @@
                       [placeholder]="'created_by' | translate"></fl-select-user>
     </fl-form-field>
 
+    <!--  Cloud name -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{'lab_cloud_name' | translate }}</mat-label>
+      <input matInput formControlName="cloudName" [placeholder]="'lab_cloud_name' | translate" autocomplete="off">
+    </mat-form-field>
+
     <!--  Id -->
     <mat-form-field class="g-search-field">
       <mat-label>{{'id' | translate }}</mat-label>

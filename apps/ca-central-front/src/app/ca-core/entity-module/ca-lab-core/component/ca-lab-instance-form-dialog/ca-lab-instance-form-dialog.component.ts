@@ -10,7 +10,6 @@ import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.serv
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {CaLabInstanceValidator} from '../../../../model/entities/lab/ca-lab-instance.validator';
 
 export type CaLabInstanceFormDialogInput = FlFormDialogInput<CaLabInstanceForm>;
 
@@ -46,7 +45,7 @@ export class CaLabInstanceFormDialogComponent extends FlFormDialogAbstractDirect
   }
 
   get title(): string {
-    return this.isCreateMode() ? 'create_lab_instance' : 'update_lab_instance_name';
+    return this.isCreateMode() ? 'create_lab_instance' : 'update_lab';
   }
 
   ngOnInit(): void {
@@ -58,7 +57,7 @@ export class CaLabInstanceFormDialogComponent extends FlFormDialogAbstractDirect
   buildForm(): FormGroup<CaLabInstanceForm> {
     return new FormBuilder().group({
       id: [null],
-      name: [null, [Validators.required, CaLabInstanceValidator.nameValidator()]],
+      name: [null, [Validators.required]],
       type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
       cloudProvider: [null],
       cpuCount: [null],

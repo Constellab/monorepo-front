@@ -4,20 +4,19 @@ import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CaLabInstance} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CaLabInstanceValidator} from '../../../ca-core/model/entities/lab/ca-lab-instance.validator';
 import {CaLabInstanceDesktopForm} from '../../../ca-core/model/entities/lab/ca-lab-instance.form';
 
-export type LabInstanceUpdateDialogInput = CaLabInstanceDesktopForm;
+export type LabDesktopUpdateDialogInput = CaLabInstanceDesktopForm;
 
 /**
  * Accessible by lab owner to update lab information
  */
 @Component({
-  selector: 'ca-lab-instance-update-dialog',
-  templateUrl: './ca-lab-instance-update-dialog.component.html',
-  styleUrls: ['./ca-lab-instance-update-dialog.component.scss']
+  selector: 'ca-lab-desktop-update-dialog',
+  templateUrl: './ca-lab-desktop-update-dialog.component.html',
+  styleUrls: ['./ca-lab-desktop-update-dialog.component.scss']
 })
-export class CaLabInstanceUpdateDialogComponent implements OnInit {
+export class CaLabDesktopUpdateDialogComponent implements OnInit {
 
   formGp: FormGroup;
 
@@ -26,9 +25,9 @@ export class CaLabInstanceUpdateDialogComponent implements OnInit {
   isLoading: boolean = false;
 
   constructor(private snackbarService: FlSnackBarService,
-              @Inject(MAT_DIALOG_DATA) private input: LabInstanceUpdateDialogInput,
+              @Inject(MAT_DIALOG_DATA) private input: LabDesktopUpdateDialogInput,
               private labInstanceService: CaLabInstanceService,
-              private dialogRef: MatDialogRef<CaLabInstanceUpdateDialogComponent>,
+              private dialogRef: MatDialogRef<CaLabDesktopUpdateDialogComponent>,
               private formBuilder: FormBuilder) {
   }
 
@@ -39,7 +38,7 @@ export class CaLabInstanceUpdateDialogComponent implements OnInit {
   private initForm(): void {
     this.formGp = this.formBuilder.group({
       id: [this.input.id, Validators.required],
-      name: [this.input.name, [Validators.required, CaLabInstanceValidator.nameValidator()]],
+      name: [this.input.name, [Validators.required]],
       desktopPlatform: [this.input.desktopPlatform],
     });
   }
@@ -47,7 +46,7 @@ export class CaLabInstanceUpdateDialogComponent implements OnInit {
   submit(): void {
     if (!this.isLoading && this.formGp.valid) {
       this.isLoading = true;
-      this.labInstanceService.updateLab(this.formGp.value).subscribe({
+      this.labInstanceService.updateLabDesktop(this.formGp.value).subscribe({
         next: lab => this.onSuccess(lab),
         error: () => this.isLoading = false
       });
@@ -59,9 +58,5 @@ export class CaLabInstanceUpdateDialogComponent implements OnInit {
     this.snackbarService.openSuccessMessage({text: 'lab_name_updated', translateText: true});
     this.isLoading = false;
     this.dialogRef.close(labInstance);
-  }
-
-  isDesktop(): boolean {
-    return !!this.input.desktopPlatform;
   }
 }

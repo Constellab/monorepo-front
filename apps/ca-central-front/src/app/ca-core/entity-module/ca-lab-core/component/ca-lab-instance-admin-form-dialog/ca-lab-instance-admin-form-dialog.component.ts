@@ -37,7 +37,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
   }
 
   get title(): string {
-    return this.isCreateMode() ? 'create_lab_instance' : 'update_lab_instance_name';
+    return this.isCreateMode() ? 'create_lab_instance' : 'update_lab';
   }
 
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
   buildForm(): FormGroup<CaLabInstanceAdminForm> {
     return new FormBuilder().group({
       id: [null],
-      name: [null, [Validators.required, CaLabInstanceValidator.nameValidator()]],
+      name: [null, [Validators.required]],
       type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
       virtualHost: [null, [Validators.required, CaLabInstanceValidator.virtualHostDomainValidator(true)]],
       serverCloud: [null, [Validators.required]],
@@ -61,6 +61,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       codelabToken: [null],
       serverInstanceId: [null],
       serverVolumeId: [null],
+      cloudName: [null],
       gwsCoreProdDbPassword: [null],
       gwsCoreDevDbPassword: [null],
       region: [null, Validators.required],

@@ -3,7 +3,10 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon flIcon="lab"></mat-icon>
-      <h2>{{ labInstance.name | translate }}</h2>
+      <h2 flElementEditable [flElementDisabled]="(isOwner$ | async) !== true"
+          (flElementValueChange)="updateLabName($event, labInstance)">
+        {{ labInstance.name | translate }}
+      </h2>
     </fl-text-icon>
 
     <fl-card-actions>
@@ -13,10 +16,12 @@
 
       <mat-menu #menu="matMenu">
 
-        <button mat-menu-item type="button" (click)="openLabUpdate(labInstance)">
-          <mat-icon>edit</mat-icon>
-          <span>{{'update_lab_instance_name' | translate}}</span>
-        </button>
+        @if (labInstance.isDesktop && (isOwner$| async)) {
+          <button mat-menu-item type="button" (click)="openLabDesktopUpdate(labInstance)">
+            <mat-icon>edit</mat-icon>
+            <span>{{ 'update_lab' | translate }}</span>
+          </button>
+        }
 
         <button mat-menu-item type="button" (click)="openStatusHistoryDialog(labInstance)">
           <mat-icon>history</mat-icon>

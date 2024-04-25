@@ -92,6 +92,7 @@ export class CaLabInstance extends CaBaseEntity {
   volumeType: CaLabInstanceVolumeType;
 
   // only provided when getting lab as admin
+  cloudName?: string;
   glabApiKey?: string;
   labManagerApiKey?: string;
   codelabToken?: string;

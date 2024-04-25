@@ -54,6 +54,7 @@ export class CaLabInstanceTableComponent {
         labManagerApiKey: labInstance.labManagerApiKey,
         serverInstanceId: labInstance.serverInstanceId,
         serverVolumeId: labInstance.serverVolumeId,
+        cloudName: labInstance.cloudName,
         space: labInstance.space,
         billingMode: labInstance.billingMode,
         volumeType: labInstance.volumeType,

@@ -46,8 +46,8 @@ import {
 import {CaFreeTrialUpdateDto, CaLabFreeTrialGetDto} from '../model/entities/lab/ca-lab-free-trial.class';
 import {CaLabBackupHistory, CaLabBackupStatusDTO} from '../model/entities/lab/ca-lab-backup.class';
 import {
-  CaLabContestForm,
   CaLabCloudCreateDTO,
+  CaLabContestForm,
   CaLabInstanceAdminForm,
   CaLabInstanceDesktopForm,
   CaRequestLabInstanceForm
@@ -76,13 +76,10 @@ export class CaLabInstanceService {
     return this.apiService.put(`${this.route}/admin`, entity, CaLabInstanceWithSpace, {serialization: CaLabInstanceAdminForm});
   }
 
-  public createDesktopLab(entity: CaLabInstanceDesktopForm): Observable<CaLabInstance> {
-    return this.apiService.post(`${this.route}/desktop`, entity, CaLabInstance);
+  public updateLabName(id: string, name: string): Observable<CaLabInstance> {
+    return this.apiService.put(`${this.route}/${id}/name/${name}`, null, CaLabInstance);
   }
 
-  public updateLab(entity: CaLabInstanceAdminForm): Observable<CaLabInstance> {
-    return this.apiService.put(`${this.route}`, entity, CaLabInstance);
-  }
 
   public delete(id: string): Observable<CaLabInstance> {
     return this.apiService.deleteById(this.route, id, CaLabInstance);
@@ -414,11 +411,18 @@ export class CaLabInstanceService {
 
   //////////////////////////// DESKTOP ////////////////////////////////
 
+  public createDesktopLab(entity: CaLabInstanceDesktopForm): Observable<CaLabInstance> {
+    return this.apiService.post(`${this.route}/desktop`, entity, CaLabInstance);
+  }
+
   public getDesktopConfigDownloadUrl(id: string, config: CaLabInstanceDesktopConfig): Observable<Blob> {
     return this.apiService.post(
       `${this.route}/${id}/desktop/generate-config`, config, null,
       {responseType: 'blob'});
   }
 
+  public updateLabDesktop(entity: CaLabInstanceDesktopForm): Observable<CaLabInstance> {
+    return this.apiService.put(`${this.route}/${entity.id}/desktop`, entity, CaLabInstance);
+  }
 
 }

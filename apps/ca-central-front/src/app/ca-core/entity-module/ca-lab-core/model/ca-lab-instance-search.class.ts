@@ -44,6 +44,8 @@ export class CaLabInstanceSearchFields {
 
   isFreeTrial: boolean;
 
+  cloudName: string;
+
   id: string;
 }
 
@@ -60,6 +62,7 @@ export class CaLabInstanceSearch {
     space: 'space',
     type: 'lab_instance_type',
     cloudProvider: 'cloud_provider',
+    cloudName: 'lab_cloud_name'
   };
 
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaLabInstanceSearchFields> = {
@@ -74,6 +77,7 @@ export class CaLabInstanceSearch {
     type: {key: 'type', operator: 'EQ'},
     cloudProvider: {key: 'region.cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     isFreeTrial: {key: 'isFreeTrial', operator: 'EQ'},
+    cloudName: {key: 'cloudName', operator: 'MATCH'},
     id: {key: 'id', operator: 'EQ'},
   };
 
@@ -93,6 +97,7 @@ export class CaLabInstanceSearch {
       type: null,
       cloudProvider: null,
       isFreeTrial: null,
+      cloudName: null,
       id: null,
     });
   }

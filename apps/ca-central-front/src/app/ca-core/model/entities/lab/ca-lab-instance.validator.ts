@@ -7,23 +7,6 @@ export class CaLabInstanceValidator {
 
   public static readonly SUPPORTED_DOMAINS = ['gencovery.io', 'constellab.app'];
 
-  public static nameValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value: any = control.value;
-      if (value == null || value.length === 0) {
-        return null;  // don't validate empty values to allow optional controls
-      }
-
-
-      // check that name is only alphanumeric characters and '-'. Also check that it doesn't start or end with '-'.
-      if (!/^[a-zA-Z0-9-]+$/.test(value) || /^-|-$/.test(value)) {
-        return {pattern: true};
-      }
-
-      return null;
-    };
-  }
-
   public static virtualHostDomainValidator(cloud: boolean): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value: any = control.value;

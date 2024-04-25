@@ -23,7 +23,6 @@
   "open_lab_in_new_tab": "Open lab in new tab",
   "create_lab_instance": "Create lab",
   "lab_instance_created": "Lab created",
-  "update_lab_instance_name": "Update lab name",
   "lab_instance_updated": "Lab updated",
   "create_lab": "Create lab",
   "lab_created": "Lab created",
@@ -368,5 +367,6 @@
   "create_lab_backup_title": "Backups location",
   "daily_backup": "Daily backup",
   "weekly_backup": "Weekly backup",
-  "create_lab_backup_section": "Choose the backup location for your digital lab. The daily and weekly backups must be in different regions to ensure the data safety. We recommend to choose a region close to your lab location to reduce the latency."
+  "create_lab_backup_section": "Choose the backup location for your digital lab. The daily and weekly backups must be in different regions to ensure the data safety. We recommend to choose a region close to your lab location to reduce the latency.",
+  "lab_cloud_name": "Cloud name"
 }

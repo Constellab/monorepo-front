@@ -25,6 +25,7 @@ export class CaLabInstanceAdminForm {
   volumeSize?: number;
   volumeType?: CaLabInstanceVolumeType;
 
+  cloudName?: string;
   glabApiKey?: string;
   labManagerApiKey?: string;
   codelabToken?: string;

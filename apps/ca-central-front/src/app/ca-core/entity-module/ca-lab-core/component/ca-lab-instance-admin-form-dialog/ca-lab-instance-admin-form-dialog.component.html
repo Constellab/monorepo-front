@@ -193,6 +193,13 @@
           <input matInput formControlName="serverVolumeId" flInputMaxLength="255"
                  [placeholder]="'lab_server_volume_id' | translate">
         </mat-form-field>
+
+        <!--  Cloud name  -->
+        <mat-form-field>
+          <mat-label>{{'lab_cloud_name' | translate}}</mat-label>
+          <input matInput formControlName="cloudName" flInputMaxLength="36"
+                 [placeholder]="'lab_cloud_name' | translate">
+        </mat-form-field>
       </ng-container>
 
       <ng-container *ngIf="isOnServer()">

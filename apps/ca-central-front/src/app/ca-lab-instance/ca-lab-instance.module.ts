@@ -19,8 +19,8 @@ import {
   CaLabInstanceUserFormDialogComponent
 } from './component/user/ca-lab-instance-user-form-dialog/ca-lab-instance-user-form-dialog.component';
 import {
-  CaLabInstanceUpdateDialogComponent
-} from './component/ca-lab-instance-update-dialog/ca-lab-instance-update-dialog.component';
+  CaLabDesktopUpdateDialogComponent
+} from './component/ca-lab-desktop-update-dialog/ca-lab-desktop-update-dialog.component';
 import {
   CaLabInstanceManagerComponent
 } from './component/manager/ca-lab-instance-manager/ca-lab-instance-manager.component';
@@ -156,7 +156,7 @@ import {CaLabSelectServerComponent} from './component/create/ca-lab-select-serve
     CaLabInstanceUsersListComponent,
     CaLabInstanceUsersTableComponent,
     CaLabInstanceUserFormDialogComponent,
-    CaLabInstanceUpdateDialogComponent,
+    CaLabDesktopUpdateDialogComponent,
     CaLabInstanceManagerComponent,
     CaLabDockerContainersListComponent,
     CaLabDockerContainerLogsComponent,
