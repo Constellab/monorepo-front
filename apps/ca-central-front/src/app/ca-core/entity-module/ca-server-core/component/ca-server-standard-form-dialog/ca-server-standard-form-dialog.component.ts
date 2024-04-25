@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
+import {Component, inject, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
 import {CaServerStandard, CaServerStandardSaveDTO} from '../../../../model/entities/server/ca-server-standard.class';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -17,11 +17,10 @@ export type CaServerStandardFormDialogInput = FlFormDialogInput<CaServerStandard
 export class CaServerStandardFormDialogComponent extends FlFormDialogAbstractDirective<CaServerStandardSaveDTO, CaServerStandard>
   implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) dialogInput: CaServerStandardFormDialogInput,
-              private serverService: CaServerService,
-              protected snackBarService: FlSnackBarService,
-              protected dialogRef: MatDialogRef<CaServerStandardFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  dialogInput: CaServerStandardFormDialogInput = inject(MAT_DIALOG_DATA);
+
+  constructor(private serverService: CaServerService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -38,7 +37,7 @@ export class CaServerStandardFormDialogComponent extends FlFormDialogAbstractDir
     }) as FormGroup<CaServerStandardSaveDTO>;
 
     // price is only available in create mode
-    if(this.isCreateMode()){
+    if (this.isCreateMode()) {
       formGp.get('price').setValidators([Validators.required, Validators.min(0)]);
     }
 

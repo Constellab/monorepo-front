@@ -353,8 +353,7 @@
   "restart_lab_help": "This will stop and start the lab. The brick listed in Lab manager section will be installed. The lab data are not affected.",
   "lab_initialize_help": "This will start the lab. The brick listed in Lab manager section will be installed.",
   "create_lab_contest": "Create lab contest",
-  "lab_contest_created": "Lab contest created"
-  "lab_initialize_help": "This will start the lab. The brick listed in Lab manager section will be installed.",
+  "lab_contest_created": "Lab contest created",
   "lab_storage_size": "Storage size (GB)",
   "lab_storage": "Storage",
   "create_lab_storage_section": "Choose the size of the disk you want for you digital lab. Please note that the storage is billed monthly and is charged even if the lab is stopped (because the data are still stored). To stop the storage billing, you must delete the lab. The price for the storage includes the multi-sites backup of the lab.",

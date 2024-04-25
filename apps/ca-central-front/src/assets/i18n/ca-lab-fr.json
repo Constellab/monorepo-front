@@ -316,6 +316,9 @@
   "lab_usage_total_billed_hours": "Nombre d'heures facturées",
   "lab_usage_period_from": "Date de début",
   "lab_usage_period_to": "Date de fin",
+  "lab_usage_price": "Prix",
+  "lab_usage_billed_hours": "Heures facturées",
+  "lab_usage_total_price": "Prix total",
   "lab_usage_running_periods": "Périodes d'exécution",
   "lab_backup_daily_region": "Région de backup quotidien",
   "lab_backup_weekly_region": "Région de backup hebdomadaire",
@@ -339,6 +342,7 @@
   "lab_server_section_help": "Cette section vous permet de gérer le serveur du lab. Utilisez cette section uniquement si vous savez ce que vous faites.",
   "lab_users_section_help": "Cette section vous permet de gérer les utilisateurs du lab. Vous pouvez ajouter, mettre à jour et supprimer des utilisateurs si vous êtes le propriétaire du lab.",
   "lab_projects_section_help": "Cette section vous permet de gérer les projets accessibles dans le lab. Une fois le project partagé avec le lab, les expériences et les rapports du lab peuvent y être associés. Vous pouvez ajouter, mettre à jour et supprimer des projets si vous êtes le propriétaire du lab.",
+  "lab_installed_brick": "Briques installées",
   "lab_installed_brick_help": "Voici la liste des briques installées dans le lab. Cette liste est automatiquement mise à jour lorsque le lab est démarré. Si vous avez modifié la configuration du lab dans la section Lab manager et que vous n'avez pas redémarré le lab, cette liste sera différente de celle dans la configuration du lab manager. Dans ce cas, redémarrez le lab pour mettre à jour les briques.",
   "lab_delete_backup": "Supprimer les backups",
   "lab_delete_backup_confirmation": "<p>Êtes-vous sûr de vouloir supprimer toutes les sauvegardes du lab ? Cela supprimera toutes les sauvegardes et elles ne seront pas récupérables. Il n'est pas possible de supprimer les sauvegardes si le serveur du lab existe toujours.</p><p>La facturation du stockage des sauvegardes s'arrêtera une fois les sauvegardes supprimées.</p><p>La suppression peut prendre plusieurs minutes.</p>",
@@ -350,8 +354,6 @@
   "lab_initialize_help": "Cela va démarrer le lab. Les briques listées dans la section du Lab manager seront installées.",
   "create_lab_contest": "Créer un lab de concours",
   "lab_contest_created": "Lab de concours créé",
-  "file_is_not_image": "Le fichier n'est pas une image"
-  "lab_initialize_help": "Cela va démarrer le lab. Les briques listées dans la section du Lab manager seront installées.",
   "lab_storage_size": "Taille du stockage (Go)",
   "lab_storage": "Stockage",
   "create_lab_storage_section": "Choisissez la taille du disque que vous souhaitez pour votre lab digital. Veuillez noter que le stockage est facturé mensuellement et est facturé même si le lab est arrêté (car les données sont toujours stockées). Pour arrêter la facturation du stockage, vous devez supprimer le lab. Le prix du stockage inclut la sauvegarde multi-sites du lab.",
@@ -368,4 +370,3 @@
   "weekly_backup": "Backup hebdomadaire",
   "create_lab_backup_section": "Choisissez l'emplacement de sauvegarde pour votre lab digital. Les sauvegardes quotidiennes et hebdomadaires doivent être dans des régions différentes pour garantir la sécurité des données. Nous vous recommandons de choisir une région proche de l'emplacement de votre lab pour réduire la latence."
 }
-

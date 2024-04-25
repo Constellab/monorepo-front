@@ -258,8 +258,7 @@
   "activity_user_date": "User/date",
   "activities": "Activities",
   "info": "Info",
-  "image_square_help": "We recommend to upload a square image, otherwise it will be cropped."
-  "info": "Info",
+  "image_square_help": "We recommend to upload a square image, otherwise it will be cropped.",
   "next": "Next",
   "back": "Back",
   "logo": "Logo"

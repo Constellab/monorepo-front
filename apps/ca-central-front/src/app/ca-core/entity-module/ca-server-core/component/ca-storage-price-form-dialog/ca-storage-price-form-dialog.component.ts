@@ -1,6 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Component, OnInit} from '@angular/core';
+import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
 import {CaServerService} from '../../../../service-api/ca-server.service';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
@@ -15,11 +14,8 @@ import {CaCreateStoragePriceDTO, CaStoragePrice} from '../../../../model/entitie
 export class CaStoragePriceFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCreateStoragePriceDTO, CaStoragePrice> implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) protected dialogInput: FlFormDialogInput,
-              private serverService: CaServerService,
-              protected snackBarService: FlSnackBarService,
-              protected dialogRef: MatDialogRef<CaStoragePriceFormDialogComponent>) {
-    super(dialogInput, snackBarService, dialogRef);
+  constructor(private serverService: CaServerService) {
+    super();
   }
 
   ngOnInit(): void {

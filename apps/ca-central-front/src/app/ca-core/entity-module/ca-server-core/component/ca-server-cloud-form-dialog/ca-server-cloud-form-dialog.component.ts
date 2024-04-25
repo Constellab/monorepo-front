@@ -16,7 +16,7 @@ import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
 })
 export class CaServerCloudFormDialogComponent extends FlFormDialogAbstractDirective<CaServerCloud> implements OnInit {
 
-  constructor(private serverInfoService: CaServerInfoService) {
+  constructor(private serverService: CaServerService) {
     super();
   }
 
