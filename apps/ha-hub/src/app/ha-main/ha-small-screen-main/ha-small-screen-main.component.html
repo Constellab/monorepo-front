@@ -1,0 +1,112 @@
+<!--<mat-toolbar class="nav-bar">-->
+<!--  <a routerLink="/" class="gencovery-hub-logo gencovery-logo" flHide.lt-lg>-->
+<!--    <img alt="" [src]="communityLogo"/>-->
+<!--  </a>-->
+<!--  <a routerLink="/" class="gencovery-hub-logo gencovery-logo-small" flHide.gt-md>-->
+<!--    <img alt="" src="assets/fl-logo/community_logo.svg"/>-->
+<!--  </a>-->
+
+<!--  <div class="nav-bar-links">-->
+<!--    <h5 class="option" flHide.lt-md><a [routerLink]="storyListRoute">{{ 'stories' | translate }}</a></h5>-->
+<!--    <a class="option" [routerLink]="storyListRoute" flHide.gt-sm>-->
+<!--      <img class="option-icon" src="assets/fl-logo/stories-logo.svg"/>-->
+<!--    </a>-->
+
+<!--    <h5 class="option" flHide.lt-md><a [routerLink]="liveTaskRoute">{{ 'live_tasks' | translate }}</a></h5>-->
+
+<!--    <h5 class="option" flHide.lt-md><a [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a></h5>-->
+<!--    <a class="option" flHide.gt-sm [routerLink]="brickListRoute">-->
+<!--      <img class="option-icon brick-icon" src="assets/fl-logo/bricks_logo.svg"/>-->
+<!--    </a>-->
+
+<!--    <div [matMenuTriggerFor]="docMenu" class="doc-nav-div">-->
+<!--      <img class="option doc-menu-bt option-icon" src="assets/fl-logo/doc_logo.svg" flHide.gt-sm/>-->
+<!--      <h5 class="option doc-menu-bt" flHide.lt-md>{{ 'documentation' | translate }}</h5>-->
+<!--    </div>-->
+
+<!--    <mat-menu #docMenu="matMenu" xPosition="before">-->
+<!--      <a mat-menu-item [routerLink]="productDocRoute" class="doc-menu-item">{{ 'product_doc'| translate }}</a>-->
+<!--      <a mat-menu-item [routerLink]="techDocRoute" class="doc-menu-item">{{ 'tech_doc'| translate }}</a>-->
+<!--      <a mat-menu-item [routerLink]="'/icons'" class="doc-menu-item">{{ 'icons'| translate }}</a>-->
+<!--    </mat-menu>-->
+<!--  </div>-->
+
+
+<!--</mat-toolbar>-->
+
+<!--<div class="body g-scrollable-element" flAutoScrollToAnchor cdkScrollable>-->
+<!--  <div class="router">-->
+<!--    <router-outlet></router-outlet>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="menu top-menu">
+  <a routerLink="/" class="community-logo">
+    <img alt="" src="assets/fl-logo/community_logo.svg"/>
+  </a>
+
+  <div class="top-left-buttons">
+      <ng-container *ngIf="(userConnected$ | async) == null">
+      <a [routerLink]="loginRoute" mat-flat-button flHide.lt-md>
+        {{ 'login' | translate }}
+      </a>
+      </ng-container>
+      <fl-user-profile-picture [user]="user" [matMenuTriggerFor]="userMenu"
+                               *ngIf="userConnected$ | async as user">
+      </fl-user-profile-picture>
+    </div>
+</div>
+
+<div class="body g-scrollable-element" flAutoScrollToAnchor cdkScrollable>
+  <div class="router">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+<div class="menu bottom-menu">
+  <a [routerLink]="storyListRoute">{{ 'stories' | translate }}</a>
+  <a [routerLink]="liveTaskRoute">{{ 'live_tasks' | translate }}</a>
+  <a [routerLink]="brickListRoute">{{ 'bricks' | translate }}</a>
+  <div [matMenuTriggerFor]="docMenu">{{ 'documentation' | translate }}</div>
+
+</div>
+
+<mat-menu #docMenu="matMenu" xPosition="after">
+  <a mat-menu-item [routerLink]="productDocRoute" class="doc-menu-item">{{ 'product_doc'| translate }}</a>
+  <a mat-menu-item [routerLink]="techDocRoute" class="doc-menu-item">{{ 'tech_doc'| translate }}</a>
+  <a mat-menu-item [routerLink]="'/icons'" class="doc-menu-item">{{ 'icons'| translate }}</a>
+</mat-menu>
+
+<mat-menu #langMenu='matMenu'>
+
+</mat-menu>
+
+<mat-menu #userMenu="matMenu">
+  <button mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
+    {{ 'admin_dashboard' | translate }}
+  </button>
+  <button mat-menu-item (click)="changeLanguage()">
+    <mat-icon>language</mat-icon>
+    @if (currentLanguage === 'fr') {
+      {{ 'english' | translate }}
+    } @else {
+      {{ 'french' | translate }}
+    }
+  </button>
+  <button mat-menu-item
+          (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme" class="g-text-light">
+    <mat-icon>light_mode</mat-icon>
+    {{'light_theme' | translate}}
+  </button>
+  <button mat-menu-item
+          (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme" class="g-text-light">
+    <mat-icon>dark_mode</mat-icon>
+    {{'dark_theme' | translate}}
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    {{ 'logout' |translate }}
+  </button>
+</mat-menu>

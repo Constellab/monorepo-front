@@ -87,6 +87,7 @@ export class LabRouterService {
   }
 
   public static getTechnicalDocRoute(typingName: string): string {
+    typingName = typingName.replaceAll('.', '-')
     return `${LabRouterService.getDocRoute()}/technical-doc/${typingName}`;
   }
 

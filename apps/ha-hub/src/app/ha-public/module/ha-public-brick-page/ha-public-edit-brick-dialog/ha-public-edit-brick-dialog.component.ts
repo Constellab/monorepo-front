@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
+import {FlConfirmDialogInput, FlFormDialogAbstractDirective, FlUploadImageDialogConfig} from '@monorepo/front-core-lib';
 import {HaBrick, HaEditBrickDTO} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Validators} from '@angular/forms';
@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {HaSpace} from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
 import {HaSpaceService} from '../../../../ha-core/ha-service/ha-space.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'ha-ha-public-edit-brick-dialog',
@@ -20,6 +21,9 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   spaces: HaSpace[];
   isPhotoLoading = false;
 
+  imageConfig: FlUploadImageDialogConfig;
+  deleteImageConfig: FlConfirmDialogInput;
+
   constructor(private spaceService: HaSpaceService,
               private brickService: HaBrickService) {
     super();
@@ -31,6 +35,39 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
     this.spaceService.getSpacesOfCurrentUser().subscribe((spaces: HaSpace[]) => {
       this.spaces = spaces;
     });
+
+    this.imageConfig = {
+      title: {text: 'upload_brick_picture', translateText: true},
+      helpText: {text: 'image_square_help', translateText: true},
+      imagePreviewWidth: 150,
+      imagePreviewHeight: 150,
+      compressOptions: {
+        cropWidth: 300,
+        cropHeight: 300,
+        resizeWidthMax: 300,
+      },
+      uploadImage: (file: File) => {
+        return this.brickService.editBrickImage(this.formGp.value.id, file).pipe(
+          map((image: any) => {
+            this.formGp.controls.imageLink.patchValue(image.filename);
+          })
+        );
+      },
+      uploadImageSuccessMessage: {text: 'brick_picture_uploaded', translateText: true}
+    };
+
+    this.deleteImageConfig = {
+      title: 'brick_delete_photo',
+      content: 'brick_delete_photo_confirmation',
+      translateMessage: true,
+      observable: this.brickService.deleteBrickImage(this.formGp.value.imageLink).pipe(
+        map(() => {
+          this.formGp.controls.imageLink.patchValue(null);
+        })
+      ),
+      successMessage: 'brick_photo_deleted',
+      translateTitleAndContent: true
+    };
   }
 
   buildForm(): FormGroup<Partial<HaEditBrickDTO>> {
@@ -88,8 +125,6 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
     this.brickService.editBrickImage(this.formGp.value.id, file as File).subscribe((image) => {
       this.brickService.deleteBrickImage(this.formGp.value.imageLink).subscribe();
       this.formGp.controls.imageLink.patchValue(image.filename);
-      this.isPhotoLoading = false;
-      this.snackBarService.openSuccessMessage({text: 'brick_image_updated', translateText: true});
     });
   }
 

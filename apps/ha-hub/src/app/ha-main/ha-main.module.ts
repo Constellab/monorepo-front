@@ -14,6 +14,8 @@ import {HaLiveTaskModule} from '../ha-live-task/ha-live-task.module';
 import {HaSpaceModule} from '../ha-space/ha-space.module';
 import {HaIconsPageComponent} from '../ha-icon/component/ha-icons-page/ha-icons-page.component';
 import {HaIconModule} from '../ha-icon/ha-icon.module';
+import {HaBigScreenMainComponent} from './ha-big-screen-main/ha-big-screen-main.component';
+import {HaSmallScreenMainComponent} from './ha-small-screen-main/ha-small-screen-main.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import {HaIconModule} from '../ha-icon/ha-icon.module';
     HaHomeComponent,
     HaCookieConsentComponent,
     HaIconsPageComponent,
+    HaBigScreenMainComponent,
+    HaSmallScreenMainComponent
   ],
   imports: [
     CommonModule,

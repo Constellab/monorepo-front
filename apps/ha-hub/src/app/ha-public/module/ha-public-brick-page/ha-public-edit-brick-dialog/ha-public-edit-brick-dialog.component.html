@@ -5,13 +5,10 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="edit-form" [formGroup]="formGp" class="g-layout-col">
 
-    <div class="brick-image-div" (click)="input.click()">
+    <fl-update-image-container class="brick-image-div" [uploadConfig]="imageConfig"
+                               [deleteConfig]="deleteImageConfig" [showDelete]="!!formGp.value.imageLink">
       <img [src]="formGp.value.imageLink | haBrickImage">
-      <mat-icon class="edit-icon" *ngIf="!isPhotoLoading">add_a_photo</mat-icon>
-      <fl-loader class="edit-icon" *ngIf="isPhotoLoading"></fl-loader>
-      <input flInputFile type="file" accept="image/jpg,image/jpeg,image/png" (fileChange)="onFileSelected($event)"
-             [strictMode]="true" [autoClearHtmlInput]="true" [hidden]="true" id="input-photo" #input>
-    </div>
+    </fl-update-image-container>
 
     <!--  description  -->
     <mat-form-field class="g-form-input" appearance="outline">

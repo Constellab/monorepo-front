@@ -1,0 +1,207 @@
+//.gencovery-logo{
+//  height: 100%;
+//  margin: 0;
+//}
+//
+//.gencovery-logo-small{
+//  height: 80%;
+//  margin: 0;
+//}
+//
+//.gencovery-hub-logo img{
+//  height: 100%;
+//}
+//
+//.nav-bar-links{
+//  background-color: var(--card-background);
+//  margin: 0 auto;
+//  padding: 0 7px;
+//  border-radius: 10px;
+//  display: flex;
+//  flex-direction: row;
+//  height: 100%;
+//}
+//
+//.nav-bar{
+//  display: flex;
+//  height: 56px;
+//  padding: 16px 100px 0 100px;
+//  background-color: transparent;
+//  margin-bottom: 8px;
+//  justify-content: space-between;
+//}
+//
+//.option{
+//  font-weight: normal;
+//  width: auto; //9rem;
+//  margin: auto 3rem;
+//  text-align: center;
+//}
+//
+//.option-icon{
+//  width: 30px;
+//  margin-top: 7.5px;
+//}
+//
+//.brick-icon{
+//  margin-top: 5px;
+//}
+//
+//.body{
+//  display: flex;
+//  flex-direction: column;
+//  max-height: calc(100vh - var(--navbar-height));
+//  overflow-x: hidden;
+//}
+//
+//.router{
+//  flex: 1 0 auto;
+//}
+//
+//.doc-menu-bt{
+//  cursor: pointer;
+//}
+//
+//.span-initials{
+//  min-width: 170px;
+//  display: flex;
+//  flex-direction: row;
+//  gap: 8px;
+//  justify-content: flex-end;
+//  align-items: center;
+//}
+//
+//.doc-menu-item{
+//  width: calc(240px - 32px);
+//  text-align: center;
+//}
+//
+//.doc-nav-div{
+//  display: flex;
+//  height: 100%;
+//  padding-bottom: 8px;
+//  width: 240px;
+//  align-items: center;
+//  justify-content: center;
+//}
+//
+//.doc-nav-div h5{
+//  margin: auto;
+//}
+//
+//.user-profile{
+//  border-radius: 50%;
+//  border: 1px solid var(--main-background);
+//}
+//
+//@media (max-width: 1160px) {
+//  .nav-bar{
+//    padding: 16px 50px 0 50px;
+//  }
+//
+//  .span-initials{
+//    min-width: 0;
+//    margin-right: 15px;
+//    gap: 4px;
+//  }
+//
+//  .option{
+//    margin: auto 1.5rem;
+//  }
+//}
+//
+//@media (max-width: 900px) {
+//  .nav-bar{
+//    padding: 16px 8px 0 8px;
+//  }
+//
+//  .nav-bar-links{
+//    padding: 0;
+//  }
+//
+//  .option{
+//    margin: auto 1rem;
+//  }
+//
+//  .span-initials{
+//    gap: 2px;
+//    margin-right: 0;
+//  }
+//}
+//
+//
+//@media (max-width: 590px) {
+//  .doc-nav-div{
+//    width: fit-content;
+//  }
+//
+//  .option{
+//    margin: auto 0.5em;
+//  }
+//}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - var(--navbar-height) - var(--navbar-height));
+  overflow-x: hidden;
+}
+
+.menu {
+  width: 100%;
+  height: var(--navbar-height);
+  background-color: var(--main-background);
+}
+
+.top-menu{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .community-logo{
+    margin: auto;
+    height: 70%;
+
+    img{
+      height: 100%;
+    }
+  }
+
+  .top-left-buttons{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    padding: 16px;
+  }
+}
+
+.bottom-menu{
+  border-top: 1px solid var(--hover-color);
+  height: calc(var(--navbar-height) - 1px);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  a, div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+
+@media (max-width: 590px) {
+  .bottom-menu{
+    font-size: 0.8em;
+  }
+}

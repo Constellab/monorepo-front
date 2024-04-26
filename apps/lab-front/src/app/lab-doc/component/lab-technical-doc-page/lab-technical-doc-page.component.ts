@@ -19,7 +19,7 @@ export class LabTechnicalDocPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.type$ = this.route.params.pipe(
-      mergeMap(params => this.typeService.getTyping(params.typingName))
+      mergeMap(params => this.typeService.getTyping(params.typingName.replaceAll('-', '.')))
     );
   }
 

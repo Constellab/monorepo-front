@@ -30,6 +30,7 @@ import {
   LabNavigableEntityService,
   LabNavigableImpactConfig
 } from '../../../lab-navigable-entity-core/lab-navigable-entity.service';
+import {LabRouterService} from '../../../../service/lab-router.service';
 
 /**
  * Action menu button for resources, it has a ng-content for custom buttons
@@ -48,6 +49,8 @@ export class LabResourceActionsMenuComponent implements OnInit {
   @Output() update: EventEmitter<LabResource> = new EventEmitter<LabResource>();
   @Output() delete: EventEmitter<LabResource> = new EventEmitter<LabResource>();
 
+  resourceDocRoute: string;
+
   constructor(private resourceService: LabResourceService,
               private dialogService: FlDialogService,
               private resourceDownloadService: LabResourceDownloadService,
@@ -57,6 +60,8 @@ export class LabResourceActionsMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.resourceDocRoute = LabRouterService.getTechnicalDocRoute(
+      this.resource.resourceTypingName.replaceAll('-', '.'));
   }
 
   downloadResource(): void {

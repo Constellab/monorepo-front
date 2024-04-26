@@ -21,3 +21,10 @@
 .space-badge-div{
   border: solid 3px var(--warn-color);
 }
+
+@media screen and (max-width: 768px){
+  .visibility-badge-div{
+    gap: 4px;
+    font-size: 0.8em;
+  }
+}

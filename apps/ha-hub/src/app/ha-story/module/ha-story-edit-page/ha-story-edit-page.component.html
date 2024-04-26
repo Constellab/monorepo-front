@@ -12,17 +12,22 @@
       <h2 id="storyTitle" class="title-input" flElementEditable (flElementValueChange)="onTitleChange($event)">
         {{ story.title }}
       </h2>
-      <div class="story-image-preview" [style.background-image]="story.mainPicture ? 'url(\'' + getStoryImageLink(story.mainPicture) + '\')' : null">
-        @if (!story.mainPicture || isMainImageInContent()){
-          <div class="story-image-input" (click)="activeInput()">
-            <mat-icon class="g-icon-big">add_a_photo</mat-icon>
-          </div>
-          <input flInputFile type="file" accept="image/jpg,image/jpeg,image/png" (fileChange)="onFileSelected($event)"
-                 [strictMode]="true" [autoClearHtmlInput]="true" [hidden]="true" id="input-photo" #input>
-        } @else {
-          <mat-icon class="delete-image" (click)="deleteImage()" [matTooltip]="'delete' | translate">close</mat-icon>
-        }
-      </div>
+      <!--        @if (!story.mainPicture || isMainImageInContent()){-->
+      <!--          <div class="story-image-input" (click)="activeInput()">-->
+      <!--            <mat-icon class="g-icon-big">add_a_photo</mat-icon>-->
+      <!--          </div>-->
+      <!--          <input flInputFile type="file" accept="image/jpg,image/jpeg,image/png" (fileChange)="onFileSelected($event)"-->
+      <!--                 [strictMode]="true" [autoClearHtmlInput]="true" [hidden]="true" id="input-photo" #input>-->
+      <!--        } @else {-->
+      <!--          <mat-icon class="delete-image" (click)="deleteImage()" [matTooltip]="'delete' | translate">close</mat-icon>-->
+      <!--        }-->
+      <!--      </div>-->
+      <fl-update-image-container class="story-image-preview" [uploadConfig]="imageConfig"
+                                 [deleteConfig]="deleteImageConfig" [showDelete]="!isMainImageInContent()">
+        <div class="story-image"
+             [style.background-image]="story.mainPicture ? 'url(\'' + getStoryImageLink(story.mainPicture) + '\')' : null">
+        </div>
+      </fl-update-image-container>
     </div>
 
     <mat-form-field class="form-field">

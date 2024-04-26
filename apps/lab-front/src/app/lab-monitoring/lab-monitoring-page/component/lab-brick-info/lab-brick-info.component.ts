@@ -34,7 +34,7 @@ export class LabBrickInfoComponent implements OnInit {
   generateTechnicalDoc(): void {
     this.generateDocIsLoading = true;
     this.labBrickService.generateTechnicalDoc(this.brick.name).subscribe({
-      next: doc => this.onSuccess(doc),
+      next: () => this.onComplete(),
       error: () => this.onComplete(),
     });
   }
@@ -42,11 +42,6 @@ export class LabBrickInfoComponent implements OnInit {
   openCallMigrationDialog(): void {
     this.dialogService.openMediumDialog(LabBrickCallMigrationDialogComponent,
       {data: this.brick.name});
-  }
-
-  private onSuccess(doc: any): void {
-    FlFileHelper.downloadJsonFile(doc, `${this.brick.name}-doc.json`);
-    this.onComplete();
   }
 
   private onComplete(): void {

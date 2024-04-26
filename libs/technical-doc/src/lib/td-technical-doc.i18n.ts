@@ -41,7 +41,8 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     parameters: 'Paramètres',
     return_type: 'Type de retour',
     name: 'Nom',
-    description: 'Description'
+    description: 'Description',
+    variables: 'Variables'
   }
 };
 
@@ -85,7 +86,8 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     parameters: 'Parameters',
     return_type: 'Return type',
     name: 'Name',
-    description: 'Description'
+    description: 'Description',
+    variables: 'Variables'
   }
 };
 

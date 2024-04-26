@@ -303,5 +303,16 @@
   "product_doc_description": "Learn how to use Constellab with a series of tutorials and videos",
   "tech_doc_description": "Learn how to code in Constellab, from simple live tasks to fully integrated bricks",
   "icons_description": "List of icons available in Constellab to style your tasks, resources and live tasks",
-  "brick_image_updated": "Brick image updated"
+  "brick_image_updated": "Brick image updated",
+  "image_square_help": "We recommend to upload a square image, otherwise it will be cropped.",
+  "upload_story_picture": "Upload story picture",
+  "upload_brick_picture": "Upload brick picture",
+  "story_picture_uploaded": "Story picture uploaded",
+  "brick_picture_uploaded": "Brick picture uploaded",
+  "story_delete_photo": "Delete story photo",
+  "brick_delete_photo": "Delete brick photo",
+  "story_delete_photo_confirmation": "Are you sure you want to delete the photo of the story ?",
+  "brick_delete_photo_confirmation": "Are you sure you want to delete the photo of the brick ?",
+  "story_photo_deleted": "Story photo deleted",
+  "brick_photo_deleted": "Brick photo deleted"
 }

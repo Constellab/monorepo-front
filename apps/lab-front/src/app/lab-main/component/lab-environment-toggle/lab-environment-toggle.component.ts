@@ -52,7 +52,7 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
       });
     } else {
       this.labEnvStore.setLabEnvironment('prod');
-      this.redirectToExpeirmentList();
+      this.redirectToExperimentList();
     }
   }
 
@@ -61,11 +61,11 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
     if (!activate) {
       this.checked = false;
     } else {
-      this.redirectToExpeirmentList();
+      this.redirectToExperimentList();
     }
   }
 
-  private redirectToExpeirmentList(): void {
+  private redirectToExperimentList(): void {
     if (this.router.isActive(LabRouterService.getExperimentListRoute(),
       {fragment: 'ignored', paths: 'exact', matrixParams: 'ignored', queryParams: 'ignored'})) {
       location.reload();

@@ -32,7 +32,7 @@ export class HaLiveTaskCreateDialogComponent extends
               @Inject(MAT_DIALOG_DATA) dialogInput: HaCreateLiveTaskInput,
               private liveTaskService: HaLiveTaskService,
               private spaceService: HaSpaceService) {
-    super(dialogInput, snackBarService, dialogRef);
+    super();
   }
 
   ngOnInit(): void {

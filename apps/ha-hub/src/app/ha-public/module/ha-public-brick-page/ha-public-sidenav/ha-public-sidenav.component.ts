@@ -341,7 +341,10 @@ export class HaPublicSidenavComponent implements OnInit {
                 brickName: this.brickName,
                 importFile: res[0]
               }),
-              text: 'updating_brick_tech_doc',
+              text: {
+                text: 'updating_brick_tech_doc',
+                translateText: true
+              },
               type: 'brick_tech_doc',
             }).subscribe((res) => {
               if (res) {

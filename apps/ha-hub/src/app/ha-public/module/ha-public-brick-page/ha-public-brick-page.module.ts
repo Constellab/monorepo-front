@@ -13,7 +13,7 @@ import {
   HaPublicBrickVersionsTableComponent
 } from './ha-public-brick-versions-table/ha-public-brick-versions-table.component';
 import {MatTableModule} from '@angular/material/table';
-import {FlDateModule, FlInputFileModule, FlKeyValueModule,} from '@monorepo/front-core-lib';
+import {FlDateModule, FlImageModule, FlInputFileModule, FlKeyValueModule,} from '@monorepo/front-core-lib';
 import {HaPublicBrickDescriptionComponent} from './ha-public-brick-description/ha-public-brick-description.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
@@ -77,6 +77,7 @@ import {
         MatTooltipModule,
         FlInputFileModule,
         HaUtilComponentCoreModule,
+        FlImageModule,
     ],
     exports: [
         Ha404Component

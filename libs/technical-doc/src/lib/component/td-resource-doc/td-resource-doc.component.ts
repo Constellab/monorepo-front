@@ -7,6 +7,7 @@ import {
 } from '../../model/td-resource-type.class';
 import {rvDefaultViewTypeInfos, RvResourceViewTypeInfo} from '@monorepo/resource-view';
 import {ClStringHelper} from '@monorepo/core-lib';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'td-resource-doc',
@@ -21,7 +22,8 @@ export class TdResourceDocComponent implements OnInit {
 
   orderedViews: TdResourceView[];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {
+  constructor(@Inject(PLATFORM_ID) private platformId: any,
+              public activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {

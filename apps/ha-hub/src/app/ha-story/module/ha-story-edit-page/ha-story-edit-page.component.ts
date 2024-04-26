@@ -8,7 +8,7 @@ import {
   FlDebouncer,
   FlDialogService,
   FlFormDialogInput,
-  FlUploadImageDialogComponent
+  FlUploadImageDialogConfig
 } from '@monorepo/front-core-lib';
 import {HaStoryTextEditorConfig} from './ha-story-text-editor.config';
 import {mergeMap, Observable, of, startWith} from 'rxjs';
@@ -71,6 +71,9 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   notFound: boolean = false;
 
+  imageConfig: FlUploadImageDialogConfig;
+  deleteImageConfig: FlConfirmDialogInput;
+
 
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
@@ -88,6 +91,38 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     this.buildForm();
 
     this.activatedRoute.params.pipe().subscribe(params => {
+      this.imageConfig = {
+        title: {text: 'upload_story_picture', translateText: true},
+        helpText: {text: 'image_square_help', translateText: true},
+        imagePreviewWidth: 115,
+        imagePreviewHeight: 115,
+        compressOptions: {
+          cropWidth: 300,
+          cropHeight: 300,
+          resizeWidthMax: 300,
+        },
+        uploadImage: (file: File) => {
+          return this.storyService.updateMainImage(params.id, file).pipe(
+            map((story: HaStory) => {
+              this.story = story;
+            })
+          );
+        },
+        uploadImageSuccessMessage: {text: 'story_picture_uploaded', translateText: true}
+      };
+
+      this.deleteImageConfig = {
+        title: 'story_delete_photo',
+        content: 'story_delete_photo_confirmation',
+        translateMessage: true,
+        observable: this.storyService.deleteMainImage(params.id).pipe(
+          map((story: HaStory) => {
+            this.story = story;
+          })
+        ),
+        successMessage: 'story_photo_deleted',
+        translateTitleAndContent: true
+      };
       this.getStory(params.id);
     });
 
@@ -114,6 +149,10 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         }),
       );
     });
+
+
+
+    console.log(this.deleteImageConfig)
   }
 
   onTitleChange(event: string): void {
@@ -320,41 +359,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     return TeRichText.isLinkInFigures(this.story.contentEdition, this.story.mainPicture);
   }
 
-  activeInput(): void {
-    this.inputPhoto.nativeElement.click();
-  }
-
-  onFileSelected(file: File | File[]): void {
-    this.dialogService.openMediumDialog(FlUploadImageDialogComponent, {
-      data: {
-        file: file,
-        width: 174,
-        height: 168
-      }
-    }).afterClosed().subscribe((res) => {
-      if (res && res.choice && res.result) {
-        this.storyService.updateMainImage(this.story.id, res.result).subscribe((story) => {
-          this.story = story;
-        });
-      }
-    });
-  }
-
-  deleteImage(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'delete_story_main_image',
-      content: 'delete_story_main_image_content',
-      observable: this.storyService.deleteMainImage(this.story.id),
-      translateTitleAndContent: true
-
-    }
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
-      if (res.choice && res.result) {
-        this.story = res.result;
-      }
-    });
-  }
-
   openDeleteStoryConfirmDialog(): void {
     const input: FlConfirmDialogInput = {
       title: 'delete_story',
@@ -390,7 +394,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
           this.isAuthor = isAuthor;
         });
       },
-      error: error => {
+      error: () => {
         this.notFound = true;
       }
     });

@@ -37,10 +37,10 @@
     <span>{{'biox.update_resource_type' | translate}}</span>
   </button>
 
-  <button mat-menu-item type="button" (click)="openTypingDoc()">
+  <a mat-menu-item type="button" [routerLink]="resourceDocRoute">
     <mat-icon>help</mat-icon>
     <span>{{'biox.resource_doc' | translate}}</span>
-  </button>
+  </a>
 
   <ng-content></ng-content>
 

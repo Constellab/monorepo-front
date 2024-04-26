@@ -16,6 +16,7 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
   fragment: Observable<string>;
+  lastScrolledAnchor: string;
 
   constructor(
     private elementRef: ElementRef<HTMLElement>,
@@ -34,6 +35,7 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     }));
 
     this.subscriptions.push(this.router.events.subscribe(e => {
+      console.log('e', e)
       if (e instanceof RoutesRecognized && e.url === e.urlAfterRedirects) {
         const anchor: string = e.url.split('#')[1];
         this.scrollToAnchor(anchor);
@@ -52,19 +54,24 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
 
   private scrollToAnchor(anchor: string): void {
+
     if (!anchor) return;
 
     if (anchor.includes('%')) {
       return;
     }
 
-    anchor = anchor.replace(/[^a-zA-Z-]/g, '');
+    anchor = anchor.replace(/[^a-zA-Z-_]/g, '');
+
+    if (this.lastScrolledAnchor === anchor) {
+      return;
+    }
 
     const children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
 
-
     if(children){
       children.scrollIntoView(true);
+      this.lastScrolledAnchor = anchor;
     }
   }
 

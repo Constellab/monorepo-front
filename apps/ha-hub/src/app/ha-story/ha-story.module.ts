@@ -8,7 +8,7 @@ import {HaCoreModule} from '../ha-core/ha-core.module';
 import {HaStoryCreateDialogComponent} from './module/ha-story-create-dialog/ha-story-create-dialog.component';
 import {CommonModule} from '@angular/common';
 import {HaStoryInvitePageComponent} from './module/ha-story-invite-page/ha-story-invite-page.component';
-import {FlInputFileModule} from '@monorepo/front-core-lib';
+import {FlImageModule, FlInputFileModule} from '@monorepo/front-core-lib';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {
   HaStoryContentViewComponent
@@ -46,7 +46,8 @@ import {HaPublicBrickPageModule} from "../ha-public/module/ha-public-brick-page/
         HaUtilComponentCoreModule,
         HaCommentsCoreModule,
         HaFileCoreModule,
-        HaPublicBrickPageModule
+        HaPublicBrickPageModule,
+        FlImageModule
     ],
 })
 export class HaStoryModule {}
