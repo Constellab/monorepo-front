@@ -68,7 +68,7 @@ export class CaLabInstanceService {
       {serialization: CaLabInstanceAdminForm});
   }
 
-  public createCloudLab(createLab: CaLabCloudCreateDTO): Observable<CaLabInstance>{
+  public createCloudLab(createLab: CaLabCloudCreateDTO): Observable<CaLabInstance> {
     return this.apiService.post(`${this.route}/cloud`, createLab, CaLabInstance);
   }
 
@@ -154,7 +154,7 @@ export class CaLabInstanceService {
     return this.apiService.put(`${this.route}/${id}/config`, config, CaLabManagerConfig);
   }
 
-  public getLabServerInfo(id: string): Observable<CaLabServerInfoDTO>{
+  public getLabServerInfo(id: string): Observable<CaLabServerInfoDTO> {
     return this.apiService.get(`${this.route}/${id}/server-info`, CaLabServerInfoDTO);
   }
 
@@ -205,9 +205,10 @@ export class CaLabInstanceService {
     return this.apiService.get(`${this.route}/${labId}/project`, CaLabInstanceProject);
   }
 
-  public syncLabProject(labId: string, projectId: string): Observable<void>{
+  public syncLabProject(labId: string, projectId: string): Observable<void> {
     return this.apiService.put(`${this.route}/${labId}/project/${projectId}/sync`, null);
   }
+
   //////////////////////////// LAB MANAGER ////////////////////////////////
 
   public updateLabManager(id: string, version: string): Observable<CaLabInstanceStatusDTO> {
@@ -402,6 +403,7 @@ export class CaLabInstanceService {
     return this.apiService.post(`${this.route}/contest`, entity, CaLabInstanceWithSpace,
       {serialization: CaLabContestForm});
   }
+
   //////////////////////////// KPI ////////////////////////////////
 
   public getRunningKpi(id: string, request: CaLabInstanceStatusRunRequest): Observable<CaLabInstanceStatusRunResponse> {

@@ -32,12 +32,18 @@ export class TeParagraphBlock extends Paragraph implements BlockTool {
 
     if (!this.options.readOnly) {
       this.node.addEventListener('keyup',
-        (event: KeyboardEvent) => this.checkAndCovertToList(event.target as HTMLElement));
+        (event: KeyboardEvent) => this.handleKeyUp(event));
       this.node.addEventListener('keydown',
         (event: KeyboardEvent) => this.handleKeyDown(event));
     }
+    this.options.api
 
     return this.node;
+  }
+
+  private handleKeyUp(event: KeyboardEvent): void {
+    const toList = this.checkAndCovertToList(event.target as HTMLElement);
+    if(toList) return;
   }
 
   /**

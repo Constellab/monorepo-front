@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {CaUser} from '../entities/ca-user.class';
 import 'quill-mention';
 import {CaTextEditorConfig} from '../../../ca-project/module/ca-text-editor/model/ca-text-editor-config.class';
-import { CaTextEditorImageLoader } from '../../../ca-project/module/ca-text-editor/model/ca-text-editor-image.class';
+import {CaTextEditorImageLoader} from '../../../ca-project/module/ca-text-editor/model/ca-text-editor-image.class';
 import {CaTextEditorState} from '../../../ca-project/module/ca-text-editor/state/ca-text-editor.state';
 import {
   CaTextEditorBlockAddButton,
@@ -117,6 +117,10 @@ export class CaCommentTextEditorConfig extends CaTextEditorConfig implements CaT
     this.sendButtonEvent$.emit(true);
   }
 
+  public destroy(): void {
+    this.sendButtonEvent$.complete();
+    this.sendEmojiButtonEvent$.complete();
+  }
 }
 
 

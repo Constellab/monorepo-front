@@ -1,0 +1,17 @@
+<fl-portal>
+  <fl-portal-content>
+    <div #container></div>
+
+    <fl-infinite-scroll [datasource]="emojis" class="emoji-container">
+
+      <div class="g-layout-row-wrap">
+        <!--         Use track by index, the track by emoji.id break on search-->
+        @for (emoji of emojis | flDatasourceConnect | async; track idx; let idx = $index) {
+          <span class="emoji" [ngClass]="{ 'selected': selectedEmojiIndex === idx }"
+                (click)="selectEmoji(emoji)">{{ emoji.skins[0].native }}</span>
+        }
+      </div>
+    </fl-infinite-scroll>
+
+  </fl-portal-content>
+</fl-portal>

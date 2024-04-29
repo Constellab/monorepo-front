@@ -186,6 +186,10 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
     this.requestData = data;
   }
 
+  public getRequestData(): any {
+    return this.requestData;
+  }
+
 }
 
 /**

@@ -7,6 +7,7 @@ import {
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDialogModule,
+  FlEmojiPickerModule,
   FlFormulaModule,
   FlImageModule,
   FlInputFileModule,
@@ -79,6 +80,7 @@ import {teVariableTagName} from './model/te-variable.class';
     FlInputFileModule,
     FlLoaderModule,
     FlCodeEditorModule,
+    FlEmojiPickerModule,
 
 
 

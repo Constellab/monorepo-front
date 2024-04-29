@@ -151,8 +151,7 @@ export class CaProjectCommentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.textEditorConfig.sendButtonEvent$.complete();
-    this.textEditorConfig.sendEmojiButtonEvent$.complete();
+    this.textEditorConfig.destroy();
   }
 
 }

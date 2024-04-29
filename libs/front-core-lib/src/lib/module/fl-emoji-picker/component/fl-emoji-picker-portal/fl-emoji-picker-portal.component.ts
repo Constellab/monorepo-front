@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
-import {FlOverlayRef, FlThemeService} from '@monorepo/front-core-lib';
+import {FlThemeService} from '../../../fl-theme/fl-theme.service';
+import {FlOverlayRef} from '../../../fl-portal/model/fl-overlay-ref.class';
 
 @Component({
   selector: 'fl-emoji-picker-portal',

@@ -9,7 +9,9 @@ export enum FlKeyboardKey {
   PAGE_DOWN = 'PageDown',
   PAGE_UP = 'PageUp',
   TAB = 'Tab',
-  BACKSPACE = 'Backspace'
+  BACKSPACE = 'Backspace',
+  SPACE = ' ',
+  COLON = ':',
 }
 
 

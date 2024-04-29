@@ -1,6 +1,17 @@
-import {FlHtmlHelper, FlKeyboardKey, flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
+import {
+  FlEmojiPickerPortal2Component,
+  FlEmojiPickerPortalInput,
+  FlHtmlHelper,
+  FlKeyboardKey,
+  FlOverlayRef,
+  FlPortalService,
+  flRootInjector,
+  FlTranslateService
+} from '@monorepo/front-core-lib';
 import {BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {ClHelpService} from '@monorepo/core-lib';
+import {TeKeyListener} from './te-key-listener.class';
+import {Emoji} from '@emoji-mart/data';
 
 export type TeListType = 'unordered' | 'ordered';
 
@@ -13,6 +24,8 @@ export class TeHelper {
   public static blockDropTargetClass = 'ce-block--drop-target';
   public static blockParagraphClass = 'ce-paragraph';
   public static blockParagraphTagName = 'DIV';
+
+  private static globalOverlay: FlOverlayRef;
 
   /**
    * Extract the editor id from the editor html block element
@@ -181,14 +194,77 @@ export class TeHelper {
         editableContainer.innerHTML += '&nbsp;';
 
         ClHelpService.stopEventPropagation(event);
-        FlHtmlHelper.setCursorAtElementEnd(editableContainer);
+        FlHtmlHelper.setCaretAtElementEnd(editableContainer);
+
         // Case where there is only a space after the cursor
         // we don't add the space as it is already there, but we move the cursor to the end of the div
         // TODO check if this is fixed in next version of editorjs current (0.29.1) because this was working before
       } else if (lastChild.previousSibling === cursorContainer && lastChild.textContent.trim() === '') {
         ClHelpService.stopEventPropagation(event);
-        FlHtmlHelper.setCursorAtElementEnd(lastChild);
+        FlHtmlHelper.setCaretAtElementEnd(lastChild);
       }
     }
   }
+
+  public static openEmojiPicker(): void {
+    if (TeHelper.globalOverlay) return;
+    // store the current caret position
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const textNode = range.endContainer;
+    const cursorOffset = range.endOffset;
+
+    const containerElement = textNode.parentElement;
+
+    const keyListener = new TeKeyListener(textNode, cursorOffset,
+      FlKeyboardKey.COLON,
+      [FlKeyboardKey.ESCAPE, FlKeyboardKey.SPACE]);
+
+    const input: FlEmojiPickerPortalInput = {
+      filter: keyListener.getText$(),
+      element: containerElement
+    };
+
+
+    const portalService = flRootInjector.get(FlPortalService);
+
+    const position = FlHtmlHelper.getCaretCoordinates();
+    // add 20 to the top position to make sure the emoji picker is below the cursor
+    const topPosition = position.top + 20 + 'px';
+
+    // check if the emoji picker is not outside the window
+    let leftPosition: string;
+    if (position.left + FlEmojiPickerPortal2Component.PORTAL_WIDTH > window.innerWidth) {
+      leftPosition = window.innerWidth - FlEmojiPickerPortal2Component.PORTAL_WIDTH + 'px';
+    } else {
+      leftPosition = position.left + 'px';
+    }
+
+    const config = portalService.configureAbsolutePortal({top: topPosition, left: leftPosition},
+      {disposeOnOutsideClick: true, disposeOnNavigation: true});
+
+    // open the emoji picker
+    TeHelper.globalOverlay = portalService.createPortal(FlEmojiPickerPortal2Component, config, input);
+
+    TeHelper.globalOverlay.detachments().subscribe(
+      (emoji: Emoji) => {
+        if (emoji) {
+          // get the length of the search text
+          const searchTextLength = keyListener.getCurrentText().length;
+          // replace the search text with the emoji
+          textNode.textContent = textNode.textContent.slice(0, cursorOffset - 1) + emoji.skins[0].native +
+            textNode.textContent.slice(cursorOffset + searchTextLength);
+
+          // move the caret just after the emoji
+          FlHtmlHelper.setCaretAtElementPosition(textNode, cursorOffset + 1);
+        }
+
+        // clean up
+        TeHelper.globalOverlay = null;
+        keyListener.destroy();
+      }
+    );
+
+  }
+
 }

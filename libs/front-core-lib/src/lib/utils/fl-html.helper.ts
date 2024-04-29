@@ -91,12 +91,28 @@ export class FlHtmlHelper {
     return true;
   }
 
-  public static setCursorAtElementEnd(element: Node): void {
+  public static setCaretAtElementEnd(element: Node): void {
     const selection = window.getSelection();
     const range = document.createRange();
     range.selectNodeContents(element);
     range.collapse(false);
     selection.removeAllRanges();
     selection.addRange(range);
+  }
+
+  public static setCaretAtElementPosition(element: Node, position: number): void {
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.setStart(element, position);
+    range.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
+
+  public static getCaretCoordinates(): {top: number, left: number} {
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    return {top: rect.top, left: rect.left};
   }
 }

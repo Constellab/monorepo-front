@@ -1,1 +1,6 @@
-<emoji-mart class="emoji-mart" [darkMode]="isDarkTheme()" (emojiSelect)="addEmoji($event)" title="Choose your emoji"></emoji-mart>
+<emoji-mart class="emoji-mart"
+            [darkMode]="isDarkTheme()"
+            [autoFocus]="true"
+            (emojiSelect)="addEmoji($event)"
+            title="Choose your emoji"></emoji-mart>
+

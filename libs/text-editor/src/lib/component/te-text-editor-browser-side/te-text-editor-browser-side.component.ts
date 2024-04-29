@@ -15,8 +15,9 @@ import {TeConfig} from '../../model/te-config.class';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
 import {Observable, Subject} from 'rxjs';
 import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
-import {FlTranslateService} from '@monorepo/front-core-lib';
+import {FlKeyboardKey, FlTranslateService} from '@monorepo/front-core-lib';
 import {teGetI18nConfig} from '../../te-text-editor.i18n';
+import {TeHelper} from '../../model/te.helper';
 
 
 @Component({
@@ -62,9 +63,17 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
+    // enable emoji picker globally
+    this.editorContainer.nativeElement.addEventListener('keyup',
+      (event: KeyboardEvent) => {
+        if (event.key === FlKeyboardKey.COLON) {
+          TeHelper.openEmojiPicker();
+        }
+      });
+
     this.disabled$.subscribe((disabled: boolean) => {
       this.disabled = disabled;
-      this.onDisableChange(this.disabled)
+      this.onDisableChange(this.disabled);
     });
 
     this.value$.subscribe((value: TeRichTextContent) => {
@@ -122,7 +131,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       i18n: teGetI18nConfig(this.translateService)
     };
     this.editor = new module.default(config);
-    if(this.value){
+    if (this.value) {
       this.editor.isReady.then(() => {
         this.editor.render(this.value);
         this.isLoaded$.next(true);
