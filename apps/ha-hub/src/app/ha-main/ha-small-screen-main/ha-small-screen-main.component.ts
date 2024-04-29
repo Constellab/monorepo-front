@@ -29,6 +29,8 @@ export class HaSmallScreenMainComponent implements OnInit{
 
   liveTaskRoute = HaRouterService.getLiveTaskListRoute();
 
+  homeRoute = HaRouterService.getHomeRoute();
+
   communityLogo: string;
 
   @Input({required: true})

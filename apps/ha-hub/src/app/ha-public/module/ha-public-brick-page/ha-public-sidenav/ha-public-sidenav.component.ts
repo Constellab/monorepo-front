@@ -46,6 +46,7 @@ import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
+import {join} from 'node:path';
 
 
 interface FlatNode {
@@ -566,7 +567,14 @@ export class HaPublicSidenavComponent implements OnInit {
 
   isDocNodeSelected(node: HaNode): boolean {
     if (!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
-    const completePath: string = this.currentCompletePath.split('doc/')[1] + '/';
+
+    let completePath: string = this.currentCompletePath.split('doc/')[1];
+    if (completePath.includes('technical-folder')){
+      return completePath + '/' == node.completePath;
+    }
+    const completePathSplit = completePath.split('/');
+    // remove last fragment
+    completePath = completePathSplit.slice(0, completePathSplit.length - 1).join('/') + '/';
     return completePath == node.completePath;
   }
 

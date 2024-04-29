@@ -26,7 +26,6 @@ export class HaLiveTaskInvitePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('OUIIIIIIIIII')
     this.activeRoute.params.subscribe(params => {
       this.token = params.token;
       this.checkValidity();

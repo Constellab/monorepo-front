@@ -161,7 +161,7 @@
 
   .community-logo{
     margin: auto;
-    height: 70%;
+    height: 50%;
 
     img{
       height: 100%;
@@ -189,19 +189,22 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  font-size: 0.9em;
 
   a, div{
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
+    padding: 0 8px;
   }
 }
 
 
 @media (max-width: 590px) {
   .bottom-menu{
-    font-size: 0.8em;
+    font-size: 0.6em;
   }
 }

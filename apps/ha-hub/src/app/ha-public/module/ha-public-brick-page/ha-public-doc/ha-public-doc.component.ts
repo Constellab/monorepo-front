@@ -22,7 +22,6 @@ import {
   HaFileDialogComponent,
   HaFileDialogInput
 } from '../../../../ha-core/entity-module/ha-file-core/component/ha-file-dialog/ha-file-dialog.component';
-import {ClStringHelper} from '@monorepo/core-lib';
 import {HaHttpRedirectionService} from '../../../../ha-core/ha-service/ha-http-redirection.service';
 import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
 

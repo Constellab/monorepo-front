@@ -14,7 +14,7 @@
   align-items: center;
 }
 
-h5{
+h2{
   font-size: 21.3px;
   margin-block-start: 0;
 }
@@ -50,8 +50,12 @@ h5{
 }
 
 @media screen and (max-width: 768px){
-  h5{
-    font-size: 18px;
+  h2{
+    font-size: 16px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
   }
 
   .description{

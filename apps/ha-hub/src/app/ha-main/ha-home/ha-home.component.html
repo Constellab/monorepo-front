@@ -1,10 +1,9 @@
 <div class="home">
   <div class="bg-first-section-div">
-    <div class="g-dashboard-background background">
-    </div>
+    <div class="g-dashboard-background background"></div>
     <div class="main-panel home-section first-section">
       <h1>{{ 'home_title' | translate }}</h1>
-      <h4 class="home-subtitle">{{ 'home_subtitle' | translate }}</h4>
+      <p class="home-subtitle">{{ 'home_subtitle' | translate }}</p>
 
       <div class="video-container">
         <iframe src="https://www.youtube.com/embed/KvfWV6K_fmc" title="Welcome to Constellab !" frameborder="0"
@@ -20,8 +19,8 @@
   </div>
 
   <div class="home-section main-panel">
-    <a [routerLink]="storyListRoute">
-      <h2>{{ 'stories' | translate }}</h2>
+    <a [routerLink]="storyListRoute" class="home-section-title">
+      {{ 'stories' | translate }}
     </a>
     {{ 'stories_description' | translate}}
     <div class="home-list-div">
@@ -39,8 +38,8 @@
   </div>
 
   <div class="home-section  main-panel">
-    <a [routerLink]="liveTaskListRoute">
-      <h2>{{ 'live_tasks' | translate }}</h2>
+    <a [routerLink]="liveTaskListRoute" class="home-section-title">
+      {{ 'live_tasks' | translate }}
     </a>
     {{'live_tasks_description' | translate}}
     <div class="home-list-div">
@@ -57,8 +56,8 @@
   </div>
 
   <div class="home-section main-panel">
-    <a [routerLink]="brickListRoute">
-      <h2>{{ 'bricks' | translate }}</h2>
+    <a [routerLink]="brickListRoute" class="home-section-title">
+      {{ 'bricks' | translate }}
     </a>
     {{'bricks_description' | translate}}
     <div class="home-list-div">
@@ -75,43 +74,40 @@
   </div>
 
   <div class="home-section main-panel">
-    <h2>{{ 'documentation' | translate }}</h2>
+    <span class="home-section-title">{{ 'documentation' | translate }}</span>
 
     <div class="section-div">
       <a class="home-card-div" [routerLink]="productDocRoute">
-        <h4>{{ 'product_doc' | translate }}</h4>
+        <h5>{{ 'product_doc' | translate }}</h5>
         <p>
           {{ 'product_doc_description' | translate}}
         </p>
       </a>
       <a class="home-card-div" [routerLink]="techDocRoute">
-        <h4>{{ 'tech_doc' | translate }}</h4>
+        <h5>{{ 'tech_doc' | translate }}</h5>
         <p>
           {{ 'tech_doc_description' | translate}}
         </p>
       </a>
       <a class="home-card-div" [routerLink]="iconsRoute">
-        <h4>{{ 'icons' | translate }}</h4>
+        <h5>{{ 'icons' | translate }}</h5>
         <p>
           {{ 'icons_description' | translate}}
         </p>
       </a>
     </div>
 
-    <a class="space-card" [href]="constellabUrl" target="_blank">
+    <a class="home-card-div space-card" [href]="constellabUrl" target="_blank">
       <img src="assets/fl-logo/constellab-logo.svg"/>
       <div class="space-card-content">
-        <h4>
+        <h5>
           Constellab
           <mat-icon>arrow_outward</mat-icon>
-        </h4>
-        {{ 'constellab_description' | translate }}
+        </h5>
+        <p>{{ 'constellab_description' | translate }}</p>
       </div>
     </a>
   </div>
-
-
-
 
   <footer class="footer small-text">
     <div class="footer-links">

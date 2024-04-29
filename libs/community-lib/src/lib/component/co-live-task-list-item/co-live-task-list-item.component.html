@@ -6,16 +6,10 @@
   [likes]="liveTask.likes"
   [comments]="liveTask.comments">
   <div rightSide class="live-task-card-inner">
-    <div>
-      <p class="spacing-3-v2">{{ 'coCommunityLib.version' | translate }} :</p>
-      <p class="spacing-4-v2" *ngIf="liveTask.latestPublishVersion; else notPublishedYetDiv"><b>{{ 'coCommunityLib.version' | translate }} {{ liveTask.latestPublishVersion }}</b></p>
-      <div class="lt-infos-div">
-        <div>
-          <p class="spacing-3-v2">{{ 'coCommunityLib.task_visibility' | translate }} :</p>
-          <co-visibility-badge [space]="liveTask?.space"></co-visibility-badge>
-        </div>
-      </div>
+    <div class="lt-infos-div">
+      <co-visibility-badge [space]="liveTask?.space"></co-visibility-badge>
     </div>
+      <p class="spacing-4-v2" *ngIf="liveTask.latestPublishVersion; else notPublishedYetDiv"><b>{{ 'coCommunityLib.version' | translate }} {{ liveTask.latestPublishVersion }}</b></p>
   </div>
 </co-community-list-item>
 

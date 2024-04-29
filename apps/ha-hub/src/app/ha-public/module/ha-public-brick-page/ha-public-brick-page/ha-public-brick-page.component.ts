@@ -5,6 +5,7 @@ import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
+import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -13,6 +14,7 @@ import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.serv
 })
 export class HaPublicBrickPageComponent implements OnInit {
 
+  brickListRoute: string = HaRouterService.getBrickListRoute();
   brick: HaBrick;
   brickNotFound: boolean = false;
   BRICK_KEY: StateKey<object>;

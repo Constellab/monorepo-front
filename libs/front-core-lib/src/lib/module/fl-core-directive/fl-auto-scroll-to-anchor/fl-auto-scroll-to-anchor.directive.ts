@@ -35,7 +35,6 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     }));
 
     this.subscriptions.push(this.router.events.subscribe(e => {
-      console.log('e', e)
       if (e instanceof RoutesRecognized && e.url === e.urlAfterRedirects) {
         const anchor: string = e.url.split('#')[1];
         this.scrollToAnchor(anchor);

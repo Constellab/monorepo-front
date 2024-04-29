@@ -6,10 +6,10 @@
     </fl-text-icon>
   </div>
 } @else {
-  <div class="g-badge  visibility-badge-div space-badge-div">
+  <div class="g-badge visibility-badge-div space-badge-div g-text-dense-height">
     @if(space.photo){
       <img [src]="space.photo" class="space-badge-photo"/>
     }
-    {{space.name.trim()}}
+    <span>{{space.name.trim()}}</span>
   </div>
 }

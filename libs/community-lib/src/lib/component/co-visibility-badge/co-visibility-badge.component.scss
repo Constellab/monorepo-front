@@ -2,11 +2,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 6px;
-  height: 1.75em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  gap: 12px;
+
+
+  span{
+    max-width: 100px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+  }
 }
 
 .space-badge-photo{

@@ -41,7 +41,8 @@ export class HaMainComponent implements OnInit, AfterContentInit {
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
     });
 
-    this.updateIsSmallScreen();
+    if(isPlatformBrowser(this.platformId))
+      this.updateIsSmallScreen();
   }
 
   @HostListener('window:resize', ['$event'])

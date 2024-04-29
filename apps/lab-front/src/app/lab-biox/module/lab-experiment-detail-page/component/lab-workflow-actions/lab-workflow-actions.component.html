@@ -45,9 +45,7 @@
 
   <button mat-menu-item type="button"
           (click)="addCommunityLiveTask()">
-    <mat-icon>
-      <img src="assets/fl-logo/bricks_logo.svg"/>
-    </mat-icon>
+    <mat-icon [svgIcon]="'code'"></mat-icon>
     <span>{{'biox.add_community_live_task' | translate}}</span>
   </button>
 </mat-menu>

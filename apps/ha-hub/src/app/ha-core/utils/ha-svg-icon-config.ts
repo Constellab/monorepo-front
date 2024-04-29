@@ -2,6 +2,11 @@ import {FlIcon, flIconsDefault} from '@monorepo/front-core-lib';
 
 export const haSvgIcons: FlIcon[] = [
   ...flIconsDefault,
+  {name: 'brick-icon', filename: 'brick.svg'},
+  {name: 'code', filename: 'laptop-code-solid.svg'},
+  {name: 'community-icon', filename: 'community_logo.svg'},
+
+  // files icons
   {name: 'archive-file-icon', filename: 'archive-file-icon.svg'},
   {name: 'csv-file-icon', filename: 'csv-file-icon.svg'},
   {name: 'docx-file-icon', filename: 'docx-file-icon.svg'},
@@ -18,5 +23,5 @@ export const haSvgIcons: FlIcon[] = [
   {name: 'txt-file-icon', filename: 'txt-file-icon.svg'},
   {name: 'xlsx-file-icon', filename: 'xlsx-file-icon.svg'},
   {name: 'xls-file-icon', filename: 'xls-file-icon.svg'},
-  {name: 'zip-file-icon', filename: 'zip-file-icon.svg'}
+  {name: 'zip-file-icon', filename: 'zip-file-icon.svg'},
 ];
