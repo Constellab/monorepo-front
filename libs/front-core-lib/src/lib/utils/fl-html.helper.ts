@@ -1,9 +1,11 @@
+import {flRootInjector} from './fl-root-injector';
+import {ScrollDispatcher} from '@angular/cdk/overlay';
 
 export interface FlHtmlFindParentOptions {
   className?: string;
   tagName?: string;
   element?: HTMLElement;
-  attribute?: Record<string, string>
+  attribute?: Record<string, string>;
 }
 
 /**
@@ -23,10 +25,11 @@ export class FlHtmlHelper {
   }
 
   /**
-   * Scroll to the element only if it is not visible
+   * Scroll to the element only if it is not visible.
+   * Work only if scroll is manage by Body
    * return true if we scrolled
    */
-  public static scrollToElementIfNotVisible(element: HTMLElement): boolean {
+  public static scrollBodyToElementIfNotVisible(element: Element): boolean {
     if (!FlHtmlHelper.isElementInViewport(element)) {
       element.scrollIntoView({block: 'nearest', inline: 'nearest'});
       return true;
@@ -36,18 +39,59 @@ export class FlHtmlHelper {
   }
 
   /**
+   * Scroll to the element only if it is not visible.
+   * Work is the element is in a scrollable container marked with CdkScrollable
+   * return true if we scrolled
+   * @param element
+   */
+  public static scrollElementToElementIfNotVisible(element: HTMLElement): boolean {
+    const scrollableContainer = FlHtmlHelper.getAncestorScrollContainer(element);
+    if (!scrollableContainer) return false;
+
+    // check if the emoji is fully visible in the scrollable container
+    const emojiRect = element.getBoundingClientRect();
+    const containerRect = scrollableContainer.getBoundingClientRect();
+    const emojiTop = emojiRect.top - containerRect.top;
+    const emojiBottom = emojiRect.bottom - containerRect.top;
+
+    if (emojiTop < 0 || emojiBottom > containerRect.height) {
+      element.scrollIntoView({block: 'nearest', inline: 'nearest'});
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Find the nearest parent scrollable element marked with CdkScrollable
+   * @param element
+   */
+  public static getAncestorScrollContainer(element: HTMLElement): HTMLElement | null {
+    // retrieve scrollable parents
+    const scrollDispatcher = flRootInjector.get(ScrollDispatcher);
+    const scrollableElements = scrollDispatcher.getAncestorScrollContainers(element);
+
+    // if there are some scrollable parent, use the first one
+    if (scrollableElements.length > 0) {
+      return scrollableElements[scrollableElements.length - 1].getElementRef().nativeElement;
+    }
+    return null;
+  }
+
+  /**
    * return true if the element is fully in the view port
    * @param element
    */
-  public static isElementInViewport(element: HTMLElement): boolean {
+  public static isElementInViewport(element: Element): boolean {
     const rect = element.getBoundingClientRect();
 
-    return (
+    const a =
       rect.top >= 0 &&
       rect.left >= 0 &&
       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
-    );
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth);/* or $(window).width() */
+
+    console.log(a, rect.top, rect.left, rect.bottom, rect.right, window.innerHeight, window.innerWidth);
+    return a;
   }
 
   /**
@@ -109,7 +153,7 @@ export class FlHtmlHelper {
     selection.addRange(range);
   }
 
-  public static getCaretCoordinates(): {top: number, left: number} {
+  public static getCaretCoordinates(): { top: number, left: number } {
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const rect = range.getBoundingClientRect();

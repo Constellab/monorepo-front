@@ -67,7 +67,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     this.editorContainer.nativeElement.addEventListener('keyup',
       (event: KeyboardEvent) => {
         if (event.key === FlKeyboardKey.COLON) {
-          TeHelper.openEmojiPicker();
+          TeHelper.openEmojiPicker(event);
         }
       });
 

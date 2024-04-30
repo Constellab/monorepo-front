@@ -11,7 +11,6 @@ import {
 import {BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {ClHelpService} from '@monorepo/core-lib';
 import {TeKeyListener} from './te-key-listener.class';
-import {Emoji} from '@emoji-mart/data';
 
 export type TeListType = 'unordered' | 'ordered';
 
@@ -206,7 +205,7 @@ export class TeHelper {
     }
   }
 
-  public static openEmojiPicker(): void {
+  public static openEmojiPicker(event: KeyboardEvent): void {
     if (TeHelper.globalOverlay) return;
     // store the current caret position
     const selection = window.getSelection();
@@ -214,15 +213,13 @@ export class TeHelper {
     const textNode = range.endContainer;
     const cursorOffset = range.endOffset;
 
-    const containerElement = textNode.parentElement;
-
     const keyListener = new TeKeyListener(textNode, cursorOffset,
       FlKeyboardKey.COLON,
       [FlKeyboardKey.ESCAPE, FlKeyboardKey.SPACE]);
 
     const input: FlEmojiPickerPortalInput = {
       filter: keyListener.getText$(),
-      element: containerElement
+      element: event.target as any
     };
 
 
@@ -247,12 +244,12 @@ export class TeHelper {
     TeHelper.globalOverlay = portalService.createPortal(FlEmojiPickerPortal2Component, config, input);
 
     TeHelper.globalOverlay.detachments().subscribe(
-      (emoji: Emoji) => {
+      (emoji: string) => {
         if (emoji) {
           // get the length of the search text
           const searchTextLength = keyListener.getCurrentText().length;
           // replace the search text with the emoji
-          textNode.textContent = textNode.textContent.slice(0, cursorOffset - 1) + emoji.skins[0].native +
+          textNode.textContent = textNode.textContent.slice(0, cursorOffset - 1) + emoji +
             textNode.textContent.slice(cursorOffset + searchTextLength);
 
           // move the caret just after the emoji

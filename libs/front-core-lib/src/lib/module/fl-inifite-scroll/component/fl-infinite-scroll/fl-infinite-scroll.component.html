@@ -3,7 +3,7 @@
      [flInfiniteCheckOnInit]="infiniteCheckOnInit" [flInfiniteTriggerDistance]="infiniteTriggerDistance"
      [flReverseMode]="reverseMode"
      [ngClass]="{'g-scrollable-element': infiniteMode === 'container', 'g-layout-col': !reverseMode, 'g-layout-col-reverse': reverseMode}"
-     class="container">
+     class="container" cdkScrollable>
   <ng-content></ng-content>
 
   <fl-infinite-load-more-result [datasource]="datasource" [textNoResult]="textNoResult"

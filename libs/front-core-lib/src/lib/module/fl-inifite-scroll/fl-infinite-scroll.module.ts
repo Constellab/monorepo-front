@@ -12,6 +12,7 @@ import {
   FlInfiniteTableContainerComponent
 } from './component/fl-infinite-table-container/fl-infinite-table-container.component';
 import {MatButtonModule} from '@angular/material/button';
+import {CdkScrollable} from '@angular/cdk/overlay';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {MatButtonModule} from '@angular/material/button';
 
     MatButtonModule,
     MatIconModule,
+    CdkScrollable,
   ],
 })
 export class FlInfiniteScrollModule {

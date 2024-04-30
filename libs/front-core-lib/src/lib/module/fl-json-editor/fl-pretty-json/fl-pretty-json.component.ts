@@ -249,7 +249,7 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
     // get the node and check if it's in viewport, if note, scroll to element
     const nodeElement: HTMLElement = this.getNodeHtmlElement(node.id);
     if (nodeElement) {
-      FlHtmlHelper.scrollToElementIfNotVisible(nodeElement);
+      FlHtmlHelper.scrollBodyToElementIfNotVisible(nodeElement);
     }
   }
 

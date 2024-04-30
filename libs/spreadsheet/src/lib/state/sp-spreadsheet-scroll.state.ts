@@ -208,7 +208,7 @@ export class SpSpreadsheetScrollState {
   public scrollToColumn(columnId: number): void {
     const element = this.elementState.getColumnHeaderCellElement(columnId);
     if (element) {
-      FlHtmlHelper.scrollToElementIfNotVisible(element);
+      FlHtmlHelper.scrollBodyToElementIfNotVisible(element);
     }
   }
 

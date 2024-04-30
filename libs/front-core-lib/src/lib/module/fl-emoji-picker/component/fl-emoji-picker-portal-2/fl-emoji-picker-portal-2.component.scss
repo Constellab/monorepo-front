@@ -1,12 +1,11 @@
-.emoji-container {
-  //font-family: EmojiMart, "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "Apple Color Emoji", "Twemoji Mozilla", "Noto Color Emoji", "Android Emoji";
-  font-size: 24px;
+.container {
   width: 350px;
   max-height: 300px;
   display: flex;
 }
 
 .emoji {
+  font-size: 24px;
   width: 33px;
   height: 33px;
   text-align: center;
@@ -21,3 +20,12 @@
 .emoji:hover, .selected {
   background-color: var(--hover-color)
 }
+
+.frequently-used {
+  margin-bottom: 1em;
+}
+
+.category {
+  margin-bottom: 1em;
+}
+
