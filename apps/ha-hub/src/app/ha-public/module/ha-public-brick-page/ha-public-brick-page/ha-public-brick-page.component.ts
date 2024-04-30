@@ -18,6 +18,7 @@ export class HaPublicBrickPageComponent implements OnInit {
   brick: HaBrick;
   brickNotFound: boolean = false;
   BRICK_KEY: StateKey<object>;
+  isLoading: boolean = true;
 
   constructor(
     private brickService: HaBrickService,
@@ -45,16 +46,19 @@ export class HaPublicBrickPageComponent implements OnInit {
 
   private initBrick(name: string): void{
     this.brickNotFound = false;
+    this.isLoading = true;
 
     //Set the brick loaded from the server to the transfer state
     if(isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICK_KEY)){
       this.brick = this.transferState.get(this.BRICK_KEY, null) as HaBrick;
       this.transferState.remove(this.BRICK_KEY);
+      this.isLoading = false;
       return;
     }
 
     this.brickService.getByName(name).subscribe({
       next: (brick: HaBrick) => {
+        this.isLoading = false;
         if (!brick) {
           this.brickNotFound = true;
           return;
@@ -65,6 +69,7 @@ export class HaPublicBrickPageComponent implements OnInit {
         }
       },
       error: () => {
+        this.isLoading = false;
         this.brickNotFound = true;
       }
     });

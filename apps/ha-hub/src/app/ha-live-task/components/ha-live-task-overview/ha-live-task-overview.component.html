@@ -1,8 +1,8 @@
 @if(liveTask){
-  <h3 flElementEditable (flElementValueChange)="onTitleChange($event)"
+  <h2 flElementEditable (flElementValueChange)="onTitleChange($event)"
       [flElementDisabled]="!canEditLt">
     {{ liveTask.title }}
-  </h3>
+  </h2>
   <div class="lt-utils-div">
     <p class="small-text user-date-info">
       <fl-user-inline [user]="liveTask.createdBy" [portalOnHover]="false"></fl-user-inline>
@@ -12,7 +12,8 @@
     </p>
     <div class="lt-buttons">
       <co-visibility-badge [space]="liveTask.space"></co-visibility-badge>
-      <ha-like-button (clicked)="toggleLikeLiveTaskButton()" [isLiked]="liveTaskIsLiked"
+
+      <ha-like-button class="lt-like-bt" (clicked)="toggleLikeLiveTaskButton()" [isLiked]="liveTaskIsLiked"
                       [likesCount]="liveTask.likes"></ha-like-button>
 
       <ha-comment-button [commentsCount]="liveTask.comments" (clicked)="openCommentsPannel()"></ha-comment-button>

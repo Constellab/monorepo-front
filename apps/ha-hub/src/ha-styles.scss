@@ -247,6 +247,7 @@ h5 {
 
   .main-panel{
     margin: 0 auto;
+    padding: 0 12px;
   }
 
   .left-panel{
@@ -267,8 +268,21 @@ h5 {
 }
 
 @media (max-width: 700px){
+  h2{
+    font-size: 27.5px;
+  }
+
+  h4{
+    font-size: 22.4px;
+  }
+
   .list-section .title{
     font-size: 50.5px;
     line-height: 55px;
+  }
+
+  .main-panel{
+    margin: 0;
+    padding: 0 6px;
   }
 }

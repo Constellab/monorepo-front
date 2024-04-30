@@ -9,9 +9,15 @@
 .table-version{
   display: flex;
   flex-direction: column;
-  max-width: calc(100vw - 16px);
+  max-width: calc(100vw - 40px);
   width: 60rem;
   border-radius: 18px;
   background-color: var(--card-background);
   padding: 16px 8px;
+}
+
+@media (max-width: 700px) {
+  .table-version {
+    max-width: calc(100vw - 28px);
+  }
 }

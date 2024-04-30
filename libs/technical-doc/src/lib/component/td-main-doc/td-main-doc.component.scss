@@ -26,3 +26,9 @@
   padding: 0;
 }
 
+@media (max-width: 850px) {
+  .container{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

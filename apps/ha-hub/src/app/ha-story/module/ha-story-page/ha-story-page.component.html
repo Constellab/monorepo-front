@@ -10,9 +10,9 @@
 @if (story && story.createdBy != null && !notFound) {
   <div class="story-pannel">
     <div class="story-content">
-      <h3>
+      <h2>
         {{ story.title }}
-      </h3>
+      </h2>
       <div class="author-div">
         <div>
           <p class="small-text user-date-info">
@@ -37,15 +37,16 @@
             <ha-like-button (clicked)="toggleLikeStoryButton()" [isLiked]="storyIsLiked" [likesCount]="story.likes"></ha-like-button>
             <ha-comment-button (clicked)="openCommentsPannel()" [commentsCount]="story.comments"></ha-comment-button>
           </div>
+          @if (hasRightToEdit) {
+            <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+ story.id">
+              <fl-text-icon [iconPosition]="'end'">
+                <mat-icon>edit</mat-icon>
+                {{ 'edit' | translate }}
+              </fl-text-icon>
+            </a>
+          }
         </div>
-        @if (hasRightToEdit) {
-          <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+ story.id">
-            <fl-text-icon [iconPosition]="'end'">
-              <mat-icon>edit</mat-icon>
-              {{ 'edit' | translate }}
-            </fl-text-icon>
-          </a>
-        }
+
       </div>
       <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
                       class="g-scrollable-element border-none"></te-text-editor>

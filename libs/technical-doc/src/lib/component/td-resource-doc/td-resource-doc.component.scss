@@ -57,3 +57,9 @@
 .var-type{
   color: #c18401;
 }
+
+@media (max-width: 750px) {
+  .methods-div{
+    padding: 0;
+  }
+}

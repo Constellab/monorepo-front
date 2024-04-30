@@ -73,7 +73,6 @@
 .story-like-comment-infos-div{
   display: flex;
   flex-direction: row;
-  gap: 1.75em;
   margin-left: auto;
 }
 
@@ -140,9 +139,6 @@
   text-overflow: ellipsis;
 }
 
-.file-icons{
-
-}
 
 .story-file:hover{
   cursor: pointer;
@@ -178,5 +174,18 @@
 @media (max-width: 1450px) {
   .right-div{
     display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .author-div{
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: start;
+    margin-bottom: 1em;
+  }
+
+  .author-div a{
+    margin-left: 8px;
   }
 }

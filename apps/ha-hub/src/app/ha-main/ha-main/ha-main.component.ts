@@ -1,10 +1,11 @@
-import {AfterContentInit, Component, HostListener, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {AfterContentInit, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
 import {FlCookieService, FlThemeService} from '@monorepo/front-core-lib';
 import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 import {HaEnvironmentHelper} from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import {isPlatformBrowser} from '@angular/common';
 import {HaCookieConsentComponent} from '../ha-cookie-consent/ha-cookie-consent.component';
+import {BreakpointObserver} from '@angular/cdk/layout';
 
 @Component({
   selector: 'ha-main',
@@ -27,6 +28,7 @@ export class HaMainComponent implements OnInit, AfterContentInit {
   constructor(private authUserService: HaAuthenticatedUserService,
               private themeService: FlThemeService,
               private cookieService: FlCookieService,
+              private breakpointObserver: BreakpointObserver,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
@@ -41,21 +43,14 @@ export class HaMainComponent implements OnInit, AfterContentInit {
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
     });
 
-    if(isPlatformBrowser(this.platformId))
+    this.breakpointObserver.observe('(max-width: 965px)').subscribe(() => {
       this.updateIsSmallScreen();
-  }
+    });
 
-  @HostListener('window:resize', ['$event'])
-  onWindowResize(): void {
-    this.updateIsSmallScreen();
   }
 
   private updateIsSmallScreen(): void {
-    if(window && window.innerWidth < 965) {
-      this.isSmallScreen = true;
-    } else {
-      this.isSmallScreen = false;
-    }
+    this.isSmallScreen = this.breakpointObserver.isMatched('(max-width: 965px)');
   }
 
   ngAfterContentInit(): void {

@@ -1,16 +1,17 @@
 <fl-async-section [object]="type$">
   <ng-container *flSectionBody="type$ as type">
-    <div class="g-page g-scrollable-element" flAutoScrollToAnchor cdkScrollable>
-      <fl-article-container>
-        <fl-article>
-          <div class="g-layout-row g-layout-center-center g-layout-gap-05em">
-            <td-type-icon-badge [style]="type.style" [iconSize]="30"></td-type-icon-badge>
-            <h1>{{type.name}}</h1>
-          </div>
-          <lab-type-detail [type]="type"></lab-type-detail>
-        </fl-article>
-      </fl-article-container>
-    </div>
+    @defer {
+      <div class="g-page g-scrollable-element" flAutoScrollToAnchor cdkScrollable>
+        <fl-article-container>
+          <fl-article>
+            <div class="g-layout-row g-layout-center-center g-layout-gap-05em">
+              <td-type-icon-badge [style]="type.style" [iconSize]="30"></td-type-icon-badge>
+              <h1>{{type.name}}</h1>
+            </div>
+            <lab-type-detail [type]="type"></lab-type-detail>
+          </fl-article>
+        </fl-article-container>
+      </div>
+    }
   </ng-container>
 </fl-async-section>
-

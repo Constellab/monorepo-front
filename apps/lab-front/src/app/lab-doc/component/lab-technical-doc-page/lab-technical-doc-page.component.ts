@@ -13,14 +13,16 @@ export class LabTechnicalDocPageComponent implements OnInit {
 
   type$: Observable<LabTypeEntity>;
 
+
   constructor(private route: ActivatedRoute,
               private typeService: LabTypeService) {
   }
 
   ngOnInit(): void {
     this.type$ = this.route.params.pipe(
-      mergeMap(params => this.typeService.getTyping(params.typingName.replaceAll('-', '.')))
+      mergeMap(params => {
+        return this.typeService.getTyping(params.typingName.replaceAll('-', '.'))
+      })
     );
   }
-
 }

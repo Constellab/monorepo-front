@@ -7,6 +7,7 @@ export class HaCommentsPortalConfig extends FlPortalConfig{
       disposeOnOutsideClick: true,
       height: '100vh',
       minWidth: '25%',
+      maxWidth: '100%',
       hasBackdrop: true,
     });
 

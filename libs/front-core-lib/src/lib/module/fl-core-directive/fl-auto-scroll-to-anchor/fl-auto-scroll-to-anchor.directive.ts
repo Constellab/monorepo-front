@@ -1,5 +1,5 @@
 import {AfterViewInit, Directive, ElementRef, Input, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Router, RoutesRecognized} from '@angular/router';
+import {ActivatedRoute, Router, RoutesRecognized, Scroll} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
 
 /**
@@ -38,6 +38,10 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
       if (e instanceof RoutesRecognized && e.url === e.urlAfterRedirects) {
         const anchor: string = e.url.split('#')[1];
         this.scrollToAnchor(anchor);
+      }
+
+      if (e instanceof Scroll && e.anchor != null){
+        this.scrollToAnchor(e.anchor);
       }
     }));
 

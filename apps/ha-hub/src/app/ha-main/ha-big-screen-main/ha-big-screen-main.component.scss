@@ -110,9 +110,22 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 965px) {
+  .nav-bar-links{
+    display: none;
+  }
+
   .nav-bar{
+    position: relative;
     padding: 16px 8px 0 8px;
+  }
+
+  .gencovery-hub-logo{
+    position: absolute;
+    top: calc(50% - 16px);
+    left: calc(50% - 16px);
+    height: 32px;
+    width: 32px;
   }
 
   .nav-bar-links{
@@ -126,6 +139,7 @@
   .span-initials{
     gap: 2px;
     margin-right: 0;
+    margin-left: auto;
   }
 }
 

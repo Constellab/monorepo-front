@@ -14,18 +14,19 @@
   }
 </div>
 
-<div class="methods-div">
-  <h4>{{'td.variables' | translate}}</h4>
-  <div class="method-card">
-    @for(variable of resource.variables | keyvalue; track  variable.key){
-      <code class="variable">
-        <span class="var-name">{{variable.key}}</span>: <span class="var-type">{{variable.value}}</span>
-      </code>
-
-    }
+@if(resource.variables && (resource.variables | keyvalue).length > 0){
+  <div class="methods-div">
+    <h4>{{'td.variables' | translate}}</h4>
+    <div class="method-card">
+      @for(variable of resource.variables | keyvalue; track  variable.key){
+        <code class="variable">
+          <span class="var-name">{{variable.key}}</span>: <span class="var-type">{{variable.value}}</span>
+        </code>
+      }
+    </div>
   </div>
+}
 
-</div>
 
 <div class="methods-div">
   <h4>{{'td.functions' | translate}}</h4>

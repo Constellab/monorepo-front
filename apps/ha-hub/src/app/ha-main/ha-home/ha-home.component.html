@@ -18,95 +18,97 @@
     </div>
   </div>
 
-  <div class="home-section main-panel">
-    <a [routerLink]="storyListRoute" class="home-section-title">
-      {{ 'stories' | translate }}
-    </a>
-    {{ 'stories_description' | translate}}
-    <div class="home-list-div">
-      <a *ngFor="let story of stories$ | flDatasourceConnect | async" [routerLink]="(story | haDetailRoute)">
-        <co-story-list-item class="home-card" [story]="story"
-                            [imageLink]="getStoryImageLink(story?.mainPicture)"></co-story-list-item>
+  <div class="main-panel">
+    <div class="home-section">
+      <a [routerLink]="storyListRoute" class="home-section-title">
+        {{ 'stories' | translate }}
       </a>
-    </div>
-    <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">
-      <fl-text-icon iconPosition="end">
-        {{ 'go_to_stories' | translate }}
-        <mat-icon>chevron_right</mat-icon>
-      </fl-text-icon>
-    </a>
-  </div>
-
-  <div class="home-section  main-panel">
-    <a [routerLink]="liveTaskListRoute" class="home-section-title">
-      {{ 'live_tasks' | translate }}
-    </a>
-    {{'live_tasks_description' | translate}}
-    <div class="home-list-div">
-      <a *ngFor="let liveTask of liveTasks$ | flDatasourceConnect | async" [routerLink]="(liveTask | haDetailRoute)">
-        <co-live-task-list-item class="home-card" [liveTask]="liveTask"></co-live-task-list-item>
-      </a>
-    </div>
-    <a mat-stroked-button [routerLink]="liveTaskListRoute" class="go-to-button">
-      <fl-text-icon iconPosition="end">
-        {{ 'go_to_live_tasks' | translate }}
-        <mat-icon>chevron_right</mat-icon>
-      </fl-text-icon>
-    </a>
-  </div>
-
-  <div class="home-section main-panel">
-    <a [routerLink]="brickListRoute" class="home-section-title">
-      {{ 'bricks' | translate }}
-    </a>
-    {{'bricks_description' | translate}}
-    <div class="home-list-div">
-      <a *ngFor="let brick of bricks$ | flDatasourceConnect | async" [routerLink]="(brick | haDetailRoute)">
-        <co-brick-list-item class="home-card" [brick]="brick" [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
-      </a>
-    </div>
-    <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">
-      <fl-text-icon iconPosition="end">
-        {{ 'go_to_bricks' | translate }}
-        <mat-icon>chevron_right</mat-icon>
-      </fl-text-icon>
-    </a>
-  </div>
-
-  <div class="home-section main-panel">
-    <span class="home-section-title">{{ 'documentation' | translate }}</span>
-
-    <div class="section-div">
-      <a class="home-card-div" [routerLink]="productDocRoute">
-        <h5>{{ 'product_doc' | translate }}</h5>
-        <p>
-          {{ 'product_doc_description' | translate}}
-        </p>
-      </a>
-      <a class="home-card-div" [routerLink]="techDocRoute">
-        <h5>{{ 'tech_doc' | translate }}</h5>
-        <p>
-          {{ 'tech_doc_description' | translate}}
-        </p>
-      </a>
-      <a class="home-card-div" [routerLink]="iconsRoute">
-        <h5>{{ 'icons' | translate }}</h5>
-        <p>
-          {{ 'icons_description' | translate}}
-        </p>
-      </a>
-    </div>
-
-    <a class="home-card-div space-card" [href]="constellabUrl" target="_blank">
-      <img src="assets/fl-logo/constellab-logo.svg"/>
-      <div class="space-card-content">
-        <h5>
-          Constellab
-          <mat-icon>arrow_outward</mat-icon>
-        </h5>
-        <p>{{ 'constellab_description' | translate }}</p>
+      {{ 'stories_description' | translate}}
+      <div class="home-list-div">
+        <a *ngFor="let story of stories$ | flDatasourceConnect | async" [routerLink]="(story | haDetailRoute)">
+          <co-story-list-item class="home-card" [story]="story"
+                              [imageLink]="getStoryImageLink(story?.mainPicture)"></co-story-list-item>
+        </a>
       </div>
-    </a>
+      <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">
+        <fl-text-icon iconPosition="end">
+          {{ 'go_to_stories' | translate }}
+          <mat-icon>chevron_right</mat-icon>
+        </fl-text-icon>
+      </a>
+    </div>
+
+    <div class="home-section ">
+      <a [routerLink]="liveTaskListRoute" class="home-section-title">
+        {{ 'live_tasks' | translate }}
+      </a>
+      {{'live_tasks_description' | translate}}
+      <div class="home-list-div">
+        <a *ngFor="let liveTask of liveTasks$ | flDatasourceConnect | async" [routerLink]="(liveTask | haDetailRoute)">
+          <co-live-task-list-item class="home-card" [liveTask]="liveTask"></co-live-task-list-item>
+        </a>
+      </div>
+      <a mat-stroked-button [routerLink]="liveTaskListRoute" class="go-to-button">
+        <fl-text-icon iconPosition="end">
+          {{ 'go_to_live_tasks' | translate }}
+          <mat-icon>chevron_right</mat-icon>
+        </fl-text-icon>
+      </a>
+    </div>
+
+    <div class="home-section">
+      <a [routerLink]="brickListRoute" class="home-section-title">
+        {{ 'bricks' | translate }}
+      </a>
+      {{'bricks_description' | translate}}
+      <div class="home-list-div">
+        <a *ngFor="let brick of bricks$ | flDatasourceConnect | async" [routerLink]="(brick | haDetailRoute)">
+          <co-brick-list-item class="home-card" [brick]="brick" [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+        </a>
+      </div>
+      <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">
+        <fl-text-icon iconPosition="end">
+          {{ 'go_to_bricks' | translate }}
+          <mat-icon>chevron_right</mat-icon>
+        </fl-text-icon>
+      </a>
+    </div>
+
+    <div class="home-section">
+      <span class="home-section-title">{{ 'documentation' | translate }}</span>
+
+      <div class="section-div">
+        <a class="home-card-div" [routerLink]="productDocRoute">
+          <h5>{{ 'product_doc' | translate }}</h5>
+          <p>
+            {{ 'product_doc_description' | translate}}
+          </p>
+        </a>
+        <a class="home-card-div" [routerLink]="techDocRoute">
+          <h5>{{ 'tech_doc' | translate }}</h5>
+          <p>
+            {{ 'tech_doc_description' | translate}}
+          </p>
+        </a>
+        <a class="home-card-div" [routerLink]="iconsRoute">
+          <h5>{{ 'icons' | translate }}</h5>
+          <p>
+            {{ 'icons_description' | translate}}
+          </p>
+        </a>
+      </div>
+
+      <a class="space-card" [href]="constellabUrl" target="_blank">
+        <img src="assets/fl-logo/constellab-logo.svg"/>
+        <div class="space-card-content">
+          <h5>
+            Constellab
+            <mat-icon>arrow_outward</mat-icon>
+          </h5>
+          <p>{{ 'constellab_description' | translate }}</p>
+        </div>
+      </a>
+    </div>
   </div>
 
   <footer class="footer small-text">

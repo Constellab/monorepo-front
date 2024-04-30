@@ -1,4 +1,5 @@
-<div class="navigation-div">
+<div class="left-panel">
+  <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
   <a [routerLink]="story?.publishedAt == null ? ['/stories'] :['/stories/' + story?.id]" class="back-link">
     <fl-text-icon [iconPosition]="'start'">
       <mat-icon>arrow_back</mat-icon>
@@ -6,22 +7,13 @@
     </fl-text-icon>
   </a>
 </div>
+
 @if(story && !notFound){
-  <div class="main-div g-max-article-width">
+  <div class="main-panel g-max-article-width">
     <div class="title-image-div">
       <h2 id="storyTitle" class="title-input" flElementEditable (flElementValueChange)="onTitleChange($event)">
         {{ story.title }}
       </h2>
-      <!--        @if (!story.mainPicture || isMainImageInContent()){-->
-      <!--          <div class="story-image-input" (click)="activeInput()">-->
-      <!--            <mat-icon class="g-icon-big">add_a_photo</mat-icon>-->
-      <!--          </div>-->
-      <!--          <input flInputFile type="file" accept="image/jpg,image/jpeg,image/png" (fileChange)="onFileSelected($event)"-->
-      <!--                 [strictMode]="true" [autoClearHtmlInput]="true" [hidden]="true" id="input-photo" #input>-->
-      <!--        } @else {-->
-      <!--          <mat-icon class="delete-image" (click)="deleteImage()" [matTooltip]="'delete' | translate">close</mat-icon>-->
-      <!--        }-->
-      <!--      </div>-->
       <fl-update-image-container class="story-image-preview" [uploadConfig]="imageConfig"
                                  [deleteConfig]="deleteImageConfig" [showDelete]="!isMainImageInContent()">
         <div class="story-image"
@@ -93,20 +85,22 @@
         </div>
 
       }
-      @if (isAuthor) {
-        <button mat-icon-button type="button" class="co-author-bt"
-                (click)="openCoAuthorDialog()" [matTooltip]="'open_story_coauthor_panel' | translate">
-          <mat-icon>group_add</mat-icon>
+      <div class="right-bts-div">
+        @if (isAuthor) {
+          <button mat-icon-button type="button" class="co-author-bt"
+                  (click)="openCoAuthorDialog()" [matTooltip]="'open_story_coauthor_panel' | translate">
+            <mat-icon>group_add</mat-icon>
+          </button>
+        }
+        <button mat-icon-button type="button" [class]="isAuthor ? 'add-file-button-author' : 'add-file-button-co-author'"
+                (click)="openStoryFileDialog()"
+                [matTooltip]="'open_story_files_panel' | translate">
+          <mat-icon>cloud_upload</mat-icon>
         </button>
-      }
-      <button mat-icon-button type="button" [class]="isAuthor ? 'add-file-button-author' : 'add-file-button-co-author'"
-              (click)="openStoryFileDialog()"
-              [matTooltip]="'open_story_files_panel' | translate">
-        <mat-icon>cloud_upload</mat-icon>
-      </button>
-      <button mat-icon-button [matTooltip]="'delete_story' | translate" type="button" color="warn" (click)="openDeleteStoryConfirmDialog()" class="add-file-button-author">
-        <mat-icon>delete</mat-icon>
-      </button>
+        <button mat-icon-button [matTooltip]="'delete_story' | translate" type="button" color="warn" (click)="openDeleteStoryConfirmDialog()" class="add-file-button-author">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
     @if(contentHasError){
       <mat-error>{{contentError | translate}}</mat-error>

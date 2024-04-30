@@ -46,7 +46,6 @@ import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
-import {join} from 'node:path';
 
 
 interface FlatNode {
@@ -569,6 +568,7 @@ export class HaPublicSidenavComponent implements OnInit {
     if (!this.currentCompletePath || this.currentCompletePath.length == 0) return false;
 
     let completePath: string = this.currentCompletePath.split('doc/')[1];
+    if (completePath == null) return false;
     if (completePath.includes('technical-folder')){
       return completePath + '/' == node.completePath;
     }
