@@ -14,6 +14,10 @@ export class FlHttpInterceptorService implements HttpInterceptor {
 
     const lang: string = this.translateService.getUserLanguage();
 
+    // check if it's a public route
+    if (req.url.split('/')[3] == 'public') {
+      return next.handle(req);
+    }
 
     req = req.clone({
       withCredentials: true,

@@ -5,7 +5,6 @@ import {environment} from '../../../../environments/ha-environment';
 export class HaEnvironmentHelper{
 
   public static getEnv(): HaEnvironment {
-    //TODO: FIX THIS
     environment.settings = {
       apiUrl: environment.settings.apiUrl || 'http://localhost:3333',
       constellabApiUrl: environment.settings.constellabApiUrl || 'https://api.preconstellab.com',

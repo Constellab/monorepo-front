@@ -24,7 +24,7 @@ export class HaTdServiceConfig extends TdServiceConfig {
   }
 
   getCommunityIconBaseApiUrl(): string {
-    return HaEnvironmentHelper.getApiUrl() + '/icon/file';
+    return HaEnvironmentHelper.getApiUrl() + '/public/icon/file';
   }
 
 

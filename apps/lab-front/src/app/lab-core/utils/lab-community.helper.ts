@@ -50,8 +50,7 @@ export class LabCommunityHelper {
   }
 
   public static getIconBaseApiUrl(): string {
-    // TODO TO REMOVE
-    return LabEnvironmentHelper.getCommunityApiUrl() + '/icon/file';
+    return LabEnvironmentHelper.getCommunityApiUrl() + '/public/icon/file';
   }
 
 }
