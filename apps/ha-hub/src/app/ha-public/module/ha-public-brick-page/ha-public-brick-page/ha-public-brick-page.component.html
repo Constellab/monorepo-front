@@ -7,7 +7,7 @@
     <fl-section [object]="brick" class="full-w" [emptyText]="'error_brick_not_found'">
       <ng-container *flSectionBody>
         <div class="left-panel" *ngIf="brick">
-          <mat-icon class="button-left-panel" haSidenavButton></mat-icon>
+          <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
 
           <a [routerLink]="brickListRoute" class="back-link">
             <fl-text-icon [iconPosition]="'start'">

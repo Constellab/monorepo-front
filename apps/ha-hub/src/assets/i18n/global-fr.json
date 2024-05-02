@@ -317,5 +317,14 @@
   "story_delete_photo_confirmation": "Êtes-vous sûr de vouloir supprimer la photo de la story ?",
   "brick_delete_photo_confirmation": "Êtes-vous sûr de vouloir supprimer la photo de la brick ?",
   "story_photo_deleted": "Photo de la story supprimée",
-  "brick_photo_deleted": "Photo de la brick supprimée"
+  "brick_photo_deleted": "Photo de la brick supprimée",
+  "details_of_version": "Détails de la version",
+  "PYTHON": "Python",
+  "CONDA_PYTHON": "Conda Python",
+  "CONDA_R": "Conda R",
+  "PIP_PYTHON": "Pip Python",
+  "MAMBA_PYTHON": "Mamba Python",
+  "MAMBA_R": "Mamba R",
+  "STREAMLIT": "Streamlit",
+  "login_to_post_a_comment": "Connectez-vous pour poster un commentaire"
 }

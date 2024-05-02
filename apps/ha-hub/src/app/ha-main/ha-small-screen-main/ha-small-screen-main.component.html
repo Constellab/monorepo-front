@@ -4,18 +4,15 @@
   </a>
 
   <div class="top-left-buttons">
-      <ng-container *ngIf="(userConnected$ | async) == null">
-        <a [routerLink]="loginRoute" mat-flat-button flHide.lt-md>
-          {{ 'login' | translate }}
-        </a>
-        <button mat-icon-button [matMenuTriggerFor]="userMenu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-      </ng-container>
-      <fl-user-profile-picture [user]="user" [matMenuTriggerFor]="userMenu"
-                               *ngIf="userConnected$ | async as user">
+    @if ((userConnected$ | async) == null) {
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    } @else {
+      <fl-user-profile-picture [user]="userConnected$ | async" [matMenuTriggerFor]="userMenu">
       </fl-user-profile-picture>
-    </div>
+    }
+  </div>
 </div>
 
 <div class="body g-scrollable-element" flAutoScrollToAnchor cdkScrollable>
@@ -26,20 +23,20 @@
 
 
 <div class="menu bottom-menu">
-  <a [routerLink]="storyListRoute">
+  <a [routerLink]="storyListRoute" [ngClass]="currentRoute == 'story' ? 'bottom-menu-current-bt' : ''">
     <mat-icon class="menu-icon">description</mat-icon>
     {{ 'stories' | translate }}
   </a>
-  <a [routerLink]="liveTaskRoute">
+  <a [routerLink]="liveTaskRoute" [ngClass]="currentRoute == 'live-task' ? 'bottom-menu-current-bt' : ''">
     <mat-icon class="menu-icon" [svgIcon]="'code'"></mat-icon>
     {{ 'live_tasks' | translate }}
   </a>
 
-  <a [routerLink]="brickListRoute">
+  <a [routerLink]="brickListRoute" [ngClass]="currentRoute == 'brick' ? 'bottom-menu-current-bt' : ''">
     <mat-icon [svgIcon]="'brick-icon'" class="menu-icon"></mat-icon>
     {{ 'bricks' | translate }}
   </a>
-  <div [matMenuTriggerFor]="docMenu">
+  <div [matMenuTriggerFor]="docMenu" [ngClass]="currentRoute == 'doc' ? 'bottom-menu-current-bt' : ''">
     <mat-icon class="menu-icon">info</mat-icon>
     {{ 'documentation' | translate }}
   </div>
@@ -59,6 +56,10 @@
   <button mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
     {{ 'admin_dashboard' | translate }}
   </button>
+  <a [routerLink]="loginRoute" mat-menu-item *ngIf="(userConnected$ | async) == null">
+    <mat-icon>login</mat-icon>
+    {{ 'login' | translate }}
+  </a>
   <button mat-menu-item (click)="changeLanguage()">
     <mat-icon>language</mat-icon>
     @if (currentLanguage === 'fr') {
@@ -77,7 +78,7 @@
     <mat-icon>dark_mode</mat-icon>
     {{'dark_theme' | translate}}
   </button>
-  <button mat-menu-item (click)="logout()" *haIsAuthenticated>
+  <button mat-menu-item (click)="logout()" *ngIf="(userConnected$ | async) != null">
     <mat-icon>logout</mat-icon>
     {{ 'logout' |translate }}
   </button>

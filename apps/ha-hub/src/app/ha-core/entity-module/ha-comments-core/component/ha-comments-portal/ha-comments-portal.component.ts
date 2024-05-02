@@ -3,6 +3,7 @@ import {FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef, FlUser} from '@mono
 import {TeOnlyInlineConfig, TeRichText} from '@monorepo/text-editor';
 import {HaAbstractComment, HaCommentEntity, HaCommentType} from '../../model/ha-abstract-comment.class';
 import {HaCommentService} from '../../../../ha-service/ha-comment.service';
+import {HaRouterService} from '../../../../ha-service/ha-router.service';
 
 export interface HaCommentsPortalData {
   entity: HaCommentsEntity;
@@ -29,6 +30,7 @@ export class HaCommentsPortalComponent implements OnInit{
   isLoading = false;
   commentType: HaCommentType;
   commentInputData = TeRichText.emptyContent();
+  loginRoute: string = HaRouterService.getLoginRoute();
 
 
   constructor(@Inject(FL_PORTAL_DATA) data: HaCommentsPortalData,

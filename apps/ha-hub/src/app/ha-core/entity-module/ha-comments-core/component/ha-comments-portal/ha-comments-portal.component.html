@@ -6,26 +6,34 @@
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <fl-card class="comment-write-card" *ngIf="user">
-    <fl-card-header>
-      <fl-user-inline [user]="user" [portalOnHover]="false"></fl-user-inline>
-    </fl-card-header>
-    <fl-card-body>
-      <te-text-editor [config]="textEditorConfig" [(ngModel)]="commentInputData" [hideToolbar]="true"
-                      [placeholder]="'write_a_comment' | translate" class="text-editor"
-                      (textChange)="checkCommentValidity()" (keydown.control.enter)="sendComment()"></te-text-editor>
-    </fl-card-body>
-    <fl-card-footer>
-      <div class="comment-write-card-footer">
-        <button mat-flat-button color="primary" [disabled]="!commentIsValid || isLoading" (click)="sendComment()">
-          <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-          @if (!isLoading) {
-            {{ 'comment' | translate }}
-          }
-        </button>
-      </div>
-    </fl-card-footer>
-  </fl-card>
+  @if(user){
+    <fl-card class="comment-write-card">
+      <fl-card-header>
+        <fl-user-inline [user]="user" [portalOnHover]="false"></fl-user-inline>
+      </fl-card-header>
+      <fl-card-body>
+        <te-text-editor [config]="textEditorConfig" [(ngModel)]="commentInputData" [hideToolbar]="true"
+                        [placeholder]="'write_a_comment' | translate" class="text-editor"
+                        (textChange)="checkCommentValidity()" (keydown.control.enter)="sendComment()"></te-text-editor>
+      </fl-card-body>
+      <fl-card-footer>
+        <div class="comment-write-card-footer">
+          <button mat-flat-button color="primary" [disabled]="!commentIsValid || isLoading" (click)="sendComment()">
+            <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+            @if (!isLoading) {
+              {{ 'comment' | translate }}
+            }
+          </button>
+        </div>
+      </fl-card-footer>
+    </fl-card>
+  } @else {
+    <div class="login-div">
+      <p>{{'login_to_post_a_comment' | translate}}</p>
+      <a mat-flat-button color="primary" [routerLink]="loginRoute" (click)="closePortal()">{{'login' | translate}}</a>
+    </div>
+  }
+
 
 
   <div class="comments-list-div">

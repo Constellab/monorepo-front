@@ -54,6 +54,15 @@
   gap: 1em;
 }
 
+.login-div{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  margin: 1em 0;
+}
+
 @media (max-width: 1100px) {
   .comments-portal-div{
     width: 60vw;

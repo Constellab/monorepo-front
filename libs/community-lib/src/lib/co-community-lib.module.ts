@@ -17,7 +17,7 @@ import {
 import {coCommunityLibI18n} from './co-community-lib.i18n';
 import {CoLiveTaskListItemComponent} from './component/co-live-task-list-item/co-live-task-list-item.component';
 import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {MatDialogActions, MatDialogContent} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -39,32 +39,33 @@ import {TeTextEditorModule} from '@monorepo/text-editor';
 import {CoServiceConfig} from './service/co-service-config.config';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FlDateModule,
-    FlKeyValueModule,
-    FlTranslateModule,
-    FlUserModule,
-    MatButtonModule,
-    FlCoreDirectiveModule,
-    FlCorePipeModule,
-    FlDialogModule,
-    FlLoaderModule,
-    MatDialogActions,
-    MatDialogContent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatRadioModule,
-    ReactiveFormsModule,
-    FlSectionModule,
-    FlTextIconModule,
-    MatIconModule,
-    MatChipsModule,
-    FlInfiniteScrollModule,
-    TeTextEditorModule,
-    FormsModule,
-    FlCardModule
-  ],
+    imports: [
+        CommonModule,
+        FlDateModule,
+        FlKeyValueModule,
+        FlTranslateModule,
+        FlUserModule,
+        MatButtonModule,
+        FlCoreDirectiveModule,
+        FlCorePipeModule,
+        FlDialogModule,
+        FlLoaderModule,
+        MatDialogActions,
+        MatDialogContent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatRadioModule,
+        ReactiveFormsModule,
+        FlSectionModule,
+        FlTextIconModule,
+        MatIconModule,
+        MatChipsModule,
+        FlInfiniteScrollModule,
+        TeTextEditorModule,
+        FormsModule,
+        FlCardModule,
+        NgOptimizedImage
+    ],
   declarations: [
     CoLiveTaskListItemComponent,
     CoLiveTaskCreateDialogFormComponent,

@@ -8,7 +8,7 @@
 } @else {
   <div class="g-badge visibility-badge-div space-badge-div g-text-dense-height">
     @if(space.photo){
-      <img [src]="space.photo" class="space-badge-photo"/>
+      <img [ngSrc]="space.photo" height="25" width="25" class="space-badge-photo"/>
     }
     <span>{{space.name.trim()}}</span>
   </div>

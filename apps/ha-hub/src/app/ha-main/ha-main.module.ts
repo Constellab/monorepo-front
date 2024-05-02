@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { HaMainComponent } from './ha-main/ha-main.component';
 import { HaMainRoutingModule } from './ha-main-routing-module';
 import { TranslateModule } from '@ngx-translate/core';
@@ -27,17 +27,18 @@ import {HaSmallScreenMainComponent} from './ha-small-screen-main/ha-small-screen
     HaBigScreenMainComponent,
     HaSmallScreenMainComponent
   ],
-  imports: [
-    CommonModule,
-    HaMainRoutingModule,
-    TranslateModule,
-    HaCoreModule,
-    HaPublicModule,
-    HaStoryModule,
-    HaSpaceModule,
-    HaLiveTaskModule,
-    MatSlideToggleModule,
-    HaIconModule
-  ],
+    imports: [
+        CommonModule,
+        HaMainRoutingModule,
+        TranslateModule,
+        HaCoreModule,
+        HaPublicModule,
+        HaStoryModule,
+        HaSpaceModule,
+        HaLiveTaskModule,
+        MatSlideToggleModule,
+        HaIconModule,
+        NgOptimizedImage
+    ],
 })
 export class HaMainModule {}

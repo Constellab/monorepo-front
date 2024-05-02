@@ -37,6 +37,7 @@
   }
 
   div{
+    margin-left: auto;
   }
 }
 
@@ -53,4 +54,16 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
+}
+
+@media (max-width: 700px) {
+  .live-task-version-title{
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5em;
+
+    div{
+      margin-left: 0;
+    }
+  }
 }

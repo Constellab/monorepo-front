@@ -59,6 +59,10 @@
   }
 }
 
+.bottom-menu-current-bt{
+  color: var(--primary-color);
+}
+
 @media (max-width: 590px) {
   .bottom-menu{
     font-size: 0.6em;

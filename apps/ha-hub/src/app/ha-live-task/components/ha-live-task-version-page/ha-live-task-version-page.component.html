@@ -5,7 +5,7 @@
 <div *ngIf="liveTaskVersion && !isLoading">
   <div class="live-task-version-title">
     <h2>{{ liveTaskVersion?.liveTask.title }}</h2>
-    <div class="g-badge g-warn-background">{{ liveTaskVersion.type }}</div>
+    <div class="g-badge g-warn-background">{{ liveTaskVersion.type | translate }}</div>
   </div>
 
 

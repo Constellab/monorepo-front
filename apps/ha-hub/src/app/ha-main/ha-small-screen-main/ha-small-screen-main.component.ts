@@ -6,6 +6,14 @@ import {HaUser} from '../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
 import {FlSnackBarService, FlThemeService, FlTranslateService} from '@monorepo/front-core-lib';
 import {HaAuthService} from '../../ha-core/ha-service/ha-auth.service';
+import {ActivatedRoute} from '@angular/router';
+
+export enum HaSmallScreenPossibleRoute {
+  STORY = 'story',
+  BRICK = 'brick',
+  LIVE_TASK = 'live-task',
+  DOC = 'doc'
+}
 
 @Component({
   selector: 'ha-small-screen-main',
@@ -33,6 +41,8 @@ export class HaSmallScreenMainComponent implements OnInit{
 
   communityLogo: string;
 
+  currentRoute: HaSmallScreenPossibleRoute;
+
   @Input({required: true})
   currentTheme: ClTheme;
 
@@ -48,11 +58,27 @@ export class HaSmallScreenMainComponent implements OnInit{
               private themeService: FlThemeService,
               private translateService: FlTranslateService,
               private snackBarService: FlSnackBarService,
-              private authService: HaAuthService) {
+              private authService: HaAuthService,
+              private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.setCommunityLogo();
+    this.activatedRoute.url.subscribe((url) => {
+      switch ('/' + url[0].path + '/') {
+        case this.storyListRoute:
+          this.currentRoute = HaSmallScreenPossibleRoute.STORY;
+          break;
+        case this.brickListRoute:
+          this.currentRoute = HaSmallScreenPossibleRoute.BRICK;
+          break;
+        case this.liveTaskRoute:
+          this.currentRoute = HaSmallScreenPossibleRoute.LIVE_TASK;
+          break;
+        default:
+          this.currentRoute = HaSmallScreenPossibleRoute.DOC;
+      }
+    });
   }
 
   selectTheme(theme: ClTheme): void {

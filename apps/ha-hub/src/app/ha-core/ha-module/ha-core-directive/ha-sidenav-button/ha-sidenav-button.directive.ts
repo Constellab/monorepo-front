@@ -22,6 +22,7 @@ export class HaSidenavButtonDirective implements OnInit {
         if (sidenav.style.left != '0px') return;
         this.isOpen = false;
         sidenav.style.left = '-100%';
+        sidenav.classList.remove('left-panel-open');
         this.elementRef.nativeElement.innerHTML = 'menu';
       }
     });
@@ -52,16 +53,19 @@ export class HaSidenavButtonDirective implements OnInit {
       this.elementRef.nativeElement.innerHTML = 'menu';
       this.isActivated = true;
     } else if (targetElement == this.elementRef.nativeElement) {
-      if (!this.isOpen) {
+      if (!this.isOpen || !sidenav.classList.contains('left-panel-open')) {
         sidenav.style.left = '0';
         this.isOpen = true;
         this.elementRef.nativeElement.innerHTML = 'close';
         this.isActivated = true;
+
+        sidenav.classList.add('left-panel-open');
       } else {
         this.isOpen = false;
         sidenav.style.left = '-100%';
         this.elementRef.nativeElement.innerHTML = 'menu';
         this.isActivated = true;
+        sidenav.classList.remove('left-panel-open');
       }
     }
   }
