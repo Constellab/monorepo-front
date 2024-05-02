@@ -104,7 +104,8 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
 
         const dynamicBricksUrls = await fetchBricksMap();
         const dynamicStoriesUrls = await fetchStoriesMap();
-        const dynamicUrls = [...dynamicBricksUrls, ...dynamicStoriesUrls];
+        const dynamicLiveTasksUrls = await fetchLiveTasksMap();
+        const dynamicUrls = [...dynamicBricksUrls, ...dynamicStoriesUrls, ...dynamicLiveTasksUrls];
         const allUrls = [...urls, ...dynamicUrls];
 
         allUrls.forEach((url) => smStream.write(url));
@@ -206,6 +207,16 @@ async function fetchStoriesMap(): Promise<SitemapItem[]> {
     return response.data;
   } catch (error) {
     console.error('Error fetching stories URLs:', error);
+    return [];
+  }
+}
+
+async function fetchLiveTasksMap(): Promise<SitemapItem[]> {
+  try {
+    const response = await axios.get(`${environment.settings.apiUrl}/live-task/all-map`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching live tasks URLs:', error);
     return [];
   }
 }
