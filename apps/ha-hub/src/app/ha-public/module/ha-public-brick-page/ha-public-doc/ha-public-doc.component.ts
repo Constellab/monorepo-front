@@ -24,6 +24,7 @@ import {
 } from '../../../../ha-core/entity-module/ha-file-core/component/ha-file-dialog/ha-file-dialog.component';
 import {HaHttpRedirectionService} from '../../../../ha-core/ha-service/ha-http-redirection.service';
 import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
+import {ClStringHelper} from '@monorepo/core-lib';
 
 
 @Component({
@@ -113,10 +114,34 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
         this.redirectToGettingStartedDoc();
         return;
       }
+
       this.currentUrl = url.join('/');
       const docId = url[url.length - 1].path;
       if (this.lastDocId == docId) return;
       this.lastDocId = docId;
+
+      if (!ClStringHelper.isUUID(docId)) {
+        console.log('AHAHAHAHA')
+        const completePath = url.map(segment => segment.path).join('/');
+        this.documentationService.getByCompletePath(this.brickName, this.brickVersion, completePath).subscribe({
+          next: doc => {
+            console.log('doc', doc);
+            if (doc) {
+              const docUrl = HaRouterService.getDocumentationRoute(this.brickName, this.brickVersion, doc.completePath, doc.id);
+              if (docUrl != this.currentUrl) {
+                this.httpRedirectionService.redirectTo(docUrl);
+              }
+            } else {
+              this.docNotFound = true;
+            }
+          },
+          error: () => {
+            this.docNotFound = true;
+          }
+        });
+        return;
+      }
+
       this.documentationService.getById(docId).subscribe(doc => {
         if (doc) {
           this.onDocLoaded(doc);
@@ -124,6 +149,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
           this.docNotFound = true;
         }
       });
+
       if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)) {
         const doc: HaDocumentation = this.transferState.get(this.DOC_KEY, null) as HaDocumentation;
         if (doc) {

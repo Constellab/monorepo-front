@@ -65,6 +65,9 @@ export class HaSmallScreenMainComponent implements OnInit{
   ngOnInit(): void {
     this.setCommunityLogo();
     this.activatedRoute.url.subscribe((url) => {
+      if (url.length === 0) {
+        return;
+      }
       switch ('/' + url[0].path + '/') {
         case this.storyListRoute:
           this.currentRoute = HaSmallScreenPossibleRoute.STORY;

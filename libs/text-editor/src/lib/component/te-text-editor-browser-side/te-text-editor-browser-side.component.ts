@@ -95,9 +95,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   writeValue(obj: TeRichTextContent): void {
     if (this.editor) {
       this.editor.isReady.then(() => {
-        if (obj) {
-          this.editor.render(obj);
-        } else {
+        if (!obj) {
           this.editor.clear();
         }
       });

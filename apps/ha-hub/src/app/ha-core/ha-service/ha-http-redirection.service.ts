@@ -15,7 +15,7 @@ export class HaHttpRedirectionService {
   }
 
   redirectTo(url: string): void {
-    this.metadataService.addMetaTag(HaMetadataNamesConfig.REDIRECT_URL, url);
+    this.metadataService.addMetaTag(HaMetadataNamesConfig.REDIRECT_URL, url, false);
     this.router.navigate([url], {
       replaceUrl: true,
       preserveFragment: true

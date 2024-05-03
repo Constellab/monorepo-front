@@ -34,6 +34,15 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
     return this.apiService.getById(this.route, id, HaDocumentation);
   }
 
+
+  /**
+   * Call http post one by complete path
+   * @param completePath complete path of the entity
+   */
+  public getByCompletePath(brickName: string, version:string, completePath: string): Observable<HaDocumentation> {
+    return this.apiService.post(`${this.route}/complete-path`, {brickName: brickName, version: version, completePath: completePath});
+  }
+
   /**
    * Call http updateContent
    */
