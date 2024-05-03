@@ -23,6 +23,7 @@ import {
 import {MatButtonModule} from '@angular/material/button';
 import {FlSelectUserComponent} from './component/fl-select-user/fl-select-user.component';
 import {FlInputSearchModule} from '../fl-input-search/fl-input-search.module';
+import {FlPortalModule} from '../fl-portal/fl-portal.module';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import {FlInputSearchModule} from '../fl-input-search/fl-input-search.module';
     FlTranslateModule,
     FlDateModule,
     FlInputSearchModule,
+    FlPortalModule,
   ]
 })
 export class FlUserModule {

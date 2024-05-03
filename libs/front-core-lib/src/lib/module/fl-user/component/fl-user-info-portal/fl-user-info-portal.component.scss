@@ -1,62 +1,44 @@
-.user-info-portal{
-  width: 22.5em;
-  height: 12.5em;
-  position: relative;
-  border-radius: var(--card-radius);
+.user-info-portal {
+  padding: 0;
   overflow: hidden;
+  width: 23rem;
 }
 
-.top-side{
-  background-color: var(--primary-color);
-  height: 37.5%;
+.top-section {
   width: 100%;
-  position: relative;
+  padding: 1em 0.5em;
 }
 
-.top-side .user-top-info{
-  position: absolute;
-  color: white;
-  left: 32%;
-  bottom: 5%;
-  width: 68%;
+.profil-picture {
+  border: 1px solid var(--card-background);
+  border-radius: 50%;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
-.top-side .user-top-info .fullname{
-  font-size: 1.2em;
+
+.user-name {
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 95%;
   white-space: nowrap;
 }
 
-.bot-side{
-  background-color: var(--card-background);
-  height: 62.5%;
-  width: 100%;
-  position: relative;
+.bottom-section {
+  padding: 1em;
 }
 
-.profil-picture{
-  position: absolute;
-  top: 12.5%;
-  left: 4%;
-  border: 1px solid var(--card-background);
-  border-radius: 50%;
-}
-
-.user-bot-info{
-  position: absolute;
-  left: 32%;
-  width: 68%;
-  top: 5%;
-  height: 95%;
-}
-
-.button-view-profile{
-  position: absolute;
-  bottom: 10%;
-}
-
-.email{
+.email {
   word-break: break-word;
 }
+
+.text-info {
+  margin-top: 0.3em;
+}
+
+.profile-button {
+  margin-top: 1em;
+  text-align: center;
+}
+
+
+

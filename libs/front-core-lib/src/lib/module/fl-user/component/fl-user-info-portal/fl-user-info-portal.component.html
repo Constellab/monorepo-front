@@ -1,34 +1,50 @@
-<div class="user-info-portal mat-elevation-z5">
+<fl-portal class="user-info-portal">
 
-  <div class="top-side">
-    <div class="user-top-info">
-      <div class="fullname">{{user.fullname}}</div>
+  <fl-portal-content>
+
+
+    <div class="top-section g-primary-background g-layout-row g-layout-start-center">
+      <!--  Absolute image   -->
+      <fl-user-profile-picture [size]="5" [user]="user" class="profil-picture"></fl-user-profile-picture>
+
+      <div class="user-name g-text-big g-text-dense-height">
+        <div class="user-name">{{ user.firstname }}</div>
+        <div class="user-name">{{ user.lastname }}</div>
+      </div>
     </div>
-  </div>
-  <div class="bot-side">
-    <div class="user-bot-info">
-      <fl-text-icon>
-        <mat-icon>mail</mat-icon>
-        <div class="g-text-small email">{{user.email}}</div>
+
+    <div class="bottom-section">
+      <fl-text-icon class="text-info">
+        <mat-icon class="g-icon-small">mail</mat-icon>
+        <div class="g-text-small email">{{ user.email }}</div>
       </fl-text-icon>
 
-      <fl-text-icon iconPosition="start" *ngIf="user.company">
-        <mat-icon>space</mat-icon>
-        {{user.company}}
-      </fl-text-icon>
-      <fl-text-icon iconPosition="start" *ngIf="user.activity">
-        <mat-icon>badge</mat-icon>
-        {{user.activity}}
-      </fl-text-icon>
-      <a [routerLink]="userRoute" *ngIf="userRoute">
-        <button class="button-view-profile g-button-small"  mat-stroked-button color="primary" type="button">
-          <fl-text-icon iconPosition="start">
-            <mat-icon class="g-button-icon-small">person</mat-icon>
-            {{'flUser.view_profile' | translate}}
-          </fl-text-icon>
-        </button>
-      </a>
+      @if (user.company) {
+        <fl-text-icon class="text-info">
+          <mat-icon class="g-icon-small">space</mat-icon>
+          <div class="g-text-small">{{ user.company }}</div>
+        </fl-text-icon>
+      }
+
+      @if (user.activity) {
+        <fl-text-icon class="text-info">
+          <mat-icon class="g-icon-small">badge</mat-icon>
+          <div class="g-text-small">{{ user.activity }}</div>
+        </fl-text-icon>
+      }
+
+    @if (userRoute) {
+      <div class="profile-button">
+        <a [routerLink]="userRoute" mat-stroked-button
+           type="button" class="g-button-small">
+          <mat-icon>person</mat-icon>
+          {{ 'flUser.view_profile' | translate }}
+        </a>
+      </div>
+    }
     </div>
-  </div>
-  <fl-user-profile-picture size="big" [user]="user" class="profil-picture"></fl-user-profile-picture>
-</div>
+
+
+  </fl-portal-content>
+
+</fl-portal>

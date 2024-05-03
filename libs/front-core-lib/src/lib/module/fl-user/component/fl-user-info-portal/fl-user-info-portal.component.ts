@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FL_PORTAL_DATA} from '../../../fl-portal/model/fl-portal.class';
 import {FlUser} from '../../model/fl-user.class';
 import {FlUserConfig} from '../../service/fl-user-config.config';
@@ -13,13 +13,11 @@ import {FlUserConfig} from '../../service/fl-user-config.config';
 })
 export class FlUserInfoPortalComponent implements OnInit {
 
-  user: FlUser;
+  user: FlUser = inject(FL_PORTAL_DATA)
 
   userRoute: string;
 
-  constructor(@Inject(FL_PORTAL_DATA) private data: FlUser,
-              private userConfig: FlUserConfig) {
-    this.user = data;
+  constructor(private userConfig: FlUserConfig) {
   }
 
   ngOnInit(): void {
