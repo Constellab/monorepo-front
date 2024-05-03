@@ -85,7 +85,7 @@ export type FlPortalConnectedPosition = ConnectedPosition | FlPortalDefaultPosit
 /**
  * Object to place portal based on absolute position in css position (px, em...)
  */
-export interface PortalAbsolutePosition{
+export interface FlPortalAbsolutePosition {
   top?: string;
   left?: string;
   bottom?: string;

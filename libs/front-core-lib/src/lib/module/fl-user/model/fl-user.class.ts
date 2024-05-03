@@ -1,4 +1,5 @@
 import {FlEntity} from '../../../model/fl-entity.class';
+import {FlDatasourcePaginated} from '../../../model/datasource/fl-datasource-paginated.class';
 
 export interface FlUser extends FlEntity{
   firstname: string;
@@ -18,3 +19,5 @@ export interface FlUser extends FlEntity{
   activity?: string;
 
 }
+
+export type FlUserDatasource = FlDatasourcePaginated<FlUser>;

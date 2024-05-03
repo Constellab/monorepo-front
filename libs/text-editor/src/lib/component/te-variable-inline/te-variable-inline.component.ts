@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostBinding, HostListener, OnInit, Renderer2} from '@angular/core';
+import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {TeVariableFormDialogComponent,} from '../te-variable-form-dialog/te-variable-form-dialog.component';
 import {TeVariableFormInfo} from '../../model/te-variable.class';
@@ -20,10 +20,8 @@ export class TeVariableInlineComponent extends TeElementInlineDirective<TeVariab
     this.openFormDialog();
   }
 
-  constructor(private dialogService: FlDialogService,
-              elementRef: ElementRef<HTMLElement>,
-              renderer: Renderer2) {
-    super(elementRef, renderer);
+  constructor(private dialogService: FlDialogService) {
+    super();
   }
 
   ngOnInit(): void {

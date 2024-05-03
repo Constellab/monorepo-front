@@ -25,10 +25,10 @@ import {FlPortalConfig, FlRelativePortalConfig} from '../model/fl-portal-config.
 import {
   FL_PORTAL_DATA,
   FlOverlayConfig,
+  FlPortalAbsolutePosition,
   FlPortalConnectedPosition,
   FlPortalDefaultPosition,
-  FlRelativeOverlayConfig,
-  PortalAbsolutePosition
+  FlRelativeOverlayConfig
 } from '../model/fl-portal.class';
 import {FlOverlayRef} from '../model/fl-overlay-ref.class';
 import {FlEventWrapper} from '../../../model/fl-event-wrapper.class';
@@ -135,7 +135,7 @@ export class FlPortalService {
    * Configure an absolute portal form top and left position
    * This portal is not linked to a host element
    */
-  public configureAbsolutePortal(position: PortalAbsolutePosition, configuration: FlOverlayConfig = {}): FlPortalConfig {
+  public configureAbsolutePortal(position: FlPortalAbsolutePosition, configuration: FlOverlayConfig = {}): FlPortalConfig {
     // save the element to the config
     const config: FlPortalConfig = new FlPortalConfig().configureOverlay(configuration);
 
@@ -144,7 +144,7 @@ export class FlPortalService {
     return config;
   }
 
-  public getAbsolutePositionStrategy(position: PortalAbsolutePosition): GlobalPositionStrategy {
+  public getAbsolutePositionStrategy(position: FlPortalAbsolutePosition): GlobalPositionStrategy {
     // set the portal position relative to the element with a margin of 10 for the viewport
     const globalPosition: GlobalPositionStrategy = this.overlay.position().global();
 

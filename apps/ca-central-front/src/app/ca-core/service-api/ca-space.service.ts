@@ -7,7 +7,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {CaSpace, CaSpaceDatasource, CaSpaceInfoDto,} from '../model/entities/space/ca-space.class';
 import {Observable} from 'rxjs';
-import {ClPage} from '@monorepo/core-lib';
+import {ClHelpService, ClPage} from '@monorepo/core-lib';
 import {CaUser, CaUserDatasourcePaginated} from '../model/entities/ca-user.class';
 import {CaSpaceSearch, CaSpaceSearchFields} from '../entity-module/ca-space-core/model/ca-space-search.class';
 import {CaSpaceRole, CaSpaceUser, CaSpaceUserDatasource} from '../model/entities/space/ca-space-user.class';
@@ -191,6 +191,7 @@ export class CaSpaceService {
   }
 
   public searchSpaceUsersByName(spaceId: string, name: string, page: number, pageSize: number): Observable<ClPage<CaUser>> {
+    if (ClHelpService.isNullOrEmpty(name)) name = '';
     return this.apiService.get(`${this.route}/${spaceId}/user/search/name/${name}`, CaUser, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });

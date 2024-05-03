@@ -15,9 +15,11 @@ import {TeConfig} from '../../model/te-config.class';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
 import {Observable, Subject} from 'rxjs';
 import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
-import {FlKeyboardKey, FlTranslateService} from '@monorepo/front-core-lib';
+import {FlKeyboardHelper, FlKeyboardKey, FlTranslateService} from '@monorepo/front-core-lib';
 import {teGetI18nConfig} from '../../te-text-editor.i18n';
-import {TeHelper} from '../../model/te.helper';
+import {TeMention} from '../../plugin/te-mention.class';
+import {ClHelpService} from '@monorepo/core-lib';
+import {TeEmoji} from '../../plugin/te-emoji.class';
 
 
 @Component({
@@ -64,11 +66,19 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     // enable emoji picker globally
-    this.editorContainer.nativeElement.addEventListener('keyup',
+    this.editorContainer.nativeElement.addEventListener('keypress',
       (event: KeyboardEvent) => {
-        if (event.key === FlKeyboardKey.COLON) {
-          TeHelper.openEmojiPicker(event);
-        }
+        // use a time to let the character be added to the text
+        setTimeout(() => {
+          const additionalConfig = this.config.getAdditionalConfig();
+          if (event.key === FlKeyboardKey.COLON && additionalConfig.emoji) {
+            const emoji = new TeEmoji(event);
+            emoji.openEmojiPicker();
+          } else if (FlKeyboardHelper.keypressIsAt(event.key) && this.config.getAdditionalConfig().mention) {
+            const mention = new TeMention(this.config.getAdditionalConfig().mention, event);
+            mention.openMentionPortal();
+          }
+        }, 0);
       });
 
     this.disabled$.subscribe((disabled: boolean) => {
@@ -103,11 +113,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   writeValue(obj: TeRichTextContent): void {
     if (this.editor) {
-      this.editor.isReady.then(() => {
-        if (!obj) {
-          this.editor.clear();
-        }
-      });
+      this.editor.isReady.then(() => this.renderValue(obj));
     }
 
     if (obj == null) {
@@ -128,14 +134,22 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       onChange: () => this.onTextEditorChange(),
       defaultBlock: this.config.getDefaultBlock(),
       tunes: this.config.getTunes(),
-      i18n: teGetI18nConfig(this.translateService)
+      i18n: teGetI18nConfig(this.translateService),
     };
     this.editor = new module.default(config);
     if (this.value) {
       this.editor.isReady.then(() => {
-        this.editor.render(this.value);
+        this.renderValue(this.value);
         this.isLoaded$.next(true);
       });
+    }
+  }
+
+  private renderValue(value: TeRichTextContent): void {
+    if (ClHelpService.isNullOrEmpty(value)) {
+      this.editor.clear();
+    } else {
+      this.editor.render(value);
     }
   }
 
@@ -143,7 +157,16 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // the save method can be called only if the editor is not in readOnly mode
     if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
     const outputData = await this.editor.save();
+    // if the data is null, there was an error in the editor, don't emit the event
+    // so the content is not cleared
+    if (outputData == null) return;
     return this.textChange.emit(outputData);
+  }
+
+  printJson(): void {
+    this.editor.save().then((data: any) => {
+      console.log(data);
+    });
   }
 
   ngOnDestroy(): void {

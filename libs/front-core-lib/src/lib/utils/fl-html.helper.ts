@@ -159,4 +159,17 @@ export class FlHtmlHelper {
     const rect = range.getBoundingClientRect();
     return {top: rect.top, left: rect.left};
   }
+
+  public static replaceTextInNodeTextWithElement(node: Node, from: number, to: number, element: HTMLElement): void {
+    const textContent = node.textContent;
+
+    const before = document.createTextNode(textContent.slice(0, from));
+    const after = document.createTextNode(textContent.slice(to));
+
+    node.textContent = '';
+    node.parentNode.appendChild(before);
+    node.parentNode.appendChild(element);
+    node.parentNode.appendChild(after);
+
+  }
 }

@@ -75,7 +75,19 @@ export class TeKeyListener {
 
   public destroy(): void {
     this.text$.complete();
-    this.textNode.parentNode.removeEventListener('keyup', this.listener);
+    if (this.textNode.parentNode) {
+      this.textNode.parentNode.removeEventListener('keyup', this.listener);
+    }
+  }
+
+  /**
+   * return the index position of the search text in the text node
+   */
+  public getSearchTextPosition(): { start: number, end: number } {
+    return {
+      start : this.initialCursorOffset,
+      end: this.initialCursorOffset + this.getCurrentText().length + this.triggerKey.length
+    }
   }
 
 }

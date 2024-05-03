@@ -1,16 +1,13 @@
 import {
-  FlEmojiPickerPortal2Component,
-  FlEmojiPickerPortalInput,
   FlHtmlHelper,
   FlKeyboardKey,
   FlOverlayRef,
-  FlPortalService,
+  FlPortalAbsolutePosition,
   flRootInjector,
   FlTranslateService
 } from '@monorepo/front-core-lib';
 import {BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {ClHelpService} from '@monorepo/core-lib';
-import {TeKeyListener} from './te-key-listener.class';
 
 export type TeListType = 'unordered' | 'ordered';
 
@@ -205,63 +202,36 @@ export class TeHelper {
     }
   }
 
-  public static openEmojiPicker(event: KeyboardEvent): void {
-    if (TeHelper.globalOverlay) return;
-    // store the current caret position
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const textNode = range.endContainer;
-    const cursorOffset = range.endOffset;
-
-    const keyListener = new TeKeyListener(textNode, cursorOffset,
-      FlKeyboardKey.COLON,
-      [FlKeyboardKey.ESCAPE, FlKeyboardKey.SPACE]);
-
-    const input: FlEmojiPickerPortalInput = {
-      filter: keyListener.getText$(),
-      element: event.target as any
-    };
-
-
-    const portalService = flRootInjector.get(FlPortalService);
-
+  /**
+   * Get the position of the portal under the cursor
+   * @param portalMaxWidth max width of the portal to prevent being outside screen
+   * */
+  public static getPortalPositionForCursor(portalMaxWidth: number): FlPortalAbsolutePosition {
     const position = FlHtmlHelper.getCaretCoordinates();
-    // add 20 to the top position to make sure the emoji picker is below the cursor
+    // add 20 to the top posit
+    // ion to make sure the emoji picker is below the cursor
     const topPosition = position.top + 20 + 'px';
 
     // check if the emoji picker is not outside the window
     let leftPosition: string;
-    if (position.left + FlEmojiPickerPortal2Component.PORTAL_WIDTH > window.innerWidth) {
-      leftPosition = window.innerWidth - FlEmojiPickerPortal2Component.PORTAL_WIDTH + 'px';
+    if (position.left + portalMaxWidth > window.innerWidth) {
+      leftPosition = window.innerWidth - portalMaxWidth + 'px';
     } else {
       leftPosition = position.left + 'px';
     }
+    return {top: topPosition, left: leftPosition};
+  }
 
-    const config = portalService.configureAbsolutePortal({top: topPosition, left: leftPosition},
-      {disposeOnOutsideClick: true, disposeOnNavigation: true});
+  public static overlayIsOpen(): boolean {
+    return TeHelper.globalOverlay != null;
+  }
 
-    // open the emoji picker
-    TeHelper.globalOverlay = portalService.createPortal(FlEmojiPickerPortal2Component, config, input);
+  public static setOverlay(overlay: FlOverlayRef): void {
+    TeHelper.globalOverlay = overlay;
+  }
 
-    TeHelper.globalOverlay.detachments().subscribe(
-      (emoji: string) => {
-        if (emoji) {
-          // get the length of the search text
-          const searchTextLength = keyListener.getCurrentText().length;
-          // replace the search text with the emoji
-          textNode.textContent = textNode.textContent.slice(0, cursorOffset - 1) + emoji +
-            textNode.textContent.slice(cursorOffset + searchTextLength);
-
-          // move the caret just after the emoji
-          FlHtmlHelper.setCaretAtElementPosition(textNode, cursorOffset + 1);
-        }
-
-        // clean up
-        TeHelper.globalOverlay = null;
-        keyListener.destroy();
-      }
-    );
-
+  public static clearOverlay(): void {
+    TeHelper.globalOverlay = null;
   }
 
 }

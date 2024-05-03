@@ -10,11 +10,14 @@ import {
   FlEmojiPickerModule,
   FlFormulaModule,
   FlImageModule,
+  FlInfiniteScrollModule,
   FlInputFileModule,
   FlLoaderModule,
+  FlPortalModule,
   FlResizeModule,
   FlTranslateModule,
   FlTranslateService,
+  FlUserModule,
 } from '@monorepo/front-core-lib';
 import {TeTitleCaptionComponent} from './component/te-title-caption/te-title-caption.component';
 import {teTextEditorI18n} from './te-text-editor.i18n';
@@ -42,6 +45,9 @@ import {
 import {createCustomElement} from '@angular/elements';
 import {TeVariableInlineComponent} from './component/te-variable-inline/te-variable-inline.component';
 import {teVariableTagName} from './model/te-variable.class';
+import {TeMentionPortalComponent} from './component/te-mention-portal/te-mention-portal.component';
+import {TeMentionInlineComponent} from './component/te-mention-inline/te-mention-inline.component';
+import {teMentionTagName} from './plugin/te-mention.class';
 
 @NgModule({
   declarations: [
@@ -57,6 +63,8 @@ import {teVariableTagName} from './model/te-variable.class';
     TeTextEditorServerSideComponent,
     TeVariableFormDialogComponent,
     TeVariableInlineComponent,
+    TeMentionPortalComponent,
+    TeMentionInlineComponent,
   ],
   exports: [
     TeTextEditorComponent,
@@ -82,8 +90,6 @@ import {teVariableTagName} from './model/te-variable.class';
     FlCodeEditorModule,
     FlEmojiPickerModule,
 
-
-
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -92,15 +98,19 @@ import {teVariableTagName} from './model/te-variable.class';
     MatTooltipModule,
     MatOptionModule,
     MatSelectModule,
+    FlInfiniteScrollModule,
+    FlUserModule,
+    FlPortalModule,
   ],
 })
 export class TeTextEditorModule {
-
   static init: boolean = false;
 
-  constructor(translateService: FlTranslateService,
-              injector: Injector,
-              @Inject(PLATFORM_ID) platformId: any) {
+  constructor(
+    translateService: FlTranslateService,
+    injector: Injector,
+    @Inject(PLATFORM_ID) platformId: any
+  ) {
     translateService.addModuleTranslation(
       'TeTextEditorModule',
       teTextEditorI18n
@@ -113,12 +123,20 @@ export class TeTextEditorModule {
           createCustomElement(TeVariableInlineComponent, {injector: injector})
         );
 
+        customElements.define(
+          teMentionTagName,
+          createCustomElement(TeMentionInlineComponent, {injector: injector})
+        );
+
         // use to fix the error Unable to preventDefault inside passive event listener invocation.
         // we create a custom event listener call before all others with passive false so the
         // text editor is using this listener and not another one with passive true
         // this is a dirty fix
         document.addEventListener('keydown', () => {
-        }, {passive: false, capture: true});
+        }, {
+          passive: false,
+          capture: true,
+        });
       }
       TeTextEditorModule.init = true;
     }

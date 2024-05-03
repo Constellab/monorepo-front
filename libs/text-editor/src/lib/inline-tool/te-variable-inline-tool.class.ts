@@ -13,7 +13,7 @@ export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableF
 
   public static get sanitize(): SanitizerConfig {
     return {
-      ['te-variable-inline']: {
+      [teVariableTagName]: {
         'data-jsondata': true,
       }
     } as SanitizerConfig;
@@ -57,9 +57,6 @@ export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableF
     if (!this.selectionIsInParagraph()) return undefined;
     return document.createElement(teVariableTagName);
   }
-
-
-
 
   private selectionIsInParagraph(): boolean {
     const parent = this.options.api.selection.findParentTag(TeHelper.blockParagraphTagName,

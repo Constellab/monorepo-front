@@ -1,0 +1,14 @@
+.portal {
+  padding: 0;
+  overflow: hidden;
+  max-width: 400px;
+}
+
+.user {
+  padding: 1em;
+}
+
+.user:hover, .hovered-user {
+  background-color: var(--hover-color);
+}
+

@@ -12,6 +12,7 @@ export enum FlKeyboardKey {
   BACKSPACE = 'Backspace',
   SPACE = ' ',
   COLON = ':',
+  AT = '@',
 }
 
 
@@ -52,6 +53,14 @@ export class FlKeyboardHelper {
   public static keyIsArrow(key: string | FlKeyboardKey): boolean {
     return key === FlKeyboardKey.ARROW_RIGHT || key === FlKeyboardKey.ARROW_LEFT
       || key === FlKeyboardKey.ARROW_UP || key === FlKeyboardKey.ARROW_DOWN;
+  }
+
+  /**
+   * return true if the keypress event is '@'. only works for keypress event
+   * @param key
+   */
+  public static keypressIsAt(key: string | FlKeyboardKey): boolean {
+    return key === FlKeyboardKey.AT;
   }
 }
 

@@ -1,0 +1,13 @@
+<fl-portal class="portal">
+  <fl-portal-content>
+    <fl-infinite-scroll [datasource]="users$" textNoMoreResult=""
+                        textNoResult="">
+      @for (user of users$ | flDatasourceConnect | async; track user.id; let i = $index) {
+        <fl-user-inline [user]="user" class="user" [portalOnHover]="false"
+                        [ngClass]="{'hovered-user': i === hoveredIndex}"
+                        (click)="selectUser(user)"></fl-user-inline>
+      }
+    </fl-infinite-scroll>
+
+  </fl-portal-content>
+</fl-portal>

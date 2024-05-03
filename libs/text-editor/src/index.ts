@@ -6,6 +6,8 @@ export * from './lib/component/te-code/te-code.component';
 export * from './lib/component/te-figure/te-figure.component';
 export * from './lib/component/te-formula/te-formula.component';
 export * from './lib/component/te-link-dialog/te-link-dialog.component';
+export * from './lib/component/te-mention-inline/te-mention-inline.component';
+export * from './lib/component/te-mention-portal/te-mention-portal.component';
 export * from './lib/component/te-text-editor/te-text-editor.component';
 export * from './lib/component/te-text-editor-browser-side/te-text-editor-browser-side.component';
 export * from './lib/component/te-text-editor-server-side/te-text-editor-server-side.component';
@@ -14,13 +16,11 @@ export * from './lib/component/te-variable-form-dialog/te-variable-form-dialog.c
 export * from './lib/component/te-variable-inline/te-variable-inline.component';
 export * from './lib/component/te-video/te-video.component';
 
-
 // Model
 export * from './lib/model/te.helper';
 export * from './lib/model/te-block-factory.class';
 export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
-export * from './lib/model/te-key-listener.class';
 export * from './lib/model/te-quill-migrator';
 export * from './lib/model/te-rich-text.class';
 export * from './lib/model/te-variable.class';
@@ -50,3 +50,10 @@ export * from './lib/block-tune/te-drag-block-tune.class';
 
 // Pipe
 export * from './lib/pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
+
+// plugin
+export * from './lib/plugin/te-emoji.class';
+export * from './lib/plugin/te-key-listener.class';
+export * from './lib/plugin/te-mention.class';
+
+

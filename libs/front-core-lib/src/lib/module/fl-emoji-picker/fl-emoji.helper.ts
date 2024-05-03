@@ -19,6 +19,12 @@ export interface FlSimpleEmoji {
 
 export class FlEmojiHelper {
 
+  // help pagination for all emoji
+  private static allEmojiLastPageInfo = {
+    lastPageIndex: -1,
+    nextCategoryIndex: 0
+  }
+
   public static search(value: string, page: number, pageSize: number): Observable<ClPageI<FlEmojiCategory>> {
     if (ClHelpService.isNullOrEmpty(value)) {
       return this.allPaginated(page, pageSize);
@@ -29,7 +35,7 @@ export class FlEmojiHelper {
 
   /**
    * Get all emojis paginated
-   * It return all the emojis from page 0 to the end
+   * It returns emoji whole categories,
    * @param page
    * @param pageSize
    */
@@ -39,36 +45,42 @@ export class FlEmojiHelper {
     const totalElementEmojis = allEmojis.reduce((acc, category) =>
       acc + category.emojis.length, 0);
 
-    const emojis: FlEmojiCategory[] = [];
+    const emojisCategories: FlEmojiCategory[] = [];
 
-    let end = (page + 1) * pageSize;
-    let index = 0;
-    let count = 0;
-    while (end > 0 && index < allEmojis.length) {
-      if (end >= allEmojis.length) {
-        emojis.push(allEmojis[index]);
-        count += allEmojis[index].emojis.length;
-      } else {
-        const categorySlice = allEmojis[index].emojis.slice(0, end);
-        emojis.push({
-          name: allEmojis[index].name,
-          emojis: categorySlice
-        });
-        count += categorySlice.length;
-      }
-      end -= allEmojis[index].emojis.length;
-      index++;
+    let categoryIndex: number = 0;
+
+    // if this is the next page as the last one, we start from the last category index
+    if(this.allEmojiLastPageInfo.lastPageIndex + 1 === page){
+      categoryIndex = this.allEmojiLastPageInfo.nextCategoryIndex;
+    }
+
+    // the number of remaining emojis to add in the page
+    let remaining = pageSize;
+    while (remaining > 0 && categoryIndex < allEmojis.length) {
+      // push the whole category (we round the page per category)
+      emojisCategories.push({
+        name: allEmojis[categoryIndex].name,
+        emojis: allEmojis[categoryIndex].emojis
+      });
+      remaining -= allEmojis[categoryIndex].emojis.length;
+      categoryIndex++;
+    }
+
+    this.allEmojiLastPageInfo = {
+      lastPageIndex: page,
+      nextCategoryIndex: categoryIndex
     }
 
     return of({
-      objects: emojis,
+      objects: emojisCategories,
       first: page === 0,
-      last: count >= totalElementEmojis,
+      last: categoryIndex >= allEmojis.length,
       totalElements: totalElementEmojis,
       currentPage: page,
       pageSize: pageSize
     });
   }
+
 
   private static getAllEmojisCategories(): FlEmojiCategory[] {
     const categories = this.getEmojiData().categories;
@@ -146,5 +158,4 @@ export class FlEmojiDatasource extends FlDatasourcePaginated<FlEmojiCategory> {
   protected equals(a: FlEmojiCategory, b: FlEmojiCategory): boolean {
     return a.name === b.name;
   }
-
 }

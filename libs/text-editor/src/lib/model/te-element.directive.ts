@@ -1,4 +1,4 @@
-import {booleanAttribute, Directive, ElementRef, HostBinding, Input, Renderer2} from '@angular/core';
+import {booleanAttribute, Directive, ElementRef, HostBinding, inject, Input, Renderer2} from '@angular/core';
 import {TeHelper} from './te.helper';
 
 /**
@@ -46,12 +46,14 @@ export abstract class TeElementInlineDirective<T = any> extends TeElementDirecti
 
   data: T;
 
-  protected constructor(protected elementRef: ElementRef<HTMLElement>,
-                        protected renderer: Renderer2) {
-    super();
-    this.disabled = !TeHelper.parentBlockParagraphIsEditable(elementRef.nativeElement);
+  protected elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+  protected renderer: Renderer2 = inject(Renderer2);
 
-    const strData = elementRef.nativeElement.getAttribute(TeElementInlineDirective.dataAttribute);
+  constructor() {
+    super();
+    this.disabled = !TeHelper.parentBlockParagraphIsEditable(this.elementRef.nativeElement);
+
+    const strData = this.elementRef.nativeElement.getAttribute(TeElementInlineDirective.dataAttribute);
     this.data = JSON.parse(strData);
   }
 

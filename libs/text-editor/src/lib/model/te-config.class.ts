@@ -24,8 +24,18 @@ import {TeUnderlineInlineTool} from '../inline-tool/te-underline-inline-tool.cla
 import {TeCleanStyleInlineTool} from '../inline-tool/te-clean-style-inline-tool.class';
 import {TeFakeInlineTool} from '../inline-tool/te-fake-inline-tool.class';
 import {TeNestedListBlock} from '../block/te-nested-list-block.class';
+import {TeMentionConfig, TeMentionInlineTool} from '../plugin/te-mention.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
+
+
+export interface TeAdditionalConfig {
+  /**
+   * Set to true to enable the emoji plugin
+   */
+  emoji: boolean;
+  mention?: TeMentionConfig;
+}
 
 
 export abstract class TeConfig {
@@ -37,6 +47,13 @@ export abstract class TeConfig {
   abstract getInlineToolbar(): string[];
 
   abstract getTunes(): string[];
+
+  public getAdditionalConfig(): TeAdditionalConfig {
+    return {
+      emoji: true,
+    };
+  }
+
 
   public getDefaultBlock(): string {
     return 'paragraph';
@@ -103,6 +120,12 @@ export abstract class TeConfig {
     return {
       class: teComponentBlockFactory(TeCodeBlock, envInjector, applicationRef),
     };
+  }
+
+  getMentionConfig(): ToolSettings {
+    return {
+      class: TeMentionInlineTool
+    }
   }
 }
 
