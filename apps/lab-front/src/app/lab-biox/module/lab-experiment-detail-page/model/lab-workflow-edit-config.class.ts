@@ -107,6 +107,15 @@ export class LabWorkflowEditConfig implements OnDestroy {
       });
   }
 
+  public duplicateProcess(processId: string, processName: string): void {
+    const obs = this.protocolService.addDuplicateProcessToProtocol(this.workflow.currentLayer.id, processId);
+    this.addProcessAction(obs,
+      {
+        text: 'pr.duplicating_process', translateText: true,
+        translateParam: {param: {processName: processName}}
+      });
+  }
+
   public addCommunityLiveTask(liveTaskVersionId: string, liveTaskTitle: string): void {
     const obs = this.protocolService.addCommunityLiveTaskToProtocol(this.workflow.currentLayer.id, liveTaskVersionId);
     this.addProcessAction(obs,
@@ -406,7 +415,6 @@ export class LabWorkflowEditConfig implements OnDestroy {
     }
     return this.actionsService.addAction(action, true);
   }
-
 
   /**
    * Method to reset a process and return the reset result (by calling the force reset dialog if needed).

@@ -65,6 +65,9 @@ export class LabProcessDashboardComponent {
     map(process => CoLiveTaskHelper.isLiveTask(process.processTypingName))
   );
 
+  isTask$ = this.nodeState.getProcess$().pipe(
+    map(process => process.processTypingName.slice(0, 4) === 'TASK')
+  );
 
   constructor(private nodeState: LabWorkflowNodeDetailState,
               private experimentState: LabExperimentDetailPageState,
@@ -167,6 +170,10 @@ export class LabProcessDashboardComponent {
 
   updateProcessName(process: LabProcess, newName: string): void {
     this.nodeState.updateProcessName(process, newName);
+  }
+
+  duplicateTask(process: LabProcess): void{
+    this.workflowEditConfig.duplicateProcess(process.id, process.name);
   }
 
 }

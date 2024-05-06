@@ -47,6 +47,13 @@
             </button>
           }
 
+          @if (isTask$ | async){
+            <button mat-menu-item type="button" (click)="duplicateTask(process)">
+              <mat-icon>content_copy</mat-icon>
+              {{ 'biox.duplicate_task' | translate }}
+            </button>
+          }
+
 
           <!--   Progress and logs infos     -->
           <ng-container *ngIf="process.progressBar && process.status.value !== 'DRAFT'">

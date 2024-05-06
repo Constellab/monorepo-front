@@ -402,6 +402,7 @@
     "live_task": "Live Task",
     "resource_next_objects": "Objets suivants",
     "no_experiment": "Aucune expérience",
-    "no_report": "Aucun rapport"
+    "no_report": "Aucun rapport",
+    "duplicate_task": "Dupliquer la tâche"
   }
 }

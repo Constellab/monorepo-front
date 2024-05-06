@@ -47,6 +47,11 @@ export class LabProtocolService {
       LabProtocolUpdateDTO);
   }
 
+  public addDuplicateProcessToProtocol(protocolId: string, processId: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/add-duplicate-process/${processId}`, null,
+      LabProtocolUpdateDTO);
+  }
+
   /**
    * Call http post to get all live tasks with filters
    * @param spacesFilter

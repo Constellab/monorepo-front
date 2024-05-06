@@ -121,11 +121,9 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       this.lastDocId = docId;
 
       if (!ClStringHelper.isUUID(docId)) {
-        console.log('AHAHAHAHA')
         const completePath = url.map(segment => segment.path).join('/');
         this.documentationService.getByCompletePath(this.brickName, this.brickVersion, completePath).subscribe({
           next: doc => {
-            console.log('doc', doc);
             if (doc) {
               const docUrl = HaRouterService.getDocumentationRoute(this.brickName, this.brickVersion, doc.completePath, doc.id);
               if (docUrl != this.currentUrl) {
