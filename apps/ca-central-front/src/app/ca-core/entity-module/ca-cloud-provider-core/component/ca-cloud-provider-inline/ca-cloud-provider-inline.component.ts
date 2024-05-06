@@ -9,4 +9,10 @@ import {CaCloudProvider} from '../../../../model/entities/ca-cloud-provider.clas
 export class CaCloudProviderInlineComponent {
 
   @Input({required: true}) cloudProvider: CaCloudProvider;
+
+  @Input() size: 'medium' | 'small' = 'medium';
+
+  get imgSize(): number {
+    return this.size === 'medium' ? 30 : 15;
+  }
 }

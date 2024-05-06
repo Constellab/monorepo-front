@@ -3,12 +3,16 @@ import {Type} from 'class-transformer';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {CaCloudProvider} from '../../../model/entities/ca-cloud-provider.class';
 import {CaDiskType} from '../../../model/entities/server/ca-server-cloud.class';
+import {CaServerStandard} from '../../../model/entities/server/ca-server-standard.class';
 
 export class CaServerCloudSearchFields {
   technicalName: string;
 
   @Type(() => CaCloudProvider)
   cloudProvider: CaCloudProvider;
+
+  @Type(() => CaServerStandard)
+  serverStandard: CaServerStandard;
 
   ram: number;
 
@@ -35,6 +39,7 @@ export class CaServerCloudSearch {
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaServerCloudSearchFields> = {
     technicalName: 'technical_name',
     cloudProvider: 'cloud_provider',
+    serverStandard: 'server_standard',
     ram: 'ram',
     hasGpu: 'has_gpus',
   };
@@ -53,6 +58,7 @@ export class CaServerCloudSearch {
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaServerCloudSearchFields> = {
     technicalName: {key: 'technicalName', operator: 'CONTAINS'},
     cloudProvider: {key: 'cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    serverStandard: {key: 'serverStandard.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     ram: {key: 'ram', operator: 'EQ'},
     diskSpace: {key: 'diskSpace', operator: 'EQ'},
     diskType: {key: 'diskType', operator: 'EQ'},
@@ -67,6 +73,7 @@ export class CaServerCloudSearch {
       {
         technicalName: [null],
         cloudProvider: [null],
+        serverStandard : [null],
         ram: [null],
         diskSpace: [null],
         diskType: [null],

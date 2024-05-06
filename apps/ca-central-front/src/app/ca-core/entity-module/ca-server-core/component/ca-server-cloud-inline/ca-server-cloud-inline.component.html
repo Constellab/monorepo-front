@@ -1,1 +1,7 @@
-{{serverCloud.cloudProvider.name}} - {{serverCloud.serverStandard.name}} - {{serverCloud.technicalName}}
+<div class="g-text-dense-height">
+  <div>{{ serverCloud.serverStandard.name }} - {{ serverCloud.technicalName }}</div>
+  <div>
+    <ca-cloud-provider-inline [cloudProvider]="serverCloud.cloudProvider"
+                              size="small"></ca-cloud-provider-inline>
+  </div>
+</div>

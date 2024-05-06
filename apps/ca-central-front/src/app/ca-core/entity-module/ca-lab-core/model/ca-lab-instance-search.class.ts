@@ -12,6 +12,7 @@ import {CaCity} from '../../../model/entities/ca-city.entity';
 import {CaServerCloud} from '../../../model/entities/server/ca-server-cloud.class';
 import {CaSpace} from '../../../model/entities/space/ca-space.class';
 import {CaCloudProvider} from '../../../model/entities/ca-cloud-provider.class';
+import {CaServerStandard} from '../../../model/entities/server/ca-server-standard.class';
 
 
 export class CaLabInstanceSearchFields {
@@ -27,6 +28,9 @@ export class CaLabInstanceSearchFields {
 
   @Type(() => CaServerCloud)
   serverCloud: CaServerCloud;
+
+  @Type(() => CaServerStandard)
+  serverStandard: CaServerStandard;
 
   @Type(() => CaUser)
   createdBy: CaUser;
@@ -57,6 +61,7 @@ export class CaLabInstanceSearch {
     virtualHost: 'virtual_host',
     city: 'region',
     serverCloud: 'server_cloud',
+    serverStandard: 'server_standard',
     createdBy: 'created_by',
     createdAt: 'creation_date',
     space: 'space',
@@ -71,6 +76,7 @@ export class CaLabInstanceSearch {
     virtualHost: {key: 'virtualHost', operator: 'MATCH'},
     city: {key: 'region.city.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     serverCloud: {key: 'serverCloud.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    serverStandard: {key: 'serverCloud.serverStandard.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdBy: {key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
@@ -88,6 +94,7 @@ export class CaLabInstanceSearch {
       virtualHost: null,
       city: null,
       serverCloud: null,
+      serverStandard: null,
       createdBy: null,
       createdAt: new FormBuilder().group<FlSearchDateInterval>({
         from: [null],

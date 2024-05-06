@@ -1,5 +1,5 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
   <img [ngSrc]="cloudProvider.logo" class="image"
-       [alt]="cloudProvider.name" [width]="30" [height]="30">
-  <span>{{ cloudProvider.name }}</span>
+       [alt]="cloudProvider.name" [width]="imgSize" [height]="imgSize">
+  <span [ngClass]="{'g-text-small': size === 'small'}">{{ cloudProvider.name }}</span>
 </div>

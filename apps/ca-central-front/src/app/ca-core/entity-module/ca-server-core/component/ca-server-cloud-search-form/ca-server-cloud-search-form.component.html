@@ -16,6 +16,14 @@
       </mat-select>
     </mat-form-field>
 
+    <!--  Server standard  -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{'server_standard' | translate}}</mat-label>
+      <mat-select formControlName="serverStandard">
+        <ca-select-server-standard-options></ca-select-server-standard-options>
+      </mat-select>
+    </mat-form-field>
+
     <!--  Ram  -->
     <mat-form-field class="g-search-field">
       <mat-label>{{'ram' | translate}}</mat-label>
