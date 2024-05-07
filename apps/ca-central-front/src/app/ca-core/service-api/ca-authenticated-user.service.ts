@@ -72,7 +72,7 @@ export class CaAuthenticatedUserService implements FlCleanableService {
 
       const spaceInfoUrl = `https://${spaceInfo.space.domain}.${CaEnvironmentHelper.getFrontDomain()}`;
       // if there is no subdomain, redirect to user space domain with the full route
-      if (domains.length === 1) {
+      if (domains.length === 2) {
         // redirect to the space domain, keep the route.
         this.document.defaultView.location.href = `${spaceInfoUrl}${this.location.path(true)}`;
         // throw an error so the guard does not navigate to the page
