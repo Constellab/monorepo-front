@@ -9,11 +9,11 @@ import {
   FlThemeService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {ClStringHelper, ClSupportedLanguage, ClTheme, ClUserCategory} from '@monorepo/core-lib';
+import {ClSupportedLanguage, ClTheme, ClUserCategory} from '@monorepo/core-lib';
 import {CaCurrentSpaceService} from './ca-current-space.service';
 import {CaSpaceInfoDto} from '../model/entities/space/ca-space.class';
 import {CaSpaceService} from './ca-space.service';
-import {DOCUMENT} from '@angular/common';
+import {DOCUMENT, Location} from '@angular/common';
 import {CaEnvironmentHelper} from '../utils/ca-environment.helper';
 
 /**
@@ -36,6 +36,7 @@ export class CaAuthenticatedUserService implements FlCleanableService {
               private themeService: FlThemeService,
               private spaceService: CaSpaceService,
               private currentSpaceService: CaCurrentSpaceService,
+              public location: Location,
               @Inject(DOCUMENT) private document: Document) {
     FlCleanerService.getInstance().registerService(this);
   }
@@ -63,16 +64,28 @@ export class CaAuthenticatedUserService implements FlCleanableService {
   }
 
   private storeCurrentAuthenticatedInfo(spaceInfo: CaSpaceInfoDto): CaSpaceInfoDto {
-
     if (CaEnvironmentHelper.isProduction()) {
       // if the website space domain does not correspond to the user space domain
       // redirect to the website space domain
-      const url = this.document.defaultView.location.href;
-      const domain = ClStringHelper.getLowestDomainFromUrl(url);
-      if (domain !== spaceInfo.space.domain) {
-        this.document.defaultView.location.href = `https://${spaceInfo.space.domain}.${CaEnvironmentHelper.getFrontDomain()}`;
+      const hostname = this.document.defaultView.location.hostname;
+      const domains = hostname.split('.');
+
+      const spaceInfoUrl = `https://${spaceInfo.space.domain}.${CaEnvironmentHelper.getFrontDomain()}`;
+      // if there is no subdomain, redirect to user space domain with the full route
+      if (domains.length === 1) {
+        // redirect to the space domain, keep the route.
+        this.document.defaultView.location.href = `${spaceInfoUrl}${this.location.path(true)}`;
         // throw an error so the guard does not navigate to the page
         throw new Error('Redirect to the space domain');
+      } else {
+        // if the user is in a space domain that he can't access,
+        if (domains[0] !== spaceInfo.space.domain) {
+          // redirect to the space domain dashboard (remove the route) so he does not ends up
+          // in an object not accessible in the new space
+          this.document.defaultView.location.href = `${spaceInfoUrl}`;
+          // throw an error so the guard does not navigate to the page
+          throw new Error('Redirect to the space domain');
+        }
       }
     }
 
