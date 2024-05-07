@@ -118,4 +118,11 @@ export class TeRichText {
     }
     return variables;
   }
+
+  public static contentAreEquals(content1: TeRichTextContent, content2: TeRichTextContent): boolean {
+    if(content1 == null || content2 == null) return false;
+    if(content1.time === content2.time) return true;
+    if(content1.version !== content2.version) return false;
+    return JSON.stringify(content1.blocks) === JSON.stringify(content2.blocks);
+  }
 }

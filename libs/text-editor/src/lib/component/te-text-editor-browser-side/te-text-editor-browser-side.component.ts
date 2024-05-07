@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import {TeConfig} from '../../model/te-config.class';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
 import {FlKeyboardHelper, FlKeyboardKey, FlTranslateService} from '@monorepo/front-core-lib';
 import {teGetI18nConfig} from '../../te-text-editor.i18n';
@@ -46,16 +46,23 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   @ViewChild('editorContainer', {static: true}) editorContainer: ElementRef<HTMLElement>;
 
-  @Input() value: TeRichTextContent;
+  @Input({required: true}) set value(value: TeRichTextContent) {
+    // check if value has changed to avoid circular updates
+    if (TeRichText.contentAreEquals(value, this._value)) return;
+    this._value = value;
+    this.renderValue(value);
+  }
 
-  @Input() disabled$: Observable<boolean>;
+  private _value: TeRichTextContent;
 
-  @Input() value$: Observable<TeRichTextContent>;
+  @Input() set disabled(disabled: boolean) {
+    this._disabled = disabled;
+    this.onDisableChange(this._disabled);
+  }
 
-  @Input()
-  disabled: boolean = false;
+  private _disabled: boolean = false;
 
-  editor: any | null;
+  private editor: any | null;
 
   isLoaded$: Subject<boolean> = new Subject<boolean>();
 
@@ -81,14 +88,6 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
         }, 0);
       });
 
-    this.disabled$.subscribe((disabled: boolean) => {
-      this.disabled = disabled;
-      this.onDisableChange(this.disabled);
-    });
-
-    this.value$.subscribe((value: TeRichTextContent) => {
-      this.writeValue(value);
-    });
 
     setTimeout(async () => {
       import('@editorjs/editorjs').then((module) => {
@@ -97,7 +96,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
-  onDisableChange(disable: boolean): void {
+  private onDisableChange(disable: boolean): void {
     if (this.editor == null || this.editor.readOnly == null) return;
     if (disable !== this.editor.readOnly.isEnabled) {
 
@@ -111,25 +110,13 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     }
   }
 
-  writeValue(obj: TeRichTextContent): void {
-    if (this.editor) {
-      this.editor.isReady.then(() => this.renderValue(obj));
-    }
-
-    if (obj == null) {
-      obj = TeRichText.emptyContent();
-    }
-    this.value = obj;
-  }
-
   private async initEditor(module: any): Promise<void> {
     const config: EditorConfig = {
       placeholder: this.placeholder ?? this.translateService.translate('teTextEditor.placeholder'),
       holder: this.editorContainer.nativeElement,
-      data: this.value,
       // set order for the inline tools
       inlineToolbar: this.config.getInlineToolbar(),
-      readOnly: this.disabled,
+      readOnly: this._disabled,
       tools: this.config.getTools(this.envInjector, this.applicationRef),
       onChange: () => this.onTextEditorChange(),
       defaultBlock: this.config.getDefaultBlock(),
@@ -137,30 +124,40 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       i18n: teGetI18nConfig(this.translateService),
     };
     this.editor = new module.default(config);
-    if (this.value) {
-      this.editor.isReady.then(() => {
-        this.renderValue(this.value);
-        this.isLoaded$.next(true);
-      });
-    }
+    this.editor.isReady.then(() => {
+      this.isLoaded$.next(true);
+      // render the value here and not in the editor config
+      // because if the editor config is initialized with data
+      // a blank line is added
+      this.renderValue(this._value);
+    });
   }
 
   private renderValue(value: TeRichTextContent): void {
-    if (ClHelpService.isNullOrEmpty(value)) {
-      this.editor.clear();
-    } else {
-      this.editor.render(value);
+    if (this.editor) {
+      this.editor.isReady.then(() => {
+        if (ClHelpService.isNullOrEmpty(value)) {
+          this.editor.clear();
+        } else {
+          this.editor.render(value);
+        }
+      });
     }
   }
 
   private async onTextEditorChange(): Promise<void> {
     // the save method can be called only if the editor is not in readOnly mode
     if (!this.editor?.readOnly || this.editor.readOnly.isEnabled) return;
-    const outputData = await this.editor.save();
+    const outputData: TeRichTextContent = await this.editor.save();
     // if the data is null, there was an error in the editor, don't emit the event
     // so the content is not cleared
     if (outputData == null) return;
-    return this.textChange.emit(outputData);
+
+    // check if outputData is different from the current value
+    if (TeRichText.contentAreEquals(outputData, this._value)) return;
+
+    this._value = outputData;
+    this.textChange.emit(outputData);
   }
 
   printJson(): void {
