@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import {TeConfig} from '../../model/te-config.class';
 import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
 import {FlKeyboardHelper, FlKeyboardKey, FlTranslateService} from '@monorepo/front-core-lib';
 import {teGetI18nConfig} from '../../te-text-editor.i18n';
@@ -33,14 +33,6 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   @Input() placeholder: string;
 
-  @HostBinding('class.g-text-editor-hide-toolbar')
-  @Input() hideToolbar: boolean = false;
-
-  /**
-   * If true an inline padding is added to include the tooltip button in this component
-   */
-  @HostBinding('class.include-toolbar-button')
-  @Input() includeToolbarButton: boolean = false;
 
   @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
 
@@ -64,7 +56,15 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   private editor: any | null;
 
+  private subscription: Subscription;
+
   isLoaded$: Subject<boolean> = new Subject<boolean>();
+
+  @HostBinding('class.g-text-editor-hide-toolbar')
+  hideToolbar: boolean = false;
+
+  @HostBinding('class.include-toolbar-button')
+  includeToolbarButton: boolean = false;
 
   constructor(private envInjector: EnvironmentInjector,
               private applicationRef: ApplicationRef,
@@ -72,6 +72,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
+    this.hideToolbar = this.config.uiConfig.hideToolbar;
+    this.includeToolbarButton = this.config.uiConfig.includeToolbarButton;
+
     // enable emoji picker globally
     this.editorContainer.nativeElement.addEventListener('keypress',
       (event: KeyboardEvent) => {
@@ -130,6 +133,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       // because if the editor config is initialized with data
       // a blank line is added
       this.renderValue(this._value);
+      this.listToConfigEvent();
     });
   }
 
@@ -160,6 +164,17 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     this.textChange.emit(outputData);
   }
 
+  private listToConfigEvent(): void {
+    const obs = this.config.getEvent$();
+    if (obs) {
+      this.subscription = obs.subscribe((event) => {
+        if (event.type === 'insertBlock') {
+          this.editor?.blocks?.insert(event.blockType);
+        }
+      });
+    }
+  }
+
   printJson(): void {
     this.editor.save().then((data: any) => {
       console.log(data);
@@ -171,6 +186,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       this.editor.destroy();
     }
     this.isLoaded$.complete();
+    this.subscription?.unsubscribe();
   }
 
 

@@ -1,9 +1,8 @@
 import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
-import {SecurityContext} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
 import {TeHelper} from '../model/te.helper';
+import {TeMentionInlineTool} from '../plugin/te-mention.class';
 
 export type TeHintType = 'info' | 'warning' | 'science';
 
@@ -81,14 +80,14 @@ export class TeHintBlock implements BlockTool {
     }
 
     if (this.data.content) {
-      const sanitizer = flRootInjector.get(DomSanitizer);
       // convert the \n to divs
       const divs = this.data.content.split('\n');
       for (const div of divs) {
         if (!div || div.length === 0) {
           this.node.innerHTML += `<div><br></div>`;
         } else {
-          this.node.innerHTML += sanitizer.sanitize(SecurityContext.HTML, `<div>${div}</div>`);
+          // sanitize the content using the sanitizer and allow mention
+          this.node.innerHTML += this.options.api.sanitizer.clean(`<div>${div}</div>`, TeMentionInlineTool.sanitize);
         }
       }
     } else {
@@ -109,4 +108,5 @@ export class TeHintBlock implements BlockTool {
         .replace(/<\/div>/g, ''),
     };
   }
+
 }

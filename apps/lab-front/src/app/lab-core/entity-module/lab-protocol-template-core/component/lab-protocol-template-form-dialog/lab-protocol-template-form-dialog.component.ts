@@ -27,7 +27,7 @@ export class LabProtocolTemplateFormDialogComponent extends FlFormDialogAbstract
   implements OnInit {
   dialogInput: LabProtocolTemplateFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  textEditorConfig: TeBasicConfig = new TeBasicConfig();
+  textEditorConfig: TeBasicConfig = new TeBasicConfig({includeToolbarButton: true});
 
   constructor(private protocolService: LabProtocolService,
               private protocolTemplateService: LabProtocolTemplateService) {

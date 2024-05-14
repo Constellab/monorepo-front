@@ -25,6 +25,7 @@ import {TeCleanStyleInlineTool} from '../inline-tool/te-clean-style-inline-tool.
 import {TeFakeInlineTool} from '../inline-tool/te-fake-inline-tool.class';
 import {TeNestedListBlock} from '../block/te-nested-list-block.class';
 import {TeMentionConfig, TeMentionInlineTool} from '../plugin/te-mention.class';
+import {Observable, Subject} from 'rxjs';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -37,9 +38,39 @@ export interface TeAdditionalConfig {
   mention?: TeMentionConfig;
 }
 
+export interface TeConfigEvent {
+  type: 'insertBlock';
+  blockType: string;
+}
+
+export interface TeUiConfig {
+  hideToolbar: boolean;
+  /**
+   * If true an inline padding is added to include the tooltip button in this component
+   */
+  includeToolbarButton: boolean;
+
+  /**
+   *  In dense mode, the text is smaller and the paragraph have less padding
+   */
+  dense: boolean;
+}
+
+export const teUiDefaultConfig: TeUiConfig = {
+  hideToolbar: false,
+  includeToolbarButton: false,
+  dense: false,
+};
 
 export abstract class TeConfig {
 
+  public uiConfig: TeUiConfig;
+
+  constructor(uiConfig: Partial<TeUiConfig> = {}) {
+    this.uiConfig = Object.assign(teUiDefaultConfig, uiConfig);
+  }
+
+  private events: Subject<TeConfigEvent> | null;
 
   abstract getTools(envInjector: EnvironmentInjector,
                     applicationRef: ApplicationRef): TeTools;
@@ -47,6 +78,7 @@ export abstract class TeConfig {
   abstract getInlineToolbar(): string[];
 
   abstract getTunes(): string[];
+
 
   public getAdditionalConfig(): TeAdditionalConfig {
     return {
@@ -122,10 +154,34 @@ export abstract class TeConfig {
     };
   }
 
+  getInlineCodeConfig(): ToolSettings {
+    return {
+      class: InlineCode,
+      shortcut: 'CMD+SHIFT+M',
+    };
+  }
+
   getMentionConfig(): ToolSettings {
     return {
       class: TeMentionInlineTool
-    }
+    };
+  }
+
+  // Events
+  protected initEvent(): void {
+    this.events = new Subject();
+  }
+
+  public addEvent(event: TeConfigEvent): void {
+    this.events.next(event);
+  }
+
+  public getEvent$(): Observable<TeConfigEvent> {
+    return this.events?.asObservable() ?? null;
+  }
+
+  public destroy(): void {
+    this.events?.complete();
   }
 }
 
@@ -159,28 +215,6 @@ export class TeBasicConfig extends TeConfig {
   }
 }
 
-export class TeOnlyInlineConfig extends TeConfig{
-  override getTools(): TeTools {
-    return {
-      paragraph: this.getParagraphConfig(),
-      list: this.getListConfig(),
-
-      underline: TeUnderlineInlineTool,
-      strikethrough: TeStrikethroughInlineTool,
-      cleanStyle: TeCleanStyleInlineTool,
-      fake: TeFakeInlineTool
-    }
-  }
-
-  getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
-  }
-
-  getTunes(): string[] {
-    return [];
-  }
-}
-
 export class TeCompleteConfig extends TeConfig {
 
   getTools(envInjector: EnvironmentInjector,
@@ -207,10 +241,7 @@ export class TeCompleteConfig extends TeConfig {
       // Inline
       underline: TeUnderlineInlineTool,
       strikethrough: TeStrikethroughInlineTool,
-      inlineCode: {
-        class: InlineCode,
-        shortcut: 'CMD+SHIFT+M',
-      },
+      inlineCode: this.getInlineCodeConfig(),
       variable: teInlineToolFactory(TeVariableInlineToolClass),
       cleanStyle: TeCleanStyleInlineTool,
       fake: TeFakeInlineTool,

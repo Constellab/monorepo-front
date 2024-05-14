@@ -1,0 +1,41 @@
+<div class="comment"
+     [caNotificationMark]="comment.id" caNotificationObjectType="PROJECT_COMMENT">
+
+  <div class="g-layout-row">
+    <div class="profile-pic">
+      <fl-user-profile-picture [user]="comment.createdBy" [size]="3.75"></fl-user-profile-picture>
+    </div>
+
+    <div class="main-section">
+      <div class="g-text-small">
+        {{ comment.createdBy.firstname }} -
+        <fl-from-now [date]="comment.createdAt"></fl-from-now>
+      </div>
+
+      @if (editMode) {
+        <ca-project-comment-editor mode="update" [commentContent]="comment.content"
+                                   (send)="updateComment($event)" (cancel)="disableEditMode()">
+        </ca-project-comment-editor>
+      } @else {
+        <te-text-editor [config]="textEditorConfig" [ngModel]="comment.content"
+                        class="text-editor" [disabled]="true"></te-text-editor>
+      }
+    </div>
+
+  </div>
+
+  @if (showButtons && !editMode) {
+    <div class="buttons">
+      <button mat-icon-button class="g-button-icon-small"
+              [matTooltip]="'update_comment' | translate"
+              (click)="enableEditMode()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button class="g-button-icon-small"
+              [matTooltip]="'delete_comment' | translate"
+              (click)="deleteComment()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  }
+</div>

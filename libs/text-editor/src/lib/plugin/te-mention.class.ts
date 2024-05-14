@@ -50,12 +50,14 @@ export class TeMention {
     const input: TeMentionPortalInput = {
       config: this.config,
       element: this.event.target as any,
-      filter$: keyListener.getText$()
+      filter$: keyListener.getText$(),
+      caretCoordinates: FlHtmlHelper.getCaretCoordinates(),
     };
 
     const portalService = flRootInjector.get(FlPortalService);
 
-    const portalPosition = TeHelper.getPortalPositionForCursor(TeMentionPortalComponent.PORTAL_MAX_WIDTH);
+    const portalPosition = TeHelper.getPortalPositionForCursor(
+      TeMentionPortalComponent.PORTAL_MAX_WIDTH, TeMentionPortalComponent.PORTAL_MAX_HEIGHT);
 
     const config = portalService.configureAbsolutePortal(portalPosition,
       {disposeOnOutsideClick: true, disposeOnNavigation: true});
@@ -120,6 +122,9 @@ export class TeMentionInlineTool implements InlineTool {
     return false;
   }
 
+  /**
+   * Do not show the tool in the toolbar
+   */
   public render(): HTMLElement {
     const div = document.createElement('div');
     div.style.display = 'none';

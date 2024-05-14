@@ -205,12 +205,19 @@ export class TeHelper {
   /**
    * Get the position of the portal under the cursor
    * @param portalMaxWidth max width of the portal to prevent being outside screen
+   * @param portalMaxHeight max height of the portal to prevent being outside screen
    * */
-  public static getPortalPositionForCursor(portalMaxWidth: number): FlPortalAbsolutePosition {
+  public static getPortalPositionForCursor(portalMaxWidth: number, portalMaxHeight: number): FlPortalAbsolutePosition {
     const position = FlHtmlHelper.getCaretCoordinates();
-    // add 20 to the top posit
-    // ion to make sure the emoji picker is below the cursor
-    const topPosition = position.top + 20 + 'px';
+
+    let topPosition: string;
+
+    if(position.top + portalMaxHeight + 20 > window.innerHeight) {
+      topPosition = window.innerHeight - portalMaxHeight + 'px';
+    }else{
+    // add 20 to the top position to make sure the emoji picker is below the cursor
+      topPosition = position.top + 20 + 'px';
+    }
 
     // check if the emoji picker is not outside the window
     let leftPosition: string;

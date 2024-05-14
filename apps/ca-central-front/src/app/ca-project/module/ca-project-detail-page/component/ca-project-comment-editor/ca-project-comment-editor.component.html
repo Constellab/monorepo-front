@@ -1,0 +1,37 @@
+<div class="container g-layout-row">
+
+  <te-text-editor [(ngModel)]="contentForm" [config]="textEditorConfig"
+                  [placeholder]="'write_a_comment' | translate"
+                  class="editor"
+                  (keydown.control.enter)="enterEvent($event)"
+                  (keydown.escape)="cancelEdit()">
+  </te-text-editor>
+
+
+  <div class="buttons g-layout-row">
+
+    <button mat-icon-button type="button"
+            class="g-button-icon-small"
+            (click)="addFigureBlock()"
+            [matTooltip]="'comment_add_image' | translate">
+      <mat-icon>image</mat-icon>
+    </button>
+
+    <button mat-icon-button type="button"
+            class="g-button-icon-small"
+            (click)="sendComment()"
+            [matTooltip]="'comment_send' | translate"
+            matTooltipClass="g-tooltip-multiline">
+      <mat-icon>send</mat-icon>
+    </button>
+
+    @if (mode === 'update') {
+      <button mat-icon-button type="button"
+              class="g-button-icon-small"
+              (click)="cancelEdit()"
+              [matTooltip]="'cancel_update' | translate">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    }
+  </div>
+</div>

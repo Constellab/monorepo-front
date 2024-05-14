@@ -49,11 +49,9 @@
         "allowedCommonJsDependencies": [
           "class-transformer",
           "highlight.js",
-          "quill",
           "drawflow",
           "luxon",
           "lodash.throttle",
-          "quill-delta-to-html",
           "plotly.js-strict-dist"
         ]
       },

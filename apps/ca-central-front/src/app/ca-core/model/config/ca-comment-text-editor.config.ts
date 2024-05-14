@@ -1,164 +1,129 @@
-import {ClStringHelper} from '@monorepo/core-lib';
+import {ClPageI} from '@monorepo/core-lib';
 import {CaProjectService} from '../../service-api/ca-project.service';
-import {EventEmitter} from '@angular/core';
-import {Observable} from 'rxjs';
+import {ApplicationRef, EnvironmentInjector} from '@angular/core';
+import {first, mergeMap, Observable} from 'rxjs';
 import {CaUser} from '../entities/ca-user.class';
-import 'quill-mention';
-import {CaTextEditorConfig} from '../../../ca-project/module/ca-text-editor/model/ca-text-editor-config.class';
-import {CaTextEditorImageLoader} from '../../../ca-project/module/ca-text-editor/model/ca-text-editor-image.class';
-import {CaTextEditorState} from '../../../ca-project/module/ca-text-editor/state/ca-text-editor.state';
 import {
-  CaTextEditorBlockAddButton,
-  CaTextEditorSnowButton
-} from '../../../ca-project/module/ca-text-editor/model/ca-text-editor.class';
+  TeAdditionalConfig,
+  TeCleanStyleInlineTool,
+  TeConfig,
+  TeFakeInlineTool,
+  TeFigureBlockConfig,
+  TeStrikethroughInlineTool,
+  TeTools,
+  TeUnderlineInlineTool,
+  TeUploadedImage
+} from '@monorepo/text-editor';
 
-export class CaCommentTextEditorConfig extends CaTextEditorConfig implements CaTextEditorImageLoader {
 
-  sendButtonEvent$: EventEmitter<boolean> = new EventEmitter<boolean>();
-  sendEmojiButtonEvent$: EventEmitter<HTMLElement> = new EventEmitter<HTMLElement>();
-  userList: CaUser[] = [];
+export class CaProjectCommentTextEditorImageConfig implements TeFigureBlockConfig {
 
   private projectId: string;
 
-  constructor(private projectService: CaProjectService, private projectId$: Observable<string>, userList?: CaUser[]) {
-    super();
+  constructor(private projectId$: Observable<string>,
+              private projectService: CaProjectService) {
+    // TODO TO IMPROVE
     this.projectId$.subscribe(projectId => this.projectId = projectId);
-    if (userList) {
-      this.userList = userList;
-    }
   }
 
-  setUsers(userList: CaUser[]): void {
-    this.userList = userList;
-  }
-
-
-  onPasteImage(imgFile: File, state: CaTextEditorState): any {
-    return this.insertImageFromFile(imgFile, state);
-  }
-
-  public getImageUrl(filename: string): string {
-    return this.projectService.getCommentImageUrl(filename, this.projectId);
-  }
-
-  getBlockAddButtons(): CaTextEditorBlockAddButton[] {
-    return [];
-  }
-
-  getExtraModules(): any {
-    // force loading of quill-mention module, only when needed
-    return {
-      mention: {
-        allowedChars: /^[A-Za-z\sÅÄÖåäö]*$/,
-        mentionDenotationChars: ['@'],
-        source: (searchTerm: string, renderList: any) => {
-          const values: any[] = [{id: '0', value: 'everyone'}];
-          values.push(...this.userList.map(user => {
-            return {id: user.id, value: user.fullname};
-          }));
-          renderList(values.filter(v => v.value.toLowerCase().includes(searchTerm.toLowerCase())), searchTerm);
-        },
-        mentionContainerClass: 'mat-elevation-z5'
-      }
-    };
-  }
-
-
-  getToolbarConfig(): any {
-    return {
-      container: [
-        ['bold', 'italic'],
-        // ['link'],
-        [{list: 'ordered'}, {list: 'bullet'}],
-        ['blockquote'],
-        ['code']
-      ]
-    };
-  }
-
-  getSnowButtons(): CaTextEditorSnowButton[] {
-    return [
-      {
-        icon: 'image',
-        type: 'fileExplorer',
-        onAction: (imgFile: File, state: CaTextEditorState) =>
-          this.insertImageFromFile(
-            new File([imgFile], ClStringHelper.generateUUID() + '.' + imgFile.name.split('.').pop(),
-              {type: imgFile.type}),
-            state
-          )
-      },
-      {
-        icon: 'sentiment_satisfied',
-        type: 'button',
-        onAction: (e) => this.openEmojiPanel(e)
-      },
-      {
-        icon: 'send',
-        type: 'button',
-        tooltip: 'ctrl + return',
-        onAction: () => this.sendComment()
-      }
-    ];
-  }
-
-  insertImageFromFile(file: File, state: CaTextEditorState): void {
-    const index = state.getCurrentSelectionIndex();
-    this.projectService.uploadCommentImage(file, this.projectId).subscribe(
-      fileUrl => state.insertImageFromUrl(fileUrl, index)
+  imageUploader(file: File): Observable<TeUploadedImage> {
+    return this.projectId$.pipe(
+      first(),
+      mergeMap(
+        projectId => this.projectService.uploadCommentImage(file, projectId)
+      )
     );
   }
 
-  openEmojiPanel(event: Event): void {
-    this.sendEmojiButtonEvent$.emit(event.target as HTMLElement);
+  getImageUrl(filename: string): string {
+    return this.projectService.getCommentImageUrl(filename, this.projectId);
   }
 
-  private sendComment(): void {
-    this.sendButtonEvent$.emit(true);
-  }
 
-  public destroy(): void {
-    this.sendButtonEvent$.complete();
-    this.sendEmojiButtonEvent$.complete();
-  }
 }
 
+/**
+ * Config for the text editor in the report to support view in the editor
+ */
+export class CaProjectCommentTextEditorConfig extends TeConfig {
 
-export class CaEditCommentTextEditorConfig extends CaCommentTextEditorConfig {
+  constructor(private projectId$: Observable<string>,
+              private projectService: CaProjectService,
+              private mode: 'create' | 'update' = 'create') {
+    super({
+      hideToolbar: true,
+      dense: true
+    });
+    this.initEvent();
+  }
 
-  getSnowButtons(): CaTextEditorSnowButton[] {
-    return [
-      {
-        icon: 'image',
-        type: 'fileExplorer',
-        onAction: (imgBlob: Blob, state: CaTextEditorState) => this.insertImageFromFile(
-          new File([imgBlob], ClStringHelper.generateUUID(), {type: imgBlob.type}),
-          state
-        )
-      },
-      {
-        icon: 'sentiment_satisfied',
-        type: 'button',
-        onAction: (e) => this.openEmojiPanel(e)
-      },
-      {
-        icon: 'cancel',
-        type: 'button',
-        onAction: () => this.sendCancelEditEvent()
-      },
-      {
-        icon: 'save',
-        type: 'button',
-        onAction: () => this.sendEditEvent()
+  /**
+   * Get the complete config and add the view block and configure the image block
+   * @param envInjector
+   * @param applicationRef
+   */
+  getTools(envInjector: EnvironmentInjector,
+           applicationRef: ApplicationRef): TeTools {
+
+    // configure and add the image block
+    const imageConfig = new CaProjectCommentTextEditorImageConfig(this.projectId$, this.projectService);
+
+    const config = {
+      paragraph: this.getParagraphConfig(),
+      list: this.getListConfig(),
+      figure: this.getImageConfig(imageConfig, envInjector, applicationRef),
+
+      underline: TeUnderlineInlineTool,
+      strikethrough: TeStrikethroughInlineTool,
+      inlineCode: this.getInlineCodeConfig(),
+      cleanStyle: TeCleanStyleInlineTool,
+      fake: TeFakeInlineTool
+    };
+
+    // only enable mention on create mode
+    if (this.mode === 'create') {
+      (config as any).mention = this.getMentionConfig();
+    }
+
+    return config;
+  }
+
+
+  getAdditionalConfig(): TeAdditionalConfig {
+    return {
+      emoji: true,
+      mention: {
+        getUsers: (name, page, pageSize) => this.getUsers(name, page, pageSize)
       }
-    ];
+    };
   }
 
-  private sendCancelEditEvent(): void {
-    this.sendButtonEvent$.emit(false);
+  private getUsers(name: string, page: number, pageSize: number): Observable<ClPageI<CaUser>> {
+    return this.projectId$.pipe(
+      first(),
+      mergeMap(
+        projectId => this.projectService.searchProjectUser(projectId, name, page, pageSize)
+      )
+    );
   }
 
-  private sendEditEvent(): void {
-    this.sendButtonEvent$.emit(true);
+  getTunes(): string[] {
+    return [];
   }
+
+  getInlineToolbar(): string[] {
+    const toolbar = ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'cleanStyle'];
+    if (this.mode === 'create') {
+      toolbar.push('mention');
+    }
+    return toolbar;
+  }
+
+  addFigureBlock(): void {
+    this.addEvent({
+      type: 'insertBlock',
+      blockType: 'figure'
+    });
+  }
+
 }

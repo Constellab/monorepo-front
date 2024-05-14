@@ -34,10 +34,9 @@ export class CaProjectDescriptionTextEditorImageConfig implements TeFigureBlockC
  */
 export class CaProjectDescriptionTextEditorConfig extends TeCompleteConfig {
 
-
   constructor(private projectId$: Observable<string>,
               private projectService: CaProjectService) {
-    super();
+    super({includeToolbarButton: true});
   }
 
   /**

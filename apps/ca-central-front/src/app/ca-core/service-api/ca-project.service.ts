@@ -11,7 +11,7 @@ import {
   CnSaveProjectDTO
 } from '../model/entities/project/ca-project.class';
 import {Observable} from 'rxjs';
-import {ClPage, ClPageI, ClRichTextI} from '@monorepo/core-lib';
+import {ClHelpService, ClPage, ClPageI} from '@monorepo/core-lib';
 import {CaGroup} from '../model/entities/ca-group.entity';
 import {CaUser} from '../model/entities/ca-user.class';
 import {CaProjectComment, CaProjectCommentDatasourcePaginated} from '../model/entities/ca-comment.class';
@@ -29,7 +29,7 @@ import {
   CaActivitySearch,
   CaActivitySearchFields
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
-import {TeFigureBlockData, TeRichTextContent} from '@monorepo/text-editor';
+import {TeFigureBlockData, TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 import {
   FlAdvancedSearchInput,
   FlApiService,
@@ -38,7 +38,6 @@ import {
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {CaTextEditorUploadedImage} from '../../ca-project/module/ca-text-editor/model/ca-text-editor-image.class';
 
 /**
  * Service to manage project entity
@@ -159,11 +158,11 @@ export class CaProjectService {
     return this.apiService.get(`${this.route}/${id}/description`);
   }
 
-  public updateDescription(id: string, description: string): Observable<CaProject> {
+  public updateDescription(id: string, description: TeRichTextContent): Observable<CaProject> {
     return this.apiService.put(`${this.route}/${id}/description`, description, CaProject);
   }
 
-  uploadDescriptionImage(projectId: string, file: File): Observable<CaTextEditorUploadedImage> {
+  uploadDescriptionImage(projectId: string, file: File): Observable<TeUploadedImage> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/${projectId}/description/image`, formData);
@@ -174,7 +173,7 @@ export class CaProjectService {
   }
 
   /////////////////////////////// COMMENTS //////////////////////////////////
-  public getProjectComments(userId: string): CaProjectCommentDatasourcePaginated {
+  public getComments(userId: string): CaProjectCommentDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
       (page, size) => this.getAll(userId, page, size), 20);
   }
@@ -184,21 +183,21 @@ export class CaProjectService {
       {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public newProjectComment(projectId: string, content: ClRichTextI, parentCommentId?: string): Observable<CaProjectComment> {
+  public createComment(projectId: string, content: TeRichTextContent, parentCommentId?: string): Observable<CaProjectComment> {
     return this.apiService.post(`${this.route}/${projectId}/comment`,
       {content: content, parentCommentId: parentCommentId}, CaProjectComment);
   }
 
-  public editProjectComment(projectId: string, commentId: string, content: ClRichTextI): Observable<CaProjectComment> {
+  public updateComment(projectId: string, commentId: string, content: TeRichTextContent): Observable<CaProjectComment> {
     return this.apiService.put(`${this.route}/${projectId}/comment/${commentId}`,
       {content: content}, CaProjectComment);
   }
 
-  public deleteProjectComment(projectId: string, commentId: string): Observable<CaProjectComment> {
+  public deleteComment(projectId: string, commentId: string): Observable<CaProjectComment> {
     return this.apiService.delete(`${this.route}/${projectId}/comment/${commentId}/delete`, null);
   }
 
-  uploadCommentImage(file: File, projectId: string): Observable<CaTextEditorUploadedImage> {
+  uploadCommentImage(file: File, projectId: string): Observable<TeUploadedImage> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/${projectId}/comment/image`, formData);
@@ -287,7 +286,7 @@ export class CaProjectService {
   }
 
 
-  /////////////////////////////// Project Bucket ///////////////////////////////////////////
+  /////////////////////////////// BUCKET ///////////////////////////////////////////
   public getProjectStorages(projectId: string): Observable<CaProjectStorageDTO | null> {
     return this.apiService.get(`${this.route}/${projectId}/storage`, CaProjectStorageDTO);
   }
@@ -305,7 +304,7 @@ export class CaProjectService {
     return this.apiService.get(`${this.route}/${projectId}/storage/size`, CaProjectStorageUsageDTO);
   }
 
-  /////////////////////////////// Project user ///////////////////////////////////////////
+  /////////////////////////////// USER ///////////////////////////////////////////
   getProjectUserConfig(projectId: string): Observable<CaProjectUserConfig> {
     return this.apiService.get(`${this.route}/${projectId}/user-config`, CaProjectUserConfig);
   }
@@ -314,7 +313,15 @@ export class CaProjectService {
     return this.apiService.put(`${this.route}/${projectId}/user-config`, projectUser, CaProjectUserConfig);
   }
 
-  /////////////////////////////// Activity ///////////////////////////////////////////
+  public searchProjectUser(projectId: string, name: string,
+                           page: number, pageSize: number): Observable<ClPage<CaUser>> {
+    if (ClHelpService.isNullOrEmpty(name)) name = '';
+    return this.apiService.get(`${this.route}/${projectId}/users/search/name/${name}`, CaUser, {
+      page: page, pageSize: pageSize, resultIsPaginated: true
+    });
+  }
+
+  /////////////////////////////// ACTIVITY ///////////////////////////////////////////
   public searchActivity(projectId: string, page: number, pageSize: number,
                         filters?: CaActivitySearchFields): Observable<ClPageI<CaActivity>> {
     const data: FlAdvancedSearchInput = {

@@ -1,4 +1,15 @@
-import {Component, EventEmitter, Inject, Input, Optional, Output, PLATFORM_ID, Self} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Inject,
+  Input,
+  OnInit,
+  Optional,
+  Output,
+  PLATFORM_ID,
+  Self
+} from '@angular/core';
 import {TeConfig} from '../../model/te-config.class';
 import {FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
@@ -11,18 +22,17 @@ import {isPlatformBrowser} from '@angular/common';
   templateUrl: './te-text-editor.component.html',
   styleUrl: './te-text-editor.component.scss',
 })
-export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextContent> {
+export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextContent> implements OnInit{
 
   @Input({required: true}) config: TeConfig;
 
   @Input() placeholder: string;
 
-  @Input() hideToolbar: boolean = false;
 
   /**
-   * If true an inline padding is added to include the tooltip button in this component
+   * In dense mode the paragraph have less padding
    */
-  @Input() includeToolbarButton: boolean = false;
+  @HostBinding('class.g-te-dense') dense: boolean = false;
 
   @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
 
@@ -34,6 +44,10 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
     if (isPlatformBrowser(this.platformId)) {
       this.browserSide = true;
     }
+  }
+
+  ngOnInit(): void {
+    this.dense = this.config.uiConfig.dense;
   }
 
   callChangeEvent(value: TeRichTextContent): void {

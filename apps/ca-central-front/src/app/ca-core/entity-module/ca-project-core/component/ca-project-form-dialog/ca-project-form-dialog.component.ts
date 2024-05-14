@@ -13,10 +13,6 @@ import {FlFormDialogAbstractDirective, FlFormDialogInput,} from '@monorepo/front
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CaSpaceService} from '../../../../service-api/ca-space.service';
 import {DateTime} from 'luxon';
-import {
-  CaTextEditorBasicConfig
-} from '../../../../../ca-project/module/ca-text-editor/model/ca-text-editor-basic-config.class';
-import {CaTextEditorConfig} from '../../../../../ca-project/module/ca-text-editor/model/ca-text-editor-config.class';
 
 export interface CaProjectFormDialogInput extends FlFormDialogInput<CaProject> {
   level: CaProjectLevel;
@@ -41,8 +37,6 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
   formGp: FormGroup<CnSaveProjectDTO>;
 
   isLoading: boolean = false;
-
-  textEditorConfig: CaTextEditorConfig = new CaTextEditorBasicConfig();
 
   levelStatus = CaProjectLevelStatus;
 

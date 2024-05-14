@@ -1,18 +1,19 @@
 <div class="comment-zone" *ngIf="comments">
+
+  <!-- List of comments -->
   <fl-infinite-scroll [datasource]="comments" class="comment-div" [reverseMode]="true" [textNoResult]="'no_comments'"
                       [textNoMoreResult]="''">
     <div class="comments-container g-layout-col-reverse">
-      <div *ngFor="let comment of comments?.connect() | async"
-           class="comment" [ngClass]="comment.createdBy.id === currentUserId ? 'our-comment' : 'other-comment'"
-           [caNotificationMark]="comment.id" caNotificationObjectType="PROJECT_COMMENT">
-        <ca-comment-div [comment]="comment" (eventOnMessage$)="eventOnMessage($event, comment)"></ca-comment-div>
-      </div>
+      @for (comment of comments | flDatasourceConnect | async; track comment.id) {
+        <ca-project-comment [comment]="comment" class="comment"
+                            (commentUpdated)="commentUpdated($event)"
+                            (commentDeleted)="commentDeleted($event)"></ca-project-comment>
+      }
     </div>
   </fl-infinite-scroll>
-  <ca-text-editor [formControl]="formControl" [config]="textEditorConfig" mode="JSON"
-                  [placeholder]="'write_a_comment' | translate"
-                  theme="VISIBLE_BUTTON" class="input-message" scrollContainer="child"
-                  (keydown.control.enter)="enterEvent($event)">
-  </ca-text-editor>
+
+  <!-- Zone to write a new comment -->
+  <ca-project-comment-editor mode="create" (send)="createNewComment($event)"
+                             class="new-comment"></ca-project-comment-editor>
 </div>
 

@@ -21,9 +21,9 @@ export * from './lib/model/te.helper';
 export * from './lib/model/te-block-factory.class';
 export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
-export * from './lib/model/te-quill-migrator';
 export * from './lib/model/te-rich-text.class';
 export * from './lib/model/te-variable.class';
+
 
 // Block
 export * from './lib/block/te-code-block.class';

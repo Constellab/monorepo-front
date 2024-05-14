@@ -74,11 +74,6 @@ $background-color: mat.get-color-from-palette($background, background);
   background-color: var(--hover-color);
 }
 
-// quill specific override
-.ql-editor.ql-blank::before {
-  color: rgba(255, 255, 255, 0.7) !important;
-}
-
 /* Used to have a fade in effect at the end of the div*/
 .g-fade-in {
   width: 100%;

@@ -1,9 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef, FlUser} from '@monorepo/front-core-lib';
-import {TeOnlyInlineConfig, TeRichText} from '@monorepo/text-editor';
+import {TeRichText} from '@monorepo/text-editor';
 import {HaAbstractComment, HaCommentEntity, HaCommentType} from '../../model/ha-abstract-comment.class';
 import {HaCommentService} from '../../../../ha-service/ha-comment.service';
 import {HaRouterService} from '../../../../ha-service/ha-router.service';
+import {HaCommentTextEditorConfig} from '../../model/ha-comment-text-editor.config';
 
 export interface HaCommentsPortalData {
   entity: HaCommentsEntity;
@@ -15,14 +16,15 @@ export interface HaCommentsEntity {
   id: string;
   comments: number;
 }
+
 @Component({
   selector: 'ha-comments-portal',
   templateUrl: './ha-comments-portal.component.html',
   styleUrls: ['./ha-comments-portal.component.scss']
 })
-export class HaCommentsPortalComponent implements OnInit{
+export class HaCommentsPortalComponent implements OnInit {
 
-  textEditorConfig: TeOnlyInlineConfig = new TeOnlyInlineConfig();
+  textEditorConfig: HaCommentTextEditorConfig = new HaCommentTextEditorConfig();
   commentIsValid = false;
   user: FlUser;
   entity: HaCommentsEntity;
@@ -54,7 +56,7 @@ export class HaCommentsPortalComponent implements OnInit{
   }
 
   sendComment(): void {
-    if (this.commentIsValid){
+    if (this.commentIsValid) {
       this.isLoading = true;
 
       this.commentService.sendComment(this.commentType, this.commentInputData, this.entity.id)

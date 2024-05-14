@@ -2,9 +2,9 @@ import {Expose, Type} from 'class-transformer';
 import {RvResourceView, RvResourceViewBase, RvResourceViewType} from '@monorepo/resource-view';
 import {LabResourceViewFolder} from './lab-resource-view-folder.class';
 import {LabViewConfig} from './lab-view-config.entity';
-import {ClRichTextI} from '@monorepo/core-lib';
 import {PrConfigValues} from '@monorepo/protocol';
 import {TdParamSpecs, TdTypeStyle} from '@monorepo/technical-doc';
+import {TeRichTextContent} from '@monorepo/text-editor';
 
 // list of available view type
 export type LabResourceViewType = RvResourceViewType | 'view'
@@ -84,7 +84,7 @@ export interface LabResourceViewRichText extends RvResourceViewBase {
   type: 'rich-text-view';
   data: {
     title: string;
-    content: ClRichTextI;
+    content: TeRichTextContent;
     report_id?: string;
   };
 }

@@ -49,10 +49,8 @@
           "class-transformer",
           "highlight.js",
           "drawflow",
-          "quill",
           "luxon",
           "lodash.throttle",
-          "quill-delta-to-html",
           "plotly.js-strict-dist"
         ]
       },

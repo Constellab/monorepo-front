@@ -10,6 +10,4 @@ import {FlMentionUser} from '../../plugin/te-mention.class';
 export class TeMentionInlineComponent extends TeElementInlineDirective<FlMentionUser> {
 
   @HostBinding('attr.contenteditable') contenteditable = 'false';
-
-
 }

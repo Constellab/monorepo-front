@@ -26,32 +26,11 @@
 }
 
 .comment {
-  margin-bottom: 1.25em;
-  padding: 1em;
-  border-top-right-radius: 1em;
-  border-bottom-left-radius: 1em;
-  border-bottom-right-radius: 1em;
+  margin-bottom: 1em;
 }
 
-.our-comment {
-  background-color: var(--hover-color);
-}
-
-.other-comment {
-  background-color: var(--main-background);
-}
-
-// TODO TO REMOVE
-.input-message {
-  min-height: 0 !important;
-  width: calc(97% - 30px);
-  max-height: 30em;
-  display: flex;
-  flex-direction: column;
-  border: none !important;
-  position: relative;
-}
-
-.text-editor {
-  //min-height: 0;
+// avoid overflow with chat button
+.new-comment {
+  margin-right: 55px;
+  padding-inline: 5px;
 }

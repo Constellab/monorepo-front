@@ -32,7 +32,8 @@ export class CaProjectDescriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.textEditorConfig = new CaProjectDescriptionTextEditorConfig(this.state.getProjectId$(), this.projectService);
+    this.textEditorConfig = new CaProjectDescriptionTextEditorConfig(this.state.getProjectId$(),
+      this.projectService);
     this.project$ = this.state.getProject$();
     this.formControl = new FormControl({disabled: true, value: null});
 

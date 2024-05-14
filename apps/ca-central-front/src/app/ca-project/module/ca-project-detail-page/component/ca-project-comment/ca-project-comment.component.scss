@@ -1,0 +1,42 @@
+.comment {
+  padding: 1em;
+  border-top-right-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  position: relative;
+  background-color: var(--main-background);
+}
+
+
+
+.profile-pic {
+  margin-top: 0.2em;
+  margin-right: 1em;
+}
+
+.main-section {
+  flex: 1;
+}
+
+.section {
+  margin-bottom: 0;
+}
+
+.text-editor {
+  min-height: 0;
+  padding: 0;
+  border: none;
+}
+
+.buttons {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: none;
+  background-color: var(--main-background);
+  border-radius: 4px;
+}
+
+.comment:hover .buttons {
+  display: block;
+}

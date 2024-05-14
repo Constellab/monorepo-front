@@ -12,7 +12,7 @@
         <fl-user-inline [user]="user" [portalOnHover]="false"></fl-user-inline>
       </fl-card-header>
       <fl-card-body>
-        <te-text-editor [config]="textEditorConfig" [(ngModel)]="commentInputData" [hideToolbar]="true"
+        <te-text-editor [config]="textEditorConfig" [(ngModel)]="commentInputData"
                         [placeholder]="'write_a_comment' | translate" class="text-editor"
                         (textChange)="checkCommentValidity()" (keydown.control.enter)="sendComment()"></te-text-editor>
       </fl-card-body>

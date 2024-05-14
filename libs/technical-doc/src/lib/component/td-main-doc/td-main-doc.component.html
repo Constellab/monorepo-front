@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="deprecated-message-div ql-editor" *ngIf="entity.deprecatedSince">
+  <div class="deprecated-message-div" *ngIf="entity.deprecatedSince">
     <div class="g-text-editor-hint g-text-editor-hint-warning">
       <div><strong>{{ 'td.deprecated_since' | translate }} : {{ entity.deprecatedSince }}</strong></div>
       <div>{{ entity.deprecatedMessage }}</div>
@@ -38,6 +38,6 @@
 
   <p class="doc-info">{{ entity.shortDescription }}</p>
 
-  <div class="doc-info technical-doc-content ql-editor" [innerHTML]="(entity.doc | tdMarkdown)"></div>
+  <div class="doc-info technical-doc-content" [innerHTML]="(entity.doc | tdMarkdown)"></div>
 
 </div>

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {TeOnlyInlineConfig} from '@monorepo/text-editor';
+import {HaCommentTextEditorConfig} from '../../model/ha-comment-text-editor.config';
 
 @Component({
   selector: 'ha-comment',
@@ -9,8 +9,5 @@ import {TeOnlyInlineConfig} from '@monorepo/text-editor';
 export class HaCommentComponent {
   @Input() comment: any;
 
-  textEditorConfig: TeOnlyInlineConfig = new TeOnlyInlineConfig();
-
-  constructor() {
-  }
+  textEditorConfig: HaCommentTextEditorConfig = new HaCommentTextEditorConfig();
 }

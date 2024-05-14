@@ -3,8 +3,8 @@
 } @else {
 
   <te-text-editor-browser-side [config]="config" [placeholder]="placeholder"
-                               [hideToolbar]="hideToolbar" [disabled]="disabled"
-                               [includeToolbarButton]="includeToolbarButton" (textChange)="onTextChange($event)"
+                               [disabled]="disabled"
+                               (textChange)="onTextChange($event)"
                                [value]="value"></te-text-editor-browser-side>
 }
 

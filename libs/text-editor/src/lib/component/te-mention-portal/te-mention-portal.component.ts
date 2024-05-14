@@ -24,6 +24,7 @@ export interface TeMentionPortalInput {
   config: TeMentionConfig;
   filter$: Observable<string>;
   element: HTMLElement;
+  caretCoordinates: { top: number, left: number };
 }
 
 @Component({
@@ -35,6 +36,7 @@ export interface TeMentionPortalInput {
 export class TeMentionPortalComponent implements OnInit, OnDestroy {
 
   public static PORTAL_MAX_WIDTH = 400;
+  public static PORTAL_MAX_HEIGHT = 300;
 
   users$: FlUserDatasource;
 
@@ -64,6 +66,10 @@ export class TeMentionPortalComponent implements OnInit, OnDestroy {
 
     this.listener = this.renderer.listen(this.input.element, 'keydown',
       (event) => this.onKeydown(event));
+
+    this.users$.connect().subscribe(
+      () => this.recalculatePortalPosition()
+    );
   }
 
   selectHoveredUser(): void {
@@ -97,6 +103,24 @@ export class TeMentionPortalComponent implements OnInit, OnDestroy {
       this.hoveredIndex = Math.max(this.hoveredIndex - 1, 0);
     }
     ClHelpService.stopEventPropagation(event);
+  }
+
+  /**
+   * Recalculate the portal position only if the portal is above the cursor.
+   * So the portal is always stick to cursor
+   * @private
+   */
+  private recalculatePortalPosition(): void {
+    setTimeout(() => {
+      const caretCoordinates = this.input.caretCoordinates;
+
+      // if the portal has enough space to be bellow the caret, do nothing
+      if (caretCoordinates.top + TeMentionPortalComponent.PORTAL_MAX_HEIGHT + 20 < window.innerHeight) return;
+
+      // set the element just above the caret
+      const element: HTMLElement = this.overlayRef.getPanelElement() as HTMLElement;
+      element.style.marginTop = `${caretCoordinates.top - element.clientHeight - 20}px`;
+    }, 0);
   }
 
   ngOnDestroy(): void {

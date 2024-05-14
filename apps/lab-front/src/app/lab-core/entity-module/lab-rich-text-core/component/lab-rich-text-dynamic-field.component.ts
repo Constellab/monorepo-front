@@ -11,5 +11,5 @@ import {
 })
 export class LabRichTextDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
 
-  config = new LabReportTemplateTextEditorConfig();
+  config = new LabReportTemplateTextEditorConfig({includeToolbarButton: true});
 }

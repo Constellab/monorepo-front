@@ -25,7 +25,6 @@ import {
 } from './component/ca-project-experiment-preview/ca-project-experiment-preview.component';
 import {CaLabCoreModule} from '../../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
 import {CaProjectCommentsComponent} from './component/ca-project-comments/ca-project-comments.component';
-import {CaCommentModule} from '../../../ca-comment/ca-comment.module';
 import {CaProjectSettingsComponent} from './component/ca-project-settings/ca-project-settings.component';
 import {
   CaProjectStorageSettingsComponent
@@ -50,10 +49,13 @@ import {
 import {
   CaDocumentTrashListDialogComponent
 } from './component/ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
-import {CaTextEditorModule} from '../ca-text-editor/ca-text-editor.module';
 import {
   CaProjectStorageUsageSectionComponent
 } from './component/ca-project-storage-usage-section/ca-project-storage-usage-section.component';
+import {CaProjectCommentComponent} from './component/ca-project-comment/ca-project-comment.component';
+import {
+  CaProjectCommentEditorComponent
+} from './component/ca-project-comment-editor/ca-project-comment-editor.component';
 
 /**
  * Module for the project detail page
@@ -77,6 +79,8 @@ import {
     CaProjectUserConfigDialogComponent,
     CaDocumentTrashListDialogComponent,
     CaProjectStorageUsageSectionComponent,
+    CaProjectCommentComponent,
+    CaProjectCommentEditorComponent,
   ],
   imports: [
     CommonModule,
@@ -92,14 +96,11 @@ import {
     CaDocumentCoreModule,
     CaGroupCoreModule,
     CaLabCoreModule,
-    CaCommentModule,
     CaObjectStorageCoreModule,
     CaUserCoreModule,
     CaNotificationCoreModule,
-    CaTextEditorModule.forRoot({
-      blots: []
-    })
   ],
 })
 export class CaProjectDetailPageModule {
 }
+

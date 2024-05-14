@@ -1,6 +1,6 @@
 import {TeKeyListener} from './te-key-listener.class';
 import {
-  FlEmojiPickerPortal2Component,
+  FlEmojiPickerPortalComponent,
   FlEmojiPickerPortalInput,
   FlHtmlHelper,
   FlKeyboardKey,
@@ -42,12 +42,13 @@ export class TeEmoji {
 
     // open portal
     const portalService = flRootInjector.get(FlPortalService);
-    const portalPosition = TeHelper.getPortalPositionForCursor(FlEmojiPickerPortal2Component.PORTAL_WIDTH);
+    const portalPosition = TeHelper.getPortalPositionForCursor(
+      FlEmojiPickerPortalComponent.PORTAL_MAX_WIDTH, FlEmojiPickerPortalComponent.PORTAL_MAX_HEIGHT);
     const config = portalService.configureAbsolutePortal(portalPosition,
       {disposeOnOutsideClick: true, disposeOnNavigation: true});
 
     // open the emoji picker
-    const overlayRef = portalService.createPortal(FlEmojiPickerPortal2Component, config, input);
+    const overlayRef = portalService.createPortal(FlEmojiPickerPortalComponent, config, input);
 
 
     overlayRef.detachments().subscribe(

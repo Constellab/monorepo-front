@@ -1,6 +1,25 @@
-<emoji-mart class="emoji-mart"
-            [darkMode]="isDarkTheme()"
-            [autoFocus]="true"
-            (emojiSelect)="addEmoji($event)"
-            title="Choose your emoji"></emoji-mart>
+<fl-portal>
+  <fl-portal-content>
 
+    <fl-infinite-scroll [datasource]="emojiCategories" class="container">
+
+      <!--         Use track by index, the track by emoji.id break on search-->
+      @for (emojiCategory of emojiCategories | flDatasourceConnect | async; track catIndex; let catIndex = $index) {
+        <div class="category">
+          @if (emojiCategory.name) {
+            <div>{{ ('flEmoji.category_' + emojiCategory.name) | translate }}</div>
+          }
+
+          <div class="g-layout-row-wrap">
+            @for (emoji of emojiCategory.emojis; track emojiIdx; let emojiIdx = $index) {
+              <span class="emoji" [id]="'emoji-' + catIndex + '-' + emojiIdx"
+                    [ngClass]="{ 'selected': hoveredEmoji.categoryIndex === catIndex && hoveredEmoji.index === emojiIdx}"
+                    (click)="selectEmoji(emoji)">{{ emoji.emoji }}</span>
+            }
+          </div>
+        </div>
+      }
+    </fl-infinite-scroll>
+
+  </fl-portal-content>
+</fl-portal>

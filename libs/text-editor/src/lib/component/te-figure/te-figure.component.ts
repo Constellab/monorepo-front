@@ -50,7 +50,9 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
 
     this.disabled$ = of(this.disabled);
 
-    if(this.newElement){
+    // if the figure is empty, open the file selector
+    // useful for case where figure block is added programmatically
+    if(!this.disabled && (this.newElement || ClHelpService.isNullOrEmpty(this.data))){
       this.openFileSelector();
     }
   }

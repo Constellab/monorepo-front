@@ -48,7 +48,9 @@
   }
 
   .g-text-editor-hide-toolbar {
-    .ce-toolbar {
+    // hide the main toolbar
+    // hide the convert button in the inline toolbar
+    .ce-toolbar, .ce-inline-toolbar__dropdown {
       display: none;
     }
   }
@@ -58,7 +60,6 @@
     width: 22px;
     text-align: center;
   }
-
 
   .g-text-editor {
     font-size: 14px;
@@ -441,4 +442,14 @@
     }
   }
 
+  .g-te-dense {
+    .g-text-editor {
+      font-size: 12px;
+    }
+
+    .ce-paragraph {
+      line-height: 1.2em;
+      padding: 0.2em 0;
+    }
+  }
 }
