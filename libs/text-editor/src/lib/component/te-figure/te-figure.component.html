@@ -1,4 +1,4 @@
-<figure contenteditable="false" #figure *ngIf="imageReady; else selectImage">
+<figure #figure *ngIf="imageReady; else selectImage">
   <div flResize="bothKeepRatio" class="image-container" (flResizeChanged)="onImageResize($event)"
        [disabled$]="disabled$"
        [style.width]="imageWidth + 'px'" [style.height]="imageHeight + 'px'">
@@ -16,7 +16,7 @@
 <ng-template #selectImage>
 
   <fl-input-file-container color="primary" *ngIf="!uploadIsLoading" class="file-input-container">
-    <input flInputFile type="file" [required]="true" [strictMode]="true"
+    <input flInputFile type="file" [strictMode]="true" [disabled]="disabled"
            accept="image/*" [autoClearHtmlInput]="true"
            (fileChange)="onFileSelected($any($event))">
   </fl-input-file-container>

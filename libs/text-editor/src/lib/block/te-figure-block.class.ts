@@ -25,7 +25,7 @@ export interface TeFigureBlockData {
 
 
 /**
- * Config for the text editor to retrieve the image from their names
+ * Config for the text editor to manage image (upload and retrieve)
  */
 export interface TeFigureBlockConfig {
 
@@ -36,7 +36,7 @@ export interface TeFigureBlockConfig {
 
 
 /**
- * Formula block for editor js
+ * Figure block for editor js
  */
 export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
 

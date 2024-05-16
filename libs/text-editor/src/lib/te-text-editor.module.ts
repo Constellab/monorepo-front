@@ -4,6 +4,7 @@ import {TeTextEditorComponent} from './component/te-text-editor/te-text-editor.c
 import {TeFormulaComponent} from './component/te-formula/te-formula.component';
 import {
   FlCodeEditorModule,
+  FlCoreComponentModule,
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDialogModule,
@@ -48,6 +49,7 @@ import {teVariableTagName} from './model/te-variable.class';
 import {TeMentionPortalComponent} from './component/te-mention-portal/te-mention-portal.component';
 import {TeMentionInlineComponent} from './component/te-mention-inline/te-mention-inline.component';
 import {teMentionTagName} from './plugin/te-mention.class';
+import {TeFileComponent} from './component/te-file/te-file.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import {teMentionTagName} from './plugin/te-mention.class';
     TeVariableInlineComponent,
     TeMentionPortalComponent,
     TeMentionInlineComponent,
+    TeFileComponent,
   ],
   exports: [
     TeTextEditorComponent,
@@ -89,6 +92,10 @@ import {teMentionTagName} from './plugin/te-mention.class';
     FlLoaderModule,
     FlCodeEditorModule,
     FlEmojiPickerModule,
+    FlInfiniteScrollModule,
+    FlUserModule,
+    FlPortalModule,
+    FlCoreComponentModule,
 
     MatDialogModule,
     MatFormFieldModule,
@@ -98,9 +105,6 @@ import {teMentionTagName} from './plugin/te-mention.class';
     MatTooltipModule,
     MatOptionModule,
     MatSelectModule,
-    FlInfiniteScrollModule,
-    FlUserModule,
-    FlPortalModule,
   ],
 })
 export class TeTextEditorModule {

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlFileHelper} from '@monorepo/front-core-lib';
+import {FlFileHelper} from '../../../../service/fl-file.helper';
 
 /**
  * Show an icon based on the file extension

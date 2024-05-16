@@ -1,0 +1,15 @@
+.file-container {
+  padding: 1em 0.5em;
+  cursor: pointer;
+  border-radius: 5px;
+  word-break: break-word;
+}
+
+.file-container:hover {
+  background-color: var(--hover-color);
+}
+
+.file-input-container{
+  display: block;
+  margin: auto;
+}

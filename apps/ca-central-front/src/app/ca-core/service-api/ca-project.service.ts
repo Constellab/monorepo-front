@@ -29,7 +29,7 @@ import {
   CaActivitySearch,
   CaActivitySearchFields
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
-import {TeFigureBlockData, TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
+import {TeFigureBlockData, TeFileBlockData, TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 import {
   FlAdvancedSearchInput,
   FlApiService,
@@ -275,14 +275,20 @@ export class CaProjectService {
     return this.apiService.get(`${this.route}/constellab-document/${documentId}`, CaConstellabDocument);
   }
 
-  public uploadConstellabDocumentImage(file: File, documentId: string): Observable<TeFigureBlockData> {
+  public uploadImageToConstellabDocument(file: File, documentId: string): Observable<TeFigureBlockData> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/constellab-document/${documentId}/image`, formData);
   }
 
-  public getConstellabDocumentImageUrl(documentId: string, filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/constellab-document/${documentId}/image/${filename}`);
+  public uploadFileToConstellabDocument(file: File, documentId: string): Observable<TeFileBlockData> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.apiService.post(`${this.route}/constellab-document/${documentId}/file`, formData);
+  }
+
+  public getConstellabDocumentFileUrl(documentId: string, filename: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/constellab-document/${documentId}/file/${filename}`);
   }
 
 

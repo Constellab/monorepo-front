@@ -26,6 +26,9 @@ import {TeFakeInlineTool} from '../inline-tool/te-fake-inline-tool.class';
 import {TeNestedListBlock} from '../block/te-nested-list-block.class';
 import {TeMentionConfig, TeMentionInlineTool} from '../plugin/te-mention.class';
 import {Observable, Subject} from 'rxjs';
+import {TeFileBlock, TeFileBlockConfig} from '../block/te-file-block';
+import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
+import {TeComponentInitData} from '../block/te-component-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -41,6 +44,10 @@ export interface TeAdditionalConfig {
 export interface TeConfigEvent {
   type: 'insertBlock';
   blockType: string;
+  /**
+   * For TeComponentBlock only, to force the block to be marked as new element
+   */
+  data?: BlockToolData | TeComponentInitData;
 }
 
 export interface TeUiConfig {
@@ -56,18 +63,18 @@ export interface TeUiConfig {
   dense: boolean;
 }
 
-export const teUiDefaultConfig: TeUiConfig = {
-  hideToolbar: false,
-  includeToolbarButton: false,
-  dense: false,
-};
 
 export abstract class TeConfig {
 
   public uiConfig: TeUiConfig;
 
   constructor(uiConfig: Partial<TeUiConfig> = {}) {
-    this.uiConfig = Object.assign(teUiDefaultConfig, uiConfig);
+    const defaultConfig: TeUiConfig = {
+      hideToolbar: false,
+      includeToolbarButton: false,
+      dense: false,
+    };
+    this.uiConfig = Object.assign(defaultConfig, uiConfig);
   }
 
   private events: Subject<TeConfigEvent> | null;
@@ -144,8 +151,20 @@ export abstract class TeConfig {
                  applicationRef: ApplicationRef): ToolSettings {
     return {
       class: teComponentBlockFactory(TeFigureBlock, envInjector, applicationRef, config),
+      config: {
+        test: 'Waow'
+      }
     };
   };
+
+  getFileConfig(config: TeFileBlockConfig,
+                envInjector: EnvironmentInjector,
+                applicationRef: ApplicationRef): ToolSettings {
+    return {
+      class: teComponentBlockFactory(TeFileBlock, envInjector, applicationRef, config),
+    };
+  };
+
 
   getCodeConfig(envInjector: EnvironmentInjector,
                 applicationRef: ApplicationRef): ToolSettings {

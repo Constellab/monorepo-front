@@ -6,6 +6,7 @@ import {CaUser} from '../entities/ca-user.class';
 import {
   TeAdditionalConfig,
   TeCleanStyleInlineTool,
+  TeComponentInitData,
   TeConfig,
   TeFakeInlineTool,
   TeFigureBlockConfig,
@@ -122,7 +123,10 @@ export class CaProjectCommentTextEditorConfig extends TeConfig {
   addFigureBlock(): void {
     this.addEvent({
       type: 'insertBlock',
-      blockType: 'figure'
+      blockType: 'figure',
+      data: {
+        forceNewElement: true
+      } as TeComponentInitData
     });
   }
 

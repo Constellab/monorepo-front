@@ -1,4 +1,13 @@
-import {Component, ElementRef, Input, OnInit, SecurityContext, TemplateRef, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostBinding,
+  Input,
+  OnInit,
+  SecurityContext,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {TeElementBlockDirective} from '../../model/te-element.directive';
 import {FlInputFileDirective, FlResizeEvent} from '@monorepo/front-core-lib';
@@ -26,6 +35,8 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
 
   @ViewChild(FlInputFileDirective, {read: ElementRef, static: false}) inputFile: ElementRef<HTMLInputElement>;
 
+  @HostBinding('attr.contenteditable') contenteditable = 'false';
+
   imageWidth: number;
   imageHeight: number;
 
@@ -52,7 +63,7 @@ export class TeFigureComponent extends TeElementBlockDirective implements OnInit
 
     // if the figure is empty, open the file selector
     // useful for case where figure block is added programmatically
-    if(!this.disabled && (this.newElement || ClHelpService.isNullOrEmpty(this.data))){
+    if (!this.disabled && !this.uploadIsLoading && this.newElement) {
       this.openFileSelector();
     }
   }

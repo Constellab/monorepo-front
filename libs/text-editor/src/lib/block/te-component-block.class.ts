@@ -6,6 +6,18 @@ import {TeElementBlockDirective} from '../model/te-element.directive';
 import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
 
 /**
+ * Specific data that can be passed when creating the block to pass config to the component,
+ * the data is not saved in the editor
+ */
+export interface TeComponentInitData {
+  /**
+   * Useful when creating the block programmatically to force the component to be marked as new element.
+   * If not provided, the block is not considered as new when added programmatically
+   */
+  forceNewElement: boolean;
+}
+
+/**
  * Custom abstract class for editor js block to support angular component
  */
 export abstract class TeComponentBlock<T extends TeElementBlockDirective> implements BlockTool {
@@ -52,9 +64,10 @@ export abstract class TeComponentBlock<T extends TeElementBlockDirective> implem
     return this.options.readOnly;
   }
 
+
   render(): HTMLElement {
     this.htmlElement = document.createElement(this.getTagName());
-    this.htmlElement.classList.add('g-te-block');
+    this.htmlElement.classList.add(...this.blockClasses());
     this.componentRef = createComponent(this.getComponentType(), {
       environmentInjector: this.envInjector,
       hostElement: this.htmlElement,
@@ -62,8 +75,22 @@ export abstract class TeComponentBlock<T extends TeElementBlockDirective> implem
     this.applicationRef.attachView(this.componentRef.hostView);
     this.componentInstance.disabled = this.disabled;
 
+    // specific case for the data to force the block to be marked as new element
+    const data = this.data as TeComponentInitData;
+    if (data?.forceNewElement) {
+      this.componentInstance.newElement = true;
+      this.options.data = null;
+    }
+
     this.initInputs(this.data);
     return this.htmlElement;
+  }
+
+  /**
+   * Define the list of classes applied to the block
+   */
+  blockClasses(): string[] {
+    return ['g-te-block'];
   }
 
 

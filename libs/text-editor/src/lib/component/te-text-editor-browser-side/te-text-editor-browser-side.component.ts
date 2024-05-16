@@ -169,7 +169,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     if (obs) {
       this.subscription = obs.subscribe((event) => {
         if (event.type === 'insertBlock') {
-          this.editor?.blocks?.insert(event.blockType);
+          this.editor?.blocks?.insert(event.blockType, event.data);
         }
       });
     }
