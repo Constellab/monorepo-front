@@ -32,14 +32,14 @@
         <!-- List of main menu links   -->
         <div class="g-flex-auto align-container"
              [ngClass]="{'align-container-center': menuExpanded}">
-          <div *ngFor="let link of accessibleLinks">
+          @for (link of accessibleLinks; track link.route) {
             <a mat-button [routerLink]="link.route" flExpansionMenuButton
                class="nav-button" routerLinkActive="selected-menu"
                [matTooltip]="link.label | translate" matTooltipPosition="after">
               <mat-icon [flIcon]="link.icon"></mat-icon>
               <span>{{ link.label | translate }}</span>
             </a>
-          </div>
+          }
         </div>
 
         <div class="divider"></div>
