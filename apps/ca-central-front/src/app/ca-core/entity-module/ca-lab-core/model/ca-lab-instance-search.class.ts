@@ -7,7 +7,11 @@ import {
   FlSearchDateInterval
 } from '@monorepo/front-core-lib';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaLabInstanceStatus, CaLabInstanceType} from '../../../model/entities/lab/ca-lab-instance.class';
+import {
+  CaLabInstanceServerTaskStatus,
+  CaLabInstanceStatus,
+  CaLabInstanceType
+} from '../../../model/entities/lab/ca-lab-instance.class';
 import {CaCity} from '../../../model/entities/ca-city.entity';
 import {CaServerCloud} from '../../../model/entities/server/ca-server-cloud.class';
 import {CaSpace} from '../../../model/entities/space/ca-space.class';
@@ -50,6 +54,8 @@ export class CaLabInstanceSearchFields {
 
   cloudName: string;
 
+  serverTaskStatus: CaLabInstanceServerTaskStatus;
+
   id: string;
 }
 
@@ -67,7 +73,8 @@ export class CaLabInstanceSearch {
     space: 'space',
     type: 'lab_instance_type',
     cloudProvider: 'cloud_provider',
-    cloudName: 'lab_cloud_name'
+    cloudName: 'lab_cloud_name',
+    serverTaskStatus: 'lab_server_task_status'
   };
 
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaLabInstanceSearchFields> = {
@@ -84,6 +91,7 @@ export class CaLabInstanceSearch {
     cloudProvider: {key: 'region.cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     isFreeTrial: {key: 'isFreeTrial', operator: 'EQ'},
     cloudName: {key: 'cloudName', operator: 'MATCH'},
+    serverTaskStatus: {key: 'serverTaskStatus', operator: 'EQ'},
     id: {key: 'id', operator: 'EQ'},
   };
 
@@ -105,6 +113,7 @@ export class CaLabInstanceSearch {
       cloudProvider: null,
       isFreeTrial: null,
       cloudName: null,
+      serverTaskStatus: null,
       id: null,
     });
   }

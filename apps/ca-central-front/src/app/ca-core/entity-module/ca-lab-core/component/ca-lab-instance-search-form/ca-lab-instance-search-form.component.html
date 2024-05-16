@@ -84,17 +84,28 @@
       </mat-select>
     </mat-form-field>
 
+    <!--  Cloud name -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{ 'lab_cloud_name' | translate }}</mat-label>
+      <input matInput formControlName="cloudName" [placeholder]="'lab_cloud_name' | translate" autocomplete="off">
+    </mat-form-field>
+
     <!--Created by-->
     <fl-form-field class="g-search-field">
       <fl-select-user formControlName="createdBy" [mode]="selectUserMode"
                       [placeholder]="'created_by' | translate"></fl-select-user>
     </fl-form-field>
 
-    <!--  Cloud name -->
+    <!--  CurrentStatus  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{ 'lab_cloud_name' | translate }}</mat-label>
-      <input matInput formControlName="cloudName" [placeholder]="'lab_cloud_name' | translate" autocomplete="off">
+      <mat-label>{{ 'lab_server_task_status' | translate }}</mat-label>
+      <mat-select formControlName="serverTaskStatus" [placeholder]="'lab_server_task_status' | translate">
+        <mat-option *ngFor="let key of serverTaskStatus | flObjectKeys" [value]="serverTaskStatus[key].value">
+          {{ serverTaskStatus[key].name | translate }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+
 
     <!--  Id -->
     <mat-form-field class="g-search-field">

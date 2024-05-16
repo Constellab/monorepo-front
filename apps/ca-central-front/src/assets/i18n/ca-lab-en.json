@@ -217,6 +217,8 @@
   "lab_server_current_task": "Current task",
   "lab_server_last_task": "Last task",
   "lab_server_last_task_error": "An error occurred during the last task on server",
+  "lab_server_task_status": "Server task status",
+  "lab_server_task_status_NONE": "None",
   "lab_advanced_configuration": "Advanced configuration",
   "lab_advanced_configuration_warning": "Warning, use the following options only if you know what you are doing.",
   "lab_gws_core_prod_db_password": "Prod db password",
@@ -368,5 +370,5 @@
   "daily_backup": "Daily backup",
   "weekly_backup": "Weekly backup",
   "create_lab_backup_section": "Choose the backup location for your digital lab. The daily and weekly backups must be in different regions to ensure the data safety. We recommend to choose a region close to your lab location to reduce the latency.",
-  "lab_cloud_name": "Cloud name"
+  "lab_cloud_name": "Lab name in cloud"
 }

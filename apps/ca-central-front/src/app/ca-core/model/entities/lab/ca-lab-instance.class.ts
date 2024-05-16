@@ -50,7 +50,7 @@ export const caLabInstanceServerTaskStatusDict: FlStatusDict<CaLabInstanceServer
   RUNNING: FlStatusHelper.getRunningStatus('RUNNING'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
-  NONE: FlStatusHelper.getInfoStatus('NONE'),
+  NONE: FlStatusHelper.getInfoStatus('NONE', 'lab_server_task_status_NONE'),
 };
 
 export class CaLabInstanceStatusHistory extends CaStatusHistory<CaLabInstanceStatus> {

@@ -217,6 +217,8 @@
   "lab_server_current_task": "Tâche en cours",
   "lab_server_last_task": "Dernière tâche",
   "lab_server_last_task_error": "Une erreur est survenue lors de la dernière tâche sur le serveur",
+  "lab_server_task_status": "Status de la tâche server",
+  "lab_server_task_status_NONE": "Aucun",
   "lab_advanced_configuration": "Configuration avancée",
   "lab_advanced_configuration_warning": "Attention, n'utilisez les options suivantes que si vous savez ce que vous faites.",
   "lab_gws_core_prod_db_password": "Mot de passe de la base de données de prod",
@@ -368,5 +370,5 @@
   "daily_backup": "Backup quotidien",
   "weekly_backup": "Backup hebdomadaire",
   "create_lab_backup_section": "Choisissez l'emplacement de sauvegarde pour votre lab digital. Les sauvegardes quotidiennes et hebdomadaires doivent être dans des régions différentes pour garantir la sécurité des données. Nous vous recommandons de choisir une région proche de l'emplacement de votre lab pour réduire la latence.",
-  "lab_cloud_name": "Nom cloud"
+  "lab_cloud_name": "Nom du lab dans le cloud"
 }
