@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {CaCoreModule} from '../../ca-core.module';
 import {CaServerCloudTableComponent} from './component/ca-server-cloud-table/ca-server-cloud-table.component';
 import {
@@ -39,6 +39,10 @@ import {CaStoragePricesDialogComponent} from './component/ca-storage-prices-dial
 import {
   CaStoragePriceFormDialogComponent
 } from './component/ca-storage-price-form-dialog/ca-storage-price-form-dialog.component';
+import {CaSelectServerCloudComponent} from './component/ca-select-server-cloud/ca-select-server-cloud.component';
+import {
+  CaSelectServerCloudDialogComponent
+} from './component/ca-select-server-cloud-dialog/ca-select-server-cloud-dialog.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +64,8 @@ import {
     CaStoragePriceTableComponent,
     CaStoragePricesDialogComponent,
     CaStoragePriceFormDialogComponent,
+    CaSelectServerCloudComponent,
+    CaSelectServerCloudDialogComponent,
   ],
   exports: [
     CaServerCloudTableComponent,
@@ -80,6 +86,8 @@ import {
     CaStoragePriceTableComponent,
     CaStoragePricesDialogComponent,
     CaStoragePriceFormDialogComponent,
+    CaSelectServerCloudComponent,
+    CaSelectServerCloudDialogComponent,
 
   ],
   imports: [
@@ -91,6 +99,7 @@ import {
     CaCloudProviderCoreModule,
     CaSpaceCoreModule,
     CaConfigCoreModule,
+    NgOptimizedImage,
   ],
 })
 export class CaServerCoreModule {

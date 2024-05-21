@@ -8,7 +8,6 @@ import {
   FlSearchConverter
 } from '@monorepo/front-core-lib';
 import {ClPageI} from '@monorepo/core-lib';
-import {CaBucketFull} from '../model/entities/ca-object-storage.class';
 import {CaServerCloudSearch} from '../entity-module/ca-server-core/model/ca-server-cloud-search.class';
 import {CaCloudProviderRegion} from '../model/entities/ca-cloud-provider.class';
 import {
@@ -91,12 +90,22 @@ export class CaServerService {
     return this.apiService.deleteById(this.routeCloud, id);
   }
 
+  public findServerCloudById(id: string): Observable<CaServerCloud> {
+    return this.apiService.get(`${this.routeCloud}/${id}`, CaServerCloud);
+  }
+
   public searchServerCloud(page: number, pageSize: number, filters?: CaServerCloudSearch): Observable<ClPageI<CaServerCloud>> {
     const data: FlAdvancedSearchInput = {
       filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaServerCloudSearch.advancedSearchConverter),
       sortsCriteria: null
     };
-    return this.apiService.post(`${this.routeCloud}/search`, data, CaBucketFull, {
+    return this.apiService.post(`${this.routeCloud}/search`, data, CaServerCloud, {
+      page: page, pageSize: pageSize, resultIsPaginated: true
+    });
+  }
+
+  public searchServerCloudByName(name: string, page: number, pageSize: number): Observable<ClPageI<CaServerCloud>> {
+    return this.apiService.get(`${this.routeCloud}/search-name/${name}`, CaServerCloud, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }

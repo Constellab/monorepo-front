@@ -43,6 +43,11 @@ export class CaServerCloud extends CaEntity {
 
   // info about the GPU
   gpuType: string;
+
+  toString(): string {
+    return this.serverStandard.name + ' - ' + this.technicalName;
+
+  }
 }
 
 export type CaServerCloudDatasource = FlEntityPaginatedDatasource<CaServerCloud>;

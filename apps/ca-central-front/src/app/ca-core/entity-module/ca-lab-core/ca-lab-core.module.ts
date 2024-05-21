@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {CaCoreModule} from '../../ca-core.module';
 import {CaLabInstanceCardComponent} from './component/ca-lab-instance-card/ca-lab-instance-card.component';
 import {RouterModule} from '@angular/router';
@@ -44,6 +44,7 @@ import {CaLabInlineComponent} from './component/ca-lab-inline/ca-lab-inline.comp
 import {
   CaLabContestFormDialogComponent
 } from './component/ca-lab-contest-form-dialog/ca-lab-contest-form-dialog.component';
+import {CaObjectStorageCoreModule} from '../ca-object-storage-core/ca-object-storage-core.module';
 
 /**
  * Core module for Lab and LabInstance
@@ -100,6 +101,8 @@ import {
 
     CaCoreModule,
     CaProjectCoreModule,
+    CaObjectStorageCoreModule,
+    NgOptimizedImage,
   ],
 })
 export class CaLabCoreModule {}

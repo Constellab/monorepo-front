@@ -47,6 +47,12 @@
     <mat-form-field class="g-form-input" *ngIf="showRegion(); else showLab">
       <mat-label>{{'cloud_provider_region' | translate}}</mat-label>
       <mat-select formControlName="region" required [placeholder]="'cloud_provider_region' | translate">
+        @if (formGp.get('region').value) {
+          <mat-select-trigger>
+            <ca-cloud-provider-region-inline [region]="formGp.get('region').value"
+                                             size="small"></ca-cloud-provider-region-inline>
+          </mat-select-trigger>
+        }
         <ca-select-cloud-provider-region-options mode="S3"></ca-select-cloud-provider-region-options>
       </mat-select>
       <mat-error *ngIf="formGp.get('region').hasError('required')">

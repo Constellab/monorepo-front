@@ -1,5 +1,5 @@
 <fl-infinite-scroll [datasource]="datasource">
-  <mat-option *flForById="let region of regions$ | async" [value]="region">
-    <ca-bucket-region-inline [region]="region"></ca-bucket-region-inline>
+  <mat-option *flForById="let region of datasource | flDatasourceConnect | async" [value]="region">
+    <ca-cloud-provider-region-inline [region]="region"></ca-cloud-provider-region-inline>
   </mat-option>
 </fl-infinite-scroll>

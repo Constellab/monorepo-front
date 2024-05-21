@@ -3,7 +3,7 @@
     <fl-search-header>
       <fl-text-icon>
         <mat-icon class="g-icon-big">cloud</mat-icon>
-        <h2>{{'servers_cloud' | translate}}</h2>
+        <h2>{{ 'servers_cloud' | translate }}</h2>
       </fl-text-icon>
 
       <fl-search-header-actions>
@@ -26,7 +26,9 @@
       </fl-search-advanced-form>
 
       <fl-search-result>
-        <ca-server-cloud-table [datasource]="datasource"></ca-server-cloud-table>
+        <ca-server-cloud-table [datasource]="datasource"
+                               [rowSelectable]="mode === 'selection'"
+                               (serverCloudSelected)="selectServerCloud($event)"></ca-server-cloud-table>
       </fl-search-result>
 
     </fl-search>

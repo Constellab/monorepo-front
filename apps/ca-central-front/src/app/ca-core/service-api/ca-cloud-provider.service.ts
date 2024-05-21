@@ -48,7 +48,8 @@ export class CaCloudProviderService {
   }
 
 
-  ////////////////// REGIONS //////////////////
+  ////////////////// REGIONS /////////////////
+
   public createRegion(region: Partial<CaCloudProviderRegion>): Observable<CaCloudProviderRegion> {
     return this.apiService.post(this.regionsRoute, region, CaCloudProviderRegion);
   }

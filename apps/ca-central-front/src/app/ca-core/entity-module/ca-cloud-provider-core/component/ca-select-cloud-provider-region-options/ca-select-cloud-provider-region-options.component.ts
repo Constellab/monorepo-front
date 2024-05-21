@@ -1,11 +1,7 @@
 import {AfterViewInit, Component, Host, Input, OnDestroy, OnInit} from '@angular/core';
 import {FlEmbeddedOptionsAbstractDirective} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
 import {CaCloudProviderService} from '../../../../service-api/ca-cloud-provider.service';
-import {
-  CaCloudProviderRegion,
-  CaCloudProviderRegionDatasource
-} from '../../../../model/entities/ca-cloud-provider.class';
+import {CaCloudProviderRegionDatasource} from '../../../../model/entities/ca-cloud-provider.class';
 import {MatSelect} from '@angular/material/select';
 
 @Component({
@@ -19,8 +15,6 @@ export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptio
   @Input({required: true}) mode: 'all' | 'S3' | 'SERVER';
 
   datasource: CaCloudProviderRegionDatasource;
-  regions$: Observable<CaCloudProviderRegion[]>;
-
 
   constructor(private cloudProviderService: CaCloudProviderService,
               @Host() private select: MatSelect) {
@@ -41,7 +35,6 @@ export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptio
         this.datasource = this.cloudProviderService.getRegionsByType('SERVER');
         break;
     }
-    this.regions$ = this.datasource.connect();
   }
 
 

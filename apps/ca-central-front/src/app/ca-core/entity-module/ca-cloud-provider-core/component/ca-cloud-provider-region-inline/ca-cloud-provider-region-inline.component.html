@@ -1,4 +1,23 @@
-{{region.name}}
-<span *ngIf="region.city"> - {{region.city.name}}</span>
-<span *ngIf="region.city.country"> - {{region.city.country.name}}</span>
-<span *ngIf="region.cloudProvider"> - {{region.cloudProvider.name}}</span>
+<div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-dense-height">
+  @if (region.cloudProvider) {
+    <img [ngSrc]="region.cloudProvider.logo" class="image"
+         [alt]="region.cloudProvider.name" [width]="imageSize" [height]="imageSize">
+  }
+
+  <div>
+    <div>{{ region.name }}</div>
+
+    @if (size === 'medium') {
+      <div class="g-text-small g-text-light">
+        @if (region.city) {
+          <span>{{ region.city.name }}</span>
+        }
+
+        @if (region.city.country) {
+          <span> - {{ region.city.country.name }}</span>
+        }
+      </div>
+    }
+  </div>
+
+</div>

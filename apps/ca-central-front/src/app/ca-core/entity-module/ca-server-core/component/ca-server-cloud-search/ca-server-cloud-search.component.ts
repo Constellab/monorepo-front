@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -21,6 +21,10 @@ import {CaServerCloudSearch, CaServerCloudSearchFields} from '../../model/ca-ser
 })
 export class CaServerCloudSearchComponent implements OnInit {
 
+  @Input() mode: 'search' | 'selection' = 'search';
+
+  @Output() serverCloudSelected: EventEmitter<CaServerCloud> = new EventEmitter();
+
   datasource: CaServerCloudDatasource;
 
   constructor(private searchState: FlSearchState<any>,
@@ -39,7 +43,7 @@ export class CaServerCloudSearchComponent implements OnInit {
         config: CaServerCloudSearch.advancedSearchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: this.mode === 'search'
     };
 
     this.datasource = new FlEntityPaginatedDatasource(
@@ -75,6 +79,10 @@ export class CaServerCloudSearchComponent implements OnInit {
     if (serverCloud) {
       this.datasource.unshiftItem(serverCloud);
     }
+  }
+
+  selectServerCloud(serverCloud: CaServerCloud): void {
+    this.serverCloudSelected.emit(serverCloud);
   }
 }
 

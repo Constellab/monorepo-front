@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CaServerCloud} from '../../../../model/entities/server/ca-server-cloud.class';
 import {CaServerCloudFormDialogComponent} from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
 import {
@@ -22,6 +22,11 @@ export class CaServerCloudTableComponent {
 
   @Input() columns: FlTableColumnStatic<CaServerCloud>[] = ['cloudProvider', 'technicalName', 'serverStandard', 'cpu', 'ram',
     'disk', 'gpu', 'actions'];
+
+  @Input() rowSelectable: boolean = false;
+
+  @Output() serverCloudSelected: EventEmitter<CaServerCloud> = new EventEmitter();
+
 
   constructor(private dialogService: FlDialogService,
               private serverService: CaServerService) {
@@ -62,6 +67,12 @@ export class CaServerCloudTableComponent {
   private onDeleteClosed(result: FlConfirmDialogResult, serverCloud: CaServerCloud): void {
     if (result.choice) {
       this.datasource.removeItem(serverCloud);
+    }
+  }
+
+  rowClicked(serverCloud: CaServerCloud): void {
+    if (this.rowSelectable) {
+      this.serverCloudSelected.emit(serverCloud);
     }
   }
 }

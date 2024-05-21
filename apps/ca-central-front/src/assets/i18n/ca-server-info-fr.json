@@ -36,6 +36,7 @@
   "delete_server_cloud_confirm": "Êtes-vous sûr de vouloir supprimer le serveur cloud ?",
   "server_cloud_deleted": "Serveur cloud supprimé",
   "no_server_cloud": "Aucun serveur cloud",
+  "select_server_cloud": "Sélectionner un serveur cloud",
   "cloud_provider": "Cloud provider",
   "cloud_provider_list": "Cloud providers disponibles",
   "create_cloud_provider": "Créer un cloud provider",

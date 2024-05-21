@@ -4,28 +4,28 @@
 
     <!--  Name  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'name' | translate }}</mat-label>
+      <mat-label>{{ 'name' | translate }}</mat-label>
       <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off">
     </mat-form-field>
 
     <!--  Bucket type  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'bucket_type' | translate}}</mat-label>
+      <mat-label>{{ 'bucket_type' | translate }}</mat-label>
       <mat-select formControlName="bucketType" [placeholder]="'bucket_type' | translate"
                   [multiple]="true">
         <mat-option *ngFor="let bucketType of bucketTypes | flObjectKeys" [value]="bucketType">
-          {{bucketType}}
+          {{ bucketType }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <!--  Content type  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'bucket_content_type' | translate}}</mat-label>
+      <mat-label>{{ 'bucket_content_type' | translate }}</mat-label>
       <mat-select formControlName="contentType" [placeholder]="'bucket_content_type' | translate"
                   [multiple]="true">
         <mat-option *ngFor="let contentType of contentTypes | flObjectKeys" [value]="contentType">
-          {{contentType}}
+          {{ contentType }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -37,8 +37,14 @@
 
     <!--  Region  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'cloud_provider_region' | translate}}</mat-label>
+      <mat-label>{{ 'cloud_provider_region' | translate }}</mat-label>
       <mat-select formControlName="region" [placeholder]="'cloud_provider_region' | translate">
+        @if (formGp.get('region').value) {
+          <mat-select-trigger>
+            <ca-cloud-provider-region-inline [region]="formGp.get('region').value"
+                                             size="small"></ca-cloud-provider-region-inline>
+          </mat-select-trigger>
+        }
         <ca-select-cloud-provider-region-options mode="S3"></ca-select-cloud-provider-region-options>
       </mat-select>
     </mat-form-field>
@@ -48,13 +54,13 @@
       <ca-select-lab formControlName="labInstance" mode="all-cloud"
                      [placeholder]="'lab' | translate"></ca-select-lab>
       <mat-error *ngIf="formGp.get('labInstance').hasError('required')">
-        {{'lab' | flErrorRequired}}
+        {{ 'lab' | flErrorRequired }}
       </mat-error>
     </fl-form-field>
 
     <!--  Credentials  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'bucket_credentials' | translate}}</mat-label>
+      <mat-label>{{ 'bucket_credentials' | translate }}</mat-label>
       <mat-select formControlName="credentials" [placeholder]="'bucket_credentials' | translate">
         <ca-select-bucket-credentials-options></ca-select-bucket-credentials-options>
       </mat-select>
@@ -75,20 +81,20 @@
 
     <!--  Id -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'id' | translate }}</mat-label>
+      <mat-label>{{ 'id' | translate }}</mat-label>
       <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
     </mat-form-field>
 
     <!--  Creation date  -->
     <div class="g-form-field-no-hint g-full">
-      <p class="g-text-small subtitle">{{'creation_date' | translate}}</p>
+      <p class="g-text-small subtitle">{{ 'creation_date' | translate }}</p>
       <fl-search-date-interval formGroupName="createdAt">
       </fl-search-date-interval>
     </div>
 
     <!--  Last modification date  -->
     <div class="g-form-field-no-hint g-full">
-      <p class="g-text-small subtitle">{{'last_modification_date' | translate}}</p>
+      <p class="g-text-small subtitle">{{ 'last_modification_date' | translate }}</p>
       <fl-search-date-interval formGroupName="lastModifiedAt">
       </fl-search-date-interval>
     </div>
