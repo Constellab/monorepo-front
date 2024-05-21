@@ -20,8 +20,8 @@ export class CaServerCloudTableComponent {
 
   @Input({required: true}) datasource: FlArrayObs<CaServerCloud>;
 
-  @Input() columns: FlTableColumnStatic<CaServerCloud>[] = ['cloudProvider', 'technicalName', 'serverStandard', 'ram',
-    'disk', 'cpu', 'gpu', 'actions'];
+  @Input() columns: FlTableColumnStatic<CaServerCloud>[] = ['cloudProvider', 'technicalName', 'serverStandard', 'cpu', 'ram',
+    'disk', 'gpu', 'actions'];
 
   constructor(private dialogService: FlDialogService,
               private serverService: CaServerService) {
