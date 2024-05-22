@@ -44,6 +44,8 @@ export class CaLabGreenOptionFormDialogComponent
 
   @ViewChild('subFormGroup', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
 
+  warningText: string = null;
+
   private viewComponentRef: ComponentRef<FlDynamicFormGroupComponent>;
 
 
@@ -81,6 +83,12 @@ export class CaLabGreenOptionFormDialogComponent
     this.buildSubForm(changeEvent.value);
 
     this.forcePersistence(changeEvent.value);
+
+    if (changeEvent.value === CaLabGreenOptionType.STOP_AFTER_INACTIVITY_TIME) {
+      this.warningText = 'lab_green_option_STOP_AFTER_INACTIVITY_TIME_warnings';
+    }else{
+      this.warningText = null;
+    }
   }
 
   private buildSubForm(type: CaLabGreenOptionType, value?: any): void {

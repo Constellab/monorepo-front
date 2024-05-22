@@ -264,6 +264,7 @@
   "lab_green_option_detail_STOP_AFTER_TIME": "The lab will be stopped after a specific time.",
   "lab_green_option_STOP_AFTER_INACTIVITY_TIME": "Stop lab after inactivity time",
   "lab_green_option_detail_STOP_AFTER_INACTIVITY_TIME": "The lab will be stopped after a specific period of inactivity.",
+  "lab_green_option_STOP_AFTER_INACTIVITY_TIME_warnings": "Warning, this option is not recommended if you are working in the Codelab. The actions in the Codelab are not considered as activity.",
   "lab_green_option_type": "Type",
   "lab_green_option_value": "Value",
   "lab_green_option_persistent": "Persistent",

@@ -1,14 +1,14 @@
 <fl-dialog-header>
-  {{title | translate}}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="green-option-form" [formGroup]="formGp">
 
-    <p class="help-text g-text-light">{{'lab_create_green_option_help' | translate}}</p>
+    <p class="help-text g-text-light">{{ 'lab_create_green_option_help' | translate }}</p>
 
     <!--  Type   -->
-    <p class="subtitle"><strong>{{'lab_green_option_type' | translate}}</strong></p>
+    <p class="subtitle"><strong>{{ 'lab_green_option_type' | translate }}</strong></p>
     <mat-radio-group formControlName="type" required
                      class="g-layout-row-wrap g-layout-between-stretch"
                      (change)="onGreenOptionTypeChange($event)">
@@ -16,41 +16,47 @@
       <mat-radio-button *ngFor="let key of greenOptionType | flObjectKeys" required
                         [value]="greenOptionType[key]" flRadioButtonBig
                         class="type-button radio-button">
-        <div>{{('lab_green_option_' + greenOptionType[key]) | translate}}</div>
+        <div>{{ ('lab_green_option_' + greenOptionType[key]) | translate }}</div>
 
         <div class="g-text-small g-text-light radio-description">
-          {{('lab_green_option_detail_' + greenOptionType[key]) | translate}}
+          {{ ('lab_green_option_detail_' + greenOptionType[key]) | translate }}
         </div>
       </mat-radio-button>
     </mat-radio-group>
 
+    @if (warningText) {
+      <fl-text-icon class="g-warn-text g-text-small">
+        <mat-icon>warnings</mat-icon>
+        {{ warningText | translate }}
+      </fl-text-icon>
+    }
+
     <!--  Dynamic sub form  -->
-    <p class="subtitle" *ngIf="hasSubForm()"><strong>{{'lab_green_option_value' | translate}}</strong></p>
+    <p class="subtitle" *ngIf="hasSubForm()"><strong>{{ 'lab_green_option_value' | translate }}</strong></p>
     <ng-template #subFormGroup></ng-template>
 
     <!--  Persistent   -->
-    <p class="subtitle"><strong>{{'lab_green_option_persistent' | translate}}</strong></p>
+    <p class="subtitle"><strong>{{ 'lab_green_option_persistent' | translate }}</strong></p>
     <mat-radio-group formControlName="isPersistent"
                      class="g-layout-row g-layout-between-stretch"
                      required>
 
       <mat-radio-button [value]="true" class="radio-button" flRadioButtonBig>
-        <div>{{'lab_green_option_persistent' | translate}}</div>
+        <div>{{ 'lab_green_option_persistent' | translate }}</div>
 
         <div class="g-text-small g-text-light radio-description">
-          {{'lab_green_option_persistent_detail' | translate}}
+          {{ 'lab_green_option_persistent_detail' | translate }}
         </div>
       </mat-radio-button>
 
       <mat-radio-button [value]="false" class="radio-button" flRadioButtonBig>
-        <div>{{'lab_green_option_not_persistent' | translate}}</div>
+        <div>{{ 'lab_green_option_not_persistent' | translate }}</div>
 
         <div class="g-text-small g-text-light radio-description">
-          {{'lab_green_option_not_persistent_detail' | translate}}
+          {{ 'lab_green_option_not_persistent_detail' | translate }}
         </div>
       </mat-radio-button>
     </mat-radio-group>
-
 
 
   </form>
@@ -59,7 +65,7 @@
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" type="submit" form="green-option-form"
           class="g-centered-forced">
-    {{'save' | translate}}
+    {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

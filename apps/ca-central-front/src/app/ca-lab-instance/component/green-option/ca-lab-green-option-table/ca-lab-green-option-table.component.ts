@@ -35,7 +35,8 @@ export class CaLabGreenOptionTableComponent {
       object: greenOption
     }
 
-    this.dialogService.openSmallDialog(CaLabGreenOptionFormDialogComponent, {data: data}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaLabGreenOptionFormDialogComponent,
+      {data: data, autoFocus: false}).afterClosed().subscribe(
       (updatedGreenOption: CaLabGreenOption) => this.onUpdateGreenOptionClosed(updatedGreenOption)
     );
   }
