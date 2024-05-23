@@ -1,58 +1,76 @@
 <div class="header g-layout-row">
   <div class="g-flex-auto">
-    <ng-container *ngIf="{value : elapsedTime$ | async} as elapsedTime">
-      <fl-key-value *ngIf="elapsedTime.value >= 0">
-        <fl-key>{{'biox.execution_time' | translate}}</fl-key>
-        {{elapsedTime.value | flDuration}}
+    @if (elapsedTime$ | async; as elapsedTime) {
+      <fl-key-value>
+        <fl-key>{{ 'biox.execution_time' | translate }}</fl-key>
+        {{ elapsedTime | flDuration }}
       </fl-key-value>
-    </ng-container>
+    }
 
-    <ng-container *ngIf="progressBar$ | async as progressBar">
+    @if (progressBar$ | async; as progressBar) {
 
-      <fl-key-value *ngIf="progressBar.startedAt">
-        <fl-key>{{'begin_date' | translate}}</fl-key>
-        {{progressBar.startedAt | flDate:'DATE_TIME_WITH_SECONDS'}}
-      </fl-key-value>
 
-      <fl-key-value *ngIf="progressBar.endedAt">
-        <fl-key>{{'end_date' | translate}}</fl-key>
-        {{progressBar.endedAt | flDate:'DATE_TIME_WITH_SECONDS'}}
-      </fl-key-value>
+      @if (progressBar.startedAt) {
+        <fl-key-value>
+          <fl-key>{{ 'begin_date' | translate }}</fl-key>
+          {{ progressBar.startedAt | flDate:'DATE_TIME_WITH_SECONDS' }}
+        </fl-key-value>
+      }
 
-      <fl-text-icon *ngIf="progressBar.secondStart" class="g-text-light g-text-small" gap="5px">
-        <mat-icon class="g-icon-small">info</mat-icon>
-        {{'biox.progress_bar_multiple_start' | translate}}
-      </fl-text-icon>
-    </ng-container>
+      @if (progressBar.endedAt) {
+        <fl-key-value>
+          <fl-key>{{ 'end_date' | translate }}</fl-key>
+          {{ progressBar.endedAt | flDate:'DATE_TIME_WITH_SECONDS' }}
+        </fl-key-value>
+      }
+
+      @if (progressBar.secondStart) {
+        <fl-text-icon class="g-text-light g-text-small" gap="5px">
+          <mat-icon class="g-icon-small">info</mat-icon>
+          {{ 'biox.progress_bar_multiple_start' | translate }}
+        </fl-text-icon>
+      }
+    }
   </div>
 
   <div class="slide g-layout-row g-layout-start-center g-layout-gap-05em">
-    <fl-loader size="small" *ngIf="liveMode"></fl-loader>
-    <mat-slide-toggle [(ngModel)]="liveMode"
-                      (ngModelChange)="liveModeChanged()"
-                      *ngIf="!isFinishedOnInit"
-                      labelPosition="before">
-      {{'biox.progress_bar_live_messages' | translate}}
-    </mat-slide-toggle>
+    @if (liveMode) {
+      <fl-loader size="small"></fl-loader>
+    }
+
+    @if (!showLiveModeToggle) {
+      <mat-slide-toggle [(ngModel)]="liveMode"
+                        (ngModelChange)="liveModeChanged()"
+                        labelPosition="before">
+        {{ 'biox.progress_bar_live_messages' | translate }}
+      </mat-slide-toggle>
+    }
   </div>
 </div>
 
 
 <div (flInfiniteScroll)="loadMoreMessagesManually()" [flInfiniteDisabled]="loadMoreIsLoading || loadMoreCompleted"
      [flInfiniteMode]="scrollableElement" class="infinite-container">
-  <div *ngFor="let message of messages$ | async; trackBy:trackMessageByDatetime">
-    <lab-progress-message [progressMessage]="message"></lab-progress-message>
+  @for (message of messages$ | async; track message.datetime) {
+    <div>
+      <lab-progress-message [progressMessage]="message"></lab-progress-message>
 
-    <mat-divider class="divider"></mat-divider>
+      <mat-divider class="divider"></mat-divider>
 
-  </div>
+    </div>
+  }
 
-  <div class="g-text-centered" *ngIf="!loadMoreCompleted">
-    <button [disabled]="loadMoreIsLoading || loadMoreCompleted" class="g-button-small"
-            mat-stroked-button color="primary" type="button" (click)="loadMoreMessagesManually()">
-      {{'show_more_result' | translate}}
-      <fl-button-loader *ngIf="loadMoreIsLoading" size="small"></fl-button-loader>
-    </button>
-  </div>
+  @if (!loadMoreCompleted) {
+
+    <div class="g-text-centered">
+      <button [disabled]="loadMoreIsLoading || loadMoreCompleted" class="g-button-small"
+              mat-stroked-button color="primary" type="button" (click)="loadMoreMessagesManually()">
+        {{ 'show_more_result' | translate }}
+        @if (loadMoreIsLoading) {
+          <fl-button-loader size="small"></fl-button-loader>
+        }
+      </button>
+    </div>
+  }
 </div>
 
