@@ -16,7 +16,12 @@
   background-color: var(--card-background);
 }
 
-.process-error{
+.process-description {
+  // align with title
+  padding-left: 6px;
+}
+
+.process-error {
   color: var(--warn-color);
   margin-bottom: 0.2em;
   overflow: hidden;
@@ -26,7 +31,7 @@
   cursor: pointer;
 }
 
-.process-error:hover{
+.process-error:hover {
   text-decoration: underline;
 }
 
