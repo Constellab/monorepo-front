@@ -4,8 +4,12 @@ import {Expose, Type} from 'class-transformer';
 import {FlArrayObs} from '@monorepo/front-core-lib';
 
 export class LabVEnvCreationInfo {
+
+  @Expose({name: 'file_version'})
   fileVersion: number;
+
   name: string;
+  hash: string;
 
   @Expose({name: 'created_at'})
   @ClLuxonDateTimeTransform()
@@ -17,13 +21,11 @@ export class LabVEnvCreationInfo {
   @Expose({name: 'env_type'})
   envType: 'conda' | 'mamba' | 'pip';
 
-
 }
 
 export class LabVenvBasicInfo {
   folder: string;
   name: string;
-  type: 'conda' | 'pip';
 
   @Expose({name: 'creation_info'})
   @Type(() => LabVEnvCreationInfo)

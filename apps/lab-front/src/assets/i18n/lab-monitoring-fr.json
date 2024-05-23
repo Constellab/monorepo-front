@@ -31,6 +31,8 @@
     "synchronizing_lab": "Synchronisation du lab...",
     "venv_list": "Environnements virtuels",
     "venv_type": "Type",
+    "venv_hash": "Hash",
+    "venv_file_version": "Version du fichier",
     "venv_origin_config_file": "Fichier de config d'origine",
     "venv_base_folder": "Dossier de base",
     "venv_folder": "Dossier",
