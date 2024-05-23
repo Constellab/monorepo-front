@@ -1,17 +1,17 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LabWorkflowNodeDashboardComponent} from './lab-workflow-node-dashboard.component';
+import {LabProcessDashboardComponent} from './lab-process-dashboard.component';
 
 describe('LabWorkflowNodeDashboardComponent', () => {
-  let component: LabWorkflowNodeDashboardComponent;
-  let fixture: ComponentFixture<LabWorkflowNodeDashboardComponent>;
+  let component: LabProcessDashboardComponent;
+  let fixture: ComponentFixture<LabProcessDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabWorkflowNodeDashboardComponent],
+      declarations: [LabProcessDashboardComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LabWorkflowNodeDashboardComponent);
+    fixture = TestBed.createComponent(LabProcessDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

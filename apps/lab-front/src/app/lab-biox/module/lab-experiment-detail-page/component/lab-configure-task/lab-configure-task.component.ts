@@ -3,7 +3,7 @@ import {UntypedFormGroup} from '@angular/forms';
 import {
   LabConfigureSpecsFormComponent
 } from '../../../../../lab-core/entity-module/lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
-import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
+import {LabProcessDashboardState} from '../../state/lab-process-dashboard.state';
 import {LabConfig} from '../../../../../lab-core/model/entities/lab-config.entity';
 import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 
@@ -19,7 +19,7 @@ export class LabConfigureTaskComponent implements OnInit {
   formGp: UntypedFormGroup;
   processConfig: LabConfig;
 
-  constructor(private dashboardState: LabWorkflowNodeDashboardState) {
+  constructor(private dashboardState: LabProcessDashboardState) {
   }
 
   ngOnInit(): void {

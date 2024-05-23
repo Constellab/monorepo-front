@@ -8,10 +8,10 @@ import {prConfigValueAreEqual, PrConfigValues} from '@monorepo/protocol';
 import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
 
 /**
- * State for the node dashboard
+ * State for the process dashboard
  */
 @Injectable()
-export class LabWorkflowNodeDashboardState {
+export class LabProcessDashboardState {
 
   private task: LabProcess;
   private taskFormGp: UntypedFormGroup;

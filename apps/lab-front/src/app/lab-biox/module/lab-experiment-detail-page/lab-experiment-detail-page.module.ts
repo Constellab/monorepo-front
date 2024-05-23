@@ -33,12 +33,8 @@ import {
   LabProgressBarCoreModule
 } from '../../../lab-core/entity-module/lab-progress-bar-core/lab-progress-bar-core.module';
 import {LabProjectCoreModule} from '../../../lab-core/entity-module/lab-project-core/lab-project-core.module';
-import {
-  LabWorkflowNodeDashboardComponent
-} from './component/lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
-import {
-  LabWorkflowNodeIoPanelComponent
-} from './component/lab-workflow-node-io-panel/lab-workflow-node-io-panel.component';
+import {LabProcessDashboardComponent} from './component/lab-process-dashboard/lab-process-dashboard.component';
+import {LabProcessIoPanelComponent} from './component/lab-process-io-panel/lab-process-io-panel.component';
 import {
   LabProtocolTemplateCoreModule
 } from '../../../lab-core/entity-module/lab-protocol-template-core/lab-protocol-template-core.module';
@@ -66,8 +62,8 @@ import {LabSystemCoreModule} from '../../../lab-core/entity-module/lab-system-co
     LabConfigureProtocolComponent,
     LabConfigureProcessComponent,
     LabConfigureTaskComponent,
-    LabWorkflowNodeDashboardComponent,
-    LabWorkflowNodeIoPanelComponent,
+    LabProcessDashboardComponent,
+    LabProcessIoPanelComponent,
     LabDynamicPortConfigDialogComponent,
     LabResourceNextObjectsPortalComponent,
   ],

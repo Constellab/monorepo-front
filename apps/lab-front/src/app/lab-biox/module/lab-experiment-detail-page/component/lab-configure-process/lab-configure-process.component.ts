@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '
 import {Observable, Subscription} from 'rxjs';
 import {LabConfigureProtocolComponent} from '../lab-configure-protocol/lab-configure-protocol.component';
 import {LabConfigureTaskComponent} from '../lab-configure-task/lab-configure-task.component';
-import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
+import {LabProcessDashboardState} from '../../state/lab-process-dashboard.state';
 import {LabProcess} from '../../../../../lab-core/model/entities/process/lab-process.entity';
 
 /**
@@ -23,7 +23,7 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private nodeState: LabWorkflowNodeDashboardState) {
+  constructor(private nodeState: LabProcessDashboardState) {
   }
 
   ngOnInit(): void {

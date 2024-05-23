@@ -22,7 +22,7 @@ import {
   LabMonitorBetweenDatesDialogInput
 } from '../../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import {LabProcessService} from '../../../../../lab-core/entity-service/lab-process.service';
-import {LabWorkflowNodeDashboardState} from '../../state/lab-workflow-node-dashboard.state';
+import {LabProcessDashboardState} from '../../state/lab-process-dashboard.state';
 import {DateTime} from 'luxon';
 import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class';
 import {TdTypingName} from '@monorepo/technical-doc';
@@ -42,12 +42,12 @@ import {
  * Complete dashboard to edit, view and run a workflow node
  */
 @Component({
-  selector: 'lab-workflow-node-dashboard',
-  templateUrl: './lab-workflow-node-dashboard.component.html',
-  styleUrls: ['./lab-workflow-node-dashboard.component.scss'],
-  providers: [LabWorkflowNodeDashboardState]
+  selector: 'lab-process-dashboard',
+  templateUrl: './lab-process-dashboard.component.html',
+  styleUrls: ['./lab-process-dashboard.component.scss'],
+  providers: [LabProcessDashboardState]
 })
-export class LabWorkflowNodeDashboardComponent {
+export class LabProcessDashboardComponent {
 
   process$ = this.nodeState.getProcess$();
   nodeProcess$ = this.nodeState.getNode$();
@@ -70,7 +70,7 @@ export class LabWorkflowNodeDashboardComponent {
               private experimentState: LabExperimentDetailPageState,
               private dialogService: FlDialogService,
               private processService: LabProcessService,
-              private dashboardState: LabWorkflowNodeDashboardState,
+              private dashboardState: LabProcessDashboardState,
               private workflowEditConfig: LabWorkflowEditConfig,
               private taskGeneratorService: LabTaskGeneratorService) {
   }
@@ -95,7 +95,7 @@ export class LabWorkflowNodeDashboardComponent {
   // save config on ctrl + s
   @HostListener('window:keydown', ['$event'])
   private keyEvent(event: KeyboardEvent): void {
-    if (event.ctrlKey && event.key === 's') {
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
       // prevent saving when there is another dialog opened
       if (this.dialogService.numberOfOpenedDialog() <= 1) {
         this.saveConfig();

@@ -23,9 +23,7 @@ import {
 } from '../model/lab-workflow-edit-config.class';
 import {TdIOSpec, TdTypingName} from '@monorepo/technical-doc';
 import {ClSubscriptionHandler} from '@monorepo/core-lib';
-import {
-  LabWorkflowNodeDashboardComponent
-} from '../component/lab-workflow-node-dashboard/lab-workflow-node-dashboard.component';
+import {LabProcessDashboardComponent} from '../component/lab-process-dashboard/lab-process-dashboard.component';
 import {LabExperimentDetailPageState} from './lab-experiment-detail-page.state';
 import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
 import {
@@ -95,7 +93,7 @@ export class LabWorkflowNodeDetailState {
   }
 
   openProcessConfigDashboard(): void {
-    this.dialogService.openBigDialog(LabWorkflowNodeDashboardComponent, {
+    this.dialogService.openBigDialog(LabProcessDashboardComponent, {
       panelClass: ['g-dialog-no-padding', 'g-dialog-main-background'],
       viewContainerRef: this.viewContainerRef,
       autoFocus: false
