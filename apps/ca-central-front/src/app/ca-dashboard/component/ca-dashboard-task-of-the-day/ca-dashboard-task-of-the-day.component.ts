@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
+import {CoCommunityHelperService} from '@monorepo/community-lib';
 
 export interface CaTask {
   id: string;
@@ -21,13 +21,14 @@ export class CaDashboardTaskOfTheDayComponent implements OnInit {
   task: CaTask;
   taskHubUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private communityHelper: CoCommunityHelperService) {
   }
 
   ngOnInit(): void {
-    this.http.get(CaCommunityHelper.getTaskOfTheDayApiUrl()).subscribe((res: CaTask) => {
+    this.http.get(this.communityHelper.getTaskOfTheDayApiUrl()).subscribe((res: CaTask) => {
       this.task = res;
-      this.taskHubUrl = CaCommunityHelper.getTaskUrl(this.task.brickName, this.task.uniqueName);
+      this.taskHubUrl = this.communityHelper.getTaskUrl(this.task.brickName, this.task.uniqueName);
     });
   }
 

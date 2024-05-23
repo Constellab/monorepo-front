@@ -113,4 +113,13 @@ export class LabMonitorBetweenDates{
 
   @Type(() => LabMonitor)
   monitors: LabMonitor[];
+
+  @Expose({name: 'main_figure'})
+  mainFigure?: any;
+
+  @Expose({name: 'cpu_figure'})
+  cpuFigure?: any;
+
+  @Expose({name: 'network_figure'})
+  networkFigure?: any;
 }

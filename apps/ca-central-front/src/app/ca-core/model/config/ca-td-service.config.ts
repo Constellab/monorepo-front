@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {TdServiceConfig, TdTechnicalDocUrl, TdTypingName} from '@monorepo/technical-doc';
-import {CaCommunityHelper} from '../../utils/ca-community.helper';
+import {CoCommunityHelperService} from '@monorepo/community-lib';
 
 /**
  * Class to configure the TdService
@@ -10,16 +10,20 @@ import {CaCommunityHelper} from '../../utils/ca-community.helper';
 })
 export class CaTdServiceConfig extends TdServiceConfig {
 
+  constructor(private communityHelper: CoCommunityHelperService) {
+    super();
+  }
+
   getTechnicalDocUrl(parentVersion: string, typingName: TdTypingName): TdTechnicalDocUrl {
 
     return {
       isAbsolute: true,
-      url: CaCommunityHelper.getTechnicalDocUrl(typingName.brickName, parentVersion, typingName)
+      url: this.communityHelper.getTechnicalDocUrl(typingName, parentVersion)
     };
   }
 
   getCommunityIconBaseApiUrl(): string {
-    return CaCommunityHelper.getIconBaseApiUrl();
+    return this.communityHelper.getIconBaseApiUrl();
   }
 
 }

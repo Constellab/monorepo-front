@@ -3,7 +3,7 @@ import {FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
 import {CoCreateLiveTaskFormData} from '../../model/co-live-task.class';
 import {CoSpace} from '../../model/co-space.class';
-import {CoServiceConfig} from '../../service/co-service-config.config';
+import {CoConfig} from '../../service/co-service-config.config';
 
 
 
@@ -21,7 +21,7 @@ export class CoLiveTaskCreateDialogFormComponent {
 
   isLoading = false;
 
-  constructor(private coServiceConfig: CoServiceConfig) {
+  constructor(private coServiceConfig: CoConfig) {
   }
 
   submit(): void {

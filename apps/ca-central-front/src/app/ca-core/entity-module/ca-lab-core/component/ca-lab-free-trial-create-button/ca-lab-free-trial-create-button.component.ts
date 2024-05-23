@@ -12,7 +12,7 @@ import {
 import {CaLabInstance} from '../../../../model/entities/lab/ca-lab-instance.class';
 import {CaRouterService} from '../../../../service/ca-router.service';
 import {CaEnvironmentHelper} from '../../../../utils/ca-environment.helper';
-import {CaCommunityHelper} from '../../../../utils/ca-community.helper';
+import {CoCommunityHelperService} from '@monorepo/community-lib';
 
 @Component({
   selector: 'ca-lab-free-trial-create-button',
@@ -26,7 +26,8 @@ export class CaLabFreeTrialCreateButtonComponent {
   constructor(private labService: CaLabInstanceService,
               private dialogService: FlDialogService,
               private router: CaRouterService,
-              private translateService: FlTranslateService) {
+              private translateService: FlTranslateService,
+              private communityHelper: CoCommunityHelperService) {
   }
 
   createFreeTrialLabInstance(freeTrial: CaLabFreeTrialGetDto): void {
@@ -35,7 +36,7 @@ export class CaLabFreeTrialCreateButtonComponent {
         expirationDays: freeTrial.standardInfo.expirationDays,
         usageLimit: freeTrial.standardInfo.usageLimitInHours,
         greenOptionInactivityDuration: freeTrial.standardInfo.greenOptionInactivityDuration,
-        communityLink: CaCommunityHelper.getDigitalLabOverviewRoute(),
+        communityLink: this.communityHelper.getDigitalLabOverviewRoute(),
         supportMail: CaEnvironmentHelper.getSupportMail(),
       }
     };

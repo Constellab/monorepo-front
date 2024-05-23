@@ -38,6 +38,7 @@ import {
   FlTextIconModule,
   FlThemeModule,
   FlTranslateModule,
+  FlDatetimePickerModule,
   FlUserModule
 } from '@monorepo/front-core-lib';
 import {RvResourceViewModule} from '@monorepo/resource-view';
@@ -96,6 +97,7 @@ import {CoCommunityLibModule} from '@monorepo/community-lib';
     FlHorizontalNavBarModule,
     FlRadioButtonBigModule,
     FlCodeEditorModule,
+    FlDatetimePickerModule,
 
     //  Other lib
     BnBioNetworkModule,

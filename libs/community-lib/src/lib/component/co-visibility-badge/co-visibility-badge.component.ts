@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CoSpace} from '../../model/co-space.class';
-import {CoServiceConfig} from '../../service/co-service-config.config';
+import {CoConfig} from '../../service/co-service-config.config';
 
 
 @Component({
@@ -12,7 +12,7 @@ export class CoVisibilityBadgeComponent implements OnInit{
 
   @Input() space: CoSpace = null;
 
-  constructor(private coServiceConfig: CoServiceConfig) {
+  constructor(private coServiceConfig: CoConfig) {
   }
 
   ngOnInit(): void {

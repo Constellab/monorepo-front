@@ -142,5 +142,13 @@
   "lab_entity_type_VIEW": "View",
   "lab_entity_type_REPORT": "Report",
   "lab_entity_type_PROTOCOL_TEMPLATE": "Protocol template",
-  "lab_entity_type_REPORT_TEMPLATE": "Report template"
+  "lab_entity_type_REPORT_TEMPLATE": "Report template",
+  "lab_usage_period_to": "To date",
+  "lab_usage_period_from": "From date",
+  "lab_usage_period": "Period",
+  "lab_usage_period_CURRENT_DAY": "Current day",
+  "lab_usage_period_LAST_HOUR": "Last hour",
+  "lab_usage_period_LAST_12_HOURS": "Last 12 hours",
+  "lab_usage_period_LAST_24_HOURS": "Last 24 hours",
+  "lab_usage_period_CUSTOM": "Custom"
 }

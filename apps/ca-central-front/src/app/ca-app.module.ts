@@ -43,6 +43,8 @@ import {CaSpaceInterceptor} from './ca-core/interceptor/ca-space-interceptor.ser
 import {BnBioNetworkModule} from '@monorepo/bio-network';
 import {CaEnvironmentHelper} from './ca-core/utils/ca-environment.helper';
 import {TranslateLoader} from '@ngx-translate/core';
+import {CoCommunityLibModule} from '@monorepo/community-lib';
+import {CaCoServiceConfig} from './ca-core/model/config/ca-co-service-config.service';
 
 export function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -107,6 +109,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     BnBioNetworkModule.forRoot(),
 
     TdTechnicalDocModule.forRoot(CaTdServiceConfig),
+    CoCommunityLibModule.forRoot(CaCoServiceConfig),
   ],
   providers: [
     {

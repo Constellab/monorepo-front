@@ -18,7 +18,7 @@ import {LabTypeService} from '../../../../entity-service/lab-type.service';
 import {TdIOSpec, TdTypingName} from '@monorepo/technical-doc';
 import {PrConfigValues} from '@monorepo/protocol';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {LabCommunityHelper} from '../../../../utils/lab-community.helper';
+import {CoCommunityHelperService} from '@monorepo/community-lib';
 
 export interface LabImportResourceDialogInput {
   resourceId: string;
@@ -48,7 +48,7 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
   processTypeIsLoading: boolean = false;
   callIsLoading: boolean = false;
 
-  communityHelpUrl = LabCommunityHelper.getImportResourceDocUrl();
+  communityHelpUrl: string;
 
   private detailOverlayRef: FlOverlayRef;
 
@@ -58,10 +58,13 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
               private resourceService: LabResourceService,
               private typingService: LabTypeService,
               private routerService: LabRouterService,
-              private snackBarService: FlSnackBarService) {
+              private snackBarService: FlSnackBarService,
+              private communityHelper: CoCommunityHelperService) {
   }
 
   ngOnInit(): void {
+    this.communityHelpUrl = this.communityHelper.getImportResourceDocUrl();
+
     const defaultImporter = this.getDefaultImporterTypingName(this.input.nodeExtension);
 
     if (defaultImporter) {

@@ -3,6 +3,16 @@ import {LabMonitorService} from '../../../../lab-core/entity-service/lab-monitor
 import {ClDateHelper} from '@monorepo/core-lib';
 import {Observable} from 'rxjs';
 import {LabMonitorBetweenDates} from '../../../../lab-core/model/entities/lab-monitor.entity';
+import {DateTime} from 'luxon';
+import {FormBuilder, Validators} from '@angular/forms';
+
+export enum LabMonitoringRunPeriod {
+  CURRENT_DAY = 'CURRENT_DAY',
+  LAST_HOUR = 'LAST_HOUR',
+  LAST_12_HOURS = 'LAST_12_HOURS',
+  LAST_24_HOURS = 'LAST_24_HOURS',
+  CUSTOM = 'CUSTOM',
+}
 
 /**
  * Sub monitoring page to display the CPU, RAM, Disk and Swap usage.
@@ -15,14 +25,83 @@ import {LabMonitorBetweenDates} from '../../../../lab-core/model/entities/lab-mo
 export class LabMonitoringUsagePageComponent implements OnInit {
 
   monitor$: Observable<LabMonitorBetweenDates>;
+  periods: any = LabMonitoringRunPeriod;
+  fromDate: DateTime;
+  toDate: DateTime;
+  formGroup = new FormBuilder().group({
+    period: [LabMonitoringRunPeriod.CURRENT_DAY, Validators.required],
+    customStartDate: [null as DateTime],
+    customEndDate: [null as DateTime],
+    testDateTime: [null as DateTime],
+  });
+  customPeriod: LabMonitoringRunPeriod = LabMonitoringRunPeriod.CUSTOM;
+
+  currentDate = ClDateHelper.getDate();
 
   constructor(private monitorService: LabMonitorService) {
   }
 
   ngOnInit(): void {
-    const fromDate = ClDateHelper.getDate().minus({hour: 1});
-    const toDate = ClDateHelper.getDate();
-    this.monitor$ = this.monitorService.getMonitor(fromDate, toDate);
+    this.fromDate = ClDateHelper.getDate().startOf('day');
+    this.toDate = ClDateHelper.getDate();
+    this.updateMonitor();
+
+    this.formGroup.get('period').valueChanges.subscribe((period: LabMonitoringRunPeriod) => {
+      this.fromDate = null;
+      this.toDate = null;
+      switch (period) {
+        case LabMonitoringRunPeriod.CURRENT_DAY:
+          this.fromDate = ClDateHelper.getDate().startOf('day');
+          this.toDate = ClDateHelper.getDate();
+          break;
+        case LabMonitoringRunPeriod.LAST_HOUR:
+          this.fromDate = ClDateHelper.getDate().minus({hour: 1});
+          this.toDate = ClDateHelper.getDate();
+          break;
+        case LabMonitoringRunPeriod.LAST_12_HOURS:
+          this.fromDate = ClDateHelper.getDate().minus({hour: 12});
+          this.toDate = ClDateHelper.getDate();
+          break;
+        case LabMonitoringRunPeriod.LAST_24_HOURS:
+          this.fromDate = ClDateHelper.getDate().minus({hour: 24});
+          this.toDate = ClDateHelper.getDate();
+          break;
+        case LabMonitoringRunPeriod.CUSTOM:
+          this.fromDate = this.formGroup.get('customStartDate').value;
+          this.toDate = this.formGroup.get('customEndDate').value;
+          break;
+      }
+      this.updateMonitor();
+    });
+
+    this.formGroup.get('customStartDate').valueChanges.subscribe((value) => {
+      this.fromDate = value;
+      this.updateMonitor();
+    });
+
+    this.formGroup.get('customEndDate').valueChanges.subscribe((value) => {
+      this.toDate = value;
+      this.updateMonitor();
+    });
   }
 
+  startDateChange(event: DateTime): void {
+    this.fromDate = event;
+    this.formGroup.get('customStartDate').setValue(event);
+    this.formGroup.get('customEndDate').setValue(null); // Reset end date
+  }
+
+  endDateChange(event: DateTime): void {
+    this.toDate = event;
+    this.formGroup.get('customEndDate').setValue(event);
+    this.updateMonitor();
+  }
+
+  private updateMonitor(): void {
+    if (this.fromDate && this.toDate && this.fromDate <= this.toDate){
+      const offset = new Date().getTimezoneOffset()
+      const timezoneNumber = offset / 60 * -1;
+      this.monitor$ = this.monitorService.getMonitor(this.fromDate, this.toDate, timezoneNumber);
+    }
+  }
 }

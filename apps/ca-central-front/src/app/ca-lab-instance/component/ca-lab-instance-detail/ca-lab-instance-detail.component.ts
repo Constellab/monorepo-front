@@ -15,7 +15,6 @@ import {
   CaLabDesktopDownloadConfigComponent,
   CaLabDesktopDownloadConfigInput
 } from '../desktop/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
-import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
 import {
   CaStatusHistoryListDialogComponent,
   CaStatusHistoryListDialogInput
@@ -24,6 +23,7 @@ import {
   CaLabDesktopUpdateDialogComponent,
   LabDesktopUpdateDialogInput
 } from '../ca-lab-desktop-update-dialog/ca-lab-desktop-update-dialog.component';
+import {CoCommunityHelperService} from '@monorepo/community-lib';
 
 @Component({
   selector: 'ca-lab-instance-detail',
@@ -37,14 +37,16 @@ export class CaLabInstanceDetailComponent implements OnInit {
   labIsRunning$: Observable<boolean> = this.state.labIsRunning$();
   isLoading: boolean = false;
 
-  desktopDocUrl: string = CaCommunityHelper.getDesktopDocUrl();
+  desktopDocUrl: string;
 
   constructor(private state: CaLabInstanceDetailPageState,
               private dialogService: FlDialogService,
-              private labInstanceService: CaLabInstanceService) {
+              private labInstanceService: CaLabInstanceService,
+              private communityHelper: CoCommunityHelperService) {
   }
 
   ngOnInit(): void {
+    this.desktopDocUrl = this.communityHelper.getDesktopDocUrl();
     this.labInstance$ = this.state.getLabInstance$();
   }
 

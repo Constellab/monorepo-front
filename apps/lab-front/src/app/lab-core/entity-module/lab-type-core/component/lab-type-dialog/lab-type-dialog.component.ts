@@ -6,7 +6,7 @@ import {Observable, share} from 'rxjs';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {TdTypingName} from '@monorepo/technical-doc';
 import {map} from 'rxjs/operators';
-import {LabCommunityHelper} from '../../../../utils/lab-community.helper';
+import {CoCommunityHelperService} from '@monorepo/community-lib';
 
 export interface LabTypeDialogInput {
   typingName: string;
@@ -27,14 +27,15 @@ export class LabTypeDialogComponent {
   detailRoute: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) private input: LabTypeDialogInput,
-              private typeService: LabTypeService) {
+              private typeService: LabTypeService,
+              private communityHelper: CoCommunityHelperService) {
     this.detailRoute = LabRouterService.getTechnicalDocRoute(input.typingName);
   }
 
 
   getCommunityUrl(type: LabTypeEntity): string {
     const typingName = new TdTypingName(type.typingName);
-    return LabCommunityHelper.getTechnicalDocUrl(typingName, type.brickVersion);
+    return this.communityHelper.getTechnicalDocUrl(typingName, type.brickVersion);
   }
 
 

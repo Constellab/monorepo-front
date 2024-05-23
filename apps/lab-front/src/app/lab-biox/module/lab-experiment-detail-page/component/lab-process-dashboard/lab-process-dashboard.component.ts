@@ -28,11 +28,10 @@ import {LabWorkflowEditConfig} from '../../model/lab-workflow-edit-config.class'
 import {TdTypingName} from '@monorepo/technical-doc';
 import {LabTaskGeneratorService} from '../../../../../lab-core/service/lab-task-generator.service';
 import {LabCreateCommunityLiveTaskVersionResDto} from '../../../../../lab-core/model/entities/lab-live-task.entity';
-import {LabCommunityHelper} from '../../../../../lab-core/utils/lab-community.helper';
 import {
   LabShareLiveTaskCommunityDialogComponent
 } from '../../../../../lab-core/entity-module/lab-type-core/component/lab-share-live-task-community-dialog/lab-share-live-task-community-dialog.component';
-import {CoLiveTaskHelper} from '@monorepo/community-lib';
+import {CoCommunityHelperService, CoLiveTaskHelper} from '@monorepo/community-lib';
 import {
   LabPipPackagesDialogComponent
 } from '../../../../../lab-core/entity-module/lab-system-core/component/lab-pip-packages-dialog/lab-pip-packages-dialog.component';
@@ -75,7 +74,8 @@ export class LabProcessDashboardComponent {
               private processService: LabProcessService,
               private dashboardState: LabProcessDashboardState,
               private workflowEditConfig: LabWorkflowEditConfig,
-              private taskGeneratorService: LabTaskGeneratorService) {
+              private taskGeneratorService: LabTaskGeneratorService,
+              private communityHelper: CoCommunityHelperService) {
   }
 
   openTypingDoc(typingName: string): void {
@@ -163,7 +163,7 @@ export class LabProcessDashboardComponent {
         }
       }).afterClosed().subscribe((res: LabCreateCommunityLiveTaskVersionResDto) => {
       if (res) {
-        window.open(LabCommunityHelper.getLiveTasKVersionUrl(res.live_task_id, res.id), '_blank');
+        window.open(this.communityHelper.getLiveTasKVersionUrl(res.live_task_id, res.id), '_blank');
       }
     });
   }

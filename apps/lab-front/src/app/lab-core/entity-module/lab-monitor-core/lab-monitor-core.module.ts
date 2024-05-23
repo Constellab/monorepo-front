@@ -5,6 +5,7 @@ import {
 } from './lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import {LabMonitorBetweenDatesComponent} from './lab-monitor-between-dates/lab-monitor-between-dates.component';
 import {LabCoreModule} from '../../lab-core.module';
+import {FlPlotlyComponent} from '@monorepo/front-core-lib';
 
 
 @NgModule({
@@ -20,6 +21,8 @@ import {LabCoreModule} from '../../lab-core.module';
     CommonModule,
 
     LabCoreModule,
+
+    FlPlotlyComponent
   ],
 })
 export class LabMonitorCoreModule {

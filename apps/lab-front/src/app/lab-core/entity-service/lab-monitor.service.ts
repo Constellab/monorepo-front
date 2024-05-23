@@ -16,11 +16,12 @@ export class LabMonitorService {
   constructor(private apiService: FlApiService) {
   }
 
-  public getMonitor(fromDate: DateTime, toDate: DateTime): Observable<LabMonitorBetweenDates> {
+  public getMonitor(fromDate: DateTime, toDate: DateTime, timezoneNumber: number): Observable<LabMonitorBetweenDates> {
     return this.apiService.post(`${this.route}`,
       {
         from_date: ClDateHelper.serializeDateTime(fromDate),
-        to_date: ClDateHelper.serializeDateTime(toDate)
+        to_date: ClDateHelper.serializeDateTime(toDate),
+        timezone_number: timezoneNumber
       },
       LabMonitorBetweenDates);
   }

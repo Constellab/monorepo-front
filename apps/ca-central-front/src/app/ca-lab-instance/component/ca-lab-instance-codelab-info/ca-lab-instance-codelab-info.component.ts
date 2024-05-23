@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {CaLabInstance} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
-import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
 import {FlClipboardService} from '@monorepo/front-core-lib';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {CoCommunityHelperService} from '@monorepo/community-lib';
 
 /**
  * Dialog to show information about the codelab of a lab instance
@@ -17,17 +17,19 @@ export class CaLabInstanceCodelabInfoComponent implements OnInit {
   labInstance: CaLabInstance;
 
   codelabUrl: string;
-  communityHelpUrl = CaCommunityHelper.getDevEnvironmentUrl();
+  communityHelpUrl: string;
 
   showCodeLabToken = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) labInstance: CaLabInstance,
-              private clipboardService: FlClipboardService) {
+              private clipboardService: FlClipboardService,
+              private communityHelper: CoCommunityHelperService) {
     this.labInstance = labInstance;
   }
 
   ngOnInit(): void {
     // eslint-disable-next-line max-len
+    this.communityHelpUrl = this.communityHelper.getDevEnvironmentUrl();
     this.codelabUrl = `https://codelab.${this.labInstance.virtualHost}/?folder=/lab/user`;
   }
 

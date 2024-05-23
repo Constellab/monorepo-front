@@ -32,6 +32,7 @@ export * from './lib/module/fl-json-editor/public-api';
 export * from './lib/module/fl-key-value/public-api';
 export * from './lib/module/fl-loader/public-api';
 export * from './lib/module/fl-menu-dynamic/public-api';
+export * from './lib/module/fl-plotly/public-api';
 export * from './lib/module/fl-portal/public-api';
 export * from './lib/module/fl-portal-actions/public-api';
 export * from './lib/module/fl-radio-button-big/public-api';
@@ -46,6 +47,7 @@ export * from './lib/module/fl-text-icon/public-api';
 export * from './lib/module/fl-theme/public-api';
 export * from './lib/module/fl-translate/public-api';
 export * from './lib/module/fl-user/public-api';
+export * from './lib/module/fl-datetime-picker/public-api';
 
 // Export the services
 export * from './lib/service/public-api';

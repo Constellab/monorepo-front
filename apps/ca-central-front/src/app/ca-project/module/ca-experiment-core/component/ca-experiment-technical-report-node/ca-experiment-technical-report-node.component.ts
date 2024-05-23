@@ -5,8 +5,8 @@ import {HttpClient} from '@angular/common/http';
 import {
   CaExperimentTechnicalReportProcessDocDialogComponent
 } from '../ca-experiment-technical-report-process-doc-dialog/ca-experiment-technical-report-process-doc-dialog.component';
-import {CaCommunityHelper} from '../../../../../ca-core/utils/ca-community.helper';
 import {PrProtocol} from '@monorepo/protocol';
+import {CoCommunityHelperService} from '@monorepo/community-lib';
 
 @Component({
   selector: 'ca-experiment-technical-report-node',
@@ -20,7 +20,8 @@ export class CaExperimentTechnicalReportNodeComponent implements OnInit {
   typingName: TdTypingName;
 
   constructor(private dialogService: FlDialogService,
-              private http: HttpClient) {
+              private http: HttpClient,
+              private communityHelper: CoCommunityHelperService) {
   }
 
   ngOnInit(): void {
@@ -28,7 +29,7 @@ export class CaExperimentTechnicalReportNodeComponent implements OnInit {
   }
 
   openTechDocDialog(): void {
-    this.http.post(CaCommunityHelper.getTechnicalDocByPathApiUrl(), {
+    this.http.post(this.communityHelper.getTechnicalDocByPathApiUrl(), {
       brickName: this.typingName.brickName,
       brickVersion: this.node.brick_version,
       techDocType: this.typingName.type.toLowerCase(),

@@ -14,6 +14,7 @@ export * from './lib/component/co-brick-list-item/co-brick-list-item.component';
 
 // Helpers
 export * from './lib/helper/co-live-task.helper';
+export * from './lib/helper/co-community-helper.service';
 
 // Models
 export * from './lib/model/co-live-task.class';

@@ -3,8 +3,8 @@ import {CaCurrentSpaceService} from '../../../ca-core/service-api/ca-current-spa
 import {Observable} from 'rxjs';
 import {CaSpace} from '../../../ca-core/model/entities/space/ca-space.class';
 import {CaUserDatasourcePaginated} from '../../../ca-core/model/entities/ca-user.class';
-import {CaCommunityHelper} from '../../../ca-core/utils/ca-community.helper';
 import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper';
+import {CoCommunityHelperService} from '@monorepo/community-lib';
 
 /**
  * Page containing the user dashboard
@@ -16,7 +16,7 @@ import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper'
 })
 export class CaDashboardPageComponent implements OnInit, OnDestroy {
 
-  communityLink: string = CaCommunityHelper.getCommunityUrl();
+  communityLink: string
   supportMail = CaEnvironmentHelper.getSupportMail()
 
   currentSpace$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
@@ -24,11 +24,13 @@ export class CaDashboardPageComponent implements OnInit, OnDestroy {
 
   currentDate: Date = new Date();
 
-  constructor(private currentSpaceService: CaCurrentSpaceService) {
+  constructor(private currentSpaceService: CaCurrentSpaceService,
+              private communityHelper: CoCommunityHelperService) {
 
   }
 
   ngOnInit(): void {
+    this.communityLink = this.communityHelper.getCommunityUrl();
   }
 
   ngOnDestroy(): void {
