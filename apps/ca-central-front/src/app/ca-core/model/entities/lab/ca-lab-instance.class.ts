@@ -28,7 +28,8 @@ export type CaLabInstanceStatus =
   | 'SERVER_STOPPING' // server is stopping in the cloud
   | 'SERVER_RUNNING' // server running but lab manager and lab are not started (server not configured)
   | 'SERVER_CONFIGURED' // server is started and lab manager is running
-  | 'NO_SERVER';
+  | 'NO_SERVER'
+  | 'ERROR';
 
 
 export const caLabInstanceStatusDict: FlStatusDict<CaLabInstanceStatus> = {
@@ -39,6 +40,7 @@ export const caLabInstanceStatusDict: FlStatusDict<CaLabInstanceStatus> = {
   SERVER_RUNNING: FlStatusHelper.getInfoStatus('SERVER_RUNNING', 'lab_server_running'),
   SERVER_CONFIGURED: FlStatusHelper.getInfoStatus('SERVER_CONFIGURED', 'lab_server_configured'),
   NO_SERVER: FlStatusHelper.getInfoStatus('NO_SERVER', 'lab_no_server', 'clear'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
 };
 
 export const caLabInstanceStatusTemp: CaLabInstanceStatus[] = [
