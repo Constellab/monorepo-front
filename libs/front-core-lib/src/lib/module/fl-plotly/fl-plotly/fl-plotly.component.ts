@@ -1,13 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-// Plotly.newPlot()
-// we use the strict version of plotly even if it's not typed because the normal version
-// use eval (for webgl scatter) which requires unsafe-eval in the CSP
-// don't use the dist version because the webgl doesn't work in production mode
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-import Plotly from 'plotly.js-strict-dist';
-
 export interface FlPlotlyData {
   data: any;
   layout: any;
@@ -29,16 +22,17 @@ export class FlPlotlyComponent implements OnInit{
   plotlyContainer: ElementRef<HTMLElement>;
 
 
-  ngOnInit(): void{
+  async ngOnInit(): Promise<void>{
 
+    import('plotly.js-strict-dist').then((module) => {
+      module.newPlot(
+        this.plotlyContainer.nativeElement,
+        this.data.data,
+        this.data.layout,
+        {
 
-    Plotly.newPlot(
-      this.plotlyContainer.nativeElement,
-      this.data.data,
-      this.data.layout,
-      {
-
-      }
-    );
+        }
+      );
+    });
   }
 }
