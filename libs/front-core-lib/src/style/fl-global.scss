@@ -330,17 +330,18 @@ figure {
   min-height: 25px;
 }
 
-.g-fl-element-editable:not(.g-fl-element-editable-true):not(.g-fl-element-editable-disabled):hover {
-  background-color: var(--hover-color);
+.g-fl-element-editable:not(.g-fl-element-editable-disabled) {
+  cursor: text;
 }
 
-.g-fl-element-editable-true:not(.g-fl-element-editable-disabled) {
-  cursor: initial;
+.g-fl-element-editable:not(.g-fl-element-editable-true):not(.g-fl-element-editable-disabled):hover {
+  background-color: var(--hover-color);
 }
 
 .g-fl-element-editable-true{
   border-color: var(--color-foreground);
 }
+
 
 // For FlHideSamePageLinkDirective
 .g-fl-hide-same-page-link {
