@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {TdTypeEntity, TdTypeRefDTO} from '../../model/td-type.class';
+import {TdTypeRefDTO, TdTypeTypingEntity} from '../../model/td-type.class';
 
 @Component({
   selector: 'td-main-doc',
@@ -8,7 +8,7 @@ import {TdTypeEntity, TdTypeRefDTO} from '../../model/td-type.class';
 })
 export class TdMainDocComponent {
 
-  @Input() entity: TdTypeEntity;
+  @Input() entity: TdTypeTypingEntity;
 
   get parentResourceRef(): TdTypeRefDTO {
     return {

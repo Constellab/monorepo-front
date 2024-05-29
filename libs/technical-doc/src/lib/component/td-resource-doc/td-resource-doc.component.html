@@ -14,33 +14,6 @@
   }
 </div>
 
-@if(resource.variables && (resource.variables | keyvalue).length > 0){
-  <div class="methods-div">
-    <h4>{{'td.variables' | translate}}</h4>
-    <div class="method-card">
-      @for(variable of resource.variables | keyvalue; track  variable.key){
-        <code class="variable">
-          <span class="var-name">{{variable.key}}</span>: <span class="var-type">{{variable.value}}</span>
-        </code>
-      }
-    </div>
-  </div>
-}
+<td-vars-methods-doc [funcs]="resource.methods.funcs" [variables]="resource.variables">
 
-
-<div class="methods-div">
-  <h4>{{'td.functions' | translate}}</h4>
-  <div class="method-card">
-    <ng-container *ngFor="let func of resource.methods.funcs">
-      <a class="func-code-line code" [routerLink]="'.'" [fragment]="func.name">
-        <code>
-          <td-resource-doc-function-signature [func]="func"></td-resource-doc-function-signature>
-        </code>
-      </a>
-    </ng-container>
-  </div>
-
-  <div *ngFor="let func of resource.methods.funcs" id="{{func.name}}" class="func">
-    <td-resource-doc-func-info [func]="func"></td-resource-doc-func-info>
-  </div>
-</div>
+</td-vars-methods-doc>

@@ -1,4 +1,4 @@
-export type TdTypeObjectType = 'TASK' | 'RESOURCE' | 'PROTOCOL';
+export type TdTypeObjectType = 'TASK' | 'RESOURCE' | 'PROTOCOL' | 'OTHER_CLASS';
 
 export type TdTypeObjectSubType = 'TASK' | 'RESOURCE' | 'PROTOCOL' | 'TRANSFORMER' | 'IMPORTER' | 'EXPORTER';
 
@@ -37,19 +37,10 @@ export interface TdTypeRefDTO {
   short_description?: string;
 }
 
-export interface TdTypeEntity {
-
+export interface TdTypeTypingEntity extends TdTypeEntity{
   typingName: string;
 
-  brickVersion?: string;
-
-  humanName: string;
-
   shortDescription: string | undefined;
-
-  doc: string;
-
-  objectType: TdTypeObjectType;
 
   objectSubType: TdTypeObjectSubType;
 
@@ -69,4 +60,23 @@ export interface TdTypeEntity {
   parentVersion: string | undefined;
 
   parentStyle: TdTypeStyle | undefined;
+}
+
+export interface TdTypeEntity {
+
+  brickVersion?: string;
+
+  humanName: string;
+
+  doc: string;
+
+  objectType: TdTypeObjectType;
+
+  typingName?: string;
+
+  style?: TdTypeStyle;
+
+  objectSubType?: TdTypeObjectSubType;
+
+  deprecatedSince?: string | undefined;
 }

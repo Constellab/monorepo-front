@@ -1,5 +1,5 @@
 import {Component, ElementRef, Inject, Input, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
-import {TdResourceFunction, TdResourceFunctionArg} from '../../model/td-resource-type.class';
+import {TdTechDocFunction, TdResourceFunctionArg} from '../../model/td-resource-type.class';
 import {isPlatformBrowser} from '@angular/common';
 import {TeHighlight} from '../../model/td-highlight.class';
 
@@ -10,7 +10,7 @@ import {TeHighlight} from '../../model/td-highlight.class';
 })
 export class TdResourceDocFunctionSignatureComponent implements OnInit {
 
-  @Input({required: true}) func: TdResourceFunction;
+  @Input({required: true}) func: TdTechDocFunction;
 
   @ViewChild('signature', {static: true}) signature: ElementRef;
 
@@ -21,14 +21,14 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
     this.signature.nativeElement.innerHTML = this.getFunctionSignature(this.func)
   }
 
-  getFunctionSignature(func: TdResourceFunction): string {
+  getFunctionSignature(func: TdTechDocFunction): string {
     if (isPlatformBrowser(this.platformId)) {
       return TeHighlight.highlight(this.getFunctionSignatureToString(func), 'python');
     }
     return '';
   }
 
-  getFunctionSignatureToString(func: TdResourceFunction): string {
+  getFunctionSignatureToString(func: TdTechDocFunction): string {
     return 'def ' + func.name + '(' + this.getFunctionArgsToString(func.args) + ') -> ' + (func.return_type ? func.return_type : 'void');
   }
 

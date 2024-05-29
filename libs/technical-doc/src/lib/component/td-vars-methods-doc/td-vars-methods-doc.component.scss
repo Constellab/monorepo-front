@@ -1,3 +1,11 @@
+.func{
+  font-size: 13px;
+  background-color: var(--card-background);
+  padding: 1em;
+  margin-top: 1em;
+  border-radius: var(--card-radius);
+}
+
 .methods-div{
   margin-bottom: 2em;
   padding: 1em;
@@ -14,19 +22,6 @@
   flex-direction: column;
 }
 
-.view-title{
-  font-size: 1.3em;
-  font-weight: bold;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.75em;
-}
-
-.view-description{
-  margin-top: 1em;
-}
-
 .variable{
   font-size: 1.25em;
   margin-bottom: 0.5em;
@@ -35,6 +30,17 @@
 .var-type{
   color: #c18401;
 }
+
+.func-code-line{
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+.func-code-line:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 
 @media (max-width: 750px) {
   .methods-div{

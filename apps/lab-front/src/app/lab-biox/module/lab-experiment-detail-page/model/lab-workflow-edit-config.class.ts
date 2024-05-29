@@ -107,8 +107,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
       });
   }
 
-  public duplicateProcess(processId: string, processName: string): void {
-    const obs = this.protocolService.addDuplicateProcessToProtocol(this.workflow.currentLayer.id, processId);
+  public duplicateProcess(processInstanceName: string, processName: string): void {
+    const obs = this.protocolService.addDuplicateProcessToProtocol(this.workflow.currentLayer.id, processInstanceName);
     this.addProcessAction(obs,
       {
         text: 'pr.duplicating_process', translateText: true,

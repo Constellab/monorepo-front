@@ -44,27 +44,30 @@
     </div>
   </div>
 
-  <div>
-    <h2>{{'monitoring.global_usage' | translate}}</h2>
-    <div class="chart">
-      <fl-plotly [data]="monitor.mainFigure" ></fl-plotly>
+  <div class="monitoring-div">
+    <div>
+      <h2>{{'monitoring.global_usage' | translate}}</h2>
+      <div class="chart">
+        <fl-plotly [data]="monitor.mainFigure" ></fl-plotly>
+      </div>
+    </div>
+
+    <div class="sub-grid">
+      <div>
+        <h2>{{'monitoring.all_cpu_percent' | translate}}</h2>
+        <div class="chart">
+          <fl-plotly [data]="monitor.cpuFigure"></fl-plotly>
+        </div>
+      </div>
+      <div>
+        <h2>{{'monitoring.network_consumption' | translate}}</h2>
+        <div class="chart">
+          <fl-plotly [data]="monitor.networkFigure"></fl-plotly>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="sub-grid">
-    <div>
-      <h2>{{'monitoring.all_cpu_percent' | translate}}</h2>
-      <div class="chart">
-        <fl-plotly [data]="monitor.cpuFigure"></fl-plotly>
-      </div>
-    </div>
-    <div>
-      <h2>{{'monitoring.network_consumption' | translate}}</h2>
-      <div class="chart">
-        <fl-plotly [data]="monitor.networkFigure"></fl-plotly>
-      </div>
-    </div>
-  </div>
 
   <div *ngIf="gpuTemperature">
     <h2>{{'monitoring.gpu_temperature' | translate}}</h2>

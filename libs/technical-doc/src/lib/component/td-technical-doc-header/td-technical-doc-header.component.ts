@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {FlColorHelper} from '@monorepo/front-core-lib';
 import {TdTypeEntity} from '../../model/td-type.class';
 
+
 @Component({
   selector: 'td-technical-doc-header',
   templateUrl: './td-technical-doc-header.component.html',
@@ -14,18 +15,33 @@ export class TdTechnicalDocHeaderComponent implements OnInit, OnChanges {
 
   color: string;
 
+  isTyping: boolean = false;
+
   constructor() {
   }
 
   ngOnInit(): void {
-    this.setColor(this.technicalDoc.typingName);
+    this.checkIsTyping();
+
+    if (this.isTyping) {
+      this.setColor();
+    }
   }
 
   ngOnChanges(): void{
-    this.setColor(this.technicalDoc.typingName);
+    this.checkIsTyping();
+    if (this.isTyping) {
+      this.setColor();
+    }
   }
 
-  private setColor(typingName: string): void{
-    this.color = FlColorHelper.stringToRGBColor(typingName);
+  private checkIsTyping(): void {
+    if (this.technicalDoc.typingName != null) {
+      this.isTyping = true;
+    }
+  }
+
+  private setColor(): void {
+    this.color = FlColorHelper.stringToRGBColor(this.technicalDoc.typingName);
   }
 }

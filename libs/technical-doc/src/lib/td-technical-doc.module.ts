@@ -42,6 +42,8 @@ import {
   TdResourceDocFuncInfoComponent
 } from './component/td-resource-doc-func-info/td-resource-doc-func-info.component';
 import {TdCleanTypePipe} from './pipe/td-clean-type.pipe';
+import {TdVarsMethodsDocComponent} from './component/td-vars-methods-doc/td-vars-methods-doc.component';
+import {TdOtherClassDocComponent} from './component/td-other-class-doc/td-other-class-doc.component';
 
 @NgModule({
   imports: [
@@ -83,6 +85,8 @@ import {TdCleanTypePipe} from './pipe/td-clean-type.pipe';
     TdTypeIconBadgeComponent,
     TdResourceDocFunctionSignatureComponent,
     TdResourceDocFuncInfoComponent,
+    TdVarsMethodsDocComponent,
+    TdOtherClassDocComponent,
     TdCleanTypePipe
   ],
   exports: [
@@ -102,6 +106,8 @@ import {TdCleanTypePipe} from './pipe/td-clean-type.pipe';
     TdTypeIconBadgeComponent,
     TdResourceDocFunctionSignatureComponent,
     TdResourceDocFuncInfoComponent,
+    TdVarsMethodsDocComponent,
+    TdOtherClassDocComponent,
     TdCleanTypePipe
   ]
 })

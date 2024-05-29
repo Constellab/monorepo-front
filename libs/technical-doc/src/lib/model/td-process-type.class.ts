@@ -1,4 +1,4 @@
-import {TdTypeEntity, TdTypeRefDTO} from './td-type.class';
+import {TdTypeRefDTO, TdTypeTypingEntity} from './td-type.class';
 import {TdParamSpecs} from './td-config-spec.class';
 
 export interface TdIOSpecs {
@@ -7,7 +7,7 @@ export interface TdIOSpecs {
   is_dynamic: boolean;
 }
 
-export interface TdProcessType extends TdTypeEntity {
+export interface TdProcessType extends TdTypeTypingEntity {
   inputSpecs: TdIOSpecs;
 
   outputSpecs: TdIOSpecs;
@@ -34,4 +34,5 @@ export interface TdIOSpec {
   is_constant?: boolean;
 
   sub_class?: boolean;
+
 }

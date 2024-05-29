@@ -47,8 +47,8 @@ export class LabProtocolService {
       LabProtocolUpdateDTO);
   }
 
-  public addDuplicateProcessToProtocol(protocolId: string, processId: string): Observable<LabProtocolUpdateDTO> {
-    return this.apiService.post(`${this.baseRoute}/${protocolId}/add-duplicate-process/${processId}`, null,
+  public addDuplicateProcessToProtocol(protocolId: string, processInstanceName: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/duplicate-process/${processInstanceName}`, null,
       LabProtocolUpdateDTO);
   }
 

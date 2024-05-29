@@ -173,7 +173,7 @@ export class LabProcessDashboardComponent {
   }
 
   duplicateTask(process: LabProcess): void{
-    this.workflowEditConfig.duplicateProcess(process.id, process.name);
+    this.workflowEditConfig.duplicateProcess(process.instanceName, process.name);
   }
 
 }

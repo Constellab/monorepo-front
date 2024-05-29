@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TdResourceFunction, TdResourceFunctionArg} from '../../model/td-resource-type.class';
+import {TdTechDocFunction, TdResourceFunctionArg} from '../../model/td-resource-type.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 
 @Component({
@@ -9,7 +9,7 @@ import {ClStringHelper} from '@monorepo/core-lib';
 })
 export class TdResourceDocFuncInfoComponent implements OnInit{
 
-  @Input({required: true}) func: TdResourceFunction;
+  @Input({required: true}) func: TdTechDocFunction;
   cleanedFuncDoc: string[];
   funcAgrsDocs: string[] = [];
 
@@ -23,7 +23,7 @@ export class TdResourceDocFuncInfoComponent implements OnInit{
     }
   }
 
-  getFunctionCleanDocInfo(func: TdResourceFunction, getTechInfo: boolean = false): string[] {
+  getFunctionCleanDocInfo(func: TdTechDocFunction, getTechInfo: boolean = false): string[] {
     if (!func.doc) {
       return null;
     }
@@ -44,7 +44,7 @@ export class TdResourceDocFuncInfoComponent implements OnInit{
     return cleanLines;
   }
 
-  getFuncArgDoc(func: TdResourceFunction, arg: TdResourceFunctionArg): string {
+  getFuncArgDoc(func: TdTechDocFunction, arg: TdResourceFunctionArg): string {
     const techDocLines = this.getFunctionCleanDocInfo(func, true);
     let res: string = '';
     if(techDocLines == null || techDocLines.length == 0)

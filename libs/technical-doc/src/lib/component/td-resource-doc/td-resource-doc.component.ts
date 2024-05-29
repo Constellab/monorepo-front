@@ -12,7 +12,7 @@ import {RvResourceViewTypeInfo} from '@monorepo/resource-view';
 })
 export class TdResourceDocComponent implements OnInit {
 
-  @Input() resource: TdResourceType;
+  @Input({required: true}) resource: TdResourceType;
 
   views: RvResourceViewTypeInfo[] = [];
 
@@ -23,6 +23,7 @@ export class TdResourceDocComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderedViews = this.getOrderedResourceViews(this.resource.methods.views);
+    console.log(this.resource)
   }
 
 

@@ -6,4 +6,7 @@
                   *ngIf="technicalDoc.objectType === 'TASK' ||
                   technicalDoc.objectType === 'PROTOCOL'">
   </td-process-doc>
+  <td-other-class-doc [otherClass]="$any(technicalDoc)"
+                      *ngIf="technicalDoc.objectType === 'OTHER_CLASS'">
+  </td-other-class-doc>
 </div>

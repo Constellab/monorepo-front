@@ -9,6 +9,7 @@ export * from './lib/model/td-process-type.class';
 export * from './lib/model/td-resource-type.class';
 export * from './lib/model/td-type.class';
 export * from './lib/model/td-typing-name.class';
+export * from './lib/model/td-type-other-class.class';
 
 //component
 export * from './lib/component/td-technical-doc/td-technical-doc.component';
@@ -28,6 +29,8 @@ export * from './lib/component/td-type-inline/td-type-inline.component';
 export * from './lib/component/td-type-unavailable/td-type-unavailable.component';
 export * from './lib/component/td-resource-doc-function-signature/td-resource-doc-function-signature.component';
 export * from './lib/component/td-resource-doc-func-info/td-resource-doc-func-info.component';
+export * from './lib/component/td-vars-methods-doc/td-vars-methods-doc.component';
+export * from './lib/component/td-other-class-doc/td-other-class-doc.component';
 
 //service
 export * from './lib/service/td-service-config.config';
