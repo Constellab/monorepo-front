@@ -1,133 +1,144 @@
-<div *ngIf="experiment$ | async as experiment"
-     class="g-layout-row g-layout-start-center">
+@if (experiment$ | async; as experiment) {
+  <div class="g-layout-row g-layout-start-center">
 
-  <fl-text-icon class="g-flex-auto">
-    <mat-icon *ngIf="experiment.isValidated" class="g-icon-big"
-              [matTooltip]="'biox.experiment_validated' | translate"
-              flIcon="validated">
-    </mat-icon>
+    <fl-text-icon class="g-flex-auto">
+      @if (experiment.isValidated) {
+        <mat-icon flIcon="validated" class="g-icon-big"
+                  [matTooltip]="'biox.experiment_validated' | translate">
+        </mat-icon>
+      }
 
-    <mat-icon *ngIf="experiment.isArchived" class="g-icon-big"
-              [matTooltip]="'biox.experiment_archived' | translate"
-              flIcon="archive">
-    </mat-icon>
+      @if (experiment.isArchived) {
+        <mat-icon flIcon="archive" class="g-icon-big"
+                  [matTooltip]="'biox.experiment_archived' | translate">
+        </mat-icon>
+      }
+      <h1 flElementEditable (flElementValueChange)="updateTitle($event)"
+          [flElementDisabled]="!experiment.isInfoEditable()" class="title">{{ experiment.title }}</h1>
+    </fl-text-icon>
 
-    <h1 flElementEditable (flElementValueChange)="updateTitle($event)"
-        [flElementDisabled]="!experiment.isInfoEditable()" class="title">{{experiment.title}}</h1>
-  </fl-text-icon>
 
+    <lab-sync-object-button [object]="experiment" [syncObjectFunc]="syncObjectFunc"
+                            (objectUpdate)="onExperimentUpdate($event)">
+    </lab-sync-object-button>
 
-  <lab-sync-object-button [object]="experiment" [syncObjectFunc]="syncObjectFunc"
-                          (objectUpdate)="onExperimentUpdate($event)">
-  </lab-sync-object-button>
+    <fl-status-chip [status]="experiment.status" mode="iconText"
+                    class="buttons"></fl-status-chip>
 
-  <fl-status-chip [status]="experiment.status" mode="iconText"
-                  class="buttons"></fl-status-chip>
-
-  <button mat-icon-button type="button" [matMenuTriggerFor]="menu"
-          class="buttons">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-
-  <!-- Menu -->
-  <mat-menu #menu>
-    <button mat-menu-item type="button" (click)="openCreateReport()">
-      <mat-icon>post_add</mat-icon>
-      {{'biox.create_report' | translate}}
+    <button mat-icon-button type="button" [matMenuTriggerFor]="menu"
+            class="buttons">
+      <mat-icon>more_vert</mat-icon>
     </button>
 
-    <button mat-menu-item [matMenuTriggerFor]="protocol">
-      <mat-icon flIcon="protocol"></mat-icon>
-      {{'biox.protocol' | translate}}
-    </button>
-
-    <!--  Update buttons  -->
-    <ng-container *ngIf="experiment.isInfoEditable()">
-      <button mat-menu-item type="button" (click)="openUpdateDialog()">
-        <mat-icon>edit</mat-icon>
-        {{'biox.update_experiment' | translate}}
-      </button>
-    </ng-container>
-
-    <ng-container *ngIf="experiment.isEditable()">
-      <button mat-menu-item type="button" (click)="openValidationDialog()">
-        <mat-icon flIcon="validated"></mat-icon>
-        {{'biox.validate_experiment' | translate}}
+    <!-- Menu -->
+    <mat-menu #menu>
+      <button mat-menu-item type="button" (click)="openCreateReport()">
+        <mat-icon>post_add</mat-icon>
+        {{ 'biox.create_report' | translate }}
       </button>
 
-      <button mat-menu-item type="button" (click)="resetExperiment()">
-        <mat-icon>restart_alt</mat-icon>
-        {{'biox.reset_experiment' | translate}}
+      <button mat-menu-item [matMenuTriggerFor]="protocol">
+        <mat-icon flIcon="protocol"></mat-icon>
+        {{ 'biox.protocol' | translate }}
       </button>
-    </ng-container>
 
-    <button mat-menu-item type="button" (click)="openTagsFormDialog()">
-      <mat-icon>local_offer</mat-icon>
-      {{'update_tags' | translate}}
-    </button>
+      <!--  Update buttons  -->
+      @if (experiment.isInfoEditable()) {
+        <button mat-menu-item type="button" (click)="openUpdateDialog()">
+          <mat-icon>edit</mat-icon>
+          {{ 'biox.update_experiment' | translate }}
+        </button>
+      }
 
-    <button mat-menu-item type="button" (click)="openDuplicateConfirmation()">
-      <mat-icon>content_copy</mat-icon>
-      {{'biox.clone_experiment' | translate}}
-    </button>
+      @if (experiment.isEditable()) {
+        <button mat-menu-item type="button" (click)="openValidationDialog()">
+          <mat-icon flIcon="validated"></mat-icon>
+          {{ 'biox.validate_experiment' | translate }}
+        </button>
 
-    <button mat-menu-item [matMenuTriggerFor]="monitoring">
-      <mat-icon>troubleshoot</mat-icon>
-      {{'biox.experiment_monitoring' | translate}}
-    </button>
+        <button mat-menu-item type="button" (click)="resetExperiment()">
+          <mat-icon>restart_alt</mat-icon>
+          {{ 'biox.reset_experiment' | translate }}
+        </button>
+      }
 
-    <button mat-menu-item type="button" (click)="removeExperimentFromQueue()"
-            class="g-warn-text" *ngIf="experiment.status.value === 'IN_QUEUE'">
-      <mat-icon color="warn">stop</mat-icon>
-      {{'biox.remove_experiment_from_queue' | translate}}
-    </button>
+      <button mat-menu-item type="button" (click)="openTagsFormDialog()">
+        <mat-icon>local_offer</mat-icon>
+        {{ 'update_tags' | translate }}
+      </button>
 
-    <button mat-menu-item type="button" (click)="archiveExperiment()"
-            *ngIf="!experiment.isRunning()">
-      <mat-icon color="warn" [flIcon]="experiment.isArchived ? 'unarchive': 'archive'"></mat-icon>
-      <span class="g-warn-text">
-        {{(experiment.isArchived ? 'biox.unarchive_experiment' : 'biox.archive_experiment') | translate}}
+      <button mat-menu-item type="button" (click)="openDuplicateConfirmation()">
+        <mat-icon>content_copy</mat-icon>
+        {{ 'biox.clone_experiment' | translate }}
+      </button>
+
+      <button mat-menu-item [matMenuTriggerFor]="monitoring">
+        <mat-icon>troubleshoot</mat-icon>
+        {{ 'biox.experiment_monitoring' | translate }}
+      </button>
+
+      @if (experiment.status.value === 'IN_QUEUE') {
+        <button mat-menu-item type="button" (click)="removeExperimentFromQueue()"
+                class="g-warn-text">
+          <mat-icon color="warn">stop</mat-icon>
+          {{ 'biox.remove_experiment_from_queue' | translate }}
+        </button>
+      }
+
+      @if (!experiment.isRunning()) {
+        <button mat-menu-item type="button" (click)="archiveExperiment()">
+          <mat-icon color="warn" [flIcon]="experiment.isArchived ? 'unarchive': 'archive'"></mat-icon>
+          <span class="g-warn-text">
+        {{ (experiment.isArchived ? 'biox.unarchive_experiment' : 'biox.archive_experiment') | translate }}
       </span>
-    </button>
+        </button>
+      }
 
-    <button mat-menu-item type="button" (click)="deleteExperiment()"
-            *ngIf="experiment.isEditable()">
-      <mat-icon color="warn">delete</mat-icon>
-      <span class="g-warn-text">{{'biox.delete_experiment' | translate}}</span>
-    </button>
+      @if (experiment.isEditable()) {
+<!--        <button mat-menu-item type="button" (click)="deleteIntermediateResources()">-->
+<!--          <mat-icon color="warn" flIcon="resource"></mat-icon>-->
+<!--          <span class="g-warn-text">{{ 'biox.delete_experiment_intermediate_resources' | translate }}</span>-->
+<!--        </button>-->
 
-  </mat-menu>
+        <button mat-menu-item type="button" (click)="deleteExperiment()">
+          <mat-icon color="warn">delete</mat-icon>
+          <span class="g-warn-text">{{ 'biox.delete_experiment' | translate }}</span>
+        </button>
+      }
 
-  <!-- Protocol menu -->
-  <mat-menu #protocol>
-    <button mat-menu-item type="button" (click)="openCreateProtocolTemplate()">
-      <mat-icon flIcon="protocol_template"></mat-icon>
-      {{'biox.create_protocol_template' | translate}}
-    </button>
+    </mat-menu>
 
-    <button mat-menu-item type="button" (click)="downloadProtocolTemplate(experiment)">
-      <mat-icon>cloud_download</mat-icon>
-      {{'biox.download_protocol_template' | translate}}
-    </button>
-  </mat-menu>
+    <!-- Protocol menu -->
+    <mat-menu #protocol>
+      <button mat-menu-item type="button" (click)="openCreateProtocolTemplate()">
+        <mat-icon flIcon="protocol_template"></mat-icon>
+        {{ 'biox.create_protocol_template' | translate }}
+      </button>
 
-  <!-- Monitoring menu -->
-  <mat-menu #monitoring>
-    <button mat-menu-item type="button" (click)="openProgressInformation()">
-      <mat-icon>description</mat-icon>
-      {{'biox.node_progress_detail' | translate}}
-    </button>
+      <button mat-menu-item type="button" (click)="downloadProtocolTemplate(experiment)">
+        <mat-icon>cloud_download</mat-icon>
+        {{ 'biox.download_protocol_template' | translate }}
+      </button>
+    </mat-menu>
 
-    <button mat-menu-item type="button" (click)="openProcessLogs(experiment)">
-      <mat-icon>description</mat-icon>
-      {{'biox.view_process_logs' | translate}}
-    </button>
+    <!-- Monitoring menu -->
+    <mat-menu #monitoring>
+      <button mat-menu-item type="button" (click)="openProgressInformation()">
+        <mat-icon>description</mat-icon>
+        {{ 'biox.node_progress_detail' | translate }}
+      </button>
 
-    <button mat-menu-item type="button" (click)="openProcessMonitor(experiment)">
-      <mat-icon>troubleshoot</mat-icon>
-      {{'biox.view_process_monitoring' | translate}}
-    </button>
-  </mat-menu>
+      <button mat-menu-item type="button" (click)="openProcessLogs(experiment)">
+        <mat-icon>description</mat-icon>
+        {{ 'biox.view_process_logs' | translate }}
+      </button>
+
+      <button mat-menu-item type="button" (click)="openProcessMonitor(experiment)">
+        <mat-icon>troubleshoot</mat-icon>
+        {{ 'biox.view_process_monitoring' | translate }}
+      </button>
+    </mat-menu>
 
 
-</div>
+  </div>
+}

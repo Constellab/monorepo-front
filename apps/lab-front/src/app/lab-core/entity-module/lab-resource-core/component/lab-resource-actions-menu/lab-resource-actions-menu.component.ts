@@ -18,10 +18,6 @@ import {
 import {LabResourceService} from '../../../../entity-service/lab-resource.service';
 import {LabResourceDownloadService} from '../../../../entity-service/lab-resource-download.service';
 import {
-  LabTypeDialogComponent,
-  LabTypeDialogInput
-} from '../../../lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
-import {
   LabResourceUpdateProjectDialogComponent,
   LabResourceUpdateProjectDialogInput,
   LabResourceUpdateProjectDialogOutput
@@ -161,15 +157,5 @@ export class LabResourceActionsMenuComponent implements OnInit {
       }
       this.delete.next(this.resource);
     }
-  }
-
-  openTypingDoc(): void {
-    const data: LabTypeDialogInput = {
-      typingName: this.resource.resourceTypingName
-    };
-    this.dialogService.openMediumDialog(LabTypeDialogComponent, {
-      data: data,
-      panelClass: 'g-dialog-main-background'
-    });
   }
 }

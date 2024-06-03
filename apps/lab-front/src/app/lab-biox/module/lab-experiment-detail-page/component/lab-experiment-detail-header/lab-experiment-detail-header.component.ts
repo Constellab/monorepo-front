@@ -363,4 +363,21 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     this.dialogService.openBigDialog(LabMonitorBetweenDatesDialogComponent, {data: input});
   }
 
+  deleteIntermediateResources(): void {
+    const experiment = this.experimentState.currentExperiment;
+
+    const input: FlConfirmDialogInput = {
+      title: 'biox.delete_experiment_intermediate_resources',
+      content: 'biox.delete_experiment_intermediate_resources_confirmation',
+      translateTitleAndContent: true,
+      observable: this.experimentService.deleteIntermediateResources(experiment.id),
+      successMessage: 'biox.experiment_intermediate_resources_deleted',
+      translateMessage: true
+    };
+
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
+      result => this.onArchiveClosed(result)
+    );
+  }
+
 }

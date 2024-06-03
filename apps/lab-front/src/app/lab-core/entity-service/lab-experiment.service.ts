@@ -171,4 +171,9 @@ export class LabExperimentService {
   public unarchiveExperiment(id: string): Observable<LabExperiment> {
     return this.apiService.put(`${this.route}/${id}/unarchive`, null, LabExperiment);
   }
+
+  ////////////////////////////////////// INTERMEDIATE RESOURCES //////////////////////////////////////
+  public deleteIntermediateResources(experimentId: string): Observable<any> {
+    return this.apiService.delete(`${this.route}/${experimentId}/intermediate-resources`, null);
+  }
 }
