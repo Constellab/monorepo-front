@@ -83,7 +83,6 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
     // Find the element with the anchor
     const children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
-
     if(children){
       // Scroll to the element
       children.scrollIntoView(true);

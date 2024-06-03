@@ -1,0 +1,83 @@
+.loader-div{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.content{
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  justify-content: space-between;
+  height: inherit;
+}
+
+.left-side{
+  width: 227px;
+  min-width: 227px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.right-side{
+  flex: auto;
+}
+
+.search-bar-title{
+  width: 100%;
+}
+
+.search-bar{
+  width: 100%;
+}
+
+.space-list-option{
+  cursor: pointer;
+  width: fit-content !important;
+}
+
+.community-bricks-list-div{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100% - 5em);
+  width: 100%;
+}
+
+.brick-item{
+  background-color: var(--main-background) !important;
+  cursor: pointer;
+}
+
+.selected-brick-item{
+  background-color: var(--main-background) !important;
+}
+
+.brick-div-info{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 3em;
+  width: 100%;
+}
+
+.brick-div-info .selected-brick-div{
+  width: 100%;
+}
+
+.brick-div-info button{
+  margin-top: 1em;
+}
+
+.select-version-title-div{
+  width: 100%;
+  display: flex;
+
+  margin-bottom: 1.5em;
+}

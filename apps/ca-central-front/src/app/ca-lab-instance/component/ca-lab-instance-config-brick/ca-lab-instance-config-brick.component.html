@@ -3,44 +3,93 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <form (ngSubmit)="submit()" id="lab-user-form" [formGroup]="formGp">
+  <div class="loader-div" *ngIf="isLoading">
+    <fl-loader></fl-loader>
+  </div>
+  <div class="content" *ngIf="brickSelectionMode && !isLoading">
+    <div class="left-side">
+      <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent"
+                       class="space-list-option">
+        {{ 'public' | translate }}
+      </mat-chip-option>
+      @if (spaces?.length > 0) {
+        <mat-divider></mat-divider>
+      }
+      @for (space of spaces; track space.id) {
+        <mat-chip-option [value]="isSelected(space.id)" (click)="selectSpace(space.id)" color="warn"
+                         class="space-list-option">
+          {{ space.name }}
+        </mat-chip-option>
+      }
+    </div>
+    <div class="right-side">
+      <div class="search-bar-title">
+        <form type="submit" (ngSubmit)="search()">
+          <mat-form-field class="search-bar">
+            <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
+            <button mat-icon-button matSuffix (click)="search()">
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="community-bricks-list-div g-scrollable-element" *ngIf="bricks$"
+           (flInfiniteScroll)="bricks$.getNextPage()" [flInfiniteDisabled]="bricks$?.isLoading || bricks$?.page?.last"
+           flInfiniteMode="auto">
+        <div *ngFor="let brick of bricks$.connect() | async">
+          <co-brick-list-item [brick]="brick" [brickImage]="brick.imageLink | caCommunityBrickImage" class="brick-item"
+                              (click)="onBrickSelected(brick)"></co-brick-list-item>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!brickSelectionMode && !isLoading">
+    <form (ngSubmit)="submit()" id="lab-brick-form" [formGroup]="formGp">
 
-    <!--  Brick  -->
-    <mat-form-field class="g-form-input">
-      <mat-label>{{'brick' | translate}}</mat-label>
-      <mat-select placeholder="{{'brick' | translate}}" formControlName="name">
-        <ca-brick-select-options></ca-brick-select-options>
-      </mat-select>
-      <mat-error *ngIf="formGp.get('name').hasError('required')">
-        {{'brick' | flErrorRequired}}
-      </mat-error>
-    </mat-form-field>
+      <div class="select-version-title-div">
+        <h4>{{'selected_brick' | translate}}</h4>
+      </div>
+      <!--  Brick  -->
+      <div class="brick-div-info">
+        <div class="selected-brick-div">
+          <co-brick-list-item [brick]="formGp.get('brick').value"
+                              [brickImage]="formGp.get('brick').value?.imageLink | caCommunityBrickImage"
+                              class="selected-brick-item"></co-brick-list-item>
+        </div>
+
+        <button mat-stroked-button *ngIf="!isUpdate" (click)="changeBrick()">
+          {{'select_another_brick' | translate}}
+        </button>
+      </div>
+
+      <div class="select-version-title-div">
+        <h4>{{'select_the_brick_version' | translate}}</h4>
+      </div>
 
 
-    <!--  Brick version -->
-    <mat-form-field class="g-form-input">
-      <mat-label>{{'brick_version' | translate}}</mat-label>
-      <mat-select placeholder="{{'brick_version' | translate}}" formControlName="version">
-        <ca-brick-version-select-options [brickName]="formGp.getRawValue().name"
-                                         [minVersion$]="minVersion$"></ca-brick-version-select-options>
-      </mat-select>
-      <mat-error *ngIf="formGp.get('version').hasError('required')">
-        {{'brick_version' | flErrorRequired}}
-      </mat-error>
-    </mat-form-field>
+      <!--  Brick version -->
+      <mat-form-field class="g-form-input">
+        <mat-label>{{ 'brick_version' | translate }}</mat-label>
+        <mat-select placeholder="{{'brick_version' | translate}}" formControlName="version">
+          <mat-option *ngFor="let version of versions" [value]="version">{{ version }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formGp.get('version').hasError('required')">
+          {{ 'brick_version' | flErrorRequired }}
+        </mat-error>
+      </mat-form-field>
 
+      <!--  Show lower version  -->
+      <mat-checkbox *ngIf="isUpdate && oldVersions?.length > 0" (change)="toggleLowerVersion($event)"
+                    class="g-mat-checkbox-include-bottom g-mat-checkbox-wrap-text">
+        {{'lab_brick_version_show_previous' | translate}}
+      </mat-checkbox>
+    </form>
+  </div>
 
-    <!--  Show lower version  -->
-    <mat-checkbox *ngIf="currentVersion" (change)="toggleLowerVersion($event)"
-                  class="g-mat-checkbox-include-bottom g-mat-checkbox-wrap-text">
-      {{'lab_brick_version_show_previous' | translate}}
-    </mat-checkbox>
-
-  </form>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="lab-user-form"
+  <button mat-flat-button color="primary" type="submit" form="lab-brick-form"
           class="g-centered-forced">
     {{'ok' | translate}}
   </button>

@@ -265,5 +265,10 @@
   "image_square_help": "We recommend to upload a square image, otherwise it will be cropped.",
   "next": "Next",
   "back": "Back",
-  "logo": "Logo"
+  "logo": "Logo",
+  "public": "Public",
+  "search_by_title": "Search by title",
+  "select_the_brick_version": "Select the brick version",
+  "selected_brick": "Selected brick",
+  "select_another_brick": "Select another brick"
 }

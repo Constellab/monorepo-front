@@ -7,7 +7,7 @@ import {
   TdTypeObjectSubType,
   TdTypeObjectType,
   TdTypeRefDTO,
-  TdTypeStyle
+  TdTypeStyle, TdTypeTypingEntity
 } from '@monorepo/technical-doc';
 
 export interface LabFileTypeAdditionalInfo {
@@ -83,7 +83,7 @@ export class LabTypeEntity extends LabBaseEntity implements FlSearchObjectToUrl 
     };
   }
 
-  public toTypeEntity(): TdTypeEntity {
+  public toTypeEntity(): TdTypeTypingEntity {
     return {
       typingName: this.typingName,
       brickVersion: this.brickVersion,

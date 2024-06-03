@@ -1,10 +1,32 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaLabManagerBrickVersionDTO} from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
-import {Validators} from '@angular/forms';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {BehaviorSubject} from 'rxjs';
+import {CoBrick, CoSpace} from '@monorepo/community-lib';
+import {FlDatasourcePaginated, FlEntity, FlUser} from '@monorepo/front-core-lib';
+import {CaSpace} from '../../../ca-core/model/entities/space/ca-space.class';
+import {CaSpaceService} from '../../../ca-core/service-api/ca-space.service';
+import {DateTime} from 'luxon';
+import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
+import {CaCommunityBrickService} from '../../../ca-core/service-api/ca-community-brick.service';
+import {CaLabManagerBrickVersionDTO} from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
+import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {MatCheckboxChange} from '@angular/material/checkbox';
+
+
+export type CaCommunityBrickDatasourcePaginated = FlDatasourcePaginated<CaCommunityBrick>;
+
+export class CaCommunityBrick implements CoBrick, FlEntity {
+  comments: number;
+  createdAt: DateTime;
+  createdBy: FlUser;
+  description?: string;
+  imageLink?: string;
+  likes: number;
+  name: string;
+  space: CoSpace;
+  id: string;
+
+}
 
 
 @Component({
@@ -12,36 +34,131 @@ import {MatCheckboxChange} from '@angular/material/checkbox';
   templateUrl: './ca-lab-instance-config-brick.component.html',
   styleUrls: ['./ca-lab-instance-config-brick.component.scss']
 })
-export class CaLabInstanceConfigBrickComponent implements OnInit, OnDestroy {
+export class CaLabInstanceConfigBrickComponent implements OnInit {
 
   formGp: FormGroup<CaLabManagerBrickVersionDTO>;
+  brickSelectionMode: boolean = true;
+  isLoading: boolean = true;
 
-  minVersion$: BehaviorSubject<string>;
-  currentVersion: string;
+  bricks$: CaCommunityBrickDatasourcePaginated;
+  spaces: CaSpace[];
+  versions: string[];
+  oldVersions: string[];
 
-  private isUpdate: boolean;
+  spaceIdFilter: string[] = [];
+  titleFormControl: FormControl<string> = new FormControl('');
+
+  isUpdate: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) private brickVersionDTO: CaLabManagerBrickVersionDTO,
-              private dialogRef: MatDialogRef<CaLabInstanceConfigBrickComponent>) {
+              private dialogRef: MatDialogRef<CaLabInstanceConfigBrickComponent>,
+              private spaceService: CaSpaceService,
+              private communityBrickService: CaCommunityBrickService,
+              private authenticatedUserService: CaAuthenticatedUserService) {
+  }
+
+  get title(): string {
+    return 'lab_instance_add_brick';
   }
 
   ngOnInit(): void {
     this.isUpdate = this.brickVersionDTO != null;
+
     this.initForm();
+
+    if (this.isUpdate){
+      this.brickSelectionMode = false;
+      this.communityBrickService.getByName(this.brickVersionDTO.name).subscribe((brick) => {
+        this.initBrickVersionSelection(brick);
+      });
+    }
+
+    if (this.brickSelectionMode) {
+      this.initBrickSelection();
+    }
+
   }
 
   private initForm(): void {
     this.formGp = new FormBuilder().group({
       name: [null, Validators.required],
       version: [null, Validators.required],
+      brick: [null, Validators.required]
     });
 
-    // TODO is brick is admin and the user don't have access, the input will be empty but working
     if (this.brickVersionDTO) {
       this.formGp.patchValue(this.brickVersionDTO);
-      this.formGp.get('name').disable();
-      this.currentVersion = this.brickVersionDTO.version;
-      this.minVersion$ = new BehaviorSubject(this.brickVersionDTO.version);
+    }
+  }
+
+  isSelected(spaceId: string): boolean {
+    return this.spaceIdFilter.find((id) => id == spaceId) != null;
+  }
+
+  updateBricks(): void {
+    this.bricks$.getFirstPage({
+      spacesFilter: this.spaceIdFilter,
+      titleFilter: this.titleFormControl.value
+    })
+  }
+
+  selectSpace(spaceId: string): void {
+    if (this.isSelected(spaceId)) {
+      this.spaceIdFilter = this.spaceIdFilter.filter((id) => id != spaceId);
+    } else {
+      this.spaceIdFilter.push(spaceId);
+    }
+    this.updateBricks();
+  }
+
+  search(): void {
+    this.updateBricks();
+  }
+
+  onBrickSelected(brick: CaCommunityBrick): void {
+    this.brickSelectionMode = false;
+    this.isLoading = true;
+    this.initBrickVersionSelection(brick);
+  }
+
+  private initBrickSelection(): void {
+    this.spaceService.getMySpaces().subscribe((spaces) => {
+      this.spaces = spaces;
+    });
+    this.authenticatedUserService.getUser$().subscribe((user) => {
+      this.bricks$ = this.communityBrickService.getPaginatedCommunityBricks(10, user.id)
+      this.updateBricks();
+      this.isLoading = false;
+    });
+  }
+
+  private initBrickVersionSelection(brick: CaCommunityBrick): void {
+    this.formGp.controls.name.patchValue(brick.name);
+    this.formGp.controls.brick.patchValue(brick);
+    this.communityBrickService.getVersionsList(brick.id).subscribe((versionsList) => {
+      if (this.isUpdate && this.formGp.controls.version.value) {
+        const splitIndex = versionsList.indexOf(this.formGp.controls.version.value);
+        this.versions = versionsList.slice(0, splitIndex + 1)
+        if (splitIndex + 1 < versionsList.length)
+          this.oldVersions = versionsList.slice(splitIndex + 1)
+      } else {
+        this.versions = versionsList;
+      }
+      this.isLoading = false;
+    });
+  }
+
+  changeBrick(): void {
+    this.brickSelectionMode = true;
+    this.isLoading = true;
+    this.initBrickSelection();
+  }
+
+  toggleLowerVersion(checkEvent: MatCheckboxChange): void {
+    if (checkEvent.checked) {
+      this.versions = this.versions.concat(this.oldVersions);
+    } else {
+      this.versions = this.versions.filter((version) => !this.oldVersions.includes(version));
     }
   }
 
@@ -50,23 +167,4 @@ export class CaLabInstanceConfigBrickComponent implements OnInit, OnDestroy {
       this.dialogRef.close(this.formGp.getRawValue());
     }
   }
-
-  get title(): string {
-    return this.isUpdate ? 'lab_instance_update_brick' : 'lab_instance_add_brick';
-  }
-
-  toggleLowerVersion(event: MatCheckboxChange): void {
-    if (event.checked) {
-      this.minVersion$.next(null);
-    } else {
-      this.minVersion$.next(this.currentVersion);
-    }
-
-  }
-
-  ngOnDestroy(): void {
-    this.minVersion$?.complete();
-  }
-
-
 }

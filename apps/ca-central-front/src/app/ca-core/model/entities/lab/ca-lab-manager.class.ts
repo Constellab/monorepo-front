@@ -1,5 +1,6 @@
 import {FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform} from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
+import {CoBrick} from '@monorepo/community-lib';
 
 export type CaLabContainersStatus = 'STOP' | 'DOWN' | 'UP' | 'PARTIALLY_UP';
 
@@ -104,6 +105,7 @@ export class CaLabManagerRecommendedVersion {
 export class CaLabManagerBrickVersionDTO {
   name: string;
   version: string;
+  brick?: CoBrick;
 }
 
 export class CaLabManagerConfig {

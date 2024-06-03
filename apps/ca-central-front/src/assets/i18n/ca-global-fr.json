@@ -265,5 +265,10 @@
   "image_square_help": "Nous recommandons d'utiliser une image carrée, sinon elle sera recadrée.",
   "next": "Next",
   "back": "Retour",
-  "logo": "Logo"
+  "logo": "Logo",
+  "public": "Publique",
+  "search_by_title": "Rechercher par titre",
+  "select_the_brick_version": "Sélectionner la version de la brique",
+  "selected_brick": "Brique sélectionnée",
+  "select_another_brick": "Sélectionner une autre brique"
 }
