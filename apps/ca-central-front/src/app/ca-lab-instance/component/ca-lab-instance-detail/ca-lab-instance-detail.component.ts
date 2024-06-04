@@ -51,8 +51,9 @@ export class CaLabInstanceDetailComponent implements OnInit {
   }
 
   openCodelabInfo(labInstance: CaLabInstance): void {
-    this.dialogService.openMediumDialog(CaLabInstanceCodelabInfoComponent, {data: labInstance});
+    this.dialogService.openMediumDialog(CaLabInstanceCodelabInfoComponent, {data: labInstance.id});
   }
+
 
   openLabConfig(labInstance: CaLabInstance): void {
     const input: CaLabConfigDialogInput = {

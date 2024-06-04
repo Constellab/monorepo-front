@@ -5,6 +5,7 @@ import {CaLabInstanceDetailPageState} from '../../state/ca-lab-instance-detail-p
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {CaRouterService} from '../../../ca-core/service/ca-router.service';
+import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
 
 /**
  * Header info about the lab instance in the detail page
@@ -23,7 +24,8 @@ export class CaLabInstanceHeaderComponent implements OnInit {
     map(status => status.labStatus)
   );
 
-  constructor(private state: CaLabInstanceDetailPageState) {
+  constructor(private state: CaLabInstanceDetailPageState,
+              private authenticatedUserService: CaAuthenticatedUserService) {
   }
 
   ngOnInit(): void {
@@ -63,6 +65,14 @@ export class CaLabInstanceHeaderComponent implements OnInit {
         label: {text: 'lab_backup', translateText: true},
         route: CaRouterService.getLabBackupRoute(lab.id),
         icon: 'cloud_done'
+      });
+    }
+
+    if(this.authenticatedUserService.isCurrentSpaceAdmin()){
+      items.push({
+        label: {text: 'lab_support', translateText: true},
+        route: CaRouterService.getLabSupportRoute(lab.id),
+        icon: 'support'
       });
     }
 

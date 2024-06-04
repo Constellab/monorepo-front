@@ -17,6 +17,7 @@ import {
   CaLabBackupDetailPageComponent
 } from './component/backup/ca-lab-backup-detail-page/ca-lab-backup-detail-page.component';
 import {CaLabCreatePageComponent} from './component/create/ca-lab-create-page/ca-lab-create-page.component';
+import {CaLabSupportPageComponent} from './component/support/ca-lab-support-page/ca-lab-support-page.component';
 
 const routes: Route[] = [
   {path: '', component: CaMyLabInstancesPageComponent},
@@ -27,6 +28,7 @@ const routes: Route[] = [
       {path: 'config', component: CaLabInstanceConfigPageComponent},
       {path: 'usage', component: CaLabInstanceUsagePageComponent},
       {path: 'backup', component: CaLabBackupDetailPageComponent},
+      {path: 'support', component: CaLabSupportPageComponent},
     ]
   },
 ];

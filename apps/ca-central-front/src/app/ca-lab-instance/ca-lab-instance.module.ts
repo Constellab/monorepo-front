@@ -67,7 +67,9 @@ import {
 import {
   CaLabInstanceConfigPageComponent
 } from './component/ca-lab-instance-config-page/ca-lab-instance-config-page.component';
-import {CaLabInstanceServerComponent} from './component/server/ca-lab-instance-server/ca-lab-instance-server.component';
+import {
+  CaLabInstanceServerComponent
+} from './component/support/ca-lab-instance-server/ca-lab-instance-server.component';
 import {
   CaLabServerCompleteInfoComponent
 } from './component/server/ca-lab-server-complete-info/ca-lab-server-complete-info.component';
@@ -144,8 +146,9 @@ import {
 } from './component/backup/ca-lab-backups-statuses-admin/ca-lab-backups-statuses-admin.component';
 import {CaLabCreatePageComponent} from './component/create/ca-lab-create-page/ca-lab-create-page.component';
 import {CaLabSelectServerComponent} from './component/create/ca-lab-select-server/ca-lab-select-server.component';
+import {CaLabSupportPageComponent} from './component/support/ca-lab-support-page/ca-lab-support-page.component';
+import {CaLabSupportComponent} from './component/support/ca-lab-support/ca-lab-support.component';
 import {CoCommunityLibModule} from "@monorepo/community-lib";
-import {HaSpaceModule} from '../../../../ha-hub/src/app/ha-space/ha-space.module';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -203,6 +206,8 @@ import {HaSpaceModule} from '../../../../ha-hub/src/app/ha-space/ha-space.module
     CaLabBackupsStatusesAdminComponent,
     CaLabCreatePageComponent,
     CaLabSelectServerComponent,
+    CaLabSupportPageComponent,
+    CaLabSupportComponent,
   ],
   imports: [
     CommonModule,
@@ -222,7 +227,6 @@ import {HaSpaceModule} from '../../../../ha-hub/src/app/ha-space/ha-space.module
     CaStatusModule,
     CaCloudProviderCoreModule,
     CoCommunityLibModule,
-    HaSpaceModule,
   ],
 })
 export class CaLabInstanceModule {

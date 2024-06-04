@@ -1,43 +1,50 @@
 <fl-dialog-header>
-  {{'codelab_info' | translate}}
+  {{ 'codelab_info' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content class="content">
-  <p>{{'codelab_description' | translate}}</p>
+  <fl-async-section [object]="codelabInfo$">
 
-  <fl-key-value>
-    <fl-key>{{'codelab_link' | translate}}</fl-key>
-    <span class="g-text-link">
-      <a [href]="codelabUrl" target="_blank">{{codelabUrl}}</a>
-    </span>
-  </fl-key-value>
+    <ng-container *flSectionBody="codelabInfo$ as codelabInfo">
+      <p>{{ 'codelab_description' | translate }}</p>
 
-  <fl-key-value>
-    <fl-key>{{'codelab_user' | translate}}</fl-key>
-    codelab
-  </fl-key-value>
 
-  <div class="g-layout-row g-layout-between-center">
-    <div>
-      <span class="g-text-link" (click)="copyToTokenToClipboard()">{{'codelab_token_click_to_copy' | translate}}</span>
-      <span *ngIf="showCodeLabToken"> : {{labInstance.codelabToken}}</span>
-    </div>
-    <button mat-icon-button type="button" (click)="toggleShowCodeLabToken()"
-            [matTooltip]="(showCodeLabToken? 'hide_codelab_token' : 'show_codelab_token') | translate">
-      <mat-icon>{{showCodeLabToken ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-  </div>
+      <fl-key-value>
+        <fl-key>{{ 'codelab_link' | translate }}</fl-key>
+        <span class="g-text-link">
+          <a [href]="codelabInfo.url" target="_blank">{{ codelabInfo.url }}</a>
+        </span>
+      </fl-key-value>
 
-  <fl-key-value>
-    <fl-key>{{'codelab_more_info' | translate}}</fl-key>
-    <span class="g-text-link"><a [href]="communityHelpUrl" target="_blank">{{communityHelpUrl}}</a></span>
-  </fl-key-value>
+      <fl-key-value>
+        <fl-key>{{ 'codelab_user' | translate }}</fl-key>
+        {{ codelabInfo.username }}
+      </fl-key-value>
 
+      <div class="g-layout-row g-layout-between-center">
+        <div>
+          <span class="g-text-link"
+                (click)="copyToTokenToClipboard(codelabInfo)">{{ 'codelab_token_click_to_copy' | translate }}</span>
+          <span *ngIf="showCodeLabToken"> : {{ codelabInfo.token }}</span>
+        </div>
+        <button mat-icon-button type="button" (click)="toggleShowCodeLabToken()"
+                [matTooltip]="(showCodeLabToken? 'hide_codelab_token' : 'show_codelab_token') | translate">
+          <mat-icon>{{ showCodeLabToken ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </div>
+
+      <fl-key-value>
+        <fl-key>{{ 'codelab_more_info' | translate }}</fl-key>
+        <span class="g-text-link"><a [href]="communityHelpUrl" target="_blank">{{ communityHelpUrl }}</a></span>
+      </fl-key-value>
+
+    </ng-container>
+  </fl-async-section>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
   <button mat-flat-button [matDialogClose]="null" color="primary" type="button"
           class="g-centered-forced">
-    {{'ok' | translate}}
+    {{ 'ok' | translate }}
   </button>
 </div>

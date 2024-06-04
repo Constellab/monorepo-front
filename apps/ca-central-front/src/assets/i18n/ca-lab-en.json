@@ -371,5 +371,6 @@
   "daily_backup": "Daily backup",
   "weekly_backup": "Weekly backup",
   "create_lab_backup_section": "Choose the backup location for your digital lab. The daily and weekly backups must be in different regions to ensure the data safety. We recommend to choose a region close to your lab location to reduce the latency.",
-  "lab_cloud_name": "Lab name in cloud"
+  "lab_cloud_name": "Lab name in cloud",
+  "lab_support": "Support"
 }

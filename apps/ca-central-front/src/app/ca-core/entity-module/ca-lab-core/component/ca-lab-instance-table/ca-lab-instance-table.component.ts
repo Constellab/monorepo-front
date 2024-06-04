@@ -42,27 +42,7 @@ export class CaLabInstanceTableComponent {
 
   openUpdateDialog(labInstance: CaLabInstanceWithSpace): void {
     const dialogInput: CaLabInstanceAdminFormDialogInput = {
-      mode: 'update', object: {
-        id: labInstance.id,
-        name: labInstance.name,
-        type: labInstance.type,
-        virtualHost: labInstance.virtualHost,
-        serverCloud: labInstance.serverCloud,
-        region: labInstance.region,
-        codelabToken: labInstance.codelabToken,
-        glabApiKey: labInstance.glabApiKey,
-        labManagerApiKey: labInstance.labManagerApiKey,
-        serverInstanceId: labInstance.serverInstanceId,
-        serverVolumeId: labInstance.serverVolumeId,
-        cloudName: labInstance.cloudName,
-        space: labInstance.space,
-        billingMode: labInstance.billingMode,
-        volumeType: labInstance.volumeType,
-        volumeSize: labInstance.volumeSize,
-        gwsCoreProdDbPassword: labInstance.gwsCoreProdDbPassword,
-        gwsCoreDevDbPassword: labInstance.gwsCoreDevDbPassword,
-        desktopPlatform: labInstance.desktopPlatform
-      }
+      mode: 'update', object: null, id: labInstance.id
     };
 
     this.dialogService.openMediumDialog(CaLabInstanceAdminFormDialogComponent, {data: dialogInput}).afterClosed().subscribe(

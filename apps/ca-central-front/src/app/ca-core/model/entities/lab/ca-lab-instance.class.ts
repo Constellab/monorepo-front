@@ -86,22 +86,8 @@ export class CaLabInstance extends CaBaseEntity {
   @Type(() => CaCloudProviderRegion)
   region: CaCloudProviderRegion;
 
-  @Type(() => CaServerCloud)
-  serverCloud: CaServerCloud;
-
   billingMode: CaLabInstanceBillingMode;
-  volumeSize: number;
-  volumeType: CaLabInstanceVolumeType;
 
-  // only provided when getting lab as admin
-  cloudName?: string;
-  glabApiKey?: string;
-  labManagerApiKey?: string;
-  codelabToken?: string;
-  serverInstanceId?: string;
-  serverVolumeId?: string;
-  gwsCoreProdDbPassword?: string;
-  gwsCoreDevDbPassword?: string;
   desktopPlatform?: CaLabDesktopPlatform;
 
   isFreeTrial: boolean;
@@ -176,7 +162,6 @@ export class CaLabInstanceWithSpace extends CaLabInstance {
   serverCloud: CaServerCloud;
 }
 
-
 export type CaLabInstanceDatasource = FlEntityPaginatedDatasource<CaLabInstance>;
 
 
@@ -237,4 +222,10 @@ export class CaLabServerInfoDTO {
 
   volumeSize: number;
   volumeType: CaLabInstanceVolumeType;
+}
+
+export class CaLabCodelabDTO{
+  username: string;
+  token: string;
+  url: string;
 }

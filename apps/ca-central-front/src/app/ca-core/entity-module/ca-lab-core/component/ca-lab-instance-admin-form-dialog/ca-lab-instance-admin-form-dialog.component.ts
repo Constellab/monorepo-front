@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CaLabInstanceType, CaLabInstanceWithSpace} from '../../../../model/entities/lab/ca-lab-instance.class';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {Observable} from 'rxjs';
@@ -12,8 +12,12 @@ import {
 import {CaLabInstanceValidator} from '../../../../model/entities/lab/ca-lab-instance.validator';
 import {CaLabInstanceAdminForm} from '../../../../model/entities/lab/ca-lab-instance.form';
 import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-export type CaLabInstanceAdminFormDialogInput = FlFormDialogInput<CaLabInstanceAdminForm>;
+export interface CaLabInstanceAdminFormDialogInput extends FlFormDialogInput<CaLabInstanceAdminForm> {
+  id?: string; // only on update mode
+  object?: null;
+}
 
 /**
  * Form to create or update a lab instance (only accessible by admin)
@@ -26,10 +30,13 @@ export type CaLabInstanceAdminFormDialogInput = FlFormDialogInput<CaLabInstanceA
 export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractDirective<CaLabInstanceAdminForm, CaLabInstanceWithSpace>
   implements OnInit {
 
+  dialogInput: CaLabInstanceAdminFormDialogInput = inject(MAT_DIALOG_DATA);
 
   maxNameLength = CaLabInstanceWithSpace.MAX_NAME_LENGTH;
 
   supportedDomainsText = CaLabInstanceValidator.SUPPORTED_DOMAINS.join(', ');
+
+  updateIsInitiated = false;
 
   constructor(private platformService: FlPlatformService,
               private labInstanceService: CaLabInstanceService) {
@@ -69,6 +76,19 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]],
       dailyBackupRegion: [{value: null, disabled: this.isUpdateMode()}, [Validators.required]],
       weeklyBackupRegion: [{value: null, disabled: this.isUpdateMode()}, [Validators.required]],
+    });
+  }
+
+  /**
+   * Override the patch so it can fetch the lab instance by id
+   * @protected
+   */
+  protected patchUpdate(): void {
+    this.labInstanceService.getByIdAdmin(this.dialogInput.id).subscribe({
+      next: labInstance => {
+        this.updateIsInitiated = true;
+        this.formGp.patchValue(labInstance);
+      }
     });
   }
 

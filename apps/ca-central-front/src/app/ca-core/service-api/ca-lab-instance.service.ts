@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {
+  CaLabCodelabDTO,
   CaLabInstance,
   CaLabInstanceDatasource,
   CaLabInstanceDesktopConfig,
@@ -63,26 +64,12 @@ export class CaLabInstanceService {
   constructor(private apiService: FlApiService) {
   }
 
-  public createAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
-    return this.apiService.post(`${this.route}/admin`, entity, CaLabInstanceWithSpace,
-      {serialization: CaLabInstanceAdminForm});
-  }
-
   public createCloudLab(createLab: CaLabCloudCreateDTO): Observable<CaLabInstance> {
     return this.apiService.post(`${this.route}/cloud`, createLab, CaLabInstance);
   }
 
-  public updateAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
-    return this.apiService.put(`${this.route}/admin`, entity, CaLabInstanceWithSpace, {serialization: CaLabInstanceAdminForm});
-  }
-
   public updateLabName(id: string, name: string): Observable<CaLabInstance> {
     return this.apiService.put(`${this.route}/${id}/name/${name}`, null, CaLabInstance);
-  }
-
-
-  public delete(id: string): Observable<CaLabInstance> {
-    return this.apiService.deleteById(this.route, id, CaLabInstance);
   }
 
   public requestNewLabInstance(request: CaRequestLabInstanceForm): Observable<CaLabInstance> {
@@ -113,22 +100,15 @@ export class CaLabInstanceService {
     return this.apiService.get(`${this.route}/${id}`, CaLabInstanceFindOneDto);
   }
 
+  public findCodelabInfo(id: string): Observable<CaLabCodelabDTO> {
+    return this.apiService.get(`${this.route}/${id}/codelab`, CaLabCodelabDTO);
+  }
+
   /**
    * Log the user to the lab instance and return the authentication in the cookie
    */
   public logUserToLab(id: string): Observable<{ url: string }> {
     return this.apiService.get(`${this.route}/${id}/login`);
-  }
-
-  public searchAll(page: number, pageSize: number,
-                   filters?: Partial<CaLabInstanceSearchFields>): Observable<ClPage<CaLabInstanceWithSpace>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaLabInstanceSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/search`, data, CaLabInstanceWithSpace, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
-    });
   }
 
   public searchInCurrentSpace(page: number, pageSize: number,
@@ -427,4 +407,32 @@ export class CaLabInstanceService {
     return this.apiService.put(`${this.route}/${entity.id}/desktop`, entity, CaLabInstance);
   }
 
+  //////////////////////////// ADMIN ////////////////////////////////
+  public createAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
+    return this.apiService.post(`${this.route}/admin`, entity, CaLabInstanceWithSpace,
+      {serialization: CaLabInstanceAdminForm});
+  }
+
+  public updateAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
+    return this.apiService.put(`${this.route}/admin`, entity, CaLabInstanceWithSpace, {serialization: CaLabInstanceAdminForm});
+  }
+
+  public getByIdAdmin(id: string): Observable<CaLabInstanceAdminForm> {
+    return this.apiService.get(`${this.route}/admin/${id}`, CaLabInstanceAdminForm);
+  }
+
+  public searchAll(page: number, pageSize: number,
+                   filters?: Partial<CaLabInstanceSearchFields>): Observable<ClPage<CaLabInstanceWithSpace>> {
+    const data: FlAdvancedSearchInput = {
+      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaLabInstanceSearch.advancedSearchConverter),
+      sortsCriteria: null
+    };
+    return this.apiService.post(`${this.route}/admin/search`, data, CaLabInstanceWithSpace, {
+      page: page, pageSize: pageSize, resultIsPaginated: true
+    });
+  }
+
+  public delete(id: string): Observable<CaLabInstance> {
+    return this.apiService.deleteById(this.route + '/admin', id, CaLabInstance);
+  }
 }

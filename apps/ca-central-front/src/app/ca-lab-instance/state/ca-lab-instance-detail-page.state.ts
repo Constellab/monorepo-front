@@ -162,6 +162,13 @@ export class CaLabInstanceDetailPageState implements OnDestroy {
     return this.id;
   }
 
+  refreshLabInstance(): void {
+    this.labInstanceService.findById(this.getLabInstanceId()).subscribe({
+      next: labInstance => this.updateLab(labInstance.labInstance),
+      error: error => this.labInstance$.error(error)
+    });
+  }
+
   forceStatusRefresh(): void {
     this.portalService.addAction({
       type: CaLabInstanceDetailPageState.actionType,

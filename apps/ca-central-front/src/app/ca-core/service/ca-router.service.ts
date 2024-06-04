@@ -117,6 +117,10 @@ export class CaRouterService {
     return `${CaRouterService.getLabInstanceDetailRoute(labInstanceId)}/backup`;
   }
 
+  public static getLabSupportRoute(labInstanceId: string): string {
+    return `${CaRouterService.getLabInstanceDetailRoute(labInstanceId)}/support`;
+  }
+
   public static getCreateLabRoute(): string {
     return CaRouterService.getFullRoute(`${caConstLabInstancesRoute}/create`);
   }

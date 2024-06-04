@@ -371,5 +371,6 @@
   "daily_backup": "Backup quotidien",
   "weekly_backup": "Backup hebdomadaire",
   "create_lab_backup_section": "Choisissez l'emplacement de sauvegarde pour votre lab digital. Les sauvegardes quotidiennes et hebdomadaires doivent être dans des régions différentes pour garantir la sécurité des données. Nous vous recommandons de choisir une région proche de l'emplacement de votre lab pour réduire la latence.",
-  "lab_cloud_name": "Nom du lab dans le cloud"
+  "lab_cloud_name": "Nom du lab dans le cloud",
+  "lab_support": "Support"
 }
