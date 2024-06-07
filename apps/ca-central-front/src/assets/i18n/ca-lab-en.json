@@ -385,7 +385,7 @@
   "lab_cloud_name": "Lab name in cloud",
   "lab_support": "Support",
   "restore_backup_to_lab": "Restore backup to a lab",
-  "restore_backup_to_lab_help": "This will restore the selected backup to the destination lab.",
+  "restore_backup_to_lab_help": "<p>This will restore the selected backup to the destination lab. Please follow theses step before restoring the backup :</p><ul><li>Configure the destination lab with the same bricks</li><li>The lab manager of destination lab must be running and configured</li><li>Make sure the destination lab is empty (no data)</li></ul><p>Once the backup is restored, the destination lab will be ready to use.</p>",
   "restore_backup_to_lab_confirmation": "Are you sure you want to restore the backup to the lab ? This is not possible if there is data in the destination lab. This can take a few minutes.",
   "restore_backup_to_lab_started": "Restore backup started",
   "destination_lab": "Destination lab",

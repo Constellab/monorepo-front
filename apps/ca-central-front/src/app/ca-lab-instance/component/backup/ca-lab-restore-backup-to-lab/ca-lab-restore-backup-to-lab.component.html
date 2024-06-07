@@ -5,6 +5,7 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="restore-backup-form" [formGroup]="formGp">
 
+    <div [innerHTML]="'restore_backup_to_lab_help' | translate" class="help-text"></div>
 
     <!--  Lab  -->
     <fl-form-field class="g-form-input">

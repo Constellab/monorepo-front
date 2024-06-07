@@ -385,7 +385,7 @@
   "lab_cloud_name": "Nom du lab dans le cloud",
   "lab_support": "Support",
   "restore_backup_to_lab": "Restaurer le backup dans un lab",
-  "restore_backup_to_lab_help": "This will restore the selected backup to the destination lab.",
+  "restore_backup_to_lab_help": "<p>Cela va restaurer la sauvegarde sélectionnée dans le lab de destination. Veuillez suivre ces étapes avant de restaurer la sauvegarde :</p><ul><li>Configurez le lab de destination avec les mêmes briques</li><li>Le lab manager du lab de destination doit être en cours d'exécution et configuré</li><li>Assurez-vous que le lab de destination est vide (pas de données)</li></ul><p>Une fois la sauvegarde restaurée, le lab de destination sera prêt à être utilisé.</p>",
   "restore_backup_to_lab_confirmation": "Êtes-vous sûr de vouloir restaurer la sauvegarde dans le lab ? Cela n'est pas possible s'il y a des données dans le lab de destination. Cela peut prendre quelques minutes",
   "restore_backup_to_lab_started": "Restauration de la sauvegarde démarrée",
   "destination_lab": "Lab de destination",
