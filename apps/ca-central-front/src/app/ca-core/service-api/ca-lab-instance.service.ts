@@ -27,6 +27,7 @@ import {
   CaLabDockerPsFull,
   CaLabManagerConfig,
   CaLabManagerRecommendedVersion,
+  CaLabManagerRestoreBackupConfigDTO,
   CaLabManagerStatus,
   CaLabPullBiotaOptions,
   CaLabTaskStatusInfo
@@ -221,6 +222,10 @@ export class CaLabInstanceService {
     return this.apiService.post(`${this.route}/${id}/lab-manager/init-all`, null);
   }
 
+  public configureLabManager(id: string): Observable<void> {
+    return this.apiService.post(`${this.route}/${id}/lab-manager/configure-lab-manager`, null);
+  }
+
   public upContainers(id: string, options: CaLabComposeUpOptions): Observable<void> {
     return this.apiService.post(`${this.route}/${id}/lab-manager/up-containers`, options);
   }
@@ -229,8 +234,12 @@ export class CaLabInstanceService {
     return this.apiService.post(`${this.route}/${id}/lab-manager/restart-containers`, options);
   }
 
-  public downContainers(id: string): Observable<void> {
-    return this.apiService.post(`${this.route}/${id}/lab-manager/down-containers`, null);
+  public stopContainers(id: string): Observable<void> {
+    return this.apiService.post(`${this.route}/${id}/lab-manager/stop-containers`, null);
+  }
+
+  public deleteContainers(id: string): Observable<void> {
+    return this.apiService.post(`${this.route}/${id}/lab-manager/delete-containers`, null);
   }
 
   public pullContainers(id: string): Observable<void> {
@@ -301,6 +310,11 @@ export class CaLabInstanceService {
 
   public deleteLabBackups(id: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${id}/backup`, null);
+  }
+
+  public restoreBackup(id: string, backupHistoryId: string,
+                       restoreConfig: CaLabManagerRestoreBackupConfigDTO): Observable<CaLabInstance> {
+    return this.apiService.post(`${this.route}/${id}/backup-history/${backupHistoryId}/restore`, restoreConfig, CaLabInstance);
   }
 
   //////////////////////////// SERVER ////////////////////////////////

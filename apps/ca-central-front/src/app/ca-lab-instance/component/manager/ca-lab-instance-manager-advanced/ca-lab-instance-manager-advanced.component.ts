@@ -23,7 +23,11 @@ export class CaLabInstanceManagerAdvancedComponent implements OnInit {
   }
 
   initAll(): void {
-    this.managerState.initAll();
+    this.managerState.initAll({text: 'lab_manager_initialize', translateText: true});
+  }
+
+  configureLabManager(): void {
+    this.managerState.configureLabManager();
   }
 
   upContainers(): void {
@@ -34,9 +38,12 @@ export class CaLabInstanceManagerAdvancedComponent implements OnInit {
     this.managerState.restartContainers();
   }
 
+  stopContainers(): void {
+    this.managerState.stopContainers();
+  }
 
-  downContainers(): void {
-    this.managerState.downContainers();
+  deleteContainers(): void {
+    this.managerState.deleteContainers();
   }
 
   pullContainers(): void {

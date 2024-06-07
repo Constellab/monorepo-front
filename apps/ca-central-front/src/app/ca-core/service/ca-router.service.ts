@@ -125,6 +125,9 @@ export class CaRouterService {
     return CaRouterService.getFullRoute(`${caConstLabInstancesRoute}/create`);
   }
 
+  public navigateToLabConfigRoute(labInstanceId: string): void {
+    this.router.navigate([CaRouterService.getLabInstanceConfigRoute(labInstanceId)]);
+  }
   ////////////////////////// SMART DB ///////////////////////
 
   public static getMySmartDbsRoute(): string {

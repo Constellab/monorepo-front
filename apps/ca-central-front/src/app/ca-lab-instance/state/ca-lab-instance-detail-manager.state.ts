@@ -161,12 +161,20 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
   }
 
   //////////////////////////// Actions ////////////////////////////
-  initAll(actionText: FlTranslatableText = 'Init all'): void {
+  initAll(actionText: FlTranslatableText): void {
     this.actionService.addAction({
       action: this.labInstanceService.initAll(this.state.getLabInstanceId()),
       text: actionText,
       type: this.actionType,
       additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+    });
+  }
+
+  configureLabManager(): void {
+    this.actionService.addAction({
+      action: this.labInstanceService.configureLabManager(this.state.getLabInstanceId()),
+      text: {text: 'configure_lab_manager', translateText: true},
+      type: this.actionType,
     });
   }
 
@@ -176,7 +184,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
         if (formValue) {
           this.actionService.addAction({
             action: this.labInstanceService.upContainers(this.state.getLabInstanceId(), formValue),
-            text: 'Up containers',
+            text: {text: 'up_containers', translateText: true},
             type: this.actionType,
             additionalInformation: {refreshLabStatus: true} as CaAdditionalData
           });
@@ -191,7 +199,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
         if (formValue) {
           this.actionService.addAction({
             action: this.labInstanceService.restartContainers(this.state.getLabInstanceId(), formValue),
-            text: 'Restart containers',
+            text: {text: 'restart_containers', translateText: true},
             type: this.actionType,
             additionalInformation: {refreshLabStatus: true} as CaAdditionalData
           });
@@ -204,10 +212,20 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
     return this.dialogService.openSmallDialog(CaLabInstanceDockerUpFormComponent, {data: mode}).afterClosed();
   }
 
-  downContainers(): void {
+  stopContainers(): void {
     this.actionService.addAction({
-      action: this.labInstanceService.downContainers(this.state.getLabInstanceId()),
-      text: 'Down containers',
+      action: this.labInstanceService.stopContainers(this.state.getLabInstanceId()),
+      text: {text: 'stop_containers', translateText: true},
+      type: this.actionType,
+      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+    });
+  }
+
+
+  deleteContainers(): void {
+    this.actionService.addAction({
+      action: this.labInstanceService.deleteContainers(this.state.getLabInstanceId()),
+      text: {text: 'delete_containers', translateText: true},
       type: this.actionType,
       additionalInformation: {refreshLabStatus: true} as CaAdditionalData
     });
@@ -216,7 +234,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
   pullContainers(): void {
     this.actionService.addAction({
       action: this.labInstanceService.pullContainers(this.state.getLabInstanceId()),
-      text: 'Pull containers',
+      text: {text: 'pull_containers', translateText: true},
       type: this.actionType
     });
   }
@@ -238,7 +256,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
   registryLogin(): void {
     this.actionService.addAction({
       action: this.labInstanceService.registryLogin(this.state.getLabInstanceId()),
-      text: 'Registry login',
+      text: {text: 'registry_login', translateText: true},
       type: this.actionType
     });
   }
@@ -246,7 +264,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
   stopCurrentTask(): void {
     this.actionService.addAction({
       action: this.labInstanceService.stopCurrentTask(this.state.getLabInstanceId()),
-      text: 'Stop current task',
+      text: {text: 'stop_current_task', translateText: true},
       type: this.actionType
     });
   }
@@ -254,7 +272,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
   systemPrune(): void {
     this.actionService.addAction({
       action: this.labInstanceService.systemPrune(this.state.getLabInstanceId()),
-      text: 'System prune',
+      text: {text: 'system_prune', translateText: true},
       type: this.actionType
     });
   }
@@ -262,7 +280,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
   startAdminer(): void {
     this.actionService.addAction({
       action: this.labInstanceService.startAdminer(this.state.getLabInstanceId()),
-      text: 'Start adminer',
+      text: {text: 'start_adminer', translateText: true},
       type: this.actionType
     });
   }
@@ -270,7 +288,7 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
   stopAdminer(): void {
     this.actionService.addAction({
       action: this.labInstanceService.stopAdminer(this.state.getLabInstanceId()),
-      text: 'Stop adminer',
+      text: {text: 'stop_adminer', translateText: true},
       type: this.actionType
     });
   }

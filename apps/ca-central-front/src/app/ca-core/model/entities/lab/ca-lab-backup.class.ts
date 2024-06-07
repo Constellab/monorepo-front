@@ -95,6 +95,8 @@ export class CaLabBackupStatusDTO {
 
   lastSuccessBackupSize?: number;
 
+  lastSuccessBackupId?: string;
+
   /**
    * Only for admin
    */

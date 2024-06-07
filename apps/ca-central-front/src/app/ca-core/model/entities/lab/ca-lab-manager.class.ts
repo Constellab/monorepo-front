@@ -112,3 +112,9 @@ export class CaLabManagerConfig {
   brickVersions: CaLabManagerBrickVersionDTO[];
   glabTag: 'latest' | 'beta' | string;
 }
+
+export class CaLabManagerRestoreBackupConfigDTO {
+  restoreDb: boolean;
+  restoreData: boolean;
+  destinationLabId: string;
+}

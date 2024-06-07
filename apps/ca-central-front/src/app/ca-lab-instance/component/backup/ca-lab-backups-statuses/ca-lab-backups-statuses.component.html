@@ -22,7 +22,8 @@
   <fl-card-body>
     <fl-async-section [arrayObs]="backupsStatuses">
       <ng-container *flSectionBody>
-        <ca-lab-backup-status-table [datasource]="backupsStatuses"></ca-lab-backup-status-table>
+        <ca-lab-backup-status-table [datasource]="backupsStatuses" [columns]="columns"
+                                    [labId]="labInstanceId"></ca-lab-backup-status-table>
       </ng-container>
     </fl-async-section>
   </fl-card-body>

@@ -1,10 +1,19 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
-import {CaLabBackupStatusDatasource} from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
+import {
+  CaLabBackupStatusDatasource,
+  CaLabBackupStatusDTO
+} from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlTableColumnStatic
+} from '@monorepo/front-core-lib';
 import {
   CaLabBackupsStatusesAdminComponent
 } from '../ca-lab-backups-statuses-admin/ca-lab-backups-statuses-admin.component';
+import {CaAuthenticatedUserService} from '../../../../ca-core/service-api/ca-authenticated-user.service';
 
 /**
  * Statuses of all lab backups
@@ -20,12 +29,18 @@ export class CaLabBackupsStatusesComponent implements OnInit {
 
   backupsStatuses: CaLabBackupStatusDatasource;
 
+  columns: FlTableColumnStatic<CaLabBackupStatusDTO>[] = ['frequency', 'region', 'status', 'lastBackup'];
+
   constructor(private labService: CaLabInstanceService,
-              private dialogService: FlDialogService) {
+              private dialogService: FlDialogService,
+              private authenticateService: CaAuthenticatedUserService) {
   }
 
   ngOnInit(): void {
     this.loadBackupStatuses();
+    if (this.authenticateService.isAdmin()) {
+      this.columns.push('actions');
+    }
   }
 
   private loadBackupStatuses(): void {
@@ -37,7 +52,7 @@ export class CaLabBackupsStatusesComponent implements OnInit {
   }
 
   deleteLabBackups(): void {
-    const data: FlConfirmDialogInput= {
+    const data: FlConfirmDialogInput = {
       title: 'lab_delete_backup',
       content: 'lab_delete_backup_confirmation',
       translateTitleAndContent: true,
@@ -49,8 +64,8 @@ export class CaLabBackupsStatusesComponent implements OnInit {
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(result => this.onDeleteBackupClosed(result));
   }
 
-  private onDeleteBackupClosed(result: FlConfirmDialogResult): void{
-    if(result.choice){
+  private onDeleteBackupClosed(result: FlConfirmDialogResult): void {
+    if (result.choice) {
       this.loadBackupStatuses();
     }
   }

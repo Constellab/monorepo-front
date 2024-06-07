@@ -26,39 +26,45 @@
   </fl-text-icon>
 
   <button mat-stroked-button type="button" color="primary"
-          class="g-button-small" (click)="initAll()">Init all
+          class="g-button-small" (click)="initAll()">{{'lab_manager_initialize' | translate}}
   </button>
   <button mat-stroked-button type="button" color="primary"
-          class="g-button-small" (click)="upContainers()">Up containers
+          class="g-button-small" (click)="configureLabManager()">{{'configure_lab_manager' | translate}}
   </button>
   <button mat-stroked-button type="button" color="primary"
-          class="g-button-small" (click)="restartContainers()">Restart containers
+          class="g-button-small" (click)="upContainers()">{{'up_containers' | translate}}
   </button>
   <button mat-stroked-button type="button" color="primary"
-          class="g-button-small" (click)="pullContainers()">Pull containers
+          class="g-button-small" (click)="restartContainers()">{{'restart_containers' | translate}}
+  </button>
+  <button mat-stroked-button type="button" color="primary"
+          class="g-button-small" (click)="pullContainers()">{{'pull_containers' | translate}}
   </button>
   <button mat-stroked-button type="button" color="primary"
           class="g-button-small" (click)="pullBiotaDb()">{{'pull_biota' | translate}}
   </button>
   <button mat-stroked-button type="button" color="primary"
-          class="g-button-small" (click)="registryLogin()">Registry login
+          class="g-button-small" (click)="registryLogin()">{{'registry_login' | translate}}
   </button>
   <button mat-stroked-button type="button" color="warn"
-          class="g-button-small" (click)="downContainers()">Down containers
+          class="g-button-small" (click)="stopContainers()">{{'stop_containers' | translate}}
   </button>
   <button mat-stroked-button type="button" color="warn"
-          class="g-button-small" (click)="stopCurrentTask()">Stop current task
+          class="g-button-small" (click)="deleteContainers()">{{'delete_containers' | translate}}
   </button>
   <button mat-stroked-button type="button" color="warn"
-          class="g-button-small" (click)="systemPrune()">System prune
+          class="g-button-small" (click)="stopCurrentTask()">{{'stop_current_task' | translate}}
+  </button>
+  <button mat-stroked-button type="button" color="warn"
+          class="g-button-small" (click)="systemPrune()">{{'system_prune' | translate}}
   </button>
 
   <button mat-stroked-button type="button" color="warn"
-          class="g-button-small" (click)="startAdminer()">Start adminer
+          class="g-button-small" (click)="startAdminer()">{{'start_adminer' | translate}}
   </button>
 
   <button mat-stroked-button type="button" color="warn"
-          class="g-button-small" (click)="stopAdminer()">Stop adminer
+          class="g-button-small" (click)="stopAdminer()">{{'stop_adminer' | translate}}
   </button>
 </div>
 

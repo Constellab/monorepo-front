@@ -148,6 +148,9 @@ import {CaLabCreatePageComponent} from './component/create/ca-lab-create-page/ca
 import {CaLabSelectServerComponent} from './component/create/ca-lab-select-server/ca-lab-select-server.component';
 import {CaLabSupportPageComponent} from './component/support/ca-lab-support-page/ca-lab-support-page.component';
 import {CaLabSupportComponent} from './component/support/ca-lab-support/ca-lab-support.component';
+import {
+  CaLabRestoreBackupToLabComponent
+} from './component/backup/ca-lab-restore-backup-to-lab/ca-lab-restore-backup-to-lab.component';
 import {CoCommunityLibModule} from "@monorepo/community-lib";
 
 /**
@@ -208,6 +211,7 @@ import {CoCommunityLibModule} from "@monorepo/community-lib";
     CaLabSelectServerComponent,
     CaLabSupportPageComponent,
     CaLabSupportComponent,
+    CaLabRestoreBackupToLabComponent,
   ],
   imports: [
     CommonModule,

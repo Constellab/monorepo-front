@@ -24,7 +24,7 @@ export class CaLabBackupsStatusesAdminComponent {
     new CaLabBackupStatusDatasource(this.labService.getBackupsStatusAdmin(this.labInstanceId));
 
   columns: FlTableColumnStatic<CaLabBackupStatusDTO>[] = ['frequency', 'region', 'status',
-    'lastBackup', 'bucketInfo'];
+    'lastBackup', 'bucketInfo', 'actions'];
 
   constructor(private labService: CaLabInstanceService) {
   }
