@@ -61,6 +61,8 @@ export class CaLabInstanceStatusHistory extends CaStatusHistory<CaLabInstanceSta
   status: FlStatus<CaLabInstanceStatus>;
 }
 
+export type CaLabInstanceStatusHistoryDatasource = FlEntityPaginatedDatasource<CaLabInstanceStatusHistory>;
+
 /**
  * A lab instance is a running lab
  */

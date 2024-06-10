@@ -73,8 +73,9 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     }
 
     // Remove special characters from the anchor
+
     anchor = anchor.replace(/[^a-zA-Z-_]/g, '');
-    anchor = anchor.replace('_', '');
+    // anchor = anchor.replace('_', '');
 
     // If the anchor is the same as the last one, do not scroll
     if (this.lastScrolledAnchor === anchor) {
@@ -83,6 +84,8 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
 
     // Find the element with the anchor
     const children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
+
+
     if(children){
       // Scroll to the element
       children.scrollIntoView(true);

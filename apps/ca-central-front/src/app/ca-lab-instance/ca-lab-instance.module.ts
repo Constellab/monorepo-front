@@ -152,6 +152,10 @@ import {
   CaLabRestoreBackupToLabComponent
 } from './component/backup/ca-lab-restore-backup-to-lab/ca-lab-restore-backup-to-lab.component';
 import {CoCommunityLibModule} from "@monorepo/community-lib";
+import {
+  CaLabInstanceStatusHistoryPageComponent
+} from './component/ca-lab-instance-status-history-page/ca-lab-instance-status-history-page.component';
+import {CaGroupCoreModule} from '../ca-core/entity-module/ca-group-core/ca-group-core.module';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -181,6 +185,7 @@ import {CoCommunityLibModule} from "@monorepo/community-lib";
     CaLabInstanceHeaderComponent,
     CaLabInstanceDashboardPageComponent,
     CaLabInstanceConfigPageComponent,
+    CaLabInstanceStatusHistoryPageComponent,
     CaLabInstanceServerComponent,
     CaLabServerCompleteInfoComponent,
     CaLabServerCompleteInfoDialogComponent,
@@ -231,6 +236,7 @@ import {CoCommunityLibModule} from "@monorepo/community-lib";
     CaStatusModule,
     CaCloudProviderCoreModule,
     CoCommunityLibModule,
+    CaGroupCoreModule,
   ],
 })
 export class CaLabInstanceModule {

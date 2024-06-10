@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CaCustomMaterialModule} from '../../custom-material/ca-custom-material.module';
 import {CaStatusHistoryCardComponent} from './ca-status-history-card/ca-status-history-card.component';
 import {CaCustomLibraryModule} from '../../custom-library/ca-custom-library.module';
+import {CaStatusHistoryTableComponent} from './ca-status-history-table/ca-status-history-table.component';
 
 
 /**
@@ -18,11 +19,13 @@ import {CaCustomLibraryModule} from '../../custom-library/ca-custom-library.modu
     CaUpdateStatusFormDialogComponent,
     CaStatusHistoryListDialogComponent,
     CaStatusHistoryCardComponent,
+    CaStatusHistoryTableComponent
   ],
   exports: [
     CaUpdateStatusFormDialogComponent,
     CaStatusHistoryListDialogComponent,
     CaStatusHistoryCardComponent,
+    CaStatusHistoryTableComponent
   ],
   imports: [
     CommonModule,

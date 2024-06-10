@@ -1,0 +1,52 @@
+<fl-card class="g-section g-full-height status-history-card">
+
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>history</mat-icon>
+      <h2>{{ 'status_history' | translate }}</h2>
+    </fl-text-icon>
+  </fl-card-header>
+
+  <fl-card-body class="g-full-height">
+    <fl-search>
+      <fl-search-advanced-form>
+
+        <div class="form g-layout-col" [formGroup]="formGp">
+
+          <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
+
+            <mat-form-field class="g-search-field">
+              <mat-label>{{'status' | translate }}</mat-label>
+              <mat-select formControlName="status" [placeholder]="'status' | translate">
+                <mat-option *ngFor="let status of statusTypes" [value]="status">
+                  {{status}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div class="g-form-field-no-hint g-full date">
+              <p class="g-text-small date">{{'creation_date' | translate}}</p>
+              <fl-search-date-interval formGroupName="createdAt">
+              </fl-search-date-interval>
+            </div>
+
+            <div class="g-form-field-no-hint g-full date">
+              <p class="g-text-small date">{{'end_date' | translate}}</p>
+              <fl-search-date-interval formGroupName="endDate">
+              </fl-search-date-interval>
+            </div>
+
+          </div>
+
+        </div>
+      </fl-search-advanced-form>
+
+
+      <fl-search-result>
+        <ca-status-history-table [datasource]="datasource"></ca-status-history-table>
+      </fl-search-result>
+
+    </fl-search>
+  </fl-card-body>
+</fl-card>
+

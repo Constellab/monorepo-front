@@ -54,6 +54,13 @@ export class CaLabInstanceHeaderComponent implements OnInit {
         icon: 'settings'
       });
     }
+
+    items.push({
+      label: {text: 'status_history', translateText: true},
+      route: CaRouterService.getLabInstanceStatusHistoryRoute(lab.id),
+      icon: 'history'
+    });
+
     items.push({
       label: {text: 'lab_usage', translateText: true},
       route: CaRouterService.getLabInstanceUsageRoute(lab.id),

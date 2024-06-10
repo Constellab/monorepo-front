@@ -23,7 +23,6 @@ export class TdResourceDocComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderedViews = this.getOrderedResourceViews(this.resource.methods.views);
-    console.log(this.resource)
   }
 
 

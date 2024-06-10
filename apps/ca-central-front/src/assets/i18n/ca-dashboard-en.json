@@ -177,5 +177,6 @@
   "space_storage_updated": "Storage updated",
   "storage_limit": "Storage limit",
   "update_space_license": "Update licenses",
-  "space_license_updated": "Licenses updated"
+  "space_license_updated": "Licenses updated",
+  "end_date": "End date"
 }

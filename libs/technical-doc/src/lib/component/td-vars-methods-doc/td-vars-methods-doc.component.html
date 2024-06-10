@@ -1,6 +1,6 @@
 @if(variables && (variables | keyvalue).length > 0){
   <div class="methods-div">
-    <h4>{{'td.variables' | translate}}</h4>
+    <h4>{{'td.attributes' | translate}}</h4>
     <div class="method-card">
       @for(variable of variables | keyvalue; track  variable.key){
         <code class="variable">

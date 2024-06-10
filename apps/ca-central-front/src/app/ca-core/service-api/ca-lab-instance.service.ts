@@ -54,6 +54,10 @@ import {
   CaLabInstanceDesktopForm,
   CaRequestLabInstanceForm
 } from '../model/entities/lab/ca-lab-instance.form';
+import {DateTime} from 'luxon';
+import {
+  CaLabInstanceStatusHistoryDatesFormData, CaLabInstanceStatusHistorySearch
+} from '../../ca-lab-instance/component/ca-lab-instance-status-history-page/ca-lab-instance-status-history-page.component';
 
 @Injectable({
   providedIn: 'root'
@@ -150,6 +154,22 @@ export class CaLabInstanceService {
 
   public getStatusHistories(id: string): FlArrayObs<CaLabInstanceStatusHistory> {
     return new FlEntityArrayObs(this.apiService.get(`${this.route}/${id}/status/history`, CaLabInstanceStatusHistory));
+  }
+
+  public getStatusHistoriesDatasource(id: string, page: number, size: number,
+                                      filters: CaLabInstanceStatusHistoryDatesFormData): Observable<ClPageI<CaLabInstanceStatusHistory>> {
+    const data: FlAdvancedSearchInput = {
+      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(
+        filters,
+        CaLabInstanceStatusHistorySearch.advancedSearchConverter
+      ),
+      sortsCriteria: null
+    };
+    return this.apiService.post(`${this.route}/${id}/status/history-datasource`, data, CaLabInstanceStatusHistory, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true
+    });
   }
 
   //////////////////////////// USERS ////////////////////////////////
