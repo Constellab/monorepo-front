@@ -11,35 +11,35 @@
         <div class="node-content leaf g-layout-row g-layout-start-center g-layout-gap-05em">
           <div class="circle-color" [style.background-color]="node.project.id | flStringToRgb"></div>
 
-          <div>
-            <div>{{node.project.code}}<span class="text-pipe">|</span><span
-              class="g-text-light">{{node.project.title}}</span></div>
-            <!--            <div class="g-text-light g-text-tiny">{{node.project.title}}</div>-->
-          </div>
+            <div class="g-text-dense-height">
+              {{ node.project.code }}
+              <span class="text-pipe">|</span>
+              <span class="g-text-light">{{ node.project.title }}</span>
+            </div>
         </div>
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
       <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding
                      class="g-text-small tree-node" matTreeNodeToggle>
         <div class="node-content g-layout-row g-layout-start-center">
-          <mat-icon>
-            {{value.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          <mat-icon class="expand-icon">
+            {{ value.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
           </mat-icon>
 
-          <div>
-            <div>{{node.project.code}}<span class="text-pipe">|</span><span
-              class="g-text-light">{{node.project.title}}</span></div>
-            <!--            <div class="g-text-light g-text-tiny">{{node.project.title}}</div>-->
+          <div class="g-text-dense-height">
+            {{ node.project.code }}
+            <span class="text-pipe">|</span>
+            <span class="g-text-light">{{ node.project.title }}</span>
           </div>
         </div>
       </mat-tree-node>
     </mat-tree>
 
     <div *ngIf="isEmpty">
-      {{'biox.no_project_help' | translate}}
+      {{ 'biox.no_project_help' | translate }}
       <strong>
         <a [href]="labDashboardRoute" target="_blank"
-           class="g-text-link">{{'biox.no_project_help_link' | translate}}</a>
+           class="g-text-link">{{ 'biox.no_project_help_link' | translate }}</a>
       </strong>
     </div>
   </ng-container>

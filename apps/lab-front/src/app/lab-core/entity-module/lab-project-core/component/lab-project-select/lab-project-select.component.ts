@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlFlatTreeControl, FlFormFieldDirective} from '@monorepo/front-core-lib';
-import {LabProject, LabProjectWithChildren} from '../../../../model/entities/lab-project.class';
-import {NgControl} from '@angular/forms';
-import {LabProjectService} from '../../../../entity-service/lab-project.service';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {ClHelpService} from '@monorepo/core-lib';
-import {LabSystemService} from '../../../../service/lab-system.service';
-import {LabEnvironmentHelper} from '../../../../utils/lab-environment.helper';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { FlFlatTreeControl, FlFormFieldDirective } from '@monorepo/front-core-lib';
+import { LabProject, LabProjectWithChildren } from '../../../../model/entities/lab-project.class';
+import { NgControl } from '@angular/forms';
+import { LabProjectService } from '../../../../entity-service/lab-project.service';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { ClHelpService } from '@monorepo/core-lib';
+import { LabSystemService } from '../../../../service/lab-system.service';
+import { LabEnvironmentHelper } from '../../../../utils/lab-environment.helper';
 
 
 interface LabProjectFlatNode {
@@ -118,10 +118,13 @@ export class LabProjectSelectComponent
 
   private selectProjects(projects: LabProject[]): void {
     if (this.value) {
-      const nodes = this.value.dataNodes.filter(node => projects.find(project => project.id === node.project.id) != null);
-      for (const node of nodes) {
-        this.value.expandAncestors(node);
-        node.selected = true;
+      for (const node of this.value.dataNodes) {
+        if (projects.find(project => project.id === node.project.id) != null) {
+          node.selected = true;
+          this.value.expandAncestors(node);
+        } else {
+          node.selected = false;
+        }
       }
     }
     this.tempSelectedProjects = projects;
