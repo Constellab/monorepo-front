@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {LabPipPackagesDialogComponent} from './component/lab-pip-packages-dialog/lab-pip-packages-dialog.component';
+import {LabSystemConfigDialogComponent} from './component/lab-system-config-dialog/lab-system-config-dialog.component';
 import {LabCoreModule} from '../../lab-core.module';
 
 
 @NgModule({
   declarations: [
-    LabPipPackagesDialogComponent
+    LabSystemConfigDialogComponent
   ],
   imports: [
     CommonModule,
@@ -14,7 +14,7 @@ import {LabCoreModule} from '../../lab-core.module';
     LabCoreModule,
   ],
   exports: [
-    LabPipPackagesDialogComponent
+    LabSystemConfigDialogComponent
   ]
 })
 export class LabSystemCoreModule { }

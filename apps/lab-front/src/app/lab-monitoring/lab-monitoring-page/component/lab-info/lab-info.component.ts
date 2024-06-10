@@ -10,8 +10,8 @@ import {
 import {LabTypeService} from '../../../../lab-core/entity-service/lab-type.service';
 import {LabSynchroDialogComponent} from '../lab-synchro-dialog/lab-synchro-dialog.component';
 import {
-  LabPipPackagesDialogComponent
-} from '../../../../lab-core/entity-module/lab-system-core/component/lab-pip-packages-dialog/lab-pip-packages-dialog.component';
+  LabSystemConfigDialogComponent
+} from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 
 @Component({
   selector: 'lab-info',
@@ -90,7 +90,7 @@ export class LabInfoComponent implements OnInit {
 
 
   openPipPackageList(): void{
-    this.dialogService.openSmallDialog(LabPipPackagesDialogComponent);
+    this.dialogService.openSmallDialog(LabSystemConfigDialogComponent);
   }
 }
 

@@ -3,7 +3,7 @@ import {FlApiWithCacheService, FlServerError} from '@monorepo/front-core-lib';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {LabEnvStore} from './lab-env.store';
-import {LabPipPackage, LabSystemInfo} from '../model/global/lab-system.class';
+import { LabPipPackage, LabSystemConfig, LabSystemInfo } from '../model/global/lab-system.class';
 import {LabEnvironmentHelper} from '../utils/lab-environment.helper';
 
 @Injectable({
@@ -60,7 +60,7 @@ export class LabSystemService {
     });
   }
 
-  public getInstalledPipPackages(): Observable<LabPipPackage[]> {
-    return this.apiService.get(`${this.route}/settings/pip-packages`, LabPipPackage);
+  public getSystemConfig(): Observable<LabSystemConfig> {
+    return this.apiService.get(`${this.route}/config`, LabPipPackage);
   }
 }

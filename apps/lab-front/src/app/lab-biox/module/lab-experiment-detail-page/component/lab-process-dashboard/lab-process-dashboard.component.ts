@@ -33,8 +33,8 @@ import {
 } from '../../../../../lab-core/entity-module/lab-type-core/component/lab-share-live-task-community-dialog/lab-share-live-task-community-dialog.component';
 import {CoCommunityHelperService, CoLiveTaskHelper} from '@monorepo/community-lib';
 import {
-  LabPipPackagesDialogComponent
-} from '../../../../../lab-core/entity-module/lab-system-core/component/lab-pip-packages-dialog/lab-pip-packages-dialog.component';
+  LabSystemConfigDialogComponent
+} from '../../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 
 
 /**
@@ -147,7 +147,7 @@ export class LabProcessDashboardComponent {
   }
 
   openPipPackageList(): void {
-    this.dialogService.openSmallDialog(LabPipPackagesDialogComponent);
+    this.dialogService.openSmallDialog(LabSystemConfigDialogComponent);
   }
 
   downloadLiveTaskFile(process: LabProcess): void {

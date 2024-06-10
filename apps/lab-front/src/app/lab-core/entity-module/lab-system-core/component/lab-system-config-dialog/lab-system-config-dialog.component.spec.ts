@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LabPipPackagesDialogComponent} from './lab-pip-packages-dialog.component';
+import {LabSystemConfigDialogComponent} from './lab-system-config-dialog.component';
 
 describe('LabPipPackagesDialogComponent', () => {
-  let component: LabPipPackagesDialogComponent;
-  let fixture: ComponentFixture<LabPipPackagesDialogComponent>;
+  let component: LabSystemConfigDialogComponent;
+  let fixture: ComponentFixture<LabSystemConfigDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabPipPackagesDialogComponent]
+      declarations: [LabSystemConfigDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LabPipPackagesDialogComponent);
+    fixture = TestBed.createComponent(LabSystemConfigDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

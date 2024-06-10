@@ -26,3 +26,8 @@ export class LabPipPackage{
   name: string;
   version: string;
 }
+
+export class LabSystemConfig {
+  python_version: string;
+  pip_packages: LabPipPackage[];
+}
