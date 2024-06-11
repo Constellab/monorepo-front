@@ -293,6 +293,36 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
     });
   }
 
+  //////////////////////////////////////// SINGLE CONTAINER MANAGEMENT ////////////////////////////////////////
+
+  startComposeContainer(serviceName: string): void {
+    this.actionService.addAction({
+      action: this.labInstanceService.startComposeContainer(this.state.getLabInstanceId(), serviceName),
+      text: {text: 'lab_container_start', translateText: true},
+      type: this.actionType,
+      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+    });
+  }
+
+  stopContainer(containerName: string): void {
+    this.actionService.addAction({
+      action: this.labInstanceService.stopContainer(this.state.getLabInstanceId(), containerName),
+      text: {text: 'lab_container_stop', translateText: true},
+      type: this.actionType,
+      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+    });
+  }
+
+
+  deleteContainer(containerName: string): void {
+    this.actionService.addAction({
+      action: this.labInstanceService.deleteContainer(this.state.getLabInstanceId(), containerName),
+      text: {text: 'lab_container_delete', translateText: true},
+      type: this.actionType,
+      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+    });
+  }
+
   ngOnDestroy(): void {
     this.actionSubscription?.unsubscribe();
   }

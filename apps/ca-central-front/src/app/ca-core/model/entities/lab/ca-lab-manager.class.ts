@@ -20,13 +20,14 @@ export class CaLabContainerStatusInfo {
   info?: string;
 }
 
-export type caLabDockerState = 'created' | 'running' | 'exited';
+export type caLabDockerState = 'created' | 'running' | 'exited' | 'none';
 
 
 const caLabDockerStateDict: FlStatusDict<caLabDockerState> = {
   created: FlStatusHelper.getWarningStatus('created', 'lab_container_created'),
   running: FlStatusHelper.getSuccessStatus('running', 'lab_container_running'),
   exited: FlStatusHelper.getErrorStatus('exited', 'lab_container_exited'),
+  none: FlStatusHelper.getInfoStatus('none', 'lab_container_none'),
 };
 
 export class CaLabDockerPs {
@@ -116,5 +117,6 @@ export class CaLabManagerConfig {
 export class CaLabManagerRestoreBackupConfigDTO {
   restoreDb: boolean;
   restoreData: boolean;
+  force: boolean;
   destinationLabId: string;
 }

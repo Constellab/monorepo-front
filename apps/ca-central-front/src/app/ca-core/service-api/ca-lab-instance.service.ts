@@ -233,6 +233,19 @@ export class CaLabInstanceService {
     return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}`, CaLabDockerPsFull);
   }
 
+  public startComposeContainer(id: string, serviceName: string): Observable<boolean>{
+    return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${serviceName}/start`, null);
+  }
+
+  public stopContainer(id: string, containerName: string): Observable<boolean>{
+    return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${containerName}/stop`, null);
+  }
+
+  public deleteContainer(id: string, containerName: string): Observable<boolean>{
+    return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${containerName}/delete`, null);
+  }
+
+
   public getLogs(id: string, containerName: string): Observable<string> {
     return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs`, null,
       {responseType: 'text'});

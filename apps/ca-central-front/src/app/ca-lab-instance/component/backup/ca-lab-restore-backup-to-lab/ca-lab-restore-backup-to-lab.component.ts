@@ -25,6 +25,7 @@ export class CaLabRestoreBackupToLabComponent {
     destinationLab: [null as CaLabInstance, Validators.required],
     restoreDb: [true],
     restoreData: [true],
+    force: [false],
   });
 
   isLoading: boolean = false;
@@ -47,6 +48,7 @@ export class CaLabRestoreBackupToLabComponent {
     const configDTO: CaLabManagerRestoreBackupConfigDTO = {
       restoreDb: formValue.restoreDb,
       restoreData: formValue.restoreData,
+      force: formValue.force,
       destinationLabId: formValue.destinationLab.id,
     };
 

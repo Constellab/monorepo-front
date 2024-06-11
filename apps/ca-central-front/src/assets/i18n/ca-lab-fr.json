@@ -57,8 +57,12 @@
   "lab_container_created": "Créé",
   "lab_container_running": "En cours d'exécution",
   "lab_container_exited": "Quitté",
+  "lab_container_none": "None",
   "lab_container_logs": "Voir les logs",
   "lab_containers": "Conteneurs",
+  "lab_container_start": "Démarrer le conteneur",
+  "lab_container_stop": "Arrêter le conteneur",
+  "lab_container_delete": "Supprimer le conteneur",
   "lab_manager_task": "Tâche",
   "lab_manager_no_task": "Aucune tâche",
   "lab_manager_version": "Version du lab manager",
@@ -390,5 +394,6 @@
   "restore_backup_to_lab_started": "Restauration de la sauvegarde démarrée",
   "destination_lab": "Lab de destination",
   "restore_db" : "Restaurer la base de données",
-  "restore_data": "Restaurer les données"
+  "restore_data": "Restaurer les données",
+  "force_restore": "Forcer la restauration (remplace les données existantes)"
 }
