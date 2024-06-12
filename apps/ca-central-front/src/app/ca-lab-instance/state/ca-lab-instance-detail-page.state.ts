@@ -1,16 +1,16 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {CaLabInstanceService} from '../../ca-core/service-api/ca-lab-instance.service';
-import {BehaviorSubject, filter, Observable, Subscription} from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { CaLabInstanceService } from '../../ca-core/service-api/ca-lab-instance.service';
+import { BehaviorSubject, filter, Observable, Subscription } from 'rxjs';
 import {
   CaLabInstance,
   CaLabInstanceFindOneDto,
   CaLabInstanceStatusDTO,
-  caLabInstanceStatusTemp,
+  caLabInstanceStatusTemp
 } from '../../ca-core/model/entities/lab/ca-lab-instance.class';
-import {map} from 'rxjs/operators';
-import {CaAuthenticatedUserService} from '../../ca-core/service-api/ca-authenticated-user.service';
-import {CaLabInstanceUserRole} from '../../ca-core/model/entities/lab/ca-lab-instance-user.class';
-import {FlPortalActionsService} from '@monorepo/front-core-lib';
+import { map } from 'rxjs/operators';
+import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
+import { CaLabInstanceUserRole } from '../../ca-core/model/entities/lab/ca-lab-instance-user.class';
+import { FlPortalActionsService } from '@monorepo/front-core-lib';
 
 /**
  * State for the lab instance detail page.
@@ -81,10 +81,7 @@ export class CaLabInstanceDetailPageState implements OnDestroy {
     this.status$.next(status);
 
     // clear the timeout if exist to avoid duplicates
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-      this.timeout = null;
-    }
+    this.clearTimeout();
 
     // if the lab is busy, refresh the status every 10 seconds
     if (caLabInstanceStatusTemp.includes(status.labStatus.value) || status.serverTaskStatus.value === 'RUNNING') {
@@ -177,12 +174,20 @@ export class CaLabInstanceDetailPageState implements OnDestroy {
     });
   }
 
+  private clearTimeout(): void {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+  }
+
 
   ngOnDestroy(): void {
     this.labInstance$?.complete();
     this.userRole$?.complete();
     this.status$?.complete();
     this.subscription?.unsubscribe();
+    this.clearTimeout();
   }
 
 }
