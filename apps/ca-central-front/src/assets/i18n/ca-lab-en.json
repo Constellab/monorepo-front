@@ -63,6 +63,7 @@
   "lab_container_start": "Start container",
   "lab_container_stop": "Stop container",
   "lab_container_delete": "Delete container",
+  "lab_container_download_logs": "Download logs",
   "lab_manager_task": "Task",
   "lab_manager_no_task": "No task",
   "lab_manager_version": "Lab manager version",

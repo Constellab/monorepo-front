@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import {
   CaLabCodelabDTO,
   CaLabInstance,
@@ -9,7 +9,7 @@ import {
   CaLabInstanceStatusDTO,
   CaLabInstanceStatusHistory,
   CaLabInstanceWithSpace,
-  CaLabServerInfoDTO,
+  CaLabServerInfoDTO
 } from '../model/entities/lab/ca-lab-instance.class';
 import {
   FlAdvancedSearchInput,
@@ -17,9 +17,10 @@ import {
   FlArrayObs,
   FlEntityArrayObs,
   FlEntityPaginatedDatasource,
+  FlFileHelper,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {ClPage, ClPageI} from '@monorepo/core-lib';
+import { ClPage, ClPageI } from '@monorepo/core-lib';
 import {
   CaLabComposeRestartOptions,
   CaLabComposeUpOptions,
@@ -32,21 +33,21 @@ import {
   CaLabPullBiotaOptions,
   CaLabTaskStatusInfo
 } from '../model/entities/lab/ca-lab-manager.class';
-import {CaLabInstanceUser, CaLabInstanceUserRole} from '../model/entities/lab/ca-lab-instance-user.class';
-import {CaLabInstanceProject} from '../model/entities/lab/ca-lab-instance-project.class';
+import { CaLabInstanceUser, CaLabInstanceUserRole } from '../model/entities/lab/ca-lab-instance-user.class';
+import { CaLabInstanceProject } from '../model/entities/lab/ca-lab-instance-project.class';
 import {
   CaLabInstanceSearch,
   CaLabInstanceSearchFields
 } from '../entity-module/ca-lab-core/model/ca-lab-instance-search.class';
-import {CaServerCompleteInfo} from '../model/entities/lab/ca-lab-server.class';
-import {CaLabConfig} from '../model/entities/lab/ca-lab-config.class';
-import {CaLabGreenOption, CaLabGreenOptionFormDto} from '../model/entities/lab/ca-lab-green-option.class';
+import { CaServerCompleteInfo } from '../model/entities/lab/ca-lab-server.class';
+import { CaLabConfig } from '../model/entities/lab/ca-lab-config.class';
+import { CaLabGreenOption, CaLabGreenOptionFormDto } from '../model/entities/lab/ca-lab-green-option.class';
 import {
   CaLabInstanceStatusRunRequest,
   CaLabInstanceStatusRunResponse
 } from '../model/entities/lab/ca-lab-instance-status.dto';
-import {CaFreeTrialUpdateDto, CaLabFreeTrialGetDto} from '../model/entities/lab/ca-lab-free-trial.class';
-import {CaLabBackupHistory, CaLabBackupStatusDTO} from '../model/entities/lab/ca-lab-backup.class';
+import { CaFreeTrialUpdateDto, CaLabFreeTrialGetDto } from '../model/entities/lab/ca-lab-free-trial.class';
+import { CaLabBackupHistory, CaLabBackupStatusDTO } from '../model/entities/lab/ca-lab-backup.class';
 import {
   CaLabCloudCreateDTO,
   CaLabContestForm,
@@ -88,7 +89,7 @@ export class CaLabInstanceService {
 
   private getCurrentLabInstance(page: number, pageSize: number): Observable<ClPageI<CaLabInstance>> {
     return this.apiService.get(`${this.route}/current`, CaLabInstance,
-      {resultIsPaginated: true, page: page, pageSize: pageSize});
+      { resultIsPaginated: true, page: page, pageSize: pageSize });
   }
 
 
@@ -132,7 +133,7 @@ export class CaLabInstanceService {
   }
 
   public getConfig(id: string, hideSnackBarError: boolean = false): Observable<CaLabConfig> {
-    return this.apiService.get(`${this.route}/${id}/config`, CaLabConfig, {hideSnackBarError});
+    return this.apiService.get(`${this.route}/${id}/config`, CaLabConfig, { hideSnackBarError });
   }
 
   public updateConfig(id: string, config: CaLabManagerConfig): Observable<void> {
@@ -218,7 +219,7 @@ export class CaLabInstanceService {
 
   public getLabManagerStatus(id: string): Observable<CaLabManagerStatus> {
     return this.apiService.get(`${this.route}/${id}/lab-manager/status`, CaLabManagerStatus,
-      {hideSnackBarError: true});
+      { hideSnackBarError: true });
   }
 
   public getCurrentTask(id: string): Observable<CaLabTaskStatusInfo> {
@@ -233,22 +234,29 @@ export class CaLabInstanceService {
     return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}`, CaLabDockerPsFull);
   }
 
-  public startComposeContainer(id: string, serviceName: string): Observable<boolean>{
+  public startComposeContainer(id: string, serviceName: string): Observable<boolean> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${serviceName}/start`, null);
   }
 
-  public stopContainer(id: string, containerName: string): Observable<boolean>{
+  public stopContainer(id: string, containerName: string): Observable<boolean> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${containerName}/stop`, null);
   }
 
-  public deleteContainer(id: string, containerName: string): Observable<boolean>{
+  public deleteContainer(id: string, containerName: string): Observable<boolean> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${containerName}/delete`, null);
   }
 
 
   public getLogs(id: string, containerName: string): Observable<string> {
     return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs`, null,
-      {responseType: 'text'});
+      { responseType: 'text' });
+  }
+
+  public downloadLogs(id: string, containerName: string): Observable<Blob> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs/export`, null,
+      { responseType: 'blob' }).pipe(
+      tap((blob: Blob) => FlFileHelper.downloadBlob(blob, `${containerName}.log`))
+    );
   }
 
   public initAll(id: string): Observable<void> {
@@ -418,7 +426,7 @@ export class CaLabInstanceService {
 
   public updateFreeTrial(id: string, updateDto: CaFreeTrialUpdateDto): Observable<CaLabFreeTrialGetDto> {
     return this.apiService.put(`${this.route}/free-trial/${id}`, updateDto, CaLabFreeTrialGetDto,
-      {serialization: CaFreeTrialUpdateDto});
+      { serialization: CaFreeTrialUpdateDto });
   }
 
   public deleteFreeTrial(id: string): Observable<CaLabFreeTrialGetDto> {
@@ -428,14 +436,14 @@ export class CaLabInstanceService {
   //////////////////////////// CONTEST ////////////////////////////////
   public createContestLab(entity: CaLabContestForm): Observable<CaLabInstanceWithSpace> {
     return this.apiService.post(`${this.route}/contest`, entity, CaLabInstanceWithSpace,
-      {serialization: CaLabContestForm});
+      { serialization: CaLabContestForm });
   }
 
   //////////////////////////// KPI ////////////////////////////////
 
   public getRunningKpi(id: string, request: CaLabInstanceStatusRunRequest): Observable<CaLabInstanceStatusRunResponse> {
     return this.apiService.post(`${this.route}/${id}/kpi/running`, request, CaLabInstanceStatusRunResponse,
-      {serialization: CaLabInstanceStatusRunRequest});
+      { serialization: CaLabInstanceStatusRunRequest });
   }
 
   //////////////////////////// DESKTOP ////////////////////////////////
@@ -447,7 +455,7 @@ export class CaLabInstanceService {
   public getDesktopConfigDownloadUrl(id: string, config: CaLabInstanceDesktopConfig): Observable<Blob> {
     return this.apiService.post(
       `${this.route}/${id}/desktop/generate-config`, config, null,
-      {responseType: 'blob'});
+      { responseType: 'blob' });
   }
 
   public updateLabDesktop(entity: CaLabInstanceDesktopForm): Observable<CaLabInstance> {
@@ -457,11 +465,11 @@ export class CaLabInstanceService {
   //////////////////////////// ADMIN ////////////////////////////////
   public createAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
     return this.apiService.post(`${this.route}/admin`, entity, CaLabInstanceWithSpace,
-      {serialization: CaLabInstanceAdminForm});
+      { serialization: CaLabInstanceAdminForm });
   }
 
   public updateAdmin(entity: CaLabInstanceAdminForm): Observable<CaLabInstanceWithSpace> {
-    return this.apiService.put(`${this.route}/admin`, entity, CaLabInstanceWithSpace, {serialization: CaLabInstanceAdminForm});
+    return this.apiService.put(`${this.route}/admin`, entity, CaLabInstanceWithSpace, { serialization: CaLabInstanceAdminForm });
   }
 
   public getByIdAdmin(id: string): Observable<CaLabInstanceAdminForm> {

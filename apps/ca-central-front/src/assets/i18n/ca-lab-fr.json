@@ -63,6 +63,7 @@
   "lab_container_start": "Démarrer le conteneur",
   "lab_container_stop": "Arrêter le conteneur",
   "lab_container_delete": "Supprimer le conteneur",
+  "lab_container_download_logs": "Télécharger les logs",
   "lab_manager_task": "Tâche",
   "lab_manager_no_task": "Aucune tâche",
   "lab_manager_version": "Version du lab manager",

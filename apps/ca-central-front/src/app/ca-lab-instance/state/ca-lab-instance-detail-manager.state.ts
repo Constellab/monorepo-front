@@ -1,6 +1,6 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {CaLabInstanceService} from '../../ca-core/service-api/ca-lab-instance.service';
-import {CaLabInstanceDetailPageState} from './ca-lab-instance-detail-page.state';
+import { Injectable, OnDestroy } from '@angular/core';
+import { CaLabInstanceService } from '../../ca-core/service-api/ca-lab-instance.service';
+import { CaLabInstanceDetailPageState } from './ca-lab-instance-detail-page.state';
 import {
   FlDialogService,
   FlPortalActionResult,
@@ -9,13 +9,13 @@ import {
   flStatutEventSuccess,
   FlTranslatableText
 } from '@monorepo/front-core-lib';
-import {BehaviorSubject, distinct, mergeMap, Observable, of, share, Subscription} from 'rxjs';
+import { BehaviorSubject, distinct, mergeMap, Observable, of, share, Subscription } from 'rxjs';
 import {
   CaLabComposeUpOptions,
   CaLabManagerRecommendedVersion,
   CaLabManagerStatus
 } from '../../ca-core/model/entities/lab/ca-lab-manager.class';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import {
   CaLabInstanceDockerUpFormComponent,
   CaLabInstanceDockerUpFormInput
@@ -320,6 +320,14 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
       text: {text: 'lab_container_delete', translateText: true},
       type: this.actionType,
       additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+    });
+  }
+
+  downloadLogs(containerName: string): void {
+    this.actionService.addAction({
+      action: this.labInstanceService.downloadLogs(this.state.getLabInstanceId(), containerName),
+      text: {text: 'lab_container_download_logs', translateText: true},
+      type: this.actionType,
     });
   }
 

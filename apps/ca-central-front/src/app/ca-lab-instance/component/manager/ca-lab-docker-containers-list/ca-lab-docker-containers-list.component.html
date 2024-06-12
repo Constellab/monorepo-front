@@ -22,6 +22,12 @@
               <mat-menu #menu="matMenu" xPosition="before">
 
                 <button mat-menu-item type="button"
+                        (click)="downloadLogs(container.names)">
+                  <mat-icon>cloud_download</mat-icon>
+                  <span>{{ 'lab_container_download_logs' | translate }}</span>
+                </button>
+
+                <button mat-menu-item type="button"
                         (click)="startComposeContainer(container.names)">
                   <mat-icon>play_arrow</mat-icon>
                   <span>{{ 'lab_container_start' | translate }}</span>

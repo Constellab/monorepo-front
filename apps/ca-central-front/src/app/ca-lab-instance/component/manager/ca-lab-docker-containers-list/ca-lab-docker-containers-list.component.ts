@@ -39,6 +39,11 @@ export class CaLabDockerContainersListComponent {
     ClHelpService.stopEventPropagation(mouseEvent);
   }
 
+  downloadLogs(containerName: string): void {
+    this.managerState.downloadLogs(containerName);
+
+  }
+
   startComposeContainer(serviceName: string): void {
     this.managerState.startComposeContainer(serviceName);
   }
