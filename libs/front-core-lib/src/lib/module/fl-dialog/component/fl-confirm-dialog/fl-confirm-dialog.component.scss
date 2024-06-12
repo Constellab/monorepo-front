@@ -15,3 +15,23 @@
 .yes-button{
   margin-right: 1em;
 }
+
+.confirm-text{
+  margin-bottom: 1em;
+}
+
+.code {
+  padding: 2px 7px;
+  font-size: 85%;
+  border-radius: 3px;
+  display: inline;
+  line-height: normal;
+  font-family: "Poppins", "Helvetica Neue", sans-serif;
+  background-color: var(--hover-color);
+  color: #e8912d
+}
+
+.form-field{
+  width: 100%;
+  margin-bottom: 1em;
+}

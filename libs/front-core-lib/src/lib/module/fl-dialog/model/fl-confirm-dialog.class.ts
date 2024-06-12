@@ -1,4 +1,4 @@
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 /**
  * Input data for the {@link FlConfirmDialogComponent}
@@ -37,6 +37,11 @@ export interface FlConfirmDialogInput {
    * is set to true, the successMessage is translated.
    */
   translateMessage?: boolean;
+
+  /**
+   * If provided, the user must confirm the action by typing the text in the input
+   */
+  confirmWithText?: string;
 }
 
 /**

@@ -4,17 +4,30 @@
 
 <div mat-dialog-content>
   <div [innerHTML]="content" class="content g-text-with-jump"></div>
+
+
+  @if (confirmTextFormControl) {
+    <p class="confirm-text">{{ 'flDialog.confirm_with_text' | translate }} : <code
+      class="code">{{ inputData.confirmWithText }}</code></p>
+    <mat-form-field class="form-field">
+      <mat-label>{{ 'flDialog.confirm_text' | translate }}</mat-label>
+      <input matInput [placeholder]="inputData.confirmWithText" [formControl]="confirmTextFormControl" required>
+      <mat-error *ngIf="confirmTextFormControl.invalid">
+        {{ 'flDialog.invalid_confirm_text' | translate }}
+      </mat-error>
+    </mat-form-field>
+  }
 </div>
 
 <div mat-dialog-actions>
   <button mat-stroked-button (click)="closeDialog(true)" type="button"
           [disabled]="isLoading" tabindex="-1" color="primary"
           class="yes-button">
-    {{'yes' | translate}}
+    {{ 'yes' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
   <button mat-stroked-button type="button" (click)="closeDialog(false)"
           [disabled]="isLoading" tabindex="-1" color="warn">
-    {{'no' | translate}}
+    {{ 'no' | translate }}
   </button>
 </div>
