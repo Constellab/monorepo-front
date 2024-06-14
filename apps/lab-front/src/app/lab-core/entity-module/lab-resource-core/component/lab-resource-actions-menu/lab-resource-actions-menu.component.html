@@ -30,6 +30,17 @@
     </button>
   </ng-container>
 
+  <button mat-menu-item type="button" (click)="openTagDialog()"
+          class="g-button-small button">
+    <mat-icon>local_offer</mat-icon>
+    {{'biox.resource_tags' | translate}}
+  </button>
+
+  <button mat-menu-item type="button" (click)="openShareDialog()"
+          class="g-button-small button">
+    <mat-icon>share</mat-icon>
+    {{'biox.share' | translate}}
+  </button>
 
   <button mat-menu-item type="button" (click)="updateResourceType()"
           *ngIf="resource.canUpdateType() && !readOnly">

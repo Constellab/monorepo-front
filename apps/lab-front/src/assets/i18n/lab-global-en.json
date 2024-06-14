@@ -15,6 +15,7 @@
   "finished": "Finished",
   "running": "Running",
   "draft": "Draft",
+  "cancel": "Cancel",
   "show_more_result": "Show more results",
   "no_result": "No result",
   "no_more_result": "No more result",
@@ -111,6 +112,8 @@
   "tag_already_exists": "This tag already exists on the object",
   "adding_tag": "Adding tag",
   "deleting_tag": "Deleting tag",
+  "tag_origins": "Origins",
+  "tag_origin_s3": "Datahub",
   "is_archived": "Archive",
   "between_the_from": "From the",
   "between_the_to": "to the",
@@ -150,5 +153,6 @@
   "lab_usage_period_LAST_HOUR": "Last hour",
   "lab_usage_period_LAST_12_HOURS": "Last 12 hours",
   "lab_usage_period_LAST_24_HOURS": "Last 24 hours",
-  "lab_usage_period_CUSTOM": "Custom"
+  "lab_usage_period_CUSTOM": "Custom",
+  "user": "User"
 }

@@ -1,11 +1,12 @@
-import {Expose, Type} from 'class-transformer';
-import {LabReport} from './lab-report.entity';
-import {LabExperiment} from './lab-experiment.entity';
-import {LabResource} from './resource/lab-resource.entity';
-import {LabViewConfig} from './resource/lab-view-config.entity';
-import {LabReportTemplate} from './lab-report-template.entity';
-import {LabProtocolTemplate} from './process/lab-protocol-template.entity';
-import {LabProject} from './lab-project.class';
+import { Expose, Type } from 'class-transformer';
+import { LabReport } from './lab-report.entity';
+import { LabExperiment } from './lab-experiment.entity';
+import { LabResource } from './resource/lab-resource.entity';
+import { LabViewConfig } from './resource/lab-view-config.entity';
+import { LabReportTemplate } from './lab-report-template.entity';
+import { LabProtocolTemplate } from './process/lab-protocol-template.entity';
+import { LabProject } from './lab-project.class';
+import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
 export type LabEntityType = 'EXPERIMENT' | 'RESOURCE' | 'VIEW' | 'REPORT'
   | 'PROTOCOL_TEMPLATE' | 'REPORT_TEMPLATE' | 'PROJECT';
@@ -45,7 +46,7 @@ export class LabNavigableEntity {
  * @param json
  * @constructor
  */
-export const LabNavigableEntityGroupedFactory: any = (json: any) => {
+const LabNavigableEntityGroupedFactory: any = (json: TypeHelpOptions) => {
   switch (json.newObject.type) {
     case 'EXPERIMENT':
       return LabExperiment;
@@ -62,7 +63,7 @@ export const LabNavigableEntityGroupedFactory: any = (json: any) => {
     case 'PROJECT':
       return LabProject;
     default:
-      throw new Error(`[LabNavigableEntityGroupedFactory] Type ${json.type} is not supported`);
+      throw new Error(`[LabNavigableEntityGroupedFactory] Type ${json.newObject.type} is not supported`);
   }
 };
 

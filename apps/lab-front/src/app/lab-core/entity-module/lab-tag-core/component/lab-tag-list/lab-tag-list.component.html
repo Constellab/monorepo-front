@@ -1,15 +1,27 @@
-<div (click)="openManageEntityTagDialog()">
-  <ng-container *ngIf="tags | flDatasourceConnect | async as tagList">
-    <fl-tag *ngFor="let tag of tagList"
-            [flTag]="tag" class="tag"
-            [tagColorer]="tagColorer"
-            [showDeleteIcon]="mode === 'edit' && tag.isUserOrigin"
-            (deleteTag)="deleteTag(tag)"
-            (click)="showTagDetail(tag, $event)"></fl-tag>
+<div class="g-layout-row">
 
-    <div *ngIf="showNoTagMessage && tagList.length === 0" class="g-text-small g-text-light">
-      {{'no_tags' | translate}}
-    </div>
-  </ng-container>
+  <div class="g-flex-auto">
+    @if (tags | flDatasourceConnect | async; as tagList) {
+      <fl-tag *ngFor="let tag of tagList"
+              [flTag]="tag" class="tag"
+              [showDeleteIcon]="mode === 'edit' && tag.isUserOrigin"
+              (deleteTag)="deleteTag(tag)"
+              (click)="showTagDetail(tag, $event)"></fl-tag>
+    }
+
+    @if (showNoTagMessage && tags.isEmpty()) {
+      <div class="g-full-height g-layout-col g-layout-center-start">
+        <div class="g-text-small g-text-light">
+          {{ 'no_tags' | translate }}
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (entityInformationProvided) {
+    <button mat-icon-button type="button" class="g-button-icon-small edit-button"
+            (click)="openManageEntityTagDialog()" [matTooltip]="'update_tags' | translate">
+      <mat-icon>edit</mat-icon>
+    </button>
+  }
 </div>
-

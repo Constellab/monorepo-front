@@ -1,24 +1,26 @@
 <mat-accordion>
-  <ng-container *ngFor="let group of groups">
-    <mat-expansion-panel *ngIf="group.entities.length > 0">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-icon [flIcon]="group.typeIcon" class="group-icon"></mat-icon>
-          {{ group.entities.length }} {{ ('lab_entity_type_' + group.type) | translate }}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+  @for (group of groups; track group.type) {
+    @if (group.entities.length > 0) {
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon [flIcon]="group.typeIcon" class="group-icon"></mat-icon>
+            {{ group.entities.length }} {{ ('lab_entity_type_' + group.type) | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-      <ng-template matExpansionPanelContent>
-        <lab-navigable-entities-table [type]="group.type" [entities]="group.entities"></lab-navigable-entities-table>
-      </ng-template>
-      <!--      <mat-nav-list>-->
+        <ng-template matExpansionPanelContent>
+          <lab-navigable-entities-table [type]="group.type" [entities]="group.entities"></lab-navigable-entities-table>
+        </ng-template>
+        <!--      <mat-nav-list>-->
 
-      <!--        <a mat-list-item *ngFor="let entity of group.entities" target="_blank"-->
-      <!--           [routerLink]="entity.id | labDetailRoute:group.type">-->
-      <!--          <lab-navigable-entity-inline [entity]="entity"></lab-navigable-entity-inline>-->
-      <!--        </a>-->
-      <!--      </mat-nav-list>-->
+        <!--        <a mat-list-item *ngFor="let entity of group.entities" target="_blank"-->
+        <!--           [routerLink]="entity.id | labDetailRoute:group.type">-->
+        <!--          <lab-navigable-entity-inline [entity]="entity"></lab-navigable-entity-inline>-->
+        <!--        </a>-->
+        <!--      </mat-nav-list>-->
 
-    </mat-expansion-panel>
-  </ng-container>
+      </mat-expansion-panel>
+    }
+  }
 </mat-accordion>

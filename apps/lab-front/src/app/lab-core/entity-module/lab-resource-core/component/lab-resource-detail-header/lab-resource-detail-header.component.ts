@@ -1,16 +1,12 @@
-import {Component, Input, Signal, ViewContainerRef} from '@angular/core';
-import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {LabRouterService} from '../../../../service/lab-router.service';
-import {FlDialogService, FlOverlayRef, FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
+import { Component, Input, Signal, ViewContainerRef } from '@angular/core';
+import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { LabRouterService } from '../../../../service/lab-router.service';
+import { FlDialogService, FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
 import {
   LabTransformResourcePortalComponent,
   LabTransformResourcePortalInput
 } from '../../../lab-transformer-core/component/lab-transform-resource-portal/lab-transform-resource-portal.component';
-import {
-  LabSharedEntityInfoDialogComponent,
-  LabSharedEntityInfoDialogInput
-} from '../../../lab-share-core/component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
 import {
   LabResourceInfoDialogComponent,
   LabResourceInfoDialogInput
@@ -18,7 +14,7 @@ import {
 import {
   LabResourceAvailableViewsPortalComponent
 } from '../lab-resource-available-views-portal/lab-resource-available-views-portal.component';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import {
   LabImportResourceDialogComponent,
   LabImportResourceDialogInput
@@ -27,7 +23,7 @@ import {
 @Component({
   selector: 'lab-resource-detail-header',
   templateUrl: './lab-resource-detail-header.component.html',
-  styleUrls: ['./lab-resource-detail-header.component.scss'],
+  styleUrls: ['./lab-resource-detail-header.component.scss']
 })
 export class LabResourceDetailHeaderComponent {
 
@@ -52,7 +48,7 @@ export class LabResourceDetailHeaderComponent {
         hasBackdrop: true,
         disposeOnNavigation: true,
         disposeOnBackdropClick: true,
-        transparentBackdrop: true,
+        transparentBackdrop: true
       });
     this.state.createPortal(LabResourceAvailableViewsPortalComponent, config, {}, true);
   }
@@ -63,17 +59,9 @@ export class LabResourceDetailHeaderComponent {
     };
     this.dialogService.openBigDialog(LabResourceInfoDialogComponent, {
       data: data, viewContainerRef: this.containerRef,
-      panelClass: 'g-dialog-main-background'
+      panelClass: 'g-dialog-main-background',
+      autoFocus: false
     });
-  }
-
-  openShareDialog(): void {
-    const data: LabSharedEntityInfoDialogInput = {
-      entityType: 'RESOURCE',
-      entityId: this.resource().id
-    };
-
-    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, {data});
   }
 
   onUpdate(resource: LabResource): void {
@@ -89,11 +77,11 @@ export class LabResourceDetailHeaderComponent {
 
 
     const config: FlPortalConfig = this.portalService.configureAbsolutePortal(
-      {centerHorizontally: '0', top: '0'},
+      { centerHorizontally: '0', top: '0' },
       {
         disposeOnNavigation: true,
         hasBackdrop: true,
-        transparentBackdrop: true,
+        transparentBackdrop: true
       });
 
     const input: LabTransformResourcePortalInput = {
@@ -121,9 +109,8 @@ export class LabResourceDetailHeaderComponent {
       nodeExtension: this.resource().fsNode.getExtension()
     };
 
-    this.dialogService.openMediumDialog(LabImportResourceDialogComponent, {data: input});
+    this.dialogService.openMediumDialog(LabImportResourceDialogComponent, { data: input });
   }
-
 
 
 }

@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import {
   LabImportResourceDialogComponent,
   LabImportResourceDialogInput
@@ -11,12 +11,12 @@ import {
   FlTranslatableText,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {LabUpdateResourceTypeComponent} from '../lab-update-resource-type/lab-update-resource-type.component';
+import { LabUpdateResourceTypeComponent } from '../lab-update-resource-type/lab-update-resource-type.component';
 import {
   LabUpdateResourceNameDialogComponent
 } from '../lab-update-resource-name-dialog/lab-update-resource-name-dialog.component';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {LabResourceDownloadService} from '../../../../entity-service/lab-resource-download.service';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
+import { LabResourceDownloadService } from '../../../../entity-service/lab-resource-download.service';
 import {
   LabResourceUpdateProjectDialogComponent,
   LabResourceUpdateProjectDialogInput,
@@ -26,7 +26,16 @@ import {
   LabNavigableEntityService,
   LabNavigableImpactConfig
 } from '../../../lab-navigable-entity-core/lab-navigable-entity.service';
-import {LabRouterService} from '../../../../service/lab-router.service';
+import { LabRouterService } from '../../../../service/lab-router.service';
+import {
+  LabSharedEntityInfoDialogComponent,
+  LabSharedEntityInfoDialogInput
+} from '../../../lab-share-core/component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
+import {
+  LabManageEntityTagsDialogComponent,
+  LabManageEntityTagsDialogInput
+} from '../../../lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
+import { LabTagService } from '../../../../entity-service/lab-tag.service';
 
 /**
  * Action menu button for resources, it has a ng-content for custom buttons
@@ -52,7 +61,8 @@ export class LabResourceActionsMenuComponent implements OnInit {
               private resourceDownloadService: LabResourceDownloadService,
               private translateService: FlTranslateService,
               private snackBarService: FlSnackBarService,
-              private labImpactedService: LabNavigableEntityService) {
+              private labImpactedService: LabNavigableEntityService,
+              private tagService: LabTagService) {
   }
 
   ngOnInit(): void {
@@ -108,6 +118,26 @@ export class LabResourceActionsMenuComponent implements OnInit {
       this.resource.project = result.project;
       this.update.next(this.resource);
     }
+  }
+
+  openShareDialog(): void {
+    const data: LabSharedEntityInfoDialogInput = {
+      entityType: 'RESOURCE',
+      entityId: this.resource.id
+    };
+
+    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, {data});
+  }
+
+  openTagDialog(): void {
+    const data: LabManageEntityTagsDialogInput = {
+      entityType: 'RESOURCE',
+      entityId: this.resource.id,
+      tags: this.tagService.getEntityTagsDatasource('RESOURCE', this.resource.id)
+    };
+    this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, {
+      data: data, autoFocus: false
+    });
   }
 
   deleteResource(): void {

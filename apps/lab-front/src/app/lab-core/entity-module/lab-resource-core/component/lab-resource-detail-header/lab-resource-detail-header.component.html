@@ -41,11 +41,6 @@
     {{'biox.resource_info' | translate}}
   </button>
 
-  <button mat-stroked-button type="button" (click)="openShareDialog()"
-          class="g-button-small button" *ngIf="displayMode !== 'dense'">
-    {{'biox.share' | translate}}
-  </button>
-
 
   <lab-resource-actions-menu [readOnly]="displayMode !== 'fullPage'" [resource]="resource()" (update)="onUpdate($event)"
                              (delete)="onDelete()">

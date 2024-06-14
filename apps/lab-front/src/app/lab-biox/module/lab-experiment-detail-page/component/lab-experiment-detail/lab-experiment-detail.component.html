@@ -4,14 +4,8 @@
   <fl-article-left-side>
 
     <!--  Tags  -->
-    <div class="g-layout-row">
-      <lab-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"
-                    entityType="EXPERIMENT" [entityId]="experiment.id"></lab-tag-list>
-      <button mat-icon-button type="button" class="g-button-icon-small"
-              (click)="openTagsFormDialog()">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </div>
+    <lab-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"
+                  entityType="EXPERIMENT" [entityId]="experiment.id"></lab-tag-list>
 
     <!--  Project  -->
     <lab-project-inline-select class="separator" [(ngModel)]="experiment.project"

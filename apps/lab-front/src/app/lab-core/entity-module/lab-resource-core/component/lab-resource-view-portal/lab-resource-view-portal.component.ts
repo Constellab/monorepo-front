@@ -1,12 +1,10 @@
-import {Component, Inject} from '@angular/core';
-import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
-import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef} from '@monorepo/front-core-lib';
-import {RvViewConfig} from '@monorepo/resource-view';
-import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
-import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
-import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
-import {LabTagService} from '../../../../entity-service/lab-tag.service';
-import {LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
+import { Component, Inject } from '@angular/core';
+import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
+import { FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef } from '@monorepo/front-core-lib';
+import { RvViewConfig } from '@monorepo/resource-view';
+import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
+import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
+import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 
 
 export interface LabResourceViewPortalInput {
@@ -46,12 +44,8 @@ export class LabResourceViewPortalComponent {
 
   editTitle: boolean = false;
 
-  tags: LabTagDatasource;
-
-
   constructor(@Inject(FL_PORTAL_DATA) private input: LabResourceViewPortalInput,
               private overlayRef: FlOverlayRef,
-              private tagService: LabTagService,
               private viewConfigService: LabViewConfigService) {
     this.labView = input.labView;
     this.contextMenuItems = input.contextMenuItems;
@@ -59,9 +53,8 @@ export class LabResourceViewPortalComponent {
     if (input.labView.viewConfig) {
       this.rvConfig = {
         methodName: input.labView.viewConfig.viewName,
-        configValues: input.labView.viewConfig.configValues,
+        configValues: input.labView.viewConfig.configValues
       };
-      this.tags = this.tagService.getEntityTagsDatasource('VIEW', input.labView.viewConfig.id);
     }
 
     // do not define the container, the heat map defines it itself

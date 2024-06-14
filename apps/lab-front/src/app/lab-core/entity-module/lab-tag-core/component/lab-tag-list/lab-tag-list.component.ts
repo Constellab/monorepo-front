@@ -1,12 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlDialogService, FlPortalService, FlTagColorer} from '@monorepo/front-core-lib';
-import {LabEntityTagType, LabTag, LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FlDialogService, FlPortalService } from '@monorepo/front-core-lib';
+import { LabEntityTagType, LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
 import {
   LabManageEntityTagsDialogComponent,
   LabManageEntityTagsDialogInput
 } from '../lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
-import {LabTagService} from '../../../../entity-service/lab-tag.service';
-import {ClHelpService} from '@monorepo/core-lib';
+import { ClHelpService } from '@monorepo/core-lib';
 import {
   LabTagDetailPortalComponent,
   LabTagDetailPortalInput
@@ -16,18 +15,16 @@ import {
 @Component({
   selector: 'lab-tag-list',
   templateUrl: './lab-tag-list.component.html',
-  styleUrls: ['./lab-tag-list.component.scss'],
+  styleUrls: ['./lab-tag-list.component.scss']
 })
 export class LabTagListComponent implements OnInit {
-  @Input() tags: LabTagDatasource;
+  @Input({ required: true }) tags: LabTagDatasource;
 
   @Input() tagSelectable: boolean = false;
 
   @Input() limitNumber: number = Infinity;
 
   @Input() showNoTagMessage: boolean = false;
-
-  @Input() tagColorer?: FlTagColorer;
 
   @Input() mode: 'show' | 'edit' = 'show';
 
@@ -38,15 +35,10 @@ export class LabTagListComponent implements OnInit {
   @Output() tagDeleted: EventEmitter<LabTag> = new EventEmitter();
 
   constructor(private dialogService: FlDialogService,
-              private tagService: LabTagService,
               private portalService: FlPortalService) {
   }
 
   ngOnInit(): void {
-    if (!this.tags && this.entityInformationProvided) {
-      this.tags = this.tagService.getEntityTagsDatasource(this.entityType, this.entityId);
-    }
-
     if (this.tags == null) {
       console.error('[LabTagListComponent] Tags is null');
     }
@@ -62,10 +54,10 @@ export class LabTagListComponent implements OnInit {
     const data: LabManageEntityTagsDialogInput = {
       entityType: this.entityType,
       entityId: this.entityId,
-      tags: this.tags,
+      tags: this.tags
     };
     this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, {
-      data: data,
+      data: data
     });
   }
 

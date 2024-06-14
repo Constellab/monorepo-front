@@ -187,7 +187,6 @@
     "view_config_select": "Sélectionner une config de vue",
     "view_config_select_help": "Voici l'historique des vues que vous avez généré. Vous pouvez seulement rechercher les vues des ressources qui on été générées ou utilisées par une des expériences liées à ce rapport. \nSi vous ne trouvez pas la vues souhaitez, re-générer la depuis la page de la ressource et re-lancer la recherche, la vues devrait apparaître en première.",
     "update_view_config_title": "Modifier le titre de la vue",
-    "update_view_tags": "Modifier les tags de la vue",
     "view_config_title_updated": "Titre modifié",
     "view_include_not_favorite": "Inclure les vues non favorites",
     "view_not_favorite_tooltip": "Cliquer pour marquer la vue comme favorite",
@@ -406,6 +405,8 @@
     "resource_next_objects": "Objets suivants",
     "no_experiment": "Aucune expérience",
     "no_report": "Aucun rapport",
-    "duplicate_task": "Dupliquer la tâche"
+    "duplicate_task": "Dupliquer la tâche",
+    "resource": "Ressource",
+    "view": "Vue"
   }
 }

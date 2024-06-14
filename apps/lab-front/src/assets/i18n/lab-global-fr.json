@@ -15,6 +15,7 @@
   "finished": "Finie",
   "running": "En cours",
   "draft": "Brouillon",
+  "cancel": "Annuler",
   "show_more_result": "Afficher plus de résultat",
   "no_result": "Aucun résultat",
   "no_more_result": "Aucun résultat supplémentaire",
@@ -112,6 +113,8 @@
   "adding_tag": "Ajout du tag",
   "deleting_tag": "Suppression du tag",
   "is_archived": "Archiver",
+  "tag_origins": "Origines",
+  "tag_origin_s3": "Datahub",
   "between_the_from": "Du",
   "between_the_to": "au",
   "until_the": "Jusqu'au",
@@ -150,5 +153,9 @@
   "lab_usage_period_LAST_HOUR": "Dernière heure",
   "lab_usage_period_LAST_12_HOURS": "Dernières 12 heures",
   "lab_usage_period_LAST_24_HOURS": "Dernières 24 heures",
-  "lab_usage_period_CUSTOM": "Personnalisé"
+  "lab_usage_period_CUSTOM": "Personnalisé",
+  "user": "Utilisateur",
+  "task": "Tâche",
+  "resource_tags": "Tags de la ressource",
+  "view_tags": "Tags de la vue"
 }

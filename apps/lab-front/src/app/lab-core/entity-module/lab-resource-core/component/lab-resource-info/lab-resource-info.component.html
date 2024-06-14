@@ -9,25 +9,35 @@
 
   <fl-card-body class="card-body">
 
-    <fl-text-icon class="line tags">
+    @if(resource.typeStatus === 'UNAVAILABLE'){
+      <fl-text-icon class="line">
+        <mat-icon color="warn">error</mat-icon>
+        <div class="g-warn-text">{{ 'biox.resource_type_unavailable_error' | translate }}</div>
+      </fl-text-icon>
+    }
+
+    <fl-text-icon class="line">
       <mat-icon>local_offer</mat-icon>
-      <lab-tag-list [tags]="tags" [tagSelectable]="false" class="g-text-small"
+      <lab-tag-list [tags]="tags" [tagSelectable]="false" class="g-text-small" [showNoTagMessage]="true"
                     entityType="RESOURCE" [entityId]="resource.id"></lab-tag-list>
-      <div *ngIf="tags.isEmpty()">{{ 'no_tags' | translate }}</div>
     </fl-text-icon>
 
     <!--  Experiment  -->
-    <fl-text-icon *ngIf="resource.experiment" class="line">
-      <mat-icon flIcon="experiment"></mat-icon>
-      <a [routerLink]="resource.experiment.id | labDetailRoute:'EXPERIMENT'"
-         class="g-text-link">{{ resource.experiment.title }}</a>
-    </fl-text-icon>
+    @if (resource.experiment) {
+      <fl-text-icon class="line">
+        <mat-icon flIcon="experiment"></mat-icon>
+        <a [routerLink]="resource.experiment.id | labDetailRoute:'EXPERIMENT'"
+           class="g-text-link">{{ resource.experiment.title }}</a>
+      </fl-text-icon>
+    }
 
     <!--  Project  -->
-    <fl-text-icon *ngIf="resource.project" class="line">
-      <mat-icon flIcon="project"></mat-icon>
-      <lab-project-inline [project]="resource.project"></lab-project-inline>
-    </fl-text-icon>
+    @if (resource.project) {
+      <fl-text-icon class="line">
+        <mat-icon flIcon="project"></mat-icon>
+        <lab-project-inline [project]="resource.project"></lab-project-inline>
+      </fl-text-icon>
+    }
 
 
     <!--  Origin  -->
@@ -41,7 +51,7 @@
       </div>
     </fl-text-icon>
 
-    <ng-container *ngIf="resource.isFsNode()">
+    @if (resource.isFsNode()) {
       <!--  File  -->
       <fl-text-icon class="line">
         <mat-icon>{{ resource.fsNode.isFile ? 'description' : 'folder' }}</mat-icon>
@@ -54,25 +64,27 @@
         <mat-icon>location_on</mat-icon>
         {{ resource.fsNode.path }}
       </fl-text-icon>
-    </ng-container>
+    }
 
     <!--  TODO test if resource type is none  -->
-    <!--  Resource type  -->
-    <div class="line g-layout-row g-layout-start-center">
-      <mat-icon>info</mat-icon>
-      <div class="resource-type">{{ 'biox.resource_type' | translate }}  :</div>
-      <td-type-inline class="resource-type g-text-link" (click)="openTypingDoc()"
-                      [text]="resource.resourceType.human_name"
-                      [style]="resource.resourceType.style"></td-type-inline>
-    </div>
+    @if (resource.resourceType) {
+      <!--  Resource type  -->
+      <div class="line g-layout-row g-layout-start-center">
+        <mat-icon>info</mat-icon>
+        <div class="resource-type">{{ 'biox.resource_type' | translate }}  :</div>
+        <td-type-inline class="resource-type g-text-link" (click)="openTypingDoc()"
+                        [text]="resource.resourceType.human_name"
+                        [style]="resource.resourceType.style"></td-type-inline>
+      </div>
 
-    <!--  Resource type short description  -->
-    <fl-text-icon class="line" *ngIf="resource.resourceType.short_description">
-      <mat-icon>text_snippet</mat-icon>
-      <p>
-        {{ resource.resourceType.short_description }}
-      </p>
-    </fl-text-icon>
+      @if (resource.resourceType.short_description) {
+        <!--  Resource type short description  -->
+        <fl-text-icon class="line">
+          <mat-icon>text_snippet</mat-icon>
+          <div>{{ resource.resourceType.short_description }}</div>
+        </fl-text-icon>
+      }
+    }
 
     <!--  Creation info  -->
     <fl-text-icon class="line">

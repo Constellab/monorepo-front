@@ -1,6 +1,7 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlTag} from '../../fl-tag.class';
-import {FlTagColorer} from '../../fl-tag-colorer.class';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlTag } from '../../fl-tag.class';
+import { FlTagColorer } from '../../fl-tag-colorer.class';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Simple component for tags
@@ -21,7 +22,10 @@ export class FlTagComponent {
 
   @Output() deleteTag: EventEmitter<FlTag> = new EventEmitter();
 
-  onDeleteTag(): void {
+  onDeleteTag(event: MouseEvent): void {
+    // use to stop click event on tag
+    ClHelpService.stopEventPropagation(event);
+
     this.deleteTag.next(this.flTag);
   }
 

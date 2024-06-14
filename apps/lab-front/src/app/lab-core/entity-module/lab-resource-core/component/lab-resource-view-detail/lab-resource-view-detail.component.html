@@ -11,18 +11,11 @@
                                 (update)="onUpdate($event)"></lab-view-config-favorite>
     </div>
 
-    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <lab-tag-list [tags]="tags" [tagSelectable]="false"
-                    entityType="VIEW" [entityId]="labView.viewConfig.id"
-                    class="g-text-small"></lab-tag-list>
-    </div>
-
     <fl-section-actions>
       <ng-content></ng-content>
       <rv-technical-info-button [technicalInfo]="labView.view.technical_info"></rv-technical-info-button>
 
       <lab-view-config-actions-menu [viewConfig]="labView.viewConfig"
-                                    [tags]="tags"
                                     (update)="onUpdate($event)"></lab-view-config-actions-menu>
     </fl-section-actions>
   </fl-section-header>

@@ -1,13 +1,13 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {LabEntity} from '../../model/global/lab-entity.entity';
-import {LabRouterService} from '../../service/lab-router.service';
-import {LabReport} from '../../model/entities/lab-report.entity';
-import {LabExperiment} from '../../model/entities/lab-experiment.entity';
-import {LabResource} from '../../model/entities/resource/lab-resource.entity';
-import {LabProtocolTemplate} from '../../model/entities/process/lab-protocol-template.entity';
-import {LabReportTemplate} from '../../model/entities/lab-report-template.entity';
-import {LabEntityType} from '../../model/entities/lab-navigable-entity.entity';
-import {LabViewConfig} from '../../model/entities/resource/lab-view-config.entity';
+import { Pipe, PipeTransform } from '@angular/core';
+import { LabEntity } from '../../model/global/lab-entity.entity';
+import { LabRouterService } from '../../service/lab-router.service';
+import { LabReport } from '../../model/entities/lab-report.entity';
+import { LabExperiment } from '../../model/entities/lab-experiment.entity';
+import { LabResource } from '../../model/entities/resource/lab-resource.entity';
+import { LabProtocolTemplate } from '../../model/entities/process/lab-protocol-template.entity';
+import { LabReportTemplate } from '../../model/entities/lab-report-template.entity';
+import { LabEntityType } from '../../model/entities/lab-navigable-entity.entity';
+import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
 
 /**
  * Pipe to get the detail route of an object
@@ -21,6 +21,8 @@ import {LabViewConfig} from '../../model/entities/resource/lab-view-config.entit
 })
 export class LabDetailRoutePipe implements PipeTransform {
 
+  transform(value: LabEntity): string;
+  transform(value: string, objectType: LabEntityType): string;
   transform(value: string | LabEntity, objectType?: LabEntityType): string {
     if (objectType == null) {
       objectType = this.getObjectType(value);

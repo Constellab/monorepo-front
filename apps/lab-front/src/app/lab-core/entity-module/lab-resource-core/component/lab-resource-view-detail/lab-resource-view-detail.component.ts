@@ -1,39 +1,28 @@
-import {Component, Input, OnInit, Optional} from '@angular/core';
-import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
-import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
-import {RvViewConfig} from '@monorepo/resource-view';
-import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
-import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
-import {LabTagService} from '../../../../entity-service/lab-tag.service';
-import {LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
+import { Component, Input, Optional } from '@angular/core';
+import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
+import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
+import { RvViewConfig } from '@monorepo/resource-view';
+import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
+import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 
 @Component({
   selector: 'lab-resource-view-detail',
   templateUrl: './lab-resource-view-detail.component.html',
   styleUrls: ['./lab-resource-view-detail.component.scss']
 })
-export class LabResourceViewDetailComponent implements OnInit {
+export class LabResourceViewDetailComponent {
 
   @Input() labView: LabResourceView;
 
-  tags: LabTagDatasource;
 
   constructor(private viewConfigService: LabViewConfigService,
-              private tagService: LabTagService,
               @Optional() private resourceState: LabResourceDetailState) {
   }
-
-  ngOnInit(): void {
-    if (this.labView.viewConfig) {
-      this.tags = this.tagService.getEntityTagsDatasource('VIEW', this.labView.viewConfig.id);
-    }
-  }
-
 
   get viewConfig(): RvViewConfig {
     return {
       methodName: this.labView.viewConfig.viewName,
-      configValues: this.labView.viewConfig.configValues,
+      configValues: this.labView.viewConfig.configValues
     };
   }
 

@@ -8,9 +8,11 @@ import {
   FlTagValueFormat,
   FlTagValueModel
 } from '@monorepo/front-core-lib';
-import {LabBaseEntity} from '../global/lab-entity.entity';
-import {LabNavigableEntityGrouped} from './lab-navigable-entity.entity';
-import {Expose, Type} from 'class-transformer';
+import { LabBaseEntity } from '../global/lab-entity.entity';
+import { LabEntityType, LabNavigableEntityGrouped } from './lab-navigable-entity.entity';
+import { Expose, Type } from 'class-transformer';
+import { LabUser } from './lab-user.entity';
+import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
 export type LabEntityTagType = 'EXPERIMENT' | 'REPORT' | 'RESOURCE' | 'VIEW' | 'PROTOCOL_TEMPLATE';
 
@@ -24,7 +26,7 @@ export class LabTag implements FlTag, FlEntity {
   key: string;
   value: FlTagValue;
 
-  @Expose({name: 'is_user_origin'})
+  @Expose({ name: 'is_user_origin' })
   isUserOrigin: boolean;
 
   public static newUserTag(key: string, value: FlTagValue): LabTag {
@@ -36,14 +38,72 @@ export class LabTag implements FlTag, FlEntity {
   }
 }
 
+/**
+ * If the origin is a user, we need to transform the json to a LabUser object
+ * @param json
+ */
+const labTagOriginObjectFactory: any = (json: TypeHelpOptions) => {
+  switch (json.object.origin_type) {
+    case 'USER':
+      return LabUser;
+    default:
+      return json.object.origin_object;
+  }
+}
+
+export type LabTagOriginType = 'USER' | 'S3' | 'TASK' | 'TASK_PROPAGATED' | 'EXPERIMENT_PROPAGATED'
+  | 'RESOURCE_PROPAGATED' | 'VIEW_PROPAGATED';
 
 export class LabTagOrigin {
 
-  @Expose({name: 'origin_type'})
-  originType: string;
+  @Expose({ name: 'origin_type' })
+  originType: LabTagOriginType;
 
-  @Expose({name: 'origin_id'})
+  @Expose({ name: 'origin_id' })
   originId: string;
+
+  @Expose({ name: 'origin_object' })
+  @Type(labTagOriginObjectFactory)
+  originObject: LabUser | string;
+
+  get isUserOrigin(): boolean {
+    return this.originType === 'USER';
+  }
+
+  get originTypeText(): string {
+    switch (this.originType) {
+      case 'USER':
+        return 'user';
+      case 'S3':
+        return 'tag_origin_s3';
+      case 'TASK':
+      case 'TASK_PROPAGATED':
+        return 'biox.task';
+      case 'EXPERIMENT_PROPAGATED':
+        return 'biox.experiment';
+      case 'RESOURCE_PROPAGATED':
+        return 'biox.resource';
+      case 'VIEW_PROPAGATED':
+        return 'biox.view';
+    }
+  }
+
+  /**
+   * return the entity type associated if possible
+   */
+  get originEntityType(): LabEntityType | null {
+    switch (this.originType) {
+      case 'EXPERIMENT_PROPAGATED':
+        return 'EXPERIMENT';
+      case 'RESOURCE_PROPAGATED':
+        return 'RESOURCE';
+      case 'VIEW_PROPAGATED':
+        return 'VIEW';
+      default:
+        return null;
+    }
+  }
+
 }
 
 export class LabTagDetail implements FlTag, FlEntity {
@@ -53,13 +113,10 @@ export class LabTagDetail implements FlTag, FlEntity {
   key: string;
   value: FlTagValue;
 
-  @Expose({name: 'is_propagable'})
+  @Expose({ name: 'is_propagable' })
   isPropagable: boolean;
 
-  @Type(() => LabTagOrigin)
-  origins: LabTagOrigin[];
-
-  @Expose({name: 'created_at'})
+  @Expose({ name: 'created_at' })
   createdAt: string;
 }
 
@@ -70,10 +127,10 @@ export class LabTagDetail implements FlTag, FlEntity {
 export class LabTagKeyModel extends LabBaseEntity implements FlTagKeyModel {
   key: string;
 
-  @Expose({name: 'value_format'})
+  @Expose({ name: 'value_format' })
   valueFormat: FlTagValueFormat;
 
-  @Expose({name: 'is_propagable'})
+  @Expose({ name: 'is_propagable' })
   isPropagable: boolean;
 
   clone(): LabTagKeyModel {
@@ -97,7 +154,7 @@ export class LabTagValueModel extends LabBaseEntity implements FlTagValueModel {
 
   value: FlTagValue;
 
-  @Expose({name: 'value_format'})
+  @Expose({ name: 'value_format' })
   valueFormat: FlTagValueFormat;
 
   toString(): string {
@@ -118,7 +175,8 @@ export class TagPropagationImpactDTO {
   @Type(() => LabTag)
   tags: LabTag[];
 
-  @Expose({name: 'impacted_entities'})
+  @Expose({ name: 'impacted_entities' })
+  @Type(() => LabNavigableEntityGrouped)
   impactedEntities: LabNavigableEntityGrouped[];
 
   get entityCount(): number {
@@ -134,13 +192,13 @@ export class LabTagDatasource extends FlTagDatasource<LabTag> {
 
 }
 
-export class LabCreateTagResponse{
+export class LabCreateTagResponse {
 
-  @Expose({name: 'key_model'})
+  @Expose({ name: 'key_model' })
   @Type(() => LabTagKeyModel)
   keyModel: LabTagKeyModel;
 
-  @Expose({name: 'value_model'})
+  @Expose({ name: 'value_model' })
   @Type(() => LabTagValueModel)
   valueModel: LabTagValueModel;
 }

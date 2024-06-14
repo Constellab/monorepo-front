@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlTag, FlTagDatasource, FlTagSelectedEvent} from '../../fl-tag.class';
-import {FlTagColorer} from '../../fl-tag-colorer.class';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlTag, FlTagDatasource, FlTagSelectedEvent } from '../../fl-tag.class';
+import { FlTagColorer } from '../../fl-tag-colorer.class';
 
 @Component({
   selector: 'fl-tag-list',
@@ -10,7 +10,7 @@ import {FlTagColorer} from '../../fl-tag-colorer.class';
 })
 export class FlTagListComponent {
 
-  @Input({required: true}) tags: FlTag[] | Record<string, string> | FlTagDatasource;
+  @Input({ required: true }) tags: FlTag[] | Record<string, string> | FlTagDatasource;
 
   @Input() tagSelectable: boolean = false;
 

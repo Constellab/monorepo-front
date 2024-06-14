@@ -1,23 +1,25 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {LabReport, LabReportContent} from '../../../../../lab-core/model/entities/lab-report.entity';
-import {LabReportService} from '../../../../../lab-core/entity-service/lab-report.service';
-import {ActivatedRoute} from '@angular/router';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService} from '@monorepo/front-core-lib';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { LabReport, LabReportContent } from '../../../../../lab-core/model/entities/lab-report.entity';
+import { LabReportService } from '../../../../../lab-core/entity-service/lab-report.service';
+import { ActivatedRoute } from '@angular/router';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService } from '@monorepo/front-core-lib';
 import {
   LabReportFormDialogComponent,
   LabReportFormDialogInput
 } from '../../../../../lab-core/entity-module/lab-report-core/component/lab-report-form-dialog/lab-report-form-dialog.component';
-import {LabRouterService} from '../../../../../lab-core/service/lab-router.service';
-import {LabReportDetailPageState} from '../../lab-report-detail-page.state';
-import {Observable} from 'rxjs';
+import { LabRouterService } from '../../../../../lab-core/service/lab-router.service';
+import { LabReportDetailPageState } from '../../lab-report-detail-page.state';
+import { Observable } from 'rxjs';
 import {
   LabValidateObjectDialogComponent,
   LabValidateObjectDialogInput
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
-import {LabProject} from '../../../../../lab-core/model/entities/lab-project.class';
-import {LabReportTemplateService} from '../../../../../lab-core/entity-service/lab-report-template.service';
-import {LabReportTemplate} from '../../../../../lab-core/model/entities/lab-report-template.entity';
-import {LabReportTextEditorConfig} from '../../lab-report-text-editor-config.class';
+import { LabProject } from '../../../../../lab-core/model/entities/lab-project.class';
+import { LabReportTemplateService } from '../../../../../lab-core/entity-service/lab-report-template.service';
+import { LabReportTemplate } from '../../../../../lab-core/model/entities/lab-report-template.entity';
+import { LabReportTextEditorConfig } from '../../lab-report-text-editor-config.class';
+import { LabTagDatasource } from '../../../../../lab-core/model/entities/lab-tag.entity';
+import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.service';
 
 @Component({
   selector: 'lab-report-detail-page',
@@ -36,6 +38,8 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
 
   createTemplateLoading: boolean = false;
 
+  tags: LabTagDatasource;
+
   private contentDebouncer: FlDebouncer<LabReportContent>;
 
   constructor(private reportService: LabReportService,
@@ -43,7 +47,8 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private dialogService: FlDialogService,
               private routerService: LabRouterService,
-              private reportTemplateService: LabReportTemplateService) {
+              private reportTemplateService: LabReportTemplateService,
+              private tagService: LabTagService) {
   }
 
   ngOnInit(): void {
@@ -66,6 +71,7 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
     this.state.getContent$().subscribe(
       content => this.content = content
     );
+    this.tags = this.tagService.getEntityTagsDatasource('REPORT', id);
   }
 
   updateTitle(title: string): void {

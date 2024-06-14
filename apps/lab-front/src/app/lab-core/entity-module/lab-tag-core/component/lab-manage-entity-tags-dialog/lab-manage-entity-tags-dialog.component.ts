@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   FlAddTagEvent,
   FlConfirmDialogResult,
@@ -7,9 +7,9 @@ import {
   FlPortalActionsService,
   FlSnackBarService
 } from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {LabEntityTagType, LabTag, LabTagDatasource} from '../../../../model/entities/lab-tag.entity';
-import {LabTagService} from '../../../../entity-service/lab-tag.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LabEntityTagType, LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
+import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import {
   LabTagCheckPropagationComponent,
   LabTagCheckPropagationInput
@@ -80,7 +80,7 @@ export class LabManageEntityTagsDialogComponent {
       impactDTO$: this.tagService.checkPropagationAddTags(this.input.entityType, this.input.entityId, this.newTags.array),
       mode: 'ADD'
     };
-    this.dialogService.openSmallDialog(LabTagCheckPropagationComponent, {data: data}).afterClosed().subscribe({
+    this.dialogService.openMediumDialog(LabTagCheckPropagationComponent, {data: data}).afterClosed().subscribe({
       next: (result) => this.addCheckPropagationDialogResult(result),
     });
 
@@ -112,7 +112,7 @@ export class LabManageEntityTagsDialogComponent {
       impactDTO$: this.tagService.checkPropagationDeleteTags(this.input.entityType, this.input.entityId, tag),
       mode: 'REMOVE'
     };
-    this.dialogService.openSmallDialog(LabTagCheckPropagationComponent, {data: data}).afterClosed().subscribe({
+    this.dialogService.openMediumDialog(LabTagCheckPropagationComponent, {data: data}).afterClosed().subscribe({
       next: (result) => this.removeCheckPropagationDialogResult(tag, result),
     });
   }
