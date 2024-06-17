@@ -1,6 +1,7 @@
 .main-div {
   display: flex;
   flex-direction: column;
+  width: calc(60rem + 32px);
 }
 
 
@@ -23,6 +24,7 @@
   display: flex;
   align-items: center;
   max-width: 100%;
+  width: 100%;
   gap: 1em;
 }
 
@@ -48,7 +50,8 @@
   display: flex;
   flex-direction: row;
   gap: 1em;
-  margin-left: auto;
+  align-items: center;
+  max-width: 375px;
 }
 
 .brick-like{
@@ -103,6 +106,17 @@ h2{
   min-width: 175px;
 }
 
+.icon-title{
+  max-width: calc(100% - 375px);
+  flex: auto;
+  width: auto;
+}
+
+.icon-title h2{
+  word-wrap: break-word;
+  table-layout: fixed;
+  max-width: calc(100% - 105px);
+}
 
 @media (max-width: 1600px) {
   .main-div{
@@ -140,5 +154,8 @@ h2{
     .brick-like{
       margin-left: auto;
     }
+  }
+  .icon-title{
+    max-width: 100%;
   }
 }

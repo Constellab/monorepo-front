@@ -1,4 +1,9 @@
 {{func.name.toUpperCase()}}
+@if(func.method_type == 'classmethod'){
+  <span> - {{'@classmethod'}}</span>
+} @else if(func.method_type == 'staticmethod'){
+  <span> - {{'@staticmethod'}}</span>
+}
 <div class="func-doc" *ngIf="cleanedFuncDoc" [innerHTML]="cleanedFuncDoc.join('\n') | tdMarkdown">
 </div>
 <div class="func-parameters" *ngIf="func.args.length > 0">

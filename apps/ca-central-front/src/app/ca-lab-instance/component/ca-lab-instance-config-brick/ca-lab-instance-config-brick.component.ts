@@ -133,7 +133,7 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
   }
 
   private initBrickVersionSelection(brick: CaCommunityBrick): void {
-    this.formGp.controls.name.patchValue(brick.name);
+    this.formGp.controls.name.patchValue(brick?.name);
     this.formGp.controls.brick.patchValue(brick);
     this.communityBrickService.getVersionsList(brick.id).subscribe((versionsList) => {
       if (this.isUpdate && this.formGp.controls.version.value) {

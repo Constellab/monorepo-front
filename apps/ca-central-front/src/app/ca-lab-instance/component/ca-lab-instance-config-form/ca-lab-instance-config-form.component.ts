@@ -51,7 +51,7 @@ export class CaLabInstanceConfigFormComponent {
   }
 
   openBrickVersionForm(brickVersionDTO?: CaLabManagerBrickVersionDTO): void {
-    this.dialogService.openMediumDialog(CaLabInstanceConfigBrickComponent, {data: brickVersionDTO}).afterClosed().subscribe(
+    this.dialogService.openBigDialog(CaLabInstanceConfigBrickComponent, {data: brickVersionDTO}).afterClosed().subscribe(
       brickVersion => this.onBrickDialogClosed(brickVersionDTO == null ? 'add' : 'update', brickVersion)
     );
   }

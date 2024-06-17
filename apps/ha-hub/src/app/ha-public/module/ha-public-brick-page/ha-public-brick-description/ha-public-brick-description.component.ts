@@ -135,8 +135,11 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
 
   private openSmallDialog(input: any): void {
     this.dialogService.openMediumDialog(HaPublicEditBrickDialogComponent, {data: input}).afterClosed().subscribe(
-      () => {
-        this.init();
+      (brick) => {
+        if(brick){
+          this.brick = brick;
+          console.log('BRICK', brick)
+        }
       }
     );
   }

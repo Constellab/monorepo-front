@@ -33,7 +33,6 @@ export class HaPublicVersionsComponent implements OnInit {
     private route: ActivatedRoute,
     private brickService: HaBrickService,
     private dialogService: FlDialogService,
-    private router: Router,
     private metadataService: HaMetadataService,
     private authUserService: HaAuthenticatedUserService) {
   }

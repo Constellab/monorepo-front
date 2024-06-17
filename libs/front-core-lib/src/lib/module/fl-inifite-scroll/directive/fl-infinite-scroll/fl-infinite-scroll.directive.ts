@@ -121,7 +121,7 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
         this.scrollableElement = this.flInfiniteMode;
       } else if (this.flInfiniteMode === 'auto') {
         // retrieve scrollable parents
-        const scrollableElements = this.scrollDispatcher.getAncestorScrollContainers(this.elementRef);
+        const scrollableElements = this.scrollDispatcher.getAncestorScrollContainers(this.elementRef.nativeElement.parentElement);
 
         // if there are some scrollable parent, use the first one
         if (scrollableElements.length > 0) {

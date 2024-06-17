@@ -33,14 +33,15 @@
           </mat-form-field>
         </form>
       </div>
-      <div class="community-bricks-list-div g-scrollable-element" *ngIf="bricks$"
-           (flInfiniteScroll)="bricks$.getNextPage()" [flInfiniteDisabled]="bricks$?.isLoading || bricks$?.page?.last"
-           flInfiniteMode="auto">
-        <div *ngFor="let brick of bricks$.connect() | async">
-          <co-brick-list-item [brick]="brick" [brickImage]="brick.imageLink | caCommunityBrickImage" class="brick-item"
-                              (click)="onBrickSelected(brick)"></co-brick-list-item>
+      <fl-infinite-scroll *ngIf="bricks$" [datasource]="bricks$" class="community-bricks-list">
+        <div class="community-bricks-list-div">
+          <div *ngFor="let brick of bricks$ | flDatasourceConnect | async">
+            <co-brick-list-item [brick]="brick" [brickImage]="brick.imageLink | caCommunityBrickImage"
+                                class="brick-item"
+                                (click)="onBrickSelected(brick)"></co-brick-list-item>
+          </div>
         </div>
-      </div>
+      </fl-infinite-scroll>
     </div>
   </div>
   <div *ngIf="!brickSelectionMode && !isLoading">
@@ -88,9 +89,13 @@
 
 </mat-dialog-content>
 
+@if (formGp.valid) {
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="lab-brick-form"
-          class="g-centered-forced">
-    {{'ok' | translate}}
-  </button>
+  @if (formGp.valid) {
+    <button mat-flat-button color="primary" type="submit" form="lab-brick-form"
+            class="g-centered-forced">
+      {{ 'ok' | translate }}
+    </button>
+  }
 </div>
+}

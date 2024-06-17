@@ -1,5 +1,5 @@
 import {Component, ElementRef, Inject, Input, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
-import {TdTechDocFunction, TdResourceFunctionArg} from '../../model/td-resource-type.class';
+import {TdTechDocFunction, TdResourceFunctionArg, TdTechDocFunctionType} from '../../model/td-resource-type.class';
 import {isPlatformBrowser} from '@angular/common';
 import {TeHighlight} from '../../model/td-highlight.class';
 
@@ -13,6 +13,8 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
   @Input({required: true}) func: TdTechDocFunction;
 
   @ViewChild('signature', {static: true}) signature: ElementRef;
+
+  methodType: TdTechDocFunctionType;
 
   constructor(@Inject(PLATFORM_ID) private platformId: any) {
   }
@@ -29,6 +31,7 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
   }
 
   getFunctionSignatureToString(func: TdTechDocFunction): string {
+    this.methodType = func.method_type;
     return 'def ' + func.name + '(' + this.getFunctionArgsToString(func.args) + ') -> ' + (func.return_type ? func.return_type : 'void');
   }
 
