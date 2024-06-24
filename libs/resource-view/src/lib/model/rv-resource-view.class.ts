@@ -1,11 +1,12 @@
-import {RvTechnicalInfo} from './rv-technical-info.class';
-import {RvResourceViewBoxPlot} from './rv-box-plot.class';
-import {RvResourceViewHistogram} from './rv-histogram.class';
-import {RvResourceViewBasicPlot2d} from './rv-basic-plot-2d.class';
-import {RvResourceVennDiagram} from './rv-venn-diagram.class';
-import {RvResourceViewHeatMap} from './rv-heat-map.class';
-import {RvResourceViewTable} from './rv-table.class';
-import {RvResourceViewVulcanoPlot} from './rv-vulcano-plot.class';
+import { RvTechnicalInfo } from './rv-technical-info.class';
+import { RvResourceViewBoxPlot } from './rv-box-plot.class';
+import { RvResourceViewHistogram } from './rv-histogram.class';
+import { RvResourceViewBasicPlot2d } from './rv-basic-plot-2d.class';
+import { RvResourceVennDiagram } from './rv-venn-diagram.class';
+import { RvResourceViewHeatMap } from './rv-heat-map.class';
+import { RvResourceViewTable } from './rv-table.class';
+import { RvResourceViewVulcanoPlot } from './rv-vulcano-plot.class';
+import { FlPlotlyData } from '@monorepo/front-core-lib';
 
 // list of available view type
 export type RvResourceViewType =
@@ -84,10 +85,7 @@ export interface RvResourceViewMultiData {
 
 export interface RvResourceViewPlotly extends RvResourceViewBase {
   type: 'plotly-view';
-  data: {
-    data: any[];
-    layout: any;
-  };
+  data: FlPlotlyData;
 }
 
 export interface RvResourceViewStreamlit extends RvResourceViewBase {

@@ -10,6 +10,7 @@ export * from './lib/component/rv-view-html/rv-view-html.component';
 export * from './lib/component/rv-view-image/rv-view-image.component';
 export * from './lib/component/rv-view-json/rv-view-json.component';
 export * from './lib/component/rv-view-multi-views/rv-view-multi-views.component';
+export * from './lib/component/rv-view-plotly/rv-view-plotly.component';
 export * from './lib/component/rv-view-network/rv-view-network.component';
 export * from './lib/component/rv-view-spreadsheet/rv-view-spreadsheet.component';
 export * from './lib/component/rv-view-streamlit/rv-view-streamlit.component';
