@@ -1,10 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {LabExperiment, LabExperimentSimpleForm,} from '../../../../../lab-core/model/entities/lab-experiment.entity';
-import {
-  LabExperimentFormDialogComponent,
-  LabExperimentFormDialogInput
-} from '../../../../../lab-core/entity-module/lab-experiment-core/component/lab-experiment-form-dialog/lab-experiment-form-dialog.component';
-import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
+import { Component, OnInit } from '@angular/core';
+import { LabExperiment } from '../../../../../lab-core/model/entities/lab-experiment.entity';
+import { LabExperimentDetailPageState } from '../../state/lab-experiment-detail-page.state';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -14,14 +10,14 @@ import {
   FlSnackBarService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   LabProgressBarInfoDialogComponent
 } from '../../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
-import {map} from 'rxjs/operators';
-import {LabExperimentService} from '../../../../../lab-core/entity-service/lab-experiment.service';
-import {LabRouterService} from '../../../../../lab-core/service/lab-router.service';
-import {LabReport} from '../../../../../lab-core/model/entities/lab-report.entity';
+import { map } from 'rxjs/operators';
+import { LabExperimentService } from '../../../../../lab-core/entity-service/lab-experiment.service';
+import { LabRouterService } from '../../../../../lab-core/service/lab-router.service';
+import { LabReport } from '../../../../../lab-core/model/entities/lab-report.entity';
 import {
   LabReportFormDialogComponent,
   LabReportFormDialogInput
@@ -30,8 +26,8 @@ import {
   LabValidateObjectDialogComponent,
   LabValidateObjectDialogInput
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
-import {LabProject} from '../../../../../lab-core/model/entities/lab-project.class';
-import {LabQueueService} from '../../../../../lab-core/entity-service/lab-queue.service';
+import { LabProject } from '../../../../../lab-core/model/entities/lab-project.class';
+import { LabQueueService } from '../../../../../lab-core/entity-service/lab-queue.service';
 import {
   LabLogBetweenDatesDialogInput,
   LabLogsBetweenDatesDialogComponent
@@ -40,13 +36,13 @@ import {
   LabMonitorBetweenDatesDialogComponent,
   LabMonitorBetweenDatesDialogInput
 } from '../../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
-import {LabProcessService} from '../../../../../lab-core/entity-service/lab-process.service';
+import { LabProcessService } from '../../../../../lab-core/entity-service/lab-process.service';
 import {
   LabProtocolTemplateFormDialogComponent,
   LabProtocolTemplateFormDialogInput
 } from '../../../../../lab-core/entity-module/lab-protocol-template-core/component/lab-protocol-template-form-dialog/lab-protocol-template-form-dialog.component';
-import {LabProtocolService} from '../../../../../lab-core/entity-service/lab-protocol.service';
-import {DateTime} from 'luxon';
+import { LabProtocolService } from '../../../../../lab-core/entity-service/lab-protocol.service';
+import { DateTime } from 'luxon';
 import {
   LabManageEntityTagsDialogComponent,
   LabManageEntityTagsDialogInput
@@ -94,27 +90,6 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     );
   }
 
-  openUpdateDialog(): void {
-    const experiment: LabExperiment = this.experimentState.currentExperiment;
-
-
-    const experimentForm: LabExperimentSimpleForm = {
-      title: experiment.title,
-      project: experiment.project
-    };
-    const input: LabExperimentFormDialogInput = {
-      object: experimentForm,
-      mode: 'update',
-      experimentId: experiment.id,
-      disabledProject: experiment.isSynced
-    };
-
-    this.dialogService.openSmallDialog(LabExperimentFormDialogComponent,
-      {data: input, panelClass: 'g-dialog-allow-overflow'}).afterClosed().subscribe(
-      result => this.onExperimentUpdate(result)
-    );
-  }
-
   openValidationDialog(): void {
     const experiment: LabExperiment = this.experimentState.currentExperiment;
 
@@ -127,7 +102,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       successMessage: 'biox.experiment_validated'
     };
 
-    this.dialogService.openSmallDialog(LabValidateObjectDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(LabValidateObjectDialogComponent, { data: input }).afterClosed().subscribe(
       result => this.onExperimentUpdate(result)
     );
   }
@@ -166,10 +141,10 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const data: LabManageEntityTagsDialogInput = {
       entityType: 'EXPERIMENT',
       entityId: this.experimentState.currentExperiment.id,
-      tags: this.experimentState.getTags$(),
+      tags: this.experimentState.getTags$()
     };
 
-    this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, {data: data});
+    this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, { data: data });
   }
 
   openDuplicateConfirmation(): void {
@@ -204,7 +179,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       project: experiment.project
     };
 
-    this.dialogService.openSmallDialog(LabReportFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(LabReportFormDialogComponent, { data: input }).afterClosed().subscribe(
       report => this.onReportCreateClosed(report)
     );
   }
@@ -222,33 +197,33 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       mode: 'create',
       protocolId: experiment.protocol.id,
       defaultName: experiment.title,
-      defaultDescription: this.experimentState.currentDescription,
+      defaultDescription: this.experimentState.currentDescription
     };
 
 
     this.dialogService.openSmallDialog(LabProtocolTemplateFormDialogComponent,
-      {data: input, panelClass: 'g-dialog-main-background'}).afterClosed().subscribe();
+      { data: input, panelClass: 'g-dialog-main-background' }).afterClosed().subscribe();
   }
 
   downloadProtocolTemplate(experiment: LabExperiment): void {
     this.actionsService.addAction({
       type: 'download-protocol-template',
       action: this.protocolService.downloadProtocolTemplate(experiment.protocol.id),
-      text: {text: 'biox.download_protocol_template', translateText: true}
+      text: { text: 'biox.download_protocol_template', translateText: true }
     });
   }
 
   resetExperiment(): void {
     const experiment = this.experimentState.currentExperiment;
     const impactData: LabNavigableImpactConfig = {
-      title: {text: 'biox.reset_experiment', translateText: true},
+      title: { text: 'biox.reset_experiment', translateText: true },
       confirmImpactConfirmText: {
         text: 'biox.experiment_ressource_used_after', translateText: true, translateParam: {
-          param: {title: experiment.title}
+          param: { title: experiment.title }
         }
       },
       confirm2: 'If you reset the experiment',
-      noImpactConfirmText: {text: 'biox.reset_experiment_confirmation', translateText: true},
+      noImpactConfirmText: { text: 'biox.reset_experiment_confirmation', translateText: true },
       checkImpact: () => this.experimentService.checkImpactForResetExperiment(experiment.id),
       callAction: () => this.experimentService.resetExperiment(experiment.id)
     };
@@ -262,7 +237,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   private onResetSuccess(result: FlPortalActionResult<LabExperiment>): void {
     if (result.status === 'success') {
       this.experimentState.updateExperiment(result.result, true);
-      this.snackBarService.openSuccessMessage({text: 'biox.experiment_reset', translateText: true});
+      this.snackBarService.openSuccessMessage({ text: 'biox.experiment_reset', translateText: true });
     }
   }
 
@@ -276,13 +251,13 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     }
 
     const impactData: LabNavigableImpactConfig = {
-      title: {text: 'biox.delete_experiment', translateText: true},
+      title: { text: 'biox.delete_experiment', translateText: true },
       confirmImpactConfirmText: {
         text: 'biox.experiment_ressource_used_after', translateText: true, translateParam: {
-          param: {title: experiment.title}
-        },
+          param: { title: experiment.title }
+        }
       },
-      noImpactConfirmText: {text: content, translateText: false},
+      noImpactConfirmText: { text: content, translateText: false },
       checkImpact: () => this.experimentService.checkImpactForResetExperiment(experiment.id),
       callAction: () => this.experimentService.deleteExperiment(experiment.id)
     };
@@ -294,7 +269,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
   private onDeleteSuccess(result: FlPortalActionResult<void>): void {
     if (result.status === 'success') {
-      this.snackBarService.openSuccessMessage({text: 'biox.experiment_deleted', translateText: true});
+      this.snackBarService.openSuccessMessage({ text: 'biox.experiment_deleted', translateText: true });
       this.routerService.navigateToExperimentListRoute();
     }
   }
@@ -351,7 +326,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       downloadUrl: this.processService.getDownloadProcessLogUrl('PROTOCOL', experiment.protocol.id)
     };
 
-    this.dialogService.openBigDialog(LabLogsBetweenDatesDialogComponent, {data: input});
+    this.dialogService.openBigDialog(LabLogsBetweenDatesDialogComponent, { data: input });
   }
 
   openProcessMonitor(experiment: LabExperiment): void {
@@ -360,7 +335,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       monitor$: this.processService.getProcessMonitor('PROTOCOL', experiment.protocol.id)
     };
 
-    this.dialogService.openBigDialog(LabMonitorBetweenDatesDialogComponent, {data: input});
+    this.dialogService.openBigDialog(LabMonitorBetweenDatesDialogComponent, { data: input });
   }
 
   deleteIntermediateResources(): void {
