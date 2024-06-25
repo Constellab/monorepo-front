@@ -1,19 +1,19 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   FlAdvancedSearchInput,
   FlApiService,
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {ClHelpService, ClPageI} from '@monorepo/core-lib';
-import {LabReportSearch, LabReportSearchFields} from '../entity-module/lab-report-core/model/lab-report-search.class';
+import { Observable } from 'rxjs';
+import { ClHelpService, ClPageI } from '@monorepo/core-lib';
+import { LabReportSearch, LabReportSearchFields } from '../entity-module/lab-report-core/model/lab-report-search.class';
 import {
   LabReportTemplate,
   LabReportTemplateDatasource,
   LabReportTemplateForm
 } from '../model/entities/lab-report-template.entity';
-import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import { TeRichText, TeRichTextContent } from '@monorepo/text-editor';
 
 @Injectable({providedIn: 'root'})
 export class LabReportTemplateService {
@@ -37,11 +37,11 @@ export class LabReportTemplateService {
   }
 
 
-  public updateContent(id: string, content: TeRichTextContent): Observable<LabReportTemplate> {
+  public updateContent(id: string, content: TeRichTextContent): Observable<TeRichTextContent> {
     if (content == null) {
       content = TeRichText.emptyContent();
     }
-    return this.apiService.put(`${this.route}/${id}/content`, content, LabReportTemplate);
+    return this.apiService.put(`${this.route}/${id}/content`, content);
   }
 
 
@@ -54,6 +54,10 @@ export class LabReportTemplateService {
 
   public getReportTemplate(id: string): Observable<LabReportTemplate> {
     return this.apiService.getById(this.route, id, LabReportTemplate);
+  }
+
+  public getReportTemplateContent(id: string): Observable<TeRichTextContent> {
+    return this.apiService.get(`${this.route}/${id}/content`);
   }
 
   public getSearchDatasource(): LabReportTemplateDatasource {

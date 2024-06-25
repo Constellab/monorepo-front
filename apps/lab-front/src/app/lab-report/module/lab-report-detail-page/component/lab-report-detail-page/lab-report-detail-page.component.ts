@@ -20,6 +20,7 @@ import { LabReportTemplate } from '../../../../../lab-core/model/entities/lab-re
 import { LabReportTextEditorConfig } from '../../lab-report-text-editor-config.class';
 import { LabTagDatasource } from '../../../../../lab-core/model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'lab-report-detail-page',
@@ -68,7 +69,7 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
     this.state.init(id);
     this.textEditorConfig = new LabReportTextEditorConfig(id);
     this.report$ = this.state.getReport$();
-    this.state.getContent$().subscribe(
+    this.state.getContent$().pipe(first()).subscribe(
       content => this.content = content
     );
     this.tags = this.tagService.getEntityTagsDatasource('REPORT', id);

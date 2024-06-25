@@ -1,22 +1,22 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {LabReport, LabReportContent} from '../../../../lab-core/model/entities/lab-report.entity';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService} from '@monorepo/front-core-lib';
-import {ActivatedRoute} from '@angular/router';
-import {LabRouterService} from '../../../../lab-core/service/lab-router.service';
-import {LabReportTemplateService} from '../../../../lab-core/entity-service/lab-report-template.service';
-import {LabReportTemplate} from '../../../../lab-core/model/entities/lab-report-template.entity';
-import {LabReportTemplateTextEditorConfig} from '../../lab-report-template-text-editor-config.class';
-import {TeConfig} from '@monorepo/text-editor';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { LabReport, LabReportContent } from '../../../../lab-core/model/entities/lab-report.entity';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService } from '@monorepo/front-core-lib';
+import { ActivatedRoute } from '@angular/router';
+import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
+import { LabReportTemplateService } from '../../../../lab-core/entity-service/lab-report-template.service';
+import { LabReportTemplate } from '../../../../lab-core/model/entities/lab-report-template.entity';
+import { LabReportTemplateTextEditorConfig } from '../../lab-report-template-text-editor-config.class';
+import { TeConfig, TeRichTextContent } from '@monorepo/text-editor';
 
 @Component({
   selector: 'lab-report-template-detail-page',
   templateUrl: './lab-report-template-detail-page.component.html',
-  styleUrls: ['./lab-report-template-detail-page.component.scss'],
+  styleUrls: ['./lab-report-template-detail-page.component.scss']
 })
 export class LabReportTemplateDetailPageComponent implements OnInit, OnDestroy {
 
   reportTemplate: LabReportTemplate;
-  content: LabReportContent;
+  content: TeRichTextContent;
 
   textEditorConfig: TeConfig;
 
@@ -25,7 +25,7 @@ export class LabReportTemplateDetailPageComponent implements OnInit, OnDestroy {
   private reportTemplateId: string;
 
 
-  private contentDebouncer: FlDebouncer<LabReportContent>;
+  private contentDebouncer: FlDebouncer<TeRichTextContent>;
 
   constructor(private route: ActivatedRoute,
               private dialogService: FlDialogService,
@@ -52,14 +52,21 @@ export class LabReportTemplateDetailPageComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.reportTemplateService.getReportTemplate(id).subscribe({
       next: (reportTemplate) => this.getReportTemplateSuccess(reportTemplate),
-      error: () => this.isLoading = false,
+      error: () => this.isLoading = false
+    });
+
+    this.reportTemplateService.getReportTemplateContent(id).subscribe({
+      next: (content) => this.getReportTemplateContentSuccess(content),
     });
   }
 
   private getReportTemplateSuccess(reportTemplate: LabReportTemplate): void {
     this.reportTemplate = reportTemplate;
-    this.content = reportTemplate.content;
     this.isLoading = false;
+  }
+
+  private getReportTemplateContentSuccess(content: TeRichTextContent): void {
+    this.content = content;
   }
 
   updateTitle(title: string): void {
@@ -73,15 +80,8 @@ export class LabReportTemplateDetailPageComponent implements OnInit, OnDestroy {
   }
 
   saveContent(content: LabReportContent): void {
-    this.reportTemplateService.updateContent(this.reportTemplateId, content).subscribe(
-      (value) => this.saveContentSuccess(value.content),
-    );
+    this.reportTemplateService.updateContent(this.reportTemplateId, content).subscribe();
   }
-
-  private saveContentSuccess(content: LabReportContent): void {
-    this.reportTemplate.content = content;
-  }
-
 
   delete(): void {
     const input: FlConfirmDialogInput = {
