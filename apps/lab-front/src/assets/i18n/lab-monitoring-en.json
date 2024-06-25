@@ -68,7 +68,7 @@
     "gpu_ram_usage": "GPU RAM usage (%)",
     "gpu_ram_total": "GPU RAM total",
     "gpu_temperature": "GPU temperature (°C)",
-    "external_disk_space": "Lab disk space",
+    "lab_disk_space": "Lab disk space",
     "disk_space_available": "available",
     "number_of_processes": "Number of processes",
     "total_memory": "Total RAM",

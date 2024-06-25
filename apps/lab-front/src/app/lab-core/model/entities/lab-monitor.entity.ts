@@ -30,18 +30,6 @@ export class LabMonitor extends LabBaseEntity{
   @Expose({name: 'disk_usage_percent'})
   diskUsagePercent: number;
 
-  @Expose({name: 'external_disk_total'})
-  externalDiskTotal: number;
-
-  @Expose({name: 'external_disk_usage_used'})
-  externalDiskUsageUsed: number;
-
-  @Expose({name: 'external_disk_usage_free'})
-  externalDiskUsageFree: number;
-
-  @Expose({name: 'external_disk_usage_percent'})
-  externalDiskUsagePercent: number;
-
   @Expose({name: 'swap_memory_total'})
   swapMemoryTotal: number;
 
@@ -101,7 +89,7 @@ export class LabMonitor extends LabBaseEntity{
 
 }
 
-export class LabMonitorBetweenDates{
+export class LabMonitorGraphicsBetweenDates {
 
   @Expose({name: 'from_date'})
   @ClLuxonDateTimeTransform()
@@ -111,9 +99,6 @@ export class LabMonitorBetweenDates{
   @ClLuxonDateTimeTransform()
   toDate: Date;
 
-  @Type(() => LabMonitor)
-  monitors: LabMonitor[];
-
   @Expose({name: 'main_figure'})
   mainFigure?: any;
 
@@ -122,4 +107,10 @@ export class LabMonitorBetweenDates{
 
   @Expose({name: 'network_figure'})
   networkFigure?: any;
+
+  @Expose({name: 'gpu_figure'})
+  gpuFigure?: any;
+
+  @Expose({name: 'gpu_enabled'})
+  gpuEnabled: boolean;
 }

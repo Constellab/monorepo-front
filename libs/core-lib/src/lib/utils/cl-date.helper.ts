@@ -77,6 +77,10 @@ export class ClDateHelper {
     return dateA.valueOf() - dateB.valueOf();
   }
 
+  public static getCurrentTimeZoneOffset(): number{
+    const offset = new Date().getTimezoneOffset()
+    return offset / 60 * -1;
+  }
 
   /**
    * Convert a Date to text such as '5 days ago'

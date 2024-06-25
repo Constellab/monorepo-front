@@ -1,12 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {LabMonitorBetweenDates} from '../../../model/entities/lab-monitor.entity';
+import {LabMonitorGraphicsBetweenDates} from '../../../model/entities/lab-monitor.entity';
 import {Observable} from 'rxjs';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 export interface LabMonitorBetweenDatesDialogInput {
   title: string;
 
-  monitor$: Observable<LabMonitorBetweenDates>;
+  monitor$: Observable<LabMonitorGraphicsBetweenDates>;
 }
 
 /**
@@ -21,7 +21,7 @@ export class LabMonitorBetweenDatesDialogComponent implements OnInit {
 
   title: string;
 
-  monitor$: Observable<LabMonitorBetweenDates>;
+  monitor$: Observable<LabMonitorGraphicsBetweenDates>;
 
   constructor(@Inject(MAT_DIALOG_DATA) input: LabMonitorBetweenDatesDialogInput) {
     this.title = input.title;

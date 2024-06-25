@@ -3,7 +3,7 @@ import {FlApiService} from '@monorepo/front-core-lib';
 import {LabLogsBetweenDates} from '../model/entities/lab-log.entity';
 import {Observable} from 'rxjs';
 import {LabProcessClass} from '../model/entities/process/lab-process.entity';
-import {LabMonitorBetweenDates} from '../model/entities/lab-monitor.entity';
+import {LabMonitorGraphicsBetweenDates} from '../model/entities/lab-monitor.entity';
 import {DateTime} from 'luxon';
 import {ClDateHelper} from '@monorepo/core-lib';
 
@@ -28,7 +28,10 @@ export class LabProcessService {
     return this.apiService.getBaseRouteUrl(`${this.route}/${processType}/${id}/logs/download`);
   }
 
-  public getProcessMonitor(processType: LabProcessClass, id: string): Observable<LabMonitorBetweenDates> {
-    return this.apiService.get(`${this.route}/${processType}/${id}/monitor`, LabMonitorBetweenDates);
+  public getProcessMonitor(processType: LabProcessClass, id: string): Observable<LabMonitorGraphicsBetweenDates> {
+
+    return this.apiService.post(`${this.route}/${processType}/${id}/monitor`, {
+      timezone_number: ClDateHelper.getCurrentTimeZoneOffset()
+    }, LabMonitorGraphicsBetweenDates);
   }
 }

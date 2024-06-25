@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LabMonitorService} from '../../../../lab-core/entity-service/lab-monitor.service';
 import {ClDateHelper} from '@monorepo/core-lib';
 import {Observable} from 'rxjs';
-import {LabMonitorBetweenDates} from '../../../../lab-core/model/entities/lab-monitor.entity';
+import {LabMonitor, LabMonitorGraphicsBetweenDates} from '../../../../lab-core/model/entities/lab-monitor.entity';
 import {DateTime} from 'luxon';
 import {FormBuilder, Validators} from '@angular/forms';
 
@@ -24,7 +24,7 @@ export enum LabMonitoringRunPeriod {
 })
 export class LabMonitoringUsagePageComponent implements OnInit {
 
-  monitor$: Observable<LabMonitorBetweenDates>;
+  monitor$: Observable<LabMonitorGraphicsBetweenDates>;
   periods: any = LabMonitoringRunPeriod;
   fromDate: DateTime;
   toDate: DateTime;
@@ -37,6 +37,8 @@ export class LabMonitoringUsagePageComponent implements OnInit {
   customPeriod: LabMonitoringRunPeriod = LabMonitoringRunPeriod.CUSTOM;
 
   currentDate = ClDateHelper.getDate();
+
+  lastMonitor: LabMonitor;
 
   constructor(private monitorService: LabMonitorService) {
   }
@@ -72,6 +74,7 @@ export class LabMonitoringUsagePageComponent implements OnInit {
           break;
       }
       this.updateMonitor();
+
     });
 
     this.formGroup.get('customStartDate').valueChanges.subscribe((value) => {
@@ -82,6 +85,10 @@ export class LabMonitoringUsagePageComponent implements OnInit {
     this.formGroup.get('customEndDate').valueChanges.subscribe((value) => {
       this.toDate = value;
       this.updateMonitor();
+    });
+
+    this.monitorService.getLastMonitor().subscribe((monitor: LabMonitor) => {
+      this.lastMonitor = monitor;
     });
   }
 
@@ -99,9 +106,7 @@ export class LabMonitoringUsagePageComponent implements OnInit {
 
   private updateMonitor(): void {
     if (this.fromDate && this.toDate && this.fromDate <= this.toDate){
-      const offset = new Date().getTimezoneOffset()
-      const timezoneNumber = offset / 60 * -1;
-      this.monitor$ = this.monitorService.getMonitor(this.fromDate, this.toDate, timezoneNumber);
+      this.monitor$ = this.monitorService.getMonitorGraphics(this.fromDate, this.toDate, ClDateHelper.getCurrentTimeZoneOffset());
     }
   }
 }

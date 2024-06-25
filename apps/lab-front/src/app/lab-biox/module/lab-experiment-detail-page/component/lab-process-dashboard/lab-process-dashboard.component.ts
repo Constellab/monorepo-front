@@ -135,6 +135,8 @@ export class LabProcessDashboardComponent {
       monitor$: this.processService.getProcessMonitor(process.getProcessType(), process.id)
     };
 
+    console.log('PROCESS moNITORS', input.monitor$)
+
     this.dialogService.openBigDialog(LabMonitorBetweenDatesDialogComponent, {data: input});
   }
 

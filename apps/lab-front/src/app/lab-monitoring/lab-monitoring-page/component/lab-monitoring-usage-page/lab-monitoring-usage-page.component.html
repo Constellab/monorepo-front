@@ -9,9 +9,35 @@
 
   <fl-card-body>
 
+    <div>
+      <ng-container *ngIf="lastMonitor">
+        <fl-key-value>
+          <fl-key>{{'monitoring.lab_disk_space' | translate}}</fl-key>
+          {{lastMonitor.diskUsageUsed | flByteText}} / {{lastMonitor.diskTotal | flByteText}}
+          ({{lastMonitor.diskUsageFree | flByteText}} {{'monitoring.disk_space_available' | translate}})
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{'monitoring.number_of_processes' | translate}}</fl-key>
+          {{lastMonitor.cpuCount}}
+        </fl-key-value>
+
+        <fl-key-value>
+          <fl-key>{{'monitoring.total_memory' | translate}}</fl-key>
+          {{lastMonitor.ramUsageTotal | flByteText}}
+        </fl-key-value>
+
+        <ng-container *ngIf="lastMonitor.gpuEnabled">
+          <fl-key-value>
+            <fl-key>{{'monitoring.gpu_ram_total' | translate}}</fl-key>
+            {{lastMonitor.gpuMemoryTotal | flByteText}}
+          </fl-key-value>
+        </ng-container>
+      </ng-container>
+    </div>
 
     <form [formGroup]="formGroup"
-          class="g-form-field-compact g-layout-start-center g-layout-gap-05em">
+          class="g-form-field-compact g-layout-start-center g-layout-gap-05em date-picker-form">
       <!--  Period  -->
       <mat-form-field subscriptSizing="dynamic" class="period">
         <mat-label>{{ 'lab_usage_period' | translate }}</mat-label>

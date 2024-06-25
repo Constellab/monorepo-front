@@ -1,36 +1,5 @@
 <div>
   <div>
-    <ng-container *ngIf="lastMonitor">
-      <fl-key-value>
-        <fl-key>{{'monitoring.os_disk_space' | translate}}</fl-key>
-        {{lastMonitor.diskUsageUsed | flByteText}} / {{lastMonitor.diskTotal | flByteText}}
-        ({{lastMonitor.diskUsageFree | flByteText}} {{'monitoring.disk_space_available' | translate}})
-      </fl-key-value>
-
-      <fl-key-value>
-        <fl-key>{{'monitoring.external_disk_space' | translate}}</fl-key>
-        {{lastMonitor.externalDiskUsageUsed | flByteText}} / {{lastMonitor.externalDiskTotal | flByteText}}
-        ({{lastMonitor.externalDiskUsageFree | flByteText}} {{'monitoring.disk_space_available' | translate}})
-      </fl-key-value>
-
-      <fl-key-value>
-        <fl-key>{{'monitoring.number_of_processes' | translate}}</fl-key>
-        {{lastMonitor.cpuCount}}
-      </fl-key-value>
-
-      <fl-key-value>
-        <fl-key>{{'monitoring.total_memory' | translate}}</fl-key>
-        {{lastMonitor.ramUsageTotal | flByteText}}
-      </fl-key-value>
-
-      <ng-container *ngIf="gpuEnabled()">
-        <fl-key-value>
-          <fl-key>{{'monitoring.gpu_ram_total' | translate}}</fl-key>
-          {{lastMonitor.gpuMemoryTotal | flByteText}}
-        </fl-key-value>
-      </ng-container>
-    </ng-container>
-
     <div class="date">
       <fl-key-value>
         <fl-key>{{'monitoring.from_date' | translate}}</fl-key>
@@ -66,13 +35,12 @@
         </div>
       </div>
     </div>
+    <div *ngIf="gpuIsEnabled">
+      <h2>{{'monitoring.gpu_temperature' | translate}}</h2>
+      <div class="chart">
+        <fl-plotly [data]="monitor.gpuFigure"></fl-plotly>
+      </div>
+    </div>
   </div>
-
-
-  <div *ngIf="gpuTemperature">
-    <h2>{{'monitoring.gpu_temperature' | translate}}</h2>
-    <ch-chart [chart]="gpuTemperature" class="chart"></ch-chart>
-  </div>
-
 
 </div>
