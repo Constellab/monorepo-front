@@ -5,7 +5,8 @@
     <mat-tree [dataSource]="dataSource" [treeControl]="value"
               *ngIf="dataSource && value">
       <!-- This is the tree node template for leaf nodes -->
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding
+      <mat-tree-node *matTreeNodeDef="let node"
+                     matTreeNodePadding [matTreeNodePaddingIndent]="20"
                      class="g-text-small tree-node" (click)="toggleProjectSelection(node)"
                      [ngClass]="{'selected' : node.selected}">
         <div class="node-content leaf g-layout-row g-layout-start-center g-layout-gap-05em">
@@ -19,7 +20,8 @@
         </div>
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
-      <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding
+      <mat-tree-node *matTreeNodeDef="let node;when: hasChild"
+                     matTreeNodePadding [matTreeNodePaddingIndent]="20"
                      class="g-text-small tree-node" matTreeNodeToggle>
         <div class="node-content g-layout-row g-layout-start-center">
           <mat-icon class="expand-icon">
