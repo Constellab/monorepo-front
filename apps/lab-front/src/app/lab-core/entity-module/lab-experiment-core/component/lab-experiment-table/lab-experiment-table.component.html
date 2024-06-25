@@ -13,13 +13,15 @@
       <a *ngIf="!rowSelectable" [routerLink]="experiment | labDetailRoute"
          [target]="rowLinkTarget" class="g-row-link"></a>
 
-      <div>
-        <div class="title">{{ experiment.title }}</div>
-        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="experiment.project"
-                      gap="0">
+      <div class="g-text-dense-height">
+        <div class="title ">{{ experiment.title }}</div>
+
+        @if(experiment.project){
+        <fl-text-icon class="g-text-tiny g-text-light project" gap="3px">
           <mat-icon flIcon="project" class="g-icon-tiny"></mat-icon>
           {{ experiment.project.title }}
         </fl-text-icon>
+        }
       </div>
     </mat-cell>
   </ng-container>

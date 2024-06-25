@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
+import { Component, Input } from '@angular/core';
+import { LabExperiment } from '../../../../model/entities/lab-experiment.entity';
 
 @Component({
   selector: 'lab-experiment-inline',
@@ -8,6 +8,6 @@ import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
 })
 export class LabExperimentInlineComponent {
 
-  @Input() experiment: LabExperiment;
+  @Input({required: true}) experiment: LabExperiment;
 
 }

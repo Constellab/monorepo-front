@@ -1,5 +1,5 @@
-import {flRootInjector} from './fl-root-injector';
-import {ScrollDispatcher} from '@angular/cdk/overlay';
+import { flRootInjector } from './fl-root-injector';
+import { ScrollDispatcher } from '@angular/cdk/overlay';
 
 export interface FlHtmlFindParentOptions {
   className?: string;
@@ -84,14 +84,11 @@ export class FlHtmlHelper {
   public static isElementInViewport(element: Element): boolean {
     const rect = element.getBoundingClientRect();
 
-    const a =
-      rect.top >= 0 &&
+    /* or $(window).width() */
+    return rect.top >= 0 &&
       rect.left >= 0 &&
       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth);/* or $(window).width() */
-
-    console.log(a, rect.top, rect.left, rect.bottom, rect.right, window.innerHeight, window.innerWidth);
-    return a;
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth);
   }
 
   /**

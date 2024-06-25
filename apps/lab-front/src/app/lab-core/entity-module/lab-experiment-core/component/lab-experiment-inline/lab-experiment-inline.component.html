@@ -3,5 +3,16 @@
                            size="small">
   </fl-user-profile-picture>
 
-  <div>{{experiment.title}}</div>
+  <div>
+    <div>{{ experiment.title }}</div>
+
+    @if (experiment.project) {
+      <div class="g-layout-row g-layout-start-center g-text-tiny g-text-light">
+        <mat-icon flIcon="project" class="g-icon-tiny icon"></mat-icon>
+        <div class="project-circle project-content"
+             [style.background-color]="experiment.project?.id | flStringToRgb"></div>
+        <div class="project-content">{{ experiment.project.title }}</div>
+      </div>
+    }
+  </div>
 </div>
