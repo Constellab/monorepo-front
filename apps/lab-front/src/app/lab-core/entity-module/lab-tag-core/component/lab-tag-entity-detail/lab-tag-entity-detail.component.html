@@ -2,7 +2,8 @@
 
   <mat-expansion-panel-header>
     <mat-panel-title class="g-layout-row g-layout-start-center">
-      <span class="g-flex-auto">{{tagEntity.key}}</span>
+      <div class="color" [style.background-color]="tagEntity | flTagColor | async"></div>
+      <span class="g-flex-auto">{{ tagEntity.key }}</span>
       <button mat-icon-button type="button" (click)="openAddValueDialog($event)"
               [matTooltip]="'tag_create' | translate">
         <mat-icon>add</mat-icon>
@@ -16,9 +17,9 @@
       <div *ngFor="let value of tagValues | flDatasourceConnect | async"
            class="value g-layout-row g-layout-start-center g-layout-gap-05em">
 
-        <div class="color"></div>
+
         <div class="g-flex-auto">
-          {{value}}
+          {{ value }}
         </div>
 
         <div class="action-buttons">

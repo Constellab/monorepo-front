@@ -9,7 +9,7 @@
       <!--    Invisible link  -->
       <a *ngIf="!rowSelectable" [routerLink]="template | labDetailRoute"
          [target]="rowLinkTarget" class="g-row-link"></a>
-      {{ template.name }}
+      <div class="text g-text-dense-height">{{ template.name }}</div>
     </mat-cell>
   </ng-container>
 
@@ -29,7 +29,7 @@
     <mat-header-cell *matHeaderCellDef>
       <span> {{ 'tags' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let template" class="tags">
+    <mat-cell *matCellDef="let template">
       @defer (on viewport) {
         <lab-tag-list [tags]="template | labGetEntityTags"></lab-tag-list>
       } @placeholder {

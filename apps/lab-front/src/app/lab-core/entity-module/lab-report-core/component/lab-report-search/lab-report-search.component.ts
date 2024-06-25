@@ -1,17 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FlDatasourcePaginated,
   FlDialogService,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabReportSearch, LabReportSearchFields} from '../../model/lab-report-search.class';
-import {LabReport} from '../../../../model/entities/lab-report.entity';
-import {LabReportService} from '../../../../entity-service/lab-report.service';
-import {LabRouterService} from '../../../../service/lab-router.service';
+import { LabReportSearch, LabReportSearchFields } from '../../model/lab-report-search.class';
+import { LabReport } from '../../../../model/entities/lab-report.entity';
+import { LabReportService } from '../../../../entity-service/lab-report.service';
+import { LabRouterService } from '../../../../service/lab-router.service';
 import {
   LabReportFormDialogComponent,
   LabReportFormDialogInput
@@ -39,8 +38,6 @@ export class LabReportSearchComponent implements OnInit {
   @Output() reportSelected: EventEmitter<LabReport> = new EventEmitter();
 
   datasource: FlDatasourcePaginated<LabReport>;
-
-  columns: FlTableColumnStatic<LabReport>[] = ['title', 'lastModification', 'lastSynchro'];
 
   constructor(private searchState: FlSearchState<any>,
               private reportService: LabReportService,

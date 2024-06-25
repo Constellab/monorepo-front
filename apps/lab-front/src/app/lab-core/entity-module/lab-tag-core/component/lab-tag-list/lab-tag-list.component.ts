@@ -22,8 +22,6 @@ export class LabTagListComponent implements OnInit {
 
   @Input() tagSelectable: boolean = false;
 
-  @Input() limitNumber: number = Infinity;
-
   @Input() showNoTagMessage: boolean = false;
 
   @Input() mode: 'show' | 'edit' = 'show';

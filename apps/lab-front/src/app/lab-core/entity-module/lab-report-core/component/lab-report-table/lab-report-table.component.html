@@ -1,4 +1,4 @@
-<mat-table mat-table [dataSource]="datasource" class="table">
+<mat-table mat-table [dataSource]="datasource">
 
   <!-- Title -->
   <ng-container matColumnDef="title">
@@ -9,26 +9,50 @@
               [style.border-left-color]="report.project?.id | flStringToRgb">
 
       <!--    Invisible link  -->
-      <a *ngIf="!rowSelectable" [routerLink]="report | labDetailRoute"
-         [target]="rowLinkTarget" class="g-row-link"></a>
+      @if (!rowSelectable) {
+        <a [routerLink]="report | labDetailRoute"
+           [target]="rowLinkTarget" class="g-row-link"></a>
+      }
 
       <div>
-        <div>{{ report.title }}</div>
-        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="report.project"
-                      gap="0">
-          <mat-icon flIcon="project" class="g-icon-tiny"></mat-icon>
-          {{ report.project.title }}
-        </fl-text-icon>
+        <div class="g-text-dense-height text">{{ report.title }}</div>
+        @if (report.project) {
+          <fl-text-icon class="g-text-tiny g-text-light"
+                        gap="3px">
+            <mat-icon flIcon="project" class="g-icon-tiny"></mat-icon>
+            <div class="g-text-dense-height text">{{ report.project.title }}</div>
+          </fl-text-icon>
+        }
       </div>
 
-      <mat-icon class="status-icon over-link" *ngIf="report.isValidated"
-                [matTooltip]="'biox.report_validated' | translate" flIcon="validated">
-      </mat-icon>
+      @if (report.isValidated) {
 
-      <mat-icon class="status-icon over-link" *ngIf="report.isArchived"
-                [matTooltip]="'biox.report_archived' | translate" flIcon="archive">
-      </mat-icon>
+        <mat-icon class="status-icon over-link"
+                  [matTooltip]="'biox.report_validated' | translate" flIcon="validated">
+        </mat-icon>
+      }
 
+      @if (report.isArchived) {
+        <mat-icon class="status-icon over-link"
+                  [matTooltip]="'biox.report_archived' | translate" flIcon="archive">
+        </mat-icon>
+      }
+
+    </mat-cell>
+  </ng-container>
+
+  <!-- Tags -->
+  <ng-container matColumnDef="tags">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+      <span> {{ 'tags' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let report" class="g-column-width-2">
+      @defer (on viewport) {
+        <lab-tag-list [tags]="report | labGetEntityTags"
+                      [tagSelectable]="true"></lab-tag-list>
+      } @placeholder {
+        <div></div>
+      }
     </mat-cell>
   </ng-container>
 
@@ -61,8 +85,10 @@
       <span>{{ 'biox.last_sync' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <fl-user-with-date *ngIf="row.isSynced" [user]="row.lastSyncBy" [date]="row.lastSyncAt"
-                         class="over-link"></fl-user-with-date>
+      @if (row.isSynced) {
+        <fl-user-with-date [user]="row.lastSyncBy" [date]="row.lastSyncAt"
+                           class="over-link"></fl-user-with-date>
+      }
     </mat-cell>
   </ng-container>
 

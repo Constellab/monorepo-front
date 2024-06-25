@@ -131,7 +131,7 @@ body {
     line-height: 2.0em;
     height: 25px;
 
-      // remove margin of icon
+    // remove margin of icon
     .material-icons, .material-icons-outlined {
       font-size: 21px;
       height: 21px;
@@ -222,12 +222,20 @@ body {
     max-width: 100%;
   }
 
+  // set a small padding inside the cell
+  // don't set this style on expandable row
+  mat-row:not(.g-table-expandable-row) mat-cell.mdc-data-table__cell {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
   // override the space between 2 columns
   mat-cell.mdc-data-table__cell:not(:first-of-type),
   mat-header-cell.mdc-data-table__header-cell:not(:first-of-type) {
     padding-left: 5px;
   }
-   //override the space between 2 columns
+
+  //override the space between 2 columns
   mat-cell.mdc-data-table__cell,
   mat-header-cell.mdc-data-table__header-cell {
     padding-right: 0;
@@ -249,6 +257,11 @@ body {
   // to be place on mat-row to make the line selectable
   .g-table-row-selectable {
     cursor: pointer;
+  }
+
+  // specific row of table that is inserted between rows to be expandable
+  .g-table-expandable-row{
+    min-height: 0;
   }
 
   mat-row.g-table-row-selectable:hover {
@@ -395,6 +408,11 @@ body {
   // to place on a mat-checkbox to include the bottom section of it to avoid overflow
   .g-mat-checkbox-include-bottom {
     padding-bottom: 12px;
+  }
+
+  // reduce line height of check
+  mat-checkbox .mdc-label {
+    line-height: 1.2em;
   }
 
   /************************************* MAT RADIO BUTTON ***********************************/

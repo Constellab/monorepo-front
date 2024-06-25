@@ -14,7 +14,7 @@ import { ClHelpService } from '@monorepo/core-lib';
 })
 export class FlTagComponent {
 
-  @Input() flTag: FlTag;
+  @Input({required: true}) flTag: FlTag;
 
   @Input() tagColorer?: FlTagColorer;
 

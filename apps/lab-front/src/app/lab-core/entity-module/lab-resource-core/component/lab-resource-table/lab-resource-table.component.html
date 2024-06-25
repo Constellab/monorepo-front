@@ -34,15 +34,14 @@
                 flHide.xs>
         error
       </mat-icon>
-      <div class="name-container g-text-dense-height">
-        <div [matTooltip]="resource.name"
-             [matTooltipShowDelay]="1000" matTooltipPosition="after">
+      <div>
+        <div class="text g-text-dense-height">
           {{ resource.name }}
         </div>
         <fl-text-icon class="g-text-tiny g-text-light" *ngIf="resource.experiment"
-                      gap="0" flHide.xs>
+                      gap="3px" flHide.xs>
           <mat-icon flIcon="experiment" class="g-icon-tiny"></mat-icon>
-          {{ resource.experiment.title }}
+          <div class="text g-text-dense-height">{{ resource.experiment.title }}</div>
         </fl-text-icon>
       </div>
 
@@ -81,7 +80,7 @@
     <mat-header-cell *matHeaderCellDef>
       <span> {{ 'tags' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let resource" class="tags">
+    <mat-cell *matCellDef="let resource">
       @defer (on viewport) {
         <lab-tag-list [tags]="resource | labGetEntityTags"
                       [tagSelectable]="tagSelectable"></lab-tag-list>
@@ -172,7 +171,7 @@
   <!-- Mode selectable -->
   <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
            (click)="rowClicked(row)"></mat-row>
-  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expandable-row"></mat-row>
+  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="g-table-expandable-row"></mat-row>
 
 </mat-table>
 

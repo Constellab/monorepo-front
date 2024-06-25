@@ -1,4 +1,4 @@
-<mat-table mat-table [dataSource]="datasource" class="table">
+<mat-table mat-table [dataSource]="datasource">
 
 
   <!-- Title -->
@@ -13,14 +13,14 @@
       <a *ngIf="!rowSelectable" [routerLink]="experiment | labDetailRoute"
          [target]="rowLinkTarget" class="g-row-link"></a>
 
-      <div class="g-text-dense-height">
-        <div class="title ">{{ experiment.title }}</div>
+      <div>
+        <div class="text g-text-dense-height">{{ experiment.title }}</div>
 
-        @if(experiment.project){
-        <fl-text-icon class="g-text-tiny g-text-light project" gap="3px">
-          <mat-icon flIcon="project" class="g-icon-tiny"></mat-icon>
-          {{ experiment.project.title }}
-        </fl-text-icon>
+        @if (experiment.project) {
+          <fl-text-icon class="g-text-tiny g-text-light project" gap="3px">
+            <mat-icon flIcon="project" class="g-icon-tiny"></mat-icon>
+            <div class="text g-text-dense-height">{{ experiment.project.title }}</div>
+          </fl-text-icon>
         }
       </div>
     </mat-cell>
@@ -70,7 +70,7 @@
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
       <span> {{ 'tags' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let experiment" class="g-column-width-2 tags">
+    <mat-cell *matCellDef="let experiment" class="g-column-width-2">
       @defer (on viewport) {
         <lab-tag-list [tags]="experiment | labGetEntityTags"
                       [tagSelectable]="true"></lab-tag-list>

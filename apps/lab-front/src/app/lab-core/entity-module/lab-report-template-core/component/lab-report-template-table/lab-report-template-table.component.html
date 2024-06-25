@@ -6,7 +6,7 @@
       <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <span>{{ row.title }}</span>
+      <div class="text g-text-dense-height">{{ row.title }}</div>
 
       <!--    Invisible link  -->
       <a *ngIf="!rowSelectable" [routerLink]="row | labDetailRoute"

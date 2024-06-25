@@ -21,9 +21,10 @@
   <!--  Projects -->
   <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <fl-text-icon>
+        <mat-icon flIcon="project"></mat-icon>
         {{ 'biox.projects' | translate }}
-      </mat-panel-title>
+      </fl-text-icon>
     </mat-expansion-panel-header>
 
     <lab-project-select formControlName="project" (selectionChange)="callSearch()"></lab-project-select>
