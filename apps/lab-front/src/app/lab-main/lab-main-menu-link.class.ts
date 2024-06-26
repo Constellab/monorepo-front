@@ -18,40 +18,41 @@ export interface LabMainMenuLink {
   divider?: boolean;
 }
 
-// list of the main menu links buttons
-export const mainMenuLinks: LabMainMenuLink[] = [
-  {
-    label: 'biox.experiments',
-    icon: 'experiment',
-    route: labConstBioxFullRoute
-  },
-  {
-    label: 'databox.file_explorer',
-    icon: 'folder',
-    route: labConstDataboxFullRoute
-  },
-  {
-    label: 'biox.viewbox',
-    icon: 'view',
-    route: labConstViewboxFullRoute
-  },
-  {
-    label: 'biox.reports',
-    icon: 'report',
-    route: labConstReportFullRoute,
-  },
-  {
-    label: 'biox.protocol_templates',
-    icon: 'protocol_template',
-    route: labConstProtocolTemplateRoute,
-    divider: true
-  },
-  {
-    label: 'biox.report_templates',
-    icon: 'report_template',
-    route: labConstReportTemplateFullRoute,
-  },
-];
+export function getMainMenuLinks(): LabMainMenuLink[] {
+  return [
+    {
+      label: 'biox.experiments',
+      icon: 'experiment',
+      route: labConstBioxFullRoute
+    },
+    {
+      label: 'databox.file_explorer',
+      icon: 'folder',
+      route: labConstDataboxFullRoute
+    },
+    {
+      label: 'biox.viewbox',
+      icon: 'view',
+      route: labConstViewboxFullRoute
+    },
+    {
+      label: 'biox.reports',
+      icon: 'report',
+      route: labConstReportFullRoute,
+    },
+    {
+      label: 'biox.protocol_templates',
+      icon: 'protocol_template',
+      route: labConstProtocolTemplateRoute,
+      divider: true
+    },
+    {
+      label: 'biox.report_templates',
+      icon: 'report_template',
+      route: labConstReportTemplateFullRoute,
+    },
+  ];
+}
 
 export const labBiotaMenuLink: LabMainMenuLink = {
   label: 'biota.biota',
