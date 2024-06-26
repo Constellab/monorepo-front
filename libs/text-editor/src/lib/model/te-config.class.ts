@@ -1,34 +1,34 @@
-import {ToolConstructable, ToolSettings} from '@editorjs/editorjs/types/tools';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
+import { ToolConstructable, ToolSettings } from '@editorjs/editorjs/types/tools';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   teGetHeaderWithIdBlockDefaultConfig,
   TeHeaderWithIdBlock,
   TeHeaderWithIdBlockConfig
 } from '../block/te-header-with-id-block.class';
 import InlineCode from '@editorjs/inline-code';
-import {TeFormulaBlock} from '../block/te-formula-block.class';
+import { TeFormulaBlock } from '../block/te-formula-block.class';
 import Table from '@editorjs/table';
-import {TeHintBlock} from '../block/te-hint-block.class';
-import {TeVideoBlock} from '../block/te-video-block.class';
-import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
-import {TeFigureBlock, TeFigureBlockConfig} from '../block/te-figure-block.class';
-import {TeCodeBlock} from '../block/te-code-block.class';
-import {teComponentBlockFactory} from './te-block-factory.class';
-import {TeStrikethroughInlineTool} from '../inline-tool/te-strikethrough-inline-tool.class';
-import {TeDragBlockTune} from '../block-tune/te-drag-block-tune.class';
-import {TeHelper} from './te.helper';
-import {TeVariableInlineToolClass} from '../inline-tool/te-variable-inline-tool.class';
-import {TeParagraphBlock} from '../block/te-paragraph-block.class';
-import {teInlineToolFactory} from '../inline-tool/te-inline-tool.factory';
-import {TeUnderlineInlineTool} from '../inline-tool/te-underline-inline-tool.class';
-import {TeCleanStyleInlineTool} from '../inline-tool/te-clean-style-inline-tool.class';
-import {TeFakeInlineTool} from '../inline-tool/te-fake-inline-tool.class';
-import {TeNestedListBlock} from '../block/te-nested-list-block.class';
-import {TeMentionConfig, TeMentionInlineTool} from '../plugin/te-mention.class';
-import {Observable, Subject} from 'rxjs';
-import {TeFileBlock, TeFileBlockConfig} from '../block/te-file-block';
-import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
-import {TeComponentInitData} from '../block/te-component-block.class';
+import { TeHintBlock } from '../block/te-hint-block.class';
+import { TeVideoBlock } from '../block/te-video-block.class';
+import { flRootInjector, FlTranslateService } from '@monorepo/front-core-lib';
+import { TeFigureBlock, TeFigureBlockConfig } from '../block/te-figure-block.class';
+import { TeCodeBlock } from '../block/te-code-block.class';
+import { teComponentBlockFactory } from './te-block-factory.class';
+import { TeStrikethroughInlineTool } from '../inline-tool/te-strikethrough-inline-tool.class';
+import { TeDragBlockTune } from '../block-tune/te-drag-block-tune.class';
+import { TeHelper } from './te.helper';
+import { TeVariableInlineToolClass } from '../inline-tool/te-variable-inline-tool.class';
+import { TeParagraphBlock } from '../block/te-paragraph-block.class';
+import { teInlineToolFactory } from '../inline-tool/te-inline-tool.factory';
+import { TeUnderlineInlineTool } from '../inline-tool/te-underline-inline-tool.class';
+import { TeCleanStyleInlineTool } from '../inline-tool/te-clean-style-inline-tool.class';
+import { TeFakeInlineTool } from '../inline-tool/te-fake-inline-tool.class';
+import { TeNestedListBlock } from '../block/te-nested-list-block.class';
+import { TeMentionConfig, TeMentionInlineTool } from '../plugin/te-mention.class';
+import { Observable, Subject } from 'rxjs';
+import { TeFileBlock, TeFileBlockConfig } from '../block/te-file-block';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import { TeComponentInitData } from '../block/te-component-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -151,9 +151,6 @@ export abstract class TeConfig {
                  applicationRef: ApplicationRef): ToolSettings {
     return {
       class: teComponentBlockFactory(TeFigureBlock, envInjector, applicationRef, config),
-      config: {
-        test: 'Waow'
-      }
     };
   };
 

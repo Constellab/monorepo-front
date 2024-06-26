@@ -1,15 +1,15 @@
-import {LabReportContentViewComponent} from './component/lab-report-content-view/lab-report-content-view.component';
-import {PrConfigValues} from '@monorepo/protocol';
-import {TeComponentBlock, TeHelper} from '@monorepo/text-editor';
-import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {ApplicationRef, EnvironmentInjector, Type} from '@angular/core';
-import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import { LabReportContentViewComponent } from './component/lab-report-content-view/lab-report-content-view.component';
+import { PrConfigValues } from '@monorepo/protocol';
+import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   LabSelectViewConfigDialogComponent
 } from '../../../lab-core/entity-module/lab-view-config-core/component/lab-select-view-config-dialog/lab-select-view-config-dialog.component';
-import {LabViewConfig} from '../../../lab-core/model/entities/resource/lab-view-config.entity';
-import {BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
+import { LabViewConfig } from '../../../lab-core/model/entities/resource/lab-view-config.entity';
+import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 
 
 export interface LabReportContentView {
@@ -76,6 +76,7 @@ export class LabReportContentViewBlock extends TeComponentBlock<LabReportContent
     this.openSelectResourceView();
   }
 
+  // TODO A VOIR QUOI FAIRE AVEC LE ADDITIONAL DATA
   public openSelectResourceView(): void {
     const dialogService: FlDialogService = this.envInjector.get(FlDialogService);
     dialogService.openBigDialog(LabSelectViewConfigDialogComponent, {data: this.additionalData}).afterClosed()
