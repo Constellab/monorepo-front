@@ -21,11 +21,6 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
   constructor(private apiService: FlApiService) {
   }
 
-  public getGettingStartedDoc(): Observable<HaDocumentation> {
-    return this.apiService.get(`${this.route}/getting-started`);
-  }
-
-
   /**
    * Call http get one by id
    * @param id id of the entity
@@ -69,8 +64,8 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
   ///////////////////////////////////////////// IMAGE /////////////////////////////////////////////
 
 
-  public getFilePath(filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
+  public getFilePath(docId: string, filename: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${docId}/image/${filename}`);
   }
 
   uploadImage(file: File, docId: string): Observable<TeUploadedImage> {
@@ -79,8 +74,8 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
     return this.apiService.put(`${this.route}/image/${docId}`, formData);
   }
 
-  getImageUrl(filename: string): string {
-    return this.getFilePath(filename);
+  getImageUrl(docId: string, filename: string): string {
+    return this.getFilePath(docId, filename);
   }
 
 
@@ -89,15 +84,15 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
     return this.apiService.post(`${this.route}/${docId}/upload-view`, file);
   }
 
-  getView(filename: string): Observable<RvResourceView>{
-    return this.apiService.get(`${this.route}/view/${filename}`);
+  getView(docId:string, filename: string): Observable<RvResourceView>{
+    return this.apiService.get(`${this.route}/${docId}/view/${filename}`);
   }
 
 
   ////////////////////////////////// FILE //////////////////////////////////
 
-  public getDocFilePath(docFileId: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/get-file/${docFileId}`);
+  public getDocFilePath(docId: string, docFileId: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${docId}/file/${docFileId}`);
   }
 
   uploadFile(file: File, docId: string): Observable<HaFile>{
@@ -106,8 +101,8 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
     return this.apiService.post(`${this.route}/file/${docId}`, formData);
   }
 
-  deleteFile(docFileId: string): Observable<void>{
-    return this.apiService.delete(`${this.route}/file/${docFileId}`);
+  deleteFile(entityId: string, name: string): Observable<void>{
+    return this.apiService.delete(`${this.route}/${entityId}/file/${name}`);
   }
 
   renameFile(docFileId: string, newName: string): Observable<HaFile>{

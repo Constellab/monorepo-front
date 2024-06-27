@@ -68,7 +68,6 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   }
 
   public isBrickCreatorOrBrickUser(brick: HaBrick): Observable<boolean> {
-    console.log('brick', brick);
     return this.getUser().pipe(
       map(user => user != null && (user.id == brick?.createdBy?.id || brick?.brickUsers?.find(bU => bU.user.id == user.id) != null))
     );

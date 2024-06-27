@@ -165,6 +165,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   private redirectToGettingStartedDoc(): void {
     this.brickService.getBrickGettingStarted(this.brickName, this.brickVersion).subscribe(doc => {
       if (doc) {
+
         this.httpRedirectionService.redirectTo(HaRouterService.getDocumentationRoute(
           this.brickName, this.brickVersion, doc.completePath, doc.id
         ));
@@ -296,9 +297,9 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     this.dialogService.openSmallDialog(HaFileDialogComponent, {data: input}).afterClosed().subscribe()
   }
 
-  downloadFile(file: HaFile): string {
+  downloadFile(docId: string, file: HaFile): string {
     // download file from server (not from the client)
-    return this.documentationService.getDocFilePath(file.id);
+    return this.documentationService.getDocFilePath(docId, file.name);
   }
 
   private openSmallDialog(input: any): void {

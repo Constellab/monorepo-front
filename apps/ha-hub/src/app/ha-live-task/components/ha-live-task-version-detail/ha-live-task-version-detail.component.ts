@@ -44,7 +44,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
         this.sectionTitle = value;
       });
     }
-    this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id);
+    this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id, false);
     this.versionInfosFormControl.setValue(this.liveTaskVersion?.versionInfos);
     this.versionInfosFormControl.disable();
 

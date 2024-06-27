@@ -27,7 +27,7 @@
       <div class="home-list-div">
         <a *ngFor="let story of stories$ | flDatasourceConnect | async" [routerLink]="(story | haDetailRoute)">
           <co-story-list-item class="home-card" [story]="story"
-                              [imageLink]="getStoryImageLink(story?.mainPicture)"></co-story-list-item>
+                              [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
         </a>
       </div>
       <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">

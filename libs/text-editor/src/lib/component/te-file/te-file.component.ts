@@ -38,7 +38,7 @@ export class TeFileComponent extends TeElementBlockDirective implements OnInit {
   }
 
   private initFile(data: TeFileBlockData): void {
-    this.fileUrl = this.config.getFileUrl(data.name);
+    this.fileUrl = this.config.getFileUrl(data);
   }
 
   public onFileSelected(file: File): void {

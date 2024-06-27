@@ -109,13 +109,13 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
   }
 
   deleteFile(file: HaFile): void {
-    this.entity.files = this.entity.files.filter((entityFile) => entityFile.id !== file.id);
+    this.entity.files = this.entity.files.filter((entityFile) => entityFile.name !== file.name);
 
     const action: FlPortalAction = {
       type: 'delete-entity-document',
-      action: this.dialogInput.object.service.deleteFile(file.id),
+      action: this.dialogInput.object.service.deleteFile(this.entity.id, file.name),
       text: this.translateService.translate('deleting_document',
-        {param: {name: file.humanName}}),
+        {param: {name: file.name}}),
       additionalInformation: this.entity.id
     };
 

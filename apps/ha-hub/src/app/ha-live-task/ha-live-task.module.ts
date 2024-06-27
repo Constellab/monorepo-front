@@ -28,6 +28,12 @@ import {
   HaLiveTaskVersionsPanelComponent
 } from './components/ha-live-task-versions-panel/ha-live-task-versions-panel.component';
 import {HaPublicBrickPageModule} from "../ha-public/module/ha-public-brick-page/ha-public-brick-page.module";
+import {
+  HaLiveTaskContentViewComponent
+} from './components/ha-live-task-view/ha-live-task-content-view/ha-live-task-content-view.component';
+import {
+  HaLiveTaskResourceViewInputDialogComponent
+} from './components/ha-live-task-view/ha-live-task-resource-view-input-dialog/ha-live-task-resource-view-input-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,9 @@ import {HaPublicBrickPageModule} from "../ha-public/module/ha-public-brick-page/
     HaLiveTaskOverviewComponent,
     HaLiveTaskCommentsComponent,
     HaLiveTaskInvitePageComponent,
-    HaLiveTaskVersionsPanelComponent
+    HaLiveTaskVersionsPanelComponent,
+    HaLiveTaskContentViewComponent,
+    HaLiveTaskResourceViewInputDialogComponent
   ],
     imports: [
         CommonModule,

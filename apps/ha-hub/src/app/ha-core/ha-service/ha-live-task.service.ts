@@ -13,6 +13,8 @@ import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
 import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import {HaUser} from '../ha-model/ha-entities/ha-user';
 import {HaLiveTaskCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import {HaFile} from '../entity-module/ha-file-core/model/ha-file';
+import {RvResourceView} from '@monorepo/resource-view';
 
 @Injectable({
   providedIn: 'root'
@@ -88,27 +90,6 @@ export class HaLiveTaskService implements HaCoAuthorService {
    */
   public saveLiveTaskDescription(liveTaskId: string, description: Record<string, any>): Observable<HaLiveTask> {
     return this.apiService.put(`${this.route}/description/${liveTaskId}`, description, HaLiveTask);
-  }
-
-
-  /**
-   * Call http put to upload an image linked to a live task in the description
-   * @param file
-   * @param liveTaskId
-   * @return the uploaded image
-   */
-  public uploadImage(file: File, liveTaskId: string): Observable<TeUploadedImage> {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.apiService.put(`${this.route}/image/${liveTaskId}`, formData);
-  }
-
-  public getImagePath(filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
-  }
-
-  public getImageUrl(filename: string): string {
-    return this.getImagePath(filename);
   }
 
   public deleteLiveTask(id: string): Observable<any> {
@@ -254,5 +235,37 @@ export class HaLiveTaskService implements HaCoAuthorService {
 
   removeCoAuthor(id: string, coAuthorId: string): Observable<HaLiveTask> {
     return this.apiService.put(`${this.route}/${id}/remove-co-author/${coAuthorId}`, {}, HaLiveTask);
+  }
+
+  uploadImage(file: File, liveTaskId: string): Observable<TeUploadedImage>{
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.apiService.post(`${this.route}/image/${liveTaskId}`, formData);
+  }
+
+  getImageUrl(liveTaskId: string, name: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${liveTaskId}/image/${name}`);
+  }
+
+  uploadFile(file: File, liveTaskId: string): Observable<HaFile>{
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.apiService.post(`${this.route}/file/${liveTaskId}`, formData);
+  }
+
+  public getFilePath(liveTaskId: string, name: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${liveTaskId}/file/${name}`);
+  }
+
+  deleteFile(entityId: string, name: string): Observable<void>{
+    return this.apiService.delete(`${this.route}/${entityId}/file/${name}`);
+  }
+
+  uploadResourceViewFile(liveTaskId: string, file: FormData): Observable<any>{
+    return this.apiService.post(`${this.route}/view/${liveTaskId}`, file);
+  }
+
+  getView(liveTaskId: string, id: string): Observable<RvResourceView>{
+    return this.apiService.get(`${this.route}/${liveTaskId}/view/${id}`);
   }
 }

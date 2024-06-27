@@ -77,7 +77,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
         }
         this.liveTaskVersion = liveTaskVersion;
         this.textEditorConfig =
-          new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id);
+          new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id, false);
         this.authenticatedUserService.getUser().subscribe(user => {
           this.canEdit = user?.id === this.liveTaskVersion?.liveTask.createdBy.id;
           if (user && !this.canEdit) {

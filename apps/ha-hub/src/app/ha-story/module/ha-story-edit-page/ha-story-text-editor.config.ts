@@ -4,12 +4,14 @@ import {
   TeCompleteConfig,
   teComponentBlockFactory,
   TeFigureBlockConfig,
+  TeFileBlockConfig,
   TeTools,
   TeUploadedImage
 } from '@monorepo/text-editor';
 import {Observable} from 'rxjs';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {HaStoryContentViewBlock} from '../ha-story-view/ha-story-content-view.class';
+import {HaFile} from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
 
 
 export class HaStoryTextEditorImageConfig implements TeFigureBlockConfig {
@@ -24,7 +26,22 @@ export class HaStoryTextEditorImageConfig implements TeFigureBlockConfig {
   }
 
   getImageUrl(filename: string): string {
-    return ClStringHelper.isHttpLink(filename) ? filename : this.storyService.getImageUrl(filename);
+    return ClStringHelper.isHttpLink(filename) ? filename : this.storyService.getImageUrl(this.storyId, filename);
+  }
+}
+
+export class HaStoryTextEditorFileConfig implements TeFileBlockConfig {
+
+  constructor(private storyId: string,
+              private storyService: HaStoryService) {
+  }
+
+  fileUploader(file: File): Observable<HaFile> {
+    return this.storyService.uploadFile(file, this.storyId);
+  }
+
+  getFileUrl(file: HaFile): string {
+    return this.storyService.getStoryFilePath(this.storyId, file.name);
   }
 }
 
@@ -43,6 +60,11 @@ export class HaStoryTextEditorConfig extends TeCompleteConfig {
     // configure and add the image block
     const imageConfig = new HaStoryTextEditorImageConfig(this.storyId, this.storyService);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
+
+    // configure and add the file block
+    const fileConfig = new HaStoryTextEditorFileConfig(
+      this.storyId, this.storyService);
+    tools.file = this.getFileConfig(fileConfig, envInjector, applicationRef);
 
     // add the view block
     tools.resourceView = teComponentBlockFactory(HaStoryContentViewBlock, envInjector, applicationRef, this.storyId);

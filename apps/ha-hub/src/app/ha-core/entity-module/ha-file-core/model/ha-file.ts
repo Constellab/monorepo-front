@@ -1,8 +1,10 @@
-export class HaFile {
+import {TeFileBlockData} from '@monorepo/text-editor';
+
+export class HaFile implements TeFileBlockData{
 
   id: string;
 
-  humanName: string;
+  name: string;
 
-  fileName?: string;
+  size: number;
 }

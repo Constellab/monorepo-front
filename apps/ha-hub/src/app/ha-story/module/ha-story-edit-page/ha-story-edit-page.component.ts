@@ -351,8 +351,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       typeof this.topicControl.value == 'string' && this.topicControl.value.trim() != '';
   }
 
-  getStoryImageLink(imageName: string): string {
-    return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
+  getStoryImageLink(imageLinkOrId: string): string {
+    return ClStringHelper.isHttpLink(imageLinkOrId) ? imageLinkOrId : this.storyService.getImageUrl(this.story.id, imageLinkOrId);
   }
 
   isMainImageInContent(): boolean {

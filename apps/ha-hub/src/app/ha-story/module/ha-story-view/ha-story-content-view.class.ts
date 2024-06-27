@@ -19,7 +19,7 @@ export interface HaStoryViewConfig {
 
 export class HaStoryContentViewBlock extends TeComponentBlock<HaStoryContentViewComponent> {
 
-  public static readonly TAG_NAME = 'ha-report-content-view';
+  public static readonly TAG_NAME = 'ha-story-content-view';
 
   static override get toolbox(): ToolboxConfig {
     return {
@@ -43,7 +43,7 @@ export class HaStoryContentViewBlock extends TeComponentBlock<HaStoryContentView
     const storyService = this.envInjector.get(HaStoryService);
 
     if (data.filename == null) return;
-    this.componentInstance.view$ = storyService.getView(data.filename);
+    this.componentInstance.view$ = storyService.getView(this.additionalData, data.filename);
   }
 
   // this is only for read only mode

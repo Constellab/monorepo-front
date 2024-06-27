@@ -1,25 +1,25 @@
 import {TeComponentBlock, TeHelper} from '@monorepo/text-editor';
 import {Type} from '@angular/core';
 import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
+import {HaLiveTaskContentViewComponent} from './ha-live-task-content-view/ha-live-task-content-view.component';
 import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {ClStringHelper} from '@monorepo/core-lib';
-import {HaDocContentViewComponent} from './ha-doc-content-view/ha-doc-content-view.component';
-import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
+import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
 import {
-  HaDocResourceViewInputDialogComponent, HaDocResourceViewInputDialogOutputData
-} from './ha-doc-resource-view-input-dialog/ha-doc-resource-view-input-dialog.component';
+  HaLiveTaskResourceViewInputDialogComponent, HaLiveTaskResourceViewInputDialogOutputData
+} from './ha-live-task-resource-view-input-dialog/ha-live-task-resource-view-input-dialog.component';
 
-export interface HaDocViewConfig {
+export interface HaLiveTaskViewConfig {
   filename: string;
   id: string;
   title: string;
   caption: string;
 }
 
-export class HaDocContentViewBlock extends TeComponentBlock<HaDocContentViewComponent> {
+export class HaLiveTaskContentViewBlock extends TeComponentBlock<HaLiveTaskContentViewComponent> {
 
-  public static readonly TAG_NAME = 'ha-report-content-view';
+  public static readonly TAG_NAME = 'ha-live-task-content-view';
 
   static override get toolbox(): ToolboxConfig {
     return {
@@ -28,22 +28,22 @@ export class HaDocContentViewBlock extends TeComponentBlock<HaDocContentViewComp
     };
   }
 
-  getComponentType(): Type<HaDocContentViewComponent> {
-    return HaDocContentViewComponent;
+  getComponentType(): Type<HaLiveTaskContentViewComponent> {
+    return HaLiveTaskContentViewComponent;
   }
 
   getTagName(): string {
-    return HaDocContentViewBlock.TAG_NAME;
+    return HaLiveTaskContentViewBlock.TAG_NAME;
   }
 
-  initInputs(data: HaDocViewConfig): void {
+  initInputs(data: HaLiveTaskViewConfig): void {
     this.componentInstance.viewConfig = data;
 
     // load the view
-    const docService = this.envInjector.get(HaDocumentationService);
+    const liveTaskService = this.envInjector.get(HaLiveTaskService);
 
     if (data.filename == null) return;
-    this.componentInstance.view$ = docService.getView(this.additionalData, data.filename);
+    this.componentInstance.view$ = liveTaskService.getView(this.additionalData, data.filename);
   }
 
   // this is only for read only mode
@@ -57,11 +57,11 @@ export class HaDocContentViewBlock extends TeComponentBlock<HaDocContentViewComp
 
   public openSelectResourceView(): void {
     const dialogService: FlDialogService = this.envInjector.get(FlDialogService);
-    dialogService.openSmallDialog(HaDocResourceViewInputDialogComponent, {data: {docId: this.additionalData}}).afterClosed()
+    dialogService.openSmallDialog(HaLiveTaskResourceViewInputDialogComponent, {data: {liveTaskId: this.additionalData}}).afterClosed()
       .subscribe(res => this.insertResourceView(res));
   }
 
-  private insertResourceView(res?: HaDocResourceViewInputDialogOutputData): void {
+  private insertResourceView(res?: HaLiveTaskResourceViewInputDialogOutputData): void {
     if (res == null || res.filename == null || res.view == null) {
       this.destroy();
       this.options.api.blocks.delete(this.options.api.blocks.getBlockIndex(this.options.block.id));

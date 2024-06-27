@@ -81,11 +81,11 @@ export class HaStoryListPageComponent implements OnInit {
     });
   }
 
-  getStoryImageLink(imageName?: string): string {
-    if (!imageName) {
+  getStoryImageLink(storyId: string, imageLinkOrId?: string): string {
+    if (!imageLinkOrId) {
       return '';
     }
-    return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
+    return ClStringHelper.isHttpLink(imageLinkOrId) ? imageLinkOrId : this.storyService.getImageUrl(storyId, imageLinkOrId);
   }
 
   selectTopic(topic: HaTopicDto): void {

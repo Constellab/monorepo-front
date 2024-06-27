@@ -114,8 +114,8 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.delete(this.route + '/' + id + '/main-image');
   }
 
-  public getStoryFilePath(storyFileId: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/get-file/${storyFileId}`);
+  public getStoryFilePath(storyId: string, storyFileId: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${storyId}/file/${storyFileId}`);
   }
 
   uploadImage(file: File, storyId: string): Observable<TeUploadedImage> {
@@ -124,8 +124,8 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.put(`${this.route}/image/${storyId}`, formData);
   }
 
-  getImageUrl(filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`);
+  getImageUrl(storyId: string, name: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${storyId}/image/${name}`);
   }
 
   publishStory(id: string): Observable<HaStory> {
@@ -212,8 +212,8 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.post(`${this.route}/file/${storyId}`, formData);
   }
 
-  deleteFile(storyFileId: string): Observable<void>{
-    return this.apiService.delete(`${this.route}/file/${storyFileId}`);
+  deleteFile(entityId: string, name: string): Observable<void>{
+    return this.apiService.delete(`${this.route}/${entityId}/file/${name}`);
   }
 
   renameFile(storyFileId: string, newName: string): Observable<HaFile>{
@@ -232,8 +232,8 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.post(`${this.route}/${storyId}/upload-view`, file);
   }
 
-  getView(filename: string): Observable<RvResourceView>{
-    return this.apiService.get(`${this.route}/view/${filename}`);
+  getView(storyId: string, id: string): Observable<RvResourceView>{
+    return this.apiService.get(`${this.route}/${storyId}/view/${id}`);
   }
 
 }

@@ -111,13 +111,13 @@ export class HaStoryPageComponent implements OnInit {
     });
   }
 
-  getStoryImageLink(imageName: string): string {
-    return ClStringHelper.isHttpLink(imageName) ? imageName : this.storyService.getImageUrl(imageName);
+  getStoryImageLink(imageLinkOrId: string): string {
+    return ClStringHelper.isHttpLink(imageLinkOrId) ? imageLinkOrId : this.storyService.getImageUrl(this.story.id, imageLinkOrId);
   }
 
   downloadFile(file: HaFile): string {
     // download file from server (not from the client)
-    return this.storyService.getStoryFilePath(file.id);
+    return this.storyService.getStoryFilePath(this.story.id, file.id);
   }
 
   private getStory(id: string): void {

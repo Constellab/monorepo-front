@@ -253,6 +253,7 @@
   "add_a_view_to_the_doc": "Ajouter une vue à la documentation",
   "resource_view": "Vue de resource",
   "add_a_view_to_the_story": "Ajouter une vue à la story",
+  "add_a_view_to_the_live_task": "Ajouter une vue à la live task",
   "copy_parameters": "Copier les paramètres",
   "parameters_copied_to_clipboard": "Paramètres copiés dans le presse-papier",
   "parameters": "Paramètres",

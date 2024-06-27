@@ -18,7 +18,7 @@ export interface TeFileBlockData {
  */
 export interface TeFileBlockConfig {
 
-  getFileUrl(filename: string): string;
+  getFileUrl(file: TeFileBlockData): string;
 
   fileUploader: (file: File) => Observable<TeFileBlockData>;
 }

@@ -36,8 +36,8 @@ export class CaDocumentTextEditorFileConfig implements TeFileBlockConfig {
     return this.projectService.uploadFileToConstellabDocument(file, this.documentId);
   }
 
-  getFileUrl(filename: string): string {
-    return this.projectService.getConstellabDocumentFileUrl(this.documentId, filename);
+  getFileUrl(file: TeFileBlockData): string {
+    return this.projectService.getConstellabDocumentFileUrl(this.documentId, file.name);
   }
 }
 

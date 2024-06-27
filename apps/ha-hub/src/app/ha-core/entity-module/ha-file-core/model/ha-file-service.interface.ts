@@ -6,5 +6,5 @@ export interface HaFileServiceInterface<T extends HaBaseEntityWithFiles>{
   getById(entityId: string): Observable<T>;
   uploadFile(file: File, entityId: string): Observable<HaFile>;
   renameFile(fileId: string, newName: string): Observable<HaFile>;
-  deleteFile(fileId: string): Observable<void>;
+  deleteFile(entityId: string, name: string): Observable<void>;
 }

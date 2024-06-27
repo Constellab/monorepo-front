@@ -29,29 +29,36 @@
     <fl-loader class="g-centered"></fl-loader>
   </div>
 
-  <fl-card *ngIf="!isLoading">
-    <fl-card-header>
-      <div class="card-header">
-        <div>
-          {{ 'live_task_description' | translate }}
-        </div>
-        <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()"
-                *ngIf="canEditLt">
-          <fl-text-icon [iconPosition]="'end'">
-            <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
-            {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}
-          </fl-text-icon>
-        </button>
+<!--  <fl-card *ngIf="!isLoading">-->
+<!--    <fl-card-header>-->
+<!--      -->
+<!--    </fl-card-header>-->
+<!--    <fl-card-body>-->
+<!--     -->
+<!--    </fl-card-body>-->
+<!--  </fl-card>-->
+
+  <div *ngIf="!isLoading">
+    <div class="card-header">
+      <div>
+        {{ 'live_task_description' | translate }}
       </div>
-    </fl-card-header>
-    <fl-card-body>
+      <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()"
+              *ngIf="canEditLt">
+        <fl-text-icon [iconPosition]="'end'">
+          <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
+          {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}
+        </fl-text-icon>
+      </button>
+    </div>
+    <div>
       <te-text-editor
         class="description-editor"
         [config]="textEditorConfig" (textChange)="onDescriptionChange($event)"
         [formControl]="descriptionFormControl"
         [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
-    </fl-card-body>
-  </fl-card>
+    </div>
+  </div>
 
   <ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion && !isLoading" [liveTaskVersion]="liveTaskVersion" [canEdit]="canEditLt"
                                [isEditable]="false" [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask.latestPublishVersion + ')'"></ha-live-task-version-detail>
