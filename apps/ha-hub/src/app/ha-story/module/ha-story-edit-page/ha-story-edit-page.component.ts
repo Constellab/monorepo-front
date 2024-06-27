@@ -330,22 +330,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     this.dialogService.openSmallDialog(HaCoAuthorDialogComponent, {data: input}).afterClosed().subscribe();
   }
 
-  openStoryFileDialog(): void{
-    const input: FlFormDialogInput<HaFileDialogObjectInput> = {
-      mode: 'update',
-      object: {
-        entity: this.story,
-        service: this.storyService
-      }
-    }
-
-    this.dialogService.openMediumDialog(HaFileDialogComponent, {data: input}).afterClosed().subscribe((res) => {
-      if (res && res.choice && res.result) {
-        this.story = res.result;
-      }
-    });
-  }
-
   checkTopicControl(): boolean{
     return this.topicControl.value != null && this.topicControl.value != '' &&
       typeof this.topicControl.value == 'string' && this.topicControl.value.trim() != '';

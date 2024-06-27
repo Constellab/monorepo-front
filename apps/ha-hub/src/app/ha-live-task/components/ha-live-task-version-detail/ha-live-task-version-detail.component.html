@@ -16,9 +16,8 @@
 </fl-async-section>
 
 
-<fl-card class="lt-version-detail-card info-version-card"
+<div class="lt-version-detail-card info-version-card"
          *ngIf="liveTaskVersion && (liveTaskVersion.versionInfos || isEditable)">
-  <fl-card-header>
     <div class="card-header">
       <h5>
         {{ 'info_about_this_version' | translate }}
@@ -31,15 +30,14 @@
         </fl-text-icon>
       </button>
     </div>
-  </fl-card-header>
-  <fl-card-body>
+  <div>
     <te-text-editor class="version-infos-editor"
                     [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)"
                     [formControl]="versionInfosFormControl"
                     [placeholder]="'live_task_version_infos_place_holder' | translate">
     </te-text-editor>
-  </fl-card-body>
-</fl-card>
+  </div>
+</div>
 
 
 <fl-card class="lt-version-detail-card"

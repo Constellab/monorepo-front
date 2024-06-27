@@ -54,15 +54,11 @@
           <mat-icon>description</mat-icon>
           {{ 'attached_files' | translate }}
         </fl-text-icon>
-        <button mat-icon-button type="button" (click)="openDocFileDialog()" *ngIf="isCreatorOrBrickUser$ | async"
-                [matTooltip]="'attach_a_file_to_the_doc' | translate">
-          <mat-icon>cloud_upload</mat-icon>
-        </button>
       </h6>
 
       <div class="doc-files-div">
         @for (file of documentation.docFiles; track file.id) {
-          <div class="doc-file" [matTooltip]="file.name">
+          <div class="doc-file" [matTooltip]="file.name" *ngIf="file.type == 'FILE'">
             <a type="button" [href]="downloadFile(documentation.id, file)" download [matTooltip]="'download_attached_file' | translate">
               <fl-file-text-icon [filename]="file.name">
               </fl-file-text-icon>

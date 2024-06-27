@@ -53,6 +53,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   currentDocTitle = '';
   lastDocId: string;
   currentUrl: string;
+  docFiles: HaFile[];
 
   private contentDebouncer: FlDebouncer<TeRichTextContent>;
   private DOC_KEY: StateKey<object>;
@@ -284,17 +285,6 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     });
-  }
-
-  openDocFileDialog(): void{
-    const input: HaFileDialogInput = {
-      mode: 'create',
-      object: {
-        entity: this.documentation,
-        service: this.documentationService
-      }
-    };
-    this.dialogService.openSmallDialog(HaFileDialogComponent, {data: input}).afterClosed().subscribe()
   }
 
   downloadFile(docId: string, file: HaFile): string {

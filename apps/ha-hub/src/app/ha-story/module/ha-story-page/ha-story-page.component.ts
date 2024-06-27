@@ -117,7 +117,7 @@ export class HaStoryPageComponent implements OnInit {
 
   downloadFile(file: HaFile): string {
     // download file from server (not from the client)
-    return this.storyService.getStoryFilePath(this.story.id, file.id);
+    return this.storyService.getStoryFilePath(this.story.id, file.name);
   }
 
   private getStory(id: string): void {

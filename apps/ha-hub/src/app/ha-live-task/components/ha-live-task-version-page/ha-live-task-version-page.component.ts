@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
-import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import {first, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {HaNavigationPanelItem} from '../../../ha-core/ha-component/ha-navigation-panel/ha-navigation-panel.component';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
@@ -19,7 +18,6 @@ import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 export class HaLiveTaskVersionPageComponent implements OnInit {
 
   liveTaskVersion: HaLiveTaskVersion;
-  textEditorConfig: HaLiveTaskTextEditorConfig;
   isLoading: boolean = true;
   canEditChecked: boolean = false;
   canEdit: boolean = false;
@@ -76,8 +74,6 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
           return;
         }
         this.liveTaskVersion = liveTaskVersion;
-        this.textEditorConfig =
-          new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id, false);
         this.authenticatedUserService.getUser().subscribe(user => {
           this.canEdit = user?.id === this.liveTaskVersion?.liveTask.createdBy.id;
           if (user && !this.canEdit) {

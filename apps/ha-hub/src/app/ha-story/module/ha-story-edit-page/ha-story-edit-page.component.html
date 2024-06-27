@@ -92,11 +92,6 @@
             <mat-icon>group_add</mat-icon>
           </button>
         }
-        <button mat-icon-button type="button" [class]="isAuthor ? 'add-file-button-author' : 'add-file-button-co-author'"
-                (click)="openStoryFileDialog()"
-                [matTooltip]="'open_story_files_panel' | translate">
-          <mat-icon>cloud_upload</mat-icon>
-        </button>
         <button mat-icon-button [matTooltip]="'delete_story' | translate" type="button" color="warn" (click)="openDeleteStoryConfirmDialog()" class="add-file-button-author">
           <mat-icon>delete</mat-icon>
         </button>

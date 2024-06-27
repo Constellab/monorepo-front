@@ -3,10 +3,9 @@ import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.servic
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
 import {FlCodeEditorLanguage, FlDebouncer, FlSnackBarService} from '@monorepo/front-core-lib';
 import {FormControl} from '@ngneat/reactive-forms';
-import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
 import {HaCardBackground} from '../../../ha-core/ha-component/ha-card/ha-card.component';
 import {TranslateService} from '@ngx-translate/core';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import {TeBasicConfig, TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 import {Observable} from 'rxjs';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 
@@ -23,7 +22,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   @Input() sectionTitle?: string;
   @Output() liveTaskVersionChangeEvent = new EventEmitter<HaLiveTaskVersion>();
   versionInfosDisabled = true;
-  textEditorConfig: HaLiveTaskTextEditorConfig;
+  textEditorConfig: TeBasicConfig;
   versionInfosFormControl: FormControl<Record<string, any>> = new FormControl<Record<string, any>>(null);
   paramsFormControl: FormControl<string> = new FormControl<string>(null);
   paramsDebouncer: FlDebouncer<string>;
@@ -44,7 +43,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
         this.sectionTitle = value;
       });
     }
-    this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTaskVersion.liveTask.id, false);
+    this.textEditorConfig = new TeBasicConfig();
     this.versionInfosFormControl.setValue(this.liveTaskVersion?.versionInfos);
     this.versionInfosFormControl.disable();
 
