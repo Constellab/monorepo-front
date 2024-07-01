@@ -5,9 +5,12 @@ import {
   TeTools,
   TeVariableInlineToolClass
 } from '@monorepo/text-editor';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
-import {LabReportContentViewBlock} from './lab-report-content-view.block';
-import {LabRichTextTextEditorImageConfig} from '../../../lab-core/entity-service/lab-rich-text.service';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import {
+  LabReportContentViewBlockAdditionalData,
+  LabRichTextViewBlock
+} from '../../../lab-core/entity-module/lab-rich-text-core/lab-rich-text-view.block';
+import { LabRichTextTextEditorImageConfig } from '../../../lab-core/entity-service/lab-rich-text.service';
 
 /**
  * Config for the text editor in the report to support view in the editor
@@ -28,7 +31,11 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
     const tools = super.getTools(envInjector, applicationRef);
 
     // add the view block
-    tools.resourceView = teComponentBlockFactory(LabReportContentViewBlock, envInjector, applicationRef, this.reportId);
+    const data: LabReportContentViewBlockAdditionalData = {
+      type: 'report',
+      entityId: this.reportId
+    }
+    tools.resourceView = teComponentBlockFactory(LabRichTextViewBlock, envInjector, applicationRef, data);
 
     // configure and add the image block
     const imageConfig = new LabRichTextTextEditorImageConfig();

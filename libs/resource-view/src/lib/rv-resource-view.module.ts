@@ -29,7 +29,9 @@ import {
 import {
   RvTechnicalInfoDialogComponent
 } from './component/rv-technical-info-dialog/rv-technical-info-dialog.component';
-import { RvReportResourceViewComponent } from './component/rv-report-resource-view/rv-report-resource-view.component';
+import {
+  RvRichTextResourceViewComponent
+} from './component/rv-rich-text-resource-view/rv-rich-text-resource-view.component';
 import { MatIconModule } from '@angular/material/icon';
 
 import { RvViewImageComponent } from './component/rv-view-image/rv-view-image.component';
@@ -78,7 +80,7 @@ import { RvViewPlotlyComponent } from './component/rv-view-plotly/rv-view-plotly
     RvViewSpreadsheetComponent,
     RvTechnicalInfoButtonComponent,
     RvTechnicalInfoDialogComponent,
-    RvReportResourceViewComponent,
+    RvRichTextResourceViewComponent,
     RvViewImageComponent,
     RvViewHtmlComponent,
     RvViewStreamlitComponent,
@@ -94,7 +96,7 @@ import { RvViewPlotlyComponent } from './component/rv-view-plotly/rv-view-plotly
     RvViewSpreadsheetComponent,
     RvTechnicalInfoButtonComponent,
     RvTechnicalInfoDialogComponent,
-    RvReportResourceViewComponent,
+    RvRichTextResourceViewComponent,
     RvViewImageComponent,
     RvViewHtmlComponent,
     RvViewStreamlitComponent,

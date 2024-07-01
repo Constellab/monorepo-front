@@ -12,8 +12,9 @@ import { Observable } from 'rxjs';
 import { LabResourceENoteService } from '../../../entity-service/lab-resource-enote.service';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
-  LabReportContentViewBlock
-} from '../../../../lab-report/module/lab-report-detail-page/lab-report-content-view.block';
+  LabReportContentViewBlockAdditionalData,
+  LabRichTextViewBlock
+} from '../../lab-rich-text-core/lab-rich-text-view.block';
 
 
 export class LabENoteTextEditorImageConfig implements TeFigureBlockConfig {
@@ -33,13 +34,15 @@ export class LabENoteTextEditorImageConfig implements TeFigureBlockConfig {
   }
 }
 
-
+/**
+ * Config for the text editor for enote. This retrieves the files from the enote resource and
+ * enote resource service
+ */
 export class LabEnoteTextEditorConfig extends TeCompleteConfig {
 
   constructor(private enoteResourceId: string) {
     super();
   }
-
 
   /**
    * Get the complete config and add the view block and configure the image block
@@ -50,7 +53,11 @@ export class LabEnoteTextEditorConfig extends TeCompleteConfig {
     const tools = super.getTools(envInjector, applicationRef);
 
     // add the view block
-    tools.resourceView = teComponentBlockFactory(LabReportContentViewBlock, envInjector, applicationRef);
+    const data: LabReportContentViewBlockAdditionalData = {
+      type: 'enote',
+      entityId: this.enoteResourceId
+    }
+    tools.resourceView = teComponentBlockFactory(LabRichTextViewBlock, envInjector, applicationRef, data);
 
     // configure and add the image block
     const imageConfig = new LabENoteTextEditorImageConfig(this.enoteResourceId);

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
+import { PrConfigValues } from '@monorepo/protocol';
 
 
 /**
@@ -17,6 +20,12 @@ export class LabResourceENoteService {
   }
 
   public getFilePath(enoteResourceId: string, filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${enoteResourceId}/image/${filename}`);
+    return this.apiService.getBaseRouteUrl(`${this.route}/${enoteResourceId}/resource/${filename}/image`);
+  }
+
+  public callResourceView(enoteResourceId: string, subResourceKey: string,
+                          viewMethodName: string, config: PrConfigValues): Observable<LabResourceView> {
+    return this.apiService.post(`${this.route}/${enoteResourceId}/resource/${subResourceKey}/views/${viewMethodName}`,
+      config, LabResourceView);
   }
 }

@@ -1,4 +1,4 @@
-import { LabReportContentViewComponent } from './component/lab-report-content-view/lab-report-content-view.component';
+import { LabRichTextViewComponent } from './component/lab-rich-text-view/lab-rich-text-view.component';
 import { PrConfigValues } from '@monorepo/protocol';
 import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
@@ -7,11 +7,19 @@ import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   LabSelectViewConfigDialogComponent
-} from '../../../lab-core/entity-module/lab-view-config-core/component/lab-select-view-config-dialog/lab-select-view-config-dialog.component';
-import { LabViewConfig } from '../../../lab-core/model/entities/resource/lab-view-config.entity';
+} from '../lab-view-config-core/component/lab-select-view-config-dialog/lab-select-view-config-dialog.component';
+import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
+import { RvViewConfig } from '@monorepo/resource-view';
 
+export interface LabReportContentViewBlockAdditionalData {
+  type: 'report' | 'enote';
+  entityId: string; // if type is report, id of the report, if enote, id of the enote
+}
 
+/**
+ * Content for the report and report template
+ */
 export interface LabReportContentView {
   id: string;
   resource_id: string;
@@ -22,13 +30,27 @@ export interface LabReportContentView {
   caption: string;
 }
 
-export class LabReportContentViewBlock extends TeComponentBlock<LabReportContentViewComponent> {
+/**
+ * Content for the enote
+ */
+export interface LabENoteContentView {
+  id: string;
+  sub_resource_key: string;
+  view_method_name: string;
+  view_config: PrConfigValues;
+  title: string;
+  caption: string;
+}
+
+/**
+ *
+ */
+export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewComponent> {
 
   constructor(protected options: BlockToolConstructorOptions,
               protected readonly envInjector: EnvironmentInjector,
               protected readonly applicationRef: ApplicationRef,
-              // additionalData is the report id
-              protected readonly additionalData: string) {
+              protected readonly additionalData: LabReportContentViewBlockAdditionalData) {
     super(options, envInjector, applicationRef, additionalData);
   }
 
@@ -37,33 +59,41 @@ export class LabReportContentViewBlock extends TeComponentBlock<LabReportContent
   static override get toolbox(): ToolboxConfig {
     return {
       title: TeHelper.getTranslateService().translate('biox.report_resource_view'),
-      icon: TeHelper.getMatIconElement('add_chart'),
+      icon: TeHelper.getMatIconElement('add_chart')
     };
   }
 
-  getComponentType(): Type<LabReportContentViewComponent> {
-    return LabReportContentViewComponent;
+  getComponentType(): Type<LabRichTextViewComponent> {
+    return LabRichTextViewComponent;
   }
 
   getTagName(): string {
-    return LabReportContentViewBlock.TAG_NAME;
+    return LabRichTextViewBlock.TAG_NAME;
   }
 
-  initInputs(data: LabReportContentView): void {
-    this.componentInstance.setInputs(data.resource_id,
-      data.title,
-      data.caption,
-      {
-        methodName: data.view_method_name,
-        configValues: data.view_config,
-      }
-    );
+  initInputs(data: LabReportContentView | LabENoteContentView): void {
+    const viewConfig: RvViewConfig = {
+      methodName: data.view_method_name,
+      configValues: data.view_config
+    };
+    if (this.additionalData.type === 'report') {
+      const reportData = data as LabReportContentView;
+      this.componentInstance.setReportInput(reportData.resource_id,
+        viewConfig,
+        reportData.title,
+        reportData.caption
+      );
+    } else {
+      const enoteData = data as LabENoteContentView;
+      this.componentInstance.setEnoteInput(this.additionalData.entityId, enoteData.sub_resource_key,
+        viewConfig, enoteData.title, enoteData.caption);
+    }
   }
 
   save(): BlockToolData {
     return Object.assign(this.data, {
       title: this.componentInstance.viewTitle,
-      caption: this.componentInstance.caption,
+      caption: this.componentInstance.caption
     });
   }
 
@@ -76,11 +106,12 @@ export class LabReportContentViewBlock extends TeComponentBlock<LabReportContent
     this.openSelectResourceView();
   }
 
-  // TODO A VOIR QUOI FAIRE AVEC LE ADDITIONAL DATA
   public openSelectResourceView(): void {
-    const dialogService: FlDialogService = this.envInjector.get(FlDialogService);
-    dialogService.openBigDialog(LabSelectViewConfigDialogComponent, {data: this.additionalData}).afterClosed()
-      .subscribe(viewConfig => this.insertResourceView(viewConfig));
+    if (this.additionalData.type === 'report') {
+      const dialogService: FlDialogService = this.envInjector.get(FlDialogService);
+      dialogService.openBigDialog(LabSelectViewConfigDialogComponent, { data: this.additionalData.entityId }).afterClosed()
+        .subscribe(viewConfig => this.insertResourceView(viewConfig));
+    }
   }
 
   private insertResourceView(viewConfig?: LabViewConfig): void {

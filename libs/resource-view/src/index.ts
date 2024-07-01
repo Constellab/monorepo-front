@@ -1,7 +1,7 @@
 export * from './lib/rv-resource-view.module';
 
 // Component
-export * from './lib/component/rv-report-resource-view/rv-report-resource-view.component';
+export * from './lib/component/rv-rich-text-resource-view/rv-rich-text-resource-view.component';
 export * from './lib/component/rv-resource-view/rv-resource-view.component';
 export * from './lib/component/rv-technical-info-button/rv-technical-info-button.component';
 export * from './lib/component/rv-technical-info-dialog/rv-technical-info-dialog.component';
