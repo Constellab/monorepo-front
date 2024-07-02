@@ -1,4 +1,4 @@
-import {Expose, Type} from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 
 export class LabStreamlitApp {
 
@@ -8,7 +8,7 @@ export class LabStreamlitApp {
   @Expose()
   url: string;
 
-  @Expose({name: 'streamlit_app_code_path'})
+  @Expose({name: 'streamlit_app_config_path'})
   streamlitAppCodePath: string;
 
   @Expose({name: 'source_paths'})

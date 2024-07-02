@@ -102,7 +102,7 @@
     "streamlit_no_running_app": "No running app",
     "streamlit_app_url": "Streamlit app URL",
     "streamlit_view_resource": "View streamlit resource",
-    "streamlit_app_code_path": "Code path",
+    "streamlit_app_config_path": "Config path",
     "streamlit_app_source_paths": "Source paths",
     "streamlit_stop_app": "Stop streamlit app",
     "streamlit_stop_app_confirmation": "Are you sure you want to stop streamlit app ? All current streamlit dashboard will be closed. The app will automatically restart when requested.",
