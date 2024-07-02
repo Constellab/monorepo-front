@@ -1,29 +1,25 @@
-import {Component, OnInit} from '@angular/core';
-import {CaLabInstance} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { CaLabInstance } from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   CaLabInstanceCodelabInfoComponent
 } from '../ca-lab-instance-codelab-info/ca-lab-instance-codelab-info.component';
-import {CaLabInstanceDetailPageState} from '../../state/ca-lab-instance-detail-page.state';
-import {Observable} from 'rxjs';
+import { CaLabInstanceDetailPageState } from '../../state/ca-lab-instance-detail-page.state';
+import { Observable } from 'rxjs';
 import {
   CaLabConfigDialogComponent,
   CaLabConfigDialogInput
 } from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
-import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
+import { CaLabInstanceService } from '../../../ca-core/service-api/ca-lab-instance.service';
 import {
   CaLabDesktopDownloadConfigComponent,
   CaLabDesktopDownloadConfigInput
 } from '../desktop/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
 import {
-  CaStatusHistoryListDialogComponent,
-  CaStatusHistoryListDialogInput
-} from '../../../ca-core/module/ca-status/ca-status-history-list-dialog/ca-status-history-list-dialog.component';
-import {
   CaLabDesktopUpdateDialogComponent,
   LabDesktopUpdateDialogInput
 } from '../ca-lab-desktop-update-dialog/ca-lab-desktop-update-dialog.component';
-import {CoCommunityHelperService} from '@monorepo/community-lib';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ca-lab-instance-detail',
@@ -70,13 +66,6 @@ export class CaLabInstanceDetailComponent implements OnInit {
       labInstanceId: labInstance.id,
     };
     this.dialogService.openSmallDialog(CaLabDesktopDownloadConfigComponent, {data: input});
-  }
-
-  openStatusHistoryDialog(labInstance: CaLabInstance): void {
-    const dialogInput: CaStatusHistoryListDialogInput = {
-      statusHistoriesObs: this.labInstanceService.getStatusHistories(labInstance.id),
-    };
-    this.dialogService.openSmallDialog(CaStatusHistoryListDialogComponent, {data: dialogInput});
   }
 
   openLabDesktopUpdate(labInstance: CaLabInstance): void {
