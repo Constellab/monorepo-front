@@ -1,21 +1,23 @@
-import {Observable} from 'rxjs';
-import {ClPageI} from '@monorepo/core-lib';
+import { Observable } from 'rxjs';
+import { ClPageI } from '@monorepo/core-lib';
 import {
   FlHtmlHelper,
   FlKeyboardKey,
+  FlOverlayRef,
   FlPortalService,
   flRootInjector,
   FlTranslateService,
   FlUser
 } from '@monorepo/front-core-lib';
-import {TeKeyListener} from './te-key-listener.class';
+import { TeKeyListener } from './te-key-listener.class';
 import {
   TeMentionPortalComponent,
   TeMentionPortalInput
 } from '../component/te-mention-portal/te-mention-portal.component';
-import {TeHelper} from '../model/te.helper';
-import {TeElementInlineDirective} from '../model/te-element.directive';
-import {InlineTool, SanitizerConfig} from '@editorjs/editorjs';
+import { TeHelper } from '../model/te.helper';
+import { TeElementInlineDirective } from '../model/te-element.directive';
+import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
+import { TePortalPlugin } from './te-portal-plugin.class';
 
 
 export interface TeMentionConfig {
@@ -30,28 +32,38 @@ export interface FlMentionUser {
   lastname: string;
 }
 
-export class TeMention {
+export class TeMention extends TePortalPlugin {
 
   constructor(private config: TeMentionConfig, private event: KeyboardEvent) {
+    super();
   }
 
-  public openMentionPortal(): void {
-    if (TeHelper.overlayIsOpen()) return;
-    // store the current caret position
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const textNode = range.endContainer;
-    const cursorOffset = range.endOffset - 1;
-
-    const keyListener = new TeKeyListener(textNode, cursorOffset,
+  protected buildKeyListener(): TeKeyListener {
+    return new TeKeyListener(this.textNode, this.cursorOffset,
       FlKeyboardKey.AT,
       [FlKeyboardKey.ESCAPE, FlKeyboardKey.SPACE]);
+  }
 
+  protected onClose(user?: FlUser): void {
+    if (user) {
+
+      // replace the search text with mention element
+      const positions = this.keyListener.getSearchTextPosition();
+      const mentionElement = this.createMentionElement(user);
+      FlHtmlHelper.replaceTextInNodeTextWithElement(this.textNode,
+        positions.start, positions.end, mentionElement);
+
+      // move the caret just after the mention
+      FlHtmlHelper.setCaretAtElementPosition(mentionElement.nextSibling, 0);
+    }
+  }
+
+  protected openPortal(): FlOverlayRef {
     const input: TeMentionPortalInput = {
       config: this.config,
       element: this.event.target as any,
-      filter$: keyListener.getText$(),
-      caretCoordinates: FlHtmlHelper.getCaretCoordinates(),
+      filter$: this.keyListener.getText$(),
+      caretCoordinates: FlHtmlHelper.getCaretCoordinates()
     };
 
     const portalService = flRootInjector.get(FlPortalService);
@@ -60,37 +72,15 @@ export class TeMention {
       TeMentionPortalComponent.PORTAL_MAX_WIDTH, TeMentionPortalComponent.PORTAL_MAX_HEIGHT);
 
     const config = portalService.configureAbsolutePortal(portalPosition,
-      {disposeOnOutsideClick: true, disposeOnNavigation: true});
+      { disposeOnOutsideClick: true, disposeOnNavigation: true });
 
     // open the emoji picker
-    const overlayRef = portalService.createPortal(TeMentionPortalComponent, config, input);
-
-    overlayRef.detachments().subscribe(
-      (user?: FlUser) => {
-        TeHelper.clearOverlay();
-
-        if (user) {
-
-          // replace the search text with mention element
-          const positions = keyListener.getSearchTextPosition();
-          const mentionElement = this.createMentionElement(user);
-          FlHtmlHelper.replaceTextInNodeTextWithElement(textNode,
-            positions.start, positions.end, mentionElement);
-
-          // move the caret just after the emoji
-          FlHtmlHelper.setCaretAtElementPosition(mentionElement.nextSibling, 0);
-        }
-
-        keyListener.destroy();
-      }
-    );
-
-    TeHelper.setOverlay(overlayRef);
+    return portalService.createPortal(TeMentionPortalComponent, config, input);
   }
 
   private createMentionElement(user: FlUser): HTMLElement {
 
-    const mentionUser: FlMentionUser = {id: user.id, firstname: user.firstname, lastname: user.lastname};
+    const mentionUser: FlMentionUser = { id: user.id, firstname: user.firstname, lastname: user.lastname };
     const mentionElement = document.createElement(teMentionTagName);
     mentionElement.setAttribute(TeElementInlineDirective.dataAttribute, JSON.stringify(mentionUser));
     return mentionElement;
@@ -113,7 +103,7 @@ export class TeMentionInlineTool implements InlineTool {
   public static get sanitize(): SanitizerConfig {
     return {
       [teMentionTagName]: {
-        'data-jsondata': true,
+        'data-jsondata': true
       }
     } as SanitizerConfig;
   }

@@ -17,7 +17,7 @@ export class RvRichTextResourceViewComponent implements OnInit {
 
   @Input({required: true}) view$: Observable<RvResourceViewBase>;
 
-  @Input({required: true}) viewConfig: RvViewConfig;
+  @Input() viewConfig: RvViewConfig;
 
   @Input() viewTitle: string;
   @Output() viewTitleChange: EventEmitter<string> = new EventEmitter();

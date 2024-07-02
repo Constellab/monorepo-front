@@ -1,76 +1,56 @@
-import {TeKeyListener} from './te-key-listener.class';
+import { TeKeyListener } from './te-key-listener.class';
 import {
   FlEmojiPickerPortalComponent,
   FlEmojiPickerPortalInput,
   FlHtmlHelper,
   FlKeyboardKey,
+  FlOverlayRef,
   FlPortalService,
   flRootInjector
 } from '@monorepo/front-core-lib';
-import {TeHelper} from '../model/te.helper';
+import { TeHelper } from '../model/te.helper';
+import { TePortalPlugin } from './te-portal-plugin.class';
 
 
-export class TeEmoji {
+export class TeEmoji extends TePortalPlugin {
 
   constructor(private event: KeyboardEvent) {
+    super();
   }
 
-  public openEmojiPicker(): void {
-    if (TeHelper.overlayIsOpen()) return;
-    // store the current caret position
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    let node = range.endContainer;
-    const cursorOffset = range.endOffset - 1;
-
-    // if the node is not a text node, create a new text node
-    if (node.nodeType !== Node.TEXT_NODE) {
-      const textNode = document.createTextNode('');
-      node.appendChild(textNode);
-      node = textNode;
-    }
-
-    const keyListener = new TeKeyListener(node, cursorOffset,
+  protected buildKeyListener(): TeKeyListener {
+    return new TeKeyListener(this.textNode, this.cursorOffset,
       FlKeyboardKey.COLON,
       [FlKeyboardKey.ESCAPE, FlKeyboardKey.SPACE]);
+  }
 
+  protected onClose(emoji: string): void {
+    if (emoji) {
+      // replace the search text with the emoji
+      const positions = this.keyListener.getSearchTextPosition();
+      this.textNode.textContent = this.textNode.textContent.slice(0, positions.start) + emoji +
+        this.textNode.textContent.slice(positions.end);
+
+      // move the caret just after the emoji
+      // +2 otherwise the cursor seems to be inside the emoji
+      FlHtmlHelper.setCaretAtElementPosition(this.textNode, this.cursorOffset + 2);
+    }
+  }
+
+  protected openPortal(): FlOverlayRef {
     const input: FlEmojiPickerPortalInput = {
-      filter: keyListener.getText$(),
+      filter: this.keyListener.getText$(),
       element: this.event.target as any
     };
-
 
     // open portal
     const portalService = flRootInjector.get(FlPortalService);
     const portalPosition = TeHelper.getPortalPositionForCursor(
       FlEmojiPickerPortalComponent.PORTAL_MAX_WIDTH, FlEmojiPickerPortalComponent.PORTAL_MAX_HEIGHT);
     const config = portalService.configureAbsolutePortal(portalPosition,
-      {disposeOnOutsideClick: true, disposeOnNavigation: true});
+      { disposeOnOutsideClick: true, disposeOnNavigation: true });
 
     // open the emoji picker
-    const overlayRef = portalService.createPortal(FlEmojiPickerPortalComponent, config, input);
-
-
-    overlayRef.detachments().subscribe(
-      (emoji: string) => {
-        TeHelper.clearOverlay();
-
-        if (emoji) {
-          // replace the search text with the emoji
-          const positions = keyListener.getSearchTextPosition();
-          node.textContent = node.textContent.slice(0, positions.start) + emoji +
-            node.textContent.slice(positions.end);
-
-          // move the caret just after the emoji
-          // +2 otherwise the cursor seems to be inside the emoji
-          FlHtmlHelper.setCaretAtElementPosition(node, cursorOffset + 2);
-        }
-
-        // clean up
-        keyListener.destroy();
-      }
-    );
-
-    TeHelper.setOverlay(overlayRef);
+    return portalService.createPortal(FlEmojiPickerPortalComponent, config, input);
   }
 }

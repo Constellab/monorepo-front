@@ -225,27 +225,27 @@
     }
 
     ///////////////////////// PARAGRAPH /////////////////////////
-    //.ce-paragraph, p {
-    //  padding: 5px 0;
-    //  margin: 0;
-    //  line-height: 1.50em;
-    //}
-    //
-    //// color the paragraph placeholder
-    //.ce-paragraph[data-placeholder]:empty:before {
-    //  color: var(--light-color);
-    //  cursor: text;
-    //}
-    //
-    //// use to show the placeholder on focused paragraph if empty
-    //.ce-block .ce-paragraph[data-placeholder]:empty:focus-within:before,
-    //.codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder][contenteditable=true]:empty:before {
-    //  opacity: 0.5 !important;
-    //}
-    //// hide placeholder when text editor is disabled
-    //.codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder][contenteditable=false]:empty:before {
-    //  opacity: 0 !important;
-    //}
+    .ce-paragraph, p {
+      padding: 5px 0;
+      margin: 0;
+      line-height: 1.50em;
+    }
+
+    // color the paragraph placeholder
+    .ce-paragraph[data-placeholder]:empty:before {
+      color: var(--light-color);
+      cursor: text;
+    }
+
+    // use to show the placeholder on focused paragraph if empty
+    .ce-block .ce-paragraph[data-placeholder]:empty:focus-within:before,
+    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder][contenteditable=true]:empty:before {
+      opacity: 0.5 !important;
+    }
+    // hide placeholder when text editor is disabled
+    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder][contenteditable=false]:empty:before {
+      opacity: 0 !important;
+    }
 
 
     ///////////////////////// HEADER /////////////////////////
@@ -279,14 +279,14 @@
       margin-bottom: 4px;
     }
 
-    //// always show the placeholder of header if empty
-    //.ce-header[data-placeholder]:empty:before {
-    //  display: block !important;
-    //  opacity: 0.5;
-    //  font-weight: inherit;
-    //  color: var(--light-color);
-    //  cursor: text;
-    //}
+    // always show the placeholder of header if empty
+    .ce-header[data-placeholder]:empty:before {
+      display: block !important;
+      opacity: 0.5;
+      font-weight: inherit;
+      color: var(--light-color);
+      cursor: text;
+    }
 
     //////////////////// LIST ////////////////////
     // Style for the root list
