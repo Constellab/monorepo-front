@@ -36,6 +36,7 @@ export * from './lib/block/te-header-with-id-block.class';
 export * from './lib/block/te-hint-block.class';
 export * from './lib/block/te-nested-list-block.class';
 export * from './lib/block/te-paragraph-block.class';
+export * from './lib/block/te-table-block.class';
 export * from './lib/block/te-video-block.class';
 
 // Inline tool
