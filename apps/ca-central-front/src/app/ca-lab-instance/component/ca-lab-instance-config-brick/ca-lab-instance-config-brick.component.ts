@@ -49,6 +49,7 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
   titleFormControl: FormControl<string> = new FormControl('');
 
   isUpdate: boolean;
+  userId: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) private brickVersionDTO: CaLabManagerBrickVersionDTO,
               private dialogRef: MatDialogRef<CaLabInstanceConfigBrickComponent>,
@@ -66,16 +67,22 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
 
     this.initForm();
 
-    if (this.isUpdate){
-      this.brickSelectionMode = false;
-      this.communityBrickService.getByName(this.brickVersionDTO.name).subscribe((brick) => {
-        this.initBrickVersionSelection(brick);
-      });
-    }
+    this.authenticatedUserService.getUser$().subscribe((user) => {
+      this.userId = user.id;
 
-    if (this.brickSelectionMode) {
-      this.initBrickSelection();
-    }
+      if (this.isUpdate){
+        this.brickSelectionMode = false;
+        this.communityBrickService.getByName(this.brickVersionDTO.name, this.userId).subscribe((brick) => {
+          this.initBrickVersionSelection(brick);
+        });
+      }
+
+      if (this.brickSelectionMode) {
+        this.initBrickSelection();
+      }
+    });
+
+
 
   }
 
@@ -125,17 +132,17 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
     this.spaceService.getMySpaces().subscribe((spaces) => {
       this.spaces = spaces;
     });
-    this.authenticatedUserService.getUser$().subscribe((user) => {
-      this.bricks$ = this.communityBrickService.getPaginatedCommunityBricks(10, user.id)
-      this.updateBricks();
-      this.isLoading = false;
-    });
+
+    this.bricks$ = this.communityBrickService.getPaginatedCommunityBricks(10, this.userId);
+    this.updateBricks();
+    this.isLoading = false;
+
   }
 
   private initBrickVersionSelection(brick: CaCommunityBrick): void {
     this.formGp.controls.name.patchValue(brick?.name);
     this.formGp.controls.brick.patchValue(brick);
-    this.communityBrickService.getVersionsList(brick.id).subscribe((versionsList) => {
+    this.communityBrickService.getVersionsList(brick.id, this.userId).subscribe((versionsList) => {
       if (this.isUpdate && this.formGp.controls.version.value) {
         const splitIndex = versionsList.indexOf(this.formGp.controls.version.value);
         this.versions = versionsList.slice(0, splitIndex + 1)

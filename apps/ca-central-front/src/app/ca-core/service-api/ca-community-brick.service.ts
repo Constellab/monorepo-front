@@ -11,25 +11,23 @@ import {
 @Injectable({providedIn: 'root'})
 export class CaCommunityBrickService {
 
-  private readonly route = 'brick';
+  private readonly route = 'community';
 
   constructor(private apiService: FlApiService,
               private communityServiceConfig: CaCoServiceConfig) {
   }
 
-  public getByName(name: string): Observable<CaCommunityBrick> {
-    return this.apiService.get(`${this.route}/name/${name}`, CaCommunityBrick,
-      {overrideApiUrl : this.communityServiceConfig.getCommunityApiUrl() + '/'});
+  public getByName(name: string, userId: string): Observable<CaCommunityBrick> {
+    return this.apiService.post(`${this.route}/brick/name/${name}`, {userId: userId}, CaCommunityBrick);
   }
 
   public getAllWithFilters(spacesFilter: string[], titleFilter: string,
                            page: number, size: number, userId: string): Observable<ClPage<CaCommunityBrick>> {
-    return this.apiService.post(`${this.route}/filters`,
+    return this.apiService.post(`${this.route}/brick/filters`,
       {spacesFilter: spacesFilter, titleFilter: titleFilter, userId: userId}, CaCommunityBrick, {
         page: page,
         pageSize: size,
-        resultIsPaginated: true,
-        overrideApiUrl: this.communityServiceConfig.getCommunityApiUrl() + '/',
+        resultIsPaginated: true
       });
   }
 
@@ -40,11 +38,10 @@ export class CaCommunityBrickService {
   }
 
   getImageUrl(filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/image/${filename}`, this.communityServiceConfig.getCommunityApiUrl() + '/');
+    return this.apiService.getBaseRouteUrl(`brick/image/${filename}`, this.communityServiceConfig.getCommunityApiUrl() + '/');
   }
 
-  getVersionsList(brickId: string): Observable<string[]> {
-    return this.apiService.get(`${this.route}/versions-list/${brickId}`, null,
-      {overrideApiUrl : this.communityServiceConfig.getCommunityApiUrl() + '/'});
+  getVersionsList(brickId: string, userId: string): Observable<string[]> {
+    return this.apiService.post(`${this.route}/brick/versions-list/${brickId}`, {userId: userId}, null);
   }
 }
