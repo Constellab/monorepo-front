@@ -1,11 +1,11 @@
-import {PrWorkflowNode} from './pr-workflow-node.class';
-import {PrProcess, PrProcessStatus} from '../pr-process.class';
-import {map, Observable} from 'rxjs';
-import {FlStatus, FlThemeService, FlTranslatableText} from '@monorepo/front-core-lib';
-import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
-import {PrWorkflowPortType} from '../workflow/pr-workflow-port.class';
-import {PrWorkflowNodeIcon} from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
-import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
+import { PrWorkflowNode } from './pr-workflow-node.class';
+import { PrProcess, PrProcessStatus } from '../pr-process.class';
+import { map, Observable } from 'rxjs';
+import { FlStatus, FlTranslatableText } from '@monorepo/front-core-lib';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+import { PrWorkflowPortType } from '../workflow/pr-workflow-port.class';
+import { PrWorkflowNodeIcon } from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
 
 export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
@@ -109,7 +109,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
       return {
         icon: 'error',
         iconType: 'MATERIAL_ICON',
-        iconColor: FlThemeService.getInstance().getCurrentThemeDetail().accent,
+        iconColor: process.style.icon_color,
         iconTooltip: 'pr.process_not_available'
       };
     }
