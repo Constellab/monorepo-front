@@ -10,11 +10,6 @@
     </a>
 
     <ng-template #normalDoc>
-      <a mat-menu-item type="button" [href]="getDocumentPreviewUrl()" target="_blank">
-        <mat-icon>visibility</mat-icon>
-        <span>{{ 'preview_document' | translate }}</span>
-      </a>
-
       <a mat-menu-item type="button" [href]="getDocumentDownloadUrl()" download>
         <mat-icon>cloud_download</mat-icon>
         <span>{{ 'download_document' | translate }}</span>

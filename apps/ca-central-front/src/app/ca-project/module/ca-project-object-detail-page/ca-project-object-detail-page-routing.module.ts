@@ -1,5 +1,5 @@
-import {Route, RouterModule} from '@angular/router';
-import {NgModule} from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
 import {
   CaProjectDetailPageComponent
 } from '../ca-project-detail-page/component/ca-project-detail-page/ca-project-detail-page.component';
@@ -18,6 +18,9 @@ import {
 import {
   CaProjectActivityPageComponent
 } from '../ca-project-activity-page/component/ca-project-activity-page/ca-project-activity-page.component';
+import {
+  CaDocumentPreviewPageComponent
+} from '../ca-document-detail-page/component/ca-document-preview-page/ca-document-preview-page.component';
 
 const routes: Route[] = [
   {
@@ -26,7 +29,8 @@ const routes: Route[] = [
       {path: ':projectId/activity', component: CaProjectActivityPageComponent},
       {path: 'experiment/:experimentId', component: CaExperimentDetailPageComponent},
       {path: 'report/:reportId', component: CaReportDetailPageComponent},
-      {path: 'document/:documentId', component: CaDocumentDetailPageComponent}
+      {path: 'document/:documentId', component: CaDocumentDetailPageComponent},
+      {path: 'document/:documentId/preview', component: CaDocumentPreviewPageComponent}
     ]
   }
 ];

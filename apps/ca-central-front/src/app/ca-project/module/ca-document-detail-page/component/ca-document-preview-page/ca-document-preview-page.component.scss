@@ -1,0 +1,13 @@
+// override default page padding
+.page {
+  padding: var(--main-menu-margin) 1em 1em 1em;
+}
+
+.section {
+  flex: 1
+}
+
+.iframe {
+  flex: 1;
+  border: none;
+}
