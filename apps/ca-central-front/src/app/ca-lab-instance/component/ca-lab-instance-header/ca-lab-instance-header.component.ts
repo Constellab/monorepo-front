@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {CaLabInstance, CaLabInstanceStatus} from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
-import {FlHorizontalNavBarItem, FlStatus} from '@monorepo/front-core-lib';
-import {CaLabInstanceDetailPageState} from '../../state/ca-lab-instance-detail-page.state';
-import {combineLatest, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {CaRouterService} from '../../../ca-core/service/ca-router.service';
-import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
+import { Component, OnInit } from '@angular/core';
+import { CaLabInstance, CaLabInstanceStatus } from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
+import { FlHorizontalNavBarItem, FlStatus } from '@monorepo/front-core-lib';
+import { CaLabInstanceDetailPageState } from '../../state/ca-lab-instance-detail-page.state';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 
 /**
  * Header info about the lab instance in the detail page
@@ -55,11 +55,6 @@ export class CaLabInstanceHeaderComponent implements OnInit {
       });
     }
 
-    items.push({
-      label: {text: 'status_history', translateText: true},
-      route: CaRouterService.getLabInstanceStatusHistoryRoute(lab.id),
-      icon: 'history'
-    });
 
     items.push({
       label: {text: 'lab_usage', translateText: true},
@@ -74,6 +69,12 @@ export class CaLabInstanceHeaderComponent implements OnInit {
         icon: 'cloud_done'
       });
     }
+
+    items.push({
+      label: {text: 'status_history', translateText: true},
+      route: CaRouterService.getLabInstanceStatusHistoryRoute(lab.id),
+      icon: 'history'
+    });
 
     if(this.authenticatedUserService.isCurrentSpaceAdmin()){
       items.push({
