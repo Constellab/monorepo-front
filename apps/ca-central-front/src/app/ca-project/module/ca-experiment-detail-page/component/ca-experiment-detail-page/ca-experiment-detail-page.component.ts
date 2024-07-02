@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-experiment.class';
-import {CaExperimentService} from '../../../../../ca-core/service-api/ca-experiment.service';
-import {Observable} from 'rxjs';
-import {CaReport} from '../../../../../ca-core/model/entities/project/ca-report.class';
-import {CaReportService} from '../../../../../ca-core/service-api/ca-report.service';
-import {map} from 'rxjs/operators';
-import {FlArrayObs, FlEntityArrayObs} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CaExperiment } from '../../../../../ca-core/model/entities/project/ca-experiment.class';
+import { CaExperimentService } from '../../../../../ca-core/service-api/ca-experiment.service';
+import { Observable } from 'rxjs';
+import { CaReport } from '../../../../../ca-core/model/entities/project/ca-report.class';
+import { CaReportService } from '../../../../../ca-core/service-api/ca-report.service';
+import { map } from 'rxjs/operators';
+import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ca-experiment-detail-page',
@@ -43,18 +43,14 @@ export class CaExperimentDetailPageComponent implements OnInit {
 
   private getExperiment(id: string): void {
     this.isLoading = true;
-    this.experimentService.findById(id).subscribe(
-      experiment => this.getExperimentSuccess(experiment),
-      () => this.isLoading = false
-    );
+    this.experimentService.findById(id).subscribe({
+      next: experiment => this.getExperimentSuccess(experiment),
+      error: () => this.isLoading = false
+    });
   }
 
   private getExperimentSuccess(experiment: CaExperiment): void {
-    this.onExperimentUpdate(experiment);
-    this.isLoading = false;
-  }
-
-  onExperimentUpdate(experiment: CaExperiment): void {
     this.experiment = experiment;
+    this.isLoading = false;
   }
 }

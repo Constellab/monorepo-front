@@ -1,11 +1,11 @@
-<fl-async-section [object]="experiment$" class="section">
+<fl-async-section [object]="experiment$" class="section g-scrollable-element" cdkScrollable>
 
   <ng-container *flSectionBody="experiment$ as experiment">
     <div class="g-layout-row g-layout-between header">
 
       <fl-text-icon>
         <mat-icon flIcon="experiment"></mat-icon>
-        <h2 class="title">{{ experiment.title }}</h2>
+        <h2 class="title g-text-dense-height">{{ experiment.title }}</h2>
       </fl-text-icon>
 
       <div>
@@ -16,9 +16,7 @@
       </div>
     </div>
 
-    <ca-experiment-card-detail [experiment]="experiment"
-                               class="experiment"></ca-experiment-card-detail>
+    <ca-experiment-card-detail [experiment]="experiment" [showCardHeader]="false"></ca-experiment-card-detail>
 
-    <ca-lab-instance-card [labInstance]="experiment.labInstance"></ca-lab-instance-card>
   </ng-container>
 </fl-async-section>

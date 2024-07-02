@@ -1,4 +1,12 @@
-:host{
+:host {
   display: flex;
   width: 100%;
+}
+
+.title {
+  word-break: break-word;
+}
+
+.open-button {
+  margin-top: 1em;
 }

@@ -3,15 +3,11 @@
   padding: var(--main-menu-margin) 1em 0 1em;
 }
 
-.header {
-  margin-bottom: 1em;
-}
-
-
-.flex {
-  flex: 1;
-}
-
 .experiment-card {
   margin-right: 2em;
+  flex: 2;
+}
+
+.lab-card {
+  flex: 1;
 }
