@@ -2,7 +2,7 @@
 
 # Entry point of the docker file
 # Create the environment.json file from env variables
-echo "{\"apiBaseUrl\" : \"$API_URL\",  \"devApiBaseUrl\" : \"$LAB_DEV_API_URL\", \"codelabUrl\" : \"$CODELAB_URL\", \"virtualHost\" : \"$VIRTUAL_HOST\",  \"spaceFrontUrl\" : \"$CENTRAL_FRONT_URL\", \"spaceApiUrl\" : \"$CENTRAL_API_URL\",  \"communityFrontUrl\" : \"$COMMUNITY_FRONT_URL\",  \"communityApiUrl\" : \"$COMMUNITY_API_URL\", \"captchaSiteKey\" : \"$CAPTCHA_SITE_KEY\"}" > /usr/share/nginx/html/assets/environment.json
+echo "{\"apiBaseUrl\" : \"$API_URL\",  \"devApiBaseUrl\" : \"$LAB_DEV_API_URL\", \"codelabUrl\" : \"$CODELAB_URL\", \"virtualHost\" : \"$VIRTUAL_HOST\",  \"spaceFrontUrl\" : \"$SPACE_FRONT_URL\", \"spaceApiUrl\" : \"$SPACE_API_URL\",  \"communityFrontUrl\" : \"$COMMUNITY_FRONT_URL\",  \"communityApiUrl\" : \"$COMMUNITY_API_URL\", \"captchaSiteKey\" : \"$CAPTCHA_SITE_KEY\"}" > /usr/share/nginx/html/assets/environment.json
 
 # Replace the variable in the nginx template file and create the nginx configuration file
 envsubst '${VIRTUAL_HOST}' < /etc/nginx/conf.d/nginx.template > /etc/nginx/conf.d/default.conf
