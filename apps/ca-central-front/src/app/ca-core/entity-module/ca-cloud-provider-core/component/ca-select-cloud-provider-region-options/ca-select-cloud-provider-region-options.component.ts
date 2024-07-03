@@ -1,8 +1,10 @@
-import {AfterViewInit, Component, Host, Input, OnDestroy, OnInit} from '@angular/core';
-import {FlEmbeddedOptionsAbstractDirective} from '@monorepo/front-core-lib';
-import {CaCloudProviderService} from '../../../../service-api/ca-cloud-provider.service';
-import {CaCloudProviderRegionDatasource} from '../../../../model/entities/ca-cloud-provider.class';
-import {MatSelect} from '@angular/material/select';
+import { AfterViewInit, Component, Host, Input, OnDestroy, OnInit } from '@angular/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
+import { CaCloudProviderRegionDatasource } from '../../../../model/entities/ca-cloud-provider.class';
+import { MatSelect } from '@angular/material/select';
+
+export type CaSelectCloudProviderRegionOptionsMode = 'all' | 'S3' | 'SERVER' | 'AZURE';
 
 @Component({
   selector: 'ca-select-cloud-provider-region-options',
@@ -12,7 +14,9 @@ import {MatSelect} from '@angular/material/select';
 export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit, OnDestroy {
 
-  @Input({required: true}) mode: 'all' | 'S3' | 'SERVER';
+  @Input({ required: true }) set mode(mode: CaSelectCloudProviderRegionOptionsMode) {
+    this.init(mode);
+  }
 
   datasource: CaCloudProviderRegionDatasource;
 
@@ -23,8 +27,10 @@ export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptio
 
   ngOnInit(): void {
     this.overrideCompareWithOnIds(this.select);
+  }
 
-    switch (this.mode) {
+  private init(mode: CaSelectCloudProviderRegionOptionsMode): void {
+    switch (mode) {
       case 'all':
         this.datasource = this.cloudProviderService.getAllRegionsDatasource();
         break;
@@ -33,6 +39,9 @@ export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptio
         break;
       case 'SERVER':
         this.datasource = this.cloudProviderService.getRegionsByType('SERVER');
+        break;
+      case 'AZURE':
+        this.datasource = this.cloudProviderService.getRegionsByCloudProvider('AZURE');
         break;
     }
   }

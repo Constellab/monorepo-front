@@ -1,15 +1,15 @@
-import {AfterViewInit, Component, Host, Input, OnDestroy, OnInit} from '@angular/core';
+import { AfterViewInit, Component, Host, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   CaBucketLocationDatasource,
   CaBucketLocationDTO,
   CaBucketType
 } from '../../../../model/entities/ca-object-storage.class';
-import {Observable} from 'rxjs';
-import {MatSelect} from '@angular/material/select';
-import {FlEmbeddedOptionsAbstractDirective} from '@monorepo/front-core-lib';
-import {CaProjectService} from '../../../../service-api/ca-project.service';
-import {ClHelpService} from '@monorepo/core-lib';
-import {map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { MatSelect } from '@angular/material/select';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { CaProjectService } from '../../../../service-api/ca-project.service';
+import { ClHelpService } from '@monorepo/core-lib';
+import { map } from 'rxjs/operators';
 
 interface CaBucketLocationList {
   cloud: CaBucketLocationDTO[];
@@ -50,7 +50,7 @@ export class CaBucketLocationSelectOptionsComponent extends FlEmbeddedOptionsAbs
 
   private sortLocations(locations: CaBucketLocationDTO[]): CaBucketLocationList {
     return {
-      cloud: locations.filter(location => location.bucketType === CaBucketType.NORMAL)
+      cloud: locations.filter(location => [CaBucketType.NORMAL, CaBucketType.AZURE].includes(location.bucketType))
         .sort((a, b) => a.locationName.localeCompare(b.locationName)),
       lab: locations.filter(location => location.bucketType === CaBucketType.LAB)
         .sort((a, b) => a.locationName.localeCompare(b.locationName))

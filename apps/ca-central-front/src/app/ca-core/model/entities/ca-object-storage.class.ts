@@ -1,10 +1,10 @@
-import {CaBaseEntity} from './ca-base-entity.class';
-import {CaCloudProvider, CaCloudProviderRegion} from './ca-cloud-provider.class';
-import {Type} from 'class-transformer';
-import {CaSpace} from './space/ca-space.class';
-import {FlDatasourcePaginated, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {CaLabInstance} from './lab/ca-lab-instance.class';
-import {ClGetPageFunction} from '@monorepo/core-lib';
+import { CaBaseEntity } from './ca-base-entity.class';
+import { CaCloudProvider, CaCloudProviderRegion } from './ca-cloud-provider.class';
+import { Type } from 'class-transformer';
+import { CaSpace } from './space/ca-space.class';
+import { FlDatasourcePaginated, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { CaLabInstance } from './lab/ca-lab-instance.class';
+import { ClGetPageFunction } from '@monorepo/core-lib';
 
 
 export class CaBucketCredentials extends CaBaseEntity {
@@ -45,7 +45,8 @@ export enum CaBucketContentType {
 
 export enum CaBucketType {
   NORMAL = 'NORMAL',
-  LAB = 'LAB' // bucket hosted on a lab
+  AZURE = 'AZURE', // azure blob storage
+  LAB = 'LAB', // bucket hosted on a lab
 }
 
 
