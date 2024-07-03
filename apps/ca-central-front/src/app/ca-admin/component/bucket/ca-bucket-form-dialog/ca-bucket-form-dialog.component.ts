@@ -78,8 +78,6 @@ export class CaBucketFormDialogComponent
       }
     }
 
-    this.formGp.get('region').reset();
-
     this.formGp.updateValueAndValidity();
   }
 
