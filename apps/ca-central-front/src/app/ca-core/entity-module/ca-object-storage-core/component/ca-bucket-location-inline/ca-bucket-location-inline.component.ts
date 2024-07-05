@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {CaBucketLocationDTO} from '../../../../model/entities/ca-object-storage.class';
+import { Component, Input } from '@angular/core';
+import { CaBucketLocationDTO } from '../../../../model/entities/ca-object-storage.class';
 
 @Component({
   selector: 'ca-bucket-location-inline',
@@ -8,5 +8,5 @@ import {CaBucketLocationDTO} from '../../../../model/entities/ca-object-storage.
 })
 export class CaBucketLocationInlineComponent {
 
-  @Input() bucketLocation: CaBucketLocationDTO;
+  @Input({required: true}) bucketLocation: CaBucketLocationDTO;
 }

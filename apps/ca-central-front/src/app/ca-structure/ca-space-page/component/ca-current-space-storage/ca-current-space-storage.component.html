@@ -57,7 +57,7 @@
             [bucketLocation]="spaceStorage.defaultProjectStorageLocation"></ca-bucket-location-inline>
         </fl-key-value>
 
-        <fl-key-value *ngIf="spaceStorage.defaultBackupProjectStorageLocation">
+        <fl-key-value *ngIf="spaceStorage.defaultBackupProjectStorageLocation" class="backup-storage">
           <fl-key>{{ 'space_default_project_backup_storage_location' | translate }}</fl-key>
           <ca-bucket-location-inline
             [bucketLocation]="spaceStorage.defaultBackupProjectStorageLocation"></ca-bucket-location-inline>

@@ -1,17 +1,20 @@
 <fl-infinite-scroll [datasource]="datasource">
   <mat-option [value]="null">None</mat-option>
 
-  <ng-container *ngIf="locations$ | async as locations">
+  @if (locations$ | async; as locations) {
+
+    @if (locations.lab.length > 0 && mode === 'all') {
+      <mat-optgroup [label]="'lab_location' | translate">
+        <mat-option *ngFor="let location of locations.lab" [value]="location">
+          <ca-bucket-location-inline [bucketLocation]="location"></ca-bucket-location-inline>
+        </mat-option>
+      </mat-optgroup>
+    }
+
     <mat-optgroup [label]="'cloud_location' | translate">
       <mat-option *ngFor="let location of locations.cloud" [value]="location">
-        <ca-bucket-location-inline [bucketLocation]="location"></ca-bucket-location-inline>
+        <ca-cloud-provider-region-inline [region]="location.cloudRegion"></ca-cloud-provider-region-inline>
       </mat-option>
     </mat-optgroup>
-
-    <mat-optgroup [label]="'lab_location' | translate" *ngIf="locations.lab.length > 0 && mode === 'all'">
-      <mat-option *ngFor="let location of locations.lab" [value]="location">
-        <ca-bucket-location-inline [bucketLocation]="location"></ca-bucket-location-inline>
-      </mat-option>
-    </mat-optgroup>
-  </ng-container>
+  }
 </fl-infinite-scroll>

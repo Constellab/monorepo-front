@@ -1,18 +1,18 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {ValidatorFn, Validators} from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { ValidatorFn, Validators } from '@angular/forms';
 import {
   CaProject,
   CaProjectLevel,
   CaProjectLevelStatus,
   CnSaveProjectDTO
 } from '../../../../model/entities/project/ca-project.class';
-import {CaProjectService} from '../../../../service-api/ca-project.service';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {FlFormDialogAbstractDirective, FlFormDialogInput,} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {CaSpaceService} from '../../../../service-api/ca-space.service';
-import {DateTime} from 'luxon';
+import { CaProjectService } from '../../../../service-api/ca-project.service';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { Observable } from 'rxjs';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CaSpaceService } from '../../../../service-api/ca-space.service';
+import { DateTime } from 'luxon';
 
 export interface CaProjectFormDialogInput extends FlFormDialogInput<CaProject> {
   level: CaProjectLevel;
@@ -51,8 +51,9 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
     if (this.showStorage) {
       this.spaceService.getCurrentSpaceSettings().subscribe(
         spaceSettings => {
+          console.log(spaceSettings)
           this.formGp.get('mainStorage').setValue(spaceSettings.defaultProjectStorageLocation);
-          this.formGp.get('backupStorage').setValue(spaceSettings.defaultBackupProjectStorageLocation);
+          this.formGp.get('backupStorage').setValue(spaceSettings.defaultProjectBackupStorageLocation);
         }
       );
     }

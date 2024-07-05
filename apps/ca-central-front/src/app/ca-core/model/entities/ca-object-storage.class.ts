@@ -90,16 +90,12 @@ export class CaBucketLocationDTO {
   bucketId: string;
   locationName: string;
   bucketType: CaBucketType;
-  cityName?: string;
-  countryName?: string;
-  cloudProviderName?: string;
 
-  getIcon(): string {
-    if (this.bucketType === CaBucketType.LAB) {
-      return 'lab';
-    } else {
-      return 'cloud';
-    }
+  @Type(() => CaCloudProviderRegion)
+  cloudRegion?: CaCloudProviderRegion;
+
+  get isCloudBucket(): boolean {
+    return this.bucketType !== CaBucketType.LAB;
   }
 }
 

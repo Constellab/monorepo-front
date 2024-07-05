@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {CaCoreModule} from '../../ca-core.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CaCoreModule } from '../../ca-core.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   CaSelectBucketCredentialsOptionsComponent
 } from './component/ca-select-bucket-credentials-options/ca-select-bucket-credentials-options.component';
@@ -14,6 +14,7 @@ import {
 import {
   CaBucketLocationInlineComponent
 } from './component/ca-bucket-location-inline/ca-bucket-location-inline.component';
+import { CaCloudProviderCoreModule } from '../ca-cloud-provider-core/ca-cloud-provider-core.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,6 @@ import {
     CaBucketLocationSelectOptionsComponent,
     CaBucketLocationInlineComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, CaCoreModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CaCoreModule, CaCloudProviderCoreModule]
 })
 export class CaObjectStorageCoreModule {}

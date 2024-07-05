@@ -1,6 +1,6 @@
-import {Type} from 'class-transformer';
-import {CaSpace} from './ca-space.class';
-import {CaBucketLocationDTO} from '../ca-object-storage.class';
+import { Type } from 'class-transformer';
+import { CaSpace } from './ca-space.class';
+import { CaBucketLocationDTO } from '../ca-object-storage.class';
 
 
 export class CaSpaceSettingsDto {
@@ -14,7 +14,7 @@ export class CaSpaceSettingsDto {
   defaultProjectStorageLocation: CaBucketLocationDTO;
 
   @Type(() => CaBucketLocationDTO)
-  defaultBackupProjectStorageLocation ?: CaBucketLocationDTO;
+  defaultProjectBackupStorageLocation ?: CaBucketLocationDTO;
 
 }
 
