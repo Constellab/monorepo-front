@@ -1,10 +1,12 @@
-import {Component, ComponentRef, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {LabEntityType} from '../../../../model/entities/lab-navigable-entity.entity';
+import { Component, ComponentRef, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
 import {
   LabExperimentTableComponent
 } from '../../../lab-experiment-core/component/lab-experiment-table/lab-experiment-table.component';
-import {FlEntityArrayObs} from '@monorepo/front-core-lib';
-import {LabReportTableComponent} from '../../../lab-report-core/component/lab-report-table/lab-report-table.component';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib';
+import {
+  LabReportTableComponent
+} from '../../../lab-report-core/component/lab-report-table/lab-report-table.component';
 import {
   LabResourceTableComponent
 } from '../../../lab-resource-core/component/lab-resource-table/lab-resource-table.component';
@@ -53,7 +55,7 @@ export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
   private experimentTable(): ComponentRef<any> {
     const componentRef = this.viewContainer.createComponent(LabExperimentTableComponent);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
-    componentRef.instance.columns = ['title', 'status', 'createdAt'];
+    componentRef.instance.columns = ['title', 'status', 'lastModification'];
     componentRef.instance.rowLinkTarget = '_blank';
     return componentRef;
   }
@@ -61,7 +63,7 @@ export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
   private resourceTable(): ComponentRef<any> {
     const componentRef = this.viewContainer.createComponent(LabResourceTableComponent);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
-    componentRef.instance.columns = ['name', 'type', 'created', 'viewResource'];
+    componentRef.instance.columns = ['name', 'type', 'lastModification', 'viewResource'];
     componentRef.instance.rowLinkTarget = '_blank';
     return componentRef;
   }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FlArrayObs,
   FlArrayObsStatus,
@@ -8,11 +8,11 @@ import {
   FlTag,
   FlTagSelectedEvent
 } from '@monorepo/front-core-lib';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {ClHelpService} from '@monorepo/core-lib';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {LabResourceDetailDialogComponent} from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
-import {Observable} from 'rxjs';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { ClHelpService } from '@monorepo/core-lib';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
+import { LabResourceDetailDialogComponent } from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
+import { Observable } from 'rxjs';
 
 /**
  * Table to show resource with possibility actions on resource and a select mode
@@ -27,7 +27,7 @@ export class LabResourceTableComponent implements OnInit {
 
   @Input() datasource: FlArrayObs<LabResource>;
 
-  @Input() columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'created', 'viewResource'];
+  @Input() columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'lastModification', 'viewResource'];
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() selectableRow: boolean = false;

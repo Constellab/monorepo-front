@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlArrayObs, FlTableColumnStatic} from '@monorepo/front-core-lib';
-import {LabProtocolTemplate} from '../../../../model/entities/process/lab-protocol-template.entity';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { LabProtocolTemplate } from '../../../../model/entities/process/lab-protocol-template.entity';
 
 @Component({
   selector: 'lab-protocol-template-table',
@@ -9,9 +9,9 @@ import {LabProtocolTemplate} from '../../../../model/entities/process/lab-protoc
 })
 export class LabProtocolTemplateTableComponent {
 
-  @Input() datasource: FlArrayObs<LabProtocolTemplate>;
+  @Input({required: true}) datasource: FlArrayObs<LabProtocolTemplate>;
 
-  @Input() columns: FlTableColumnStatic<LabProtocolTemplate>[];
+  @Input() columns: FlTableColumnStatic<LabProtocolTemplate>[] = ['name', 'tags', 'lastModification'];
 
   @Input() rowSelectable: boolean = false;
 

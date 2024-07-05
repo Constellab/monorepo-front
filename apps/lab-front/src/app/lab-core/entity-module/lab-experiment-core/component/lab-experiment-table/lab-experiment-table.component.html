@@ -54,8 +54,8 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Created -->
-  <ng-container matColumnDef="createdAt">
+  <!-- Creation -->
+  <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef>
       <span>{{ 'creation_info' | translate }}</span>
     </mat-header-cell>
@@ -64,6 +64,18 @@
                          class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
+
+  <!-- Last modification -->
+  <ng-container matColumnDef="lastModification">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'last_modification_info' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let experiment">
+      <fl-user-with-date [user]="experiment.lastModifiedBy" [date]="experiment.lastModifiedAt"
+                         class="over-link"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
 
   <!-- Tags -->
   <ng-container matColumnDef="tags">

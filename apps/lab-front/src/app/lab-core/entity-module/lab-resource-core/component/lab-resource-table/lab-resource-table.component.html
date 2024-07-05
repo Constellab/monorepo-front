@@ -48,13 +48,24 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Created -->
-  <ng-container matColumnDef="created">
+  <!-- Creation -->
+  <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef>
       <span> {{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
       <fl-user-with-date [user]="resource.createdBy" [date]="resource.createdAt"
+                         class="over-link"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last modification -->
+  <ng-container matColumnDef="lastModification">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'last_modification_info' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let resource">
+      <fl-user-with-date [user]="resource.lastModifiedBy" [date]="resource.lastModifiedAt"
                          class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
@@ -77,10 +88,10 @@
 
   <!-- Tags -->
   <ng-container matColumnDef="tags">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
       <span> {{ 'tags' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let resource">
+    <mat-cell *matCellDef="let resource" class="g-column-width-2">
       @defer (on viewport) {
         <lab-tag-list [tags]="resource | labGetEntityTags"
                       [tagSelectable]="tagSelectable"></lab-tag-list>

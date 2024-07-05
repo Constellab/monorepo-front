@@ -15,7 +15,7 @@
 
     <fl-search-header-actions>
       <!--   Import protocol template     -->
-      <fl-input-file-icon-container [matTooltip]="'biox.import_protocol_template' | translate" i
+      <fl-input-file-icon-container [matTooltip]="'biox.import_protocol_template' | translate"
                                     icon="upload_file" color="accent">
         <input flInputFile [multiple]="false" type="file" accept="application/json"
                (fileChange)="createFromFile($any($event))" [autoClearHtmlInput]="true">
@@ -25,7 +25,7 @@
 
 
   <fl-search-result>
-    <lab-protocol-template-table [datasource]="datasource" [columns]="columns" [rowSelectable]="rowSelectable"
+    <lab-protocol-template-table [datasource]="datasource" [rowSelectable]="rowSelectable"
                                  (templateSelected)="selectTemplate($event)"></lab-protocol-template-table>
   </fl-search-result>
 

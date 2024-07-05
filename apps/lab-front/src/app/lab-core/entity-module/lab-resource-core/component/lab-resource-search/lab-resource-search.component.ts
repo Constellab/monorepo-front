@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
   FlDatasourcePaginated,
   FlDialogService,
@@ -12,19 +12,19 @@ import {
   FlTag,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabResourceSearch, LabResourceSearchFields} from '../../model/lab-resource-search.class';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
+import { LabResourceSearch, LabResourceSearchFields } from '../../model/lab-resource-search.class';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import {
   LabFsNodeTypesSelectionDialogComponent,
   LabFsNodeTypesSelectionDialogInput,
   LabFsNodeTypesSelectionDialogMode,
   LabFsNodeTypesSelectionDialogResult
 } from '../lab-fs-node-types-selection-dialog/lab-fs-node-types-selection-dialog.component';
-import {ClCoreJsonConvert, ClHelpService} from '@monorepo/core-lib';
-import {Subscription} from 'rxjs';
-import {LabFileResourceService} from '../../../../entity-service/lab-file-resource.service';
-import {LabRouterService} from '../../../../service/lab-router.service';
+import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
+import { Subscription } from 'rxjs';
+import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
+import { LabRouterService } from '../../../../service/lab-router.service';
 import {
   LabImportResourceFromLinkComponent
 } from '../lab-import-resource-from-link/lab-import-resource-from-link.component';
@@ -75,8 +75,8 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.columns = this.fullPageSearch ?
-      ['name', 'type', 'tags', 'created', 'viewResource', 'flagged'] :
-      ['name', 'type', 'created', 'viewResource']; // no tags, flagged
+      ['name', 'type', 'tags', 'lastModification', 'viewResource', 'flagged'] :
+      ['name', 'type', 'lastModification', 'viewResource']; // no tags, flagged
     // in none selectable mode, we add the action column
     if (!this.resourceSelectable) {
       this.columns.push('action');

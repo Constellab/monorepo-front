@@ -7,19 +7,31 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       <!--    Invisible link  -->
-      <a *ngIf="!rowSelectable" [routerLink]="template | labDetailRoute"
-         [target]="rowLinkTarget" class="g-row-link"></a>
+      @if(!rowSelectable) {
+        <a [routerLink]="template | labDetailRoute"
+           [target]="rowLinkTarget" class="g-row-link"></a>
+      }
       <div class="text g-text-dense-height">{{ template.name }}</div>
     </mat-cell>
   </ng-container>
 
-  <!-- Created -->
-  <ng-container matColumnDef="created">
+  <!-- Creation -->
+  <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef>
       <span> {{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       <fl-user-with-date [user]="template.createdBy" [date]="template.createdAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last modification -->
+  <ng-container matColumnDef="lastModification">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'last_modification_info' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let template">
+      <fl-user-with-date [user]="template.lastModifiedBy" [date]="template.lastModifiedAt"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 

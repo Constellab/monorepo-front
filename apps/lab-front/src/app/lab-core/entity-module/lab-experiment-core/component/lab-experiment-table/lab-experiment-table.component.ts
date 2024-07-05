@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlArrayObs, FlTableColumnStatic, FlTag} from '@monorepo/front-core-lib';
-import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlArrayObs, FlTableColumnStatic, FlTag } from '@monorepo/front-core-lib';
+import { LabExperiment } from '../../../../model/entities/lab-experiment.entity';
+import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
   selector: 'lab-experiment-table',
@@ -12,7 +12,7 @@ export class LabExperimentTableComponent {
 
   @Input() datasource: FlArrayObs<LabExperiment>;
 
-  @Input() columns: FlTableColumnStatic<LabExperiment>[] = ['title', 'status', 'tags', 'createdAt'];
+  @Input() columns: FlTableColumnStatic<LabExperiment>[] = ['title', 'status', 'tags', 'lastModification'];
 
   @Input() rowSelectable: boolean = false;
 
