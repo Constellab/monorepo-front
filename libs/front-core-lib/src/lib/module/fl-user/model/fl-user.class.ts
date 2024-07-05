@@ -18,6 +18,8 @@ export interface FlUser extends FlEntity{
 
   activity?: string;
 
+  alias?: string;
+
 }
 
 export type FlUserDatasource = FlDatasourcePaginated<FlUser>;

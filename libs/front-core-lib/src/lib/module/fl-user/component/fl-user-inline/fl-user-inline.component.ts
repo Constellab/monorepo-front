@@ -10,6 +10,7 @@ export class FlUserInlineComponent implements OnInit {
 
   @Input({required: true}) user: FlUser;
 
+
   @Input() showName: boolean = true;
 
   /**

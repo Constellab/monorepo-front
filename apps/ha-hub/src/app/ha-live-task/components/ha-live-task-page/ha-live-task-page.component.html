@@ -34,12 +34,12 @@
         }
       </h5>
       <div class="lt-user-line">
-        <fl-user-inline [portalOnHover]="false" [user]="liveTask.createdBy"></fl-user-inline>
+        <co-user-inline [user]="liveTask.createdBy"></co-user-inline>
         <mat-icon>workspace_premium</mat-icon>
       </div>
       @for (ltCoAuthor of ltCoAuthors; track ltCoAuthor.id) {
         <div class="lt-user-line">
-          <fl-user-inline [portalOnHover]="false" [user]="ltCoAuthor"></fl-user-inline>
+          <co-user-inline [user]="ltCoAuthor"></co-user-inline>
         </div>
       }
     </div>

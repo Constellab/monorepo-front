@@ -89,6 +89,11 @@ export class HaRouterService {
     return `${this.getBrickPageRoute(brickName, brickMajor)}version/`;
   }
 
+  ///////////////////////////// PROFILE ////////////////////////////////
+  public static getProfileRoute(): string{
+    return '/profile/';
+  }
+
 
   // --------------------------------------------------------------------------------------------
 

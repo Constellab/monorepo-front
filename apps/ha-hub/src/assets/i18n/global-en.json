@@ -325,5 +325,15 @@
   "MAMBA_PYTHON": "Mamba Python",
   "MAMBA_R": "Mamba R",
   "STREAMLIT": "Streamlit",
-  "login_to_post_a_comment": "Login to post a comment"
+  "login_to_post_a_comment": "Login to post a comment",
+  "edit_profile": "Edit profile",
+  "no_story_yet": "No story for the moment",
+  "no_brick_yet": "No brick for the moment",
+  "no_live_task_yet": "No live task for the moment",
+  "interests": "Interests",
+  "no_interests_yet": "No interests for the moment",
+  "common_spaces": "Common spaces",
+  "edit_user_infos": "Edit user informations",
+  "user_infos_updated_successfully": "User informations updated successfully",
+  "profile": "Profile"
 }

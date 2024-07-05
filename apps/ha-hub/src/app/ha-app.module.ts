@@ -10,7 +10,7 @@ import {
   FlCaptchaModule,
   FlCaptchaModuleConfig,
   FlDialogModule,
-  FlHttpInterceptorService,
+  FlHttpInterceptorService, FlIcon,
   FlIconModule,
   FlPortalActionsModule,
   FlPortalModule,

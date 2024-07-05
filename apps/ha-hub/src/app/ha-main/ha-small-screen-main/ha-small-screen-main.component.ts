@@ -39,6 +39,8 @@ export class HaSmallScreenMainComponent implements OnInit{
 
   homeRoute = HaRouterService.getHomeRoute();
 
+  profileRoute = HaRouterService.getProfileRoute();
+
   communityLogo: string;
 
   currentRoute: HaSmallScreenPossibleRoute;

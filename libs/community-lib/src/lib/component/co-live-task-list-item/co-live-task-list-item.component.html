@@ -4,17 +4,7 @@
   [user]="liveTask.createdBy"
   [date]="liveTask.lastModifiedAt"
   [likes]="liveTask.likes"
-  [comments]="liveTask.comments">
-  <div rightSide class="live-task-card-inner">
-    <div class="lt-infos-div">
-      <co-visibility-badge [space]="liveTask?.space"></co-visibility-badge>
-    </div>
-      <p class="spacing-4-v2" *ngIf="liveTask.latestPublishVersion; else notPublishedYetDiv"><b>{{ 'coCommunityLib.version' | translate }} {{ liveTask.latestPublishVersion }}</b></p>
-  </div>
+  [comments]="liveTask.comments"
+  [space]="liveTask.space"
+  [showVisibility]="true">
 </co-community-list-item>
-
-<ng-template #notPublishedYetDiv>
-  <div class="g-warn-text g-text-small">
-    <b>{{ 'not_published' | translate }}</b>
-  </div>
-</ng-template>

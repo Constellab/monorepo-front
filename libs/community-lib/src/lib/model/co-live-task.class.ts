@@ -1,7 +1,7 @@
 import {TeRichTextContent} from '@monorepo/text-editor';
 import {DateTime} from 'luxon';
 import {CoSpace} from './co-space.class';
-import {FlUser} from '@monorepo/front-core-lib';
+import {CoUser} from './co-user.class';
 
 export class CoLiveTask {
   id: string;
@@ -9,7 +9,7 @@ export class CoLiveTask {
   description?: TeRichTextContent;
   space?: any;
   latestPublishVersion: number;
-  createdBy?: FlUser;
+  createdBy?: CoUser;
   createdAt?: DateTime;
   lastModifiedAt?: DateTime;
   likes: number;

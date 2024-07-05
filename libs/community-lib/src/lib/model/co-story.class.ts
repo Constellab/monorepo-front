@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon';
-import {FlUser} from '@monorepo/front-core-lib';
+import {CoUser} from './co-user.class';
 
 export enum CoStoryCategory {
   DOCUMENTATION = 'DOCUMENTATION',
@@ -15,7 +15,7 @@ export class CoListStoryDto {
   mainPicture?: string;
   topics?: CoStoryTopic[];
   createdAt: DateTime;
-  createdBy: FlUser;
+  createdBy: CoUser;
   category: CoStoryCategory;
   publishedAt: DateTime;
   lastModifiedAt: DateTime;

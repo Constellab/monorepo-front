@@ -6,6 +6,13 @@ export const haSvgIcons: FlIcon[] = [
   {name: 'code', filename: 'laptop-code-solid.svg'},
   {name: 'community-icon', filename: 'community_logo.svg'},
 
+  {name: 'comment-accent', filename: 'comment-accent.svg'},
+  {name: 'comment-primary', filename: 'comment-primary.svg'},
+  {name: 'comment-warn', filename: 'comment-warn.svg'},
+
+  {name: 'heart', filename: 'heart.svg'},
+  {name: 'heart-fill', filename: 'heart-fill.svg'},
+
   // files icons
   {name: 'archive-file-icon', filename: 'archive-file-icon.svg'},
   {name: 'csv-file-icon', filename: 'csv-file-icon.svg'},
@@ -24,4 +31,9 @@ export const haSvgIcons: FlIcon[] = [
   {name: 'xlsx-file-icon', filename: 'xlsx-file-icon.svg'},
   {name: 'xls-file-icon', filename: 'xls-file-icon.svg'},
   {name: 'zip-file-icon', filename: 'zip-file-icon.svg'},
+
+  // socials icons
+  {name: 'github', filename: 'github-logo.svg'},
+  {name: 'linkedin', filename: 'linkedin-logo.svg'},
+  {name: 'x', filename: 'x-logo.svg'}
 ];

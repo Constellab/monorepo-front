@@ -1,19 +1,26 @@
 import {DateTime} from 'luxon';
 import {ClLuxonDateTimeTransform, ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 import {FlUser} from '@monorepo/front-core-lib';
+import {CoUser} from '@monorepo/community-lib';
 
-export class HaUser implements FlUser {
+export class HaUserDetailDto {
   id: string;
-
+  alias: string;
+  userCode: string;
   firstname: string;
-
   lastname: string;
+  photo: string;
+  githubLink?: string;
+  linkedinLink?: string;
+  xLink?: string;
+  interests?: string;
+}
+
+export class HaUser extends CoUser implements FlUser {
 
   email: string;
 
   theme: ClTheme;
-
-  photo: string;
 
   @ClLuxonDateTimeTransform()
   createdAt: DateTime;
@@ -26,6 +33,7 @@ export class HaUser implements FlUser {
     return (this.firstname || '') + ' ' + (this.lastname || '');
   }
 }
+
 
 export enum HaUserCategory {
   ADMIN = 'ADMIN',

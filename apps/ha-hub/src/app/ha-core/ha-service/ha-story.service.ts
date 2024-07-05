@@ -70,6 +70,18 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     });
   }
 
+  private getUserStories(userId: string, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
+    return this.apiService.get(this.route + '/user/' + userId, HaListStoryDto, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true
+    });
+  }
+
+  public getUserStoriesPaginated(pageSize: number = 4): HaStoryDatasourcePaginated{
+    return new FlEntityPaginatedDatasource((page, size, filters) => this.getUserStories(filters.userId, page, size), pageSize, false);
+  }
+
   /**
    * Call http put to update the title of a story
    * @param storyId id of the story

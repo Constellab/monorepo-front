@@ -83,3 +83,20 @@ h2{
     margin-top: 4px;
   }
 }
+
+
+@media screen and (max-width: 500px) {
+  :host{
+    margin-right: 0.25em;
+  }
+
+  .title-space-span{
+    h2{
+      max-width: 13em !important;
+      overflow: hidden;
+      display: inline-block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

@@ -21,6 +21,7 @@ export class FlUserProfilePictureComponent implements OnInit {
    */
   @Input() size: FlUserProfilePictureSize = 'medium';
 
+
   circleSize: string;
 
   fontSize: string;
@@ -33,7 +34,6 @@ export class FlUserProfilePictureComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     switch (this.size) {
       case 'small':
         this.circleSize = '28px';
@@ -52,11 +52,16 @@ export class FlUserProfilePictureComponent implements OnInit {
         this.circleSize = this.size + 'rem';
         this.fontSize = (this.size / 4) + 'rem';
     }
+
   }
 
   private setUser(user: FlUser): void {
+
+
     if (user) {
+
       this.initials = (user.firstname?.charAt(0) ?? '') + (user.lastname?.charAt(0) ?? '');
+
       if (user.photo) {
         this.imgSrc = this.userConfig.getUserPhotoUrl(user.photo);
       } else {

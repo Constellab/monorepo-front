@@ -8,12 +8,13 @@
     }
   </h5>
   <div class="brick-user-line">
-    <fl-user-inline [portalOnHover]="false" [user]="brick.createdBy"></fl-user-inline>
+    <co-user-inline [user]="brick.createdBy"></co-user-inline>
+
     <mat-icon>workspace_premium</mat-icon>
   </div>
   @for(brickUser of brickUsers; track brickUser.id){
     <div class="brick-user-line">
-      <fl-user-inline [portalOnHover]="false" [user]="brickUser"></fl-user-inline>
+      <co-user-inline [user]="brickUser"></co-user-inline>
     </div>
   }
 </div>

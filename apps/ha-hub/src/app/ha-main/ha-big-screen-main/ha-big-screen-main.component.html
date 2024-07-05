@@ -42,9 +42,9 @@
         {{ 'login' | translate }}
       </a>
       </ng-container>
-      <fl-user-profile-picture [user]="user" [matMenuTriggerFor]="userMenu"
+      <co-user-profile-picture [user]="user" [matMenuTriggerFor]="userMenu"
                                *ngIf="userConnected$ | async as user">
-      </fl-user-profile-picture>
+      </co-user-profile-picture>
     </span>
   <mat-menu #langMenu='matMenu'>
     <button mat-menu-item (click)="changeLanguage()">
@@ -56,12 +56,17 @@
     </button>
   </mat-menu>
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
-      {{ 'admin_dashboard' | translate }}
-    </button>
-    <button mat-menu-item (click)="logout()">
-      {{ 'logout' |translate }}
-    </button>
+    @if(userConnected$ | async; as user){
+      <button mat-menu-item [routerLink]="profileRoute + user.id">
+        {{ 'profile' | translate }}
+      </button>
+      <button mat-menu-item [routerLink]="adminRoute" *haIsAdmin>
+        {{ 'admin_dashboard' | translate }}
+      </button>
+      <button mat-menu-item (click)="logout()">
+        {{ 'logout' |translate }}
+      </button>
+    }
   </mat-menu>
 </mat-toolbar>
 

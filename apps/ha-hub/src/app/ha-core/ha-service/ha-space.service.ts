@@ -32,4 +32,8 @@ export class HaSpaceService {
   public isGencoveryMember(): Observable<boolean> {
     return this.apiService.get(`${this.route}/is-gencovery-member`);
   }
+
+  public getUserCommonSpace(userId: string): Observable<HaSpace[]> {
+    return this.apiService.get(`${this.route}/common-space/${userId}`, HaSpace);
+  }
 }

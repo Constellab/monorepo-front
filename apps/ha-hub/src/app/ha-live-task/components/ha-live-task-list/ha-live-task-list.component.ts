@@ -86,5 +86,5 @@ export class HaLiveTaskListComponent implements OnInit {
     });
   }
 
-    protected readonly ClStringHelper = ClStringHelper;
+  protected readonly ClStringHelper = ClStringHelper;
 }

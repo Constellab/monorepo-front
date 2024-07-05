@@ -1,0 +1,84 @@
+@if (user$ | async; as user) {
+  <div class="main-panel profile">
+    <div class="profile-left-side-div">
+      <div class="head-infos">
+        <div class="base-infos">
+          <co-user-profile-picture [user]="user" [size]="12"></co-user-profile-picture>
+          <h5>{{ user.alias }}</h5>
+          <p>#{{ user.userCode }}</p>
+          @if (isCurrentUser$ | async) {
+            <button mat-stroked-button (click)="openEditProfileDialog(user)">
+              {{ 'edit_profile' | translate }}
+            </button>
+          }
+        </div>
+        <div class="links-div">
+          <ha-profile-attached-link [linkType]="'x'" [attachedLink]="user.xLink"
+                                    *ngIf="user.xLink"></ha-profile-attached-link>
+          <ha-profile-attached-link [linkType]="'linkedin'" [attachedLink]="user.linkedinLink"
+                                    *ngIf="user.linkedinLink"></ha-profile-attached-link>
+          <ha-profile-attached-link [linkType]="'github'" [attachedLink]="user.githubLink"
+                                    *ngIf="user.githubLink"></ha-profile-attached-link>
+        </div>
+      </div>
+
+
+      <div>
+        <p>{{ 'interests' | translate }} :</p>
+        <p class="small-text">
+          {{ user.interests ?? ('no_interests_yet' | translate) }}
+        </p>
+      </div>
+
+      @if (commonSpace$ | async; as commonSpace) {
+        <div *ngIf="commonSpace.length > 0">
+          <p>{{ 'common_spaces' | translate }} :</p>
+          @for (space of commonSpace; track space.id) {
+            <div class="common-space-div">
+              <co-visibility-badge [space]="space"></co-visibility-badge>
+            </div>
+          }
+        </div>
+      }
+      <div class="profile-left-side-div-separator"></div>
+    </div>
+    <div class="profile-right-side-div">
+      @if (stories$ && stories$.page) {
+        <h4 class="list-title">{{ 'stories' | translate }} - <span>{{ stories$.page.totalElements }}</span></h4>
+        <fl-infinite-scroll [datasource]="stories$" infiniteMode="auto" class="list g-scrollable-element"
+                            cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_story_yet' | translate">
+          <a class="list-element" *ngFor="let story of stories$ | flDatasourceConnect | async"
+             [routerLink]="(story | haDetailRoute)">
+            <co-story-list-item [story]="story"
+                                [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+          </a>
+        </fl-infinite-scroll>
+        <div class="profile-list-separator"></div>
+      }
+
+      @if (liveTasks$ && liveTasks$.page) {
+        <h4 class="list-title">{{ 'live_tasks' | translate }} - <span>{{ liveTasks$.page.totalElements }}</span></h4>
+        <fl-infinite-scroll [datasource]="liveTasks$" infiniteMode="auto" class="list g-scrollable-element"
+                            cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_live_task_yet' | translate">
+          <a class="list-element" *ngFor="let liveTask of liveTasks$ | flDatasourceConnect | async"
+             [routerLink]="(liveTask | haDetailRoute)">
+            <co-live-task-list-item [liveTask]="liveTask"></co-live-task-list-item>
+          </a>
+        </fl-infinite-scroll>
+        <div class="profile-list-separator"></div>
+      }
+
+      @if (bricks$ && bricks$.page) {
+        <h4 class="list-title">{{ 'bricks' | translate }} - <span>{{ bricks$.page.totalElements }}</span></h4>
+        <fl-infinite-scroll [datasource]="bricks$" infiniteMode="auto" class="list g-scrollable-element"
+                            cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_brick_yet' | translate">
+          <a class="list-element" *ngFor="let brick of bricks$ | flDatasourceConnect | async"
+             [routerLink]="(brick | haDetailRoute)">
+            <co-brick-list-item [brick]="brick" [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+          </a>
+        </fl-infinite-scroll>
+      }
+    </div>
+
+  </div>
+}

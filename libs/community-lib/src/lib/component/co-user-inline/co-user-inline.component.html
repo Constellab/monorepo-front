@@ -1,0 +1,8 @@
+<div class="g-layout-row g-layout-start-center">
+  <co-user-profile-picture [user]="user" [size]="profilePictureSize"></co-user-profile-picture>
+
+  <div class="user-alias" [ngClass]="getTextSizeClass()">
+    {{user?.alias}}
+  </div>
+
+</div>

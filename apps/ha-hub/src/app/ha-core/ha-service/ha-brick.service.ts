@@ -78,6 +78,15 @@ export class HaBrickService implements HaCoAuthorService {
       (page, size, requestData) => this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), pageSize, false);
   }
 
+  public getUserBricks(userId: string, page: number, size: number): Observable<ClPage<HaBrick>> {
+    return this.apiService.get(`${this.route}/user/${userId}`, HaBrick, {page: page, pageSize: size, resultIsPaginated: true});
+  }
+
+  public getUserBricksPaginated(pageSize = 4): HaBrickDatasourcePaginated {
+    return new FlEntityPaginatedDatasource(
+      (page, size, requestData) => this.getUserBricks(requestData.userId, page, size), pageSize, false);
+  }
+
   /**
    * Call http get
    * @param name name of the entity

@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ClDateInput} from '@monorepo/core-lib';
-import {FlUser} from '@monorepo/front-core-lib';
 import {CoSpace} from '../../model/co-space.class';
+import {CoUser} from '../../model/co-user.class';
 
 @Component({
   selector: 'co-community-list-item-main-content',
@@ -14,7 +14,7 @@ export class CoCommunityListItemMainContentComponent {
   @Input() showVisibility: boolean;
   @Input() space?: CoSpace;
   @Input() description: string;
-  @Input() user: FlUser;
+  @Input() user: CoUser;
   @Input() date: ClDateInput;
   @Input() likes: number = null;
   @Input() comments: number = null;

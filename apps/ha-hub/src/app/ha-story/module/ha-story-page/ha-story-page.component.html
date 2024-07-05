@@ -15,7 +15,8 @@
       <div class="author-div">
         <div>
           <p class="small-text user-date-info">
-            <fl-user-inline [user]="story.createdBy" [portalOnHover]="false"></fl-user-inline>
+            <co-user-inline [user]="story.createdBy"></co-user-inline>
+
             <span class="g-text-small date-info">
               <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
             </span>
@@ -25,7 +26,7 @@
               <fl-key>{{ 'coauthors' | translate }}</fl-key>
               <span class="co-author-span">
             @for (coAuthor of storyCoAuthors; track coAuthor.id) {
-              <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
+              <co-user-inline [user]="coAuthor"></co-user-inline>
             }
           </span>
             </fl-key-value>

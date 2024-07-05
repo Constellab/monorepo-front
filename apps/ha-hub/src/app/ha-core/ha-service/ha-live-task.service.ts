@@ -60,6 +60,15 @@ export class HaLiveTaskService implements HaCoAuthorService {
         this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), pageSize, false);
   }
 
+  public getUserLiveTasks(userId: string, page: number, size: number): Observable<ClPage<HaLiveTask>>{
+    return this.apiService.get(`${this.route}/user/${userId}`, HaLiveTask, {page: page, pageSize: size, resultIsPaginated: true})
+  }
+
+  public getUserLiveTasksPaginated(pageSize: number = 4): HaLiveTaskDatasourcePaginated{
+    return new FlEntityPaginatedDatasource(
+      (page, size, requestData) => this.getUserLiveTasks(requestData.userId, page, size), pageSize, false);
+  }
+
   /**
    * Call http get to get a live task by id
    * @param id

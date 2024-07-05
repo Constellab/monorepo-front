@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ClDateInput} from '@monorepo/core-lib';
-import {FlUser} from '@monorepo/front-core-lib';
 import {CoSpace} from '../../model/co-space.class';
+import {CoUser} from '../../model/co-user.class';
 
 export enum CoCommunityListItemColor {
   MAIN = 'main',
@@ -19,7 +19,7 @@ export class CoCommunityListItemComponent {
   @Input() space?: CoSpace = null;
   @Input() showVisibility = false;
   @Input() description: string;
-  @Input() user: FlUser;
+  @Input() user: CoUser;
   @Input() date: ClDateInput;
   @Input() likes: number = null;
   @Input() comments: number = null;

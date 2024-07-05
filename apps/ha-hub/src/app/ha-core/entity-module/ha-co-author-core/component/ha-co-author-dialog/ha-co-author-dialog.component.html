@@ -7,7 +7,7 @@
     {{'coauthors' | translate}}:
     @if (coAuthors?.length > 0){
       <div *ngFor="let coAuthor of coAuthors" class="co-author-div">
-        <fl-user-inline [user]="coAuthor"></fl-user-inline>
+        <co-user-inline [user]="coAuthor"></co-user-inline>
         <button mat-icon-button [matTooltip]="'remove_coauthor' | translate" (click)="openRemoveConfirmDialog(coAuthor)" color="warn">
           <mat-icon>remove_circle_outline</mat-icon>
         </button>

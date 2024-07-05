@@ -1,15 +1,16 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef, FlUser} from '@monorepo/front-core-lib';
+import {FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef} from '@monorepo/front-core-lib';
 import {TeRichText} from '@monorepo/text-editor';
 import {HaAbstractComment, HaCommentEntity, HaCommentType} from '../../model/ha-abstract-comment.class';
 import {HaCommentService} from '../../../../ha-service/ha-comment.service';
 import {HaRouterService} from '../../../../ha-service/ha-router.service';
 import {HaCommentTextEditorConfig} from '../../model/ha-comment-text-editor.config';
+import {CoUser} from '@monorepo/community-lib';
 
 export interface HaCommentsPortalData {
   entity: HaCommentsEntity;
   commentType: HaCommentType;
-  user: FlUser;
+  user: CoUser;
 }
 
 export interface HaCommentsEntity {
@@ -26,7 +27,7 @@ export class HaCommentsPortalComponent implements OnInit {
 
   textEditorConfig: HaCommentTextEditorConfig = new HaCommentTextEditorConfig();
   commentIsValid = false;
-  user: FlUser;
+  user: CoUser;
   entity: HaCommentsEntity;
   datasource: FlDatasourcePaginated<HaAbstractComment<HaCommentEntity>>;
   isLoading = false;

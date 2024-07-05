@@ -29,6 +29,8 @@ export class HaBigScreenMainComponent implements OnInit{
 
   liveTaskRoute = HaRouterService.getLiveTaskListRoute();
 
+  profileRoute = HaRouterService.getProfileRoute();
+
   communityLogo: string;
 
   @Input({required: true})

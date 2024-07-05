@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {HaStory} from '../../../ha-model/ha-entities/ha-story.class';
+import {HaListStoryDto, HaStory} from '../../../ha-model/ha-entities/ha-story.class';
 import {HaRouterService} from '../../../ha-service/ha-router.service';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {HaLiveTask} from '../../../ha-model/ha-entities/ha-live-task.class';
@@ -12,8 +12,8 @@ import {HaBrick} from '../../../ha-model/ha-entities/ha-brick.class';
 export class HaDetailRoutePipe implements PipeTransform {
 
   transform(value: any): string {
-    if (value instanceof HaStory) {
-      return HaRouterService.getStoryRoute(value.id, ClStringHelper.getCleanUrlPath(value.titlePath))+'azeazeaz';
+    if (value instanceof HaStory || value instanceof HaListStoryDto) {
+      return HaRouterService.getStoryRoute(value.id, ClStringHelper.getCleanUrlPath(value.title));
     }
 
     if (value instanceof HaLiveTask) {

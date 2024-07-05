@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () => import('../ha-live-task/ha-live-task.module').then(m => m.HaLiveTaskModule)
   },
   {
+    path: 'profile',
+    component: HaMainComponent,
+    loadChildren: () => import('../ha-profile/ha-profile.module').then(m => m.HaProfileModule)
+  },
+  {
     path: 'icons',
     component: HaMainComponent,
     children: [

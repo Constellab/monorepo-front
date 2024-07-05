@@ -5,7 +5,7 @@
   </h2>
   <div class="lt-utils-div">
     <p class="small-text user-date-info">
-      <fl-user-inline [user]="liveTask.createdBy" [portalOnHover]="false"></fl-user-inline>
+      <co-user-inline [user]="liveTask.createdBy"></co-user-inline>
       <span class="g-text-small date-info">
       <fl-from-now [date]="liveTask.createdAt" *ngIf="liveTask.latestPublishVersion > 0; else notPublished"></fl-from-now>
     </span>

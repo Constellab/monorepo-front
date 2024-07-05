@@ -142,8 +142,8 @@
   "invite_text": "vous invite à devenir co-auteur de la story",
   "product_doc": "Documentation produit",
   "tech_doc": "Documentation technique",
-  "ha.home.title": "Community - Acceuil",
-  "ha.home.description": "Page d'acceuil de Constellab Community",
+  "ha.home.title": "Community - Accueil",
+  "ha.home.description": "Page d'accueil de Constellab Community",
   "ha.stories.title": "Community - Stories",
   "ha.stories.description": "Liste des stories de Constellab Community",
   "ha.story.title": "Community - {{title}}",
@@ -327,5 +327,15 @@
   "MAMBA_PYTHON": "Mamba Python",
   "MAMBA_R": "Mamba R",
   "STREAMLIT": "Streamlit",
-  "login_to_post_a_comment": "Connectez-vous pour poster un commentaire"
+  "login_to_post_a_comment": "Connectez-vous pour poster un commentaire",
+  "edit_profile": "Éditer le profil",
+  "no_story_yet": "Aucune story pour le moment",
+  "no_brick_yet": "Aucune brique pour le moment",
+  "no_live_task_yet": "Aucune live task pour le moment",
+  "interests": "Intérêts",
+  "no_interests_yet": "Aucun intérêt pour le moment",
+  "common_spaces": "Spaces communs",
+  "edit_user_infos": "Éditer les informations de l'utilisateur",
+  "user_infos_updated_successfully": "Informations de l'utilisateur mises à jour avec succès",
+  "profile": "Profil"
 }
