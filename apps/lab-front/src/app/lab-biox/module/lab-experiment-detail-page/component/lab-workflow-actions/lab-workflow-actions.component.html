@@ -1,51 +1,55 @@
-<div class="g-layout-row-wrap g-layout-gap-1em"
-     *ngIf="experiment$ | async as experiment">
+@if (experiment$ | async; as experiment) {
 
+  <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
 
-  <ng-container *ngIf="experiment.isEditable()">
     <!-- Add object button  -->
     <button mat-button type="button" class="g-button-small"
-            [matMenuTriggerFor]="menu">
+            [matMenuTriggerFor]="menu" [disabled]="!experiment.isEditable()">
       <mat-icon>add</mat-icon>
-      {{'biox.add_object' | translate}}
+      {{ 'biox.add_object' | translate }}
     </button>
 
-    <button mat-button type="button" (click)="start()" class="g-button-small">
+    <button mat-button type="button" (click)="start()" class="g-button-small"
+            [disabled]="!experiment.isEditable()">
       <mat-icon>play_arrow</mat-icon>
-      {{'biox.experiment_start' | translate}}
+      {{ 'biox.experiment_start' | translate }}
     </button>
-  </ng-container>
 
-  <button mat-icon-button type="button" color="warn" *ngIf="experiment.isRunning()"
-          (click)="stopExperiment()" [matTooltip]="'biox.stop_experiment' | translate">
-    <mat-icon>stop</mat-icon>
-  </button>
+    <button mat-button type="button" color="warn" class="g-button-small"
+            [disabled]="!experiment.isRunning()"
+            (click)="stopExperiment()">
+      <mat-icon>stop</mat-icon>
+      {{ 'biox.stop_experiment' | translate }}
+    </button>
 
-  <button mat-icon-button type="button" color="warn"
-          *ngIf="experiment.pidStatus === 'UNEXPECTED_STOPPED'"
-          [matTooltip]="'biox.experiment_pid_stopped' | translate"
-          (click)="stopExperiment()">
-    <mat-icon>error</mat-icon>
-  </button>
-</div>
+    @if (experiment.pidStatus === 'UNEXPECTED_STOPPED') {
+      <button mat-icon-button type="button" color="warn"
+              [matTooltip]="'biox.experiment_pid_stopped' | translate"
+              (click)="stopExperiment()">
+        <mat-icon>error</mat-icon>
+      </button>
+    }
+  </div>
+
+}
 
 <!--  Add object menu  -->
 <mat-menu #menu="matMenu">
   <button mat-menu-item type="button"
           (click)="addProcess()">
     <mat-icon flIcon="process"></mat-icon>
-    <span>{{'biox.add_process' | translate}}</span>
+    <span>{{ 'biox.add_process' | translate }}</span>
   </button>
 
   <button mat-menu-item type="button"
           (click)="addResource()">
     <mat-icon flIcon="resource"></mat-icon>
-    <span>{{'biox.add_resource' | translate}}</span>
+    <span>{{ 'biox.add_resource' | translate }}</span>
   </button>
 
   <button mat-menu-item type="button"
           (click)="addCommunityLiveTask()">
     <mat-icon [svgIcon]="'code'"></mat-icon>
-    <span>{{'biox.add_community_live_task' | translate}}</span>
+    <span>{{ 'biox.add_community_live_task' | translate }}</span>
   </button>
 </mat-menu>
