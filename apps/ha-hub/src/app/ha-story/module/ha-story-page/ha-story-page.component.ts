@@ -47,6 +47,8 @@ export class HaStoryPageComponent implements OnInit {
 
   storiesListRoute = HaRouterService.getStoriesListRoute();
 
+  profileRoute = HaRouterService.getProfileRoute();
+
   currentUser: HaUser;
 
   hasRightToEdit: boolean;
@@ -58,6 +60,7 @@ export class HaStoryPageComponent implements OnInit {
   notFound = false;
 
   paramTitle: string;
+
 
 
   constructor(private activatedRoute: ActivatedRoute,

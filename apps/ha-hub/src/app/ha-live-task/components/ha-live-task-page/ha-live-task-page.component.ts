@@ -22,6 +22,7 @@ import {HaHttpRedirectionService} from '../../../ha-core/ha-service/ha-http-redi
 })
 export class HaLiveTaskPageComponent implements OnInit {
 
+  profileRoute = HaRouterService.getProfileRoute();
   liveTask: HaLiveTask;
   isLoading = true;
   currentUser: HaUser;

@@ -9,6 +9,7 @@ import {
 import {HaUser} from '../../../../ha-core/ha-model/ha-entities/ha-user';
 import {Observable} from 'rxjs';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
+import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-public-brick-users',
@@ -20,6 +21,8 @@ export class HaPublicBrickUsersComponent implements OnInit {
   @Input() brick: HaBrick;
 
   isCreator$: Observable<boolean>;
+
+  profileRoute = HaRouterService.getProfileRoute();
 
   brickUsers: HaUser[]
 

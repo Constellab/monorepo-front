@@ -8,13 +8,17 @@
     }
   </h5>
   <div class="brick-user-line">
-    <co-user-inline [user]="brick.createdBy"></co-user-inline>
+    <a [routerLink]="profileRoute + brick.createdBy.id">
+      <co-user-inline [user]="brick.createdBy"></co-user-inline>
+    </a>
 
     <mat-icon>workspace_premium</mat-icon>
   </div>
   @for(brickUser of brickUsers; track brickUser.id){
     <div class="brick-user-line">
-      <co-user-inline [user]="brickUser"></co-user-inline>
+      <a [routerLink]="profileRoute + brickUser.id">
+        <co-user-inline [user]="brickUser"></co-user-inline>
+      </a>
     </div>
   }
 </div>

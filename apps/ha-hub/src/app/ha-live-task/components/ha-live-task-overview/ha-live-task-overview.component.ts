@@ -20,6 +20,7 @@ import {
 } from '../../../ha-core/entity-module/ha-comments-core/model/ha-comments-portal-config.class';
 import {HaCommentType} from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService, FlPortalService} from '@monorepo/front-core-lib';
+import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-live-task-overview',
@@ -28,6 +29,7 @@ import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService, FlPortalSe
 })
 export class HaLiveTaskOverviewComponent implements OnInit {
 
+  profileRoute = HaRouterService.getProfileRoute();
   liveTaskIsLiked = false;
   liveTask: HaLiveTask;
   liveTaskVersion: HaLiveTaskVersion;

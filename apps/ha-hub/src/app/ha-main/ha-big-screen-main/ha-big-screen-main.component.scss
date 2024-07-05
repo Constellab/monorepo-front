@@ -69,6 +69,10 @@
   gap: 8px;
   justify-content: flex-end;
   align-items: center;
+
+  *:hover{
+    cursor: pointer;
+  }
 }
 
 .doc-menu-item{

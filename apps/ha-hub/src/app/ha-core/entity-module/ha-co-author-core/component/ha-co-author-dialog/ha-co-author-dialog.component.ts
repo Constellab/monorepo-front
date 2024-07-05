@@ -6,6 +6,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {HaCoAuthorService} from '../../model/ha-co-author-service';
 import {HaCoAuthorInvite} from '../../model/ha-co-author-invite.class';
 import {HaUser} from '../../../../ha-model/ha-entities/ha-user';
+import {HaRouterService} from '../../../../ha-service/ha-router.service';
 
 export interface HaCoAuthorsDialogInput {
   id: string;
@@ -25,6 +26,7 @@ export interface HaCoAuthorFormData {
 })
 export class HaCoAuthorDialogComponent implements OnInit {
 
+  profileRoute = HaRouterService.getProfileRoute();
   coAuthorPendingInvites: HaCoAuthorInvite[];
   id: string;
   formGp: FormGroup<HaCoAuthorFormData>;

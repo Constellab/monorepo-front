@@ -1,0 +1,39 @@
+<fl-dialog-header>
+  {{'edit_user_infos' | translate}}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form id="user-infos-form" [formGroup]="formGp" (ngSubmit)="submit()">
+
+    <mat-form-field class="g-form-input">
+      <mat-label>LinkedIn</mat-label>
+      <input matInput formControlName="linkedinLink" placeholder="LinkedIn">
+      <mat-error *ngIf="formGp.get('linkedinLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>Github</mat-label>
+      <input matInput formControlName="githubLink" placeholder="Github">
+      <mat-error *ngIf="formGp.get('githubLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>X</mat-label>
+      <input matInput formControlName="xLink" placeholder="X">
+      <mat-error *ngIf="formGp.get('xLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'interests' | translate}}</mat-label>
+      <textarea matInput formControlName="interests" placeholder="{{'interests' | translate}}" maxlength="255" ></textarea>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" type="submit" form="user-infos-form" class="g-centered-forced" [disabled]="!checkModified()">
+    {{'save' | translate}}
+    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+  </button>
+</div>
