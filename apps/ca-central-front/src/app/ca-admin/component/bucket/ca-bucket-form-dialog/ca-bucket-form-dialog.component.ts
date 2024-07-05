@@ -73,8 +73,6 @@ export class CaBucketFormDialogComponent
         this.regionOption = 'S3';
       } else if (bucketType === CaBucketType.AZURE) {
         this.regionOption = 'AZURE';
-        this.formGp.get('contentType').setValue(CaBucketContentType.LAB_BACKUP);
-        this.formGp.get('contentType').disable();
       }
     }
 
