@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {labBiotaMenuLink, LabMainMenuLink, mainMenuLinks} from '../../lab-main-menu-link.class';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {LabEnvStore} from '../../../lab-core/service/lab-env.store';
-import {LabEnvironmentHelper} from '../../../lab-core/utils/lab-environment.helper';
-import {LabAuthenticatedUserService} from '../../../lab-core/service/lab-authenticated-user.service';
-import {LabRouterService} from '../../../lab-core/service/lab-router.service';
-import {LabSystemService} from '../../../lab-core/service/lab-system.service';
-import {Title} from '@angular/platform-browser';
-import {LabSystemInfo} from '../../../lab-core/model/global/lab-system.class';
-import {LabBrickService} from '../../../lab-core/entity-service/lab-brick.service';
-import {LabBrickEntity} from '../../../lab-core/model/entities/lab-brick.entity';
-import {FlChatBotService} from '@monorepo/front-core-lib';
-import {TdBrick} from '@monorepo/technical-doc';
+import { Component, OnInit } from '@angular/core';
+import { getMainMenuLinks, labBiotaMenuLink, LabMainMenuLink } from '../../lab-main-menu-link.class';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
+import { LabEnvironmentHelper } from '../../../lab-core/utils/lab-environment.helper';
+import { LabAuthenticatedUserService } from '../../../lab-core/service/lab-authenticated-user.service';
+import { LabRouterService } from '../../../lab-core/service/lab-router.service';
+import { LabSystemService } from '../../../lab-core/service/lab-system.service';
+import { Title } from '@angular/platform-browser';
+import { LabSystemInfo } from '../../../lab-core/model/global/lab-system.class';
+import { LabBrickService } from '../../../lab-core/entity-service/lab-brick.service';
+import { LabBrickEntity } from '../../../lab-core/model/entities/lab-brick.entity';
+import { FlChatBotService } from '@monorepo/front-core-lib';
+import { TdBrick } from '@monorepo/technical-doc';
 
 @Component({
   selector: 'lab-main-app',
@@ -21,7 +21,7 @@ import {TdBrick} from '@monorepo/technical-doc';
 })
 export class LabMainAppComponent implements OnInit {
 
-  accessibleLinks: LabMainMenuLink[] = mainMenuLinks;
+  accessibleLinks: LabMainMenuLink[] = getMainMenuLinks();
 
   spaceAppUrl: string = LabEnvironmentHelper.getSpaceFrontAppUrl();
 

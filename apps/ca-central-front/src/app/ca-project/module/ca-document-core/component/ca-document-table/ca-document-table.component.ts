@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlTableColumnStatic} from '@monorepo/front-core-lib';
-import {CaDocument, CaDocumentDatasource} from '../../../../../ca-core/model/entities/project/ca-document.class';
-import {CaDocumentActionEvent} from '../ca-document-actions-menu/ca-document-actions-menu.component';
-import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
-import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { CaDocument, CaDocumentDatasource } from '../../../../../ca-core/model/entities/project/ca-document.class';
+import { CaDocumentActionEvent } from '../ca-document-actions-menu/ca-document-actions-menu.component';
+import { CaProjectService } from '../../../../../ca-core/service-api/ca-project.service';
+import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 
 @Component({
   selector: 'ca-document-table',
@@ -25,7 +25,9 @@ export class CaDocumentTableComponent {
   }
 
   openDocumentPreview(document: CaDocument): void {
-    if (document.isConstellabDocument()) {
+    if (document.canTokenPreview) {
+      this.routerService.navigateToDocumentPreview(document.id);
+    } else if (document.isConstellabDocument()) {
       this.routerService.navigateToDocumentDetail(document.id);
     } else {
       const url = this.projectService.getDocumentPreviewUrl(document.projectId, document.name);

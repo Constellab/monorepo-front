@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
 import {
   CaCloudProvider,
   CaCloudProviderDatasource,
+  CaCloudProviderName,
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource,
   CaCloudProviderRegionType
 } from '../model/entities/ca-cloud-provider.class';
-import {ClPageI} from '@monorepo/core-lib';
+import { ClPageI } from '@monorepo/core-lib';
 
 
 @Injectable({providedIn: 'root'})
@@ -73,6 +74,14 @@ export class CaCloudProviderService {
   public getRegionsByType(type: CaCloudProviderRegionType): CaCloudProviderRegionDatasource {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number) => this.apiService.get(`${this.regionsRoute}/type/${type}`, CaCloudProviderRegion, {
+        page: page, pageSize: pageSize, resultIsPaginated: true
+      }), 20
+    );
+  }
+
+  public getRegionsByCloudProvider(type: CaCloudProviderName): CaCloudProviderRegionDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page: number, pageSize: number) => this.apiService.get(`${this.regionsRoute}/cloud-provider/${type}`, CaCloudProviderRegion, {
         page: page, pageSize: pageSize, resultIsPaginated: true
       }), 20
     );

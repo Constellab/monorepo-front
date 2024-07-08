@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   CaProject,
   CaProjectAncestorTreeDTO,
@@ -10,26 +10,27 @@ import {
   CaProjectTreeDto,
   CnSaveProjectDTO
 } from '../model/entities/project/ca-project.class';
-import {Observable} from 'rxjs';
-import {ClHelpService, ClPage, ClPageI} from '@monorepo/core-lib';
-import {CaGroup} from '../model/entities/ca-group.entity';
-import {CaUser} from '../model/entities/ca-user.class';
-import {CaProjectComment, CaProjectCommentDatasourcePaginated} from '../model/entities/ca-comment.class';
-import {CaProjectSearch, CaProjectSearchFields} from '../entity-module/ca-project-core/model/ca-project-search.class';
-import {CaBucketLocationDTO} from '../model/entities/ca-object-storage.class';
+import { Observable } from 'rxjs';
+import { ClHelpService, ClPage, ClPageI } from '@monorepo/core-lib';
+import { CaGroup } from '../model/entities/ca-group.entity';
+import { CaUser } from '../model/entities/ca-user.class';
+import { CaProjectComment, CaProjectCommentDatasourcePaginated } from '../model/entities/ca-comment.class';
+import { CaProjectSearch, CaProjectSearchFields } from '../entity-module/ca-project-core/model/ca-project-search.class';
+import { CaBucketLocationDTO } from '../model/entities/ca-object-storage.class';
 import {
   CaConstellabDocument,
   CaDocument,
   CaDocumentDatasource,
+  CaProjectDocumentPreviewDTO,
   CaProjectStorageUsageDTO
 } from '../model/entities/project/ca-document.class';
-import {CaProjectUserConfig} from '../model/entities/project/ca-project-user.class';
-import {CaActivity} from '../model/entities/ca-activity.class';
+import { CaProjectUserConfig } from '../model/entities/project/ca-project-user.class';
+import { CaActivity } from '../model/entities/ca-activity.class';
 import {
   CaActivitySearch,
   CaActivitySearchFields
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
-import {TeFigureBlockData, TeFileBlockData, TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
+import { TeFigureBlockData, TeFileBlockData, TeRichTextContent, TeUploadedImage } from '@monorepo/text-editor';
 import {
   FlAdvancedSearchInput,
   FlApiService,
@@ -289,6 +290,12 @@ export class CaProjectService {
 
   public getConstellabDocumentFileUrl(documentId: string, filename: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/constellab-document/${documentId}/file/${filename}`);
+  }
+
+
+  /////////////////////////////// DOCUMENT PREVIEW  ///////////////////////////////////////////
+  public generateDocumentPreview(documentId: string): Observable<CaProjectDocumentPreviewDTO> {
+    return this.apiService.post(`${this.route}/document/${documentId}/preview-token`, null, CaProjectDocumentPreviewDTO);
   }
 
 

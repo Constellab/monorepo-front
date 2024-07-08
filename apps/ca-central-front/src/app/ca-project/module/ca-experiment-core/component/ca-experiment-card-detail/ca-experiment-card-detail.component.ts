@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-experiment.class';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CaExperiment } from '../../../../../ca-core/model/entities/project/ca-experiment.class';
 
 /**
  * Detail card of the experiment used in the experiment page
@@ -11,13 +11,13 @@ import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-exp
 })
 export class CaExperimentCardDetailComponent implements OnInit {
 
-  @Input() experiment: CaExperiment;
+  @Input({required: true}) experiment: CaExperiment;
+
+  @Input() showCardHeader: boolean = true;
+
   @Output() update: EventEmitter<CaExperiment> = new EventEmitter<CaExperiment>();
 
   experimentRoute: string;
-
-  constructor() {
-  }
 
   ngOnInit(): void {
     if (this.experiment.labInstance.isRunning()) {

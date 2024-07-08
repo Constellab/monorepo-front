@@ -1,7 +1,8 @@
-import {ClLuxonDateTimeTransform, ClLuxonDateTransform} from '@monorepo/core-lib';
-import {DateTime} from 'luxon';
-import {Type} from 'class-transformer';
-import {FlArrayObs} from '@monorepo/front-core-lib';
+import { ClLuxonDateTimeTransform, ClLuxonDateTransform } from '@monorepo/core-lib';
+import { DateTime } from 'luxon';
+import { Type } from 'class-transformer';
+import { FlArrayObs } from '@monorepo/front-core-lib';
+import { CaUser } from '../ca-user.class';
 
 export enum CaLabInstanceStatusRunPeriod {
   CURRENT_MONTH = 'CURRENT_MONTH',
@@ -37,6 +38,9 @@ export class CaLabInstanceRunningStatus {
   fromDate: DateTime;
   @ClLuxonDateTimeTransform()
   toDate: DateTime;
+
+  @Type(() => CaUser)
+  user: CaUser;
 
   @Type(() => CaLabInstanceRunningStatusBilling)
   billInfo?: CaLabInstanceRunningStatusBilling;

@@ -1,0 +1,17 @@
+// override default page padding
+.page {
+  padding: var(--main-menu-margin) 0 0 0;
+}
+
+.breadcrumbs{
+  margin-inline: 1em;
+}
+
+.section {
+  flex: 1
+}
+
+.iframe {
+  flex: 1;
+  border: none;
+}

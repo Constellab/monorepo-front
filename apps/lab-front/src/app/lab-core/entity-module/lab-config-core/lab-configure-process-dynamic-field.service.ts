@@ -4,12 +4,12 @@ import {
   FlDynamicFieldConfigService,
   FlDynamicFieldConfigUnknown
 } from '@monorepo/front-core-lib';
-import {ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
-import {LabTagDynamicFieldComponent} from './component/lab-tag-dynamic-field/lab-tag-dynamic-field.component';
+import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
+import { LabTagDynamicFieldComponent } from './component/lab-tag-dynamic-field/lab-tag-dynamic-field.component';
 import {
   LabCodeEditorDynamicFieldComponent
 } from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
-import {tdCodeParamSpecTypeList, TdParamSpecType} from '@monorepo/technical-doc';
+import { tdCodeParamSpecTypeList, TdParamSpecType } from '@monorepo/technical-doc';
 import {
   LabOpenAiChatDynamicFieldComponent
 } from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
@@ -22,7 +22,9 @@ import {
 import {
   LabSelectReportDynamicFieldComponent
 } from '../lab-report-core/component/lab-select-report-dynamic-field/lab-select-report-dynamic-field.component';
-import {LabRichTextDynamicFieldComponent} from '../lab-rich-text-core/component/lab-rich-text-dynamic-field.component';
+import {
+  LabRichTextDynamicFieldComponent
+} from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field

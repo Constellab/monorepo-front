@@ -11,15 +11,15 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {TeConfig} from '../../model/te-config.class';
-import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
-import {Subject, Subscription} from 'rxjs';
-import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
-import {FlKeyboardHelper, FlKeyboardKey, FlTranslateService} from '@monorepo/front-core-lib';
-import {teGetI18nConfig} from '../../te-text-editor.i18n';
-import {TeMention} from '../../plugin/te-mention.class';
-import {ClHelpService} from '@monorepo/core-lib';
-import {TeEmoji} from '../../plugin/te-emoji.class';
+import { TeConfig } from '../../model/te-config.class';
+import { TeRichText, TeRichTextContent } from '../../model/te-rich-text.class';
+import { Subject, Subscription } from 'rxjs';
+import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
+import { FlKeyboardHelper, FlKeyboardKey, FlTranslateService } from '@monorepo/front-core-lib';
+import { teGetI18nConfig } from '../../te-text-editor.i18n';
+import { TeMention } from '../../plugin/te-mention.class';
+import { ClHelpService } from '@monorepo/core-lib';
+import { TeEmoji } from '../../plugin/te-emoji.class';
 
 
 @Component({
@@ -83,10 +83,10 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
           const additionalConfig = this.config.getAdditionalConfig();
           if (event.key === FlKeyboardKey.COLON && additionalConfig.emoji) {
             const emoji = new TeEmoji(event);
-            emoji.openEmojiPicker();
+            emoji.init();
           } else if (FlKeyboardHelper.keypressIsAt(event.key) && this.config.getAdditionalConfig().mention) {
             const mention = new TeMention(this.config.getAdditionalConfig().mention, event);
-            mention.openMentionPortal();
+            mention.init();
           }
         }, 0);
       });

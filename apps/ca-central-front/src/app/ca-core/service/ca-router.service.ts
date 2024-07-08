@@ -9,9 +9,9 @@ import {
   caConstStructureRoute,
   caConstUserPageRoute
 } from '../utils/ca-base-route';
-import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {CaEnvironmentHelper} from '../utils/ca-environment.helper';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
 /* eslint-disable @typescript-eslint/member-ordering */
 /**
@@ -82,12 +82,20 @@ export class CaRouterService {
     return CaRouterService.getFullRoute(`${caConstProjectRoute}/document/${documentId}`);
   }
 
+  public static getDocumentPreviewRoute(documentId: string): string {
+    return CaRouterService.getFullRoute(`${caConstProjectRoute}/document/${documentId}/preview`);
+  }
+
   public static getProjectActivityRoute(projectId: string): string {
     return `${CaRouterService.getProjectDetailRoute(projectId)}/activity`;
   }
 
   public navigateToDocumentDetail(documentId: string): void {
     this.router.navigate([CaRouterService.getDocumentDetailRoute(documentId)]);
+  }
+
+  public navigateToDocumentPreview(documentId: string): void {
+    this.router.navigate([CaRouterService.getDocumentPreviewRoute(documentId)]);
   }
 
 

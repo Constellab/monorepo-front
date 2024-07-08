@@ -1,15 +1,16 @@
-<!--  Validated info  -->
-<ca-validated-object-info class="separator" [object]="experiment" *ngIf="experiment.isValidated"></ca-validated-object-info>
+@if (experiment.isValidated) {
+  <!--  Validated info  -->
+  <ca-validated-object-info class="separator" [object]="experiment"
+                            *ngIf="experiment.isValidated"></ca-validated-object-info>
+}
 
 <!-- Sync ino -->
 <ca-sync-object-info class="separator" [object]="experiment"></ca-sync-object-info>
 
 <div>
   <!-- Description-->
-  <te-text-editor *ngIf="!(experiment.description | teRichTextIsEmpty); else noDesc"
-                  [ngModel]="experiment.description" [disabled]="true"
-                  [config]="textEditorConfig" class="g-scrollable-element"></te-text-editor>
-  <ng-template #noDesc>
-    <fl-error-text [errorMessage]="'no_description' | translate"></fl-error-text>
-  </ng-template>
+  @if (!(experiment.description | teRichTextIsEmpty)) {
+    <te-text-editor [ngModel]="experiment.description" [disabled]="true"
+                    [config]="textEditorConfig" class="g-scrollable-element"></te-text-editor>
+  }
 </div>

@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CaDocument} from '../../../../../ca-core/model/entities/project/ca-document.class';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CaDocument } from '../../../../../ca-core/model/entities/project/ca-document.class';
 import {
   CaDocumentNameFormDialogComponent,
   CaDocumentNameFormDialogInput
 } from '../ca-document-name-form-dialog/ca-document-name-form-dialog.component';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
-import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
-import {ClHelpService} from '@monorepo/core-lib';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { CaProjectService } from '../../../../../ca-core/service-api/ca-project.service';
+import { ClHelpService } from '@monorepo/core-lib';
 
 export interface CaDocumentActionEvent {
   action: 'update' | 'delete' | 'moveToTrash' | 'restoreFromTrash';
@@ -32,10 +32,6 @@ export class CaDocumentActionsMenuComponent {
 
   cancelEvent(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-  }
-
-  getDocumentPreviewUrl(): string {
-    return this.projectService.getDocumentPreviewUrl(this.document.projectId, this.document.name);
   }
 
   getDocumentDownloadUrl(): string {

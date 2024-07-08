@@ -36,6 +36,7 @@ export * from './lib/block/te-header-with-id-block.class';
 export * from './lib/block/te-hint-block.class';
 export * from './lib/block/te-nested-list-block.class';
 export * from './lib/block/te-paragraph-block.class';
+export * from './lib/block/te-table-block.class';
 export * from './lib/block/te-video-block.class';
 
 // Inline tool
@@ -57,5 +58,6 @@ export * from './lib/pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
 export * from './lib/plugin/te-emoji.class';
 export * from './lib/plugin/te-key-listener.class';
 export * from './lib/plugin/te-mention.class';
+export * from './lib/plugin/te-portal-plugin.class';
 
 

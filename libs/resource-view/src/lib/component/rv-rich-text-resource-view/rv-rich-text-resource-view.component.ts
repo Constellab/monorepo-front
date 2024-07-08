@@ -1,21 +1,21 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {RvResourceViewBase} from '../../model/rv-resource-view.class';
-import {RvViewConfig} from '../../model/rv-view-config.class';
-import {Observable} from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { RvResourceViewBase } from '../../model/rv-resource-view.class';
+import { RvViewConfig } from '../../model/rv-view-config.class';
+import { Observable } from 'rxjs';
 
 /**
- * Component to show a resource view inside a report
+ * Component to show a resource view inside a rich text editor.
  */
 @Component({
-  selector: 'rv-report-resource-view',
-  templateUrl: './rv-report-resource-view.component.html',
-  styleUrls: ['./rv-report-resource-view.component.scss']
+  selector: 'rv-rich-text-resource-view',
+  templateUrl: './rv-rich-text-resource-view.component.html',
+  styleUrls: ['./rv-rich-text-resource-view.component.scss']
 })
-export class RvReportResourceViewComponent implements OnInit {
+export class RvRichTextResourceViewComponent implements OnInit {
 
-  @Input() resourceId: string;
+  @Input({required: true}) resourceId: string;
 
-  @Input() view$: Observable<RvResourceViewBase>;
+  @Input({required: true}) view$: Observable<RvResourceViewBase>;
 
   @Input() viewConfig: RvViewConfig;
 

@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabRichTextDynamicFieldComponent} from './lab-rich-text-dynamic-field.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabRichTextDynamicFieldComponent } from './lab-rich-text-dynamic-field.component';
 
 describe('LabRichTextDynamicFieldComponent', () => {
   let component: LabRichTextDynamicFieldComponent;

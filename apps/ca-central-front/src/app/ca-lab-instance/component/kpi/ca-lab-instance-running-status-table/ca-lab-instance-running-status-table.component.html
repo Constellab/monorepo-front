@@ -53,6 +53,16 @@
     </mat-cell>
   </ng-container>
 
+  <!-- User -->
+  <ng-container matColumnDef="user">
+    <mat-header-cell *matHeaderCellDef>
+      {{'user' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let status">
+      <fl-user-inline [user]="status.user"></fl-user-inline>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
   <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 </mat-table>

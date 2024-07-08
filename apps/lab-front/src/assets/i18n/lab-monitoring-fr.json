@@ -102,7 +102,7 @@
     "streamlit_no_running_app": "No running app",
     "streamlit_app_url": "URL de l'application streamlit",
     "streamlit_view_resource": "Voir la ressource streamlit",
-    "streamlit_app_code_path": "Chemin du code",
+    "streamlit_app_config_path": "Chemin de la config",
     "streamlit_app_source_paths": "Chemins sources",
     "streamlit_stop_app": "Arrêter l'application streamlit",
     "streamlit_stop_app_confirmation": "Êtes-vous sûr de vouloir arrêter l'application streamlit ? Tous les tableaux de bord streamlit actuels seront fermés. L'application redémarrera automatiquement lorsqu'elle sera demandée.",

@@ -1,11 +1,12 @@
-import {CaBaseEntity} from './ca-base-entity.class';
-import {FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {CaCity} from './ca-city.entity';
+import { CaBaseEntity } from './ca-base-entity.class';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { Type } from 'class-transformer';
+import { CaCity } from './ca-city.entity';
 
+export type CaCloudProviderName = 'OVH' | 'AZURE' | 'OUTSCALE';
 
 export class CaCloudProvider extends CaBaseEntity {
-  name: string;
+  name: CaCloudProviderName;
 
   description: string;
 
@@ -15,7 +16,7 @@ export class CaCloudProvider extends CaBaseEntity {
 
 export type CaCloudProviderDatasource = FlEntityPaginatedDatasource<CaCloudProvider>;
 
-export type CaCloudProviderRegionType = 'SERVER' | 'S3';
+export type CaCloudProviderRegionType = 'SERVER' | 'S3' | 'ALL';
 
 export class CaCloudProviderRegion extends CaBaseEntity {
 

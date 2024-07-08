@@ -1,14 +1,13 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   LabProgressBar,
   LabProgressBarMessages,
   LabProgressMessage,
   LabProgressMessageDatasource
 } from '../../../../model/entities/lab-progress-bar.entity';
-import {mergeMap, Observable, Subscription} from 'rxjs';
-import {filter, first, map} from 'rxjs/operators';
-import {LabProgressBarService} from '../../../../entity-service/lab-progress-bar.service';
-import {clRxjsDebug} from '@monorepo/core-lib';
+import { mergeMap, Observable, Subscription } from 'rxjs';
+import { filter, first, map } from 'rxjs/operators';
+import { LabProgressBarService } from '../../../../entity-service/lab-progress-bar.service';
 
 interface LabProgressWithMessage {
   progressBar?: LabProgressBar;
@@ -26,9 +25,9 @@ interface LabProgressWithMessage {
 })
 export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
 
-  @Input({required: true}) progressBar$: Observable<LabProgressBar>;
+  @Input({ required: true }) progressBar$: Observable<LabProgressBar>;
 
-  @Input({required: true}) scrollableElement: HTMLElement;
+  @Input({ required: true }) scrollableElement: HTMLElement;
 
   messageDatasource: LabProgressMessageDatasource;
   messages$: Observable<LabProgressMessage[]>;
@@ -62,12 +61,11 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
     this.messages$ = this.messageDatasource.connect();
 
     this.elapsedTime$ = this.progressBar$.pipe(
-      map(progressBar => progressBar.elapsedTime),
+      map(progressBar => progressBar.elapsedTime)
     );
 
     // every time the progress bar updated (reload from state), refresh the message list
     this.subscription = this.progressBar$.pipe(
-      clRxjsDebug(),
       filter(() => this.liveMode !== false),
       mergeMap(progressBar => this.getMessages(progressBar)))
       .subscribe(
@@ -88,7 +86,7 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
     }
     // get the last 20 messages
     return this.progressBarService.getProgressBarMessages(progressBar.id, this.nbOfMessages).pipe(
-      map(messages => ({progressBar, messages: messages}))
+      map(messages => ({ progressBar, messages: messages }))
     );
   }
 

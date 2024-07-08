@@ -1,34 +1,34 @@
-import {ToolConstructable, ToolSettings} from '@editorjs/editorjs/types/tools';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
+import { ToolConstructable, ToolSettings } from '@editorjs/editorjs/types/tools';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   teGetHeaderWithIdBlockDefaultConfig,
   TeHeaderWithIdBlock,
   TeHeaderWithIdBlockConfig
 } from '../block/te-header-with-id-block.class';
 import InlineCode from '@editorjs/inline-code';
-import {TeFormulaBlock} from '../block/te-formula-block.class';
-import Table from '@editorjs/table';
-import {TeHintBlock} from '../block/te-hint-block.class';
-import {TeVideoBlock} from '../block/te-video-block.class';
-import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
-import {TeFigureBlock, TeFigureBlockConfig} from '../block/te-figure-block.class';
-import {TeCodeBlock} from '../block/te-code-block.class';
-import {teComponentBlockFactory} from './te-block-factory.class';
-import {TeStrikethroughInlineTool} from '../inline-tool/te-strikethrough-inline-tool.class';
-import {TeDragBlockTune} from '../block-tune/te-drag-block-tune.class';
-import {TeHelper} from './te.helper';
-import {TeVariableInlineToolClass} from '../inline-tool/te-variable-inline-tool.class';
-import {TeParagraphBlock} from '../block/te-paragraph-block.class';
-import {teInlineToolFactory} from '../inline-tool/te-inline-tool.factory';
-import {TeUnderlineInlineTool} from '../inline-tool/te-underline-inline-tool.class';
-import {TeCleanStyleInlineTool} from '../inline-tool/te-clean-style-inline-tool.class';
-import {TeFakeInlineTool} from '../inline-tool/te-fake-inline-tool.class';
-import {TeNestedListBlock} from '../block/te-nested-list-block.class';
-import {TeMentionConfig, TeMentionInlineTool} from '../plugin/te-mention.class';
-import {Observable, Subject} from 'rxjs';
-import {TeFileBlock, TeFileBlockConfig} from '../block/te-file-block';
-import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
-import {TeComponentInitData} from '../block/te-component-block.class';
+import { TeFormulaBlock } from '../block/te-formula-block.class';
+import { TeHintBlock } from '../block/te-hint-block.class';
+import { TeVideoBlock } from '../block/te-video-block.class';
+import { flRootInjector, FlTranslateService } from '@monorepo/front-core-lib';
+import { TeFigureBlock, TeFigureBlockConfig } from '../block/te-figure-block.class';
+import { TeCodeBlock } from '../block/te-code-block.class';
+import { teComponentBlockFactory } from './te-block-factory.class';
+import { TeStrikethroughInlineTool } from '../inline-tool/te-strikethrough-inline-tool.class';
+import { TeDragBlockTune } from '../block-tune/te-drag-block-tune.class';
+import { TeHelper } from './te.helper';
+import { TeVariableInlineToolClass } from '../inline-tool/te-variable-inline-tool.class';
+import { TeParagraphBlock } from '../block/te-paragraph-block.class';
+import { teInlineToolFactory } from '../inline-tool/te-inline-tool.factory';
+import { TeUnderlineInlineTool } from '../inline-tool/te-underline-inline-tool.class';
+import { TeCleanStyleInlineTool } from '../inline-tool/te-clean-style-inline-tool.class';
+import { TeFakeInlineTool } from '../inline-tool/te-fake-inline-tool.class';
+import { TeNestedListBlock } from '../block/te-nested-list-block.class';
+import { TeMentionConfig, TeMentionInlineTool } from '../plugin/te-mention.class';
+import { Observable, Subject } from 'rxjs';
+import { TeFileBlock, TeFileBlockConfig } from '../block/te-file-block';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import { TeComponentInitData } from '../block/te-component-block.class';
+import TeTable from '../block/te-table-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -72,7 +72,7 @@ export abstract class TeConfig {
     const defaultConfig: TeUiConfig = {
       hideToolbar: false,
       includeToolbarButton: false,
-      dense: false,
+      dense: false
     };
     this.uiConfig = Object.assign(defaultConfig, uiConfig);
   }
@@ -89,7 +89,7 @@ export abstract class TeConfig {
 
   public getAdditionalConfig(): TeAdditionalConfig {
     return {
-      emoji: true,
+      emoji: true
     };
   }
 
@@ -103,8 +103,8 @@ export abstract class TeConfig {
       class: TeParagraphBlock,
       inlineToolbar: true,
       config: {
-        preserveBlank: true,
-      },
+        preserveBlank: true
+      }
     };
   }
 
@@ -115,7 +115,7 @@ export abstract class TeConfig {
       class: TeHeaderWithIdBlock,
       config: config,
       // use the fake to show the toolbar to have access to convert to paragraph
-      inlineToolbar: ['fake'],
+      inlineToolbar: ['fake']
     };
   }
 
@@ -132,16 +132,16 @@ export abstract class TeConfig {
           icon: TeHelper.getMatIconElement('format_list_bulleted'),
           title: translateService.translate('teTextEditor.list_unordered'),
           data: {
-            style: 'unordered',
-          },
+            style: 'unordered'
+          }
         },
         {
           icon: TeHelper.getMatIconElement('format_list_numbered'),
           title: translateService.translate('teTextEditor.list_ordered'),
           data: {
-            style: 'ordered',
-          },
-        },
+            style: 'ordered'
+          }
+        }
       ]
     };
   }
@@ -150,10 +150,7 @@ export abstract class TeConfig {
                  envInjector: EnvironmentInjector,
                  applicationRef: ApplicationRef): ToolSettings {
     return {
-      class: teComponentBlockFactory(TeFigureBlock, envInjector, applicationRef, config),
-      config: {
-        test: 'Waow'
-      }
+      class: teComponentBlockFactory(TeFigureBlock, envInjector, applicationRef, config)
     };
   };
 
@@ -161,7 +158,7 @@ export abstract class TeConfig {
                 envInjector: EnvironmentInjector,
                 applicationRef: ApplicationRef): ToolSettings {
     return {
-      class: teComponentBlockFactory(TeFileBlock, envInjector, applicationRef, config),
+      class: teComponentBlockFactory(TeFileBlock, envInjector, applicationRef, config)
     };
   };
 
@@ -169,20 +166,27 @@ export abstract class TeConfig {
   getCodeConfig(envInjector: EnvironmentInjector,
                 applicationRef: ApplicationRef): ToolSettings {
     return {
-      class: teComponentBlockFactory(TeCodeBlock, envInjector, applicationRef),
+      class: teComponentBlockFactory(TeCodeBlock, envInjector, applicationRef)
     };
   }
 
   getInlineCodeConfig(): ToolSettings {
     return {
       class: InlineCode,
-      shortcut: 'CMD+SHIFT+M',
+      shortcut: 'CMD+SHIFT+M'
     };
   }
 
   getMentionConfig(): ToolSettings {
     return {
       class: TeMentionInlineTool
+    };
+  }
+
+  getTableConfig(): ToolSettings {
+    return {
+      class: TeTable,
+      inlineToolbar: true
     };
   }
 
@@ -220,7 +224,7 @@ export class TeBasicConfig extends TeConfig {
       fake: TeFakeInlineTool,
 
       // Other
-      drag: TeDragBlockTune,
+      drag: TeDragBlockTune
     };
   }
 
@@ -245,15 +249,12 @@ export class TeCompleteConfig extends TeConfig {
       list: this.getListConfig(),
       code: this.getCodeConfig(envInjector, applicationRef),
       formula: {
-        class: teComponentBlockFactory(TeFormulaBlock, envInjector, applicationRef),
+        class: teComponentBlockFactory(TeFormulaBlock, envInjector, applicationRef)
       },
-      table: {
-        class: Table,
-        inlineToolbar: true,
-      },
+      table: this.getTableConfig(),
       hint: {
         class: TeHintBlock,
-        inlineToolbar: true,
+        inlineToolbar: true
       },
       video: teComponentBlockFactory(TeVideoBlock, envInjector, applicationRef),
 
@@ -266,7 +267,7 @@ export class TeCompleteConfig extends TeConfig {
       fake: TeFakeInlineTool,
 
       // Other
-      drag: TeDragBlockTune,
+      drag: TeDragBlockTune
     };
   }
 

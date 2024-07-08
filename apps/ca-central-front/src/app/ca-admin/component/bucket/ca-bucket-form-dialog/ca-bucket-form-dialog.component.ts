@@ -1,14 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import {
   CaBucketContentType,
   CaBucketFull,
   CaBucketType
 } from '../../../../ca-core/model/entities/ca-object-storage.class';
-import {CaObjectStorageService} from '../../../../ca-core/service-api/ca-object-storage.service';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
+import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-object-storage.service';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import {
+  CaSelectCloudProviderRegionOptionsMode
+} from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-select-cloud-provider-region-options/ca-select-cloud-provider-region-options.component';
 
 export type CaBucketFormDialogInput = FlFormDialogInput<CaBucketFull>;
 
@@ -23,6 +26,8 @@ export class CaBucketFormDialogComponent
 
   contentTypes = CaBucketContentType;
   bucketTypes = CaBucketType;
+
+  regionOption: CaSelectCloudProviderRegionOptionsMode = 'S3';
 
   constructor(private objectStorageService: CaObjectStorageService) {
     super();
@@ -46,7 +51,7 @@ export class CaBucketFormDialogComponent
       contentType: [null, Validators.required],
       region: [null, Validators.required],
       labInstance: [null, Validators.required],
-      credentials: [null, Validators.required],
+      credentials: [null, Validators.required]
     });
   }
 
@@ -62,14 +67,20 @@ export class CaBucketFormDialogComponent
       this.formGp.get('name').enable();
       this.formGp.get('region').enable();
       this.formGp.get('labInstance').disable();
-      this.formGp.get('contentType').enable();
+
+      if (bucketType === CaBucketType.NORMAL) {
+        this.formGp.get('contentType').enable();
+        this.regionOption = 'S3';
+      } else if (bucketType === CaBucketType.AZURE) {
+        this.regionOption = 'AZURE';
+      }
     }
 
     this.formGp.updateValueAndValidity();
   }
 
   showRegion(): boolean {
-    return this.formGp.get('bucketType').value === CaBucketType.NORMAL;
+    return this.formGp.get('bucketType').value !== CaBucketType.LAB;
   }
 
   create(formValue: Partial<CaBucketFull>): Observable<CaBucketFull> {

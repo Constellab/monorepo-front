@@ -6,8 +6,9 @@ import {
   flRootInjector,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
-import {ClHelpService} from '@monorepo/core-lib';
+import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
+import { ClHelpService } from '@monorepo/core-lib';
+import { SanitizerConfig } from '@editorjs/editorjs/types/configs';
 
 export type TeListType = 'unordered' | 'ordered';
 
@@ -38,7 +39,7 @@ export class TeHelper {
   }
 
   public static getBlockElementFromElementOrChild(element: HTMLElement): HTMLElement | null {
-    return FlHtmlHelper.getParent(element, {className: TeHelper.blockClass});
+    return FlHtmlHelper.getParent(element, { className: TeHelper.blockClass });
   }
 
   /**
@@ -101,7 +102,7 @@ export class TeHelper {
    * @param element
    */
   public static parentBlockParagraphIsEditable(element: HTMLElement): boolean {
-    const block = FlHtmlHelper.getParent(element, {className: TeHelper.blockParagraphClass});
+    const block = FlHtmlHelper.getParent(element, { className: TeHelper.blockParagraphClass });
     if (block == null) return false;
     return block.getAttribute('contenteditable') === 'true';
   }
@@ -172,7 +173,7 @@ export class TeHelper {
     const node = range.endContainer;
     const cursorContainer: HTMLElement = node.parentNode as HTMLElement;
 
-    const editableContainer = FlHtmlHelper.getParent(cursorContainer, {attribute: {contenteditable: 'true'}});
+    const editableContainer = FlHtmlHelper.getParent(cursorContainer, { attribute: { contenteditable: 'true' } });
 
     if (!editableContainer || !node) return;
 
@@ -212,10 +213,10 @@ export class TeHelper {
 
     let topPosition: string;
 
-    if(position.top + portalMaxHeight + 20 > window.innerHeight) {
+    if (position.top + portalMaxHeight + 20 > window.innerHeight) {
       topPosition = window.innerHeight - portalMaxHeight + 'px';
-    }else{
-    // add 20 to the top position to make sure the emoji picker is below the cursor
+    } else {
+      // add 20 to the top position to make sure the emoji picker is below the cursor
       topPosition = position.top + 20 + 'px';
     }
 
@@ -226,7 +227,7 @@ export class TeHelper {
     } else {
       leftPosition = position.left + 'px';
     }
-    return {top: topPosition, left: leftPosition};
+    return { top: topPosition, left: leftPosition };
   }
 
   public static overlayIsOpen(): boolean {
@@ -241,4 +242,23 @@ export class TeHelper {
     TeHelper.globalOverlay = null;
   }
 
+  /**
+   * Get sanitize config to allow all inline tools
+   */
+  public static getInlineToolSanitizeConfig(includeBr: boolean = false): SanitizerConfig {
+    const config: SanitizerConfig = {
+      b: true,
+      i: true,
+      u: true,
+      strike: true,
+      a: {
+        href: true
+      },
+      code: true,
+    };
+    if (includeBr) {
+      config['br'] = true;
+    }
+    return config;
+  }
 }

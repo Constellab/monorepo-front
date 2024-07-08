@@ -1,5 +1,5 @@
-import {BehaviorSubject, debounceTime, Observable} from 'rxjs';
-import {distinctUntilChanged} from 'rxjs/operators';
+import { BehaviorSubject, debounceTime, Observable } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 /**
  * Listener to create for a TextNode at a specific key trigger event. It emits
@@ -10,6 +10,8 @@ export class TeKeyListener {
   private text$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   private listener: (event: KeyboardEvent) => void;
+
+  private completed: boolean = false;
 
   /**
    *
@@ -65,7 +67,7 @@ export class TeKeyListener {
   public getText$(): Observable<string> {
     return this.text$.asObservable().pipe(
       distinctUntilChanged(),
-      debounceTime(350),
+      debounceTime(350)
     );
   }
 
@@ -75,6 +77,7 @@ export class TeKeyListener {
 
   public destroy(): void {
     this.text$.complete();
+    this.completed = true;
     if (this.textNode.parentNode) {
       this.textNode.parentNode.removeEventListener('keyup', this.listener);
     }
@@ -85,9 +88,13 @@ export class TeKeyListener {
    */
   public getSearchTextPosition(): { start: number, end: number } {
     return {
-      start : this.initialCursorOffset,
+      start: this.initialCursorOffset,
       end: this.initialCursorOffset + this.getCurrentText().length + this.triggerKey.length
-    }
+    };
+  }
+
+  public isCompleted(): boolean {
+    return this.completed;
   }
 
 }

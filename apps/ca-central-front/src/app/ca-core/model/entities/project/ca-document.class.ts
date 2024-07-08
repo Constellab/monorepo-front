@@ -1,8 +1,8 @@
-import {CaBaseEntity} from '../ca-base-entity.class';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {TeRichTextContent} from '@monorepo/text-editor';
-import {ClRecordTransform} from '@monorepo/core-lib';
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { Type } from 'class-transformer';
+import { TeRichTextContent } from '@monorepo/text-editor';
+import { ClRecordTransform } from '@monorepo/core-lib';
 
 
 export class CaDocument extends CaBaseEntity {
@@ -17,6 +17,8 @@ export class CaDocument extends CaBaseEntity {
   type: 'UPLOADED_DOCUMENT' | 'CONSTELLAB_DOCUMENT';
 
   inTrash: boolean;
+
+  canTokenPreview: boolean;
 
   isConstellabDocument(): boolean {
     return this.type === 'CONSTELLAB_DOCUMENT';
@@ -70,4 +72,8 @@ export class CaProjectStorageUsageDTO {
     return this.dataHubDetails != null && this.cloudDetails != null;
   }
 
+}
+
+export class CaProjectDocumentPreviewDTO {
+  previewUrl: string;
 }
