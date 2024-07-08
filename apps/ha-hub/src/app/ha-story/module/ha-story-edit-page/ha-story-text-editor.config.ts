@@ -10,7 +10,7 @@ import {
 } from '@monorepo/text-editor';
 import {Observable} from 'rxjs';
 import {ClStringHelper} from '@monorepo/core-lib';
-import {HaStoryContentViewBlock} from '../ha-story-view/ha-story-content-view.class';
+import {HaStoryContentViewBlock} from '../ha-story-view/ha-story-content-view.block';
 import {HaFile} from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
 
 

@@ -15,6 +15,7 @@ export interface HaStoryViewConfig {
   id: string;
   title: string;
   caption: string;
+  resource_id: string;
 }
 
 export class HaStoryContentViewBlock extends TeComponentBlock<HaStoryContentViewComponent> {

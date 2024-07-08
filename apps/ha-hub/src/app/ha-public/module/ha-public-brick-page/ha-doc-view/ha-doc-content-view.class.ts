@@ -15,6 +15,7 @@ export interface HaDocViewConfig {
   id: string;
   title: string;
   caption: string;
+  resource_id: string;
 }
 
 export class HaDocContentViewBlock extends TeComponentBlock<HaDocContentViewComponent> {

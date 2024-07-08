@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Observable} from 'rxjs';
 import {RvResourceView} from '@monorepo/resource-view';
 import {TeElementBlockDirective} from '@monorepo/text-editor';
-import {HaStoryViewConfig} from '../ha-story-content-view.class';
+import {HaStoryViewConfig} from '../ha-story-content-view.block';
 
 @Component({
   selector: 'ha-story-content-view',
