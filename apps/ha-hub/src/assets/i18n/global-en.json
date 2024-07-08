@@ -335,5 +335,8 @@
   "common_spaces": "Common spaces",
   "edit_user_infos": "Edit user informations",
   "user_infos_updated_successfully": "User informations updated successfully",
-  "profile": "Profile"
+  "profile": "Profile",
+  "alias": "Alias",
+  "invalid_alias": "Invalid alias",
+  "invalid_link": "Invalid link"
 }

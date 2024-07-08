@@ -13,6 +13,7 @@ export interface HaProfileEditDialogData {
 
 export interface HaProfileEditDialogFormData {
   id: string;
+  alias: string;
   linkedinLink?: string;
   xLink?: string;
   githubLink?: string;
@@ -43,6 +44,7 @@ export class HaProfileEditDialogComponent extends FlFormDialogAbstractDirective<
   buildForm(): FormGroup<HaProfileEditDialogFormData> {
     return new FormBuilder().group({
       id: [this.user.id],
+      alias: [this.user.alias, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]*$/), Validators.maxLength(52)]],
       linkedinLink: [this.user.linkedinLink, [Validators.pattern(/^https:\/\/www\.linkedin\.com\/.*$/)]],
       xLink: [this.user.xLink, [Validators.pattern(/^https:\/\/(twitter\.com|x\.com)\/.*$/)]],
       githubLink: [this.user.githubLink, [Validators.pattern(/^https:\/\/github\.com\/.*$/)]],
@@ -68,12 +70,14 @@ export class HaProfileEditDialogComponent extends FlFormDialogAbstractDirective<
     return formValue.linkedinLink != this.user.linkedinLink ||
       formValue.xLink != this.user.xLink ||
       formValue.githubLink != this.user.githubLink ||
-      formValue.interests != this.user.interests
+      formValue.interests != this.user.interests || formValue.alias.trim() != this.user.alias;
   }
 
   update(formValue: HaProfileEditDialogFormData): Observable<CoUser> {
-    if (this.checkModified())
+    if (this.checkModified()){
+      formValue.alias = formValue.alias.trim();
       return this.userService.editUser(formValue);
+    }
 
     return null;
   }

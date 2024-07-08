@@ -6,6 +6,12 @@
   <form id="user-infos-form" [formGroup]="formGp" (ngSubmit)="submit()">
 
     <mat-form-field class="g-form-input">
+      <mat-label>{{ 'alias' | translate }}</mat-label>
+      <input matInput formControlName="alias" placeholder="{{'alias' | translate}}">
+      <mat-error *ngIf="formGp.get('alias').hasError('pattern') || formGp.get('alias').hasError('required')">{{'invalid_alias' | translate}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
       <mat-label>LinkedIn</mat-label>
       <input matInput formControlName="linkedinLink" placeholder="LinkedIn">
       <mat-error *ngIf="formGp.get('linkedinLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>

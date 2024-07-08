@@ -337,5 +337,8 @@
   "common_spaces": "Spaces communs",
   "edit_user_infos": "Éditer les informations de l'utilisateur",
   "user_infos_updated_successfully": "Informations de l'utilisateur mises à jour avec succès",
-  "profile": "Profil"
+  "profile": "Profil",
+  "alias": "Alias",
+  "invalid_alias": "Alias invalide",
+  "invalid_link": "Lien invalide"
 }
