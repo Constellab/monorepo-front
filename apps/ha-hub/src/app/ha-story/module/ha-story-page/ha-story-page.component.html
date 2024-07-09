@@ -42,7 +42,7 @@
             <ha-comment-button (clicked)="openCommentsPannel()" [commentsCount]="story.comments"></ha-comment-button>
           </div>
           @if (hasRightToEdit) {
-            <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+ story.id">
+            <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+ story.id" class="edit-button">
               <fl-text-icon [iconPosition]="'end'">
                 <mat-icon>edit</mat-icon>
                 {{ 'edit' | translate }}

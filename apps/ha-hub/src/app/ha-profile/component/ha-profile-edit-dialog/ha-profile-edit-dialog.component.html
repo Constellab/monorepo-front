@@ -1,5 +1,5 @@
 <fl-dialog-header>
-  {{'edit_user_infos' | translate}}
+  {{'edit_profile' | translate}}
 </fl-dialog-header>
 
 <mat-dialog-content>
@@ -12,19 +12,19 @@
     </mat-form-field>
 
     <mat-form-field class="g-form-input">
-      <mat-label>LinkedIn</mat-label>
+      <mat-label><mat-icon svgIcon="linkedin"></mat-icon>LinkedIn</mat-label>
       <input matInput formControlName="linkedinLink" placeholder="LinkedIn">
       <mat-error *ngIf="formGp.get('linkedinLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="g-form-input">
-      <mat-label>Github</mat-label>
+      <mat-label><mat-icon svgIcon="github"></mat-icon>Github</mat-label>
       <input matInput formControlName="githubLink" placeholder="Github">
       <mat-error *ngIf="formGp.get('githubLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="g-form-input">
-      <mat-label>X</mat-label>
+      <mat-label><mat-icon svgIcon="x"></mat-icon>X</mat-label>
       <input matInput formControlName="xLink" placeholder="X">
       <mat-error *ngIf="formGp.get('xLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>
     </mat-form-field>

@@ -15,7 +15,6 @@ export interface HaLiveTaskViewConfig {
   id: string;
   title: string;
   caption: string;
-  resource_id: string;
 }
 
 export class HaLiveTaskContentViewBlock extends TeComponentBlock<HaLiveTaskContentViewComponent> {

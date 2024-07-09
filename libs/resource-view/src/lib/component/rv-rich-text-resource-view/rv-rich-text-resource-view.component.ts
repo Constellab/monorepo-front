@@ -13,9 +13,9 @@ import { Observable } from 'rxjs';
 })
 export class RvRichTextResourceViewComponent implements OnInit {
 
-  @Input({required: true}) resourceId: string;
-
   @Input({required: true}) view$: Observable<RvResourceViewBase>;
+
+  @Input() resourceId: string;
 
   @Input() viewConfig: RvViewConfig;
 
