@@ -82,6 +82,6 @@ export class CoCommunityHelperService {
   }
 
   public getIconBaseApiUrl(): string {
-    return this.getCommunityUrl() + '/public/icon/file';
+    return this.getCommunityApiUrl() + '/public/icon/file';
   }
 }
