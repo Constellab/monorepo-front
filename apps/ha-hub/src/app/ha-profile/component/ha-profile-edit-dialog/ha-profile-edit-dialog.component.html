@@ -12,19 +12,22 @@
     </mat-form-field>
 
     <mat-form-field class="g-form-input">
-      <mat-label><mat-icon svgIcon="linkedin"></mat-icon>LinkedIn</mat-label>
+      <mat-label>LinkedIn</mat-label>
+      <mat-icon svgIcon="linkedin" matPrefix></mat-icon>
       <input matInput formControlName="linkedinLink" placeholder="LinkedIn">
       <mat-error *ngIf="formGp.get('linkedinLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="g-form-input">
-      <mat-label><mat-icon svgIcon="github"></mat-icon>Github</mat-label>
+      <mat-label>Github</mat-label>
+      <mat-icon svgIcon="github" matPrefix></mat-icon>
       <input matInput formControlName="githubLink" placeholder="Github">
       <mat-error *ngIf="formGp.get('githubLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="g-form-input">
-      <mat-label><mat-icon svgIcon="x"></mat-icon>X</mat-label>
+      <mat-label>X</mat-label>
+      <mat-icon svgIcon="x" matPrefix></mat-icon>
       <input matInput formControlName="xLink" placeholder="X">
       <mat-error *ngIf="formGp.get('xLink').hasError('pattern')">{{'invalid_link' | translate}}</mat-error>
     </mat-form-field>

@@ -45,9 +45,9 @@ export class HaProfileEditDialogComponent extends FlFormDialogAbstractDirective<
     return new FormBuilder().group({
       id: [this.user.id],
       alias: [this.user.alias, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]*$/), Validators.maxLength(52)]],
-      linkedinLink: [this.user.linkedinLink, [Validators.pattern(/^https:\/\/www\.linkedin\.com\/.*$/)]],
-      xLink: [this.user.xLink, [Validators.pattern(/^https:\/\/(twitter\.com|x\.com)\/.*$/)]],
-      githubLink: [this.user.githubLink, [Validators.pattern(/^https:\/\/github\.com\/.*$/)]],
+      linkedinLink: [this.user.linkedinLink, [Validators.pattern(/^https:\/\/www\.linkedin\.com\/in\/[A-Za-z0-9_-]+\/?$/)]],
+      xLink: [this.user.xLink, [Validators.pattern(/^https:\/\/(twitter\.com|x\.com)\/[A-Za-z0-9_]+\/?$/)]],
+      githubLink: [this.user.githubLink, [Validators.pattern(/^https:\/\/github\.com\/[A-Za-z0-9-]+\/?$/)]],
       interests: [this.user.interests, [Validators.maxLength(255)]]
     });
   }

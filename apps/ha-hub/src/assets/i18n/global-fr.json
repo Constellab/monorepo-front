@@ -340,5 +340,8 @@
   "profile": "Profil",
   "alias": "Alias",
   "invalid_alias": "Alias invalide",
-  "invalid_link": "Lien invalide"
+  "invalid_link": "Lien invalide",
+  "linkedin": "LinkedIn",
+  "x": "X",
+  "github": "GitHub"
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 export enum HaProfileAttachedLinkType {
   LINKEDIN='linkedin',
@@ -11,24 +11,11 @@ export enum HaProfileAttachedLinkType {
   templateUrl: './ha-profile-attached-link.component.html',
   styleUrl: './ha-profile-attached-link.component.scss'
 })
-export class HaProfileAttachedLinkComponent implements OnInit{
+export class HaProfileAttachedLinkComponent {
 
   @Input({required: true})
   attachedLink: string;
 
   @Input({required: true})
   linkType: 'linkedin' | 'github' | 'x';
-
-  linkPage: string;
-
-  ngOnInit(): void {
-    this.linkPage = this.getLinkPage();
-  }
-
-  private getLinkPage(): string{
-    if (this.attachedLink[this.attachedLink.length - 1] === '/') {
-      this.attachedLink = this.attachedLink.slice(0, -1);
-    }
-    return this.attachedLink.split('/').pop();
-  }
 }

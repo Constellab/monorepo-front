@@ -73,4 +73,9 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'txt_file_icon', filename: 'txt-file-icon.svg'},
   {name: 'zip_file_icon', filename: 'zip-file-icon.svg'},
   {name: 'json_file_icon', filename: 'json-file-icon.svg'},
+  {name: 'comment-accent', filename: 'comment-accent.svg'},
+  {name: 'comment-primary', filename: 'comment-primary.svg'},
+  {name: 'comment-warn', filename: 'comment-warn.svg'},
+  {name: 'heart', filename: 'heart.svg'},
+  {name: 'heart-fill', filename: 'heart-fill.svg'}
 ]

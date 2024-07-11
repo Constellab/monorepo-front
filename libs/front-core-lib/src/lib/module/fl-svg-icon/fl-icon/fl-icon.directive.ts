@@ -51,6 +51,7 @@ export class FlIconDirective {
 
     const registerIcon: FlIcon = this.getRegisterIcon(icon);
 
+    console.log(icon, registerIcon)
     // if this is an SVG icon
     if (registerIcon && (registerIcon as FlSvgIcon).filename) {
       // set the svgIcon property of mat icon
@@ -69,6 +70,7 @@ export class FlIconDirective {
 
   // return true if this is an SVG icon and not a material icon
   private getRegisterIcon(icon: string): FlIcon {
+    console.log(this.config.iconsToRegister, icon)
     return this.config.iconsToRegister.find(svgIcon => svgIcon.name === icon);
   }
 

@@ -4,7 +4,9 @@ import {
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDateModule,
-  FlDialogModule, FlIcon, FlIconModule,
+  FlDialogModule,
+  FlIcon,
+  FlIconModule,
   FlInfiniteScrollModule,
   FlKeyValueModule,
   FlLoaderModule,
@@ -37,17 +39,9 @@ import {MatChipsModule} from '@angular/material/chips';
 import {CoBrickListItemComponent} from './component/co-brick-list-item/co-brick-list-item.component';
 import {TeTextEditorModule} from '@monorepo/text-editor';
 import {CoConfig} from './service/co-service-config.config';
-import { CoUserInlineComponent } from './component/co-user-inline/co-user-inline.component';
-import { CoUserProfilePictureComponent } from './component/co-user-profile-picture/co-user-profile-picture.component';
+import {CoUserInlineComponent} from './component/co-user-inline/co-user-inline.component';
+import {CoUserProfilePictureComponent} from './component/co-user-profile-picture/co-user-profile-picture.component';
 
-export const coSvgIcons: FlIcon[] = [
-  {name: 'comment-accent', filename: 'comment-accent.svg'},
-  {name: 'comment-primary', filename: 'comment-primary.svg'},
-  {name: 'comment-warn', filename: 'comment-warn.svg'},
-
-  {name: 'heart', filename: 'heart.svg'},
-  {name: 'heart-fill', filename: 'heart-fill.svg'},
-]
 
 @NgModule({
   imports: [
@@ -76,10 +70,7 @@ export const coSvgIcons: FlIcon[] = [
     FormsModule,
     FlCardModule,
     NgOptimizedImage,
-    FlIconModule.forRoot({
-      iconFolder: 'assets/fl-mat-icons/',
-      iconsToRegister: coSvgIcons,
-    }),
+    FlIconModule,
   ],
   declarations: [
     CoLiveTaskListItemComponent,
