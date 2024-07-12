@@ -18,10 +18,6 @@ import {FormControl} from '@angular/forms';
 import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 import {BlockToolData} from '@editorjs/editorjs/types/tools';
 import {HaFile} from '../../../../ha-core/entity-module/ha-file-core/model/ha-file';
-import {
-  HaFileDialogComponent,
-  HaFileDialogInput
-} from '../../../../ha-core/entity-module/ha-file-core/component/ha-file-dialog/ha-file-dialog.component';
 import {HaHttpRedirectionService} from '../../../../ha-core/ha-service/ha-http-redirection.service';
 import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
 import {ClStringHelper} from '@monorepo/core-lib';
@@ -189,6 +185,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       // TODO: Get titles
     }
 
+    this.getDocFiles();
+
     this.textEditorConfig =
       new HaDocTextEditorConfig(this.documentationService, this.documentation.id);
 
@@ -198,6 +196,12 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
       true, {brickTitle: this.brickName, docTitle: this.documentation.title});
     this.metadataService.addMetaTag('description', 'ha.documentation.brick.description',
       true, {brickTitle: this.brickName, docTitle: this.documentation.title});
+  }
+
+  private getDocFiles(): void {
+    this.documentationService.getDocFiles(this.documentation.id).subscribe(files => {
+      this.docFiles = files;
+    });
   }
 
   onContentUpdate(content: TeRichTextContent): void {

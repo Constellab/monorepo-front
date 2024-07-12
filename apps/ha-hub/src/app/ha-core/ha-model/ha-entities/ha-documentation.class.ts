@@ -20,13 +20,6 @@ export class HaDocumentation extends HaEntity {
 
   docFiles: HaFile[];
 
-  get files(): HaFile[] {
-    return this.docFiles;
-  }
-
-  set files(files: HaFile[]) {
-    this.docFiles = files;
-  }
 }
 
 

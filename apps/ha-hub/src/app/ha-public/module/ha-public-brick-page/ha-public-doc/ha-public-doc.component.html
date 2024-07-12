@@ -46,8 +46,8 @@
     </div>
   </div>
 </div>
-<div class="right-panel right-div g-scrollable-element" *ngIf="documentation && (titles?.length > 0 || (documentation.docFiles?.length > 0 || (isCreatorOrBrickUser$ | async)))">
-  @if ((documentation.docFiles && documentation.docFiles.length > 0) || (isCreatorOrBrickUser$ | async)) {
+<div class="right-panel right-div g-scrollable-element" *ngIf="documentation && (titles?.length > 0 || (docFiles?.length > 0 || (isCreatorOrBrickUser$ | async)))">
+  @if ((docFiles && docFiles.length > 0) || (isCreatorOrBrickUser$ | async)) {
     <div class="files-div">
       <h6 class="side-box-title">
         <fl-text-icon>
@@ -57,7 +57,7 @@
       </h6>
 
       <div class="doc-files-div">
-        @for (file of documentation.docFiles; track file.id) {
+        @for (file of docFiles; track file.id) {
           <div class="doc-file" [matTooltip]="file.name" *ngIf="file.type == 'FILE'">
             <a type="button" [href]="downloadFile(documentation.id, file)" download [matTooltip]="'download_attached_file' | translate">
               <fl-file-text-icon [filename]="file.name">

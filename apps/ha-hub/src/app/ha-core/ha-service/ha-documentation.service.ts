@@ -91,6 +91,10 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
 
   ////////////////////////////////// FILE //////////////////////////////////
 
+  public getDocFiles(docId: string): Observable<HaFile[]> {
+    return this.apiService.get(`${this.route}/doc-files/${docId}`);
+  }
+
   public getDocFilePath(docId: string, docFileId: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${docId}/file/${docFileId}`);
   }

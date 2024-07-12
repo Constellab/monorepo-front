@@ -61,7 +61,7 @@ export class HaStoryPageComponent implements OnInit {
 
   paramTitle: string;
 
-
+  storyFiles: HaFile[];
 
   constructor(private activatedRoute: ActivatedRoute,
               private storyService: HaStoryService,
@@ -151,6 +151,12 @@ export class HaStoryPageComponent implements OnInit {
     });
   }
 
+  private getStoryFiles(): void{
+    this.storyService.getStoryFiles(this.story.id).subscribe((files: HaFile[]) => {
+      this.storyFiles = files;
+    });
+  }
+
   toggleLikeStoryButton(): void{
     if(this.storyIsLiked){
       this.unlikeStory();
@@ -201,6 +207,7 @@ export class HaStoryPageComponent implements OnInit {
       this.transferState.set(this.STORY_KEY, {story: story, titles: this.titles});
     }
     this.getStoryCoAuthors();
+    this.getStoryFiles();
 
     this.metadataService.setPageTitle('ha.story.title', true, {title: this.story.title});
     this.metadataService.addMetaTag('description', 'ha.story.description', true, {title: this.story.title});

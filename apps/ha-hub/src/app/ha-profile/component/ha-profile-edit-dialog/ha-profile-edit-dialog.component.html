@@ -5,7 +5,12 @@
 <mat-dialog-content>
   <form id="user-infos-form" [formGroup]="formGp" (ngSubmit)="submit()">
 
+    <p class="g-text-centered g-form-input">
+      {{'edit_profile_description' | translate}}
+    </p>
+
     <mat-form-field class="g-form-input">
+      <mat-hint>{{'alias_hint' | translate}}</mat-hint>
       <mat-label>{{ 'alias' | translate }}</mat-label>
       <input matInput formControlName="alias" placeholder="{{'alias' | translate}}">
       <mat-error *ngIf="formGp.get('alias').hasError('pattern') || formGp.get('alias').hasError('required')">{{'invalid_alias' | translate}}</mat-error>

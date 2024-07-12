@@ -43,21 +43,13 @@ export class HaStory {
 
   titlePath: string;
 
-  storyFiles: HaFile[];
+  storyFiles?: HaFile[];
 
   createdBy: HaUser;
 
   likes: number;
 
   comments: number;
-
-  get files(): HaFile[] {
-    return this.storyFiles;
-  }
-
-  set files(files: HaFile[]) {
-    this.storyFiles = files;
-  }
 
   init(story: HaStory): void {
     Object.assign(this, story);

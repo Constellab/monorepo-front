@@ -341,5 +341,7 @@
   "invalid_link": "Invalid link",
   "linkedin": "LinkedIn",
   "x": "X",
-  "github": "GitHub"
+  "github": "GitHub",
+  "edit_profile_description": "Modify your Community profile information. These changes will not affect your Constellab profile.",
+  "alias_hint": "Your alias is how you will be identified on Community."
 }

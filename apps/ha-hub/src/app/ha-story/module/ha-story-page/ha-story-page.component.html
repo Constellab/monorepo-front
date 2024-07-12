@@ -67,9 +67,9 @@
 }
 
 
-@if ((titles && titles.length > 0 || story?.storyFiles && story?.storyFiles.length > 0) && !notFound) {
+@if ((titles && titles.length > 0 || storyFiles && storyFiles.length > 0) && !notFound) {
   <div class="right-div right-panel g-scrollable-element">
-    @if (story.storyFiles && story.storyFiles.length > 0) {
+    @if (storyFiles && storyFiles.length > 0) {
       <div class="files-div">
         <h6 class="side-box-title">
           <fl-text-icon>
@@ -78,7 +78,7 @@
           </fl-text-icon>
         </h6>
         <div class="story-files-div">
-          @for (file of story.storyFiles; track file.id) {
+          @for (file of storyFiles; track file.id) {
             <div class="story-file" [matTooltip]="file.name" *ngIf="file.type == 'FILE'">
               <a type="button" [href]="downloadFile(file)" download>
                 <fl-file-text-icon [filename]="file.name"></fl-file-text-icon>

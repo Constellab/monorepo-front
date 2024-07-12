@@ -218,6 +218,11 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
   }
 
 
+  getStoryFiles(storyId: string): Observable<HaFile[]>{
+    return this.apiService.get(`${this.route}/story-files/${storyId}`, HaFile, {resultIsPaginated: false})
+  }
+
+
   uploadFile(file: File, storyId: string): Observable<HaFile>{
     const formData = new FormData();
     formData.append('file', file);
