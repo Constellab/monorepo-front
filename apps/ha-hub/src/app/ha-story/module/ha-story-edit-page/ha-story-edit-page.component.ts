@@ -150,9 +150,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       );
     });
 
-
-
-    console.log(this.deleteImageConfig)
   }
 
   onTitleChange(event: string): void {

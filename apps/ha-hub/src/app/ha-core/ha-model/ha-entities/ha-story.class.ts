@@ -65,7 +65,6 @@ export class HaStory {
   }
 
   getCoAuthors(): HaUser[] {
-    console.log(this.storyCoAuthors)
     return this.storyCoAuthors?.map(storyAuthor => storyAuthor.user);
   }
 }

@@ -138,7 +138,6 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
       (brick) => {
         if(brick){
           this.brick = brick;
-          console.log('BRICK', brick)
         }
       }
     );
