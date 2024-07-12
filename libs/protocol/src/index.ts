@@ -37,12 +37,14 @@ export * from './lib/state/pr-workflow-resources.state';
 
 
 // component
+export * from './lib/component/pr-process-config-info-dialog/pr-process-config-info-dialog.component';
+export * from './lib/component/pr-process-info/pr-process-info.component';
+export * from './lib/component/pr-process-info-dialog/pr-process-info-dialog.component';
 export * from './lib/component/pr-workflow/pr-workflow.component';
 export * from './lib/component/pr-workflow-node-process/pr-workflow-node-process.component';
 export * from './lib/component/pr-workflow-node-resource/pr-workflow-node-resource.component';
 export * from './lib/component/pr-workflow-layers-breadcrumb/pr-workflow-layers-breadcrumb.component';
 export * from './lib/component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
-export * from './lib/component/pr-workflow-process-config-info-dialog/pr-workflow-process-config-info-dialog.component';
 
 // directive
 export * from './lib/directive/pr-workflow-node.directive';

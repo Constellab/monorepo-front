@@ -25,6 +25,7 @@ const prProtocolI18nFr: FlLangTranslation = {
     human_name: "Nom",
     short_description: "Brève description",
     default_value: "Valeur par défaut",
+    value: "Valeur",
     partially_run: "Partiellement exécuté",
     waiting_for_cli_process: "En attente",
     process_not_available: "Attention, le process n'est pas disponible, est-ce que la brick associé est bien chargé ? Vous pouvez retrouver la liste des brick et leur status dans Paramètres > Monitoring. L'expérience ne peut pas être exécutée.",
@@ -37,6 +38,11 @@ const prProtocolI18nFr: FlLangTranslation = {
     resource_load_error: "Erreur lors du chargement de la ressource.",
     open_resource_experiment: "Ouvrir l'expérience précédente",
     show_next_objects: "Afficher les objets suivants",
+    instance_name: "Nom de l'instance",
+    brick: 'Brique',
+    typing_name: 'Type',
+    show_config_detail: 'Configuration détaillée',
+    process_detail: 'Détail du process',
   }
 };
 
@@ -60,6 +66,7 @@ const prProtocolI18nEn: FlLangTranslation = {
     human_name: "Name",
     short_description: "Short description",
     default_value: "Default value",
+    value: "Value",
     partially_run: "Partially run",
     waiting_for_cli_process: "Waiting",
     process_not_available: "Warning, the process is not available, is the associated brick correctly loaded? You can find the list of bricks and their status in Settings > Monitoring. The experiment can't be run.",
@@ -72,6 +79,11 @@ const prProtocolI18nEn: FlLangTranslation = {
     resource_load_error: "Error while loading the resource.",
     open_resource_experiment: "Open previous experiment",
     show_next_objects: "Show next objects",
+    instance_name: "Instance name",
+    brick: 'Brick',
+    typing_name: 'Type',
+    show_config_detail: 'Detailed configuration',
+    process_detail: 'Process detail',
   }
 };
 

@@ -1,8 +1,8 @@
-import {FlCoord} from '@monorepo/front-core-lib';
-import {PrOI} from './pr-io.class';
-import {PrProcessStatus} from './pr-process.class';
-import {PrConfig} from './pr-config.class';
-import {TdSimpleTypeEntity, TdTypeStyle} from '@monorepo/technical-doc';
+import { FlCoord } from '@monorepo/front-core-lib';
+import { PrOI } from './pr-io.class';
+import { PrProcessStatus } from './pr-process.class';
+import { PrConfig } from './pr-config.class';
+import { TdSimpleTypeEntity, TdTypeStyle } from '@monorepo/technical-doc';
 
 export interface PrProtocolLayout {
   process_layouts: Record<string, FlCoord>;
@@ -24,13 +24,15 @@ export interface PrProtocolGraph {
 
 export interface PrProtocol {
 
-  brick_version: string;
-
   name: string;
 
   instance_name: string;
 
   process_typing_name: string;
+
+  brick_version_on_create: string;
+
+  brick_version_on_run: string;
 
   config: PrConfig;
 

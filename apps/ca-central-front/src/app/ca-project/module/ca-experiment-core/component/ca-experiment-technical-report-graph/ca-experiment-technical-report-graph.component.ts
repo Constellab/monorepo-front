@@ -1,21 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PrProtocolGraph} from '@monorepo/protocol';
+import { Component, inject, Input } from '@angular/core';
+import { PrProtocolGraph } from '@monorepo/protocol';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ca-experiment-technical-report-graph',
   templateUrl: './ca-experiment-technical-report-graph.component.html',
   styleUrls: ['./ca-experiment-technical-report-graph.component.scss']
 })
-export class CaExperimentTechnicalReportGraphComponent implements OnInit {
+export class CaExperimentTechnicalReportGraphComponent {
 
-  @Input() graph: PrProtocolGraph;
+  @Input({ required: true }) graph: PrProtocolGraph;
 
   @Input() protocolName?: string;
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
+  communityHelper = inject(CoCommunityHelperService);
 }

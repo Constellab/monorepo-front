@@ -3,7 +3,7 @@
   <h3 *ngIf="!protocolName">{{'protocol_process' | translate}}</h3>
   <div *ngFor="let nName of graph.nodes |  flObjectKeys">
     <mat-divider class="divider"></mat-divider>
-    <ca-experiment-technical-report-node [node]="graph.nodes[nName]"></ca-experiment-technical-report-node>
+    <pr-process-info [process]="graph.nodes[nName]" [communityHelper]="communityHelper"></pr-process-info>
   </div>
 </div>
 

@@ -1,9 +1,12 @@
-import {Component, Input, NgZone, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-experiment.class';
-import {CaExperimentService} from '../../../../../ca-core/service-api/ca-experiment.service';
-import {CaTechnicalReport} from '../../../../../ca-core/model/entities/project/ca-technical-report.class';
-import {FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
+import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { CaExperiment } from '../../../../../ca-core/model/entities/project/ca-experiment.class';
+import { CaExperimentService } from '../../../../../ca-core/service-api/ca-experiment.service';
+import { CaTechnicalReport } from '../../../../../ca-core/model/entities/project/ca-technical-report.class';
+import { FlDialogService, FlSnackBarService } from '@monorepo/front-core-lib';
 import {
+  PrProcessInfoDialogComponent,
+  PrProcessInfoDialogInput,
+  PrProtocol,
   PrWorkflow,
   PrWorkflowActionSelectNode,
   PrWorkflowActionShowResource,
@@ -13,15 +16,15 @@ import {
   PrWorkflowNodeProcess,
   PrWorkflowResourcesState
 } from '@monorepo/protocol';
-import {filter, Observable, of, Subscription, tap} from 'rxjs';
-import {MatDrawer} from '@angular/material/sidenav';
-import {CaWorkflowNodeMenuConfig} from '../../model/ca-workflow-node-menu.config';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {map} from 'rxjs/operators';
+import { filter, Observable, of } from 'rxjs';
+import { CaWorkflowNodeMenuConfig } from '../../model/ca-workflow-node-menu.config';
+import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { map } from 'rxjs/operators';
 import {
   CaLabConfigDialogComponent,
   CaLabConfigDialogInput
 } from '../../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ca-experiment-technical-report',
@@ -29,8 +32,6 @@ import {
   styleUrls: ['./ca-experiment-technical-report.component.scss']
 })
 export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
-
-  @ViewChild(MatDrawer, {static: true}) drawer: MatDrawer;
 
   @Input() experiment: CaExperiment;
 
@@ -42,16 +43,18 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
 
   workflowConfig: CaWorkflowNodeMenuConfig;
 
-  currentNodeSelected: Observable<PrWorkflowNodeProcess>;
+  private factory: PrWorkflowFactory;
 
-  private showResourceSubscription: Subscription;
+  private subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
+
 
   constructor(private experimentService: CaExperimentService,
               private dialogService: FlDialogService,
               private actionState: PrWorkflowActionState,
               private ngZone: NgZone,
               private workflowResourcesState: PrWorkflowResourcesState,
-              private snackBarService: FlSnackBarService) {
+              private snackBarService: FlSnackBarService,
+              private communityHelper: CoCommunityHelperService) {
   }
 
   ngOnInit(): void {
@@ -63,44 +66,52 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
     this.actionState.init();
 
 
-    this.currentNodeSelected = this.actionState.getAction$().pipe(
+    this.subscriptions.add(this.actionState.getAction$().pipe(
       filter(action => action?.action === 'selectProcessNode'),
-      tap(() => this.drawer.open()),
       map(action => (action as PrWorkflowActionSelectNode).processNode)
-    );
+    ).subscribe((node: PrWorkflowNodeProcess) => this.openNodeDetail(node)));
 
-    this.showResourceSubscription = this.actionState.getAction$().pipe(
+    this.subscriptions.add(this.actionState.getAction$().pipe(
       filter(action => action?.action === 'showResource')
-    ).subscribe(
-      (action: PrWorkflowActionShowResource) => this.navigateToResource(action.resourceId)
-    );
+    ).subscribe((action: PrWorkflowActionShowResource) => this.navigateToResource(action.resourceId)));
   }
 
   private navigateToResource(resourceId: string): void {
     this.workflowConfig.openResourceDetail(resourceId);
   }
 
+  openNodeDetail(workflowNode: PrWorkflowNodeProcess): void {
+    const process: PrProtocol = this.factory.findCaProcessByPrProcessId(workflowNode.currentObject.id);
+    if (workflowNode) {
+      const input: PrProcessInfoDialogInput = {
+        process: process,
+        communityHelper: this.communityHelper
+      };
+      this.dialogService.openMediumDialog(PrProcessInfoDialogComponent, { data: input });
+    }
+  }
+
   openLabConfigDialog(): void {
     const input: CaLabConfigDialogInput = {
       labConfig: this.experimentService.getExperimentLabConfig(this.experiment.id),
-      title: {text: 'lab_configuration', translateText: true},
-      helpText: {text: 'experiment_brick_config_help', translateText: true}
+      title: { text: 'lab_configuration', translateText: true },
+      helpText: { text: 'experiment_brick_config_help', translateText: true }
     };
 
-    this.dialogService.openSmallDialog(CaLabConfigDialogComponent, {data: input});
+    this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input, autoFocus: false });
   }
 
   private onTechnicalReportSuccess(technicalReport: CaTechnicalReport): void {
     this.technicalReport = technicalReport;
-    const factory = new PrWorkflowFactory(technicalReport.data.graph, ClStringHelper.generateUUID(),
+    this.factory = new PrWorkflowFactory(technicalReport.data.graph, ClStringHelper.generateUUID(),
       this.ngZone, this.workflowResourcesState, this.actionState);
-    this.workflow = factory.createWorkflow();
+    this.workflow = this.factory.createWorkflow();
   }
 
   ngOnDestroy(): void {
     this.actionState.clear();
     this.workflow?.destroy();
-    this.showResourceSubscription?.unsubscribe();
+    this.subscriptions?.unsubscribe();
   }
 }
 

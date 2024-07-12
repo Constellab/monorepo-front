@@ -1,24 +1,31 @@
-import {Observable, of} from 'rxjs';
-import {tdTypeStyleDefault, TdTypingName} from '@monorepo/technical-doc';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {NgZone} from '@angular/core';
-import {FlCoord} from '@monorepo/front-core-lib';
-import {PrProtocol, PrProtocolGraph, PrProtocolLayout} from '../pr-protocol.class';
-import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
-import {PrWorkflow} from './pr-workflow.class';
-import {PrWorkflowLayer} from './pr-workflow-layer.class';
+import { Observable, of } from 'rxjs';
+import { tdTypeStyleDefault, TdTypingName } from '@monorepo/technical-doc';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { NgZone } from '@angular/core';
+import { FlCoord } from '@monorepo/front-core-lib';
+import { PrProtocol, PrProtocolGraph, PrProtocolLayout } from '../pr-protocol.class';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+import { PrWorkflow } from './pr-workflow.class';
+import { PrWorkflowLayer } from './pr-workflow-layer.class';
 
-import {PrWorkflowNodeProcess} from '../node/pr-workflow-node-process.class';
-import {PrWorkflowNodeSource} from '../node/pr-workflow-node-source.class';
-import {PrWorkflowNodeOutput} from '../node/pr-workflow-node-output.class';
-import {PrWorkflowNodeViewer} from '../node/pr-workflow-node-viewer.class';
-import {PrWorkflowNodeProtocol} from '../node/pr-workflow-node-protocol.class';
-import {PrProcess, prProcessStatusDict} from '../pr-process.class';
-import {PrWorkflowNode} from '../node/pr-workflow-node.class';
-import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
+import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
+import { PrWorkflowNodeSource } from '../node/pr-workflow-node-source.class';
+import { PrWorkflowNodeOutput } from '../node/pr-workflow-node-output.class';
+import { PrWorkflowNodeViewer } from '../node/pr-workflow-node-viewer.class';
+import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
+import { PrProcess, prProcessStatusDict } from '../pr-process.class';
+import { PrWorkflowNode } from '../node/pr-workflow-node.class';
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
 
 export class PrWorkflowFactory {
+
+  /**
+   * Object to store the match between the PrProcess and the PrProtocol
+   * key is the process id, value is the PrProtocol
+   * @private
+   */
+  private conversionMatch: Record<string, PrProtocol> = {}
 
   constructor(private graph: PrProtocolGraph, private id: string,
               private ngZone: NgZone,
@@ -80,6 +87,7 @@ export class PrWorkflowFactory {
   private createProcessNode(process: PrProtocol, name: string, protocolId: string,
                             layout?: FlCoord): PrWorkflowNode {
     const prProcess = this.caProcessToPrProcess(process, name, protocolId);
+    this.conversionMatch[prProcess.id] = process;
 
     let processNode: PrWorkflowNode;
     if (process.process_typing_name === TdTypingName.task.source.typingName) {
@@ -123,5 +131,7 @@ export class PrWorkflowFactory {
     };
   }
 
-
+  public findCaProcessByPrProcessId(processId: string): PrProtocol{
+    return this.conversionMatch[processId];
+  }
 }

@@ -1,0 +1,63 @@
+<!-- Header -->
+<div class="g-layout-row g-layout-start-center">
+  <td-type-inline [text]="process.name" [style]="process.style" class="g-text-big g-flex-auto"></td-type-inline>
+
+
+  <!--   Mat menu containing action buttons   -->
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+
+    @if (docUrl) {
+      <a mat-menu-item [href]="docUrl" target="_blank">
+        <mat-icon>info</mat-icon>
+        {{ 'documentation' | translate }}
+      </a>
+    }
+
+    @if (process.config | flIsNotEmpty) {
+      <button mat-menu-item
+              type="button" (click)="openConfigDetail()">
+        <mat-icon>settings</mat-icon>
+        {{ 'pr.show_config_detail' | translate }}
+      </button>
+    }
+  </mat-menu>
+
+</div>
+
+<div class="container">
+
+  <div>
+    <fl-key-value>
+      <fl-key>{{ 'pr.instance_name' | translate }}</fl-key>
+      {{ process.instance_name }}
+    </fl-key-value>
+
+    <fl-key-value>
+      <fl-key>{{ 'pr.typing_name' | translate }}</fl-key>
+      {{ process.process_typing_name }}
+    </fl-key-value>
+
+    <fl-key-value>
+      <fl-key>{{ 'pr.brick' | translate }}</fl-key>
+      {{ typingName?.brickName }} v{{ process.brick_version_on_run }}
+    </fl-key-value>
+
+    @if (process.process_type?.short_description) {
+      <fl-key-value>
+        <fl-key>{{ 'pr.short_description' | translate }}</fl-key>
+        {{ process.process_type.short_description }}
+      </fl-key-value>
+    }
+  </div>
+
+
+  <div>
+    <div>{{ 'pr.process_configuration' | translate }}</div>
+    @if (process.config && process.config.values | flIsNotEmpty) {
+      <fl-pretty-json [object]="process.config.values" [dense]="true"></fl-pretty-json>
+    }
+  </div>
+</div>

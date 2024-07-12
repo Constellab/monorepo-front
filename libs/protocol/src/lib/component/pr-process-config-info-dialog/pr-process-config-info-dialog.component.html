@@ -1,0 +1,57 @@
+<fl-dialog-header>
+  {{ 'pr.process_configuration' | translate }}
+</fl-dialog-header>
+
+
+<mat-table mat-table [dataSource]="configs">
+
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'pr.human_name' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.name }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- ShortDescription -->
+  <ng-container matColumnDef="shortDescription">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'pr.short_description' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div class="g-text-dense-height">{{ row.shortDescription }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Value -->
+  <ng-container matColumnDef="value">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+      <span>{{ 'pr.value' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-column-width-2">
+      @if (row.valueIsJson) {
+        <fl-pretty-json [object]="row.value" [dense]="true"></fl-pretty-json>
+      } @else {
+        <div class="g-text-dense-height">{{ row.value }}</div>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- DefaultValue -->
+  <ng-container matColumnDef="defaultValue">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'pr.default_value' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div class="g-text-dense-height">{{ row.defaultValue }}</div>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+
+</mat-table>
