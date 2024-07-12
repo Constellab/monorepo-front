@@ -1,13 +1,16 @@
 
-.center{
-  margin:auto;
+.center {
+  margin: auto;
 }
 
-.draggable{
+.draggable {
   cursor: move;
 }
 
-.fake-icon{
+.fake-icon {
   width: 40px;
 }
 
+.header-buttons {
+  flex-shrink: 0;
+}

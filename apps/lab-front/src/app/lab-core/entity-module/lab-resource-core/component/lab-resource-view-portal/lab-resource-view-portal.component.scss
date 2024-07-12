@@ -1,4 +1,4 @@
-.portal{
+.portal {
   padding-bottom: 0;
   min-width: 350px;
 }
@@ -8,8 +8,6 @@
   text-align: center;
 }
 
-.separator{
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+.header-button {
+  flex-shrink: 0;
 }
-

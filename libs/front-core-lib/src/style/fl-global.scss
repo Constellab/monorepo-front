@@ -325,7 +325,7 @@ figure {
   border-radius: 5px;
   border: 1px solid transparent;
   outline: none;
-  line-height: 1.2em; // dense line height
+  line-height: 1.3em; // dense line height, if lower, the caret overflow container
   min-width: 15px;
   min-height: 25px;
 }
