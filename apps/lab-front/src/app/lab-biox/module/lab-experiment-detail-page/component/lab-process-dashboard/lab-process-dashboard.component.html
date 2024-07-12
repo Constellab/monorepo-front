@@ -54,12 +54,12 @@
               </button>
             }
 
-          @if (isTask$ | async){
-            <button mat-menu-item type="button" (click)="duplicateTask(process)">
-              <mat-icon>content_copy</mat-icon>
-              {{ 'biox.duplicate_task' | translate }}
-            </button>
-          }
+            @if (isTask$ | async) {
+              <button mat-menu-item type="button" (click)="duplicateTask(process)">
+                <mat-icon>content_copy</mat-icon>
+                {{ 'biox.duplicate_task' | translate }}
+              </button>
+            }
 
 
             <!--   Progress and logs infos     -->
@@ -118,8 +118,12 @@
       </div>
 
       @if (process.errorInfo && process.isError()) {
-        <div class="process-error" (click)="openProgressDetails()">
+        <div class="process-error process-run-error g-text-link" (click)="openProgressDetails()">
           {{ process.errorInfo.detail }}
+        </div>
+      } @else if (process.typeStatus === 'UNAVAILABLE') {
+        <div class="process-error">
+          {{ 'pr.process_not_available' | translate }}
         </div>
       }
     </div>

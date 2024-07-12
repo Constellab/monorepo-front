@@ -24,15 +24,15 @@
 .process-error {
   color: var(--warn-color);
   margin-bottom: 0.2em;
+  width: 100%;
+  // align with title
+  padding-left: 6px;
+}
+
+.process-run-error{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 100%;
-  cursor: pointer;
-}
-
-.process-error:hover {
-  text-decoration: underline;
 }
 
 .section-container {

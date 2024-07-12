@@ -1,14 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {LabSharedEntityDatasource, LabShareLink, LabShareLinkType} from '../../../../model/entities/lab-share.entity';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { LabSharedEntityDatasource, LabShareLink, LabShareLinkType } from '../../../../model/entities/lab-share.entity';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
-import {FlClipboardService, FlDialogService} from '@monorepo/front-core-lib';
-import {Observable, of, share} from 'rxjs';
-import {LabShareService} from '../../../../entity-service/lab-share.service';
-import {LabShareLinkService} from '../../../../entity-service/lab-share-link.service';
+import { FlClipboardService, FlDialogService } from '@monorepo/front-core-lib';
+import { Observable, of, share } from 'rxjs';
+import { LabShareService } from '../../../../entity-service/lab-share.service';
+import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
 
 export interface LabSharedEntityInfoDialogInput {
   entityType: LabShareLinkType;
@@ -67,6 +67,8 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
     switch (this.entityType) {
       case 'RESOURCE':
         return 'biox.share_resource';
+      case 'EXPERIMENT':
+        return 'biox.share_experiment';
       default:
         throw new Error('Unknown entity type');
     }
@@ -76,6 +78,8 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
     switch (this.entityType) {
       case 'RESOURCE':
         return 'biox.share_resource';
+      case 'EXPERIMENT':
+        return 'biox.share_experiment';
       default:
         throw new Error('Unknown entity type');
     }

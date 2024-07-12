@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, Host, Optional} from '@angular/core';
-import {FlEmbeddedOptionsAbstractDirective} from '@monorepo/front-core-lib';
-import {LabExperimentCreationType} from '../../../../model/entities/lab-experiment.entity';
-import {MatSelect} from '@angular/material/select';
+import { AfterViewInit, Component, Host, Optional } from '@angular/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { flExperimentCreationTypes } from '../../../../model/entities/lab-experiment.entity';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'lab-experiment-creation-type-options',
@@ -11,7 +11,7 @@ import {MatSelect} from '@angular/material/select';
 export class LabExperimentCreationTypeOptionsComponent extends FlEmbeddedOptionsAbstractDirective
   implements AfterViewInit {
 
-  creationTypes: LabExperimentCreationType[] = ['MANUAL', 'AUTO'];
+  creationTypes = flExperimentCreationTypes;
 
   constructor(@Host() @Optional() public select: MatSelect) {
     super(select);

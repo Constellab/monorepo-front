@@ -1,4 +1,4 @@
-import {flThemeClass} from '../../fl-theme/model/fl-theme-detail.class';
+import { flThemeClass } from '../../fl-theme/model/fl-theme-detail.class';
 
 /**
  * Status interface to describe it with detail
@@ -9,6 +9,7 @@ export interface FlStatus<STATUS = string> {
   textColorClass: string; // class used to color status text
   backgroundColorClass: string; // class used to color status background
   icon: 'loader' | string; // icon of the status, if loader, a loader will be displayed (no icon)
+  description?: string; // description of the status
 }
 
 /**
@@ -46,50 +47,58 @@ export class FlStatusHelper {
 
   public static getSuccessStatus<STATUS = string>(value: STATUS,
                                                   name: string = 'flStatus.success',
-                                                  icon = FlStatusHelper.successIcon): FlStatus<STATUS> {
+                                                  icon = FlStatusHelper.successIcon,
+                                                  description?: string): FlStatus<STATUS> {
     return {
       name: name,
       value: value,
       textColorClass: FlStatusHelper.successTextClass,
       backgroundColorClass: FlStatusHelper.successBackgroundClass,
-      icon: icon
+      icon: icon,
+      description: description
     };
   }
 
   public static getErrorStatus<STATUS = string>(value: STATUS,
                                                 name: string = 'flStatus.error',
-                                                icon = FlStatusHelper.errorIcon): FlStatus<STATUS> {
+                                                icon = FlStatusHelper.errorIcon,
+                                                description?: string): FlStatus<STATUS> {
     return {
       name: name,
       value: value,
       textColorClass: FlStatusHelper.errorTextClass,
       backgroundColorClass: FlStatusHelper.errorBackgroundClass,
-      icon: icon
+      icon: icon,
+      description
     };
   }
 
 
   public static getWarningStatus<STATUS = string>(value: STATUS,
                                                   name: string = 'flStatus.warning',
-                                                  icon = FlStatusHelper.warningIcon): FlStatus<STATUS> {
+                                                  icon = FlStatusHelper.warningIcon,
+                                                  description?: string): FlStatus<STATUS> {
     return {
       name: name,
       value: value,
       textColorClass: FlStatusHelper.warningTextClass,
       backgroundColorClass: FlStatusHelper.warningBackgroundClass,
-      icon: icon
+      icon: icon,
+      description: description
     };
   }
 
   public static getInfoStatus<STATUS = string>(value: STATUS,
                                                name: string = 'flStatus.info',
-                                               icon = FlStatusHelper.infoIcon): FlStatus<STATUS> {
+                                               icon = FlStatusHelper.infoIcon,
+                                               description?: string): FlStatus<STATUS> {
     return {
       name: name,
       value: value,
       textColorClass: FlStatusHelper.infoTextClass,
       backgroundColorClass: FlStatusHelper.infoBackgroundClass,
-      icon: icon
+      icon: icon,
+      description: description
     };
   }
 

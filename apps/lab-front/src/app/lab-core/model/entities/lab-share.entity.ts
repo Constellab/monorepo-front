@@ -1,12 +1,12 @@
-import {Expose, Type} from 'class-transformer';
-import {DateTime} from 'luxon';
-import {ClDateHelper, ClLuxonDateTimeTransform} from '@monorepo/core-lib';
-import {LabBaseEntityWithUser, LabUser} from './lab-user.entity';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {LabBaseEntity} from '../global/lab-entity.entity';
-import {LabEntityType} from './lab-navigable-entity.entity';
+import { Expose, Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+import { ClDateHelper, ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { LabBaseEntityWithUser, LabUser } from './lab-user.entity';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { LabBaseEntity } from '../global/lab-entity.entity';
+import { LabEntityType } from './lab-navigable-entity.entity';
 
-export type LabShareLinkType = 'RESOURCE';
+export type LabShareLinkType = 'RESOURCE' | 'EXPERIMENT';
 
 export class LabShareLink extends LabBaseEntityWithUser {
 
@@ -32,7 +32,7 @@ export class LabShareLink extends LabBaseEntityWithUser {
   }
 
   get labObjectType(): LabEntityType {
-    return 'RESOURCE';
+    return this.entityType;
   }
 }
 

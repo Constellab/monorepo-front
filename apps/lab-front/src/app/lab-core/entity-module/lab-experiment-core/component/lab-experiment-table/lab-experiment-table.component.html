@@ -10,8 +10,10 @@
               [style.border-left-color]="experiment.project?.id | flStringToRgb">
 
       <!--    Invisible link  -->
-      <a *ngIf="!rowSelectable" [routerLink]="experiment | labDetailRoute"
-         [target]="rowLinkTarget" class="g-row-link"></a>
+      @if (!rowSelectable) {
+        <a [routerLink]="experiment | labDetailRoute"
+           [target]="rowLinkTarget" class="g-row-link"></a>
+      }
 
       <div>
         <div class="text g-text-dense-height">{{ experiment.title }}</div>
@@ -35,21 +37,7 @@
       <fl-status-chip [status]="experiment.status" mode="iconText" size="small">
       </fl-status-chip>
 
-      <mat-icon *ngIf="experiment.isValidated"
-                [matTooltip]="'biox.experiment_validated' | translate"
-                class="status-icon over-link" flIcon="validated">
-      </mat-icon>
-
-      <mat-icon *ngIf="experiment.isArchived"
-                [matTooltip]="'biox.experiment_archived' | translate"
-                class="status-icon over-link" flIcon="archive">
-      </mat-icon>
-
-      <mat-icon *ngIf="experiment.isAuto()"
-                [matTooltip]="'biox.experiment_creation_type_help_AUTO' | translate"
-                class="status-icon over-link">
-        smart_toy
-      </mat-icon>
+      <lab-experiment-icons [experiment]="experiment" class="status-icon over-link"></lab-experiment-icons>
 
     </mat-cell>
   </ng-container>

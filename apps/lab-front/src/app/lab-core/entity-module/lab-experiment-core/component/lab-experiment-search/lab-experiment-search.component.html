@@ -20,6 +20,11 @@
               (click)="createExperiment()">
         <mat-icon>add</mat-icon>
       </button>
+
+      <button mat-icon-button type="button" color="accent" (click)="openImportFromUrlDialog()"
+              [matTooltip]="'biox.import_experiment_from_lab' | translate">
+        <mat-icon>cloud_download</mat-icon>
+      </button>
     </fl-search-header-actions>
   </fl-search-header>
 

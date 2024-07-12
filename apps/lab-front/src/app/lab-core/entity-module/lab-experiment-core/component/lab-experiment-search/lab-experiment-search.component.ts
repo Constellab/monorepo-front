@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FlDatasourcePaginated,
   FlDialogService,
@@ -9,11 +9,14 @@ import {
   FlTag,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabExperimentSearch, LabExperimentSearchFields} from '../../model/lab-experiment-search.class';
-import {LabExperimentService} from '../../../../entity-service/lab-experiment.service';
-import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
-import {LabExperimentFormDialogComponent} from '../lab-experiment-form-dialog/lab-experiment-form-dialog.component';
-import {LabRouterService} from '../../../../service/lab-router.service';
+import { LabExperimentSearch, LabExperimentSearchFields } from '../../model/lab-experiment-search.class';
+import { LabExperimentService } from '../../../../entity-service/lab-experiment.service';
+import { LabExperiment } from '../../../../model/entities/lab-experiment.entity';
+import { LabExperimentFormDialogComponent } from '../lab-experiment-form-dialog/lab-experiment-form-dialog.component';
+import { LabRouterService } from '../../../../service/lab-router.service';
+import {
+  LabImportExperimentFromLinkComponent
+} from '../lab-import-experiment-from-link/lab-import-experiment-from-link.component';
 
 
 @Component({
@@ -21,7 +24,7 @@ import {LabRouterService} from '../../../../service/lab-router.service';
   templateUrl: './lab-experiment-search.component.html',
   styleUrls: ['./lab-experiment-search.component.scss'],
   providers: [
-    FlSearchState,
+    FlSearchState
   ]
 })
 export class LabExperimentSearchComponent implements OnInit {
@@ -69,7 +72,7 @@ export class LabExperimentSearchComponent implements OnInit {
         version: 1,
         default: true,
         filtersCriteria: {
-          creationType: 'MANUAL',
+          creationTypes: ['MANUAL', 'IMPORTED'],
           isNotValidated: false,
           isArchived: false
         } as Partial<LabExperimentSearchFields>
@@ -84,14 +87,14 @@ export class LabExperimentSearchComponent implements OnInit {
         filtersCriteria: {
           isArchived: true
         } as Partial<LabExperimentSearchFields>
-      },
+      }
     ];
   }
 
   createExperiment(): void {
-    const input: FlFormDialogInput<LabExperiment> = {mode: 'create'};
+    const input: FlFormDialogInput<LabExperiment> = { mode: 'create' };
     this.dialogService.openSmallDialog(LabExperimentFormDialogComponent,
-      {data: input, panelClass: 'g-dialog-allow-overflow'}).afterClosed().subscribe(
+      { data: input, panelClass: 'g-dialog-allow-overflow' }).afterClosed().subscribe(
       experiment => this.onCreateExperimentClosed(experiment)
     );
   }
@@ -111,5 +114,9 @@ export class LabExperimentSearchComponent implements OnInit {
       tags: [tag]
     };
     this.searchState.callAdvancedSearchFromObject(search);
+  }
+
+  openImportFromUrlDialog(): void {
+    this.dialogService.openMediumDialog(LabImportExperimentFromLinkComponent);
   }
 }

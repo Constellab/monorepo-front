@@ -1,0 +1,17 @@
+@if (experiment.isValidated) {
+  <mat-icon [matTooltip]="'biox.experiment_validated' | translate"
+            [ngClass]="iconSizeClass" flIcon="validated">
+  </mat-icon>
+}
+
+@if (experiment.isArchived) {
+  <mat-icon [matTooltip]="'biox.experiment_archived' | translate"
+            [ngClass]="iconSizeClass" flIcon="archive">
+  </mat-icon>
+}
+
+@if (experiment.isSpecialCreationType) {
+  <mat-icon [matTooltip]="experiment.specialTypeInfo.description | translate"
+            [ngClass]="iconSizeClass"[flIcon]="experiment.specialTypeInfo.icon">
+  </mat-icon>
+}

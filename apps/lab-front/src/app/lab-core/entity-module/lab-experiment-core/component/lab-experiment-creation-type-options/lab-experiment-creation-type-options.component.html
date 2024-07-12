@@ -1,4 +1,4 @@
-
-<mat-option *ngFor="let creationType of creationTypes" [value]="creationType">
-  {{('biox.experiment_creation_type_' + creationType) | translate}}
+<mat-option *ngFor="let key of creationTypes | flObjectKeys" [value]="creationTypes[key].value">
+  <mat-icon [flIcon]="creationTypes[key].icon"></mat-icon>
+  {{ creationTypes[key].name | translate }}
 </mat-option>

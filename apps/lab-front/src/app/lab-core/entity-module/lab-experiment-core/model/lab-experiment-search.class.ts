@@ -5,19 +5,19 @@ import {
   FlSearchDateInterval,
   FlTag
 } from '@monorepo/front-core-lib';
-import {LabExperimentCreationType, LabExperimentStatus} from '../../../model/entities/lab-experiment.entity';
-import {Type} from 'class-transformer';
-import {LabProject} from '../../../model/entities/lab-project.class';
-import {LabSearchConverter} from '../../../model/global/lab-search-converter.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {LabUser} from '../../../model/entities/lab-user.entity';
-import {LabTypeEntity} from '../../../model/entities/lab-type/lab-type.entity';
+import { LabExperimentCreationType, LabExperimentStatus } from '../../../model/entities/lab-experiment.entity';
+import { Type } from 'class-transformer';
+import { LabProject } from '../../../model/entities/lab-project.class';
+import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { LabUser } from '../../../model/entities/lab-user.entity';
+import { LabTypeEntity } from '../../../model/entities/lab-type/lab-type.entity';
 
 
 export class LabExperimentSearchFields {
   title: string;
 
-  creationType: LabExperimentCreationType;
+  creationTypes: LabExperimentCreationType[];
   status: LabExperimentStatus;
   tags: FlTag[];
 
@@ -47,7 +47,7 @@ export class LabExperimentSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabExperimentSearchFields> = {
-    creationType: 'biox.experiment_creation_type',
+    creationTypes: 'biox.experiment_creation_type',
     tags: 'flTag.tags',
     project: 'biox.project',
     isArchived: 'is_archived',
@@ -65,7 +65,7 @@ export class LabExperimentSearch {
    */
   public static advancedSearchConverter: FlSearchCriteriaConverter<LabExperimentSearchFields> = {
     title: {key: 'title', operator: 'CONTAINS'},
-    creationType: {key: 'creation_type', operator: 'EQ'},
+    creationTypes: {key: 'creation_type', operator: 'IN'},
     status: {key: 'status', operator: 'IN'},
     tags: {key: 'tags', operator: 'EQ'},
     project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
@@ -86,7 +86,7 @@ export class LabExperimentSearch {
     return new FormBuilder().group(
       {
         title: [null],
-        creationType: [null],
+        creationTypes: [null],
         status: [null],
         tags: [null],
         project: [null],

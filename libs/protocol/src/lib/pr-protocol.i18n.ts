@@ -1,5 +1,5 @@
-import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
-import {ClSupportedLanguage} from '@monorepo/core-lib';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
 /* eslint-disable max-len */
 
 /**
@@ -27,7 +27,7 @@ const prProtocolI18nFr: FlLangTranslation = {
     default_value: "Valeur par défaut",
     partially_run: "Partiellement exécuté",
     waiting_for_cli_process: "En attente",
-    process_not_available: "Le process n'est pas disponible, vérifier le monitoring pour plus d'informations. L'expérience ne peut pas être exécutée",
+    process_not_available: "Attention, le process n'est pas disponible, est-ce que la brick associé est bien chargé ? Vous pouvez retrouver la liste des brick et leur status dans Paramètres > Monitoring. L'expérience ne peut pas être exécutée.",
     process_configuration: "Configuration",
     adding_community_live_task: "Ajout de la live task de Community '{{processName}}'",
     duplicating_process: "Duplication du process '{{processName}}'",
@@ -62,7 +62,7 @@ const prProtocolI18nEn: FlLangTranslation = {
     default_value: "Default value",
     partially_run: "Partially run",
     waiting_for_cli_process: "Waiting",
-    process_not_available: "The process is not available, check the monitoring for more information. The experiment can't be run",
+    process_not_available: "Warning, the process is not available, is the associated brick correctly loaded? You can find the list of bricks and their status in Settings > Monitoring. The experiment can't be run.",
     process_configuration: "Configuration",
     adding_community_live_task: "Adding Community live task '{{processName}}'",
     duplicating_process: "Duplicating process '{{processName}}'",

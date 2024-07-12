@@ -47,10 +47,11 @@
         </mat-select>
       </mat-form-field>
 
-      <!--  Execution Type  -->
+      <!--  Creation Type  -->
       <mat-form-field class="g-search-field">
         <mat-label>{{ 'biox.experiment_creation_type' | translate }}</mat-label>
-        <mat-select formControlName="creationType" [placeholder]="'biox.experiment_creation_type' | translate">
+        <mat-select formControlName="creationTypes" [placeholder]="'biox.experiment_creation_type' | translate"
+                    [multiple]="true">
           <lab-experiment-creation-type-options></lab-experiment-creation-type-options>
         </mat-select>
       </mat-form-field>

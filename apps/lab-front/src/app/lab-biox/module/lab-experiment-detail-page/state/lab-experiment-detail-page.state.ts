@@ -1,22 +1,22 @@
-import {Injectable} from '@angular/core';
-import {LabExperimentService} from '../../../../lab-core/entity-service/lab-experiment.service';
-import {BehaviorSubject, merge, Observable, Subscription} from 'rxjs';
-import {LabExperiment} from '../../../../lab-core/model/entities/lab-experiment.entity';
-import {filter, map, tap} from 'rxjs/operators';
-import {LabProtocol} from '../../../../lab-core/model/entities/process/lab-protocol.entity';
-import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
+import { Injectable } from '@angular/core';
+import { LabExperimentService } from '../../../../lab-core/entity-service/lab-experiment.service';
+import { BehaviorSubject, merge, Observable, Subscription } from 'rxjs';
+import { LabExperiment } from '../../../../lab-core/model/entities/lab-experiment.entity';
+import { filter, map, tap } from 'rxjs/operators';
+import { LabProtocol } from '../../../../lab-core/model/entities/process/lab-protocol.entity';
+import { LabProtocolService } from '../../../../lab-core/entity-service/lab-protocol.service';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlSnackBarService
 } from '@monorepo/front-core-lib';
-import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
-import {PrWorkflow, PrWorkflowLayer} from '@monorepo/protocol';
-import {LabWorkflowFactory} from '../model/lab-workflow.factory';
-import {LabTagService} from '../../../../lab-core/entity-service/lab-tag.service';
-import {LabTagDatasource} from '../../../../lab-core/model/entities/lab-tag.entity';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
+import { PrWorkflow, PrWorkflowLayer } from '@monorepo/protocol';
+import { LabWorkflowFactory } from '../model/lab-workflow.factory';
+import { LabTagService } from '../../../../lab-core/entity-service/lab-tag.service';
+import { LabTagDatasource } from '../../../../lab-core/model/entities/lab-tag.entity';
+import { TeRichTextContent } from '@monorepo/text-editor';
 
 @Injectable()
 export class LabExperimentDetailPageState {
@@ -103,7 +103,7 @@ export class LabExperimentDetailPageState {
   }
 
   public isEditable$(): Observable<boolean> {
-    return this.getExperiment$().pipe(map(experiment => experiment.isEditable()));
+    return this.getExperiment$().pipe(map(experiment => experiment.protocolIsEditable()));
   }
 
   public isReady$(): Observable<boolean> {

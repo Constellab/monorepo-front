@@ -4,13 +4,13 @@
 
     <!-- Add object button  -->
     <button mat-button type="button" class="g-button-small"
-            [matMenuTriggerFor]="menu" [disabled]="!experiment.isEditable()">
+            [matMenuTriggerFor]="menu" [disabled]="!experiment.protocolIsEditable()">
       <mat-icon>add</mat-icon>
       {{ 'biox.add_object' | translate }}
     </button>
 
     <button mat-button type="button" (click)="start()" class="g-button-small"
-            [disabled]="!experiment.isEditable()">
+            [disabled]="!experiment.protocolIsEditable()">
       <mat-icon>play_arrow</mat-icon>
       {{ 'biox.experiment_start' | translate }}
     </button>

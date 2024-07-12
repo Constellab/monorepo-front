@@ -51,6 +51,10 @@ import {
   LabNavigableEntityService,
   LabNavigableImpactConfig
 } from '../../../../../lab-core/entity-module/lab-navigable-entity-core/lab-navigable-entity.service';
+import {
+  LabSharedEntityInfoDialogComponent,
+  LabSharedEntityInfoDialogInput
+} from '../../../../../lab-core/entity-module/lab-share-core/component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
 
 /**
  * Header for the experiment detail page
@@ -337,6 +341,16 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
     this.dialogService.openBigDialog(LabMonitorBetweenDatesDialogComponent, { data: input });
   }
+
+  openShareDialog(experiment: LabExperiment): void {
+    const data: LabSharedEntityInfoDialogInput = {
+      entityType: 'EXPERIMENT',
+      entityId: experiment.id
+    };
+
+    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, {data});
+  }
+
 
   deleteIntermediateResources(): void {
     const experiment = this.experimentState.currentExperiment;

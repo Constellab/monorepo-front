@@ -1,22 +1,12 @@
 @if (experiment$ | async; as experiment) {
   <div class="g-layout-row g-layout-start-center">
 
-    <fl-text-icon class="g-flex-auto">
-      @if (experiment.isValidated) {
-        <mat-icon flIcon="validated" class="g-icon-big"
-                  [matTooltip]="'biox.experiment_validated' | translate">
-        </mat-icon>
-      }
+    <div class="g-flex-auto g-layout-row g-layout-start-center">
+      <lab-experiment-icons [experiment]="experiment" size="big"></lab-experiment-icons>
 
-      @if (experiment.isArchived) {
-        <mat-icon flIcon="archive" class="g-icon-big"
-                  [matTooltip]="'biox.experiment_archived' | translate">
-        </mat-icon>
-      }
       <h1 flElementEditable (flElementValueChange)="updateTitle($event)"
           [flElementDisabled]="!experiment.isInfoEditable()" class="title">{{ experiment.title }}</h1>
-    </fl-text-icon>
-
+    </div>
 
     <lab-sync-object-button [object]="experiment" [syncObjectFunc]="syncObjectFunc"
                             (objectUpdate)="onExperimentUpdate($event)">
@@ -42,12 +32,14 @@
         {{ 'biox.protocol' | translate }}
       </button>
 
-      @if (experiment.isEditable()) {
+      @if (experiment.isInfoEditable() && !experiment.isRunningOrWaiting()) {
         <button mat-menu-item type="button" (click)="openValidationDialog()">
           <mat-icon flIcon="validated"></mat-icon>
           {{ 'biox.validate_experiment' | translate }}
         </button>
+      }
 
+      @if (experiment.protocolIsEditable()) {
         <button mat-menu-item type="button" (click)="resetExperiment()">
           <mat-icon>restart_alt</mat-icon>
           {{ 'biox.reset_experiment' | translate }}
@@ -78,6 +70,13 @@
       }
 
       @if (!experiment.isRunning()) {
+        <button mat-menu-item type="button" (click)="openShareDialog(experiment)"
+                class="g-button-small button">
+          <mat-icon>share</mat-icon>
+          {{ 'biox.share' | translate }}
+        </button>
+
+
         <button mat-menu-item type="button" (click)="archiveExperiment()">
           <mat-icon color="warn" [flIcon]="experiment.isArchived ? 'unarchive': 'archive'"></mat-icon>
           <span class="g-warn-text">
@@ -86,11 +85,11 @@
         </button>
       }
 
-      @if (experiment.isEditable()) {
-<!--        <button mat-menu-item type="button" (click)="deleteIntermediateResources()">-->
-<!--          <mat-icon color="warn" flIcon="resource"></mat-icon>-->
-<!--          <span class="g-warn-text">{{ 'biox.delete_experiment_intermediate_resources' | translate }}</span>-->
-<!--        </button>-->
+      @if (experiment.protocolIsEditable()) {
+        <!--        <button mat-menu-item type="button" (click)="deleteIntermediateResources()">-->
+          <!--          <mat-icon color="warn" flIcon="resource"></mat-icon>-->
+          <!--          <span class="g-warn-text">{{ 'biox.delete_experiment_intermediate_resources' | translate }}</span>-->
+          <!--        </button>-->
 
         <button mat-menu-item type="button" (click)="deleteExperiment()">
           <mat-icon color="warn">delete</mat-icon>
