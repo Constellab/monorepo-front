@@ -17,8 +17,8 @@
         <div class="g-flex-auto g-flex">
           <fl-text-icon>
             <mat-icon flIcon="report" class="g-icon-big"></mat-icon>
-            <h2 flElementEditable (flElementValueChange)="updateTitle($event)"
-                [flElementDisabled]="!report.isEditable()">{{ report.title }}</h2>
+            <h1 flElementEditable (flElementValueChange)="updateTitle($event)" class="title"
+                [flElementDisabled]="!report.isEditable()">{{ report.title }}</h1>
           </fl-text-icon>
         </div>
 
@@ -76,8 +76,8 @@
       </div>
 
       <!--   Content   -->
-      <fl-article-container>
-        <fl-article-left-side>
+      <div class="container">
+        <div class="left-section">
 
           <!-- Tags -->
           <lab-tag-list [tags]="tags" entityType="REPORT" [entityId]="report.id"
@@ -106,21 +106,19 @@
             <fl-last-modification-info [user]="report.lastModifiedBy"
                                        [date]="report.lastModifiedAt"></fl-last-modification-info>
           </p>
-        </fl-article-left-side>
-        <fl-article>
+
+          <lab-report-linked-experiments class="experiments"></lab-report-linked-experiments>
+        </div>
+
+
+        <!--   Report content     -->
+        <div class="right-section g-max-article-width">
           <te-text-editor class="g-full-height g-print-section" [config]="textEditorConfig"
                           [(ngModel)]="content" [disabled]="report.isValidated"
                           (textChange)="onContentUpdate($event)"></te-text-editor>
-        </fl-article>
-        <fl-article-right-side class="experiments">
+        </div>
 
-          <fl-card>
-            <fl-card-body>
-              <lab-report-linked-experiments></lab-report-linked-experiments>
-            </fl-card-body>
-          </fl-card>
-        </fl-article-right-side>
-      </fl-article-container>
+      </div>
 
 
     </ng-container>

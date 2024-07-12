@@ -16,7 +16,7 @@
   </fl-section-header>
 
   <ng-container *flSectionBody>
-    <lab-experiment-table [datasource]="experiments" [columns]="columns"
+    <lab-experiment-table [datasource]="experiments" [columns]="columns" class="g-mat-table-main-background"
                           (experimentUnlink)="unlinkExperiment($event)"></lab-experiment-table>
   </ng-container>
 </fl-async-section>
