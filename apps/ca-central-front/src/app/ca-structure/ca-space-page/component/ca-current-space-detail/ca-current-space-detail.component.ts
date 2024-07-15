@@ -1,21 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CaSpace} from '../../../../ca-core/model/entities/space/ca-space.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlUploadImageDialogConfig
 } from '@monorepo/front-core-lib';
-import {CaSpaceService} from '../../../../ca-core/service-api/ca-space.service';
-import {CaRouterService} from '../../../../ca-core/service/ca-router.service';
-import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-space.service';
-import {Observable} from 'rxjs';
-import {CaRequestNewLicensesComponent} from '../ca-request-new-licenses/ca-request-new-licenses.component';
-import {CaSpaceSettingsDto} from '../../../../ca-core/model/entities/space/ca-space.dto';
-import {
-  CaSpaceLicenseFormDialogComponent
-} from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-license-form-dialog/ca-space-license-form-dialog.component';
-import {map} from 'rxjs/operators';
+import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
+import { Observable } from 'rxjs';
+import { CaRequestNewLicensesComponent } from '../ca-request-new-licenses/ca-request-new-licenses.component';
+import { CaSpaceSettingsDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
+import { map } from 'rxjs/operators';
 
 /**
  * Show all the information about a space
@@ -49,18 +46,18 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
 
     this.imageConfig$ = this.currentSpaceService.getCurrentSpace$().pipe(
       map(space => ({
-        title: {text: 'space_upload_photo', translateText: true},
-        helpText: {text: 'image_square_help', translateText: true},
+        title: { text: 'space_upload_photo', translateText: true },
+        helpText: { text: 'image_square_help', translateText: true },
         imagePreviewWidth: 200,
         imagePreviewHeight: 200,
         roundImage: true,
         compressOptions: {
           cropWidth: 300,
           cropHeight: 300,
-          resizeWidthMax: 300,
+          resizeWidthMax: 300
         },
         uploadImage: (file: File) => this.spaceService.uploadSpacePhoto(space.id, file),
-        uploadImageSuccessMessage: {text: 'space_photo_uploaded', translateText: true}
+        uploadImageSuccessMessage: { text: 'space_photo_uploaded', translateText: true }
       }))
     );
 
@@ -79,19 +76,6 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
   onSpaceUpdate(space?: CaSpace): void {
     if (space) {
       this.currentSpaceService.setCurrentSpace(space);
-    }
-  }
-
-
-  openUpdateLicense(nbOfLicenses: number): void {
-    this.dialogService.openSmallDialog(CaSpaceLicenseFormDialogComponent, {data: nbOfLicenses})
-      .afterClosed().subscribe((spaceSettingsDto: CaSpaceSettingsDto) => this.onUpdateClosed(spaceSettingsDto));
-  }
-
-  private onUpdateClosed(spaceSettingsDto?: CaSpaceSettingsDto): void {
-    if (spaceSettingsDto) {
-      this.currentSpaceService.setCurrentSpace(spaceSettingsDto.space);
-      this.spaceSettings = spaceSettingsDto;
     }
   }
 

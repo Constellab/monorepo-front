@@ -1,7 +1,18 @@
-import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform, ClSupportedLanguage, ClTheme, ClUserCategory, ClUserStatus} from '@monorepo/core-lib';
-import {CaEntity} from './ca-entity.entity';
-import {FlDatasourcePaginated, FlUser} from '@monorepo/front-core-lib';
+import { DateTime } from 'luxon';
+import {
+  ClLuxonDateTimeTransform,
+  ClSupportedLanguage,
+  ClTheme,
+  ClUserCategory,
+  ClUserStatus
+} from '@monorepo/core-lib';
+import { CaEntity } from './ca-entity.entity';
+import { FlDatasourcePaginated, FlUser } from '@monorepo/front-core-lib';
+
+export enum CaUserLicense {
+  FREE = 'FREE',
+  ENTERPRISE = 'ENTERPRISE'
+}
 
 export interface CaNewUser {
   firstname: string;
@@ -43,6 +54,8 @@ export class CaUser extends CaEntity implements FlUser {
   @ClLuxonDateTimeTransform()
   lastLoginSuccess?: DateTime;
 
+  license: CaUserLicense;
+
   get fullname(): string {
     return (this.firstname || '') + ' ' + (this.lastname || '');
   }
@@ -53,6 +66,10 @@ export class CaUser extends CaEntity implements FlUser {
 
   public isAdmin(): boolean {
     return this.category === ClUserCategory.ADMIN;
+  }
+
+  public hasEntrepriseLicense(): boolean{
+    return this.license === CaUserLicense.ENTERPRISE;
   }
 
   // return true if the user is one of the listed category
@@ -69,3 +86,7 @@ export class CaUser extends CaEntity implements FlUser {
 }
 
 export type CaUserDatasourcePaginated = FlDatasourcePaginated<CaUser>
+
+export interface CaUserUpdateLicenseDTO {
+  license: CaUserLicense;
+}

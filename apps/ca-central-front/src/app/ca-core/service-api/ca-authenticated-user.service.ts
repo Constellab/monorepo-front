@@ -1,7 +1,7 @@
-import {Inject, Injectable} from '@angular/core';
-import {CaUser} from '../model/entities/ca-user.class';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import { Inject, Injectable } from '@angular/core';
+import { CaUser } from '../model/entities/ca-user.class';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import {
   FlApiService,
   FlCleanableService,
@@ -9,12 +9,12 @@ import {
   FlThemeService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {ClSupportedLanguage, ClTheme, ClUserCategory} from '@monorepo/core-lib';
-import {CaCurrentSpaceService} from './ca-current-space.service';
-import {CaSpaceInfoDto} from '../model/entities/space/ca-space.class';
-import {CaSpaceService} from './ca-space.service';
-import {DOCUMENT, Location} from '@angular/common';
-import {CaEnvironmentHelper} from '../utils/ca-environment.helper';
+import { ClSupportedLanguage, ClTheme, ClUserCategory } from '@monorepo/core-lib';
+import { CaCurrentSpaceService } from './ca-current-space.service';
+import { CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
+import { CaSpaceService } from './ca-space.service';
+import { DOCUMENT, Location } from '@angular/common';
+import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
 /**
  * Service to handle the current authenticated user
@@ -197,6 +197,10 @@ export class CaAuthenticatedUserService implements FlCleanableService {
 
   public isCategory(...categories: ClUserCategory[]): boolean {
     return this.userAuthenticated?.isCategory(...categories) ?? false;
+  }
+
+  public hasEntrepriseLicense(): boolean{
+    return this.userAuthenticated?.hasEntrepriseLicense() ?? false;
   }
 
   clean(): void {

@@ -1,12 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {CaSpaceInvitService} from '../../../../ca-core/service-api/ca-space-invit.service';
-import {FlSnackBarService} from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaSpaceInvit, CaSpaceInvitCreateDTO} from '../../../../ca-core/model/entities/space/ca-space-invit.class';
-import {Validators} from '@angular/forms';
-import {CaSpaceType} from '../../../../ca-core/model/entities/space/ca-space.class';
-import {CaSpaceRole} from '../../../../ca-core/model/entities/space/ca-space-user.class';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { CaSpaceInvit, CaSpaceInvitCreateDTO } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
+import { Validators } from '@angular/forms';
+import { CaSpaceType } from '../../../../ca-core/model/entities/space/ca-space.class';
+import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface CaSpaceInvitFormDialogInput {
   spaceId: string;
@@ -24,6 +24,7 @@ export interface CaSpaceInvitFormDialogInput {
 export class CaSpaceInvitFormDialogComponent implements OnInit {
 
   formGp: FormGroup<CaSpaceInvitCreateDTO>;
+  spaceType: CaSpaceType;
 
   availableRoles = CaSpaceRole;
 
@@ -33,6 +34,7 @@ export class CaSpaceInvitFormDialogComponent implements OnInit {
               private dialogRef: MatDialogRef<CaSpaceInvitFormDialogComponent>,
               private spaceInvitService: CaSpaceInvitService,
               private snackBarService: FlSnackBarService) {
+    this.spaceType = input.spaceType;
   }
 
   ngOnInit(): void {
@@ -58,15 +60,8 @@ export class CaSpaceInvitFormDialogComponent implements OnInit {
   }
 
   private createSuccess(invitation: CaSpaceInvit): void {
-    this.snackBarService.openSuccessMessage({text: 'invitation_created', translateText: true});
+    this.snackBarService.openSuccessMessage({ text: 'invitation_created', translateText: true });
     this.dialogRef.close(invitation);
     this.isLoading = false;
-  }
-
-  /**
-   * Show a warning when the user tries to share his personal space
-   */
-  get showSharePersonalWarning(): boolean {
-    return this.input.spaceType === 'PERSONAL';
   }
 }

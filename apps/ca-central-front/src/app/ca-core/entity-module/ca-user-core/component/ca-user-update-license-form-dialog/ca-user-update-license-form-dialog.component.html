@@ -1,19 +1,21 @@
 <fl-dialog-header>
-  {{ 'update_space_license' | translate }}
+  {{ 'update_license' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="license-form">
 
-    <!--  Nb of licences  -->
+    <!--  License  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{ 'nb_of_licenses' | translate }}</mat-label>
-      <input matInput required type="number"
-             [formControl]="formCtrl"
-             [placeholder]="'nb_of_licenses' | translate" min="0">
-      <mat-error *ngIf="formCtrl.hasError('required')">
-        {{ 'nb_of_licenses' | flErrorRequired }}
-      </mat-error>
+      <mat-label>{{ 'license' | translate }}</mat-label>
+      <mat-select [formControl]="formCtrl"
+                  [placeholder]="'license' | translate">
+        @for (license of licenses; track license) {
+          <mat-option [value]="license">
+            {{ ('license_' + license) | translate }}
+          </mat-option>
+        }
+      </mat-select>
     </mat-form-field>
 
   </form>

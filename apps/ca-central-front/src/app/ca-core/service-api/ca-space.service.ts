@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   FlAdvancedSearchInput,
   FlApiService,
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {CaSpace, CaSpaceDatasource, CaSpaceInfoDto,} from '../model/entities/space/ca-space.class';
-import {Observable} from 'rxjs';
-import {ClHelpService, ClPage} from '@monorepo/core-lib';
-import {CaUser, CaUserDatasourcePaginated} from '../model/entities/ca-user.class';
-import {CaSpaceSearch, CaSpaceSearchFields} from '../entity-module/ca-space-core/model/ca-space-search.class';
-import {CaSpaceRole, CaSpaceUser, CaSpaceUserDatasource} from '../model/entities/space/ca-space-user.class';
+import { CaSpace, CaSpaceDatasource, CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
+import { Observable } from 'rxjs';
+import { ClHelpService, ClPage } from '@monorepo/core-lib';
+import { CaUser, CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
+import { CaSpaceSearch, CaSpaceSearchFields } from '../entity-module/ca-space-core/model/ca-space-search.class';
+import { CaSpaceRole, CaSpaceUser, CaSpaceUserDatasource } from '../model/entities/space/ca-space-user.class';
 import {
   CaSpaceUserSearch,
   CaSpaceUserSearchFields
@@ -22,7 +22,7 @@ import {
   CaSpaceStorage,
   CaSpaceUpdateStorageLocationDTO
 } from '../model/entities/space/ca-space.dto';
-import {CaProjectStorageUsageDTO} from '../model/entities/project/ca-document.class';
+import { CaProjectStorageUsageDTO } from '../model/entities/project/ca-document.class';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +35,8 @@ export class CaSpaceService {
   }
 
 
-  create(object: CaCreateSpaceDTO): Observable<CaSpaceSettingsDto> {
-    return this.apiService.post(this.route, object, CaSpaceSettingsDto);
+  createEntrepriseSpace(object: CaCreateSpaceDTO): Observable<CaSpaceSettingsDto> {
+    return this.apiService.post(this.route + '/entreprise', object, CaSpaceSettingsDto);
   }
 
   public updateCurrentSpaceName(name: string): Observable<CaSpace> {
@@ -70,7 +70,7 @@ export class CaSpaceService {
 
   public getAll(page: number, size: number): Observable<ClPage<CaSpace>> {
     return this.apiService.get(`${this.route}`, CaSpace,
-      {page: page, pageSize: size, resultIsPaginated: true});
+      { page: page, pageSize: size, resultIsPaginated: true });
   }
 
   public getAllDatasource(): CaSpaceDatasource {
@@ -110,10 +110,6 @@ export class CaSpaceService {
   }
 
   ////////////////////////////////// LICENSE //////////////////////////////////////
-  public updateNbLicenses(nbLicenses: number): Observable<CaSpaceSettingsDto> {
-    return this.apiService.put(`${this.route}/current-space/licenses/${nbLicenses}`, null, CaSpaceSettingsDto);
-  }
-
   public requestNewLicenses(request: CaRequestNewLicensesDto): Observable<void> {
     return this.apiService.post(`${this.route}/current-space/licenses/request-new-licenses`, request);
   }
@@ -138,7 +134,7 @@ export class CaSpaceService {
   ////////////////////////////////// USER //////////////////////////////////////
   public getUsersOfSpace(spaceId: string, page: number, size: number): Observable<ClPage<CaSpaceUser>> {
     return this.apiService.get(`${this.route}/${spaceId}/user`, CaSpaceUser,
-      {page: page, pageSize: size, resultIsPaginated: true});
+      { page: page, pageSize: size, resultIsPaginated: true });
   }
 
   public getUsersOfSpaceDatasource(spaceId: string): CaSpaceUserDatasource {
@@ -171,7 +167,7 @@ export class CaSpaceService {
    */
   public getSpaceSimpleUsers(spaceId: string, page: number, size: number): Observable<ClPage<CaUser>> {
     return this.apiService.get(`${this.route}/${spaceId}/user-simple`, CaUser,
-      {page: page, pageSize: size, resultIsPaginated: true});
+      { page: page, pageSize: size, resultIsPaginated: true });
   }
 
   public getSpaceSimpleUsersDatasource(spaceId: string): CaUserDatasourcePaginated {

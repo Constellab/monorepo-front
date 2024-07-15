@@ -1,10 +1,10 @@
-import {CaBaseEntity} from '../ca-base-entity.class';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {CaUser} from '../ca-user.class';
-import {Type} from 'class-transformer';
-import {CaSpaceRole} from './ca-space-user.class';
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { CaUser } from '../ca-user.class';
+import { Type } from 'class-transformer';
+import { CaSpaceRole } from './ca-space-user.class';
 
-export type CaSpaceType = 'BASIC' | 'PERSONAL';
+export type CaSpaceType = 'ENTREPRISE' | 'PERSONAL';
 
 export class CaSpace extends CaBaseEntity {
 
@@ -18,6 +18,16 @@ export class CaSpace extends CaBaseEntity {
 
   toString(): string {
     return this.name;
+  }
+
+  get typeIcon(): string {
+    switch (this.type) {
+      case 'ENTREPRISE':
+        return 'business';
+      case 'PERSONAL':
+        return 'person';
+    }
+
   }
 }
 

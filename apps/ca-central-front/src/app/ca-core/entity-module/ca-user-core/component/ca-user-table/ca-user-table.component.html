@@ -4,63 +4,68 @@
   <!-- fullname -->
   <ng-container matColumnDef="fullname">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'fullname' | translate}}</span>
+      <span>{{ 'fullname' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let user">
       <fl-user-inline [user]="user"></fl-user-inline>
     </mat-cell>
   </ng-container>
 
-  <!-- email -->
-  <ng-container matColumnDef="email">
+  <!-- Contact -->
+  <ng-container matColumnDef="contact">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'email' | translate}}</span>
+      <span>{{ 'contact' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let user">
-      {{user.email}}
+      <div>
+        <div class="g-text-small email">{{ user.email }}</div>
+        <div class="g-text-small g-text-light">{{ user.phone }}</div>
+      </div>
     </mat-cell>
   </ng-container>
 
   <!-- createdAt -->
   <ng-container matColumnDef="createdAt">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'created_the' | translate}}</span>
+      <span>{{ 'created_the' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let user">
-      <span>{{user.createdAt | flDate}}</span>
+      <span>{{ user.createdAt | flDate }}</span>
     </mat-cell>
   </ng-container>
 
   <!-- category -->
   <ng-container matColumnDef="category">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'user_category' | translate}}</span>
+      <span>{{ 'user_category' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let user">
-      <span>{{user.category | translate}}</span>
+      <div>
+        <div class="g-text-tiny email">{{ user.category | translate }}</div>
+        <div class="g-text-small g-text-light">{{ ('license_' + user.license) | translate }}</div>
+      </div>
     </mat-cell>
   </ng-container>
 
-  <!-- Phone -->
-  <ng-container matColumnDef="phone">
-    <mat-header-cell *matHeaderCellDef>
-      <span>{{'phone_number' | translate}}</span>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let user">
-      <span>{{user.phone}}</span>
-    </mat-cell>
-  </ng-container>
 
   <!-- Last login success -->
   <ng-container matColumnDef="lastLogin">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'last_login' | translate}}</span>
+      <span>{{ 'last_login' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let user">
-      <fl-from-now *ngIf="user.lastLoginSuccess" [date]="user.lastLoginSuccess"></fl-from-now>
-      <fl-text-ok-nok *ngIf="user.statusMailNotValidated()" [value]="false"
-                      [nokText]="'mail_not_validated' | translate"></fl-text-ok-nok>
-      <mat-icon *ngIf="isLocked(user)" [matTooltip]="'user_locked' | translate" class="g-icon-small lock">lock</mat-icon>
+      @if (user.lastLoginSuccess) {
+        <fl-from-now [date]="user.lastLoginSuccess"></fl-from-now>
+      }
+
+      @if (user.statusMailNotValidated()) {
+        <fl-text-ok-nok [value]="false"
+                        [nokText]="'mail_not_validated' | translate"></fl-text-ok-nok>
+      }
+
+      @if (isLocked(user)) {
+        <mat-icon [matTooltip]="'user_locked' | translate" class="g-icon-small lock">lock</mat-icon>
+      }
     </mat-cell>
   </ng-container>
 
@@ -77,21 +82,26 @@
       <mat-menu #menu="matMenu" xPosition="before">
         <a mat-menu-item [routerLink]="row | caDetailRoute">
           <mat-icon>visibility</mat-icon>
-          <span>{{'detail' | translate}}</span>
+          <span>{{ 'detail' | translate }}</span>
         </a>
 
-        <button mat-menu-item type="button" (click)="unlockUser(row)"
-                *ngIf="isLocked(row); else notLocked">
-          <mat-icon>lock_open</mat-icon>
-          <span>{{'unlock_user' | translate}}</span>
+        <button mat-menu-item type="button" (click)="updateLicense(row)">
+          <mat-icon>business</mat-icon>
+          <span>{{ 'update_license' | translate }}</span>
         </button>
 
-        <ng-template #notLocked>
+        @if (isLocked(row)) {
+          <button mat-menu-item type="button" (click)="unlockUser(row)">
+            <mat-icon>lock_open</mat-icon>
+            <span>{{ 'unlock_user' | translate }}</span>
+          </button>
+        } @else {
           <button mat-menu-item type="button" (click)="lockUser(row)">
             <mat-icon color="warn">lock</mat-icon>
-            <span class="g-warn-text">{{'lock_user' | translate}}</span>
+            <span class="g-warn-text">{{ 'lock_user' | translate }}</span>
           </button>
-        </ng-template>
+        }
+
       </mat-menu>
     </mat-cell>
   </ng-container>

@@ -229,6 +229,11 @@ body {
     padding-bottom: 2px;
   }
 
+  // override line height in mat-cell
+  mat-cell.mdc-data-table__cell {
+    line-height: 1.2em;
+  }
+
   // override the space between 2 columns
   mat-cell.mdc-data-table__cell:not(:first-of-type),
   mat-header-cell.mdc-data-table__header-cell:not(:first-of-type) {

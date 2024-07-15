@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {CaNewUser, CaUser} from '../model/entities/ca-user.class';
-import {Observable} from 'rxjs';
-import {FlApiService, FlUserAccountService} from '@monorepo/front-core-lib';
+import { Injectable } from '@angular/core';
+import { CaNewUser, CaUser, CaUserUpdateLicenseDTO } from '../model/entities/ca-user.class';
+import { Observable } from 'rxjs';
+import { FlApiService, FlUserAccountService } from '@monorepo/front-core-lib';
 
 /**
  * Service to manage users' accounts
@@ -29,14 +29,14 @@ export class CaUserAccountsService extends FlUserAccountService {
    * Route to send an email with password reset link
    */
   public passwordForgotten(email: string): Observable<void> {
-    return this.apiService.post(`${this.route}/password-forgotten`, {email: email});
+    return this.apiService.post(`${this.route}/password-forgotten`, { email: email });
   }
 
   /**
    * Route with a token to reset the user password
    */
   public resetPassword(password: string, token: string): Observable<void> {
-    return this.apiService.post(`${this.route}/reset-password/${token}`, {password: password});
+    return this.apiService.post(`${this.route}/reset-password/${token}`, { password: password });
   }
 
 
@@ -51,12 +51,15 @@ export class CaUserAccountsService extends FlUserAccountService {
   }
 
   public lockUser(userId: string): Observable<CaUser> {
-    return this.apiService.put(`${this.route}/lock/${userId}`, null, CaUser);
+    return this.apiService.put(`${this.route}/${userId}/lock`, null, CaUser);
   }
 
   public unlockUser(userId: string): Observable<CaUser> {
-    return this.apiService.put(`${this.route}/unlock/${userId}`, null, CaUser);
+    return this.apiService.put(`${this.route}/${userId}/lock`, null, CaUser);
   }
 
+  public updateLicense(userId: string, license: CaUserUpdateLicenseDTO): Observable<CaUser> {
+    return this.apiService.put(`${this.route}/${userId}/license`, license, CaUser);
+  }
 
 }

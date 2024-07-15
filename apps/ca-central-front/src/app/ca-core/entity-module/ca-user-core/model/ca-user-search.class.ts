@@ -4,9 +4,10 @@ import {
   FlSearchCriteriaConverter,
   FlSearchDateInterval
 } from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Type} from 'class-transformer';
-import {ClUserCategory, ClUserStatus} from '@monorepo/core-lib';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { Type } from 'class-transformer';
+import { ClUserCategory, ClUserStatus } from '@monorepo/core-lib';
+import { CaUserLicense } from '../../../model/entities/ca-user.class';
 
 
 export class CaUserSearchFields {
@@ -20,6 +21,8 @@ export class CaUserSearchFields {
   category: ClUserCategory[];
 
   status: ClUserStatus[];
+
+  license: CaUserLicense;
 
   company: string;
 
@@ -51,6 +54,7 @@ export class CaUserSearch {
     email: {key: 'email', operator: 'MATCH'},
     category: {key: 'category', operator: 'IN'},
     status: {key: 'status', operator: 'IN'},
+    license: {key: 'license', operator: 'EQ'},
     company: {key: 'company', operator: 'MATCH'},
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     lastLoginSuccess: FlSearchConverter.dateInterval('lastLoginSuccess'),
@@ -64,6 +68,7 @@ export class CaUserSearch {
       email: null,
       category: null,
       status: null,
+      license: null,
       company: null,
       createdAt: new FormBuilder().group<FlSearchDateInterval>({
         from: [null],

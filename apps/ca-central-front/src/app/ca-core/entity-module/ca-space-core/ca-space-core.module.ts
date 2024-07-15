@@ -1,30 +1,27 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {CaSpaceTableComponent} from './component/ca-space-table/ca-space-table.component';
-import {CaCoreModule} from '../../ca-core.module';
-import {CaSpaceFormDialogComponent} from './component/ca-space-form-dialog/ca-space-form-dialog.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
-import {CaSpaceUserTableComponent} from './component/ca-space-user-table/ca-space-user-table.component';
-import {CaSpacePhotoPipe} from './pipe/ca-space-photo.pipe';
-import {CaSpacePhotoComponent} from './component/ca-space-photo/ca-space-photo.component';
-import {CaSpaceInlineComponent} from './component/ca-space-inline/ca-space-inline.component';
-import {CaExternalSpaceLinkDirective} from './pipe/ca-external-space-link.directive';
-import {CaSpaceSearchComponent} from './component/ca-space-search/ca-space-search.component';
-import {CaSpaceSearchFormComponent} from './component/ca-space-search-form/ca-space-search-form.component';
-import {CaSpaceUserSearchComponent} from './component/ca-space-user-search/ca-space-user-search.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CaSpaceTableComponent } from './component/ca-space-table/ca-space-table.component';
+import { CaCoreModule } from '../../ca-core.module';
+import { CaSpaceFormDialogComponent } from './component/ca-space-form-dialog/ca-space-form-dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CaSpaceUserTableComponent } from './component/ca-space-user-table/ca-space-user-table.component';
+import { CaSpacePhotoPipe } from './pipe/ca-space-photo.pipe';
+import { CaSpacePhotoComponent } from './component/ca-space-photo/ca-space-photo.component';
+import { CaSpaceInlineComponent } from './component/ca-space-inline/ca-space-inline.component';
+import { CaExternalSpaceLinkDirective } from './pipe/ca-external-space-link.directive';
+import { CaSpaceSearchComponent } from './component/ca-space-search/ca-space-search.component';
+import { CaSpaceSearchFormComponent } from './component/ca-space-search-form/ca-space-search-form.component';
+import { CaSpaceUserSearchComponent } from './component/ca-space-user-search/ca-space-user-search.component';
 import {
   CaSpaceUserSearchFormComponent
 } from './component/ca-space-user-search-form/ca-space-user-search-form.component';
-import {CaSelectSpaceComponent} from './component/ca-select-space/ca-select-space.component';
-import {CaObjectStorageCoreModule} from '../ca-object-storage-core/ca-object-storage-core.module';
-import {
-  CaSpaceLicenseFormDialogComponent
-} from './component/ca-space-license-form-dialog/ca-space-license-form-dialog.component';
+import { CaSelectSpaceComponent } from './component/ca-select-space/ca-select-space.component';
+import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-storage-core.module';
 import {
   CaSpaceStorageFormDialogComponent
 } from './component/ca-space-storage-form-dialog/ca-space-storage-form-dialog.component';
-import {CaSpaceStorageFormComponent} from './component/ca-space-storage-form/ca-space-storage-form.component';
+import { CaSpaceStorageFormComponent } from './component/ca-space-storage-form/ca-space-storage-form.component';
 
 
 @NgModule({
@@ -42,8 +39,7 @@ import {CaSpaceStorageFormComponent} from './component/ca-space-storage-form/ca-
     CaSpaceUserSearchFormComponent,
     CaSelectSpaceComponent,
     CaSpaceStorageFormDialogComponent,
-    CaSpaceLicenseFormDialogComponent,
-    CaSpaceStorageFormComponent,
+    CaSpaceStorageFormComponent
   ],
   exports: [
     CaSpaceTableComponent,
@@ -58,8 +54,7 @@ import {CaSpaceStorageFormComponent} from './component/ca-space-storage-form/ca-
     CaSpaceUserSearchComponent,
     CaSpaceUserSearchFormComponent,
     CaSelectSpaceComponent,
-    CaSpaceStorageFormDialogComponent,
-    CaSpaceLicenseFormDialogComponent,
+    CaSpaceStorageFormDialogComponent
   ],
   imports: [
     CommonModule,
@@ -68,8 +63,8 @@ import {CaSpaceStorageFormComponent} from './component/ca-space-storage-form/ca-
     RouterModule,
 
     CaCoreModule,
-    CaObjectStorageCoreModule,
-  ],
+    CaObjectStorageCoreModule
+  ]
 })
 export class CaSpaceCoreModule {
 }

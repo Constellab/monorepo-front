@@ -22,11 +22,26 @@
       </mat-select>
     </mat-form-field>
 
+    <!--  License  -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{ 'license' | translate }}</mat-label>
+      <mat-select formControlName="license"
+                  [placeholder]="'license' | translate">
+        @for (license of licenses; track license) {
+          <mat-option [value]="license">
+            {{ ('license_' + license) | translate }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
     <!--  Status  -->
     <mat-form-field class="g-search-field">
       <mat-label>{{'status' | translate }}</mat-label>
       <mat-select formControlName="status" [placeholder]="'status' | translate" [multiple]="true">
-        <mat-option *ngFor="let key of status | flObjectKeys" [value]="key">{{status[key]}}</mat-option>
+        @for (status of statuses; track status) {
+          <mat-option [value]="status">{{status}}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
 

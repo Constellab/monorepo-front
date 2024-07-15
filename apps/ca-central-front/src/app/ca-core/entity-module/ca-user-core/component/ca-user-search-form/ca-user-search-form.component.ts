@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
-import {FlSearchState} from '@monorepo/front-core-lib';
-import {ClUserStatus} from '@monorepo/core-lib';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import { FlSearchState } from '@monorepo/front-core-lib';
+import { ClUserStatus } from '@monorepo/core-lib';
+import { CaUserLicense } from '../../../../model/entities/ca-user.class';
 
 @Component({
   selector: 'ca-user-search-form',
@@ -11,7 +12,9 @@ import {ClUserStatus} from '@monorepo/core-lib';
 export class CaUserSearchFormComponent implements OnInit {
   formGp: UntypedFormGroup;
 
-  status: any = ClUserStatus;
+  statuses = Object.values(ClUserStatus);
+
+  licenses = Object.values(CaUserLicense);
 
   constructor(private searchState: FlSearchState<any>) { }
 

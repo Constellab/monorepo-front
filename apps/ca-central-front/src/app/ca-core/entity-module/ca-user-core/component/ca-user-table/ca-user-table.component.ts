@@ -1,5 +1,5 @@
-import {Component, ContentChild, Input, TemplateRef} from '@angular/core';
-import {CaUser, CaUserDatasourcePaginated} from '../../../../model/entities/ca-user.class';
+import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -7,8 +7,12 @@ import {
   FlTableColumnStatic,
   FlViewContext
 } from '@monorepo/front-core-lib';
-import {ClUserStatus} from '@monorepo/core-lib';
-import {CaUserAccountsService} from '../../../../service-api/ca-user-accounts.service';
+import { ClUserStatus } from '@monorepo/core-lib';
+import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
+import {
+  CaUserUpdateLicenseDialogInput,
+  CaUserUpdateLicenseFormDialogComponent
+} from '../ca-user-update-license-form-dialog/ca-user-update-license-form-dialog.component';
 
 /**
  * Table to display users
@@ -21,9 +25,9 @@ import {CaUserAccountsService} from '../../../../service-api/ca-user-accounts.se
 })
 export class CaUserTableComponent {
 
-  @Input() datasource: CaUserDatasourcePaginated;
+  @Input({ required: true }) datasource: CaUserDatasourcePaginated;
 
-  @Input() columns: FlTableColumnStatic<CaUser>[] = ['fullname', 'email', 'phone', 'category', 'lastLogin', 'createdAt', 'adminActions'];
+  @Input() columns: FlTableColumnStatic<CaUser>[] = ['fullname', 'contact', 'category', 'lastLogin', 'createdAt', 'adminActions'];
 
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
@@ -31,12 +35,12 @@ export class CaUserTableComponent {
               private dialogService: FlDialogService) {
   }
 
-  isLocked(user: CaUser): boolean{
+  isLocked(user: CaUser): boolean {
     return user.status === ClUserStatus.LOCKED_BY_ADMIN;
   }
 
   getUserViewContext(user: CaUser): FlViewContext<CaUser> {
-    return {$implicit: user};
+    return { $implicit: user };
   }
 
   lockUser(user: CaUser): void {
@@ -71,10 +75,30 @@ export class CaUserTableComponent {
     );
   }
 
+
   private onDialogClosed(result: FlConfirmDialogResult<CaUser>): void {
     if (result.choice) {
       this.datasource.updateItem(result.result);
     }
   }
+
+  updateLicense(user: CaUser): void {
+    const input: CaUserUpdateLicenseDialogInput = {
+      userId: user.id,
+      license: user.license
+    };
+
+    this.dialogService.openSmallDialog(CaUserUpdateLicenseFormDialogComponent,
+      { data: input }).afterClosed().subscribe(
+      (result: CaUser) => this.updateLicenseClosed(result)
+    );
+  }
+
+  private updateLicenseClosed(user?: CaUser): void {
+    if (user) {
+      this.datasource.updateItem(user);
+    }
+  }
+
 
 }

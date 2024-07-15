@@ -8,8 +8,6 @@ export class CaSpaceSettingsDto {
   @Type(() => CaSpace)
   space: CaSpace;
 
-  nbLicenses: number;
-
   @Type(() => CaBucketLocationDTO)
   defaultProjectStorageLocation: CaBucketLocationDTO;
 

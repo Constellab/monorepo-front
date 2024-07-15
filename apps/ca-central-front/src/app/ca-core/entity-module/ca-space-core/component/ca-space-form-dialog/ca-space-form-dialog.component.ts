@@ -1,12 +1,12 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {CaSpaceService} from '../../../../service-api/ca-space.service';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {CaCreateSpaceDTO, CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space.dto';
-import {CaSpaceStorageFormComponent} from '../ca-space-storage-form/ca-space-storage-form.component';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CaSpaceService } from '../../../../service-api/ca-space.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CaCreateSpaceDTO, CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
+import { CaSpaceStorageFormComponent } from '../ca-space-storage-form/ca-space-storage-form.component';
 
 export type CaSpaceFormDialogInput = FlFormDialogInput<CaCreateSpaceDTO>;
 
@@ -36,7 +36,7 @@ export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<Ca
   }
 
   create(formValue: CaCreateSpaceDTO): Observable<CaSpaceSettingsDto> {
-    return this.spaceService.create(formValue);
+    return this.spaceService.createEntrepriseSpace(formValue);
   }
 
   update(): Observable<CaSpaceSettingsDto> {

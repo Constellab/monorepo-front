@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlFileHelper,
@@ -8,9 +8,9 @@ import {
   FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {CaUser, CaUserDatasourcePaginated} from '../../../../model/entities/ca-user.class';
-import {CaUsersService} from '../../../../service-api/ca-users.service';
-import {CaUserSearch, CaUserSearchFields} from '../../model/ca-user-search.class';
+import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
+import { CaUsersService } from '../../../../service-api/ca-users.service';
+import { CaUserSearch, CaUserSearchFields } from '../../model/ca-user-search.class';
 
 @Component({
   selector: 'ca-user-search',
@@ -22,7 +22,7 @@ export class CaUserSearchComponent implements OnInit {
 
   datasource: CaUserDatasourcePaginated;
 
-  columns: FlTableColumnStatic<CaUser>[] = ['fullname', 'email', 'phone', 'category', 'lastLogin', 'createdAt', 'adminActions'];
+  columns: FlTableColumnStatic<CaUser>[] = ['fullname', 'contact', 'category', 'lastLogin', 'createdAt', 'adminActions'];
 
   exportIsLoading: boolean = false;
 

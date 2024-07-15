@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
-import {FlSearchState} from '@monorepo/front-core-lib';
-import {CaSpaceType} from '../../../../model/entities/space/ca-space.class';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import { FlSearchState } from '@monorepo/front-core-lib';
+import { CaSpaceType } from '../../../../model/entities/space/ca-space.class';
 
 @Component({
   selector: 'ca-space-search-form',
@@ -12,7 +12,7 @@ export class CaSpaceSearchFormComponent implements OnInit {
 
   formGp: UntypedFormGroup;
 
-  spaceTypes: CaSpaceType[] = ['PERSONAL', 'BASIC']
+  spaceTypes: CaSpaceType[] = ['PERSONAL', 'ENTREPRISE']
 
   constructor(private searchState: FlSearchState<any>) { }
 
