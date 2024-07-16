@@ -87,7 +87,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
         process: process,
         communityHelper: this.communityHelper
       };
-      this.dialogService.openMediumDialog(PrProcessInfoDialogComponent, { data: input });
+      this.dialogService.openMediumDialog(PrProcessInfoDialogComponent, { data: input, autoFocus: false});
     }
   }
 
