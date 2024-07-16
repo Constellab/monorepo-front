@@ -22,6 +22,10 @@
   margin-right: 0.5em;
 }
 
+.doc-header{
+  // align the elements with the title editable
+  padding-left: var(--element-editable-padding);
+}
 
 .text-editor {
   margin-bottom: 2em;

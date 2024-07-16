@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlFileHelper} from '../../../../service/fl-file.helper';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlFileHelper } from '../../../../service/fl-file.helper';
 
 /**
  * Show an icon based on the file extension
@@ -13,6 +13,8 @@ export class FlFileTextIconComponent implements OnInit {
 
   @Input({required: true}) filename: string;
 
+  @Input() isConstellabDocument: boolean = false;
+
   icon: string;
 
   ngOnInit(): void {
@@ -20,6 +22,10 @@ export class FlFileTextIconComponent implements OnInit {
   }
 
   private getFileIcon(filename: string): string {
+    if(this.isConstellabDocument){
+      return 'constellab_document';
+    }
+
     const extension = FlFileHelper.getFileExtension(filename);
 
     if (!extension) return 'description';

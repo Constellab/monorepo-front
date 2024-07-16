@@ -1,4 +1,4 @@
-import {InjectionToken} from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
 /**
  * Config for the {@link FlIconModule}
@@ -77,5 +77,6 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'comment-primary', filename: 'comment-primary.svg'},
   {name: 'comment-warn', filename: 'comment-warn.svg'},
   {name: 'heart', filename: 'heart.svg'},
-  {name: 'heart-fill', filename: 'heart-fill.svg'}
+  {name: 'heart-fill', filename: 'heart-fill.svg'},
+  {name: 'constellab_document', filename: 'constellab_document.svg'},
 ]

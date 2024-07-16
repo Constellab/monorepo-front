@@ -169,7 +169,7 @@ figure {
 }
 
 // create a fake chatbot button in dev
-.g-fake-chatbot{
+.g-fake-chatbot {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
@@ -185,7 +185,7 @@ figure {
   transform: scale(1);
 }
 
-.g-fake-chatbot span{
+.g-fake-chatbot span {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -303,8 +303,11 @@ figure {
 }
 
 /**************************** Other *****************************/
-:root{
+:root {
   --article-width: 60rem;
+  // size of the padding set by the element editable
+  // to be use to align text with a editable text
+  --element-editable-padding: 6px;
 }
 
 // Class to limit width of an element to keep it readable event it wide screes
@@ -338,7 +341,7 @@ figure {
   background-color: var(--hover-color);
 }
 
-.g-fl-element-editable-true{
+.g-fl-element-editable-true {
   border-color: var(--color-foreground);
 }
 
@@ -348,7 +351,7 @@ figure {
   display: none !important;
 }
 
-.g-badge{
+.g-badge {
   font-size: 0.9em;
   padding: 0.2em 0.8em;
   border-radius: 18px;
