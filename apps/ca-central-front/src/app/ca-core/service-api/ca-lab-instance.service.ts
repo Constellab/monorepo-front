@@ -46,11 +46,10 @@ import {
   CaLabInstanceStatusRunRequest,
   CaLabInstanceStatusRunResponse
 } from '../model/entities/lab/ca-lab-instance-status.dto';
-import { CaFreeUpdateDto, CaLabFreeGetDto } from '../model/entities/lab/ca-lab-free.class';
+import { CaLabFreeCreateDto, CaLabFreeGetDto, CaLabFreeUpdateDto } from '../model/entities/lab/ca-lab-free.class';
 import { CaLabBackupHistory, CaLabBackupStatusDTO } from '../model/entities/lab/ca-lab-backup.class';
 import {
   CaLabCloudCreateDTO,
-  CaLabContestForm,
   CaLabInstanceAdminForm,
   CaLabInstanceDesktopForm,
   CaRequestLabInstanceForm
@@ -412,6 +411,11 @@ export class CaLabInstanceService {
     return this.apiService.post(`${this.route}/free-lab/current`, null, CaLabInstance);
   }
 
+  public createFreeLab(entity: CaLabFreeCreateDto): Observable<CaLabInstanceWithSpace> {
+    return this.apiService.post(`${this.route}/free-lab`, entity, CaLabInstanceWithSpace,
+      { serialization: CaLabFreeCreateDto });
+  }
+
   public getCurrentUserFreeLab(): Observable<CaLabFreeGetDto> {
     return this.apiService.get(`${this.route}/free-lab/current`, CaLabFreeGetDto);
   }
@@ -424,20 +428,15 @@ export class CaLabInstanceService {
     return this.apiService.get(`${this.route}/free-lab/lab/${labId}`, CaLabFreeGetDto);
   }
 
-  public updateFreeLab(id: string, updateDto: CaFreeUpdateDto): Observable<CaLabFreeGetDto> {
+  public updateFreeLab(id: string, updateDto: CaLabFreeUpdateDto): Observable<CaLabFreeGetDto> {
     return this.apiService.put(`${this.route}/free-lab/${id}`, updateDto, CaLabFreeGetDto,
-      { serialization: CaFreeUpdateDto });
+      { serialization: CaLabFreeUpdateDto });
   }
 
   public deleteFreeLab(id: string): Observable<CaLabFreeGetDto> {
     return this.apiService.delete(`${this.route}/free-lab/${id}`, CaLabFreeGetDto);
   }
 
-  //////////////////////////// CONTEST ////////////////////////////////
-  public createContestLab(entity: CaLabContestForm): Observable<CaLabInstanceWithSpace> {
-    return this.apiService.post(`${this.route}/contest`, entity, CaLabInstanceWithSpace,
-      { serialization: CaLabContestForm });
-  }
 
   //////////////////////////// KPI ////////////////////////////////
 

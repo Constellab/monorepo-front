@@ -1,15 +1,14 @@
-import {CaServerCloud} from '../server/ca-server-cloud.class';
-import {Type} from 'class-transformer';
-import {CaSpace} from '../space/ca-space.class';
-import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
+import { CaServerCloud } from '../server/ca-server-cloud.class';
+import { Type } from 'class-transformer';
+import { CaSpace } from '../space/ca-space.class';
+import { CaCloudProviderRegion } from '../ca-cloud-provider.class';
 import {
   CaLabDesktopPlatform,
   CaLabInstanceBillingMode,
   CaLabInstanceType,
   CaLabInstanceVolumeType
 } from './ca-lab-instance.class';
-import {CaUser} from '../ca-user.class';
-import {CaLabManagerConfig} from './ca-lab-manager.class';
+import { CaLabManagerConfig } from './ca-lab-manager.class';
 
 
 export class CaLabInstanceAdminForm {
@@ -66,13 +65,6 @@ export interface CaRequestLabInstanceForm {
   storageSize?: string;
   labNeed?: string;
   additionalInfo?: string;
-}
-
-export class CaLabContestForm {
-  @Type(() => CaUser)
-  user: CaUser;
-  @Type(() => CaSpace)
-  space: CaSpace;
 }
 
 export class CaLabCloudCreateDTO {

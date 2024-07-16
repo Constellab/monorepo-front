@@ -370,8 +370,8 @@
   "view_in_community": "Voir dans community",
   "restart_lab_help": "Cela arrêtera et redémarrera le lab. Les briques listées dans la section du Lab manager seront installées. Les données du lab ne sont pas affectées.",
   "lab_initialize_help": "Cela va démarrer le lab. Les briques listées dans la section du Lab manager seront installées.",
-  "create_lab_contest": "Créer un lab de concours",
-  "lab_contest_created": "Lab de concours créé",
+  "create_lab_free": "Créer un lab gratuit",
+  "lab_free_created": "Lab gratuit créé",
   "lab_storage_size": "Taille du stockage (Go)",
   "lab_storage": "Stockage",
   "create_lab_storage_section": "Choisissez la taille du disque que vous souhaitez pour votre lab digital. Veuillez noter que le stockage est facturé mensuellement et est facturé même si le lab est arrêté (car les données sont toujours stockées). Pour arrêter la facturation du stockage, vous devez supprimer le lab. Le prix du stockage inclut la sauvegarde multi-sites du lab.",
@@ -394,7 +394,7 @@
   "restore_backup_to_lab_confirmation": "Êtes-vous sûr de vouloir restaurer la sauvegarde dans le lab ? Cela n'est pas possible s'il y a des données dans le lab de destination. Cela peut prendre quelques minutes",
   "restore_backup_to_lab_started": "Restauration de la sauvegarde démarrée",
   "destination_lab": "Lab de destination",
-  "restore_db" : "Restaurer la base de données",
+  "restore_db": "Restaurer la base de données",
   "restore_data": "Restaurer les données",
   "force_restore": "Forcer la restauration (remplace les données existantes)"
 }

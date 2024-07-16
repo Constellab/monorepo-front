@@ -38,8 +38,8 @@ import {
 import { CaSelectLabComponent } from './component/ca-select-lab/ca-select-lab.component';
 import { CaLabInlineComponent } from './component/ca-lab-inline/ca-lab-inline.component';
 import {
-  CaLabContestFormDialogComponent
-} from './component/ca-lab-contest-form-dialog/ca-lab-contest-form-dialog.component';
+  CaLabFreeAdminFormDialogComponent
+} from './component/ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
 import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-storage-core.module';
 
 /**
@@ -58,13 +58,14 @@ import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-s
     CaLabConfigComponent,
     CaLabInstanceFormDialogComponent,
     CaLabFreeInfoComponent,
-    CaLabFreeFormDialogComponent,
+    CaLabFreeAdminFormDialogComponent,
     CaLabFreeCardInfoComponent,
     CaLabFreeCreateButtonComponent,
     CaLabBackupHistoryTableComponent,
     CaSelectLabComponent,
     CaLabInlineComponent,
-    CaLabContestFormDialogComponent,
+    CaLabFreeFormDialogComponent,
+    CaLabFreeAdminFormDialogComponent,
   ],
   exports: [
     CaLabInstanceCardComponent,
@@ -77,7 +78,7 @@ import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-s
     CaLabConfigComponent,
     CaLabInstanceFormDialogComponent,
     CaLabFreeInfoComponent,
-    CaLabFreeFormDialogComponent,
+    CaLabFreeAdminFormDialogComponent,
     CaLabFreeCardInfoComponent,
     CaLabFreeCreateButtonComponent,
     CaLabBackupHistoryTableComponent,

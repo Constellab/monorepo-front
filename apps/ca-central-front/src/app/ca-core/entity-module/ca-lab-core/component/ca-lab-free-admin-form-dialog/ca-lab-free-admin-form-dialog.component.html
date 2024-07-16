@@ -1,9 +1,9 @@
 <fl-dialog-header>
-  {{ 'create_lab_contest' | translate }}
+  {{ 'create_lab_free' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <form (ngSubmit)="submit()" id="lab-contest-form" [formGroup]="formGp">
+  <form (ngSubmit)="submit()" id="lab-free-admin-form" [formGroup]="formGp">
 
 
     <!--  User  -->
@@ -28,7 +28,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="lab-contest-form"
+  <button mat-flat-button color="primary" type="submit" form="lab-free-admin-form"
           class="g-centered-forced">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>

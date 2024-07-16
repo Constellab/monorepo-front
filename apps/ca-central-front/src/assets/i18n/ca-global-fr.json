@@ -80,7 +80,7 @@
   "unshare": "Enlever l'utilisateur du projet",
   "unshare_confirmation": "Êtes-vous sûr de vouloir enlever cet utilisateur du projet ?",
   "unshared": "Utilisateur enlevé",
-  "admin_dashboard": "Dashboard admin",
+  "admin_dashboard": "Admin",
   "admin_dashboard_page": "Dashboard",
   "admin_other_page": "Autres",
   "admin_account_activation": "Activation de comptes",

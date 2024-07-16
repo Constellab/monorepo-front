@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
-import { CaFreeUpdateDto, CaLabFreeGetDto } from '../../../../model/entities/lab/ca-lab-free.class';
+import { CaLabFreeGetDto, CaLabFreeUpdateDto } from '../../../../model/entities/lab/ca-lab-free.class';
 
 export interface CaLabFreeFormDialogInput {
   freeLabId: string;
@@ -42,7 +42,7 @@ export class CaLabFreeFormDialogComponent {
     }
   }
 
-  private updateFreeLab(value: CaFreeUpdateDto): void {
+  private updateFreeLab(value: CaLabFreeUpdateDto): void {
     this.isLoading = true;
     this.labService.updateFreeLab(this.input.freeLabId, value).subscribe({
       next: freeLab => this.updateFreeLabSuccess(freeLab),

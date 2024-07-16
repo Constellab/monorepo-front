@@ -2,6 +2,8 @@ import { CaBaseEntity } from '../ca-base-entity.class';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { Type } from 'class-transformer';
+import { CaUser } from '../ca-user.class';
+import { CaSpace } from '../space/ca-space.class';
 
 export class CaLabFree extends CaBaseEntity {
 
@@ -41,7 +43,14 @@ export class CaLabFreeGetDto {
   }
 }
 
-export class CaFreeUpdateDto {
+export class CaLabFreeCreateDto {
+  @Type(() => CaUser)
+  user: CaUser;
+  @Type(() => CaSpace)
+  space: CaSpace;
+}
+
+export class CaLabFreeUpdateDto {
   usageLimitInHours: number;
 
   @ClLuxonDateTimeTransform()

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -9,15 +9,17 @@ import {
   FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {CaLabInstance, CaLabInstanceDatasource} from '../../../../model/entities/lab/ca-lab-instance.class';
-import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
-import {CaLabInstanceSearch, CaLabInstanceSearchFields} from '../../model/ca-lab-instance-search.class';
+import { CaLabInstance, CaLabInstanceDatasource } from '../../../../model/entities/lab/ca-lab-instance.class';
+import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
+import { CaLabInstanceSearch, CaLabInstanceSearchFields } from '../../model/ca-lab-instance-search.class';
 import {
   CaLabInstanceAdminFormDialogComponent,
   CaLabInstanceAdminFormDialogInput
 } from '../ca-lab-instance-admin-form-dialog/ca-lab-instance-admin-form-dialog.component';
-import {CaLabInstanceSearchMode} from '../ca-lab-instance-search-form/ca-lab-instance-search-form.component';
-import {CaLabContestFormDialogComponent} from '../ca-lab-contest-form-dialog/ca-lab-contest-form-dialog.component';
+import { CaLabInstanceSearchMode } from '../ca-lab-instance-search-form/ca-lab-instance-search-form.component';
+import {
+  CaLabFreeAdminFormDialogComponent
+} from '../ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
 
 @Component({
   selector: 'ca-lab-instance-search',
@@ -126,12 +128,12 @@ export class CaLabInstanceSearchComponent implements OnInit {
       );
   }
 
-  openCreateContestLabForm(): void {
+  openCreateLabFreeForm(): void {
     const dialogInput: FlFormDialogInput = {
       mode: 'create'
     };
 
-    this.dialogService.openMediumDialog(CaLabContestFormDialogComponent, {data: dialogInput}).afterClosed()
+    this.dialogService.openMediumDialog(CaLabFreeAdminFormDialogComponent, {data: dialogInput}).afterClosed()
       .subscribe(
         labInstance => this.onCreateLabInstanceClosed(labInstance)
       );
