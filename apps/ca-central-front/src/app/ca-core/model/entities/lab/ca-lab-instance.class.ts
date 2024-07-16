@@ -1,6 +1,6 @@
-import {CaBaseEntity} from '../ca-base-entity.class';
-import {CaStatusHistory} from '../ca-status-history.class';
-import {CaServerCloud} from '../server/ca-server-cloud.class';
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { CaStatusHistory } from '../ca-status-history.class';
+import { CaServerCloud } from '../server/ca-server-cloud.class';
 import {
   FlEntityPaginatedDatasource,
   FlStatus,
@@ -8,12 +8,12 @@ import {
   FlStatusHelper,
   FlStatusTransform
 } from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {CaSpace} from '../space/ca-space.class';
-import {CaLabInstanceUserRole} from './ca-lab-instance-user.class';
-import {CaCloudProvider, CaCloudProviderRegion} from '../ca-cloud-provider.class';
-import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
+import { Type } from 'class-transformer';
+import { CaSpace } from '../space/ca-space.class';
+import { CaLabInstanceUserRole } from './ca-lab-instance-user.class';
+import { CaCloudProvider, CaCloudProviderRegion } from '../ca-cloud-provider.class';
+import { DateTime } from 'luxon';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 
 export type CaLabInstanceBillingMode = 'HOURLY' | 'MONTHLY';
 export type CaLabInstanceVolumeType = 'CLASSIC' | 'HIGH_SPEED';
@@ -92,7 +92,7 @@ export class CaLabInstance extends CaBaseEntity {
 
   desktopPlatform?: CaLabDesktopPlatform;
 
-  isFreeTrial: boolean;
+  isFreeLab: boolean;
 
   public isRunning(): boolean {
     return this.currentStatus.status.value === 'LAB_RUNNING';
@@ -129,7 +129,7 @@ export class CaLabInstance extends CaBaseEntity {
   }
 
   get typeIcon(): string {
-    if (this.isFreeTrial) {
+    if (this.isFreeLab) {
       return 'timelapse';
     }
 
@@ -144,8 +144,8 @@ export class CaLabInstance extends CaBaseEntity {
   }
 
   get typeTooltip(): string {
-    if (this.isFreeTrial) {
-      return 'lab_free_trial_long';
+    if (this.isFreeLab) {
+      return 'free_data_lab_long';
     }
 
     return 'lab_instance_type_' + this.type;

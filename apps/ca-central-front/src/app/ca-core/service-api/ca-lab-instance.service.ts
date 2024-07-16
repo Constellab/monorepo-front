@@ -46,7 +46,7 @@ import {
   CaLabInstanceStatusRunRequest,
   CaLabInstanceStatusRunResponse
 } from '../model/entities/lab/ca-lab-instance-status.dto';
-import { CaFreeTrialUpdateDto, CaLabFreeTrialGetDto } from '../model/entities/lab/ca-lab-free-trial.class';
+import { CaFreeUpdateDto, CaLabFreeGetDto } from '../model/entities/lab/ca-lab-free.class';
 import { CaLabBackupHistory, CaLabBackupStatusDTO } from '../model/entities/lab/ca-lab-backup.class';
 import {
   CaLabCloudCreateDTO,
@@ -55,9 +55,9 @@ import {
   CaLabInstanceDesktopForm,
   CaRequestLabInstanceForm
 } from '../model/entities/lab/ca-lab-instance.form';
-import {DateTime} from 'luxon';
 import {
-  CaLabInstanceStatusHistoryDatesFormData, CaLabInstanceStatusHistorySearch
+  CaLabInstanceStatusHistoryDatesFormData,
+  CaLabInstanceStatusHistorySearch
 } from '../../ca-lab-instance/component/ca-lab-instance-status-history-page/ca-lab-instance-status-history-page.component';
 
 @Injectable({
@@ -406,31 +406,31 @@ export class CaLabInstanceService {
     return this.apiService.get(`${this.route}/${labId}/green-options`, CaLabGreenOption);
   }
 
-  //////////////////////////// Free trial  ////////////////////////////////
+  //////////////////////////// Free lab  ////////////////////////////////
 
-  public createFreeTrialLabInstanceCurrentUser(): Observable<CaLabInstance> {
-    return this.apiService.post(`${this.route}/free-trial/current`, null, CaLabInstance);
+  public createFreeLabInstanceCurrentUser(): Observable<CaLabInstance> {
+    return this.apiService.post(`${this.route}/free-lab/current`, null, CaLabInstance);
   }
 
-  public getCurrentUserFreeTrial(): Observable<CaLabFreeTrialGetDto> {
-    return this.apiService.get(`${this.route}/free-trial/current`, CaLabFreeTrialGetDto);
+  public getCurrentUserFreeLab(): Observable<CaLabFreeGetDto> {
+    return this.apiService.get(`${this.route}/free-lab/current`, CaLabFreeGetDto);
   }
 
-  public getUserFreeTrialByUser(userId: string): Observable<CaLabFreeTrialGetDto> {
-    return this.apiService.get(`${this.route}/free-trial/user/${userId}`, CaLabFreeTrialGetDto);
+  public getUserFreeLabByUser(userId: string): Observable<CaLabFreeGetDto> {
+    return this.apiService.get(`${this.route}/free-lab/user/${userId}`, CaLabFreeGetDto);
   }
 
-  public getUserFreeTrialByLab(labId: string): Observable<CaLabFreeTrialGetDto> {
-    return this.apiService.get(`${this.route}/free-trial/lab/${labId}`, CaLabFreeTrialGetDto);
+  public getUserFreeLabByLab(labId: string): Observable<CaLabFreeGetDto> {
+    return this.apiService.get(`${this.route}/free-lab/lab/${labId}`, CaLabFreeGetDto);
   }
 
-  public updateFreeTrial(id: string, updateDto: CaFreeTrialUpdateDto): Observable<CaLabFreeTrialGetDto> {
-    return this.apiService.put(`${this.route}/free-trial/${id}`, updateDto, CaLabFreeTrialGetDto,
-      { serialization: CaFreeTrialUpdateDto });
+  public updateFreeLab(id: string, updateDto: CaFreeUpdateDto): Observable<CaLabFreeGetDto> {
+    return this.apiService.put(`${this.route}/free-lab/${id}`, updateDto, CaLabFreeGetDto,
+      { serialization: CaFreeUpdateDto });
   }
 
-  public deleteFreeTrial(id: string): Observable<CaLabFreeTrialGetDto> {
-    return this.apiService.delete(`${this.route}/free-trial/${id}`, CaLabFreeTrialGetDto);
+  public deleteFreeLab(id: string): Observable<CaLabFreeGetDto> {
+    return this.apiService.delete(`${this.route}/free-lab/${id}`, CaLabFreeGetDto);
   }
 
   //////////////////////////// CONTEST ////////////////////////////////

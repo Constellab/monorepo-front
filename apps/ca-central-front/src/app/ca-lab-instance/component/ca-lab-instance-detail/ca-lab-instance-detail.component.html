@@ -88,10 +88,10 @@
       </fl-key-value>
     </fl-text-icon>
 
-    <!--   Trial   -->
-    <fl-text-icon *ngIf="labInstance.isFreeTrial">
+    <!--   Free lab   -->
+    <fl-text-icon *ngIf="labInstance.isFreeLab">
       <mat-icon>lightbulb</mat-icon>
-      {{ 'lab_free_trial_long' | translate }}
+      {{ 'free_data_lab_long' | translate }}
     </fl-text-icon>
 
     <fl-text-icon *ngIf="labInstance.isDesktop">

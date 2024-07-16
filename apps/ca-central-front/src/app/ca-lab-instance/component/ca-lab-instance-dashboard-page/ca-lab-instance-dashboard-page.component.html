@@ -14,8 +14,8 @@
       <ca-lab-instance-projects-list class="g-section"
                                      [labInstanceId]="labInstance.id"></ca-lab-instance-projects-list>
 
-      <ca-lab-free-trial-card-info class="g-section" *ngIf="labInstance.isFreeTrial"
-                                   [labInstanceId]="labInstance.id"></ca-lab-free-trial-card-info>
+      <ca-lab-free-card-info class="g-section" *ngIf="labInstance.isFreeLab"
+                                   [labInstanceId]="labInstance.id"></ca-lab-free-card-info>
 
     </div>
   </ng-container>

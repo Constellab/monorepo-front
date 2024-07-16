@@ -1,23 +1,23 @@
-<fl-async-section [object]="freeTrialDto$">
-  <ng-container *flSectionBody="freeTrialDto$ as freeTrialDto">
+<fl-async-section [object]="freeLabDTO$">
+  <ng-container *flSectionBody="freeLabDTO$ as freeLabDTO">
 
     <fl-card>
       <fl-card-header>
         <fl-text-icon>
           <mat-icon flIcon="lab"></mat-icon>
-          <h2>{{'lab_free_trial' | translate}}</h2>
+          <h2>{{'free_data_lab' | translate}}</h2>
         </fl-text-icon>
 
         <fl-card-actions *caIsAdmin>
-          <ng-container *ngIf="freeTrialDto.freeTrial">
+          <ng-container *ngIf="freeLabDTO.freeLab">
             <button mat-icon-button type="button"
-                    (click)="updateFreeTrial(freeTrialDto)"
-                    [matTooltip]="'lab_free_trial_update' | translate">
+                    (click)="updateFreeLab(freeLabDTO)"
+                    [matTooltip]="'free_data_lab_update' | translate">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button type="button" color="warn"
-                    (click)="deleteFreeTrial(freeTrialDto)"
-                    [matTooltip]="'lab_free_trial_delete' | translate">
+                    (click)="deleteFreeLab(freeLabDTO)"
+                    [matTooltip]="'free_data_lab_delete' | translate">
               <mat-icon>delete</mat-icon>
             </button>
           </ng-container>
@@ -26,7 +26,7 @@
       </fl-card-header>
 
       <fl-card-body>
-        <ca-lab-free-trial-info [freeTrialDto]="freeTrialDto"></ca-lab-free-trial-info>
+        <ca-lab-free-info [freeLab]="freeLabDTO"></ca-lab-free-info>
       </fl-card-body>
     </fl-card>
   </ng-container>

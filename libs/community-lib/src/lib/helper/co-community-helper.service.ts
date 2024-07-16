@@ -1,6 +1,6 @@
-import {TdBrick, TdTypingName} from '@monorepo/technical-doc';
-import {CoConfig} from '../service/co-service-config.config';
-import {Injectable} from '@angular/core';
+import { TdBrick, TdTypingName } from '@monorepo/technical-doc';
+import { CoConfig } from '../service/co-service-config.config';
+import { Injectable } from '@angular/core';
 
 
 export type CoBrickVersionPath = 'latest' | string;
@@ -52,6 +52,11 @@ export class CoCommunityHelperService {
 
   public getDigitalLabOverviewRoute(): string{
     return this.getDocUrl(TdBrick.GWS_ACADEMY, 'latest', 'digital-lab/overview/294e86b4-ce9a-4c56-b34e-61c9a9a8260d')
+  }
+
+  public getDigitalLabManagementRoute(): string{
+    return this.getDocUrl(TdBrick.GWS_ACADEMY, 'latest', 'digital-lab/on-cloud-digital-lab-management/4ab03b1f-a96d-4d7a-a733-ad1edf4fb53c')
+
   }
 
   public getDesktopDocUrl(): string {

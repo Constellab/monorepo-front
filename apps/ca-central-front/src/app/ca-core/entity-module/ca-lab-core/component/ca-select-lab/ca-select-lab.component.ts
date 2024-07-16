@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlEntityPaginatedDatasource, FlFormFieldDirective} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {NgControl} from '@angular/forms';
-import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
-import {CaLabInstance, CaLabInstanceDatasource} from '../../../../model/entities/lab/ca-lab-instance.class';
-import {map} from 'rxjs/operators';
-import {CaLabInstanceSearchFields} from '../../model/ca-lab-instance-search.class';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { FlEntityPaginatedDatasource, FlFormFieldDirective } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { NgControl } from '@angular/forms';
+import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
+import { CaLabInstance, CaLabInstanceDatasource } from '../../../../model/entities/lab/ca-lab-instance.class';
+import { map } from 'rxjs/operators';
+import { CaLabInstanceSearchFields } from '../../model/ca-lab-instance-search.class';
 
 @Component({
   selector: 'ca-select-lab',
@@ -40,7 +40,7 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLabInstance> im
 
   private getFilter(name: string): Partial<CaLabInstanceSearchFields> {
     if (this.mode === 'all') {
-      return {name: name, type: 'CLOUD', isFreeTrial: false};
+      return {name: name, type: 'CLOUD', isFreeLab: false};
     } else {
       return {name: name};
     }

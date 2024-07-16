@@ -1,0 +1,59 @@
+<ng-container [ngSwitch]="freeLab.status">
+  <fl-text-icon *ngSwitchCase="'IN_PROGRESS'">
+    <mat-icon>cached</mat-icon>
+    <div>
+      {{'free_data_lab_in_progress' | translate: {
+      remainingHours: (freeLab.remainingMilliseconds | flDuration:2: 'minutes')
+    } }}
+
+    </div>
+
+  </fl-text-icon>
+
+  <fl-text-icon *ngSwitchCase="'EXPIRED'">
+    <mat-icon>clear</mat-icon>
+    {{'free_data_lab_expired' | translate: {date: (freeLab.deletionDate | flDate:'DATE_TIME_WITH_SECONDS')} }}
+  </fl-text-icon>
+
+  <fl-text-icon *ngSwitchCase="'EXPIRED_AND_DELETED'">
+    <mat-icon>clear</mat-icon>
+    {{'free_data_lab_expired_and_deleted' | translate }}
+  </fl-text-icon>
+
+  <fl-text-icon *ngSwitchCase="'NOT_USED'">
+    <mat-icon>clear</mat-icon>
+    {{'free_data_lab_not_used' | translate }}
+  </fl-text-icon>
+</ng-container>
+
+<ng-container *ngIf="freeLab.freeLab">
+  <fl-text-icon>
+    <mat-icon>calendar_today</mat-icon>
+    <fl-key-value>
+      <fl-key>{{'free_data_lab_start_date' | translate}}</fl-key>
+      {{freeLab.freeLab.createdAt | flDate:'DATE_TIME_WITH_SECONDS'}}
+    </fl-key-value>
+  </fl-text-icon>
+
+  <fl-text-icon>
+    <mat-icon>data_usage</mat-icon>
+    <fl-key-value>
+      <fl-key>{{'free_data_lab_usage' | translate}}</fl-key>
+      {{(freeLab.currentUsageInSeconds * 1000) | flDuration:2: 'minutes'}}
+      / {{freeLab.freeLab.usageLimitInHours}} {{'lab_usage_hours' | translate}}
+    </fl-key-value>
+  </fl-text-icon>
+
+  <fl-text-icon>
+    <mat-icon>person</mat-icon>
+    <fl-user-inline [user]="freeLab.freeLab.createdBy"></fl-user-inline>
+  </fl-text-icon>
+</ng-container>
+
+<div class="g-text-centered" *ngIf="freeLab.freeLab?.labInstanceId">
+  <a [routerLink]="freeLab.freeLab.labInstanceId | caDetailRoute:'labInstance'"
+     mat-button type="button"
+     flHideSamePageLink class="lab-link">
+    {{'free_data_lab_open_lab' | translate}}
+  </a></div>
+

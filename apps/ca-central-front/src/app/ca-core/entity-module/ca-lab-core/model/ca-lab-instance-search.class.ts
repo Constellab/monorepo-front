@@ -1,22 +1,22 @@
-import {Type} from 'class-transformer';
-import {CaUser} from '../../../model/entities/ca-user.class';
+import { Type } from 'class-transformer';
+import { CaUser } from '../../../model/entities/ca-user.class';
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
   FlSearchCriteriaConverter,
   FlSearchDateInterval
 } from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import {
   CaLabInstanceServerTaskStatus,
   CaLabInstanceStatus,
   CaLabInstanceType
 } from '../../../model/entities/lab/ca-lab-instance.class';
-import {CaCity} from '../../../model/entities/ca-city.entity';
-import {CaServerCloud} from '../../../model/entities/server/ca-server-cloud.class';
-import {CaSpace} from '../../../model/entities/space/ca-space.class';
-import {CaCloudProvider} from '../../../model/entities/ca-cloud-provider.class';
-import {CaServerStandard} from '../../../model/entities/server/ca-server-standard.class';
+import { CaCity } from '../../../model/entities/ca-city.entity';
+import { CaServerCloud } from '../../../model/entities/server/ca-server-cloud.class';
+import { CaSpace } from '../../../model/entities/space/ca-space.class';
+import { CaCloudProvider } from '../../../model/entities/ca-cloud-provider.class';
+import { CaServerStandard } from '../../../model/entities/server/ca-server-standard.class';
 
 
 export class CaLabInstanceSearchFields {
@@ -50,7 +50,7 @@ export class CaLabInstanceSearchFields {
   @Type(() => CaCloudProvider)
   cloudProvider: CaCloudProvider;
 
-  isFreeTrial: boolean;
+  isFreeLab: boolean;
 
   cloudName: string;
 
@@ -89,7 +89,7 @@ export class CaLabInstanceSearch {
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     type: {key: 'type', operator: 'EQ'},
     cloudProvider: {key: 'region.cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    isFreeTrial: {key: 'isFreeTrial', operator: 'EQ'},
+    isFreeLab: {key: 'isFreeLab', operator: 'EQ'},
     cloudName: {key: 'cloudName', operator: 'MATCH'},
     serverTaskStatus: {key: 'serverTaskStatus', operator: 'EQ'},
     id: {key: 'id', operator: 'EQ'},
@@ -111,7 +111,7 @@ export class CaLabInstanceSearch {
       space: null,
       type: null,
       cloudProvider: null,
-      isFreeTrial: null,
+      isFreeLab: null,
       cloudName: null,
       serverTaskStatus: null,
       id: null,
