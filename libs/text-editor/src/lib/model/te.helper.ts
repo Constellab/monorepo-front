@@ -216,7 +216,7 @@ export class TeHelper {
     if (position.top + portalMaxHeight + 20 > window.innerHeight) {
       topPosition = window.innerHeight - portalMaxHeight + 'px';
     } else {
-      // add 20 to the top position to make sure the emoji picker is below the cursor
+      // add 20 to the top position to make sure the portal is below the cursor
       topPosition = position.top + 20 + 'px';
     }
 

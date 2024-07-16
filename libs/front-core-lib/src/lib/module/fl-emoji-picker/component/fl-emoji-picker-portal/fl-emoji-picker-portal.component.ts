@@ -8,14 +8,14 @@ import {
   OnInit,
   Renderer2
 } from '@angular/core';
-import {init} from 'emoji-mart';
-import {Observable} from 'rxjs';
-import {FL_PORTAL_DATA} from '../../../fl-portal/model/fl-portal.class';
-import {FlOverlayRef} from '../../../fl-portal/model/fl-overlay-ref.class';
-import {FlEmojiDatasource, FlEmojiHelper, FlSimpleEmoji} from '../../fl-emoji.helper';
-import {FlKeyboardHelper, FlKeyboardKey} from '../../../../utils/fl-keyboard.helper';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlHtmlHelper} from '../../../../utils/fl-html.helper';
+import { init } from 'emoji-mart';
+import { Observable } from 'rxjs';
+import { FL_PORTAL_DATA } from '../../../fl-portal/model/fl-portal.class';
+import { FlOverlayRef } from '../../../fl-portal/model/fl-overlay-ref.class';
+import { FlEmojiDatasource, FlEmojiHelper, FlSimpleEmoji } from '../../fl-emoji.helper';
+import { FlKeyboardHelper, FlKeyboardKey } from '../../../../utils/fl-keyboard.helper';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlHtmlHelper } from '../../../../utils/fl-html.helper';
 
 export interface FlEmojiPickerPortalInput {
   filter: Observable<string>;
@@ -36,19 +36,18 @@ interface FlEmojiCoord {
 export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
 
   public static PORTAL_MAX_WIDTH = 400;
-  public static PORTAL_MAX_HEIGHT = 400;
+  public static PORTAL_MAX_HEIGHT = 420;
+  public static SELECTED_CLASS = 'selected';
 
   input: FlEmojiPickerPortalInput = inject(FL_PORTAL_DATA);
 
   emojiCategories: FlEmojiDatasource = new FlEmojiDatasource();
 
-  hoveredEmoji: FlEmojiCoord = {
-    categoryIndex: 0,
-    index: 0
-  };
+  hoveredEmoji: FlEmojiCoord = null;
 
   private readonly nbOfEmojiPerLine = 10;
   private listener: () => void;
+
 
   constructor(private overlayRef: FlOverlayRef,
               private changeDetectorRef: ChangeDetectorRef,
@@ -57,14 +56,15 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    init({data: FlEmojiHelper.getEmojiData()});
+    init({ data: FlEmojiHelper.getEmojiData() });
 
     this.input.filter.subscribe({
       next: (value: string) => {
-        this.hoveredEmoji = {
-          categoryIndex: 0,
-          index: 0
-        };
+        // we use a timeout to let the HTML load
+        setTimeout(() => {
+          this.unhoverCurrentEmoji();
+          this.hoverEmoji({ categoryIndex: 0, index: 0 });
+        }, 0);
         this.emojiCategories.getFirstPage(value);
       },
       complete: () => this.overlayRef.dispose()
@@ -87,18 +87,42 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
   }
 
   private moveHoveredEmojiIndex(event: KeyboardEvent): void {
+    this.unhoverCurrentEmoji();
+
+    let newCoords: FlEmojiCoord = null;
     if (event.key === FlKeyboardKey.ARROW_DOWN) {
-      this.hoveredEmoji = this.moveDown();
+      newCoords = this.moveDown();
     } else if (event.key === FlKeyboardKey.ARROW_UP) {
-      this.hoveredEmoji = this.moveUp();
+      newCoords = this.moveUp();
     } else if (event.key === FlKeyboardKey.ARROW_LEFT) {
-      this.hoveredEmoji = this.moveLeft();
+      newCoords = this.moveLeft();
     } else if (event.key === FlKeyboardKey.ARROW_RIGHT) {
-      this.hoveredEmoji = this.moveRight();
+      newCoords = this.moveRight();
     }
     ClHelpService.stopEventPropagation(event);
 
-    this.scrollToHoveredEmoji();
+    this.hoverEmoji(newCoords);
+  }
+
+  private hoverEmoji(coord: FlEmojiCoord): void {
+    if (!coord) return;
+    const newSelectedElement = this.getEmojiElementByCoord(coord);
+    if (newSelectedElement) {
+      this.renderer.addClass(newSelectedElement, FlEmojiPickerPortalComponent.SELECTED_CLASS);
+      // scroll to selected element
+      FlHtmlHelper.scrollElementToElementIfNotVisible(newSelectedElement);
+    }
+
+    this.hoveredEmoji = coord;
+  }
+
+  private unhoverCurrentEmoji(): void {
+    if (this.hoveredEmoji) {
+      const currentEmoji = this.getEmojiElementByCoord(this.hoveredEmoji);
+      if (currentEmoji) {
+        this.renderer.removeClass(currentEmoji, FlEmojiPickerPortalComponent.SELECTED_CLASS);
+      }
+    }
   }
 
   private moveRight(): FlEmojiCoord {
@@ -196,13 +220,6 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     return coords;
   }
 
-  private scrollToHoveredEmoji(): void {
-    const emojiElement: HTMLElement = this.elementRef.nativeElement.querySelector(
-      `#emoji-${this.hoveredEmoji.categoryIndex}-${this.hoveredEmoji.index}`);
-    if (!emojiElement) return;
-    FlHtmlHelper.scrollElementToElementIfNotVisible(emojiElement);
-  }
-
   private selectHoveredEmoji(): void {
     const emoji = this.getHoveredEmoji();
     if (emoji) {
@@ -211,17 +228,46 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
   }
 
   private getHoveredEmoji(): FlSimpleEmoji {
+    return this.getEmojiByCoord(this.hoveredEmoji);
+  }
+
+  private getEmojiByCoord(coord: FlEmojiCoord): FlSimpleEmoji | null {
     const categories = this.emojiCategories.array;
-    if (categories[this.hoveredEmoji.categoryIndex]) {
-      return categories[this.hoveredEmoji.categoryIndex].emojis[this.hoveredEmoji.index];
+    if (categories[coord.categoryIndex]) {
+      return categories[coord.categoryIndex].emojis[coord.index];
+    }
+    return null;
+  }
+
+  private getEmojiElementByCoord(coord: FlEmojiCoord): HTMLElement | null {
+    const emoji = this.getEmojiByCoord(coord);
+    if (emoji) {
+      return this.elementRef.nativeElement.querySelector(`#${emoji.htmlId}`);
     }
     return null;
 
   }
 
-  selectEmoji(emoji: FlSimpleEmoji): void {
+  private selectEmoji(emoji: FlSimpleEmoji): void {
     FlEmojiHelper.addInFrequency(emoji.id);
     this.overlayRef.dispose(emoji.emoji);
+  }
+
+  /**
+   * On click on the parent element, we check if the click is on an emoji
+   * We use this to avoid creating a listener for each emoji for performance
+   * @param event
+   */
+  onParentClick(event: MouseEvent): void {
+    const emojiSpan = FlHtmlHelper.getParent(event.target as HTMLElement, { className: 'emoji' });
+
+    if (emojiSpan) {
+      const emojiId = emojiSpan.getAttribute('id');
+      const emoji = this.emojiCategories.findByHtmlId(emojiId);
+      if (emoji) {
+        this.selectEmoji(emoji);
+      }
+    }
   }
 
   ngOnDestroy(): void {

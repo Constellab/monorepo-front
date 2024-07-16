@@ -1,10 +1,10 @@
-import {FlDatasourcePaginated} from '../../model/datasource/fl-datasource-paginated.class';
+import { FlDatasourcePaginated } from '../../model/datasource/fl-datasource-paginated.class';
 import * as data from '@emoji-mart/data';
-import {Emoji, EmojiMartData} from '@emoji-mart/data';
-import {from, Observable, of} from 'rxjs';
-import {ClHelpService, ClPageI} from '@monorepo/core-lib';
-import {FrequentlyUsed, SearchIndex} from 'emoji-mart';
-import {map} from 'rxjs/operators';
+import { Emoji, EmojiMartData } from '@emoji-mart/data';
+import { from, Observable, of } from 'rxjs';
+import { ClHelpService, ClPageI } from '@monorepo/core-lib';
+import { FrequentlyUsed, SearchIndex } from 'emoji-mart';
+import { map } from 'rxjs/operators';
 
 export interface FlEmojiCategory {
   name: string;
@@ -14,6 +14,7 @@ export interface FlEmojiCategory {
 export interface FlSimpleEmoji {
   id: string;
   emoji: string;
+  htmlId: string;
 }
 
 
@@ -23,7 +24,7 @@ export class FlEmojiHelper {
   private static allEmojiLastPageInfo = {
     lastPageIndex: -1,
     nextCategoryIndex: 0
-  }
+  };
 
   public static search(value: string, page: number, pageSize: number): Observable<ClPageI<FlEmojiCategory>> {
     if (ClHelpService.isNullOrEmpty(value)) {
@@ -50,7 +51,7 @@ export class FlEmojiHelper {
     let categoryIndex: number = 0;
 
     // if this is the next page as the last one, we start from the last category index
-    if(this.allEmojiLastPageInfo.lastPageIndex + 1 === page){
+    if (this.allEmojiLastPageInfo.lastPageIndex + 1 === page) {
       categoryIndex = this.allEmojiLastPageInfo.nextCategoryIndex;
     }
 
@@ -69,7 +70,7 @@ export class FlEmojiHelper {
     this.allEmojiLastPageInfo = {
       lastPageIndex: page,
       nextCategoryIndex: categoryIndex
-    }
+    };
 
     return of({
       objects: emojisCategories,
@@ -86,11 +87,11 @@ export class FlEmojiHelper {
     const categories = this.getEmojiData().categories;
     const emojiCategories: FlEmojiCategory[] = [];
     for (const category of categories) {
-      const emojis: FlSimpleEmoji[] = category.emojis.map((emojiId) => {
+      const emojis: FlSimpleEmoji[] = category.emojis.map((emojiId, index) => {
         const emoji = this.getEmojiData().emojis[emojiId];
-        return {id: emoji.id, emoji: emoji.skins[0].native};
+        return { id: emoji.id, emoji: emoji.skins[0].native, htmlId: `${category.id}-${index}` };
       });
-      emojiCategories.push({name: category.id, emojis});
+      emojiCategories.push({ name: category.id, emojis });
     }
 
     return emojiCategories;
@@ -118,7 +119,7 @@ export class FlEmojiHelper {
           currentPage: page,
           pageSize: pageSize
         };
-      }),
+      })
     );
   }
 
@@ -132,15 +133,15 @@ export class FlEmojiHelper {
     return from(SearchIndex.search(value)).pipe(
       map((emojis: Emoji[]) => {
         if (!emojis) return [];
-        return emojis.map((emoji) => {
-          return {id: emoji.id, emoji: emoji.skins[0].native} as FlSimpleEmoji;
+        return emojis.map((emoji, index) => {
+          return { id: emoji.id, emoji: emoji.skins[0].native, htmlId: `emoji-${index}` };
         });
       })
     );
   }
 
   public static addInFrequency(emojiId: string): void {
-    FrequentlyUsed.add({id: emojiId});
+    FrequentlyUsed.add({ id: emojiId });
   }
 
   public static getEmojiData(): EmojiMartData {
@@ -157,5 +158,16 @@ export class FlEmojiDatasource extends FlDatasourcePaginated<FlEmojiCategory> {
 
   protected equals(a: FlEmojiCategory, b: FlEmojiCategory): boolean {
     return a.name === b.name;
+  }
+
+  public findByHtmlId(htmlId: string): FlSimpleEmoji | null {
+    for (const category of this.array) {
+      for (const emoji of category.emojis) {
+        if (emoji.htmlId === htmlId) {
+          return emoji;
+        }
+      }
+    }
+    return null;
   }
 }
