@@ -1,16 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CoBrick, CoSpace} from '@monorepo/community-lib';
-import {FlDatasourcePaginated, FlEntity, FlUser} from '@monorepo/front-core-lib';
-import {CaSpace} from '../../../ca-core/model/entities/space/ca-space.class';
-import {CaSpaceService} from '../../../ca-core/service-api/ca-space.service';
-import {DateTime} from 'luxon';
-import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
-import {CaCommunityBrickService} from '../../../ca-core/service-api/ca-community-brick.service';
-import {CaLabManagerBrickVersionDTO} from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {MatCheckboxChange} from '@angular/material/checkbox';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CoBrick, CoSpace, CoUser } from '@monorepo/community-lib';
+import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib';
+import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
+import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
+import { DateTime } from 'luxon';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
+import { CaCommunityBrickService } from '../../../ca-core/service-api/ca-community-brick.service';
+import { CaLabManagerBrickVersionDTO } from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 
 export type CaCommunityBrickDatasourcePaginated = FlDatasourcePaginated<CaCommunityBrick>;
@@ -18,7 +18,7 @@ export type CaCommunityBrickDatasourcePaginated = FlDatasourcePaginated<CaCommun
 export class CaCommunityBrick implements CoBrick, FlEntity {
   comments: number;
   createdAt: DateTime;
-  createdBy: FlUser;
+  createdBy: CoUser;
   description?: string;
   imageLink?: string;
   likes: number;
@@ -70,7 +70,7 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
     this.authenticatedUserService.getUser$().subscribe((user) => {
       this.userId = user.id;
 
-      if (this.isUpdate){
+      if (this.isUpdate) {
         this.brickSelectionMode = false;
         this.communityBrickService.getByName(this.brickVersionDTO.name, this.userId).subscribe((brick) => {
           this.initBrickVersionSelection(brick);
@@ -81,7 +81,6 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
         this.initBrickSelection();
       }
     });
-
 
 
   }
@@ -106,7 +105,7 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
     this.bricks$.getFirstPage({
       spacesFilter: this.spaceIdFilter,
       titleFilter: this.titleFormControl.value
-    })
+    });
   }
 
   selectSpace(spaceId: string): void {
@@ -145,9 +144,9 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
     this.communityBrickService.getVersionsList(brick.id, this.userId).subscribe((versionsList) => {
       if (this.isUpdate && this.formGp.controls.version.value) {
         const splitIndex = versionsList.indexOf(this.formGp.controls.version.value);
-        this.versions = versionsList.slice(0, splitIndex + 1)
+        this.versions = versionsList.slice(0, splitIndex + 1);
         if (splitIndex + 1 < versionsList.length)
-          this.oldVersions = versionsList.slice(splitIndex + 1)
+          this.oldVersions = versionsList.slice(splitIndex + 1);
       } else {
         this.versions = versionsList;
       }
