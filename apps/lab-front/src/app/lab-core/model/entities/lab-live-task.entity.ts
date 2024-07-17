@@ -1,16 +1,15 @@
-import {TeRichTextContent} from '@monorepo/text-editor';
-import {LabEntity} from '../global/lab-entity.entity';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {LabUser} from './lab-user.entity';
-import {DateTime} from 'luxon';
-import {CoLiveTask} from '@monorepo/community-lib';
+import { TeRichTextContent } from '@monorepo/text-editor';
+import { LabEntity } from '../global/lab-entity.entity';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { DateTime } from 'luxon';
+import { CoLiveTask, CoUser } from '@monorepo/community-lib';
 
 export class LabLiveTask extends LabEntity {
   title: string;
   space?: any;
   created_at?: string;
   last_modified_at?: string;
-  created_by?: LabUser;
+  created_by?: CoUser;
   description?: TeRichTextContent;
   latest_publish_version: number;
 
