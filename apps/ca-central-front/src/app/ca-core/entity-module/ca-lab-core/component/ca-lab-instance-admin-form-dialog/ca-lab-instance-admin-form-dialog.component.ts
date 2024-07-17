@@ -67,7 +67,6 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       volumeSize: [null, [Validators.required, FlGlobalValidators.isInteger, Validators.min(50)]],
       volumeType: ['HIGH_SPEED', [Validators.required]],
       glabApiKey: [null],
-      additionalDomain: [null],
       labManagerApiKey: [null],
       codelabToken: [null],
       serverInstanceId: [null],

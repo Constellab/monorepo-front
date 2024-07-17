@@ -65,18 +65,6 @@
         </fl-text-icon>
       }
 
-      <!--   Additional domain   -->
-      @if (labInstance.additionalDomain) {
-        <fl-text-icon>
-          <mat-icon>dns</mat-icon>
-          <fl-key-value>
-            <fl-key>{{ 'additional_domain' | translate }}</fl-key>
-            {{ labInstance.additionalDomain }}
-          </fl-key-value>
-        </fl-text-icon>
-      }
-
-
       @if (labInstance.region) {
         <fl-text-icon>
           <mat-icon>location_on</mat-icon>
