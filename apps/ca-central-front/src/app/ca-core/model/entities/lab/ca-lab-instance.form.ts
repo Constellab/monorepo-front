@@ -26,6 +26,7 @@ export class CaLabInstanceAdminForm {
 
   cloudName?: string;
   glabApiKey?: string;
+  additionalDomain?: string;
   labManagerApiKey?: string;
   codelabToken?: string;
   serverInstanceId?: string;

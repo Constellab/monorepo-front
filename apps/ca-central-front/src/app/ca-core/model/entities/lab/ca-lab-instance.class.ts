@@ -94,6 +94,8 @@ export class CaLabInstance extends CaBaseEntity {
 
   isFreeLab: boolean;
 
+  additionalDomain?: string;
+
   public isRunning(): boolean {
     return this.currentStatus.status.value === 'LAB_RUNNING';
   }

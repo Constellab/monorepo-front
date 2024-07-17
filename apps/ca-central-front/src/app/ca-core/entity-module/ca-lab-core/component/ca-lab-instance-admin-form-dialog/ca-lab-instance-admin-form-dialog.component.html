@@ -227,6 +227,13 @@
 
         <ng-container *ngIf="isOnServer()">
 
+          <!--  Additional domain  -->
+          <mat-form-field>
+            <mat-label>{{ 'additional_domain' | translate }}</mat-label>
+            <input matInput formControlName="additionalDomain" flInputMaxLength="255"
+                   [placeholder]="'additional_domain' | translate">
+          </mat-form-field>
+
           <!--  Lab manager Api key  -->
           <mat-form-field>
             <mat-label>{{ 'lab_manager_api_key' | translate }}</mat-label>

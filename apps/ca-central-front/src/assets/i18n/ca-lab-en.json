@@ -41,6 +41,7 @@
   "apiUrl": "Api url",
   "frontUrl": "Front url",
   "virtual_host": "Virtual host",
+  "additional_domain": "Additional domain",
   "lab_check_status": "Check status",
   "lab_manager_refresh": "Refresh",
   "delete_lab_instance": "Delete lab instance",

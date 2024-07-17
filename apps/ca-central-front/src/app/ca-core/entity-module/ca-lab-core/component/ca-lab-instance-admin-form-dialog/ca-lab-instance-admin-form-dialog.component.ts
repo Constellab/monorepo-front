@@ -1,18 +1,18 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CaLabInstanceType, CaLabInstanceWithSpace} from '../../../../model/entities/lab/ca-lab-instance.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {ValidatorFn, Validators} from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { CaLabInstanceType, CaLabInstanceWithSpace } from '../../../../model/entities/lab/ca-lab-instance.class';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { Observable } from 'rxjs';
+import { ValidatorFn, Validators } from '@angular/forms';
 import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
   FlGlobalValidators,
   FlPlatformService
 } from '@monorepo/front-core-lib';
-import {CaLabInstanceValidator} from '../../../../model/entities/lab/ca-lab-instance.validator';
-import {CaLabInstanceAdminForm} from '../../../../model/entities/lab/ca-lab-instance.form';
-import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { CaLabInstanceValidator } from '../../../../model/entities/lab/ca-lab-instance.validator';
+import { CaLabInstanceAdminForm } from '../../../../model/entities/lab/ca-lab-instance.form';
+import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface CaLabInstanceAdminFormDialogInput extends FlFormDialogInput<CaLabInstanceAdminForm> {
   id?: string; // only on update mode
@@ -50,20 +50,24 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
   ngOnInit(): void {
     this.init();
 
-    this.onTypeChange(this.formGp.getRawValue().type);
+    // for update this is call on patch method
+    if (this.dialogInput.mode === 'create') {
+      this.onTypeChange(this.formGp.getRawValue().type);
+    }
   }
 
   buildForm(): FormGroup<CaLabInstanceAdminForm> {
     return new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required]],
-      type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
+      type: [{ value: 'CLOUD', disabled: this.isUpdateMode() }, [Validators.required]],
       virtualHost: [null, [Validators.required, CaLabInstanceValidator.virtualHostDomainValidator(true)]],
       serverCloud: [null, [Validators.required]],
       billingMode: [null, [Validators.required]],
       volumeSize: [null, [Validators.required, FlGlobalValidators.isInteger, Validators.min(50)]],
       volumeType: ['HIGH_SPEED', [Validators.required]],
       glabApiKey: [null],
+      additionalDomain: [null],
       labManagerApiKey: [null],
       codelabToken: [null],
       serverInstanceId: [null],
@@ -74,8 +78,8 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       region: [null, Validators.required],
       space: [null, Validators.required],
       desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]],
-      dailyBackupRegion: [{value: null, disabled: this.isUpdateMode()}, [Validators.required]],
-      weeklyBackupRegion: [{value: null, disabled: this.isUpdateMode()}, [Validators.required]],
+      dailyBackupRegion: [{ value: null, disabled: this.isUpdateMode() }, [Validators.required]],
+      weeklyBackupRegion: [{ value: null, disabled: this.isUpdateMode() }, [Validators.required]]
     });
   }
 
@@ -88,8 +92,19 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       next: labInstance => {
         this.updateIsInitiated = true;
         this.formGp.patchValue(labInstance);
+        this.onTypeChange(this.formGp.getRawValue().type);
       }
     });
+  }
+
+
+  submit(): void {
+    for (const [key, control] of Object.entries(this.formGp.controls)) {
+      if (control.invalid && !control.disabled) {
+        console.log(key, control);
+      }
+    }
+    super.submit();
   }
 
   onTypeChange(type: CaLabInstanceType): void {
@@ -193,7 +208,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
       if (dailyBackupRegion == null || weeklyBackupRegion == null) return null;
 
       if (dailyBackupRegion.id === weeklyBackupRegion.id) {
-        return {sameBackupRegion: true};
+        return { sameBackupRegion: true };
       }
       return null;
     };
