@@ -3,15 +3,15 @@ import {
   FlMouseHoverPortalAbstractDirective
 } from '../../../../abstract-directive/mouse-hover/fl-mouse-hover-portal-abstract.directive';
 import {FlMouseHoverPortalConfig} from '../../../../abstract-directive/mouse-hover/fl-mouse-hover-portal.config';
-import {FlUser} from '../../model/fl-user.class';
 import {FlUserInfoPortalComponent} from '../../component/fl-user-info-portal/fl-user-info-portal.component';
+import {FlUserDto} from '../../model/fl-user-dto.class';
 
 @Directive({
   selector: '[flUserMouseHoverPortal]'
 })
 export class FlUserMouseHoverPortalDirective extends FlMouseHoverPortalAbstractDirective {
 
-  @Input() flUserMouseHoverPortal: FlUser;
+  @Input() flUserMouseHoverPortal: FlUserDto;
 
   getConfig(): FlMouseHoverPortalConfig | null {
     return {

@@ -21,16 +21,17 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {ClStringHelper} from '@monorepo/core-lib';
-import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import {
+  TeRichText,
+  TeRichTextContent,
+  TeTextEditorHistoryPortalComponent,
+  TeTextEditorHistoryPortalData
+} from '@monorepo/text-editor';
 import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import {CoStoryCategory} from '@monorepo/community-lib';
-import {
-  HaTextEditorHistoryPortalComponent,
-  HaTextEditorHistoryPortalData
-} from '../../../ha-core/entity-module/ha-text-editor-history-core/component/ha-text-editor-history-portal/ha-text-editor-history-portal.component';
 
 @Component({
   selector: 'ha-story-edit-page',
@@ -391,11 +392,11 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       this.historyOverlayRef = null;
     } else {
       this.historyOverlayRef =
-        this.portalService.createPortal(HaTextEditorHistoryPortalComponent, this.portalService.getRightSidePortalConfig(false), {
+        this.portalService.createPortal(TeTextEditorHistoryPortalComponent, this.portalService.getRightSidePortalConfig(false), {
           service: this.storyService,
           entityId: this.story.id,
           textEditorConfig: this.textEditorConfig
-        } as HaTextEditorHistoryPortalData);
+        } as TeTextEditorHistoryPortalData);
       this.historyOverlayRef.detachments().subscribe(() => {
         this.historyOverlayRef = null;
       });

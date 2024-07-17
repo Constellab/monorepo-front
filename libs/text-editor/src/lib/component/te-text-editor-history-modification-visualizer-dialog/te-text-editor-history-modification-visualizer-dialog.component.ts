@@ -1,46 +1,47 @@
 import {Component, ElementRef, Inject, OnInit, Renderer2} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {
-  HaTextEditorHistoryModification,
-  HaTextEditorHistoryModificationGroup
-} from '../../model/ha-text-editor-history-modification.class';
-import {HaUser} from '../../../../ha-model/ha-entities/ha-user';
-import {TeConfig, TeRichTextContent} from '@monorepo/text-editor';
-import {HaTextEditorHistoryService} from '../../model/ha-text-editor-history.service';
-import {
-  HaTextEditorHistoryClickEventData
-} from '../ha-text-editor-history-modification-group/ha-text-editor-history-modification-group.component';
 import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
-import {HaTextEditorHistoryUser} from '../../model/ha-text-editor-history-user';
+import {TeConfig} from '../../model/te-config.class';
+import {TeTextEditorHistoryService} from '../../model/te-text-editor-history.service';
+import {
+  TeTextEditorHistoryClickEventData
+} from '../te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
+import {TeTextEditorHistoryUser} from '../../model/te-text-editor-history-user.class';
+import {TeRichTextContent} from '../../model/te-rich-text.class';
+import {
+  TeTextEditorHistoryModification,
+  TeTextEditorHistoryModificationGroup
+} from '../../model/te-text-editor-history-modification.class';
 
-export interface HaTextEditorHistoryModificationVisualizerDialogData {
+
+export interface TeTextEditorHistoryModificationVisualizerDialogData {
   textEditorConfig: TeConfig;
-  service: HaTextEditorHistoryService;
+  service: TeTextEditorHistoryService;
   entityId: string;
-  clickEventData: HaTextEditorHistoryClickEventData;
-  users: HaTextEditorHistoryUser[];
+  clickEventData: TeTextEditorHistoryClickEventData;
+  users: TeTextEditorHistoryUser[];
 }
 
 
 
 @Component({
-  selector: 'ha-text-editor-history-modification-visualizer-dialog',
-  templateUrl: './ha-text-editor-history-modification-visualizer-dialog.component.html',
-  styleUrl: './ha-text-editor-history-modification-visualizer-dialog.component.scss'
+  selector: 'te-text-editor-history-modification-visualizer-dialog',
+  templateUrl: './te-text-editor-history-modification-visualizer-dialog.component.html',
+  styleUrl: './te-text-editor-history-modification-visualizer-dialog.component.scss'
 })
-export class HaTextEditorHistoryModificationVisualizerDialogComponent implements OnInit {
+export class TeTextEditorHistoryModificationVisualizerDialogComponent implements OnInit {
 
-  textEditorHistoryUsers: HaTextEditorHistoryUser[] = [];
+  textEditorHistoryUsers: TeTextEditorHistoryUser[] = [];
 
   isGroup: boolean;
   textEditorConfig: TeConfig;
-  service: HaTextEditorHistoryService;
+  service: TeTextEditorHistoryService;
   entityId: string;
   content: TeRichTextContent;
-  group?: HaTextEditorHistoryModificationGroup;
-  modification?: HaTextEditorHistoryModification;
+  group?: TeTextEditorHistoryModificationGroup;
+  modification?: TeTextEditorHistoryModification;
 
-  constructor(@Inject(MAT_DIALOG_DATA) dialogInput: HaTextEditorHistoryModificationVisualizerDialogData,
+  constructor(@Inject(MAT_DIALOG_DATA) dialogInput: TeTextEditorHistoryModificationVisualizerDialogData,
               private el: ElementRef,
               private renderer: Renderer2,
               private dialogService: FlDialogService) {

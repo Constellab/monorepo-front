@@ -1,6 +1,6 @@
 <div class="comment-info-div">
   <a [routerLink]="profileRoute + comment.createdBy.id">
-    <co-user-inline [user]="comment.createdBy"></co-user-inline>
+    <fl-user-inline [user]="comment.createdBy" [portalOnHover]="false"></fl-user-inline>
   </a>
   <span> - </span>
   <fl-from-now [date]="comment.createdAt" class="comment-info-date"></fl-from-now>

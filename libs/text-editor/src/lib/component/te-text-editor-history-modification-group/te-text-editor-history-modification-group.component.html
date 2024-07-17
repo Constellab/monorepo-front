@@ -13,14 +13,14 @@
     </div>
     <div class="group-users">
       @for (user of users; track user.id) {
-        <co-user-inline [user]="user"></co-user-inline>
+        <fl-user-inline [user]="user" [portalOnHover]="false"></fl-user-inline>
       }
     </div>
   </div>
   <div class="group-body" *ngIf="groupOpened">
     @for (modification of group.modifications; track group.modifications) {
       <div class="group-body-modification" (click)="openModificationVisualizer(modification)">
-        <ha-text-editor-history-modification [modification]="modification"></ha-text-editor-history-modification>
+        <te-text-editor-history-modification [modification]="modification"></te-text-editor-history-modification>
       </div>
     }
   </div>

@@ -1,45 +1,46 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {
-  HaTextEditorHistoryModification,
-  HaTextEditorHistoryModificationGroup
-} from '../../model/ha-text-editor-history-modification.class';
-import {TeConfig} from '@monorepo/text-editor';
 import {FL_PORTAL_DATA, FlDialogService, FlOverlayRef} from '@monorepo/front-core-lib';
-import {HaTextEditorHistoryService} from '../../model/ha-text-editor-history.service';
+import {TeTextEditorHistoryService} from '../../model/te-text-editor-history.service';
+import {TeConfig} from '../../model/te-config.class';
 import {
-  HaTextEditorHistoryClickEventData
-} from '../ha-text-editor-history-modification-group/ha-text-editor-history-modification-group.component';
+  TeTextEditorHistoryModification,
+  TeTextEditorHistoryModificationGroup
+} from '../../model/te-text-editor-history-modification.class';
+import {TeTextEditorHistoryUser} from '../../model/te-text-editor-history-user.class';
 import {
-  HaTextEditorHistoryModificationVisualizerDialogComponent,
-  HaTextEditorHistoryModificationVisualizerDialogData
-} from '../ha-text-editor-history-modification-visualizer-dialog/ha-text-editor-history-modification-visualizer-dialog.component';
-import {HaTextEditorHistoryUser} from '../../model/ha-text-editor-history-user';
+  TeTextEditorHistoryClickEventData
+} from '../te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
+import {
+  TeTextEditorHistoryModificationVisualizerDialogComponent,
+  TeTextEditorHistoryModificationVisualizerDialogData
+} from '../te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
 
 
-export interface HaTextEditorHistoryPortalData {
+
+export interface TeTextEditorHistoryPortalData {
   entityId: string;
-  service: HaTextEditorHistoryService;
+  service: TeTextEditorHistoryService;
   textEditorConfig: TeConfig;
 }
 
 @Component({
-  selector: 'ha-text-editor-history-portal',
-  templateUrl: './ha-text-editor-history-portal.component.html',
-  styleUrl: './ha-text-editor-history-portal.component.scss'
+  selector: 'te-text-editor-history-portal',
+  templateUrl: './te-text-editor-history-portal.component.html',
+  styleUrl: './te-text-editor-history-portal.component.scss'
 })
-export class HaTextEditorHistoryPortalComponent implements OnInit {
+export class TeTextEditorHistoryPortalComponent implements OnInit {
 
   textEditorConfig: TeConfig;
   entityId: string;
-  service: HaTextEditorHistoryService;
-  modifications: HaTextEditorHistoryModification[];
-  modificationsGroups: HaTextEditorHistoryModificationGroup[] = [];
-  users: HaTextEditorHistoryUser[] = [];
+  service: TeTextEditorHistoryService;
+  modifications: TeTextEditorHistoryModification[];
+  modificationsGroups: TeTextEditorHistoryModificationGroup[] = [];
+  users: TeTextEditorHistoryUser[] = [];
 
   private colors = ['rgba(255, 0, 0, 0.1)', 'rgba(0, 255, 0, 0.1)', 'rgba(0, 0, 255, 0.1)',
     'rgba(255, 255, 0, 0.1)', 'rgba(255, 0, 255, 0.1)', 'rgba(0, 255, 255, 0.1)'];
 
-  constructor(@Inject(FL_PORTAL_DATA) data: HaTextEditorHistoryPortalData,
+  constructor(@Inject(FL_PORTAL_DATA) data: TeTextEditorHistoryPortalData,
               private overlayRef: FlOverlayRef,
               private dialogService: FlDialogService) {
     this.textEditorConfig = data.textEditorConfig;
@@ -55,17 +56,17 @@ export class HaTextEditorHistoryPortalComponent implements OnInit {
     });
   }
 
-  openSingleModificationVisualizer(modification: HaTextEditorHistoryModification): void {
-    const eventData: HaTextEditorHistoryClickEventData = {
+  openSingleModificationVisualizer(modification: TeTextEditorHistoryModification): void {
+    const eventData: TeTextEditorHistoryClickEventData = {
       isGroup: false,
       modification: modification
     }
     this.openVisualizer(eventData);
   }
 
-  openVisualizer(data: HaTextEditorHistoryClickEventData): void {
+  openVisualizer(data: TeTextEditorHistoryClickEventData): void {
 
-    const textEditorHistoryUsers: HaTextEditorHistoryUser[] = [];
+    const textEditorHistoryUsers: TeTextEditorHistoryUser[] = [];
     if (data.isGroup) {
       for (const modification of data.group.modifications) {
         const user = this.users.find(user => user.user.id === modification.userId);
@@ -77,7 +78,7 @@ export class HaTextEditorHistoryPortalComponent implements OnInit {
       textEditorHistoryUsers.push(this.users.find(user => user.user.id === data.modification.userId));
     }
 
-    const dialogData: HaTextEditorHistoryModificationVisualizerDialogData = {
+    const dialogData: TeTextEditorHistoryModificationVisualizerDialogData = {
       clickEventData: data,
       textEditorConfig: this.textEditorConfig,
       service: this.service,
@@ -85,7 +86,7 @@ export class HaTextEditorHistoryPortalComponent implements OnInit {
       users: textEditorHistoryUsers
     };
 
-    this.dialogService.openMediumDialog(HaTextEditorHistoryModificationVisualizerDialogComponent, {data: dialogData})
+    this.dialogService.openMediumDialog(TeTextEditorHistoryModificationVisualizerDialogComponent, {data: dialogData})
       .afterClosed().subscribe(() => {
         console.log('dialog closed')
     });

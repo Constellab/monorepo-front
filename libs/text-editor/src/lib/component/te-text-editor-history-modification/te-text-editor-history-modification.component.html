@@ -2,7 +2,7 @@
   {{modification.time | flDate: 'DATE_TIME'}}
   <div class="g-text-small">
     <span>
-    <co-user-inline [user]="modification.user"></co-user-inline>
+    <fl-user-inline [user]="modification.user" [portalOnHover]="false"></fl-user-inline>
     has {{modification.type}} a {{modification.blockType}}
   </span>
   </div>

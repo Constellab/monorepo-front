@@ -16,7 +16,7 @@
         <div>
           <p class="small-text user-date-info">
             <a [routerLink]="profileRoute + story.createdBy.id">
-              <co-user-inline [user]="story.createdBy"></co-user-inline>
+              <fl-user-inline [user]="story.createdBy" [portalOnHover]="false"></fl-user-inline>
             </a>
 
             <span class="g-text-small date-info">
@@ -29,7 +29,7 @@
               <span class="co-author-span">
             @for (coAuthor of storyCoAuthors; track coAuthor.id) {
               <a [routerLink]="profileRoute + coAuthor.id">
-                <co-user-inline [user]="coAuthor"></co-user-inline>
+                <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
               </a>
             }
           </span>

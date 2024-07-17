@@ -3,7 +3,7 @@
     <div class="profile-left-side-div">
       <div class="head-infos">
         <div class="base-infos">
-          <co-user-profile-picture [user]="user" [size]="12"></co-user-profile-picture>
+          <fl-user-profile-picture [user]="user" [size]="12"></fl-user-profile-picture>
           <h5>{{ user.alias }}</h5>
           <p>#{{ user.userCode }}</p>
           @if (isCurrentUser$ | async) {

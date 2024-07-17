@@ -22,7 +22,7 @@ export class CaUserSearchComponent implements OnInit {
 
   datasource: CaUserDatasourcePaginated;
 
-  columns: FlTableColumnStatic<CaUser>[] = ['fullname', 'contact', 'category', 'lastLogin', 'createdAt', 'adminActions'];
+  columns: FlTableColumnStatic<CaUser>[] = ['alias', 'contact', 'category', 'lastLogin', 'createdAt', 'adminActions'];
 
   exportIsLoading: boolean = false;
 

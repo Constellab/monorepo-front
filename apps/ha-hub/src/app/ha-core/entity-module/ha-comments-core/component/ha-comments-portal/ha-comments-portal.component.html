@@ -9,7 +9,7 @@
   @if(user){
     <fl-card class="comment-write-card">
       <fl-card-header>
-        <co-user-inline [user]="user"></co-user-inline>
+        <fl-user-inline [user]="user" [portalOnHover]="false"></fl-user-inline>
       </fl-card-header>
       <fl-card-body>
         <te-text-editor [config]="textEditorConfig" [(ngModel)]="commentInputData"

@@ -9,7 +9,7 @@
   </h5>
   <div class="brick-user-line">
     <a [routerLink]="profileRoute + brick.createdBy.id">
-      <co-user-inline [user]="brick.createdBy"></co-user-inline>
+      <fl-user-inline [user]="brick.createdBy" [portalOnHover]="false"></fl-user-inline>
     </a>
 
     <mat-icon>workspace_premium</mat-icon>
@@ -17,7 +17,7 @@
   @for(brickUser of brickUsers; track brickUser.id){
     <div class="brick-user-line">
       <a [routerLink]="profileRoute + brickUser.id">
-        <co-user-inline [user]="brickUser"></co-user-inline>
+        <fl-user-inline [user]="brickUser" [portalOnHover]="false"></fl-user-inline>
       </a>
     </div>
   }

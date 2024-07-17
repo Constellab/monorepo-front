@@ -12,7 +12,7 @@
     <div class="users-list">
       @for (textEditorHistoryUser of textEditorHistoryUsers; track textEditorHistoryUser.user) {
         <div class="user-div">
-          <co-user-inline [user]="textEditorHistoryUser.user"></co-user-inline>
+          <fl-user-inline [user]="textEditorHistoryUser.user" [portalOnHover]="false"></fl-user-inline>
           <div class="user-color" [style.background-color]="textEditorHistoryUser.color"></div>
         </div>
       }

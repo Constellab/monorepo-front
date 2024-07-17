@@ -12,24 +12,23 @@ import {ClPage} from '@monorepo/core-lib';
 import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
 import {HaStoryCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 import {HaFile} from '../entity-module/ha-file-core/model/ha-file';
-import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
+import {
+  TeRichTextContent,
+  TeTextEditorHistoryModification,
+  TeTextEditorHistoryService,
+  TeUploadedImage
+} from '@monorepo/text-editor';
 import {RvResourceView} from '@monorepo/resource-view';
 import {HaUser} from '../ha-model/ha-entities/ha-user';
 import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import {CoStoryCategory} from '@monorepo/community-lib';
 import {HaFileServiceInterface} from '../entity-module/ha-file-core/model/ha-file-service.interface';
-import {
-  HaTextEditorHistoryModification
-} from '../entity-module/ha-text-editor-history-core/model/ha-text-editor-history-modification.class';
-import {
-  HaTextEditorHistoryService
-} from '../entity-module/ha-text-editor-history-core/model/ha-text-editor-history.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>, HaTextEditorHistoryService{
+export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService{
   private readonly route: string = 'story';
 
   constructor(private apiService: FlApiService) {
@@ -259,8 +258,8 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.get(`${this.route}/${storyId}/view/${id}`);
   }
 
-  getHistory(entityId: string): Observable<HaTextEditorHistoryModification[]> {
-    return this.apiService.get(`${this.route}/history/${entityId}/`, HaTextEditorHistoryModification);
+  getHistory(entityId: string): Observable<TeTextEditorHistoryModification[]> {
+    return this.apiService.get(`${this.route}/history/${entityId}/`, TeTextEditorHistoryModification);
   }
 
   getUndoContent(entityId: string, modificationId: string): Observable<TeRichTextContent> {

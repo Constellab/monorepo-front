@@ -28,10 +28,6 @@ export class HaUser extends CoUser implements FlUser {
   lang: ClSupportedLanguage;
 
   category: HaUserCategory;
-
-  get fullname(): string {
-    return (this.firstname || '') + ' ' + (this.lastname || '');
-  }
 }
 
 

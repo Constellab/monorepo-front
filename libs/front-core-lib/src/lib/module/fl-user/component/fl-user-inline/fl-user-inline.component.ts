@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlUser} from '../../model/fl-user.class';
+import {FlUserDto} from '../../model/fl-user-dto.class';
 
 @Component({
   selector: 'fl-user-inline',
@@ -8,7 +8,7 @@ import {FlUser} from '../../model/fl-user.class';
 })
 export class FlUserInlineComponent implements OnInit {
 
-  @Input({required: true}) user: FlUser;
+  @Input({required: true}) user: FlUserDto;
 
 
   @Input() showName: boolean = true;
@@ -24,8 +24,8 @@ export class FlUserInlineComponent implements OnInit {
   @Input() profilePictureSize: 'small' | 'medium' = 'small';
 
   ngOnInit(): void {
-    if (this.user && !this.user.fullname) {
-      this.user.fullname = this.user.firstname + ' ' + this.user.lastname;
+    if (this.user && !this.user.alias) {
+      this.user.alias = this.user.firstname + ' ' + this.user.lastname;
     }
   }
 

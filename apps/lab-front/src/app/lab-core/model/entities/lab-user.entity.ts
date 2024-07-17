@@ -18,12 +18,12 @@ export class LabUser implements FlUser {
 
   lang: ClSupportedLanguage;
 
-  get fullname(): string {
+  get alias(): string {
     return (this.firstname || '') + ' ' + (this.lastname || '');
   }
 
   public toString(): string {
-    return this.fullname;
+    return this.alias;
   }
 }
 

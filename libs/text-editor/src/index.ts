@@ -16,6 +16,11 @@ export * from './lib/component/te-title-caption/te-title-caption.component';
 export * from './lib/component/te-variable-form-dialog/te-variable-form-dialog.component';
 export * from './lib/component/te-variable-inline/te-variable-inline.component';
 export * from './lib/component/te-video/te-video.component';
+export * from './lib/component/te-text-editor-history-modification/te-text-editor-history-modification.component';
+export * from './lib/component/te-text-editor-history-portal/te-text-editor-history-portal.component';
+// eslint-disable-next-line max-len
+export * from './lib/component/te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
+export * from './lib/component/te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
 
 // Model
 export * from './lib/model/te.helper';
@@ -24,6 +29,9 @@ export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
 export * from './lib/model/te-rich-text.class';
 export * from './lib/model/te-variable.class';
+export * from './lib/model/te-text-editor-history.service';
+export * from './lib/model/te-text-editor-history-modification.class';
+export * from './lib/model/te-text-editor-history-user.class';
 
 
 // Block

@@ -56,7 +56,7 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
       )
     ]).pipe(
       map(([users, text]) =>
-        users.filter(user => user.fullname.toLowerCase().includes(text.toLowerCase()))
+        users.filter(user => user.alias.toLowerCase().includes(text.toLowerCase()))
       )
     );
 
@@ -126,7 +126,7 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
   }
 
   selectUser(user: CaUser): void {
-    this.selectAndClose(user.id, user.fullname);
+    this.selectAndClose(user.id, user.alias);
   }
 
   private selectAndClose(userId: string, userFullname: string): void {
