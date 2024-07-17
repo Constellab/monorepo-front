@@ -1,0 +1,10 @@
+<div class="modification">
+  {{modification.time | flDate: 'DATE_TIME'}}
+  <div class="g-text-small">
+    <span>
+    <co-user-inline [user]="modification.user"></co-user-inline>
+    has {{modification.type}} a {{modification.blockType}}
+  </span>
+  </div>
+</div>
+

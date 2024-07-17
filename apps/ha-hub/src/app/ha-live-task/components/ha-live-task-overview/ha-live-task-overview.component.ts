@@ -15,9 +15,6 @@ import {
   HaCommentsPortalComponent,
   HaCommentsPortalData
 } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
-import {
-  HaCommentsPortalConfig
-} from '../../../ha-core/entity-module/ha-comments-core/model/ha-comments-portal-config.class';
 import {HaCommentType} from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService, FlPortalService} from '@monorepo/front-core-lib';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
@@ -127,7 +124,7 @@ export class HaLiveTaskOverviewComponent implements OnInit {
   }
 
   openCommentsPannel(): void {
-    this.portalService.createPortal(HaCommentsPortalComponent, HaCommentsPortalConfig.create(), {
+    this.portalService.createPortal(HaCommentsPortalComponent, this.portalService.getRightSidePortalConfig(), {
       user: this.currentUser,
       entity: this.liveTask,
       commentType: HaCommentType.LIVE_TASK_COMMENT

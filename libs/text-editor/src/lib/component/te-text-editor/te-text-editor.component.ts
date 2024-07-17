@@ -64,5 +64,4 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
   onTextChange(value: TeRichTextContent): void {
     this.setAndEmitValue(value);
   }
-
 }

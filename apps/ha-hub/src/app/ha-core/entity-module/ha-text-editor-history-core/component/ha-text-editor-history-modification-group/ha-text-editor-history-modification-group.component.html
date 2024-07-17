@@ -1,0 +1,27 @@
+<div class="modification-group">
+  <div class="group-header" (click)="openGroupModificationVisualizer()">
+    <div class="group-title">
+      <div class="group-title-icon-div">
+        <button mat-icon-button (click)="toggleGroup($event)">
+          <mat-icon *ngIf="!groupOpened">keyboard_arrow_right</mat-icon>
+          <mat-icon *ngIf="groupOpened">keyboard_arrow_down</mat-icon>
+        </button>
+      </div>
+      <span>
+      {{ group.end | flDate: 'DATE_TIME' }}
+    </span>
+    </div>
+    <div class="group-users">
+      @for (user of users; track user.id) {
+        <co-user-inline [user]="user"></co-user-inline>
+      }
+    </div>
+  </div>
+  <div class="group-body" *ngIf="groupOpened">
+    @for (modification of group.modifications; track group.modifications) {
+      <div class="group-body-modification" (click)="openModificationVisualizer(modification)">
+        <ha-text-editor-history-modification [modification]="modification"></ha-text-editor-history-modification>
+      </div>
+    }
+  </div>
+</div>

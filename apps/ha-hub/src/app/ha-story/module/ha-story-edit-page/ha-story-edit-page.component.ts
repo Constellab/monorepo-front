@@ -7,7 +7,8 @@ import {
   FlConfirmDialogInput,
   FlDebouncer,
   FlDialogService,
-  FlFormDialogInput,
+  FlOverlayRef,
+  FlPortalService,
   FlUploadImageDialogConfig
 } from '@monorepo/front-core-lib';
 import {HaStoryTextEditorConfig} from './ha-story-text-editor.config';
@@ -27,9 +28,9 @@ import {
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import {CoStoryCategory} from '@monorepo/community-lib';
 import {
-  HaFileDialogComponent,
-  HaFileDialogObjectInput
-} from '../../../ha-core/entity-module/ha-file-core/component/ha-file-dialog/ha-file-dialog.component';
+  HaTextEditorHistoryPortalComponent,
+  HaTextEditorHistoryPortalData
+} from '../../../ha-core/entity-module/ha-text-editor-history-core/component/ha-text-editor-history-portal/ha-text-editor-history-portal.component';
 
 @Component({
   selector: 'ha-story-edit-page',
@@ -42,6 +43,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   story: HaStory;
   formGp: FormGroup<HaStoryContentFormDTO>;
   textEditorConfig: HaStoryTextEditorConfig;
+
+  historyOverlayRef: FlOverlayRef;
 
   contentEditorIsFocused: boolean = false;
   private contentDebouncer: FlDebouncer<TeRichTextContent>;
@@ -84,6 +87,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     private dialogService: FlDialogService,
     private topicService: HaTopicService,
     private authenticatedUserService: HaAuthenticatedUserService,
+    private portalService: FlPortalService,
     private router: Router) {
   }
 
@@ -379,5 +383,24 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         this.notFound = true;
       }
     });
+  }
+
+  openHistoryPanel(): void {
+    if (this.historyOverlayRef) {
+      this.historyOverlayRef.dispose();
+      this.historyOverlayRef = null;
+    } else {
+      this.historyOverlayRef =
+        this.portalService.createPortal(HaTextEditorHistoryPortalComponent, this.portalService.getRightSidePortalConfig(false), {
+          service: this.storyService,
+          entityId: this.story.id,
+          textEditorConfig: this.textEditorConfig
+        } as HaTextEditorHistoryPortalData);
+      this.historyOverlayRef.detachments().subscribe(() => {
+        this.historyOverlayRef = null;
+      });
+    }
+
+
   }
 }

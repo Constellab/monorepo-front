@@ -343,5 +343,11 @@
   "x": "X",
   "github": "GitHub",
   "edit_profile_description": "Modify your Community profile information. These changes will not affect your Constellab profile.",
-  "alias_hint": "Your alias is how you will be identified on Community."
+  "alias_hint": "Your alias is how you will be identified on Community.",
+  "modifications_history": "Modifications history",
+  "rollback_to_this_content": "Rollback to this content",
+  "confirm_rollback_title": "Confirm rollback",
+  "confirm_rollback_content": "Are you sure you want to return to this content version? Changes made after this version will be deleted.",
+  "confirm_rollback_success": "Rollback successful",
+  "modification": "Modification"
 }

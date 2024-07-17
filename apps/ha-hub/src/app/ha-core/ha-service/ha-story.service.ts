@@ -18,12 +18,18 @@ import {HaUser} from '../ha-model/ha-entities/ha-user';
 import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import {CoStoryCategory} from '@monorepo/community-lib';
 import {HaFileServiceInterface} from '../entity-module/ha-file-core/model/ha-file-service.interface';
+import {
+  HaTextEditorHistoryModification
+} from '../entity-module/ha-text-editor-history-core/model/ha-text-editor-history-modification.class';
+import {
+  HaTextEditorHistoryService
+} from '../entity-module/ha-text-editor-history-core/model/ha-text-editor-history.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>{
+export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>, HaTextEditorHistoryService{
   private readonly route: string = 'story';
 
   constructor(private apiService: FlApiService) {
@@ -253,4 +259,15 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.get(`${this.route}/${storyId}/view/${id}`);
   }
 
+  getHistory(entityId: string): Observable<HaTextEditorHistoryModification[]> {
+    return this.apiService.get(`${this.route}/history/${entityId}/`, HaTextEditorHistoryModification);
+  }
+
+  getUndoContent(entityId: string, modificationId: string): Observable<TeRichTextContent> {
+    return this.apiService.get(`${this.route}/history/undo-content/${entityId}/${modificationId}`);
+  }
+
+  rollbackContent(entityId: string, modificationId: string): Observable<HaStory> {
+    return this.apiService.put(`${this.route}/history/rollback/${entityId}/${modificationId}`, {});
+  }
 }
