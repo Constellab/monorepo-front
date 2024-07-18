@@ -58,6 +58,10 @@ export class CaUserAccountsService extends FlUserAccountService {
     return this.apiService.put(`${this.route}/${userId}/lock`, null, CaUser);
   }
 
+  public resendActivationMail(userId: string): Observable<void>{
+    return this.apiService.put(`${this.route}/${userId}/resend-activation-mail`, null);
+  }
+
   public updateLicense(userId: string, license: CaUserUpdateLicenseDTO): Observable<CaUser> {
     return this.apiService.put(`${this.route}/${userId}/license`, license, CaUser);
   }

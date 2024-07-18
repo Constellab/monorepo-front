@@ -90,6 +90,13 @@
           <span>{{ 'update_license' | translate }}</span>
         </button>
 
+        @if (row.statusMailNotValidated()) {
+          <button mat-menu-item type="button" (click)="resendActivationMail(row)">
+            <mat-icon>mail</mat-icon>
+            <span>{{ 'activation_mail_resent' | translate }}</span>
+          </button>
+        }
+
         @if (isLocked(row)) {
           <button mat-menu-item type="button" (click)="unlockUser(row)">
             <mat-icon>lock_open</mat-icon>

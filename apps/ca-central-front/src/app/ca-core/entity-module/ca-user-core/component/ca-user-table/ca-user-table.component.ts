@@ -100,5 +100,17 @@ export class CaUserTableComponent {
     }
   }
 
+  resendActivationMail(user: CaUser): void {
+    const input: FlConfirmDialogInput = {
+      title: 'resend_activation_mail',
+      content: 'resend_activation_mail_confirmation',
+      translateTitleAndContent: true,
+      observable: this.userAccountsService.resendActivationMail(user.id),
+      successMessage: 'activation_mail_resent',
+      translateMessage: true
+    };
+
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe();
+  }
 
 }
