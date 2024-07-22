@@ -1,20 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {
-  HaBrickVersion,
-  HaBrickVersionDataSource
-} from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import {HaBrickVersionService} from '../../../../ha-core/ha-service/ha-brick-version.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {FlDialogService, FlFormDialogInput, FlTableColumn} from '@monorepo/front-core-lib';
-import {HaNewVersionDTO} from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
+import { Component, OnInit } from '@angular/core';
+import { HaBrickVersionDataSource } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
+import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
+import { ActivatedRoute } from '@angular/router';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { HaNewVersionDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import {
   HaPublicAddVersionDialogComponent
 } from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
-import {HaNodeDTO} from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
-import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
-import {Observable} from 'rxjs';
-import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
+import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
+import { Observable } from 'rxjs';
+import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 
 @Component({
   selector: 'ha-public-versions-page',
@@ -25,7 +22,6 @@ export class HaPublicVersionsComponent implements OnInit {
 
   brickVersions: HaBrickVersionDataSource;
   brickId: string;
-  displayedColumns: FlTableColumn<HaBrickVersion>[] = ['version', 'repoType', 'lastModified', 'informations'];
   isCreatorOrBrickUser$: Observable<boolean>;
 
   constructor(
@@ -44,8 +40,8 @@ export class HaPublicVersionsComponent implements OnInit {
   }
 
   private init(brickName: string): void {
-    this.metadataService.setPageTitle('ha.versions.brick.title', true, {brickTitle: brickName});
-    this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true,{brickTitle: brickName});
+    this.metadataService.setPageTitle('ha.versions.brick.title', true, { brickTitle: brickName });
+    this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true, { brickTitle: brickName });
     this.brickService.getByName(brickName).subscribe(brick => {
       this.isCreatorOrBrickUser$ = this.authUserService.isBrickCreatorOrBrickUser(brick);
       this.brickId = brick.id;
@@ -66,7 +62,7 @@ export class HaPublicVersionsComponent implements OnInit {
       } as HaNewVersionDTO
     };
 
-    this.dialogService.openSmallDialog(HaPublicAddVersionDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(HaPublicAddVersionDialogComponent, { data: input }).afterClosed().subscribe(
       (res: HaNodeDTO) => {
         if (res != null) {
           this.setDataSource();

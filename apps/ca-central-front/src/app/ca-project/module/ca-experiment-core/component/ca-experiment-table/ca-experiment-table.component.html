@@ -2,22 +2,28 @@
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'title' | translate}}</span>
+      <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment">
-      <fl-text-icon [showIcon]="experiment.isValidated">
-        <mat-icon [matTooltip]="'experiment_validated' | translate"
-                  flIcon="validated">
-        </mat-icon>
-        <div  [caNotificationMark]="experiment.id" caNotificationObjectType="EXPERIMENT">{{experiment.title}}</div>
-      </fl-text-icon>
+
+      @if (!rowSelectable) {
+        <!--    Invisible link  -->
+        <a [routerLink]="experiment | caDetailRoute" class="g-row-link"></a>
+      }
+
+      <div [caNotificationMark]="experiment.id" caNotificationObjectType="EXPERIMENT">{{ experiment.title }}</div>
+
+      @if (experiment.isValidated) {
+        <mat-icon class="status-icon g-row-button"
+                  [matTooltip]="'experiment_validated' | translate" flIcon="validated"></mat-icon>
+      }
     </mat-cell>
   </ng-container>
 
   <!-- LastSync -->
   <ng-container matColumnDef="lastSync">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'last_sync' | translate}}</span>
+      <span> {{ 'last_sync' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment">
       <ca-sync-object-info [object]="experiment" [showText]="false"></ca-sync-object-info>
@@ -27,7 +33,7 @@
   <!-- CreatedBy -->
   <ng-container matColumnDef="createdBy">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'created_by' | translate}}</span>
+      <span> {{ 'created_by' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment">
       <fl-user-inline [user]="experiment.createdBy"></fl-user-inline>
@@ -37,7 +43,7 @@
   <!-- Status -->
   <ng-container matColumnDef="status">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'status' | translate}}</span>
+      <span>{{ 'status' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment">
       <fl-status-chip [status]="experiment.status" mode="iconText">
@@ -46,18 +52,10 @@
   </ng-container>
 
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
-  <ng-container *ngIf="rowSelectable; else notSelectable">
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             (click)="rowClicked(row)"></mat-row>
-  </ng-container>
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
+           (click)="rowClicked(row)"></mat-row>
 
-  <!-- Mode link -->
-  <ng-template #notSelectable>
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             [routerLink]="row | caDetailRoute"></mat-row>
-  </ng-template>
 </mat-table>

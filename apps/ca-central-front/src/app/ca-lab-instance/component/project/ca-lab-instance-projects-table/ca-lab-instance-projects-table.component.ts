@@ -8,7 +8,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlSnackBarService,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import { CaLabProjectService } from '../../../../ca-core/service-api/ca-lab-project.service';
 
@@ -17,16 +17,17 @@ import { CaLabProjectService } from '../../../../ca-core/service-api/ca-lab-proj
   templateUrl: './ca-lab-instance-projects-table.component.html',
   styleUrls: ['./ca-lab-instance-projects-table.component.scss']
 })
-export class CaLabInstanceProjectsTableComponent extends FlTableAbstractDirective<CaLabInstanceProject> {
+export class CaLabInstanceProjectsTableComponent {
 
-  @Input() datasource: CaLabInstanceProjectDatasource;
+  @Input({ required: true }) datasource: CaLabInstanceProjectDatasource;
 
-  @Input() labInstanceId: string;
+  @Input({ required: true }) labInstanceId: string;
+
+  @Input() columns: FlTableColumnStatic<CaLabInstanceProject>[] = ['project', 'createdBy', 'createdAt'];
 
   constructor(private labProjectService: CaLabProjectService,
               private dialogService: FlDialogService,
               private snackbarService: FlSnackBarService) {
-    super(['project', 'createdBy', 'createdAt', 'actions']);
   }
 
   syncLabProject(labProject: CaLabInstanceProject): void {

@@ -1,29 +1,21 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlTableAbstractDirective
-} from '@monorepo/front-core-lib';
-import {LabBrickData, LabBrickDataArrayObs} from '../../../../model/global/lab-brick-data.class';
-import {LabBrickDataService} from '../../../../service/lab-brick-data.service';
+import { Component, Input } from '@angular/core';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { LabBrickData, LabBrickDataArrayObs } from '../../../../model/global/lab-brick-data.class';
+import { LabBrickDataService } from '../../../../service/lab-brick-data.service';
 
 @Component({
   selector: 'lab-brick-data-table',
   templateUrl: './lab-brick-data-table.component.html',
   styleUrls: ['./lab-brick-data-table.component.scss']
 })
-export class LabBrickDataTableComponent extends FlTableAbstractDirective<LabBrickData>
-  implements OnInit {
+export class LabBrickDataTableComponent {
 
   @Input() datasource: LabBrickDataArrayObs;
 
+  @Input() columns: string[] = ['fsNodeName', 'brickName', 'fsNodeSize', 'fsNodeType', 'actions'];
+
   constructor(private brickDataService: LabBrickDataService,
               private dialogService: FlDialogService) {
-    super(['fsNodeName', 'fsNodeSize', 'fsNodeType', 'brickName', 'actions']);
-  }
-
-  ngOnInit(): void {
   }
 
   openDeleteBrickData(brickData: LabBrickData): void {

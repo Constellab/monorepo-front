@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {LabLogService} from '../../../../lab-core/entity-service/lab-log.service';
-import {Observable, share} from 'rxjs';
-import {LabLogsArrayObs, LabLogsStatus} from '../../../../lab-core/model/entities/lab-log.entity';
-import {map} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { LabLogService } from '../../../../lab-core/entity-service/lab-log.service';
+import { Observable, share } from 'rxjs';
+import { LabLogsArrayObs, LabLogsStatus } from '../../../../lab-core/model/entities/lab-log.entity';
+import { map } from 'rxjs/operators';
 
 /**
  * Subpage of monitoring page to show the logs
@@ -17,8 +17,6 @@ export class LabMonitoringLogsPageComponent implements OnInit {
   logsStatus$: Observable<LabLogsStatus>;
 
   logsList: LabLogsArrayObs;
-
-  displayedColumns: string[] = ['name', 'fileSize', 'actions'];
 
   constructor(private logsService: LabLogService) {
   }

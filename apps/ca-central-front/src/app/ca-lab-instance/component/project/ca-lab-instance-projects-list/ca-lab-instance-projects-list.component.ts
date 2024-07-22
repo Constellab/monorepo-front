@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FlDialogService, FlTableColumn } from '@monorepo/front-core-lib';
+import { FlDialogService, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import {
   CaLabInstanceProject,
   CaLabInstanceProjectDatasource
@@ -22,7 +22,7 @@ export class CaLabInstanceProjectsListComponent implements OnInit {
 
   @Input() labInstanceId: string;
 
-  columns$: Observable<FlTableColumn<CaLabInstanceProject>[]> = this.state.isLabOwner$().pipe(
+  columns$: Observable<FlTableColumnStatic<CaLabInstanceProject>[]> = this.state.isLabOwner$().pipe(
     map(isLabOwner => {
       const columns = ['project', 'createdBy', 'createdAt'];
       // set the action column only if the user is the lab owner

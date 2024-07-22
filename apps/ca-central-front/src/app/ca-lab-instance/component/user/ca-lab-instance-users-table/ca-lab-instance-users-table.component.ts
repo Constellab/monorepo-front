@@ -1,15 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {
   CaLabInstanceUser,
   CaLabInstanceUserDatasource
 } from '../../../../ca-core/model/entities/lab/ca-lab-instance-user.class';
-import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
+import { CaLabInstanceService } from '../../../../ca-core/service-api/ca-lab-instance.service';
 import {
   CaLabInstanceUserFormDialogComponent,
   LabInstanceUserFormDialogInput
@@ -20,20 +20,18 @@ import {
   templateUrl: './ca-lab-instance-users-table.component.html',
   styleUrls: ['./ca-lab-instance-users-table.component.scss']
 })
-export class CaLabInstanceUsersTableComponent extends FlTableAbstractDirective<CaLabInstanceUser>
-  implements OnInit {
+export class CaLabInstanceUsersTableComponent {
 
-  @Input() datasource: CaLabInstanceUserDatasource;
+  @Input({ required: true }) datasource: CaLabInstanceUserDatasource;
 
-  @Input() labInstanceId: string;
+  @Input({ required: true }) labInstanceId: string;
+
+  @Input() columns: FlTableColumnStatic<CaLabInstanceUser>[] = ['user', 'role', 'createdBy', 'createdAt'];
 
   constructor(private labInstanceService: CaLabInstanceService,
               private dialogService: FlDialogService) {
-    super(['user', 'role', 'createdBy', 'createdAt', 'actions']);
   }
 
-  ngOnInit(): void {
-  }
 
   openUpdateUserRoleDialog(labUSer: CaLabInstanceUser): void {
     const input: LabInstanceUserFormDialogInput = {
@@ -42,7 +40,7 @@ export class CaLabInstanceUsersTableComponent extends FlTableAbstractDirective<C
       labInstanceId: this.labInstanceId
     };
 
-    this.dialogService.openSmallDialog(CaLabInstanceUserFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaLabInstanceUserFormDialogComponent, { data: input }).afterClosed().subscribe(
       (updatedUser: CaLabInstanceUser) => this.onUpdateRoleClosed(labUSer, updatedUser)
     );
   }

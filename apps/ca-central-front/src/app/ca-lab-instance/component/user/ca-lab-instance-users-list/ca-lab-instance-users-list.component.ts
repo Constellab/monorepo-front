@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
-import {FlDialogService, FlTableColumn} from '@monorepo/front-core-lib';
+import { Component, Input, OnInit } from '@angular/core';
+import { CaLabInstanceService } from '../../../../ca-core/service-api/ca-lab-instance.service';
+import { FlDialogService, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import {
   CaLabInstanceUserFormDialogComponent,
   LabInstanceUserFormDialogInput
@@ -9,9 +9,9 @@ import {
   CaLabInstanceUser,
   CaLabInstanceUserDatasource
 } from '../../../../ca-core/model/entities/lab/ca-lab-instance-user.class';
-import {CaLabInstanceDetailPageState} from '../../../state/ca-lab-instance-detail-page.state';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { CaLabInstanceDetailPageState } from '../../../state/ca-lab-instance-detail-page.state';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ca-lab-instance-users-list',
@@ -22,7 +22,7 @@ export class CaLabInstanceUsersListComponent implements OnInit {
 
   @Input() labInstanceId: string;
 
-  columns$: Observable<FlTableColumn<CaLabInstanceUser>[]> = this.state.isLabOwner$().pipe(
+  columns$: Observable<FlTableColumnStatic<CaLabInstanceUser>[]> = this.state.isLabOwner$().pipe(
     map(isLabOwner => {
       const columns = ['user', 'role', 'createdBy', 'createdAt'];
       // set the action column only if the user is the lab owner
@@ -53,7 +53,7 @@ export class CaLabInstanceUsersListComponent implements OnInit {
       mode: 'create'
     };
 
-    this.dialogService.openSmallDialog(CaLabInstanceUserFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaLabInstanceUserFormDialogComponent, { data: input }).afterClosed().subscribe(
       result => this.onUserAddedClosed(result)
     );
   }

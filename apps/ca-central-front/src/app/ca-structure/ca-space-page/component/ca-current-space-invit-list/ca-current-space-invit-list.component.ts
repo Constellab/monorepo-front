@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {CaSpaceInvit, CaSpaceInvitDatasource} from '../../../../ca-core/model/entities/space/ca-space-invit.class';
-import {FlDialogService, FlTableColumn} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { CaSpaceInvit, CaSpaceInvitDatasource } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   CaSpaceInvitFormDialogComponent,
   CaSpaceInvitFormDialogInput
 } from '../ca-space-invit-form-dialog/ca-space-invit-form-dialog.component';
-import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-space.service';
-import {CaSpaceInvitService} from '../../../../ca-core/service-api/ca-space-invit.service';
+import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
+import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
 
 /**
  * List the invitations of the space
@@ -19,8 +19,6 @@ import {CaSpaceInvitService} from '../../../../ca-core/service-api/ca-space-invi
 export class CaCurrentSpaceInvitListComponent implements OnInit {
 
   invitations: CaSpaceInvitDatasource;
-
-  columns: FlTableColumn<CaSpaceInvit>[] = ['userMail', 'role', 'validUntil', 'sentThe', 'actions'];
 
   constructor(private spaceInvitService: CaSpaceInvitService,
               private dialogService: FlDialogService,
@@ -37,7 +35,7 @@ export class CaCurrentSpaceInvitListComponent implements OnInit {
       spaceId: space.id,
       spaceType: space.type
     };
-    this.dialogService.openSmallDialog(CaSpaceInvitFormDialogComponent, {data: input}).afterClosed()
+    this.dialogService.openSmallDialog(CaSpaceInvitFormDialogComponent, { data: input }).afterClosed()
       .subscribe(
         invitation => this.onInvitationClosed(invitation)
       );

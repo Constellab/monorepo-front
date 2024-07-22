@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlDatasource, FlTableColumnStatic} from '@monorepo/front-core-lib';
-import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-experiment.class';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { CaExperiment } from '../../../../../ca-core/model/entities/project/ca-experiment.class';
 
 @Component({
   selector: 'ca-experiment-table',
@@ -9,7 +9,7 @@ import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-exp
 })
 export class CaExperimentTableComponent {
 
-  @Input() datasource: FlDatasource<CaExperiment>;
+  @Input({required: true}) datasource: FlDatasource<CaExperiment>;
 
   @Input() columns: FlTableColumnStatic<CaExperiment>[] = ['title', 'lastSync', 'status', 'createdBy'];
 

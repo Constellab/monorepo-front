@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Component to display and icon along with a text.
@@ -13,7 +13,7 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./fl-text-icon.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlTextIconComponent implements OnInit {
+export class FlTextIconComponent {
 
   /**
    * The gap between the icon and the text
@@ -30,11 +30,6 @@ export class FlTextIconComponent implements OnInit {
    */
   @Input() showIcon: boolean = true;
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   get leftMargin(): string {
     return this.iconPosition === 'start' ? this.gap : '0';

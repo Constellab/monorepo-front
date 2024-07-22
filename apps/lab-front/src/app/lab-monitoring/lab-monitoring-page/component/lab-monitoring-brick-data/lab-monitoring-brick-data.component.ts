@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
-import {LabBrickDataService} from '../../../../lab-core/service/lab-brick-data.service';
-import {LabBrickDataArrayObs} from '../../../../lab-core/model/global/lab-brick-data.class';
+import { Component, OnInit } from '@angular/core';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { LabBrickDataService } from '../../../../lab-core/service/lab-brick-data.service';
+import { LabBrickDataArrayObs } from '../../../../lab-core/model/global/lab-brick-data.class';
 
 @Component({
   selector: 'lab-monitoring-brick-data',
@@ -11,9 +11,6 @@ import {LabBrickDataArrayObs} from '../../../../lab-core/model/global/lab-brick-
 export class LabMonitoringBrickDataComponent implements OnInit {
 
   brickDataList: LabBrickDataArrayObs;
-
-  displayedColumns: string[] = ['fsNodeName',  'brickName',  'fsNodeSize', 'fsNodeType', 'actions'];
-
 
   constructor(private brickDataService: LabBrickDataService,
               private dialogService: FlDialogService) {

@@ -1,18 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CaSpaceInvitService} from '../../../../ca-core/service-api/ca-space-invit.service';
+import { Component, Input } from '@angular/core';
+import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDatasourcePaginated,
   FlDialogService,
-  FlTableAbstractDirective
+  FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {
   CaSpaceUserRoleDialogComponent,
   CaSpaceUserRoleDialogInput
 } from '../ca-space-user-role-dialog/ca-space-user-role-dialog.component';
-import {CaSpaceInvit} from '../../../../ca-core/model/entities/space/ca-space-invit.class';
-import {CaSpaceRole} from '../../../../ca-core/model/entities/space/ca-space-user.class';
+import { CaSpaceInvit } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
+import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
 
 /**
  * Table for the SpaceInvit entity with actions
@@ -22,19 +22,15 @@ import {CaSpaceRole} from '../../../../ca-core/model/entities/space/ca-space-use
   templateUrl: './ca-space-invit-table.component.html',
   styleUrls: ['./ca-space-invit-table.component.scss']
 })
-export class CaSpaceInvitTableComponent extends FlTableAbstractDirective<CaSpaceInvit>
-  implements OnInit {
+export class CaSpaceInvitTableComponent {
 
   @Input() datasource: FlDatasourcePaginated<CaSpaceInvit>;
 
+  @Input() columns: FlTableColumnStatic<CaSpaceInvit>[] = ['userMail', 'role', 'validUntil', 'sentThe', 'actions'];
+
   constructor(private spaceInvitService: CaSpaceInvitService,
               private dialogService: FlDialogService) {
-    super(['userMail', 'role', 'validUntil', 'sentThe', 'actions']);
   }
-
-  ngOnInit(): void {
-  }
-
 
   openUpdateRoleDialog(invitation: CaSpaceInvit): void {
     const data: CaSpaceUserRoleDialogInput = {
@@ -43,7 +39,7 @@ export class CaSpaceInvitTableComponent extends FlTableAbstractDirective<CaSpace
         this.spaceInvitService.updateInvitationRole(invitation.id, role)
     };
 
-    this.dialogService.openSmallDialog(CaSpaceUserRoleDialogComponent, {data}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaSpaceUserRoleDialogComponent, { data }).afterClosed().subscribe(
       role => this.onUpdateRoleClosed(invitation, role)
     );
 

@@ -1,17 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {CaTeamFormDialogComponent, CaTeamFormDialogInput} from '../ca-team-form-dialog/ca-team-form-dialog.component';
-import {CaGroup, CaGroupDatasource} from '../../../../model/entities/ca-group.entity';
-import {CaGroupService} from '../../../../service-api/ca-group.service';
-import {CaTeamSearch, CaTeamSearchFields} from '../../model/ca-team.search.class';
+import { CaTeamFormDialogComponent, CaTeamFormDialogInput } from '../ca-team-form-dialog/ca-team-form-dialog.component';
+import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.entity';
+import { CaGroupService } from '../../../../service-api/ca-group.service';
+import { CaTeamSearch, CaTeamSearchFields } from '../../model/ca-team.search.class';
 
 @Component({
   selector: 'ca-team-search',
@@ -22,8 +21,6 @@ import {CaTeamSearch, CaTeamSearchFields} from '../../model/ca-team.search.class
 })
 export class CaTeamSearchComponent implements OnInit {
   datasource: CaGroupDatasource;
-
-  columns: FlTableColumn<CaGroup>[] = ['label', 'creation', 'actions'];
 
   constructor(private searchState: FlSearchState<any>,
               private groupService: CaGroupService,
@@ -67,7 +64,7 @@ export class CaTeamSearchComponent implements OnInit {
       mode: 'create'
     };
 
-    this.dialogService.openSmallDialog(CaTeamFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaTeamFormDialogComponent, { data: input }).afterClosed().subscribe(
       group => this.onCreateClosed(group)
     );
   }

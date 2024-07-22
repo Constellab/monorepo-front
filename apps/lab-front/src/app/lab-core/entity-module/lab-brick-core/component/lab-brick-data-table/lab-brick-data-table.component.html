@@ -4,20 +4,20 @@
   <!-- FsNodeName -->
   <ng-container matColumnDef="fsNodeName">
     <mat-header-cell *matHeaderCellDef>
-      {{'name' | translate}}
+      {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{row.fsNodeName}}
+      {{ row.fsNodeName }}
     </mat-cell>
   </ng-container>
 
   <!-- FsNodeSize-->
   <ng-container matColumnDef="fsNodeSize">
     <mat-header-cell *matHeaderCellDef>
-      {{'monitoring.brick_data_size' | translate}}
+      {{ 'monitoring.brick_data_size' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{row.fsNodeSize | flByteText}}
+      {{ row.fsNodeSize | flByteText }}
     </mat-cell>
   </ng-container>
 
@@ -25,20 +25,20 @@
   <!-- FsNodeType-->
   <ng-container matColumnDef="fsNodeType">
     <mat-header-cell *matHeaderCellDef>
-      {{'monitoring.brick_data_type' | translate}}
+      {{ 'monitoring.brick_data_type' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{'monitoring.brick_data_' + row.fsNodeType | translate}}
+      {{ 'monitoring.brick_data_' + row.fsNodeType | translate }}
     </mat-cell>
   </ng-container>
 
   <!-- BrickName-->
   <ng-container matColumnDef="brickName">
     <mat-header-cell *matHeaderCellDef>
-      {{'monitoring.brick_data_brick_name' | translate}}
+      {{ 'monitoring.brick_data_brick_name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{row.brickName}}
+      {{ row.brickName }}
     </mat-cell>
   </ng-container>
 
@@ -57,26 +57,13 @@
         <button mat-menu-item type="button"
                 class="g-warn-text" (click)="openDeleteBrickData(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span>{{'monitoring.delete_brick_data' | translate}}</span>
+          <span>{{ 'monitoring.delete_brick_data' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>
   </ng-container>
 
 
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let experiment">
-      <div>
-        <span>{{experiment[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
-
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: _columns;"></mat-row>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
 </mat-table>

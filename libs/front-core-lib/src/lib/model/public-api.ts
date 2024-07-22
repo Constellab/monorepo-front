@@ -16,4 +16,5 @@ export * from './fl-query-param-handler.class';
 export * from './fl-renderer-listener-obs.class';
 export * from './fl-resize-observable.class';
 export * from './fl-status-event.class';
+export * from './fl-table-column.class';
 export * from './fl-view-context.class';
