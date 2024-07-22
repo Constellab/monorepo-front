@@ -42,8 +42,8 @@
         {{ 'login' | translate }}
       </a>
       </ng-container>
-      <co-user-profile-picture *ngIf="userConnected$ | async as user" [user]="user"
-                               [matMenuTriggerFor]="userMenu"></co-user-profile-picture>
+      <fl-user-profile-picture *ngIf="userConnected$ | async as user" [user]="user"
+                               [matMenuTriggerFor]="userMenu"></fl-user-profile-picture>
 
   </span>
   <mat-menu #langMenu='matMenu'>

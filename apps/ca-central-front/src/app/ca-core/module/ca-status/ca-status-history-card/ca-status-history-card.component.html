@@ -2,7 +2,7 @@
   <fl-status-chip class="chip" [status]="statusHistory.status">
   </fl-status-chip>
   <p class="g-text-small g-text-light">
-    {{statusHistory.createdBy.fullname}}
+    {{statusHistory.createdBy.alias}}
     {{'the' | translate}}
     {{statusHistory.createdAt | flDate:'DATE_TIME_WITH_SECONDS'}}
   </p>

@@ -15,7 +15,7 @@ export interface ClRichTextFigure {
 export interface ClRichTextMention {
   type: 'mention';
   userId: string;
-  fullname: string;
+  alias: string;
 }
 
 export interface ClRichTextMentionText {

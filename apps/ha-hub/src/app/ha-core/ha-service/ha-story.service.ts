@@ -12,7 +12,12 @@ import {ClPage} from '@monorepo/core-lib';
 import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
 import {HaStoryCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 import {HaFile} from '../entity-module/ha-file-core/model/ha-file';
-import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
+import {
+  TeRichTextContent,
+  TeTextEditorHistoryBlockModification,
+  TeTextEditorHistoryService,
+  TeUploadedImage
+} from '@monorepo/text-editor';
 import {RvResourceView} from '@monorepo/resource-view';
 import {HaUser} from '../ha-model/ha-entities/ha-user';
 import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
@@ -23,7 +28,7 @@ import {HaFileServiceInterface} from '../entity-module/ha-file-core/model/ha-fil
 @Injectable({
   providedIn: 'root'
 })
-export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>{
+export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService{
   private readonly route: string = 'story';
 
   constructor(private apiService: FlApiService) {
@@ -253,4 +258,15 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.get(`${this.route}/${storyId}/view/${id}`);
   }
 
+  getHistory(entityId: string): Observable<TeTextEditorHistoryBlockModification[]> {
+    return this.apiService.get(`${this.route}/history/${entityId}/`);
+  }
+
+  getUndoContent(entityId: string, modificationId: string): Observable<TeRichTextContent> {
+    return this.apiService.get(`${this.route}/history/undo-content/${entityId}/${modificationId}`);
+  }
+
+  rollbackContent(entityId: string, modificationId: string): Observable<HaStory> {
+    return this.apiService.put(`${this.route}/history/rollback/${entityId}/${modificationId}`, {});
+  }
 }

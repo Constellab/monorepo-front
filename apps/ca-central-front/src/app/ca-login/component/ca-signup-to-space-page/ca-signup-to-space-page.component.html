@@ -20,7 +20,7 @@
           </div>
 
           <p class="invitation-text" [innerHTML]="'join_space_invitation' | translate: {
-                    fullname: invitation.invitation.createdBy.fullname,
+                    fullname: invitation.invitation.createdBy.alias,
                     space: invitation.invitation.space.name
                 }">
 

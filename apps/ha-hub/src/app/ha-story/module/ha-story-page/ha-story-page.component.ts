@@ -17,9 +17,6 @@ import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
 import {FlPortalService} from '@monorepo/front-core-lib';
 import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
-import {
-  HaCommentsPortalConfig
-} from '../../../ha-core/entity-module/ha-comments-core/model/ha-comments-portal-config.class';
 import {HaCommentType} from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {
   HaCommentsPortalComponent,
@@ -88,7 +85,7 @@ export class HaStoryPageComponent implements OnInit {
   }
 
   openCommentsPannel(): void {
-    this.portalService.createPortal(HaCommentsPortalComponent, HaCommentsPortalConfig.create(), {
+    this.portalService.createPortal(HaCommentsPortalComponent, this.portalService.getRightSidePortalConfig(), {
       user: this.currentUser,
       entity: this.story,
       commentType: HaCommentType.STORY_COMMENT

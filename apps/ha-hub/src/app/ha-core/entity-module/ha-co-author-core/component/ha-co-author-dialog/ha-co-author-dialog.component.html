@@ -8,7 +8,7 @@
     @if (coAuthors?.length > 0){
       <div *ngFor="let coAuthor of coAuthors" class="co-author-div">
         <a [routerLink]="profileRoute + coAuthor.id">
-          <co-user-inline [user]="coAuthor"></co-user-inline>
+          <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
         </a>
         <button mat-icon-button [matTooltip]="'remove_coauthor' | translate" (click)="openRemoveConfirmDialog(coAuthor)" color="warn">
           <mat-icon>remove_circle_outline</mat-icon>

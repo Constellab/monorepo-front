@@ -132,6 +132,30 @@ export class FlPortalService {
   }
 
   /**
+   * Configure a right side portal
+   * This portal is not linked to a host element
+   * @param backdrop if the portal has a backdrop
+   * @param width min width of the portal
+   */
+  public getRightSidePortalConfig(backdrop: boolean = true, width: string = '25%'): FlPortalConfig {
+    const config: FlPortalConfig = new FlPortalConfig().configureOverlay({
+      disposeOnOutsideClick: backdrop,
+      height: '100vh',
+      minWidth: width,
+      maxWidth: '100%',
+      hasBackdrop: backdrop,
+      disposeOnNavigation: true,
+    });
+
+    const globalPosition: GlobalPositionStrategy = new GlobalPositionStrategy();
+    globalPosition.top('0');
+    globalPosition.right('0');
+
+    config.setPositionStrategy(globalPosition)
+    return config;
+  }
+
+  /**
    * Configure an absolute portal form top and left position
    * This portal is not linked to a host element
    */
@@ -159,7 +183,6 @@ export class FlPortalService {
 
     return globalPosition;
   }
-
 
   /**
    * Create the portal on the dom with the configuration

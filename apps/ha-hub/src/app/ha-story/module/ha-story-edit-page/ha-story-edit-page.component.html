@@ -86,6 +86,9 @@
 
       }
       <div class="right-bts-div">
+        <button mat-icon-button type="button" (click)="openHistoryPanel()">
+          <mat-icon>history</mat-icon>
+        </button>
         @if (isAuthor) {
           <button mat-icon-button type="button" class="co-author-bt"
                   (click)="openCoAuthorDialog()" [matTooltip]="'open_story_coauthor_panel' | translate">
@@ -102,7 +105,8 @@
     }
     <form class="story-content-form" [formGroup]="formGp" id="story-content-form"
           [ngClass]="contentEditorIsFocused ? ['focus'] : []">
-      <te-text-editor class="border-none" [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
+      <te-text-editor class="border-none editor" [config]="textEditorConfig" [customUndoRedo]="true"
+                      (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
     </form>
   </div>
 } @else if(notFound) {

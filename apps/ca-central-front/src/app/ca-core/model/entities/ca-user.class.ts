@@ -56,12 +56,12 @@ export class CaUser extends CaEntity implements FlUser {
 
   license: CaUserLicense;
 
-  get fullname(): string {
+  get alias(): string {
     return (this.firstname || '') + ' ' + (this.lastname || '');
   }
 
   public toString(): string {
-    return this.fullname;
+    return this.alias;
   }
 
   public isAdmin(): boolean {

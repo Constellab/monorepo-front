@@ -6,7 +6,7 @@ import {
   FlCodeEditorModule,
   FlCoreComponentModule,
   FlCoreDirectiveModule,
-  FlCorePipeModule,
+  FlCorePipeModule, FlDateModule,
   FlDialogModule,
   FlEmojiPickerModule,
   FlFormulaModule,
@@ -50,6 +50,18 @@ import {TeMentionPortalComponent} from './component/te-mention-portal/te-mention
 import {TeMentionInlineComponent} from './component/te-mention-inline/te-mention-inline.component';
 import {teMentionTagName} from './plugin/te-mention.class';
 import {TeFileComponent} from './component/te-file/te-file.component';
+import {
+  TeTextEditorHistoryPortalComponent
+} from './component/te-text-editor-history-portal/te-text-editor-history-portal.component';
+import {
+  TeTextEditorHistoryModificationVisualizerDialogComponent
+} from './component/te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
+import {
+  TeTextEditorHistoryModificationGroupComponent
+} from './component/te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
+import {
+  TeTextEditorHistoryModificationComponent
+} from './component/te-text-editor-history-modification/te-text-editor-history-modification.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +80,10 @@ import {TeFileComponent} from './component/te-file/te-file.component';
     TeMentionPortalComponent,
     TeMentionInlineComponent,
     TeFileComponent,
+    TeTextEditorHistoryPortalComponent,
+    TeTextEditorHistoryModificationVisualizerDialogComponent,
+    TeTextEditorHistoryModificationGroupComponent,
+    TeTextEditorHistoryModificationComponent
   ],
   exports: [
     TeTextEditorComponent,
@@ -75,6 +91,7 @@ import {TeFileComponent} from './component/te-file/te-file.component';
     TeRichTextIsEmptyPipe,
     TeTextEditorBrowserSideComponent,
     TeTextEditorServerSideComponent,
+    TeTextEditorHistoryPortalComponent
   ],
   imports: [
     CommonModule,
@@ -105,6 +122,7 @@ import {TeFileComponent} from './component/te-file/te-file.component';
     MatTooltipModule,
     MatOptionModule,
     MatSelectModule,
+    FlDateModule,
   ],
 })
 export class TeTextEditorModule {

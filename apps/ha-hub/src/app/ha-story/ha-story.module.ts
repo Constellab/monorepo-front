@@ -32,22 +32,22 @@ import {HaPublicBrickPageModule} from "../ha-public/module/ha-public-brick-page/
     HaStoryContentViewComponent,
     HaStoryResourceViewInputDialogComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
-        HaStoryRoutingModule,
-        HaCoreModule,
-        FlInputFileModule,
-        MatTooltipModule,
+    HaStoryRoutingModule,
+    HaCoreModule,
+    FlInputFileModule,
+    MatTooltipModule,
 
-        HaCoAuthorCoreModule,
-        HaUtilComponentCoreModule,
-        HaCommentsCoreModule,
-        HaFileCoreModule,
-        HaPublicBrickPageModule,
-        FlImageModule
-    ],
+    HaCoAuthorCoreModule,
+    HaUtilComponentCoreModule,
+    HaCommentsCoreModule,
+    HaFileCoreModule,
+    HaPublicBrickPageModule,
+    FlImageModule
+  ],
 })
 export class HaStoryModule {}

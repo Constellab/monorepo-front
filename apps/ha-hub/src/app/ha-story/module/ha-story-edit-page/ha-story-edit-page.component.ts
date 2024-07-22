@@ -7,7 +7,8 @@ import {
   FlConfirmDialogInput,
   FlDebouncer,
   FlDialogService,
-  FlFormDialogInput,
+  FlOverlayRef,
+  FlPortalService,
   FlUploadImageDialogConfig
 } from '@monorepo/front-core-lib';
 import {HaStoryTextEditorConfig} from './ha-story-text-editor.config';
@@ -20,16 +21,17 @@ import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authent
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {ClStringHelper} from '@monorepo/core-lib';
-import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import {
+  TeRichText,
+  TeRichTextContent,
+  TeTextEditorHistoryPortalComponent,
+  TeTextEditorHistoryPortalData
+} from '@monorepo/text-editor';
 import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import {CoStoryCategory} from '@monorepo/community-lib';
-import {
-  HaFileDialogComponent,
-  HaFileDialogObjectInput
-} from '../../../ha-core/entity-module/ha-file-core/component/ha-file-dialog/ha-file-dialog.component';
 
 @Component({
   selector: 'ha-story-edit-page',
@@ -42,6 +44,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   story: HaStory;
   formGp: FormGroup<HaStoryContentFormDTO>;
   textEditorConfig: HaStoryTextEditorConfig;
+
+  historyOverlayRef: FlOverlayRef;
 
   contentEditorIsFocused: boolean = false;
   private contentDebouncer: FlDebouncer<TeRichTextContent>;
@@ -74,7 +78,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
 
-
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
 
@@ -84,6 +87,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     private dialogService: FlDialogService,
     private topicService: HaTopicService,
     private authenticatedUserService: HaAuthenticatedUserService,
+    private portalService: FlPortalService,
     private router: Router) {
   }
 
@@ -379,5 +383,22 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         this.notFound = true;
       }
     });
+  }
+
+  openHistoryPanel(): void {
+    if (this.historyOverlayRef) {
+      this.historyOverlayRef.dispose();
+      this.historyOverlayRef = null;
+    } else {
+      this.historyOverlayRef =
+        this.portalService.createPortal(TeTextEditorHistoryPortalComponent, this.portalService.getRightSidePortalConfig(false), {
+          service: this.storyService,
+          entityId: this.story.id,
+          textEditorConfig: this.textEditorConfig
+        } as TeTextEditorHistoryPortalData);
+      this.historyOverlayRef.detachments().subscribe(() => {
+        this.historyOverlayRef = null;
+      });
+    }
   }
 }

@@ -30,7 +30,7 @@
         <mat-list-item *ngFor="let job of jobs; let index = index">
           <h3 matListItemTitle><a [routerLink]="job.experiment | labDetailRoute" class="g-text-link">{{job.experiment.title}}</a>
           </h3>
-          <p matListItemLine><span>{{job.user.fullname}}</span></p>
+          <p matListItemLine><span>{{job.user.alias}}</span></p>
 
 
           <span matListItemMeta>

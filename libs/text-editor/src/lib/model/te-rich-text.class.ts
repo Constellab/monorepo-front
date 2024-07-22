@@ -1,15 +1,30 @@
-import {OutputData} from '@editorjs/editorjs';
+import {OutputBlockData, OutputData} from '@editorjs/editorjs';
 import {ClHelpService} from '@monorepo/core-lib';
 import {BlockToolData} from '@editorjs/editorjs/types/tools';
 import {TeVariableFormInfo, teVariableTagName} from './te-variable.class';
 import {TeElementInlineDirective} from './te-element.directive';
+import {
+  TeTextEditorHistoryBlockModification,
+  TeTextEditorHistoryModificationGroup,
+  TeTextEditorHistoryModificationType
+} from './te-text-editor-history-modification.class';
 
 export type TeRichTextContent = OutputData;
+
+export type TeRichTextContentBlock = OutputBlockData
 
 export enum TeBlockType {
   PARAGRAPH = 'paragraph',
   HEADER = 'header',
   FIGURE = 'figure',
+}
+
+export interface TeRichTextUndoRedoResult {
+  index: number;
+  block: TeRichTextContentBlock;
+  modificationType: TeTextEditorHistoryModificationType;
+  modificationsGroup: TeTextEditorHistoryModificationGroup;
+  oldIndex?: number;
 }
 
 export class TeRichText {
@@ -124,5 +139,171 @@ export class TeRichText {
     if(content1.time === content2.time) return true;
     if(content1.version !== content2.version) return false;
     return JSON.stringify(content1.blocks) === JSON.stringify(content2.blocks);
+  }
+
+  public static getRichTextModification(
+    oldContent: TeRichTextContent,
+    newContent: TeRichTextContent,
+    userId: string,
+    modifications: TeTextEditorHistoryModificationGroup = new TeTextEditorHistoryModificationGroup()
+  ): TeTextEditorHistoryModificationGroup {
+    const differences: TeTextEditorHistoryBlockModification[] = [];
+    const oldBlocks = oldContent.blocks;
+    const oldBlockMap = new Map(oldBlocks.map(block => [block.id, block]));
+
+    newContent.blocks.forEach((block, index) => {
+      const oldBlock = oldBlockMap.get(block.id);
+      const oldBlockIndex = oldBlocks.indexOf(oldBlock);
+      if (oldBlock == null) {
+        const modif = new TeTextEditorHistoryBlockModification(
+          newContent.version,
+          block.id,
+          block.type,
+          TeTextEditorHistoryModificationType.CREATED,
+          index,
+          userId
+        );
+        modif.blockValue = block.data;
+        differences.push(modif);
+      } else if (JSON.stringify(oldBlock.data) !== JSON.stringify(block.data)) {
+        const modif = new TeTextEditorHistoryBlockModification(
+          newContent.version,
+          block.id,
+          block.type,
+          TeTextEditorHistoryModificationType.UPDATED,
+          index,
+          userId
+        );
+        modif.blockValue = block.data;
+        modif.differences = TeTextEditorHistoryModificationGroup.getValuesDifferences(
+          JSON.stringify(oldBlock.data),
+          JSON.stringify(block.data)
+        );
+        differences.push(modif);
+        oldBlockMap.delete(block.id);
+      } else if (oldBlockIndex != index && oldBlockMap.has(block.id)){
+        const modif = new TeTextEditorHistoryBlockModification(
+          newContent.version,
+          block.id,
+          block.type,
+          TeTextEditorHistoryModificationType.MOVED,
+          index,
+          userId
+        );
+        modif.oldIndex = oldBlockIndex;
+        modif.blockValue = block.data;
+        differences.push(modif);
+        oldBlockMap.delete(block.id);
+      } else {
+        oldBlockMap.delete(block.id);
+      }
+    });
+    oldBlocks.forEach((oldBlock, index) => {
+      if (oldBlockMap.has(oldBlock.id)) {
+        const modif = new TeTextEditorHistoryBlockModification(
+          newContent.version,
+          oldBlock.id,
+          oldBlock.type,
+          TeTextEditorHistoryModificationType.DELETED,
+          index,
+          userId
+        );
+        modif.blockValue = oldBlock.data;
+        differences.push(modif);
+      }
+    });
+    modifications.fusion(differences);
+    return modifications;
+  }
+
+  public static undoModification(
+    content: TeRichTextContent,
+    modificationGroup: TeTextEditorHistoryModificationGroup
+  ): TeRichTextUndoRedoResult {
+
+    if (content == null || modificationGroup?.modifications?.length === 0 || modificationGroup.currentIndex < 0) {
+      return null;
+    }
+
+    const modificationToUndo = modificationGroup.modifications[modificationGroup.currentIndex];
+
+    let updatedBlock: TeRichTextContentBlock = null;
+
+    if((modificationToUndo.type == TeTextEditorHistoryModificationType.UPDATED ||
+        modificationToUndo.type == TeTextEditorHistoryModificationType.MOVED) &&
+      !content.blocks.some(block => block.id === modificationToUndo.blockId)) {
+      modificationToUndo.type = TeTextEditorHistoryModificationType.CREATED;
+    }
+
+    if (modificationToUndo.type === TeTextEditorHistoryModificationType.UPDATED) {
+      const diff = TeTextEditorHistoryModificationGroup.undoDifferences(
+        JSON.stringify(content.blocks[modificationToUndo.index].data), modificationToUndo.differences);
+      if (diff?.length > 0) {
+        content.blocks[modificationToUndo.index].data = JSON.parse(diff);
+      }
+      updatedBlock = content.blocks[modificationToUndo.index];
+    } else if (modificationToUndo.type === TeTextEditorHistoryModificationType.DELETED ||
+      modificationToUndo.type === TeTextEditorHistoryModificationType.MOVED) {
+      updatedBlock = {
+        id: modificationToUndo.blockId,
+        type: modificationToUndo.blockType,
+        data: modificationToUndo.blockValue
+      };
+    }
+    modificationGroup.currentIndex--;
+
+    return {
+      block: updatedBlock,
+      index: modificationToUndo.index,
+      oldIndex: modificationToUndo.oldIndex,
+      modificationType: modificationToUndo.type,
+      modificationsGroup: modificationGroup
+    };
+  }
+
+  public static redoModification(
+    content: TeRichTextContent,
+    modificationGroup: TeTextEditorHistoryModificationGroup
+  ): TeRichTextUndoRedoResult {
+
+    if (content == null || modificationGroup?.modifications?.length === 0
+      || modificationGroup.currentIndex == modificationGroup.modifications.length - 1) {
+      return null;
+    }
+
+    const modificationToRedo = modificationGroup.modifications[modificationGroup.currentIndex + 1];
+
+    let updatedBlock: TeRichTextContentBlock = null;
+
+    if(modificationToRedo.type == TeTextEditorHistoryModificationType.UPDATED &&
+      !content.blocks.some(block => block.id === modificationToRedo.blockId)) {
+      modificationToRedo.type = TeTextEditorHistoryModificationType.CREATED;
+    }
+
+    if (modificationToRedo.type === TeTextEditorHistoryModificationType.UPDATED && content.blocks[modificationToRedo.index]?.data) {
+      const diff = TeTextEditorHistoryModificationGroup.redoDifferences(
+        JSON.stringify(content.blocks[modificationToRedo.index]?.data), modificationToRedo.differences);
+      if (diff?.length > 0) {
+        content.blocks[modificationToRedo.index].data = JSON.parse(diff);
+      }
+      updatedBlock = content.blocks[modificationToRedo.index];
+    } else if (modificationToRedo.type === TeTextEditorHistoryModificationType.CREATED) {
+      updatedBlock = {
+        id: modificationToRedo.blockId,
+        type: modificationToRedo.blockType,
+        data: modificationToRedo.blockValue
+      };
+    }
+
+    modificationGroup.currentIndex++;
+
+
+    return {
+      block: updatedBlock,
+      index: modificationToRedo.index,
+      oldIndex: modificationToRedo.oldIndex,
+      modificationType: modificationToRedo.type,
+      modificationsGroup: modificationGroup
+    };
   }
 }

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FlUserConfig} from '../../service/fl-user-config.config';
-import {FlUser} from '../../model/fl-user.class';
+import {FlUserDto} from '../../model/fl-user-dto.class';
 
 
 export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | number;
@@ -12,7 +12,7 @@ export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | number;
 })
 export class FlUserProfilePictureComponent implements OnInit {
 
-  @Input({required: true}) set user(user: FlUser) {
+  @Input({required: true}) set user(user: FlUserDto) {
     this.setUser(user);
   }
 
@@ -55,12 +55,20 @@ export class FlUserProfilePictureComponent implements OnInit {
 
   }
 
-  private setUser(user: FlUser): void {
+  private setUser(user: FlUserDto): void {
 
 
     if (user) {
-
-      this.initials = (user.firstname?.charAt(0) ?? '') + (user.lastname?.charAt(0) ?? '');
+      if(user.alias){
+        const spaceIndex = user.alias.indexOf(' ');
+        if(spaceIndex !== -1 && user.alias.length > spaceIndex + 1){
+          this.initials = user.alias.charAt(0) + user.alias.charAt(spaceIndex + 1);
+        } else {
+          this.initials = user.alias.charAt(0);
+        }
+      } else{
+        this.initials = (user.firstname?.charAt(0) ?? '') + (user.lastname?.charAt(0) ?? '');
+      }
 
       if (user.photo) {
         this.imgSrc = this.userConfig.getUserPhotoUrl(user.photo);

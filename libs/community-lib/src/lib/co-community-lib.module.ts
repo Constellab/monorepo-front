@@ -5,7 +5,6 @@ import {
   FlCorePipeModule,
   FlDateModule,
   FlDialogModule,
-  FlIcon,
   FlIconModule,
   FlInfiniteScrollModule,
   FlKeyValueModule,
@@ -39,8 +38,6 @@ import {MatChipsModule} from '@angular/material/chips';
 import {CoBrickListItemComponent} from './component/co-brick-list-item/co-brick-list-item.component';
 import {TeTextEditorModule} from '@monorepo/text-editor';
 import {CoConfig} from './service/co-service-config.config';
-import {CoUserInlineComponent} from './component/co-user-inline/co-user-inline.component';
-import {CoUserProfilePictureComponent} from './component/co-user-profile-picture/co-user-profile-picture.component';
 
 
 @NgModule({
@@ -79,9 +76,7 @@ import {CoUserProfilePictureComponent} from './component/co-user-profile-picture
     CoCommunityListItemMainContentComponent,
     CoVisibilityBadgeComponent,
     CoStoryListItemComponent,
-    CoBrickListItemComponent,
-    CoUserInlineComponent,
-    CoUserProfilePictureComponent
+    CoBrickListItemComponent
   ],
   exports: [
     CoLiveTaskListItemComponent,
@@ -90,9 +85,7 @@ import {CoUserProfilePictureComponent} from './component/co-user-profile-picture
     CoCommunityListItemMainContentComponent,
     CoVisibilityBadgeComponent,
     CoStoryListItemComponent,
-    CoBrickListItemComponent,
-    CoUserInlineComponent,
-    CoUserProfilePictureComponent
+    CoBrickListItemComponent
   ],
 })
 export class CoCommunityLibModule {

@@ -35,14 +35,14 @@
       </h5>
       <div class="lt-user-line">
         <a [routerLink]="profileRoute + liveTask.createdBy.id">
-          <co-user-inline [user]="liveTask.createdBy"></co-user-inline>
+          <fl-user-inline [user]="liveTask.createdBy" [portalOnHover]="false"></fl-user-inline>
         </a>
         <mat-icon>workspace_premium</mat-icon>
       </div>
       @for (ltCoAuthor of ltCoAuthors; track ltCoAuthor.id) {
         <div class="lt-user-line">
           <a [routerLink]="profileRoute + ltCoAuthor.id">
-            <co-user-inline [user]="ltCoAuthor"></co-user-inline>
+            <fl-user-inline [user]="ltCoAuthor" [portalOnHover]="false"></fl-user-inline>
           </a>
         </div>
       }

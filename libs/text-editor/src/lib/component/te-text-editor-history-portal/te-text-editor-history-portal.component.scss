@@ -1,0 +1,35 @@
+:host{
+  height: inherit;
+  width: 100%;
+  min-width: 30vw;
+  min-height: 100vh;
+}
+
+.portal{
+  width: 100%;
+  height: 100%;
+}
+
+.portal-content{
+  height: fit-content !important;
+}
+
+.group-single-modification{
+  margin-left: 1em;
+  padding-left: calc(50px - 1.5em);
+  width: calc(100% - 4em);
+  cursor: pointer;
+  border-radius: 0.5em;
+}
+
+.group-single-modification:hover{
+  background-color: var(--hover-color);
+}
+
+.modifications-history-portal-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+}
