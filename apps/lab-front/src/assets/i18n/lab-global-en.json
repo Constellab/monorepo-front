@@ -145,7 +145,7 @@
   "lab_entity_type_VIEW": "View",
   "lab_entity_type_REPORT": "Report",
   "lab_entity_type_PROTOCOL_TEMPLATE": "Protocol template",
-  "lab_entity_type_REPORT_TEMPLATE": "Report template",
+  "lab_entity_type_DOCUMENT_TEMPLATE": "Document template",
   "lab_usage_period_to": "To date",
   "lab_usage_period_from": "From date",
   "lab_usage_period": "Period",

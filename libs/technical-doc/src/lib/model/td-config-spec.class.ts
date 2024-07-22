@@ -12,7 +12,7 @@ export type TdParamSpecType =
   | 'python_code_param' | 'r_code_param' | 'julia_code_param'
   | 'bash_code_param' | 'perl_code_param' | 'yaml_code_param' | 'json_code_param'
   | 'open_ai_chat_param'
-  | 'credentials_param' | 'report_template_param' | 'report_param';
+  | 'credentials_param' | 'document_template_param' | 'report_param';
 
 /**
  * Visibility of the param spec
@@ -89,7 +89,7 @@ export type TdParamSpecSimple =
   | TdParamSpecCode
   | TdParamOpenAiChat
   | TdParamSelectCredentials
-  | TdParamSelectReportTemplate
+  | TdParamSelectDocumentTemplate
   | TdParamSelectReport
   | TdParamRichText;
 
@@ -153,8 +153,8 @@ export interface TdParamSelectCredentials extends TdParamSpecBase {
   };
 }
 
-export interface TdParamSelectReportTemplate extends TdParamSpecBase {
-  type: 'report_template_param';
+export interface TdParamSelectDocumentTemplate extends TdParamSpecBase {
+  type: 'document_template_param';
 }
 
 export interface TdParamSelectReport extends TdParamSpecBase {

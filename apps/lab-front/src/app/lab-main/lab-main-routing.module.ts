@@ -1,21 +1,21 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import {
   labConstBaseRoute,
   labConstBiotaRoute,
   labConstBioxRoute,
   labConstDataboxRoute,
   labConstDocRoute,
+  labConstDocumentTemplateRoute,
   labConstMonitoringRoute,
   labConstProtocolTemplateRoute,
   labConstReportRoute,
-  labConstReportTemplateRoute,
   labConstViewboxRoute
 } from '../lab-core/utils/lab-base-route';
-import {LabMainAppComponent} from './component/lab-main-app/lab-main-app.component';
-import {LabAutoLoginGuard} from './guard/lab-auto-login.guard';
-import {FlLabRoute} from '@monorepo/front-core-lib';
-import {LabLoadEnvironmentGuard} from './guard/lab-load-environment.guard';
+import { LabMainAppComponent } from './component/lab-main-app/lab-main-app.component';
+import { LabAutoLoginGuard } from './guard/lab-auto-login.guard';
+import { FlLabRoute } from '@monorepo/front-core-lib';
+import { LabLoadEnvironmentGuard } from './guard/lab-load-environment.guard';
 
 const routes: Routes = [
   {
@@ -47,8 +47,8 @@ const routes: Routes = [
 
       ////////////////////////  REPORT TEMPLATE  /////////////////////////
       {
-        path: labConstReportTemplateRoute,
-        loadChildren: () => import('../lab-report-template/lab-report-template.module').then(m => m.LabReportTemplateModule)
+        path: labConstDocumentTemplateRoute,
+        loadChildren: () => import('../lab-document-template/lab-document-template.module').then(m => m.LabDocumentTemplateModule)
       },
 
       ////////////////////////  BIOTA  /////////////////////////

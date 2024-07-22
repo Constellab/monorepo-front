@@ -1,11 +1,11 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 
-import {LabAppComponent} from './lab-app.component';
-import {LabMainModule} from './lab-main/lab-main.module';
-import {LabCoreModule} from './lab-core/lab-core.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import { LabAppComponent } from './lab-app.component';
+import { LabMainModule } from './lab-main/lab-main.module';
+import { LabCoreModule } from './lab-core/lab-core.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import {
   FL_CAPTCHA_MODULE_CONFIG,
   FL_TRANSLATE_MODULE_CONFIG,
@@ -27,34 +27,34 @@ import {
   FlTranslationLoader,
   FlUserModule
 } from '@monorepo/front-core-lib';
-import {labSvgIcons} from './lab-core/utils/lab-svg-icon-config';
-import {ClSupportedLanguage} from '@monorepo/core-lib';
-import {LabLoginModule} from './lab-login/lab-login.module';
-import {LabAuthService} from './lab-core/service/lab-auth.service';
-import {LabApiErrorService} from './lab-core/service/lab-api-error.service';
-import {LabApiServiceConfig} from './lab-core/service/lab-api-module.config';
-import {LabAppRoutingModule} from './lab-app-routing.module';
-import {LabTagService} from './lab-core/entity-service/lab-tag.service';
-import {RvResourceViewModule} from '@monorepo/resource-view';
-import {TdTechnicalDocModule} from '@monorepo/technical-doc';
-import {LabTdServiceConfig} from './lab-core/service/lab-td-service.config';
-import {labConstResourceViewTypeInfos} from './lab-core/model/entities/resource/lab-resource-view-type.class';
-import {PrProtocolModule} from '@monorepo/protocol';
-import {LabBioNetworkService} from './lab-core/entity-service/lab-bio-network.service';
-import {LabUserConfig} from './lab-core/model/config/lab-user-config.service';
-import {BnBioNetworkModule} from '@monorepo/bio-network';
+import { labSvgIcons } from './lab-core/utils/lab-svg-icon-config';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { LabLoginModule } from './lab-login/lab-login.module';
+import { LabAuthService } from './lab-core/service/lab-auth.service';
+import { LabApiErrorService } from './lab-core/service/lab-api-error.service';
+import { LabApiServiceConfig } from './lab-core/service/lab-api-module.config';
+import { LabAppRoutingModule } from './lab-app-routing.module';
+import { LabTagService } from './lab-core/entity-service/lab-tag.service';
+import { RvResourceViewModule } from '@monorepo/resource-view';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { LabTdServiceConfig } from './lab-core/service/lab-td-service.config';
+import { labConstResourceViewTypeInfos } from './lab-core/model/entities/resource/lab-resource-view-type.class';
+import { PrProtocolModule } from '@monorepo/protocol';
+import { LabBioNetworkService } from './lab-core/entity-service/lab-bio-network.service';
+import { LabUserConfig } from './lab-core/model/config/lab-user-config.service';
+import { BnBioNetworkModule } from '@monorepo/bio-network';
 import {
   LabWorkflowResourcesState
 } from './lab-biox/module/lab-experiment-detail-page/state/lab-workflow-resources.state';
-import {LabEnvironmentHelper} from './lab-core/utils/lab-environment.helper';
+import { LabEnvironmentHelper } from './lab-core/utils/lab-environment.helper';
 import {
-  LabReportTemplateCoreModule
-} from './lab-core/entity-module/lab-report-template-core/lab-report-template-core.module';
-import {LabCredentialsCoreModule} from './lab-core/entity-module/lab-credentials-core/lab-credentials-core.module';
-import {LabRichTextCoreModule} from './lab-core/entity-module/lab-rich-text-core/lab-rich-text-core.module';
-import {TranslateLoader} from '@ngx-translate/core';
-import {CoCommunityLibModule} from '@monorepo/community-lib';
-import {LabCoServiceConfig} from './lab-core/model/config/lab-co-service-config.service';
+  LabDocumentTemplateCoreModule
+} from './lab-core/entity-module/lab-document-template-core/lab-document-template-core.module';
+import { LabCredentialsCoreModule } from './lab-core/entity-module/lab-credentials-core/lab-credentials-core.module';
+import { LabRichTextCoreModule } from './lab-core/entity-module/lab-rich-text-core/lab-rich-text-core.module';
+import { TranslateLoader } from '@ngx-translate/core';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { LabCoServiceConfig } from './lab-core/model/config/lab-co-service-config.service';
 
 export function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -120,7 +120,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
 
     // import core module here because they have dynamic field component required
     // in task config
-    LabReportTemplateCoreModule,
+    LabDocumentTemplateCoreModule,
     LabCredentialsCoreModule,
     LabRichTextCoreModule,
 

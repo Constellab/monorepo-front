@@ -56,7 +56,7 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'archive', matIconName: 'inventory_2'},
   {name: 'unarchive', matIconName: 'unarchive'},
   {name: 'report', matIconName: 'grading'},
-  {name: 'report_template', filename: 'report-template.svg'},
+  {name: 'document_template', filename: 'document-template.svg'},
   {name: 'resource', matIconName: 'folder'},
   {name: 'view', matIconName: 'insert_chart'},
   {name: 'smart_db', matIconName: 'search'},

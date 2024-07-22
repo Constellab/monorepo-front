@@ -1,0 +1,66 @@
+<div class="g-page page">
+  <fl-section class="g-flex-auto" [object]="documentTemplate" [isLoading]="isLoading">
+
+    <ng-container *flSectionBody>
+
+      <div class="g-layout-row g-layout-start-center">
+
+        <fl-text-icon>
+          <mat-icon flIcon="document_template" class="g-icon-big"></mat-icon>
+          <h2>{{'biox.document_template' | translate}} :</h2>
+        </fl-text-icon>
+        <div class="g-flex-auto g-flex">
+          <h2 flElementEditable (flElementValueChange)="updateTitle($event)">
+            {{documentTemplate.title}}</h2>
+        </div>
+
+
+        <div class="g-print-hide action-buttons">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before" class="g-print-hide">
+
+
+            <button mat-menu-item type="button" (click)="printDocument()">
+              <mat-icon>print</mat-icon>
+              <span>{{'biox.print_document_template' | translate}}</span>
+            </button>
+
+
+            <button mat-menu-item type="button"
+                    (click)="delete()">
+              <mat-icon color="warn">delete</mat-icon>
+              <span class="g-warn-text">{{'biox.delete_document_template' | translate}}</span>
+            </button>
+
+          </mat-menu>
+        </div>
+      </div>
+
+      <!--   Content   -->
+      <fl-article-container>
+        <fl-article-left-side>
+
+          <!--  Created by & Last modified bt  -->
+          <p class="g-text-small g-text-light separator">
+            <fl-creation-info [user]="documentTemplate.createdBy"
+                              [date]="documentTemplate.createdAt"></fl-creation-info>
+          </p>
+          <p class="g-text-small g-text-light">
+            <fl-last-modification-info [user]="documentTemplate.lastModifiedBy"
+                                       [date]="documentTemplate.lastModifiedAt"></fl-last-modification-info>
+          </p>
+        </fl-article-left-side>
+        <fl-article>
+          <te-text-editor [(ngModel)]="content" class="g-full-height g-print-section"
+                          (textChange)="onContentUpdate($event)" [config]="textEditorConfig"
+                          [placeholder]="'biox.report_placeholder' | translate"></te-text-editor>
+        </fl-article>
+
+      </fl-article-container>
+
+
+    </ng-container>
+  </fl-section>
+</div>

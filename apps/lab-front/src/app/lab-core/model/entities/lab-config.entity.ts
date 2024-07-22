@@ -1,4 +1,4 @@
-import {LabBaseEntity} from '../global/lab-entity.entity';
+import { LabBaseEntity } from '../global/lab-entity.entity';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
@@ -11,7 +11,7 @@ import {
   FlDynamicFormAbstractControl,
   FlDynamicFormGroupConfig
 } from '@monorepo/front-core-lib';
-import {PrConfigValues} from '@monorepo/protocol';
+import { PrConfigValues } from '@monorepo/protocol';
 import {
   tdCodeParamSpecTypeList,
   TdParamSpec,
@@ -137,9 +137,9 @@ export class LabConfig extends LabBaseEntity {
       config.type = 'select_credentials';
       config.additionalInfo = {credentialsType: spec.additional_info.credentials_type};
       return config;
-    } else if (spec.type === 'report_template_param') {
+    } else if (spec.type === 'document_template_param') {
       const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'select_report_template';
+      config.type = 'select_document_template';
       return config;
     } else if (spec.type === 'report_param') {
       const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;

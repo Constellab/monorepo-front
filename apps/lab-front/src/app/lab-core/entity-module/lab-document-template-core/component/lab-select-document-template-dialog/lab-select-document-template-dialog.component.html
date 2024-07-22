@@ -1,0 +1,8 @@
+<fl-dialog-header>
+  {{'biox.select_document_template' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <lab-document-template-search [documentTemplateSelectable]="rowSelectable" [fullPageSearch]="false"
+                     (documentTemplateSelected)="onTemplateSelected($event)"></lab-document-template-search>
+</mat-dialog-content>

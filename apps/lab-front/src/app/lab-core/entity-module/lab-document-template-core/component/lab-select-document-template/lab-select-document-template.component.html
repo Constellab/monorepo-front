@@ -1,0 +1,19 @@
+<fl-input-search [selectedItem]="selectedDocumentTemplate"
+                 (selectedItemChange)="setAndEmitValue($event)"
+                 [datasource]="datasource"
+                 [placeholder]="placeholder"
+                 [required]="required"
+                 [disabled]="disabled"
+                 [minInputSearchLength]="0"
+                 [advancedButton]="advancedButton">
+
+  <div class="photo" *flInputSearchPrefix="datasource as template">
+    <fl-user-profile-picture *ngIf="template" [user]="template.createdBy"
+                             size="small"></fl-user-profile-picture>
+
+  </div>
+
+
+  <lab-document-template-inline *flInputSearchOption="datasource as template" [documentTemplate]="template">
+  </lab-document-template-inline>
+</fl-input-search>

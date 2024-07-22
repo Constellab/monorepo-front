@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   labConstBaseRoute,
   labConstBioxFullRoute,
   labConstDataboxFullRoute,
   labConstDocFullRoute,
+  labConstDocumentTemplateFullRoute,
   labConstMonitoringFullRoute,
   labConstProtocolTemplateFullRoute,
-  labConstReportFullRoute,
-  labConstReportTemplateFullRoute
+  labConstReportFullRoute
 } from '../utils/lab-base-route';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 /**
  * Class to get app route paths
@@ -78,8 +78,12 @@ export class LabRouterService {
     return `${labConstReportFullRoute}/${id}`;
   }
 
-  public static getReportTemplateDetailRoute(id: string): string {
-    return `${labConstReportTemplateFullRoute}/${id}`;
+  public static getDocumentTemplateSearchRoute(): string {
+    return labConstDocumentTemplateFullRoute;
+  }
+
+  public static getDocumentTemplateDetailRoute(id: string): string {
+    return `${labConstDocumentTemplateFullRoute}/${id}`;
   }
 
   public static getDocRoute(): string {
@@ -157,12 +161,16 @@ export class LabRouterService {
     return this.router.navigate([LabRouterService.getReportDetailRoute(id)]);
   }
 
-  public navigatorToReportTemplateDetail(id: string): Promise<boolean> {
-    return this.router.navigate([LabRouterService.getReportTemplateDetailRoute(id)]);
+  public navigateToDocumentTemplateDetail(id: string): Promise<boolean> {
+    return this.router.navigate([LabRouterService.getDocumentTemplateDetailRoute(id)]);
   }
 
   public navigateToReportSearch(): Promise<boolean> {
     return this.router.navigate([LabRouterService.getReportSearchRoute()]);
+  }
+
+  public navigateToDocumentSearch(): Promise<boolean> {
+    return this.router.navigate([LabRouterService.getDocumentTemplateSearchRoute()]);
   }
 
   public navigateToViewConfig(resourceId: string, viewConfigId: string): Promise<boolean> {

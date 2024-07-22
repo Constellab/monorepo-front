@@ -16,9 +16,9 @@ import {
   LabReportFormDialogInput
 } from '../lab-report-form-dialog/lab-report-form-dialog.component';
 import {
-  LabSelectReportTemplateDialogComponent,
-  LabSelectReportTemplateDialogInput
-} from '../../../lab-report-template-core/component/lab-select-report-template-dialog/lab-select-report-template-dialog.component';
+  LabSelectDocumentTemplateDialogComponent,
+  LabSelectDocumentTemplateDialogInput
+} from '../../../lab-document-template-core/component/lab-select-document-template-dialog/lab-select-document-template-dialog.component';
 
 
 @Component({
@@ -106,8 +106,8 @@ export class LabReportSearchComponent implements OnInit {
     this.reportSelected.next(report);
   }
 
-  openReportTemplatesSearch(): void {
-    const data: LabSelectReportTemplateDialogInput = {mode: 'link'};
-    this.dialogService.openBigDialog(LabSelectReportTemplateDialogComponent, {data});
+  openDocumentTemplatesSearch(): void {
+    const data: LabSelectDocumentTemplateDialogInput = {mode: 'link'};
+    this.dialogService.openBigDialog(LabSelectDocumentTemplateDialogComponent, {data});
   }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib';
 import {
-  LabReportTemplateTextEditorConfig
-} from '../../../../../lab-report-template/lab-report-template-detail-page/lab-report-template-text-editor-config.class';
+  LabDocumentTemplateTextEditorConfig
+} from '../../../../../lab-document-template/lab-document-template-detail-page/lab-document-template-text-editor-config.class';
 
 /**
  * Component to allow the rich text editor to be used as a dynamic field.
@@ -14,5 +14,5 @@ import {
 })
 export class LabRichTextDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
 
-  config = new LabReportTemplateTextEditorConfig({includeToolbarButton: true});
+  config = new LabDocumentTemplateTextEditorConfig({includeToolbarButton: true});
 }

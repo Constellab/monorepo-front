@@ -18,8 +18,8 @@
 
     <!--  Template  -->
     <fl-form-field class="g-form-input" *ngIf="isCreateMode()">
-      <lab-select-report-template formControlName="template" [placeholder]="'biox.select_report_template' | translate"
-                                  (valueChange)="onTemplateSelected($event)"></lab-select-report-template>
+      <lab-select-document-template formControlName="template" [placeholder]="'biox.select_document_template' | translate"
+                                  (valueChange)="onTemplateSelected($event)"></lab-select-document-template>
     </fl-form-field>
 
     <!--    Project      -->

@@ -17,14 +17,14 @@ import {
   LabSelectCredentialsDynamicFieldComponent
 } from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
 import {
-  LabSelectReportTemplateDynamicFieldComponent
-} from '../lab-report-template-core/component/lab-select-report-template-dynamic-field/lab-select-report-template-dynamic-field.component';
-import {
   LabSelectReportDynamicFieldComponent
 } from '../lab-report-core/component/lab-select-report-dynamic-field/lab-select-report-dynamic-field.component';
 import {
   LabRichTextDynamicFieldComponent
 } from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
+import {
+  LabSelectDocumentTemplateDynamicFieldComponent
+} from '../lab-document-template-core/component/lab-select-document-template-dynamic-field/lab-select-document-template-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
@@ -38,9 +38,9 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
       'tags': this.buildTagField,
       'open_ai_chat': this.buildOpenAiChatField,
       'select_credentials': this.buildSelectCredentialsField,
-      'select_report_template': this.buildSelectReportTemplateField,
+      'select_document_template': this.buildSelectDocumentTemplateField,
       'select_report': this.buildSelectReportField,
-      'rich_text': this.buildRichTextField,
+      'rich_text': this.buildRichTextField
     };
 
     // for each code spec type, set the code editor component
@@ -73,9 +73,10 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
     return component;
   }
 
-  private buildSelectReportTemplateField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
-    return viewContainer.createComponent(LabSelectReportTemplateDynamicFieldComponent);
+  private buildSelectDocumentTemplateField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+    return viewContainer.createComponent(LabSelectDocumentTemplateDynamicFieldComponent);
   }
+
   private buildSelectReportField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(LabSelectReportDynamicFieldComponent);
   }

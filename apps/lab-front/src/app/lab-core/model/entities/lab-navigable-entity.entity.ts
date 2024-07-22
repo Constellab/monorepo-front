@@ -3,13 +3,13 @@ import { LabReport } from './lab-report.entity';
 import { LabExperiment } from './lab-experiment.entity';
 import { LabResource } from './resource/lab-resource.entity';
 import { LabViewConfig } from './resource/lab-view-config.entity';
-import { LabReportTemplate } from './lab-report-template.entity';
+import { LabDocumentTemplate } from './lab-document-template.entity';
 import { LabProtocolTemplate } from './process/lab-protocol-template.entity';
 import { LabProject } from './lab-project.class';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
 export type LabEntityType = 'EXPERIMENT' | 'RESOURCE' | 'VIEW' | 'REPORT'
-  | 'PROTOCOL_TEMPLATE' | 'REPORT_TEMPLATE' | 'PROJECT';
+  | 'PROTOCOL_TEMPLATE' | 'DOCUMENT_TEMPLATE' | 'PROJECT';
 
 export const labEntityTypeIcon: Record<LabEntityType, string> = {
   EXPERIMENT: 'experiment',
@@ -17,7 +17,7 @@ export const labEntityTypeIcon: Record<LabEntityType, string> = {
   VIEW: 'view',
   REPORT: 'report',
   PROTOCOL_TEMPLATE: 'protocol_template',
-  REPORT_TEMPLATE: 'report_template',
+  DOCUMENT_TEMPLATE: 'document_template',
   PROJECT: 'project'
 };
 
@@ -58,8 +58,8 @@ const LabNavigableEntityGroupedFactory: any = (json: TypeHelpOptions) => {
       return LabReport;
     case 'PROTOCOL_TEMPLATE':
       return LabProtocolTemplate;
-    case 'REPORT_TEMPLATE':
-      return LabReportTemplate;
+    case 'DOCUMENT_TEMPLATE':
+      return LabDocumentTemplate;
     case 'PROJECT':
       return LabProject;
     default:

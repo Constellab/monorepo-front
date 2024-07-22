@@ -5,7 +5,7 @@ import { LabReport } from '../../model/entities/lab-report.entity';
 import { LabExperiment } from '../../model/entities/lab-experiment.entity';
 import { LabResource } from '../../model/entities/resource/lab-resource.entity';
 import { LabProtocolTemplate } from '../../model/entities/process/lab-protocol-template.entity';
-import { LabReportTemplate } from '../../model/entities/lab-report-template.entity';
+import { LabDocumentTemplate } from '../../model/entities/lab-document-template.entity';
 import { LabEntityType } from '../../model/entities/lab-navigable-entity.entity';
 import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
 
@@ -41,8 +41,8 @@ export class LabDetailRoutePipe implements PipeTransform {
         return LabRouterService.getReportDetailRoute(id);
       case 'PROTOCOL_TEMPLATE':
         return LabRouterService.getProtocolTemplateDetailRoute(id);
-      case 'REPORT_TEMPLATE':
-        return LabRouterService.getReportTemplateDetailRoute(id);
+      case 'DOCUMENT_TEMPLATE':
+        return LabRouterService.getDocumentTemplateDetailRoute(id);
       case 'VIEW':
         return LabRouterService.getViewConfigRedirectRoute(id);
       default:
@@ -61,8 +61,8 @@ export class LabDetailRoutePipe implements PipeTransform {
       return 'REPORT';
     } else if (obj instanceof LabProtocolTemplate) {
       return 'PROTOCOL_TEMPLATE';
-    } else if (obj instanceof LabReportTemplate) {
-      return 'REPORT_TEMPLATE';
+    } else if (obj instanceof LabDocumentTemplate) {
+      return 'DOCUMENT_TEMPLATE';
     } else if (obj instanceof LabViewConfig) {
       return 'VIEW';
     } else {

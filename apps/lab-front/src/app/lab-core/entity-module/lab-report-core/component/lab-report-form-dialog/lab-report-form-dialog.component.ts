@@ -1,13 +1,13 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {LabReport, LabReportForm} from '../../../../model/entities/lab-report.entity';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {Validators} from '@angular/forms';
-import {LabReportService} from '../../../../entity-service/lab-report.service';
-import {LabEntity} from '../../../../model/global/lab-entity.entity';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {LabReportTemplate} from '../../../../model/entities/lab-report-template.entity';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { LabReport, LabReportForm } from '../../../../model/entities/lab-report.entity';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { Observable } from 'rxjs';
+import { Validators } from '@angular/forms';
+import { LabReportService } from '../../../../entity-service/lab-report.service';
+import { LabEntity } from '../../../../model/global/lab-entity.entity';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LabDocumentTemplate } from '../../../../model/entities/lab-document-template.entity';
 
 export interface LabReportFormDialogInput extends FlFormDialogInput<LabReportForm> {
   reportId?: string;
@@ -71,7 +71,7 @@ export class LabReportFormDialogComponent extends FlFormDialogAbstractDirective<
     return 'biox.report_updated';
   }
 
-  onTemplateSelected(template: LabReportTemplate): void {
+  onTemplateSelected(template: LabDocumentTemplate): void {
     if (!this.formGp.value.title) {
       this.formGp.patchValue({title: template.title});
     }

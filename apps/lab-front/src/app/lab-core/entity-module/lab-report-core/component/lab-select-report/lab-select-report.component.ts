@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlDialogService, FlFormFieldDirective, FlInputSearchAdvancedButton} from '@monorepo/front-core-lib';
-import {NgControl} from '@angular/forms';
-import {LabReport, LabReportDatasource} from '../../../../model/entities/lab-report.entity';
-import {LabReportService} from '../../../../entity-service/lab-report.service';
-import {LabSelectReportDialogComponent} from '../lab-select-report-dialog/lab-select-report-dialog.component';
-import {LabReportTemplate} from '../../../../model/entities/lab-report-template.entity';
-import {Observable} from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { FlDialogService, FlFormFieldDirective, FlInputSearchAdvancedButton } from '@monorepo/front-core-lib';
+import { NgControl } from '@angular/forms';
+import { LabReport, LabReportDatasource } from '../../../../model/entities/lab-report.entity';
+import { LabReportService } from '../../../../entity-service/lab-report.service';
+import { LabSelectReportDialogComponent } from '../lab-select-report-dialog/lab-select-report-dialog.component';
+import { LabDocumentTemplate } from '../../../../model/entities/lab-document-template.entity';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'lab-select-report',
@@ -56,7 +56,7 @@ export class LabSelectReportComponent extends FlFormFieldDirective<LabReport> im
 
     if (typeof obj == 'string') {
       this.selectedReport = this.reportService.getReport(obj);
-    } else if (!(obj instanceof LabReportTemplate)) {
+    } else if (!(obj instanceof LabDocumentTemplate)) {
       this.selectedReport = this.reportService.getReport((obj as any).id);
     } else {
       // if the user is complete

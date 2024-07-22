@@ -15,8 +15,8 @@ import {
   LabValidateObjectDialogInput
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
 import { LabProject } from '../../../../../lab-core/model/entities/lab-project.class';
-import { LabReportTemplateService } from '../../../../../lab-core/entity-service/lab-report-template.service';
-import { LabReportTemplate } from '../../../../../lab-core/model/entities/lab-report-template.entity';
+import { LabDocumentTemplateService } from '../../../../../lab-core/entity-service/lab-document-template.service';
+import { LabDocumentTemplate } from '../../../../../lab-core/model/entities/lab-document-template.entity';
 import { LabReportTextEditorConfig } from '../../lab-report-text-editor-config.class';
 import { LabTagDatasource } from '../../../../../lab-core/model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.service';
@@ -48,7 +48,7 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private dialogService: FlDialogService,
               private routerService: LabRouterService,
-              private reportTemplateService: LabReportTemplateService,
+              private documentTemplateService: LabDocumentTemplateService,
               private tagService: LabTagService) {
   }
 
@@ -211,17 +211,17 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  createReportTemplate(): void {
+  createDocumentTemplate(): void {
     if (this.createTemplateLoading) return;
     this.createTemplateLoading = true;
-    this.reportTemplateService.createFromReport(this.state.currentReport.id).subscribe({
-      next: reportTemplate => this.createReportSuccess(reportTemplate),
+    this.documentTemplateService.createFromReport(this.state.currentReport.id).subscribe({
+      next: template => this.createDocumentTemplateSuccess(template),
       error: () => this.createTemplateLoading = false
     });
   }
 
-  private createReportSuccess(reportTemplate: LabReportTemplate): void {
-    this.routerService.navigatorToReportTemplateDetail(reportTemplate.id);
+  private createDocumentTemplateSuccess(documentTemplate: LabDocumentTemplate): void {
+    this.routerService.navigateToDocumentTemplateDetail(documentTemplate.id);
   }
 
   ngOnDestroy(): void {
