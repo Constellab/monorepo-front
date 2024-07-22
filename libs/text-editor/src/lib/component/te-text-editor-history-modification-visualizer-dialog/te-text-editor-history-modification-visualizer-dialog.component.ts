@@ -9,7 +9,7 @@ import {
 import {TeTextEditorHistoryUser} from '../../model/te-text-editor-history-user.class';
 import {TeRichTextContent} from '../../model/te-rich-text.class';
 import {
-  TeTextEditorHistoryModification,
+  TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryModificationGroup
 } from '../../model/te-text-editor-history-modification.class';
 
@@ -39,7 +39,8 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
   entityId: string;
   content: TeRichTextContent;
   group?: TeTextEditorHistoryModificationGroup;
-  modification?: TeTextEditorHistoryModification;
+  modification?: TeTextEditorHistoryBlockModification;
+  isLoading = true;
 
   constructor(@Inject(MAT_DIALOG_DATA) dialogInput: TeTextEditorHistoryModificationVisualizerDialogData,
               private el: ElementRef,
@@ -72,6 +73,7 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
     } else {
       this.hollowElement(this.modification?.blockId, this.textEditorHistoryUsers[0].color);
     }
+    this.isLoading = false;
   }
 
   private hollowElement(blockId: string, color: string): void {
@@ -89,9 +91,9 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
 
   openConfirmRollback(): void{
     const confirmDialogData: FlConfirmDialogInput =  {
-      title: 'confirm_rollback_title',
-      content: 'confirm_rollback_content',
-      successMessage: 'confirm_rollback_success',
+      title: 'teTextEditor.confirm_rollback_title',
+      content: 'teTextEditor.confirm_rollback_content',
+      successMessage: 'teTextEditor.confirm_rollback_success',
       translateMessage: true,
       translateTitleAndContent: true,
       observable: this.service.rollbackContent(this.entityId, this.isGroup ? this.group.modifications[0].id : this.modification.id)

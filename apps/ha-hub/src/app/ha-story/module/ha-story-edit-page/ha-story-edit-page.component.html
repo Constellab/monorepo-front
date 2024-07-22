@@ -105,7 +105,8 @@
     }
     <form class="story-content-form" [formGroup]="formGp" id="story-content-form"
           [ngClass]="contentEditorIsFocused ? ['focus'] : []">
-      <te-text-editor class="border-none" [config]="textEditorConfig" (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
+      <te-text-editor class="border-none editor" [config]="textEditorConfig" [customUndoRedo]="true"
+                      (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
     </form>
   </div>
 } @else if(notFound) {

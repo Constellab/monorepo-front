@@ -14,7 +14,7 @@ import {HaStoryCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha
 import {HaFile} from '../entity-module/ha-file-core/model/ha-file';
 import {
   TeRichTextContent,
-  TeTextEditorHistoryModification,
+  TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryService,
   TeUploadedImage
 } from '@monorepo/text-editor';
@@ -258,8 +258,8 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.get(`${this.route}/${storyId}/view/${id}`);
   }
 
-  getHistory(entityId: string): Observable<TeTextEditorHistoryModification[]> {
-    return this.apiService.get(`${this.route}/history/${entityId}/`, TeTextEditorHistoryModification);
+  getHistory(entityId: string): Observable<TeTextEditorHistoryBlockModification[]> {
+    return this.apiService.get(`${this.route}/history/${entityId}/`);
   }
 
   getUndoContent(entityId: string, modificationId: string): Observable<TeRichTextContent> {

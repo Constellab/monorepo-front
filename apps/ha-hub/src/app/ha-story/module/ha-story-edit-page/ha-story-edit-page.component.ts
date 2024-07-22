@@ -78,7 +78,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
 
-
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
 
@@ -401,7 +400,5 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         this.historyOverlayRef = null;
       });
     }
-
-
   }
 }

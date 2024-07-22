@@ -28,6 +28,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
 
   @Input() placeholder: string;
 
+  @Input() customUndoRedo: boolean = false;
 
   /**
    * In dense mode the paragraph have less padding

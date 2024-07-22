@@ -3,7 +3,7 @@ import {FL_PORTAL_DATA, FlDialogService, FlOverlayRef} from '@monorepo/front-cor
 import {TeTextEditorHistoryService} from '../../model/te-text-editor-history.service';
 import {TeConfig} from '../../model/te-config.class';
 import {
-  TeTextEditorHistoryModification,
+  TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryModificationGroup
 } from '../../model/te-text-editor-history-modification.class';
 import {TeTextEditorHistoryUser} from '../../model/te-text-editor-history-user.class';
@@ -33,7 +33,7 @@ export class TeTextEditorHistoryPortalComponent implements OnInit {
   textEditorConfig: TeConfig;
   entityId: string;
   service: TeTextEditorHistoryService;
-  modifications: TeTextEditorHistoryModification[];
+  modifications: TeTextEditorHistoryBlockModification[];
   modificationsGroups: TeTextEditorHistoryModificationGroup[] = [];
   users: TeTextEditorHistoryUser[] = [];
 
@@ -56,7 +56,7 @@ export class TeTextEditorHistoryPortalComponent implements OnInit {
     });
   }
 
-  openSingleModificationVisualizer(modification: TeTextEditorHistoryModification): void {
+  openSingleModificationVisualizer(modification: TeTextEditorHistoryBlockModification): void {
     const eventData: TeTextEditorHistoryClickEventData = {
       isGroup: false,
       modification: modification
@@ -109,22 +109,16 @@ export class TeTextEditorHistoryPortalComponent implements OnInit {
 
   private createGroups(): void {
     for (const modification of this.modifications.reverse()) {
-      if (this.modificationsGroups.length == 0) {
-        this.modificationsGroups.push({
-          start: modification.time,
-          end: modification.time,
-          modifications: [modification]
-        });
-        continue;
-      }
-      if (this.modificationsGroups[this.modificationsGroups.length - 1].end - 10 * 60 * 1000 < modification.time) {
+      if (this.modificationsGroups.length != 0 &&
+        this.modificationsGroups[this.modificationsGroups.length - 1]?.end - 10 * 60 * 1000 < modification.time) {
+
         this.modificationsGroups[this.modificationsGroups.length - 1].modifications.push(modification);
       } else {
-        this.modificationsGroups.push({
-          start: modification.time,
-          end: modification.time,
-          modifications: [modification]
-        });
+        const group: TeTextEditorHistoryModificationGroup = new TeTextEditorHistoryModificationGroup()
+        group.start = modification.time;
+        group.end = modification.time;
+        group.modifications = [modification];
+        this.modificationsGroups.push(group);
       }
     }
   }

@@ -63,6 +63,18 @@ const teTextEditorI18nFr: FlLangTranslation = {
     add_row_below: 'Ajouter une ligne en dessous',
     delete_row: 'Supprimer la ligne',
     table_heading: 'En-tête',
+    modifications_history: 'Historique des modifications',
+    rollback_to_this_content: 'Revenir à ce contenu',
+    confirm_rollback_title: 'Confirmer le retour en arrière',
+    // eslint-disable-next-line max-len
+    confirm_rollback_content: 'Êtes-vous sûr de vouloir revenir à cette version du contenu ? Les modifications apportées après cette version seront supprimées.',
+    confirm_rollback_success: 'Retour en arrière effectué avec succès',
+    modification: 'Modification',
+    modification_text: 'a {{action}} un {{type}}',
+    CREATED: 'créé',
+    UPDATED: 'mis à jour',
+    DELETED: 'supprimé',
+    MOVED: 'déplacé'
   }
 };
 
@@ -124,6 +136,17 @@ const teTextEditorI18nEn: FlLangTranslation = {
     add_row_below: 'Add row below',
     delete_row: 'Delete row',
     table_heading: 'Heading',
+    modifications_history: 'Modifications history',
+    rollback_to_this_content: 'Rollback to this content',
+    confirm_rollback_title: 'Confirm rollback',
+    confirm_rollback_content: 'Are you sure you want to return to this content version? Changes made after this version will be deleted.',
+    confirm_rollback_success: 'Rollback successful',
+    modification: 'Modification',
+    modification_text: 'has {{action}} a {{type}}',
+    CREATED: 'created',
+    UPDATED: 'updated',
+    DELETED: 'deleted',
+    MOVED: 'moved'
   }
 };
 

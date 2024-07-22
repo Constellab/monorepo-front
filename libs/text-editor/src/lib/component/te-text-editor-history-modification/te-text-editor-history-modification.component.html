@@ -3,7 +3,7 @@
   <div class="g-text-small">
     <span>
     <fl-user-inline [user]="modification.user" [portalOnHover]="false"></fl-user-inline>
-    has {{modification.type}} a {{modification.blockType}}
+      {{'teTextEditor.modification_text' | translate : {action: (('teTextEditor.' + modification.type) | translate), type: modification.blockType} }}
   </span>
   </div>
 </div>
