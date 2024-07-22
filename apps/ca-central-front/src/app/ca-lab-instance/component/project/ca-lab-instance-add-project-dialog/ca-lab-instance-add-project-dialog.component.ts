@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
-import {CaProject} from '../../../../ca-core/model/entities/project/ca-project.class';
-import {CaLabInstanceProject} from '../../../../ca-core/model/entities/lab/ca-lab-instance-project.class';
-import {FlSnackBarService} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { CaProject } from '../../../../ca-core/model/entities/project/ca-project.class';
+import { CaLabInstanceProject } from '../../../../ca-core/model/entities/lab/ca-lab-instance-project.class';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CaLabProjectService } from '../../../../ca-core/service-api/ca-lab-project.service';
 
 export interface CaLabInstanceAddProjectDialogInput {
   labInstanceId: string;
@@ -25,7 +25,7 @@ export class CaLabInstanceAddProjectDialogComponent implements OnInit {
   isLoading: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) private input: CaLabInstanceAddProjectDialogInput,
-              private labInstanceService: CaLabInstanceService,
+              private labProjectService: CaLabProjectService,
               private dialogRef: MatDialogRef<CaLabInstanceAddProjectDialogComponent>,
               private snackBar: FlSnackBarService) {
   }
@@ -42,14 +42,14 @@ export class CaLabInstanceAddProjectDialogComponent implements OnInit {
 
   private addProject(project: CaProject): void {
     this.isLoading = true;
-    this.labInstanceService.addProjectToLab(this.input.labInstanceId, project.id).subscribe({
+    this.labProjectService.addProjectToLab(this.input.labInstanceId, project.id).subscribe({
       next: (labProject) => this.addProjectSuccess(labProject),
       error: () => this.isLoading = false
     });
   }
 
   private addProjectSuccess(labProject: CaLabInstanceProject): void {
-    this.snackBar.openSuccessMessage({text: 'lab_project_created', translateText: true});
+    this.snackBar.openSuccessMessage({ text: 'lab_project_created', translateText: true });
     this.isLoading = false;
     this.dialogRef.close(labProject);
   }

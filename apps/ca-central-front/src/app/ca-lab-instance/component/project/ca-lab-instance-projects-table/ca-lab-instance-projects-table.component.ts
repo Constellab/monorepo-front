@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   CaLabInstanceProject,
   CaLabInstanceProjectDatasource
@@ -10,7 +10,7 @@ import {
   FlSnackBarService,
   FlTableAbstractDirective
 } from '@monorepo/front-core-lib';
-import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
+import { CaLabProjectService } from '../../../../ca-core/service-api/ca-lab-project.service';
 
 @Component({
   selector: 'ca-lab-instance-projects-table',
@@ -23,15 +23,15 @@ export class CaLabInstanceProjectsTableComponent extends FlTableAbstractDirectiv
 
   @Input() labInstanceId: string;
 
-  constructor(private labInstanceService: CaLabInstanceService,
+  constructor(private labProjectService: CaLabProjectService,
               private dialogService: FlDialogService,
               private snackbarService: FlSnackBarService) {
     super(['project', 'createdBy', 'createdAt', 'actions']);
   }
 
   syncLabProject(labProject: CaLabInstanceProject): void {
-    this.labInstanceService.syncLabProject(this.labInstanceId, labProject.project.id).subscribe(
-      () => this.snackbarService.openSuccessMessage({text: 'lab_project_synced', translateText: true})
+    this.labProjectService.syncLabProject(this.labInstanceId, labProject.project.id).subscribe(
+      () => this.snackbarService.openSuccessMessage({ text: 'lab_project_synced', translateText: true })
     );
   }
 
@@ -40,7 +40,7 @@ export class CaLabInstanceProjectsTableComponent extends FlTableAbstractDirectiv
       title: 'lab_remove_project',
       content: 'lab_remove_project_confirmation',
       translateTitleAndContent: true,
-      observable: this.labInstanceService.removeProjectFromLab(this.labInstanceId, labProject.project.id),
+      observable: this.labProjectService.removeProjectFromLab(this.labInstanceId, labProject.project.id),
       successMessage: 'lab_project_removed',
       translateMessage: true
     };

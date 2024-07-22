@@ -34,7 +34,6 @@ import {
   CaLabTaskStatusInfo
 } from '../model/entities/lab/ca-lab-manager.class';
 import { CaLabInstanceUser, CaLabInstanceUserRole } from '../model/entities/lab/ca-lab-instance-user.class';
-import { CaLabInstanceProject } from '../model/entities/lab/ca-lab-instance-project.class';
 import {
   CaLabInstanceSearch,
   CaLabInstanceSearchFields
@@ -189,25 +188,6 @@ export class CaLabInstanceService {
 
   public getLabInstanceUsers(labId: string): Observable<CaLabInstanceUser[]> {
     return this.apiService.get(`${this.route}/${labId}/user`, CaLabInstanceUser);
-  }
-
-  //////////////////////////// PROJECT ////////////////////////////////
-
-  public addProjectToLab(labId: string, projectId: string): Observable<CaLabInstanceProject> {
-    return this.apiService.post(`${this.route}/${labId}/project/${projectId}`, null,
-      CaLabInstanceProject);
-  }
-
-  public removeProjectFromLab(labId: string, projectId: string): Observable<CaLabInstanceProject> {
-    return this.apiService.delete(`${this.route}/${labId}/project/${projectId}`, CaLabInstanceProject);
-  }
-
-  public getLabInstanceProjects(labId: string): Observable<CaLabInstanceProject[]> {
-    return this.apiService.get(`${this.route}/${labId}/project`, CaLabInstanceProject);
-  }
-
-  public syncLabProject(labId: string, projectId: string): Observable<void> {
-    return this.apiService.put(`${this.route}/${labId}/project/${projectId}/sync`, null);
   }
 
   //////////////////////////// LAB MANAGER ////////////////////////////////

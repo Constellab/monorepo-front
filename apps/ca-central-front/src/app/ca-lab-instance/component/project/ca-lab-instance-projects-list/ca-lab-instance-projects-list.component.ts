@@ -1,6 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlDialogService, FlTableColumn} from '@monorepo/front-core-lib';
-import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlDialogService, FlTableColumn } from '@monorepo/front-core-lib';
 import {
   CaLabInstanceProject,
   CaLabInstanceProjectDatasource
@@ -9,9 +8,10 @@ import {
   CaLabInstanceAddProjectDialogComponent,
   CaLabInstanceAddProjectDialogInput
 } from '../ca-lab-instance-add-project-dialog/ca-lab-instance-add-project-dialog.component';
-import {CaLabInstanceDetailPageState} from '../../../state/ca-lab-instance-detail-page.state';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { CaLabInstanceDetailPageState } from '../../../state/ca-lab-instance-detail-page.state';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CaLabProjectService } from '../../../../ca-core/service-api/ca-lab-project.service';
 
 @Component({
   selector: 'ca-lab-instance-projects-list',
@@ -36,14 +36,14 @@ export class CaLabInstanceProjectsListComponent implements OnInit {
 
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
 
-  constructor(private labInstanceService: CaLabInstanceService,
+  constructor(private labProjectService: CaLabProjectService,
               private dialogService: FlDialogService,
               private state: CaLabInstanceDetailPageState) {
   }
 
   ngOnInit(): void {
     this.datasource = new CaLabInstanceProjectDatasource(
-      this.labInstanceService.getLabInstanceProjects(this.labInstanceId)
+      this.labProjectService.getLabInstanceProjects(this.labInstanceId)
     );
   }
 
@@ -53,7 +53,7 @@ export class CaLabInstanceProjectsListComponent implements OnInit {
     };
 
     this.dialogService.openMediumDialog(CaLabInstanceAddProjectDialogComponent,
-      {data: data, panelClass: 'g-dialog-main-background'})
+      { data: data, panelClass: 'g-dialog-main-background' })
       .afterClosed().subscribe((labProject: CaLabInstanceProject) => this.onProjectAddedClosed(labProject));
   }
 

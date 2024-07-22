@@ -42,6 +42,7 @@
 .right-section {
   flex: 1 1 var(--article-width);
   margin-left: 2em;
+  z-index: 999;
 }
 
 @media (max-width: 1280px) {
