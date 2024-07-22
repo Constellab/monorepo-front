@@ -54,9 +54,7 @@ export class FlUpdateImageContainerComponent {
       },
     ];
 
-    console.log(this.showDelete, this.deleteConfig, this.showDelete && this.deleteConfig)
     if (this.showDelete && this.deleteConfig) {
-      console.log(this.showDelete)
       menu.push({
         text: {text: this.deleteConfig.title, translateText: true},
         icon: 'delete',

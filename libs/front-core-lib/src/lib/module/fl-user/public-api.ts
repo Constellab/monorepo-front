@@ -15,7 +15,6 @@ export * from './directive/fl-user-mouse-hover-portal/fl-user-mouse-hover-portal
 
 // Models
 export * from './model/fl-user.class';
-export * from './model/fl-user-dto.class';
 
 // Service
 export * from './service/fl-user-config.config';

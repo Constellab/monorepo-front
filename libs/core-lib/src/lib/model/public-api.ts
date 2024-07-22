@@ -7,5 +7,4 @@ export * from './cl-object.class';
 export * from './cl-page.class';
 export * from './cl-record-wrapper.class';
 export * from './cl-nest-api-error.class';
-export * from './cl-rich-text.class';
 export * from './cl-version.class';

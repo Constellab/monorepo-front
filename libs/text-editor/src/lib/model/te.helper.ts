@@ -261,4 +261,19 @@ export class TeHelper {
     }
     return config;
   }
+
+  /**
+   * Hollow a block element
+   * @param blockId
+   * @param color
+   * @param editorElement
+   */
+  public static hollowElement(blockId: string, color: string, editorElement: HTMLElement): void {
+    const element: HTMLElement = editorElement.querySelector('.ce-block[data-id="' + blockId + '"]');
+    if (element) {
+      element.style.backgroundColor = color;
+      element.style.padding = '4px';
+      element.style.margin = '4px';
+    }
+  }
 }

@@ -9,17 +9,23 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  Renderer2,
   ViewChild
 } from '@angular/core';
-import { TeConfig } from '../../model/te-config.class';
-import { TeRichText, TeRichTextContent } from '../../model/te-rich-text.class';
-import { Subject, Subscription } from 'rxjs';
-import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
-import { FlKeyboardHelper, FlKeyboardKey, FlTranslateService } from '@monorepo/front-core-lib';
-import { teGetI18nConfig } from '../../te-text-editor.i18n';
-import { TeMention } from '../../plugin/te-mention.class';
-import { ClHelpService } from '@monorepo/core-lib';
-import { TeEmoji } from '../../plugin/te-emoji.class';
+import {TeConfig} from '../../model/te-config.class';
+import {TeRichText, TeRichTextContent, TeRichTextUndoRedoResult} from '../../model/te-rich-text.class';
+import {Subject, Subscription} from 'rxjs';
+import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
+import {FlKeyboardHelper, FlKeyboardKey, FlTranslateService} from '@monorepo/front-core-lib';
+import {teGetI18nConfig} from '../../te-text-editor.i18n';
+import {TeMention} from '../../plugin/te-mention.class';
+import {ClHelpService} from '@monorepo/core-lib';
+import {TeEmoji} from '../../plugin/te-emoji.class';
+import {
+  TeTextEditorHistoryModificationGroup,
+  TeTextEditorHistoryModificationType
+} from '../../model/te-text-editor-history-modification.class';
+import {TeEvent} from '../../model/te-event.class';
 
 
 @Component({
@@ -31,8 +37,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   @Input({required: true}) config: TeConfig;
 
-  @Input() placeholder: string;
+  @Input() event: TeEvent;
 
+  @Input() placeholder: string;
 
   @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
 
@@ -56,7 +63,15 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   private editor: any | null;
 
+  private oldValue: TeRichTextContent;
+
+  private isUndoRedo = false;
+
+  private modificationGroup: TeTextEditorHistoryModificationGroup;
+
   private subscription: Subscription;
+
+  private firstInit = true;
 
   isLoaded$: Subject<boolean> = new Subject<boolean>();
 
@@ -66,9 +81,14 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   @HostBinding('class.include-toolbar-button')
   includeToolbarButton: boolean = false;
 
+  private outsideUndoRedoListener = async (e: any): Promise<void> => {
+    await this.checkKey(e);
+  };
+
   constructor(private envInjector: EnvironmentInjector,
               private applicationRef: ApplicationRef,
-              private translateService: FlTranslateService) {
+              private translateService: FlTranslateService,
+              private renderer2: Renderer2) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -113,6 +133,85 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     }
   }
 
+  async undoEvent(event: Event): Promise<void> {
+    event.preventDefault()
+    event.stopPropagation()
+
+    if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo) {
+      const undoResult: TeRichTextUndoRedoResult = TeRichText.undoModification(this._value, this.modificationGroup);
+
+      if (undoResult == null) {
+        return;
+      }
+
+      switch (undoResult.modificationType) {
+        case TeTextEditorHistoryModificationType.CREATED:
+          this.editor.blocks.delete(undoResult.index);
+          this.setCaret(undoResult.index - 1);
+          break;
+        case TeTextEditorHistoryModificationType.DELETED:
+          if (this.editor.blocks.getById(undoResult.block.id) != null) {
+            this.editor.blocks.delete(this.editor.blocks.getBlockIndex(undoResult.block.id));
+          }
+          this.editor.blocks.insertMany([undoResult.block], undoResult.index);
+          this.setCaret(undoResult.index);
+          break;
+        case TeTextEditorHistoryModificationType.UPDATED:
+          this.editor.blocks.insertMany([undoResult.block], undoResult.index);
+          this.editor.blocks.delete(undoResult.index + 1);
+          break;
+        case TeTextEditorHistoryModificationType.MOVED:
+          this.editor.blocks.move(undoResult.oldIndex, undoResult.index);
+          this.setCaret(undoResult.oldIndex);
+          break;
+      }
+
+      this.modificationGroup = undoResult.modificationsGroup;
+      this.isUndoRedo = true;
+      await this.onTextEditorChange();
+    }
+  }
+
+  async redoEvent(event: Event): Promise<void> {
+    event.preventDefault()
+    event.stopPropagation()
+
+    if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo) {
+      const redoResult: TeRichTextUndoRedoResult = TeRichText.redoModification(this._value, this.modificationGroup);
+
+      if (redoResult == null) {
+        return;
+      }
+
+      switch (redoResult.modificationType) {
+        case TeTextEditorHistoryModificationType.CREATED:
+          if (this.editor.blocks.getById(redoResult.block.id) != null) {
+            this.editor.blocks.delete(this.editor.blocks.getBlockIndex(redoResult.block.id));
+          }
+          this.editor.blocks.insertMany([redoResult.block], redoResult.index);
+          this.setCaret(redoResult.index);
+          break;
+        case TeTextEditorHistoryModificationType.DELETED:
+          this.editor.blocks.delete(redoResult.index);
+          this.setCaret(redoResult.index - 1);
+          break;
+        case TeTextEditorHistoryModificationType.UPDATED:
+          this.editor.blocks.insertMany([redoResult.block], redoResult.index);
+          this.editor.blocks.delete(redoResult.index + 1);
+          break;
+        case TeTextEditorHistoryModificationType.MOVED:
+          this.editor.blocks.move(redoResult.index, redoResult.oldIndex);
+          this.setCaret(redoResult.index);
+          break;
+      }
+
+      this.modificationGroup = redoResult.modificationsGroup;
+      this.isUndoRedo = true;
+      await this.onTextEditorChange();
+    }
+
+  }
+
   private async initEditor(module: any): Promise<void> {
     const config: EditorConfig = {
       placeholder: this.placeholder ?? this.translateService.translate('teTextEditor.placeholder'),
@@ -128,12 +227,13 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     };
     this.editor = new module.default(config);
     this.editor.isReady.then(() => {
-      this.isLoaded$.next(true);
       // render the value here and not in the editor config
       // because if the editor config is initialized with data
       // a blank line is added
       this.renderValue(this._value);
       this.listToConfigEvent();
+
+      this.removeGlobalUndoRedoEvent();
     });
   }
 
@@ -143,7 +243,48 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
         if (ClHelpService.isNullOrEmpty(value)) {
           this.editor.clear();
         } else {
-          this.editor.render(value);
+          if (this.firstInit) {
+            this.editor.render(value).then(() => {
+
+              this.isLoaded$.next(true);
+
+              this.event?.htmlIsInitiated();
+              this.firstInit = false;
+
+            });
+          } else {
+            this.editor.render(value);
+          }
+
+        }
+      });
+    }
+  }
+
+  printJson(): void {
+    this.editor.save().then((data: any) => {
+      console.log(data);
+    });
+  }
+
+  private setCaret(index: number): void {
+    if (index < 0) {
+      index = 0;
+    }
+
+    if (index >= this.editor.blocks.getBlocksCount()) {
+      index = this.editor.blocks.getBlocksCount() - 1;
+    }
+
+    this.editor.caret.setToBlock(index, 'end');
+  }
+
+  private listToConfigEvent(): void {
+    const obs = this.event?.getEvent$();
+    if (obs) {
+      this.subscription = obs.subscribe((event) => {
+        if (event.type === 'insertBlock') {
+          this.editor?.blocks?.insert(event.blockType, event.data);
         }
       });
     }
@@ -157,28 +298,31 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     // so the content is not cleared
     if (outputData == null) return;
 
-    // check if outputData is different from the current value
-    if (TeRichText.contentAreEquals(outputData, this._value)) return;
+    if (!this.isUndoRedo) {
+      this.oldValue = this._value;
+      this.modificationGroup = TeRichText.getRichTextModification(this.oldValue, outputData, 'current', this.modificationGroup);
+    }
 
+    // check if outputData is different from the current value
+    if (TeRichText.contentAreEquals(outputData, this._value) && !this.isUndoRedo) return;
+
+    this.isUndoRedo = false;
     this._value = outputData;
     this.textChange.emit(outputData);
   }
 
-  private listToConfigEvent(): void {
-    const obs = this.config.getEvent$();
-    if (obs) {
-      this.subscription = obs.subscribe((event) => {
-        if (event.type === 'insertBlock') {
-          this.editor?.blocks?.insert(event.blockType, event.data);
-        }
-      });
-    }
+  private async removeGlobalUndoRedoEvent(): Promise<void> {
+    document.addEventListener('keydown', this.outsideUndoRedoListener);
   }
 
-  printJson(): void {
-    this.editor.save().then((data: any) => {
-      console.log(data);
-    });
+  private async checkKey(e: any): Promise<void> {
+    if ((e.metaKey || e.ctrlKey) && e.key == 'z') {
+      e.preventDefault();
+      await this.undoEvent(e);
+    } else if ((e.metaKey || e.ctrlKey) && e.key == 'y') {
+      e.preventDefault();
+      await this.redoEvent(e);
+    }
   }
 
   ngOnDestroy(): void {
@@ -187,7 +331,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     }
     this.isLoaded$.complete();
     this.subscription?.unsubscribe();
+    document.removeEventListener('keydown', this.outsideUndoRedoListener);
   }
-
 
 }

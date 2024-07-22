@@ -3,7 +3,13 @@ import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
 import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
-import {FlConfirmDialogInput, FlDebouncer, FlDialogService, FlFormDialogInput} from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlDebouncer,
+  FlDialogService,
+  FlFormDialogInput,
+  FlOverlayRef, FlPortalService
+} from '@monorepo/front-core-lib';
 import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 import {Observable} from 'rxjs';
 import {HaDocTextEditorConfig} from '../ha-doc-text-editor-config.class';
@@ -15,7 +21,12 @@ import {
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
 import {FormControl} from '@angular/forms';
-import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
+import {
+  TeRichText,
+  TeRichTextContent,
+  TeTextEditorHistoryPortalComponent,
+  TeTextEditorHistoryPortalData
+} from '@monorepo/text-editor';
 import {BlockToolData} from '@editorjs/editorjs/types/tools';
 import {HaFile} from '../../../../ha-core/entity-module/ha-file-core/model/ha-file';
 import {HaHttpRedirectionService} from '../../../../ha-core/ha-service/ha-http-redirection.service';
@@ -51,6 +62,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   currentUrl: string;
   docFiles: HaFile[];
 
+  historyOverlayRef: FlOverlayRef;
+
   private contentDebouncer: FlDebouncer<TeRichTextContent>;
   private DOC_KEY: StateKey<object>;
 
@@ -63,7 +76,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
               private transferState: TransferState,
               @Inject(PLATFORM_ID) private platformId: object,
               private metadataService: HaMetadataService,
-              private httpRedirectionService: HaHttpRedirectionService) {
+              private httpRedirectionService: HaHttpRedirectionService,
+              private portalService: FlPortalService) {
   }
 
 
@@ -308,6 +322,23 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
 
   titleCurrentValue(): string{
     return this.currentDocTitle;
+  }
+
+  openHistoryPanel(): void {
+    if (this.historyOverlayRef) {
+      this.historyOverlayRef.dispose();
+      this.historyOverlayRef = null;
+    } else {
+      this.historyOverlayRef =
+        this.portalService.createPortal(TeTextEditorHistoryPortalComponent, this.portalService.getRightSidePortalConfig(false), {
+          service: this.documentationService,
+          entityId: this.documentation.id,
+          textEditorConfig: this.textEditorConfig
+        } as TeTextEditorHistoryPortalData);
+      this.historyOverlayRef.detachments().subscribe(() => {
+        this.historyOverlayRef = null;
+      });
+    }
   }
 
   ngOnDestroy(): void {

@@ -41,6 +41,10 @@ h2{
   border-radius: 0.5em;
 }
 
+.story-content-form .editor{
+  min-height: 60vh;
+}
+
 .save-content-div{
   display: flex;
   flex-direction: row;
@@ -146,13 +150,13 @@ h2{
   margin-top: 1em;
 }
 
+.right-bts-div{
+  margin-left: auto;
+}
+
 @media (max-width: 700px) {
   .buttons-div{
     flex-direction: column-reverse;
     gap: 1em;
-
-    .right-bts-div{
-      margin-left: auto;
-    }
   }
 }

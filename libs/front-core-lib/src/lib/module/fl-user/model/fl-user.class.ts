@@ -1,10 +1,16 @@
 import {FlDatasourcePaginated} from '../../../model/datasource/fl-datasource-paginated.class';
-import {FlUserDto} from './fl-user-dto.class';
+import {FlEntity} from '../../../model/fl-entity.class';
 
-export interface FlUser extends FlUserDto {
-  email: string;
+export interface FlUser extends FlEntity {
+  alias: string;
 
-  biography?: string;
+  firstname: string;
+
+  lastname: string;
+
+  photo?: string;
+
+  email?: string;
 
   company?: string;
 

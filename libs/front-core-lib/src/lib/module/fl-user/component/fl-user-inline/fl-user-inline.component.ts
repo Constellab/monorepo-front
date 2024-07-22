@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlUserDto} from '../../model/fl-user-dto.class';
+import {FlUser} from '../../model/fl-user.class';
 
 @Component({
   selector: 'fl-user-inline',
@@ -8,7 +8,7 @@ import {FlUserDto} from '../../model/fl-user-dto.class';
 })
 export class FlUserInlineComponent implements OnInit {
 
-  @Input({required: true}) user: FlUserDto;
+  @Input({required: true}) user: FlUser;
 
 
   @Input() showName: boolean = true;

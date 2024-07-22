@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FlUserConfig} from '../../service/fl-user-config.config';
-import {FlUserDto} from '../../model/fl-user-dto.class';
+import {FlUser} from '../../model/fl-user.class';
 
 
 export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | number;
@@ -12,7 +12,7 @@ export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | number;
 })
 export class FlUserProfilePictureComponent implements OnInit {
 
-  @Input({required: true}) set user(user: FlUserDto) {
+  @Input({required: true}) set user(user: FlUser) {
     this.setUser(user);
   }
 
@@ -55,7 +55,7 @@ export class FlUserProfilePictureComponent implements OnInit {
 
   }
 
-  private setUser(user: FlUserDto): void {
+  private setUser(user: FlUser): void {
 
 
     if (user) {

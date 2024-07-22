@@ -1,11 +1,11 @@
 import {Observable} from 'rxjs';
-import {TeTextEditorHistoryModification} from './te-text-editor-history-modification.class';
+import {TeTextEditorHistoryBlockModification} from './te-text-editor-history-modification.class';
 import {TeRichTextContent} from './te-rich-text.class';
 
 
 export interface TeTextEditorHistoryService {
 
-  getHistory(entityId: string): Observable<TeTextEditorHistoryModification[]>;
+  getHistory(entityId: string): Observable<TeTextEditorHistoryBlockModification[]>;
 
   getUndoContent(entityId: string, modificationId: string): Observable<TeRichTextContent>;
 

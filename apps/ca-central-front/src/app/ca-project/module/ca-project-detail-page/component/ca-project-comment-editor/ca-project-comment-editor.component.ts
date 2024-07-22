@@ -56,7 +56,7 @@ export class CaProjectCommentEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.textEditorConfig?.destroy();
+    this.textEditorConfig?.event.destroy();
   }
 
 

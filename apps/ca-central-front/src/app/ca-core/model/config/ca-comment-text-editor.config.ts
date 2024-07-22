@@ -7,7 +7,7 @@ import {
   TeAdditionalConfig,
   TeCleanStyleInlineTool,
   TeComponentInitData,
-  TeConfig,
+  TeConfig, TeEvent,
   TeFakeInlineTool,
   TeFigureBlockConfig,
   TeStrikethroughInlineTool,
@@ -48,6 +48,8 @@ export class CaProjectCommentTextEditorImageConfig implements TeFigureBlockConfi
  */
 export class CaProjectCommentTextEditorConfig extends TeConfig {
 
+  public event: TeEvent = new TeEvent();
+
   constructor(private projectId$: Observable<string>,
               private projectService: CaProjectService,
               private mode: 'create' | 'update' = 'create') {
@@ -55,7 +57,6 @@ export class CaProjectCommentTextEditorConfig extends TeConfig {
       hideToolbar: true,
       dense: true
     });
-    this.initEvent();
   }
 
   /**
@@ -121,7 +122,8 @@ export class CaProjectCommentTextEditorConfig extends TeConfig {
   }
 
   addFigureBlock(): void {
-    this.addEvent({
+
+    this.event.addEvent({
       type: 'insertBlock',
       blockType: 'figure',
       data: {
