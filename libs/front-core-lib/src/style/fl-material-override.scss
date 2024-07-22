@@ -368,6 +368,11 @@ body {
     top: 0;
   }
 
+  // make the element over the a (g-row-link) absolute element
+  .g-row-button {
+    z-index: 10;
+  }
+
   /******************************* MAT TREE ***************************/
   mat-tree {
     background-color: transparent !important;

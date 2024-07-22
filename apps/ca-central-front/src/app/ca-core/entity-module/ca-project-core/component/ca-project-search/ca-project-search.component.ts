@@ -1,15 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumn,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {CaProject, CaProjectDatasource} from '../../../../model/entities/project/ca-project.class';
-import {CaProjectService} from '../../../../service-api/ca-project.service';
-import {CaProjectSearch, CaProjectSearchFields} from '../../model/ca-project-search.class';
+import { CaProjectDatasource } from '../../../../model/entities/project/ca-project.class';
+import { CaProjectService } from '../../../../service-api/ca-project.service';
+import { CaProjectSearch, CaProjectSearchFields } from '../../model/ca-project-search.class';
 
 @Component({
   selector: 'ca-project-search',
@@ -21,8 +20,6 @@ import {CaProjectSearch, CaProjectSearchFields} from '../../model/ca-project-sea
 export class CaProjectSearchComponent implements OnInit {
 
   datasource: CaProjectDatasource;
-
-  columns: FlTableColumn<CaProject>[] = ['code', 'title', 'status', 'leader', 'creation', 'actions'];
 
   constructor(private searchState: FlSearchState<any>,
               private projectService: CaProjectService,

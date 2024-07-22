@@ -3,30 +3,33 @@
   <!-- Code -->
   <ng-container matColumnDef="code">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'code' | translate}}</span>
+      <span> {{ 'code' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let project">
+
+      <!--    Invisible link  -->
+      <a [routerLink]="project | caDetailRoute" class="g-row-link"></a>
+
       <ca-project-icon [project]="project"></ca-project-icon>
-      <div class="code">{{project.code}}</div>
+      <div class="code">{{ project.code }}</div>
     </mat-cell>
   </ng-container>
-
 
 
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'title' | translate}}</span>
+      <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let project">
-      <div>{{project.title}}</div>
+      <div>{{ project.title }}</div>
     </mat-cell>
   </ng-container>
 
   <!-- Creation info -->
   <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'creation_info' | translate}}</span>
+      <span> {{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let project">
       <fl-user-with-date [user]="project.createdBy" [date]="project.createdAt"></fl-user-with-date>
@@ -36,7 +39,7 @@
   <!-- Leader -->
   <ng-container matColumnDef="leader">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'project_leader' | translate}}</span>
+      <span> {{ 'project_leader' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let project">
       <fl-user-inline [user]="project.leader"></fl-user-inline>
@@ -46,7 +49,7 @@
   <!-- Status -->
   <ng-container matColumnDef="status">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'status' | translate}}</span>
+      <span>{{ 'status' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let project">
       <fl-status-chip [status]="project.currentStatus.status" mode="iconText">
@@ -62,27 +65,14 @@
       <ca-project-actions-menu [project]="row" (projectUpdated)="onProjectUpdated($event)"
                                (projectDeleted)="onProjectDeleted($event)"
                                (childProjectCreated)="onChildCreated($event)"
-                               [stopClickEvent]="true"></ca-project-actions-menu>
+                               [stopClickEvent]="true"
+                               class="g-row-button"></ca-project-actions-menu>
     </mat-cell>
   </ng-container>
 
 
-  <!-- Dynamic columns -->
-  <ng-container *ngFor="let column of dynamicColumns" [matColumnDef]="column.accessor">
-    <mat-header-cell *matHeaderCellDef>
-      {{column.columnName | translate}}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let experiment">
-      <div>
-        <span>{{experiment[column.accessor]}}</span>
-      </div>
-    </mat-cell>
-  </ng-container>
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
-
-  <mat-header-row *matHeaderRowDef="_columns; sticky: true"></mat-header-row>
-
-  <mat-row *matRowDef="let row; columns: _columns;" class="g-table-row-selectable"
-           [routerLink]="row | caDetailRoute">
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container">
   </mat-row>
 </mat-table>

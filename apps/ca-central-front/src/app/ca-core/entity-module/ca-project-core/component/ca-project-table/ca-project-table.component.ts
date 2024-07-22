@@ -1,22 +1,20 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlTableAbstractDirective} from '@monorepo/front-core-lib';
-import {CaProject, CaProjectDatasource} from '../../../../model/entities/project/ca-project.class';
-import {CaRouterService} from '../../../../service/ca-router.service';
+import { Component, Input } from '@angular/core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { CaProject, CaProjectDatasource } from '../../../../model/entities/project/ca-project.class';
+import { CaRouterService } from '../../../../service/ca-router.service';
 
 @Component({
   selector: 'ca-project-table',
   templateUrl: './ca-project-table.component.html',
   styleUrls: ['./ca-project-table.component.scss']
 })
-export class CaProjectTableComponent extends FlTableAbstractDirective<CaProject> implements OnInit {
+export class CaProjectTableComponent {
 
-  @Input() datasource: CaProjectDatasource;
+  @Input({ required: true }) datasource: CaProjectDatasource;
+
+  @Input() columns: FlTableColumnStatic<CaProject>[] = ['code', 'title', 'status', 'leader', 'creation', 'actions'];
 
   constructor(private routerService: CaRouterService) {
-    super(['code', 'title', 'creation', 'status', 'leader', 'actions']);
-  }
-
-  ngOnInit(): void {
   }
 
   onProjectUpdated(project: CaProject): void {
