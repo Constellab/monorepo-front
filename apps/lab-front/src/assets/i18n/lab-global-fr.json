@@ -56,6 +56,7 @@
   "no_selected_resource": "Aucune ressource sélectionnée",
   "name": "Nom",
   "id": "Id",
+  "id_copied_to_clipboard": "Id copié dans le presse-papier",
   "type": "Type",
   "email": "Adresse email",
   "email_invalid": "L'adresse email n'est pas valide",
