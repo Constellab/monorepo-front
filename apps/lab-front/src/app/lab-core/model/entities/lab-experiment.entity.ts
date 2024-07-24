@@ -94,7 +94,7 @@ export class LabExperiment extends LabBaseEntityWithUser implements LabProjectOb
 
   // return true if the protocol of the experiment can be edited
   protocolIsEditable(): boolean {
-    return this.isInfoEditable() && !this.isRunningOrWaiting() && this.creationType !== 'IMPORTED';
+    return this.isInfoEditable() && !this.isRunningOrWaiting();
   }
 
   isRunning(): boolean {
