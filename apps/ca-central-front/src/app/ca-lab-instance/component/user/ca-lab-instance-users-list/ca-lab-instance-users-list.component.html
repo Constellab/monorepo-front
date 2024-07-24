@@ -3,7 +3,7 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon>people</mat-icon>
-      <h2>{{'lab_users' | translate}}</h2>
+      <h2>{{ 'lab_users' | translate }}</h2>
     </fl-text-icon>
 
     <fl-card-actions *ngIf="isOwner$ | async">
@@ -16,13 +16,15 @@
 
   <fl-card-body>
 
-    <p class="g-text-light">{{'lab_users_section_help' | translate}}</p>
+    <p class="g-text-light">{{ 'lab_users_section_help' | translate }}</p>
     <fl-async-section [arrayObs]="datasource">
 
       <ng-container *flSectionBodyDatasource>
-        <ca-lab-instance-users-table [datasource]="datasource" [columns]="columns$ | async"
-                                     [labInstanceId]="labInstanceId">
-        </ca-lab-instance-users-table>
+        <div class="g-infinite-table g-scrollable-element">
+          <ca-lab-instance-users-table [datasource]="datasource" [columns]="columns$ | async"
+                                       [labInstanceId]="labInstanceId">
+          </ca-lab-instance-users-table>
+        </div>
       </ng-container>
 
     </fl-async-section>
