@@ -2,33 +2,34 @@
   <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
-  <ng-container *ngIf="showViewLinks">
-    <a mat-menu-item type="button" *ngIf="document.isConstellabDocument(); else normalDoc"
-       [routerLink]="document | caDetailRoute">
-      <mat-icon>visibility</mat-icon>
-      <span>{{ 'view_document' | translate }}</span>
-    </a>
-
-    <ng-template #normalDoc>
-      <a mat-menu-item type="button" [href]="getDocumentDownloadUrl()" download>
-        <mat-icon>cloud_download</mat-icon>
-        <span>{{ 'download_document' | translate }}</span>
-      </a>
-    </ng-template>
-  </ng-container>
+  @if (showViewLinks) {
+    <ng-container>
+      @if (document.isConstellabDocument()) {
+        <a mat-menu-item type="button"
+           [routerLink]="document | caDetailRoute">
+          <mat-icon>visibility</mat-icon>
+          <span>{{ 'view_document' | translate }}</span>
+        </a>
+      } @else {
+        <a mat-menu-item type="button" [href]="getDocumentDownloadUrl()" download>
+          <mat-icon>cloud_download</mat-icon>
+          <span>{{ 'download_document' | translate }}</span>
+        </a>
+      }
+    </ng-container>
+  }
 
   <button mat-menu-item type="button" (click)="renameDocument()">
     <mat-icon>edit</mat-icon>
     <span>{{ 'rename_document' | translate }}</span>
   </button>
 
-  <button mat-menu-item type="button"
-          (click)="moveToTrash()" *ngIf="!document.inTrash; else inTrash">
-    <mat-icon color="warn">clear</mat-icon>
-    <span class="g-warn-text">{{ 'move_document_to_trash' | translate }}</span>
+  <button mat-menu-item type="button" (click)="moveDocument()">
+    <mat-icon>drive_file_move</mat-icon>
+    <span>{{ 'move_to_project' | translate }}</span>
   </button>
 
-  <ng-template #inTrash>
+  @if (document.inTrash) {
     <button mat-menu-item type="button" (click)="restoreFromTrash()">
       <mat-icon>restore_from_trash</mat-icon>
       <span>{{ 'restore_document_from_trash' | translate }}</span>
@@ -39,5 +40,12 @@
       <mat-icon color="warn">delete_forever</mat-icon>
       <span class="g-warn-text">{{ 'delete_document' | translate }}</span>
     </button>
-  </ng-template>
+
+  } @else {
+    <button mat-menu-item type="button"
+            (click)="moveToTrash()">
+      <mat-icon color="warn">clear</mat-icon>
+      <span class="g-warn-text">{{ 'move_document_to_trash' | translate }}</span>
+    </button>
+  }
 </mat-menu>

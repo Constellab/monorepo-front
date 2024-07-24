@@ -52,6 +52,8 @@ export class CaDocumentTableComponent {
       } else {
         this.datasource.addItem(event.document);
       }
+    } else if (event.action === 'moveToProject') {
+      this.datasource.removeItem(event.document);
     }
     this.documentAction.emit(event);
   }

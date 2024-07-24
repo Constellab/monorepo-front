@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CaProject, CaProjectLevelStatus} from '../../../../model/entities/project/ca-project.class';
+import { Component, Input } from '@angular/core';
+import { CaProject, CaProjectLevelStatus } from '../../../../model/entities/project/ca-project.class';
 
 /**
  * Icon for a project if it is a parent or a leaf project
@@ -9,19 +9,13 @@ import {CaProject, CaProjectLevelStatus} from '../../../../model/entities/projec
   templateUrl: './ca-project-icon.component.html',
   styleUrls: ['./ca-project-icon.component.scss']
 })
-export class CaProjectIconComponent implements OnInit {
+export class CaProjectIconComponent {
 
   @Input() type: CaProjectLevelStatus;
 
   @Input() project: CaProject;
 
   @Input() iconClass: string = '';
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   get projectType(): 'parent' | 'leaf' {
     if (this.type) {

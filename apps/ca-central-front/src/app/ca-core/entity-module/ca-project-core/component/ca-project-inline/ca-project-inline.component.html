@@ -1,8 +1,9 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-  <mat-icon flIcon="project"></mat-icon>
+  <ca-project-icon [project]="project" iconClass="g-icon-small"></ca-project-icon>
+
 
   <div>
-    <p>{{project.title}}</p>
-    <p class="g-text-light g-text-small">{{project.code}}</p>
+    <p>{{ project.code }}</p>
+    <p class="g-text-light g-text-small">{{ project.title }}</p>
   </div>
 </div>

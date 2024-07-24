@@ -1,11 +1,11 @@
-import {Component, Inject} from '@angular/core';
-import {CaDocument, CaDocumentDatasource} from '../../../../../ca-core/model/entities/project/ca-document.class';
-import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { CaDocument, CaDocumentDatasource } from '../../../../../ca-core/model/entities/project/ca-document.class';
+import { CaProjectService } from '../../../../../ca-core/service-api/ca-project.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   CaDocumentActionEvent
 } from '../../../ca-document-core/component/ca-document-actions-menu/ca-document-actions-menu.component';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 
 export interface CaDocumentTrashListDialogInput {
   projectId: string;
@@ -56,7 +56,7 @@ export class CaDocumentTrashListDialogComponent {
     );
   }
 
-  private onEmptyClosed(result: FlConfirmDialogResult<void>){
+  private onEmptyClosed(result: FlConfirmDialogResult<void>): void{
     if(result.choice){
       this.documentDatasource.getFirstPage();
     }

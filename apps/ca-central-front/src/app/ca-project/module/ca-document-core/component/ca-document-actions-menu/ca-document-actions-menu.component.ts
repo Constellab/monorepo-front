@@ -4,12 +4,23 @@ import {
   CaDocumentNameFormDialogComponent,
   CaDocumentNameFormDialogInput
 } from '../ca-document-name-form-dialog/ca-document-name-form-dialog.component';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlPortalActionResult,
+  FlPortalActionsService
+} from '@monorepo/front-core-lib';
 import { CaProjectService } from '../../../../../ca-core/service-api/ca-project.service';
 import { ClHelpService } from '@monorepo/core-lib';
+import {
+  CaSelectProjectDialogComponent,
+  CaSelectProjectDialogInput
+} from '../../../../../ca-core/entity-module/ca-project-core/component/ca-select-project-dialog/ca-select-project-dialog.component';
+import { CaProject } from '../../../../../ca-core/model/entities/project/ca-project.class';
 
 export interface CaDocumentActionEvent {
-  action: 'update' | 'delete' | 'moveToTrash' | 'restoreFromTrash';
+  action: 'update' | 'delete' | 'moveToTrash' | 'restoreFromTrash' | 'moveToProject';
   document: CaDocument;
 }
 
@@ -27,7 +38,8 @@ export class CaDocumentActionsMenuComponent {
   @Output() documentAction: EventEmitter<CaDocumentActionEvent> = new EventEmitter();
 
   constructor(private dialogService: FlDialogService,
-              private projectService: CaProjectService) {
+              private projectService: CaProjectService,
+              private actionService: FlPortalActionsService) {
   }
 
   cancelEvent(event: MouseEvent): void {
@@ -41,12 +53,12 @@ export class CaDocumentActionsMenuComponent {
   renameDocument(): void {
     const input: CaDocumentNameFormDialogInput = {
       mode: 'update',
-      object: {name: this.document.name},
+      object: { name: this.document.name },
       documentId: this.document.id,
       projectId: this.document.projectId
     };
 
-    this.dialogService.openSmallDialog(CaDocumentNameFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaDocumentNameFormDialogComponent, { data: input }).afterClosed().subscribe(
       result => this.onRenameClosed(result)
     );
   }
@@ -76,7 +88,7 @@ export class CaDocumentActionsMenuComponent {
   }
 
   private onMoveToTrashClosed(result: FlConfirmDialogResult<CaDocument>): void {
-    if(result.choice){
+    if (result.choice) {
       this.documentAction.emit({
         action: 'moveToTrash',
         document: result.result
@@ -100,7 +112,7 @@ export class CaDocumentActionsMenuComponent {
   }
 
   private onRestoreFromTrashClosed(result: FlConfirmDialogResult<CaDocument>): void {
-    if(result.choice){
+    if (result.choice) {
       this.documentAction.emit({
         action: 'restoreFromTrash',
         document: result.result
@@ -123,11 +135,42 @@ export class CaDocumentActionsMenuComponent {
     );
   }
 
-  onDeleteClosed(result: FlConfirmDialogResult, document: CaDocument): void {
+  private onDeleteClosed(result: FlConfirmDialogResult, document: CaDocument): void {
     if (result.choice) {
       this.documentAction.emit({
         action: 'delete',
         document: document
+      });
+    }
+  }
+
+  moveDocument(): void {
+    const input: CaSelectProjectDialogInput = {
+      title: { text: 'move_to_project', translateText: true },
+      mode: 'any',
+      currentProjectId: this.document.projectId
+    };
+    this.dialogService.openMediumDialog(CaSelectProjectDialogComponent, { data: input, autoFocus: false })
+      .afterClosed().subscribe((project) => this.onMoveDocumentClosed(project));
+  }
+
+  private onMoveDocumentClosed(project?: CaProject): void {
+    if (project) {
+      this.actionService.addAction({
+        type: 'move-doc-to-project',
+        action: this.projectService.moveDocumentToProject(this.document.id, project.id),
+        text: { text: 'moving_to_project', translateText: true }
+      }).subscribe(
+        result => this.onMoveDocumentSuccess(result)
+      );
+    }
+  }
+
+  private onMoveDocumentSuccess(result: FlPortalActionResult<CaDocument>): void {
+    if (result.status === 'success') {
+      this.documentAction.emit({
+        action: 'moveToProject',
+        document: result.result
       });
     }
   }

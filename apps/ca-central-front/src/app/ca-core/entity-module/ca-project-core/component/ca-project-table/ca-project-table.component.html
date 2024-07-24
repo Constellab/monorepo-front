@@ -1,28 +1,18 @@
 <mat-table mat-table [dataSource]="datasource" class="table">
 
-  <!-- Code -->
+  <!-- Code/Title -->
   <ng-container matColumnDef="code">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'code' | translate }}</span>
+      <span> {{ 'code' | translate }} / {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let project">
 
       <!--    Invisible link  -->
-      <a [routerLink]="project | caDetailRoute" class="g-row-link"></a>
+      @if (!rowSelectable) {
+        <a [routerLink]="project | caDetailRoute" class="g-row-link"></a>
+      }
 
-      <ca-project-icon [project]="project"></ca-project-icon>
-      <div class="code">{{ project.code }}</div>
-    </mat-cell>
-  </ng-container>
-
-
-  <!-- Title -->
-  <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'title' | translate }}</span>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let project">
-      <div>{{ project.title }}</div>
+      <ca-project-inline [project]="project"></ca-project-inline>
     </mat-cell>
   </ng-container>
 
@@ -70,9 +60,20 @@
     </mat-cell>
   </ng-container>
 
+  <!-- Custom action where template is defined by parent -->
+  <ng-container matColumnDef="customAction">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
+      <ng-container *ngTemplateOutlet="templateRef; context: getViewContent(row)"></ng-container>
+    </mat-cell>
+  </ng-container>
+
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
-  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container">
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
+           (click)="onProjectClick(row)" (dblclick)="onProjectDblClick(row)"
+           [ngClass]="{'selected-row': row.id === selectedProject?.id}">
   </mat-row>
 </mat-table>

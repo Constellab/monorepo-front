@@ -54,17 +54,17 @@ export class CaProjectService {
   }
 
   public createProject(project: CnSaveProjectDTO): Observable<CaProject> {
-    return this.apiService.post(this.route, project, CaProject, {serialization: CaProject});
+    return this.apiService.post(this.route, project, CaProject, { serialization: CaProject });
   }
 
   public createSubProject(subProject: CnSaveProjectDTO, parentProjectId: string): Observable<CaProject> {
     return this.apiService.post(`${this.route}/${parentProjectId}/sub-project`, subProject, CaProject,
-      {serialization: CnSaveProjectDTO});
+      { serialization: CnSaveProjectDTO });
   }
 
 
   public update(id: string, object: CnSaveProjectDTO): Observable<CaProject> {
-    return this.apiService.put(`${this.route}/${id}`, object, CaProject, {serialization: CnSaveProjectDTO});
+    return this.apiService.put(`${this.route}/${id}`, object, CaProject, { serialization: CnSaveProjectDTO });
   }
 
   public delete(id: string): Observable<void> {
@@ -82,7 +82,7 @@ export class CaProjectService {
 
   private getMyProjects(page: number, pageSize: number): Observable<ClPageI<CaProject>> {
     return this.apiService.get(`${this.route}/current`, CaProject,
-      {resultIsPaginated: true, page: page, pageSize: pageSize});
+      { resultIsPaginated: true, page: page, pageSize: pageSize });
   }
 
   public getProjectByCurrentSpaceDatasource(): CaProjectDatasource {
@@ -93,7 +93,7 @@ export class CaProjectService {
 
   public getProjectByCurrentSpace(page: number, size: number): Observable<ClPageI<CaProject>> {
     return this.apiService.get(`${this.route}/current-space`, CaProject,
-      {resultIsPaginated: true, page: page, pageSize: size});
+      { resultIsPaginated: true, page: page, pageSize: size });
   }
 
   // use to pass the updateStatus method to UpdateStatusFormDialog
@@ -126,8 +126,23 @@ export class CaProjectService {
     return this.apiService.get(`${this.route}/${id}/children`, CaProject);
   }
 
+  public getChildrenDatasource(id: string): CaProjectDatasource {
+    return new FlEntityPaginatedDatasource(
+      (page, pageSize) => this.getChildrenPaginated(id, page, pageSize),
+      20);
+  }
+
+  public getChildrenPaginated(id: string, page: number, size: number): Observable<ClPageI<CaProject>> {
+    return this.apiService.get(`${this.route}/${id}/children/paginated`, CaProject,
+      { resultIsPaginated: true, page: page, pageSize: size });
+  }
+
   public getObjectProjectAncestors(objectType: CaProjectAncestorType, objectId: string): Observable<CaProjectAncestorTreeDTO[]> {
     return this.apiService.get(`${this.route}/ancestors/${objectType}/${objectId}`);
+  }
+
+  public getProjectAncestors(id: string): Observable<CaProject[]> {
+    return this.apiService.get(`${this.route}/${id}/ancestors`, CaProject);
   }
 
   public getUsersOfProject(projectId: string): Observable<CaUser[]> {
@@ -181,17 +196,17 @@ export class CaProjectService {
 
   public getAll(projectId: string, page: number, size: number): Observable<ClPage<CaProjectComment>> {
     return this.apiService.get(`${this.route}/${projectId}/comments`, CaProjectComment,
-      {page: page, pageSize: size, resultIsPaginated: true});
+      { page: page, pageSize: size, resultIsPaginated: true });
   }
 
   public createComment(projectId: string, content: TeRichTextContent, parentCommentId?: string): Observable<CaProjectComment> {
     return this.apiService.post(`${this.route}/${projectId}/comment`,
-      {content: content, parentCommentId: parentCommentId}, CaProjectComment);
+      { content: content, parentCommentId: parentCommentId }, CaProjectComment);
   }
 
   public updateComment(projectId: string, commentId: string, content: TeRichTextContent): Observable<CaProjectComment> {
     return this.apiService.put(`${this.route}/${projectId}/comment/${commentId}`,
-      {content: content}, CaProjectComment);
+      { content: content }, CaProjectComment);
   }
 
   public deleteComment(projectId: string, commentId: string): Observable<CaProjectComment> {
@@ -240,7 +255,7 @@ export class CaProjectService {
   }
 
   public renameDocument(documentId: string, name: string): Observable<CaDocument> {
-    return this.apiService.put(`${this.route}/document/${documentId}/rename`, {name: name}, CaDocument);
+    return this.apiService.put(`${this.route}/document/${documentId}/rename`, { name: name }, CaDocument);
   }
 
   public getTrashedDocuments(projectId: string): CaDocumentDatasource {
@@ -262,10 +277,14 @@ export class CaProjectService {
     return this.apiService.put(`${this.route}/${projectId}/empty-trash`, null);
   }
 
+  public moveDocumentToProject(documentId: string, projectId: string): Observable<CaDocument> {
+    return this.apiService.put(`${this.route}/document/${documentId}/move/${projectId}`, null, CaDocument);
+  }
+
   //////////////////////////////////// CONSTELLAB DOCUMENT ///////////////////////////////////////////
 
   public createConstellabDocument(projectId: string, filename: string): Observable<CaConstellabDocument> {
-    return this.apiService.post(`${this.route}/${projectId}/constellab-document`, {name: filename}, CaConstellabDocument);
+    return this.apiService.post(`${this.route}/${projectId}/constellab-document`, { name: filename }, CaConstellabDocument);
   }
 
   public updateConstellabDocument(documentId: string, content: TeRichTextContent): Observable<CaConstellabDocument> {
@@ -310,7 +329,7 @@ export class CaProjectService {
 
   public findAccessibleProjectBucketLocation(page: number, size: number): Observable<ClPageI<CaBucketLocationDTO>> {
     return this.apiService.get(`${this.route}/storage/buckets`, CaBucketLocationDTO,
-      {resultIsPaginated: true, page: page, pageSize: size});
+      { resultIsPaginated: true, page: page, pageSize: size });
   }
 
   public getProjectStorageSize(projectId: string): Observable<CaProjectStorageUsageDTO> {

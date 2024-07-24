@@ -1,17 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FlDialogService, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import {
+  FlDialogService,
+  FlPortalActionResult,
+  FlPortalActionsService,
+  FlTableColumnStatic
+} from '@monorepo/front-core-lib';
 import {
   CaLabInstanceProject,
   CaLabInstanceProjectDatasource
 } from '../../../../ca-core/model/entities/lab/ca-lab-instance-project.class';
-import {
-  CaLabInstanceAddProjectDialogComponent,
-  CaLabInstanceAddProjectDialogInput
-} from '../ca-lab-instance-add-project-dialog/ca-lab-instance-add-project-dialog.component';
 import { CaLabInstanceDetailPageState } from '../../../state/ca-lab-instance-detail-page.state';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaLabProjectService } from '../../../../ca-core/service-api/ca-lab-project.service';
+import {
+  CaSelectProjectDialogComponent,
+  CaSelectProjectDialogInput
+} from '../../../../ca-core/entity-module/ca-project-core/component/ca-select-project-dialog/ca-select-project-dialog.component';
+import { CaProject } from '../../../../ca-core/model/entities/project/ca-project.class';
 
 @Component({
   selector: 'ca-lab-instance-projects-list',
@@ -38,7 +44,8 @@ export class CaLabInstanceProjectsListComponent implements OnInit {
 
   constructor(private labProjectService: CaLabProjectService,
               private dialogService: FlDialogService,
-              private state: CaLabInstanceDetailPageState) {
+              private state: CaLabInstanceDetailPageState,
+              private actionService: FlPortalActionsService) {
   }
 
   ngOnInit(): void {
@@ -48,18 +55,29 @@ export class CaLabInstanceProjectsListComponent implements OnInit {
   }
 
   openAddProjectDialog(): void {
-    const data: CaLabInstanceAddProjectDialogInput = {
-      labInstanceId: this.labInstanceId
+    const input: CaSelectProjectDialogInput = {
+      title: { text: 'lab_add_project', translateText: true },
+      mode: 'root'
     };
-
-    this.dialogService.openMediumDialog(CaLabInstanceAddProjectDialogComponent,
-      { data: data, panelClass: 'g-dialog-main-background' })
-      .afterClosed().subscribe((labProject: CaLabInstanceProject) => this.onProjectAddedClosed(labProject));
+    this.dialogService.openMediumDialog(CaSelectProjectDialogComponent, { data: input, autoFocus: false })
+      .afterClosed().subscribe((project) => this.onProjectAddedClosed(project));
   }
 
-  private onProjectAddedClosed(labProject?: CaLabInstanceProject): void {
-    if (labProject) {
-      this.datasource.addItem(labProject);
+  private onProjectAddedClosed(project?: CaProject): void {
+    if (project) {
+      this.actionService.addAction({
+        type: 'lab-add-project',
+        action: this.labProjectService.addProjectToLab(this.labInstanceId, project.id),
+        text: { text: 'adding_lab_project', translateText: true }
+      }).subscribe(
+        result => this.onActionFinished(result)
+      );
+    }
+  }
+
+  private onActionFinished(result: FlPortalActionResult<CaLabInstanceProject>): void {
+    if (result.status === 'success') {
+      this.datasource.addItem(result.result);
     }
   }
 }
