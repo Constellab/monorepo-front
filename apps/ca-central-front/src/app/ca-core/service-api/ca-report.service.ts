@@ -36,8 +36,8 @@ export class CaReportService {
 
   ////////////////////////////// METHOD FOR TEXT EDITOR //////////////////////////
 
-  getImageUrl(reportId: string, filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${reportId}/image/${filename}`);
+  getFileUrl(reportId: string, filename: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${reportId}/file/${filename}`);
   }
 
   getView(reportId: string, viewId: string): Observable<CaResourceView> {

@@ -1,6 +1,10 @@
 import { TeCompleteConfig, teInlineToolFactory, TeTools, TeVariableInlineToolClass } from '@monorepo/text-editor';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
-import { LabRichTextTextEditorImageConfig } from '../../lab-core/entity-service/lab-rich-text.service';
+import {
+  LabRichTextFileConfig,
+  LabRichTextImageConfig,
+  LabRichTextObjectType
+} from '../../lab-core/entity-service/lab-rich-text.service';
 
 
 /**
@@ -8,6 +12,9 @@ import { LabRichTextTextEditorImageConfig } from '../../lab-core/entity-service/
  */
 export class LabDocumentTemplateTextEditorConfig extends TeCompleteConfig {
 
+  constructor(private documentTemplateId: string) {
+    super();
+  }
 
   /**
    * Get the complete config and add the view block and configure the image block
@@ -18,10 +25,14 @@ export class LabDocumentTemplateTextEditorConfig extends TeCompleteConfig {
     const tools = super.getTools(envInjector, applicationRef);
 
     // configure and add the image block
-    const imageConfig = new LabRichTextTextEditorImageConfig();
+    const imageConfig = new LabRichTextImageConfig(LabRichTextObjectType.DOCUMENT_TEMPLATE, this.documentTemplateId);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
+
+    tools.file = this.getFileConfig(new LabRichTextFileConfig(LabRichTextObjectType.DOCUMENT_TEMPLATE, this.documentTemplateId), envInjector, applicationRef);
+
+    // TODO ADD SUPPORT FOR view file
 
     return tools;
   }

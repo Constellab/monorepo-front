@@ -20,7 +20,7 @@ export class LabResourceENoteService {
   }
 
   public getFilePath(enoteResourceId: string, filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${enoteResourceId}/resource/${filename}/image`);
+    return this.apiService.getBaseRouteUrl(`${this.route}/${enoteResourceId}/resource/${filename}/file`);
   }
 
   public callResourceView(enoteResourceId: string, subResourceKey: string,

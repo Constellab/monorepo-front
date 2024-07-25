@@ -1,5 +1,5 @@
-import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   TeCompleteConfig,
   teComponentBlockFactory,
@@ -8,10 +8,10 @@ import {
   TeTools,
   TeUploadedImage
 } from '@monorepo/text-editor';
-import {Observable} from 'rxjs';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {HaStoryContentViewBlock} from '../ha-story-view/ha-story-content-view.block';
-import {HaFile} from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { Observable } from 'rxjs';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { HaStoryContentViewBlock } from '../ha-story-view/ha-story-content-view.block';
+import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
 
 
 export class HaStoryTextEditorImageConfig implements TeFigureBlockConfig {
@@ -40,8 +40,8 @@ export class HaStoryTextEditorFileConfig implements TeFileBlockConfig {
     return this.storyService.uploadFile(file, this.storyId);
   }
 
-  getFileUrl(file: HaFile): string {
-    return this.storyService.getStoryFilePath(this.storyId, file.name);
+  getFileUrl(filename: string): string {
+    return this.storyService.getStoryFilePath(this.storyId, filename);
   }
 }
 

@@ -48,7 +48,7 @@ export class LabDocumentTemplateDetailPageComponent implements OnInit, OnDestroy
   private init(id: string): void {
 
     this.documentTemplateId = id;
-    this.textEditorConfig = new LabDocumentTemplateTextEditorConfig();
+    this.textEditorConfig = new LabDocumentTemplateTextEditorConfig(id);
     this.isLoading = true;
     this.documentTemplateService.getDocumentTemplate(id).subscribe({
       next: (template) => this.getDocumentTemplateSuccess(template),

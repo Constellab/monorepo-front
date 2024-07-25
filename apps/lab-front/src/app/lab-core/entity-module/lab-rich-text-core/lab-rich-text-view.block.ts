@@ -16,7 +16,7 @@ export interface LabRichTextViewBlockAdditionalData {
   /**
    * if report, id of the report,
    * if enote, id of the enote,
-   * if file-view, null
+   * if file-view, id of the report
    */
   entityId: string | null;
 }
@@ -105,7 +105,8 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
         }, enoteData.title, enoteData.caption);
     } else {
       const fileViewData = data as LabRichTextFileView;
-      this.componentInstance.setFileViewInput(fileViewData.filename, fileViewData.title, fileViewData.caption);
+      this.componentInstance.setFileViewInput(this.additionalData.entityId,
+        fileViewData.filename, fileViewData.title, fileViewData.caption);
     }
   }
 
@@ -130,7 +131,6 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
         return !!fileViewData.filename;
     }
   }
-
 
 
   override appendCallback(): void {

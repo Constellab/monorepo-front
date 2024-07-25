@@ -1,4 +1,4 @@
-import {HaDocumentationService} from '../../../ha-core/ha-service/ha-documentation.service';
+import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
 import {
   TeCompleteConfig,
   teComponentBlockFactory,
@@ -7,11 +7,11 @@ import {
   TeTools,
   TeUploadedImage
 } from '@monorepo/text-editor';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
-import {Observable} from 'rxjs';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {HaDocContentViewBlock} from './ha-doc-view/ha-doc-content-view.class';
-import {HaFile} from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { HaDocContentViewBlock } from './ha-doc-view/ha-doc-content-view.class';
+import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
 
 export class HaDocTextEditorImageConfig implements TeFigureBlockConfig {
 
@@ -39,8 +39,8 @@ export class HaDocTextEditorFileConfig implements TeFileBlockConfig {
     return this.docService.uploadFile(file, this.docId);
   }
 
-  getFileUrl(file: HaFile): string {
-    return this.docService.getDocFilePath(this.docId, file.name);
+  getFileUrl(filename: string): string {
+    return this.docService.getDocFilePath(this.docId, filename);
   }
 }
 

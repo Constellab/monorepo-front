@@ -1,11 +1,11 @@
-import {Observable} from 'rxjs';
-import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {Type} from '@angular/core';
-import {TeComponentBlock} from './te-component-block.class';
-import {TeHelper} from '../model/te.helper';
-import {TeFileComponent} from '../component/te-file/te-file.component';
-import {PasteEvent} from '@editorjs/editorjs';
-import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
+import { Observable } from 'rxjs';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { Type } from '@angular/core';
+import { TeComponentBlock } from './te-component-block.class';
+import { TeHelper } from '../model/te.helper';
+import { TeFileComponent } from '../component/te-file/te-file.component';
+import { PasteEvent } from '@editorjs/editorjs';
+import { PasteConfig } from '@editorjs/editorjs/types/configs/paste-config';
 
 export interface TeFileBlockData {
   name: string;
@@ -18,7 +18,7 @@ export interface TeFileBlockData {
  */
 export interface TeFileBlockConfig {
 
-  getFileUrl(file: TeFileBlockData): string;
+  getFileUrl(filename: string): string;
 
   fileUploader: (file: File) => Observable<TeFileBlockData>;
 }
@@ -77,6 +77,7 @@ export class TeFileBlock extends TeComponentBlock<TeFileComponent> {
   onPaste(event: PasteEvent): void {
     // if a file is pasted, we will get the file here
     if (event.type === 'file') {
+      console.log('file pasted', event.detail);
       this.componentInstance.onFileSelected((event.detail as any).file);
     }
   }

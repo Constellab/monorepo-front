@@ -10,14 +10,18 @@ import {
   LabRichTextViewBlock,
   LabRichTextViewBlockAdditionalData
 } from '../../../lab-core/entity-module/lab-rich-text-core/lab-rich-text-view.block';
-import { LabRichTextTextEditorImageConfig } from '../../../lab-core/entity-service/lab-rich-text.service';
+import {
+  LabRichTextFileConfig,
+  LabRichTextImageConfig,
+  LabRichTextObjectType
+} from '../../../lab-core/entity-service/lab-rich-text.service';
 
 /**
  * Config for the text editor in the report to support view in the editor
  */
 export class LabReportTextEditorConfig extends TeCompleteConfig {
 
-  constructor(private reportId?: string) {
+  constructor(private reportId: string) {
     super();
   }
 
@@ -40,15 +44,17 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
     // add the file view block
     const fileViewData: LabRichTextViewBlockAdditionalData = {
       type: 'file-view',
-      entityId: null
+      entityId: this.reportId
     };
     tools.fileView = teComponentBlockFactory(LabRichTextViewBlock, envInjector, applicationRef, fileViewData);
 
     // configure and add the image block
-    const imageConfig = new LabRichTextTextEditorImageConfig();
+    const imageConfig = new LabRichTextImageConfig(LabRichTextObjectType.REPORT, this.reportId);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
+
+    tools.file = this.getFileConfig(new LabRichTextFileConfig(LabRichTextObjectType.REPORT, this.reportId), envInjector, applicationRef);
 
     return tools;
   }

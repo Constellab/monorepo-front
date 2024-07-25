@@ -1,7 +1,7 @@
-import {Component, ElementRef, HostBinding, Input, OnInit, ViewChild} from '@angular/core';
-import {TeElementBlockDirective} from '../../model/te-element.directive';
-import {TeFileBlockConfig, TeFileBlockData} from '../../block/te-file-block';
-import {FlInputFileDirective} from '@monorepo/front-core-lib';
+import { Component, ElementRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
+import { TeElementBlockDirective } from '../../model/te-element.directive';
+import { TeFileBlockConfig, TeFileBlockData } from '../../block/te-file-block';
+import { FlInputFileDirective } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'te-file',
@@ -38,7 +38,7 @@ export class TeFileComponent extends TeElementBlockDirective implements OnInit {
   }
 
   private initFile(data: TeFileBlockData): void {
-    this.fileUrl = this.config.getFileUrl(data);
+    this.fileUrl = this.config.getFileUrl(data.name);
   }
 
   public onFileSelected(file: File): void {

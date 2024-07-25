@@ -4,6 +4,8 @@ import {
   TeCompleteConfig,
   teComponentBlockFactory,
   TeFigureBlockConfig,
+  TeFileBlockConfig,
+  TeFileBlockData,
   teInlineToolFactory,
   TeTools,
   TeUploadedImage,
@@ -24,7 +26,22 @@ export class CaReportTextEditorImageConfig implements TeFigureBlockConfig {
   }
 
   getImageUrl(filename: string): string {
-    return this.reportService.getImageUrl(this.reportId, filename);
+    return this.reportService.getFileUrl(this.reportId, filename);
+  }
+}
+
+export class CaRichTextFileConfig implements TeFileBlockConfig {
+
+  constructor(private reportService: CaReportService,
+              private reportId: string) {
+  }
+
+  fileUploader(): Observable<TeFileBlockData> {
+    throw new Error('Method not implemented.');
+  }
+
+  getFileUrl(filename: string): string {
+    return this.reportService.getFileUrl(this.reportId, filename);
   }
 }
 
@@ -60,6 +77,8 @@ export class CaReportTextEditorConfig extends TeCompleteConfig {
     tools.fileView = teComponentBlockFactory(CaReportRichTextViewBlock, envInjector, applicationRef, additionalData2);
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
+
+    tools.file = this.getFileConfig(new CaRichTextFileConfig(this.reportService, this.reportId), envInjector, applicationRef);
 
     return tools;
   }

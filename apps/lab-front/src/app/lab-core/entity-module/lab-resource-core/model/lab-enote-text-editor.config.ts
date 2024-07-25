@@ -2,6 +2,8 @@ import {
   TeCompleteConfig,
   teComponentBlockFactory,
   TeFigureBlockConfig,
+  TeFileBlockConfig,
+  TeFileBlockData,
   teInlineToolFactory,
   TeTools,
   TeUploadedImage,
@@ -34,6 +36,24 @@ export class LabENoteTextEditorImageConfig implements TeFigureBlockConfig {
   }
 }
 
+export class LabENoteTextEditorFileConfig implements TeFileBlockConfig {
+
+  private enoteService: LabResourceENoteService;
+
+  constructor(private enoteResourceId: string) {
+    this.enoteService = flRootInjector.get(LabResourceENoteService);
+  }
+
+  fileUploader(file: File): Observable<TeFileBlockData> {
+    throw new Error('Method not implemented.');
+  }
+
+  getFileUrl(filename: string): string {
+    return this.enoteService.getFilePath(this.enoteResourceId, filename);
+  }
+}
+
+
 /**
  * Config for the text editor for enote. This retrieves the files from the enote resource and
  * enote resource service
@@ -64,6 +84,9 @@ export class LabEnoteTextEditorConfig extends TeCompleteConfig {
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
+
+    const fileConfig = new LabENoteTextEditorFileConfig(this.enoteResourceId);
+    tools.file = this.getFileConfig(fileConfig, envInjector, applicationRef);
 
     return tools;
   }

@@ -1,16 +1,17 @@
-import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
+import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
 import {
-  TeCompleteConfig, teComponentBlockFactory,
+  TeCompleteConfig,
+  teComponentBlockFactory,
   TeFigureBlockConfig,
   TeFileBlockConfig,
   TeTools,
   TeUploadedImage
 } from '@monorepo/text-editor';
-import {Observable} from 'rxjs';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
-import {HaFile} from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
-import {HaLiveTaskContentViewBlock} from '../ha-live-task-view/ha-live-task-content-view.class';
+import { Observable } from 'rxjs';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { HaLiveTaskContentViewBlock } from '../ha-live-task-view/ha-live-task-content-view.class';
 
 export class HaLiveTaskTextEditorImageConfig implements TeFigureBlockConfig {
 
@@ -37,8 +38,8 @@ export class HaLiveTaskTextEditorFileConfig implements TeFileBlockConfig {
     return this.liveTaskService.uploadFile(file, this.liveTaskId);
   }
 
-  getFileUrl(file: HaFile): string {
-    return this.liveTaskService.getFilePath(this.liveTaskId, file.name);
+  getFileUrl(filename: string): string {
+    return this.liveTaskService.getFilePath(this.liveTaskId, filename);
   }
 }
 

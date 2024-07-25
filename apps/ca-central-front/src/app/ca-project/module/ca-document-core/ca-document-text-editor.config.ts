@@ -6,9 +6,9 @@ import {
   TeTools,
   TeUploadedImage
 } from '@monorepo/text-editor';
-import {Observable} from 'rxjs';
-import {CaProjectService} from '../../../ca-core/service-api/ca-project.service';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
+import { Observable } from 'rxjs';
+import { CaProjectService } from '../../../ca-core/service-api/ca-project.service';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 
 export class CaDocumentTextEditorImageConfig implements TeFigureBlockConfig {
 
@@ -36,8 +36,8 @@ export class CaDocumentTextEditorFileConfig implements TeFileBlockConfig {
     return this.projectService.uploadFileToConstellabDocument(file, this.documentId);
   }
 
-  getFileUrl(file: TeFileBlockData): string {
-    return this.projectService.getConstellabDocumentFileUrl(this.documentId, file.name);
+  getFileUrl(filename: string): string {
+    return this.projectService.getConstellabDocumentFileUrl(this.documentId, filename);
   }
 }
 
