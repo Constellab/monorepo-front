@@ -1,9 +1,11 @@
 @defer (on viewport) {
 
-  <rv-rich-text-resource-view *ngIf="view$" [resourceId]="resourceId" [view$]="view$"
-                           [viewConfig]="viewConfig" [(viewTitle)]="viewTitle" [(caption)]="caption"
-                           [editable]="!disabled">
-  </rv-rich-text-resource-view>
-}@placeholder {
+  @if (view$) {
+    <rv-rich-text-resource-view [resourceId]="resourceId" [view$]="view$"
+                                [viewConfig]="viewConfig" [(viewTitle)]="viewTitle" [(caption)]="caption"
+                                [editable]="!disabled">
+    </rv-rich-text-resource-view>
+  }
+} @placeholder {
   <div></div>
 }

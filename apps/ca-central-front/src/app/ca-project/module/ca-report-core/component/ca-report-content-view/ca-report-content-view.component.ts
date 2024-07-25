@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
-import {Observable} from 'rxjs';
-import {RvResourceView} from '@monorepo/resource-view';
-import {CaReportViewConfig} from '../../model/ca-report-content-view.class';
-import {TeElementBlockDirective} from '@monorepo/text-editor';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { RvResourceView } from '@monorepo/resource-view';
+import { TeElementBlockDirective } from '@monorepo/text-editor';
+import { CaReportService } from '../../../../../ca-core/service-api/ca-report.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ca-report-content-view',
@@ -11,8 +12,25 @@ import {TeElementBlockDirective} from '@monorepo/text-editor';
 })
 export class CaReportContentViewComponent extends TeElementBlockDirective {
 
-  @Input() viewConfig: CaReportViewConfig;
+  view$: Observable<RvResourceView>;
 
-  @Input() view$: Observable<RvResourceView>;
+  resourceId: string;
+  viewTitle: string;
+  caption: string;
+
+  constructor(private reportService: CaReportService) {
+    super();
+  }
+
+  public setViewInputs(reportId: string, viewId: string,
+                       title: string, caption: string, resourceId?: string): void {
+    this.view$ = this.reportService.getView(reportId, viewId).pipe(
+      map(reportView => reportView.view)
+    );
+
+    this.viewTitle = title;
+    this.caption = caption;
+    this.resourceId = resourceId;
+  }
 
 }

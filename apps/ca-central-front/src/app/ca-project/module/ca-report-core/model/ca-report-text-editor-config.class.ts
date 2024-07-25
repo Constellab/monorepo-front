@@ -1,5 +1,5 @@
-import {CaReportService} from '../../../../ca-core/service-api/ca-report.service';
-import {Observable} from 'rxjs';
+import { CaReportService } from '../../../../ca-core/service-api/ca-report.service';
+import { Observable } from 'rxjs';
 import {
   TeCompleteConfig,
   teComponentBlockFactory,
@@ -9,8 +9,8 @@ import {
   TeUploadedImage,
   TeVariableInlineToolClass
 } from '@monorepo/text-editor';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
-import {CaReportContentViewBlock} from './ca-report-content-view.class';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { CaReportRichTextViewBlock, CaReportRichTextViewBlockAdditionalData } from './ca-report-rich-text-view.block';
 
 export class CaReportTextEditorImageConfig implements TeFigureBlockConfig {
 
@@ -46,7 +46,18 @@ export class CaReportTextEditorConfig extends TeCompleteConfig {
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     // add the view block
-    tools.resourceView = teComponentBlockFactory(CaReportContentViewBlock, envInjector, applicationRef, this.reportId);
+    const additionalData: CaReportRichTextViewBlockAdditionalData = {
+      type: 'resourceView',
+      reportId: this.reportId
+    };
+    tools.resourceView = teComponentBlockFactory(CaReportRichTextViewBlock, envInjector, applicationRef, additionalData);
+
+    // add the file view block
+    const additionalData2: CaReportRichTextViewBlockAdditionalData = {
+      type: 'fileView',
+      reportId: this.reportId
+    };
+    tools.fileView = teComponentBlockFactory(CaReportRichTextViewBlock, envInjector, applicationRef, additionalData2);
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
 

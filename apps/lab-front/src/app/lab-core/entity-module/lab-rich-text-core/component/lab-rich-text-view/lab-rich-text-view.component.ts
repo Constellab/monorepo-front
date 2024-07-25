@@ -6,6 +6,7 @@ import { RvViewConfig } from '@monorepo/resource-view';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
 import { LabResourceENoteService } from '../../../../entity-service/lab-resource-enote.service';
 import { map } from 'rxjs/operators';
+import { LabRichTextService } from '../../../../entity-service/lab-rich-text.service';
 
 /**
  * Component used in the Text editor to show a resource view.
@@ -26,12 +27,11 @@ export class LabRichTextViewComponent extends TeElementBlockDirective {
 
   @Input() caption: string;
 
-  @Input() filename: string;
-
   view$: Observable<LabResourceViewData>;
 
   constructor(private resourceService: LabResourceService,
-              private enoteService: LabResourceENoteService) {
+              private enoteService: LabResourceENoteService,
+              private richTextService: LabRichTextService) {
     super();
   }
 
@@ -42,7 +42,7 @@ export class LabRichTextViewComponent extends TeElementBlockDirective {
     this.viewTitle = viewTitle;
     this.caption = caption;
 
-    if (this.resourceId && this.viewConfig) {
+    if (resourceId && viewConfig) {
       this.view$ = this.resourceService.callResourceViewData(resourceId, viewConfig.methodName,
         viewConfig.configValues);
     }
@@ -58,5 +58,13 @@ export class LabRichTextViewComponent extends TeElementBlockDirective {
       viewConfig.configValues).pipe(
       map(view => view.view)
     );
+  }
+
+  public setFileViewInput(filename: string, title: string, caption: string): void {
+    this.view$ = this.richTextService.getFileView(filename).pipe(
+      map(view => view.view)
+    );
+    this.viewTitle = title;
+    this.caption = caption;
   }
 }

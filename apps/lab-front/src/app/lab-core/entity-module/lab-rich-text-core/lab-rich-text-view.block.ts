@@ -10,11 +10,15 @@ import {
 } from '../lab-view-config-core/component/lab-select-view-config-dialog/lab-select-view-config-dialog.component';
 import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
-import { RvViewConfig } from '@monorepo/resource-view';
 
-export interface LabReportContentViewBlockAdditionalData {
-  type: 'report' | 'enote';
-  entityId: string; // if type is report, id of the report, if enote, id of the enote
+export interface LabRichTextViewBlockAdditionalData {
+  type: 'report' | 'enote' | 'file-view';
+  /**
+   * if report, id of the report,
+   * if enote, id of the enote,
+   * if file-view, null
+   */
+  entityId: string | null;
 }
 
 /**
@@ -43,14 +47,24 @@ export interface LabENoteContentView {
 }
 
 /**
- *
+ * Special type of view (for report) that are stored as a file and not attached to a resource
+ */
+export interface LabRichTextFileView {
+  id: string;
+  filename: string;
+  title: string;
+  caption: string;
+}
+
+/**
+ * Block to show a resource view in the text editor
  */
 export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewComponent> {
 
   constructor(protected options: BlockToolConstructorOptions,
               protected readonly envInjector: EnvironmentInjector,
               protected readonly applicationRef: ApplicationRef,
-              protected readonly additionalData: LabReportContentViewBlockAdditionalData) {
+              protected readonly additionalData: LabRichTextViewBlockAdditionalData) {
     super(options, envInjector, applicationRef, additionalData);
   }
 
@@ -71,22 +85,27 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
     return LabRichTextViewBlock.TAG_NAME;
   }
 
-  initInputs(data: LabReportContentView | LabENoteContentView): void {
-    const viewConfig: RvViewConfig = {
-      methodName: data.view_method_name,
-      configValues: data.view_config
-    };
+  initInputs(data: LabReportContentView | LabENoteContentView | LabRichTextFileView): void {
     if (this.additionalData.type === 'report') {
       const reportData = data as LabReportContentView;
       this.componentInstance.setReportInput(reportData.resource_id,
-        viewConfig,
+        {
+          methodName: reportData.view_method_name,
+          configValues: reportData.view_config
+        },
         reportData.title,
         reportData.caption
       );
-    } else {
+    } else if (this.additionalData.type === 'enote') {
       const enoteData = data as LabENoteContentView;
       this.componentInstance.setEnoteInput(this.additionalData.entityId, enoteData.sub_resource_key,
-        viewConfig, enoteData.title, enoteData.caption);
+        {
+          methodName: enoteData.view_method_name,
+          configValues: enoteData.view_config
+        }, enoteData.title, enoteData.caption);
+    } else {
+      const fileViewData = data as LabRichTextFileView;
+      this.componentInstance.setFileViewInput(fileViewData.filename, fileViewData.title, fileViewData.caption);
     }
   }
 
@@ -97,10 +116,22 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
     });
   }
 
-  // ignore the formula if it is empty
-  validate(blockData: LabReportContentView): boolean {
-    return blockData.resource_id && blockData.view_config != null;
+  validate(blockData: LabReportContentView | LabENoteContentView | LabRichTextFileView): boolean {
+    if (!blockData.id) return false;
+    switch (this.additionalData.type) {
+      case 'report':
+        const reportData = blockData as LabReportContentView;
+        return !!reportData.resource_id && reportData.view_config != null;
+      case 'enote':
+        const enoteData = blockData as LabENoteContentView;
+        return !!enoteData.sub_resource_key && !!enoteData.view_method_name;
+      case 'file-view':
+        const fileViewData = blockData as LabRichTextFileView;
+        return !!fileViewData.filename;
+    }
   }
+
+
 
   override appendCallback(): void {
     this.openSelectResourceView();

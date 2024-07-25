@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import {FlApiService, flRootInjector} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {TeFigureBlockConfig, TeUploadedImage} from '@monorepo/text-editor';
+import { Injectable } from '@angular/core';
+import { FlApiService, flRootInjector } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TeFigureBlockConfig, TeUploadedImage } from '@monorepo/text-editor';
+import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 
 @Injectable({providedIn: 'root'})
 export class LabRichTextService {
@@ -34,6 +35,10 @@ export class LabRichTextService {
 
   getImageUrl(filename: string): string {
     return this.getFilePath(filename);
+  }
+
+  getFileView(filename: string): Observable<LabResourceView>{
+    return this.apiService.get(`${this.route}/file-view/${filename}`);
   }
 }
 

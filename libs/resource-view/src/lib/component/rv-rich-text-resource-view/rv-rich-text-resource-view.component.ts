@@ -13,11 +13,11 @@ import { Observable } from 'rxjs';
 })
 export class RvRichTextResourceViewComponent implements OnInit {
 
-  @Input({required: true}) view$: Observable<RvResourceViewBase>;
+  @Input({ required: true }) view$: Observable<RvResourceViewBase>;
 
-  @Input() resourceId: string;
+  @Input() resourceId?: string;
 
-  @Input() viewConfig: RvViewConfig;
+  @Input() viewConfig ?: RvViewConfig;
 
   @Input() viewTitle: string;
   @Output() viewTitleChange: EventEmitter<string> = new EventEmitter();
