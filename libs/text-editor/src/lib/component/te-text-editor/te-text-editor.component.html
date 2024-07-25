@@ -5,6 +5,7 @@
   <te-text-editor-browser-side [config]="config" [placeholder]="placeholder" [event]="event"
                                [disabled]="disabled"
                                (textChange)="onTextChange($event)"
+                               [customUndoRedo]="customUndoRedo"
                                [value]="value"></te-text-editor-browser-side>
 }
 

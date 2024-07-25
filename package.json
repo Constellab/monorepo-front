@@ -81,6 +81,7 @@
     "@ngneat/reactive-forms": "^1.4.4",
     "@ngx-translate/core": "^15.0.0",
     "@nx/angular": "v17.2.5",
+    "@types/diff": "^5.2.1",
     "axios": "^1.4.0",
     "class-transformer": "^0.5.1",
     "codemirror": "^6.0.1",
