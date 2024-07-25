@@ -31,7 +31,7 @@ export class HaStory {
 
   topics: HaTopic[] = [];
 
-  storyCoAuthors: HaStoryCoAuthor[];
+  storyAuthors: HaStoryCoAuthor[];
 
   createdAt: DateTime;
 
@@ -65,7 +65,7 @@ export class HaStory {
   }
 
   getCoAuthors(): HaUser[] {
-    return this.storyCoAuthors?.map(storyAuthor => storyAuthor.user);
+    return this.storyAuthors?.map(storyAuthor => storyAuthor.user);
   }
 }
 

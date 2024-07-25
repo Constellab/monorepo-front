@@ -148,6 +148,9 @@ export class TeRichText {
     modifications: TeTextEditorHistoryModificationGroup = new TeTextEditorHistoryModificationGroup()
   ): TeTextEditorHistoryModificationGroup {
     const differences: TeTextEditorHistoryBlockModification[] = [];
+    if (oldContent == null) {
+      return modifications;
+    }
     const oldBlocks = oldContent.blocks;
     const oldBlockMap = new Map(oldBlocks.map(block => [block.id, block]));
 
@@ -265,6 +268,10 @@ export class TeRichText {
     content: TeRichTextContent,
     modificationGroup: TeTextEditorHistoryModificationGroup
   ): TeRichTextUndoRedoResult {
+
+    if(modificationGroup.currentIndex < -1){
+      modificationGroup.currentIndex = -1;
+    }
 
     if (content == null || modificationGroup?.modifications?.length === 0
       || modificationGroup.currentIndex == modificationGroup.modifications.length - 1) {

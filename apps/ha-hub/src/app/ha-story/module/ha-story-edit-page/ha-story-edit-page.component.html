@@ -86,15 +86,18 @@
 
       }
       <div class="right-bts-div">
-        <button mat-icon-button type="button" (click)="openHistoryPanel()">
-          <mat-icon>history</mat-icon>
-        </button>
         @if (isAuthor) {
           <button mat-icon-button type="button" class="co-author-bt"
                   (click)="openCoAuthorDialog()" [matTooltip]="'open_story_coauthor_panel' | translate">
             <mat-icon>group_add</mat-icon>
           </button>
         }
+
+        <button mat-icon-button type="button" (click)="openHistoryPanel()"
+                class="add-file-button-author" [matTooltip]="'teTextEditor.open_modifications_history_panel' | translate">
+          <mat-icon>history</mat-icon>
+        </button>
+
         <button mat-icon-button [matTooltip]="'delete_story' | translate" type="button" color="warn" (click)="openDeleteStoryConfirmDialog()" class="add-file-button-author">
           <mat-icon>delete</mat-icon>
         </button>
@@ -105,7 +108,7 @@
     }
     <form class="story-content-form" [formGroup]="formGp" id="story-content-form"
           [ngClass]="contentEditorIsFocused ? ['focus'] : []">
-      <te-text-editor class="border-none editor" [config]="textEditorConfig" [customUndoRedo]="true"
+      <te-text-editor class="border-none editor" [config]="textEditorConfig"
                       (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
     </form>
   </div>

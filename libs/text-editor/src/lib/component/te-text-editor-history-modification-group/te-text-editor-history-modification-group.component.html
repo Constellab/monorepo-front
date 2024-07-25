@@ -3,8 +3,11 @@
     <div class="group-title">
       <div class="group-title-icon-div">
         <button mat-icon-button (click)="toggleGroup($event)">
-          <mat-icon *ngIf="!groupOpened">keyboard_arrow_right</mat-icon>
-          <mat-icon *ngIf="groupOpened">keyboard_arrow_down</mat-icon>
+          @if(groupOpened){
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          } @else {
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          }
         </button>
       </div>
       <span>
@@ -17,11 +20,13 @@
       }
     </div>
   </div>
-  <div class="group-body" *ngIf="groupOpened">
-    @for (modification of group.modifications; track group.modifications) {
-      <div class="group-body-modification" (click)="openModificationVisualizer(modification)">
-        <te-text-editor-history-modification [modification]="modification"></te-text-editor-history-modification>
-      </div>
-    }
-  </div>
+  @if (groupOpened){
+    <div class="group-body">
+      @for (modification of group.modifications; track group.modifications) {
+        <div class="group-body-modification" (click)="openModificationVisualizer(modification)">
+          <te-text-editor-history-modification [modification]="modification"></te-text-editor-history-modification>
+        </div>
+      }
+    </div>
+  }
 </div>

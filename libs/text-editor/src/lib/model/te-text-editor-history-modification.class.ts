@@ -1,4 +1,4 @@
-import {FlUserDto} from '@monorepo/front-core-lib';
+import {FlUser} from '@monorepo/front-core-lib';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {diffChars} from 'diff';
 
@@ -21,7 +21,7 @@ export interface TeTextEditorHistoryModificationDifference {
 export class TeTextEditorHistoryBlockModification {
   id: string;
   userId: string;
-  user: FlUserDto;
+  user: FlUser;
   blockId: string;
   blockType: string;
   time: number;
@@ -45,11 +45,19 @@ export class TeTextEditorHistoryBlockModification {
   }
 }
 
-export class TeTextEditorHistoryModificationGroup{
-  start?: number;
-  end?: number;
+
+export interface TeTextEditorHistoryModificationList{
+  modifications: TeTextEditorHistoryBlockModification[];
+}
+
+export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistoryModificationList{
+  end: number;
   currentIndex?: number;
   modifications: TeTextEditorHistoryBlockModification[];
+
+  constructor(end?: number) {
+    this.end = end
+  }
 
   public static getValuesDifferences(oldValue: string, newValue: string): TeTextEditorHistoryModificationDifference[] {
     const res: TeTextEditorHistoryModificationDifference[] = []
@@ -75,6 +83,7 @@ export class TeTextEditorHistoryModificationGroup{
   public static undoDifferences(value: string, differences: TeTextEditorHistoryModificationDifference[]): string {
     let res = value;
     const reversedDifferences = differences.slice().reverse();
+    // if the first or last difference value is a /, we don't want to undo it
     if (reversedDifferences[0].value == '/' || reversedDifferences[reversedDifferences.length - 1].value == '/') {
       return res;
     }
@@ -94,6 +103,7 @@ export class TeTextEditorHistoryModificationGroup{
 
   public static redoDifferences(value: string, differences: TeTextEditorHistoryModificationDifference[]): string {
     let res = value;
+    // if the first or last difference value is a /, we don't want to redo it
     if (differences[0].value == '/' || differences[differences.length - 1].value == '/') {
       return res;
     }
@@ -114,6 +124,17 @@ export class TeTextEditorHistoryModificationGroup{
 
   public isEmpty(): boolean {
     return !this.modifications || this.modifications?.length === 0;
+  }
+
+  public isGroup(): boolean {
+    return this.modifications?.length > 1;
+  }
+
+  public mainModificationId(): string {
+    if(this.isEmpty()){
+      return null;
+    }
+    return this.modifications[0].id;
   }
 
   public fusion(modifications: TeTextEditorHistoryBlockModification[]): void {
@@ -142,6 +163,19 @@ export class TeTextEditorHistoryModificationGroup{
       });
     }
 
+    let removeLastModification = false
+    for (const modification of modifications) {
+      if (lastModification.type == modification.type &&
+        lastModification.blockId == modification.blockId &&
+        lastModification.type != TeTextEditorHistoryModificationType.UPDATED) {
+        removeLastModification = true;
+      }
+    }
+
+    if (removeLastModification) {
+      this.modifications = this.modifications.slice(0, this.modifications.length - 1);
+    }
+
     if (this.currentIndex != null && this.currentIndex < this.modifications.length - 1) {
       this.modifications = this.modifications.slice(0, this.currentIndex + 1);
     }
@@ -156,10 +190,14 @@ export class TeTextEditorHistoryModificationGroup{
   private reduceModifications(modifications: TeTextEditorHistoryBlockModification[]): TeTextEditorHistoryBlockModification[]{
     const areAllMoved = modifications.every(modification => modification.type === TeTextEditorHistoryModificationType.MOVED);
     const numMoved = modifications.filter(modification => modification.type === TeTextEditorHistoryModificationType.MOVED).length;
+
+    // if there is only one moved modification, we remove the modification because it's must be a bug
     if(numMoved == 1){
       modifications = modifications.filter(modification => modification.type !== TeTextEditorHistoryModificationType.MOVED);
     }
 
+    // if all modifications are moved, we keep only the one with the biggest movement,
+    // otherwise there will be a lot of modifications for nothing
     if(areAllMoved){
       let moveModification: TeTextEditorHistoryBlockModification = null;
       modifications.forEach(modification => {
@@ -176,7 +214,10 @@ export class TeTextEditorHistoryModificationGroup{
       }
     }
 
-    modifications = modifications.filter((m) => JSON.stringify(m.blockValue) != '{"text":"/"}');
+    // Otherwise, we remove all the modifications that are just a /  because they are not useful for the history
+    // and we remove all modifications of type MOVED because they must have been created during another modification
+    modifications = modifications.filter((m) => JSON.stringify(m.blockValue) != '{"text":"/"}'
+      && m.type !== TeTextEditorHistoryModificationType.MOVED);
 
     return modifications;
   }

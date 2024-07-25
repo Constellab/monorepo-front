@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {CaProjectComment} from '../../../../../ca-core/model/entities/ca-comment.class';
 import {CaProjectService} from '../../../../../ca-core/service-api/ca-project.service';
 import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
@@ -12,7 +12,7 @@ import {CaProjectCommentTextEditorConfig} from '../../../../../ca-core/model/con
   templateUrl: './ca-project-comment.component.html',
   styleUrls: ['./ca-project-comment.component.scss']
 })
-export class CaProjectCommentComponent implements OnInit {
+export class CaProjectCommentComponent implements OnInit, OnDestroy {
 
   @Input() comment: CaProjectComment;
 
@@ -77,5 +77,9 @@ export class CaProjectCommentComponent implements OnInit {
     if (result.choice) {
       this.commentDeleted.emit(this.comment);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.textEditorConfig?.event.destroy();
   }
 }

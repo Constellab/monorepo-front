@@ -29,6 +29,11 @@
             <span>{{(formCtrl.disabled ? 'edit' : 'view') | translate}}</span>
           </button>
 
+          <button mat-menu-item type="button" (click)="openHistoryPanel()">
+            <mat-icon>history</mat-icon>
+            <span>{{'teTextEditor.modifications_history' | translate}}</span>
+          </button>
+
           <button mat-menu-item type="button" (click)="openResourceDelete()">
             <mat-icon color="warn">delete</mat-icon>
             <span class="g-warn-text">{{'delete' | translate}}</span>

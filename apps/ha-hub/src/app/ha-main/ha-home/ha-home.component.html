@@ -23,7 +23,9 @@
       <a [routerLink]="storyListRoute" class="home-section-title">
         {{ 'stories' | translate }}
       </a>
-      {{ 'stories_description' | translate}}
+      <span class="home-section-description">
+        {{ 'stories_description' | translate}}
+      </span>
       <div class="home-list-div">
         <a *ngFor="let story of stories$ | flDatasourceConnect | async" [routerLink]="(story | haDetailRoute)">
           <co-story-list-item class="home-card" [story]="story"

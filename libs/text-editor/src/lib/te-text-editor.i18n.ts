@@ -74,7 +74,9 @@ const teTextEditorI18nFr: FlLangTranslation = {
     CREATED: 'créé',
     UPDATED: 'mis à jour',
     DELETED: 'supprimé',
-    MOVED: 'déplacé'
+    MOVED: 'déplacé',
+    open_modifications_history_panel: 'Ouvrir le panneau d\'historique des modifications',
+    no_modifications: 'Aucune modification',
   }
 };
 
@@ -146,7 +148,9 @@ const teTextEditorI18nEn: FlLangTranslation = {
     CREATED: 'created',
     UPDATED: 'updated',
     DELETED: 'deleted',
-    MOVED: 'moved'
+    MOVED: 'moved',
+    open_modifications_history_panel: 'Open modifications history panel',
+    no_modifications: 'No modifications',
   }
 };
 

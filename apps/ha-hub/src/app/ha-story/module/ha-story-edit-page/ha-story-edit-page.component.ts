@@ -213,6 +213,10 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   onContentUpdate(content: TeRichTextContent): void {
     this.formGp.controls.contentEdition.value = content;
     this.syncWithBack = false;
+    if(this.historyOverlayRef){
+      this.historyOverlayRef.dispose();
+      this.historyOverlayRef = null;
+    }
     this.contentDebouncer.setValue(content);
   }
 
@@ -297,7 +301,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
   private checkUserIsAuthorOrCoAuthor(story: HaStory): void {
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
-      if (user.id !== story.getAuthor().id && !story.getCoAuthors().find(coAuthor => coAuthor.id === user.id)) {
+      if (user.id !== story.getAuthor().id && !story.getCoAuthors().some(coAuthor => coAuthor.id === user.id)) {
         this.notFound = true;
       }
     });

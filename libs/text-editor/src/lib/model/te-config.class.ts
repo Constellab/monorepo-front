@@ -24,11 +24,11 @@ import { TeCleanStyleInlineTool } from '../inline-tool/te-clean-style-inline-too
 import { TeFakeInlineTool } from '../inline-tool/te-fake-inline-tool.class';
 import { TeNestedListBlock } from '../block/te-nested-list-block.class';
 import { TeMentionConfig, TeMentionInlineTool } from '../plugin/te-mention.class';
-import { Observable, Subject } from 'rxjs';
 import { TeFileBlock, TeFileBlockConfig } from '../block/te-file-block';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { TeComponentInitData } from '../block/te-component-block.class';
 import TeTable from '../block/te-table-block.class';
+import {TeEvent} from './te-event.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -76,8 +76,6 @@ export abstract class TeConfig {
     };
     this.uiConfig = Object.assign(defaultConfig, uiConfig);
   }
-
-  private events: Subject<TeConfigEvent> | null;
 
   abstract getTools(envInjector: EnvironmentInjector,
                     applicationRef: ApplicationRef): TeTools;
@@ -190,22 +188,6 @@ export abstract class TeConfig {
     };
   }
 
-  // Events
-  protected initEvent(): void {
-    this.events = new Subject();
-  }
-
-  public addEvent(event: TeConfigEvent): void {
-    this.events.next(event);
-  }
-
-  public getEvent$(): Observable<TeConfigEvent> {
-    return this.events?.asObservable() ?? null;
-  }
-
-  public destroy(): void {
-    this.events?.complete();
-  }
 }
 
 

@@ -3,21 +3,34 @@
     {{ 'teTextEditor.modifications_history' | translate }}
   </fl-portal-header>
   <fl-portal-content class="portal-content">
-    <div *ngIf="modificationsGroups.length > 0">
-      @for (modificationGroup of modificationsGroups; track modificationsGroups) {
-        @if (modificationGroup.modifications.length > 1) {
-          <te-text-editor-history-modification-group [group]="modificationGroup"
-                                                     (openVisualizerWithData)="openVisualizer($event)"></te-text-editor-history-modification-group>
+    @if(isLoading){
+      <div class="no-modifications">
+        <fl-loader></fl-loader>
+      </div>
+    } @else {
+      @if(modificationsGroups.length > 0){
+        <div>
+          @for (modificationGroup of modificationsGroups; track modificationGroup.end) {
+            @if (modificationGroup.modifications.length > 1) {
+              <te-text-editor-history-modification-group [group]="modificationGroup"
+                                                         (openVisualizerWithData)="openVisualizer($event)"></te-text-editor-history-modification-group>
 
-        } @else {
-          <div class="group-single-modification"
-               (click)="openSingleModificationVisualizer(modificationGroup.modifications[0])">
-            <te-text-editor-history-modification
-              [modification]="modificationGroup.modifications[0]"></te-text-editor-history-modification>
-          </div>
-        }
+            } @else {
+              <div class="group-single-modification"
+                   (click)="openSingleModificationVisualizer(modificationGroup.modifications[0])">
+                <te-text-editor-history-modification
+                  [modification]="modificationGroup.modifications[0]"></te-text-editor-history-modification>
+              </div>
+            }
+          }
+        </div>
+      } @else {
+        <div class="no-modifications">
+          {{ 'teTextEditor.no_modifications' | translate }}
+        </div>
       }
-    </div>
+    }
+
 
   </fl-portal-content>
 </fl-portal>

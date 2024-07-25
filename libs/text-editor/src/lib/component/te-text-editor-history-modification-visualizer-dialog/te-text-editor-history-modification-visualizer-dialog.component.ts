@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
 import {TeConfig} from '../../model/te-config.class';
@@ -8,10 +8,9 @@ import {
 } from '../te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
 import {TeTextEditorHistoryUser} from '../../model/te-text-editor-history-user.class';
 import {TeRichTextContent} from '../../model/te-rich-text.class';
-import {
-  TeTextEditorHistoryBlockModification,
-  TeTextEditorHistoryModificationGroup
-} from '../../model/te-text-editor-history-modification.class';
+import {TeTextEditorHistoryModificationGroup} from '../../model/te-text-editor-history-modification.class';
+import {TeHelper} from '../../model/te.helper';
+import {TeEvent} from '../../model/te-event.class';
 
 
 export interface TeTextEditorHistoryModificationVisualizerDialogData {
@@ -29,64 +28,48 @@ export interface TeTextEditorHistoryModificationVisualizerDialogData {
   templateUrl: './te-text-editor-history-modification-visualizer-dialog.component.html',
   styleUrl: './te-text-editor-history-modification-visualizer-dialog.component.scss'
 })
-export class TeTextEditorHistoryModificationVisualizerDialogComponent implements OnInit {
+export class TeTextEditorHistoryModificationVisualizerDialogComponent implements OnInit, OnDestroy {
+
+  textEditorEvent: TeEvent;
+  group: TeTextEditorHistoryModificationGroup;
 
   textEditorHistoryUsers: TeTextEditorHistoryUser[] = [];
-
-  isGroup: boolean;
   textEditorConfig: TeConfig;
-  service: TeTextEditorHistoryService;
-  entityId: string;
+  private service: TeTextEditorHistoryService;
   content: TeRichTextContent;
-  group?: TeTextEditorHistoryModificationGroup;
-  modification?: TeTextEditorHistoryBlockModification;
+  private entityId: string;
   isLoading = true;
 
   constructor(@Inject(MAT_DIALOG_DATA) dialogInput: TeTextEditorHistoryModificationVisualizerDialogData,
               private el: ElementRef,
               private renderer: Renderer2,
               private dialogService: FlDialogService) {
-    this.isGroup = dialogInput.clickEventData.isGroup;
     this.textEditorConfig = dialogInput.textEditorConfig;
     this.service = dialogInput.service;
     this.entityId = dialogInput.entityId;
     this.group = dialogInput.clickEventData.group;
-    this.modification = dialogInput.clickEventData.modification;
     this.textEditorHistoryUsers = dialogInput.users;
   }
 
   ngOnInit(): void {
-    const modificationId = this.isGroup ? this.group.modifications[0].id : this.modification.id;
-
+    const modificationId = this.group.mainModificationId();
+    this.textEditorEvent = new TeEvent();
     this.service.getUndoContent(this.entityId, modificationId).subscribe(content => {
       this.content = content;
       this.highlightChanges()
     });
   }
 
-  private highlightChanges(): void {
-    if (this.isGroup) {
-      for (const modification of this.group.modifications.slice().reverse()) {
-        const textEditorUser = this.textEditorHistoryUsers.find(textEditorUser => textEditorUser.user.id === modification.userId);
-        this.hollowElement(modification.blockId, textEditorUser.color);
-      }
-    } else {
-      this.hollowElement(this.modification?.blockId, this.textEditorHistoryUsers[0].color);
-    }
-    this.isLoading = false;
+  ngOnDestroy(): void {
+    this.textEditorEvent.destroy();
   }
 
-  private hollowElement(blockId: string, color: string): void {
-    const interval = setInterval(() => {
-      const element = this.el.nativeElement.querySelector('.ce-block[data-id="' + blockId + '"]');
-      if (element) {
-        this.renderer.setStyle(element, 'background-color', color);
-        this.renderer.setStyle(element, 'padding', '4px');
-        this.renderer.setStyle(element, 'margin', '4px')
-        clearInterval(interval);
-      }
-    }, 50);
-
+  private highlightChanges(): void {
+    for (const modification of this.group.modifications.slice().reverse()) {
+      const textEditorUser = this.textEditorHistoryUsers.find(textEditorUser => textEditorUser.user.id === modification.userId);
+      this.hollowElement(modification.blockId, textEditorUser.color);
+    }
+    this.isLoading = false;
   }
 
   openConfirmRollback(): void{
@@ -96,7 +79,7 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
       successMessage: 'teTextEditor.confirm_rollback_success',
       translateMessage: true,
       translateTitleAndContent: true,
-      observable: this.service.rollbackContent(this.entityId, this.isGroup ? this.group.modifications[0].id : this.modification.id)
+      observable: this.service.rollbackContent(this.entityId, this.group.mainModificationId())
     }
 
     this.dialogService.openConfirmDialog(confirmDialogData).afterClosed().subscribe((result: FlConfirmDialogResult) => {
@@ -104,5 +87,13 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
         window.location.reload();
       }
     })
+  }
+
+  private hollowElement(blockId: string, color: string): void {
+    this.textEditorEvent.isTextEditorHTMLInit$().subscribe(isInit => {
+      if (isInit) {
+        TeHelper.hollowElement(blockId, color, this.el.nativeElement);
+      }
+    });
   }
 }

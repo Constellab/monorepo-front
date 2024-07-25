@@ -15,6 +15,7 @@ import {FlFormFieldDirective} from '@monorepo/front-core-lib';
 import {NgControl} from '@angular/forms';
 import {TeRichTextContent} from '../../model/te-rich-text.class';
 import {isPlatformBrowser} from '@angular/common';
+import {TeEvent} from '../../model/te-event.class';
 
 
 @Component({
@@ -26,9 +27,9 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
 
   @Input({required: true}) config: TeConfig;
 
-  @Input() placeholder: string;
+  @Input() event: TeEvent;
 
-  @Input() customUndoRedo: boolean = false;
+  @Input() placeholder: string;
 
   /**
    * In dense mode the paragraph have less padding

@@ -32,6 +32,7 @@ export * from './lib/model/te-variable.class';
 export * from './lib/model/te-text-editor-history.service';
 export * from './lib/model/te-text-editor-history-modification.class';
 export * from './lib/model/te-text-editor-history-user.class';
+export * from './lib/model/te-event.class';
 
 
 // Block

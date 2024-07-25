@@ -1,15 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlUserDto} from '@monorepo/front-core-lib';
+import {FlUser} from '@monorepo/front-core-lib';
 import {
   TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryModificationGroup
 } from '../../model/te-text-editor-history-modification.class';
 
 export interface TeTextEditorHistoryClickEventData {
-  isGroup: boolean;
-  modification?: TeTextEditorHistoryBlockModification;
-  group?: TeTextEditorHistoryModificationGroup;
-  users?: FlUserDto[];
+  group: TeTextEditorHistoryModificationGroup;
+  users: FlUser[];
 }
 
 @Component({
@@ -23,7 +21,7 @@ export class TeTextEditorHistoryModificationGroupComponent implements OnInit {
 
   @Output() openVisualizerWithData = new EventEmitter<TeTextEditorHistoryClickEventData>();
 
-  users: FlUserDto[] = [];
+  users: FlUser[] = [];
 
   groupOpened: boolean = false;
 
@@ -43,7 +41,6 @@ export class TeTextEditorHistoryModificationGroupComponent implements OnInit {
 
   openGroupModificationVisualizer(): void {
     const eventData: TeTextEditorHistoryClickEventData = {
-      isGroup: true,
       group: this.group,
       users: this.users
     }
@@ -51,9 +48,11 @@ export class TeTextEditorHistoryModificationGroupComponent implements OnInit {
   }
 
   openModificationVisualizer(modification: TeTextEditorHistoryBlockModification): void {
+    const group = new TeTextEditorHistoryModificationGroup(modification.time);
+    group.modifications = [modification];
     const eventData: TeTextEditorHistoryClickEventData = {
-      isGroup: false,
-      modification: modification
+      group: group,
+      users: [modification.user]
     }
     this.openVisualizerWithData.emit(eventData);
   }
