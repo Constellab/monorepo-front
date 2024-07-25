@@ -76,7 +76,7 @@ export class LabEnoteTextEditorConfig extends TeCompleteConfig {
     const data: LabRichTextViewBlockAdditionalData = {
       type: 'enote',
       entityId: this.enoteResourceId
-    }
+    };
     tools.enoteView = teComponentBlockFactory(LabRichTextViewBlock, envInjector, applicationRef, data);
 
     // configure and add the image block

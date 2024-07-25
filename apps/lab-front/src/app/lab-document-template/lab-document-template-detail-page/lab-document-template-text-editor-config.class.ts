@@ -1,10 +1,20 @@
-import { TeCompleteConfig, teInlineToolFactory, TeTools, TeVariableInlineToolClass } from '@monorepo/text-editor';
+import {
+  TeCompleteConfig,
+  teComponentBlockFactory,
+  teInlineToolFactory,
+  TeTools,
+  TeVariableInlineToolClass
+} from '@monorepo/text-editor';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   LabRichTextFileConfig,
   LabRichTextImageConfig,
   LabRichTextObjectType
 } from '../../lab-core/entity-service/lab-rich-text.service';
+import {
+  LabRichTextViewBlock,
+  LabRichTextViewBlockAdditionalData
+} from '../../lab-core/entity-module/lab-rich-text-core/lab-rich-text-view.block';
 
 
 /**
@@ -32,7 +42,12 @@ export class LabDocumentTemplateTextEditorConfig extends TeCompleteConfig {
 
     tools.file = this.getFileConfig(new LabRichTextFileConfig(LabRichTextObjectType.DOCUMENT_TEMPLATE, this.documentTemplateId), envInjector, applicationRef);
 
-    // TODO ADD SUPPORT FOR view file
+    // add the file view block
+    const fileViewData: LabRichTextViewBlockAdditionalData = {
+      type: 'document-template-view-file',
+      entityId: this.documentTemplateId
+    };
+    tools.fileView = teComponentBlockFactory(LabRichTextViewBlock, envInjector, applicationRef, fileViewData);
 
     return tools;
   }

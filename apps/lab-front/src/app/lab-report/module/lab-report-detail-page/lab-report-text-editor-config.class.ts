@@ -43,7 +43,7 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
 
     // add the file view block
     const fileViewData: LabRichTextViewBlockAdditionalData = {
-      type: 'file-view',
+      type: 'report-file-view',
       entityId: this.reportId
     };
     tools.fileView = teComponentBlockFactory(LabRichTextViewBlock, envInjector, applicationRef, fileViewData);

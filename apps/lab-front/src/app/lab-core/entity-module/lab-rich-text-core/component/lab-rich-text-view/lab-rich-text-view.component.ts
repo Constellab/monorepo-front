@@ -60,8 +60,8 @@ export class LabRichTextViewComponent extends TeElementBlockDirective {
     );
   }
 
-  public setFileViewInput(reportId: string, filename: string, title: string, caption: string): void {
-    this.view$ = this.richTextService.getFileView(LabRichTextObjectType.REPORT, reportId, filename).pipe(
+  public setFileViewInput(objectType: LabRichTextObjectType, objectId: string, filename: string, title: string, caption: string): void {
+    this.view$ = this.richTextService.getFileView(objectType, objectId, filename).pipe(
       map(view => view.view)
     );
     this.viewTitle = title;

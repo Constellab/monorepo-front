@@ -10,13 +10,15 @@ import {
 } from '../lab-view-config-core/component/lab-select-view-config-dialog/lab-select-view-config-dialog.component';
 import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
+import { LabRichTextObjectType } from '../../entity-service/lab-rich-text.service';
 
 export interface LabRichTextViewBlockAdditionalData {
-  type: 'report' | 'enote' | 'file-view';
+  type: 'report' | 'enote' | 'report-file-view' | 'document-template-view-file';
   /**
    * if report, id of the report,
    * if enote, id of the enote,
-   * if file-view, id of the report
+   * if report-file-view, id of the report
+   * if document-template-view-file, id of the document template
    */
   entityId: string | null;
 }
@@ -86,27 +88,34 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
   }
 
   initInputs(data: LabReportContentView | LabENoteContentView | LabRichTextFileView): void {
-    if (this.additionalData.type === 'report') {
-      const reportData = data as LabReportContentView;
-      this.componentInstance.setReportInput(reportData.resource_id,
-        {
-          methodName: reportData.view_method_name,
-          configValues: reportData.view_config
-        },
-        reportData.title,
-        reportData.caption
-      );
-    } else if (this.additionalData.type === 'enote') {
-      const enoteData = data as LabENoteContentView;
-      this.componentInstance.setEnoteInput(this.additionalData.entityId, enoteData.sub_resource_key,
-        {
-          methodName: enoteData.view_method_name,
-          configValues: enoteData.view_config
-        }, enoteData.title, enoteData.caption);
-    } else {
-      const fileViewData = data as LabRichTextFileView;
-      this.componentInstance.setFileViewInput(this.additionalData.entityId,
-        fileViewData.filename, fileViewData.title, fileViewData.caption);
+    switch (this.additionalData.type) {
+      case 'report':
+        const reportData = data as LabReportContentView;
+        this.componentInstance.setReportInput(reportData.resource_id,
+          {
+            methodName: reportData.view_method_name,
+            configValues: reportData.view_config
+          },
+          reportData.title,
+          reportData.caption
+        );
+        break;
+      case 'enote':
+        const enoteData = data as LabENoteContentView;
+        this.componentInstance.setEnoteInput(this.additionalData.entityId, enoteData.sub_resource_key,
+          {
+            methodName: enoteData.view_method_name,
+            configValues: enoteData.view_config
+          }, enoteData.title, enoteData.caption);
+        break;
+      case 'report-file-view':
+      case 'document-template-view-file':
+        const fileViewData = data as LabRichTextFileView;
+        const objectType: LabRichTextObjectType = this.additionalData.type === 'report-file-view' ?
+          LabRichTextObjectType.REPORT : LabRichTextObjectType.DOCUMENT_TEMPLATE;
+        this.componentInstance.setFileViewInput(objectType, this.additionalData.entityId,
+          fileViewData.filename, fileViewData.title, fileViewData.caption);
+        break;
     }
   }
 
@@ -126,7 +135,8 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
       case 'enote':
         const enoteData = blockData as LabENoteContentView;
         return !!enoteData.sub_resource_key && !!enoteData.view_method_name;
-      case 'file-view':
+      case 'report-file-view':
+      case 'document-template-view-file':
         const fileViewData = blockData as LabRichTextFileView;
         return !!fileViewData.filename;
     }
