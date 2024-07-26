@@ -14,8 +14,6 @@ import {
 import {
   FlAdvancedSearchInput,
   FlApiService,
-  FlArrayObs,
-  FlEntityArrayObs,
   FlEntityPaginatedDatasource,
   FlFileHelper,
   FlSearchConverter
@@ -151,10 +149,6 @@ export class CaLabInstanceService {
     return this.apiService.put(`${this.route}/${id}/status/refresh`, null, CaLabInstanceStatusDTO);
   }
 
-  public getStatusHistories(id: string): FlArrayObs<CaLabInstanceStatusHistory> {
-    return new FlEntityArrayObs(this.apiService.get(`${this.route}/${id}/status/history`, CaLabInstanceStatusHistory));
-  }
-
   public getStatusHistoriesDatasource(id: string, page: number, size: number,
                                       filters: CaLabInstanceStatusHistoryDatesFormData): Observable<ClPageI<CaLabInstanceStatusHistory>> {
     const data: FlAdvancedSearchInput = {
@@ -164,7 +158,7 @@ export class CaLabInstanceService {
       ),
       sortsCriteria: null
     };
-    return this.apiService.post(`${this.route}/${id}/status/history-datasource`, data, CaLabInstanceStatusHistory, {
+    return this.apiService.post(`${this.route}/${id}/status/history`, data, CaLabInstanceStatusHistory, {
       page: page,
       pageSize: size,
       resultIsPaginated: true
