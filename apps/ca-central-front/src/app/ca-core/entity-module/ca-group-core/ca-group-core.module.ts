@@ -15,7 +15,6 @@ import { CaTeamSearchFormComponent } from './component/ca-team-search-form/ca-te
 import { CaProjectCoreModule } from '../ca-project-core/ca-project-core.module';
 import { CaUserGroupTableComponent } from './component/ca-user-group-table/ca-user-group-table.component';
 import { CaSelectGroupComponent } from './component/ca-select-group/ca-select-group.component';
-import { LabCorePipeModule } from '../../../../../../lab-front/src/app/lab-core/lab-core-pipe/lab-core-pipe.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,7 @@ import { LabCorePipeModule } from '../../../../../../lab-front/src/app/lab-core/
     CaTeamSearchComponent,
     CaTeamSearchFormComponent,
     CaUserGroupTableComponent,
-    CaSelectGroupComponent,
+    CaSelectGroupComponent
   ],
   exports: [
     CaGroupInlineComponent,
@@ -42,7 +41,7 @@ import { LabCorePipeModule } from '../../../../../../lab-front/src/app/lab-core/
     CaTeamSearchComponent,
     CaTeamSearchFormComponent,
     CaUserGroupTableComponent,
-    CaSelectGroupComponent,
+    CaSelectGroupComponent
   ],
   imports: [
     CommonModule,
@@ -51,8 +50,7 @@ import { LabCorePipeModule } from '../../../../../../lab-front/src/app/lab-core/
     RouterModule,
 
     CaCoreModule,
-    CaProjectCoreModule,
-    LabCorePipeModule
+    CaProjectCoreModule
   ]
 })
 export class CaGroupCoreModule {
