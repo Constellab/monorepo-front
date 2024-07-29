@@ -1,36 +1,37 @@
-import {Expose, Type} from 'class-transformer';
-import {RvResourceView, RvResourceViewBase, RvResourceViewType} from '@monorepo/resource-view';
-import {LabResourceViewFolder} from './lab-resource-view-folder.class';
-import {LabViewConfig} from './lab-view-config.entity';
-import {PrConfigValues} from '@monorepo/protocol';
-import {TdParamSpecs, TdTypeStyle} from '@monorepo/technical-doc';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import { Expose, Type } from 'class-transformer';
+import { RvResourceView, RvResourceViewBase, RvResourceViewType } from '@monorepo/resource-view';
+import { LabResourceViewFolder } from './lab-resource-view-folder.class';
+import { LabViewConfig } from './lab-view-config.entity';
+import { PrConfigValues } from '@monorepo/protocol';
+import { TdParamSpecs, TdTypeStyle } from '@monorepo/technical-doc';
+import { TeRichTextContent } from '@monorepo/text-editor';
+import { LabRichTextObjectType } from '../../../entity-service/lab-rich-text.service';
 
 // list of available view type
 export type LabResourceViewType = RvResourceViewType | 'view'
   | 'resources-list-view' | 'folder-view';
 
 export class LabResourceViewSpec {
-  @Expose({name: 'method_name'})
+  @Expose({ name: 'method_name' })
   methodName: string;
 
-  @Expose({name: 'view_type'})
+  @Expose({ name: 'view_type' })
   viewType: LabResourceViewType;
 
-  @Expose({name: 'human_name'})
+  @Expose({ name: 'human_name' })
   humanName: string;
 
-  @Expose({name: 'short_description'})
+  @Expose({ name: 'short_description' })
   shortDescription: string;
 
-  @Expose({name: 'default_view'})
+  @Expose({ name: 'default_view' })
   defaultView: boolean;
 
   // true if the view has config specs
-  @Expose({name: 'has_config_specs'})
+  @Expose({ name: 'has_config_specs' })
   hasConfigSpecs: boolean;
 
-  @Expose({name: 'config_specs'})
+  @Expose({ name: 'config_specs' })
   configSpecs: TdParamSpecs;
 
   style: TdTypeStyle;
@@ -62,16 +63,16 @@ export class LabResourceView {
 
   view: LabResourceViewData;
 
-  @Expose({name: 'resource_id'})
+  @Expose({ name: 'resource_id' })
   resourceId: string;
 
-  @Expose({name: 'view_config'})
+  @Expose({ name: 'view_config' })
   @Type(() => LabViewConfig)
   viewConfig: LabViewConfig;
 
   title: string;
 
-  @Expose({name: 'view_type'})
+  @Expose({ name: 'view_type' })
   viewType: LabResourceViewType;
 
   style: TdTypeStyle;
@@ -85,7 +86,8 @@ export interface LabResourceViewRichText extends RvResourceViewBase {
   data: {
     title: string;
     content: TeRichTextContent;
-    report_id?: string;
+    object_type: LabRichTextObjectType;
+    object_id?: string;
   };
 }
 

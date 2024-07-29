@@ -7,6 +7,7 @@ import { LabResourceView } from '../model/entities/resource/lab-resource-view.en
 export enum LabRichTextObjectType {
   REPORT = 'report',
   DOCUMENT_TEMPLATE = 'document_template',
+  ENOTE = 'enote',
 }
 
 @Injectable({ providedIn: 'root' })
