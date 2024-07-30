@@ -1,7 +1,7 @@
-import {BehaviorSubject, Observable} from 'rxjs';
-import {FlTranslatableText} from '../../fl-translate/model/fl-translate-param';
-import {filter} from 'rxjs/operators';
-import {HttpEvent, HttpEventType} from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { FlTranslatableText } from '../../fl-translate/model/fl-translate-param';
+import { filter } from 'rxjs/operators';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 /**
  * Action to be shown in the screen

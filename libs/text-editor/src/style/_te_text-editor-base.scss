@@ -372,18 +372,18 @@
     }
 
     .g-te-hint-info {
-      background-color: mat.get-color-from-palette($primary, 100);
-      color: mat.get-color-from-palette($primary, '100-contrast');
+      background-color: mat.m2-get-color-from-palette($primary, 100);
+      color: mat.m2-get-color-from-palette($primary, '100-contrast');
     }
 
     .g-te-hint-warning {
-      background-color: mat.get-color-from-palette($warn, 100);
-      color: mat.get-color-from-palette($warn, '100-contrast');
+      background-color: mat.m2-get-color-from-palette($warn, 100);
+      color: mat.m2-get-color-from-palette($warn, '100-contrast');
     }
 
     .g-te-hint-science {
-      background-color: mat.get-color-from-palette($accent, 100);
-      color: mat.get-color-from-palette($accent, '100-contrast');
+      background-color: mat.m2-get-color-from-palette($accent, 100);
+      color: mat.m2-get-color-from-palette($accent, '100-contrast');
     }
 
     .g-text-editor-hint a {

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {CoCommunityHelperService} from '@monorepo/community-lib';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 export interface CaTask {
   id: string;

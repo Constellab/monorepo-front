@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   FlApiErrorService,
   flAuthExpiredCookie,
@@ -9,15 +9,15 @@ import {
   FlSnackBarService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {LabApiError} from '../model/global/lab-api-error.class';
-import {LabErrorDetailComponent} from '../../lab-main/component/lab-error-detail/lab-error-detail.component';
-import {Router} from '@angular/router';
-import {labConstLoginRoute} from '../utils/lab-base-route';
-import {LabEnvStore} from './lab-env.store';
-import {LabAppEnvironment} from '../model/global/lab-environment.class';
-import {PlatformLocation} from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { LabApiError } from '../model/global/lab-api-error.class';
+import { LabErrorDetailComponent } from '../../lab-main/component/lab-error-detail/lab-error-detail.component';
+import { Router } from '@angular/router';
+import { labConstLoginRoute } from '../utils/lab-base-route';
+import { LabEnvStore } from './lab-env.store';
+import { LabAppEnvironment } from '../model/global/lab-environment.class';
+import { PlatformLocation } from '@angular/common';
 
 @Injectable()
 export class LabApiErrorService extends FlApiErrorService {

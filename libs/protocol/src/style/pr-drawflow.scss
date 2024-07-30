@@ -63,14 +63,14 @@
     }
 
     .main-path.selected, .main-path:hover {
-      stroke: mat.get-color-from-palette($primary);
+      stroke: mat.m2-get-color-from-palette($primary);
     }
   }
 
   // when the resource is provided, change the color of the connection
   .drawflow .connection.g-connection-resource-provided {
     .main-path {
-      stroke: mat.get-color-from-palette($primary);
+      stroke: mat.m2-get-color-from-palette($primary);
     }
   }
 }

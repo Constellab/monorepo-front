@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 import {
   FlApiErrorService,
   flAuthExpiredCookie,
@@ -11,10 +11,10 @@ import {
   FlSnackBarService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {caConstLoginRoute} from '../utils/ca-base-route';
-import {PlatformLocation} from '@angular/common';
-import {CaEnvironmentHelper} from '../utils/ca-environment.helper';
-import {ClApiError} from '@monorepo/core-lib';
+import { caConstLoginRoute } from '../utils/ca-base-route';
+import { PlatformLocation } from '@angular/common';
+import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
+import { ClApiError } from '@monorepo/core-lib';
 
 
 /**

@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {FlApiService, FlFileHelper} from '@monorepo/front-core-lib';
-import {Observable, tap} from 'rxjs';
-import {LabResource} from '../model/entities/resource/lab-resource.entity';
-import {HttpEvent} from '@angular/common/http';
-import {LabTypeEntity} from '../model/entities/lab-type/lab-type.entity';
-import {LabResourceView} from '../model/entities/resource/lab-resource-view.entity';
+import { Injectable } from '@angular/core';
+import { FlApiService, FlFileHelper } from '@monorepo/front-core-lib';
+import { Observable, tap } from 'rxjs';
+import { LabResource } from '../model/entities/resource/lab-resource.entity';
+import { HttpEvent } from '@angular/common/http';
+import { LabTypeEntity } from '../model/entities/lab-type/lab-type.entity';
+import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 
 @Injectable({
   providedIn: 'root'

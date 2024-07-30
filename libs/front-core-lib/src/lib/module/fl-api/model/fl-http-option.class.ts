@@ -1,5 +1,5 @@
-import {HttpHeaders, HttpParams} from '@angular/common/http';
-import {ClClassReference} from '@monorepo/core-lib';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { ClClassReference } from '@monorepo/core-lib';
 
 export interface FlHttpGetUrlOption{
   /**

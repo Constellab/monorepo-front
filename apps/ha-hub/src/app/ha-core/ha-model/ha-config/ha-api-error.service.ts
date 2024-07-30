@@ -1,7 +1,7 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {Router} from '@angular/router';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 import {
   FlApiErrorService,
   flAuthExpiredCookie,
@@ -10,8 +10,8 @@ import {
   FlSnackBarService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {isPlatformBrowser} from '@angular/common';
-import {ClApiError} from '@monorepo/core-lib';
+import { isPlatformBrowser } from '@angular/common';
+import { ClApiError } from '@monorepo/core-lib';
 
 
 /**
