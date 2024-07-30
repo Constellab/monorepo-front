@@ -1,5 +1,4 @@
 // Export the services
-export * from './fl-chat-bot.service';
 export * from './fl-clipboard.service';
 export * from './fl-cookie.service';
 export * from './fl-external-link.service';
