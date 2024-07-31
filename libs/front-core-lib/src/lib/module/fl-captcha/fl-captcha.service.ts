@@ -1,10 +1,10 @@
-import {Inject, Injectable, Injector} from '@angular/core';
-import {ReCaptchaV3Service} from 'ng-recaptcha';
-import {Observable, of, throwError} from 'rxjs';
-import {FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig} from './fl-captcha.class';
-import {FlSnackBarService} from '../fl-snack-bar/fl-snack-bar.service';
-import {catchError} from 'rxjs/operators';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Inject, Injectable, Injector } from '@angular/core';
+import { ReCaptchaV3Service } from 'ng-recaptcha-2';
+import { Observable, of, throwError } from 'rxjs';
+import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from './fl-captcha.class';
+import { FlSnackBarService } from '../fl-snack-bar/fl-snack-bar.service';
+import { catchError } from 'rxjs/operators';
+import { ClHelpService } from '@monorepo/core-lib';
 
 
 @Injectable({providedIn: 'root'})
