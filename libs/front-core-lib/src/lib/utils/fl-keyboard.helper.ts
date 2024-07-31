@@ -19,7 +19,7 @@ export enum FlKeyboardKey {
 export class FlKeyboardHelper {
 
   public static keyboardKeyIsPrintable(key: string | FlKeyboardKey): boolean {
-    return key?.length === 1 ?? false;
+    return key?.length === 1;
   }
 
   /**

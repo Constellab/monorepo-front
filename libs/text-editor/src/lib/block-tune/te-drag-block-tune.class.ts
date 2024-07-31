@@ -1,8 +1,8 @@
-import {API, BlockAPI, BlockTune, ToolConfig} from '@editorjs/editorjs';
-import {TunesMenuConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {BlockTuneData} from '@editorjs/editorjs/types/block-tunes/block-tune-data';
-import {TeHelper} from '../model/te.helper';
-import {ClHelpService} from '@monorepo/core-lib';
+import { API, BlockAPI, BlockTune, ToolConfig } from '@editorjs/editorjs';
+import { BlockTuneData } from '@editorjs/editorjs/types/block-tunes/block-tune-data';
+import { TeHelper } from '../model/te.helper';
+import { ClHelpService } from '@monorepo/core-lib';
+import { MenuConfig } from '@editorjs/editorjs/types/tools';
 
 /**
  * BLock tune to drag and drop blocks
@@ -22,8 +22,8 @@ export class TeDragBlockTune implements BlockTune {
     return true;
   }
 
-  render(): HTMLElement | TunesMenuConfig {
-    const button = TeHelper.generateTuneButton(TeHelper.getTranslateService().translate('teTextEditor.drag_block'), 'open_with')
+  render(): HTMLElement | MenuConfig {
+    const button = TeHelper.generateTuneButton(TeHelper.getTranslateService().translate('teTextEditor.drag_block'), 'open_with');
     // enable drag and drop
     button.setAttribute('draggable', 'true');
 
@@ -35,7 +35,7 @@ export class TeDragBlockTune implements BlockTune {
     let blockId: string;
 
     // while dragging get the text editor drop target block id
-    button.addEventListener('drag', (event) => {
+    button.addEventListener('drag', () => {
       this.config.api.toolbar.close();
       blockId = TeHelper.getBlockDropTargetId(this.config.api.ui.nodes.redactor);
     });

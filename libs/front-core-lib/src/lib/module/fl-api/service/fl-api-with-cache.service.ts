@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {FlApiService} from './fl-api.service';
-import {FlCleanableService, FlCleanerService} from '../../../utils/fl-cleanable-service';
-import {FlHttpOption} from '../model/fl-http-option.class';
-import {ClCachedObservable, ClDeserializationRef} from '@monorepo/core-lib';
-import {FlApiServiceConfig} from './fl-api-service.config';
-import {FlApiErrorService} from './fl-api-error.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FlApiService } from './fl-api.service';
+import { FlCleanableService, FlCleanerService } from '../../../utils/fl-cleanable-service';
+import { FlHttpOption } from '../model/fl-http-option.class';
+import { ClCachedObservable, ClDeserializationRef } from '@monorepo/core-lib';
+import { FlApiServiceConfig } from './fl-api-service.config';
+import { FlApiErrorService } from './fl-api-error.service';
 
 
 /**

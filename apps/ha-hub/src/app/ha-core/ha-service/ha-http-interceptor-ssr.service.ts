@@ -1,9 +1,9 @@
-import {Inject, Injectable, Optional, PLATFORM_ID} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {isPlatformServer} from '@angular/common';
-import {Request} from 'express';
-import {REQUEST} from '@monorepo/front-core-lib';
+import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { isPlatformServer } from '@angular/common';
+import { Request } from 'express';
+import { REQUEST } from '@monorepo/front-core-lib';
 
 
 @Injectable()

@@ -169,7 +169,7 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
     this.initInputs(this.data);
   }
 
-  // renderSettings(): HTMLElement | TunesMenuConfig {
+  // renderSettings(): HTMLElement | MenuConfig {
   //   return [{
   //     icon: '<span class="material-icons-outlined">edit</span>',
   //     title: this.translateService.translate('flTextEditor.edit_formula'),

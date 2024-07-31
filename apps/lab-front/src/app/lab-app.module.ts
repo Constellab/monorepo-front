@@ -5,7 +5,7 @@ import { LabAppComponent } from './lab-app.component';
 import { LabMainModule } from './lab-main/lab-main.module';
 import { LabCoreModule } from './lab-core/lab-core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {
   FL_CAPTCHA_MODULE_CONFIG,
   FL_TRANSLATE_MODULE_CONFIG,
@@ -71,77 +71,61 @@ function configureCaptcha(): FlCaptchaModuleConfig {
   };
 }
 
-@NgModule({
-  declarations: [LabAppComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-
-    // other app modules
-    LabMainModule,
-    LabLoginModule,
-
-    // Core module
-    LabCoreModule,
-
-    FlApiModule.forRoot(LabApiServiceConfig, LabApiErrorService),
-
-    // Fl setup modules
-    // Setup translate module
-    FlTranslateModule.forRoot({
-      defaultLang: ClSupportedLanguage.en,
-      availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
-      filenames: ['lab-global-', 'lab-biox-', 'lab-biota-', 'lab-databox-', 'lab-monitoring-']
-    }),
-    FlTranslateModule.forRoot2(),
-
-    // configuration of Front library
-    FlIconModule.forRoot({
-      iconFolder: 'assets/fl-mat-icons/',
-      iconsToRegister: labSvgIcons
-    }),
-
-    FlDialogModule.forRoot(),
-    FlSnackBarModule.forRoot(),
-    FlPortalModule.forRoot(),
-    FlPortalActionsModule.forRoot(),
-    FlAuthModule.forRoot(LabAuthService),
-    FlTagModule.forRoot(LabTagService),
-    BnBioNetworkModule.forRoot(LabBioNetworkService),
-    RvResourceViewModule.forRoot({availableViews: labConstResourceViewTypeInfos}),
-    TdTechnicalDocModule.forRoot(LabTdServiceConfig),
-    FlUserModule.forRoot(LabUserConfig),
-    FlCaptchaModule,
-
-    PrProtocolModule.forRoot(LabWorkflowResourcesState),
-    CoCommunityLibModule.forRoot(LabCoServiceConfig),
-
-
-    // import core module here because they have dynamic field component required
-    // in task config
-    LabDocumentTemplateCoreModule,
-    LabCredentialsCoreModule,
-    LabRichTextCoreModule,
-
-    LabAppRoutingModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: FlHttpInterceptorService,
-      multi: true
-    },
-    {provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true},
-    {provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha},
-    {
-      provide: TranslateLoader,
-      useFactory: translationLoaderFactory,
-      deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
-    }
-  ],
-  bootstrap: [LabAppComponent],
-})
+@NgModule({ declarations: [LabAppComponent],
+    bootstrap: [LabAppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        // other app modules
+        LabMainModule,
+        LabLoginModule,
+        // Core module
+        LabCoreModule,
+        FlApiModule.forRoot(LabApiServiceConfig, LabApiErrorService),
+        // Fl setup modules
+        // Setup translate module
+        FlTranslateModule.forRoot({
+            defaultLang: ClSupportedLanguage.en,
+            availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
+            filenames: ['lab-global-', 'lab-biox-', 'lab-biota-', 'lab-databox-', 'lab-monitoring-']
+        }),
+        FlTranslateModule.forRoot2(),
+        // configuration of Front library
+        FlIconModule.forRoot({
+            iconFolder: 'assets/fl-mat-icons/',
+            iconsToRegister: labSvgIcons
+        }),
+        FlDialogModule.forRoot(),
+        FlSnackBarModule.forRoot(),
+        FlPortalModule.forRoot(),
+        FlPortalActionsModule.forRoot(),
+        FlAuthModule.forRoot(LabAuthService),
+        FlTagModule.forRoot(LabTagService),
+        BnBioNetworkModule.forRoot(LabBioNetworkService),
+        RvResourceViewModule.forRoot({ availableViews: labConstResourceViewTypeInfos }),
+        TdTechnicalDocModule.forRoot(LabTdServiceConfig),
+        FlUserModule.forRoot(LabUserConfig),
+        FlCaptchaModule,
+        PrProtocolModule.forRoot(LabWorkflowResourcesState),
+        CoCommunityLibModule.forRoot(LabCoServiceConfig),
+        // import core module here because they have dynamic field component required
+        // in task config
+        LabDocumentTemplateCoreModule,
+        LabCredentialsCoreModule,
+        LabRichTextCoreModule,
+        LabAppRoutingModule], providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: FlHttpInterceptorService,
+            multi: true
+        },
+        { provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true },
+        { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
+        {
+            provide: TranslateLoader,
+            useFactory: translationLoaderFactory,
+            deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class LabAppModule {
   constructor(injector: Injector) {
     // set the root injector in a variable

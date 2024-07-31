@@ -1,5 +1,5 @@
-import {InterpolatorFactory, NumberValue, ScaleBand} from 'd3-scale';
-import {AxisScale, interpolateRound, Numeric, scaleBand, scaleLinear} from 'd3';
+import { InterpolatorFactory, NumberValue, ScaleBand } from 'd3-scale';
+import { AxisScale, interpolateRound, Numeric, scaleBand, scaleLinear } from 'd3';
 
 export interface ChD3Scale<Value> extends AxisScale<Value> {
   (value: Value): number;
@@ -234,7 +234,7 @@ export class ChChartScaleBand extends ChChartScale {
       return 0;
     }
     // compare the position of the first and second group and remove bandwidth to get inner padding width
-    return (this.scale(this.getDomain()[1]) - this.scale(this.getDomain()[0]) - this.bandwidth()) ?? 0;
+    return (this.scale(this.getDomain()[1], 0) - this.scale(this.getDomain()[0], 0) - this.bandwidth());
   }
 
   // do nothing on band, because the domain is already good

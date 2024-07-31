@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {LabEnvironmentHelper} from '../utils/lab-environment.helper';
-import {catchError, map, mergeMap, tap} from 'rxjs/operators';
-import {LabEnvStore} from './lab-env.store';
-import {LabAuthenticatedUserService} from './lab-authenticated-user.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { LabEnvStore } from './lab-env.store';
+import { LabAuthenticatedUserService } from './lab-authenticated-user.service';
 
 /**
  * Service to manage the DEV environment

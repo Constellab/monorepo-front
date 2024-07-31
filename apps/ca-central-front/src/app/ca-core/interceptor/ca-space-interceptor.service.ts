@@ -1,9 +1,9 @@
-import {Observable} from 'rxjs';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {CaCurrentSpaceService} from '../service-api/ca-current-space.service';
-import {CaEnvironmentHelper} from '../utils/ca-environment.helper';
-import {CoCommunityHelperService} from '@monorepo/community-lib';
+import { Observable } from 'rxjs';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CaCurrentSpaceService } from '../service-api/ca-current-space.service';
+import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 /**
  * Only for local environment, add the space domain to the request

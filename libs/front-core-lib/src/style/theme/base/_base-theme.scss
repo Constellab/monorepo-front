@@ -15,13 +15,13 @@
       )
   );
   // Define material font
-  $typography: mat.define-typography-config(
+  $typography: mat.m2-define-typography-config(
     $font-family: 'Poppins',
-    $body-1: mat.define-typography-level(13px, 18px, 400, 'Poppins'),
-    $body-2: mat.define-typography-level(13px, 22px, 500, 'Poppins'),
-    $subtitle-2: mat.define-typography-level(13px, 18px, 400, 'Poppins'),
-    $button: mat.define-typography-level(13px, 13px, 500, 'Poppins'),
-    $caption: mat.define-typography-level(10px, 10px, 500, 'Poppins'),
+    $body-1: mat.m2-define-typography-level(13px, 18px, 400, 'Poppins'),
+    $body-2: mat.m2-define-typography-level(13px, 22px, 500, 'Poppins'),
+    $subtitle-2: mat.m2-define-typography-level(13px, 18px, 400, 'Poppins'),
+    $button: mat.m2-define-typography-level(13px, 13px, 500, 'Poppins'),
+    $caption: mat.m2-define-typography-level(10px, 10px, 500, 'Poppins'),
   );
   @return map_merge(
       $theme,
@@ -39,19 +39,19 @@
 @mixin _base-theme($mat-theme, $background, $foreground) {
   $mat-theme: set-default-values($mat-theme, $background, $foreground);
 
-  $color: mat.get-color-config($mat-theme);
+  $color: mat.m2-get-color-config($mat-theme);
   $primary: map-get($color, primary);
   $accent: map-get($color, accent);
   $warn: map-get($color, warn);
   $foreground: map-get($color, foreground);
   $background: map-get($color, background);
-  $foreground-color: mat.get-color-from-palette($foreground, text);
-  $background-color: mat.get-color-from-palette($background, background);
-  $divider: mat.get-color-from-palette($foreground, dividers);
+  $foreground-color: mat.m2-get-color-from-palette($foreground, text);
+  $background-color: mat.m2-get-color-from-palette($background, background);
+  $divider: mat.m2-get-color-from-palette($foreground, dividers);
 
   $color-success: #22B252;
   $color-warning: orange;
-  $color-error: mat.get-color-from-palette($warn);
+  $color-error: mat.m2-get-color-from-palette($warn);
 
 
   @include mat.core-theme($mat-theme);
@@ -64,17 +64,17 @@
   @include mat.strong-focus-indicators-theme($mat-theme);
 
   :root {
-    --primary-color: #{mat.get-color-from-palette($primary)};
-    --primary-color-contrast: #{mat.get-color-from-palette($primary, default-contrast)};
-    --accent-color: #{mat.get-color-from-palette($accent)};
-    --warn-color: #{mat.get-color-from-palette($warn)};
-    --warn-color-contrast: #{mat.get-color-from-palette($warn, default-contrast)};
+    --primary-color: #{mat.m2-get-color-from-palette($primary)};
+    --primary-color-contrast: #{mat.m2-get-color-from-palette($primary, default-contrast)};
+    --accent-color: #{mat.m2-get-color-from-palette($accent)};
+    --warn-color: #{mat.m2-get-color-from-palette($warn)};
+    --warn-color-contrast: #{mat.m2-get-color-from-palette($warn, default-contrast)};
     --success-color: #{$color-success};
     --warning-color: #{$color-warning};
     --color-foreground: #{$foreground-color};
     --main-background: #{$background-color};
 
-    --card-background: #{mat.get-color-from-palette($background, card)};
+    --card-background: #{mat.m2-get-color-from-palette($background, card)};
     --card-radius: 20px;
     --navbar-height: 64px;
     --small-navbar-height: 48px;
@@ -89,67 +89,67 @@
      Text with the colors of the palettes
      */
     .g-primary-text {
-      color: mat.get-color-from-palette($primary);
+      color: mat.m2-get-color-from-palette($primary);
     }
 
     .g-accent-text {
-      color: mat.get-color-from-palette($accent);
+      color: mat.m2-get-color-from-palette($accent);
     }
 
     .g-warn-text {
-      color: mat.get-color-from-palette($warn);
+      color: mat.m2-get-color-from-palette($warn);
     }
 
     /**
      Background color based on the theme and set the text color
      */
     .g-primary-background {
-      background-color: mat.get-color-from-palette($primary);
-      color: mat.get-color-from-palette($primary, default-contrast);
+      background-color: mat.m2-get-color-from-palette($primary);
+      color: mat.m2-get-color-from-palette($primary, default-contrast);
     }
 
     .g-accent-background {
-      background-color: mat.get-color-from-palette($accent);
-      color: mat.get-color-from-palette($accent, default-contrast);
+      background-color: mat.m2-get-color-from-palette($accent);
+      color: mat.m2-get-color-from-palette($accent, default-contrast);
     }
 
     .g-warn-background {
-      background-color: mat.get-color-from-palette($warn);
-      color: mat.get-color-from-palette($warn, default-contrast);
+      background-color: mat.m2-get-color-from-palette($warn);
+      color: mat.m2-get-color-from-palette($warn, default-contrast);
     }
 
     /**
       Contrast text for palette. The best color (white or black) depending on the background
      */
     .g-primary-contrast {
-      color: mat.get-color-from-palette($primary, default-contrast);
+      color: mat.m2-get-color-from-palette($primary, default-contrast);
     }
 
     .g-accent-contrast {
-      color: mat.get-color-from-palette($accent, default-contrast);
+      color: mat.m2-get-color-from-palette($accent, default-contrast);
     }
 
     .g-warn-contrast {
-      color: mat.get-color-from-palette($warn, default-contrast);
+      color: mat.m2-get-color-from-palette($warn, default-contrast);
     }
 
     /**
       Text with other primary colors
      */
     .g-primary-text-extra-light {
-      color: mat.get-color-from-palette($primary, 50);
+      color: mat.m2-get-color-from-palette($primary, 50);
     }
 
     .g-primary-text-light {
-      color: mat.get-color-from-palette($primary, 200);
+      color: mat.m2-get-color-from-palette($primary, 200);
     }
 
     .g-primary-text-dark {
-      color: mat.get-color-from-palette($primary, 600);
+      color: mat.m2-get-color-from-palette($primary, 600);
     }
 
     .g-primary-text-extra-dark {
-      color: mat.get-color-from-palette($primary, 800);
+      color: mat.m2-get-color-from-palette($primary, 800);
     }
 
 
@@ -158,8 +158,8 @@
      */
 
     .g-primary-background-light {
-      background-color: mat.get-color-from-palette($primary, 200);
-      color: mat.get-color-from-palette($primary, '100-contrast');
+      background-color: mat.m2-get-color-from-palette($primary, 200);
+      color: mat.m2-get-color-from-palette($primary, '100-contrast');
     }
 
 
@@ -167,30 +167,30 @@
       Contrast border for palette. The best color (white or black) depending on the background
      */
     .g-primary-border-contrast {
-      border-color: mat.get-color-from-palette($primary, default-contrast);
+      border-color: mat.m2-get-color-from-palette($primary, default-contrast);
     }
 
     .g-accent-border-contrast {
-      color: mat.get-color-from-palette($accent, default-contrast);
+      color: mat.m2-get-color-from-palette($accent, default-contrast);
     }
 
     .g-warn-border-contrast {
-      color: mat.get-color-from-palette($warn, default-contrast);
+      color: mat.m2-get-color-from-palette($warn, default-contrast);
     }
 
     /**
     * Border theme color
     */
     .g-primary-border {
-      border-color: mat.get-color-from-palette($primary);
+      border-color: mat.m2-get-color-from-palette($primary);
     }
 
     .g-accent-border {
-      color: mat.get-color-from-palette($accent);
+      color: mat.m2-get-color-from-palette($accent);
     }
 
     .g-warn-border {
-      color: mat.get-color-from-palette($warn);
+      color: mat.m2-get-color-from-palette($warn);
     }
 
 
@@ -212,7 +212,7 @@
     }
 
     .g-card-background {
-      background-color: mat.get-color-from-palette($background, card);
+      background-color: mat.m2-get-color-from-palette($background, card);
     }
 
     .g-default-color-text {
@@ -257,7 +257,7 @@
     }
 
     .g-primary-button-icon-border {
-      border: 1px solid mat.get-color-from-palette($primary) !important;
+      border: 1px solid mat.m2-get-color-from-palette($primary) !important;
       box-sizing: content-box !important;
     }
   }

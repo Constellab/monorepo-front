@@ -75,7 +75,9 @@ export class TeHelper {
     const button = document.createElement('div');
     button.classList.add('ce-popover-item');
     button.innerHTML =
-      `<div class="ce-popover-item__icon">${TeHelper.getMatIconElement(icon)}</div><div class="ce-popover-item__title">${title}</div>`;
+      `<div class="ce-popover-item__icon ce-popover-item__icon--tool">
+          ${TeHelper.getMatIconElement(icon)}</div><div class="ce-popover-item__title">${title}
+      </div>`;
     return button;
   }
 

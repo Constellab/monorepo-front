@@ -26,7 +26,7 @@ export class HaCommentTextEditorConfig extends TeConfig {
   }
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
+    return this.getBasicInlineToolbar();
   }
 
   getTunes(): string[] {

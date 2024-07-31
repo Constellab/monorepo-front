@@ -15,7 +15,7 @@ $custom-primary: (
     500: #222222,
   )
 );
-$primary: mat.define-palette($custom-primary, 500, 500, 500, 500);
+$primary: mat.m2-define-palette($custom-primary, 500, 500, 500, 500);
 
 // Secondary
 $custom-accent: (
@@ -27,7 +27,7 @@ $custom-accent: (
   )
 );
 
-$accent: mat.define-palette($custom-accent, 500, 500, 500, 500);
+$accent: mat.m2-define-palette($custom-accent, 500, 500, 500, 500);
 
 // Warn
 $custom-warn: (
@@ -38,22 +38,22 @@ $custom-warn: (
     500: #222222,
   )
 );
-$warn: mat.define-palette($custom-warn, 500, 500, 500, 500);
+$warn: mat.m2-define-palette($custom-warn, 500, 500, 500, 500);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$theme: mat.define-dark-theme((color: (primary: $primary, accent: $accent, warn: $warn)));
+$theme: mat.m2-define-dark-theme((color: (primary: $primary, accent: $accent, warn: $warn)));
 
 // define the background theme
-$background: map_merge(mat.$dark-theme-background-palette, (background: #222222, card: #2B2D2E, dialog:#2B2D2E));
+$background: map_merge(mat.$m2-dark-theme-background-palette, (background: #222222, card: #2B2D2E, dialog:#2B2D2E));
 // define the foreground
-$foreground: map_merge(mat.$dark-theme-foreground-palette, (base: #FFFFFF, icon: #FFFFFF, icons: #FFFFFF, text: #FFFFFF));
+$foreground: map_merge(mat.$m2-dark-theme-foreground-palette, (base: #FFFFFF, icon: #FFFFFF, icons: #FFFFFF, text: #FFFFFF));
 
 // Load all global classes to theme
 @include _base-theme($theme, $background, $foreground);
 
 //////////////////// GLOBAL CSS VARIABLES ///////////////////////
-$foreground-color: mat.get-color-from-palette($foreground, text);
-$background-color: mat.get-color-from-palette($background, background);
+$foreground-color: mat.m2-get-color-from-palette($foreground, text);
+$background-color: mat.m2-get-color-from-palette($background, background);
 
 :root {
   // color for light text
@@ -83,12 +83,12 @@ $background-color: mat.get-color-from-palette($background, background);
   bottom: 0;
   left: 0;
   height: 50px;
-  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.get-color-from-palette($background, card) 70%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(70%, mat.get-color-from-palette($background, card)));
-  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.get-color-from-palette($background, card) 70%);
-  background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.get-color-from-palette($background, card) 70%);
-  background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.get-color-from-palette($background, card) 70%);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, mat.get-color-from-palette($background, card) 70%);
+  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(70%, mat.m2-get-color-from-palette($background, card)));
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
+  background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
+  background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
 }
 
 .g-button-shadow, .mdc-icon-button.g-button-shadow {

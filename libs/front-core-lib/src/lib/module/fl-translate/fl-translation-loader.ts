@@ -1,9 +1,9 @@
-import {TranslateLoader} from '@ngx-translate/core';
-import {Observable, zip} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {FlTranslateObject} from './model/fl-translate-param';
-import {ClSupportedLanguage} from '@monorepo/core-lib';
+import { TranslateLoader } from '@ngx-translate/core';
+import { Observable, zip } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { FlTranslateObject } from './model/fl-translate-param';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
 
 /**
  * @ignore

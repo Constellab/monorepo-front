@@ -1,9 +1,9 @@
-import {FlSnackBarService} from '../../fl-snack-bar/fl-snack-bar.service';
-import {FlTranslateService} from '../../fl-translate/service/fl-translate.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {ClDeserializationRef} from '@monorepo/core-lib';
-import {FlServerError} from '../model/fl-server-error.class';
+import { FlSnackBarService } from '../../fl-snack-bar/fl-snack-bar.service';
+import { FlTranslateService } from '../../fl-translate/service/fl-translate.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ClDeserializationRef } from '@monorepo/core-lib';
+import { FlServerError } from '../model/fl-server-error.class';
 
 /**
  * Service to provide to handle error of the {@link FlApiService}

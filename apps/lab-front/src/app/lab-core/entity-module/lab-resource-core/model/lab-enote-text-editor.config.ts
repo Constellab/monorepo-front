@@ -44,7 +44,7 @@ export class LabENoteTextEditorFileConfig implements TeFileBlockConfig {
     this.enoteService = flRootInjector.get(LabResourceENoteService);
   }
 
-  fileUploader(file: File): Observable<TeFileBlockData> {
+  fileUploader(): Observable<TeFileBlockData> {
     throw new Error('Method not implemented.');
   }
 
@@ -92,6 +92,6 @@ export class LabEnoteTextEditorConfig extends TeCompleteConfig {
   }
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'variable', 'cleanStyle'];
+    return this.getFullInlineToolbar(true);
   }
 }

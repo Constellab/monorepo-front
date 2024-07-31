@@ -1,17 +1,16 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {CaMainMenuLink, caMainMenuLinks} from '../../model/ca-main-menu-link.class';
-import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
-import {FlChatBotService, FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { CaMainMenuLink, caMainMenuLinks } from '../../model/ca-main-menu-link.class';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
+import { FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
 import {
   CaNotificationsPortalComponent
 } from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
-import {CaMySpacesPortalComponent} from '../ca-my-spaces-portal/ca-my-spaces-portal.component';
-import {MatSidenav} from '@angular/material/sidenav';
-import {Observable} from 'rxjs';
-import {CaCurrentSpaceService} from '../../../ca-core/service-api/ca-current-space.service';
-import {map} from 'rxjs/operators';
-import {CaNotificationState} from '../../../ca-core/state/ca-notification.state';
-import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper';
+import { CaMySpacesPortalComponent } from '../ca-my-spaces-portal/ca-my-spaces-portal.component';
+import { MatSidenav } from '@angular/material/sidenav';
+import { Observable } from 'rxjs';
+import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
+import { map } from 'rxjs/operators';
+import { CaNotificationState } from '../../../ca-core/state/ca-notification.state';
 
 /**
  * Main app component. Menu on the left and page on the right
@@ -23,7 +22,7 @@ import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper'
 })
 export class CaMainAppComponent implements OnInit {
 
-  @ViewChild(MatSidenav, {static: true, read: ElementRef}) sidenav: ElementRef<HTMLElement>;
+  @ViewChild(MatSidenav, { static: true, read: ElementRef }) sidenav: ElementRef<HTMLElement>;
 
   menuExpanded: boolean = true;
 
@@ -39,14 +38,11 @@ export class CaMainAppComponent implements OnInit {
   constructor(private authenticatedUserService: CaAuthenticatedUserService,
               private currentSpaceService: CaCurrentSpaceService,
               private portalService: FlPortalService,
-              private notificationState: CaNotificationState,
-              private chatBotService: FlChatBotService) {
+              private notificationState: CaNotificationState) {
   }
 
   ngOnInit(): void {
     this.initAccessibleLinks();
-
-    this.chatBotService.loadScript(CaEnvironmentHelper.isProduction());
 
     // if the current space has a photo, use it, otherwise, use the default logo of gencovery
     this.spaceLogo$ = this.currentSpaceService.getCurrentSpacePhoto$().pipe(
@@ -79,10 +75,10 @@ export class CaMainAppComponent implements OnInit {
       originX: 'end',
       overlayX: 'start',
       originY: 'top',
-      overlayY: 'top',
+      overlayY: 'top'
     }], {
       disposeOnOutsideClick: true,
-      disposeOnNavigation: true,
+      disposeOnNavigation: true
     });
 
     this.portalService.createPortal(CaMySpacesPortalComponent, config);
@@ -94,7 +90,7 @@ export class CaMainAppComponent implements OnInit {
       left: '5em'
     }, {
       disposeOnNavigation: true,
-      disposeOnOutsideClick: true,
+      disposeOnOutsideClick: true
     });
 
     this.portalService.createPortal(CaNotificationsPortalComponent, config).detachments().subscribe();

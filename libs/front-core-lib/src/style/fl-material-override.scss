@@ -7,7 +7,7 @@ body {
   // Reduce the default size of the icon button
   @include mat.icon-button-density(-2);
   // Reduce the default height of form fields
-  @include mat.private-form-field-density(-2);
+  @include mat.form-field-density(-2);
   // reduce the default height of the checkbox
   @include mat.checkbox-density(-3);
   // reduce the default height of the radio button
@@ -31,7 +31,7 @@ body {
 
   @mixin g-form-field-compact-height {
     &.mat-form-field-appearance-outline {
-      @include mat.private-form-field-density(-5);
+      @include mat.form-field-density(-5);
       // reduce size of the icon and button icon
       @include mat.icon-button-density(-5);
       --mdc-icon-button-icon-size: 18px;

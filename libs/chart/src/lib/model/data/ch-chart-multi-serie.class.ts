@@ -1,8 +1,8 @@
-import {ChChart2dDatum, ChChartData, ChChartDataContainer} from './ch-chart-data.class';
-import {ChChartDataWithSerie, ChChartSerie} from './ch-chart-serie.class';
-import {ChChartDomain} from '../ch-chart-domain.class';
-import {ChChartLabelFormatter} from '../ch-chart-label-formatter.class';
-import {FlTagHelper} from '@monorepo/front-core-lib';
+import { ChChart2dDatum, ChChartData, ChChartDataContainer } from './ch-chart-data.class';
+import { ChChartDataWithSerie, ChChartSerie } from './ch-chart-serie.class';
+import { ChChartDomain } from '../ch-chart-domain.class';
+import { ChChartLabelFormatter } from '../ch-chart-label-formatter.class';
+import { FlTagHelper } from '@monorepo/front-core-lib';
 
 /**
  * Object to manage multiple series
@@ -51,7 +51,7 @@ export class ChChartMultiSerie<Data extends ChChartData> implements ChChartDataC
   // return the biggest number of data for a serie
   public maxSerieDataCount(): number {
     return this.series.reduce(
-      (p, c) => c.countData() > p?.countData() ?? 0 ? c : p)
+      (p, c) => c.countData() > (p?.countData() ?? 0) ? c : p)
       .countData();
   }
 

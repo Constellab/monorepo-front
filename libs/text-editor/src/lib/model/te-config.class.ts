@@ -28,7 +28,6 @@ import { TeFileBlock, TeFileBlockConfig } from '../block/te-file-block';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { TeComponentInitData } from '../block/te-component-block.class';
 import TeTable from '../block/te-table-block.class';
-import {TeEvent} from './te-event.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -150,7 +149,7 @@ export abstract class TeConfig {
     return {
       class: teComponentBlockFactory(TeFigureBlock, envInjector, applicationRef, config)
     };
-  };
+  }
 
   getFileConfig(config: TeFileBlockConfig,
                 envInjector: EnvironmentInjector,
@@ -158,7 +157,7 @@ export abstract class TeConfig {
     return {
       class: teComponentBlockFactory(TeFileBlock, envInjector, applicationRef, config)
     };
-  };
+  }
 
 
   getCodeConfig(envInjector: EnvironmentInjector,
@@ -188,6 +187,18 @@ export abstract class TeConfig {
     };
   }
 
+  getBasicInlineToolbar(): string[] {
+    return ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
+  }
+
+  getFullInlineToolbar(variable: boolean = false): string[] {
+    const tools = ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode'];
+    if (variable) tools.push('variable');
+    tools.push('cleanStyle');
+    return tools;
+  }
+
+
 }
 
 
@@ -216,7 +227,7 @@ export class TeBasicConfig extends TeConfig {
 
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
+    return this.getBasicInlineToolbar();
   }
 }
 
@@ -254,7 +265,7 @@ export class TeCompleteConfig extends TeConfig {
   }
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'cleanStyle'];
+    return this.getFullInlineToolbar(false);
   }
 
   getTunes(): string[] {
