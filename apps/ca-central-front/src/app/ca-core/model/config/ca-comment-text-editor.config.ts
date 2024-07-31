@@ -1,13 +1,14 @@
-import {ClPageI} from '@monorepo/core-lib';
-import {CaProjectService} from '../../service-api/ca-project.service';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
-import {first, mergeMap, Observable} from 'rxjs';
-import {CaUser} from '../entities/ca-user.class';
+import { ClPageI } from '@monorepo/core-lib';
+import { CaProjectService } from '../../service-api/ca-project.service';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { first, mergeMap, Observable } from 'rxjs';
+import { CaUser } from '../entities/ca-user.class';
 import {
   TeAdditionalConfig,
   TeCleanStyleInlineTool,
   TeComponentInitData,
-  TeConfig, TeEvent,
+  TeConfig,
+  TeEvent,
   TeFakeInlineTool,
   TeFigureBlockConfig,
   TeStrikethroughInlineTool,
@@ -114,7 +115,7 @@ export class CaProjectCommentTextEditorConfig extends TeConfig {
   }
 
   getInlineToolbar(): string[] {
-    const toolbar = ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'cleanStyle'];
+    const toolbar = this.getFullInlineToolbar(false);
     if (this.mode === 'create') {
       toolbar.push('mention');
     }

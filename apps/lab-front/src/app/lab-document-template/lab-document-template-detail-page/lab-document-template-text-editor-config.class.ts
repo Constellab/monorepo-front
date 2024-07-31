@@ -40,7 +40,8 @@ export class LabDocumentTemplateTextEditorConfig extends TeCompleteConfig {
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
 
-    tools.file = this.getFileConfig(new LabRichTextFileConfig(LabRichTextObjectType.DOCUMENT_TEMPLATE, this.documentTemplateId), envInjector, applicationRef);
+    tools.file = this.getFileConfig(new LabRichTextFileConfig(LabRichTextObjectType.DOCUMENT_TEMPLATE,
+      this.documentTemplateId), envInjector, applicationRef);
 
     // add the file view block
     const fileViewData: LabRichTextViewBlockAdditionalData = {
@@ -54,6 +55,6 @@ export class LabDocumentTemplateTextEditorConfig extends TeCompleteConfig {
 
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'variable', 'cleanStyle'];
+    return this.getFullInlineToolbar(true);
   }
 }

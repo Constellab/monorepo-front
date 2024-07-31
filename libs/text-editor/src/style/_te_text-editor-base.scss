@@ -57,8 +57,12 @@
 
   // class for an align button than contains a text
   .g-text-editor-inline-button {
-    width: 22px;
+    width: 28px;
     text-align: center;
+
+    .material-icons-outlined {
+      font-size: 18px;
+    }
   }
 
   .g-text-editor {
@@ -77,10 +81,9 @@
       max-width: unset;
     }
 
-    .inlineToolButton,
+    // plus and block tune button on the left
     .ce-toolbar__plus,
-    .ce-toolbar__settings-btn,
-    .ce-popover__search {
+    .ce-toolbar__settings-btn {
       background-color: var(--card-background);
       color: var(--light-color);
     }
@@ -99,12 +102,16 @@
       height: 28px;
     }
 
-    ////////////////////////////// POPUP TOOLBAR //////////////////////////////
+    // background color for the current selected block (when clicking on tune button, or selecting multiple block with mouse)
+    .ce-block--selected .ce-block__content {
+      background: var(--hover-color);
+    }
+
+    ////////////////////////////// POPUP TOOLBAR & CONVERSION POPUP //////////////////////////////
 
     .ce-popover {
-      //background-color: red;
       --color-border: transparent;
-      --color-shadow: transparent;
+      --color-shadow: rgba(0, 0, 0, 0.2);
       --color-background: var(--card-background);
       --color-text-primary: var(--light-color);
       --color-text-secondary: var(--light-color);
@@ -120,23 +127,58 @@
       --width: 300px;
       --max-height: 375px;
       --padding: 6px 0;
-      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
     }
 
-    .ce-popover__items, .ce-popover__custom-content {
-      padding-inline: 6px;
-    }
+    // ce-toolbar = style for main toolbar
+    // .ce-inline-toolbar .ce-popover--nested = style for convertTo popup toolbar
+    .ce-toolbar, .ce-inline-toolbar .ce-popover--nested {
 
+      // style for the tools button and icons
+      .ce-popover-item__icon, .ce-conversion-tool__icon {
+        background-color: var(--card-background);
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        border: 1px solid var(--hover-color);
+        box-shadow: none;
+        // make the text icon in button bold
+        font-weight: bold;
+        border-radius: 5px;
+      }
 
-    .ce-popover-item__icon, .ce-conversion-tool__icon {
-      background-color: var(--card-background);
-      width: 40px;
-      height: 40px;
-      font-size: 18px;
-      border: 1px solid var(--hover-color);
-      box-shadow: none;
-      // make the text icon in button bold
-      font-weight: bold;
+      // right margin after the icon before the button text
+      .ce-popover-item__icon--tool {
+        margin-right: 10px;
+      }
+
+      // for button that have children, this override the style of the chevron right icon
+      .ce-popover-item__icon--chevron-right{
+        border: none;
+        background-color: transparent;
+      }
+
+      // set the padding around the button
+      .ce-popover__items {
+        padding-inline: 6px;
+        box-sizing: border-box;
+      }
+
+      .ce-popover__nothing-found-message {
+        color: var(--light-color);
+        padding: 6px;
+      }
+
+      // style of the search bar
+      .cdx-search-field {
+        border: none;
+        padding-inline: 6px;
+        background-color: var(--card-background);
+      }
+
+      // color of the search icon and search text
+      .cdx-search-field__input, .cdx-search-field__icon svg {
+        color: var(--light-color);
+      }
 
       // format the mat icons used in popup toolbar (tune)
       .material-icons-outlined {
@@ -150,67 +192,36 @@
       }
     }
 
-    // make the text icon in button bold
-    .ce-inline-toolbar__dropdown-content {
-      font-weight: bold;
-    }
 
-    .ce-popover__nothing-found-message {
-      color: var(--light-color);
-      padding: 6px;
-    }
-
-    .cdx-search-field__input, .cdx-search-field__icon svg {
-      color: var(--light-color);
-    }
-
-    .cdx-search-field {
-      border: none;
-      padding-inline: 6px;
-    }
-
-    ///////////////////////// INLINE TOOLBAR & CONVERSION TOOL/////////////////////////
-    .ce-inline-toolbar, .ce-conversion-toolbar {
+    ///////////////////////// INLINE TOOLBAR /////////////////////////
+    .ce-inline-toolbar {
       color: var(--light-color);
       background-color: var(--card-background);
       box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
       border: none;
-    }
 
-    // reduce the size of the mat icon used in the inline toolbar
-    .ce-inline-toolbar__buttons .material-icons-outlined {
-      font-size: 18px;
-    }
 
-    // work with the codex-editor__redactor no padding to only create the conversion toolbar when needed
-    // this avoid to create a scrollbar when conversion toolbar is not showed
-    .ce-conversion-toolbar:not(.ce-conversion-toolbar--showed) {
-      display: none;
-    }
+      // separator vertical line in inline toolbar
+      // between convertTo and other buttons
+      .ce-popover-item-separator__line {
+        background-color: var(--hover-color);
+      }
 
-    .ce-conversion-tool--focused {
-      background-color: var(--hover-color) !important;
-      box-shadow: none;
-    }
+      // input used in inline tool (for link for example)
+      .ce-inline-tool-input {
+        background-color: var(--card-background);
+        color: var(--light-color);
+        border: none;
+      }
 
-    .ce-conversion-tool:hover, .ce-inline-tool:hover, .ce-inline-toolbar__dropdown:hover {
-      background-color: var(--hover-color);
-    }
+      .ce-popover-item--confirmation .ce-popover-item__title {
+        color: var(--warn-color-contrast);
+      }
 
-    // background color for the current selected block (when clicking on tune button, or selecting with mouse)
-    .ce-block--selected .ce-block__content {
-      //background: transparent;
-      background: var(--hover-color);
-    }
-
-    // input used in inline tool (for link for example)
-    .ce-inline-tool-input {
-      background-color: var(--card-background);
-      color: var(--light-color);
-    }
-
-    .ce-popover-item--confirmation .ce-popover-item__title {
-      color: var(--warn-color-contrast);
+      // hover inline tool button
+      .ce-inline-tool:hover {
+        background-color: var(--hover-color);
+      }
     }
 
     ///////////////////////// BLOCK /////////////////////////
@@ -231,21 +242,19 @@
       line-height: 1.50em;
     }
 
-    // color the paragraph placeholder
-    .ce-paragraph[data-placeholder]:empty:before {
-      color: var(--light-color);
-      cursor: text;
-    }
 
-    // use to show the placeholder on focused paragraph if empty
-    .ce-block .ce-paragraph[data-placeholder]:empty:focus-within:before,
-    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder][contenteditable=true]:empty:before {
+    // color the paragraph placeholder
+    .ce-paragraph[data-placeholder-active]:empty:before {
+      color: var(--light-color);
       opacity: 0.5 !important;
     }
-    // hide placeholder when text editor is disabled
-    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder][contenteditable=false]:empty:before {
-      opacity: 0 !important;
+
+
+    // use to show the placeholder on first paragraph if text editor is empty and not disable (no need to focus)
+    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder-active][contenteditable=true][data-empty=true]:before {
+      content: attr(data-placeholder-active);
     }
+
 
 
     ///////////////////////// HEADER /////////////////////////

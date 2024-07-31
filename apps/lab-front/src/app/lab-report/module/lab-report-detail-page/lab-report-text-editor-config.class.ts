@@ -60,6 +60,6 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
   }
 
   getInlineToolbar(): string[] {
-    return ['bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'variable', 'cleanStyle'];
+    return this.getFullInlineToolbar(true);
   }
 }
