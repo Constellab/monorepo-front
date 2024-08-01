@@ -59,7 +59,6 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'document_template', filename: 'document-template.svg'},
   {name: 'resource', matIconName: 'folder'},
   {name: 'view', matIconName: 'insert_chart'},
-  {name: 'smart_db', matIconName: 'search'},
   {name: 'organization', matIconName: 'business'},
   {name: 'group', matIconName: 'group'},
   {name: 'transformer', matIconName: 'move_down'},

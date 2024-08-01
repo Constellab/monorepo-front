@@ -62,62 +62,64 @@ function configureCaptcha(): FlCaptchaModuleConfig {
 }
 
 
-@NgModule({ declarations: [
-        CaAppComponent
-    ],
-    bootstrap: [CaAppComponent], imports: [BrowserModule,
-        CaAppRoutingModule,
-        BrowserAnimationsModule,
-        // Other modules
-        CaLoginModule,
-        CaMainModule,
-        // Core Modules
-        CaCoreModule,
-        PrProtocolModule.forRoot(),
-        FlApiModule.forRoot(CaApiServiceConfig, CaApiErrorService, 'front-errors'),
-        // Setup translate module
-        FlTranslateModule.forRoot({
-            defaultLang: ClSupportedLanguage.en,
-            availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
-            filenames: ['ca-global-', 'ca-dashboard-', 'ca-server-info-', 'ca-lab-', 'ca-smart-db-']
-        }),
-        FlTranslateModule.forRoot2(),
-        // configuration of Front library
-        FlIconModule.forRoot({
-            iconFolder: 'assets/fl-mat-icons/',
-            iconsToRegister: caSvgIcons
-        }),
-        FlDialogModule.forRoot(),
-        FlSnackBarModule.forRoot(),
-        FlPortalModule.forRoot(),
-        FlCaptchaModule,
-        FlAuthModule.forRoot(CaAuthService, CaUserAccountsService),
-        FlPortalActionsModule.forRoot(),
-        FlUserModule.forRoot(CaUserConfig),
-        RvResourceViewModule.forRoot({ availableViews: rvDefaultViewTypeInfos }),
-        BnBioNetworkModule.forRoot(),
-        TdTechnicalDocModule.forRoot(CaTdServiceConfig),
-        CoCommunityLibModule.forRoot(CaCoServiceConfig)], providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: FlHttpInterceptorService,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: CaSpaceInterceptor,
-            multi: true
-        },
-        { provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true },
-        { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
-        {
-            provide: TranslateLoader,
-            useFactory: translationLoaderFactory,
-            deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
-        },
-        CookieService,
-        provideHttpClient(withInterceptorsFromDi()),
-    ] })
+@NgModule({
+  declarations: [
+    CaAppComponent
+  ],
+  bootstrap: [CaAppComponent], imports: [BrowserModule,
+    CaAppRoutingModule,
+    BrowserAnimationsModule,
+    // Other modules
+    CaLoginModule,
+    CaMainModule,
+    // Core Modules
+    CaCoreModule,
+    PrProtocolModule.forRoot(),
+    FlApiModule.forRoot(CaApiServiceConfig, CaApiErrorService, 'front-errors'),
+    // Setup translate module
+    FlTranslateModule.forRoot({
+      defaultLang: ClSupportedLanguage.en,
+      availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
+      filenames: ['ca-global-', 'ca-dashboard-', 'ca-server-info-', 'ca-lab-']
+    }),
+    FlTranslateModule.forRoot2(),
+    // configuration of Front library
+    FlIconModule.forRoot({
+      iconFolder: 'assets/fl-mat-icons/',
+      iconsToRegister: caSvgIcons
+    }),
+    FlDialogModule.forRoot(),
+    FlSnackBarModule.forRoot(),
+    FlPortalModule.forRoot(),
+    FlCaptchaModule,
+    FlAuthModule.forRoot(CaAuthService, CaUserAccountsService),
+    FlPortalActionsModule.forRoot(),
+    FlUserModule.forRoot(CaUserConfig),
+    RvResourceViewModule.forRoot({ availableViews: rvDefaultViewTypeInfos }),
+    BnBioNetworkModule.forRoot(),
+    TdTechnicalDocModule.forRoot(CaTdServiceConfig),
+    CoCommunityLibModule.forRoot(CaCoServiceConfig)], providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: FlHttpInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CaSpaceInterceptor,
+      multi: true
+    },
+    { provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true },
+    { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
+    {
+      provide: TranslateLoader,
+      useFactory: translationLoaderFactory,
+      deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
+    },
+    CookieService,
+    provideHttpClient(withInterceptorsFromDi())
+  ]
+})
 export class CaAppModule {
   constructor(injector: Injector) {
     // set the root injector in a variable

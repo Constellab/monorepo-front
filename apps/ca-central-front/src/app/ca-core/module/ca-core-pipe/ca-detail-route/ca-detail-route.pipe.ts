@@ -1,17 +1,15 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {CaEntity} from '../../../model/entities/ca-entity.entity';
-import {CaProject} from '../../../model/entities/project/ca-project.class';
-import {CaSmartDb} from '../../../model/entities/ca-smart-db.entity';
-import {CaLabInstance} from '../../../model/entities/lab/ca-lab-instance.class';
-import {CaRouterService} from '../../../service/ca-router.service';
-import {CaGroup, CaGroupType} from '../../../model/entities/ca-group.entity';
-import {CaExperiment} from '../../../model/entities/project/ca-experiment.class';
-import {CaReport} from '../../../model/entities/project/ca-report.class';
-import {CaDocument} from '../../../model/entities/project/ca-document.class';
-import {CaUser} from '../../../model/entities/ca-user.class';
+import { Pipe, PipeTransform } from '@angular/core';
+import { CaEntity } from '../../../model/entities/ca-entity.entity';
+import { CaProject } from '../../../model/entities/project/ca-project.class';
+import { CaLabInstance } from '../../../model/entities/lab/ca-lab-instance.class';
+import { CaRouterService } from '../../../service/ca-router.service';
+import { CaGroup, CaGroupType } from '../../../model/entities/ca-group.entity';
+import { CaExperiment } from '../../../model/entities/project/ca-experiment.class';
+import { CaReport } from '../../../model/entities/project/ca-report.class';
+import { CaDocument } from '../../../model/entities/project/ca-document.class';
+import { CaUser } from '../../../model/entities/ca-user.class';
 
-type CaObjectType = 'project' | 'experiment' | 'report' |
-  'smartDb' | 'labInstance' | 'group' | 'document' | 'user';
+type CaObjectType = 'project' | 'experiment' | 'report' | 'labInstance' | 'group' | 'document' | 'user';
 
 
 /**
@@ -46,8 +44,6 @@ export class CaDetailRoutePipe implements PipeTransform {
         return CaRouterService.getExperimentDetailRoute(id);
       case 'report':
         return CaRouterService.getReportDetailRoute(id);
-      case 'smartDb':
-        return CaRouterService.getSmartDbDetailRoute(id);
       case 'labInstance':
         return CaRouterService.getLabInstanceDetailRoute(id);
       case 'group':
@@ -70,8 +66,6 @@ export class CaDetailRoutePipe implements PipeTransform {
       return ['experiment', obj.id];
     } else if (obj instanceof CaReport) {
       return ['report', obj.id];
-    } else if (obj instanceof CaSmartDb) {
-      return ['smartDb', obj.id];
     } else if (obj instanceof CaLabInstance) {
       return ['labInstance', obj.id];
     } else if (obj instanceof CaGroup) {

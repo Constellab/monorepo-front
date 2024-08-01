@@ -1,19 +1,19 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {CaDashboardPageComponent} from './component/ca-dashboard-page/ca-dashboard-page.component';
-import {CaCoreModule} from '../ca-core/ca-core.module';
-import {CaProjectCoreModule} from '../ca-core/entity-module/ca-project-core/ca-project-core.module';
-import {RouterModule} from '@angular/router';
-import {CaLabCoreModule} from '../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
-import {CaDashboardProjectsComponent} from './component/ca-dashboard-projects/ca-dashboard-projects.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CaDashboardPageComponent } from './component/ca-dashboard-page/ca-dashboard-page.component';
+import { CaCoreModule } from '../ca-core/ca-core.module';
+import { CaProjectCoreModule } from '../ca-core/entity-module/ca-project-core/ca-project-core.module';
+import { RouterModule } from '@angular/router';
+import { CaLabCoreModule } from '../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
+import { CaDashboardProjectsComponent } from './component/ca-dashboard-projects/ca-dashboard-projects.component';
 import {
   CaDashboardLabInstancesComponent
 } from './component/ca-dashboard-lab-instances/ca-dashboard-lab-instances.component';
-import {CaDashboardSmartDbsComponent} from './component/ca-dashboard-smart-dbs/ca-dashboard-smart-dbs.component';
-import {CaSmartDbCoreModule} from '../ca-core/entity-module/ca-smart-db-core/ca-smart-db-core.module';
-import {CaDashboardTeamsComponent} from './component/ca-dashboard-teams/ca-dashboard-teams.component';
-import {CaGroupCoreModule} from '../ca-core/entity-module/ca-group-core/ca-group-core.module';
-import {CaDashboardMyActivityComponent} from './component/ca-dashboard-my-activity/ca-dashboard-my-activity.component';
+import { CaDashboardTeamsComponent } from './component/ca-dashboard-teams/ca-dashboard-teams.component';
+import { CaGroupCoreModule } from '../ca-core/entity-module/ca-group-core/ca-group-core.module';
+import {
+  CaDashboardMyActivityComponent
+} from './component/ca-dashboard-my-activity/ca-dashboard-my-activity.component';
 import {
   CaDashboardTaskOfTheDayComponent
 } from './component/ca-dashboard-task-of-the-day/ca-dashboard-task-of-the-day.component';
@@ -23,9 +23,11 @@ import {
 import {
   CaDashboardLastExperimentsComponent
 } from './component/ca-dashboard-last-experiments/ca-dashboard-last-experiments.component';
-import {CaDashboardListLayoutComponent} from './component/ca-dashboard-list-layout/ca-dashboard-list-layout.component';
-import {CaDashboardRoutingModule} from './ca-dashboard-routing.module';
-import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
+import {
+  CaDashboardListLayoutComponent
+} from './component/ca-dashboard-list-layout/ca-dashboard-list-layout.component';
+import { CaDashboardRoutingModule } from './ca-dashboard-routing.module';
+import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
 
 /**
  * Module for the dashboard page
@@ -35,13 +37,12 @@ import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-co
     CaDashboardPageComponent,
     CaDashboardProjectsComponent,
     CaDashboardLabInstancesComponent,
-    CaDashboardSmartDbsComponent,
     CaDashboardTeamsComponent,
     CaDashboardMyActivityComponent,
     CaDashboardTaskOfTheDayComponent,
     CaDashboardActivityCardComponent,
     CaDashboardLastExperimentsComponent,
-    CaDashboardListLayoutComponent,
+    CaDashboardListLayoutComponent
   ],
   imports: [
     CommonModule,
@@ -50,11 +51,10 @@ import {CaUserCoreModule} from '../ca-core/entity-module/ca-user-core/ca-user-co
     CaCoreModule,
     CaProjectCoreModule,
     CaLabCoreModule,
-    CaSmartDbCoreModule,
     CaGroupCoreModule,
     CaUserCoreModule,
 
-    CaDashboardRoutingModule,
+    CaDashboardRoutingModule
   ]
 })
 export class CaDashboardPageModule {

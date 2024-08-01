@@ -1,6 +1,6 @@
-import {Route, RouterModule} from '@angular/router';
-import {NgModule} from '@angular/core';
-import {CaMainAppComponent} from './component/ca-main-app/ca-main-app.component';
+import { Route, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CaMainAppComponent } from './component/ca-main-app/ca-main-app.component';
 import {
   caConstAdminRoute,
   caConstBaseRoute,
@@ -8,12 +8,11 @@ import {
   caConstLabInstancesRoute,
   caConstMyProjectsRoute,
   caConstProjectRoute,
-  caConstSmartDbRoute,
   caConstStructureRoute,
   caConstUserPageRoute
 } from '../ca-core/utils/ca-base-route';
-import {CaLoadUserGuard} from './guard/ca-load-user.guard';
-import {CaAdminGuard} from '../ca-core/guard/ca-admin-guard.service';
+import { CaLoadUserGuard } from './guard/ca-load-user.guard';
+import { CaAdminGuard } from '../ca-core/guard/ca-admin-guard.service';
 
 const routes: Route[] = [
   {
@@ -50,11 +49,6 @@ const routes: Route[] = [
           .then(m => m.CaProjectObjectDetailPageModule)
       },
 
-      //////////////////////// SMART DB /////////////////////////
-      {
-        path: caConstSmartDbRoute,
-        loadChildren: () => import('../ca-smart-db/ca-smart-db.module').then(m => m.CaSmartDbModule)
-      },
       //////////////////////// Admin /////////////////////////
       {
         path: caConstAdminRoute,
@@ -64,7 +58,7 @@ const routes: Route[] = [
       //////////////////////// STRUCTURE /////////////////////////
       {
         path: caConstStructureRoute,
-        loadChildren: () => import('../ca-structure/ca-structure.module').then(m => m.CaStructureModule),
+        loadChildren: () => import('../ca-structure/ca-structure.module').then(m => m.CaStructureModule)
       },
 
       //////////////////////// USER PAGE /////////////////////////
@@ -72,7 +66,7 @@ const routes: Route[] = [
         path: caConstUserPageRoute,
         loadChildren: () => import('../ca-user-detail-page/ca-user-detail-page.module')
           .then(m => m.CaUserDetailPageModule)
-      },
+      }
     ]
   }
 ];

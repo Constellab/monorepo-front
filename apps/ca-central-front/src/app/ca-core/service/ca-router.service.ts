@@ -5,7 +5,6 @@ import {
   caConstLabInstancesRoute,
   caConstMyProjectsRoute,
   caConstProjectRoute,
-  caConstSmartDbRoute,
   caConstStructureRoute,
   caConstUserPageRoute
 } from '../utils/ca-base-route';
@@ -17,7 +16,7 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 /**
  * Class to get app route paths
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CaRouterService {
 
   constructor(private router: Router) {
@@ -140,32 +139,6 @@ export class CaRouterService {
   public navigateToLabConfigRoute(labInstanceId: string): void {
     this.router.navigate([CaRouterService.getLabInstanceConfigRoute(labInstanceId)]);
   }
-  ////////////////////////// SMART DB ///////////////////////
-
-  public static getMySmartDbsRoute(): string {
-    return CaRouterService.getFullRoute(caConstSmartDbRoute);
-  }
-
-  public static getSmartDbDetailRoute(id: string): string {
-    return `${CaRouterService.getMySmartDbsRoute()}/${id}`;
-  }
-
-  public static getSmartDbDocDetailRoute(smartDbId: string, id: string): string {
-    return `${CaRouterService.getSmartDbDetailRoute(smartDbId)}/doc/${id}`;
-  }
-
-  public static getSmartDbAdminRoute(smartDbId: string): string {
-    return `${CaRouterService.getSmartDbDetailRoute(smartDbId)}/admin`;
-  }
-
-  public navigateToSmartDbDetail(id: string): void {
-    this.router.navigate([CaRouterService.getSmartDbDetailRoute(id)]);
-  }
-
-  public navigateToMySmartDbs(): void {
-    this.router.navigate([CaRouterService.getMySmartDbsRoute()]);
-  }
-
 
   ////////////////////////// STRUCTURE MODULE ///////////////////////
 
@@ -210,6 +183,7 @@ export class CaRouterService {
   public static getCurrentSpaceOtherRoute(): string {
     return `${CaRouterService.getCurrentSpaceRoute()}/other`;
   }
+
   ////////////////////////// ADMIN ///////////////////////
 
   public static getAdminRoute(): string {
