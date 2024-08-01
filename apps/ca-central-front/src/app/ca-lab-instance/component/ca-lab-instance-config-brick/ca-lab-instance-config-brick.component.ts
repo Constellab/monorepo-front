@@ -11,22 +11,10 @@ import { CaCommunityBrickService } from '../../../ca-core/service-api/ca-communi
 import { CaLabManagerBrickVersionDTO } from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import {CaCommunityBrick} from '../../../ca-core/model/entities/ca-community-brick.class';
 
 
 export type CaCommunityBrickDatasourcePaginated = FlDatasourcePaginated<CaCommunityBrick>;
-
-export class CaCommunityBrick implements CoBrick, FlEntity {
-  comments: number;
-  createdAt: DateTime;
-  createdBy: CoUser;
-  description?: string;
-  imageLink?: string;
-  likes: number;
-  name: string;
-  space: CoSpace;
-  id: string;
-
-}
 
 
 @Component({

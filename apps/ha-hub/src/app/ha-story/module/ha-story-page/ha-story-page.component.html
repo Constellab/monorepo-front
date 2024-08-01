@@ -67,41 +67,7 @@
 }
 
 
-@if ((titles && titles.length > 0 || storyFiles && storyFiles.length > 0) && !notFound) {
-  <div class="right-div right-panel g-scrollable-element">
-    @if (storyFiles && storyFiles.length > 0) {
-      <div class="files-div">
-        <h6 class="side-box-title">
-          <fl-text-icon>
-            <mat-icon>description</mat-icon>
-            {{ 'attached_files' | translate }}
-          </fl-text-icon>
-        </h6>
-        <div class="story-files-div">
-          @for (file of storyFiles; track file.id) {
-            <div class="story-file" [matTooltip]="file.name" *ngIf="file.type == 'FILE'">
-              <a type="button" [href]="downloadFile(file)" download>
-                <fl-file-text-icon [filename]="file.name"></fl-file-text-icon>
-              </a>
-            </div>
-          }
-        </div>
-      </div>
-    }
-    @if (titles && titles.length > 0) {
-      <h6 class="side-box-title">
-        <fl-text-icon>
-          <mat-icon>toc</mat-icon>
-          {{ 'table_of_contents' | translate }}
-        </fl-text-icon>
-      </h6>
-      @for (title of titles; track title.text) {
-        <a [routerLink]="'.'" [fragment]="title.text.toLowerCase().replaceAll(' ', '-')"
-           class="title small-text" [ngClass]="title.level === 2 ? 'big-title' : 'small-title'">
-          {{ title.text }}
-        </a>
-      }
-    }
-  </div>
+@if ((story && story.content || storyFiles && storyFiles.length > 0 && urlToDownloadFilePrefix) && !notFound) {
+  <ha-text-editor-right-side-panel [content]="story.content" [files]="storyFiles" [urlToDownloadFilePrefix]="urlToDownloadFilePrefix"></ha-text-editor-right-side-panel>
 }
 

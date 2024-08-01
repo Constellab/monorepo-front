@@ -21,6 +21,8 @@ export * from './lib/component/te-text-editor-history-portal/te-text-editor-hist
 // eslint-disable-next-line max-len
 export * from './lib/component/te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
 export * from './lib/component/te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
+export * from './lib/component/te-files-list/te-files-list.component';
+export * from './lib/component/te-titles-list/te-titles-list.component';
 
 // Model
 export * from './lib/model/te.helper';

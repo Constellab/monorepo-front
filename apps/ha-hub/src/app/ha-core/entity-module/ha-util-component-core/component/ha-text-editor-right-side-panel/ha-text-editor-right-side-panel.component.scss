@@ -1,0 +1,17 @@
+.right-div{
+  position: fixed;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-background);
+  border-radius: 18px;
+  padding: 8px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 1450px) {
+  .right-div{
+    display: none;
+  }
+}

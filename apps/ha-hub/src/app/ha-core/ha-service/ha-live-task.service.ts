@@ -188,6 +188,17 @@ export class HaLiveTaskService implements HaCoAuthorService {
     return this.apiService.put(`${this.route}/${liveTaskId}/version/draft`, liveTaskVersionFile, HaLiveTaskVersion);
   }
 
+
+  /**
+   * Call http put to replace a draft version of a live task
+   * @param liveTaskId
+   * @param liveTaskVersionFile
+   * @return the replaced live task version
+   */
+  replaceDraftVersion(liveTaskId: string, liveTaskVersionFile: HaLiveTaskVersionFileInput): Observable<HaLiveTaskVersion> {
+    return this.apiService.put(`${this.route}/${liveTaskId}/version/draft/replace`, liveTaskVersionFile, HaLiveTaskVersion);
+  }
+
   /**
    * Call http put to save a live task version infos
    * @param liveTaskVersionId
@@ -276,5 +287,9 @@ export class HaLiveTaskService implements HaCoAuthorService {
 
   getView(liveTaskId: string, id: string): Observable<RvResourceView>{
     return this.apiService.get(`${this.route}/${liveTaskId}/view/${id}`);
+  }
+
+  deleteLiveTaskVersion(liveTaskVersionId: string): Observable<void>{
+    return this.apiService.delete(`${this.route}/version/${liveTaskVersionId}`);
   }
 }

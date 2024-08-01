@@ -1,19 +1,18 @@
 <div class="live-task-page-div">
-  <div class="left-panel" *ngIf="!isLoading && !notFound">
+  <div class="left-panel" *ngIf="!isLoading() && !notFound()">
     <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-    <a [routerLink]="liveTaskListRoute" class="back-link">
-      <fl-text-icon [iconPosition]="'start'">
+    <a [routerLink]="liveTaskListRoute" class="back-link">      <fl-text-icon [iconPosition]="'start'">
         <mat-icon>arrow_back</mat-icon>
         {{'back_to_live_tasks_list' | translate}}
       </fl-text-icon>
     </a>
-    <ha-live-task-versions-panel [liveTask]="liveTask" [canEditLt]="canEditLt"></ha-live-task-versions-panel>
+    <ha-live-task-versions-panel></ha-live-task-versions-panel>
   </div>
 
-  <div class="main-panel">
-    @if (liveTask && !isLoading && !notFound) {
+  <div class="main-panel main-lt-panel">
+    @if (liveTask() && !isLoading() && !notFound()) {
       <router-outlet></router-outlet>
-    } @else if (notFound && !isLoading) {
+    } @else if (notFound() && !isLoading()) {
       <ha-ha404></ha-ha404>
     } @else {
       <div class="g-flex">
@@ -23,23 +22,25 @@
   </div>
 
 
-  <div class="right-panel" *ngIf="liveTask && !isLoading && !notFound">
+  <div class="right-panel" *ngIf="liveTask() && !isLoading() && !notFound()">
     <div class="lt-user-div">
       <h5 class="lt-user-title">
         <span>{{ 'authors' | translate }}</span>
-        @if (currentUser?.id == liveTask.createdBy?.id) {
+        @if (isAuthor()) {
           <button mat-icon-button (click)="openLtCoAuthorsDialog()">
             <mat-icon>group_add</mat-icon>
           </button>
         }
       </h5>
-      <div class="lt-user-line">
-        <a [routerLink]="profileRoute + liveTask.createdBy.id">
-          <fl-user-inline [user]="liveTask.createdBy" [portalOnHover]="false"></fl-user-inline>
-        </a>
-        <mat-icon>workspace_premium</mat-icon>
-      </div>
-      @for (ltCoAuthor of ltCoAuthors; track ltCoAuthor.id) {
+      @if(liveTask() && liveTask().createdBy){
+        <div class="lt-user-line">
+          <a [routerLink]="profileRoute + liveTask().createdBy.id">
+            <fl-user-inline [user]="liveTask().createdBy" [portalOnHover]="false"></fl-user-inline>
+          </a>
+          <mat-icon>workspace_premium</mat-icon>
+        </div>
+      }
+      @for (ltCoAuthor of ltCoAuthors(); track ltCoAuthor.id) {
         <div class="lt-user-line">
           <a [routerLink]="profileRoute + ltCoAuthor.id">
             <fl-user-inline [user]="ltCoAuthor" [portalOnHover]="false"></fl-user-inline>

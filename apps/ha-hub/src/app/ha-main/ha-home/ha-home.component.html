@@ -20,6 +20,23 @@
 
   <div class="main-panel">
     <div class="home-section">
+      <span class="home-section-title">{{ 'fair_open_access' | translate }}</span>
+      <div class="fair-open-access-div">
+        <img src="assets/images/fair_open_access_image.avif"/>
+        <div class="other-links-div">
+          <a mat-flat-button class="discord-button" target="_blank" [href]="discordLink">
+            Join our discord <mat-icon svgIcon="discord"></mat-icon>
+          </a>
+          <ha-github-star-button [repo]="gwsCoreRepoLink"></ha-github-star-button>
+        </div>
+        <p>{{ 'fair_open_access_subtitle' | translate }}</p>
+        <a [href]="'https://constellab.io/fair-open-access'" [target]="'_blank'" mat-stroked-button  class="go-to-button">
+          {{ 'learn_more' | translate }}
+          <mat-icon>chevron_right</mat-icon>
+        </a>
+      </div>
+    </div>
+    <div class="home-section">
       <a [routerLink]="storyListRoute" class="home-section-title">
         {{ 'stories' | translate }}
       </a>
@@ -33,10 +50,8 @@
         </a>
       </div>
       <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">
-        <fl-text-icon iconPosition="end">
           {{ 'go_to_stories' | translate }}
           <mat-icon>chevron_right</mat-icon>
-        </fl-text-icon>
       </a>
     </div>
 
@@ -44,17 +59,17 @@
       <a [routerLink]="liveTaskListRoute" class="home-section-title">
         {{ 'live_tasks' | translate }}
       </a>
+      <p class="home-section-description">
       {{'live_tasks_description' | translate}}
+      </p>
       <div class="home-list-div">
         <a *ngFor="let liveTask of liveTasks$ | flDatasourceConnect | async" [routerLink]="(liveTask | haDetailRoute)">
           <co-live-task-list-item class="home-card" [liveTask]="liveTask"></co-live-task-list-item>
         </a>
       </div>
       <a mat-stroked-button [routerLink]="liveTaskListRoute" class="go-to-button">
-        <fl-text-icon iconPosition="end">
           {{ 'go_to_live_tasks' | translate }}
           <mat-icon>chevron_right</mat-icon>
-        </fl-text-icon>
       </a>
     </div>
 
@@ -62,17 +77,19 @@
       <a [routerLink]="brickListRoute" class="home-section-title">
         {{ 'bricks' | translate }}
       </a>
+      <p class="home-section-description">
       {{'bricks_description' | translate}}
+      </p>
       <div class="home-list-div">
         <a *ngFor="let brick of bricks$ | flDatasourceConnect | async" [routerLink]="(brick | haDetailRoute)">
           <co-brick-list-item class="home-card" [brick]="brick" [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
         </a>
       </div>
       <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">
-        <fl-text-icon iconPosition="end">
-          {{ 'go_to_bricks' | translate }}
+
+      {{ 'go_to_bricks' | translate }}
           <mat-icon>chevron_right</mat-icon>
-        </fl-text-icon>
+
       </a>
     </div>
 

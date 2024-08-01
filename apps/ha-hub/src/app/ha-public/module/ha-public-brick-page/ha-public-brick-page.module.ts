@@ -41,6 +41,9 @@ import {HaDocContentViewComponent} from './ha-doc-view/ha-doc-content-view/ha-do
 import {
   HaUtilComponentCoreModule
 } from "../../../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
+import {
+    HaGithubStarButtonComponent
+} from "../../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component";
 
 @NgModule({
     declarations: [
@@ -78,6 +81,7 @@ import {
         FlInputFileModule,
         HaUtilComponentCoreModule,
         FlImageModule,
+        HaGithubStarButtonComponent,
     ],
     exports: [
         Ha404Component

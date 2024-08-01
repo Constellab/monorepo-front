@@ -5,7 +5,12 @@
 }
 
 .live-task-page-div{
+  min-height: calc(100vh - var(--navbar-height) - 19px);
   margin-top: 19px;
+}
+
+.main-lt-panel{
+  height: 100%;
 }
 
 .lt-user-div {

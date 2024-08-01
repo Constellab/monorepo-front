@@ -234,7 +234,10 @@
   "not_published": "Non publié",
   "create_new_live_task_version": "Créer une nouvelle version de live task",
   "create_new_live_task_version_content": "Cette action créera une nouvelle version de live task, vous pourrez ensuite la publier",
+  "replace_not_published_live_task_version": "Remplacer la version de live task non publiée",
+  "replace_not_published_live_task_version_content": "Cette action remplacera la version de live task non publiée par une nouvelle version",
   "live_task_version_created": "Version de live task créée",
+  "live_task_version_replaced": "Version de live task remplacée",
   "my_live_tasks": "Mes live tasks",
   "my_bricks": "Mes bricks",
   "live_task_with_no_published_version": "Live task sans version publiée",
@@ -345,5 +348,8 @@
   "x": "X",
   "github": "GitHub",
   "edit_profile_description": "Modifier les informations de votre profil Community. Ces changements n'affecteront pas votre profil Constellab.",
-  "alias_hint": "Votre alias est la façon dont vous serez identifié sur Community."
+  "alias_hint": "Votre alias est la façon dont vous serez identifié sur Community.",
+  "fair_open_access": "Fair Open Access",
+  "fair_open_access_subtitle": "Le Fair Open Access incarne la transparence, l'inclusion et la collaboration. Il garantit que les ressources en science des données sont accessibles à tous, favorisant l'innovation et le progrès dans la recherche. En promouvant des outils à jour, activement entretenus et librement disponibles, nous permettons aux scientifiques et chercheurs de réaliser des percées et d'avancer dans la connaissance sans obstacles.",
+  "learn_more": "En savoir plus"
 }

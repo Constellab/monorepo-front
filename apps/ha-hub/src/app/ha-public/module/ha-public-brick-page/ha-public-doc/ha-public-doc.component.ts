@@ -35,7 +35,7 @@ import {ClStringHelper} from '@monorepo/core-lib';
 
 
 @Component({
-  selector: 'ha-public-doc-page',
+  selector: 'ha-public-doc',
   templateUrl: './ha-public-doc.component.html',
   styleUrls: ['./ha-public-doc.component.scss'],
 })
@@ -63,6 +63,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
   docFiles: HaFile[];
 
   historyOverlayRef: FlOverlayRef;
+  docFileUrlPrefix: string;
 
   private contentDebouncer: FlDebouncer<TeRichTextContent>;
   private DOC_KEY: StateKey<object>;
@@ -150,7 +151,7 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
         });
         return;
       }
-
+      this.docFileUrlPrefix = this.documentationService.getDocFilePrefix(docId);
       this.documentationService.getById(docId).subscribe(doc => {
         if (doc) {
           this.onDocLoaded(doc);

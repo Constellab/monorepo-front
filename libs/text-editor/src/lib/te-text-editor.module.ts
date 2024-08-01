@@ -3,22 +3,22 @@ import {CommonModule, isPlatformBrowser} from '@angular/common';
 import {TeTextEditorComponent} from './component/te-text-editor/te-text-editor.component';
 import {TeFormulaComponent} from './component/te-formula/te-formula.component';
 import {
-  FlCodeEditorModule,
-  FlCoreComponentModule,
-  FlCoreDirectiveModule,
-  FlCorePipeModule, FlDateModule,
-  FlDialogModule,
-  FlEmojiPickerModule,
-  FlFormulaModule,
-  FlImageModule,
-  FlInfiniteScrollModule,
-  FlInputFileModule,
-  FlLoaderModule,
-  FlPortalModule,
-  FlResizeModule,
-  FlTranslateModule,
-  FlTranslateService,
-  FlUserModule,
+    FlCodeEditorModule,
+    FlCoreComponentModule,
+    FlCoreDirectiveModule,
+    FlCorePipeModule, FlDateModule,
+    FlDialogModule,
+    FlEmojiPickerModule,
+    FlFormulaModule,
+    FlImageModule,
+    FlInfiniteScrollModule,
+    FlInputFileModule,
+    FlLoaderModule,
+    FlPortalModule,
+    FlResizeModule, FlTextIconModule,
+    FlTranslateModule,
+    FlTranslateService,
+    FlUserModule,
 } from '@monorepo/front-core-lib';
 import {TeTitleCaptionComponent} from './component/te-title-caption/te-title-caption.component';
 import {teTextEditorI18n} from './te-text-editor.i18n';
@@ -62,6 +62,9 @@ import {
 import {
   TeTextEditorHistoryModificationComponent
 } from './component/te-text-editor-history-modification/te-text-editor-history-modification.component';
+import { TeFilesListComponent } from './component/te-files-list/te-files-list.component';
+import { TeTitlesListComponent } from './component/te-titles-list/te-titles-list.component';
+import {RouterLink} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -83,7 +86,9 @@ import {
     TeTextEditorHistoryPortalComponent,
     TeTextEditorHistoryModificationVisualizerDialogComponent,
     TeTextEditorHistoryModificationGroupComponent,
-    TeTextEditorHistoryModificationComponent
+    TeTextEditorHistoryModificationComponent,
+    TeFilesListComponent,
+    TeTitlesListComponent
   ],
   exports: [
     TeTextEditorComponent,
@@ -91,7 +96,9 @@ import {
     TeRichTextIsEmptyPipe,
     TeTextEditorBrowserSideComponent,
     TeTextEditorServerSideComponent,
-    TeTextEditorHistoryPortalComponent
+    TeTextEditorHistoryPortalComponent,
+    TeFilesListComponent,
+    TeTitlesListComponent
   ],
   imports: [
     CommonModule,
@@ -123,6 +130,8 @@ import {
     MatOptionModule,
     MatSelectModule,
     FlDateModule,
+    FlTextIconModule,
+    RouterLink,
   ],
 })
 export class TeTextEditorModule {

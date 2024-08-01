@@ -31,6 +31,9 @@ export class HaHomeComponent implements OnInit {
   productDocRoute: string = HaRouterService.getProductDocRoute();
   iconsRoute: string = HaRouterService.getIconsRoute();
 
+  discordLink: string = HaRouterService.getDiscordLink();
+  gwsCoreRepoLink: string = HaRouterService.getGwsCoreRepoLink();
+
   constructor(private metadataService: HaMetadataService,
               private storyService: HaStoryService,
               private liveTaskService: HaLiveTaskService,

@@ -4,9 +4,9 @@ import {CaCoServiceConfig} from '../model/config/ca-co-service-config.service';
 import {Observable} from 'rxjs';
 import {ClPage} from '@monorepo/core-lib';
 import {
-  CaCommunityBrick,
   CaCommunityBrickDatasourcePaginated
 } from '../../ca-lab-instance/component/ca-lab-instance-config-brick/ca-lab-instance-config-brick.component';
+import {CaCommunityBrick} from '../model/entities/ca-community-brick.class';
 
 @Injectable({providedIn: 'root'})
 export class CaCommunityBrickService {

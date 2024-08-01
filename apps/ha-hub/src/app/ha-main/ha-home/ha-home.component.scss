@@ -70,9 +70,16 @@ h4{
   height: 100%;
 }
 
+.discord-button{
+  width: fit-content;
+  margin-top: 4px;
+}
+
 .home-section .go-to-button{
   width: fit-content;
-  margin: 1em auto 0 auto;
+  margin: 1.5em auto 0 auto;
+  display: flex;
+  flex-direction: row-reverse;
   //top: 2em;
   //right: 0.5em;
   //position: absolute;
@@ -241,6 +248,34 @@ h4{
   flex-direction: column;
 }
 
+.fair-open-access-div{
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+
+  img{
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  p{
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .go-to-button{
+    min-width: fit-content;
+  }
+
+  .other-links-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 2em;
+  }
+}
+
 
 @media (max-width: 700px) {
   h1{
@@ -269,6 +304,19 @@ h4{
 
     .bt-icon{
       font-size: 24px;
+    }
+  }
+
+  .fair-open-access-div{
+    flex-direction: column;
+    margin-top: 2em;
+
+    p{
+      text-align: center;
+    }
+
+    .go-to-button{
+      min-width: fit-content;
     }
   }
 }

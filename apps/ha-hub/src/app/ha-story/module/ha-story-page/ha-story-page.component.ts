@@ -60,6 +60,8 @@ export class HaStoryPageComponent implements OnInit {
 
   storyFiles: HaFile[];
 
+  urlToDownloadFilePrefix: string;
+
   constructor(private activatedRoute: ActivatedRoute,
               private storyService: HaStoryService,
               private metadataService: HaMetadataService,
@@ -77,6 +79,7 @@ export class HaStoryPageComponent implements OnInit {
     this.STORY_KEY = makeStateKey<object>('story');
 
     this.activatedRoute.params.pipe(first()).subscribe(params => {
+      this.urlToDownloadFilePrefix = this.storyService.getStoryFilePathPrefix(params.id);
       this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, params.id);
       this.paramTitle = params.title;
       this.getCurrentUserBeforeStory(params.id);
@@ -115,11 +118,6 @@ export class HaStoryPageComponent implements OnInit {
     return ClStringHelper.isHttpLink(imageLinkOrId) ? imageLinkOrId : this.storyService.getImageUrl(this.story.id, imageLinkOrId);
   }
 
-  downloadFile(file: HaFile): string {
-    // download file from server (not from the client)
-    return this.storyService.getStoryFilePath(this.story.id, file.name);
-  }
-
   private getStory(id: string): void {
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.STORY_KEY)) {
       const story: HaStory = new HaStory();
@@ -150,7 +148,7 @@ export class HaStoryPageComponent implements OnInit {
 
   private getStoryFiles(): void{
     this.storyService.getStoryFiles(this.story.id).subscribe((files: HaFile[]) => {
-      this.storyFiles = files;
+      this.storyFiles = files.filter(file => file.type === 'FILE');
     });
   }
 

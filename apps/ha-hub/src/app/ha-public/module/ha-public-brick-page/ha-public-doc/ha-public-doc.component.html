@@ -51,33 +51,9 @@
     </div>
   </div>
 </div>
-<div class="right-panel right-div g-scrollable-element" *ngIf="documentation && (titles?.length > 0 || (docFiles?.length > 0 || (isCreatorOrBrickUser$ | async)))">
-  @if ((docFiles && docFiles.length > 0) || (isCreatorOrBrickUser$ | async)) {
-    <div class="files-div">
-      <h6 class="side-box-title">
-        <fl-text-icon>
-          <mat-icon>description</mat-icon>
-          {{ 'attached_files' | translate }}
-        </fl-text-icon>
-      </h6>
-
-      <div class="doc-files-div">
-        @for (file of docFiles; track file.id) {
-          <div class="doc-file" [matTooltip]="file.name" *ngIf="file.type == 'FILE'">
-            <a type="button" [href]="downloadFile(documentation.id, file)" download [matTooltip]="'download_attached_file' | translate">
-              <fl-file-text-icon [filename]="file.name">
-              </fl-file-text-icon>
-            </a>
-          </div>
-        }
-      </div>
-    </div>
-  }
-  @if(titles && titles.length > 0){
-    <div>
-      <ha-public-brick-right-panel [brickName]="brickName"
-                                   [docTitles]="titles"></ha-public-brick-right-panel>
-    </div>
-  }
-</div>
+@if(documentation && (documentation.content || docFiles?.length > 0) && docFileUrlPrefix  ){
+  <ha-text-editor-right-side-panel [content]="documentation.content"
+                                   [files]="docFiles"
+                                   [urlToDownloadFilePrefix]="docFileUrlPrefix"></ha-text-editor-right-side-panel>
+}
 
