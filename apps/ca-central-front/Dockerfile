@@ -1,11 +1,10 @@
 # Build step
-FROM node:18-alpine3.17 as buildContainer
+FROM node:20-alpine3.20 as buildContainer
 
 WORKDIR /app
 
 # Copy package.json
 COPY /package.json /package-lock.json ./
-RUN ls -la
 
 # Install dependencies
 RUN npm ci
