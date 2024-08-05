@@ -105,6 +105,10 @@ export class HaRouterService {
     return 'https://github.com/Constellab/gws_core';
   }
 
+  public static getDockerHubGlabLink(): string {
+    return 'https://hub.docker.com/r/constellab/glab';
+  }
+
   // --------------------------------------------------------------------------------------------
 
   //Check if the url is valid for the hub

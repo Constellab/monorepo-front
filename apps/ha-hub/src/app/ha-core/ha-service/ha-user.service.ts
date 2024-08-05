@@ -15,6 +15,10 @@ export class HaUserService {
   constructor(private apiService: FlApiService) {
   }
 
+  getCount(): Observable<number> {
+    return this.apiService.get(`${this.route}/count`);
+  }
+
   getUserById(id: string): Observable<CoUser> {
     return this.apiService.get(`${this.route}/${id}`);
   }

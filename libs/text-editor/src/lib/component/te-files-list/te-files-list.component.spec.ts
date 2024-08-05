@@ -10,8 +10,8 @@ describe('TeFilesListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TeFilesListComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TeFilesListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

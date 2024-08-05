@@ -42,49 +42,49 @@ import {
   HaUtilComponentCoreModule
 } from "../../../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module";
 import {
-    HaGithubStarButtonComponent
+  HaGithubStarButtonComponent
 } from "../../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component";
 
 @NgModule({
-    declarations: [
-        HaPublicBrickPageComponent,
-        HaPublicSidenavComponent,
-        HaPublicSidenavCreateFormDialogComponent,
-        HaPublicAddVersionDialogComponent,
-        HaPublicVersionsComponent,
-        HaPublicBrickVersionsTableComponent,
-        HaPublicBrickDescriptionComponent,
-        HaPublicDocComponent,
-        HaPublicEditBrickDialogComponent,
-        HaPublicBrickVersionDetailDialogComponent,
-        HaPublicTechDocComponent,
-        Ha404Component,
-        HaPublicFindDocComponent,
-        HaPublicBrickRightPanelComponent,
-        HaPublicBrickUsersComponent,
-        HaPublicInviteBrickUserDialogComponent,
-        HaPublicBrickUserInvitePageComponent,
-        HaDocResourceViewInputDialogComponent,
-        HaDocContentViewComponent,
-    ],
-    imports: [
-        HaCoreModule,
-        CommonModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        FlDateModule,
-        MatCardModule,
-        FlKeyValueModule,
-        MatRadioModule,
-        FormsModule,
-        MatTooltipModule,
-        FlInputFileModule,
-        HaUtilComponentCoreModule,
-        FlImageModule,
-        HaGithubStarButtonComponent,
-    ],
-    exports: [
-        Ha404Component
-    ]
+  declarations: [
+    HaPublicBrickPageComponent,
+    HaPublicSidenavComponent,
+    HaPublicSidenavCreateFormDialogComponent,
+    HaPublicAddVersionDialogComponent,
+    HaPublicVersionsComponent,
+    HaPublicBrickVersionsTableComponent,
+    HaPublicBrickDescriptionComponent,
+    HaPublicDocComponent,
+    HaPublicEditBrickDialogComponent,
+    HaPublicBrickVersionDetailDialogComponent,
+    HaPublicTechDocComponent,
+    Ha404Component,
+    HaPublicFindDocComponent,
+    HaPublicBrickRightPanelComponent,
+    HaPublicBrickUsersComponent,
+    HaPublicInviteBrickUserDialogComponent,
+    HaPublicBrickUserInvitePageComponent,
+    HaDocResourceViewInputDialogComponent,
+    HaDocContentViewComponent,
+  ],
+  imports: [
+    HaCoreModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    FlDateModule,
+    MatCardModule,
+    FlKeyValueModule,
+    MatRadioModule,
+    FormsModule,
+    MatTooltipModule,
+    FlInputFileModule,
+    HaUtilComponentCoreModule,
+    FlImageModule,
+    HaGithubStarButtonComponent,
+  ],
+  exports: [
+    Ha404Component
+  ]
 })
 export class HaPublicBrickPageModule {}

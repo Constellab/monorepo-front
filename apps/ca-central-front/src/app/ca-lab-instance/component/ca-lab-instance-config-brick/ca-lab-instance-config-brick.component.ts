@@ -1,16 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CoBrick, CoSpace, CoUser } from '@monorepo/community-lib';
-import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib';
-import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
-import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
-import { DateTime } from 'luxon';
-import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
-import { CaCommunityBrickService } from '../../../ca-core/service-api/ca-community-brick.service';
-import { CaLabManagerBrickVersionDTO } from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
+import {CaSpace} from '../../../ca-core/model/entities/space/ca-space.class';
+import {CaSpaceService} from '../../../ca-core/service-api/ca-space.service';
+import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
+import {CaCommunityBrickService} from '../../../ca-core/service-api/ca-community-brick.service';
+import {CaLabManagerBrickVersionDTO} from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
+import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import {MatCheckboxChange} from '@angular/material/checkbox';
 import {CaCommunityBrick} from '../../../ca-core/model/entities/ca-community-brick.class';
 
 

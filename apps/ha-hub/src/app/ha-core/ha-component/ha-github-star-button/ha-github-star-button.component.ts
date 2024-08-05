@@ -13,6 +13,8 @@ import {FlThemeService} from '@monorepo/front-core-lib';
 export class HaGithubStarButtonComponent implements OnInit{
 
   @Input({required: true}) repo: string;
+  @Input() title: string = 'Stars';
+  @Input() icon: 'octicon-star' | 'octicon-mark-github' =  'octicon-star';
 
   constructor(private renderer: Renderer2,
               @Inject(PLATFORM_ID) private platformId: object,
@@ -43,11 +45,11 @@ export class HaGithubStarButtonComponent implements OnInit{
       // create the iframe element + place it in the div
       module.render({
         'href': this.repo,
-        'title': 'Stars',
+        'title': this.title,
         'data-show-count': true,
         'data-color-scheme': colorScheme,
         'data-size': 'large',
-        'data-icon': 'octicon-star',
+        'data-icon': this.icon,
         'data-text': 'Stars',
         'aria-label': 'Stars'
       } as GitHubButtonProps, (el: HTMLIFrameElement | HTMLSpanElement) => {

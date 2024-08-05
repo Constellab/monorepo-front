@@ -189,7 +189,7 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
   }
 
   /***
-    * Remove topic from story
+   * Remove topic from story
    * @param topicId topic id
    * @param storyId story id
    * @return story

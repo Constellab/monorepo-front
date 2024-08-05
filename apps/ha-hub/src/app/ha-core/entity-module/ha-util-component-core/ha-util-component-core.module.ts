@@ -12,11 +12,11 @@ import { HaTextEditorRightSidePanelComponent } from './component/ha-text-editor-
     HaCommentButtonComponent,
     HaTextEditorRightSidePanelComponent
   ],
-    exports: [
-        HaLikeButtonComponent,
-        HaCommentButtonComponent,
-        HaTextEditorRightSidePanelComponent
-    ],
+  exports: [
+    HaLikeButtonComponent,
+    HaCommentButtonComponent,
+    HaTextEditorRightSidePanelComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

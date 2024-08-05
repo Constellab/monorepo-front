@@ -10,8 +10,8 @@ describe('HaGithubStarButtonComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HaGithubStarButtonComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(HaGithubStarButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

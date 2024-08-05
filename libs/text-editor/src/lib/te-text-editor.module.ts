@@ -3,22 +3,22 @@ import {CommonModule, isPlatformBrowser} from '@angular/common';
 import {TeTextEditorComponent} from './component/te-text-editor/te-text-editor.component';
 import {TeFormulaComponent} from './component/te-formula/te-formula.component';
 import {
-    FlCodeEditorModule,
-    FlCoreComponentModule,
-    FlCoreDirectiveModule,
-    FlCorePipeModule, FlDateModule,
-    FlDialogModule,
-    FlEmojiPickerModule,
-    FlFormulaModule,
-    FlImageModule,
-    FlInfiniteScrollModule,
-    FlInputFileModule,
-    FlLoaderModule,
-    FlPortalModule,
-    FlResizeModule, FlTextIconModule,
-    FlTranslateModule,
-    FlTranslateService,
-    FlUserModule,
+  FlCodeEditorModule,
+  FlCoreComponentModule,
+  FlCoreDirectiveModule,
+  FlCorePipeModule, FlDateModule,
+  FlDialogModule,
+  FlEmojiPickerModule,
+  FlFormulaModule,
+  FlImageModule,
+  FlInfiniteScrollModule,
+  FlInputFileModule,
+  FlLoaderModule,
+  FlPortalModule,
+  FlResizeModule, FlTextIconModule,
+  FlTranslateModule,
+  FlTranslateService,
+  FlUserModule,
 } from '@monorepo/front-core-lib';
 import {TeTitleCaptionComponent} from './component/te-title-caption/te-title-caption.component';
 import {teTextEditorI18n} from './te-text-editor.i18n';

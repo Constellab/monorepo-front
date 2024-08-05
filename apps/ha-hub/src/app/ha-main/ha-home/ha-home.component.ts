@@ -9,6 +9,7 @@ import {HaLiveTaskDatasourcePaginated} from '../../ha-core/ha-model/ha-entities/
 import {HaLiveTaskService} from '../../ha-core/ha-service/ha-live-task.service';
 import {HaBrickDatasourcePaginated} from '../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaBrickService} from '../../ha-core/ha-service/ha-brick.service';
+import {HaUserService} from '../../ha-core/ha-service/ha-user.service';
 
 @Component({
   selector: 'ha-ha-home',
@@ -33,11 +34,14 @@ export class HaHomeComponent implements OnInit {
 
   discordLink: string = HaRouterService.getDiscordLink();
   gwsCoreRepoLink: string = HaRouterService.getGwsCoreRepoLink();
+  gLabLink: string = HaRouterService.getDockerHubGlabLink();
+  usersCount: number = 0;
 
   constructor(private metadataService: HaMetadataService,
               private storyService: HaStoryService,
               private liveTaskService: HaLiveTaskService,
-              private brickService: HaBrickService) {
+              private brickService: HaBrickService,
+              private userService: HaUserService) {
 
   }
 
@@ -53,6 +57,8 @@ export class HaHomeComponent implements OnInit {
 
     this.bricks$ = this.brickService.getAllWithFiltersPaginated(4);
     this.bricks$.getFirstPage({spacesFilter: [], titleFilter: ''});
+
+    this.userService.getCount().subscribe(count => this.usersCount = count);
 
   }
 

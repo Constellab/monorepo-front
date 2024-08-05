@@ -56,7 +56,7 @@
   </div>
 
   <ha-live-task-version-detail *ngIf="!isLoading() && !isLiveTaskVersionLoading() && !isLiveTaskVersionError()"
-    [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask()?.latestPublishVersion + ')'"></ha-live-task-version-detail>
+                               [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask()?.latestPublishVersion + ')'"></ha-live-task-version-detail>
 
 }
 

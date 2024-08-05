@@ -18,7 +18,7 @@ import {HaBigScreenMainComponent} from './ha-big-screen-main/ha-big-screen-main.
 import {HaSmallScreenMainComponent} from './ha-small-screen-main/ha-small-screen-main.component';
 import {HaProfileModule} from '../ha-profile/ha-profile.module';
 import {
-    HaGithubStarButtonComponent
+  HaGithubStarButtonComponent
 } from "../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component";
 
 @NgModule({
@@ -31,20 +31,20 @@ import {
     HaBigScreenMainComponent,
     HaSmallScreenMainComponent
   ],
-    imports: [
-        CommonModule,
-        HaMainRoutingModule,
-        TranslateModule,
-        HaCoreModule,
-        HaPublicModule,
-        HaStoryModule,
-        HaSpaceModule,
-        HaLiveTaskModule,
-        MatSlideToggleModule,
-        HaIconModule,
-        HaProfileModule,
-        NgOptimizedImage,
-        HaGithubStarButtonComponent
-    ],
+  imports: [
+    CommonModule,
+    HaMainRoutingModule,
+    TranslateModule,
+    HaCoreModule,
+    HaPublicModule,
+    HaStoryModule,
+    HaSpaceModule,
+    HaLiveTaskModule,
+    MatSlideToggleModule,
+    HaIconModule,
+    HaProfileModule,
+    NgOptimizedImage,
+    HaGithubStarButtonComponent
+  ],
 })
 export class HaMainModule {}

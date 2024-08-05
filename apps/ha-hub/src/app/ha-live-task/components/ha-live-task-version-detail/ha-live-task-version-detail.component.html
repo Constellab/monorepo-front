@@ -4,32 +4,32 @@
 
   <h4 class="detail-version-title">{{ sectionTitle }}</h4>
 
-    @if (brickDependencies() && brickDependencies().length > 0) {
-      <div>
-        <div>{{ 'necessary_bricks' | translate }} :</div>
-        <div class="brick-dependencies-div">
-          <mat-chip *ngFor="let brickDep of brickDependencies()">
-            {{ brickDep?.brickMajorVersion?.brick?.name }} {{ brickDep?.version }}
-          </mat-chip>
-        </div>
+  @if (brickDependencies() && brickDependencies().length > 0) {
+    <div>
+      <div>{{ 'necessary_bricks' | translate }} :</div>
+      <div class="brick-dependencies-div">
+        <mat-chip *ngFor="let brickDep of brickDependencies()">
+          {{ brickDep?.brickMajorVersion?.brick?.name }} {{ brickDep?.version }}
+        </mat-chip>
       </div>
+    </div>
 
-    }
+  }
 
   <div class="lt-version-detail-card info-version-card"
        *ngIf="liveTaskVersion() && (liveTaskVersion().versionInfos || canEdit())">
-      <div class="card-header">
-        <h5>
-          {{ 'info_about_this_version' | translate }}
-        </h5>
-        <button mat-stroked-button color="primary" class="g-button-small"
-                *ngIf="canEdit()" (click)="onVersionInfosEditorButtonClick()">
-          <fl-text-icon [iconPosition]="'end'">
-            <mat-icon>{{ versionInfosDisabled ? 'edit' : 'save' }}</mat-icon>
-            {{ versionInfosDisabled ? ('edit' | translate) : ('save' | translate) }}
-          </fl-text-icon>
-        </button>
-      </div>
+    <div class="card-header">
+      <h5>
+        {{ 'info_about_this_version' | translate }}
+      </h5>
+      <button mat-stroked-button color="primary" class="g-button-small"
+              *ngIf="canEdit()" (click)="onVersionInfosEditorButtonClick()">
+        <fl-text-icon [iconPosition]="'end'">
+          <mat-icon>{{ versionInfosDisabled ? 'edit' : 'save' }}</mat-icon>
+          {{ versionInfosDisabled ? ('edit' | translate) : ('save' | translate) }}
+        </fl-text-icon>
+      </button>
+    </div>
     <div>
       @defer (when liveTaskVersion() && !isLiveTaskVersionLoading() && versionInfosFormControl){
         <te-text-editor class="version-infos-editor" [ngClass]="canEdit() ? 'editor-border': ''"
@@ -47,7 +47,7 @@
     <fl-card-header>
       <div class="io-card-div">
         <h5 class="io-card-div-column">
-            {{'input' | translate}}
+          {{'input' | translate}}
         </h5>
         <h5 class="io-card-div-column">
           {{ 'output' | translate }}
@@ -67,13 +67,13 @@
                [class]="i < (liveTaskVersion()?.outputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
             <td-doc-io [ioSpec]="liveTaskVersion()?.outputSpecs?.specs[spec]"></td-doc-io>
           </div>
-          </div>
         </div>
+      </div>
     </fl-card-body>
   </fl-card>
 
 
-    <fl-card class="lt-version-detail-card" *ngIf="liveTaskVersion()?.configSpecs | flIsNotEmpty">
+  <fl-card class="lt-version-detail-card" *ngIf="liveTaskVersion()?.configSpecs | flIsNotEmpty">
     <fl-card-header>
       <h5>
         {{ 'configuration' | translate }}
@@ -85,7 +85,7 @@
   </fl-card>
 
 
-    @if (isEditable() || (liveTaskVersion().params != null && liveTaskVersion().params.length > 0)) {
+  @if (isEditable() || (liveTaskVersion().params != null && liveTaskVersion().params.length > 0)) {
 
     <fl-card class="lt-version-detail-card">
       <fl-card-header>
@@ -110,7 +110,7 @@
   }
 
   <!--TODO: Corriger le bug du changement de theme-->
-    @if (((isEditable() && canEdit()) || liveTaskVersion()?.environment | flIsNotEmpty) && liveTaskVersion().type !== 'PYTHON') {
+  @if (((isEditable() && canEdit()) || liveTaskVersion()?.environment | flIsNotEmpty) && liveTaskVersion().type !== 'PYTHON') {
     <fl-card class="lt-version-detail-card">
       <fl-card-header>
         <div class="card-header">

@@ -10,8 +10,8 @@ describe('HaTextEditorRightSidePanelComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [HaTextEditorRightSidePanelComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(HaTextEditorRightSidePanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

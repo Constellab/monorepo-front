@@ -2,9 +2,9 @@
   <div class="left-panel" *ngIf="!isLoading() && !notFound()">
     <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
     <a [routerLink]="liveTaskListRoute" class="back-link">      <fl-text-icon [iconPosition]="'start'">
-        <mat-icon>arrow_back</mat-icon>
-        {{'back_to_live_tasks_list' | translate}}
-      </fl-text-icon>
+      <mat-icon>arrow_back</mat-icon>
+      {{'back_to_live_tasks_list' | translate}}
+    </fl-text-icon>
     </a>
     <ha-live-task-versions-panel></ha-live-task-versions-panel>
   </div>
