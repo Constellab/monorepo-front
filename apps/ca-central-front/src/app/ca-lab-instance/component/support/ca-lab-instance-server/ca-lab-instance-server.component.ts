@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {CaLabInstanceDetailPageState} from '../../../state/ca-lab-instance-detail-page.state';
-import {Observable} from 'rxjs';
-import {CaLabInstanceStatusDTO} from '../../../../ca-core/model/entities/lab/ca-lab-instance.class';
-import {CaLabInstanceDetailServerState} from '../../../state/ca-lab-instance-detail-server.state';
+import { Component } from '@angular/core';
+import { CaLabInstanceDetailPageState } from '../../../state/ca-lab-instance-detail-page.state';
+import { Observable } from 'rxjs';
+import { CaLabInstanceStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab-instance.class';
+import { CaLabInstanceDetailServerState } from '../../../state/ca-lab-instance-detail-server.state';
 
 
 @Component({
@@ -37,8 +37,16 @@ export class CaLabInstanceServerComponent {
     this.serverState.configureServer();
   }
 
-  updateDockerlabRepo(): void {
-    this.serverState.updateDockerlabRepo();
+  updateLabConfigurerRepo(): void {
+    this.serverState.updateLabConfigurerRepo();
+  }
+
+  destroyLabConfigurerContainers(): void {
+    this.serverState.destroyLabConfigurerContainers();
+  }
+
+  migrateToGithub(): void {
+    this.serverState.migrateToGithub();
   }
 
   deleteServer(): void {

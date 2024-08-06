@@ -75,13 +75,23 @@
       </button>
 
       <button mat-stroked-button type="button" class="g-button-small actions-button"
-              (click)="updateDockerlabRepo()">
-        {{'lab_update_dockerlab_repo' | translate}}
+              (click)="updateLabConfigurerRepo()">
+        {{'lab_update_lab_configurer_repo' | translate}}
+      </button>
+
+      <button mat-stroked-button type="button" class="g-button-small actions-button"
+              (click)="migrateToGithub()">
+        {{'lab_configurer_migrate' | translate}}
       </button>
 
       <button mat-stroked-button type="button" class="g-button-small actions-button"
               color="warn" (click)="stopCurrentServerTask()">
         {{'lab_stop_current_task' | translate}}
+      </button>
+
+      <button mat-stroked-button type="button" class="g-button-small actions-button"
+              color="warn"  (click)="destroyLabConfigurerContainers()">
+        {{'lab_configurer_destroy_containers' | translate}}
       </button>
 
       <ng-container *ngIf="isCloud$ | async">

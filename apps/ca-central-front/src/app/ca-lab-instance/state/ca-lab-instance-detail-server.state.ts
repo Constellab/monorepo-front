@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {CaLabInstanceService} from '../../ca-core/service-api/ca-lab-instance.service';
+import { Injectable } from '@angular/core';
+import { CaLabInstanceService } from '../../ca-core/service-api/ca-lab-instance.service';
 import {
   CaLabServerCompleteInfoDialogComponent
 } from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
-import {CaLabInstanceDetailPageState} from './ca-lab-instance-detail-page.state';
+import { CaLabInstanceDetailPageState } from './ca-lab-instance-detail-page.state';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlPortalActionsService
 } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   CaLabManagerUpdateDialogComponent,
   CaLabManagerUpdateDialogInput
@@ -82,14 +82,34 @@ export class CaLabInstanceDetailServerState {
 
   }
 
-  updateDockerlabRepo(): void {
+  updateLabConfigurerRepo(): void {
     const input: FlConfirmDialogInput = {
-      title: 'lab_update_dockerlab_repo',
-      content: 'lab_update_dockerlab_repo_confirmation',
+      title: 'lab_update_lab_configurer_repo',
+      content: 'lab_update_lab_configurer_repo_confirmation',
       translateTitleAndContent: true,
     };
 
-    this.openDialog(input, this.labInstanceService.updateDockerlabRepository(this.state.getLabInstanceId()));
+    this.openDialog(input, this.labInstanceService.updateLabConfigurerRepository(this.state.getLabInstanceId()));
+  }
+
+  destroyLabConfigurerContainers(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'lab_configurer_destroy_containers',
+      content: 'lab_configurer_destroy_containers_confirmation',
+      translateTitleAndContent: true,
+    };
+
+    this.openDialog(input, this.labInstanceService.destroyLabConfigurerContainers(this.state.getLabInstanceId()));
+  }
+
+  migrateToGithub(): void {
+    const input: FlConfirmDialogInput = {
+      title: 'lab_configurer_migrate',
+      content: 'lab_configurer_migrate_confirmation',
+      translateTitleAndContent: true,
+    };
+
+    this.openDialog(input, this.labInstanceService.migrateToGithub(this.state.getLabInstanceId()));
   }
 
   deleteServer(): void {

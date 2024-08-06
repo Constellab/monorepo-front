@@ -349,8 +349,16 @@ export class CaLabInstanceService {
     return this.apiService.delete(`${this.route}/${id}/server`);
   }
 
-  public updateDockerlabRepository(id: string): Observable<CaLabInstanceStatusDTO> {
-    return this.apiService.put(`${this.route}/${id}/dockerlab/update`, null, CaLabInstanceStatusDTO);
+  public updateLabConfigurerRepository(id: string): Observable<CaLabInstanceStatusDTO> {
+    return this.apiService.put(`${this.route}/${id}/lab-configurer/update`, null, CaLabInstanceStatusDTO);
+  }
+
+  public destroyLabConfigurerContainers(id: string): Observable<CaLabInstanceStatusDTO> {
+    return this.apiService.put(`${this.route}/${id}/lab-configurer/destroy-containers`, null, CaLabInstanceStatusDTO);
+  }
+
+  public migrateToGithub(id: string): Observable<CaLabInstanceStatusDTO> {
+    return this.apiService.put(`${this.route}/${id}/lab-configurer/migrate`, null, CaLabInstanceStatusDTO);
   }
 
   public stopCurrentServerTask(id: string): Observable<CaLabInstanceStatusDTO> {
