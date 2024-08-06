@@ -94,7 +94,6 @@
   "up_containers": "Démarrer les conteneurs",
   "restart_containers": "Redémarrer les conteneurs",
   "pull_containers": "Pull les conteneurs",
-  "registry_login": "Se connecter au registry",
   "delete_containers": "Supprimer les conteneurs",
   "stop_containers": "Arrêter les conteneurs",
   "stop_current_task": "Arrêter la tâche en cours",

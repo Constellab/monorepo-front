@@ -264,10 +264,6 @@ export class CaLabInstanceService {
     return this.apiService.post(`${this.route}/${id}/lab-manager/pull-biota-db`, options);
   }
 
-  public registryLogin(id: string): Observable<void> {
-    return this.apiService.post(`${this.route}/${id}/lab-manager/registry-login`, null);
-  }
-
   public stopCurrentTask(id: string): Observable<void> {
     return this.apiService.post(`${this.route}/${id}/lab-manager/stop-current-task`, null);
   }

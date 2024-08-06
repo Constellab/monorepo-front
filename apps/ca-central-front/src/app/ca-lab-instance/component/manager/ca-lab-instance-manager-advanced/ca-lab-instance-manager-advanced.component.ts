@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CaLabInstanceDetailManagerState} from '../../../state/ca-lab-instance-detail-manager.state';
-import {Observable} from 'rxjs';
-import {CaLabManagerStatus} from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
+import { Component, OnInit } from '@angular/core';
+import { CaLabInstanceDetailManagerState } from '../../../state/ca-lab-instance-detail-manager.state';
+import { Observable } from 'rxjs';
+import { CaLabManagerStatus } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
 
 
 /**
@@ -52,10 +52,6 @@ export class CaLabInstanceManagerAdvancedComponent implements OnInit {
 
   pullBiotaDb(): void {
     this.managerState.pullBiotaDb();
-  }
-
-  registryLogin(): void {
-    this.managerState.registryLogin();
   }
 
   stopCurrentTask(): void {

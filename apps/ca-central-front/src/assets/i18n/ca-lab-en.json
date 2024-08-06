@@ -94,7 +94,6 @@
   "up_containers": "Up containers",
   "restart_containers": "Restart containers",
   "pull_containers": "Pull containers",
-  "registry_login": "Registry login",
   "delete_containers": "Delete containers",
   "stop_containers": "Stop containers",
   "stop_current_task": "Stop current task",

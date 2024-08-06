@@ -245,20 +245,12 @@ export class CaLabInstanceDetailManagerState implements OnDestroy {
         if (result) {
           this.actionService.addAction({
             action: this.labInstanceService.pullBiotaDb(this.state.getLabInstanceId(), result),
-            text: {text: 'pull_biota', translateText: true},
+            text: { text: 'pull_biota', translateText: true },
             type: this.actionType
           });
         }
       }
     );
-  }
-
-  registryLogin(): void {
-    this.actionService.addAction({
-      action: this.labInstanceService.registryLogin(this.state.getLabInstanceId()),
-      text: {text: 'registry_login', translateText: true},
-      type: this.actionType
-    });
   }
 
   stopCurrentTask(): void {
