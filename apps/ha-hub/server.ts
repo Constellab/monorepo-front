@@ -56,8 +56,9 @@ export function app(): express.Express {
       const styleSrc = 'style-src \'self\' \'unsafe-inline\' *.gencovery.com *.constellab.community https://fonts.googleapis.com';
       const fontSrc = 'font-src \'self\' data: http: https: fonts.googleapis.com';
       const imgSrc = 'img-src \'self\' blob: data: http: https: *.gencovery.com *.constellab.community';
+      // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
       // eslint-disable-next-line max-len
-      const connectSrc = 'connect-src \'self\' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com';
+      const connectSrc = 'connect-src \'self\' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com https://cdn.jsdelivr.net/npm/@emoji-mart/data';
       // eslint-disable-next-line max-len
       res.setHeader('Content-Security-Policy', `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`);
     }
