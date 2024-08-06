@@ -8,7 +8,6 @@ import {
   OnInit,
   Renderer2
 } from '@angular/core';
-import { init } from 'emoji-mart';
 import { Observable } from 'rxjs';
 import { FL_PORTAL_DATA } from '../../../fl-portal/model/fl-portal.class';
 import { FlOverlayRef } from '../../../fl-portal/model/fl-overlay-ref.class';
@@ -56,7 +55,6 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    init({ data: FlEmojiHelper.getEmojiData() });
 
     this.input.filter.subscribe({
       next: (value: string) => {

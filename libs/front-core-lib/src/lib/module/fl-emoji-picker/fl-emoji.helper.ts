@@ -1,7 +1,5 @@
 import { FlDatasourcePaginated } from '../../model/datasource/fl-datasource-paginated.class';
-import * as data from '@emoji-mart/data';
-import { Emoji, EmojiMartData } from '@emoji-mart/data';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { FrequentlyUsed, SearchIndex } from 'emoji-mart';
 import { map } from 'rxjs/operators';
@@ -17,6 +15,34 @@ export interface FlSimpleEmoji {
   htmlId: string;
 }
 
+// types for @emoji-mart/data
+export interface FlEmojiMartData {
+  categories: FlEmojiMartCategory[];
+  emojis: { [key: string]: FlEmojiMartEmoji };
+  aliases: { [key: string]: string };
+}
+
+export interface FlEmojiMartCategory {
+  id: string;
+  emojis: string[];
+}
+
+export interface FlEmojiMartEmoji {
+  id: string;
+  name: string;
+  keywords: string[];
+  skins: FlEmojiMartSkin[];
+  version: number;
+  emoticons?: string[];
+}
+
+export interface FlEmojiMartSkin {
+  unified: string;
+  native: string;
+  x?: number;
+  y?: number;
+}
+
 
 export class FlEmojiHelper {
 
@@ -25,6 +51,8 @@ export class FlEmojiHelper {
     lastPageIndex: -1,
     nextCategoryIndex: 0
   };
+
+  private static emojisData: FlEmojiMartData = null;
 
   public static search(value: string, page: number, pageSize: number): Observable<ClPageI<FlEmojiCategory>> {
     if (ClHelpService.isNullOrEmpty(value)) {
@@ -43,6 +71,14 @@ export class FlEmojiHelper {
   public static allPaginated(page: number, pageSize: number): Observable<ClPageI<FlEmojiCategory>> {
     const allEmojis = this.getAllEmojisCategories();
 
+    return allEmojis.pipe(
+      map((emojis: FlEmojiCategory[]) => {
+        return this.allPaginated2(emojis, page, pageSize);
+      })
+    );
+  }
+
+  public static allPaginated2(allEmojis: FlEmojiCategory[], page: number, pageSize: number): ClPageI<FlEmojiCategory> {
     const totalElementEmojis = allEmojis.reduce((acc, category) =>
       acc + category.emojis.length, 0);
 
@@ -72,23 +108,32 @@ export class FlEmojiHelper {
       nextCategoryIndex: categoryIndex
     };
 
-    return of({
+    return {
       objects: emojisCategories,
       first: page === 0,
       last: categoryIndex >= allEmojis.length,
       totalElements: totalElementEmojis,
       currentPage: page,
       pageSize: pageSize
-    });
+    };
   }
 
 
-  private static getAllEmojisCategories(): FlEmojiCategory[] {
-    const categories = this.getEmojiData().categories;
+  private static getAllEmojisCategories(): Observable<FlEmojiCategory[]> {
+    const emojiData = from(this.getEmojiData());
+    return emojiData.pipe(
+      map((data: FlEmojiMartData) => {
+        return this.getAllEmojisCategories2(data);
+      })
+    );
+  }
+
+  private static getAllEmojisCategories2(emojiData: FlEmojiMartData): FlEmojiCategory[] {
+    const categories = emojiData.categories;
     const emojiCategories: FlEmojiCategory[] = [];
     for (const category of categories) {
       const emojis: FlSimpleEmoji[] = category.emojis.map((emojiId, index) => {
-        const emoji = this.getEmojiData().emojis[emojiId];
+        const emoji = emojiData.emojis[emojiId];
         return { id: emoji.id, emoji: emoji.skins[0].native, htmlId: `${category.id}-${index}` };
       });
       emojiCategories.push({ name: category.id, emojis });
@@ -131,7 +176,7 @@ export class FlEmojiHelper {
     }
 
     return from(SearchIndex.search(value)).pipe(
-      map((emojis: Emoji[]) => {
+      map((emojis: FlEmojiMartEmoji[]) => {
         if (!emojis) return [];
         return emojis.map((emoji, index) => {
           return { id: emoji.id, emoji: emoji.skins[0].native, htmlId: `emoji-${index}` };
@@ -144,8 +189,13 @@ export class FlEmojiHelper {
     FrequentlyUsed.add({ id: emojiId });
   }
 
-  public static getEmojiData(): EmojiMartData {
-    return (data as any).default;
+  public static async getEmojiData(): Promise<FlEmojiMartData> {
+    if (FlEmojiHelper.emojisData == null) {
+      // load emojis info from emoji-mart
+      const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
+      FlEmojiHelper.emojisData = await response.json();
+    }
+    return FlEmojiHelper.emojisData;
   }
 }
 
