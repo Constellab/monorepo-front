@@ -9,6 +9,8 @@
   <div class="g-badge visibility-badge-div space-badge-div g-text-dense-height">
     @if(space.photo){
       <img [ngSrc]="spacePhoto" height="25" width="25" class="space-badge-photo"/>
+    } @else {
+      <mat-icon>lock</mat-icon>
     }
     <span>{{space.name.trim()}}</span>
   </div>

@@ -3,7 +3,7 @@
     <div class="g-dashboard-background background"></div>
     <div class="main-panel home-section first-section">
       <h1>{{ 'home_title' | translate }}</h1>
-      <p class="home-subtitle">{{ 'home_subtitle' | translate }}</p>
+      <h2 class="home-subtitle">{{ 'home_subtitle' | translate }}</h2>
 
       <div class="video-container">
         <iframe src="https://www.youtube.com/embed/KvfWV6K_fmc" title="Welcome to Constellab !" frameborder="0"
@@ -20,23 +20,32 @@
 
   <div class="main-panel">
     <div class="home-section">
-      <span class="home-section-title">{{ 'fair_open_access' | translate }}</span>
+      <span class="home-section-title">{{ 'the_fair_open_access_community' | translate }}</span>
+      <div class="other-links-div community-other-links">
+        <div class="users-count-div">
+          <img alt="" src="assets/fl-logo/community_logo.svg"/>
+          <span>
+            {{usersCount}} {{('members' | translate).toUpperCase()}}
+          </span>
+        </div>
+        <ha-github-star-button [repo]="gwsCoreRepoLink" [icon]="'octicon-mark-github'"></ha-github-star-button>
+        <a target="_blank" [href]="gLabLink" class="docker-pull-link">
+          <img src="https://img.shields.io/docker/pulls/constellab/glab" class="docker-pull-image"/>
+        </a>
+        <a mat-flat-button class="discord-button" target="_blank" [href]="discordLink">
+          <mat-icon svgIcon="discord" class="icon-discord"></mat-icon> {{'join_our_discord' | translate}}
+        </a>
+      </div>
+      <p class="community-section-p">
+        {{ 'the_fair_open_access_community_description' | translate }}
+      </p>
+      <a mat-stroked-button [href]="signupLink" [target]="'_blank'" class="go-to-button">
+        {{ 'join_constellab' | translate }}
+        <mat-icon>chevron_right</mat-icon>
+      </a>
       <div class="fair-open-access-div">
         <img src="assets/images/fair_open_access_image.avif"/>
-        <span class="users-count-text">
-          <h2>{{usersCount}}</h2>
-          <h4>{{ 'users_of_community' | translate }}</h4>
-        </span>
-        <div class="other-links-div">
-          <a mat-flat-button class="discord-button" target="_blank" [href]="discordLink">
-            Join our discord <mat-icon svgIcon="discord"></mat-icon>
-          </a>
-          <ha-github-star-button [repo]="gwsCoreRepoLink" [icon]="'octicon-mark-github'"></ha-github-star-button>
-          <a target="_blank" [href]="gLabLink" class="docker-pull-link">
-            <img src="https://img.shields.io/docker/pulls/constellab/glab" class="docker-pull-image"/>
-          </a>
-        </div>
-        <p>{{ 'fair_open_access_subtitle' | translate }}</p>
+        <p>{{ 'fair_open_access_description' | translate }}</p>
         <a [href]="'https://constellab.io/fair-open-access'" [target]="'_blank'" mat-stroked-button  class="go-to-button">
           {{ 'learn_more' | translate }}
           <mat-icon>chevron_right</mat-icon>
@@ -47,9 +56,9 @@
       <a [routerLink]="storyListRoute" class="home-section-title">
         {{ 'stories' | translate }}
       </a>
-      <span class="home-section-description">
+      <p class="home-section-description">
         {{ 'stories_description' | translate}}
-      </span>
+      </p>
       <div class="home-list-div">
         <a *ngFor="let story of stories$ | flDatasourceConnect | async" [routerLink]="(story | haDetailRoute)">
           <co-story-list-item class="home-card" [story]="story"

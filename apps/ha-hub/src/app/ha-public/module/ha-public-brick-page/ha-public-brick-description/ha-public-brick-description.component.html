@@ -5,21 +5,20 @@
         <img [src]="brick.imageLink | haBrickImage" class="brick-icon">
         <h2 class="g-text-dense-height">{{ brick.name }}</h2>
       </div>
-      <div class="brick-like-edit-button">
-        <co-visibility-badge [space]="brick.space">
-        </co-visibility-badge>
-        <div class="brick-like">
+      <div class="brick-like-edit-button-div">
+        <div class="brick-like-edit-button brick-like-edit-button-top">
+          <co-visibility-badge [space]="brick.space">
+          </co-visibility-badge>
           <ha-like-button (clicked)="toggleLikeBrickButton()" [isLiked]="brickIsLiked"
                           [likesCount]="brick.likes"></ha-like-button>
         </div>
-        @if(brick.gitRepo){
-          <ha-github-star-button [repo]="brick.gitRepo"></ha-github-star-button>
-        }
-        @if (isCreatorOrBrickUser$ | async) {
-          <button mat-stroked-button type="button" (click)="createEditBrickDialog()"
-                  class="edit-brick-button">{{ 'edit' | translate }}
-          </button>
-        }
+        <div class="brick-like-edit-button">
+          @if (isCreatorOrBrickUser$ | async) {
+            <button mat-stroked-button type="button" (click)="createEditBrickDialog()"
+                    class="edit-brick-button">{{ 'edit' | translate }}
+            </button>
+          }
+        </div>
       </div>
     </div>
 
@@ -46,9 +45,14 @@
     </div>
 
     <div class="tech-info-div" *ngIf="brick.gitRepo && isCreatorOrBrickUser$ | async">
-      {{ 'repo_git' | translate }} :
-      <p class="g-scrollable-element tech-info">{{ brick.gitRepo }}</p>
+      <span>
+        {{ 'repo_git' | translate }} : <ha-github-star-button [repo]="brick.gitRepo"></ha-github-star-button>
+      </span>
+      <div class="git-div">
+        <p class="g-scrollable-element tech-info">{{ brick.gitRepo }}</p>
+      </div>
     </div>
+
 
     <div class="tech-info-div" *ngIf="brick.pipRepo && isCreatorOrBrickUser$ | async">
       {{ 'repo_pip' | translate }} :

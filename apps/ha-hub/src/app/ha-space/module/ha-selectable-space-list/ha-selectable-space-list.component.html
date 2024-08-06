@@ -4,6 +4,8 @@
     <div class="visibility-badge-div">
       @if(space.photo){
         <img [src]="getSpacePhoto(space.photo)" class="space-badge-photo"/>
+      } @else {
+        <mat-icon>lock</mat-icon>
       }
       {{space.name}}
     </div>

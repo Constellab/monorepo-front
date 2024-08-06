@@ -47,8 +47,8 @@
   "repo_error": "A brick must reference at least one repository",
   "sub_patch_number": "Sub patch number",
   "import_technical_documentation": "Import technical documentation",
-  "home_title": "Constellab™ Community\nExplore, Learn & Share",
-  "home_subtitle": "Supported by people committed to democratize collaborative digital life sciences",
+  "home_title": "Constellab™ Community",
+  "home_subtitle": "The AI and data science social network",
   "drag_and_drop_to_move": "Drag and drop to move",
   "create_element": "Create element",
   "technical_information": "Technical informations",
@@ -347,8 +347,13 @@
   "github": "GitHub",
   "edit_profile_description": "Modify your Community profile information. These changes will not affect your Constellab profile.",
   "alias_hint": "Your alias is how you will be identified on Community.",
-  "fair_open_access": "Fair Open Access",
-  "fair_open_access_subtitle": "Fair Open Access embodies transparency, inclusivity, and collaboration. It ensures that data science resources are accessible to all, fostering innovation and progress in research. By promoting up-to-date, actively maintained, and freely available tools, we empower scientists and researchers to drive breakthroughs and advance knowledge without barriers.",
+  "the_fair_open_access_community": "The Fair Open Access Community",
+  "the_fair_open_access_community_description": "Explore community-created tools to streamline your data science workflow. Create, share, and showcase your own tools to a global audience.",
   "learn_more": "Read more",
-  "users_of_community": "Users of Community"
+  "community-users": "Community users",
+  "open_source_community": "Open-source community",
+  "join_constellab": "Join Constellab",
+  "members": "Members",
+  "fair_open_access_description": "Get open access to start on Constellab, create open-source projects, earn credits from your work",
+  "join_our_discord": "Join our Discord"
 }

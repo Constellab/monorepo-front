@@ -35,6 +35,7 @@ export class HaHomeComponent implements OnInit {
   discordLink: string = HaRouterService.getDiscordLink();
   gwsCoreRepoLink: string = HaRouterService.getGwsCoreRepoLink();
   gLabLink: string = HaRouterService.getDockerHubGlabLink();
+  signupLink: string = HaConstellabHelper.getConstellabSignupUrl();
   usersCount: number = 0;
 
   constructor(private metadataService: HaMetadataService,

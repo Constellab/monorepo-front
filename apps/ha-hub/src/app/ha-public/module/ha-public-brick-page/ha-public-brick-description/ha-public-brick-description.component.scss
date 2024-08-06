@@ -26,6 +26,7 @@
   max-width: 100%;
   width: 100%;
   gap: 1em;
+  justify-content: space-between;
 }
 
 .title-div > .icon-title{
@@ -45,12 +46,23 @@
   width: 32px;
 }
 
+.brick-like-edit-button-div{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.brick-like-edit-button-top{
+  margin-top: 3em;
+}
+
 .brick-like-edit-button{
   padding-left: 1em;
   display: flex;
   flex-direction: row;
-  gap: 1em;
+  gap: 1.5em;
   align-items: center;
+  justify-content: end;
   max-width: 375px;
 }
 
@@ -59,6 +71,13 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
+}
+
+.git-div{
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
 }
 
 .check-icon{
@@ -89,13 +108,20 @@ h2{
 
 .tech-info-div{
   margin-top: 15px;
+
+  span{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+  }
 }
 
 .tech-info-div:last-child{
   margin-bottom: 8px;
 }
 
-.tech-info-div > p{
+.tech-info-div p{
   margin-top: 11px;
   padding: 8px;
   background-color: var(--card-background);
@@ -124,7 +150,22 @@ h2{
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
+  .title-div{
+    justify-content: normal;
+  }
+
+  .brick-like-edit-button-div{
+    margin-right: 11px;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .brick-like-edit-button{
+    justify-content: start;
+  }
+
   .title-div > .icon-title{
     width: calc(100% - 1em);
 

@@ -48,8 +48,8 @@
   "repo_error": "Une brique doit référencer au moins un repository",
   "sub_patch_number": "Numéro de sous-patch",
   "import_technical_documentation": "Importer de la documentation technique",
-  "home_title": "Constellab™ Community\nExplorer, Apprendre & Partager",
-  "home_subtitle": "Soutenu par des personnes qui s'engagent à démocratiser les sciences de la vie numériques collaboratives",
+  "home_title": "Constellab™ Community",
+  "home_subtitle": "Le réseau social de l'IA et des data sciences",
   "drag_and_drop_to_move": "Glisser-déposer pour déplacer",
   "create_element": "Créer un élément",
   "technical_information": "Informations techniques",
@@ -349,8 +349,13 @@
   "github": "GitHub",
   "edit_profile_description": "Modifier les informations de votre profil Community. Ces changements n'affecteront pas votre profil Constellab.",
   "alias_hint": "Votre alias est la façon dont vous serez identifié sur Community.",
-  "fair_open_access": "Fair Open Access",
-  "fair_open_access_subtitle": "Le Fair Open Access incarne la transparence, l'inclusion et la collaboration. Il garantit que les ressources en science des données sont accessibles à tous, favorisant l'innovation et le progrès dans la recherche. En promouvant des outils à jour, activement entretenus et librement disponibles, nous permettons aux scientifiques et chercheurs de réaliser des percées et d'avancer dans la connaissance sans obstacles.",
+  "the_fair_open_access_community": "La Communauté Fair Open Access",
+  "the_fair_open_access_community_description": "Découvrez des outils créés par la communauté pour optimiser votre travail en data science. Créez, partagez et valorisez vos propres outils auprès d'un public mondial.",
   "learn_more": "En savoir plus",
-  "users_of_community": "Utilisateurs de Community"
+  "users_of_community": "Utilisateurs de Community",
+  "open_source_community": "Communauté Open Source",
+  "join_constellab": "Rejoindre Constellab",
+  "members": "Membres",
+  "fair_open_access_description": "Obtenez un accès libre pour démarrer sur Constellab, créez des projets open-source, gagnez des crédits grâce à votre travail",
+  "join_our_discord": "Rejoindre notre Discord"
 }
