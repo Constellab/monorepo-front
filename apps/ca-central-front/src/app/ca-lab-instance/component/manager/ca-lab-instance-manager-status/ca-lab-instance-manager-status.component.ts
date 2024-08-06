@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {CaLabManagerStatus} from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
-import {CaLabInstanceDetailManagerState} from '../../../state/ca-lab-instance-detail-manager.state';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { CaLabManagerStatus } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
+import { CaLabInstanceDetailManagerState } from '../../../state/ca-lab-instance-detail-manager.state';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 type CaCurrentStatus = 'NOT_CONFIGURED' | 'NOT_INITIALIZED' | 'NOT_INITIALIZED_SINCE' |
   'SOME_APPS_DOWN' | 'ALL_APPS_DOWN' | 'CONFIGURED';
@@ -22,7 +22,7 @@ interface CaCurrentStatusInfo {
 @Component({
   selector: 'ca-lab-instance-manager-status',
   templateUrl: './ca-lab-instance-manager-status.component.html',
-  styleUrls: ['./ca-lab-manager-status.component.scss']
+  styleUrls: ['./ca-lab-instance-manager-status.component.scss']
 })
 export class CaLabInstanceManagerStatusComponent implements OnInit {
 
