@@ -5,7 +5,7 @@ import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.cla
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
@@ -46,6 +46,9 @@ export class HaLiveTaskOverviewComponent implements OnInit {
       formControl.disable();
     }
     return formControl;
+  });
+  liveTaskDescriptionEmpty: Signal<boolean> = computed(() => {
+    return TeRichText.isEmpty(this.liveTaskDescription());
   });
   textEditorConfig: Signal<HaLiveTaskTextEditorConfig> = computed(() => {
     return new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTask().id);

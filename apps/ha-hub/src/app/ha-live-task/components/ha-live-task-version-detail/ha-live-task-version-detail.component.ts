@@ -4,7 +4,7 @@ import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-t
 import {FlCodeEditorLanguage, FlDebouncer, FlSnackBarService} from '@monorepo/front-core-lib';
 import {FormControl} from '@ngneat/reactive-forms';
 import {TranslateService} from '@ngx-translate/core';
-import {TeBasicConfig, TeRichTextContent} from '@monorepo/text-editor';
+import {TeBasicConfig, TeRichText, TeRichTextContent} from '@monorepo/text-editor';
 import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import {HaLiveTaskPageState} from '../../state/ha-live-task-page.state';
 
@@ -39,6 +39,9 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
       this.versionInfosFormControl = formControl
     }
     return liveTaskVersion;
+  });
+  isVersionInfosEmpty: Signal<boolean> = computed(() => {
+    return TeRichText.isEmpty(this.liveTaskVersion()?.versionInfos);
   });
   canEdit: Signal<boolean> = this.liveTaskPageState.canEditLt;
   isEditable: Signal<boolean> = this.liveTaskPageState.liveTaskVersionIsEditable;
@@ -112,7 +115,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
 
   onEnvironmentChange(environment: string): void {
     if (environment === this.liveTaskVersion()?.environment) return;
-    this.liveTaskService.saveLiveTaskVersionEnvironment(this.liveTaskVersion().id, environment).subscribe(liveTaskVersion => {
+    this.liveTaskService.saveLiveTaskVersionEnvironment(this.liveTaskVersion()?.id, environment).subscribe(liveTaskVersion => {
       this.liveTaskPageState.setLiveTaskVersion(liveTaskVersion);
     });
   }
@@ -122,20 +125,20 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
     if (params === this.liveTaskVersion()?.params?.join('\n') || paramsArray?.find(p => p.trim().length > 0) == null || !this.isEditable) {
       return;
     }
-    this.liveTaskService.saveLiveTaskVersionParams(this.liveTaskVersion().id, paramsArray).subscribe(liveTaskVersion => {
+    this.liveTaskService.saveLiveTaskVersionParams(this.liveTaskVersion()?.id, paramsArray).subscribe(liveTaskVersion => {
       this.liveTaskPageState.setLiveTaskVersion(liveTaskVersion);
     });
   }
 
   onCodeChange(code: string): void {
     if (code === this.liveTaskVersion()?.code || !this.isEditable) return;
-    this.liveTaskService.saveLiveTaskVersionCode(this.liveTaskVersion().id, code).subscribe(liveTaskVersion => {
+    this.liveTaskService.saveLiveTaskVersionCode(this.liveTaskVersion()?.id, code).subscribe(liveTaskVersion => {
       this.liveTaskPageState.setLiveTaskVersion(liveTaskVersion);
     });
   }
 
   onCopy(type: 'parameters' | 'code' | 'environment_file'): void {
-    if (this.liveTaskVersion && this.liveTaskVersion().params)
+    if (this.liveTaskVersion() && this.liveTaskVersion().params)
       navigator.clipboard.writeText(this.liveTaskVersion()?.params?.join('\n')).then(() => {
         this.snackBarService.openSuccessMessage({text: `${type}_copied_to_clipboard`, translateText: true});
       }).catch(() => {

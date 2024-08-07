@@ -32,11 +32,13 @@
     </div>
     <div>
       @defer (when liveTaskVersion() && !isLiveTaskVersionLoading() && versionInfosFormControl){
-        <te-text-editor class="version-infos-editor" [ngClass]="canEdit() ? 'editor-border': ''"
-                        [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)"
-                        [formControl]="versionInfosFormControl" [disabled]="!canEdit()"
-                        [placeholder]="'live_task_version_infos_place_holder' | translate">
-        </te-text-editor>
+        @if (canEdit() || !isVersionInfosEmpty()) {
+          <te-text-editor class="version-infos-editor" [ngClass]="canEdit() ? 'editor-border': ''"
+                          [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)"
+                          [formControl]="versionInfosFormControl" [disabled]="!canEdit()"
+                          [placeholder]="'live_task_version_infos_place_holder' | translate">
+          </te-text-editor>
+        }
       }
     </div>
   </div>
