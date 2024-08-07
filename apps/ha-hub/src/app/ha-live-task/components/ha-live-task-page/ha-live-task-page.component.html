@@ -1,13 +1,18 @@
 <div class="live-task-page-div">
-  <div class="left-panel" *ngIf="!isLoading() && !notFound()">
-    <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-    <a [routerLink]="liveTaskListRoute" class="back-link">      <fl-text-icon [iconPosition]="'start'">
-      <mat-icon>arrow_back</mat-icon>
-      {{'back_to_live_tasks_list' | translate}}
-    </fl-text-icon>
-    </a>
-    <ha-live-task-versions-panel></ha-live-task-versions-panel>
-  </div>
+
+  @if(!isLoading() && !notFound() && liveTask()){
+    <div class="left-panel">
+      <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
+      <a [routerLink]="liveTaskListRoute" class="back-link">
+        <fl-text-icon [iconPosition]="'start'">
+          <mat-icon>arrow_back</mat-icon>
+          {{'back_to_live_tasks_list' | translate}}
+        </fl-text-icon>
+      </a>
+      <ha-live-task-versions-panel></ha-live-task-versions-panel>
+    </div>
+  }
+
 
   <div class="main-panel main-lt-panel">
     @if (liveTask() && !isLoading() && !notFound()) {

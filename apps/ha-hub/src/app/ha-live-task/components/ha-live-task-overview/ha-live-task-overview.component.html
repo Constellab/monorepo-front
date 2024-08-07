@@ -47,11 +47,14 @@
       </button>
     </div>
     <div>
-      <te-text-editor
-        class="description-editor" [ngClass]="canEditLt ? 'editor-border' : ''"
-        [config]="textEditorConfig()" (textChange)="onDescriptionChange($event)"
-        [formControl]="descriptionFormControl()"
-        [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
+      @if(canEditLt() || !liveTaskDescriptionEmpty()){
+        <te-text-editor
+          class="description-editor" [ngClass]="canEditLt() ? 'editor-border' : ''"
+          [config]="textEditorConfig()" (textChange)="onDescriptionChange($event)"
+          [formControl]="descriptionFormControl()"
+          [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
+      }
+
     </div>
   </div>
 

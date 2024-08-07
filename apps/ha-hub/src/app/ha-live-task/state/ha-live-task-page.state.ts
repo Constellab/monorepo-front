@@ -12,6 +12,7 @@ import {HaLikeService} from '../../ha-core/ha-service/ha-like.service';
 import {TeRichTextContent} from '@monorepo/text-editor';
 import {HaBrickVersion} from '../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import {FlStatusEvent, FlStatusEventSuccess} from '@monorepo/front-core-lib';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class HaLiveTaskPageState {
@@ -31,7 +32,7 @@ export class HaLiveTaskPageState {
     return this.liveTaskStatusEvent() && this.liveTaskStatusEvent().status == 'loading';
   });
   public isLiveTaskError: Signal<boolean> = computed(() => {
-    return this.liveTaskVersionStatusEvent() && this.liveTaskVersionStatusEvent().status == 'error';
+    return this.liveTaskStatusEvent() && this.liveTaskStatusEvent().status == 'error';
   });
   private liveTaskVersionsList: WritableSignal<HaLiveTaskVersion[]> = signal<HaLiveTaskVersion[]>(null);
   private liveTaskVersionStatusEvent: WritableSignal<FlStatusEvent<HaLiveTaskVersion>> = signal<FlStatusEvent<HaLiveTaskVersion>>(null);
@@ -81,18 +82,16 @@ export class HaLiveTaskPageState {
   private liveTaskDescription: WritableSignal<TeRichTextContent> = signal<TeRichTextContent>(null);
   private isLiked: WritableSignal<boolean> = signal<boolean>(false);
 
+
   constructor(private liveTaskService: HaLiveTaskService,
               private authenticatedUserService: HaAuthenticatedUserService,
               private httpRedirectionService: HaHttpRedirectionService,
-              private likeService: HaLikeService) {
+              private likeService: HaLikeService,
+              private router: Router) {
   }
 
   public init(liveTaskId: string, paramTitle: string): void {
-    this.initLiveTask(liveTaskId, paramTitle);
-    this.liveTaskService.getPublishedLiveTaskVersions(liveTaskId).subscribe(liveTaskVersions => {
-      this.liveTaskVersionsList.set(liveTaskVersions);
-    });
-    this.initUser();
+    this.initUser(liveTaskId, paramTitle);
   }
 
   public getLiveTask(): Signal<HaLiveTask> {
@@ -146,9 +145,13 @@ export class HaLiveTaskPageState {
   }
 
   public setLiveTaskVersionByVersionNumber(liveTaskId: string, versionNumber: string): void {
+    if (!ClStringHelper.isUUID(liveTaskId)) {
+      this.liveTaskVersionStatusEvent.set({status: 'error', error: 'live_task_version_not_found'});
+      return;
+    }
     this.liveTaskService.getLiveTaskVersionByVersionNumber(liveTaskId, versionNumber).subscribe({
       next: (liveTaskVersion) => {
-        if (liveTaskVersion == null) {
+        if (liveTaskVersion == null || liveTaskVersion.id == null) {
           this.liveTaskVersionStatusEvent.set({status: 'error', error: 'live_task_version_not_found'});
         } else {
           this.setLiveTaskVersion(liveTaskVersion);
@@ -222,18 +225,22 @@ export class HaLiveTaskPageState {
 
   private initLiveTask(id: string, paramTitle: string): void {
     this.liveTaskStatusEvent.set({status: 'loading'});
+    if (!ClStringHelper.isUUID(id)) {
+      this.liveTaskStatusEvent.set({status: 'error', error: 'live_task_not_found'});
+      return;
+    }
     this.liveTaskService.getLiveTaskById(id).subscribe({
       next: (liveTask) => {
-        if (liveTask) {
+        if (liveTask != null && liveTask.id != null) {
           this.setLiveTask(liveTask);
           this.liveTaskDescription.set(liveTask.description);
           this.initCoAuthors();
-          this.initLiveTaskVersionsList();
-          this.initIsLiked();
+          this.initLiveTaskVersionsList(liveTask);
+          this.initIsLiked(liveTask);
 
-          if (paramTitle !== ClStringHelper.getCleanUrlPath(this.liveTask().title)) {
+          if (paramTitle !== ClStringHelper.getCleanUrlPath(liveTask.title)) {
             this.httpRedirectionService.redirectTo(
-              HaRouterService.getLiveTaskRoute(this.liveTask().id, ClStringHelper.getCleanUrlPath(this.liveTask().title)));
+              HaRouterService.getLiveTaskRoute(liveTask.id, ClStringHelper.getCleanUrlPath(liveTask.title)));
           }
         } else {
           this.liveTaskStatusEvent.set({status: 'error', error: 'live_task_not_found'});
@@ -245,20 +252,30 @@ export class HaLiveTaskPageState {
     });
   }
 
-  private initLiveTaskVersionsList(): void {
-    this.liveTaskService.getPublishedLiveTaskVersions(this.liveTask().id).subscribe(liveTaskVersions => {
+  private initLiveTaskVersionsList(liveTask: HaLiveTask): void {
+    if (liveTask == null) {
+      return;
+    }
+    this.liveTaskService.getPublishedLiveTaskVersions(liveTask.id).subscribe(liveTaskVersions => {
       this.liveTaskVersionsList.set(liveTaskVersions);
     });
   }
 
-  private initUser(): void {
+  private initUser(liveTaskId: string, paramTitle: string): void {
     this.authenticatedUserService.getUser().subscribe(user => {
       this.currentUser.set(user);
+      this.initLiveTask(liveTaskId, paramTitle);
+      this.liveTaskService.getPublishedLiveTaskVersions(liveTaskId).subscribe(liveTaskVersions => {
+        this.liveTaskVersionsList.set(liveTaskVersions);
+      });
     });
   }
 
-  private initIsLiked(): void {
-    this.likeService.checkIfLiked(HaLikeType.LIVE_TASK_LIKE, this.liveTask().id).subscribe(isLiked => {
+  private initIsLiked(liveTask: HaLiveTask): void {
+    if (liveTask == null) {
+      return;
+    }
+    this.likeService.checkIfLiked(HaLikeType.LIVE_TASK_LIKE, liveTask.id).subscribe(isLiked => {
       this.setIsLiked(isLiked);
     });
   }

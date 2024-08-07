@@ -1,6 +1,6 @@
 import {Component, OnInit, Signal} from '@angular/core';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {FlDialogService} from '@monorepo/front-core-lib';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
@@ -34,7 +34,8 @@ export class HaLiveTaskPageComponent implements OnInit {
     private liveTaskService: HaLiveTaskService,
     private activeRoute: ActivatedRoute,
     private dialogService: FlDialogService,
-    private liveTaskPageState: HaLiveTaskPageState) {
+    private liveTaskPageState: HaLiveTaskPageState,
+    private router: Router) {
   }
 
   ngOnInit(): void {
