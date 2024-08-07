@@ -1,10 +1,10 @@
-import {first, map, Observable, switchMap} from 'rxjs';
-import {PrResource} from '../pr-resource.class';
-import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
-import {FlColorHelper, FlStatusEvent, FlTranslatableText} from '@monorepo/front-core-lib';
-import {PrWorkflowNode} from './pr-workflow-node.class';
-import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
-import {PrWorkflowNodeIcon} from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
+import { first, map, Observable, switchMap } from 'rxjs';
+import { PrResource } from '../pr-resource.class';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+import { FlColorHelper, FlStatusEvent, FlTranslatableText } from '@monorepo/front-core-lib';
+import { PrWorkflowNode } from './pr-workflow-node.class';
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import { PrWorkflowNodeIcon } from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
 
 export interface PrWorkNodeIoExternalButton {
   position: 'before' | 'after';
@@ -122,7 +122,8 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
         iconColor = FlColorHelper.getContrastColor(resourceColor);
       }
       return {
-        icon: resource.object.style.icon_technical_name, iconType: 'MATERIAL_ICON',
+        icon: resource.object.style.icon_technical_name,
+        iconType: resource.object.style.icon_type,
         iconColor: iconColor
       };
     }
