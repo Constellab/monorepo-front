@@ -77,6 +77,8 @@ const teTextEditorI18nFr: FlLangTranslation = {
     MOVED: 'déplacé',
     open_modifications_history_panel: 'Ouvrir le panneau d\'historique des modifications',
     no_modifications: 'Aucune modification',
+    attached_files: 'Fichiers attachés',
+    table_of_contents: 'Table des matières',
   }
 };
 
@@ -151,6 +153,8 @@ const teTextEditorI18nEn: FlLangTranslation = {
     MOVED: 'moved',
     open_modifications_history_panel: 'Open modifications history panel',
     no_modifications: 'No modifications',
+    attached_files: 'Attached files',
+    table_of_contents: 'Table of contents',
   }
 };
 

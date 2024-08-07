@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Signal} from '@angular/core';
 import {HaConstellabHelper} from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 import {HaMetadataService} from '../../ha-core/ha-service/ha-metadata.service';
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
 import {HaStoryService} from '../../ha-core/ha-service/ha-story.service';
 import {HaStoryDatasourcePaginated} from '../../ha-core/ha-model/ha-entities/ha-story.class';
-import {ClStringHelper} from '@monorepo/core-lib';
+import {ClStringHelper, ClTheme} from '@monorepo/core-lib';
 import {HaLiveTaskDatasourcePaginated} from '../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {HaLiveTaskService} from '../../ha-core/ha-service/ha-live-task.service';
 import {HaBrickDatasourcePaginated} from '../../ha-core/ha-model/ha-entities/ha-brick.class';
 import {HaBrickService} from '../../ha-core/ha-service/ha-brick.service';
+import {HaUserService} from '../../ha-core/ha-service/ha-user.service';
+import {HaThemeState} from '../../ha-core/ha-state/ha-theme.state';
 
 @Component({
   selector: 'ha-ha-home',
@@ -31,10 +33,20 @@ export class HaHomeComponent implements OnInit {
   productDocRoute: string = HaRouterService.getProductDocRoute();
   iconsRoute: string = HaRouterService.getIconsRoute();
 
+  discordLink: string = HaRouterService.getDiscordLink();
+  gwsCoreRepoLink: string = HaRouterService.getGwsCoreRepoLink();
+  gLabLink: string = HaRouterService.getDockerHubGlabLink();
+  signupLink: string = HaConstellabHelper.getConstellabSignupUrl();
+  usersCount: number = 0;
+
+  isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
+
   constructor(private metadataService: HaMetadataService,
               private storyService: HaStoryService,
               private liveTaskService: HaLiveTaskService,
-              private brickService: HaBrickService) {
+              private brickService: HaBrickService,
+              private userService: HaUserService,
+              private themeState: HaThemeState) {
 
   }
 
@@ -50,6 +62,8 @@ export class HaHomeComponent implements OnInit {
 
     this.bricks$ = this.brickService.getAllWithFiltersPaginated(4);
     this.bricks$.getFirstPage({spacesFilter: [], titleFilter: ''});
+
+    this.userService.getCount().subscribe(count => this.usersCount = count);
 
   }
 

@@ -1,13 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, computed, OnInit, Signal} from '@angular/core';
 import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
 import {FormControl} from '@ngneat/reactive-forms';
 import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {TeRichTextContent} from '@monorepo/text-editor';
-import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
 import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
@@ -18,6 +16,7 @@ import {
 import {HaCommentType} from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService, FlPortalService} from '@monorepo/front-core-lib';
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
+import {HaLiveTaskPageState} from '../../state/ha-live-task-page.state';
 
 @Component({
   selector: 'ha-live-task-overview',
@@ -27,113 +26,92 @@ import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 export class HaLiveTaskOverviewComponent implements OnInit {
 
   profileRoute = HaRouterService.getProfileRoute();
-  liveTaskIsLiked = false;
-  liveTask: HaLiveTask;
-  liveTaskVersion: HaLiveTaskVersion;
-  textEditorConfig: HaLiveTaskTextEditorConfig;
-  descriptionFormControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>();
+
   descriptionEditorDisabled: boolean = true;
-  canEditLt: boolean = false;
-  isLoading: boolean = true;
-  liveTaskCoAuthors: HaUser[];
-  currentUser: HaUser;
+
+
+  liveTask: Signal<HaLiveTask> = this.liveTaskPageState.getLiveTask();
+  liveTaskVersion: Signal<HaLiveTaskVersion> = this.liveTaskPageState.liveTaskVersion;
+  isLiveTaskVersionError: Signal<boolean> = this.liveTaskPageState.isLiveTaskVersionError;
+  isLiveTaskVersionLoading: Signal<boolean> = this.liveTaskPageState.isLiveTaskVersionLoading;
+  canEditLt: Signal<boolean> = this.liveTaskPageState.canEditLt;
+  liveTaskIsLiked: Signal<boolean> = this.liveTaskPageState.getIsLiked();
+  isLoading: Signal<boolean> = this.liveTaskPageState.getIsLoading();
+  isAuthor: Signal<boolean> = this.liveTaskPageState.isAuthor;
+  liveTaskDescription: Signal<TeRichTextContent> = this.liveTaskPageState.getLiveTaskDescription();
+  descriptionFormControl: Signal<FormControl<TeRichTextContent>> = computed(() => {
+    const formControl = new FormControl<TeRichTextContent>();
+    if (this.liveTaskDescription()) {
+      formControl.setValue(this.liveTaskDescription());
+      formControl.disable();
+    }
+    return formControl;
+  });
+  textEditorConfig: Signal<HaLiveTaskTextEditorConfig> = computed(() => {
+    return new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTask().id);
+  });
 
   constructor(
     private liveTaskService: HaLiveTaskService,
     private activeRoute: ActivatedRoute,
-    private authenticatedUserService: HaAuthenticatedUserService,
     private authService: HaAuthService,
     private likeService: HaLikeService,
     private portalService: FlPortalService,
     private dialogService: FlDialogService,
-    private router: Router,) {
+    private router: Router,
+    private liveTaskPageState: HaLiveTaskPageState) {
   }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params => {
-      this.setupLiveTask(params['id'])
-      this.setupLatestLiveTaskVersion(params['id']);
+      if (params['id'] != null) {
+        this.setupLatestLiveTaskVersion(params['id']);
+      }
     });
 
-    this.checkIfLiveTaskIsLiked(this.activeRoute.snapshot.params['id'])
   }
 
   setupLatestLiveTaskVersion(id: string): void {
-    this.liveTaskService.getLatestLiveTaskVersionByLiveTaskId(id).subscribe(liveTaskVersion => {
-      this.liveTaskVersion = liveTaskVersion;
-      this.isLoading = false;
-    });
-  }
-
-  private setupLiveTask(id: string): void {
-    this.liveTaskService.getLiveTaskById(id).subscribe(liveTask => {
-      if(!liveTask) return;
-      this.liveTask = liveTask;
-      this.textEditorConfig = new HaLiveTaskTextEditorConfig(this.liveTaskService, this.liveTask.id);
-      this.descriptionFormControl.setValue(this.liveTask?.description);
-      this.descriptionFormControl.disable();
-      this.setupCoAuthors();
-    });
-  }
-
-  private setupCoAuthors(): void{
-    this.liveTaskService.getCoAuthors(this.liveTask.id).subscribe(coAuthors => {
-      this.liveTaskCoAuthors = coAuthors;
-      this.setupCanEdit();
-    });
-  }
-
-  private setupCanEdit():void{
-    this.authenticatedUserService.getUser().subscribe(user => {
-      this.currentUser = user;
-      this.canEditLt = (user?.id === this.liveTask?.createdBy.id ||
-        this.liveTaskCoAuthors?.some(coAuthor => coAuthor.id === user?.id));
-    });
-  }
-
-  private checkIfLiveTaskIsLiked(liveTaskId: string): void {
-    this.likeService.checkIfLiked(HaLikeType.LIVE_TASK_LIKE, liveTaskId).subscribe((isLiked) => {
-      this.liveTaskIsLiked = isLiked;
-    });
+    this.liveTaskPageState.setLatestLiveTaskVersion(id);
   }
 
   onDescriptionChange(description: TeRichTextContent): void {
-    this.liveTask.description = description;
+    this.descriptionFormControl().setValue(description);
   }
+
 
   onDescriptionEditorButtonClick(): void {
     if (this.descriptionEditorDisabled) {
       this.descriptionEditorDisabled = false;
-      this.descriptionFormControl.enable();
+      this.descriptionFormControl().enable();
       return;
     }
 
-    this.liveTaskService.saveLiveTaskDescription(this.liveTask.id, this.liveTask.description).subscribe((liveTask) => {
-      if (liveTask) {
-        this.liveTask = liveTask;
-        if (this.liveTaskVersion)
-          this.liveTaskVersion.liveTask = liveTask;
-      }
-      this.descriptionEditorDisabled = true;
-      this.descriptionFormControl.disable();
-    })
+    this.liveTaskService.saveLiveTaskDescription(this.liveTask().id, this.descriptionFormControl().value)
+      .subscribe((liveTask: HaLiveTask) => {
+        this.descriptionEditorDisabled = true;
+        if (liveTask != null) {
+          this.liveTaskPageState.setLiveTask(liveTask);
+        }
+        this.descriptionFormControl().disable();
+      })
   }
 
   onTitleChange(title: string): void {
-    this.liveTaskService.updateTitle(this.liveTask.id, title).subscribe();
+    this.liveTaskService.updateTitle(this.liveTask().id, title).subscribe();
   }
 
-  openCommentsPannel(): void {
+  openCommentsPanel(): void {
     this.portalService.createPortal(HaCommentsPortalComponent, this.portalService.getRightSidePortalConfig(), {
-      user: this.currentUser,
-      entity: this.liveTask,
+      user: this.liveTaskPageState.getCurrentUser()(),
+      entity: this.liveTask(),
       commentType: HaCommentType.LIVE_TASK_COMMENT
     } as HaCommentsPortalData).detachments();
 
   }
 
   toggleLikeLiveTaskButton(): void{
-    if(this.liveTaskIsLiked){
+    if (this.liveTaskIsLiked()) {
       this.unlikeLiveTask();
     } else {
       this.likeLiveTask();
@@ -147,7 +125,7 @@ export class HaLiveTaskOverviewComponent implements OnInit {
       successMessage: 'livetask_deleted',
       translateTitleAndContent: true,
       translateMessage: true,
-      observable: this.liveTaskService.deleteLiveTask(this.liveTask.id),
+      observable: this.liveTaskService.deleteLiveTask(this.liveTask().id),
     };
     this.dialogService.openConfirmDialog(confirmDeleteDialogInput).afterClosed().subscribe((res: FlConfirmDialogResult) => {
       if (res.choice) {
@@ -157,10 +135,15 @@ export class HaLiveTaskOverviewComponent implements OnInit {
   }
 
   private unlikeLiveTask(): void {
-    this.likeService.unlike(HaLikeType.LIVE_TASK_LIKE, this.liveTask.id).subscribe((liveTask: HaLiveTask) => {
+    if (!this.authService.hasAuthorizationCookie()) {
+      // navigate to login page
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.likeService.unlike(HaLikeType.LIVE_TASK_LIKE, this.liveTask().id).subscribe((liveTask: HaLiveTask) => {
       if (liveTask != null) {
-        this.liveTask.likes = liveTask.likes;
-        this.liveTaskIsLiked = false;
+        this.liveTaskPageState.setIsLiked(false);
+        this.liveTaskPageState.setLiveTask(liveTask);
       }
     });
   }
@@ -171,10 +154,10 @@ export class HaLiveTaskOverviewComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService.like(HaLikeType.LIVE_TASK_LIKE, this.liveTask.id).subscribe((liveTask: HaLiveTask) => {
+    this.likeService.like(HaLikeType.LIVE_TASK_LIKE, this.liveTask().id).subscribe((liveTask: HaLiveTask) => {
       if (liveTask != null) {
-        this.liveTask.likes = liveTask.likes;
-        this.liveTaskIsLiked = true;
+        this.liveTaskPageState.setIsLiked(true);
+        this.liveTaskPageState.setLiveTask(liveTask);
       }
     });
   }

@@ -17,6 +17,9 @@ import {HaIconModule} from '../ha-icon/ha-icon.module';
 import {HaBigScreenMainComponent} from './ha-big-screen-main/ha-big-screen-main.component';
 import {HaSmallScreenMainComponent} from './ha-small-screen-main/ha-small-screen-main.component';
 import {HaProfileModule} from '../ha-profile/ha-profile.module';
+import {
+  HaGithubStarButtonComponent
+} from "../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component";
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import {HaProfileModule} from '../ha-profile/ha-profile.module';
     MatSlideToggleModule,
     HaIconModule,
     HaProfileModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    HaGithubStarButtonComponent
   ],
 })
 export class HaMainModule {}

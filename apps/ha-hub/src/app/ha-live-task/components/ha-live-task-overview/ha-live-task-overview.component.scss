@@ -33,7 +33,12 @@
 .description-editor{
   border: none;
   padding: 0.5em 0;
-  min-height: 1.5em;
+  min-height: 5em;
+  margin-top: 0.5em;
+}
+
+.editor-border{
+  border: solid 1px var(--hover-color);
 }
 
 @media (max-width: 700px) {

@@ -151,7 +151,10 @@ export class TeRichText {
     if (oldContent == null) {
       return modifications;
     }
-    const oldBlocks = oldContent.blocks;
+    const oldBlocks = oldContent?.blocks;
+    if (oldBlocks == null) {
+      return modifications;
+    }
     const oldBlockMap = new Map(oldBlocks.map(block => [block.id, block]));
 
     newContent.blocks.forEach((block, index) => {

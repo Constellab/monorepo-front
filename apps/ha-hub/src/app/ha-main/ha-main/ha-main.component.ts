@@ -1,45 +1,37 @@
-import {AfterContentInit, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {AfterContentInit, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Signal} from '@angular/core';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
-import {FlCookieService, FlThemeService} from '@monorepo/front-core-lib';
+import {FlCookieService} from '@monorepo/front-core-lib';
 import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 import {HaEnvironmentHelper} from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import {isPlatformBrowser} from '@angular/common';
 import {HaCookieConsentComponent} from '../ha-cookie-consent/ha-cookie-consent.component';
 import {BreakpointObserver} from '@angular/cdk/layout';
+import {HaThemeState} from '../../ha-core/ha-state/ha-theme.state';
 
 @Component({
   selector: 'ha-main',
   templateUrl: './ha-main.component.html',
-  styleUrls: ['./ha-main.component.scss']
+  styleUrls: ['./ha-main.component.scss'],
+  providers: [HaThemeState]
 })
-export class HaMainComponent implements OnInit, AfterContentInit {
-
-  currentTheme: ClTheme;
+export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
 
   currentLanguage: ClSupportedLanguage;
 
-  theme = ClTheme;
-
-  isDarkTheme: boolean;
-
   isSmallScreen = false;
 
+  currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
 
   constructor(private authUserService: HaAuthenticatedUserService,
-              private themeService: FlThemeService,
               private cookieService: FlCookieService,
               private breakpointObserver: BreakpointObserver,
+              private themeState: HaThemeState,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
   ngOnInit(): void {
-    this.currentTheme = this.themeService.getCurrentTheme();
-    this.isDarkTheme = this.themeService.isDarkTheme();
+    this.themeState.init();
     this.authUserService.getUser().subscribe(user => {
-      if (user != null) {
-        this.authUserService.changeTheme(this.currentTheme).subscribe();
-        this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
-      }
       this.currentLanguage = user != null ? user.lang : ClSupportedLanguage.en;
     });
 
@@ -86,5 +78,9 @@ export class HaMainComponent implements OnInit, AfterContentInit {
     };
     windowObj['gtag']('js', new Date());
     windowObj['gtag']('config', HaEnvironmentHelper.getGoogleAnalyticsId());
+  }
+
+  ngOnDestroy(): void {
+    this.themeState.destroy();
   }
 }

@@ -1,0 +1,8 @@
+<div class="right-div right-panel g-scrollable-element">
+  @if(files && files.length > 0){
+    <te-files-list [files]="files" [urlToDownloadPrefix]="urlToDownloadFilePrefix"></te-files-list>
+  }
+  @if(content){
+    <te-titles-list [content]="content"></te-titles-list>
+  }
+</div>

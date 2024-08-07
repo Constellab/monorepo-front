@@ -30,11 +30,11 @@
         <mat-icon>language</mat-icon>
       </button>
       <button mat-icon-button
-              (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme" class="g-text-light">
+              (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme()" class="g-text-light">
         <mat-icon>light_mode</mat-icon>
       </button>
       <button mat-icon-button
-              (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme" class="g-text-light">
+              (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme()" class="g-text-light">
         <mat-icon>dark_mode</mat-icon>
       </button>
       <ng-container *ngIf="(userConnected$ | async) == null">

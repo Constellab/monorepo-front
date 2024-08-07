@@ -131,8 +131,12 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.delete(this.route + '/' + id + '/main-image');
   }
 
+  public getStoryFilePathPrefix(storyId: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${storyId}/file/`);
+  }
+
   public getStoryFilePath(storyId: string, storyFileId: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${storyId}/file/${storyFileId}`);
+    return `${this.getStoryFilePathPrefix(storyId)}${storyFileId}`;
   }
 
   uploadImage(file: File, storyId: string): Observable<TeUploadedImage> {
@@ -185,7 +189,7 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
   }
 
   /***
-    * Remove topic from story
+   * Remove topic from story
    * @param topicId topic id
    * @param storyId story id
    * @return story

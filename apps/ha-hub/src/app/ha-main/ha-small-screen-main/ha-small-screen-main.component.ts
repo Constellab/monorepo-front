@@ -1,12 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Signal} from '@angular/core';
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
 import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 import {Observable} from 'rxjs';
 import {HaUser} from '../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
-import {FlSnackBarService, FlThemeService, FlTranslateService} from '@monorepo/front-core-lib';
+import {FlSnackBarService, FlTranslateService} from '@monorepo/front-core-lib';
 import {HaAuthService} from '../../ha-core/ha-service/ha-auth.service';
 import {ActivatedRoute} from '@angular/router';
+import {HaThemeState} from '../../ha-core/ha-state/ha-theme.state';
 
 export enum HaSmallScreenPossibleRoute {
   STORY = 'story',
@@ -21,6 +22,9 @@ export enum HaSmallScreenPossibleRoute {
   styleUrls: ['./ha-small-screen-main.component.scss']
 })
 export class HaSmallScreenMainComponent implements OnInit{
+  @Input({required: true})
+  currentLanguage: ClSupportedLanguage;
+
   userConnected$: Observable<HaUser> = this.authUserService.getUser();
 
   loginRoute: string = HaRouterService.getLoginRoute();
@@ -45,19 +49,14 @@ export class HaSmallScreenMainComponent implements OnInit{
 
   currentRoute: HaSmallScreenPossibleRoute;
 
-  @Input({required: true})
-  currentTheme: ClTheme;
+  currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
 
-  @Input({required: true})
-  currentLanguage: ClSupportedLanguage;
-
-  @Input({required: true})
-  isDarkTheme: boolean;
+  isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
 
   protected readonly theme = ClTheme;
 
   constructor(private authUserService: HaAuthenticatedUserService,
-              private themeService: FlThemeService,
+              private themeState: HaThemeState,
               private translateService: FlTranslateService,
               private snackBarService: FlSnackBarService,
               private authService: HaAuthService,
@@ -87,16 +86,14 @@ export class HaSmallScreenMainComponent implements OnInit{
   }
 
   selectTheme(theme: ClTheme): void {
-    if (this.currentTheme !== theme) {
-      this.themeService.changeTheme(theme);
-      this.currentTheme = theme;
-      this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
+    if (this.currentTheme() !== theme) {
+      this.themeState.changeTheme(theme);
       this.setCommunityLogo();
     }
   }
 
   setCommunityLogo(): void{
-    this.communityLogo = this.isDarkTheme ?
+    this.communityLogo = this.isDarkTheme() ?
       'assets/fl-logo/community-logo-text-white.svg':
       'assets/fl-logo/community-logo-text-black.svg';
   }

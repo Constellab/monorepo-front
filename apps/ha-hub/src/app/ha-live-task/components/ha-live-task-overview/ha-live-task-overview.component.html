@@ -1,52 +1,45 @@
-@if(liveTask){
+@if(liveTask()){
   <h2 flElementEditable (flElementValueChange)="onTitleChange($event)"
-      [flElementDisabled]="!canEditLt">
-    {{ liveTask.title }}
+      [flElementDisabled]="!canEditLt()">
+    {{ liveTask().title }}
   </h2>
   <div class="lt-utils-div">
     <p class="small-text user-date-info">
-      <a [routerLink]="profileRoute + liveTask.createdBy.id">
-        <fl-user-inline [user]="liveTask.createdBy" [portalOnHover]="false"></fl-user-inline>
+      <a [routerLink]="profileRoute + liveTask().createdBy?.id">
+        <fl-user-inline [user]="liveTask().createdBy" [portalOnHover]="false"></fl-user-inline>
       </a>
       <span class="g-text-small date-info">
-      <fl-from-now [date]="liveTask.createdAt" *ngIf="liveTask.latestPublishVersion > 0; else notPublished"></fl-from-now>
+      <fl-from-now [date]="liveTask().createdAt" *ngIf="liveTask().latestPublishVersion > 0; else notPublished"></fl-from-now>
     </span>
     </p>
     <div class="lt-buttons">
-      <co-visibility-badge [space]="liveTask.space"></co-visibility-badge>
+      <co-visibility-badge [space]="liveTask().space"></co-visibility-badge>
 
-      <ha-like-button class="lt-like-bt" (clicked)="toggleLikeLiveTaskButton()" [isLiked]="liveTaskIsLiked"
-                      [likesCount]="liveTask.likes"></ha-like-button>
+      <ha-like-button class="lt-like-bt" (clicked)="toggleLikeLiveTaskButton()" [isLiked]="liveTaskIsLiked()"
+                      [likesCount]="liveTask().likes"></ha-like-button>
 
-      <ha-comment-button [commentsCount]="liveTask.comments" (clicked)="openCommentsPannel()"></ha-comment-button>
+      <ha-comment-button [commentsCount]="liveTask().comments" (clicked)="openCommentsPanel()"></ha-comment-button>
 
-      <button *ngIf="currentUser?.id == liveTask?.createdBy?.id"
-              mat-icon-button color="warn" (click)="deleteLiveTask()">
-        <mat-icon>delete</mat-icon>
-      </button>
+      @if(isAuthor()){
+        <button mat-icon-button color="warn" (click)="deleteLiveTask()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
     </div>
   </div>
 
-  <div class="g-flex" *ngIf="isLoading">
+  <div class="g-flex" *ngIf="isLoading()">
     <fl-loader class="g-centered"></fl-loader>
   </div>
 
-<!--  <fl-card *ngIf="!isLoading">-->
-<!--    <fl-card-header>-->
-<!--      -->
-<!--    </fl-card-header>-->
-<!--    <fl-card-body>-->
-<!--     -->
-<!--    </fl-card-body>-->
-<!--  </fl-card>-->
 
-  <div *ngIf="!isLoading">
+  <div *ngIf="!isLoading()">
     <div class="card-header">
-      <div>
+      <h5>
         {{ 'live_task_description' | translate }}
-      </div>
+      </h5>
       <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()"
-              *ngIf="canEditLt">
+              *ngIf="canEditLt()">
         <fl-text-icon [iconPosition]="'end'">
           <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
           {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}
@@ -55,15 +48,15 @@
     </div>
     <div>
       <te-text-editor
-        class="description-editor"
-        [config]="textEditorConfig" (textChange)="onDescriptionChange($event)"
-        [formControl]="descriptionFormControl"
+        class="description-editor" [ngClass]="canEditLt ? 'editor-border' : ''"
+        [config]="textEditorConfig()" (textChange)="onDescriptionChange($event)"
+        [formControl]="descriptionFormControl()"
         [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
     </div>
   </div>
 
-  <ha-live-task-version-detail *ngIf="liveTask?.latestPublishVersion && liveTaskVersion && !isLoading" [liveTaskVersion]="liveTaskVersion" [canEdit]="canEditLt"
-                               [isEditable]="false" [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask.latestPublishVersion + ')'"></ha-live-task-version-detail>
+  <ha-live-task-version-detail *ngIf="!isLoading() && !isLiveTaskVersionLoading() && !isLiveTaskVersionError()"
+                               [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask()?.latestPublishVersion + ')'"></ha-live-task-version-detail>
 
 }
 

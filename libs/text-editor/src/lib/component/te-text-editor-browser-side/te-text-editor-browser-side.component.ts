@@ -137,7 +137,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     event.preventDefault()
     event.stopPropagation()
 
-    if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo) {
+    if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo && !this._disabled) {
       const undoResult: TeRichTextUndoRedoResult = TeRichText.undoModification(this._value, this.modificationGroup);
 
       if (undoResult == null) {
@@ -176,7 +176,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     event.preventDefault()
     event.stopPropagation()
 
-    if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo) {
+    if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo && !this._disabled) {
       const redoResult: TeRichTextUndoRedoResult = TeRichText.redoModification(this._value, this.modificationGroup);
 
       if (redoResult == null) {
@@ -316,6 +316,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   private async checkKey(e: any): Promise<void> {
+    // TODO: Faire une state pour la gestion de cet event quand il y a plusieurs text editor
     if ((e.metaKey || e.ctrlKey) && e.key == 'z') {
       e.preventDefault();
       await this.undoEvent(e);

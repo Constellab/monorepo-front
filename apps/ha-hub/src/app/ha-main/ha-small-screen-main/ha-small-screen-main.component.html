@@ -76,12 +76,12 @@
     }
   </button>
   <button mat-menu-item
-          (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme" class="g-text-light">
+          (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme()" class="g-text-light">
     <mat-icon>light_mode</mat-icon>
     {{'light_theme' | translate}}
   </button>
   <button mat-menu-item
-          (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme" class="g-text-light">
+          (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme()" class="g-text-light">
     <mat-icon>dark_mode</mat-icon>
     {{'dark_theme' | translate}}
   </button>
