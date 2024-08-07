@@ -16,6 +16,7 @@ export const environment: HaEnvironment = {
     communityFrontUrl: '',
     captchaSiteKey: '',
     googleAnalyticsId: '',
+    discordLink: '',
   }
 };
 
