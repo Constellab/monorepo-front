@@ -1,11 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Signal} from '@angular/core';
 import {HaRouterService} from '../../ha-core/ha-service/ha-router.service';
 import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
 import {Observable} from 'rxjs';
 import {HaUser} from '../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../ha-core/ha-service/ha-authenticated-user.service';
-import {FlSnackBarService, FlThemeService, FlTranslateService} from '@monorepo/front-core-lib';
+import {FlSnackBarService, FlTranslateService} from '@monorepo/front-core-lib';
 import {HaAuthService} from '../../ha-core/ha-service/ha-auth.service';
+import {HaThemeState} from '../../ha-core/ha-state/ha-theme.state';
 
 @Component({
   selector: 'ha-big-screen-main',
@@ -13,7 +14,8 @@ import {HaAuthService} from '../../ha-core/ha-service/ha-auth.service';
   styleUrls: ['./ha-big-screen-main.component.scss']
 })
 export class HaBigScreenMainComponent implements OnInit{
-  userConnected$: Observable<HaUser> = this.authUserService.getUser();
+  @Input({required: true})
+  currentLanguage: ClSupportedLanguage;
 
   loginRoute: string = HaRouterService.getLoginRoute();
 
@@ -31,21 +33,18 @@ export class HaBigScreenMainComponent implements OnInit{
 
   profileRoute = HaRouterService.getProfileRoute();
 
+  currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
+
+  isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
+
+  userConnected$: Observable<HaUser> = this.authUserService.getUser();
+
   communityLogo: string;
-
-  @Input({required: true})
-  currentTheme: ClTheme;
-
-  @Input({required: true})
-  currentLanguage: ClSupportedLanguage;
-
-  @Input({required: true})
-  isDarkTheme: boolean;
 
   protected readonly theme = ClTheme;
 
   constructor(private authUserService: HaAuthenticatedUserService,
-              private themeService: FlThemeService,
+              private themeState: HaThemeState,
               private translateService: FlTranslateService,
               private snackBarService: FlSnackBarService,
               private authService: HaAuthService) {
@@ -56,16 +55,14 @@ export class HaBigScreenMainComponent implements OnInit{
   }
 
   selectTheme(theme: ClTheme): void {
-    if (this.currentTheme !== theme) {
-      this.themeService.changeTheme(theme);
-      this.currentTheme = theme;
-      this.isDarkTheme = this.currentTheme === ClTheme.DARK_THEME;
+    if (this.currentTheme() !== theme) {
+      this.themeState.changeTheme(theme);
       this.setCommunityLogo();
     }
   }
 
   setCommunityLogo(): void{
-    this.communityLogo = this.isDarkTheme ?
+    this.communityLogo = this.isDarkTheme() ?
       'assets/fl-logo/community-logo-text-white.svg':
       'assets/fl-logo/community-logo-text-black.svg';
   }

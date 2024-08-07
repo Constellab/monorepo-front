@@ -44,7 +44,7 @@
         <mat-icon>chevron_right</mat-icon>
       </a>
       <div class="fair-open-access-div">
-        <img src="assets/images/fair_open_access_image.avif"/>
+        <img [src]="'assets/images/FOA-' + (isDarkTheme() ? 'black' : 'white') + '-bg.png'"/>
         <p>{{ 'fair_open_access_description' | translate }}</p>
         <a [href]="'https://constellab.io/fair-open-access'" [target]="'_blank'" mat-stroked-button  class="go-to-button">
           {{ 'learn_more' | translate }}

@@ -1,7 +1,9 @@
-import {Component, Inject, Input, OnInit, PLATFORM_ID, Renderer2} from '@angular/core';
+import {Component, Inject, Input, OnInit, PLATFORM_ID, Renderer2, Signal} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import {GitHubButtonProps} from 'github-buttons';
-import {FlThemeService} from '@monorepo/front-core-lib';
+import {HaThemeState} from '../../ha-state/ha-theme.state';
+import {Subject} from 'rxjs';
+import {ClTheme} from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-github-star-button',
@@ -16,14 +18,19 @@ export class HaGithubStarButtonComponent implements OnInit{
   @Input() title: string = 'Stars';
   @Input() icon: 'octicon-star' | 'octicon-mark-github' =  'octicon-star';
 
+  isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
+
   constructor(private renderer: Renderer2,
               @Inject(PLATFORM_ID) private platformId: object,
-              private themeService: FlThemeService) {
+              private themeState: HaThemeState) {
   }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId) && this.isValidGithubRepo(this.repo)) {
-      this.renderButton();
+      this.renderButton(this.isDarkTheme() ? 'dark' : 'light');
+      this.themeState.onThemeChange$.subscribe((theme) => {
+        this.renderButton(theme == ClTheme.DARK_THEME ? 'dark' : 'light');
+      });
     }
   }
 
@@ -36,12 +43,9 @@ export class HaGithubStarButtonComponent implements OnInit{
     return repo.match(/https:\/\/github.com\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\/?/g) != null;
   }
 
-  private renderButton(): void {
+  renderButton(colorScheme: 'dark'|'light'): void {
     // TODO: check theme dynamically to update button theme on theme change
-    const colorScheme = this.themeService.isDarkTheme() ? 'dark' : 'light';
-
     import('github-buttons').then((module) => {
-      const githubButtonDiv = document.getElementById('github-star-bt-div');
       // create the iframe element + place it in the div
       module.render({
         'href': this.repo,
@@ -53,6 +57,8 @@ export class HaGithubStarButtonComponent implements OnInit{
         'data-text': 'Stars',
         'aria-label': 'Stars'
       } as GitHubButtonProps, (el: HTMLIFrameElement | HTMLSpanElement) => {
+        const githubButtonDiv = document.getElementById('github-star-bt-div');
+        githubButtonDiv.innerHTML = '';
         this.renderer.appendChild(githubButtonDiv, el);
       })
     });
