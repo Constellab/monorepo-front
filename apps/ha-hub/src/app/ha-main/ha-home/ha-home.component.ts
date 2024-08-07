@@ -11,6 +11,7 @@ import {HaBrickDatasourcePaginated} from '../../ha-core/ha-model/ha-entities/ha-
 import {HaBrickService} from '../../ha-core/ha-service/ha-brick.service';
 import {HaUserService} from '../../ha-core/ha-service/ha-user.service';
 import {HaThemeState} from '../../ha-core/ha-state/ha-theme.state';
+import {HaEnvironmentHelper} from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 
 @Component({
   selector: 'ha-ha-home',
@@ -33,7 +34,7 @@ export class HaHomeComponent implements OnInit {
   productDocRoute: string = HaRouterService.getProductDocRoute();
   iconsRoute: string = HaRouterService.getIconsRoute();
 
-  discordLink: string = HaRouterService.getDiscordLink();
+  discordLink: string = HaEnvironmentHelper.getDiscordLink();
   gwsCoreRepoLink: string = HaRouterService.getGwsCoreRepoLink();
   gLabLink: string = HaRouterService.getDockerHubGlabLink();
   signupLink: string = HaConstellabHelper.getConstellabSignupUrl();

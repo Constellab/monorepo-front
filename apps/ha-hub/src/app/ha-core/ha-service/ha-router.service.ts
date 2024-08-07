@@ -97,9 +97,6 @@ export class HaRouterService {
 
 
   //////////////////////////// OTHERS ////////////////////////////////
-  public static getDiscordLink(): string {
-    return 'https://discord.gg/nuEyj8yR';
-  }
 
   public static getGwsCoreRepoLink(): string {
     return 'https://github.com/Constellab/gws_core';

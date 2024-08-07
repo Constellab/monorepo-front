@@ -12,6 +12,7 @@ export class HaEnvironmentHelper{
       communityFrontUrl: environment.settings.communityFrontUrl || 'http://localhost:4200',
       captchaSiteKey: environment.settings.captchaSiteKey || '123465',
       googleAnalyticsId: environment.settings.googleAnalyticsId || 'eazeaze',
+      discordLink: environment.settings.discordLink || 'https://discord.com/invite/7nmH5qKM'
     };
     return environment;
   }
@@ -42,5 +43,9 @@ export class HaEnvironmentHelper{
 
   public static getGoogleAnalyticsId(): string {
     return HaEnvironmentHelper.getEnv().settings.googleAnalyticsId;
+  }
+
+  public static getDiscordLink(): string {
+    return HaEnvironmentHelper.getEnv().settings.discordLink;
   }
 }

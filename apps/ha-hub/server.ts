@@ -19,6 +19,7 @@ environment.settings = {
   communityFrontUrl: process?.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200',
   captchaSiteKey: process?.env['CAPTCHA_SITE_KEY'] || '123465',
   googleAnalyticsId: process?.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
+  discordLink: process?.env['DISCORD_LINK'] || 'https://discord.com/invite/7nmH5qKM'
 };
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -58,7 +59,7 @@ export function app(): express.Express {
       const imgSrc = 'img-src \'self\' blob: data: http: https: *.gencovery.com *.constellab.community';
       // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
       // eslint-disable-next-line max-len
-      const connectSrc = 'connect-src \'self\' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com https://cdn.jsdelivr.net/npm/@emoji-mart/data';
+      const connectSrc = 'connect-src \'self\' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com';
       // eslint-disable-next-line max-len
       res.setHeader('Content-Security-Policy', `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`);
     }
