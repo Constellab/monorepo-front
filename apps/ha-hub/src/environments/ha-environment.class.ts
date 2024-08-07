@@ -30,6 +30,8 @@ export interface HaEnvironmentSettings {
 
   //google analytics id
   googleAnalyticsId: string;
+
+  discordLink: string;
 }
 
 // Path of the environment json file created during the docker run (used in production)
