@@ -225,7 +225,8 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getHoveredEmoji(): FlSimpleEmoji {
+  private getHoveredEmoji(): FlSimpleEmoji | null {
+    if (!this.hoveredEmoji) return null;
     return this.getEmojiByCoord(this.hoveredEmoji);
   }
 

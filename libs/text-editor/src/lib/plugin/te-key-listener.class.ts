@@ -30,7 +30,8 @@ export class TeKeyListener {
   private listen(): void {
     // listen to keyup event on the parent, which is a real HTML element
     this.listener = (event: KeyboardEvent) => this.onKeyUp(event);
-    this.textNode.parentNode.addEventListener('keyup', this.listener);
+    // use document listener so we can close the listener when the cursor is not on the text node
+    document.addEventListener('keyup', this.listener);
   }
 
   private onKeyUp(event: KeyboardEvent): void {
@@ -78,9 +79,7 @@ export class TeKeyListener {
   public destroy(): void {
     this.text$.complete();
     this.completed = true;
-    if (this.textNode.parentNode) {
-      this.textNode.parentNode.removeEventListener('keyup', this.listener);
-    }
+    document.removeEventListener('keyup', this.listener);
   }
 
   /**

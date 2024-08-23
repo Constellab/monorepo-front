@@ -1,7 +1,7 @@
 import { FlDatasourcePaginated } from '../../model/datasource/fl-datasource-paginated.class';
 import { from, Observable } from 'rxjs';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
-import { FrequentlyUsed, SearchIndex } from 'emoji-mart';
+import { FrequentlyUsed, init, SearchIndex } from 'emoji-mart';
 import { map } from 'rxjs/operators';
 
 export interface FlEmojiCategory {
@@ -194,6 +194,7 @@ export class FlEmojiHelper {
       // load emojis info from emoji-mart
       const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
       FlEmojiHelper.emojisData = await response.json();
+      init({ data: FlEmojiHelper.emojisData });
     }
     return FlEmojiHelper.emojisData;
   }
