@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LabReportDetailPageComponent } from './component/lab-report-detail-page/lab-report-detail-page.component';
 import { LabCoreModule } from '../../../lab-core/lab-core.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   LabReportLinkedExperimentsComponent
 } from './component/lab-report-linked-experiments/lab-report-linked-experiments.component';
@@ -17,12 +17,19 @@ import {
 } from '../../../lab-core/entity-module/lab-experiment-core/lab-experiment-core.module';
 import { LabProjectCoreModule } from '../../../lab-core/entity-module/lab-project-core/lab-project-core.module';
 import { LabTagCoreModule } from '../../../lab-core/entity-module/lab-tag-core/lab-tag-core.module';
+import {
+  LabReportInsertTemplateDialogComponent
+} from './component/lab-report-insert-template-dialog/lab-report-insert-template-dialog.component';
+import {
+  LabDocumentTemplateCoreModule
+} from '../../../lab-core/entity-module/lab-document-template-core/lab-document-template-core.module';
 
 
 @NgModule({
   declarations: [
     LabReportDetailPageComponent,
-    LabReportLinkedExperimentsComponent
+    LabReportLinkedExperimentsComponent,
+    LabReportInsertTemplateDialogComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +42,12 @@ import { LabTagCoreModule } from '../../../lab-core/entity-module/lab-tag-core/l
     LabEntityCoreModule,
     LabExperimentCoreModule,
     LabProjectCoreModule,
-    LabTagCoreModule
+    LabTagCoreModule,
+    ReactiveFormsModule,
+    LabDocumentTemplateCoreModule
+  ],
+  exports: [
+    LabReportInsertTemplateDialogComponent
   ]
 })
 export class LabReportDetailPageModule {

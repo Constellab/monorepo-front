@@ -162,6 +162,8 @@
     "report_select": "Sélectionner un rapport",
     "report_exclude_validated": "Exclure les rapports validés",
     "report_include_archived": "Inclure les rapports archivée",
+    "report_insert_document_template" : "Insérer un modèle de document",
+    "report_insert_document_template_help": "Le contenu du template sera inséré à la position du curseur dans le rapport.",
     "process_sub_type_TASK": "Tâche",
     "process_sub_type_PROTOCOL": "Protocol",
     "process_sub_type_IMPORTER": "Importeur",

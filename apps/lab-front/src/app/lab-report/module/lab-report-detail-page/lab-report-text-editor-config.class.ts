@@ -1,4 +1,5 @@
 import {
+  teBlockTuneFactory,
   TeCompleteConfig,
   teComponentBlockFactory,
   teInlineToolFactory,
@@ -17,6 +18,10 @@ import {
   LabRichTextImageConfig,
   LabRichTextObjectType
 } from '../../../lab-core/entity-service/lab-rich-text.service';
+import {
+  LabReportInsertTemplateBlockTune,
+  LabReportInsertTemplateBlockTuneConfig
+} from './model/lab-report-insert-template-block-tune.class';
 
 /**
  * Config for the text editor in the report to support view in the editor
@@ -58,8 +63,11 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
 
     tools.file = this.getFileConfig(new LabRichTextFileConfig(LabRichTextObjectType.REPORT, this.reportId), envInjector, applicationRef);
 
+    // block tune
     tools.audioTranscription = this.getAudioTranscriptionConfig(new LabRichTextAudioTranscriptionConfig(), envInjector, applicationRef);
 
+    const insertDocTemplateData: LabReportInsertTemplateBlockTuneConfig = {reportId: this.reportId};
+    tools.insertDocTemplate = teBlockTuneFactory(LabReportInsertTemplateBlockTune, envInjector, applicationRef, insertDocTemplateData);
     return tools;
   }
 
@@ -69,6 +77,6 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
 
 
   getTunes(): string[] {
-    return ['audioTranscription', ...super.getTunes()];
+    return ['audioTranscription', 'insertDocTemplate', ...super.getTunes()];
   }
 }

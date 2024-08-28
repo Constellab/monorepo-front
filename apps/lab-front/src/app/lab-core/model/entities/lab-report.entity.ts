@@ -56,3 +56,8 @@ export interface LabReportForm {
   project: LabEntity;
   template: LabDocumentTemplate;
 }
+
+export interface LabReportInsertTemplateDTO {
+  block_index: string;
+  document_template_id: string;
+}
