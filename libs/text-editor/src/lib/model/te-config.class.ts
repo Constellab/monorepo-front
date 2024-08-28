@@ -33,6 +33,7 @@ import {
   TeAudioTranscriptionConfig
 } from '../block-tune/te-audio-transcription-block-tune.class';
 import { teBlockTuneFactory } from './te-block-tune-factory.class';
+import { TeTimestampBlock } from '../block/te-timestamp-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -192,6 +193,13 @@ export abstract class TeConfig {
     };
   }
 
+  getTimeStampConfig(envInjector: EnvironmentInjector,
+                     applicationRef: ApplicationRef): ToolSettings {
+    return {
+      class: teComponentBlockFactory(TeTimestampBlock, envInjector, applicationRef)
+    };
+  }
+
   getAudioTranscriptionConfig(config: TeAudioTranscriptionConfig,
                               envInjector: EnvironmentInjector,
                               applicationRef: ApplicationRef): ToolSettings {
@@ -263,6 +271,7 @@ export class TeCompleteConfig extends TeConfig {
         inlineToolbar: true
       },
       video: teComponentBlockFactory(TeVideoBlock, envInjector, applicationRef),
+      timestamp: this.getTimeStampConfig(envInjector, applicationRef),
 
       // Inline
       underline: TeUnderlineInlineTool,
@@ -274,6 +283,8 @@ export class TeCompleteConfig extends TeConfig {
 
       // Other
       drag: TeDragBlockTune
+
+      // Block tune
     };
   }
 
@@ -282,6 +293,6 @@ export class TeCompleteConfig extends TeConfig {
   }
 
   getTunes(): string[] {
-    return ['drag'];
+    return ['drag', 'settings'];
   }
 }

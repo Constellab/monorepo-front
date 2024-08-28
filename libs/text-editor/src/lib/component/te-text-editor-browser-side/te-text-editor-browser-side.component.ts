@@ -9,23 +9,22 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  Renderer2,
   ViewChild
 } from '@angular/core';
-import {TeConfig} from '../../model/te-config.class';
-import {TeRichText, TeRichTextContent, TeRichTextUndoRedoResult} from '../../model/te-rich-text.class';
-import {Subject, Subscription} from 'rxjs';
-import {EditorConfig} from '@editorjs/editorjs/types/configs/editor-config';
-import {FlKeyboardHelper, FlKeyboardKey, FlTranslateService} from '@monorepo/front-core-lib';
-import {teGetI18nConfig} from '../../te-text-editor.i18n';
-import {TeMention} from '../../plugin/te-mention.class';
-import {ClHelpService} from '@monorepo/core-lib';
-import {TeEmoji} from '../../plugin/te-emoji.class';
+import { TeConfig } from '../../model/te-config.class';
+import { TeRichText, TeRichTextContent, TeRichTextUndoRedoResult } from '../../model/te-rich-text.class';
+import { Subject, Subscription } from 'rxjs';
+import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
+import { FlKeyboardHelper, FlKeyboardKey, FlTranslateService } from '@monorepo/front-core-lib';
+import { teGetI18nConfig } from '../../te-text-editor.i18n';
+import { TeMention } from '../../plugin/te-mention.class';
+import { ClHelpService } from '@monorepo/core-lib';
+import { TeEmoji } from '../../plugin/te-emoji.class';
 import {
   TeTextEditorHistoryModificationGroup,
   TeTextEditorHistoryModificationType
 } from '../../model/te-text-editor-history-modification.class';
-import {TeEvent} from '../../model/te-event.class';
+import { TeEvent } from '../../model/te-event.class';
 
 
 @Component({
@@ -87,8 +86,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   constructor(private envInjector: EnvironmentInjector,
               private applicationRef: ApplicationRef,
-              private translateService: FlTranslateService,
-              private renderer2: Renderer2) {
+              private translateService: FlTranslateService) {
   }
 
   async ngOnInit(): Promise<void> {

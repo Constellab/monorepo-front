@@ -107,6 +107,12 @@
       background: var(--hover-color);
     }
 
+    // separator vertical line in inline toolbar
+    // between convertTo and other buttons
+    .ce-popover-item-separator__line {
+      background-color: var(--hover-color);
+    }
+
     ////////////////////////////// POPUP TOOLBAR & CONVERSION POPUP //////////////////////////////
 
     .ce-popover {
@@ -199,13 +205,6 @@
       background-color: var(--card-background);
       box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
       border: none;
-
-
-      // separator vertical line in inline toolbar
-      // between convertTo and other buttons
-      .ce-popover-item-separator__line {
-        background-color: var(--hover-color);
-      }
 
       // input used in inline tool (for link for example)
       .ce-inline-tool-input {

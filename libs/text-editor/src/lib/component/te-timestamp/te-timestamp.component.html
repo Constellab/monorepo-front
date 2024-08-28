@@ -1,0 +1,16 @@
+<div class="g-layout-row g-layout-between-center">
+
+  <fl-text-icon>
+    <mat-icon>schedule</mat-icon>
+    @if (format === 'FROM_NOW') {
+      <fl-from-now [date]="timestamp"></fl-from-now>
+    } @else {
+      {{ timestamp | flDate:format ?? 'DATE_TIME_WITH_SECONDS' }}
+    }
+  </fl-text-icon>
+
+  <button mat-icon-button class="g-button-icon-small edit-button" (click)="openSettings()"
+          [matTooltip]="'teTextEditor.timestamp_edit' | translate">
+    <mat-icon>edit</mat-icon>
+  </button>
+</div>

@@ -8,8 +8,10 @@ import {
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDateModule,
+  FlDatetimePickerModule,
   FlDialogModule,
   FlEmojiPickerModule,
+  FlFormModule,
   FlFormulaModule,
   FlImageModule,
   FlInfiniteScrollModule,
@@ -71,6 +73,10 @@ import {
   TeAudioTranscriptionDialogComponent
 } from './component/te-audio-transcription-dialog/te-audio-transcription-dialog.component';
 import { MatDivider } from '@angular/material/divider';
+import { TeTimestampComponent } from './component/te-timestamp/te-timestamp.component';
+import {
+  TeTimestampConfigDialogComponent
+} from './component/te-timestamp-config-dialog/te-timestamp-config-dialog.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +101,9 @@ import { MatDivider } from '@angular/material/divider';
     TeTextEditorHistoryModificationComponent,
     TeFilesListComponent,
     TeTitlesListComponent,
-    TeAudioTranscriptionDialogComponent
+    TeAudioTranscriptionDialogComponent,
+    TeTimestampComponent,
+    TeTimestampConfigDialogComponent
   ],
   exports: [
     TeTextEditorComponent,
@@ -129,6 +137,8 @@ import { MatDivider } from '@angular/material/divider';
     FlCoreComponentModule,
     FlDateModule,
     FlTextIconModule,
+    FlDatetimePickerModule,
+    FlFormModule,
 
     MatDialogModule,
     MatFormFieldModule,
@@ -139,8 +149,9 @@ import { MatDivider } from '@angular/material/divider';
     MatOptionModule,
     MatSelectModule,
     MatDivider,
+    MatOptionModule,
 
-    RouterLink,
+    RouterLink
   ]
 })
 export class TeTextEditorModule {
@@ -160,12 +171,12 @@ export class TeTextEditorModule {
       if (isPlatformBrowser(platformId)) {
         customElements.define(
           teVariableTagName,
-          createCustomElement(TeVariableInlineComponent, {injector: injector})
+          createCustomElement(TeVariableInlineComponent, { injector: injector })
         );
 
         customElements.define(
           teMentionTagName,
-          createCustomElement(TeMentionInlineComponent, {injector: injector})
+          createCustomElement(TeMentionInlineComponent, { injector: injector })
         );
 
         // use to fix the error Unable to preventDefault inside passive event listener invocation.
@@ -175,7 +186,7 @@ export class TeTextEditorModule {
         document.addEventListener('keydown', () => {
         }, {
           passive: false,
-          capture: true,
+          capture: true
         });
       }
       TeTextEditorModule.init = true;

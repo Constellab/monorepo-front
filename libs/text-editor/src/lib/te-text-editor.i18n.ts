@@ -96,6 +96,17 @@ const teTextEditorI18nFr: FlLangTranslation = {
     voice_command_4: 'Vous pouvez dire "fin de la commande" comme "fin du titre" pour forcer la fin d\'une commande.',
     no_text_detected: 'Aucun texte détecté',
     import_audio_file: 'Importer un fichier audio',
+    // Timestamp tool
+    timestamp: 'Horodatage',
+    timestamp_format: 'Format',
+    timestamp_format_date: 'Date',
+    timestamp_format_date_time: 'Date et heure',
+    timestamp_format_date_time_seconds: 'Date et heure avec secondes',
+    timestamp_format_time: 'Heure',
+    timestamp_format_from_now: 'À partir de maintenant',
+    timestamp_edit: 'Modifier',
+    // Settings
+    settings: 'Paramètres'
   }
 };
 
@@ -187,6 +198,17 @@ const teTextEditorI18nEn: FlLangTranslation = {
     voice_command_4: 'You can say "end command" like "end title" to force the end of a command.',
     no_text_detected: 'No text detected',
     import_audio_file: 'Import an audio file',
+    // Timestamp tool
+    timestamp: 'Timestamp',
+    timestamp_format: 'Format',
+    timestamp_format_date: 'Date',
+    timestamp_format_date_time: 'Date and time',
+    timestamp_format_date_time_seconds: 'Date and time with seconds',
+    timestamp_format_time: 'Time',
+    timestamp_format_from_now: 'From now',
+    timestamp_edit: 'Edit',
+    // Settings
+    settings: 'Settings'
   }
 };
 

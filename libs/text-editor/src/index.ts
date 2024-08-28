@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // Module
 export * from './lib/te-text-editor.module';
 
@@ -13,15 +14,18 @@ export * from './lib/component/te-mention-portal/te-mention-portal.component';
 export * from './lib/component/te-text-editor/te-text-editor.component';
 export * from './lib/component/te-text-editor-browser-side/te-text-editor-browser-side.component';
 export * from './lib/component/te-text-editor-server-side/te-text-editor-server-side.component';
+export * from './lib/component/te-timestamp/te-timestamp.component';
+export * from './lib/component/te-timestamp-config-dialog/te-timestamp-config-dialog.component';
 export * from './lib/component/te-title-caption/te-title-caption.component';
 export * from './lib/component/te-variable-form-dialog/te-variable-form-dialog.component';
 export * from './lib/component/te-variable-inline/te-variable-inline.component';
 export * from './lib/component/te-video/te-video.component';
 export * from './lib/component/te-text-editor-history-modification/te-text-editor-history-modification.component';
 export * from './lib/component/te-text-editor-history-portal/te-text-editor-history-portal.component';
-// eslint-disable-next-line max-len
-export * from './lib/component/te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
-export * from './lib/component/te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
+export *
+  from './lib/component/te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
+export *
+  from './lib/component/te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
 export * from './lib/component/te-files-list/te-files-list.component';
 export * from './lib/component/te-titles-list/te-titles-list.component';
 
@@ -50,6 +54,7 @@ export * from './lib/block/te-hint-block.class';
 export * from './lib/block/te-nested-list-block.class';
 export * from './lib/block/te-paragraph-block.class';
 export * from './lib/block/te-table-block.class';
+export * from './lib/block/te-timestamp-block.class';
 export * from './lib/block/te-video-block.class';
 
 // Inline tool
