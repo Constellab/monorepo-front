@@ -14,9 +14,10 @@ import { Observable } from 'rxjs';
 import { LabResourceENoteService } from '../../../entity-service/lab-resource-enote.service';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
-  LabRichTextViewBlock,
+  LabRichTextFileViewBlock,
   LabRichTextViewBlockAdditionalData
 } from '../../lab-rich-text-core/lab-rich-text-view.block';
+import { LabRichTextAudioTranscriptionConfig } from '../../../entity-service/lab-rich-text.service';
 
 
 export class LabENoteTextEditorImageConfig implements TeFigureBlockConfig {
@@ -77,7 +78,7 @@ export class LabEnoteTextEditorConfig extends TeCompleteConfig {
       type: 'enote',
       entityId: this.enoteResourceId
     };
-    tools.enoteView = teComponentBlockFactory(LabRichTextViewBlock, envInjector, applicationRef, data);
+    tools.enoteView = teComponentBlockFactory(LabRichTextFileViewBlock, envInjector, applicationRef, data);
 
     // configure and add the image block
     const imageConfig = new LabENoteTextEditorImageConfig(this.enoteResourceId);
@@ -88,10 +89,16 @@ export class LabEnoteTextEditorConfig extends TeCompleteConfig {
     const fileConfig = new LabENoteTextEditorFileConfig(this.enoteResourceId);
     tools.file = this.getFileConfig(fileConfig, envInjector, applicationRef);
 
+    tools.audioTranscription = this.getAudioTranscriptionConfig(new LabRichTextAudioTranscriptionConfig(), envInjector, applicationRef);
+
     return tools;
   }
 
   getInlineToolbar(): string[] {
     return this.getFullInlineToolbar(true);
+  }
+
+  getTunes(): string[] {
+    return ['audioTranscription', ...super.getTunes()];
   }
 }

@@ -176,7 +176,14 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
   //     onActivate: () => this.componentInstance.updateFormula(),
   //   }];
   // }
-
-
 }
 
+/**
+ * Override of the LabRichTextViewBlock to show a file view in the text editor
+ * It works the same except it has no toolbox, so no button is shown in the editor toolboxes. As this can't be added from the editor.
+ */
+export class LabRichTextFileViewBlock extends LabRichTextViewBlock {
+  static override get toolbox(): ToolboxConfig {
+    return null;
+  }
+}

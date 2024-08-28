@@ -1,0 +1,12 @@
+:host{
+  display: flex;
+  width: 100%;
+  // align image to center
+  align-items: center;
+  justify-content: center;
+}
+
+.audio{
+  width: 80%;
+  min-width: 300px;
+}

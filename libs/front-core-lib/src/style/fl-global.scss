@@ -76,8 +76,12 @@ body {
 
 p {
   margin: 0;
-  font-weight: 100;
   line-height: 1.35em;
+}
+
+// for text we use light font weight
+p, li {
+  font-weight: 100;
 }
 
 a {

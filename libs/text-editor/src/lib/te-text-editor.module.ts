@@ -1,12 +1,13 @@
-import {Inject, Injector, NgModule, PLATFORM_ID} from '@angular/core';
-import {CommonModule, isPlatformBrowser} from '@angular/common';
-import {TeTextEditorComponent} from './component/te-text-editor/te-text-editor.component';
-import {TeFormulaComponent} from './component/te-formula/te-formula.component';
+import { Inject, Injector, NgModule, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { TeTextEditorComponent } from './component/te-text-editor/te-text-editor.component';
+import { TeFormulaComponent } from './component/te-formula/te-formula.component';
 import {
   FlCodeEditorModule,
   FlCoreComponentModule,
   FlCoreDirectiveModule,
-  FlCorePipeModule, FlDateModule,
+  FlCorePipeModule,
+  FlDateModule,
   FlDialogModule,
   FlEmojiPickerModule,
   FlFormulaModule,
@@ -15,41 +16,42 @@ import {
   FlInputFileModule,
   FlLoaderModule,
   FlPortalModule,
-  FlResizeModule, FlTextIconModule,
+  FlResizeModule,
+  FlTextIconModule,
   FlTranslateModule,
   FlTranslateService,
-  FlUserModule,
+  FlUserModule
 } from '@monorepo/front-core-lib';
-import {TeTitleCaptionComponent} from './component/te-title-caption/te-title-caption.component';
-import {teTextEditorI18n} from './te-text-editor.i18n';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {TeLinkDialogComponent} from './component/te-link-dialog/te-link-dialog.component';
-import {TeVideoComponent} from './component/te-video/te-video.component';
-import {TeFigureComponent} from './component/te-figure/te-figure.component';
-import {TeCodeComponent} from './component/te-code/te-code.component';
-import {TeRichTextIsEmptyPipe} from './pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
-import {TeVariableFormDialogComponent} from './component/te-variable-form-dialog/te-variable-form-dialog.component';
-import {MatOptionModule} from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
+import { TeTitleCaptionComponent } from './component/te-title-caption/te-title-caption.component';
+import { teTextEditorI18n } from './te-text-editor.i18n';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TeLinkDialogComponent } from './component/te-link-dialog/te-link-dialog.component';
+import { TeVideoComponent } from './component/te-video/te-video.component';
+import { TeFigureComponent } from './component/te-figure/te-figure.component';
+import { TeCodeComponent } from './component/te-code/te-code.component';
+import { TeRichTextIsEmptyPipe } from './pipe/te-rich-text-is-empty/te-rich-text-is-empty.pipe';
+import { TeVariableFormDialogComponent } from './component/te-variable-form-dialog/te-variable-form-dialog.component';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 import {
   TeTextEditorBrowserSideComponent
 } from './component/te-text-editor-browser-side/te-text-editor-browser-side.component';
 import {
   TeTextEditorServerSideComponent
 } from './component/te-text-editor-server-side/te-text-editor-server-side.component';
-import {createCustomElement} from '@angular/elements';
-import {TeVariableInlineComponent} from './component/te-variable-inline/te-variable-inline.component';
-import {teVariableTagName} from './model/te-variable.class';
-import {TeMentionPortalComponent} from './component/te-mention-portal/te-mention-portal.component';
-import {TeMentionInlineComponent} from './component/te-mention-inline/te-mention-inline.component';
-import {teMentionTagName} from './plugin/te-mention.class';
-import {TeFileComponent} from './component/te-file/te-file.component';
+import { createCustomElement } from '@angular/elements';
+import { TeVariableInlineComponent } from './component/te-variable-inline/te-variable-inline.component';
+import { teVariableTagName } from './model/te-variable.class';
+import { TeMentionPortalComponent } from './component/te-mention-portal/te-mention-portal.component';
+import { TeMentionInlineComponent } from './component/te-mention-inline/te-mention-inline.component';
+import { teMentionTagName } from './plugin/te-mention.class';
+import { TeFileComponent } from './component/te-file/te-file.component';
 import {
   TeTextEditorHistoryPortalComponent
 } from './component/te-text-editor-history-portal/te-text-editor-history-portal.component';
@@ -64,7 +66,11 @@ import {
 } from './component/te-text-editor-history-modification/te-text-editor-history-modification.component';
 import { TeFilesListComponent } from './component/te-files-list/te-files-list.component';
 import { TeTitlesListComponent } from './component/te-titles-list/te-titles-list.component';
-import {RouterLink} from '@angular/router';
+import { RouterLink } from '@angular/router';
+import {
+  TeAudioTranscriptionDialogComponent
+} from './component/te-audio-transcription-dialog/te-audio-transcription-dialog.component';
+import { MatDivider } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -88,7 +94,8 @@ import {RouterLink} from '@angular/router';
     TeTextEditorHistoryModificationGroupComponent,
     TeTextEditorHistoryModificationComponent,
     TeFilesListComponent,
-    TeTitlesListComponent
+    TeTitlesListComponent,
+    TeAudioTranscriptionDialogComponent
   ],
   exports: [
     TeTextEditorComponent,
@@ -120,6 +127,8 @@ import {RouterLink} from '@angular/router';
     FlUserModule,
     FlPortalModule,
     FlCoreComponentModule,
+    FlDateModule,
+    FlTextIconModule,
 
     MatDialogModule,
     MatFormFieldModule,
@@ -129,10 +138,10 @@ import {RouterLink} from '@angular/router';
     MatTooltipModule,
     MatOptionModule,
     MatSelectModule,
-    FlDateModule,
-    FlTextIconModule,
+    MatDivider,
+
     RouterLink,
-  ],
+  ]
 })
 export class TeTextEditorModule {
   static init: boolean = false;

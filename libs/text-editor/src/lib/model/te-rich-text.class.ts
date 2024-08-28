@@ -1,8 +1,8 @@
-import {OutputBlockData, OutputData} from '@editorjs/editorjs';
-import {ClHelpService} from '@monorepo/core-lib';
-import {BlockToolData} from '@editorjs/editorjs/types/tools';
-import {TeVariableFormInfo, teVariableTagName} from './te-variable.class';
-import {TeElementInlineDirective} from './te-element.directive';
+import { OutputBlockData, OutputData } from '@editorjs/editorjs';
+import { ClHelpService } from '@monorepo/core-lib';
+import { BlockToolData } from '@editorjs/editorjs/types/tools';
+import { TeVariableFormInfo, teVariableTagName } from './te-variable.class';
+import { TeElementInlineDirective } from './te-element.directive';
 import {
   TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryModificationGroup,
@@ -33,7 +33,7 @@ export class TeRichText {
     return {
       time: new Date().getTime(),
       blocks: [],
-      version: '2.28.2'
+      version: '2.30.2'
     };
   }
 

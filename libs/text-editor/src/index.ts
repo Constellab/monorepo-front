@@ -3,6 +3,7 @@ export * from './lib/te-text-editor.module';
 
 // Component
 export * from './lib/component/te-code/te-code.component';
+export * from './lib/component/te-audio-transcription-dialog/te-audio-transcription-dialog.component';
 export * from './lib/component/te-figure/te-figure.component';
 export * from './lib/component/te-file/te-file.component';
 export * from './lib/component/te-formula/te-formula.component';
@@ -26,6 +27,7 @@ export * from './lib/component/te-titles-list/te-titles-list.component';
 
 // Model
 export * from './lib/model/te.helper';
+export * from './lib/model/te-block-tune-factory.class';
 export * from './lib/model/te-block-factory.class';
 export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
@@ -60,6 +62,7 @@ export * from './lib/inline-tool/te-underline-inline-tool.class';
 export * from './lib/inline-tool/te-variable-inline-tool.class';
 
 // Block tune
+export * from './lib/block-tune/te-audio-transcription-block-tune.class';
 export * from './lib/block-tune/te-drag-block-tune.class';
 
 // Pipe

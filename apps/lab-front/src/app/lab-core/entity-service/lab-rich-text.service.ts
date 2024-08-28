@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FlApiService, flRootInjector } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
-import { TeFigureBlockConfig, TeFileBlockConfig, TeFileBlockData, TeUploadedImage } from '@monorepo/text-editor';
+import {
+  TeAudioTranscriptionConfig,
+  TeFigureBlockConfig,
+  TeFileBlockConfig,
+  TeFileBlockData,
+  TeRichTextContent,
+  TeUploadedImage
+} from '@monorepo/text-editor';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 
 export enum LabRichTextObjectType {
@@ -41,6 +48,12 @@ export class LabRichTextService {
   getFileView(objectType: LabRichTextObjectType, objectId: string, filename: string): Observable<LabResourceView> {
     return this.apiService.get(`${this.route}/${objectType}/${objectId}/file-view/${filename}`);
   }
+
+  transcribeAudio(audio: Blob): Observable<TeRichTextContent> {
+    const formData: FormData = new FormData();
+    formData.append('file', audio);
+    return this.apiService.post(`${this.route}/transcribe-audio`, formData);
+  }
 }
 
 
@@ -78,3 +91,16 @@ export class LabRichTextFileConfig implements TeFileBlockConfig {
   }
 }
 
+export class LabRichTextAudioTranscriptionConfig implements TeAudioTranscriptionConfig {
+
+  private richTextService: LabRichTextService;
+
+  constructor() {
+    this.richTextService = flRootInjector.get(LabRichTextService);
+  }
+
+  transcribeAudio(audio: Blob): Observable<TeRichTextContent> {
+    return this.richTextService.transcribeAudio(audio);
+  }
+
+}

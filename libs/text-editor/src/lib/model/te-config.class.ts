@@ -28,6 +28,11 @@ import { TeFileBlock, TeFileBlockConfig } from '../block/te-file-block';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { TeComponentInitData } from '../block/te-component-block.class';
 import TeTable from '../block/te-table-block.class';
+import {
+  TeAudioTranscriptionBlockTune,
+  TeAudioTranscriptionConfig
+} from '../block-tune/te-audio-transcription-block-tune.class';
+import { teBlockTuneFactory } from './te-block-tune-factory.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -184,6 +189,14 @@ export abstract class TeConfig {
     return {
       class: TeTable,
       inlineToolbar: true
+    };
+  }
+
+  getAudioTranscriptionConfig(config: TeAudioTranscriptionConfig,
+                              envInjector: EnvironmentInjector,
+                              applicationRef: ApplicationRef): ToolSettings {
+    return {
+      class: teBlockTuneFactory(TeAudioTranscriptionBlockTune, envInjector, applicationRef, config)
     };
   }
 

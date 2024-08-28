@@ -1,6 +1,8 @@
-import {ClSupportedLanguage} from '@monorepo/core-lib';
-import {FlLangTranslation, FlTranslateObject, FlTranslateService} from '@monorepo/front-core-lib';
-import {I18nConfig} from '@editorjs/editorjs';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlLangTranslation, FlTranslateObject, FlTranslateService } from '@monorepo/front-core-lib';
+import { I18nConfig } from '@editorjs/editorjs';
+
+/* eslint-disable max-len */
 
 
 /**
@@ -79,6 +81,21 @@ const teTextEditorI18nFr: FlLangTranslation = {
     no_modifications: 'Aucune modification',
     attached_files: 'Fichiers attachés',
     table_of_contents: 'Table des matières',
+    // Audio transcription
+    dictate: 'Dicter',
+    mic_disabled_error: 'Le microphone est désactivé, veuillez l\'activer pour utiliser cette fonctionnalité.',
+    recording: 'En cours d\'enregistrement',
+    not_recording: 'Pas d\'enregistrement',
+    start_recording: 'Commencer l\'enregistrement',
+    stop_recording_and_transcribe: 'Arrêter l\'enregistrement',
+    cancel: 'Annuler',
+    transcription_in_progress: 'Transcription en cours',
+    voice_command_1: 'Vous pouvez utiliser des commandes vocales pour créer des blocs spécifiques:',
+    voice_command_2: 'titre/en-tête: Créez un en-tête. Dites en-tête 1,2,3 ou sous-titre pour créer un en-tête à un niveau spécifique.',
+    voice_command_3: 'liste: Créez une liste. Dites liste à puces ou liste numérotée pour créer une liste du type désiré. Vous pouvez créer des éléments imbriqués.',
+    voice_command_4: 'Vous pouvez dire "fin de la commande" comme "fin du titre" pour forcer la fin d\'une commande.',
+    no_text_detected: 'Aucun texte détecté',
+    import_audio_file: 'Importer un fichier audio',
   }
 };
 
@@ -155,6 +172,21 @@ const teTextEditorI18nEn: FlLangTranslation = {
     no_modifications: 'No modifications',
     attached_files: 'Attached files',
     table_of_contents: 'Table of contents',
+    // Audio transcription
+    dictate: 'Dictate',
+    mic_disabled_error: 'Microphone is disabled, please enable it to use this feature.',
+    recording: 'Recording in progress',
+    not_recording: 'Not recording',
+    start_recording: 'Start recording',
+    stop_recording_and_transcribe: 'Stop recording',
+    cancel: 'Cancel',
+    transcription_in_progress: 'Transcription in progress',
+    voice_command_1: 'You can use voice commands to create specific blocks:',
+    voice_command_2: 'title/header: Create a header. Say header 1,2,3 or sub header to create a header on a specific level.',
+    voice_command_3: 'list: Create a list. Say unordered list or ordered list to create a list of the desired type. You can create nested items.',
+    voice_command_4: 'You can say "end command" like "end title" to force the end of a command.',
+    no_text_detected: 'No text detected',
+    import_audio_file: 'Import an audio file',
   }
 };
 
@@ -170,7 +202,7 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
         blockTunes: {
           toggler: {
             'Click to tune': translateService.translate('teTextEditor.click_to_tune')
-          },
+          }
         },
         inlineToolbar: {
           converter: {
@@ -179,7 +211,7 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
         },
         toolbar: {
           toolbox: {
-            'Add': translateService.translate('teTextEditor.add'),
+            'Add': translateService.translate('teTextEditor.add')
           }
         },
         popover: {
@@ -193,11 +225,11 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
         'Underline': translateService.translate('teTextEditor.underline'),
         'Strikethrough': translateService.translate('teTextEditor.strikethrough'),
         'Link': translateService.translate('teTextEditor.link'),
-        'InlineCode': translateService.translate('teTextEditor.inline_code'),
+        'InlineCode': translateService.translate('teTextEditor.inline_code')
       },
       tools: {
         link: {
-          'Add a link': translateService.translate('teTextEditor.add_link'),
+          'Add a link': translateService.translate('teTextEditor.add_link')
         },
         table: {
           'Add column to the left': translateService.translate('teTextEditor.add_column_to_left'),
@@ -206,7 +238,7 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
           'Add row above': translateService.translate('teTextEditor.add_row_above'),
           'Add row below': translateService.translate('teTextEditor.add_row_below'),
           'Delete row': translateService.translate('teTextEditor.delete_row'),
-          'Heading': translateService.translate('teTextEditor.table_heading'),
+          'Heading': translateService.translate('teTextEditor.table_heading')
         }
       },
       blockTunes: {
@@ -219,7 +251,7 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
         },
         'moveDown': {
           'Move down': translateService.translate('teTextEditor.move_down')
-        },
+        }
       }
     }
   };

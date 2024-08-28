@@ -1,6 +1,7 @@
 import { ApplicationRef, Component, EnvironmentInjector } from '@angular/core';
 import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib';
 import { TeCompleteConfig, teInlineToolFactory, TeTools, TeVariableInlineToolClass } from '@monorepo/text-editor';
+import { LabRichTextAudioTranscriptionConfig } from '../../../../entity-service/lab-rich-text.service';
 
 
 /**
@@ -23,12 +24,17 @@ class LabDynamicFieldRichTextConfig extends TeCompleteConfig {
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
 
+    tools.audioTranscription = this.getAudioTranscriptionConfig(new LabRichTextAudioTranscriptionConfig(), envInjector, applicationRef);
+
     return tools;
   }
 
-
   getInlineToolbar(): string[] {
     return this.getFullInlineToolbar(true);
+  }
+
+  getTunes(): string[] {
+    return ['audioTranscription', ...super.getTunes()];
   }
 }
 

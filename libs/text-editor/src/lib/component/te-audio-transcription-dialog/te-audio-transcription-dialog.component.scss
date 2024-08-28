@@ -1,0 +1,54 @@
+
+.record-icon {
+  /* Apply the fade animation */
+  animation: fade-in-out 3s infinite;
+}
+
+/* Define the fade-in-out animation */
+@keyframes fade-in-out {
+  0% {
+    opacity: 1; /* Fully visible */
+  }
+  10% {
+    opacity: 1; /* Stay fully visible */
+  }
+  50% {
+    opacity: 0; /* Fade out */
+  }
+  90% {
+    opacity: 1; /* Fully visible */
+  }
+  100% {
+    opacity: 1; /* Stay fully visible */
+  }
+}
+
+.help-command {
+  li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+
+  }
+}
+
+.divider{
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.button-container {
+  margin-top: 2em;
+}
+
+.button {
+  margin-inline: 0.5em;
+}
+
+.loader {
+  margin-top: 1em;
+}
+
+.select-file-button{
+  display: block;
+  margin: auto;
+}

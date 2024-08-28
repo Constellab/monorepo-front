@@ -7,10 +7,12 @@ import {
 } from '@monorepo/text-editor';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
+  LabRichTextFileViewBlock,
   LabRichTextViewBlock,
   LabRichTextViewBlockAdditionalData
 } from '../../../lab-core/entity-module/lab-rich-text-core/lab-rich-text-view.block';
 import {
+  LabRichTextAudioTranscriptionConfig,
   LabRichTextFileConfig,
   LabRichTextImageConfig,
   LabRichTextObjectType
@@ -46,7 +48,7 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
       type: 'report-file-view',
       entityId: this.reportId
     };
-    tools.fileView = teComponentBlockFactory(LabRichTextViewBlock, envInjector, applicationRef, fileViewData);
+    tools.fileView = teComponentBlockFactory(LabRichTextFileViewBlock, envInjector, applicationRef, fileViewData);
 
     // configure and add the image block
     const imageConfig = new LabRichTextImageConfig(LabRichTextObjectType.REPORT, this.reportId);
@@ -56,10 +58,17 @@ export class LabReportTextEditorConfig extends TeCompleteConfig {
 
     tools.file = this.getFileConfig(new LabRichTextFileConfig(LabRichTextObjectType.REPORT, this.reportId), envInjector, applicationRef);
 
+    tools.audioTranscription = this.getAudioTranscriptionConfig(new LabRichTextAudioTranscriptionConfig(), envInjector, applicationRef);
+
     return tools;
   }
 
   getInlineToolbar(): string[] {
     return this.getFullInlineToolbar(true);
+  }
+
+
+  getTunes(): string[] {
+    return ['audioTranscription', ...super.getTunes()];
   }
 }

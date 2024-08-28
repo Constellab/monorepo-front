@@ -1,22 +1,16 @@
-import { API, BlockAPI, BlockTune, ToolConfig } from '@editorjs/editorjs';
-import { BlockTuneData } from '@editorjs/editorjs/types/block-tunes/block-tune-data';
+import { BlockTune } from '@editorjs/editorjs';
 import { TeHelper } from '../model/te.helper';
 import { ClHelpService } from '@monorepo/core-lib';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
+import { TeBlockTuneConstructorConfig } from '../model/te-block-tune-factory.class';
 
 /**
  * BLock tune to drag and drop blocks
  */
 export class TeDragBlockTune implements BlockTune {
 
-  constructor(private config: {
-    api: API,
-    config?: ToolConfig,
-    block: BlockAPI,
-    data: BlockTuneData
-  }) {
+  constructor(private config: TeBlockTuneConstructorConfig) {
   }
-
 
   static get isTune(): boolean {
     return true;

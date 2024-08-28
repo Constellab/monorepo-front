@@ -23,7 +23,8 @@ export type RvResourceViewType =
   | 'heatmap-view'
   | 'html-view'
   | 'plotly-view'
-  | 'streamlit-view';
+  | 'streamlit-view'
+  | 'audio-view';
 
 export interface RvResourceViewBase {
   type: RvResourceViewType | string;
@@ -95,6 +96,14 @@ export interface RvResourceViewStreamlit extends RvResourceViewBase {
   };
 }
 
+export interface RvResourceViewAudio extends RvResourceViewBase {
+  type: 'audio-view';
+  data: {
+    base_64_audio: string;
+    mime_type: string;
+  };
+}
+
 //////////////////////////// TYPE THAT GROUP ALL VIEW TYPES /////////////////////////////
 export type RvResourceView =
   RvResourceViewJson
@@ -105,7 +114,9 @@ export type RvResourceView =
   | RvResourceViewText
   | RvResourceViewTable
   | RvResourceViewHTML
-  | RvResourceViewPlotly;
+  | RvResourceViewPlotly
+  | RvResourceViewStreamlit
+  | RvResourceViewAudio;
 
 export type RvViewChartType =
   RvResourceViewBasicPlot2d
