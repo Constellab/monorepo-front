@@ -41,6 +41,7 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
     this.componentInstance.formulaTitle = data?.title;
     this.componentInstance.caption = data?.caption;
     this.componentInstance.formula$.next(data?.formula);
+    this.componentInstance.helpText = { text: 'teTextEditor.formula_help', translateText: true };
   }
 
   save(): TeFormulaBlockData {

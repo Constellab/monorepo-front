@@ -293,6 +293,6 @@ export class TeCompleteConfig extends TeConfig {
   }
 
   getTunes(): string[] {
-    return ['drag', 'settings'];
+    return ['drag'];
   }
 }

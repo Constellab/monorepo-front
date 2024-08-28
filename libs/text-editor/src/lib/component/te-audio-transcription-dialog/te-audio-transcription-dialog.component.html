@@ -19,12 +19,13 @@
   } @else {
 
     <div class="help-command">
-      <p>{{ 'teTextEditor.voice_command_1' | translate }}</p>
+      <p>{{ 'teTextEditor.voice_command_start' | translate }}</p>
       <ul>
-        <li [innerHTML]="'teTextEditor.voice_command_2' | translate"></li>
-        <li>{{ 'teTextEditor.voice_command_3' | translate }}</li>
+        <li [innerHTML]="'teTextEditor.voice_command_title' | translate"></li>
+        <li [innerHTML]="'teTextEditor.voice_command_list' | translate"></li>
+        <li [innerHTML]="'teTextEditor.voice_command_formula' | translate"></li>
       </ul>
-      <p>{{ 'teTextEditor.voice_command_4' | translate }}</p>
+      <p>{{ 'teTextEditor.voice_command_end' | translate }}</p>
     </div>
 
     <mat-divider class="divider"></mat-divider>
