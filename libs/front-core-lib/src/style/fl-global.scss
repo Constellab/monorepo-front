@@ -172,32 +172,6 @@ figure {
   display: none;
 }
 
-// create a fake chatbot button in dev
-.g-fake-chatbot {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  background-color: var(--primary-color);
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px;
-  cursor: pointer;
-  z-index: 2147483645;
-  transition: all 0.2s ease-in-out 0s;
-  left: unset;
-  transform: scale(1);
-}
-
-.g-fake-chatbot span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: var(--primary-color-contrast);
-  font-size: 20px;
-}
-
 /***************************** Scrollable Element *****************************/
 // Make an element scrollable with a small scroll bar
 .g-scrollable-element {

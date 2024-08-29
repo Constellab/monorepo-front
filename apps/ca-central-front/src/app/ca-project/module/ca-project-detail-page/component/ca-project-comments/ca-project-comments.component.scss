@@ -1,7 +1,7 @@
 :host {
   height: 100%;
   display: block;
-  padding: 1em 0 1em 1em;
+  padding: 1em 1em 1em 1em;
   box-sizing: border-box;
 }
 
@@ -19,7 +19,6 @@
 }
 
 .comments-container {
-  padding-right: 1em;
   width: 100%;
   box-sizing: border-box;
   padding-top: 0.5em;
@@ -31,7 +30,6 @@
 
 // avoid overflow with chat button
 .new-comment {
-  margin-right: 55px;
   padding-inline: 5px;
   max-height: 30em;
 }
