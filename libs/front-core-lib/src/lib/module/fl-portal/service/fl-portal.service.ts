@@ -135,15 +135,14 @@ export class FlPortalService {
    * Configure a right side portal
    * This portal is not linked to a host element
    * @param backdrop if the portal has a backdrop
-   * @param width min width of the portal
+   * @param width width of the portal
    * @param disposeOnNavigation if the portal should be disposed on navigation
    */
   public getRightSidePortalConfig(backdrop: boolean = true, width: string = '25%',
                                   disposeOnNavigation: boolean = true): FlPortalConfig {
     const config: FlPortalConfig = new FlPortalConfig().configureOverlay({
       height: '100vh',
-      minWidth: width,
-      maxWidth: '100%',
+      width: width,
       hasBackdrop: backdrop,
       disposeOnBackdropClick: backdrop,
       disposeOnNavigation: disposeOnNavigation

@@ -18,9 +18,10 @@ export class CaFolderRightPanelState implements OnDestroy {
 
   private queryParamHandler: FlQueryParamHandler<CaProjectDetailRightPanel>;
 
-  private subscription: Subscription;
 
   private currentOverlayRef: FlOverlayRef;
+
+  private subscription: Subscription;
 
   constructor(private portalService: FlPortalService,
               route: ActivatedRoute,
@@ -53,8 +54,8 @@ export class CaFolderRightPanelState implements OnDestroy {
 
   private openRightPanel(data: CaProjectDetailRightPanel): void {
     this.currentOverlayRef = this.portalService.createPortal(CaProjectDetailRightPanelComponent,
-      this.portalService.getRightSidePortalConfig(true, '33%', false), data, this.viewContainerRef);
-    this.currentOverlayRef.detachments().subscribe(() => this.onPortalClose());
+      this.portalService.getRightSidePortalConfig(true, '50rem', false), data, this.viewContainerRef);
+    this.subscription = this.currentOverlayRef.detachments().subscribe(() => this.onPortalClose());
   }
 
   private onPortalClose(): void {
@@ -65,6 +66,7 @@ export class CaFolderRightPanelState implements OnDestroy {
 
 
   ngOnDestroy(): void {
+    // unsubscribe the overlay destroy event to prevent calling queryParamHandler.mergeQueryParams which will trigger a navigation
     this.subscription?.unsubscribe();
   }
 }
