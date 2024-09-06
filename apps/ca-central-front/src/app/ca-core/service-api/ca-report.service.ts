@@ -18,10 +18,6 @@ export class CaReportService {
     return this.apiService.get(`${this.route}/experiment/${experimentId}`, CaReport);
   }
 
-  getReportsByProject(projectId: string): Observable<CaReport[]> {
-    return this.apiService.get(`${this.route}/project/${projectId}`, CaReport);
-  }
-
   getById(id: string): Observable<CaReport> {
     return this.apiService.getById(this.route, id, CaReport);
   }

@@ -79,3 +79,48 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'heart-fill', filename: 'heart-fill.svg'},
   {name: 'constellab_document', filename: 'constellab_document.svg'},
 ]
+
+export function getFileIconFromExtension(extension: string): string {
+  if(!extension) return 'description';
+
+  switch (extension.toLowerCase()) {
+    case 'csv':
+    case 'xls':
+    case 'xlsx':
+      return 'csv_file_icon';
+    case 'jpeg':
+    case 'jpg':
+    case 'png':
+    case 'gif':
+    case 'svg':
+      return 'image';
+    case 'mp3':
+    case 'wav':
+    case 'flac':
+    case 'aac':
+    case 'ogg':
+    case 'wma':
+    case 'm4a':
+    case 'aiff':
+    case 'alac':
+      return 'audiotrack';
+    case 'txt':
+      return 'txt_file_icon';
+    case 'pdf':
+      return 'pdf_file_icon';
+    case 'doc':
+    case 'docx':
+      return 'docx_file_icon';
+    case 'json':
+      return 'json_file_icon';
+    case 'ppt':
+    case 'pptx':
+      return 'pptx_file_icon';
+    case 'zip':
+      return 'zip_file_icon';
+    case 'py':
+      return 'py_file_icon';
+    default:
+      return 'description';
+  }
+}

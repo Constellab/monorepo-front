@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CaProjectCardComponent } from './component/ca-project-card/ca-project-card.component';
 import { CaProjectFormDialogComponent } from './component/ca-project-form-dialog/ca-project-form-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaCoreModule } from '../../ca-core.module';
@@ -23,9 +22,6 @@ import {
 import {
   CaProjectStorageLocationUsageComponent
 } from './component/ca-project-storage-location-usage/ca-project-storage-location-usage.component';
-import {
-  CaSelectProjectDialogComponent
-} from './component/ca-select-project-dialog/ca-select-project-dialog.component';
 
 /**
  * Importable module to get project components and pipe
@@ -33,7 +29,6 @@ import {
 @NgModule({
   declarations: [
     // Component
-    CaProjectCardComponent,
     CaProjectFormDialogComponent,
     CaProjectTableComponent,
     CaUpdateProjectLeaderDialogComponent,
@@ -43,12 +38,10 @@ import {
     CaProjectSearchComponent,
     CaProjectSearchFormComponent,
     CaProjectStorageUsageComponent,
-    CaProjectStorageLocationUsageComponent,
-    CaSelectProjectDialogComponent
+    CaProjectStorageLocationUsageComponent
   ],
   exports: [
     // Component
-    CaProjectCardComponent,
     CaProjectFormDialogComponent,
     CaProjectTableComponent,
     CaUpdateProjectLeaderDialogComponent,
@@ -57,8 +50,7 @@ import {
     CaProjectIconComponent,
     CaProjectSearchComponent,
     CaProjectSearchFormComponent,
-    CaProjectStorageUsageComponent,
-    CaSelectProjectDialogComponent
+    CaProjectStorageUsageComponent
   ],
   imports: [
     CommonModule,

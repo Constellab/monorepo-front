@@ -25,12 +25,12 @@ import {
 const routes: Route[] = [
   {
     path: '', component: CaProjectObjectDetailPageComponent, children: [
-      {path: ':projectId', component: CaProjectDetailPageComponent},
-      {path: ':projectId/activity', component: CaProjectActivityPageComponent},
-      {path: 'experiment/:experimentId', component: CaExperimentDetailPageComponent},
-      {path: 'report/:reportId', component: CaReportDetailPageComponent},
-      {path: 'document/:documentId', component: CaDocumentDetailPageComponent},
-      {path: 'document/:documentId/preview', component: CaDocumentPreviewPageComponent}
+      {path: ':id', component: CaProjectDetailPageComponent},
+      {path: ':id/activity', component: CaProjectActivityPageComponent},
+      {path: 'experiment/:id', component: CaExperimentDetailPageComponent},
+      {path: 'report/:id', component: CaReportDetailPageComponent},
+      {path: 'document/:id', component: CaDocumentDetailPageComponent},
+      {path: 'document/:id/preview', component: CaDocumentPreviewPageComponent}
     ]
   }
 ];

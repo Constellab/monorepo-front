@@ -1,28 +1,30 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CaProject, CaProjectStatus, caProjectStatusDict} from '../../../../model/entities/project/ca-project.class';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CaProject, CaProjectInfo, CaProjectWithFolder } from '../../../../model/entities/project/ca-project.class';
 import {
   CaProjectFormDialogComponent,
   CaProjectFormDialogInput
 } from '../ca-project-form-dialog/ca-project-form-dialog.component';
 import {
-  CaUpdateStatusFormDialogComponent,
-  UpdateStatusFormDialogInput
-} from '../../../../module/ca-status/ca-update-status-form-dialog/ca-update-status-form-dialog.component';
-import {
-  CaStatusHistoryListDialogComponent,
-  CaStatusHistoryListDialogInput
-} from '../../../../module/ca-status/ca-status-history-list-dialog/ca-status-history-list-dialog.component';
-import {
   CaUpdateProjectLeaderDialogComponent,
   CaUpdateProjectLeaderDialogInput
 } from '../ca-update-project-leader-dialog/ca-update-project-leader-dialog.component';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
-import {CaProjectService} from '../../../../service-api/ca-project.service';
-import {Observable} from 'rxjs';
-import {CaUser} from '../../../../model/entities/ca-user.class';
-import {ClHelpService} from '@monorepo/core-lib';
-import {CaRouterService} from '../../../../service/ca-router.service';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { CaProjectService } from '../../../../service-api/ca-project.service';
+import { Observable } from 'rxjs';
+import { CaUser } from '../../../../model/entities/ca-user.class';
+import { ClHelpService } from '@monorepo/core-lib';
+import { CaRouterService } from '../../../../service/ca-router.service';
 
+export type CaProjectActionEvent = {
+  action: 'createChild';
+  project: CaProjectWithFolder;
+} | {
+  action: 'update';
+  project: CaProject;
+} | {
+  action: 'delete';
+  project: CaProjectInfo;
+}
 
 /**
  * Action menu button to edit or a project
@@ -32,9 +34,9 @@ import {CaRouterService} from '../../../../service/ca-router.service';
   templateUrl: './ca-project-actions-menu.component.html',
   styleUrls: ['./ca-project-actions-menu.component.scss']
 })
-export class CaProjectActionsMenuComponent implements OnInit {
+export class CaProjectActionsMenuComponent {
 
-  @Input() project: CaProject;
+  @Input({ required: true }) projectInfo: CaProjectInfo;
 
   /**
    * Optional, provide the list of users of the project to avoid a call to the server
@@ -43,16 +45,10 @@ export class CaProjectActionsMenuComponent implements OnInit {
 
   @Input() stopClickEvent: boolean = false;
 
-  @Output() projectUpdated: EventEmitter<CaProject> = new EventEmitter();
-  @Output() projectDeleted: EventEmitter<CaProject> = new EventEmitter();
-
-  @Output() childProjectCreated: EventEmitter<CaProject> = new EventEmitter();
+  @Output() projectAction: EventEmitter<CaProjectActionEvent> = new EventEmitter();
 
   constructor(private dialogService: FlDialogService,
               private projectService: CaProjectService) {
-  }
-
-  ngOnInit(): void {
   }
 
   stopEvent(event: MouseEvent): void {
@@ -64,8 +60,7 @@ export class CaProjectActionsMenuComponent implements OnInit {
   openUpdateProjectDialog(): void {
     const dialogInput: CaProjectFormDialogInput = {
       mode: 'update',
-      object: this.project,
-      level: this.project.currentLevel,
+      projectId: this.projectInfo.id
     };
 
     this.dialogService.openSmallDialog(CaProjectFormDialogComponent, {
@@ -75,32 +70,19 @@ export class CaProjectActionsMenuComponent implements OnInit {
     );
   }
 
-  openUpdateStatusDialog(): void {
-    const dialogInput: UpdateStatusFormDialogInput<CaProjectStatus> = {
-      statusDict: caProjectStatusDict,
-      currentStatus: this.project.currentStatus.status,
-      updateStatus: this.projectService.getUpdateStatusMethod(this.project.id),
-      title: 'update_project_status'
-    };
-    this.dialogService.openSmallDialog(CaUpdateStatusFormDialogComponent, {data: dialogInput}).afterClosed().subscribe(
-      newExp => this.updateDialogClosed(newExp)
-    );
-  }
-
-  private updateDialogClosed(project?: CaProject): void {
+  private updateDialogClosed(project?: CaProjectWithFolder): void {
     if (project) {
-      this.projectUpdated.emit(project);
+      this.projectAction.emit({
+        action: 'update',
+        project: project
+      });
     }
   }
 
   openChildCreation(): void {
     const dialogInput: CaProjectFormDialogInput = {
       mode: 'create',
-      level: this.project.getChildLevel(),
-      parentId: this.project.id,
-      parentLevel: this.project.currentLevel,
-      parentStartingDate: this.project.startingDate,
-      parentEndingDate: this.project.endingDate
+      parentId: this.projectInfo.id
     };
 
     this.dialogService.openSmallDialog(CaProjectFormDialogComponent, {
@@ -110,35 +92,36 @@ export class CaProjectActionsMenuComponent implements OnInit {
     );
   }
 
-  private createChildSuccess(project: CaProject): void {
+  private createChildSuccess(project: CaProjectWithFolder): void {
     if (project) {
-      this.childProjectCreated.emit(project);
+      this.projectAction.emit({
+        action: 'createChild',
+        project: project
+      });
     }
-  }
-
-  openStatusHistory(): void {
-    const dialogInput: CaStatusHistoryListDialogInput = {
-      statusHistoriesObs: this.projectService.getStatusHistories(this.project.id),
-    };
-    this.dialogService.openSmallDialog(CaStatusHistoryListDialogComponent, {data: dialogInput});
   }
 
   openUpdateProjectLeaderDialog(): void {
     const dialogInput: CaUpdateProjectLeaderDialogInput = {
-      projectId: this.project.id,
-      currentLeader: this.project.leader,
-      users$: this.projectUsers$ ?? this.projectService.getUsersOfProject(this.project.id)
+      projectId: this.projectInfo.id,
+      currentLeader: this.projectInfo.leader,
+      users$: this.projectUsers$ ?? this.projectService.getUsersOfProject(this.projectInfo.id)
     };
 
     this.dialogService.openSmallDialog(CaUpdateProjectLeaderDialogComponent, {
       data: dialogInput
     }).afterClosed().subscribe(
-      leader => {
-        if (leader) {
-          this.project.leader = leader;
-        }
-      }
+      leader => this.onLeaderClosed(leader)
     );
+  }
+
+  private onLeaderClosed(project: CaProject): void {
+    if (project) {
+      this.projectAction.emit({
+        action: 'update',
+        project: project
+      });
+    }
   }
 
   openDeleteProjectDialog(): void {
@@ -146,7 +129,7 @@ export class CaProjectActionsMenuComponent implements OnInit {
       title: 'delete_project',
       content: 'delete_project_confirm',
       translateTitleAndContent: true,
-      observable: this.projectService.delete(this.project.id),
+      observable: this.projectService.delete(this.projectInfo.id),
       successMessage: 'project_deleted',
       translateMessage: true
     };
@@ -158,16 +141,15 @@ export class CaProjectActionsMenuComponent implements OnInit {
 
   private onDeleteClosed(result: FlConfirmDialogResult): void {
     if (result.choice) {
-      this.projectDeleted.emit(this.project);
+      this.projectAction.emit({
+        action: 'delete',
+        project: this.projectInfo
+      });
     }
   }
 
-  get detailRoute(): string {
-    return CaRouterService.getProjectDetailRoute(this.project.id);
-  }
-
   get activityRoute(): string {
-    return CaRouterService.getProjectActivityRoute(this.project.id);
+    return CaRouterService.getProjectActivityRoute(this.projectInfo.id);
   }
 
 }

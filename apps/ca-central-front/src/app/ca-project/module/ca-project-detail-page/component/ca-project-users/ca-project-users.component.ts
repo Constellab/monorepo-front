@@ -20,8 +20,7 @@ export class CaProjectUsersComponent {
   constructor(private state: CaProjectDetailState) {
   }
 
-  selectedUserChange(users: CaUser[]): void {
-    this.state.filterByUsers(users);
+  filterByUsers(users: CaUser[]): void {
+    this.state.filterChildren({users});
   }
-
 }

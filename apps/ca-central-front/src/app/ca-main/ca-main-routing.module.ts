@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CaMainAppComponent } from './component/ca-main-app/ca-main-app.component';
 import {
   caConstAdminRoute,
-  caConstBaseRoute,
+  caConstBaseRoute, caConstChatRoute,
   caConstDashboardRoute,
   caConstLabInstancesRoute,
   caConstMyProjectsRoute,
@@ -59,6 +59,11 @@ const routes: Route[] = [
       {
         path: caConstStructureRoute,
         loadChildren: () => import('../ca-structure/ca-structure.module').then(m => m.CaStructureModule)
+      },
+      //////////////////////// CHAT /////////////////////////
+      {
+        path: caConstChatRoute,
+        loadChildren: () => import('../ca-chat/ca-chat.module').then(m => m.CaChatModule)
       },
 
       //////////////////////// USER PAGE /////////////////////////

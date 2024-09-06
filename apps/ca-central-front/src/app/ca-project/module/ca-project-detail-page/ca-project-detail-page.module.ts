@@ -1,31 +1,30 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {CaProjectDetailPageComponent} from './component/ca-project-detail-page/ca-project-detail-page.component';
-import {CaCoreModule} from '../../../ca-core/ca-core.module';
-import {CaProjectCoreModule} from '../../../ca-core/entity-module/ca-project-core/ca-project-core.module';
-import {CaProjectDetailComponent} from './component/ca-project-detail/ca-project-detail.component';
-import {RouterModule} from '@angular/router';
-import {CaExperimentCoreModule} from '../ca-experiment-core/ca-experiment-core.module';
-import {CaReportCoreModule} from '../ca-report-core/ca-report-core.module';
-import {CaGroupCoreModule} from '../../../ca-core/entity-module/ca-group-core/ca-group-core.module';
-import {CaProjectSharedListComponent} from './component/ca-project-shared-list/ca-project-shared-list.component';
-import {CaProjectChildrenComponent} from './component/ca-project-children/ca-project-children.component';
-import {CaProjectObjectCoreModule} from '../ca-project-object-core/ca-project-object-core.module';
-import {CaProjectUsersComponent} from './component/ca-project-users/ca-project-users.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CaProjectDetailPageComponent } from './component/ca-project-detail-page/ca-project-detail-page.component';
+import { CaCoreModule } from '../../../ca-core/ca-core.module';
+import { CaProjectCoreModule } from '../../../ca-core/entity-module/ca-project-core/ca-project-core.module';
+import { CaProjectDetailComponent } from './component/ca-project-detail/ca-project-detail.component';
+import { RouterModule } from '@angular/router';
+import { CaExperimentCoreModule } from '../ca-experiment-core/ca-experiment-core.module';
+import { CaReportCoreModule } from '../ca-report-core/ca-report-core.module';
+import { CaGroupCoreModule } from '../../../ca-core/entity-module/ca-group-core/ca-group-core.module';
+import { CaProjectSharedListComponent } from './component/ca-project-shared-list/ca-project-shared-list.component';
+import { CaProjectObjectCoreModule } from '../ca-project-object-core/ca-project-object-core.module';
+import { CaProjectUsersComponent } from './component/ca-project-users/ca-project-users.component';
 import {
   CaProjectDetailRightPanelComponent
 } from './component/ca-project-detail-right-panel/ca-project-detail-right-panel.component';
-import {CaProjectDescriptionComponent} from './component/ca-project-description/ca-project-description.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CaProjectDescriptionComponent } from './component/ca-project-description/ca-project-description.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   CaProjectReportPreviewComponent
 } from './component/ca-project-report-preview/ca-project-report-preview.component';
 import {
   CaProjectExperimentPreviewComponent
 } from './component/ca-project-experiment-preview/ca-project-experiment-preview.component';
-import {CaLabCoreModule} from '../../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
-import {CaProjectCommentsComponent} from './component/ca-project-comments/ca-project-comments.component';
-import {CaProjectSettingsComponent} from './component/ca-project-settings/ca-project-settings.component';
+import { CaLabCoreModule } from '../../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
+import { CaProjectCommentsComponent } from './component/ca-project-comments/ca-project-comments.component';
+import { CaProjectSettingsComponent } from './component/ca-project-settings/ca-project-settings.component';
 import {
   CaProjectStorageSettingsComponent
 } from './component/ca-project-storage-settings/ca-project-storage-settings.component';
@@ -35,11 +34,8 @@ import {
 import {
   CaObjectStorageCoreModule
 } from '../../../ca-core/entity-module/ca-object-storage-core/ca-object-storage-core.module';
-import {
-  CaProjectDocumentsListComponent
-} from './component/ca-project-documents-list/ca-project-documents-list.component';
-import {CaDocumentCoreModule} from '../ca-document-core/ca-document-core.module';
-import {CaUserCoreModule} from '../../../ca-core/entity-module/ca-user-core/ca-user-core.module';
+import { CaDocumentCoreModule } from '../ca-document-core/ca-document-core.module';
+import { CaUserCoreModule } from '../../../ca-core/entity-module/ca-user-core/ca-user-core.module';
 import {
   CaNotificationCoreModule
 } from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
@@ -52,10 +48,13 @@ import {
 import {
   CaProjectStorageUsageSectionComponent
 } from './component/ca-project-storage-usage-section/ca-project-storage-usage-section.component';
-import {CaProjectCommentComponent} from './component/ca-project-comment/ca-project-comment.component';
+import { CaFolderCoreModule } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 import {
-  CaProjectCommentEditorComponent
-} from './component/ca-project-comment-editor/ca-project-comment-editor.component';
+  CaConstellabDocumentPreviewComponent
+} from './component/ca-constellab-document-preview/ca-constellab-document-preview.component';
+import { CaProjectDetailInfoComponent } from './component/ca-project-detail-info/ca-project-detail-info.component';
+import { CaFolderActionMenuComponent } from './component/ca-folder-action-menu/ca-folder-action-menu.component';
+import { CaChatCoreModule } from '../../../ca-core/entity-module/ca-chat-core/ca-chat-core.module';
 
 /**
  * Module for the project detail page
@@ -65,7 +64,6 @@ import {
     CaProjectDetailPageComponent,
     CaProjectDetailComponent,
     CaProjectSharedListComponent,
-    CaProjectChildrenComponent,
     CaProjectUsersComponent,
     CaProjectDetailRightPanelComponent,
     CaProjectDescriptionComponent,
@@ -75,12 +73,12 @@ import {
     CaProjectSettingsComponent,
     CaProjectStorageSettingsComponent,
     CaProjectConfigureStorageComponent,
-    CaProjectDocumentsListComponent,
     CaProjectUserConfigDialogComponent,
     CaDocumentTrashListDialogComponent,
     CaProjectStorageUsageSectionComponent,
-    CaProjectCommentComponent,
-    CaProjectCommentEditorComponent,
+    CaConstellabDocumentPreviewComponent,
+    CaProjectDetailInfoComponent,
+    CaFolderActionMenuComponent
   ],
   imports: [
     CommonModule,
@@ -99,7 +97,9 @@ import {
     CaObjectStorageCoreModule,
     CaUserCoreModule,
     CaNotificationCoreModule,
-  ],
+    CaFolderCoreModule,
+    CaChatCoreModule
+  ]
 })
 export class CaProjectDetailPageModule {
 }

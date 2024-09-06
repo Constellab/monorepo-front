@@ -10,4 +10,5 @@ export const caConstMyProjectsRoute = 'my-projects';
 export const caConstProjectRoute = 'project';
 export const caConstAdminRoute = 'admin';
 export const caConstStructureRoute = 'structure';
+export const caConstChatRoute = 'chat';
 export const caConstLoginRoute = '/login';

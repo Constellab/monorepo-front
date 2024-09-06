@@ -1,0 +1,12 @@
+<mat-drawer-container class="g-full drawer-container">
+
+  <mat-drawer mode="side" [opened]="true" class="drawer g-print-hide">
+    <ca-chat-folder-tree></ca-chat-folder-tree>
+  </mat-drawer>
+
+
+  <mat-drawer-content class="print-full-width">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+
+</mat-drawer-container>

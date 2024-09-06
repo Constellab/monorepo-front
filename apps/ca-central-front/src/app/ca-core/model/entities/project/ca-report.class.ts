@@ -13,8 +13,6 @@ export class CaReport extends CaBaseEntity implements CaProjectObject {
 
   content: TeRichTextContent;
 
-  projectId: string;
-
   isValidated: boolean;
 
   @Type(() => CaUser)

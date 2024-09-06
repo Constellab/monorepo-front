@@ -1,12 +1,12 @@
-import {CaBaseEntity} from '../ca-base-entity.class';
-import {CaLabInstance} from '../lab/ca-lab-instance.class';
-import {FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform} from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
-import {DateTime} from 'luxon';
-import {CaUser} from '../ca-user.class';
-import {CaProject, CaProjectObject} from './ca-project.class';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { CaLabInstance } from '../lab/ca-lab-instance.class';
+import { FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform } from '@monorepo/front-core-lib';
+import { Type } from 'class-transformer';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { DateTime } from 'luxon';
+import { CaUser } from '../ca-user.class';
+import { CaProjectObject } from './ca-project.class';
+import { TeRichTextContent } from '@monorepo/text-editor';
 
 export type CaExperimentStatus = 'DRAFT' | 'SUCCESS' | 'ERROR' | 'ARCHIVED' | 'PARTIALLY_RUN';
 
@@ -30,10 +30,6 @@ export class CaExperiment extends CaBaseEntity implements CaProjectObject {
 
   @FlStatusTransform(caExperimentStatusDict)
   status: FlStatus<CaExperimentStatus>;
-
-  projectId: string;
-
-  project?: CaProject;
 
   isValidated: boolean;
 

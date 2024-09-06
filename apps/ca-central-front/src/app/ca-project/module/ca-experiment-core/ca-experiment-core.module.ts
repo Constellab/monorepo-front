@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaLabCoreModule } from '../../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
 import { RouterModule } from '@angular/router';
 import { CaExperimentInfoComponent } from './component/ca-experiment-info/ca-experiment-info.component';
-import { CaExperimentsListComponent } from './component/ca-experiments-list/ca-experiments-list.component';
 import {
   CaExperimentTechnicalReportComponent
 } from './component/ca-experiment-technical-report/ca-experiment-technical-report.component';
@@ -33,7 +32,6 @@ import {
 @NgModule({
   declarations: [
     CaExperimentInfoComponent,
-    CaExperimentsListComponent,
     CaExperimentTechnicalReportComponent,
     CaExperimentTechnicalReportGraphComponent,
     CaExperimentTechnicalReportLinkComponent,
@@ -44,7 +42,6 @@ import {
   ],
   exports: [
     CaExperimentInfoComponent,
-    CaExperimentsListComponent,
     CaExperimentTechnicalReportComponent,
     CaExperimentCardDetailComponent,
     CaExperimentsTableDialogComponent

@@ -5,46 +5,6 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="project-form" [formGroup]="formGp">
 
-    <p class="g-text-small g-text-light help-text" *ngIf="!allowParent && isCreateMode()">
-      {{ 'modern_project_forced' | translate }}
-    </p>
-
-    <!--  Level status  -->
-    <mat-radio-group aria-label="Select an option" formControlName="levelStatus"
-                     class="g-layout-row g-layout-between-stretch">
-      <mat-radio-button [value]="levelStatus.LEAF" class="radio-button" flRadioButtonBig>
-        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-          <ca-project-icon [type]="levelStatus.LEAF"></ca-project-icon>
-          <div>{{'modern_project' | translate}}</div>
-        </div>
-
-        <div class="g-text-small radio-description">
-          {{'modern_project_description' | translate}}
-        </div>
-      </mat-radio-button>
-
-      <mat-radio-button [value]="levelStatus.PARENT" class="radio-button" flRadioButtonBig>
-        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-          <ca-project-icon [type]="levelStatus.PARENT"></ca-project-icon>
-          <div>{{'classic_project' | translate}}</div>
-        </div>
-
-        <div class="g-text-small radio-description">
-          {{'classic_project_description' | translate}}
-        </div>
-      </mat-radio-button>
-    </mat-radio-group>
-
-    <!--  Code  -->
-    <mat-form-field class="g-form-input code">
-      <mat-label>{{'code' | translate}}</mat-label>
-      <input matInput formControlName="code" required flInputMaxLength="20"
-             placeholder="{{'code' | translate}}">
-      <mat-error *ngIf="formGp.get('code').hasError('required')">
-        {{'code' | flErrorRequired}}
-      </mat-error>
-    </mat-form-field>
-
     <!--  Title  -->
     <mat-form-field class="g-form-input">
       <mat-label>{{'title' | translate}}</mat-label>
@@ -55,19 +15,22 @@
       </mat-error>
     </mat-form-field>
 
+    <!--  Code  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'code' | translate}}</mat-label>
+      <input matInput formControlName="code" flInputMaxLength="20"
+             placeholder="{{'code' | translate}}">
+    </mat-form-field>
 
     <div class="g-layout-row-wrap g-layout-between-center">
 
       <!--    Start Date      -->
       <mat-form-field class="g-form-input half-input">
         <mat-label>{{'starting_date' | translate}}</mat-label>
-        <input matInput formControlName="startingDate" required
+        <input matInput formControlName="startingDate"
                [matDatepicker]="startingPicker" [placeholder]="'flDate.date_picker_placeholder' | translate">
         <mat-datepicker-toggle matSuffix [for]="startingPicker"></mat-datepicker-toggle>
         <mat-datepicker #startingPicker startView="month"></mat-datepicker>
-        <mat-error *ngIf="formGp.get('startingDate').hasError('required')">
-          {{'starting_date' | flErrorRequired }}
-        </mat-error>
       </mat-form-field>
 
       <!--    End Date      -->

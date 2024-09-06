@@ -157,6 +157,7 @@ import {
   CaLabInstanceStatusHistoryPageComponent
 } from './component/ca-lab-instance-status-history-page/ca-lab-instance-status-history-page.component';
 import { CaGroupCoreModule } from '../ca-core/entity-module/ca-group-core/ca-group-core.module';
+import { CaFolderCoreModule } from '../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -228,8 +229,8 @@ import { CaGroupCoreModule } from '../ca-core/entity-module/ca-group-core/ca-gro
     CaLabCoreModule,
     CaServerCoreModule,
     CaBrickCoreModule,
-    CaProjectCoreModule,
     CaConfigCoreModule,
+    CaFolderCoreModule,
 
     CaLabInstanceRoutingModule,
     CaSpaceCoreModule,

@@ -11,8 +11,8 @@ interface CaDocumentNameForm {
 }
 
 export interface CaDocumentNameFormDialogInput extends FlFormDialogInput<CaDocumentNameForm> {
-  projectId: string;
-  documentId?: string;
+  parentFolderId?: string; // mode create
+  documentId?: string; // mode update
 }
 
 /**
@@ -45,7 +45,7 @@ export class CaDocumentNameFormDialogComponent extends FlFormDialogAbstractDirec
   }
 
   create(formValue: CaDocumentNameForm): Observable<any> {
-    return this.projectService.createConstellabDocument(this.dialogInput.projectId, formValue.name);
+    return this.projectService.createConstellabDocument(this.dialogInput.parentFolderId, formValue.name);
   }
 
   getCreateSuccessMessage(): string {

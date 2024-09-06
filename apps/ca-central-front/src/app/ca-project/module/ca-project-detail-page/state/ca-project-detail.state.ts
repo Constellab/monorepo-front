@@ -1,27 +1,21 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {BehaviorSubject, filter, first, Observable, switchMap} from 'rxjs';
-import {CaProject} from '../../../../ca-core/model/entities/project/ca-project.class';
-import {CaProjectService} from '../../../../ca-core/service-api/ca-project.service';
-import {CaUser} from '../../../../ca-core/model/entities/ca-user.class';
-import {map} from 'rxjs/operators';
-import {CaAuthenticatedUserService} from '../../../../ca-core/service-api/ca-authenticated-user.service';
-import {FlArrayObs, FlEntityArrayObs, FlQueryParamHandler} from '@monorepo/front-core-lib';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CaReport} from '../../../../ca-core/model/entities/project/ca-report.class';
-import {CaExperiment} from '../../../../ca-core/model/entities/project/ca-experiment.class';
-import {CaReportService} from '../../../../ca-core/service-api/ca-report.service';
-import {CaExperimentService} from '../../../../ca-core/service-api/ca-experiment.service';
-import {CaBaseEntity} from '../../../../ca-core/model/entities/ca-base-entity.class';
-import {ClHelpService, ClSubscriptionHandler} from '@monorepo/core-lib';
-import {CaProjectObjectDetailState} from '../../ca-project-object-core/state/ca-project-object-detail.state';
-import {CaRouterService} from '../../../../ca-core/service/ca-router.service';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, filter, first, Observable, of, switchMap } from 'rxjs';
+import { CaProject } from '../../../../ca-core/model/entities/project/ca-project.class';
+import { CaProjectService } from '../../../../ca-core/service-api/ca-project.service';
+import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
+import { map } from 'rxjs/operators';
+import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
+import { FlArrayObs, FlEntityArrayObs, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { ClCoreJsonConvert, clGetEmptyPage, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { CaProjectObjectDetailState } from '../../ca-project-object-core/state/ca-project-object-detail.state';
+import { TeRichTextContent } from '@monorepo/text-editor';
+import { CaFolder, CaFolderDatasource } from '../../../../ca-core/model/entities/project/ca-folder.class';
+import { CaFolderSearchFields } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-search.class';
 
-export type CaProjectDetailRightPanel = {
-  type: 'description' | 'report' | 'experiment' | 'comments' | 'settings';
-  objectId: string;
+interface CaSearchChildrenData {
+  parentId: string;
+  filters: Partial<CaFolderSearchFields>;
 }
-
 
 @Injectable()
 export class CaProjectDetailState implements OnDestroy {
@@ -30,33 +24,18 @@ export class CaProjectDetailState implements OnDestroy {
 
   private project$: BehaviorSubject<CaProject>;
   private users$: FlArrayObs<CaUser>;
-  private reports$: FlArrayObs<CaReport>;
-  private experiments$: FlArrayObs<CaExperiment>;
-  private children$: FlEntityArrayObs<CaProject>;
-  private rightPanelState$: BehaviorSubject<CaProjectDetailRightPanel>;
-
-  private queryParamHandler: FlQueryParamHandler<CaProjectDetailRightPanel>;
+  private childrenDatasource: CaFolderDatasource;
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
   constructor(private projectService: CaProjectService,
               private authenticatedUserService: CaAuthenticatedUserService,
-              route: ActivatedRoute,
-              router: Router,
-              private routerService: CaRouterService,
-              private experimentService: CaExperimentService,
-              private reportService: CaReportService,
               private projectObjectDetailState: CaProjectObjectDetailState) {
-    this.queryParamHandler = new FlQueryParamHandler(router, route);
   }
 
   public init(id$: Observable<string>): void {
     this.id$ = id$;
-    this.project$ = new BehaviorSubject<CaProject>(null);
-    this.reports$ = new FlEntityArrayObs(null, true);
-    this.experiments$ = new FlEntityArrayObs(null, true);
-    this.children$ = new FlEntityArrayObs(null, true);
-    this.rightPanelState$ = new BehaviorSubject<CaProjectDetailRightPanel>(null);
+    this.project$ = new BehaviorSubject(null);
 
     this.subscription.add(this.id$.pipe(
       switchMap(id => this.projectService.getById(id))
@@ -65,48 +44,27 @@ export class CaProjectDetailState implements OnDestroy {
       error: error => this.project$.error(error)
     }));
 
+    this.childrenDatasource = new FlEntityPaginatedDatasource<CaFolder>(
+      (page, pageSize, requestData: CaSearchChildrenData) => {
+        if (!requestData) return of(clGetEmptyPage());
+        return this.projectService.searchChildren(requestData.parentId, page, pageSize, requestData.filters);
+      }, 30, false);
 
     this.users$ = new FlEntityArrayObs(this.id$.pipe(
       first(), // as the share is handle at the root project level, not need to refresh it every time
-      switchMap(id => this.projectService.getUsersOfProject(id)),
+      switchMap(id => this.projectService.getUsersOfProject(id))
     ), true);
 
-    this.subscription.add(this.id$.pipe(
-      switchMap(() => this.queryParamHandler.getQueryParams())
-    ).subscribe(
-      params => this.onRightPanelStateUpdate(params)
-    ));
   }
 
   private initProject(project: CaProject): void {
     this.project$.next(project);
-
-    // if the project is a leaf, load the reports and experiments
-    if (project.isLeaf()) {
-      this.reportService.getReportsByProject(project.id).subscribe({
-        next: reports => this.reports$.array = reports,
-        error: error => this.reports$.error(error)
-      });
-      this.experimentService.getExperimentsByProject(project.id).subscribe({
-        next: experiments => this.experiments$.array = experiments,
-        error: error => this.experiments$.error(error)
-      });
-    } else {
-      this.projectService.getChildren(project.id).subscribe({
-        next: children => this.children$.array = children,
-        error: error => this.children$.error(error)
-      });
-    }
+    const data: CaSearchChildrenData = { parentId: project.id, filters: {} };
+    this.childrenDatasource.getFirstPage(data);
   }
 
-  public getProjectId$(): Observable<string> {
+  public getFolderId$(): Observable<string> {
     return this.id$;
-  }
-
-
-  public updateCurrentProject(project: CaProject): void {
-    this.project$.next(project);
-    this.projectObjectDetailState.updateProject(project);
   }
 
   public getCurrentProject(): CaProject | null {
@@ -119,35 +77,15 @@ export class CaProjectDetailState implements OnDestroy {
     );
   }
 
+  public isRootProject$(): Observable<boolean> {
+    return this.projectObjectDetailState.getProjectAncestors$().pipe(
+      // using 1 because the current project is in the ancestors
+      map(ancestors => ancestors.length <= 1)
+    );
+  }
+
   public getUsers(): FlArrayObs {
     return this.users$;
-  }
-
-  /**
-   * Call when a query param change event is triggered
-   */
-  private onRightPanelStateUpdate(state: CaProjectDetailRightPanel): void {
-    // default value for the state
-    if (state.type == null) {
-      state = {type: 'comments', objectId: null};
-    }
-
-    // check if the state has changed
-    const currentState = this.rightPanelState$.value;
-    if (currentState && currentState.type === state.type &&
-      currentState.objectId === state.objectId) {
-      return;
-    }
-
-    this.rightPanelState$.next(state);
-  }
-
-  public updateRightPanelState(state: CaProjectDetailRightPanel): void {
-    this.queryParamHandler.mergeQueryParams(state);
-  }
-
-  public getRightPanelState$(): Observable<CaProjectDetailRightPanel> {
-    return this.rightPanelState$.asObservable().pipe(filter(state => state != null));
   }
 
   public canEditProject$(): Observable<boolean> {
@@ -164,67 +102,62 @@ export class CaProjectDetailState implements OnDestroy {
     this.projectService.updateDescription(project.id, description as any).subscribe();
   }
 
-  public getReports$(): FlArrayObs<CaReport> {
-    return this.reports$;
+  public getChildrenDatasource(): CaFolderDatasource {
+    return this.childrenDatasource;
   }
 
-  public getReport$(id: string): Observable<CaReport> {
-    return this.getReports$().connect().pipe(
-      map(reports => reports.find(report => report.id === id))
-    );
+  public addFolderChild(folder: CaFolder): void {
+    if (folder.parentId === this.getCurrentProject().id) {
+      this.childrenDatasource.unshiftItem(folder);
+    }
+    this.projectObjectDetailState.addFolderInTree(folder);
   }
 
-  public getExperiments$(): FlArrayObs<CaExperiment> {
-    return this.experiments$;
+  public updateProject(project: CaProject): void {
+    if (this.getCurrentProject().id === project.id) {
+      this.project$.next(project);
+    }
+    this.updatePartialFolderChild(project.id, { name: project.title, user: project.leader });
   }
 
-  public filterByUsers(users: CaUser[]): void {
-    const filterName: string = 'users';
+  public updatePartialFolderChild(folderId: string, folder: Partial<CaFolder>): void {
+    const childFolder = this.childrenDatasource.findItemById(folderId);
+    if (childFolder) {
+      // create a new folder based on the old one and the new data
+      const cloned = ClCoreJsonConvert.deepCloneClassAndMerge(childFolder, folder, CaFolder);
+      this.childrenDatasource.updateItem(cloned);
+    }
 
-    if (users?.length > 0) {
-      const userFilter: (entity: CaBaseEntity) => boolean = (entity: CaBaseEntity) => {
-        return users.some(user => user.id === entity.createdBy.id);
-      };
-      this.reports$.addFilter(filterName, userFilter);
-      this.experiments$.addFilter(filterName, userFilter);
+    this.projectObjectDetailState.updateFolder(folderId, folder);
+  }
 
-      const projectLeaderFileter: (project: CaProject) => boolean = (entity: CaProject) => {
-        return users.some(user => user.id === entity.leader.id);
-      };
-      this.children$.addFilter(filterName, projectLeaderFileter);
-    } else {
-      this.reports$.removeFilter(filterName);
-      this.experiments$.removeFilter(filterName);
-      this.children$.removeFilter(filterName);
+  public deleteFolder(id: string): void {
+    // delete project if it is in the children
+    const folder = this.childrenDatasource.findItemById(id);
+    if (folder) {
+      this.childrenDatasource.removeItemById(id);
+    }
+
+    // delete project in the tree
+    this.projectObjectDetailState.deleteFolderInTree(id);
+
+    // if the delete project is the current project, navigate to the parent folder
+    if (id === this.getCurrentProject().id) {
+      this.projectObjectDetailState.navigateToParentFolder();
     }
   }
 
-  public getChildren$(): FlEntityArrayObs<CaProject> {
-    return this.children$;
+  public filterChildren(filters: Partial<CaFolderSearchFields>): void {
+    const data: CaSearchChildrenData = this.childrenDatasource.getRequestData();
+    const newData = Object.assign({}, data, { filters });
+    this.childrenDatasource.getFirstPage(newData);
   }
 
-  public addChild(project: CaProject): void {
-    this.children$.addItem(project,
-      (a, b) => ClHelpService.sortAlphabeticalFunction(a.code, b.code) < 0);
-    this.projectObjectDetailState.addProjectChild(project);
-  }
-
-  public deleteProject(project: CaProject): void {
-    if (project.parentId != null) {
-      this.routerService.navigateToProjectDetail(project.parentId);
-    } else {
-      this.routerService.navigateToDashboard();
-    }
-    this.projectObjectDetailState.deleteProject(project.id);
-  }
 
   ngOnDestroy(): void {
     this.project$?.complete();
     this.users$?.disconnect();
-    this.reports$?.manualDisconnect();
-    this.experiments$?.manualDisconnect();
-    this.children$?.manualDisconnect();
-    this.rightPanelState$?.complete();
+    this.childrenDatasource?.manualDisconnect();
     this.subscription?.unsubscribe();
   }
 

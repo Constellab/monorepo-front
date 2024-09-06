@@ -1,7 +1,7 @@
 import { ClPageI } from '@monorepo/core-lib';
 import { CaProjectService } from '../../service-api/ca-project.service';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
-import { first, mergeMap, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CaUser } from '../entities/ca-user.class';
 import {
   TeAdditionalConfig,
@@ -20,25 +20,17 @@ import {
 
 export class CaProjectCommentTextEditorImageConfig implements TeFigureBlockConfig {
 
-  private projectId: string;
 
-  constructor(private projectId$: Observable<string>,
+  constructor(private folderId: string,
               private projectService: CaProjectService) {
-    // TODO TO IMPROVE
-    this.projectId$.subscribe(projectId => this.projectId = projectId);
   }
 
   imageUploader(file: File): Observable<TeUploadedImage> {
-    return this.projectId$.pipe(
-      first(),
-      mergeMap(
-        projectId => this.projectService.uploadCommentImage(file, projectId)
-      )
-    );
+    return this.projectService.uploadCommentImage(file, this.folderId);
   }
 
   getImageUrl(filename: string): string {
-    return this.projectService.getCommentImageUrl(filename, this.projectId);
+    return this.projectService.getCommentImageUrl(filename, this.folderId);
   }
 
 
@@ -51,7 +43,7 @@ export class CaProjectCommentTextEditorConfig extends TeConfig {
 
   public event: TeEvent = new TeEvent();
 
-  constructor(private projectId$: Observable<string>,
+  constructor(private folderId: string,
               private projectService: CaProjectService,
               private mode: 'create' | 'update' = 'create') {
     super({
@@ -69,7 +61,7 @@ export class CaProjectCommentTextEditorConfig extends TeConfig {
            applicationRef: ApplicationRef): TeTools {
 
     // configure and add the image block
-    const imageConfig = new CaProjectCommentTextEditorImageConfig(this.projectId$, this.projectService);
+    const imageConfig = new CaProjectCommentTextEditorImageConfig(this.folderId, this.projectService);
 
     const config = {
       paragraph: this.getParagraphConfig(),
@@ -102,12 +94,7 @@ export class CaProjectCommentTextEditorConfig extends TeConfig {
   }
 
   private getUsers(name: string, page: number, pageSize: number): Observable<ClPageI<CaUser>> {
-    return this.projectId$.pipe(
-      first(),
-      mergeMap(
-        projectId => this.projectService.searchProjectUser(projectId, name, page, pageSize)
-      )
-    );
+    return this.projectService.searchProjectUser(this.folderId, name, page, pageSize);
   }
 
   getTunes(): string[] {

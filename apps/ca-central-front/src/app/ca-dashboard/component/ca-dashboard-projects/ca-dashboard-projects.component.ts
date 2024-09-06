@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {CaProjectService} from '../../../ca-core/service-api/ca-project.service';
-import {CaRouterService} from '../../../ca-core/service/ca-router.service';
-import {CaProject, CaProjectDatasource, CaProjectLevel} from '../../../ca-core/model/entities/project/ca-project.class';
-import {CaDashboardListLayoutComponent} from '../ca-dashboard-list-layout/ca-dashboard-list-layout.component';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { CaProjectService } from '../../../ca-core/service-api/ca-project.service';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaProject } from '../../../ca-core/model/entities/project/ca-project.class';
+import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-dashboard-list-layout.component';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   CaProjectFormDialogComponent,
   CaProjectFormDialogInput
 } from '../../../ca-core/entity-module/ca-project-core/component/ca-project-form-dialog/ca-project-form-dialog.component';
+import { CaFolderDatasource } from '../../../ca-core/model/entities/project/ca-folder.class';
 
 /**
  * Small list of project in the dashboard
@@ -19,7 +20,7 @@ import {
 })
 export class CaDashboardProjectsComponent implements OnInit {
 
-  projectsDatasource: CaProjectDatasource;
+  foldersDatasource: CaFolderDatasource;
 
   myProjectsRoute: string = CaRouterService.getMyProjectsRoute();
 
@@ -33,21 +34,20 @@ export class CaDashboardProjectsComponent implements OnInit {
   }
 
   private getMyProjects(): void {
-    this.projectsDatasource = this.projectService.getMyProjectsDatasource(CaDashboardListLayoutComponent.maxItems);
+    this.foldersDatasource = this.projectService.getMyFoldersDatasource(CaDashboardListLayoutComponent.maxItems);
   }
 
   openCreateProjectDialog(): void {
     const dialogInput: CaProjectFormDialogInput = {
-      mode: 'create',
-      level: CaProjectLevel.PROJECT,
+      mode: 'create'
     };
-    this.dialogService.openSmallDialog(CaProjectFormDialogComponent, {data: dialogInput}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaProjectFormDialogComponent, { data: dialogInput }).afterClosed().subscribe(
       projects => this.onCreateProjectDialogClosed(projects)
     );
   }
 
-  private onCreateProjectDialogClosed(project?: CaProject): void{
-    if(project){
+  private onCreateProjectDialogClosed(project?: CaProject): void {
+    if (project) {
       this.routerService.navigateToProjectDetail(project.id);
     }
   }

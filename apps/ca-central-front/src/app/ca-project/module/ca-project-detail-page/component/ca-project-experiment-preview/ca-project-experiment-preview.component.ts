@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {filter, Observable, switchMap} from 'rxjs';
-import {CaExperiment} from '../../../../../ca-core/model/entities/project/ca-experiment.class';
-import {CaProjectDetailState} from '../../state/ca-project-detail.state';
-import {CaExperimentService} from '../../../../../ca-core/service-api/ca-experiment.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CaExperiment } from '../../../../../ca-core/model/entities/project/ca-experiment.class';
+import { CaExperimentService } from '../../../../../ca-core/service-api/ca-experiment.service';
 
 /**
  * Preview of the experiment in the project detail page right section
@@ -14,18 +13,15 @@ import {CaExperimentService} from '../../../../../ca-core/service-api/ca-experim
 })
 export class CaProjectExperimentPreviewComponent implements OnInit {
 
+  @Input() experimentId: string;
+
   experiment$: Observable<CaExperiment>;
 
-  constructor(private state: CaProjectDetailState,
-              private experimentService: CaExperimentService) {
+  constructor(private experimentService: CaExperimentService) {
   }
 
   ngOnInit(): void {
-    this.experiment$ = this.state.getRightPanelState$().pipe(
-      filter(state => state.type === 'experiment'),
-      switchMap(state => this.experimentService.findById(state.objectId))
-    );
-
+    this.experiment$ = this.experimentService.findById(this.experimentId);
   }
 
 }

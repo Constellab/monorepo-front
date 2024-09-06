@@ -1,25 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ValidatorFn, Validators } from '@angular/forms';
-import {
-  CaProject,
-  CaProjectLevel,
-  CaProjectLevelStatus,
-  CnSaveProjectDTO
-} from '../../../../model/entities/project/ca-project.class';
+import { CaProject, CnSaveProjectDTO } from '../../../../model/entities/project/ca-project.class';
 import { CaProjectService } from '../../../../service-api/ca-project.service';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { Observable } from 'rxjs';
-import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FlFormDialogAbstractDirective, FlFormMode } from '@monorepo/front-core-lib';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
-import { DateTime } from 'luxon';
 
-export interface CaProjectFormDialogInput extends FlFormDialogInput<CaProject> {
-  level: CaProjectLevel;
-  parentId?: string;
-  parentLevel?: CaProjectLevel;
-  parentStartingDate?: DateTime;
-  parentEndingDate?: DateTime;
+export interface CaProjectFormDialogInput {
+  mode: FlFormMode;
+  projectId?: string; // only on update mode
+  parentId?: string; // only on create mode
 }
 
 /**
@@ -38,8 +30,6 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
 
   isLoading: boolean = false;
 
-  levelStatus = CaProjectLevelStatus;
-
   constructor(private projectService: CaProjectService,
               private spaceService: CaSpaceService) {
     super();
@@ -51,76 +41,72 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
     if (this.showStorage) {
       this.spaceService.getCurrentSpaceSettings().subscribe(
         spaceSettings => {
-          console.log(spaceSettings)
           this.formGp.get('mainStorage').setValue(spaceSettings.defaultProjectStorageLocation);
           this.formGp.get('backupStorage').setValue(spaceSettings.defaultProjectBackupStorageLocation);
         }
       );
     }
+
+    this.formGp.disable();
+    if (this.isUpdateMode()) {
+      this.projectService.getById(this.dialogInput.projectId).subscribe(
+        project => {
+          this.formGp.patchValue(project);
+          this.formGp.enable();
+        }
+      );
+    } else if (this.isCreateMode() && this.dialogInput.parentId) {
+      // in create child mode, we copy the date from the parent project
+      this.projectService.getById(this.dialogInput.parentId).subscribe(
+        parentProject => {
+          this.formGp.get('startingDate').setValue(parentProject.startingDate);
+          this.formGp.get('endingDate').setValue(parentProject.endingDate);
+          this.formGp.enable();
+        }
+      );
+    } else {
+      this.formGp.enable();
+    }
   }
 
   buildForm(): FormGroup<CnSaveProjectDTO> {
     return new FormBuilder().group({
-      levelStatus: [
-        {
-          value: CaProjectLevelStatus.LEAF,
-          // when work package we force the children to be leaf to limit hierarchy depth
-          disabled: this.isUpdateMode() || !this.allowParent
-        }
-        , Validators.required],
-      code: [null, Validators.required],
       title: [null, Validators.required],
-      startingDate: [this.dialogInput.parentStartingDate, Validators.required],
-      endingDate: [this.dialogInput.parentEndingDate],
+      code: [null],
+      startingDate: [null],
+      endingDate: [null],
       mainStorage: [null, this.showStorage ? Validators.required : null],
-      backupStorage: [null],
-    }, {validator: this.showStorage ? this.differentStorageValidator() : null});
+      backupStorage: [null]
+    }, { validator: this.showStorage ? this.differentStorageValidator() : null });
   }
 
   create(formValue: CnSaveProjectDTO): Observable<CaProject> {
-    if (this.dialogInput.level === CaProjectLevel.PROJECT) {
-      return this.projectService.createProject(formValue);
-    } else {
+    if (this.dialogInput.parentId) {
       return this.projectService.createSubProject(formValue, this.dialogInput.parentId);
+    } else {
+      return this.projectService.createProject(formValue);
     }
   }
 
   update(formValue: CnSaveProjectDTO): Observable<CaProject> {
-    return this.projectService.update(this.dialogInput.object.id, formValue);
+    return this.projectService.update(this.dialogInput.projectId, formValue);
   }
 
 
   get title(): string {
-    if (this.dialogInput.level === CaProjectLevel.PROJECT) {
-      return this.isCreateMode() ? 'new_project' : 'update_project';
-    } else {
-      return this.isCreateMode() ? 'new_sub_project' : 'update_sub_project';
-    }
+    return this.isCreateMode() ? 'new_project' : 'update_project';
   }
 
   getCreateSuccessMessage(): string {
-    if (this.dialogInput.level === CaProjectLevel.PROJECT) {
-      return 'project_created';
-    } else {
-      return 'sub_project_created';
-    }
+    return 'project_created';
   }
 
   getUpdateSuccessMessage(): string {
-    if (this.dialogInput.level === CaProjectLevel.PROJECT) {
-      return 'project_updated';
-    } else {
-      return 'sub_project_updated';
-    }
-  }
-
-  // return true if we can create a parent project, false if the hierarchy reached the max depth
-  get allowParent(): boolean {
-    return this.dialogInput.parentLevel == null || this.dialogInput.parentLevel < CaProjectLevel.MAX_LEVEL - 1;
+    return 'project_updated';
   }
 
   get showStorage(): boolean {
-    return this.dialogInput.level === CaProjectLevel.PROJECT && this.isCreateMode();
+    return !this.dialogInput.parentId && this.isCreateMode();
   }
 
   private differentStorageValidator(): ValidatorFn {
@@ -128,7 +114,7 @@ export class CaProjectFormDialogComponent extends FlFormDialogAbstractDirective<
       if (control.value.mainStorage == null || control.value.backupStorage == null) return null;
 
       if (control.value.mainStorage.bucketId === control.value.backupStorage.bucketId) {
-        return {sameBackupStorage: true};
+        return { sameBackupStorage: true };
       }
       return null;
     };

@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {CaProjectAncestorTreeDTO} from '../../../../../ca-core/model/entities/project/ca-project.class';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
-import {FlTranslateService} from '@monorepo/front-core-lib';
-import {CaProjectObjectDetailState} from '../../state/ca-project-object-detail.state';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
+import { FlTranslateService } from '@monorepo/front-core-lib';
+import { CaProjectObjectDetailState } from '../../state/ca-project-object-detail.state';
+import { CaFolder, CaFolderObjectType } from '../../../../../ca-core/model/entities/project/ca-folder.class';
+import { clRxjsDebug } from '@monorepo/core-lib';
 
 interface BreadcrumbLink {
+  id: string;
   title: string;
   url: string;
 }
@@ -40,18 +42,20 @@ export class CaProjectObjectBreadcrumbComponent implements OnInit {
     this.showTreeButton$ = this.state.rootProjectHasChildren$();
   }
 
-  private ancestorsToLinks(ancestors: CaProjectAncestorTreeDTO[]): BreadcrumbLink[] {
+  private ancestorsToLinks(ancestors: CaFolder[]): BreadcrumbLink[] {
     const links: BreadcrumbLink[] = [];
 
     for (const ancestor of ancestors) {
       links.unshift({
-        title: ancestor.title,
+        id: ancestor.id,
+        title: ancestor.name,
         url: this.getAncestorLink(ancestor)
       });
     }
 
     // add the dashboard link
     links.unshift({
+      id: '1',
       title: this.translateService.translate('dashboard'),
       url: CaRouterService.getDashboardRoute()
     });
@@ -60,15 +64,16 @@ export class CaProjectObjectBreadcrumbComponent implements OnInit {
     return links;
   }
 
-  private getAncestorLink(ancestor: CaProjectAncestorTreeDTO): string {
-    switch (ancestor.type) {
-      case 'project':
+  private getAncestorLink(ancestor: CaFolder): string {
+    switch (ancestor.objectType) {
+      case CaFolderObjectType.FOLDER:
         return CaRouterService.getProjectDetailRoute(ancestor.id);
-      case 'experiment':
+      case CaFolderObjectType.EXPERIMENT:
         return CaRouterService.getExperimentDetailRoute(ancestor.id);
-      case 'report':
+      case CaFolderObjectType.REPORT:
         return CaRouterService.getReportDetailRoute(ancestor.id);
-      case 'document':
+      case CaFolderObjectType.DOCUMENT:
+      case CaFolderObjectType.CONSTELLAB_DOCUMENT:
         return CaRouterService.getDocumentDetailRoute(ancestor.id);
     }
   }

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CaDocument } from '../../../../../ca-core/model/entities/project/ca-document.class';
+import { CaDocument, CaDocumentBasicInfo } from '../../../../../ca-core/model/entities/project/ca-document.class';
 import {
   CaDocumentNameFormDialogComponent,
   CaDocumentNameFormDialogInput
@@ -13,15 +13,18 @@ import {
 } from '@monorepo/front-core-lib';
 import { CaProjectService } from '../../../../../ca-core/service-api/ca-project.service';
 import { ClHelpService } from '@monorepo/core-lib';
-import {
-  CaSelectProjectDialogComponent,
-  CaSelectProjectDialogInput
-} from '../../../../../ca-core/entity-module/ca-project-core/component/ca-select-project-dialog/ca-select-project-dialog.component';
 import { CaProject } from '../../../../../ca-core/model/entities/project/ca-project.class';
+import {
+  CaSelectFolderDialogComponent,
+  CaSelectFolderDialogInput
+} from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-select-folder-dialog/ca-select-folder-dialog.component';
 
-export interface CaDocumentActionEvent {
-  action: 'update' | 'delete' | 'moveToTrash' | 'restoreFromTrash' | 'moveToProject';
+export type CaDocumentActionEvent = {
+  action: 'update' | 'moveToTrash' | 'restoreFromTrash' | 'moveToProject';
   document: CaDocument;
+} | {
+  action: 'delete';
+  document: CaDocumentBasicInfo;
 }
 
 @Component({
@@ -31,7 +34,7 @@ export interface CaDocumentActionEvent {
 })
 export class CaDocumentActionsMenuComponent {
 
-  @Input() document: CaDocument;
+  @Input({ required: true }) documentInfo: CaDocumentBasicInfo;
 
   @Input() showViewLinks: boolean = true;
 
@@ -47,15 +50,14 @@ export class CaDocumentActionsMenuComponent {
   }
 
   getDocumentDownloadUrl(): string {
-    return this.projectService.getDocumentDownloadUrl(this.document.projectId, this.document.name);
+    return this.projectService.getDocumentDownloadUrl(this.documentInfo.id, this.documentInfo.name);
   }
 
   renameDocument(): void {
     const input: CaDocumentNameFormDialogInput = {
       mode: 'update',
-      object: { name: this.document.name },
-      documentId: this.document.id,
-      projectId: this.document.projectId
+      object: { name: this.documentInfo.name },
+      documentId: this.documentInfo.id
     };
 
     this.dialogService.openSmallDialog(CaDocumentNameFormDialogComponent, { data: input }).afterClosed().subscribe(
@@ -77,7 +79,7 @@ export class CaDocumentActionsMenuComponent {
       title: 'move_document_to_trash',
       content: 'move_document_to_trash_confirmation',
       translateTitleAndContent: true,
-      observable: this.projectService.moveDocumentToTrash(this.document.id),
+      observable: this.projectService.moveDocumentToTrash(this.documentInfo.id),
       successMessage: 'document_moved_to_trash',
       translateMessage: true
     };
@@ -101,7 +103,7 @@ export class CaDocumentActionsMenuComponent {
       title: 'restore_document_from_trash',
       content: 'restore_document_from_trash_confirmation',
       translateTitleAndContent: true,
-      observable: this.projectService.restoreDocumentFromTrash(this.document.id),
+      observable: this.projectService.restoreDocumentFromTrash(this.documentInfo.id),
       successMessage: 'document_restored_from_trash',
       translateMessage: true
     };
@@ -125,17 +127,17 @@ export class CaDocumentActionsMenuComponent {
       title: 'delete_document',
       content: 'delete_document_confirmation',
       translateTitleAndContent: true,
-      observable: this.projectService.deleteDocument(this.document.id),
+      observable: this.projectService.deleteDocument(this.documentInfo.id),
       successMessage: 'document_deleted',
       translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, this.document)
+      result => this.onDeleteClosed(result, this.documentInfo)
     );
   }
 
-  private onDeleteClosed(result: FlConfirmDialogResult, document: CaDocument): void {
+  private onDeleteClosed(result: FlConfirmDialogResult, document: CaDocumentBasicInfo): void {
     if (result.choice) {
       this.documentAction.emit({
         action: 'delete',
@@ -145,12 +147,12 @@ export class CaDocumentActionsMenuComponent {
   }
 
   moveDocument(): void {
-    const input: CaSelectProjectDialogInput = {
+    const input: CaSelectFolderDialogInput = {
       title: { text: 'move_to_project', translateText: true },
       mode: 'any',
-      currentProjectId: this.document.projectId
+      currentObjectId: this.documentInfo.id
     };
-    this.dialogService.openMediumDialog(CaSelectProjectDialogComponent, { data: input, autoFocus: false })
+    this.dialogService.openMediumDialog(CaSelectFolderDialogComponent, { data: input, autoFocus: false })
       .afterClosed().subscribe((project) => this.onMoveDocumentClosed(project));
   }
 
@@ -158,7 +160,7 @@ export class CaDocumentActionsMenuComponent {
     if (project) {
       this.actionService.addAction({
         type: 'move-doc-to-project',
-        action: this.projectService.moveDocumentToProject(this.document.id, project.id),
+        action: this.projectService.moveDocumentToProject(this.documentInfo.id, project.id),
         text: { text: 'moving_to_project', translateText: true }
       }).subscribe(
         result => this.onMoveDocumentSuccess(result)

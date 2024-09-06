@@ -19,7 +19,7 @@ export class CaProjectActivityPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.init(params.projectId);
+      this.init(params.id);
     });
   }
 

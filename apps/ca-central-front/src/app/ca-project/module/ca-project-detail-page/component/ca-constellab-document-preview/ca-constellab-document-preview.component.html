@@ -1,0 +1,24 @@
+<fl-async-section [object]="document$" class="section g-scrollable-element" cdkScrollable>
+
+  <ng-container *flSectionBody="document$ as document">
+    <div class="g-layout-row g-layout-between header">
+
+      <fl-text-icon>
+        <mat-icon flIcon="experiment"></mat-icon>
+        <h2 class="title g-text-dense-height">{{ document.document.name }}</h2>
+      </fl-text-icon>
+
+      <div>
+        <a mat-stroked-button class="g-button-small"
+           [routerLink]="document.document | caDetailRoute">
+          {{ 'open_details' | translate }}
+        </a>
+      </div>
+    </div>
+
+    <te-text-editor [ngModel]="document.content" [config]="textEditorConfig"
+                    class="g-scrollable-element text-editor"
+                    [disabled]="true"></te-text-editor>
+
+  </ng-container>
+</fl-async-section>

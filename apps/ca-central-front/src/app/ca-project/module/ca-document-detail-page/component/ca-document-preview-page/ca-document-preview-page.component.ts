@@ -24,7 +24,7 @@ export class CaDocumentPreviewPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.documentPreview$ = this.route.params.pipe(
-      mergeMap(params => this.init(params.documentId))
+      mergeMap(params => this.init(params.id))
     );
   }
 

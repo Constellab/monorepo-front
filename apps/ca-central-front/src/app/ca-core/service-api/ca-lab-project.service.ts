@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FlApiService } from '@monorepo/front-core-lib';
-import { CaLabInstanceProject } from '../model/entities/lab/ca-lab-instance-project.class';
+import { CaLabProject } from '../model/entities/lab/ca-lab-project.class';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +13,17 @@ export class CaLabProjectService {
   constructor(private apiService: FlApiService) {
   }
 
-  public addProjectToLab(labId: string, projectId: string): Observable<CaLabInstanceProject> {
+  public addProjectToLab(labId: string, projectId: string): Observable<CaLabProject> {
     return this.apiService.post(`${this.route}/${labId}/project/${projectId}`, null,
-      CaLabInstanceProject);
+      CaLabProject);
   }
 
-  public removeProjectFromLab(labId: string, projectId: string): Observable<CaLabInstanceProject> {
-    return this.apiService.delete(`${this.route}/${labId}/project/${projectId}`, CaLabInstanceProject);
+  public removeProjectFromLab(labId: string, projectId: string): Observable<CaLabProject> {
+    return this.apiService.delete(`${this.route}/${labId}/project/${projectId}`, CaLabProject);
   }
 
-  public getLabInstanceProjects(labId: string): Observable<CaLabInstanceProject[]> {
-    return this.apiService.get(`${this.route}/${labId}/project`, CaLabInstanceProject);
+  public getLabInstanceProjects(labId: string): Observable<CaLabProject[]> {
+    return this.apiService.get(`${this.route}/${labId}/project`, CaLabProject);
   }
 
   public syncLabProject(labId: string, projectId: string): Observable<void> {

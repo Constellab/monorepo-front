@@ -1,7 +1,7 @@
-import {FlDatasourcePaginated} from './fl-datasource-paginated.class';
-import {clGetEmptyPage, ClGetPageFunction, ClHelpService} from '@monorepo/core-lib';
-import {FlEntity} from '../fl-entity.class';
-import {of} from 'rxjs';
+import { FlDatasourcePaginated } from './fl-datasource-paginated.class';
+import { ClCoreJsonConvert, clGetEmptyPage, ClGetPageFunction, ClHelpService } from '@monorepo/core-lib';
+import { FlEntity } from '../fl-entity.class';
+import { of } from 'rxjs';
 
 
 export class FlEntityPaginatedDatasource<T extends FlEntity> extends FlDatasourcePaginated<T> {
@@ -13,6 +13,25 @@ export class FlEntityPaginatedDatasource<T extends FlEntity> extends FlDatasourc
 
   protected equals(a: T, b: T): boolean {
     return ClHelpService.compareFnIds(a, b);
+  }
+
+  findItemById(id: string): T | null {
+    return this.findItem({ id } as T);
+  }
+
+  updatePartial(id: string, partial: Partial<T>, classReference: new() => T): void {
+    const item = this.findItemById(id);
+    if (item) {
+      const cloned = ClCoreJsonConvert.deepCloneClass(item, classReference);
+      this.updateItem(Object.assign(cloned, partial));
+    }
+  }
+
+  removeItemById(id: string): void {
+    const item = this.findItemById(id);
+    if (item) {
+      this.removeItem(item);
+    }
   }
 }
 

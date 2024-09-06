@@ -11,7 +11,7 @@ import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-
 })
 export class FlInfiniteTableContainerComponent {
 
-  @Input() datasource: FlDatasourcePaginated<any>;
+  @Input({required: true}) datasource: FlDatasourcePaginated<any>;
 
   /**
    * Text translated show if the datasource is empty.

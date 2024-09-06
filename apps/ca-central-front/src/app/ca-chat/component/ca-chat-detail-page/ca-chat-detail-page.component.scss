@@ -1,0 +1,13 @@
+:host {
+  height: 100vh;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--main-menu-margin) 1em 1em 1em;
+}
+
+.chat{
+  background-color: var(--card-background);
+  border-radius: var(--card-radius);
+  margin: auto;
+}

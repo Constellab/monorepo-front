@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import {
-  CaLabInstanceProject,
+  CaLabProject,
   CaLabInstanceProjectDatasource
-} from '../../../../ca-core/model/entities/lab/ca-lab-instance-project.class';
+} from '../../../../ca-core/model/entities/lab/ca-lab-project.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -23,25 +23,25 @@ export class CaLabInstanceProjectsTableComponent {
 
   @Input({ required: true }) labInstanceId: string;
 
-  @Input() columns: FlTableColumnStatic<CaLabInstanceProject>[] = ['project', 'createdBy', 'createdAt'];
+  @Input() columns: FlTableColumnStatic<CaLabProject>[] = ['folder', 'createdBy', 'createdAt'];
 
   constructor(private labProjectService: CaLabProjectService,
               private dialogService: FlDialogService,
               private snackbarService: FlSnackBarService) {
   }
 
-  syncLabProject(labProject: CaLabInstanceProject): void {
-    this.labProjectService.syncLabProject(this.labInstanceId, labProject.project.id).subscribe(
+  syncLabProject(labProject: CaLabProject): void {
+    this.labProjectService.syncLabProject(this.labInstanceId, labProject.rootFolder.id).subscribe(
       () => this.snackbarService.openSuccessMessage({ text: 'lab_project_synced', translateText: true })
     );
   }
 
-  openDeleteProjectDialog(labProject: CaLabInstanceProject): void {
+  openDeleteProjectDialog(labProject: CaLabProject): void {
     const data: FlConfirmDialogInput = {
       title: 'lab_remove_project',
       content: 'lab_remove_project_confirmation',
       translateTitleAndContent: true,
-      observable: this.labProjectService.removeProjectFromLab(this.labInstanceId, labProject.project.id),
+      observable: this.labProjectService.removeProjectFromLab(this.labInstanceId, labProject.rootFolder.id),
       successMessage: 'lab_project_removed',
       translateMessage: true
     };
@@ -51,7 +51,7 @@ export class CaLabInstanceProjectsTableComponent {
     );
   }
 
-  private onDeleteUserClosed(result: FlConfirmDialogResult<void>, labProject: CaLabInstanceProject): void {
+  private onDeleteUserClosed(result: FlConfirmDialogResult<void>, labProject: CaLabProject): void {
     if (result.choice) {
       this.datasource.removeItem(labProject);
     }

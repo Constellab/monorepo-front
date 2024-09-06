@@ -2,6 +2,7 @@ import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } fro
 import { FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib';
 import { CaProject, CaProjectDatasource } from '../../../../model/entities/project/ca-project.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
+import { CaProjectActionEvent } from '../ca-project-actions-menu/ca-project-actions-menu.component';
 
 @Component({
   selector: 'ca-project-table',
@@ -12,7 +13,7 @@ export class CaProjectTableComponent {
 
   @Input({ required: true }) datasource: CaProjectDatasource;
 
-  @Input() columns: FlTableColumnStatic<CaProject>[] = ['code', 'status', 'leader', 'creation', 'actions'];
+  @Input() columns: FlTableColumnStatic<CaProject>[] = ['code', 'leader', 'creation', 'actions'];
 
   // when true, the row become clickable and projectClicked or projectDblClicked event is trigger
   @Input() rowSelectable: boolean = false;
@@ -29,16 +30,14 @@ export class CaProjectTableComponent {
   constructor(private routerService: CaRouterService) {
   }
 
-  onProjectUpdated(project: CaProject): void {
-    this.datasource.updateItem(project);
-  }
-
-  onProjectDeleted(project: CaProject): void {
-    this.datasource.removeItem(project);
-  }
-
-  onChildCreated(project: CaProject): void {
-    this.routerService.navigateToProjectDetail(project.id);
+  onProjectAction(projectEvent: CaProjectActionEvent): void {
+    if (projectEvent.action === 'update') {
+      this.datasource.updateItem(projectEvent.project);
+    } else if (projectEvent.action === 'delete') {
+      this.datasource.removeItemById(projectEvent.project.id);
+    } else if (projectEvent.action === 'createChild') {
+      this.routerService.navigateToProjectDetail(projectEvent.project.id);
+    }
   }
 
   onProjectClick(project: CaProject): void {

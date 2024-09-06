@@ -1,6 +1,6 @@
-import {ClHelpService} from '../utils/cl-help.service';
-import {ClassTransformOptions, instanceToPlain, plainToInstance, TransformationType} from 'class-transformer';
-import {ClClassReference} from '../model/cl-class-reference.class';
+import { ClHelpService } from '../utils/cl-help.service';
+import { ClassTransformOptions, instanceToPlain, plainToInstance, TransformationType } from 'class-transformer';
+import { ClClassReference } from '../model/cl-class-reference.class';
 
 /**
  * File for the json to class converter
@@ -108,6 +108,18 @@ export class ClCoreJsonConvert {
    */
   public static deepCloneClass<A>(object: A, classReference: new() => A): A {
     return ClCoreJsonConvert.deserialize(ClHelpService.deepClone(object), classReference) as A;
+  }
+
+  /**
+   * Deep clone a class object with class-transformer (doesn't work with cyclic object)
+   * and merge it with a partial object
+   * @param object object to clone
+   * @param partialObject the partial object to merge with the cloned object
+   * @param classReference the class reference
+   */
+  public static deepCloneClassAndMerge<A>(object: A, partialObject: Partial<any>, classReference: new() => A): A {
+    const cloned = ClCoreJsonConvert.deepCloneClass(object, classReference);
+    return Object.assign(cloned, partialObject);
   }
 
   /**

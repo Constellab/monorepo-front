@@ -22,7 +22,7 @@
               <mat-icon>print</mat-icon>
             </button>
 
-            <ca-document-actions-menu [document]="document" [showViewLinks]="false"
+            <ca-document-actions-menu [documentInfo]="document.basicInfo" [showViewLinks]="false"
                                       (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
           </fl-card-actions>
         </div>

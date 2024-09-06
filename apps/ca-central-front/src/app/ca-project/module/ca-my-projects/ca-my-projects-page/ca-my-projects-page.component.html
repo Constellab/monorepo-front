@@ -1,6 +1,6 @@
 <div class="g-page">
 
-  <fl-async-section [arrayObs]="projectsDatasource" emptyText="no_project">
+  <fl-async-section [arrayObs]="foldersDatasource" emptyText="no_project">
 
     <fl-section-header class="g-page-title">
       <fl-text-icon iconPosition="start">
@@ -18,14 +18,14 @@
       </fl-section-actions>
     </fl-section-header>
 
-    <ng-container *flSectionBodyDatasource="projectsDatasource as projects">
+    <ng-container *flSectionBodyDatasource="foldersDatasource as folders">
       <div class="g-grid-5-rows">
-        <a *ngFor="let project of projects" [routerLink]="project | caDetailRoute">
-          <ca-project-card [project]="project"></ca-project-card>
+        <a *ngFor="let folder of folders" [routerLink]="folder | caDetailRoute">
+          <ca-folder-card [folder]="folder"></ca-folder-card>
         </a>
       </div>
 
-      <fl-infinite-load-more-result [datasource]="projectsDatasource"></fl-infinite-load-more-result>
+      <fl-infinite-load-more-result [datasource]="foldersDatasource"></fl-infinite-load-more-result>
     </ng-container>
 
   </fl-async-section>

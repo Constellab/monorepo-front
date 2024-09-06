@@ -1,22 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { FlFlatTreeControl } from '@monorepo/front-core-lib';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { CaProjectObjectDetailState } from '../../../ca-project-object-core/state/ca-project-object-detail.state';
 import {
-  CaProjectAncestorTreeDTO,
-  CaProjectLevelStatus,
-  CaProjectTreeDto
-} from '../../../../../ca-core/model/entities/project/ca-project.class';
-import {Subscription} from 'rxjs';
-import {FlFlatTreeControl} from '@monorepo/front-core-lib';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {CaProjectObjectDetailState} from '../../../ca-project-object-core/state/ca-project-object-detail.state';
+  CaFolder,
+  CaFolderObjectType,
+  CaFolderWithChildren
+} from '../../../../../ca-core/model/entities/project/ca-folder.class';
 
 interface CaProjectFlatNode {
   id: string;
-  code: string;
+  name: string;
   level: number;
   expandable: boolean;
   isSelected: boolean;
-  levelStatus: CaProjectLevelStatus;
-
+  objectType: CaFolderObjectType;
 }
 
 /**
@@ -29,24 +28,24 @@ interface CaProjectFlatNode {
 })
 export class CaProjectObjectTreeComponent implements OnInit, OnDestroy {
 
-  rootProject: CaProjectTreeDto;
+  rootProject: CaFolderWithChildren;
   treeControl: FlFlatTreeControl<CaProjectFlatNode, string>;
-  dataSource: MatTreeFlatDataSource<CaProjectTreeDto, CaProjectFlatNode>;
+  dataSource: MatTreeFlatDataSource<CaFolderWithChildren, CaProjectFlatNode>;
 
   isLoading: boolean = false;
 
   // use as saved for backup
-  private currentAncestors: CaProjectAncestorTreeDTO[];
+  private currentAncestors: CaFolder[];
   private subscription: Subscription;
 
-  private _transformer = (node: CaProjectTreeDto, level: number): CaProjectFlatNode => {
+  private _transformer = (node: CaFolderWithChildren, level: number): CaProjectFlatNode => {
     return {
       id: node.id,
       expandable: !!node.children && node.children.length > 0,
       level: level,
-      code: node.code,
+      name: node.name,
       isSelected: false,
-      levelStatus: node.levelStatus
+      objectType: node.objectType
     };
   };
 
@@ -73,7 +72,7 @@ export class CaProjectObjectTreeComponent implements OnInit, OnDestroy {
   }
 
 
-  private constructTree(projectTree: CaProjectTreeDto): void {
+  private constructTree(projectTree: CaFolderWithChildren): void {
     this.rootProject = projectTree;
     this.treeControl = new FlFlatTreeControl<CaProjectFlatNode, string>(
       node => node.level, node => node.expandable, {
@@ -81,7 +80,7 @@ export class CaProjectObjectTreeComponent implements OnInit, OnDestroy {
       });
 
     // object to flatten tree
-    const treeFlattener: MatTreeFlattener<CaProjectTreeDto, CaProjectFlatNode, string> = new MatTreeFlattener(
+    const treeFlattener: MatTreeFlattener<CaFolderWithChildren, CaProjectFlatNode, string> = new MatTreeFlattener(
       this._transformer, node => node.level, node => node.expandable,
       node => node.children);
 
@@ -97,12 +96,12 @@ export class CaProjectObjectTreeComponent implements OnInit, OnDestroy {
 
   }
 
-  private onAncestorChange(ancestors: CaProjectAncestorTreeDTO[]): void {
+  private onAncestorChange(ancestors: CaFolder[]): void {
     this.currentAncestors = ancestors;
     if (this.treeControl == null) return;
 
     // retrieve the parent project ids
-    const projectAncestorIds = ancestors.filter(ancestor => ancestor.type === 'project').map(ancestor => ancestor.id);
+    const projectAncestorIds = ancestors.filter(ancestor => ancestor.objectType === CaFolderObjectType.FOLDER).map(ancestor => ancestor.id);
 
     // mark the ancestor projects as selected and expand them
     for (const node of this.treeControl.dataNodes) {

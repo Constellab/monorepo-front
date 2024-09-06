@@ -42,7 +42,7 @@ export class CaDocumentTextEditorFileConfig implements TeFileBlockConfig {
 }
 
 
-export class CaDocumentTextEditorConfig2 extends TeCompleteConfig {
+export class CaDocumentTextEditorConfig extends TeCompleteConfig {
 
   constructor(private documentId: string,
               private projectService: CaProjectService) {

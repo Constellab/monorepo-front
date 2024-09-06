@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
   CaProject,
-  CaProjectAncestorTreeDTO,
-  CaProjectAncestorType,
   CaProjectDatasource,
-  CaProjectStatus,
-  CaProjectStatusHistory,
-  CaProjectStorageDTO,
-  CaProjectTreeDto,
+  CaProjectStorageDTO, CaProjectWithFolder,
   CnSaveProjectDTO
 } from '../model/entities/project/ca-project.class';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { ClHelpService, ClPage, ClPageI } from '@monorepo/core-lib';
 import { CaGroup } from '../model/entities/ca-group.entity';
 import { CaUser } from '../model/entities/ca-user.class';
@@ -34,11 +29,11 @@ import { TeFigureBlockData, TeFileBlockData, TeRichTextContent, TeUploadedImage 
 import {
   FlAdvancedSearchInput,
   FlApiService,
-  FlArrayObs,
-  FlEntityArrayObs,
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
+import { CaFolder, CaFolderDatasource, CaFolderWithChildren } from '../model/entities/project/ca-folder.class';
+import { CaFolderSearch, CaFolderSearchFields } from '../entity-module/ca-folder-core/model/ca-folder-search.class';
 
 /**
  * Service to manage project entity
@@ -53,18 +48,22 @@ export class CaProjectService {
   constructor(private apiService: FlApiService) {
   }
 
-  public createProject(project: CnSaveProjectDTO): Observable<CaProject> {
-    return this.apiService.post(this.route, project, CaProject, { serialization: CaProject });
+  public createProject(project: CnSaveProjectDTO): Observable<CaProjectWithFolder> {
+    return this.apiService.post(this.route, project, CaProjectWithFolder, { serialization: CaProject });
   }
 
-  public createSubProject(subProject: CnSaveProjectDTO, parentProjectId: string): Observable<CaProject> {
-    return this.apiService.post(`${this.route}/${parentProjectId}/sub-project`, subProject, CaProject,
+  public createSubProject(subProject: CnSaveProjectDTO, parentProjectId: string): Observable<CaProjectWithFolder> {
+    return this.apiService.post(`${this.route}/${parentProjectId}/sub-project`, subProject, CaProjectWithFolder,
       { serialization: CnSaveProjectDTO });
   }
 
 
-  public update(id: string, object: CnSaveProjectDTO): Observable<CaProject> {
-    return this.apiService.put(`${this.route}/${id}`, object, CaProject, { serialization: CnSaveProjectDTO });
+  public update(id: string, object: CnSaveProjectDTO): Observable<CaProjectWithFolder> {
+    return this.apiService.put(`${this.route}/${id}`, object, CaProjectWithFolder, { serialization: CnSaveProjectDTO });
+  }
+
+  public activateChat(projectId: string, enable: boolean): Observable<CaProject> {
+    return this.apiService.put(`${this.route}/${projectId}/chat/${enable}`, null, CaProject);
   }
 
   public delete(id: string): Observable<void> {
@@ -75,39 +74,25 @@ export class CaProjectService {
     return this.apiService.getById(this.route, id, CaProject);
   }
 
-  public getMyProjectsDatasource(pageSize: number = 20): CaProjectDatasource {
+  public getMyFoldersDatasource(pageSize: number = 20): CaFolderDatasource {
     return new FlEntityPaginatedDatasource(
-      (page, size) => this.getMyProjects(page, size), pageSize);
+      (page, size) => this.getMyFolders(page, size), pageSize);
   }
 
-  private getMyProjects(page: number, pageSize: number): Observable<ClPageI<CaProject>> {
+  private getMyFolders(page: number, pageSize: number): Observable<ClPageI<CaFolder>> {
     return this.apiService.get(`${this.route}/current`, CaProject,
       { resultIsPaginated: true, page: page, pageSize: pageSize });
   }
 
-  public getProjectByCurrentSpaceDatasource(): CaProjectDatasource {
+  public getProjectByCurrentSpaceDatasource(): CaFolderDatasource {
     return new FlEntityPaginatedDatasource(
       (page, pageSize) => this.getProjectByCurrentSpace(page, pageSize),
       20);
   }
 
-  public getProjectByCurrentSpace(page: number, size: number): Observable<ClPageI<CaProject>> {
+  public getProjectByCurrentSpace(page: number, size: number): Observable<ClPageI<CaFolder>> {
     return this.apiService.get(`${this.route}/current-space`, CaProject,
       { resultIsPaginated: true, page: page, pageSize: size });
-  }
-
-  // use to pass the updateStatus method to UpdateStatusFormDialog
-  public getUpdateStatusMethod(id: string): (status: CaProjectStatus) => Observable<CaProject> {
-    return (status => this.updateStatus(id, status));
-  }
-
-  public updateStatus(id: string, status: CaProjectStatus): Observable<CaProject> {
-    return this.apiService.put(`${this.route}/${id}/status/${status}`,
-      null, CaProject);
-  }
-
-  public getStatusHistories(id: string): FlArrayObs<CaProjectStatusHistory> {
-    return new FlEntityArrayObs(this.apiService.get(`${this.route}/${id}/status-history`, CaProjectStatusHistory));
   }
 
   public shareProject(id: string, groupId: string): Observable<CaGroup> {
@@ -118,31 +103,23 @@ export class CaProjectService {
     return this.apiService.delete(`${this.route}/${id}/unshare/${userId}`);
   }
 
-  public getOnGoingProjectsNumber(): Observable<number> {
-    return this.apiService.get(`${this.route}/on-going-projects-number`);
-  }
-
-  public getChildren(id: string): Observable<CaProject[]> {
-    return this.apiService.get(`${this.route}/${id}/children`, CaProject);
-  }
-
-  public getChildrenDatasource(id: string): CaProjectDatasource {
+  public searchChildrenDatasource(id: string, filters?: CaFolderSearchFields): CaFolderDatasource {
     return new FlEntityPaginatedDatasource(
-      (page, pageSize) => this.getChildrenPaginated(id, page, pageSize),
-      20);
+      (page, pageSize) => this.searchChildren(id, page, pageSize, filters),
+      30);
   }
 
-  public getChildrenPaginated(id: string, page: number, size: number): Observable<ClPageI<CaProject>> {
-    return this.apiService.get(`${this.route}/${id}/children/paginated`, CaProject,
+  public searchChildren(id: string, page: number, size: number, filters?: Partial<CaFolderSearchFields>): Observable<ClPageI<CaFolder>> {
+    const data: FlAdvancedSearchInput = {
+      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaFolderSearch.advancedSearchConverter),
+      sortsCriteria: null
+    };
+    return this.apiService.post(`${this.route}/${id}/children/paginated`, data, CaProject,
       { resultIsPaginated: true, page: page, pageSize: size });
   }
 
-  public getObjectProjectAncestors(objectType: CaProjectAncestorType, objectId: string): Observable<CaProjectAncestorTreeDTO[]> {
-    return this.apiService.get(`${this.route}/ancestors/${objectType}/${objectId}`);
-  }
-
-  public getProjectAncestors(id: string): Observable<CaProject[]> {
-    return this.apiService.get(`${this.route}/${id}/ancestors`, CaProject);
+  public getObjectProjectAncestors(objectId: string): Observable<CaFolder[]> {
+    return this.apiService.get(`${this.route}/${objectId}/ancestors`, CaFolder);
   }
 
   public getUsersOfProject(projectId: string): Observable<CaUser[]> {
@@ -153,9 +130,8 @@ export class CaProjectService {
     return this.apiService.put(`${this.route}/${id}/leader/${userId}`, null, CaProject);
   }
 
-
-  public getProjectTree(objectType: CaProjectAncestorType, objectId: string): Observable<CaProjectTreeDto> {
-    return this.apiService.get(`${this.route}/tree/${objectType}/${objectId}`);
+  public getProjectTree(objectId: string): Observable<CaFolderWithChildren> {
+    return this.apiService.get(`${this.route}/tree/${objectId}`, CaFolderWithChildren);
   }
 
   public searchInCurrentSpace(page: number, pageSize: number, filters?: CaProjectSearchFields): Observable<ClPageI<CaProject>> {
@@ -174,8 +150,8 @@ export class CaProjectService {
     return this.apiService.get(`${this.route}/${id}/description`);
   }
 
-  public updateDescription(id: string, description: TeRichTextContent): Observable<CaProject> {
-    return this.apiService.put(`${this.route}/${id}/description`, description, CaProject);
+  public updateDescription(id: string, description: TeRichTextContent): Observable<void> {
+    return this.apiService.put(`${this.route}/${id}/description`, description);
   }
 
   uploadDescriptionImage(projectId: string, file: File): Observable<TeUploadedImage> {
@@ -188,10 +164,16 @@ export class CaProjectService {
     return this.apiService.getBaseRouteUrl(`${this.route}/${projectId}/description/image/${filename}`);
   }
 
+  /////////////////////////////// CHAT //////////////////////////////////
+
+  public getChatRootFolders(): Observable<CaFolderWithChildren[]> {
+    return this.apiService.get(`${this.route}/chat/folder-tree`, CaFolderWithChildren);
+  }
+
   /////////////////////////////// COMMENTS //////////////////////////////////
   public getComments(userId: string): CaProjectCommentDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAll(userId, page, size), 20);
+      (page, size) => this.getAll(userId, page, size), 15);
   }
 
   public getAll(projectId: string, page: number, size: number): Observable<ClPage<CaProjectComment>> {
@@ -225,18 +207,18 @@ export class CaProjectService {
 
 
   //////////////////////////////////// DOCUMENTS ///////////////////////////////////////////
-  public uploadDocument(file: File, projectId: string): Observable<CaDocument> {
+  public uploadDocument(file: File, projectId: string): Observable<CaFolder> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.apiService.post(`${this.route}/${projectId}/document`, formData, CaDocument);
+    return this.apiService.post(`${this.route}/${projectId}/document`, formData, CaFolder);
   }
 
-  public getDocumentPreviewUrl(projectId: string, documentId: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${projectId}/document/preview/${documentId}`);
+  public getDocumentPreviewUrl(documentId: string, documentName: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/document/${documentId}/preview/${documentName}`);
   }
 
-  public getDocumentDownloadUrl(projectId: string, documentId: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${projectId}/document/download/${documentId}`);
+  public getDocumentDownloadUrl(documentId: string, documentName: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/document/${documentId}/download/${documentName}`);
   }
 
   public deleteDocument(documentId: string): Observable<void> {
@@ -283,8 +265,8 @@ export class CaProjectService {
 
   //////////////////////////////////// CONSTELLAB DOCUMENT ///////////////////////////////////////////
 
-  public createConstellabDocument(projectId: string, filename: string): Observable<CaConstellabDocument> {
-    return this.apiService.post(`${this.route}/${projectId}/constellab-document`, { name: filename }, CaConstellabDocument);
+  public createConstellabDocument(parentFolderId: string, filename: string): Observable<CaConstellabDocument> {
+    return this.apiService.post(`${this.route}/${parentFolderId}/constellab-document`, { name: filename }, CaConstellabDocument);
   }
 
   public updateConstellabDocument(documentId: string, content: TeRichTextContent): Observable<CaConstellabDocument> {

@@ -59,7 +59,7 @@ export class CaUpdateProjectLeaderDialogComponent implements OnInit {
 
   private updateSuccess(project: CaProject): void {
     this.snackBarService.openSuccessMessage({text: 'project_leader_changed', translateText: true});
-    this.dialogRef.close(project.leader);
+    this.dialogRef.close(project);
     this.isLoading = false;
   }
 }

@@ -28,6 +28,7 @@ import {
 } from './component/ca-dashboard-list-layout/ca-dashboard-list-layout.component';
 import { CaDashboardRoutingModule } from './ca-dashboard-routing.module';
 import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
+import { CaFolderCoreModule } from '../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 
 /**
  * Module for the dashboard page
@@ -49,7 +50,7 @@ import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-
     RouterModule,
 
     CaCoreModule,
-    CaProjectCoreModule,
+    CaFolderCoreModule,
     CaLabCoreModule,
     CaGroupCoreModule,
     CaUserCoreModule,

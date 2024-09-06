@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CaProjectDetailState} from '../../state/ca-project-detail.state';
-import {filter, Observable, switchMap} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {CaReport} from '../../../../../ca-core/model/entities/project/ca-report.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CaReport } from '../../../../../ca-core/model/entities/project/ca-report.class';
+import { CaReportService } from '../../../../../ca-core/service-api/ca-report.service';
 
 /**
  * Component in the project page right panel to show the preview of the report
@@ -14,21 +13,15 @@ import {CaReport} from '../../../../../ca-core/model/entities/project/ca-report.
 })
 export class CaProjectReportPreviewComponent implements OnInit {
 
-  reportId$: Observable<string>;
+  @Input() reportId: string;
+
   report$: Observable<CaReport>;
 
-  constructor(private state: CaProjectDetailState) {
+  constructor(private reportService: CaReportService) {
   }
 
   ngOnInit(): void {
-    this.reportId$ = this.state.getRightPanelState$().pipe(
-      filter(state => state.type === 'report'),
-      map(state => state.objectId)
-    );
-
-    this.report$ = this.reportId$.pipe(
-      switchMap(id => this.state.getReport$(id))
-    );
+    this.report$ = this.reportService.getById(this.reportId);
   }
 
 }

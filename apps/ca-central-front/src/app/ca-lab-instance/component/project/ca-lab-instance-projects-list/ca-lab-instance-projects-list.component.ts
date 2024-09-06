@@ -6,18 +6,19 @@ import {
   FlTableColumnStatic
 } from '@monorepo/front-core-lib';
 import {
-  CaLabInstanceProject,
+  CaLabProject,
   CaLabInstanceProjectDatasource
-} from '../../../../ca-core/model/entities/lab/ca-lab-instance-project.class';
+} from '../../../../ca-core/model/entities/lab/ca-lab-project.class';
 import { CaLabInstanceDetailPageState } from '../../../state/ca-lab-instance-detail-page.state';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaLabProjectService } from '../../../../ca-core/service-api/ca-lab-project.service';
-import {
-  CaSelectProjectDialogComponent,
-  CaSelectProjectDialogInput
-} from '../../../../ca-core/entity-module/ca-project-core/component/ca-select-project-dialog/ca-select-project-dialog.component';
 import { CaProject } from '../../../../ca-core/model/entities/project/ca-project.class';
+import {
+  CaSelectFolderDialogComponent,
+  CaSelectFolderDialogInput
+} from '../../../../ca-core/entity-module/ca-folder-core/component/ca-select-folder-dialog/ca-select-folder-dialog.component';
+import { CaFolder } from '../../../../ca-core/model/entities/project/ca-folder.class';
 
 @Component({
   selector: 'ca-lab-instance-projects-list',
@@ -28,9 +29,9 @@ export class CaLabInstanceProjectsListComponent implements OnInit {
 
   @Input() labInstanceId: string;
 
-  columns$: Observable<FlTableColumnStatic<CaLabInstanceProject>[]> = this.state.isLabOwner$().pipe(
+  columns$: Observable<FlTableColumnStatic<CaLabProject>[]> = this.state.isLabOwner$().pipe(
     map(isLabOwner => {
-      const columns = ['project', 'createdBy', 'createdAt'];
+      const columns = ['folder', 'createdBy', 'createdAt'];
       // set the action column only if the user is the lab owner
       if (isLabOwner) {
         columns.push('actions');
@@ -55,19 +56,19 @@ export class CaLabInstanceProjectsListComponent implements OnInit {
   }
 
   openAddProjectDialog(): void {
-    const input: CaSelectProjectDialogInput = {
+    const input: CaSelectFolderDialogInput = {
       title: { text: 'lab_add_project', translateText: true },
       mode: 'root'
     };
-    this.dialogService.openMediumDialog(CaSelectProjectDialogComponent, { data: input, autoFocus: false })
-      .afterClosed().subscribe((project) => this.onProjectAddedClosed(project));
+    this.dialogService.openMediumDialog(CaSelectFolderDialogComponent, { data: input, autoFocus: false })
+      .afterClosed().subscribe((folder) => this.onFolderAddedClosed(folder));
   }
 
-  private onProjectAddedClosed(project?: CaProject): void {
-    if (project) {
+  private onFolderAddedClosed(folder?: CaFolder): void {
+    if (folder) {
       this.actionService.addAction({
         type: 'lab-add-project',
-        action: this.labProjectService.addProjectToLab(this.labInstanceId, project.id),
+        action: this.labProjectService.addProjectToLab(this.labInstanceId, folder.id),
         text: { text: 'adding_lab_project', translateText: true }
       }).subscribe(
         result => this.onActionFinished(result)
@@ -75,7 +76,7 @@ export class CaLabInstanceProjectsListComponent implements OnInit {
     }
   }
 
-  private onActionFinished(result: FlPortalActionResult<CaLabInstanceProject>): void {
+  private onActionFinished(result: FlPortalActionResult<CaLabProject>): void {
     if (result.status === 'success') {
       this.datasource.addItem(result.result);
     }

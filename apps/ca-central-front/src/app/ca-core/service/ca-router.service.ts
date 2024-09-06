@@ -1,6 +1,6 @@
 import {
   caConstAdminRoute,
-  caConstBaseRoute,
+  caConstBaseRoute, caConstChatRoute,
   caConstDashboardRoute,
   caConstLabInstancesRoute,
   caConstMyProjectsRoute,
@@ -97,6 +97,14 @@ export class CaRouterService {
     this.router.navigate([CaRouterService.getDocumentPreviewRoute(documentId)]);
   }
 
+  public navigateToExperimentDetail(experimentId: string): void {
+    this.router.navigate([CaRouterService.getExperimentDetailRoute(experimentId)]);
+  }
+
+  public navigateToReportDetail(reportId: string): void {
+    this.router.navigate([CaRouterService.getReportDetailRoute(reportId)]);
+  }
+
 
   //////////////////////////// Lab //////////////////////////////
 
@@ -182,6 +190,16 @@ export class CaRouterService {
 
   public static getCurrentSpaceOtherRoute(): string {
     return `${CaRouterService.getCurrentSpaceRoute()}/other`;
+  }
+
+  ////////////////////////// CHAT ///////////////////////
+
+  public static getChatRoute(): string {
+    return CaRouterService.getFullRoute(caConstChatRoute);
+  }
+
+  public static getChatFolderRoute(folderId: string): string {
+    return `${CaRouterService.getChatRoute()}/folder/${folderId}`;
   }
 
   ////////////////////////// ADMIN ///////////////////////

@@ -27,13 +27,13 @@ export class CaProjectStorageSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projectBucket$ = this.state.getProjectId$().pipe(
+    this.projectBucket$ = this.state.getFolderId$().pipe(
       mergeMap(projectId => this.projectService.getProjectStorages(projectId))
     );
   }
 
   async configureStorage(): Promise<void> {
-    const projectId = await firstValueFrom(this.state.getProjectId$());
+    const projectId = await firstValueFrom(this.state.getFolderId$());
     const projectBucket = await firstValueFrom(this.projectBucket$);
 
     const input: CaProjectConfigureStorageInput = {

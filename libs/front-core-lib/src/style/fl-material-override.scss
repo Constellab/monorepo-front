@@ -265,7 +265,7 @@ body {
   }
 
   // specific row of table that is inserted between rows to be expandable
-  .g-table-expandable-row{
+  .g-table-expandable-row {
     min-height: 0;
   }
 
@@ -411,6 +411,10 @@ body {
     span::first-letter {
       text-transform: uppercase;
     }
+  }
+
+  .g-mat-select-panel-no-max-height.mat-mdc-select-panel {
+    max-height: none;
   }
 
   /************************************* MAT CHECKBOX ***********************************/

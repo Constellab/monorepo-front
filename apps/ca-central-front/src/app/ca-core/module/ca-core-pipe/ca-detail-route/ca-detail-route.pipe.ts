@@ -8,8 +8,9 @@ import { CaExperiment } from '../../../model/entities/project/ca-experiment.clas
 import { CaReport } from '../../../model/entities/project/ca-report.class';
 import { CaDocument } from '../../../model/entities/project/ca-document.class';
 import { CaUser } from '../../../model/entities/ca-user.class';
+import { CaFolder } from '../../../model/entities/project/ca-folder.class';
 
-type CaObjectType = 'project' | 'experiment' | 'report' | 'labInstance' | 'group' | 'document' | 'user';
+type CaObjectType = 'project' | 'folder' | 'experiment' | 'report' | 'labInstance' | 'group' | 'document' | 'user';
 
 
 /**
@@ -39,6 +40,7 @@ export class CaDetailRoutePipe implements PipeTransform {
 
     switch (objectType) {
       case 'project':
+      case 'folder':
         return CaRouterService.getProjectDetailRoute(id);
       case 'experiment':
         return CaRouterService.getExperimentDetailRoute(id);
@@ -60,7 +62,7 @@ export class CaDetailRoutePipe implements PipeTransform {
   }
 
   private getObjectType(obj: any): [CaObjectType, string] {
-    if (obj instanceof CaProject) {
+    if (obj instanceof CaProject || obj instanceof CaFolder) {
       return ['project', obj.id];
     } else if (obj instanceof CaExperiment) {
       return ['experiment', obj.id];

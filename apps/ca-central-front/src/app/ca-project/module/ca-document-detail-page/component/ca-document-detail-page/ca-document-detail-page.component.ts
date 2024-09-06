@@ -7,9 +7,10 @@ import {CaRouterService} from '../../../../../ca-core/service/ca-router.service'
 import {
   CaDocumentActionEvent
 } from '../../../ca-document-core/component/ca-document-actions-menu/ca-document-actions-menu.component';
-import {CaDocumentTextEditorConfig2} from '../../../ca-document-core/ca-document-text-editor.config';
+import {CaDocumentTextEditorConfig} from '../../../ca-document-core/ca-document-text-editor.config';
 import {FormControl} from '@angular/forms';
 import {TeRichTextContent} from '@monorepo/text-editor';
+import { CaProjectObjectDetailState } from '../../../ca-project-object-core/state/ca-project-object-detail.state';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -24,7 +25,7 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
   document: CaDocument;
   contentFormControl: FormControl<TeRichTextContent> = new FormControl({disabled: true, value: null});
 
-  textEditorConfig: CaDocumentTextEditorConfig2;
+  textEditorConfig: CaDocumentTextEditorConfig;
 
   isLoading: boolean = true;
 
@@ -33,12 +34,13 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private projectService: CaProjectService,
-              private routerService: CaRouterService) {
+              private routerService: CaRouterService,
+              private state: CaProjectObjectDetailState) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(
-      params => this.init(params.documentId)
+      params => this.init(params.id)
     );
 
     //create a debouncer to save the description after x second of idle
@@ -58,7 +60,7 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
   private getDocumentSuccess(constellabDocument: CaConstellabDocument): void {
     this.document = constellabDocument.document;
     this.contentFormControl.patchValue(constellabDocument.content);
-    this.textEditorConfig = new CaDocumentTextEditorConfig2(constellabDocument.document.id,
+    this.textEditorConfig = new CaDocumentTextEditorConfig(constellabDocument.document.id,
       this.projectService);
     this.isLoading = false;
   }
@@ -75,7 +77,7 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
 
   onDocumentAction(event: CaDocumentActionEvent): void {
     if (event.action === 'delete') {
-      this.routerService.navigateToProjectDetail(this.document.projectId);
+      this.state.navigateToParentFolder();
     } else {
       this.document = event.document;
     }

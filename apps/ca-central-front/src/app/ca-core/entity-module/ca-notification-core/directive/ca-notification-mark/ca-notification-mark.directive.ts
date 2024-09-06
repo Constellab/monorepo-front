@@ -25,6 +25,8 @@ export class CaNotificationMarkDirective implements OnInit, OnDestroy {
    */
   @Input() caNotificationAssociatedObjectIds: number = null;
 
+  @Input() caNotificationMarkDisabled: boolean = false;
+
   private subscription: Subscription;
 
   @HostBinding('class.g-notification-mark')
@@ -36,6 +38,7 @@ export class CaNotificationMarkDirective implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    if(this.caNotificationMarkDisabled) return;
     const objectId$: Observable<string> = typeof this.caNotificationMark === 'string' ?
       of(this.caNotificationMark) : this.caNotificationMark;
 

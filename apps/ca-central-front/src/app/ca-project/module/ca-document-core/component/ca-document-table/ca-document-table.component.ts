@@ -30,16 +30,16 @@ export class CaDocumentTableComponent {
     } else if (document.isConstellabDocument()) {
       this.routerService.navigateToDocumentDetail(document.id);
     } else {
-      const url = this.projectService.getDocumentPreviewUrl(document.projectId, document.name);
+      const url = this.projectService.getDocumentPreviewUrl(document.id, document.name);
       window.open(url, '_blank');
     }
   }
 
-  onDocumentAction(event: CaDocumentActionEvent): void {
+  onDocumentAction(event: CaDocumentActionEvent, oldDocument: CaDocument): void {
     if (event.action === 'update') {
       this.datasource.updateItem(event.document);
     } else if (event.action === 'delete') {
-      this.datasource.removeItem(event.document);
+      this.datasource.removeItem(oldDocument);
     } else if (event.action === 'moveToTrash') {
       if (this.isTrash) {
         this.datasource.addItem(event.document);

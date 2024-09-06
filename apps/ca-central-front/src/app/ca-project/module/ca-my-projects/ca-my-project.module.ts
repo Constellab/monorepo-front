@@ -4,6 +4,7 @@ import {CaCoreModule} from '../../../ca-core/ca-core.module';
 import {CaProjectCoreModule} from '../../../ca-core/entity-module/ca-project-core/ca-project-core.module';
 import {CaMyProjectsPageComponent} from './ca-my-projects-page/ca-my-projects-page.component';
 import {CaMyProjectRoutingModule} from './ca-my-project-routing.module';
+import { CaFolderCoreModule } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 
 /**
  * Modules for the 'My projects' page
@@ -16,7 +17,8 @@ import {CaMyProjectRoutingModule} from './ca-my-project-routing.module';
     CommonModule,
 
     CaCoreModule,
-    CaProjectCoreModule,
+    CaProjectCoreModule, // TODO TO DELETE
+    CaFolderCoreModule,
 
     CaMyProjectRoutingModule,
   ]

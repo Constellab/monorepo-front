@@ -1,23 +1,26 @@
 <div class="g-layout-row-wrap g-layout-start-center g-text-light">
 
   <!-- Button to toggle project tree  -->
-  <button mat-icon-button type="button" *ngIf="showTreeButton$ | async; else noButton"
-          (click)="toggleTree()" class="toggle-button">
-    <mat-icon>account_tree</mat-icon>
-  </button>
+  @if (showTreeButton$ | async) {
+    <button mat-icon-button type="button"
+            (click)="toggleTree()" class="toggle-button">
+      <mat-icon>account_tree</mat-icon>
+    </button>
 
-  <ng-template #noButton>
+  } @else {
     <div class="fake-button-height"></div>
-  </ng-template>
+  }
 
-  <ng-container *ngFor="let link of links$ | async; let last = last">
+  @for (link of links$ | async; let last = $last; track link.id) {
     <a [routerLink]="link.url"
        [queryParams]="{} | caProjectObjectQueryParams | async"
        class="g-text-link text">
-      {{link.title}}
+      {{ link.title }}
     </a>
 
-    <span class="separator" *ngIf="!last">></span>
-  </ng-container>
+    @if (!last) {
+      <span class="separator">></span>
+    }
+  }
 </div>
 

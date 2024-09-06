@@ -29,10 +29,10 @@ export class CaExperimentDetailPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(
-      params => this.init(params.experimentId)
+      params => this.init(params.id)
     );
     this.experimentId$ = this.route.params.pipe(
-      map(params => params.experimentId)
+      map(params => params.id)
     );
   }
 

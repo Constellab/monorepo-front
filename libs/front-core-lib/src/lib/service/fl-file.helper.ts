@@ -93,12 +93,12 @@ export class FlFileHelper {
 
     for(const unit of units){
       if(size < 1024){
-        return `${ClNumberHelper.round(size, 2)} ${translateService.translate(unit)}`;
+        return `${ClNumberHelper.round(size, 1)} ${translateService.translate(unit)}`;
       }
       size /= 1024;
     }
 
-    return `${ClNumberHelper.round(size, 2)} ${translateService.translate('flCoreComponent.tera_byte_symbole')}`;
+    return `${ClNumberHelper.round(size, 1)} ${translateService.translate('flCoreComponent.tera_byte_symbole')}`;
   }
 
 

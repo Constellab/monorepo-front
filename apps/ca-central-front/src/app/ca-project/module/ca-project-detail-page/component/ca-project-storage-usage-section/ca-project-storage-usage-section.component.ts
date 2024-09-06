@@ -18,7 +18,7 @@ export class CaProjectStorageUsageSectionComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.storageUsage$ = this.state.getProjectId$().pipe(
+    this.storageUsage$ = this.state.getFolderId$().pipe(
       mergeMap(projectId => this.projectService.getProjectStorageSize(projectId)),
     );
   }

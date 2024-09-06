@@ -18,6 +18,7 @@
   "session_expired": "Session expired",
   "dashboard": "Dashboard",
   "settings": "Settings",
+  "chat": "Chat",
   "theme": "Theme",
   "light": "Light",
   "dark": "Dark",
@@ -282,5 +283,6 @@
   "license_ENTERPRISE": "Enterprise",
   "update_license": "Update license",
   "license_updated": "License updated",
-  "contact": "Contact"
+  "contact": "Contact",
+  "clear": "Clear"
 }

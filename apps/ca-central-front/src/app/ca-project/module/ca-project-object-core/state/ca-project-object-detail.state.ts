@@ -1,16 +1,12 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {BehaviorSubject, filter, first, Observable, share, switchMap} from 'rxjs';
-import {
-  CaProject,
-  CaProjectAncestorTreeDTO,
-  CaProjectObjectRef,
-  CaProjectTreeDto
-} from '../../../../ca-core/model/entities/project/ca-project.class';
-import {CaProjectService} from '../../../../ca-core/service-api/ca-project.service';
-import {FlDatasourceTree, FlQueryParamHandler, FlRouterHelper} from '@monorepo/front-core-lib';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {map} from 'rxjs/operators';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, filter, first, firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
+import { CaProjectService } from '../../../../ca-core/service-api/ca-project.service';
+import { FlDatasourceTree, FlEntityArrayObs, FlQueryParamHandler, FlRouterHelper } from '@monorepo/front-core-lib';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
+import { CaFolder, CaFolderWithChildren } from '../../../../ca-core/model/entities/project/ca-folder.class';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 
 /**
  * State for the CaProjectObjectDetailPageComponent
@@ -18,36 +14,42 @@ import {ClHelpService} from '@monorepo/core-lib';
 @Injectable()
 export class CaProjectObjectDetailState implements OnDestroy {
 
-  private projectAncestors$: Observable<CaProjectAncestorTreeDTO[]>;
-  private projectTree$: FlDatasourceTree<CaProjectTreeDto>;
+  private ancestorFolders$: FlEntityArrayObs<CaFolder>;
+  private folderTree: FlDatasourceTree<CaFolderWithChildren>;
 
   private treeDrawerOpened$: BehaviorSubject<boolean>;
   private queryParamHandler: FlQueryParamHandler<{ showTree?: boolean }>;
 
+  private subscription: Subscription;
+
   constructor(private projectService: CaProjectService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private routerService: CaRouterService) {
   }
 
   public init(): void {
-    const projectObjectRef$ = FlRouterHelper.listenToChildrenParams(this.router, this.route)
+    // we need to use the FlRouterHelper.listenToChildrenParams because the current route is the parent route
+    const objectId$: Observable<string> = FlRouterHelper.listenToChildrenParams(this.router, this.route)
       .pipe(
-        map(params => this.getProjectObjectRef(params))
+        map(params => params.id)
       );
 
-    this.projectAncestors$ = projectObjectRef$.pipe(
-      switchMap(projectObjectRef => this.projectService.getObjectProjectAncestors(projectObjectRef.type, projectObjectRef.id)),
-      share() // share the observable result for multiple subscribers, use share not ClCachedObservable because it emits multiples values
-    );
+    this.ancestorFolders$ = new FlEntityArrayObs([]);
+    this.subscription = objectId$.pipe(
+      switchMap(objectId => this.projectService.getObjectProjectAncestors(objectId))
+    ).subscribe({
+      next: ancestors => this.getAncestorSuccess(ancestors)
+    });
 
-    this.projectTree$ = new FlDatasourceTree<CaProjectTreeDto>(null,
-      (a, b) => ClHelpService.sortAlphabeticalFunction(a.code, b.code));
-    projectObjectRef$.pipe(
+    this.folderTree = new FlDatasourceTree<CaFolderWithChildren>(null,
+      (a, b) => ClHelpService.sortAlphabeticalFunction(a.name, b.name));
+    objectId$.pipe(
       // as the tree start with the root, it only needs to be loaded once
       first(),
-      switchMap(projectObject => this.projectService.getProjectTree(projectObject.type, projectObject.id)),
+      switchMap(objectId => this.projectService.getProjectTree(objectId))
     ).subscribe({
-      next: projectTree => this.getTreeSuccess(projectTree),
+      next: projectTree => this.getTreeSuccess(projectTree)
     });
 
     this.treeDrawerOpened$ = new BehaviorSubject(false);
@@ -55,45 +57,18 @@ export class CaProjectObjectDetailState implements OnDestroy {
     this.initTreeDrawerOpened();
   }
 
-  private getTreeSuccess(projectTree: CaProjectTreeDto): void {
-    this.projectTree$.setData(projectTree);
+  private getTreeSuccess(projectTree: CaFolderWithChildren): void {
+    this.folderTree.setData(projectTree);
+  }
 
-    // if there is no hierarchy, force the tree to be closed
-    if (projectTree?.children.length > 0) {
-      this.setTreeOpened(true);
-    } else {
-      this.setTreeOpened(false);
-    }
+  private getAncestorSuccess(ancestors: CaFolder[]): void {
+    this.ancestorFolders$.array = ancestors;
   }
 
   public rootProjectHasChildren$(): Observable<boolean> {
     return this.getProjectTree$().pipe(
       map(ancestors => ancestors.children.length > 0)
     );
-  }
-
-  private getProjectObjectRef(params: Params): CaProjectObjectRef {
-    if (params.experimentId) {
-      return {
-        type: 'experiment',
-        id: params.experimentId
-      };
-    } else if (params.reportId) {
-      return {
-        type: 'report',
-        id: params.reportId
-      };
-    } else if (params.documentId) {
-      return {
-        type: 'document',
-        id: params.documentId
-      };
-    } else {
-      return {
-        type: 'project',
-        id: params.projectId
-      };
-    }
   }
 
   private initTreeDrawerOpened(): void {
@@ -115,46 +90,67 @@ export class CaProjectObjectDetailState implements OnDestroy {
   public setTreeOpened(treeOpened: boolean): void {
     this.treeDrawerOpened$.next(treeOpened);
     if (treeOpened) {
-      this.queryParamHandler.mergeQueryParams({showTree: true});
+      this.queryParamHandler.mergeQueryParams({ showTree: true });
     } else {
-      this.queryParamHandler.mergeQueryParams({showTree: null});
+      this.queryParamHandler.mergeQueryParams({ showTree: null });
     }
   }
 
-  public getProjectAncestors$(): Observable<CaProjectAncestorTreeDTO[]> {
-    return this.projectAncestors$;
+  /**
+   * Retrieve the ancestors of the current project from the current object to the root folder
+   */
+  public getProjectAncestors$(): Observable<CaFolder[]> {
+    return this.ancestorFolders$.connect();
   }
 
-  public getProjectTree$(): Observable<CaProjectTreeDto> {
-    return this.projectTree$.connect().pipe(
+  public getCurrentParentFolder(): Promise<CaFolder | null> {
+    return firstValueFrom(this.getProjectAncestors$().pipe(
+      // the first element is the current object, we return the second element which is the parent
+      map(ancestors => ancestors.length > 1 ? ancestors[1] : null)
+    ));
+  }
+
+  public navigateToParentFolder(): void {
+    this.getCurrentParentFolder().then(parentFolder => {
+      if (parentFolder) {
+        this.routerService.navigateToProjectDetail(parentFolder.id);
+      } else {
+        this.routerService.navigateToDashboard();
+      }
+    });
+  }
+
+  public getProjectTree$(): Observable<CaFolderWithChildren> {
+    return this.folderTree.connect().pipe(
       filter(projectTree => projectTree != null)
     );
   }
 
-  public addProjectChild(project: CaProject): void {
-    const projectTree = this.projectToTree(project);
-    this.projectTree$.addNode(projectTree, project.parentId);
+  public addFolderInTree(folder: CaFolder): void {
+    this.folderTree.addNode(CaFolderWithChildren.fromFolder(folder), folder.parentId);
   }
 
-  public updateProject(project: CaProject): void {
-    const projectTree = this.projectToTree(project);
-    this.projectTree$.updateNode(projectTree);
+  public deleteFolderInTree(folderId: string): void {
+    if (this.folderTree.findNode(folderId)) {
+      this.folderTree.deleteNode(folderId);
+    }
   }
 
-  private projectToTree(project: CaProject): CaProjectTreeDto {
-    return {
-      id: project.id,
-      code: project.code,
-      title: project.title,
-      children: [],
-      levelStatus: project.levelStatus
-    };
-  }
+  public updateFolder(folderId: string, folder: Partial<CaFolder>): void {
+    // update in the ancestors
+    const ancestor = this.ancestorFolders$.findItemById(folderId);
+    if (ancestor) {
+      const clone = ClCoreJsonConvert.deepCloneClassAndMerge(ancestor, folder, CaFolder);
+      this.ancestorFolders$.updateItem(clone);
+    }
 
-  public deleteProject(projectId: string): void {
-    this.projectTree$.deleteNode(projectId);
+    // update in the tree
+    const folderInTree = this.folderTree.findNode(folderId);
+    if (folderInTree) {
+      const clone = ClCoreJsonConvert.deepCloneClassAndMerge(folderInTree, folder, CaFolderWithChildren);
+      this.folderTree.updateNode(clone);
+    }
   }
-
 
   public getTreeDrawerOpened$(): Observable<boolean> {
     return this.treeDrawerOpened$.asObservable();
@@ -162,7 +158,9 @@ export class CaProjectObjectDetailState implements OnDestroy {
 
   ngOnDestroy(): void {
     this.treeDrawerOpened$?.complete();
-    this.projectTree$?.disconnect();
+    this.folderTree?.disconnect();
+    this.subscription?.unsubscribe();
+    this.ancestorFolders$?.disconnect();
   }
 
 

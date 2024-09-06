@@ -1,12 +1,12 @@
 <mat-table mat-table [dataSource]="datasource">
 
   <!-- Project -->
-  <ng-container matColumnDef="project">
+  <ng-container matColumnDef="folder">
     <mat-header-cell *matHeaderCellDef>
       <span>{{'project' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let labProject">
-      <ca-project-inline [project]="labProject.project"></ca-project-inline>
+      <ca-folder-inline [folder]="labProject.rootFolder"></ca-folder-inline>
     </mat-cell>
   </ng-container>
 

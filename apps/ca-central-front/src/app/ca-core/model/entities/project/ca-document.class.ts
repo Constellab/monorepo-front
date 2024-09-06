@@ -1,9 +1,15 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated, FlFileHelper } from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
 import { TeRichTextContent } from '@monorepo/text-editor';
 import { ClRecordTransform } from '@monorepo/core-lib';
 
+export interface CaDocumentBasicInfo {
+  id: string;
+  name: string;
+  isConstellabDocument: boolean;
+  inTrash: boolean;
+}
 
 export class CaDocument extends CaBaseEntity {
   name: string;
@@ -11,8 +17,6 @@ export class CaDocument extends CaBaseEntity {
   size: number;
 
   mimeType: string;
-
-  projectId: string;
 
   type: 'UPLOADED_DOCUMENT' | 'CONSTELLAB_DOCUMENT';
 
@@ -22,6 +26,20 @@ export class CaDocument extends CaBaseEntity {
 
   isConstellabDocument(): boolean {
     return this.type === 'CONSTELLAB_DOCUMENT';
+  }
+
+  public static supportsPreview(documentName: string): boolean {
+    const extension = FlFileHelper.getFileExtension(documentName);
+    return ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension);
+  }
+
+  get basicInfo(): CaDocumentBasicInfo {
+    return {
+      id: this.id,
+      name: this.name,
+      isConstellabDocument: this.isConstellabDocument(),
+      inTrash: this.inTrash
+    }
   }
 }
 
@@ -68,7 +86,7 @@ export class CaProjectStorageUsageDTO {
   @Type(() => CaStorageLocationUsageDTO)
   dataHubDetails: CaStorageLocationUsageDTO;
 
-  hasMultipleStorageLocations(): boolean{
+  hasMultipleStorageLocations(): boolean {
     return this.dataHubDetails != null && this.cloudDetails != null;
   }
 

@@ -1,16 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {CaProjectService} from '../../../../ca-core/service-api/ca-project.service';
-import {
-  CaProject,
-  CaProjectDatasource,
-  CaProjectLevel
-} from '../../../../ca-core/model/entities/project/ca-project.class';
+import { Component, OnInit } from '@angular/core';
+import { CaProjectService } from '../../../../ca-core/service-api/ca-project.service';
+import { CaProjectWithFolder } from '../../../../ca-core/model/entities/project/ca-project.class';
+import { FlDialogService } from '@monorepo/front-core-lib';
+import { CaFolderDatasource } from '../../../../ca-core/model/entities/project/ca-folder.class';
 import {
   CaProjectFormDialogComponent,
   CaProjectFormDialogInput
 } from '../../../../ca-core/entity-module/ca-project-core/component/ca-project-form-dialog/ca-project-form-dialog.component';
-import {FlDialogService} from '@monorepo/front-core-lib';
 
+// TODO TO RENAME
 @Component({
   selector: 'ca-my-projects-page',
   templateUrl: './ca-my-projects-page.component.html',
@@ -18,31 +16,30 @@ import {FlDialogService} from '@monorepo/front-core-lib';
 })
 export class CaMyProjectsPageComponent implements OnInit {
 
-  projectsDatasource: CaProjectDatasource;
+  foldersDatasource: CaFolderDatasource;
 
   constructor(private projectService: CaProjectService,
               private dialogService: FlDialogService) {
   }
 
   ngOnInit(): void {
-    this.projectsDatasource = this.projectService.getMyProjectsDatasource();
+    this.foldersDatasource = this.projectService.getMyFoldersDatasource();
   }
 
   openCreateProjectDialog(): void {
     const dialogInput: CaProjectFormDialogInput = {
-      mode: 'create',
-      level: CaProjectLevel.PROJECT
+      mode: 'create'
     };
-    this.dialogService.openSmallDialog(CaProjectFormDialogComponent, {data: dialogInput}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaProjectFormDialogComponent, { data: dialogInput }).afterClosed().subscribe(
       projects => this.onCreateProjectClosed(projects)
     );
   }
 
-  private onCreateProjectClosed(project?: CaProject): void {
+  private onCreateProjectClosed(project?: CaProjectWithFolder): void {
     if (project) {
       // add the project at the beginning of the array
       // and refresh the array
-      this.projectsDatasource.addItem(project, () => true);
+      this.foldersDatasource.addItem(project.folderHierarchy, () => true);
     }
   }
 

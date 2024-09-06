@@ -38,8 +38,8 @@
     </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
 
-      <ca-document-actions-menu [document]="row"
-                                (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
+      <ca-document-actions-menu [documentInfo]="row.basicInfo"
+                                (documentAction)="onDocumentAction($event, row)"></ca-document-actions-menu>
     </mat-cell>
   </ng-container>
 
