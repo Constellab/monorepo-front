@@ -68,7 +68,7 @@ export function app(): express.Express {
     res.setHeader(
       'Feature-Policy',
       // eslint-disable-next-line max-len
-      'accelerometer \'none\'; autoplay \'none\'; camera \'none\'; encrypted-media \'none\'; geolocation \'none\'; gyroscope \'none\'; magnetometer \'none\'; microphone \'none\'; midi \'none\'; payment \'none\''
+      'accelerometer \'none\'; autoplay \'none\'; camera \'none\'; encrypted-media \'none\'; geolocation \'none\'; gyroscope \'none\'; magnetometer \'none\'; microphone \'self\'; midi \'none\'; payment \'none\''
     );
 
     next();
