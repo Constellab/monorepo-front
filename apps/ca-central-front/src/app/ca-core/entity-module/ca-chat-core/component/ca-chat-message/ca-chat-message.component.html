@@ -1,23 +1,23 @@
-<div class="comment"
-     [caNotificationMark]="comment().id" caNotificationObjectType="PROJECT_COMMENT">
+<div class="message"
+     [caNotificationMark]="message().id" caNotificationObjectType="MESSAGE">
 
   <div class="g-layout-row">
     <div class="profile-pic">
-      <fl-user-profile-picture [user]="comment().createdBy" [size]="3.75"></fl-user-profile-picture>
+      <fl-user-profile-picture [user]="message().createdBy" [size]="3.75"></fl-user-profile-picture>
     </div>
 
     <div class="main-section">
       <div class="g-text-small">
-        {{ comment().createdBy.firstname }} -
-        <fl-from-now [date]="comment().createdAt"></fl-from-now>
+        {{ message().createdBy.firstname }} -
+        <fl-from-now [date]="message().createdAt"></fl-from-now>
       </div>
 
       @if (editMode) {
-        <ca-chat-write-message [folderId]="folderId()" mode="update" [messageContent]="comment().content"
-                                   (send)="updateComment($event)" (cancel)="disableEditMode()">
+        <ca-chat-write-message [folderId]="folderId()" mode="update" [messageContent]="message().content"
+                               (send)="updateMessage($event)" (cancel)="disableEditMode()">
         </ca-chat-write-message>
       } @else {
-        <te-text-editor [config]="textEditorConfig" [ngModel]="comment().content"
+        <te-text-editor [config]="textEditorConfig" [ngModel]="message().content"
                         class="text-editor" [disabled]="true"></te-text-editor>
       }
     </div>
@@ -27,13 +27,13 @@
   @if (showButtons && !editMode) {
     <div class="buttons">
       <button mat-icon-button class="g-button-icon-small"
-              [matTooltip]="'update_comment' | translate"
+              [matTooltip]="'update_message' | translate"
               (click)="enableEditMode()">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button class="g-button-icon-small"
-              [matTooltip]="'delete_comment' | translate"
-              (click)="deleteComment()">
+              [matTooltip]="'delete_message' | translate"
+              (click)="deleteMessage()">
         <mat-icon>delete</mat-icon>
       </button>
     </div>

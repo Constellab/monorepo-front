@@ -33,8 +33,8 @@ export class CaActivitySearchFields {
 
   id: string;
 
-  // specific search for project
-  includeSubProjects: boolean;
+  // specific search for folder
+  includeSubFolders: boolean;
 }
 
 export class CaActivitySearch {
@@ -45,7 +45,7 @@ export class CaActivitySearch {
     actionType: 'activity_entity_name',
     entityName: 'activity_action_type',
     createdAt: 'creation_date',
-    includeSubProjects: 'include_sub_projects'
+    includeSubFolders: 'include_sub_folders'
   };
 
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaActivitySearchFields> = {
@@ -58,7 +58,7 @@ export class CaActivitySearch {
     user: {key: 'user.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     id: {key: 'id', operator: 'EQ'},
-    includeSubProjects: {key: 'includeSubProjects', operator: 'EQ'},
+    includeSubFolders: {key: 'includeSubFolders', operator: 'EQ'},
   };
 
   public static getAdvancedSearchForm(): FormGroup<CaActivitySearchFields> {
@@ -75,7 +75,7 @@ export class CaActivitySearch {
       user: null,
       space: null,
       id: null,
-      includeSubProjects: null,
+      includeSubFolders: null,
     });
   }
 }

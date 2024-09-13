@@ -11,11 +11,11 @@
       </div>
       <ca-lab-instance-users-list class="g-section" [labInstanceId]="labInstance.id"></ca-lab-instance-users-list>
 
-      <ca-lab-instance-projects-list class="g-section"
-                                     [labInstanceId]="labInstance.id"></ca-lab-instance-projects-list>
+      <ca-lab-folders-list class="g-section"
+                           [labInstanceId]="labInstance.id"></ca-lab-folders-list>
 
       <ca-lab-free-card-info class="g-section" *ngIf="labInstance.isFreeLab"
-                                   [labInstanceId]="labInstance.id"></ca-lab-free-card-info>
+                             [labInstanceId]="labInstance.id"></ca-lab-free-card-info>
 
     </div>
   </ng-container>

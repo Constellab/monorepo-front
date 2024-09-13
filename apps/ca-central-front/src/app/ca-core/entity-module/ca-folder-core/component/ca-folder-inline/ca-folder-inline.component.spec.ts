@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CaFolderInlineComponent } from './ca-folder-inline.component';
+import {CaFolderInlineComponent} from './ca-folder-inline.component';
 
 describe('CaFolderInlineComponent', () => {
   let component: CaFolderInlineComponent;
@@ -8,7 +8,7 @@ describe('CaFolderInlineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaFolderInlineComponent]
+      declarations: [ CaFolderInlineComponent ]
     })
     .compileComponents();
 

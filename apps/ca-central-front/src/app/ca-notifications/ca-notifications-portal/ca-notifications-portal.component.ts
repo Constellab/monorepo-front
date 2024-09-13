@@ -51,12 +51,12 @@ export class CaNotificationsPortalComponent implements OnInit {
 
   getNotificationObjectIcon(objectType: CaNotificationType): string {
     switch (objectType) {
-      case 'PROJECT_DOCUMENT':
-      case 'PROJECT_COMMENT':
+      case 'DOCUMENT':
+      case 'MESSAGE':
       case 'EXPERIMENT':
       case 'REPORT':
-      case 'PROJECT':
-        return 'project';
+      case 'FOLDER':
+        return 'folder';
       case 'USER':
         return 'people';
       default:

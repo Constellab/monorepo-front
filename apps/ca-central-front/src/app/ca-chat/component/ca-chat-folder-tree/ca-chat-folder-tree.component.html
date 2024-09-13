@@ -5,10 +5,10 @@
                    matTreeNodePadding [matTreeNodePaddingIndent]="10">
       <div class="g-text-small tree-node g-layout-row g-layout-start-center"
            [ngClass]="{'selected-tree-node': node.isSelected}">
-        <ca-folder-icon class="node-icon" [objectType]="node.objectType" [folderName]="node.name"
-                        size="small"></ca-folder-icon>
+        <ca-hierarchy-object-icon class="node-icon" [objectType]="node.objectType" [objectName]="node.name"
+                        size="small"></ca-hierarchy-object-icon>
         <a [routerLink]="node.route" class="object-name g-text-link">
-          <div [caNotificationMark]="node.id" caNotificationObjectType="PROJECT_COMMENT"
+          <div [caNotificationMark]="node.id" caNotificationObjectType="MESSAGE"
                [caNotificationAssociatedObjectIds]="1">{{ node.name }}
           </div>
         </a>
@@ -18,11 +18,11 @@
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding [matTreeNodePaddingIndent]="10">
       <div class="g-text-small tree-node g-layout-row g-layout-start-center"
            [ngClass]="{'selected-tree-node': node.isSelected}">
-        <ca-folder-icon class="node-icon" [objectType]="node.objectType" [folderName]="node.name"
-                        size="small"></ca-folder-icon>
+        <ca-hierarchy-object-icon class="node-icon" [objectType]="node.objectType" [objectName]="node.name"
+                        size="small"></ca-hierarchy-object-icon>
 
         <a [routerLink]="node.route" class="object-name g-text-link">
-          <div [caNotificationMark]="node.id" caNotificationObjectType="PROJECT_COMMENT"
+          <div [caNotificationMark]="node.id" caNotificationObjectType="MESSAGE"
                [caNotificationAssociatedObjectIds]="1">{{ node.name }}
           </div>
         </a>

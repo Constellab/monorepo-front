@@ -6,8 +6,8 @@
     <fl-card-body *ngIf="stats">
       <div class="activities-div">
         <div class="activity">
-          <ca-dashboard-activity-card [activityNumber]="stats.onGoingProjectNumber"
-                                      [activityText]="'ongoing_projects'"></ca-dashboard-activity-card>
+          <ca-dashboard-activity-card [activityNumber]="stats.onGoingFolderNumber"
+                                      [activityText]="'ongoing_folders'"></ca-dashboard-activity-card>
         </div>
         <div class="activity">
           <ca-dashboard-activity-card [activityNumber]="stats.teamsNumber"

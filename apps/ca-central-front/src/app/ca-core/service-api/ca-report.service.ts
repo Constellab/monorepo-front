@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CaReport, CaResourceView } from '../model/entities/project/ca-report.class';
+import { CaReport, CaResourceView } from '../model/entities/folder/ca-report.class';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { TeRichTextContent } from '@monorepo/text-editor';

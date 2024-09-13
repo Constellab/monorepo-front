@@ -1,18 +1,18 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FlTableColumnStatic, FlTranslatableText } from '@monorepo/front-core-lib';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CaProjectService } from '../../../../service-api/ca-project.service';
+import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { ClHelpService } from '@monorepo/core-lib';
-import { CaFolder, CaFolderDatasource, CaFolderObjectType } from '../../../../model/entities/project/ca-folder.class';
-import { CaFolderSearchFields } from '../../model/ca-folder-search.class';
-import { CaFolderTableEvent } from '../ca-folder-table/ca-folder-table.component';
+import { CaHierarchyObject, CaHierarchyObjectDatasource, CaHierarchyObjectType } from '../../../../model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectSearchFields } from '../../../ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import { CaFolderTableEvent } from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 
 export interface CaSelectFolderDialogInput {
   /**
    * Mode for the folder selection
    * root: only root folder can be selected
-   * any: any project can be selected
+   * any: any folder can be selected
    */
   mode: 'root' | 'any';
 
@@ -29,18 +29,18 @@ export interface CaSelectFolderDialogInput {
 })
 export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
 
-  foldersDatasource: CaFolderDatasource;
+  foldersDatasource: CaHierarchyObjectDatasource;
 
-  columns: FlTableColumnStatic<CaFolder>[] = ['name', 'user', 'lastModifiedAt'];
+  columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt'];
 
   // contains the list of parent folder for the breadcrumbs
-  parentFolders: CaFolder[] = null;
-  selectedFolder: CaFolder;
+  parentFolders: CaHierarchyObject[] = null;
+  selectedFolder: CaHierarchyObject;
 
   dialogInput: CaSelectFolderDialogInput = inject(MAT_DIALOG_DATA);
 
   constructor(private dialogRef: MatDialogRef<CaSelectFolderDialogComponent>,
-              private projectService: CaProjectService,
+              private folderService: CaFolderService,
               private authenticatedUserService: CaAuthenticatedUserService) {
   }
 
@@ -58,12 +58,12 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   }
 
   private initForFolder(currentObjectId: string): void {
-    this.projectService.getObjectProjectAncestors(currentObjectId).subscribe(
+    this.folderService.getObjectFolderAncestors(currentObjectId).subscribe(
       ancestors => this.initParentFolders(ancestors)
     );
   }
 
-  private initParentFolders(ancestors: CaFolder[]): void {
+  private initParentFolders(ancestors: CaHierarchyObject[]): void {
     if (ancestors.length === 0) {
       this.initRoots();
       return;
@@ -81,9 +81,9 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
 
   initRoots(): void {
     if (this.authenticatedUserService.isCurrentSpaceAdmin()) {
-      this.foldersDatasource = this.projectService.getProjectByCurrentSpaceDatasource();
+      this.foldersDatasource = this.folderService.getFolderByCurrentSpaceDatasource();
     } else {
-      this.foldersDatasource = this.projectService.getMyFoldersDatasource();
+      this.foldersDatasource = this.folderService.getMyFoldersDatasource();
     }
     this.parentFolders = [];
   }
@@ -106,11 +106,11 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  private selectFolder(folder: CaFolder): void {
+  private selectFolder(folder: CaHierarchyObject): void {
     this.selectedFolder = folder;
   }
 
-  private folderDblClicked(folder: CaFolder): void {
+  private folderDblClicked(folder: CaHierarchyObject): void {
     if (this.isRootMode()) {
       this.selectFolder(folder);
       this.close();
@@ -119,7 +119,7 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  openFolder(folder: CaFolder): void {
+  openFolder(folder: CaHierarchyObject): void {
     if (!this.isRootMode()) {
       this.getChildren(folder.id);
       this.parentFolders.push(folder);
@@ -128,7 +128,7 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     this.selectedFolder = folder;
   }
 
-  selectParentFolder(parentFolder: CaFolder): void {
+  selectParentFolder(parentFolder: CaHierarchyObject): void {
     // if the last parent is selected, do nothing it is already selected
     if (this.parentFolders[this.parentFolders.length - 1].id === parentFolder.id) {
       return;
@@ -148,9 +148,9 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     }
 
     // get only folder children
-    const filters = new CaFolderSearchFields();
-    filters.objectType = CaFolderObjectType.FOLDER;
-    this.foldersDatasource = this.projectService.searchChildrenDatasource(folderId, filters);
+    const filters = new CaHierarchyObjectSearchFields();
+    filters.objectType = CaHierarchyObjectType.FOLDER;
+    this.foldersDatasource = this.folderService.searchChildrenDatasource(folderId, filters);
   }
 
   close(): void {

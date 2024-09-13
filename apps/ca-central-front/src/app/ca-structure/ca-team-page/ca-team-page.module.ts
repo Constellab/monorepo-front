@@ -4,7 +4,7 @@ import {CaCoreModule} from '../../ca-core/ca-core.module';
 import {CaTeamPageComponent} from './component/ca-team-page/ca-team-page.component';
 import {CaTeamDetailComponent} from './component/ca-team-detail/ca-team-detail.component';
 import {CaTeamUsersListComponent} from './component/ca-team-users-list/ca-team-users-list.component';
-import {CaProjectCoreModule} from '../../ca-core/entity-module/ca-project-core/ca-project-core.module';
+import {CaFolderCoreModule} from '../../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 import {CaGroupCoreModule} from '../../ca-core/entity-module/ca-group-core/ca-group-core.module';
 import {RouterModule} from '@angular/router';
 
@@ -22,7 +22,7 @@ import {RouterModule} from '@angular/router';
     RouterModule,
 
     CaCoreModule,
-    CaProjectCoreModule,
+    CaFolderCoreModule,
     CaGroupCoreModule,
   ]
 })

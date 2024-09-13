@@ -1,6 +1,6 @@
 import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { CaFolderWithChildren } from '../../ca-core/model/entities/project/ca-folder.class';
-import { CaProjectService } from '../../ca-core/service-api/ca-project.service';
+import { CaHierarchyObjectWithChildren } from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaFolderService } from '../../ca-core/service-api/ca-folder.service';
 
 /**
  * Global state for the chat page
@@ -8,24 +8,24 @@ import { CaProjectService } from '../../ca-core/service-api/ca-project.service';
 @Injectable()
 export class CaChatState {
 
-  private folderTree: WritableSignal<CaFolderWithChildren[]>;
+  private folderTree: WritableSignal<CaHierarchyObjectWithChildren[]>;
 
 
-  constructor(private projectService: CaProjectService) {
+  constructor(private folderService: CaFolderService) {
   }
 
   public init(): void {
     this.folderTree = signal([]);
-    this.projectService.getChatRootFolders().subscribe(
-      folders => this.getProjectFolderTreeSuccess(folders)
+    this.folderService.getChatRootFolders().subscribe(
+      folders => this.getFolderTreeSuccess(folders)
     );
   }
 
-  public get folders(): Signal<CaFolderWithChildren[]> {
+  public get folders(): Signal<CaHierarchyObjectWithChildren[]> {
     return this.folderTree;
   }
 
-  private getProjectFolderTreeSuccess(folders: CaFolderWithChildren[]): void {
+  private getFolderTreeSuccess(folders: CaHierarchyObjectWithChildren[]): void {
     this.folderTree.set(folders);
   }
 }

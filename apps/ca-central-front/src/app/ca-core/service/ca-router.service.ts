@@ -3,8 +3,8 @@ import {
   caConstBaseRoute, caConstChatRoute,
   caConstDashboardRoute,
   caConstLabInstancesRoute,
-  caConstMyProjectsRoute,
-  caConstProjectRoute,
+  caConstMyFoldersRoute,
+  caConstFolderRoute,
   caConstStructureRoute,
   caConstUserPageRoute
 } from '../utils/ca-base-route';
@@ -54,39 +54,39 @@ export class CaRouterService {
     this.router.navigate([CaRouterService.getDashboardRoute()]);
   }
 
-  //////////////////////////// PROJECT //////////////////////////////
+  //////////////////////////// FOLDER //////////////////////////////
 
 
-  public static getProjectDetailRoute(projectId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/${projectId}`);
+  public static getFolderDetailRoute(folderId: string): string {
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/${folderId}`);
   }
 
-  public navigateToProjectDetail(projectId: string): void {
-    this.router.navigate([CaRouterService.getProjectDetailRoute(projectId)]);
+  public navigateToFolderDetail(folderId: string): void {
+    this.router.navigate([CaRouterService.getFolderDetailRoute(folderId)]);
   }
 
-  public static getMyProjectsRoute(): string {
-    return CaRouterService.getFullRoute(caConstMyProjectsRoute);
+  public static getMyFoldersRoute(): string {
+    return CaRouterService.getFullRoute(caConstMyFoldersRoute);
   }
 
   public static getExperimentDetailRoute(experimentId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/experiment/${experimentId}`);
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/experiment/${experimentId}`);
   }
 
   public static getReportDetailRoute(reportId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/report/${reportId}`);
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/report/${reportId}`);
   }
 
   public static getDocumentDetailRoute(documentId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/document/${documentId}`);
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/document/${documentId}`);
   }
 
   public static getDocumentPreviewRoute(documentId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/document/${documentId}/preview`);
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/document/${documentId}/preview`);
   }
 
-  public static getProjectActivityRoute(projectId: string): string {
-    return `${CaRouterService.getProjectDetailRoute(projectId)}/activity`;
+  public static getFolderActivityRoute(folderId: string): string {
+    return `${CaRouterService.getFolderDetailRoute(folderId)}/activity`;
   }
 
   public navigateToDocumentDetail(documentId: string): void {
@@ -180,8 +180,8 @@ export class CaRouterService {
     return `${CaRouterService.getCurrentSpaceRoute()}/labs`;
   }
 
-  public static getCurrentSpaceProjectsRoute(): string {
-    return `${CaRouterService.getCurrentSpaceRoute()}/projects`;
+  public static getCurrentSpaceFoldersRoute(): string {
+    return `${CaRouterService.getCurrentSpaceRoute()}/folders`;
   }
 
   public static getCurrentSpaceTeamsRoute(): string {

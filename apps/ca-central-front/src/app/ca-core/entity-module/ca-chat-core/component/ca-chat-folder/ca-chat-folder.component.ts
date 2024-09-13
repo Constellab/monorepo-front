@@ -1,6 +1,6 @@
 import { Component, computed, input, OnDestroy, Signal } from '@angular/core';
-import { CaProjectComment, CaProjectCommentDatasourcePaginated } from '../../../../model/entities/ca-comment.class';
-import { CaProjectService } from '../../../../service-api/ca-project.service';
+import { CaChatMessage, CaChatMessageDatasourcePaginated } from '../../../../model/entities/ca-chat-message';
+import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { TeRichTextContent } from '@monorepo/text-editor';
 
 /**
@@ -16,32 +16,31 @@ export class CaChatFolderComponent implements OnDestroy {
 
   folderId = input.required<string>();
 
+  messages: Signal<CaChatMessageDatasourcePaginated> = computed(() => this.folderService.getFolderMessagesDatasource(this.folderId()));
 
-  comments: Signal<CaProjectCommentDatasourcePaginated> = computed(() => this.projectService.getComments(this.folderId()));
-
-  constructor(private projectService: CaProjectService) {
+  constructor(private folderService: CaFolderService) {
   }
 
-  createNewComment(comment: TeRichTextContent): void {
-    this.projectService.createComment(this.folderId(), comment).subscribe(
-      comment => this.createSuccess(comment)
+  createNewMessage(content: TeRichTextContent): void {
+    this.folderService.createMessage(this.folderId(), content).subscribe(
+      message => this.createSuccess(message)
     );
   }
 
-  private createSuccess(comment: CaProjectComment): void {
-    this.comments().addItem(comment, () => true);
+  private createSuccess(message: CaChatMessage): void {
+    this.messages().addItem(message, () => true);
   }
 
 
-  commentUpdated(comment: CaProjectComment): void {
-    this.comments().updateItem(comment);
+  messageUpdated(message: CaChatMessage): void {
+    this.messages().updateItem(message);
   }
 
-  commentDeleted(comment: CaProjectComment): void {
-    this.comments().removeItem(comment);
+  messageDeleted(message: CaChatMessage): void {
+    this.messages().removeItem(message);
   }
 
   ngOnDestroy(): void {
-    this.comments()?.disconnect();
+    this.messages()?.disconnect();
   }
 }

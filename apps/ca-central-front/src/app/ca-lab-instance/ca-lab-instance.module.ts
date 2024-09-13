@@ -49,11 +49,11 @@ import {
   CaLabDockerContainersComponent
 } from './component/manager/ca-lab-docker-containers/ca-lab-docker-containers.component';
 import {
-  CaLabInstanceProjectsListComponent
-} from './component/project/ca-lab-instance-projects-list/ca-lab-instance-projects-list.component';
+  CaLabFoldersListComponent
+} from './component/folder/ca-lab-folders-list/ca-lab-folders-list.component';
 import {
-  CaLabInstanceProjectsTableComponent
-} from './component/project/ca-lab-instance-projects-table/ca-lab-instance-projects-table.component';
+  CaLabFoldersTableComponent
+} from './component/folder/ca-lab-folders-table/ca-lab-folders-table.component';
 import {
   CaLabInstanceCodelabInfoComponent
 } from './component/ca-lab-instance-codelab-info/ca-lab-instance-codelab-info.component';
@@ -106,7 +106,7 @@ import {
 } from './component/green-option/ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaBrickCoreModule } from '../ca-core/entity-module/ca-brick-core/ca-brick-core.module';
-import { CaProjectCoreModule } from '../ca-core/entity-module/ca-project-core/ca-project-core.module';
+import { CaFolderCoreModule } from '../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 import { CaConfigCoreModule } from '../ca-core/entity-module/ca-config-core/ca-config-core.module';
 import {
   CaLabGreenOptionTableComponent
@@ -157,7 +157,7 @@ import {
   CaLabInstanceStatusHistoryPageComponent
 } from './component/ca-lab-instance-status-history-page/ca-lab-instance-status-history-page.component';
 import { CaGroupCoreModule } from '../ca-core/entity-module/ca-group-core/ca-group-core.module';
-import { CaFolderCoreModule } from '../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
+import { CaHierarchyObjectCoreModule } from '../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
 
 /**
  * Module the lab instance detail page with iframe for the lab
@@ -180,8 +180,8 @@ import { CaFolderCoreModule } from '../ca-core/entity-module/ca-folder-core/ca-f
     CaLabInstanceConfigFormComponent,
     CaLabInstanceConfigBrickComponent,
     CaLabDockerContainersComponent,
-    CaLabInstanceProjectsListComponent,
-    CaLabInstanceProjectsTableComponent,
+    CaLabFoldersListComponent,
+    CaLabFoldersTableComponent,
     CaLabInstanceCodelabInfoComponent,
     CaLabInstanceHeaderComponent,
     CaLabInstanceDashboardPageComponent,
@@ -230,7 +230,7 @@ import { CaFolderCoreModule } from '../ca-core/entity-module/ca-folder-core/ca-f
     CaServerCoreModule,
     CaBrickCoreModule,
     CaConfigCoreModule,
-    CaFolderCoreModule,
+    CaHierarchyObjectCoreModule,
 
     CaLabInstanceRoutingModule,
     CaSpaceCoreModule,

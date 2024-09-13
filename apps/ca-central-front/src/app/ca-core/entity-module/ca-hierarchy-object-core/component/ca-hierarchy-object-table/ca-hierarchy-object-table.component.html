@@ -1,0 +1,89 @@
+<mat-table mat-table [dataSource]="datasource" class="table">
+
+  <!-- Title -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'name' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let folder">
+
+      <!--    Invisible link  -->
+      @if (!rowSelectable) {
+        <a [routerLink]="folder | caDetailRoute" class="g-row-link"></a>
+      }
+
+      <ca-hierarchy-object-inline [hierarchyObject]="folder"></ca-hierarchy-object-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Creation info -->
+  <ng-container matColumnDef="lastModifiedAt">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'date' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let folder">
+      <fl-from-now [date]="folder.lastModifiedAt"></fl-from-now>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Leader -->
+  <ng-container matColumnDef="user">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'user' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let folder">
+      <fl-user-inline [user]="folder.user"></fl-user-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Status icons -->
+  <ng-container matColumnDef="statusIcons">
+    <mat-header-cell *matHeaderCellDef>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let folder" class="g-layout-row g-layout-end-center">
+      @if (folder.isValidated) {
+        <mat-icon class="status-icon g-row-button"
+                  [matTooltip]="'object_validated' | translate" flIcon="validated"></mat-icon>
+      }
+
+      @if (folder.documentSize) {
+        {{ folder.documentSize | flByteText }}
+      }
+
+      @if (folder.chatEnabled) {
+        <button mat-icon-button type="button" (click)="openChat(folder, $event)"
+                [matTooltip]="'show_folder_chat' | translate"
+                [caNotificationMark]="folder.id" caNotificationObjectType="MESSAGE"
+                [caNotificationAssociatedObjectIds]="1">
+          <mat-icon>comment</mat-icon>
+        </button>
+      }
+
+      @if (folder.hasDescription) {
+        <button mat-icon-button type="button" (click)="openDescription(folder, $event)"
+                [matTooltip]="'show_folder_description' | translate">
+          <mat-icon>description</mat-icon>
+        </button>
+      }
+
+    </mat-cell>
+  </ng-container>
+
+  <!-- Custom action where template is defined by parent -->
+  <ng-container matColumnDef="customAction">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
+      <ng-container *ngTemplateOutlet="templateRef; context: getViewContent(row)"></ng-container>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
+           (click)="onFolderClick(row, $event)" (dblclick)="onFolderDblClick(row)"
+           (contextmenu)="rightClick(row, $event)"
+           [ngClass]="{'selected-row': row.id === selectedObject?.id}">
+  </mat-row>
+</mat-table>

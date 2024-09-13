@@ -1,0 +1,28 @@
+:host {
+  border-radius: 15px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  display: block;
+  word-break: break-word;
+}
+
+.icon{
+  display: flex;
+}
+
+.body {
+  //padding-top: 2em;
+  box-sizing: border-box;
+}
+
+.folder-leader-user {
+  // prevent name overflow
+  min-width: 0;
+}
+
+.dates {
+  margin-top: 1em;
+}

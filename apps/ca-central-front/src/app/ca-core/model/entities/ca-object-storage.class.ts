@@ -40,7 +40,7 @@ export enum CaBucketContentType {
   LAB_BACKUP = 'LAB_BACKUP',
   SPACE_IMAGE = 'SPACE_IMAGE',
   USER_IMAGE = 'USER_IMAGE',
-  PROJECT = 'PROJECT',
+  FOLDER = 'FOLDER',
 }
 
 export enum CaBucketType {

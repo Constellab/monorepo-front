@@ -9,10 +9,10 @@ export class CaSpaceSettingsDto {
   space: CaSpace;
 
   @Type(() => CaBucketLocationDTO)
-  defaultProjectStorageLocation: CaBucketLocationDTO;
+  defaultFolderStorageLocation: CaBucketLocationDTO;
 
   @Type(() => CaBucketLocationDTO)
-  defaultProjectBackupStorageLocation ?: CaBucketLocationDTO;
+  defaultFolderBackupStorageLocation ?: CaBucketLocationDTO;
 
 }
 
@@ -32,8 +32,8 @@ export interface CaRequestNewLicensesDto {
 
 //////////////////////////////////// STORAGE //////////////////////////////////////
 export interface CaSpaceUpdateStorageLocationDTO {
-  defaultProjectStorageLocation: CaBucketLocationDTO;
-  defaultProjectBackupStorageLocation?: CaBucketLocationDTO;
+  defaultFolderStorageLocation: CaBucketLocationDTO;
+  defaultFolderBackupStorageLocation?: CaBucketLocationDTO;
 }
 
 
@@ -42,10 +42,10 @@ export class CaSpaceStorage {
   cloudStorageUsage: number;
 
   @Type(() => CaBucketLocationDTO)
-  defaultProjectStorageLocation: CaBucketLocationDTO;
+  defaultFolderStorageLocation: CaBucketLocationDTO;
 
   @Type(() => CaBucketLocationDTO)
-  defaultBackupProjectStorageLocation ?: CaBucketLocationDTO;
+  defaultBackupFolderStorageLocation ?: CaBucketLocationDTO;
 
   get cloudStorageUsagePercent(): number {
     return this.cloudStorageUsage / this.cloudStorageLimit * 100;

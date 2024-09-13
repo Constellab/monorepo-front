@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
-import { CaProjectService } from '../../../../service-api/ca-project.service';
+import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { ClHelpService } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 
@@ -31,7 +31,7 @@ export class CaBucketLocationSelectOptionsComponent extends FlEmbeddedOptionsAbs
   datasource: CaBucketLocationDatasource;
   locations$: Observable<CaBucketLocationList>;
 
-  constructor(private projectService: CaProjectService,
+  constructor(private folderService: CaFolderService,
               @Host() private select: MatSelect) {
     super(select);
   }
@@ -41,7 +41,7 @@ export class CaBucketLocationSelectOptionsComponent extends FlEmbeddedOptionsAbs
       (a: CaBucketLocationDTO, b: CaBucketLocationDTO) => ClHelpService.compareFn(a, b, 'bucketId'));
 
     this.datasource = new CaBucketLocationDatasource(
-      (page, size) => this.projectService.findAccessibleProjectBucketLocation(page, size), 50);
+      (page, size) => this.folderService.findAccessibleFolderBucketLocation(page, size), 50);
 
     this.locations$ = this.datasource.connect().pipe(
       map(locations => this.sortLocations(locations))

@@ -1,0 +1,243 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom, Observable } from 'rxjs';
+import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
+import { map } from 'rxjs/operators';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectDatasource,
+  CaHierarchyObjectType,
+  caHierarchyObjectTypeLabels
+} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
+import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { CaConstellabDocument, CaDocument } from '../../../../../ca-core/model/entities/folder/ca-document.class';
+import { ClHelpService, ClSubscriptionHandler } from '@monorepo/core-lib';
+import {
+  FlDialogService,
+  FlDropEvent,
+  FlPortalAction,
+  FlPortalActionsService,
+  FlTableColumnStatic
+} from '@monorepo/front-core-lib';
+import {
+  CaDocumentNameFormDialogComponent,
+  CaDocumentNameFormDialogInput
+} from '../../../ca-document-core/component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
+import {
+  CaDocumentTrashListDialogComponent,
+  CaDocumentTrashListDialogInput
+} from '../ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
+import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import {
+  CaFolderTableEvent
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+
+/**
+ * Page for a folder detail
+ */
+@Component({
+  selector: 'ca-folder-detail-page',
+  templateUrl: './ca-folder-detail-page.component.html',
+  styleUrls: ['./ca-folder-detail-page.component.scss'],
+  providers: [CaFolderDetailState, CaFolderRightPanelState]
+})
+export class CaFolderDetailPageComponent implements OnInit {
+
+  folderId$: Observable<string>;
+  folder$: Observable<CaFolder>;
+
+  children: CaHierarchyObjectDatasource;
+
+  columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt', 'statusIcons', 'customAction'];
+
+  objectTypes = caHierarchyObjectTypeLabels;
+  nameFilter: string = null;
+  selectedObjectType: CaHierarchyObjectType = null;
+
+  private actionName = 'upload-folder-document';
+  private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
+
+  // TODO improve
+  private hasClicked: boolean = false;
+
+  constructor(private route: ActivatedRoute,
+              private routerService: CaRouterService,
+              private state: CaFolderDetailState,
+              private rightPanelState: CaFolderRightPanelState,
+              private folderService: CaFolderService,
+              private actionService: FlPortalActionsService,
+              private dialogService: FlDialogService) {
+    this.state.init(this.getIds$());
+  }
+
+  ngOnInit(): void {
+    this.folderId$ = this.state.getFolderId$();
+    this.folder$ = this.state.getFolder$();
+
+    this.children = this.state.getChildrenDatasource();
+
+    // call init method of right panel state on the init to let the ui load
+    this.rightPanelState.init();
+
+    this.subscription.add(this.actionService.getResult$(this.actionName).subscribe(action => {
+      if (action?.status === 'success') {
+        this.onDocumentUploaded(action.result, action.additionalInformation);
+      }
+    }));
+  }
+
+  private getIds$(): Observable<string> {
+    return this.route.params.pipe(
+      map(params => params.id)
+    );
+  }
+
+  onFolderRowEvent(event: CaFolderTableEvent): void {
+    // TODO HANDLE RIGHT CLICK AND MIDDLE CLICK
+    switch (event.action) {
+      case 'click':
+        this.onFolderClicked(event.folder);
+        break;
+      case 'dblClick':
+        this.onFolderDblClicked(event.folder);
+        break;
+      case 'openChat':
+        this.rightPanelState.updateRightPanelState({ type: 'chat', objectId: event.folder.id });
+        break;
+      case 'openDescription':
+        this.rightPanelState.updateRightPanelState({ type: 'description', objectId: event.folder.id });
+        break;
+    }
+  }
+
+  private onFolderClicked(folder: CaHierarchyObject): void {
+    this.hasClicked = true;
+    setTimeout(() => {
+      if (!this.hasClicked) return;
+      switch (folder.objectType) {
+        case CaHierarchyObjectType.FOLDER:
+          this.routerService.navigateToFolderDetail(folder.id);
+          break;
+        case CaHierarchyObjectType.REPORT:
+          this.rightPanelState.updateRightPanelState({ type: 'report', objectId: folder.id });
+          break;
+        case CaHierarchyObjectType.EXPERIMENT:
+          this.rightPanelState.updateRightPanelState({ type: 'experiment', objectId: folder.id });
+          break;
+        case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
+          this.rightPanelState.updateRightPanelState({ type: 'constellab-document', objectId: folder.id });
+          break;
+        case CaHierarchyObjectType.DOCUMENT:
+          this.handleDocumentClick(folder);
+          break;
+      }
+      this.hasClicked = false;
+    }, 200);
+  }
+
+  private onFolderDblClicked(folder: CaHierarchyObject): void {
+    this.hasClicked = false;
+    switch (folder.objectType) {
+      case CaHierarchyObjectType.FOLDER:
+        this.routerService.navigateToFolderDetail(folder.id);
+        break;
+      case CaHierarchyObjectType.REPORT:
+        this.routerService.navigateToReportDetail(folder.id);
+        break;
+      case CaHierarchyObjectType.EXPERIMENT:
+        this.routerService.navigateToExperimentDetail(folder.id);
+        break;
+      case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
+        this.routerService.navigateToDocumentDetail(folder.id);
+        break;
+      case CaHierarchyObjectType.DOCUMENT:
+        this.handleDocumentClick(folder);
+        break;
+    }
+  }
+
+  private handleDocumentClick(folder: CaHierarchyObject): void {
+    if (CaDocument.supportsPreview(folder.name)) {
+      this.routerService.navigateToDocumentPreview(folder.id);
+    } else {
+      const url = this.folderService.getDocumentPreviewUrl(folder.id, folder.name);
+      window.open(url, '_blank');
+    }
+  }
+
+  onFileDrop(event: FlDropEvent): void {
+    this.uploadDocument(event.files);
+  }
+
+  async uploadDocument(fileEvent: File | File[]): Promise<void> {
+    const folderId = await firstValueFrom(this.state.getFolderId$());
+    const files = ClHelpService.convertObjectOrArrayToArray(fileEvent);
+
+    for (const file of files) {
+
+      const action: FlPortalAction = {
+        type: this.actionName,
+        action: this.folderService.uploadDocument(file, folderId),
+        text: {
+          text: 'uploading_document',
+          translateText: true,
+          translateParam: { param: { name: file.name } }
+        },
+        additionalInformation: folderId
+      };
+
+      this.actionService.addAction(action, false);
+    }
+  }
+
+  private async onDocumentUploaded(folder: CaHierarchyObject, folderId: string): Promise<void> {
+    const currentFolderId = await firstValueFrom(this.state.getFolderId$());
+    if (currentFolderId !== folderId) return;
+    this.children.unshiftItem(folder);
+  }
+
+  async createConstellabDocument(): Promise<void> {
+    const input: CaDocumentNameFormDialogInput = {
+      mode: 'create',
+      parentFolderId: await firstValueFrom(this.state.getFolderId$())
+    };
+
+    this.dialogService.openSmallDialog(CaDocumentNameFormDialogComponent, { data: input }).afterClosed()
+      .subscribe((doc: CaConstellabDocument) => this.createConstellabDocClosed(doc));
+  }
+
+  private createConstellabDocClosed(doc?: CaConstellabDocument): void {
+    if (doc) {
+      this.routerService.navigateToDocumentDetail(doc.document.id);
+    }
+  }
+
+  async openDocumentInTrash(): Promise<void> {
+    const input: CaDocumentTrashListDialogInput = {
+      folderId: await firstValueFrom(this.state.getFolderId$())
+    };
+
+    this.dialogService.openMediumDialog(CaDocumentTrashListDialogComponent,
+      { data: input, autoFocus: false }).afterClosed()
+      .subscribe(restoredDocs => this.onDocumentInTrashClosed(restoredDocs));
+  }
+
+  private onDocumentInTrashClosed(restoredDocs?: CaHierarchyObject[]): void {
+    if (restoredDocs) {
+      // TODO FIX TYPE
+      this.children.unshiftItem(restoredDocs);
+    }
+  }
+
+  filterByName(name: string): void {
+    this.state.filterChildren({ name });
+  }
+
+  selectObjectType(type: CaHierarchyObjectType): void {
+    this.state.filterChildren({ objectType: type });
+  }
+
+
+}

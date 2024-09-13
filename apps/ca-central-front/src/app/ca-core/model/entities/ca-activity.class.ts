@@ -12,11 +12,11 @@ export enum CaActivityType {
 
 export enum CaActivityEntityType {
   USER = 'USER',
-  PROJECT = 'PROJECT',
+  FOLDER = 'FOLDER',
   EXPERIMENT = 'EXPERIMENT',
   REPORT = 'REPORT',
-  PROJECT_DOCUMENT = 'PROJECT_DOCUMENT',
-  PROJECT_COMMENT = 'PROJECT_COMMENT',
+  DOCUMENT = 'DOCUMENT',
+  MESSAGE = 'MESSAGE',
 }
 
 

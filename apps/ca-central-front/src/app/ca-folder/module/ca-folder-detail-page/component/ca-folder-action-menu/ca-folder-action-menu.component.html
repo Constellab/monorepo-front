@@ -1,0 +1,10 @@
+
+@if(isFolder()){
+  <ca-folder-actions-menu [folderInfo]="folderInfo()"
+                           [stopClickEvent]="true"
+                           (folderAction)="onFolderAction($event)"></ca-folder-actions-menu>
+}
+@else if (isDocument()) {
+  <ca-document-actions-menu [documentInfo]="documentInfo()"
+                            (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
+}

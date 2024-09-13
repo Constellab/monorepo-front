@@ -22,7 +22,7 @@ import {
   CaSpaceStorage,
   CaSpaceUpdateStorageLocationDTO
 } from '../model/entities/space/ca-space.dto';
-import { CaProjectStorageUsageDTO } from '../model/entities/project/ca-document.class';
+import { CaFolderStorageUsageDTO } from '../model/entities/folder/ca-document.class';
 
 @Injectable({
   providedIn: 'root'
@@ -123,8 +123,8 @@ export class CaSpaceService {
     return this.apiService.get(`${this.route}/current-space/storage`, CaSpaceStorage);
   }
 
-  public getCurrentSpaceStorageUsageDetail(): Observable<CaProjectStorageUsageDTO> {
-    return this.apiService.get(`${this.route}/current-space/storage/usage-detail`, CaProjectStorageUsageDTO);
+  public getCurrentSpaceStorageUsageDetail(): Observable<CaFolderStorageUsageDTO> {
+    return this.apiService.get(`${this.route}/current-space/storage/usage-detail`, CaFolderStorageUsageDTO);
   }
 
   public updateCurrentSpaceStorageLimit(storageLimit: number): Observable<CaSpaceStorage> {

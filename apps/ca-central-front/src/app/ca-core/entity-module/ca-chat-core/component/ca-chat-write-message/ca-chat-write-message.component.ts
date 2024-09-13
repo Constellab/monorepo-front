@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { TeRichText, TeRichTextContent } from '@monorepo/text-editor';
-import { CaProjectCommentTextEditorConfig } from '../../../../model/config/ca-comment-text-editor.config';
-import { CaProjectService } from '../../../../service-api/ca-project.service';
+import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
+import { CaFolderService } from '../../../../service-api/ca-folder.service';
 
 /**
  * Component to write a message in a chat
@@ -22,22 +22,22 @@ export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
   @Output() send = new EventEmitter<TeRichTextContent>();
   @Output() cancel = new EventEmitter<void>();
 
-  textEditorConfig: CaProjectCommentTextEditorConfig;
+  textEditorConfig: CaChatMessageTextEditorConfig;
 
-  constructor(private projectService: CaProjectService) {
+  constructor(private folderService: CaFolderService) {
   }
 
   ngOnInit(): void {
-    this.textEditorConfig = new CaProjectCommentTextEditorConfig(
-      this.folderId, this.projectService, this.mode);
+    this.textEditorConfig = new CaChatMessageTextEditorConfig(
+      this.folderId, this.folderService, this.mode);
   }
 
   enterEvent(event: Event): void {
     event.preventDefault();
-    this.sendComment();
+    this.sendMessage();
   }
 
-  sendComment(): void {
+  sendMessage(): void {
     if (!TeRichText.isEmpty(this.messageContent)) {
       this.send.emit(this.messageContent);
       this.messageContent = null;

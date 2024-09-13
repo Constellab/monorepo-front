@@ -7,7 +7,7 @@ import { CaChatFolderTreeComponent } from './component/ca-chat-folder-tree/ca-ch
 import { CaChatPageComponent } from './component/ca-chat-page/ca-chat-page.component';
 import { CaChatDetailPageComponent } from './component/ca-chat-detail-page/ca-chat-detail-page.component';
 import { CaChatCoreModule } from '../ca-core/entity-module/ca-chat-core/ca-chat-core.module';
-import { CaFolderCoreModule } from '../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
+import { CaHierarchyObjectCoreModule } from '../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
 import { CaNotificationCoreModule } from '../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
 
 /**
@@ -25,7 +25,7 @@ import { CaNotificationCoreModule } from '../ca-core/entity-module/ca-notificati
 
     CaCoreModule,
     CaChatCoreModule,
-    CaFolderCoreModule,
+    CaHierarchyObjectCoreModule,
     CaNotificationCoreModule,
 
     CaChatRoutingModule

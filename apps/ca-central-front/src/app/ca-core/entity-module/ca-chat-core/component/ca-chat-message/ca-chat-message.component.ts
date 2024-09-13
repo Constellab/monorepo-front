@@ -1,7 +1,7 @@
 import { Component, computed, EventEmitter, input, OnDestroy, OnInit, Output } from '@angular/core';
-import { CaProjectComment } from '../../../../model/entities/ca-comment.class';
-import { CaProjectCommentTextEditorConfig } from '../../../../model/config/ca-comment-text-editor.config';
-import { CaProjectService } from '../../../../service-api/ca-project.service';
+import { CaChatMessage } from '../../../../model/entities/ca-chat-message';
+import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
+import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { TeRichTextContent } from '@monorepo/text-editor';
@@ -16,26 +16,26 @@ import { TeRichTextContent } from '@monorepo/text-editor';
 })
 export class CaChatMessageComponent implements OnInit, OnDestroy {
 
-  comment = input.required<CaProjectComment>();
+  message = input.required<CaChatMessage>();
   folderId = input.required<string>();
 
-  @Output() commentUpdated = new EventEmitter<CaProjectComment>();
-  @Output() commentDeleted = new EventEmitter<CaProjectComment>();
+  @Output() messageUpdated = new EventEmitter<CaChatMessage>();
+  @Output() messageDeleted = new EventEmitter<CaChatMessage>();
 
-  showButtons = computed(() => this.authUserService.getCurrentUser().id === this.comment().createdBy.id &&
-    this.comment().createdAt.diffNow('minute').as('minute') > -5);
+  showButtons = computed(() => this.authUserService.getCurrentUser().id === this.message().createdBy.id &&
+    this.message().createdAt.diffNow('minute').as('minute') > -5);
 
   editMode: boolean = false;
 
-  textEditorConfig: CaProjectCommentTextEditorConfig;
+  textEditorConfig: CaChatMessageTextEditorConfig;
 
-  constructor(private projectService: CaProjectService,
+  constructor(private folderService: CaFolderService,
               private authUserService: CaAuthenticatedUserService,
               private dialogService: FlDialogService) {
   }
 
   ngOnInit(): void {
-    this.textEditorConfig = new CaProjectCommentTextEditorConfig(this.folderId(), this.projectService);
+    this.textEditorConfig = new CaChatMessageTextEditorConfig(this.folderId(), this.folderService);
   }
 
   enableEditMode(): void {
@@ -46,36 +46,36 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
     this.editMode = false;
   }
 
-  updateComment(commentContent: TeRichTextContent): void {
-    this.projectService.updateComment(this.folderId(), this.comment().id,
-      commentContent).subscribe((comment: CaProjectComment) =>
-      this.updateCommentSuccess(comment)
+  updateMessage(content: TeRichTextContent): void {
+    this.folderService.updateMessage(this.folderId(), this.message().id,
+      content).subscribe((message: CaChatMessage) =>
+      this.updateMessageSuccess(message)
     );
   }
 
-  private updateCommentSuccess(comment: CaProjectComment): void {
+  private updateMessageSuccess(message: CaChatMessage): void {
     this.disableEditMode();
-    this.commentUpdated.emit(comment);
+    this.messageUpdated.emit(message);
   }
 
-  deleteComment(): void {
+  deleteMessage(): void {
     const input: FlConfirmDialogInput = {
-      title: 'delete_comment',
-      content: 'delete_comment_confirmation',
+      title: 'delete_message',
+      content: 'delete_message_confirmation',
       translateTitleAndContent: true,
-      observable: this.projectService.deleteComment(this.folderId(),
-        this.comment().id),
-      successMessage: 'delete_comment_success',
+      observable: this.folderService.deleteMessage(this.folderId(),
+        this.message().id),
+      successMessage: 'delete_message_success',
       translateMessage: true
     };
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      (res) => this.deleteCommentClosed(res)
+      (res) => this.deleteMessageClosed(res)
     );
   }
 
-  private deleteCommentClosed(result: FlConfirmDialogResult): void {
+  private deleteMessageClosed(result: FlConfirmDialogResult): void {
     if (result.choice) {
-      this.commentDeleted.emit(this.comment());
+      this.messageDeleted.emit(this.message());
     }
   }
 

@@ -1,7 +1,7 @@
 <div class="container g-layout-row">
 
   <te-text-editor [(ngModel)]="messageContent" [config]="textEditorConfig"
-                  [placeholder]="'write_a_comment' | translate"
+                  [placeholder]="'write_a_message' | translate"
                   class="editor"
                   (keydown.control.enter)="enterEvent($event)"
                   (keydown.escape)="cancelEdit()">
@@ -13,14 +13,14 @@
     <button mat-icon-button type="button"
             class="g-button-icon-small"
             (click)="addFigureBlock()"
-            [matTooltip]="'comment_add_image' | translate">
+            [matTooltip]="'message_add_image' | translate">
       <mat-icon>image</mat-icon>
     </button>
 
     <button mat-icon-button type="button"
             class="g-button-icon-small"
-            (click)="sendComment()"
-            [matTooltip]="'comment_send' | translate"
+            (click)="sendMessage()"
+            [matTooltip]="'message_send' | translate"
             matTooltipClass="g-tooltip-multiline">
       <mat-icon>send</mat-icon>
     </button>

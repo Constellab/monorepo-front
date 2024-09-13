@@ -1,0 +1,26 @@
+<div class="g-layout-row-wrap g-layout-start-center g-text-light">
+
+  <!-- Button to toggle folder tree  -->
+  @if (showTreeButton$ | async) {
+    <button mat-icon-button type="button"
+            (click)="toggleTree()" class="toggle-button">
+      <mat-icon>account_tree</mat-icon>
+    </button>
+
+  } @else {
+    <div class="fake-button-height"></div>
+  }
+
+  @for (link of links$ | async; let last = $last; track link.id) {
+    <a [routerLink]="link.url"
+       [queryParams]="{} | caHierarchyObjectQueryParams | async"
+       class="g-text-link text">
+      {{ link.title }}
+    </a>
+
+    @if (!last) {
+      <span class="separator">></span>
+    }
+  }
+</div>
+

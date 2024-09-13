@@ -1,5 +1,9 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-  <ca-folder-icon [objectType]="folder.objectType" [folderName]="folder.name"></ca-folder-icon>
+  <ca-hierarchy-object-icon [objectType]="folderObjectType" size="small"
+                            [objectName]="folder.title"></ca-hierarchy-object-icon>
 
-  <div class="g-text-light g-text-small">{{ folder.name }}</div>
+  <div>
+    <p>{{ folder.code }}</p>
+    <p class="g-text-light g-text-small">{{ folder.title }}</p>
+  </div>
 </div>

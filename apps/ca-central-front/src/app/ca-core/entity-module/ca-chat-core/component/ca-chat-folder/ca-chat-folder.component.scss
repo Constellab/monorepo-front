@@ -5,31 +5,31 @@
   box-sizing: border-box;
 }
 
-.comment-zone {
+.chat {
   height: 100%;
   display: grid;
   grid-auto-flow: row;
   grid-template-rows: 1fr auto;
 }
 
-.comment-div {
+.message-div {
   flex-basis: auto;
   overflow-x: hidden;
   min-height: 0;
 }
 
-.comments-container {
+.messages-container {
   width: 100%;
   box-sizing: border-box;
   padding-top: 0.5em;
 }
 
-.comment {
+.message {
   margin-bottom: 1em;
 }
 
 // avoid overflow with chat button
-.new-comment {
+.new-message {
   padding-inline: 5px;
   max-height: 30em;
 }

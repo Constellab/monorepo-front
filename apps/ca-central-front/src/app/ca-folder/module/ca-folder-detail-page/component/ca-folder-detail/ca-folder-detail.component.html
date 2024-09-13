@@ -1,0 +1,62 @@
+@if (folder$ | async; as folder) {
+
+  <div class="g-layout-row g-layout-between-start">
+
+    <div class="g-layout-row-wrap g-layout-start-center">
+      <ca-hierarchy-object-icon [objectType]="folderObjectType"
+                                [objectName]="folder.title"
+                                [caNotificationMark]="folder.id"></ca-hierarchy-object-icon>
+      <h1 class="folder-title">{{ folder.title }}</h1>
+
+      <fl-user-inline [user]="folder.leader"
+                      class="folder-leader"></fl-user-inline>
+    </div>
+
+    <!--   Settings menu   -->
+    <div class="g-layout-row g-layout-gap-1em">
+
+      @if (folder.chatEnabled) {
+        <button mat-icon-button type="button" (click)="openChat(folder)"
+                [matTooltip]="'show_folder_chat' | translate"
+                class="g-button-shadow"
+                [caNotificationMark]="folderId$" caNotificationObjectType="MESSAGE"
+                [caNotificationAssociatedObjectIds]="1">
+          <mat-icon>comment</mat-icon>
+        </button>
+      }
+
+      <button mat-icon-button type="button" (click)="openDescription(folder)"
+              [matTooltip]="'show_folder_description' | translate"
+              class="g-button-shadow">
+        <mat-icon>description</mat-icon>
+      </button>
+
+      <button mat-icon-button type="button" (click)="openSettings(folder)"
+              [matTooltip]="'folder_settings' | translate"
+              class="g-button-shadow">
+        <mat-icon>settings</mat-icon>
+      </button>
+
+      @if (isRootFolder$ | async) {
+        <button mat-icon-button (click)="openUserConfigDialog(folder)" class="g-button-shadow"
+                [matTooltip]="'folder_configure_notifications' | translate">
+          <mat-icon>notifications</mat-icon>
+        </button>
+      }
+
+      @if (canEditFolder$ | async) {
+        @if (isRootFolder$ | async) {
+          <button mat-icon-button (click)="openShareDialog(folder)" class="g-button-shadow"
+                  [matTooltip]="'folder_shared_groups' | translate">
+            <mat-icon>share</mat-icon>
+          </button>
+        }
+
+        <ca-folder-actions-menu [folderInfo]="folder.info"
+                                 [folderUsers$]="folderUsers$"
+                                 (folderAction)="onFolderAction($event)"
+                                 class="actions-button g-button-shadow"></ca-folder-actions-menu>
+      }
+    </div>
+  </div>
+}

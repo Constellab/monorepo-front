@@ -14,16 +14,16 @@ export class CaSpaceStorageFormComponent {
 
   public static buildForm(): FormGroup<CaSpaceUpdateStorageLocationDTO> {
     return new FormBuilder().group({
-      defaultProjectStorageLocation: [null, [Validators.required]],
-      defaultProjectBackupStorageLocation: [null],
-    }, {validator: this.differentProjectStorageValidator()});
+      defaultFolderStorageLocation: [null, [Validators.required]],
+      defaultFolderBackupStorageLocation: [null],
+    }, {validator: this.differentFolderStorageValidator()});
   }
 
-  private static differentProjectStorageValidator(): ValidatorFn {
+  private static differentFolderStorageValidator(): ValidatorFn {
     return (control: FormGroup<CaSpaceUpdateStorageLocationDTO>): { [key: string]: any } => {
-      if (control.value.defaultProjectStorageLocation == null || control.value.defaultProjectBackupStorageLocation == null) return null;
+      if (control.value.defaultFolderStorageLocation == null || control.value.defaultFolderBackupStorageLocation == null) return null;
 
-      if (control.value.defaultProjectStorageLocation.bucketId === control.value.defaultProjectBackupStorageLocation.bucketId) {
+      if (control.value.defaultFolderStorageLocation.bucketId === control.value.defaultFolderBackupStorageLocation.bucketId) {
         return {sameBackupStorage: true};
       }
       return null;

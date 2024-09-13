@@ -7,19 +7,26 @@ import {
   FlSearchDateInterval
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
-import { CaFolderObjectType } from '../../../model/entities/project/ca-folder.class';
 
 export class CaFolderSearchFields {
 
-  name: string;
+  code: string;
 
-  @Type(() => CaUser)
-  users: CaUser[];
+  title: string;
 
   @Type(() => FlSearchDateInterval)
-  lastModifiedAt: FlSearchDateInterval;
+  startingDate: FlSearchDateInterval;
 
-  objectType: CaFolderObjectType;
+  @Type(() => FlSearchDateInterval)
+  endingDate: FlSearchDateInterval;
+
+  @Type(() => CaUser)
+  leader: CaUser;
+
+  @Type(() => FlSearchDateInterval)
+  createdAt: FlSearchDateInterval;
+
+  includeSubFolders: boolean;
 
   id: string;
 }
@@ -27,27 +34,44 @@ export class CaFolderSearchFields {
 export class CaFolderSearch {
 
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaFolderSearchFields> = {
-    name: 'name',
-    lastModifiedAt: 'date'
+    code: 'code',
+    title: 'title',
+    startingDate: 'starting_date',
+    endingDate: 'ending_date',
+    leader: 'folder_leader',
+    createdAt: 'creation_date',
+    includeSubFolders: 'include_sub_folders'
   };
 
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaFolderSearchFields> = {
-    name: { key: 'name', operator: 'MATCH' },
-    users: { key: 'user.id', operator: 'EQ', convertValue: FlSearchConverter.getEntitiesId },
-    lastModifiedAt: FlSearchConverter.dateInterval('lastModifiedAt'),
-    objectType: { key: 'objectType', operator: 'EQ' },
+    code: { key: 'code', operator: 'MATCH' },
+    title: { key: 'title', operator: 'MATCH' },
+    startingDate: FlSearchConverter.dateInterval('startingDate'),
+    endingDate: FlSearchConverter.dateInterval('endingDate'),
+    leader: { key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    createdAt: FlSearchConverter.dateInterval('createdAt'),
+    includeSubFolders: { key: 'includeSubFolders', operator: 'EQ' },
     id: { key: 'id', operator: 'EQ' }
   };
 
   public static getAdvancedSearchForm(): FormGroup<CaFolderSearchFields> {
     return new FormBuilder().group<CaFolderSearchFields>({
-      name: null,
-      users: null,
-      lastModifiedAt: new FormBuilder().group<FlSearchDateInterval>({
+      code: null,
+      title: null,
+      startingDate: new FormBuilder().group<FlSearchDateInterval>({
         from: [null],
         to: [null]
       }),
-      objectType: null,
+      endingDate: new FormBuilder().group<FlSearchDateInterval>({
+        from: [null],
+        to: [null]
+      }),
+      leader: null,
+      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+        from: [null],
+        to: [null]
+      }),
+      includeSubFolders: null,
       id: null
     });
   }

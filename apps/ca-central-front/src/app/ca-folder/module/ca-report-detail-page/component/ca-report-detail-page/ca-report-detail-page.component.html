@@ -1,0 +1,12 @@
+<div class="g-page page g-layout-col">
+
+  <ca-hierarchy-object-breadcrumb class="g-print-hide"></ca-hierarchy-object-breadcrumb>
+
+  <fl-async-section [object]="report$" class="g-flex-auto">
+
+    <ng-container *flSectionBody="report$ as report">
+      <ca-report-detail [report]="report" class="detail"></ca-report-detail>
+    </ng-container>
+
+  </fl-async-section>
+</div>

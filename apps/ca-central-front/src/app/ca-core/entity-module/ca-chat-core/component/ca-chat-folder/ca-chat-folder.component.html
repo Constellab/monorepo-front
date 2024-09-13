@@ -1,19 +1,19 @@
-<div class="comment-zone">
+<div class="chat">
 
-  <!-- List of comments -->
-  <fl-infinite-scroll [datasource]="comments()" class="comment-div" [reverseMode]="true" [textNoResult]="'no_comments'"
+  <!-- List of messages -->
+  <fl-infinite-scroll [datasource]="messages()" class="message-div" [reverseMode]="true" [textNoResult]="'no_messages'"
                       [textNoMoreResult]="''">
-    <div class="comments-container g-layout-col-reverse">
-      @for (comment of comments() | flDatasourceConnect | async; track comment.id) {
-        <ca-chat-message [comment]="comment" [folderId]="folderId()" class="comment"
-                         (commentUpdated)="commentUpdated($event)"
-                         (commentDeleted)="commentDeleted($event)"></ca-chat-message>
+    <div class="messages-container g-layout-col-reverse">
+      @for (message of messages() | flDatasourceConnect | async; track message.id) {
+        <ca-chat-message [message]="message" [folderId]="folderId()" class="message"
+                         (messageUpdated)="messageUpdated($event)"
+                         (messageDeleted)="messageDeleted($event)"></ca-chat-message>
       }
     </div>
   </fl-infinite-scroll>
 
-  <!-- Zone to write a new comment -->
-  <ca-chat-write-message [folderId]="folderId()" mode="create" (send)="createNewComment($event)"
-                         class="new-comment g-scrollable-element"></ca-chat-write-message>
+  <!-- Zone to write a new message -->
+  <ca-chat-write-message [folderId]="folderId()" mode="create" (send)="createNewMessage($event)"
+                         class="new-message g-scrollable-element"></ca-chat-write-message>
 </div>
 

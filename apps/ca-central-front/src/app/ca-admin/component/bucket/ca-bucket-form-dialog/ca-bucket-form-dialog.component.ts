@@ -61,7 +61,7 @@ export class CaBucketFormDialogComponent
       this.formGp.get('name').disable();
       this.formGp.get('region').disable();
       this.formGp.get('labInstance').enable();
-      this.formGp.get('contentType').setValue(CaBucketContentType.PROJECT);
+      this.formGp.get('contentType').setValue(CaBucketContentType.FOLDER);
       this.formGp.get('contentType').disable();
     } else {
       this.formGp.get('name').enable();

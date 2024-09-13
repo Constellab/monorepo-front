@@ -1,4 +1,4 @@
-.comment {
+.message {
   padding: 1em;
   border-top-right-radius: 1em;
   border-bottom-left-radius: 1em;
@@ -31,6 +31,6 @@
   border-radius: 4px;
 }
 
-.comment:hover .buttons {
+.message:hover .buttons {
   display: block;
 }
