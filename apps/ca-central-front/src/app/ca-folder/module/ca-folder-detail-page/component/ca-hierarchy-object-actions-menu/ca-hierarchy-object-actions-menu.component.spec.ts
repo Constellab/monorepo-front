@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CaFolderActionMenuComponent } from './ca-folder-action-menu.component';
+import { CaHierarchyObjectActionsMenuComponent } from './ca-hierarchy-object-actions-menu.component';
 
 describe('CaFolderActionMenuComponent', () => {
-  let component: CaFolderActionMenuComponent;
-  let fixture: ComponentFixture<CaFolderActionMenuComponent>;
+  let component: CaHierarchyObjectActionsMenuComponent;
+  let fixture: ComponentFixture<CaHierarchyObjectActionsMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaFolderActionMenuComponent]
+      declarations: [CaHierarchyObjectActionsMenuComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CaFolderActionMenuComponent);
+    fixture = TestBed.createComponent(CaHierarchyObjectActionsMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

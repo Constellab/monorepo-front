@@ -59,9 +59,6 @@ export class CaFolderDetailPageComponent implements OnInit {
   private actionName = 'upload-folder-document';
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  // TODO improve
-  private hasClicked: boolean = false;
-
   constructor(private route: ActivatedRoute,
               private routerService: CaRouterService,
               private state: CaFolderDetailState,
@@ -113,32 +110,26 @@ export class CaFolderDetailPageComponent implements OnInit {
   }
 
   private onFolderClicked(folder: CaHierarchyObject): void {
-    this.hasClicked = true;
-    setTimeout(() => {
-      if (!this.hasClicked) return;
-      switch (folder.objectType) {
-        case CaHierarchyObjectType.FOLDER:
-          this.routerService.navigateToFolderDetail(folder.id);
-          break;
-        case CaHierarchyObjectType.REPORT:
-          this.rightPanelState.updateRightPanelState({ type: 'report', objectId: folder.id });
-          break;
-        case CaHierarchyObjectType.EXPERIMENT:
-          this.rightPanelState.updateRightPanelState({ type: 'experiment', objectId: folder.id });
-          break;
-        case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
-          this.rightPanelState.updateRightPanelState({ type: 'constellab-document', objectId: folder.id });
-          break;
-        case CaHierarchyObjectType.DOCUMENT:
-          this.handleDocumentClick(folder);
-          break;
-      }
-      this.hasClicked = false;
-    }, 200);
+    switch (folder.objectType) {
+      case CaHierarchyObjectType.FOLDER:
+        this.routerService.navigateToFolderDetail(folder.id);
+        break;
+      case CaHierarchyObjectType.REPORT:
+        this.rightPanelState.updateRightPanelState({ type: 'report', objectId: folder.id });
+        break;
+      case CaHierarchyObjectType.EXPERIMENT:
+        this.rightPanelState.updateRightPanelState({ type: 'experiment', objectId: folder.id });
+        break;
+      case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
+        this.rightPanelState.updateRightPanelState({ type: 'constellab-document', objectId: folder.id });
+        break;
+      case CaHierarchyObjectType.DOCUMENT:
+        this.handleDocumentClick(folder);
+        break;
+    }
   }
 
   private onFolderDblClicked(folder: CaHierarchyObject): void {
-    this.hasClicked = false;
     switch (folder.objectType) {
       case CaHierarchyObjectType.FOLDER:
         this.routerService.navigateToFolderDetail(folder.id);

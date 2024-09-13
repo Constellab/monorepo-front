@@ -56,7 +56,9 @@ import {
   CaConstellabDocumentPreviewComponent
 } from './component/ca-constellab-document-preview/ca-constellab-document-preview.component';
 import { CaFolderDetailInfoComponent } from './component/ca-folder-detail-info/ca-folder-detail-info.component';
-import { CaFolderActionMenuComponent } from './component/ca-folder-action-menu/ca-folder-action-menu.component';
+import {
+  CaHierarchyObjectActionsMenuComponent
+} from './component/ca-hierarchy-object-actions-menu/ca-hierarchy-object-actions-menu.component';
 import { CaChatCoreModule } from '../../../ca-core/entity-module/ca-chat-core/ca-chat-core.module';
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 
@@ -82,7 +84,7 @@ import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-fold
     CaFolderStorageUsageSectionComponent,
     CaConstellabDocumentPreviewComponent,
     CaFolderDetailInfoComponent,
-    CaFolderActionMenuComponent
+    CaHierarchyObjectActionsMenuComponent
   ],
   imports: [
     CommonModule,

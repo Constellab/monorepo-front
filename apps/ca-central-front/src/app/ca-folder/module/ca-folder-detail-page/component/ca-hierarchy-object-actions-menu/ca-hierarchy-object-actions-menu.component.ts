@@ -1,5 +1,8 @@
 import { Component, computed, inject, input, Signal } from '@angular/core';
-import { CaHierarchyObject, CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectType
+} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaDocumentBasicInfo } from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import {
   CaDocumentActionEvent
@@ -10,16 +13,15 @@ import {
 } from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-actions-menu/ca-folder-actions-menu.component';
 import { CaFolderInfo } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 
-// TODO maybe to move to another folder
 /**
  * Action menu to handle folder actions
  */
 @Component({
-  selector: 'ca-folder-action-menu',
-  templateUrl: './ca-folder-action-menu.component.html',
-  styleUrl: './ca-folder-action-menu.component.scss'
+  selector: 'ca-hierarchy-object-actions-menu',
+  templateUrl: './ca-hierarchy-object-actions-menu.component.html',
+  styleUrl: './ca-hierarchy-object-actions-menu.component.scss'
 })
-export class CaFolderActionMenuComponent {
+export class CaHierarchyObjectActionsMenuComponent {
 
   folder = input.required<CaHierarchyObject>();
 
