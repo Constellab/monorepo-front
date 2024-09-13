@@ -15,7 +15,7 @@ import { LabEntityCoreModule } from '../../../lab-core/entity-module/lab-entity-
 import {
   LabExperimentCoreModule
 } from '../../../lab-core/entity-module/lab-experiment-core/lab-experiment-core.module';
-import { LabProjectCoreModule } from '../../../lab-core/entity-module/lab-project-core/lab-project-core.module';
+import { LabFolderCoreModule } from '../../../lab-core/entity-module/lab-folder-core/lab-folder-core.module';
 import { LabTagCoreModule } from '../../../lab-core/entity-module/lab-tag-core/lab-tag-core.module';
 import {
   LabReportInsertTemplateDialogComponent
@@ -41,7 +41,7 @@ import {
     LabResourceCoreModule,
     LabEntityCoreModule,
     LabExperimentCoreModule,
-    LabProjectCoreModule,
+    LabFolderCoreModule,
     LabTagCoreModule,
     ReactiveFormsModule,
     LabDocumentTemplateCoreModule

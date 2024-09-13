@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LabProjectObject} from '../../../../model/entities/lab-project.class';
+import {LabFolderObject} from '../../../../model/entities/lab-folder.class';
 
 /**
- * Simple component to show information about the validation of a project object
+ * Simple component to show information about the validation of a folder object
  */
 @Component({
   selector: 'lab-object-validation-info',
@@ -11,7 +11,7 @@ import {LabProjectObject} from '../../../../model/entities/lab-project.class';
 })
 export class LabObjectValidationInfoComponent implements OnInit {
 
-  @Input() object: LabProjectObject;
+  @Input() object: LabFolderObject;
 
   constructor() {
   }

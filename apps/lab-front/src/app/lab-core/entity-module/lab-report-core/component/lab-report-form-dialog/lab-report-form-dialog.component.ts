@@ -12,8 +12,8 @@ import { LabDocumentTemplate } from '../../../../model/entities/lab-document-tem
 export interface LabReportFormDialogInput extends FlFormDialogInput<LabReportForm> {
   reportId?: string;
   experimentId?: string; // can be provided during create to link the report directly to an experiment
-  project?: LabEntity;
-  disableProject?: boolean;
+  folder?: LabEntity;
+  disableFolder?: boolean;
 }
 
 @Component({
@@ -40,12 +40,12 @@ export class LabReportFormDialogComponent extends FlFormDialogAbstractDirective<
   buildForm(): FormGroup<LabReportForm> {
     const formGroup: FormGroup<LabReportForm> = new FormBuilder().group({
       title: [null, Validators.required],
-      project: [{value: this.dialogInput.project, disabled: this.isCreateMode() && this.dialogInput.project != null}],
+      folder: [{value: this.dialogInput.folder, disabled: this.isCreateMode() && this.dialogInput.folder != null}],
       template: [{value: null, disabled: this.isUpdateMode()}]
     });
 
-    if (this.dialogInput.disableProject) {
-      formGroup.get('project').disable();
+    if (this.dialogInput.disableFolder) {
+      formGroup.get('folder').disable();
     }
 
     return formGroup;

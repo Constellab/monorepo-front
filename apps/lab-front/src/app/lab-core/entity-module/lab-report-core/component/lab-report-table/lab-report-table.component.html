@@ -6,7 +6,7 @@
       <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let report" class="g-cell-with-left-border"
-              [style.border-left-color]="report.project?.id | flStringToRgb">
+              [style.border-left-color]="report.folder?.id | flStringToRgb">
 
       <!--    Invisible link  -->
       @if (!rowSelectable) {
@@ -16,11 +16,11 @@
 
       <div>
         <div class="g-text-dense-height text">{{ report.title }}</div>
-        @if (report.project) {
+        @if (report.folder) {
           <fl-text-icon class="g-text-tiny g-text-light"
                         gap="3px">
-            <mat-icon flIcon="project" class="g-icon-tiny"></mat-icon>
-            <div class="g-text-dense-height text">{{ report.project.title }}</div>
+            <mat-icon flIcon="folder" class="g-icon-tiny"></mat-icon>
+            <div class="g-text-dense-height text">{{ report.folder.title }}</div>
           </fl-text-icon>
         }
       </div>

@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LabProjectObject} from '../../../../model/entities/lab-project.class';
+import {LabFolderObject} from '../../../../model/entities/lab-folder.class';
 
 /**
- * Component to show information about the sync of a project object
+ * Component to show information about the sync of a folder object
  */
 @Component({
   selector: 'lab-object-sync-info',
@@ -11,7 +11,7 @@ import {LabProjectObject} from '../../../../model/entities/lab-project.class';
 })
 export class LabObjectSyncInfoComponent implements OnInit {
 
-  @Input() object: LabProjectObject;
+  @Input() object: LabFolderObject;
 
   constructor() {
   }

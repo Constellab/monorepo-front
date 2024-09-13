@@ -46,14 +46,14 @@ export class LabReportService {
     return this.apiService.put(`${this.route}/${id}/title`, {title: title}, LabReport);
   }
 
-  public updateProject(id: string, projectId: string): Observable<LabReport> {
-    return this.apiService.put(`${this.route}/${id}/project`, {project_id: projectId}, LabReport);
+  public updateFolder(id: string, folderId: string): Observable<LabReport> {
+    return this.apiService.put(`${this.route}/${id}/folder`, {folder_id: folderId}, LabReport);
   }
 
   private reportFormToBody(report: LabReportForm): any {
     return {
       title: report.title,
-      project_id: report.project?.id ?? null,
+      folder_id: report.folder?.id ?? null,
       template_id: report.template?.id ?? null
     };
   }
@@ -102,8 +102,8 @@ export class LabReportService {
     return this.dialogService.openConfirmDialog(input).afterClosed();
   }
 
-  public validate(reportId: string, projectId: string): Observable<LabReport> {
-    return this.apiService.put(`${this.route}/${reportId}/validate/${projectId}`, null, LabReport);
+  public validate(reportId: string, folderId: string): Observable<LabReport> {
+    return this.apiService.put(`${this.route}/${reportId}/validate/${folderId}`, null, LabReport);
   }
 
   ///////////////////////////////////////////// GET /////////////////////////////////////////////

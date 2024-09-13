@@ -14,6 +14,7 @@ import {FlActiveRouteDirective} from './fl-active-route/fl-active-route.directiv
 import {FlHideDirective} from './fl-hide/fl-hide.directive';
 import {FlClassDirective} from './fl-class/fl-class.directive';
 import {FlHideSamePageLinkDirective} from './fl-hide-same-page-link/fl-hide-same-page-link.directive';
+import { FlDoubleClickDirective } from './fl-double-click/fl-double-click.directive';
 
 /**
  * Core modules containing directives
@@ -33,6 +34,7 @@ import {FlHideSamePageLinkDirective} from './fl-hide-same-page-link/fl-hide-same
     FlHideDirective,
     FlClassDirective,
     FlHideSamePageLinkDirective,
+    FlDoubleClickDirective,
   ],
   exports: [
     FlInputMaxLengthDirective,
@@ -48,6 +50,7 @@ import {FlHideSamePageLinkDirective} from './fl-hide-same-page-link/fl-hide-same
     FlHideDirective,
     FlClassDirective,
     FlHideSamePageLinkDirective,
+    FlDoubleClickDirective,
   ],
   imports: [CommonModule, FlPortalModule],
 })

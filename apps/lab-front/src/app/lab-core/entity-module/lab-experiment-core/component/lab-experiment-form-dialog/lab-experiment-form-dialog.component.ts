@@ -11,7 +11,7 @@ import {ClHelpService} from '@monorepo/core-lib';
 
 export interface LabExperimentFormDialogInput extends FlFormDialogInput<LabExperimentSimpleForm> {
   experimentId?: string;
-  disabledProject?: boolean;
+  disabledFolder?: boolean;
 }
 
 /**
@@ -44,13 +44,13 @@ export class LabExperimentFormDialogComponent extends FlFormDialogAbstractDirect
   buildForm(): FormGroup<LabExperimentSimpleForm> {
     const formGroup: FormGroup<LabExperimentSimpleForm> = new FormBuilder().group({
       title: [null, Validators.required],
-      project: [null],
+      folder: [null],
       protocolTemplate: [null],
       protocolTemplateJsonFile: [null],
     });
 
-    if (this.isUpdateMode() && this.dialogInput.disabledProject) {
-      formGroup.get('project').disable();
+    if (this.isUpdateMode() && this.dialogInput.disabledFolder) {
+      formGroup.get('folder').disable();
     }
 
     return formGroup;

@@ -7,11 +7,11 @@
 
     <p *ngIf="helpText" class="g-text-light help-text">{{helpText| translate}}</p>
 
-    <!--    Project      -->
+    <!--    Folder      -->
     <fl-form-field>
-      <lab-project-select [formControl]="formControl" [multiple]="false"></lab-project-select>
+      <lab-folder-select [formControl]="formControl" [multiple]="false"></lab-folder-select>
       <mat-error *ngIf="formControl.hasError('required')">
-        {{'biox.project' | flErrorRequired}}
+        {{'biox.folder' | flErrorRequired}}
       </mat-error>
     </fl-form-field>
 

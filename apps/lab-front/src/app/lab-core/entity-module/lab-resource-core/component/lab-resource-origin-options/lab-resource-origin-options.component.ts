@@ -10,7 +10,7 @@ import {LabResourceOrigin} from '../../../../model/entities/resource/lab-resourc
 })
 export class LabResourceOriginOptionsComponent extends FlEmbeddedOptionsAbstractDirective implements AfterViewInit {
 
-  originOptions: LabResourceOrigin[] = ['UPLOADED', 'GENERATED', 'IMPORTED_FROM_LAB', 'S3_PROJECT_STORAGE'];
+  originOptions: LabResourceOrigin[] = ['UPLOADED', 'GENERATED', 'IMPORTED_FROM_LAB', 'S3_FOLDER_STORAGE'];
 
   constructor(@Host() @Optional() public select: MatSelect) {
     super(select);

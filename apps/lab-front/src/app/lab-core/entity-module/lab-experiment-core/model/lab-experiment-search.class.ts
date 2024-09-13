@@ -7,7 +7,7 @@ import {
 } from '@monorepo/front-core-lib';
 import { LabExperimentCreationType, LabExperimentStatus } from '../../../model/entities/lab-experiment.entity';
 import { Type } from 'class-transformer';
-import { LabProject } from '../../../model/entities/lab-project.class';
+import { LabFolder } from '../../../model/entities/lab-folder.class';
 import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { LabUser } from '../../../model/entities/lab-user.entity';
@@ -21,8 +21,8 @@ export class LabExperimentSearchFields {
   status: LabExperimentStatus;
   tags: FlTag[];
 
-  @Type(() => LabProject)
-  project: LabProject[];
+  @Type(() => LabFolder)
+  folder: LabFolder[];
 
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
@@ -49,7 +49,7 @@ export class LabExperimentSearch {
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabExperimentSearchFields> = {
     creationTypes: 'biox.experiment_creation_type',
     tags: 'flTag.tags',
-    project: 'biox.project',
+    folder: 'biox.folder',
     isArchived: 'is_archived',
     // group the creation date into one chip
     createdAt: 'creation_date',
@@ -68,7 +68,7 @@ export class LabExperimentSearch {
     creationTypes: {key: 'creation_type', operator: 'IN'},
     status: {key: 'status', operator: 'IN'},
     tags: {key: 'tags', operator: 'EQ'},
-    project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
+    folder: {key: 'folder', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
     // Date
     createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('created_at'),
@@ -89,7 +89,7 @@ export class LabExperimentSearch {
         creationTypes: [null],
         status: [null],
         tags: [null],
-        project: [null],
+        folder: [null],
         createdBy: [null],
         createdAt: new FormBuilder().group<FlSearchDateInterval>({
           from: [null],

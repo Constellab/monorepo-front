@@ -10,7 +10,7 @@ import {LabSearchConverter} from '../../../model/global/lab-search-converter.cla
 import {Type} from 'class-transformer';
 import {LabResourceOrigin} from '../../../model/entities/resource/lab-resource.entity';
 import {LabExperiment} from '../../../model/entities/lab-experiment.entity';
-import {LabProject} from '../../../model/entities/lab-project.class';
+import {LabFolder} from '../../../model/entities/lab-folder.class';
 import {LabUser} from '../../../model/entities/lab-user.entity';
 import {LabTypeEntity} from '../../../model/entities/lab-type/lab-type.entity';
 
@@ -34,7 +34,7 @@ export class LabResourceSearchFields {
 
   @Type(() => LabUser)
   createdBy: LabUser;
-  project: LabProject[];
+  folder: LabFolder[];
 
   isArchived: boolean;
   includeChildrenResource: boolean;
@@ -63,7 +63,7 @@ export class LabResourceSearch {
     // group the creation date into one chip
     createdAt: 'creation_date',
     createdBy: 'created_by',
-    project: 'biox.project',
+    folder: 'biox.folder',
     includeChildrenResource: 'resource_include_children_short',
     includeNotFlagged: 'biox.include_not_flagged_short',
     generatedByProcess: 'biox.generated_by_process',
@@ -88,7 +88,7 @@ export class LabResourceSearch {
     // Date
     createdAt: FlSearchConverter.dateInterval('created_at'),
     createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
+    folder: {key: 'folder', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
     isArchived: {key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck},
     includeChildrenResource: {
       key: 'include_children_resource',
@@ -120,7 +120,7 @@ export class LabResourceSearch {
         experiment: [null],
         createdAt: createAtFormGroup,
         createdBy: [null],
-        project: [null],
+        folder: [null],
         isArchived: [null],
         includeChildrenResource: [null],
         includeNotFlagged: [null],

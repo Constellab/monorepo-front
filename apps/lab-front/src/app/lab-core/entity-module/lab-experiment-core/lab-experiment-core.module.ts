@@ -23,7 +23,7 @@ import {
 import { LabSelectExperimentComponent } from './component/lab-select-experiment/lab-select-experiment.component';
 import { LabTagCoreModule } from '../lab-tag-core/lab-tag-core.module';
 import { LabEntityCoreModule } from '../lab-entity-core/lab-entity-core.module';
-import { LabProjectCoreModule } from '../lab-project-core/lab-project-core.module';
+import { LabFolderCoreModule } from '../lab-folder-core/lab-folder-core.module';
 import {
   LabRunningExperimentTableComponent
 } from './component/lab-running-experiment-table/lab-running-experiment-table.component';
@@ -74,7 +74,7 @@ import { LabExperimentIconsComponent } from './component/lab-experiment-icons/la
     LabCoreModule,
     LabEntityCoreModule,
     LabTagCoreModule,
-    LabProjectCoreModule,
+    LabFolderCoreModule,
     LabProcessCoreModule,
     LabProtocolTemplateCoreModule,
     LabTypeCoreModule

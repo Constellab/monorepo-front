@@ -3,7 +3,7 @@ import {FlFileHelper} from '@monorepo/front-core-lib';
 import {Expose, Type} from 'class-transformer';
 import {TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle} from '@monorepo/technical-doc';
 import {LabFlaggedEntity} from '../../global/lab-flagged-entity.class';
-import {LabProject} from '../lab-project.class';
+import {LabFolder} from '../lab-folder.class';
 import {LabBaseEntityWithUser} from '../lab-user.entity';
 import {PrResource} from '@monorepo/protocol';
 
@@ -27,7 +27,7 @@ export class LabFsNodeEntity extends LabEntity {
   }
 }
 
-export type LabResourceOrigin = 'UPLOADED' | 'GENERATED' | 'IMPORTED_FROM_LAB' | 'S3_PROJECT_STORAGE';
+export type LabResourceOrigin = 'UPLOADED' | 'GENERATED' | 'IMPORTED_FROM_LAB' | 'S3_FOLDER_STORAGE';
 
 export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEntity {
 
@@ -59,8 +59,8 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
     title: string;
   };
 
-  @Type(() => LabProject)
-  project?: LabProject;
+  @Type(() => LabFolder)
+  folder?: LabFolder;
 
   @Expose({name: 'resource_type'})
   resourceType?: TdTypeRefDTO;
@@ -80,11 +80,11 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
   }
 
   isUpdatable(): boolean {
-    return this.origin !== 'S3_PROJECT_STORAGE';
+    return this.origin !== 'S3_FOLDER_STORAGE';
   }
 
   isDeletable(): boolean {
-    return this.origin !== 'S3_PROJECT_STORAGE';
+    return this.origin !== 'S3_FOLDER_STORAGE';
   }
 
   toPrResource(): PrResource {

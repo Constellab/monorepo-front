@@ -55,8 +55,8 @@ export class LabExperimentService {
     return this.apiService.put(`${this.route}/${experimentId}/title`, { title: title }, LabExperiment);
   }
 
-  public updateProject(experimentId: string, projectId: string): Observable<LabExperiment> {
-    return this.apiService.put(`${this.route}/${experimentId}/project`, { project_id: projectId }, LabExperiment);
+  public updateFolder(experimentId: string, folderId: string): Observable<LabExperiment> {
+    return this.apiService.put(`${this.route}/${experimentId}/folder`, { folder_id: folderId }, LabExperiment);
   }
 
   private experimentFormToBody(experiment: LabExperimentSimpleForm): Observable<any> {
@@ -65,14 +65,14 @@ export class LabExperimentService {
       return FlFileHelper.readBlobContent(experiment.protocolTemplateJsonFile, true).pipe(
         map((json: any) => ({
           title: experiment.title,
-          project_id: experiment.project?.id ?? null,
+          folder_id: experiment.folder?.id ?? null,
           protocol_template_id: experiment.protocolTemplate?.id ?? null,
           protocol_template_json: json
         })));
     }
     return of({
       title: experiment.title,
-      project_id: experiment.project?.id ?? null,
+      folder_id: experiment.folder?.id ?? null,
       protocol_template_id: experiment.protocolTemplate?.id ?? null
     });
   }
@@ -107,8 +107,8 @@ export class LabExperimentService {
     return this.apiService.get(`${this.route}/${experimentId}/reset/check-impact`, LabNavigableEntityImpact);
   }
 
-  public validateExperiment(experimentId: string, projectId: string): Observable<LabExperiment> {
-    return this.apiService.put(`${this.route}/${experimentId}/validate/${projectId}`, null, LabExperiment);
+  public validateExperiment(experimentId: string, folderId: string): Observable<LabExperiment> {
+    return this.apiService.put(`${this.route}/${experimentId}/validate/${folderId}`, null, LabExperiment);
   }
 
   public cloneExperiment(id: string): Observable<LabExperiment> {

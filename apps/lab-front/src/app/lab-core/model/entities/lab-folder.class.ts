@@ -4,22 +4,20 @@ import {DateTime} from 'luxon';
 import {FlEntity} from '@monorepo/front-core-lib';
 import {Type} from 'class-transformer';
 
-export class LabProject extends LabEntity {
-  code: string;
+export class LabFolder extends LabEntity {
   title: string;
-  levelStatus: 'PARENT' | 'LEAF';
 }
 
-export class LabProjectWithChildren extends LabProject {
-  @Type(() => LabProjectWithChildren)
-  children?: LabProject[];
+export class LabFolderWithChildren extends LabFolder {
+  @Type(() => LabFolderWithChildren)
+  children?: LabFolder[];
 }
 
 /**
- * Interface representing an object inside a project that can be validated and synchronized with space
+ * Interface representing an object inside a folder that can be validated and synchronized with space
  */
-export interface LabProjectObject extends FlEntity {
-  project: LabProject;
+export interface LabFolderObject extends FlEntity {
+  folder: LabFolder;
 
   isValidated: boolean;
   validatedBy?: LabUser;

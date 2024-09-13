@@ -32,7 +32,7 @@ import {LabMonitorCoreModule} from '../../../lab-core/entity-module/lab-monitor-
 import {
   LabProgressBarCoreModule
 } from '../../../lab-core/entity-module/lab-progress-bar-core/lab-progress-bar-core.module';
-import {LabProjectCoreModule} from '../../../lab-core/entity-module/lab-project-core/lab-project-core.module';
+import {LabFolderCoreModule} from '../../../lab-core/entity-module/lab-folder-core/lab-folder-core.module';
 import {LabProcessDashboardComponent} from './component/lab-process-dashboard/lab-process-dashboard.component';
 import {LabProcessIoPanelComponent} from './component/lab-process-io-panel/lab-process-io-panel.component';
 import {
@@ -83,7 +83,7 @@ import {LabSystemCoreModule} from '../../../lab-core/entity-module/lab-system-co
     LabLogCoreModule,
     LabMonitorCoreModule,
     LabProgressBarCoreModule,
-    LabProjectCoreModule,
+    LabFolderCoreModule,
     LabProtocolTemplateCoreModule,
     LabTagCoreModule,
     LabNavigableEntityCoreModule,

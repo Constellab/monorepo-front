@@ -7,10 +7,10 @@
     <lab-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"
                   entityType="EXPERIMENT" [entityId]="experiment.id"></lab-tag-list>
 
-    <!--  Project  -->
-    <lab-project-inline-select class="separator" [(ngModel)]="experiment.project"
-                               (selectionChange)="updateProject($event)"
-                               [disabled]="!experiment.isInfoEditable()"></lab-project-inline-select>
+    <!--  Folder  -->
+    <lab-folder-inline-select class="separator" [(ngModel)]="experiment.folder"
+                               (selectionChange)="updateFolder($event)"
+                               [disabled]="!experiment.isInfoEditable()"></lab-folder-inline-select>
 
     <!--  Type  -->
     <fl-text-icon class="separator"

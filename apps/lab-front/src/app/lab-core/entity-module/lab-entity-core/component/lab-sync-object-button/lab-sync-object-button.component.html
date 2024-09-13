@@ -1,7 +1,7 @@
-<div [matTooltip]="'biox.sync_object_need_project' | translate"
-     [matTooltipDisabled]="!!object.project">
+<div [matTooltip]="'biox.sync_object_need_folder' | translate"
+     [matTooltipDisabled]="!!object.folder">
   <button mat-stroked-button type="button" class="g-button-small"
-          [disabled]="!object.project" (click)="syncClick()">
+          [disabled]="!object.folder" (click)="syncClick()">
     <mat-icon>sync</mat-icon>
     {{'biox.sync_with_space' | translate}}
     <fl-button-loader *ngIf="isLoading" size="small"></fl-button-loader>

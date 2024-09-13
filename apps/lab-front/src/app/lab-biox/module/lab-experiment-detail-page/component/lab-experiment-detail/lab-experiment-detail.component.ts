@@ -4,7 +4,7 @@ import {LabExperiment} from '../../../../../lab-core/model/entities/lab-experime
 import {LabExperimentDetailPageState} from '../../state/lab-experiment-detail-page.state';
 import {FlDebouncer, FlDialogService} from '@monorepo/front-core-lib';
 import {LabExperimentService} from '../../../../../lab-core/entity-service/lab-experiment.service';
-import {LabProject} from '../../../../../lab-core/model/entities/lab-project.class';
+import {LabFolder} from '../../../../../lab-core/model/entities/lab-folder.class';
 import {
   LabManageEntityTagsDialogComponent,
   LabManageEntityTagsDialogInput
@@ -73,10 +73,10 @@ export class LabExperimentDetailComponent implements OnInit, OnDestroy {
     this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, {data: data});
   }
 
-  updateProject(project: LabProject): void {
-    this.experimentService.updateProject(this.experimentState.currentExperiment.id, project?.id ?? null).subscribe({
+  updateFolder(folder: LabFolder): void {
+    this.experimentService.updateFolder(this.experimentState.currentExperiment.id, folder?.id ?? null).subscribe({
       next: experiment => this.experimentState.updateExperiment(experiment),
-      // call refresh experiment to set the project back
+      // call refresh experiment to set the folder back
       error: () => this.experimentState.refreshExperiment()
     });
   }

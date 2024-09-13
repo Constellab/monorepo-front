@@ -6,7 +6,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 
 interface LabSynchroForm {
   syncUsers: boolean;
-  syncProjects: boolean;
+  syncFolders: boolean;
 }
 
 /**
@@ -33,12 +33,12 @@ export class LabSynchroDialogComponent implements OnInit {
   private initFormGp(): void {
     this.formGp = new FormBuilder().group<LabSynchroForm>({
       syncUsers: true,
-      syncProjects: true
+      syncFolders: true
     });
   }
 
   submit(): void {
-    const obs = this.systemService.synchronize(this.formGp.value.syncUsers, this.formGp.value.syncProjects);
+    const obs = this.systemService.synchronize(this.formGp.value.syncUsers, this.formGp.value.syncFolders);
 
     this.actionService.addAction({
       action: obs,

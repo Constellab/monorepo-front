@@ -39,7 +39,7 @@ import {
   LabConfigureResourceViewComponent
 } from './component/lab-configure-resource-view/lab-configure-resource-view.component';
 import {LabEntityCoreModule} from '../lab-entity-core/lab-entity-core.module';
-import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module';
+import {LabFolderCoreModule} from '../lab-folder-core/lab-folder-core.module';
 import {
   LabResourceViewSpecListComponent
 } from './component/lab-resource-view-spec-list/lab-resource-view-spec-list.component';
@@ -70,8 +70,8 @@ import {
   LabImportResourceFromLinkComponent
 } from './component/lab-import-resource-from-link/lab-import-resource-from-link.component';
 import {
-  LabResourceUpdateProjectDialogComponent
-} from './component/lab-resource-update-project-dialog/lab-resource-update-project-dialog.component';
+  LabResourceUpdateFolderDialogComponent
+} from './component/lab-resource-update-folder-dialog/lab-resource-update-folder-dialog.component';
 import {LabResourceDetailComponent} from './component/lab-resource-detail/lab-resource-detail.component';
 import {
   LabResourceDetailHeaderComponent
@@ -121,7 +121,7 @@ import {
     LabResourceInfoComponent,
     LabResourceViewDetailDialogComponent,
     LabImportResourceFromLinkComponent,
-    LabResourceUpdateProjectDialogComponent,
+    LabResourceUpdateFolderDialogComponent,
     LabResourceDetailComponent,
     LabResourceDetailHeaderComponent,
     LabResourceInfoDialogComponent,
@@ -149,7 +149,7 @@ import {
     LabResourceViewDetailDialogComponent,
     LabResourceViewSpecListComponent,
     LabImportResourceFromLinkComponent,
-    LabResourceUpdateProjectDialogComponent,
+    LabResourceUpdateFolderDialogComponent,
     LabResourceDetailComponent,
     LabResourceRichTextViewComponent,
   ],
@@ -166,7 +166,7 @@ import {
     LabExperimentCoreModule,
     LabTagCoreModule,
     LabEntityCoreModule,
-    LabProjectCoreModule,
+    LabFolderCoreModule,
     LabViewConfigCoreModule,
     LabReportCoreModule,
     LabShareCoreModule,

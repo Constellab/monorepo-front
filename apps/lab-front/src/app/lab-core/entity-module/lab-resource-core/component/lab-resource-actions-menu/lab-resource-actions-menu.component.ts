@@ -18,10 +18,10 @@ import {
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResourceDownloadService } from '../../../../entity-service/lab-resource-download.service';
 import {
-  LabResourceUpdateProjectDialogComponent,
-  LabResourceUpdateProjectDialogInput,
-  LabResourceUpdateProjectDialogOutput
-} from '../lab-resource-update-project-dialog/lab-resource-update-project-dialog.component';
+  LabResourceUpdateFolderDialogComponent,
+  LabResourceUpdateFolderDialogInput,
+  LabResourceUpdateFolderDialogOutput
+} from '../lab-resource-update-folder-dialog/lab-resource-update-folder-dialog.component';
 import {
   LabNavigableEntityService,
   LabNavigableImpactConfig
@@ -103,19 +103,19 @@ export class LabResourceActionsMenuComponent implements OnInit {
     }
   }
 
-  openUpdateProject(): void {
-    const data: LabResourceUpdateProjectDialogInput = {
+  openUpdateFolder(): void {
+    const data: LabResourceUpdateFolderDialogInput = {
       resourceId: this.resource.id,
       experiment: this.resource.experiment,
-      project: this.resource.project
+      folder: this.resource.folder
     };
-    this.dialogService.openSmallDialog(LabResourceUpdateProjectDialogComponent, {data: data})
-      .afterClosed().subscribe(project => this.updateProjectClosed(project));
+    this.dialogService.openSmallDialog(LabResourceUpdateFolderDialogComponent, {data: data})
+      .afterClosed().subscribe(folder => this.updateFolderClosed(folder));
   }
 
-  private updateProjectClosed(result?: LabResourceUpdateProjectDialogOutput): void {
+  private updateFolderClosed(result?: LabResourceUpdateFolderDialogOutput): void {
     if (result) {
-      this.resource.project = result.project;
+      this.resource.folder = result.folder;
       this.update.next(this.resource);
     }
   }

@@ -23,19 +23,19 @@
 
   </div>
 
-  <!--  Projects -->
-  <mat-expansion-panel [expanded]="true" class="g-full" *ngIf="showProjectFilter">
+  <!--  Folders -->
+  <mat-expansion-panel [expanded]="true" class="g-full" *ngIf="showFolderFilter">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <fl-text-icon>
-          <mat-icon flIcon="project"></mat-icon>
-          {{ 'biox.projects' | translate }}
+          <mat-icon flIcon="folder"></mat-icon>
+          {{ 'biox.folders' | translate }}
         </fl-text-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <lab-project-select formControlName="project" (selectionChange)="callSearch()"
-                        class="projects g-scrollable-element"></lab-project-select>
+    <lab-folder-select formControlName="folder" (selectionChange)="callSearch()"
+                        class="folders g-scrollable-element"></lab-folder-select>
   </mat-expansion-panel>
 
   <!--   Tags    -->

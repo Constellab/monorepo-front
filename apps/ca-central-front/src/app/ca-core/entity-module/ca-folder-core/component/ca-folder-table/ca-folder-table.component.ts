@@ -1,4 +1,4 @@
-import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 import { FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib';
 import { CaFolder, CaFolderDatasource } from '../../../../model/entities/folder/ca-folder.class';
 import { CaRouterService } from '../../../../service/ca-router.service';

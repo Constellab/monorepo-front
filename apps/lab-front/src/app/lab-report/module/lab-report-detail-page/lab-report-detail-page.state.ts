@@ -40,7 +40,7 @@ export class LabReportDetailPageState implements OnDestroy {
   public updateReport(report: LabReport): void {
     const currentReport = this.currentReport;
     currentReport.title = report.title;
-    currentReport.project = report.project;
+    currentReport.folder = report.folder;
     currentReport.isValidated = report.isValidated;
     currentReport.isArchived = report.isArchived;
     this.report$.next(currentReport);

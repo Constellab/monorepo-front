@@ -84,10 +84,10 @@
                         [showNoTagMessage]="true" class="separator"></lab-tag-list>
 
 
-          <!--  Project  -->
-          <lab-project-inline-select [(ngModel)]="report.project" (selectionChange)="updateProject($event)"
+          <!--  Folder  -->
+          <lab-folder-inline-select [(ngModel)]="report.folder" (selectionChange)="updateFolder($event)"
                                      [disabled]="!report.isEditable()" class="separator"
-                                     [updateProjectHelpText]="'biox.update_report_project_help' | translate"></lab-project-inline-select>
+                                     [updateFolderHelpText]="'biox.update_report_folder_help' | translate"></lab-folder-inline-select>
 
           <!--  Validated info  -->
           <lab-object-validation-info class="separator" [object]="report"

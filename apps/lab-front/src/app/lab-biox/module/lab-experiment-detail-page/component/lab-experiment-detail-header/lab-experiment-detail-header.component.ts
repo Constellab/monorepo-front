@@ -26,7 +26,7 @@ import {
   LabValidateObjectDialogComponent,
   LabValidateObjectDialogInput
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
-import { LabProject } from '../../../../../lab-core/model/entities/lab-project.class';
+import { LabFolder } from '../../../../../lab-core/model/entities/lab-folder.class';
 import { LabQueueService } from '../../../../../lab-core/entity-service/lab-queue.service';
 import {
   LabLogBetweenDatesDialogInput,
@@ -99,9 +99,9 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
     const input: LabValidateObjectDialogInput = {
       title: 'biox.validate_experiment',
-      validate: (project: LabProject): Observable<any> =>
-        this.experimentService.validateExperiment(experiment.id, project.id),
-      project: experiment.project,
+      validate: (folder: LabFolder): Observable<any> =>
+        this.experimentService.validateExperiment(experiment.id, folder.id),
+      folder: experiment.folder,
       helpText: 'biox.validate_experiment_help_text',
       successMessage: 'biox.experiment_validated'
     };
@@ -180,7 +180,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const input: LabReportFormDialogInput = {
       mode: 'create',
       experimentId: experiment.id,
-      project: experiment.project
+      folder: experiment.folder
     };
 
     this.dialogService.openSmallDialog(LabReportFormDialogComponent, { data: input }).afterClosed().subscribe(

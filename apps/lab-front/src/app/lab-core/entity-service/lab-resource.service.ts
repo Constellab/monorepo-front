@@ -84,8 +84,8 @@ export class LabResourceService {
     return this.apiService.put(`${this.route}/${id}/flagged`, {flagged: flagged}, LabResource);
   }
 
-  public updateProject(id: string, projectId: string): Observable<LabResource> {
-    return this.apiService.put(`${this.route}/${id}/project`, {project_id: projectId}, LabResource);
+  public updateFolder(id: string, folderId: string): Observable<LabResource> {
+    return this.apiService.put(`${this.route}/${id}/folder`, {folder_id: folderId}, LabResource);
   }
 
   //////////////////////////////////////// RESOURCE TYPE ///////////////////////////////////////

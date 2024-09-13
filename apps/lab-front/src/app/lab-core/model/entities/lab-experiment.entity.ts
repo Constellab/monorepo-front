@@ -11,7 +11,7 @@ import { Expose, Type } from 'class-transformer';
 import { LabBaseEntityWithUser, LabUser } from './lab-user.entity';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
-import { LabProject, LabProjectObject } from './lab-project.class';
+import { LabFolder, LabFolderObject } from './lab-folder.class';
 import { LabRunningProcessInfo } from './process/lab-process.entity';
 import { TeRichTextContent } from '@monorepo/text-editor';
 
@@ -41,7 +41,7 @@ export const flExperimentCreationTypes: FlStatusDict<LabExperimentCreationType> 
     'cloud_download', 'biox.experiment_creation_type_help_IMPORTED')
 };
 
-export class LabExperiment extends LabBaseEntityWithUser implements LabProjectObject {
+export class LabExperiment extends LabBaseEntityWithUser implements LabFolderObject {
 
   title: string;
 
@@ -81,8 +81,8 @@ export class LabExperiment extends LabBaseEntityWithUser implements LabProjectOb
     return this.lastSyncAt != null;
   }
 
-  @Type(() => LabProject)
-  project: LabProject;
+  @Type(() => LabFolder)
+  folder: LabFolder;
 
   @Expose({ name: 'pid_status' })
   pidStatus: LabExperimentPidStatus;
@@ -135,7 +135,7 @@ export type LabExperimentDatasource = FlEntityPaginatedDatasource<LabExperiment>
 // form object to create an experiment
 export interface LabExperimentSimpleForm {
   title: string;
-  project: LabEntity;
+  folder: LabEntity;
   protocolTemplate?: FlEntity;
   protocolTemplateJsonFile?: File;
 }
@@ -148,7 +148,7 @@ export class LabRunningExperimentInfo extends LabEntity {
   @Type(() => LabRunningProcessInfo)
   runningTasks: LabRunningProcessInfo;
 
-  project: {
+  folder: {
     id: string;
     title: string;
   };

@@ -9,7 +9,7 @@ import {FormGroup} from '@ngneat/reactive-forms';
 })
 export class LabViewConfigSearchFormComponent implements OnInit {
 
-  @Input() showProjectFilter: boolean = true;
+  @Input() showFolderFilter: boolean = true;
 
   formGp: FormGroup;
 

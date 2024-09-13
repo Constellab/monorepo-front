@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {LabProject} from '../../../../model/entities/lab-project.class';
+import {LabFolder} from '../../../../model/entities/lab-folder.class';
 import {Observable} from 'rxjs';
 import {FormControl} from '@ngneat/reactive-forms';
 import {FlSnackBarService} from '@monorepo/front-core-lib';
@@ -12,15 +12,15 @@ export interface LabValidateObjectDialogInput {
 
   helpText?: string;
 
-  validate(project: LabProject): Observable<any>;
+  validate(folder: LabFolder): Observable<any>;
 
   successMessage: string;
 
-  project?: LabEntity;
+  folder?: LabEntity;
 }
 
 /**
- * Generic dialog to validate an object by selecting a project.
+ * Generic dialog to validate an object by selecting a folder.
  * This works for experiments and reports
  */
 @Component({
@@ -49,7 +49,7 @@ export class LabValidateObjectDialogComponent implements OnInit {
   }
 
   private initFormControl(): void {
-    this.formControl = new FormControl(this.dialogInput.project, Validators.required);
+    this.formControl = new FormControl(this.dialogInput.folder, Validators.required);
   }
 
   submit(): void {
@@ -59,8 +59,8 @@ export class LabValidateObjectDialogComponent implements OnInit {
     }
   }
 
-  private validateObject(project: LabProject): void {
-    this.dialogInput.validate(project).subscribe(
+  private validateObject(folder: LabFolder): void {
+    this.dialogInput.validate(folder).subscribe(
       object => this.validateSuccess(object),
       () => this.isLoading = false
     );

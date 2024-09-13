@@ -14,7 +14,7 @@ import {
   LabValidateObjectDialogComponent,
   LabValidateObjectDialogInput
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
-import { LabProject } from '../../../../../lab-core/model/entities/lab-project.class';
+import { LabFolder } from '../../../../../lab-core/model/entities/lab-folder.class';
 import { LabDocumentTemplateService } from '../../../../../lab-core/entity-service/lab-document-template.service';
 import { LabDocumentTemplate } from '../../../../../lab-core/model/entities/lab-document-template.entity';
 import { LabReportTextEditorConfig } from '../../lab-report-text-editor-config.class';
@@ -81,10 +81,10 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateProject(project: LabProject): void {
-    this.reportService.updateProject(this.state.currentReport.id, project?.id ?? null).subscribe({
+  updateFolder(folder: LabFolder): void {
+    this.reportService.updateFolder(this.state.currentReport.id, folder?.id ?? null).subscribe({
       next: report => this.state.updateReport(report),
-      // call refresh report to set the project back
+      // call refresh report to set the folder back
       error: () => this.state.refreshReport()
     });
   }
@@ -96,10 +96,10 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
       reportId: report.id,
       object: {
         title: report.title,
-        project: report.project,
+        folder: report.folder,
         template: null,
       },
-      disableProject: report.isSynced
+      disableFolder: report.isSynced
     };
 
     this.dialogService.openSmallDialog(LabReportFormDialogComponent, {data: input}).afterClosed().subscribe(
@@ -132,8 +132,8 @@ export class LabReportDetailPageComponent implements OnInit, OnDestroy {
 
     const input: LabValidateObjectDialogInput = {
       title: 'biox.validate_report',
-      validate: (project: LabProject): Observable<any> => this.reportService.validate(report.id, project.id),
-      project: report.project,
+      validate: (folder: LabFolder): Observable<any> => this.reportService.validate(report.id, folder.id),
+      folder: report.folder,
       helpText: 'biox.validate_report_help_text',
       successMessage: 'biox.report_validated'
     };

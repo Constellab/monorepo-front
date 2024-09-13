@@ -11,7 +11,7 @@ import {
   LabSelectReportDialogComponent
 } from './component/lab-select-report-dialog/lab-select-report-dialog.component';
 import { LabEntityCoreModule } from '../lab-entity-core/lab-entity-core.module';
-import { LabProjectCoreModule } from '../lab-project-core/lab-project-core.module';
+import { LabFolderCoreModule } from '../lab-folder-core/lab-folder-core.module';
 import { LabSelectReportComponent } from './component/lab-select-report/lab-select-report.component';
 import { LabReportInlineComponent } from './component/lab-report-inline/lab-report-inline.component';
 import { LabDocumentTemplateCoreModule } from '../lab-document-template-core/lab-document-template-core.module';
@@ -49,7 +49,7 @@ import { LabTagCoreModule } from '../lab-tag-core/lab-tag-core.module';
 
     LabCoreModule,
     LabEntityCoreModule,
-    LabProjectCoreModule,
+    LabFolderCoreModule,
     LabDocumentTemplateCoreModule,
     LabTagCoreModule
   ]

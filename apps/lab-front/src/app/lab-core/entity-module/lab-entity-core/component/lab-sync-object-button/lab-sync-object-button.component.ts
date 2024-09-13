@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LabProjectObject} from '../../../../model/entities/lab-project.class';
+import {LabFolderObject} from '../../../../model/entities/lab-folder.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -9,14 +9,14 @@ import {
 import {Observable} from 'rxjs';
 
 /**
- * Component containing the button to sync a lab project object with space
+ * Component containing the button to sync a lab folder object with space
  */
 @Component({
   selector: 'lab-sync-object-button',
   templateUrl: './lab-sync-object-button.component.html',
   styleUrls: ['./lab-sync-object-button.component.scss']
 })
-export class LabSyncObjectButtonComponent<T extends LabProjectObject> implements OnInit {
+export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements OnInit {
 
   @Input() object: T;
 

@@ -1,7 +1,7 @@
 import { LabBaseEntityWithUser, LabUser } from './lab-user.entity';
 import { Expose, Type } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
-import { LabProject, LabProjectObject } from './lab-project.class';
+import { LabFolder, LabFolderObject } from './lab-folder.class';
 import { LabEntity } from '../global/lab-entity.entity';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
@@ -10,12 +10,12 @@ import { TeRichTextContent } from '@monorepo/text-editor';
 
 export type LabReportContent = TeRichTextContent;
 
-export class LabReport extends LabBaseEntityWithUser implements LabProjectObject {
+export class LabReport extends LabBaseEntityWithUser implements LabFolderObject {
 
   title: string;
 
-  @Type(() => LabProject)
-  project: LabProject;
+  @Type(() => LabFolder)
+  folder: LabFolder;
 
   @Expose({name: 'is_validated'})
   isValidated: boolean;
@@ -53,7 +53,7 @@ export type LabReportDatasource = FlDatasourcePaginated<LabReport>;
 
 export interface LabReportForm {
   title: string;
-  project: LabEntity;
+  folder: LabEntity;
   template: LabDocumentTemplate;
 }
 
