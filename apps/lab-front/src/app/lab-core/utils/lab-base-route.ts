@@ -3,7 +3,7 @@
  */
 export const labConstBaseRoute = 'app';
 
-export const labConstBioxRoute = 'biox';
+export const labConstExpeirmentRoute = 'experiment';
 export const labConstBiotaRoute = 'biota';
 export const labConstDataboxRoute = 'databox';
 export const labConstReportRoute = 'report';
@@ -14,7 +14,7 @@ export const labConstProtocolTemplateRoute = 'protocol-template';
 export const labConstDocumentTemplateRoute = 'document-template';
 export const labConstLoginRoute = '/login';
 
-export const labConstBioxFullRoute = `/${labConstBaseRoute}/${labConstBioxRoute}`;
+export const labConstBioxFullRoute = `/${labConstBaseRoute}/${labConstExpeirmentRoute}`;
 export const labConstBiotaFullRoute = `/${labConstBaseRoute}/${labConstBiotaRoute}`;
 export const labConstDataboxFullRoute = `/${labConstBaseRoute}/${labConstDataboxRoute}`;
 export const labConstReportFullRoute = `/${labConstBaseRoute}/${labConstReportRoute}`;

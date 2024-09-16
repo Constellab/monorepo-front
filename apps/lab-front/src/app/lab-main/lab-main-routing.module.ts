@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   labConstBaseRoute,
   labConstBiotaRoute,
-  labConstBioxRoute,
   labConstDataboxRoute,
   labConstDocRoute,
   labConstDocumentTemplateRoute,
+  labConstExpeirmentRoute,
   labConstMonitoringRoute,
   labConstProtocolTemplateRoute,
   labConstReportRoute,
@@ -30,12 +30,12 @@ const routes: Routes = [
     path: labConstBaseRoute, component: LabMainAppComponent, canActivate: [LabLoadEnvironmentGuard],
     children: [
       {
-        path: '', redirectTo: labConstBioxRoute, pathMatch: 'full'
+        path: '', redirectTo: labConstExpeirmentRoute, pathMatch: 'full'
       },
 
       ////////////////////////  BIOX  /////////////////////////
       {
-        path: labConstBioxRoute,
+        path: labConstExpeirmentRoute,
         loadChildren: () => import('../lab-biox/lab-biox.module').then(m => m.LabBioxModule)
       },
 

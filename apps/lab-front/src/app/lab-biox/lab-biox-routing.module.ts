@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import {
   LabExperimentsListPageComponent
 } from './module/lab-experiments-page/component/lab-experiments-page-list/lab-experiments-list-page.component';
@@ -9,7 +9,7 @@ import {
 
 const routes: Routes = [
   {path: '', component: LabExperimentsListPageComponent},
-  {path: 'experiment/:id', component: LabExperimentDetailPageComponent},
+  {path: ':id', component: LabExperimentDetailPageComponent},
 ];
 
 @NgModule({

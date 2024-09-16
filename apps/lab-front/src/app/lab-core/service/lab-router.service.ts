@@ -36,7 +36,7 @@ export class LabRouterService {
   }
 
   public static getExperimentDetailRoute(id: string): string {
-    return `${labConstBioxFullRoute}/experiment/${id}`;
+    return `${labConstBioxFullRoute}/${id}`;
   }
 
   public static getProtocolTemplatesRoute(): string {
