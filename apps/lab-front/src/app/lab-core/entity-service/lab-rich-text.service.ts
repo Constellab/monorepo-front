@@ -46,7 +46,7 @@ export class LabRichTextService {
   }
 
   getFileView(objectType: LabRichTextObjectType, objectId: string, filename: string): Observable<LabResourceView> {
-    return this.apiService.get(`${this.route}/${objectType}/${objectId}/file-view/${filename}`);
+    return this.apiService.get(`${this.route}/${objectType}/${objectId}/file-view/${filename}`, LabResourceView);
   }
 
   transcribeAudio(audio: Blob): Observable<TeRichTextContent> {
