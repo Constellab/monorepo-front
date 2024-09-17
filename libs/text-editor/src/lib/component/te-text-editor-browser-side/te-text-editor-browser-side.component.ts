@@ -1,5 +1,6 @@
 import {
   ApplicationRef,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EnvironmentInjector,
@@ -31,10 +32,15 @@ import { TeEvent } from '../../model/te-event.class';
   selector: 'te-text-editor-browser-side',
   templateUrl: './te-text-editor-browser-side.component.html',
   styleUrl: './te-text-editor-browser-side.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
-  @Input({required: true}) config: TeConfig;
+  static id = 0;
+
+  id = TeTextEditorBrowserSideComponent.id++;
+
+  @Input({ required: true }) config: TeConfig;
 
   @Input() event: TeEvent;
 
@@ -42,9 +48,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
 
-  @ViewChild('editorContainer', {static: true}) editorContainer: ElementRef<HTMLElement>;
+  @ViewChild('editorContainer', { static: true }) editorContainer: ElementRef<HTMLElement>;
 
-  @Input({required: true}) set value(value: TeRichTextContent) {
+  @Input({ required: true }) set value(value: TeRichTextContent) {
     // check if value has changed to avoid circular updates
     if (TeRichText.contentAreEquals(value, this._value)) return;
     this._value = value;
@@ -83,6 +89,9 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   private outsideUndoRedoListener = async (e: any): Promise<void> => {
     await this.checkKey(e);
   };
+
+  // use to prevent init is the component is destroyed
+  private destroyed = false;
 
   constructor(private envInjector: EnvironmentInjector,
               private applicationRef: ApplicationRef,
@@ -132,8 +141,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   async undoEvent(event: Event): Promise<void> {
-    event.preventDefault()
-    event.stopPropagation()
+    event.preventDefault();
+    event.stopPropagation();
 
     if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo && !this._disabled) {
       const undoResult: TeRichTextUndoRedoResult = TeRichText.undoModification(this._value, this.modificationGroup);
@@ -171,8 +180,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   async redoEvent(event: Event): Promise<void> {
-    event.preventDefault()
-    event.stopPropagation()
+    event.preventDefault();
+    event.stopPropagation();
 
     if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo && !this._disabled) {
       const redoResult: TeRichTextUndoRedoResult = TeRichText.redoModification(this._value, this.modificationGroup);
@@ -211,6 +220,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   private async initEditor(module: any): Promise<void> {
+    if (this.destroyed) return;
     const config: EditorConfig = {
       placeholder: this.placeholder ?? this.translateService.translate('teTextEditor.placeholder'),
       holder: this.editorContainer.nativeElement,
@@ -221,10 +231,12 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       onChange: () => this.onTextEditorChange(),
       defaultBlock: this.config.getDefaultBlock(),
       tunes: this.config.getTunes(),
-      i18n: teGetI18nConfig(this.translateService),
+      i18n: teGetI18nConfig(this.translateService)
     };
     this.editor = new module.default(config);
     this.editor.isReady.then(() => {
+      // if the destroy method was called
+      if (this.destroyed) return;
       // render the value here and not in the editor config
       // because if the editor config is initialized with data
       // a blank line is added
@@ -238,6 +250,8 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   private renderValue(value: TeRichTextContent): void {
     if (this.editor) {
       this.editor.isReady.then(() => {
+        // if the destroy method was called
+        if (this.destroyed) return;
         if (ClHelpService.isNullOrEmpty(value)) {
           this.editor.clear();
         } else {
@@ -325,8 +339,13 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.editor && this.editor.destroy) {
-      this.editor.destroy();
+    this.destroyed = true;
+    if (this.editor) {
+      // wait for the editor to be ready before destroying it
+      // we must destroy it, otherwise there is a memory leak
+      this.editor.isReady.then(() => {
+        this.editor.destroy();
+      });
     }
     this.isLoaded$.complete();
     this.subscription?.unsubscribe();
