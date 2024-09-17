@@ -55,21 +55,21 @@ export class CaHierarchyObjectActionsMenuComponent {
     if (event.action === 'update') {
       this.state.updateFolder(event.folder);
     } else if (event.action === 'delete') {
-      this.state.deleteFolder(event.folder.id);
+      this.state.deleteHierarchyObject(event.folder.id);
     } else if (event.action === 'createChild') {
-      this.state.addFolderChild(event.folder.hierarchyRepresentation);
+      this.state.addChild(event.folder.hierarchyRepresentation);
     }
   }
 
   onDocumentAction(event: CaDocumentActionEvent): void {
     if (event.action === 'update') {
-      this.state.updatePartialFolderChild(event.document.id, { name: event.document.name });
+      this.state.updatePartialChild(event.document.id, { name: event.document.name });
     } else if (event.action === 'delete') {
-      this.state.deleteFolder(this.folder().id);
+      this.state.deleteHierarchyObject(this.folder().id);
     } else if (event.action === 'moveToTrash') {
-      this.state.deleteFolder(event.document.id);
+      this.state.deleteHierarchyObject(event.document.id);
     } else if (event.action === 'moveToFolder') {
-      this.state.deleteFolder(event.document.id);
+      this.state.deleteHierarchyObject(event.document.id);
     }
   }
 }

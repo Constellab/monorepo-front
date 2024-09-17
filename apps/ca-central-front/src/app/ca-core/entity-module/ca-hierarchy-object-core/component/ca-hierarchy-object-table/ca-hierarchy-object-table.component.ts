@@ -1,11 +1,14 @@
 import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { FlMouseButton, FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib';
-import { CaHierarchyObject, CaHierarchyObjectDatasource } from '../../../../model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectDatasource
+} from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { ClHelpService } from '@monorepo/core-lib';
 
-export interface CaFolderTableEvent {
+export interface CaHierarchyObjectTableEvent {
   action: 'click' | 'dblClick' | 'rightClick' | 'middleClick' | 'openChat' | 'openDescription';
-  folder: CaHierarchyObject;
+  hierarchyObject: CaHierarchyObject;
 }
 
 @Component({
@@ -23,7 +26,7 @@ export class CaHierarchyObjectTableComponent {
 
   @Input() selectedObject: CaHierarchyObject;
 
-  @Output() rowEvent: EventEmitter<CaFolderTableEvent> = new EventEmitter();
+  @Output() rowEvent: EventEmitter<CaHierarchyObjectTableEvent> = new EventEmitter();
 
   // to support custom column
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
@@ -33,30 +36,30 @@ export class CaHierarchyObjectTableComponent {
       this.selectedObject = folder;
       this.rowEvent.emit({
         action: event.button === FlMouseButton.LEFT ? 'click' : event.button === FlMouseButton.MIDDLE ? 'middleClick' : 'rightClick',
-        folder
+        hierarchyObject: folder
       });
     }
   }
 
   onFolderDblClick(object: CaHierarchyObject): void {
     if (this.rowSelectable) {
-      this.rowEvent.emit({ action: 'dblClick', folder: object });
+      this.rowEvent.emit({ action: 'dblClick', hierarchyObject: object });
     }
   }
 
   rightClick(object: CaHierarchyObject, event: Event): void {
     ClHelpService.stopEventPropagation(event);
-    this.rowEvent.emit({ action: 'rightClick', folder: object });
+    this.rowEvent.emit({ action: 'rightClick', hierarchyObject: object });
   }
 
   openChat(object: CaHierarchyObject, event: Event): void {
     ClHelpService.stopEventPropagation(event);
-    this.rowEvent.emit({ action: 'openChat', folder: object });
+    this.rowEvent.emit({ action: 'openChat', hierarchyObject: object });
   }
 
   openDescription(object: CaHierarchyObject, event: Event): void {
     ClHelpService.stopEventPropagation(event);
-    this.rowEvent.emit({ action: 'openDescription', folder: object });
+    this.rowEvent.emit({ action: 'openDescription', hierarchyObject: object });
   }
 
   getViewContent(object: CaHierarchyObject): FlViewContext<CaHierarchyObject> {

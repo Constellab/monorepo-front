@@ -22,6 +22,7 @@ import {
 })
 export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
 
+
   @ViewChild('container', { static: true, read: ViewContainerRef }) container: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<any>;
@@ -36,7 +37,10 @@ export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
   private createComponent(rightPanelState: CaFolderDetailRightPanel): void {
     switch (rightPanelState.type) {
       case 'description':
-        this.viewComponentRef = this.container.createComponent(CaFolderDescriptionComponent);
+        const descComponent = this.container.createComponent(CaFolderDescriptionComponent);
+        descComponent.instance.folderId = rightPanelState.objectId;
+        descComponent.instance.folderName = rightPanelState.objectName;
+        this.viewComponentRef = descComponent;
         break;
       case 'report':
         const reportComponent = this.container.createComponent(CaFolderReportPreviewComponent);

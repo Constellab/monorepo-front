@@ -15,19 +15,24 @@ import {
 } from './component/ca-hierarchy-object-inline/ca-hierarchy-object-inline.component';
 import { RouterModule } from '@angular/router';
 import { CaNotificationCoreModule } from '../ca-notification-core/ca-notification-core.module';
+import {
+  CaHierarchyObjectTreeComponent
+} from './component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
 
 @NgModule({
   declarations: [
     CaHierarchyObjectCardComponent,
     CaHierarchyObjectIconComponent,
     CaHierarchyObjectTableComponent,
-    CaHierarchyObjectInlineComponent
+    CaHierarchyObjectInlineComponent,
+    CaHierarchyObjectTreeComponent
   ],
   exports: [
     CaHierarchyObjectCardComponent,
     CaHierarchyObjectIconComponent,
     CaHierarchyObjectTableComponent,
-    CaHierarchyObjectInlineComponent
+    CaHierarchyObjectInlineComponent,
+    CaHierarchyObjectTreeComponent
   ],
   imports: [
     CommonModule,

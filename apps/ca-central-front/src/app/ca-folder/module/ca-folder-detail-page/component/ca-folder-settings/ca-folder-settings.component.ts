@@ -35,7 +35,7 @@ export class CaFolderSettingsComponent {
     this.state.updateFolder(folder);
     if (folder.chatEnabled) {
       this.snackBarService.openSuccessMessage({ text: 'folder_chat_activated', translateText: true });
-      this.rightPanelState.updateRightPanelState({ type: 'chat', objectId: folder.id });
+      this.rightPanelState.updateRightPanelState({ type: 'chat', objectId: folder.id, objectName: folder.title });
     } else {
       this.snackBarService.openSuccessMessage({ text: 'folder_chat_deactivated', translateText: true });
     }

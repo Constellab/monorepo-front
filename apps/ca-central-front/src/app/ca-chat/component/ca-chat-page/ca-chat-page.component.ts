@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
 import { CaChatState } from '../ca-chat.state';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectWithChildren
+} from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { Observable } from 'rxjs';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'ca-chat-page',
@@ -9,7 +16,17 @@ import { CaChatState } from '../ca-chat.state';
 })
 export class CaChatPageComponent {
 
-  constructor(private state: CaChatState) {
-    this.state.init();
+  hierarchyObjects$: Observable<CaHierarchyObjectWithChildren[]>;
+
+  selectedObjectId$: Observable<string>;
+
+  getRoute: (node: CaHierarchyObject) => string = (node: CaHierarchyObject) => {
+    return CaRouterService.getChatFolderRoute(node.id);
+  };
+
+  constructor(state: CaChatState) {
+    state.init();
+    this.hierarchyObjects$ = toObservable(state.folders);
+    this.selectedObjectId$ = state.getSelectedFolderId$();
   }
 }

@@ -1,14 +1,14 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaHierarchyObjectTreeComponent} from './ca-hierarchy-object-tree.component';
+import { CaHierarchyObjectTreeComponent } from './ca-hierarchy-object-tree.component';
 
-describe('CaFolderTreeComponent', () => {
+describe('CaHierarchyObjectTree2Component', () => {
   let component: CaHierarchyObjectTreeComponent;
   let fixture: ComponentFixture<CaHierarchyObjectTreeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaHierarchyObjectTreeComponent ]
+      declarations: [CaHierarchyObjectTreeComponent]
     })
     .compileComponents();
 

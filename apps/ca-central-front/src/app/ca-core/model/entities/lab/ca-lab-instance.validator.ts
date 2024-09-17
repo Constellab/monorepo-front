@@ -1,4 +1,6 @@
-import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormGroup } from '@ngneat/reactive-forms';
+import { CaLabInstanceAdminForm } from './ca-lab-instance.form';
 
 /**
  * Validator for CaLabInstance
@@ -39,6 +41,22 @@ export class CaLabInstanceValidator {
       }
 
 
+      return null;
+    };
+  }
+
+  public static differentBackupRegionValidator(): ValidatorFn {
+    return (control: FormGroup<CaLabInstanceAdminForm>): { [key: string]: any } => {
+      if (!control.value) return null;
+
+      const dailyBackupRegion = control.value.dailyBackupRegion;
+      const weeklyBackupRegion = control.value.weeklyBackupRegion;
+
+      if (dailyBackupRegion == null || weeklyBackupRegion == null) return null;
+
+      if (dailyBackupRegion.id === weeklyBackupRegion.id) {
+        return { sameBackupRegion: true };
+      }
       return null;
     };
   }

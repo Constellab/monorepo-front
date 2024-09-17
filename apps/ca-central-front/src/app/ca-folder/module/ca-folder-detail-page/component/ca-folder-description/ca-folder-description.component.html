@@ -1,15 +1,16 @@
 <fl-section [isLoading]="isLoading" [object]="formControl" class="section">
 
   <fl-section-header>
-    <fl-text-icon *ngIf="folder$ | async let folder">
+    <fl-text-icon>
       <mat-icon flIcon="folder"></mat-icon>
-      <h2>{{ folder.title }}</h2>
+      <h2>{{ folderName }}</h2>
     </fl-text-icon>
     <fl-section-actions>
-      <button mat-icon-button type="button" (click)="toggleEdit()"
-              *ngIf="canEdit$ | async">
-        <mat-icon>{{ edit ? 'visibility' : 'edit' }}</mat-icon>
-      </button>
+      @if (canEdit) {
+        <button mat-icon-button type="button" (click)="toggleEdit()">
+          <mat-icon>{{ edit ? 'visibility' : 'edit' }}</mat-icon>
+        </button>
+      }
     </fl-section-actions>
   </fl-section-header>
 

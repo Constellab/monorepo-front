@@ -43,7 +43,7 @@ export class CaChatMessageTextEditorConfig extends TeConfig {
 
   public event: TeEvent = new TeEvent();
 
-  constructor(private folderId: string,
+  constructor(public folderId: string,
               private folderService: CaFolderService,
               private mode: 'create' | 'update' = 'create') {
     super({

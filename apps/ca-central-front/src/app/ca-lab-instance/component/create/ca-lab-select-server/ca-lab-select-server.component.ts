@@ -1,15 +1,16 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource
 } from '../../../../ca-core/model/entities/ca-cloud-provider.class';
-import {CaCloudProviderService} from '../../../../ca-core/service-api/ca-cloud-provider.service';
-import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {CaServerCloud} from '../../../../ca-core/model/entities/server/ca-server-cloud.class';
-import {CaServerService} from '../../../../ca-core/service-api/ca-server.service';
-import {ClSubscriptionHandler} from '@monorepo/core-lib';
-import {CaServerStandard} from '../../../../ca-core/model/entities/server/ca-server-standard.class';
+import { CaCloudProviderService } from '../../../../ca-core/service-api/ca-cloud-provider.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CaServerCloud } from '../../../../ca-core/model/entities/server/ca-server-cloud.class';
+import { CaServerService } from '../../../../ca-core/service-api/ca-server.service';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { CaServerStandard } from '../../../../ca-core/model/entities/server/ca-server-standard.class';
+import { CaLabInstanceValidator } from '../../../../ca-core/model/entities/lab/ca-lab-instance.validator';
 
 
 export interface CaLabSelectServerForm {
@@ -68,24 +69,7 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy {
       region: [null, Validators.required],
       dailyBackupRegion: [null, Validators.required],
       weeklyBackupRegion: [null, Validators.required]
-    }, {validators: this.differentBackupRegionValidator()}) as FormGroup<CaLabSelectServerForm>;
-  }
-
-  // TODO REMOVE DUPLICATE CODE
-  public static differentBackupRegionValidator(): ValidatorFn {
-    return (control: FormGroup<CaLabSelectServerForm>): { [key: string]: any } => {
-      if (!control.value) return null;
-
-      const dailyBackupRegion = control.value.dailyBackupRegion;
-      const weeklyBackupRegion = control.value.weeklyBackupRegion;
-
-      if (dailyBackupRegion == null || weeklyBackupRegion == null) return null;
-
-      if (dailyBackupRegion.id === weeklyBackupRegion.id) {
-        return {sameBackupRegion: true};
-      }
-      return null;
-    };
+    }, {validators: CaLabInstanceValidator.differentBackupRegionValidator()}) as FormGroup<CaLabSelectServerForm>;
   }
 
   onDecisionTreeChange(serverStandardNames: string[]): void {

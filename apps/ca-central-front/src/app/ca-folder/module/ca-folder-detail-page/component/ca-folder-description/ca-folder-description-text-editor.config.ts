@@ -1,25 +1,16 @@
-import {CaFolderService} from '../../../../../ca-core/service-api/ca-folder.service';
-import {first, mergeMap, Observable} from 'rxjs';
-import {TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage} from '@monorepo/text-editor';
-import {ApplicationRef, EnvironmentInjector} from '@angular/core';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { Observable } from 'rxjs';
+import { TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage } from '@monorepo/text-editor';
+import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 
 export class CaFolderDescriptionTextEditorImageConfig implements TeFigureBlockConfig {
 
-  private folderId: string;
-
-  constructor(private folderId$: Observable<string>,
+  constructor(private folderId: string,
               private folderService: CaFolderService) {
-    // TODO TO IMPROVE
-    this.folderId$.subscribe(folderId => this.folderId = folderId);
   }
 
   imageUploader(file: File): Observable<TeUploadedImage> {
-    return this.folderId$.pipe(
-      first(),
-      mergeMap(
-        folderId => this.folderService.uploadDescriptionImage(folderId, file)
-      )
-    );
+    return this.folderService.uploadDescriptionImage(this.folderId, file);
   }
 
   getImageUrl(filename: string): string {
@@ -34,9 +25,9 @@ export class CaFolderDescriptionTextEditorImageConfig implements TeFigureBlockCo
  */
 export class CaFolderDescriptionTextEditorConfig extends TeCompleteConfig {
 
-  constructor(private folderId$: Observable<string>,
+  constructor(private folderId: string,
               private folderService: CaFolderService) {
-    super({includeToolbarButton: true});
+    super({ includeToolbarButton: true });
   }
 
   /**
@@ -48,7 +39,7 @@ export class CaFolderDescriptionTextEditorConfig extends TeCompleteConfig {
     const tools = super.getTools(envInjector, applicationRef);
 
     // configure and add the image block
-    const imageConfig = new CaFolderDescriptionTextEditorImageConfig(this.folderId$, this.folderService);
+    const imageConfig = new CaFolderDescriptionTextEditorImageConfig(this.folderId, this.folderService);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     return tools;

@@ -13,7 +13,7 @@
 
   @for (link of links$ | async; let last = $last; track link.id) {
     <a [routerLink]="link.url"
-       [queryParams]="{} | caHierarchyObjectQueryParams | async"
+       queryParamsHandling="preserve"
        class="g-text-link text">
       {{ link.title }}
     </a>

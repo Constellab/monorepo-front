@@ -6,8 +6,24 @@
   padding: var(--main-menu-margin) 1em 1em 1em;
 }
 
-.chat{
+.container {
   background-color: var(--card-background);
   border-radius: var(--card-radius);
   margin: auto;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.header {
+  padding: 0.5em 1em 0 1em;
+}
+
+.folder-name {
+  margin-left: 0.5em;
+}
+
+.chat {
+  // prevent overflow
+  min-height: 0;
 }

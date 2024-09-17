@@ -13,7 +13,9 @@
   </fl-infinite-scroll>
 
   <!-- Zone to write a new message -->
-  <ca-chat-write-message [folderId]="folderId()" mode="create" (send)="createNewMessage($event)"
+  <!-- force re-creation of component when the folderId changes -->
+  <ca-chat-write-message *flRecreateView="folderId()" [folderId]="folderId()" mode="create"
+                         (send)="createNewMessage($event)"
                          class="new-message g-scrollable-element"></ca-chat-write-message>
 </div>
 

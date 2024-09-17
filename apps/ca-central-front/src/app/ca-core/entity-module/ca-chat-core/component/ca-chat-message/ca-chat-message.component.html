@@ -1,7 +1,6 @@
-<div class="message"
-     [caNotificationMark]="message().id" caNotificationObjectType="MESSAGE">
+<div class="message">
 
-  <div class="g-layout-row">
+  <div class="g-layout-row" [caNotificationMark]="message().id" caNotificationObjectType="MESSAGE">
     <div class="profile-pic">
       <fl-user-profile-picture [user]="message().createdBy" [size]="3.75"></fl-user-profile-picture>
     </div>
@@ -24,7 +23,7 @@
 
   </div>
 
-  @if (showButtons && !editMode) {
+  @if (showButtons() && !editMode) {
     <div class="buttons">
       <button mat-icon-button class="g-button-icon-small"
               [matTooltip]="'update_message' | translate"

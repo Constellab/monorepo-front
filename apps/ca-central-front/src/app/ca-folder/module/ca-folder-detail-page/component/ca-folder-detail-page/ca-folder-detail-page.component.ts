@@ -31,7 +31,7 @@ import {
 } from '../ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import {
-  CaFolderTableEvent
+  CaHierarchyObjectTableEvent
 } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 
 /**
@@ -91,40 +91,57 @@ export class CaFolderDetailPageComponent implements OnInit {
     );
   }
 
-  onFolderRowEvent(event: CaFolderTableEvent): void {
+  onFolderRowEvent(event: CaHierarchyObjectTableEvent): void {
     // TODO HANDLE RIGHT CLICK AND MIDDLE CLICK
     switch (event.action) {
       case 'click':
-        this.onFolderClicked(event.folder);
+        this.onFolderClicked(event.hierarchyObject);
         break;
       case 'dblClick':
-        this.onFolderDblClicked(event.folder);
+        this.onFolderDblClicked(event.hierarchyObject);
         break;
       case 'openChat':
-        this.rightPanelState.updateRightPanelState({ type: 'chat', objectId: event.folder.id });
+        this.rightPanelState.updateRightPanelState({
+          type: 'chat',
+          objectId: event.hierarchyObject.id,
+          objectName: event.hierarchyObject.name
+        });
         break;
       case 'openDescription':
-        this.rightPanelState.updateRightPanelState({ type: 'description', objectId: event.folder.id });
+        this.rightPanelState.updateRightPanelState({
+          type: 'description',
+          objectId: event.hierarchyObject.id,
+          objectName: event.hierarchyObject.name
+        });
         break;
     }
   }
 
-  private onFolderClicked(folder: CaHierarchyObject): void {
-    switch (folder.objectType) {
+  private onFolderClicked(hierarchyObject: CaHierarchyObject): void {
+    switch (hierarchyObject.objectType) {
       case CaHierarchyObjectType.FOLDER:
-        this.routerService.navigateToFolderDetail(folder.id);
+        this.routerService.navigateToFolderDetail(hierarchyObject.id);
         break;
       case CaHierarchyObjectType.REPORT:
-        this.rightPanelState.updateRightPanelState({ type: 'report', objectId: folder.id });
+        this.rightPanelState.updateRightPanelState({
+          type: 'report',
+          objectId: hierarchyObject.id, objectName: hierarchyObject.name
+        });
         break;
       case CaHierarchyObjectType.EXPERIMENT:
-        this.rightPanelState.updateRightPanelState({ type: 'experiment', objectId: folder.id });
+        this.rightPanelState.updateRightPanelState({
+          type: 'experiment',
+          objectId: hierarchyObject.id, objectName: hierarchyObject.name
+        });
         break;
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
-        this.rightPanelState.updateRightPanelState({ type: 'constellab-document', objectId: folder.id });
+        this.rightPanelState.updateRightPanelState({
+          type: 'constellab-document',
+          objectId: hierarchyObject.id, objectName: hierarchyObject.name
+        });
         break;
       case CaHierarchyObjectType.DOCUMENT:
-        this.handleDocumentClick(folder);
+        this.handleDocumentClick(hierarchyObject);
         break;
     }
   }

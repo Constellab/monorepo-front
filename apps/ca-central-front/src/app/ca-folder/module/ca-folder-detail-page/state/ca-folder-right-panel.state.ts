@@ -10,6 +10,7 @@ import { ClHelpService } from '@monorepo/core-lib';
 export type CaFolderDetailRightPanel = {
   type: 'description' | 'report' | 'experiment' | 'chat' | 'settings' | 'constellab-document';
   objectId: string;
+  objectName: string;
 }
 
 
@@ -38,7 +39,7 @@ export class CaFolderRightPanelState implements OnDestroy {
 
   public updateRightPanelState(state: CaFolderDetailRightPanel): void {
     this.currentOverlayRef?.dispose();
-    this.queryParamHandler.mergeQueryParams(state);
+    this.queryParamHandler.mergeQueryParams({ type: state.type, objectId: state.objectId });
     this.onRightPanelUpdate(state);
   }
 

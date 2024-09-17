@@ -10,8 +10,6 @@ import {
 } from '../ca-update-folder-leader-dialog/ca-update-folder-leader-dialog.component';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
-import { Observable } from 'rxjs';
-import { CaUser } from '../../../../model/entities/ca-user.class';
 import { ClHelpService } from '@monorepo/core-lib';
 import { CaRouterService } from '../../../../service/ca-router.service';
 
@@ -37,11 +35,6 @@ export type CaFolderActionEvent = {
 export class CaFolderActionsMenuComponent {
 
   @Input({ required: true }) folderInfo: CaFolderInfo;
-
-  /**
-   * Optional, provide the list of users of the folder to avoid a call to the server
-   */
-  @Input() folderUsers$?: Observable<CaUser[]>;
 
   @Input() stopClickEvent: boolean = false;
 
@@ -105,7 +98,7 @@ export class CaFolderActionsMenuComponent {
     const dialogInput: CaUpdateFolderLeaderDialogInput = {
       folderId: this.folderInfo.id,
       currentLeader: this.folderInfo.leader,
-      users$: this.folderUsers$ ?? this.folderService.getUsersOfFolder(this.folderInfo.id)
+      users$: this.folderService.getUsersOfFolder(this.folderInfo.id)
     };
 
     this.dialogService.openSmallDialog(CaUpdateFolderLeaderDialogComponent, {

@@ -3,6 +3,7 @@ import {
   CaFolder,
   CaFolderStorageDTO,
   CaFolderWithHierarchy,
+  CaGetFolderDescriptionDTO,
   CnSaveFolderDTO
 } from '../model/entities/folder/ca-folder.class';
 import { Observable } from 'rxjs';
@@ -36,7 +37,10 @@ import {
   CaHierarchyObjectDatasource,
   CaHierarchyObjectWithChildren
 } from '../model/entities/folder/ca-hierarchy-object.class';
-import { CaHierarchyObjectSearch, CaHierarchyObjectSearchFields } from '../entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import {
+  CaHierarchyObjectSearch,
+  CaHierarchyObjectSearchFields
+} from '../entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaFolderSearch, CaFolderSearchFields } from '../entity-module/ca-folder-core/model/ca-folder-search.class';
 
 /**
@@ -148,7 +152,7 @@ export class CaFolderService {
 
   /////////////////////////////////// DESCRIPTION //////////////////////////////////
 
-  public getFolderDescription(id: string): Observable<TeRichTextContent> {
+  public getFolderDescription(id: string): Observable<CaGetFolderDescriptionDTO> {
     return this.apiService.get(`${this.route}/${id}/description`);
   }
 

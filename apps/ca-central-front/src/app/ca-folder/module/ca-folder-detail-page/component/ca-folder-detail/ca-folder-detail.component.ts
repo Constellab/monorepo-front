@@ -3,7 +3,6 @@ import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { Observable } from 'rxjs';
-import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
 import {
   CaFolderSharedGroupsListInput,
   CaFolderSharedListComponent
@@ -30,7 +29,6 @@ export class CaFolderDetailComponent {
 
   folderId$: Observable<string> = this.state.getFolderId$();
   folder$: Observable<CaFolder> = this.state.getFolder$();
-  folderUsers$: Observable<CaUser[]> = this.state.getUsers().connect();
 
   isRootFolder$: Observable<boolean> = this.state.isRootFolder$();
   canEditFolder$: Observable<boolean> = this.state.canEditFolder$();
@@ -47,9 +45,9 @@ export class CaFolderDetailComponent {
     if (folderEvent.action === 'update') {
       this.state.updateFolder(folderEvent.folder);
     } else if (folderEvent.action === 'delete') {
-      this.state.deleteFolder(folderEvent.folder.id);
+      this.state.deleteHierarchyObject(folderEvent.folder.id);
     } else if (folderEvent.action === 'createChild') {
-      this.state.addFolderChild(folderEvent.folder.hierarchyRepresentation);
+      this.state.addChild(folderEvent.folder.hierarchyRepresentation);
     }
   }
 
@@ -72,14 +70,14 @@ export class CaFolderDetailComponent {
   }
 
   openDescription(folder: CaFolder): void {
-    this.rightPanelState.updateRightPanelState({ type: 'description', objectId: folder.id });
+    this.rightPanelState.updateRightPanelState({ type: 'description', objectId: folder.id, objectName: folder.title });
   }
 
   openChat(folder: CaFolder): void {
-    this.rightPanelState.updateRightPanelState({ type: 'chat', objectId: folder.id });
+    this.rightPanelState.updateRightPanelState({ type: 'chat', objectId: folder.id, objectName: folder.title });
   }
 
   openSettings(folder: CaFolder): void {
-    this.rightPanelState.updateRightPanelState({ type: 'settings', objectId: folder.id });
+    this.rightPanelState.updateRightPanelState({ type: 'settings', objectId: folder.id, objectName: folder.title });
   }
 }

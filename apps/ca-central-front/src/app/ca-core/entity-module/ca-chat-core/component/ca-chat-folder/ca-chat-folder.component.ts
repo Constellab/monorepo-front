@@ -31,7 +31,6 @@ export class CaChatFolderComponent implements OnDestroy {
     this.messages().addItem(message, () => true);
   }
 
-
   messageUpdated(message: CaChatMessage): void {
     this.messages().updateItem(message);
   }

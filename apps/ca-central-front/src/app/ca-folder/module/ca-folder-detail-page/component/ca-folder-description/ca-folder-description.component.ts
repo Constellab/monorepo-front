@@ -1,12 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CaFolderDetailState} from '../../state/ca-folder-detail.state';
-import {debounceTime, Observable, Subscription, switchMap} from 'rxjs';
-import {FlDebouncer} from '@monorepo/front-core-lib';
-import {FormControl} from '@angular/forms';
-import {CaFolder} from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import {CaFolderService} from '../../../../../ca-core/service-api/ca-folder.service';
-import {CaFolderDescriptionTextEditorConfig} from './ca-folder-description-text-editor.config';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { debounceTime, Subscription } from 'rxjs';
+import { FlDebouncer } from '@monorepo/front-core-lib';
+import { FormControl } from '@angular/forms';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { CaFolderDescriptionTextEditorConfig } from './ca-folder-description-text-editor.config';
+import { TeRichTextContent } from '@monorepo/text-editor';
+import { CaGetFolderDescriptionDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 
 @Component({
   selector: 'ca-folder-description',
@@ -15,10 +14,13 @@ import {TeRichTextContent} from '@monorepo/text-editor';
 })
 export class CaFolderDescriptionComponent implements OnInit, OnDestroy {
 
-  folder$: Observable<CaFolder>;
-  canEdit$: Observable<boolean>;
+  @Input({ required: true }) folderId: string;
 
+  @Input({ required: true }) folderName: string;
+
+  canEdit: boolean;
   edit: boolean = false;
+
   formControl: FormControl;
 
   textEditorConfig: CaFolderDescriptionTextEditorConfig;
@@ -27,25 +29,19 @@ export class CaFolderDescriptionComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private state: CaFolderDetailState,
-              private folderService: CaFolderService) {
+  constructor(private folderService: CaFolderService) {
   }
 
   ngOnInit(): void {
-    this.textEditorConfig = new CaFolderDescriptionTextEditorConfig(this.state.getFolderId$(),
+    this.textEditorConfig = new CaFolderDescriptionTextEditorConfig(this.folderId,
       this.folderService);
-    this.folder$ = this.state.getFolder$();
-    this.formControl = new FormControl({disabled: true, value: null});
+    this.formControl = new FormControl({ disabled: true, value: null });
 
     this.isLoading = true;
-    this.subscription = this.state.getFolderId$().pipe(
-      switchMap(folderId => this.folderService.getFolderDescription(folderId)),
-    ).subscribe({
+    this.subscription = this.folderService.getFolderDescription(this.folderId).subscribe({
       next: description => this.descriptionLoaded(description),
       error: () => this.isLoading = false
     });
-
-    this.canEdit$ = this.state.canEditFolder$();
 
     this.formControl.valueChanges.pipe(
       debounceTime(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME)
@@ -54,14 +50,15 @@ export class CaFolderDescriptionComponent implements OnInit, OnDestroy {
     );
   }
 
-  private descriptionLoaded(description: TeRichTextContent): void {
+  private descriptionLoaded(description: CaGetFolderDescriptionDTO): void {
     // patch the value without emitting an event
-    this.formControl.patchValue(description, {emitEvent: false});
+    this.formControl.patchValue(description.description, { emitEvent: false });
+    this.canEdit = description.canEdit;
     this.isLoading = false;
   }
 
   private saveDescription(description: TeRichTextContent): void {
-    this.state.updateDescription(description);
+    this.folderService.updateDescription(this.folderId, description).subscribe();
   }
 
   toggleEdit(): void {

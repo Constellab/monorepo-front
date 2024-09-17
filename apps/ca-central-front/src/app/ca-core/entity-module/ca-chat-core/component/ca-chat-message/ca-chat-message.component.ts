@@ -23,7 +23,7 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
   @Output() messageDeleted = new EventEmitter<CaChatMessage>();
 
   showButtons = computed(() => this.authUserService.getCurrentUser().id === this.message().createdBy.id &&
-    this.message().createdAt.diffNow('minute').as('minute') > -5);
+    this.message().createdAt.diffNow('minute').as('minute') > 5);
 
   editMode: boolean = false;
 

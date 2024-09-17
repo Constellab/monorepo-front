@@ -4,9 +4,17 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { ClHelpService } from '@monorepo/core-lib';
-import { CaHierarchyObject, CaHierarchyObjectDatasource, CaHierarchyObjectType } from '../../../../model/entities/folder/ca-hierarchy-object.class';
-import { CaHierarchyObjectSearchFields } from '../../../ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
-import { CaFolderTableEvent } from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectDatasource,
+  CaHierarchyObjectType
+} from '../../../../model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaHierarchyObjectSearchFields
+} from '../../../ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import {
+  CaHierarchyObjectTableEvent
+} from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 
 export interface CaSelectFolderDialogInput {
   /**
@@ -95,13 +103,13 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     this.selectedFolder = null;
   }
 
-  onFolderEvent(event: CaFolderTableEvent): void {
+  onFolderEvent(event: CaHierarchyObjectTableEvent): void {
     switch (event.action) {
       case 'click':
-        this.selectFolder(event.folder);
+        this.selectFolder(event.hierarchyObject);
         break;
       case 'dblClick':
-        this.folderDblClicked(event.folder);
+        this.folderDblClicked(event.hierarchyObject);
         break;
     }
   }
