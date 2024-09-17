@@ -22,8 +22,10 @@
               <mat-icon>print</mat-icon>
             </button>
 
-            <ca-document-actions-menu [documentInfo]="document.basicInfo" [showViewLinks]="false"
-                                      (documentAction)="onDocumentAction($event)"></ca-document-actions-menu>
+            <button mat-icon-button type="button"
+                    (click)="openDocumentActionMenu(document, $event)">
+              <mat-icon>more_vert</mat-icon>
+            </button>
           </fl-card-actions>
         </div>
 

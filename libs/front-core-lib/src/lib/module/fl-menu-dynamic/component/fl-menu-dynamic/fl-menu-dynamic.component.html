@@ -16,7 +16,7 @@
 
         <!-- Handle leaf node menu items -->
         <ng-template #leaf>
-          <fl-menu-dynamic-button [menuDynamic]="item"></fl-menu-dynamic-button>
+          <fl-menu-dynamic-button [menuDynamic]="item" (buttonClick)="onButtonClick($event)"></fl-menu-dynamic-button>
         </ng-template>
       </ng-container>
     </div>

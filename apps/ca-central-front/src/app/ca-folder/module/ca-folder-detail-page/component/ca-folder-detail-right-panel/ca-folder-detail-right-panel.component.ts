@@ -39,7 +39,6 @@ export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
       case 'description':
         const descComponent = this.container.createComponent(CaFolderDescriptionComponent);
         descComponent.instance.folderId = rightPanelState.objectId;
-        descComponent.instance.folderName = rightPanelState.objectName;
         this.viewComponentRef = descComponent;
         break;
       case 'report':

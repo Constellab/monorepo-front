@@ -5,7 +5,10 @@ import { FlDatasourceTree, FlEntityArrayObs, FlQueryParamHandler, FlRouterHelper
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
-import { CaHierarchyObject, CaHierarchyObjectWithChildren } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectWithChildren
+} from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 
 /**
@@ -154,6 +157,10 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
 
   public getTreeDrawerOpened$(): Observable<boolean> {
     return this.treeDrawerOpened$.asObservable();
+  }
+
+  public getFolder$(folderId: string): Observable<CaHierarchyObject> {
+    return this.folderTree.findNode$(folderId);
   }
 
   ngOnDestroy(): void {

@@ -17,6 +17,7 @@ import { ClHelpService, ClSubscriptionHandler } from '@monorepo/core-lib';
 import {
   FlDialogService,
   FlDropEvent,
+  FlMenuDynamicService,
   FlPortalAction,
   FlPortalActionsService,
   FlTableColumnStatic
@@ -33,6 +34,7 @@ import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder
 import {
   CaHierarchyObjectTableEvent
 } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import { CaHierarchyObjectActionEvent, CaHierarchyObjectActionMenu } from '../../ca-hierarchy-object-action-menu';
 
 /**
  * Page for a folder detail
@@ -65,7 +67,8 @@ export class CaFolderDetailPageComponent implements OnInit {
               private rightPanelState: CaFolderRightPanelState,
               private folderService: CaFolderService,
               private actionService: FlPortalActionsService,
-              private dialogService: FlDialogService) {
+              private dialogService: FlDialogService,
+              private menuDynamicService: FlMenuDynamicService) {
     this.state.init(this.getIds$());
   }
 
@@ -91,33 +94,34 @@ export class CaFolderDetailPageComponent implements OnInit {
     );
   }
 
-  onFolderRowEvent(event: CaHierarchyObjectTableEvent): void {
+  onHierarchyObjectRowEvent(event: CaHierarchyObjectTableEvent): void {
     // TODO HANDLE RIGHT CLICK AND MIDDLE CLICK
     switch (event.action) {
       case 'click':
-        this.onFolderClicked(event.hierarchyObject);
+        this.onHierarchyObjectClicked(event.hierarchyObject);
         break;
       case 'dblClick':
-        this.onFolderDblClicked(event.hierarchyObject);
+        this.onHierarchyObjectDblClicked(event.hierarchyObject);
+        break;
+      case 'rightClick':
+        this.openHierarchyObjectActionMenu(event.hierarchyObject, event.event);
         break;
       case 'openChat':
         this.rightPanelState.updateRightPanelState({
           type: 'chat',
-          objectId: event.hierarchyObject.id,
-          objectName: event.hierarchyObject.name
+          objectId: event.hierarchyObject.id
         });
         break;
       case 'openDescription':
         this.rightPanelState.updateRightPanelState({
           type: 'description',
-          objectId: event.hierarchyObject.id,
-          objectName: event.hierarchyObject.name
+          objectId: event.hierarchyObject.id
         });
         break;
     }
   }
 
-  private onFolderClicked(hierarchyObject: CaHierarchyObject): void {
+  private onHierarchyObjectClicked(hierarchyObject: CaHierarchyObject): void {
     switch (hierarchyObject.objectType) {
       case CaHierarchyObjectType.FOLDER:
         this.routerService.navigateToFolderDetail(hierarchyObject.id);
@@ -125,19 +129,19 @@ export class CaFolderDetailPageComponent implements OnInit {
       case CaHierarchyObjectType.REPORT:
         this.rightPanelState.updateRightPanelState({
           type: 'report',
-          objectId: hierarchyObject.id, objectName: hierarchyObject.name
+          objectId: hierarchyObject.id
         });
         break;
       case CaHierarchyObjectType.EXPERIMENT:
         this.rightPanelState.updateRightPanelState({
           type: 'experiment',
-          objectId: hierarchyObject.id, objectName: hierarchyObject.name
+          objectId: hierarchyObject.id
         });
         break;
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
         this.rightPanelState.updateRightPanelState({
           type: 'constellab-document',
-          objectId: hierarchyObject.id, objectName: hierarchyObject.name
+          objectId: hierarchyObject.id
         });
         break;
       case CaHierarchyObjectType.DOCUMENT:
@@ -146,31 +150,68 @@ export class CaFolderDetailPageComponent implements OnInit {
     }
   }
 
-  private onFolderDblClicked(folder: CaHierarchyObject): void {
-    switch (folder.objectType) {
+  private onHierarchyObjectDblClicked(hierarchyObject: CaHierarchyObject): void {
+    switch (hierarchyObject.objectType) {
       case CaHierarchyObjectType.FOLDER:
-        this.routerService.navigateToFolderDetail(folder.id);
+        this.routerService.navigateToFolderDetail(hierarchyObject.id);
         break;
       case CaHierarchyObjectType.REPORT:
-        this.routerService.navigateToReportDetail(folder.id);
+        this.routerService.navigateToReportDetail(hierarchyObject.id);
         break;
       case CaHierarchyObjectType.EXPERIMENT:
-        this.routerService.navigateToExperimentDetail(folder.id);
+        this.routerService.navigateToExperimentDetail(hierarchyObject.id);
         break;
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
-        this.routerService.navigateToDocumentDetail(folder.id);
+        this.routerService.navigateToDocumentDetail(hierarchyObject.id);
         break;
       case CaHierarchyObjectType.DOCUMENT:
-        this.handleDocumentClick(folder);
+        this.handleDocumentClick(hierarchyObject);
         break;
     }
   }
 
-  private handleDocumentClick(folder: CaHierarchyObject): void {
-    if (CaDocument.supportsPreview(folder.name)) {
-      this.routerService.navigateToDocumentPreview(folder.id);
+  hierarchyObjectMenuClick(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    this.openHierarchyObjectActionMenu(hierarchyObject, event);
+  }
+
+  private openHierarchyObjectActionMenu(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
+    const service = new CaHierarchyObjectActionMenu(this.dialogService, this.folderService, this.actionService,
+      this.menuDynamicService, hierarchyObject);
+    service.openActionMenu(event).subscribe(
+      hierarchyObjectActionEvent => this.onHierarchyObjectActionMenuEvent(hierarchyObjectActionEvent, hierarchyObject)
+    );
+  }
+
+  private onHierarchyObjectActionMenuEvent(event: CaHierarchyObjectActionEvent, hierarchyObject: CaHierarchyObject): void {
+    if (!event) return;
+
+    if (event.entity === 'folder') {
+      if (event.event.action === 'update') {
+        this.state.updateFolder(event.event.folder);
+      } else if (event.event.action === 'delete') {
+        this.state.deleteHierarchyObject(event.event.folder.id);
+      } else if (event.event.action === 'createChild') {
+        this.state.addChild(event.event.folder.hierarchyRepresentation);
+      }
+    } else if (event.entity === 'document') {
+      if (event.event.action === 'update') {
+        this.state.updatePartialChild(event.event.document.id, { name: event.event.document.name });
+      } else if (event.event.action === 'delete') {
+        this.state.deleteHierarchyObject(hierarchyObject.id);
+      } else if (event.event.action === 'moveToTrash') {
+        this.state.deleteHierarchyObject(event.event.document.id);
+      } else if (event.event.action === 'moveToFolder') {
+        this.state.deleteHierarchyObject(event.event.document.id);
+      }
+    }
+  }
+
+  private handleDocumentClick(hierarchyObject: CaHierarchyObject): void {
+    if (CaDocument.supportsPreview(hierarchyObject.name)) {
+      this.routerService.navigateToDocumentPreview(hierarchyObject.id);
     } else {
-      const url = this.folderService.getDocumentPreviewUrl(folder.id, folder.name);
+      const url = this.folderService.getDocumentPreviewUrl(hierarchyObject.id, hierarchyObject.name);
       window.open(url, '_blank');
     }
   }
@@ -200,10 +241,10 @@ export class CaFolderDetailPageComponent implements OnInit {
     }
   }
 
-  private async onDocumentUploaded(folder: CaHierarchyObject, folderId: string): Promise<void> {
+  private async onDocumentUploaded(hierarchyObject: CaHierarchyObject, folderId: string): Promise<void> {
     const currentFolderId = await firstValueFrom(this.state.getFolderId$());
     if (currentFolderId !== folderId) return;
-    this.children.unshiftItem(folder);
+    this.children.unshiftItem(hierarchyObject);
   }
 
   async createConstellabDocument(): Promise<void> {
@@ -232,10 +273,10 @@ export class CaFolderDetailPageComponent implements OnInit {
       .subscribe(restoredDocs => this.onDocumentInTrashClosed(restoredDocs));
   }
 
-  private onDocumentInTrashClosed(restoredDocs?: CaHierarchyObject[]): void {
-    if (restoredDocs) {
-      // TODO FIX TYPE
-      this.children.unshiftItem(restoredDocs);
+  private onDocumentInTrashClosed(restoredDocs?: CaDocument[]): void {
+    if (restoredDocs?.length > 0) {
+      // refresh the data
+      this.children.getFirstPage(this.children.getRequestData());
     }
   }
 

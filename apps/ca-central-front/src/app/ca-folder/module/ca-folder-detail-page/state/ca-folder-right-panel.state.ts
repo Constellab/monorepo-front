@@ -10,7 +10,6 @@ import { ClHelpService } from '@monorepo/core-lib';
 export type CaFolderDetailRightPanel = {
   type: 'description' | 'report' | 'experiment' | 'chat' | 'settings' | 'constellab-document';
   objectId: string;
-  objectName: string;
 }
 
 

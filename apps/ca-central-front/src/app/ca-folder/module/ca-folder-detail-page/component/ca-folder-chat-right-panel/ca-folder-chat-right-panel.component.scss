@@ -1,0 +1,13 @@
+:host {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+
+.header {
+  padding: 1em 1em 0 1em;
+}
+
+.chat {
+  min-height: 0;
+}

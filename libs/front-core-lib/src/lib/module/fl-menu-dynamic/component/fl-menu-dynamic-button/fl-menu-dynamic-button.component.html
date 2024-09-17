@@ -1,14 +1,28 @@
-<!--    Link    -->
-<a *ngIf="menuDynamic.type === 'link'" mat-menu-item [routerLink]="menuDynamic.link">
-  <mat-icon *ngIf="menuDynamic.icon" [flIcon]="menuDynamic.icon"></mat-icon>
-  <div>{{menuDynamic.text | flTranslatableText}}</div>
-  <div *ngIf="menuDynamic.subText" class="g-text-small g-text-light">{{menuDynamic.subText}}</div>
-</a>
+@if (menuDynamic().type === 'link') {
+  <!--    Link    -->
+  <a mat-menu-item [routerLink]="link().link">
+    @if (link().icon) {
+      <mat-icon [flIcon]="link().icon" [color]="button().color"></mat-icon>
+    }
+    <div [ngClass]="textColor()">{{ link().text | flTranslatableText }}</div>
+  </a>
 
-<!--    Button    -->
-<button *ngIf="menuDynamic.type === 'button'" mat-menu-item (click)="callItem(menuDynamic, $event)"
-        [disabled]="menuDynamic.disabled">
-  <mat-icon *ngIf="menuDynamic.icon" [flIcon]="menuDynamic.icon"></mat-icon>
-  <div>{{menuDynamic.text | flTranslatableText}}</div>
-  <div *ngIf="menuDynamic.subText" class="g-text-small g-text-light">{{menuDynamic.subText}}</div>
-</button>
+} @else if (menuDynamic().type === 'downloadLink') {
+  <!--    Link    -->
+  <a mat-menu-item [href]="downloadLink().href" download>
+    @if (downloadLink().icon) {
+      <mat-icon [flIcon]="downloadLink().icon" [color]="downloadLink().color"></mat-icon>
+    }
+    <div [ngClass]="textColor()">{{ downloadLink().text | flTranslatableText }}</div>
+  </a>
+
+} @else {
+  <!--    Button    -->
+  <button mat-menu-item (click)="callItem(button(), $event)"
+          [disabled]="button().disabled">
+    @if (button().icon) {
+      <mat-icon [flIcon]="button().icon" [color]="button().color"></mat-icon>
+    }
+    <div [ngClass]="textColor()">{{ button().text | flTranslatableText }}</div>
+  </button>
+}

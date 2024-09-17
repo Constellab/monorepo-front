@@ -9,6 +9,7 @@ import { ClHelpService } from '@monorepo/core-lib';
 export interface CaHierarchyObjectTableEvent {
   action: 'click' | 'dblClick' | 'rightClick' | 'middleClick' | 'openChat' | 'openDescription';
   hierarchyObject: CaHierarchyObject;
+  event: MouseEvent;
 }
 
 @Component({
@@ -36,30 +37,31 @@ export class CaHierarchyObjectTableComponent {
       this.selectedObject = folder;
       this.rowEvent.emit({
         action: event.button === FlMouseButton.LEFT ? 'click' : event.button === FlMouseButton.MIDDLE ? 'middleClick' : 'rightClick',
-        hierarchyObject: folder
+        hierarchyObject: folder,
+        event: event
       });
     }
   }
 
-  onFolderDblClick(object: CaHierarchyObject): void {
+  onFolderDblClick(object: CaHierarchyObject, event: MouseEvent): void {
     if (this.rowSelectable) {
-      this.rowEvent.emit({ action: 'dblClick', hierarchyObject: object });
+      this.rowEvent.emit({ action: 'dblClick', hierarchyObject: object, event: event });
     }
   }
 
-  rightClick(object: CaHierarchyObject, event: Event): void {
+  rightClick(object: CaHierarchyObject, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    this.rowEvent.emit({ action: 'rightClick', hierarchyObject: object });
+    this.rowEvent.emit({ action: 'rightClick', hierarchyObject: object, event: event });
   }
 
-  openChat(object: CaHierarchyObject, event: Event): void {
+  openChat(object: CaHierarchyObject, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    this.rowEvent.emit({ action: 'openChat', hierarchyObject: object });
+    this.rowEvent.emit({ action: 'openChat', hierarchyObject: object, event: event });
   }
 
-  openDescription(object: CaHierarchyObject, event: Event): void {
+  openDescription(object: CaHierarchyObject, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    this.rowEvent.emit({ action: 'openDescription', hierarchyObject: object });
+    this.rowEvent.emit({ action: 'openDescription', hierarchyObject: object, event: event });
   }
 
   getViewContent(object: CaHierarchyObject): FlViewContext<CaHierarchyObject> {

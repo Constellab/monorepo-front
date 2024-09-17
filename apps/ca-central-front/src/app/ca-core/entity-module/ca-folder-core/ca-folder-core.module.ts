@@ -9,15 +9,12 @@ import {
   CaUpdateFolderLeaderDialogComponent
 } from './component/ca-update-folder-leader-dialog/ca-update-folder-leader-dialog.component';
 import { CaFolderInlineComponent } from './component/ca-folder-inline/ca-folder-inline.component';
-import { CaFolderActionsMenuComponent } from './component/ca-folder-actions-menu/ca-folder-actions-menu.component';
 import { CaFolderSearchComponent } from './component/ca-folder-search/ca-folder-search.component';
 import { CaFolderSearchFormComponent } from './component/ca-folder-search-form/ca-folder-search-form.component';
 import { CaStatusModule } from '../../module/ca-status/ca-status.module';
 import { CaNotificationCoreModule } from '../ca-notification-core/ca-notification-core.module';
 import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-storage-core.module';
-import {
-  CaFolderStorageUsageComponent
-} from './component/ca-folder-storage-usage/ca-folder-storage-usage.component';
+import { CaFolderStorageUsageComponent } from './component/ca-folder-storage-usage/ca-folder-storage-usage.component';
 import {
   CaFolderStorageLocationUsageComponent
 } from './component/ca-folder-storage-location-usage/ca-folder-storage-location-usage.component';
@@ -33,7 +30,6 @@ import { CaHierarchyObjectCoreModule } from '../ca-hierarchy-object-core/ca-hier
     CaFolderTableComponent,
     CaUpdateFolderLeaderDialogComponent,
     CaFolderInlineComponent,
-    CaFolderActionsMenuComponent,
     CaFolderSearchComponent,
     CaFolderSearchFormComponent,
     CaFolderStorageUsageComponent,
@@ -45,7 +41,6 @@ import { CaHierarchyObjectCoreModule } from '../ca-hierarchy-object-core/ca-hier
     CaFolderTableComponent,
     CaUpdateFolderLeaderDialogComponent,
     CaFolderInlineComponent,
-    CaFolderActionsMenuComponent,
     CaFolderSearchComponent,
     CaFolderSearchFormComponent,
     CaFolderStorageUsageComponent,

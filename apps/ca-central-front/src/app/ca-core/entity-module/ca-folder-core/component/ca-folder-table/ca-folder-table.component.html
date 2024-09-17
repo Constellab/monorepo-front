@@ -38,10 +38,11 @@
     <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
-      <ca-folder-actions-menu [folderInfo]="row.info"
-                              (folderAction)="onFolderAction($event)"
-                              [stopClickEvent]="true"
-                              class="g-row-button"></ca-folder-actions-menu>
+      <button mat-icon-button type="button"
+              (click)="openFolderActionMenu(row, $event)"
+              class="g-row-button">
+        <mat-icon>more_vert</mat-icon>
+      </button>
     </mat-cell>
   </ng-container>
 

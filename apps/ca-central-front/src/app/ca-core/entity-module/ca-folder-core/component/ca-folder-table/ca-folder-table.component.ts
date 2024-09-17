@@ -1,8 +1,10 @@
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
-import { FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib';
+import { FlDialogService, FlMenuDynamicService, FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib';
 import { CaFolder, CaFolderDatasource } from '../../../../model/entities/folder/ca-folder.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
-import { CaFolderActionEvent } from '../ca-folder-actions-menu/ca-folder-actions-menu.component';
+import { CaFolderActionEvent, CaFolderActionsMenu } from '../../model/ca-folder-actions-menu.class';
+import { CaFolderService } from '../../../../service-api/ca-folder.service';
+import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-folder-table',
@@ -19,10 +21,27 @@ export class CaFolderTableComponent {
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
 
-  constructor(private routerService: CaRouterService) {
+  constructor(private routerService: CaRouterService,
+              private dialogService: FlDialogService,
+              private menuDynamicService: FlMenuDynamicService,
+              private folderService: CaFolderService) {
   }
 
-  onFolderAction(folderEvent: CaFolderActionEvent): void {
+  openFolderActionMenu(folder: CaFolder, event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    const folderActionsMenu = new CaFolderActionsMenu(this.dialogService, this.folderService,
+      this.menuDynamicService, {
+        id: folder.id,
+        title: folder.title,
+        leader: folder.leader
+      });
+
+    folderActionsMenu.openActionMenu(event).subscribe(event => {
+      this.onFolderAction(event);
+    });
+  }
+
+  private onFolderAction(folderEvent: CaFolderActionEvent): void {
     if (folderEvent.action === 'update') {
       this.datasource.updateItem(folderEvent.folder);
     } else if (folderEvent.action === 'delete') {

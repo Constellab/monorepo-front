@@ -1,6 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService, FlMenuDynamicService } from '@monorepo/front-core-lib';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { Observable } from 'rxjs';
 import {
@@ -12,10 +12,12 @@ import {
   CaFolderUserConfigDialogInput
 } from '../ca-folder-user-config-dialog/ca-folder-user-config-dialog.component';
 import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
-import {
-  CaFolderActionEvent
-} from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-actions-menu/ca-folder-actions-menu.component';
 import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaFolderActionEvent,
+  CaFolderActionsMenu
+} from '../../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 
 /**
  * Show detailed information for a folder , used in FolderDetailPage
@@ -38,10 +40,26 @@ export class CaFolderDetailComponent {
   constructor(private dialogService: FlDialogService,
               private state: CaFolderDetailState,
               private rightPanelState: CaFolderRightPanelState,
-              private viewContainerRef: ViewContainerRef) {
+              private viewContainerRef: ViewContainerRef,
+              private menuDynamicService: FlMenuDynamicService,
+              private folderService: CaFolderService) {
   }
 
-  onFolderAction(folderEvent: CaFolderActionEvent): void {
+  openFolderActionMenu(folder: CaFolder, event: MouseEvent): void {
+    const folderActionsMenu = new CaFolderActionsMenu(this.dialogService, this.folderService,
+      this.menuDynamicService, {
+        id: folder.id,
+        title: folder.title,
+        leader: folder.leader
+      });
+
+    folderActionsMenu.openActionMenu(event).subscribe(event => {
+      this.onFolderAction(event);
+    });
+  }
+
+  private onFolderAction(folderEvent: CaFolderActionEvent): void {
+    if(!folderEvent) return;
     if (folderEvent.action === 'update') {
       this.state.updateFolder(folderEvent.folder);
     } else if (folderEvent.action === 'delete') {
@@ -70,14 +88,14 @@ export class CaFolderDetailComponent {
   }
 
   openDescription(folder: CaFolder): void {
-    this.rightPanelState.updateRightPanelState({ type: 'description', objectId: folder.id, objectName: folder.title });
+    this.rightPanelState.updateRightPanelState({ type: 'description', objectId: folder.id });
   }
 
   openChat(folder: CaFolder): void {
-    this.rightPanelState.updateRightPanelState({ type: 'chat', objectId: folder.id, objectName: folder.title });
+    this.rightPanelState.updateRightPanelState({ type: 'chat', objectId: folder.id });
   }
 
   openSettings(folder: CaFolder): void {
-    this.rightPanelState.updateRightPanelState({ type: 'settings', objectId: folder.id, objectName: folder.title });
+    this.rightPanelState.updateRightPanelState({ type: 'settings', objectId: folder.id });
   }
 }

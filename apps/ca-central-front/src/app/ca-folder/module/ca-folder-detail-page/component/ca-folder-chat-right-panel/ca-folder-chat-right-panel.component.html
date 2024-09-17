@@ -1,1 +1,14 @@
-<ca-chat-folder [folderId]="folderId"></ca-chat-folder>
+<div class="g-layout-row g-layout-between-center header">
+  @if (folder$ | async; as folder) {
+    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+      <ca-hierarchy-object-icon [objectType]="folder.objectType" [objectName]="folder.name"></ca-hierarchy-object-icon>
+      <h2>{{ folder.name }}</h2>
+    </div>
+  }
+
+  <a mat-stroked-button [routerLink]="chatDetailRoute" class="g-button-small">
+    {{ 'open_in_chat' | translate }}
+  </a>
+</div>
+
+<ca-chat-folder [folderId]="folderId" class="chat"></ca-chat-folder>

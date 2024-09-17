@@ -1,10 +1,10 @@
-import {Inject, Injectable, InjectionToken, Optional, PLATFORM_ID, Renderer2, RendererFactory2} from '@angular/core';
-import {DOCUMENT, isPlatformBrowser, isPlatformServer} from '@angular/common';
-import {clDefaultTheme, ClTheme, clThemeIsSupported} from '@monorepo/core-lib';
-import {FlThemeDetail, flThemeDetailDark, flThemeDetailLight} from './model/fl-theme-detail.class';
-import {flRootInjector} from '../../utils/fl-root-injector';
-import {FlCookieService} from '../../service/fl-cookie.service';
-import {Request} from 'express';
+import { Inject, Injectable, InjectionToken, Optional, PLATFORM_ID, Renderer2, RendererFactory2 } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { clDefaultTheme, ClTheme, clThemeIsSupported } from '@monorepo/core-lib';
+import { FlThemeDetail, flThemeDetailDark, flThemeDetailLight } from './model/fl-theme-detail.class';
+import { flRootInjector } from '../../utils/fl-root-injector';
+import { FlCookieService } from '../../service/fl-cookie.service';
+import { Request } from 'express';
 
 // Define the `Request` token
 export const REQUEST = new InjectionToken<Request>('REQUEST');
@@ -133,4 +133,6 @@ export class FlThemeService {
 
     return theme === ClTheme.LIGHT_THEME ? flThemeDetailLight : flThemeDetailDark;
   }
+
+
 }

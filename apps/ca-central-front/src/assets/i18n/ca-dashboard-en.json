@@ -182,5 +182,6 @@
   "folder_chat_activated": "Chat activated",
   "folder_chat_deactivated": "Chat deactivated",
   "folder_activate_chat": "Activate chat",
-  "folder_deactivate_chat": "Deactivate chat"
+  "folder_deactivate_chat": "Deactivate chat",
+  "open_in_chat": "Open in chat"
 }

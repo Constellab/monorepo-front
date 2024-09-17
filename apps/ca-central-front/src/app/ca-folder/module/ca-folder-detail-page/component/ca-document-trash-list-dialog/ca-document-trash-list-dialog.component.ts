@@ -2,10 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { CaDocument, CaDocumentDatasource } from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {
-  CaDocumentActionEvent
-} from '../../../ca-document-core/component/ca-document-actions-menu/ca-document-actions-menu.component';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { CaDocumentActionEvent } from '../../../ca-document-core/ca-document-action-menu';
 
 export interface CaDocumentTrashListDialogInput {
   folderId: string;

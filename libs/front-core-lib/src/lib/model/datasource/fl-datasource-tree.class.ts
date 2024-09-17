@@ -1,4 +1,5 @@
-import {BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 export class FlTree<T> {
@@ -45,12 +46,19 @@ export class FlDatasourceTree<T extends FlTree<T>> {
     return this.findNodeRecur(this.tree, nodeId);
   }
 
+  public findNode$(nodeId: string): Observable<T | null> {
+    return this.tree$.pipe(
+      map(tree => this.findNodeRecur(tree, nodeId))
+    );
+  }
+
   public findParentNode(nodeId: string): T | null {
     if (!this.tree) return null;
     return this.findParentNodeRecur(this.tree, nodeId);
   }
 
   private findNodeRecur(currentNode: T, nodeId: string): T {
+    if(!currentNode) return null;
     if (currentNode.id === nodeId) {
       return currentNode;
     }

@@ -1,3 +1,5 @@
+import { ThemePalette } from '@angular/material/core';
+
 /**
  * Detail of a theme containing the colors
  */
@@ -64,7 +66,21 @@ export const flThemeClass = {
   primaryBackground: 'g-primary-background',
   accentBackground: 'g-accent-background',
   warnBackground: 'g-warn-background',
-  greyBackground: 'g-grey-text',
-
-
+  greyBackground: 'g-grey-text'
 };
+
+export class FlThemeHelper {
+
+  public static paletteToTextCssClass(color: ThemePalette): string | null {
+    switch (color) {
+      case 'primary':
+        return flThemeClass.primaryText;
+      case 'accent':
+        return flThemeClass.accentText;
+      case 'warn':
+        return flThemeClass.warnText;
+      default:
+        return null;
+    }
+  }
+}

@@ -70,14 +70,18 @@
       </fl-card-actions>
     </fl-card-header>
 
-    <fl-card-body>
-      <fl-infinite-table-container [datasource]="children" textNoResult="folder_empty" textNoMoreResult="">
+    <fl-card-body class="g-full-height">
+      <fl-infinite-table-container [datasource]="children" textNoResult="folder_empty" textNoMoreResult=""
+                                   class="g-full-height">
         <ca-hierarchy-object-table [datasource]="children" [columns]="columns"
-                         [rowSelectable]="true"
-                         (rowEvent)="onFolderRowEvent($event)">
+                                   [rowSelectable]="true"
+                                   (rowEvent)="onHierarchyObjectRowEvent($event)">
 
-          <ng-template let-folder>
-            <ca-hierarchy-object-actions-menu [folder]="folder"></ca-hierarchy-object-actions-menu>
+          <ng-template let-object>
+            <!--   Settings menu   -->
+            <button mat-icon-button type="button" (click)="hierarchyObjectMenuClick(object, $event)">
+              <mat-icon>more_vert</mat-icon>
+            </button>
           </ng-template>
 
         </ca-hierarchy-object-table>

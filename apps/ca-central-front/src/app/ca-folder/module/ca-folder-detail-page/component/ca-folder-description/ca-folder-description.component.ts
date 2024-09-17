@@ -1,11 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { debounceTime, Subscription } from 'rxjs';
+import { debounceTime, Observable, Subscription } from 'rxjs';
 import { FlDebouncer } from '@monorepo/front-core-lib';
 import { FormControl } from '@angular/forms';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaFolderDescriptionTextEditorConfig } from './ca-folder-description-text-editor.config';
 import { TeRichTextContent } from '@monorepo/text-editor';
 import { CaGetFolderDescriptionDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 @Component({
   selector: 'ca-folder-description',
@@ -15,6 +17,8 @@ import { CaGetFolderDescriptionDTO } from '../../../../../ca-core/model/entities
 export class CaFolderDescriptionComponent implements OnInit, OnDestroy {
 
   @Input({ required: true }) folderId: string;
+
+  folder$: Observable<CaHierarchyObject>;
 
   @Input({ required: true }) folderName: string;
 
@@ -29,7 +33,8 @@ export class CaFolderDescriptionComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private folderService: CaFolderService) {
+  constructor(private folderService: CaFolderService,
+              private state: CaHierarchyObjectDetailState) {
   }
 
   ngOnInit(): void {
@@ -48,6 +53,8 @@ export class CaFolderDescriptionComponent implements OnInit, OnDestroy {
     ).subscribe(
       value => this.saveDescription(value)
     );
+
+    this.folder$ = this.state.getFolder$(this.folderId);
   }
 
   private descriptionLoaded(description: CaGetFolderDescriptionDTO): void {

@@ -1,16 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {CaFolderService} from '../../../../../ca-core/service-api/ca-folder.service';
-import {CaConstellabDocument, CaDocument} from '../../../../../ca-core/model/entities/folder/ca-document.class';
-import {FlDebouncer} from '@monorepo/front-core-lib';
-import {CaRouterService} from '../../../../../ca-core/service/ca-router.service';
-import {
-  CaDocumentActionEvent
-} from '../../../ca-document-core/component/ca-document-actions-menu/ca-document-actions-menu.component';
-import {CaDocumentTextEditorConfig} from '../../../ca-document-core/ca-document-text-editor.config';
-import {FormControl} from '@angular/forms';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { CaConstellabDocument, CaDocument } from '../../../../../ca-core/model/entities/folder/ca-document.class';
+import { FlDebouncer, FlDialogService, FlMenuDynamicService, FlPortalActionsService } from '@monorepo/front-core-lib';
+import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
+import { FormControl } from '@angular/forms';
+import { TeRichTextContent } from '@monorepo/text-editor';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { ClHelpService } from '@monorepo/core-lib';
+import { CaDocumentActionEvent, CaDocumentActionMenu } from '../../../ca-document-core/ca-document-action-menu';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -34,8 +32,10 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private folderService: CaFolderService,
-              private routerService: CaRouterService,
-              private state: CaHierarchyObjectDetailState) {
+              private state: CaHierarchyObjectDetailState,
+              private dialogService: FlDialogService,
+              private menuDynamicService: FlMenuDynamicService,
+              private actionService: FlPortalActionsService) {
   }
 
   ngOnInit(): void {
@@ -75,7 +75,17 @@ export class CaDocumentDetailPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  onDocumentAction(event: CaDocumentActionEvent): void {
+  openDocumentActionMenu(document: CaDocument, event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    const documentActionMenu = new CaDocumentActionMenu(this.dialogService, this.folderService,
+      this.menuDynamicService, this.actionService, document.basicInfo);
+
+    documentActionMenu.openActionMenu(false, event).subscribe(event => {
+      this.onDocumentAction(event);
+    });
+  }
+
+  private onDocumentAction(event: CaDocumentActionEvent): void {
     if (event.action === 'delete') {
       this.state.navigateToParentFolder();
     } else {

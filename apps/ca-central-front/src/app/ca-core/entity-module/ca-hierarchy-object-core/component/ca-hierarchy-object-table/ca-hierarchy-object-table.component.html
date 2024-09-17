@@ -82,7 +82,7 @@
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
-           (flClick)="onFolderClick(row, $event)" (flDoubleClick)="onFolderDblClick(row)"
+           (flClick)="onFolderClick(row, $event)" (flDoubleClick)="onFolderDblClick(row, $event)"
            (contextmenu)="rightClick(row, $event)"
            [ngClass]="{'selected-row': row.id === selectedObject?.id}">
   </mat-row>
