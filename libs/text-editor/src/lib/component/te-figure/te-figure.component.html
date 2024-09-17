@@ -2,7 +2,9 @@
   <div flResize="bothKeepRatio" class="image-container" (flResizeChanged)="onImageResize($event)"
        [disabled$]="disabled$"
        [style.width]="imageWidth + 'px'" [style.height]="imageHeight + 'px'">
-    <img [src]="sanitizedUrl" draggable="false" flImageFullscreen
+    <img [ngSrc]="sanitizedUrl" [width]="imageWidth"
+         [height]="imageHeight"
+         draggable="false" flImageFullscreen
          [alt]="data.title" class="image">
   </div>
 

@@ -1,5 +1,5 @@
 import { Inject, Injector, NgModule, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { TeTextEditorComponent } from './component/te-text-editor/te-text-editor.component';
 import { TeFormulaComponent } from './component/te-formula/te-formula.component';
 import {
@@ -151,7 +151,8 @@ import {
     MatDivider,
     MatOptionModule,
 
-    RouterLink
+    RouterLink,
+    NgOptimizedImage
   ]
 })
 export class TeTextEditorModule {
