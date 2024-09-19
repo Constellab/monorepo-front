@@ -6,7 +6,6 @@ import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 
-// TODO IMPROVE STYLE
 @Component({
   selector: 'ca-folder-settings',
   templateUrl: './ca-folder-settings.component.html',

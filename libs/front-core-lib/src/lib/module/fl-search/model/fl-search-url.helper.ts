@@ -1,4 +1,4 @@
-import {ClHelpService} from '@monorepo/core-lib';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Use to store the advanced search values in the URL
@@ -18,7 +18,7 @@ export interface FlSearchUrlObject {
 /**
  * Implement to class to specify how to convert the object to url for the search
  */
-export interface FlSearchObjectToUrl{
+export interface FlSearchObjectToUrl {
   toUrlJson(): Record<string, any>;
 }
 
@@ -30,7 +30,8 @@ export class FlSearchPageUrlHelper {
    * @param timestamp of the search
    */
   public static buildSearchUrlObject(search: string, timestamp: string): FlSearchUrlObject {
-    return {search: search, timestamp: timestamp};
+    if (!search) return { search: null, timestamp: null };
+    return { search: search, timestamp: timestamp };
   }
 
   /**
@@ -38,28 +39,35 @@ export class FlSearchPageUrlHelper {
    * For object with id, only keep the id and remove others fields
    * @param advancedSearch
    */
-  public static advancedSearchToString(advancedSearch: FlAdvancedSearchObject): string {
+  public static advancedSearchToString(advancedSearch: FlAdvancedSearchObject): string | null {
     const simpleFilters: Record<string, any> = {};
 
     const filters = advancedSearch.filtersCriteria;
     for (const key of Object.keys(filters)) {
       if (filters[key] == null) continue;
 
+      let filter: any;
       if (Array.isArray(filters[key])) {
-        simpleFilters[key] = filters[key].map((item: any) => this.advancedSearchObjectToString(item));
+        filter = filters[key].map((item: any) => this.advancedSearchObjectToString(item));
       } else if (typeof filters[key] === 'object') {
-        simpleFilters[key] = this.advancedSearchObjectToString(filters[key]);
+        filter = this.advancedSearchObjectToString(filters[key]);
       } else {
-        simpleFilters[key] = filters[key];
+        filter = filters[key];
+      }
+
+      if (!ClHelpService.isNullOrEmpty(filter)) {
+        simpleFilters[key] = filter;
       }
     }
 
-    return JSON.stringify({filtersCriteria: simpleFilters});
+    if (ClHelpService.isNullOrEmpty(simpleFilters)) return null;
+
+    return JSON.stringify({ filtersCriteria: simpleFilters });
   }
 
-  private static advancedSearchObjectToString(obj: Record<any, any>): Record<any, any> {
+  private static advancedSearchObjectToString(obj: Record<any, any>): Record<any, any> | null {
     // skip object where all values are null
-    if (!ClHelpService.objectHasNonNullProperties(obj)) return obj;
+    if (!ClHelpService.objectHasNonNullProperties(obj)) return null;
 
     // check if object has method toTest()
     if (obj.toUrlJson && typeof obj.toUrlJson === 'function') {
@@ -67,7 +75,7 @@ export class FlSearchPageUrlHelper {
     }
 
     if (obj.id !== undefined) {
-      return {id: obj.id};
+      return { id: obj.id };
     }
 
     return obj;

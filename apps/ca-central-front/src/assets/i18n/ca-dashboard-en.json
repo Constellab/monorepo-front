@@ -179,8 +179,8 @@
   "constellab_document": "Constellab document",
   "folder_object_type": "Type",
   "clear": "Clear",
-  "folder_chat_activated": "Chat activated",
-  "folder_chat_deactivated": "Chat deactivated",
+  "folder_chat_activated": "Chat activated in the folder",
+  "folder_chat_deactivated": "Chat deactivated in the folder",
   "folder_activate_chat": "Activate chat",
   "folder_deactivate_chat": "Deactivate chat",
   "open_in_chat": "Open in chat"

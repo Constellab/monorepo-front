@@ -4,8 +4,10 @@ import { map } from 'rxjs/operators';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { FlTranslateService } from '@monorepo/front-core-lib';
 import { CaHierarchyObjectDetailState } from '../../state/ca-hierarchy-object-detail.state';
-import { CaHierarchyObject, CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { clRxjsDebug } from '@monorepo/core-lib';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectType
+} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 interface BreadcrumbLink {
   id: string;
@@ -27,8 +29,6 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
 
   links$: Observable<BreadcrumbLink[]>;
 
-  showTreeButton$: Observable<boolean>;
-
   constructor(private state: CaHierarchyObjectDetailState,
               private translateService: FlTranslateService) {
   }
@@ -38,8 +38,6 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
     this.links$ = this.state.getAncestorsFolders$().pipe(
       map(ancestors => this.ancestorsToLinks(ancestors))
     );
-
-    this.showTreeButton$ = this.state.rootFolderHasChildren$();
   }
 
   private ancestorsToLinks(ancestors: CaHierarchyObject[]): BreadcrumbLink[] {

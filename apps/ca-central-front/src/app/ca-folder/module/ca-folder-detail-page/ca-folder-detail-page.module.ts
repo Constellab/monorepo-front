@@ -9,7 +9,6 @@ import { CaExperimentCoreModule } from '../ca-experiment-core/ca-experiment-core
 import { CaReportCoreModule } from '../ca-report-core/ca-report-core.module';
 import { CaGroupCoreModule } from '../../../ca-core/entity-module/ca-group-core/ca-group-core.module';
 import { CaFolderSharedListComponent } from './component/ca-folder-shared-list/ca-folder-shared-list.component';
-import { CaFolderUsersComponent } from './component/ca-folder-users/ca-folder-users.component';
 import {
   CaFolderDetailRightPanelComponent
 } from './component/ca-folder-detail-right-panel/ca-folder-detail-right-panel.component';
@@ -58,6 +57,9 @@ import {
 import { CaFolderDetailInfoComponent } from './component/ca-folder-detail-info/ca-folder-detail-info.component';
 import { CaChatCoreModule } from '../../../ca-core/entity-module/ca-chat-core/ca-chat-core.module';
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
+import {
+  CaHierarchyObjectSearchFormComponent
+} from './component/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
 
 /**
  * Module for the folder detail page
@@ -67,7 +69,6 @@ import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-fold
     CaFolderDetailPageComponent,
     CaFolderDetailComponent,
     CaFolderSharedListComponent,
-    CaFolderUsersComponent,
     CaFolderDetailRightPanelComponent,
     CaFolderDescriptionComponent,
     CaFolderReportPreviewComponent,
@@ -80,7 +81,8 @@ import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-fold
     CaDocumentTrashListDialogComponent,
     CaFolderStorageUsageSectionComponent,
     CaConstellabDocumentPreviewComponent,
-    CaFolderDetailInfoComponent
+    CaFolderDetailInfoComponent,
+    CaHierarchyObjectSearchFormComponent
   ],
   imports: [
     CommonModule,

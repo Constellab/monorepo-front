@@ -10,7 +10,7 @@ import { TeRichTextContent } from '@monorepo/text-editor';
 
 export interface CaFolderInfo {
   id: string;
-  title: string;
+  name: string;
   leader: CaUser;
 }
 
@@ -18,7 +18,7 @@ export class CaFolder extends CaBaseEntity {
 
   code: string;
 
-  title: string;
+  name: string;
 
   @ClLuxonDateTransform()
   startingDate: DateTime;
@@ -34,7 +34,7 @@ export class CaFolder extends CaBaseEntity {
   get info(): CaFolderInfo {
     return {
       id: this.id,
-      title: this.title,
+      name: this.name,
       leader: this.leader
     };
   }
@@ -51,7 +51,7 @@ export type CaFolderDatasource = FlEntityPaginatedDatasource<CaFolder>;
 
 export class CnSaveFolderDTO {
   code: string;
-  title: string;
+  name: string;
   @ClLuxonDateTransform()
   startingDate: DateTime;
   @ClLuxonDateTransform()

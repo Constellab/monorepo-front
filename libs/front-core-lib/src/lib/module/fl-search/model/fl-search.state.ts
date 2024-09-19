@@ -1,14 +1,15 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {FlDatasourcePaginated} from '../../../model/datasource/fl-datasource-paginated.class';
-import {FormGroup} from '@ngneat/reactive-forms';
-import {MatDrawer} from '@angular/material/sidenav';
-import {FlSearchConfig} from './fl-search-state-config.class';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FlAdvancedSearchObject, FlSearchPageUrlHelper, FlSearchUrlObject} from './fl-search-url.helper';
-import {first} from 'rxjs/operators';
-import {Subscription} from 'rxjs';
-import {ClCoreJsonConvert} from '@monorepo/core-lib';
-import {FlSavedSearch} from './fl-saved-search.class';
+import { Injectable, OnDestroy } from '@angular/core';
+import { FlDatasourcePaginated } from '../../../model/datasource/fl-datasource-paginated.class';
+import { FormGroup } from '@ngneat/reactive-forms';
+import { MatDrawer } from '@angular/material/sidenav';
+import { FlSearchConfig } from './fl-search-state-config.class';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FlAdvancedSearchObject, FlSearchPageUrlHelper, FlSearchUrlObject } from './fl-search-url.helper';
+import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { ClCoreJsonConvert } from '@monorepo/core-lib';
+import { FlSavedSearch } from './fl-saved-search.class';
+import { ControlEventOptions } from '@ngneat/reactive-forms/lib/types';
 
 
 /**
@@ -83,6 +84,11 @@ export class FlSearchState<T> implements OnDestroy {
 
   public patchFormValueAndCallSearch(searchCriteria: Record<string, any>): void {
     this.advancedSearchFormGroup.patchValue(searchCriteria);
+    this.callAdvancedSearchFromForm();
+  }
+
+  public resetFormAndCallSearch(options?: ControlEventOptions): void {
+    this.resetAdvancedFormGroup(null, options);
     this.callAdvancedSearchFromForm();
   }
 
@@ -202,13 +208,14 @@ export class FlSearchState<T> implements OnDestroy {
     const searchString: string = FlSearchPageUrlHelper.advancedSearchToString({filtersCriteria: advancedSearch.filtersCriteria});
 
     // limit length to avoid URL problem
-    if (searchString.length < 1700) {
+    if (!searchString || searchString.length < 1700) {
       const searchUrl = FlSearchPageUrlHelper.buildSearchUrlObject(searchString, timestamp);
       // save the criteria list in the url as query params
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: searchUrl,
-        replaceUrl: true
+        replaceUrl: true,
+        queryParamsHandling: 'merge'
       });
     }
   }
@@ -221,8 +228,8 @@ export class FlSearchState<T> implements OnDestroy {
     this.hiddenFilters = hiddenFilters;
   }
 
-  private resetAdvancedFormGroup(value: any): void {
-    this.advancedSearchFormGroup.reset(value);
+  private resetAdvancedFormGroup(value: any, options?: ControlEventOptions): void {
+    this.advancedSearchFormGroup.reset(value, options);
   }
 
   public closeDrawer(): void {

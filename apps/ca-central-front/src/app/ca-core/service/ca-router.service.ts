@@ -1,10 +1,11 @@
 import {
   caConstAdminRoute,
-  caConstBaseRoute, caConstChatRoute,
+  caConstBaseRoute,
+  caConstChatRoute,
   caConstDashboardRoute,
+  caConstFolderRoute,
   caConstLabInstancesRoute,
   caConstMyFoldersRoute,
-  caConstFolderRoute,
   caConstStructureRoute,
   caConstUserPageRoute
 } from '../utils/ca-base-route';
@@ -22,6 +23,9 @@ export class CaRouterService {
   constructor(private router: Router) {
   }
 
+  public navigate(route: string): void {
+    this.router.navigate([route]);
+  }
 
   //////////////////////////////////// ROUTES OUTSIDE /APP ///////////////////////////////////////
 
@@ -200,6 +204,10 @@ export class CaRouterService {
 
   public static getChatFolderRoute(folderId: string): string {
     return `${CaRouterService.getChatRoute()}/folder/${folderId}`;
+  }
+
+  public navigateToChatFolder(folderId: string): void {
+    this.router.navigate([CaRouterService.getChatFolderRoute(folderId)]);
   }
 
   ////////////////////////// ADMIN ///////////////////////

@@ -49,11 +49,11 @@ export class CaFolderDetailComponent {
     const folderActionsMenu = new CaFolderActionsMenu(this.dialogService, this.folderService,
       this.menuDynamicService, {
         id: folder.id,
-        title: folder.title,
+        name: folder.name,
         leader: folder.leader
       });
 
-    folderActionsMenu.openActionMenu(event).subscribe(event => {
+    folderActionsMenu.openTableItemActionMenu(event).subscribe(event => {
       this.onFolderAction(event);
     });
   }

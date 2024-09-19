@@ -179,8 +179,8 @@
   "constellab_document": "Document Constellab",
   "folder_object_type": "Type",
   "clear": "Effacer",
-  "folder_chat_activated": "Chat activé",
-  "folder_chat_deactivated": "Chat désactivé",
+  "folder_chat_activated": "Chat activé dans le dossier",
+  "folder_chat_deactivated": "Chat désactivé dans le dossier",
   "folder_activate_chat": "Activer le chat",
   "folder_deactivate_chat": "Désactiver le chat",
   "open_in_chat": "Ouvrir dans le chat"

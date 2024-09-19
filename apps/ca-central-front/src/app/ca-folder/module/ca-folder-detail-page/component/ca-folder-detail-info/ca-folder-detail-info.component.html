@@ -3,25 +3,40 @@
     <mat-icon>info</mat-icon>
     <h3>{{ 'info' | translate }}</h3>
   </fl-text-icon>
+
+  <fl-section-actions>
+    <button mat-icon-button type="button" (click)="openUpdateFolderDialog()"
+            [matTooltip]="'update_folder' | translate">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </fl-section-actions>
 </fl-section-header>
 
 @if (folder$ | async; as folder) {
   <div class="grid">
 
     <fl-text-icon>
+      <mat-icon>label</mat-icon>
+      {{ 'name' | translate }}
+    </fl-text-icon>
+
+    <div>{{ folder.name }}</div>
+
+
+    <fl-text-icon>
       <mat-icon>person</mat-icon>
       {{ 'folder_leader' | translate }}
     </fl-text-icon>
-
-    <fl-user-inline [user]="folder.leader" class="folder-leader-user"></fl-user-inline>
 
     @if (folder.code) {
       <fl-text-icon>
         <mat-icon>badge</mat-icon>
         {{ 'code' | translate }}
       </fl-text-icon>
-      <div>{{ 'code' | translate }} : {{ folder.code }}</div>
+      <div>{{ folder.code }}</div>
     }
+
+    <fl-user-inline [user]="folder.leader" class="folder-leader-user"></fl-user-inline>
 
     @if (folder.startingDate || folder.endingDate) {
       <fl-text-icon>

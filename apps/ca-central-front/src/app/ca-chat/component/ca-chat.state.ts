@@ -4,7 +4,8 @@ import { CaFolderService } from '../../ca-core/service-api/ca-folder.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlRouterHelper } from '@monorepo/front-core-lib';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { first, Observable } from 'rxjs';
+import { CaRouterService } from '../../ca-core/service/ca-router.service';
 
 /**
  * Global state for the chat page
@@ -18,7 +19,8 @@ export class CaChatState {
 
   constructor(private folderService: CaFolderService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private routerService: CaRouterService) {
   }
 
   public init(): void {
@@ -38,6 +40,13 @@ export class CaChatState {
 
   private getFolderTreeSuccess(folders: CaHierarchyObjectWithChildren[]): void {
     this.hierarchyObjects.set(folders);
+
+    // if there is not selected folder, select the first one
+    this.folderId$.pipe(first()).subscribe(folderId => {
+      if (!folderId && folders.length > 0) {
+        this.routerService.navigateToChatFolder(folders[0].id);
+      }
+    });
   }
 
   public getSelectedFolderId$(): Observable<string> {

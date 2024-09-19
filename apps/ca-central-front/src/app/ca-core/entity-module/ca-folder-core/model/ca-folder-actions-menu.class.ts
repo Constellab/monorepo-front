@@ -17,6 +17,11 @@ import {
 } from '../component/ca-update-folder-leader-dialog/ca-update-folder-leader-dialog.component';
 import { mergeMap, Observable, Subject } from 'rxjs';
 import { CaRouterService } from '../../../service/ca-router.service';
+import {
+  CaDocumentNameFormDialogComponent,
+  CaDocumentNameFormDialogInput
+} from '../../../../ca-folder/module/ca-document-core/component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
+import { CaConstellabDocument } from '../../../model/entities/folder/ca-document.class';
 
 export type CaFolderActionEvent = {
   action: 'createChild';
@@ -27,7 +32,11 @@ export type CaFolderActionEvent = {
 } | {
   action: 'delete';
   folder: CaFolderInfo;
-}
+} | {
+  action: 'createConstellabDocument';
+  document: CaConstellabDocument;
+};
+
 
 export class CaFolderActionsMenu {
 
@@ -39,9 +48,23 @@ export class CaFolderActionsMenu {
               private folderInfo: CaFolderInfo) {
   }
 
-  public openActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
-    const menu = this.generateActionMenu();
+  /**
+   * Open the action menu for the folder in the table
+   * @param event
+   */
+  public openTableItemActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
+    const menu = this.generateTableItemActionMenu();
 
+    return this.openActionMenu(menu, event);
+  }
+
+  public openFolderChildrenActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
+    const menu = this.generateFolderChildrenActionMenu();
+
+    return this.openActionMenu(menu, event);
+  }
+
+  private openActionMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<CaFolderActionEvent> {
     const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(menu, event);
 
     return overlayRef.detachments().pipe(
@@ -57,14 +80,9 @@ export class CaFolderActionsMenu {
     );
   }
 
-  private generateActionMenu(): FlMenuDynamic[] {
+  private generateTableItemActionMenu(): FlMenuDynamic[] {
     return [
-      {
-        type: 'button',
-        text: { text: 'new_sub_folder', translateText: true },
-        icon: 'add',
-        onClick: () => this.openChildCreation()
-      },
+      this.getCreateChildConfig(),
       {
         type: 'button',
         text: { text: 'update_folder', translateText: true },
@@ -93,7 +111,28 @@ export class CaFolderActionsMenu {
     ];
   }
 
-  openUpdateFolderDialog(): void {
+  private generateFolderChildrenActionMenu(): FlMenuDynamic[] {
+    return [
+      this.getCreateChildConfig(),
+      {
+        type: 'button',
+        text: { text: 'create_constellab_document', translateText: true },
+        icon: 'constellab_document',
+        onClick: () => this.createConstellabDocument()
+      }
+    ];
+  }
+
+  private getCreateChildConfig(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'new_sub_folder', translateText: true },
+      icon: 'add',
+      onClick: () => this.openChildCreation()
+    };
+  }
+
+  private openUpdateFolderDialog(): void {
     const dialogInput: CaFolderFormDialogInput = {
       mode: 'update',
       folderId: this.folderInfo.id
@@ -116,7 +155,7 @@ export class CaFolderActionsMenu {
     this.subject.complete();
   }
 
-  openChildCreation(): void {
+  private openChildCreation(): void {
     const dialogInput: CaFolderFormDialogInput = {
       mode: 'create',
       parentId: this.folderInfo.id
@@ -139,7 +178,7 @@ export class CaFolderActionsMenu {
     this.subject.complete();
   }
 
-  openUpdateFolderLeaderDialog(): void {
+  private openUpdateFolderLeaderDialog(): void {
     const dialogInput: CaUpdateFolderLeaderDialogInput = {
       folderId: this.folderInfo.id,
       currentLeader: this.folderInfo.leader,
@@ -163,7 +202,7 @@ export class CaFolderActionsMenu {
     this.subject.complete();
   }
 
-  openDeleteFolderDialog(): void {
+  private openDeleteFolderDialog(): void {
     const input: FlConfirmDialogInput = {
       title: 'delete_folder',
       content: 'delete_folder_confirm',
@@ -183,6 +222,26 @@ export class CaFolderActionsMenu {
       this.subject.next({
         action: 'delete',
         folder: this.folderInfo
+      });
+    }
+    this.subject.complete();
+  }
+
+  private createConstellabDocument(): void {
+    const input: CaDocumentNameFormDialogInput = {
+      mode: 'create',
+      parentFolderId: this.folderInfo.id
+    };
+
+    this.dialogService.openSmallDialog(CaDocumentNameFormDialogComponent, { data: input }).afterClosed()
+      .subscribe((doc: CaConstellabDocument) => this.createConstellabDocClosed(doc));
+  }
+
+  private createConstellabDocClosed(doc?: CaConstellabDocument): void {
+    if (doc) {
+      this.subject.next({
+        action: 'createConstellabDocument',
+        document: doc
       });
     }
     this.subject.complete();

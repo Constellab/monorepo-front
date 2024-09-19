@@ -12,7 +12,7 @@ export class CaFolderSearchFields {
 
   code: string;
 
-  title: string;
+  name: string;
 
   @Type(() => FlSearchDateInterval)
   startingDate: FlSearchDateInterval;
@@ -35,7 +35,7 @@ export class CaFolderSearch {
 
   public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaFolderSearchFields> = {
     code: 'code',
-    title: 'title',
+    name: 'name',
     startingDate: 'starting_date',
     endingDate: 'ending_date',
     leader: 'folder_leader',
@@ -45,7 +45,7 @@ export class CaFolderSearch {
 
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaFolderSearchFields> = {
     code: { key: 'code', operator: 'MATCH' },
-    title: { key: 'title', operator: 'MATCH' },
+    name: { key: 'name', operator: 'MATCH' },
     startingDate: FlSearchConverter.dateInterval('startingDate'),
     endingDate: FlSearchConverter.dateInterval('endingDate'),
     leader: { key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
@@ -57,7 +57,7 @@ export class CaFolderSearch {
   public static getAdvancedSearchForm(): FormGroup<CaFolderSearchFields> {
     return new FormBuilder().group<CaFolderSearchFields>({
       code: null,
-      title: null,
+      name: null,
       startingDate: new FormBuilder().group<FlSearchDateInterval>({
         from: [null],
         to: [null]

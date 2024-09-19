@@ -1,7 +1,7 @@
-import {FlSearchCriteria, FlSearchOperator} from './fl-search.class';
-import {DateTime} from 'luxon';
-import {ClDateHelper, ClHelpService, ClLuxonDateTimeTransform} from '@monorepo/core-lib';
-import {FlEntity} from '../../../model/fl-entity.class';
+import { FlSearchCriteria, FlSearchOperator } from './fl-search.class';
+import { DateTime } from 'luxon';
+import { ClDateHelper, ClHelpService, ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { FlEntity } from '../../../model/fl-entity.class';
 
 /**
  * Object used to convert an object attribute to a {@link FlSearchCriteria} to perform a advanced search
@@ -218,10 +218,10 @@ export class FlSearchConverter {
 
   private static convertDateInterval(key: string, dateConverter: (date: DateTime) => string):
     FlSearchAttributeFunctionCriteriaConverter<FlSearchDateInterval> {
-    return (dates: FlSearchDateInterval): FlSearchCriteria[] => {
+    return (dates?: FlSearchDateInterval): FlSearchCriteria[] => {
       let criteria: FlSearchCriteria;
       // if the 2 dates are null
-      if (dates.from == null && dates.to == null) {
+      if (dates == null || (dates.from == null && dates.to == null)) {
         return null;
       } else if (dates.to == null) {
         // if only the From date is filled

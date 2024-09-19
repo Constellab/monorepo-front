@@ -20,8 +20,9 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   private ancestorFolders$: FlEntityArrayObs<CaHierarchyObject>;
   private folderTree: FlDatasourceTree<CaHierarchyObjectWithChildren>;
 
+  // by default the tree is opened
   private treeDrawerOpened$: BehaviorSubject<boolean>;
-  private queryParamHandler: FlQueryParamHandler<{ showTree?: boolean }>;
+  private queryParamHandler: FlQueryParamHandler<{ showTree?: string }>;
 
   private subscription: Subscription;
 
@@ -68,21 +69,12 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     this.ancestorFolders$.array = ancestors;
   }
 
-  public rootFolderHasChildren$(): Observable<boolean> {
-    return this.getFolderTree$().pipe(
-      map(ancestors => ancestors.children.length > 0)
-    );
-  }
-
   private initTreeDrawerOpened(): void {
     this.queryParamHandler = new FlQueryParamHandler(this.router, this.route);
     // init tree open
     this.queryParamHandler.getFirstQueryParams().subscribe(
-      params => {
-        if (params.showTree) {
-          this.treeDrawerOpened$.next(true);
-        }
-      }
+      // if the query param is not present, the tree is opened
+      params => this.treeDrawerOpened$.next(params.showTree !== "false")
     );
   }
 
@@ -93,9 +85,9 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   public setTreeOpened(treeOpened: boolean): void {
     this.treeDrawerOpened$.next(treeOpened);
     if (treeOpened) {
-      this.queryParamHandler.mergeQueryParams({ showTree: true });
-    } else {
       this.queryParamHandler.mergeQueryParams({ showTree: null });
+    } else {
+      this.queryParamHandler.mergeQueryParams({ showTree: "false" });
     }
   }
 

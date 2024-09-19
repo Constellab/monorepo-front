@@ -1,9 +1,9 @@
 <mat-table mat-table [dataSource]="datasource" class="table">
 
-  <!-- Code/Title -->
+  <!-- Code/Name -->
   <ng-container matColumnDef="code">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'code' | translate }} / {{ 'title' | translate }}</span>
+      <span> {{ 'name' | translate }} / {{ 'code' | translate }} /</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let folder">
 

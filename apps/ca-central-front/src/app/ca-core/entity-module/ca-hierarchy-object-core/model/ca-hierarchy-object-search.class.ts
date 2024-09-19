@@ -33,7 +33,7 @@ export class CaHierarchyObjectSearch {
 
   public static advancedSearchConverter: FlSearchCriteriaConverter<CaHierarchyObjectSearchFields> = {
     name: { key: 'name', operator: 'MATCH' },
-    users: { key: 'user.id', operator: 'EQ', convertValue: FlSearchConverter.getEntitiesId },
+    users: { key: 'user.id', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId },
     lastModifiedAt: FlSearchConverter.dateInterval('lastModifiedAt'),
     objectType: { key: 'objectType', operator: 'EQ' },
     id: { key: 'id', operator: 'EQ' }

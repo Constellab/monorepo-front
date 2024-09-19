@@ -49,10 +49,10 @@ export class CaHierarchyObjectActionMenu {
       this.menuDynamicService,
       {
         id: this.hierarchyObject.id,
-        title: this.hierarchyObject.name,
+        name: this.hierarchyObject.name,
         leader: this.hierarchyObject.user
       });
-    return folderActionsMenu.openActionMenu(event);
+    return folderActionsMenu.openTableItemActionMenu(event);
   }
 
   private openDocumentActionMenu(event: MouseEvent): Observable<CaDocumentActionEvent | null> {

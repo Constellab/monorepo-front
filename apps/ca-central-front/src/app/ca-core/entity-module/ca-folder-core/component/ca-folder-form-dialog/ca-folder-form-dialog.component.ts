@@ -71,7 +71,7 @@ export class CaFolderFormDialogComponent extends FlFormDialogAbstractDirective<C
 
   buildForm(): FormGroup<CnSaveFolderDTO> {
     return new FormBuilder().group({
-      title: [null, Validators.required],
+      name: [null, Validators.required],
       code: [null],
       startingDate: [null],
       endingDate: [null],

@@ -9,47 +9,7 @@
   <fl-card class="card-table">
 
     <fl-card-header>
-      <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-
-        <!--    Filter by name    -->
-        <mat-form-field class="g-form-field-compact" subscriptSizing="dynamic">
-          <mat-label>{{ 'name' | translate }}</mat-label>
-          <input matInput [placeholder]="'name' | translate" [(ngModel)]="nameFilter"
-                 (change)="filterByName(nameFilter)">
-        </mat-form-field>
-
-
-        <!--   Filter by object type     -->
-        <mat-form-field class="g-form-field-compact" subscriptSizing="dynamic">
-          <mat-label>{{ 'folder_object_type' | translate }}</mat-label>
-          <mat-select [(ngModel)]="selectedObjectType" (selectionChange)="selectObjectType(selectedObjectType)"
-                      panelClass="g-mat-select-panel-no-max-height" [placeholder]="'folder_object_type' | translate">
-            @if (selectedObjectType) {
-              <mat-select-trigger>
-                {{ objectTypes[selectedObjectType] | translate }}
-              </mat-select-trigger>
-            }
-
-            @if (selectedObjectType) {
-              <mat-option [value]="null">
-                <div class="g-layout-row g-layout-start-center g-text-light">
-                  <mat-icon>block</mat-icon>
-                  <div>{{ 'clear' | translate }}</div>
-                </div>
-              </mat-option>
-            }
-
-            <mat-option *ngFor="let key of objectTypes | flObjectKeys" [value]="key">
-              <div class="g-layout-row g-layout-start-center">
-                <ca-hierarchy-object-icon [objectType]="key" objectName=""></ca-hierarchy-object-icon>
-                {{ objectTypes[key] | translate }}
-              </div>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <ca-folder-users [folderId$]="folderId$"></ca-folder-users>
-      </div>
+      <ca-hierarchy-object-search-form></ca-hierarchy-object-search-form>
 
       <fl-card-actions>
         <button mat-icon-button type="button" (click)="createConstellabDocument()"
@@ -70,7 +30,7 @@
       </fl-card-actions>
     </fl-card-header>
 
-    <fl-card-body class="g-full-height">
+    <fl-card-body class="g-full-height" (contextmenu)="cardRightClick($event)">
       <fl-infinite-table-container [datasource]="children" textNoResult="folder_empty" textNoMoreResult=""
                                    class="g-full-height">
         <ca-hierarchy-object-table [datasource]="children" [columns]="columns"
@@ -78,10 +38,12 @@
                                    (rowEvent)="onHierarchyObjectRowEvent($event)">
 
           <ng-template let-object>
-            <!--   Settings menu   -->
-            <button mat-icon-button type="button" (click)="hierarchyObjectMenuClick(object, $event)">
-              <mat-icon>more_vert</mat-icon>
-            </button>
+            @if (hierarchyObjectHasActionMenu(object)) {
+              <!--   Settings menu   -->
+              <button mat-icon-button type="button" (click)="hierarchyObjectMenuClick(object, $event)">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            }
           </ng-template>
 
         </ca-hierarchy-object-table>
@@ -92,7 +54,7 @@
   @if (folder$ | async; as folder) {
     <div class="drop-info g-layout-col g-layout-center-center g-text-centered">
       <mat-icon>folder</mat-icon>
-      <div class="g-text-big">{{ 'drop_file_in_folder' | translate : { name: folder.title } }}</div>
+      <div class="g-text-big">{{ 'drop_file_in_folder' | translate : { name: folder.name } }}</div>
     </div>
   }
 </div>

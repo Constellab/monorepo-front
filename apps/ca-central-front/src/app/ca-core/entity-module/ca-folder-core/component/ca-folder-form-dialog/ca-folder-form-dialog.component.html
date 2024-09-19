@@ -5,13 +5,13 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="folder-form" [formGroup]="formGp">
 
-    <!--  Title  -->
+    <!--  Name  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'title' | translate}}</mat-label>
-      <input matInput formControlName="title" required flInputMaxLength="100"
-             placeholder="{{'title' | translate}}">
-      <mat-error *ngIf="formGp.get('title').hasError('required')">
-        {{'title' | flErrorRequired}}
+      <mat-label>{{'name' | translate}}</mat-label>
+      <input matInput formControlName="name" required flInputMaxLength="100"
+             placeholder="{{'name' | translate}}">
+      <mat-error *ngIf="formGp.get('name').hasError('required')">
+        {{'name' | flErrorRequired}}
       </mat-error>
     </mat-form-field>
 

@@ -32,12 +32,12 @@ export class CaHierarchyObjectTableComponent {
   // to support custom column
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
-  onFolderClick(folder: CaHierarchyObject, event: MouseEvent): void {
+  onFolderClick(object: CaHierarchyObject, event: MouseEvent): void {
     if (this.rowSelectable) {
-      this.selectedObject = folder;
+      this.selectedObject = object;
       this.rowEvent.emit({
-        action: event.button === FlMouseButton.LEFT ? 'click' : event.button === FlMouseButton.MIDDLE ? 'middleClick' : 'rightClick',
-        hierarchyObject: folder,
+        action: 'click',
+        hierarchyObject: object,
         event: event
       });
     }
@@ -52,6 +52,16 @@ export class CaHierarchyObjectTableComponent {
   rightClick(object: CaHierarchyObject, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     this.rowEvent.emit({ action: 'rightClick', hierarchyObject: object, event: event });
+  }
+
+  mouseUp(object: CaHierarchyObject, event: MouseEvent): void {
+    if (this.rowSelectable && event.button === FlMouseButton.MIDDLE) {
+      this.rowEvent.emit({
+        action: 'middleClick',
+        hierarchyObject: object,
+        event: event
+      });
+    }
   }
 
   openChat(object: CaHierarchyObject, event: MouseEvent): void {
