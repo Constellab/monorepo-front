@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {CaGroup, CaGroupDatasource, CaUserGroup} from '../model/entities/ca-group.entity';
-import {ClPage, ClPageI} from '@monorepo/core-lib';
-import {CaTeamSearch, CaTeamSearchFields} from '../entity-module/ca-group-core/model/ca-team.search.class';
+import { Observable } from 'rxjs';
+import { CaGroup, CaGroupDatasource, CaUserGroup } from '../model/entities/ca-group.entity';
+import { ClPage, ClPageI } from '@monorepo/core-lib';
+import { CaTeamSearch, CaTeamSearchFields } from '../entity-module/ca-group-core/model/ca-team.search.class';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +23,12 @@ export class CaGroupService {
 
   public getAllCurrentGroups(page: number, size: number): Observable<ClPageI<CaGroup>> {
     return this.apiService.get(`${this.route}/current`, CaGroup,
-      {page: page, pageSize: size, resultIsPaginated: true});
+      { page: page, pageSize: size, resultIsPaginated: true });
   }
 
   public searchGroupInCurrentSpaceByLabel(label: string, page: number, size: number): Observable<ClPageI<CaGroup>> {
     return this.apiService.get(`${this.route}/current/search/label/${label}`, CaGroup,
-      {page: page, pageSize: size, resultIsPaginated: true});
+      { page: page, pageSize: size, resultIsPaginated: true });
   }
 
   public getById(id: string): Observable<CaGroup> {
@@ -53,7 +53,7 @@ export class CaGroupService {
 
   private getMyTeams(page: number, pageSize: number): Observable<ClPageI<CaGroup>> {
     return this.apiService.get(`${this.teamRoute}/current`, CaGroup,
-      {resultIsPaginated: true, page: page, pageSize: pageSize});
+      { resultIsPaginated: true, page: page, pageSize: pageSize });
   }
 
   public createTeam(label: string): Observable<CaGroup> {
@@ -78,16 +78,14 @@ export class CaGroupService {
 
   public getUsersOfTeam(groupId: string, page: number, size: number): Observable<ClPage<CaUserGroup>> {
     return this.apiService.get(`${this.teamRoute}/${groupId}/users`, CaUserGroup,
-      {page: page, pageSize: size, resultIsPaginated: true});
+      { page: page, pageSize: size, resultIsPaginated: true });
   }
 
-
-  public searchTeamInCurrentSpace(page: number, pageSize: number, filters?: CaTeamSearchFields): Observable<ClPageI<CaGroup>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaTeamSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.teamRoute}/current-space/search`, data, CaGroup, {
+  public searchTeamInCurrentSpace(page: number, pageSize: number,
+                                  data: FlDatasourceGetPageData<CaTeamSearchFields>): Observable<ClPageI<CaGroup>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      CaTeamSearch.filterConverter, CaTeamSearch.sortConverter);
+    return this.apiService.post(`${this.teamRoute}/current-space/search`, searchInput, CaGroup, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }

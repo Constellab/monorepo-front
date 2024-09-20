@@ -1,10 +1,10 @@
-import {Observable} from 'rxjs';
-import {FlColorHelper} from '../../utils/fl-color-helper.class';
-import {DateTime} from 'luxon';
-import {FlArrayObs} from '../../model/datasource/fl-array-obs.class';
-import {ClPageI} from '@monorepo/core-lib';
-import {FlEntity} from '../../model/fl-entity.class';
-import {FlDatasourcePaginated} from '../../model/datasource/fl-datasource-paginated.class';
+import { Observable } from 'rxjs';
+import { FlColorHelper } from '../../utils/fl-color-helper.class';
+import { DateTime } from 'luxon';
+import { FlArrayObs } from '../../model/datasource/fl-array-obs.class';
+import { ClPageI } from '@monorepo/core-lib';
+import { FlEntity } from '../../model/fl-entity.class';
+import { FlDatasourcePaginated } from '../../model/datasource/fl-datasource-paginated.class';
 
 export type FlTagValue = string | number | DateTime;
 
@@ -141,12 +141,14 @@ export class FlTagHelper {
   }
 }
 
+export interface FlTagSearchFilter {
+  key: string;
+  value?: string;
+}
+
 export abstract class FlTagService {
 
-  public abstract searchTag(filters: {
-    key: string,
-    value?: string
-  }, page: number, pageSize: number): Observable<ClPageI<any>>;
+  public abstract searchTag(filters: Partial<FlTagSearchFilter>, page: number, pageSize: number): Observable<ClPageI<any>>;
 
 }
 

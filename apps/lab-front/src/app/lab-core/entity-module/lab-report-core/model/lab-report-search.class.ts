@@ -2,8 +2,9 @@ import { Type } from 'class-transformer';
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
   FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter,
   FlTag
 } from '@monorepo/front-core-lib';
 import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
@@ -39,7 +40,7 @@ export class LabReportSearch {
   /**
    * Const to configure Form Input Manager for advanced search
    */
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabReportSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<LabReportSearchFields> = {
     title: 'title',
     tags: 'flTag.tags',
     folder: 'biox.folder',
@@ -51,11 +52,10 @@ export class LabReportSearch {
     isArchived: 'is_archived',
   };
 
-
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
-  public static advancedSearchConverter: FlSearchCriteriaConverter<LabReportSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<LabReportSearchFields> = {
     title: {key: 'title', operator: 'CONTAINS'},
     tags: {key: 'tags', operator: 'EQ'},
     folder: {key: 'folder', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
@@ -68,8 +68,15 @@ export class LabReportSearch {
     id: {key: 'id', operator: 'EQ'},
   };
 
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    title: 'title',
+    creation: 'created_at',
+    lastModification: 'last_modified_at',
+    lastSynchro: 'lastSyncAt',
+  };
 
-  public static getAdvancedSearchForm(): FormGroup<LabReportSearchFields> {
+
+  public static getSearchForm(): FormGroup<LabReportSearchFields> {
     return new FormBuilder().group(
       {
         title: [null],

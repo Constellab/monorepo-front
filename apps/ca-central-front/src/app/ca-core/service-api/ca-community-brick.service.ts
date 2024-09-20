@@ -1,14 +1,11 @@
-import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {CaCoServiceConfig} from '../model/config/ca-co-service-config.service';
-import {Observable} from 'rxjs';
-import {ClPage} from '@monorepo/core-lib';
-import {
-  CaCommunityBrickDatasourcePaginated
-} from '../../ca-lab-instance/component/ca-lab-instance-config-brick/ca-lab-instance-config-brick.component';
-import {CaCommunityBrick} from '../model/entities/ca-community-brick.class';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { CaCoServiceConfig } from '../model/config/ca-co-service-config.service';
+import { Observable } from 'rxjs';
+import { ClPage } from '@monorepo/core-lib';
+import { CaCommunityBrick } from '../model/entities/ca-community-brick.class';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CaCommunityBrickService {
 
   private readonly route = 'community';
@@ -18,23 +15,17 @@ export class CaCommunityBrickService {
   }
 
   public getByName(name: string, userId: string): Observable<CaCommunityBrick> {
-    return this.apiService.post(`${this.route}/brick/name/${name}`, {userId: userId}, CaCommunityBrick);
+    return this.apiService.post(`${this.route}/brick/name/${name}`, { userId: userId }, CaCommunityBrick);
   }
 
   public getAllWithFilters(spacesFilter: string[], titleFilter: string,
                            page: number, size: number, userId: string): Observable<ClPage<CaCommunityBrick>> {
     return this.apiService.post(`${this.route}/brick/filters`,
-      {spacesFilter: spacesFilter, titleFilter: titleFilter, userId: userId}, CaCommunityBrick, {
+      { spacesFilter: spacesFilter, titleFilter: titleFilter, userId: userId }, CaCommunityBrick, {
         page: page,
         pageSize: size,
         resultIsPaginated: true
       });
-  }
-
-  public getPaginatedCommunityBricks(pageSize = 10, userId: string): CaCommunityBrickDatasourcePaginated {
-    return new FlEntityPaginatedDatasource(
-      (page, size, requestData) =>
-        this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size, userId), pageSize, false);
   }
 
   getImageUrl(filename: string): string {
@@ -42,6 +33,6 @@ export class CaCommunityBrickService {
   }
 
   getVersionsList(brickId: string, userId: string): Observable<string[]> {
-    return this.apiService.post(`${this.route}/brick/versions-list/${brickId}`, {userId: userId}, null);
+    return this.apiService.post(`${this.route}/brick/versions-list/${brickId}`, { userId: userId }, null);
   }
 }

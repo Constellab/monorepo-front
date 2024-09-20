@@ -25,7 +25,7 @@ import {
 })
 export class CaUserTableComponent {
 
-  @Input({ required: true }) datasource: CaUserDatasourcePaginated;
+  @Input({ required: true }) datasource: CaUserDatasourcePaginated<any>;
 
   @Input() columns: FlTableColumnStatic<CaUser>[] = ['alias', 'contact', 'category', 'lastLogin', 'createdAt', 'adminActions'];
 

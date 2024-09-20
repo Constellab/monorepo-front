@@ -39,6 +39,9 @@ import {
   CaFolderActionEvent,
   CaFolderActionsMenu
 } from '../../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
+import {
+  CaHierarchyObjectSearchFields
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 
 /**
  * Page for a folder detail
@@ -54,7 +57,7 @@ export class CaFolderDetailPageComponent implements OnInit {
   folderId$: Observable<string>;
   folder$: Observable<CaFolder>;
 
-  children: CaHierarchyObjectDatasource;
+  children: CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields>;
 
   columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt', 'statusIcons', 'customAction'];
 
@@ -294,7 +297,7 @@ export class CaFolderDetailPageComponent implements OnInit {
   private onDocumentInTrashClosed(restoredDocs?: CaDocument[]): void {
     if (restoredDocs?.length > 0) {
       // refresh the data
-      this.children.getFirstPage(this.children.getRequestData());
+      this.children.getFirstPage();
     }
   }
 

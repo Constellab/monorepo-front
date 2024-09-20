@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {CaFolderService} from '../../../../../ca-core/service-api/ca-folder.service';
-import {CaActivityDatasource} from '../../../../../ca-core/model/entities/ca-activity.class';
-import {FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { CaActivityDatasource } from '../../../../../ca-core/model/entities/ca-activity.class';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import {
+  CaActivitySearchFields
+} from '../../../../../ca-core/entity-module/ca-activity-core/model/ca-activity-search.class';
 
 @Component({
   selector: 'ca-folder-activity-page',
@@ -11,7 +14,7 @@ import {FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
 })
 export class CaFolderActivityPageComponent implements OnInit {
 
-  datasource: CaActivityDatasource;
+  datasource: CaActivityDatasource<CaActivitySearchFields>;
 
   constructor(private route: ActivatedRoute,
               private folderService: CaFolderService) {

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
+  FlDatasourceGetPageData,
   FlDialogService,
   FlEntityPaginatedDatasource,
+  FlInputSearchFilter,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
 import {
@@ -21,7 +22,7 @@ import { LabExperiment } from '../model/entities/lab-experiment.entity';
 import { LabReportSearch, LabReportSearchFields } from '../entity-module/lab-report-core/model/lab-report-search.class';
 import { TeRichText } from '@monorepo/text-editor';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class LabReportService {
 
   private route: string = 'report';
@@ -43,11 +44,11 @@ export class LabReportService {
   }
 
   public updateTitle(id: string, title: string): Observable<LabReport> {
-    return this.apiService.put(`${this.route}/${id}/title`, {title: title}, LabReport);
+    return this.apiService.put(`${this.route}/${id}/title`, { title: title }, LabReport);
   }
 
   public updateFolder(id: string, folderId: string): Observable<LabReport> {
-    return this.apiService.put(`${this.route}/${id}/folder`, {folder_id: folderId}, LabReport);
+    return this.apiService.put(`${this.route}/${id}/folder`, { folder_id: folderId }, LabReport);
   }
 
   private reportFormToBody(report: LabReportForm): any {
@@ -125,27 +126,25 @@ export class LabReportService {
   }
 
 
-  public getSearchDatasource(): LabReportDatasource {
+  public getSearchDatasource(): LabReportDatasource<LabReportSearchFields> {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number, filters?: LabReportSearchFields) => this.search(page, pageSize, filters),
+      (page: number, pageSize: number, data) => this.search(page, pageSize, data),
       20, false
     );
   }
 
   public search(page: number, pageSize: number,
-                filters?: LabReportSearchFields): Observable<ClPageI<LabReport>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, LabReportSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/search`, data, LabReport, {
+                data: FlDatasourceGetPageData<LabReportSearchFields>): Observable<ClPageI<LabReport>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      LabReportSearch.filterConverter, LabReportSearch.sortConverter);
+    return this.apiService.post(`${this.route}/search`, searchInput, LabReport, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
 
-  public searchByNameDatasource(): LabReportDatasource {
+  public searchByNameDatasource(): LabReportDatasource<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number, name: string) => this.searchByName(page, pageSize, name),
+      (page: number, pageSize: number, data) => this.searchByName(page, pageSize, data.filtersCriteria.searchText),
       20, false
     );
   }
@@ -153,7 +152,7 @@ export class LabReportService {
   public searchByName(page: number, pageSize: number, name: string): Observable<ClPageI<LabReport>> {
     // if empty search, return all
     if (ClHelpService.isNullOrEmpty(name)) {
-      return this.search(page, pageSize);
+      return this.search(page, pageSize, null);
     }
     return this.apiService.get(`${this.route}/search-name/${name}`, LabReport, {
       page: page, pageSize: pageSize, resultIsPaginated: true
@@ -162,7 +161,7 @@ export class LabReportService {
 
   public getByResource(resourceId: string, page: number, pageSize: number): Observable<ClPageI<LabReport>> {
     return this.apiService.get(`${this.route}/resource/${resourceId}`, LabReport,
-      {resultIsPaginated: true, page: page, pageSize: pageSize});
+      { resultIsPaginated: true, page: page, pageSize: pageSize });
   }
 
   ///////////////////////////////////////////// ARCHIVE /////////////////////////////////////////////

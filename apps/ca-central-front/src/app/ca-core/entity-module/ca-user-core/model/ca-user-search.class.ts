@@ -1,8 +1,9 @@
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
-  FlSearchDateInterval
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { Type } from 'class-transformer';
@@ -37,7 +38,7 @@ export class CaUserSearchFields {
 
 export class CaUserSearch {
 
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaUserSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaUserSearchFields> = {
     firstname: 'firstname',
     lastname: 'lastname',
     email: 'email',
@@ -48,7 +49,7 @@ export class CaUserSearch {
     lastLoginSuccess: 'last_login',
   };
 
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaUserSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaUserSearchFields> = {
     firstname: {key: 'firstname', operator: 'MATCH'},
     lastname: {key: 'lastname', operator: 'MATCH'},
     email: {key: 'email', operator: 'MATCH'},
@@ -61,7 +62,14 @@ export class CaUserSearch {
     id: {key: 'id', operator: 'EQ'},
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaUserSearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    alias: ['firstname', 'lastname'],
+    createdAt: 'createdAt',
+    category: 'category',
+    lastLogin: 'lastLoginSuccess',
+  };
+
+  public static getSearchForm(): FormGroup<CaUserSearchFields> {
     return new FormBuilder().group<CaUserSearchFields>({
       firstname: null,
       lastname: null,

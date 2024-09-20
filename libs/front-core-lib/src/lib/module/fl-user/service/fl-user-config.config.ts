@@ -1,6 +1,7 @@
-import {FlUser} from '../model/fl-user.class';
-import {FlDatasourcePaginated} from '../../../model/datasource/fl-datasource-paginated.class';
-import {Observable} from 'rxjs';
+import { FlUser } from '../model/fl-user.class';
+import { FlDatasourcePaginated } from '../../../model/datasource/fl-datasource-paginated.class';
+import { Observable } from 'rxjs';
+import { FlInputSearchFilter } from '../../fl-input-search/component/fl-input-search/fl-input-search.component';
 
 /**
  * AllForAdmin --> show all user only for G admin user otherwise space
@@ -20,7 +21,7 @@ export abstract class FlUserConfig {
   /**
    * Use by the {@link FlSelectUserComponent} to search users by name
    */
-  public abstract getSearchByNamesDatasource(mode: FlUserConfigSearchNameMode): FlDatasourcePaginated<FlUser>;
+  public abstract getSearchByNamesDatasource(mode: FlUserConfigSearchNameMode): FlDatasourcePaginated<FlUser, FlInputSearchFilter>;
 
   /**
    * Use by the {@link FlSelectUserComponent} to get the current user

@@ -1,8 +1,8 @@
-<mat-table mat-table [dataSource]="datasource">
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
 
   <!-- Title -->
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border">
+    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border" mat-sort-header>
       <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let report" class="g-cell-with-left-border"
@@ -59,7 +59,7 @@
 
   <!-- Creation -->
   <ng-container matColumnDef="creation">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -70,7 +70,7 @@
 
   <!-- Last Modification -->
   <ng-container matColumnDef="lastModification">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -81,7 +81,7 @@
 
   <!-- Last Synchro -->
   <ng-container matColumnDef="lastSynchro">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'biox.last_sync' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">

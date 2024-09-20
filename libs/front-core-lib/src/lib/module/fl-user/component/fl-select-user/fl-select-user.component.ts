@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlUserConfig, FlUserConfigSearchNameMode} from '../../service/fl-user-config.config';
-import {FlFormFieldDirective} from '../../../../abstract-directive/form/fl-form-field.directive';
-import {Observable} from 'rxjs';
-import {NgControl} from '@angular/forms';
-import {FlUser} from '../../model/fl-user.class';
-import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { FlUserConfig, FlUserConfigSearchNameMode } from '../../service/fl-user-config.config';
+import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
+import { Observable } from 'rxjs';
+import { NgControl } from '@angular/forms';
+import { FlUser } from '../../model/fl-user.class';
+import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasource-paginated.class';
+import { FlInputSearchFilter } from '../../../fl-input-search/component/fl-input-search/fl-input-search.component';
 
 /**
  * Input/Select component to search for a user and select one.
@@ -14,7 +15,7 @@ import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-
   selector: 'fl-select-user',
   templateUrl: './fl-select-user.component.html',
   styleUrls: ['./fl-select-user.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: FlSelectUserComponent}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlSelectUserComponent }]
 
 })
 export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implements OnInit {
@@ -27,7 +28,7 @@ export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implemen
 
   selectedUser: FlUser | Observable<FlUser>;
 
-  usersDatasource: FlDatasourcePaginated<FlUser>;
+  usersDatasource: FlDatasourcePaginated<FlUser, FlInputSearchFilter>;
 
   constructor(private userConfig: FlUserConfig,
               @Optional() @Self() ngControl: NgControl) {

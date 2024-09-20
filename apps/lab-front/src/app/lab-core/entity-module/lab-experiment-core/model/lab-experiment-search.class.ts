@@ -1,8 +1,9 @@
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
   FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter,
   FlTag
 } from '@monorepo/front-core-lib';
 import { LabExperimentCreationType, LabExperimentStatus } from '../../../model/entities/lab-experiment.entity';
@@ -46,7 +47,7 @@ export class LabExperimentSearch {
   /**
    * Const to configure Form Input Manager for advanced search
    */
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabExperimentSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<LabExperimentSearchFields> = {
     creationTypes: 'biox.experiment_creation_type',
     tags: 'flTag.tags',
     folder: 'biox.folder',
@@ -63,7 +64,7 @@ export class LabExperimentSearch {
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
-  public static advancedSearchConverter: FlSearchCriteriaConverter<LabExperimentSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<LabExperimentSearchFields> = {
     title: {key: 'title', operator: 'CONTAINS'},
     creationTypes: {key: 'creation_type', operator: 'IN'},
     status: {key: 'status', operator: 'IN'},
@@ -82,7 +83,14 @@ export class LabExperimentSearch {
     id: {key: 'id', operator: 'EQ'},
   };
 
-  public static getAdvancedSearchForm(): FormGroup<LabExperimentSearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    title: 'title',
+    status: 'status',
+    creationTypes: 'created_at',
+    lastModification: 'last_modified_at',
+  };
+
+  public static getSearchForm(): FormGroup<LabExperimentSearchFields> {
     return new FormBuilder().group(
       {
         title: [null],

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlSavedSearch,
@@ -8,10 +8,10 @@ import {
   FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabTypeSearch, LabTypeSearchConfig, LabTypeSearchFields} from '../../model/lab-type-search.class';
-import {LabTypeEntity, LabTypeEntityDatasource} from '../../../../model/entities/lab-type/lab-type.entity';
-import {LabTypeService} from '../../../../entity-service/lab-type.service';
-import {TdBrick} from '@monorepo/technical-doc';
+import { LabTypeSearch, LabTypeSearchConfig, LabTypeSearchFields } from '../../model/lab-type-search.class';
+import { LabTypeEntity, LabTypeEntityDatasource } from '../../../../model/entities/lab-type/lab-type.entity';
+import { LabTypeService } from '../../../../entity-service/lab-type.service';
+import { TdBrick } from '@monorepo/technical-doc';
 
 
 @Component({
@@ -82,14 +82,15 @@ export class LabTypeSearchComponent implements OnInit {
 
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabTypeSearch.getAdvancedSearchForm,
+      buildAdvancedForm: LabTypeSearch.getSearchForm,
       advancedFormClass: LabTypeSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: LabTypeSearch.advancedSearchManagerConfig,
+        config: LabTypeSearch.searchManagerConfig,
         skipFalseBoolean: true,
       },
-      storeSearchInUrl: this.fullPageSearch
+      storeSearchInUrl: this.fullPageSearch,
+      defaultSort: {key: 'name', direction: 'ASC'}
     };
 
     this.datasource = new FlEntityPaginatedDatasource(searchFunction, 20, false);

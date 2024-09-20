@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
-import { FlDialogService, FlFormFieldDirective, FlInputSearchAdvancedButton } from '@monorepo/front-core-lib';
+import {
+  FlDialogService,
+  FlFormFieldDirective,
+  FlInputSearchAdvancedButton,
+  FlInputSearchFilter
+} from '@monorepo/front-core-lib';
 import { NgControl } from '@angular/forms';
 import { LabReport, LabReportDatasource } from '../../../../model/entities/lab-report.entity';
 import { LabReportService } from '../../../../entity-service/lab-report.service';
@@ -11,7 +16,7 @@ import { Observable } from 'rxjs';
   selector: 'lab-select-report',
   templateUrl: './lab-select-report.component.html',
   styleUrls: ['./lab-select-report.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: LabSelectReportComponent}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectReportComponent }]
 })
 export class LabSelectReportComponent extends FlFormFieldDirective<LabReport> implements OnInit {
 
@@ -21,7 +26,7 @@ export class LabSelectReportComponent extends FlFormFieldDirective<LabReport> im
 
   selectedReport: LabReport | Observable<LabReport>;
 
-  datasource: LabReportDatasource;
+  datasource: LabReportDatasource<FlInputSearchFilter>;
 
   advancedButton: FlInputSearchAdvancedButton<LabReport>;
 

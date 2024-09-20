@@ -1,18 +1,20 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {CaSpace} from '../../../ca-core/model/entities/space/ca-space.class';
-import {CaSpaceService} from '../../../ca-core/service-api/ca-space.service';
-import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
-import {CaCommunityBrickService} from '../../../ca-core/service-api/ca-community-brick.service';
-import {CaLabManagerBrickVersionDTO} from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {MatCheckboxChange} from '@angular/material/checkbox';
-import {CaCommunityBrick} from '../../../ca-core/model/entities/ca-community-brick.class';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
+import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
+import { CaCommunityBrickService } from '../../../ca-core/service-api/ca-community-brick.service';
+import { CaLabManagerBrickVersionDTO } from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { CaCommunityBrick, CaCommunityBrickDatasource } from '../../../ca-core/model/entities/ca-community-brick.class';
 
-
-export type CaCommunityBrickDatasourcePaginated = FlDatasourcePaginated<CaCommunityBrick>;
+interface CaCommunityBrickFilers {
+  spaceIds: string[];
+  title: string;
+}
 
 
 @Component({
@@ -26,7 +28,7 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
   brickSelectionMode: boolean = true;
   isLoading: boolean = true;
 
-  bricks$: CaCommunityBrickDatasourcePaginated;
+  bricks$: CaCommunityBrickDatasource<CaCommunityBrickFilers>;
   spaces: CaSpace[];
   versions: string[];
   oldVersions: string[];
@@ -89,8 +91,8 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
 
   updateBricks(): void {
     this.bricks$.getFirstPage({
-      spacesFilter: this.spaceIdFilter,
-      titleFilter: this.titleFormControl.value
+      spaceIds: this.spaceIdFilter,
+      title: this.titleFormControl.value
     });
   }
 
@@ -118,7 +120,10 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
       this.spaces = spaces;
     });
 
-    this.bricks$ = this.communityBrickService.getPaginatedCommunityBricks(10, this.userId);
+    this.bricks$ = new FlEntityPaginatedDatasource(
+      (page, size, requestData) =>
+        this.communityBrickService.getAllWithFilters(requestData.filtersCriteria.spaceIds,
+          requestData.filtersCriteria.title, page, size, this.userId), 10, false);
     this.updateBricks();
     this.isLoading = false;
 

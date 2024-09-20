@@ -47,7 +47,7 @@ export class CaFolderWithHierarchy extends CaFolder {
 }
 
 
-export type CaFolderDatasource = FlEntityPaginatedDatasource<CaFolder>;
+export type CaFolderDatasource<F = void> = FlEntityPaginatedDatasource<CaFolder, F>;
 
 export class CnSaveFolderDTO {
   code: string;

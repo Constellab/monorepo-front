@@ -1,5 +1,5 @@
-import {LabBaseEntityWithUser} from './lab-user.entity';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
+import { LabBaseEntityWithUser } from './lab-user.entity';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 
 
 export enum LabCredentialsType {
@@ -21,7 +21,7 @@ export class LabCredentials extends LabBaseEntityWithUser {
   }
 }
 
-export type LabCredentialsDatasource = FlDatasourcePaginated<LabCredentials>;
+export type LabCredentialsDatasource<F = void> = FlDatasourcePaginated<LabCredentials, F>;
 
 export type LabCredentialsData = Record<string, string>;
 

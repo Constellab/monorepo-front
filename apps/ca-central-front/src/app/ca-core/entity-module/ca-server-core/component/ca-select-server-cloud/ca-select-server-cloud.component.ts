@@ -1,14 +1,15 @@
-import {Component, EventEmitter, OnInit, Optional, Output, Self} from '@angular/core';
+import { Component, EventEmitter, OnInit, Optional, Output, Self } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
-  FlInputSearchAdvancedButton
+  FlInputSearchAdvancedButton,
+  FlInputSearchFilter
 } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {NgControl} from '@angular/forms';
-import {CaServerCloud, CaServerCloudDatasource} from '../../../../model/entities/server/ca-server-cloud.class';
-import {CaServerService} from '../../../../service-api/ca-server.service';
+import { Observable } from 'rxjs';
+import { NgControl } from '@angular/forms';
+import { CaServerCloud, CaServerCloudDatasource } from '../../../../model/entities/server/ca-server-cloud.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 import {
   CaSelectServerCloudDialogComponent
 } from '../ca-select-server-cloud-dialog/ca-select-server-cloud-dialog.component';
@@ -27,7 +28,7 @@ export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerC
 
   selectedServer: CaServerCloud | Observable<CaServerCloud>;
 
-  datasource: CaServerCloudDatasource;
+  datasource: CaServerCloudDatasource<FlInputSearchFilter>;
 
   advancedButton: FlInputSearchAdvancedButton<CaServerCloud>;
 
@@ -40,8 +41,8 @@ export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerC
 
   ngOnInit(): void {
     this.datasource = new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number, name: string) =>
-        this.serverService.searchServerCloudByName(name, page, pageSize),
+      (page: number, pageSize: number, data) =>
+        this.serverService.searchServerCloudByName(data.filtersCriteria.searchText, page, pageSize),
       20, false
     );
 

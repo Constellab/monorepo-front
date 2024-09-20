@@ -85,14 +85,15 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
     const searchConfig: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabResourceSearch.getAdvancedSearchForm,
+      buildAdvancedForm: LabResourceSearch.getSearchForm,
       advancedFormClass: LabResourceSearchFields,
       savedSearch: this.savedSearches(),
       advancedFormManager: {
-        config: LabResourceSearch.advancedSearchManagerConfig,
+        config: LabResourceSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: this.fullPageSearch
+      storeSearchInUrl: this.fullPageSearch,
+      defaultSort: {key: 'creation', direction: 'DESC'}
     };
 
     this.datasource = new FlEntityPaginatedDatasource(this.resourceService.getAdvancedSearchFunction(),

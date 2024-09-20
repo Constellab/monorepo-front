@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
 import {
+  FlDatasourceGetPageData,
   FlHtmlHelper,
   FlKeyboardKey,
   FlOverlayRef,
@@ -19,9 +20,12 @@ import { TeElementInlineDirective } from '../model/te-element.directive';
 import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
 import { TePortalPlugin } from './te-portal-plugin.class';
 
+export interface TeMentionSearchFilter {
+  text: string | null;
+}
 
 export interface TeMentionConfig {
-  getUsers: (search: string | null, page: number, size: number) => Observable<ClPageI<FlUser>>;
+  getUsers: (search: FlDatasourceGetPageData<TeMentionSearchFilter>, page: number, size: number) => Observable<ClPageI<FlUser>>;
 }
 
 export const teMentionTagName = 'te-mention-inline';

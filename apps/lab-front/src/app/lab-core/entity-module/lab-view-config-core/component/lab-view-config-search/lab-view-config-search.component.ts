@@ -42,14 +42,15 @@ export class LabViewConfigSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabViewConfigSearch.getAdvancedSearchForm,
+      buildAdvancedForm: LabViewConfigSearch.getSearchForm,
       advancedFormClass: LabViewConfigSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: LabViewConfigSearch.advancedSearchManagerConfig,
+        config: LabViewConfigSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: this.fullPageSearch
+      storeSearchInUrl: this.fullPageSearch,
+      defaultSort: {key: 'lastModifiedAt', direction: 'DESC'}
     };
 
     this.datasource = new FlEntityPaginatedDatasource(this.viewConfigService.getViewConfigSearchFunction(this.reportId),

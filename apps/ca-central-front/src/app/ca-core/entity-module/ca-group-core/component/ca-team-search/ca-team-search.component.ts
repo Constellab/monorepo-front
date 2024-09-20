@@ -20,7 +20,7 @@ import { CaTeamSearch, CaTeamSearchFields } from '../../model/ca-team.search.cla
 
 })
 export class CaTeamSearchComponent implements OnInit {
-  datasource: CaGroupDatasource;
+  datasource: CaGroupDatasource<CaTeamSearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private groupService: CaGroupService,
@@ -31,14 +31,15 @@ export class CaTeamSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaTeamSearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaTeamSearch.getSearchForm,
       advancedFormClass: CaTeamSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaTeamSearch.advancedSearchManagerConfig,
+        config: CaTeamSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: { key: 'label', direction: 'ASC' }
     };
 
     this.datasource = new FlEntityPaginatedDatasource(

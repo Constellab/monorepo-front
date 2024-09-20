@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
+import { Component, Input } from '@angular/core';
+import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasource-paginated.class';
 
 /**
  * Layout component to wrap a table in an infinite scroll container with loader
@@ -11,7 +11,7 @@ import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-
 })
 export class FlInfiniteTableContainerComponent {
 
-  @Input({required: true}) datasource: FlDatasourcePaginated<any>;
+  @Input({required: true}) datasource: FlDatasourcePaginated<any, any>;
 
   /**
    * Text translated show if the datasource is empty.

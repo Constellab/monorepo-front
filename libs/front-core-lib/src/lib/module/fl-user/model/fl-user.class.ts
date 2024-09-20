@@ -1,5 +1,5 @@
-import {FlDatasourcePaginated} from '../../../model/datasource/fl-datasource-paginated.class';
-import {FlEntity} from '../../../model/fl-entity.class';
+import { FlDatasourcePaginated } from '../../../model/datasource/fl-datasource-paginated.class';
+import { FlEntity } from '../../../model/fl-entity.class';
 
 export interface FlUser extends FlEntity {
   alias: string;
@@ -18,4 +18,4 @@ export interface FlUser extends FlEntity {
 
 }
 
-export type FlUserDatasource = FlDatasourcePaginated<FlUser>;
+export type FlUserDatasource<F = void> = FlDatasourcePaginated<FlUser, F>;

@@ -1,16 +1,21 @@
-import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlDialogService, FlFormFieldDirective, FlInputSearchAdvancedButton} from '@monorepo/front-core-lib';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import {
+  FlDialogService,
+  FlFormFieldDirective,
+  FlInputSearchAdvancedButton,
+  FlInputSearchFilter
+} from '@monorepo/front-core-lib';
 import {
   LabProtocolTemplate,
   LabProtocolTemplateDatasource
 } from '../../../../model/entities/process/lab-protocol-template.entity';
-import {NgControl} from '@angular/forms';
-import {LabProtocolTemplateService} from '../../../../entity-service/lab-protocol-template.service';
+import { NgControl } from '@angular/forms';
+import { LabProtocolTemplateService } from '../../../../entity-service/lab-protocol-template.service';
 import {
   LabSelectProtocolTemplateDialogComponent,
   LabSelectProtocolTemplateDialogInput
 } from '../lab-select-protocol-template-dialog/lab-select-protocol-template-dialog.component';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 /**
  * Input/Select component to search for a Protocol template and select one.
@@ -32,7 +37,7 @@ export class LabSelectProtocolTemplateComponent extends FlFormFieldDirective<Lab
 
   selectedTemplate: LabProtocolTemplate;
 
-  datasource: LabProtocolTemplateDatasource;
+  datasource: LabProtocolTemplateDatasource<FlInputSearchFilter>;
 
   advancedButton: FlInputSearchAdvancedButton<LabProtocolTemplate>;
 

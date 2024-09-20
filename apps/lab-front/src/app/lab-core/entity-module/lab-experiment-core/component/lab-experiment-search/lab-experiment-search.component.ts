@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  FlDatasourcePaginated,
   FlDialogService,
   FlFormDialogInput,
   FlSavedSearch,
@@ -11,7 +10,7 @@ import {
 } from '@monorepo/front-core-lib';
 import { LabExperimentSearch, LabExperimentSearchFields } from '../../model/lab-experiment-search.class';
 import { LabExperimentService } from '../../../../entity-service/lab-experiment.service';
-import { LabExperiment } from '../../../../model/entities/lab-experiment.entity';
+import { LabExperiment, LabExperimentDatasource } from '../../../../model/entities/lab-experiment.entity';
 import { LabExperimentFormDialogComponent } from '../lab-experiment-form-dialog/lab-experiment-form-dialog.component';
 import { LabRouterService } from '../../../../service/lab-router.service';
 import {
@@ -35,7 +34,7 @@ export class LabExperimentSearchComponent implements OnInit {
 
   @Output() experimentSelected: EventEmitter<LabExperiment> = new EventEmitter();
 
-  datasource: FlDatasourcePaginated<LabExperiment>;
+  datasource: LabExperimentDatasource<LabExperimentSearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private experimentService: LabExperimentService,
@@ -47,14 +46,15 @@ export class LabExperimentSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabExperimentSearch.getAdvancedSearchForm,
+      buildAdvancedForm: LabExperimentSearch.getSearchForm,
       advancedFormClass: LabExperimentSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: LabExperimentSearch.advancedSearchManagerConfig,
+        config: LabExperimentSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: this.fullPageSearch
+      storeSearchInUrl: this.fullPageSearch,
+      defaultSort: { key: 'lastModification', direction: 'DESC' }
     };
 
     this.datasource = this.experimentService.searchDatasource();

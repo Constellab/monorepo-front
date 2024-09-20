@@ -9,15 +9,15 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material/autocomplete';
-import {TAB} from '@angular/cdk/keycodes';
-import {UntypedFormControl} from '@angular/forms';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlTagKeyModel, FlTagService, FlTagValue, FlTagValueModel} from '../../fl-tag.class';
-import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
-import {FlEntityPaginatedDatasource} from '../../../../model/datasource/fl-entity-datasource.class';
-import {BehaviorSubject, combineLatest, startWith, Subscription} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { TAB } from '@angular/cdk/keycodes';
+import { UntypedFormControl } from '@angular/forms';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlTagKeyModel, FlTagSearchFilter, FlTagService, FlTagValue, FlTagValueModel } from '../../fl-tag.class';
+import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasource-paginated.class';
+import { FlEntityPaginatedDatasource } from '../../../../model/datasource/fl-entity-datasource.class';
+import { BehaviorSubject, combineLatest, startWith, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 
 export interface FlAddTagEvent {
@@ -61,7 +61,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   separatorKeysCodes: number[] = [TAB];
   inputCtrl = new UntypedFormControl();
 
-  filteredOptions: FlDatasourcePaginated<any>;
+  filteredOptions: FlDatasourcePaginated<any, FlTagSearchFilter>;
 
   // provided when adding a new tag. It is set when the key has been defined but not the value
   // this is a temp storage
@@ -74,9 +74,10 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   constructor(private tagService: FlTagService) {
   }
 
+  // TODO TO TEST
   ngOnInit(): void {
-    this.filteredOptions = new FlEntityPaginatedDatasource(
-      (page, size, filter) => this.tagService.searchTag(filter, page, size),
+    this.filteredOptions = new FlEntityPaginatedDatasource<any, FlTagSearchFilter>(
+      (page, size, filter) => this.tagService.searchTag(filter.filtersCriteria, page, size),
       20, false
     );
 
@@ -84,16 +85,16 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
       this.inputCtrl.valueChanges.pipe(startWith('')),
       this.mode$.asObservable()
     ]).pipe(
-      debounceTime(this.searchDebounceTime),
+      debounceTime(this.searchDebounceTime)
     ).subscribe(([inputText, mode]) => this.loadPage(inputText, mode));
 
   }
 
   private loadPage(inputText: string, mode: FlTagMode): void {
     if (mode === 'value') {
-      this.filteredOptions.getFirstPage({key: this.currentTagKey.key, value: inputText});
+      this.filteredOptions.getFirstPage({ key: this.currentTagKey.key, value: inputText });
     } else {
-      this.filteredOptions.getFirstPage({key: inputText});
+      this.filteredOptions.getFirstPage({ key: inputText });
     }
   }
 
@@ -108,7 +109,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
     // clear the input
     this.input.nativeElement.value = '';
-    this.inputCtrl.setValue('', {emitEvent: true});
+    this.inputCtrl.setValue('', { emitEvent: true });
   }
 
   removeTempTag(): void {
@@ -159,11 +160,11 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
     } else {
       if (typeof value === 'string') {
         // create a new tag key
-        this.currentTagKey = {key: value, defaultIsPropagable: false};
+        this.currentTagKey = { key: value, defaultIsPropagable: false };
       } else {
         const key: FlTagKeyModel = (value as FlTagKeyModel);
         // find the selected tag and save it
-        this.currentTagKey = {key: key.key, defaultIsPropagable: key.isPropagable};
+        this.currentTagKey = { key: key.key, defaultIsPropagable: key.isPropagable };
       }
 
       this.switchMode('value');

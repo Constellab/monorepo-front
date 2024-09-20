@@ -2,9 +2,9 @@ import {Type} from 'class-transformer';
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
+  FlSearchFilterCriteriaConverter,
   FlSearchDateInterval,
-  FlTag
+  FlTag, FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
 import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
 import {LabResourceViewType} from '../../../model/entities/resource/lab-resource-view.entity';
@@ -35,7 +35,7 @@ export class LabViewConfigSearch {
   /**
    * Const to configure Form Input Manager for advanced search
    */
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabViewConfigSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<LabViewConfigSearchFields> = {
     title: 'title',
     folder: 'biox.folder',
     viewType: 'biox.view_type',
@@ -49,7 +49,7 @@ export class LabViewConfigSearch {
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
-  public static advancedSearchConverter: FlSearchCriteriaConverter<LabViewConfigSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<LabViewConfigSearchFields> = {
     title: {key: 'title', operator: 'CONTAINS'},
     folder: {key: 'folder', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
     viewType: {key: 'view_type', operator: 'EQ', convertValue: LabViewConfigSearch.viewTypeConverter},
@@ -60,8 +60,12 @@ export class LabViewConfigSearch {
     id: {key: 'id', operator: 'EQ'}
   };
 
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    title: 'title',
+    lastModifiedAt: 'last_modified_at',
+  };
 
-  public static getAdvancedSearchForm(): FormGroup<LabViewConfigSearchFields> {
+  public static getSearchForm(): FormGroup<LabViewConfigSearchFields> {
     return new FormBuilder().group(
       {
         title: [null],

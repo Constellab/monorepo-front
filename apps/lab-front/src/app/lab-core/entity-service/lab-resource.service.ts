@@ -1,23 +1,23 @@
-import {Injectable} from '@angular/core';
-import {FlAdvancedSearchInput, FlApiService, FlSearchConverter, FLSearchFunction} from '@monorepo/front-core-lib';
-import {Observable, of} from 'rxjs';
-import {LabResource} from '../model/entities/resource/lab-resource.entity';
-import {ClPageI} from '@monorepo/core-lib';
-import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { FlApiService, FlDatasourceGetPageData, FlSearchConverter, FLSearchFunction } from '@monorepo/front-core-lib';
+import { Observable, of } from 'rxjs';
+import { LabResource } from '../model/entities/resource/lab-resource.entity';
+import { ClPageI } from '@monorepo/core-lib';
+import { map } from 'rxjs/operators';
 import {
   LabResourceView,
   LabResourceViewData,
-  LabResourceViewSpec,
+  LabResourceViewSpec
 } from '../model/entities/resource/lab-resource-view.entity';
 import {
   LabResourceSearch,
   LabResourceSearchFields
 } from '../entity-module/lab-resource-core/model/lab-resource-search.class';
-import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
-import {PrConfigValues} from '@monorepo/protocol';
-import {LabSharedEntity} from '../model/entities/lab-share.entity';
-import {LabTransformerParams} from '../model/global/lab-transformer.class';
-import {LabNavigableEntityImpact} from '../model/entities/lab-navigable-entity.entity';
+import { LabProcessType } from '../model/entities/lab-type/lab-process-type.entity';
+import { PrConfigValues } from '@monorepo/protocol';
+import { LabSharedEntity } from '../model/entities/lab-share.entity';
+import { LabTransformerParams } from '../model/global/lab-transformer.class';
+import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
 
 
 @Injectable({
@@ -66,26 +66,25 @@ export class LabResourceService {
   }
 
   public getAdvancedSearchFunction(): FLSearchFunction<LabResource> {
-    return (page: number, pageSize: number, filters?: LabResourceSearchFields) => this.advancedSearch(page, pageSize, filters);
+    return (page: number, pageSize: number, data) => this.advancedSearch(page, pageSize, data);
   }
 
 
-  public advancedSearch(page: number, pageSize: number, filters?: LabResourceSearchFields): Observable<ClPageI<LabResource>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, LabResourceSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/advanced-search`, data, LabResource, {
+  public advancedSearch(page: number, pageSize: number,
+                        data: FlDatasourceGetPageData<LabResourceSearchFields>): Observable<ClPageI<LabResource>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      LabResourceSearch.filterConverter, LabResourceSearch.sortConverter);
+    return this.apiService.post(`${this.route}/advanced-search`, searchInput, LabResource, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
 
   public updateFlagged(id: string, flagged: boolean): Observable<LabResource> {
-    return this.apiService.put(`${this.route}/${id}/flagged`, {flagged: flagged}, LabResource);
+    return this.apiService.put(`${this.route}/${id}/flagged`, { flagged: flagged }, LabResource);
   }
 
   public updateFolder(id: string, folderId: string): Observable<LabResource> {
-    return this.apiService.put(`${this.route}/${id}/folder`, {folder_id: folderId}, LabResource);
+    return this.apiService.put(`${this.route}/${id}/folder`, { folder_id: folderId }, LabResource);
   }
 
   //////////////////////////////////////// RESOURCE TYPE ///////////////////////////////////////
@@ -187,7 +186,7 @@ export class LabResourceService {
 
   public uploadResourceFromLink(url: string, uncompressOption: string): Observable<LabResource> {
     return this.apiService.post(`${this.route}/upload-from-link`,
-      {url: url, uncompress_option: uncompressOption}, LabResource);
+      { url: url, uncompress_option: uncompressOption }, LabResource);
   }
 
 }

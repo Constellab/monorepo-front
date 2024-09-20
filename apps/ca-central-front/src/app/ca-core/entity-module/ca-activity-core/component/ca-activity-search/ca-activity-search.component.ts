@@ -1,13 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {
-  FlSavedSearch,
-  FlSearchConfig,
-  FlSearchState,
-  FlTableColumnStatic,
-  FlThemeService
-} from '@monorepo/front-core-lib';
-import {CaActivitySearch, CaActivitySearchFields} from '../../model/ca-activity-search.class';
-import {CaActivity, CaActivityDatasource} from '../../../../model/entities/ca-activity.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlSavedSearch, FlSearchConfig, FlSearchState, FlThemeService } from '@monorepo/front-core-lib';
+import { CaActivitySearch, CaActivitySearchFields } from '../../model/ca-activity-search.class';
+import { CaActivityDatasource } from '../../../../model/entities/ca-activity.class';
 
 @Component({
   selector: 'ca-activity-search',
@@ -17,9 +11,7 @@ import {CaActivity, CaActivityDatasource} from '../../../../model/entities/ca-ac
 })
 export class CaActivitySearchComponent implements OnInit {
 
-  @Input() datasource: CaActivityDatasource;
-
-  columns: FlTableColumnStatic<CaActivity>[] = ['title', 'entityType', 'entityName', 'creation'];
+  @Input({required: true}) datasource: CaActivityDatasource<CaActivitySearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private themeService: FlThemeService) {
@@ -28,14 +20,15 @@ export class CaActivitySearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaActivitySearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaActivitySearch.getSearchForm,
       advancedFormClass: CaActivitySearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaActivitySearch.advancedSearchManagerConfig,
+        config: CaActivitySearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: {key: 'creation', direction: 'DESC'}
     };
 
     this.searchState.init(config, this.datasource);

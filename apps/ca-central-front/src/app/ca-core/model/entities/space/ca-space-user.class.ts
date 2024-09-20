@@ -1,8 +1,8 @@
-import {Type} from 'class-transformer';
-import {CaUser} from '../ca-user.class';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
-import {DateTime} from 'luxon';
+import { Type } from 'class-transformer';
+import { CaUser } from '../ca-user.class';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { DateTime } from 'luxon';
 
 export enum CaSpaceRole {
   ADMIN = 'ADMIN',
@@ -25,7 +25,7 @@ export class CaSpaceUser {
   user: CaUser;
 }
 
-export class CaSpaceUserDatasource extends FlDatasourcePaginated<CaSpaceUser> {
+export class CaSpaceUserDatasource<F = void> extends FlDatasourcePaginated<CaSpaceUser, F> {
 
   protected equals(a: CaSpaceUser, b: CaSpaceUser): boolean {
     return a.user.id === b.user.id;

@@ -31,7 +31,7 @@ export class CaFolderDetailState implements OnDestroy {
 
   private folder$: BehaviorSubject<CaFolder>;
   private users$: FlArrayObs<CaUser>;
-  private childrenDatasource: CaHierarchyObjectDatasource;
+  private childrenDatasource: CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields>;
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
@@ -52,7 +52,7 @@ export class CaFolderDetailState implements OnDestroy {
       error: error => this.folder$.error(error)
     }));
 
-    this.childrenDatasource = new FlEntityPaginatedDatasource<CaHierarchyObject>(
+    this.childrenDatasource = new FlEntityPaginatedDatasource<CaHierarchyObject, CaHierarchyObjectSearchFields>(
       () => of(clGetEmptyPage()), 30, false);
 
     this.users$ = new FlEntityArrayObs(this.id$.pipe(
@@ -63,14 +63,15 @@ export class CaFolderDetailState implements OnDestroy {
     // init the children search state
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaHierarchyObjectSearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaHierarchyObjectSearch.getSearchForm,
       advancedFormClass: CaHierarchyObjectSearchFields,
       savedSearch: [],
       advancedFormManager: {
-        config: CaHierarchyObjectSearch.advancedSearchManagerConfig,
+        config: CaHierarchyObjectSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: { key: 'lastModifiedAt', direction: 'DESC' }
     };
     this.searchState.init(config, this.childrenDatasource);
   }
@@ -127,7 +128,7 @@ export class CaFolderDetailState implements OnDestroy {
     );
   }
 
-  public getChildrenDatasource(): CaHierarchyObjectDatasource {
+  public getChildrenDatasource(): CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields> {
     return this.childrenDatasource;
   }
 

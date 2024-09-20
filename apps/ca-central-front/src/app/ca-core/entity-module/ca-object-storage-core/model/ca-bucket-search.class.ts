@@ -1,16 +1,21 @@
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
-  FlSearchDateInterval
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaBucketContentType, CaBucketCredentials, CaBucketType} from '../../../model/entities/ca-object-storage.class';
-import {CaSpace} from '../../../model/entities/space/ca-space.class';
-import {CaUser} from '../../../model/entities/ca-user.class';
-import {CaCloudProviderRegion} from '../../../model/entities/ca-cloud-provider.class';
-import {CaLabInstance} from '../../../model/entities/lab/ca-lab-instance.class';
+import { Type } from 'class-transformer';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import {
+  CaBucketContentType,
+  CaBucketCredentials,
+  CaBucketType
+} from '../../../model/entities/ca-object-storage.class';
+import { CaSpace } from '../../../model/entities/space/ca-space.class';
+import { CaUser } from '../../../model/entities/ca-user.class';
+import { CaCloudProviderRegion } from '../../../model/entities/ca-cloud-provider.class';
+import { CaLabInstance } from '../../../model/entities/lab/ca-lab-instance.class';
 
 export class CaBucketSearchFields {
   name: string;
@@ -50,7 +55,7 @@ export class CaBucketSearch {
   /**
    * Const to configure Form Input Manager for advanced search
    */
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaBucketSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaBucketSearchFields> = {
     contentType: 'bucket_content_type',
     bucketType: 'bucket_type',
     region: 'cloud_provider_region',
@@ -66,7 +71,7 @@ export class CaBucketSearch {
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaBucketSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaBucketSearchFields> = {
     name: {key: 'name', operator: 'CONTAINS'},
     contentType: {key: 'contentType', operator: 'IN'},
     bucketType: {key: 'bucketType', operator: 'IN'},
@@ -82,7 +87,15 @@ export class CaBucketSearch {
     id: {key: 'id', operator: 'EQ'},
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaBucketSearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    name: 'name',
+    contentType: 'contentType',
+    created: 'createdAt',
+    lastModified: 'lastModifiedAt',
+  };
+
+
+  public static getSearchForm(): FormGroup<CaBucketSearchFields> {
     return new FormBuilder().group(
       {
         name: [null],

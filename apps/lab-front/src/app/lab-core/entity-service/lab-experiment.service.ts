@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlFileHelper,
+  FlInputSearchFilter,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
 import { Observable, of, switchMap } from 'rxjs';
@@ -115,27 +116,26 @@ export class LabExperimentService {
     return this.apiService.put(`${this.route}/${id}/clone`, null, LabExperiment);
   }
 
-
-  public searchDatasource(): LabExperimentDatasource {
+  public searchDatasource(): LabExperimentDatasource<LabExperimentSearchFields> {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number, filters?: LabExperimentSearchFields) => this.advancedSearch(page, pageSize, filters),
+      (page: number, pageSize: number, data) => this.advancedSearch(page, pageSize, data),
       20, false
     );
   }
 
-  public advancedSearch(page: number, pageSize: number, filters?: LabExperimentSearchFields): Observable<ClPageI<LabExperiment>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, LabExperimentSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/advanced-search`, data, LabExperiment, {
+
+  public advancedSearch(page: number, pageSize: number,
+                        data: FlDatasourceGetPageData<LabExperimentSearchFields>): Observable<ClPageI<LabExperiment>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data, LabExperimentSearch.filterConverter,
+      LabExperimentSearch.sortConverter);
+    return this.apiService.post(`${this.route}/advanced-search`, searchInput, LabExperiment, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
 
-  public searchByTitleDatasource(): LabExperimentDatasource {
+  public searchByTitleDatasource(): LabExperimentDatasource<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number, name: string) => this.searchByTitle(page, pageSize, name),
+      (page: number, pageSize: number, data) => this.searchByTitle(page, pageSize, data.filtersCriteria.searchText),
       20, false
     );
   }
@@ -148,7 +148,7 @@ export class LabExperimentService {
   public searchByTitle(page: number, pageSize: number, title: string): Observable<ClPageI<LabExperiment>> {
     // if empty search, return all
     if (ClHelpService.isNullOrEmpty(title)) {
-      return this.advancedSearch(page, pageSize);
+      return this.advancedSearch(page, pageSize, null);
     }
     return this.apiService.get(`${this.route}/search-title/${title}`, LabExperiment, {
       page: page, pageSize: pageSize, resultIsPaginated: true

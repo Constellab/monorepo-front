@@ -130,7 +130,7 @@ export class LabExperiment extends LabBaseEntityWithUser implements LabFolderObj
   }
 }
 
-export type LabExperimentDatasource = FlEntityPaginatedDatasource<LabExperiment>;
+export type LabExperimentDatasource<F = void> = FlEntityPaginatedDatasource<LabExperiment, F>;
 
 // form object to create an experiment
 export interface LabExperimentSimpleForm {

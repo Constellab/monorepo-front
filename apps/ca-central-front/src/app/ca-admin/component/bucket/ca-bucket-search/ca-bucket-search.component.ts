@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -7,12 +7,12 @@ import {
   FlSearchState,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {CaBucketFull, CaBucketFullDatasource} from '../../../../ca-core/model/entities/ca-object-storage.class';
+import { CaBucketFull, CaBucketFullDatasource } from '../../../../ca-core/model/entities/ca-object-storage.class';
 import {
   CaBucketSearch,
   CaBucketSearchFields
 } from '../../../../ca-core/entity-module/ca-object-storage-core/model/ca-bucket-search.class';
-import {CaObjectStorageService} from '../../../../ca-core/service-api/ca-object-storage.service';
+import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-object-storage.service';
 import {
   CaBucketFormDialogComponent,
   CaBucketFormDialogInput
@@ -26,7 +26,7 @@ import {
 })
 export class CaBucketSearchComponent implements OnInit {
 
-  datasource: CaBucketFullDatasource;
+  datasource: CaBucketFullDatasource<CaBucketSearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private bucketSearch: CaObjectStorageService,
@@ -37,14 +37,15 @@ export class CaBucketSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaBucketSearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaBucketSearch.getSearchForm,
       advancedFormClass: CaBucketSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaBucketSearch.advancedSearchManagerConfig,
+        config: CaBucketSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: {key: 'name', direction: 'ASC'}
     };
 
     this.datasource = new FlEntityPaginatedDatasource(

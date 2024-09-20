@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CaSpaceUser, CaSpaceUserDatasource} from '../../../../model/entities/space/ca-space-user.class';
-import {FlTableColumnStatic} from '@monorepo/front-core-lib';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CaSpaceUser, CaSpaceUserDatasource } from '../../../../model/entities/space/ca-space-user.class';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 
 /**
  * Table to list the users of a space
@@ -12,7 +12,7 @@ import {FlTableColumnStatic} from '@monorepo/front-core-lib';
 })
 export class CaSpaceUserTableComponent {
 
-  @Input() datasource: CaSpaceUserDatasource;
+  @Input({required: true}) datasource: CaSpaceUserDatasource<any>;
 
   @Input() columns: FlTableColumnStatic<CaSpaceUser>[];
 

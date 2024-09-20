@@ -1,8 +1,9 @@
-<mat-table mat-table [dataSource]="datasource" class="table">
+<mat-table mat-table [dataSource]="datasource" class="table"
+           flSearchTableSort>
 
   <!-- Title -->
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let folder">
@@ -18,7 +19,7 @@
 
   <!-- Creation info -->
   <ng-container matColumnDef="lastModifiedAt">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{ 'date' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let folder">
@@ -28,7 +29,7 @@
 
   <!-- Leader -->
   <ng-container matColumnDef="user">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{ 'user' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let folder">

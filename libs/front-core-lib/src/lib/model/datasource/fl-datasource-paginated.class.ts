@@ -1,12 +1,36 @@
 import { FlArrayObs } from './fl-array-obs.class';
 import { Observable, of } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ClGetPageFunction, ClPageI, ClStringHelper } from '@monorepo/core-lib';
+import { ClPageI, ClStringHelper } from '@monorepo/core-lib';
+import { FlSortDirection } from '../../module/fl-search/model/fl-sort.class';
+import { FlInputSearchFilter } from '../../module/fl-input-search/component/fl-input-search/fl-input-search.component';
+
+export interface FlDatasourceSortCriteria {
+  key: string;
+  direction: FlSortDirection;
+}
+
+export interface FlDatasourceGetPageData<T = any> {
+  filtersCriteria: Partial<T>;
+  sortsCriteria: FlDatasourceSortCriteria[];
+}
+
+/**
+ * Function used by  to retrieve element that are paginated
+ * @param page number of the page to get
+ * @param pageSize size of the page
+ * @param data any data passed to the function
+ */
+export type FlDatasourceGetPageFunction<T, F = void> = (page: number, pageSize: number,
+                                                        data: FlDatasourceGetPageData<F>) => Observable<ClPageI<T>>;
+
 
 /**
  * Datasource that work with a method that returns paginated results.
+ * T is the type of the object returned by the method
+ * F is the type of the filters passed to the method
  */
-export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
+export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
 
   /**
@@ -24,13 +48,12 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
   // changed to true after first loading
   private isReady: boolean = false;
 
-  // when the datasource it prevents all call to be made event if a filter of function are called
-  private disabled: boolean = false;
-
   // The request data is passed when calling the get page method
-  private requestData: any;
+  private filtersCriteria: F;
 
-  constructor(private getPageFunction: ClGetPageFunction<T>, private pageSize: number, initFirstPage: boolean = true,
+  private sortsCriteria: FlDatasourceSortCriteria[] = [];
+
+  constructor(private getPageFunction: FlDatasourceGetPageFunction<T, F>, private pageSize: number, initFirstPage: boolean = true,
               disableAutoDisconnect: boolean = false) {
     super(null, disableAutoDisconnect);
     if (initFirstPage) {
@@ -50,21 +73,20 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
   /**
    * Call a the getPage method for the first page
    */
-  public getFirstPage(requestData?: any, getPageFunction?: ClGetPageFunction<T>): void {
-    if (this.disabled) {
-      return;
-    }
+  public getFirstPage(filtersCriteria?: F, sortsCriteria?: FlDatasourceSortCriteria[]): void {
     if (!this.isEmpty()) {
       this.clear();
     }
 
-    if(getPageFunction){
-      this.getPageFunction = getPageFunction;
-    }
-
     this.page = null;
     this.firstPageIsLoading = true;
-    this.setRequestData(requestData);
+    if (filtersCriteria !== undefined) {
+      this.setFilterCriteria(filtersCriteria);
+    }
+
+    if (sortsCriteria !== undefined) {
+      this.sortsCriteria = sortsCriteria ?? [];
+    }
 
     this.callGetPageFunction(this.pageNumber);
   }
@@ -78,10 +100,6 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
    * Call the getPage method with the same previous parameters for the next page
    */
   public getNextPage(): void {
-    if (this.disabled) {
-      return;
-    }
-
     if (!this.isLoading) {
       this.nextPageIsLoading = true;
       this.callGetPageFunction(this.pageNumber + 1);
@@ -90,7 +108,11 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
 
   private callGetPageFunction(pageNumber: number): void {
     this.isLoading = true;
-    this.getPageFunction(pageNumber, this.pageSize, this.requestData).subscribe({
+    const requestData: FlDatasourceGetPageData = {
+      filtersCriteria: this.filtersCriteria,
+      sortsCriteria: this.sortsCriteria
+    };
+    this.getPageFunction(pageNumber, this.pageSize, requestData).subscribe({
       next: result => this.onSuccess(result),
       error: error => this.onError(error)
     });
@@ -138,39 +160,29 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
       objects: data,
       pageSize: data.length,
       totalElements: data.length,
-      totalIsApproximate: false,
+      totalIsApproximate: false
     };
     this.array = data;
   }
 
+  ////////////////// SORT CRITERIA ////////////////////////
+
+  public setSortCriteria(sortCriteria: FlDatasourceSortCriteria): void {
+    if (sortCriteria) {
+      this.sortsCriteria = [sortCriteria];
+    } else {
+      this.sortsCriteria = [];
+    }
+  }
+
+  public getSortCriteria(): FlDatasourceSortCriteria[] {
+    return this.sortsCriteria;
+  }
+
   ////////////////// OTHER ////////////////////////
-
-  /**
-   * Enable the datasource and trigger new page call
-   */
-  public enableAndCallNewPage(): void {
-    this.enable();
-    this.getFirstPage();
-  }
-
-  public enable(): void {
-    this.disabled = false;
-  }
 
   public isEmpty(): boolean {
     return this.page == null || this.page.totalElements === 0 || this.array.length === 0;
-  }
-
-  /**
-   * Disable the datasource, current call is canceled and
-   * future action won't call new page or next page
-   */
-  public disable(): void {
-    this.disabled = true;
-  }
-
-  public isDisabled(): boolean {
-    return this.disabled;
   }
 
   /**
@@ -186,15 +198,15 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
    * Set the request data. The request data is passed when calling the get page method
    * @param data
    */
-  public setRequestData(data: any): void {
-    this.requestData = data;
+  public setFilterCriteria(data: F): void {
+    this.filtersCriteria = data;
   }
 
-  public getRequestData(): any {
-    return this.requestData;
+  public getFiltersCriteria(): F {
+    return this.filtersCriteria;
   }
 
-  public setPageFunction(getPageFunction: ClGetPageFunction<T>): void {
+  public setPageFunction(getPageFunction: FlDatasourceGetPageFunction<T, F>): void {
     this.getPageFunction = getPageFunction;
   }
 
@@ -203,7 +215,7 @@ export abstract class FlDatasourcePaginated<T> extends FlArrayObs<T> {
 /**
  * Basic paginated datasource that uses === to compare items.
  */
-export class FlBasicDatasourcePaginated<T> extends FlDatasourcePaginated<T> {
+export class FlBasicDatasourcePaginated<T> extends FlDatasourcePaginated<T, FlInputSearchFilter> {
   protected equals(a: T, b: T): boolean {
     return a === b;
   }
@@ -213,11 +225,11 @@ export class FlBasicDatasourcePaginated<T> extends FlDatasourcePaginated<T> {
    * @param array
    */
   public static fromStringArray(array: string[]): FlBasicDatasourcePaginated<string> {
-    return new FlBasicDatasourcePaginated((page, pageSize, requestData: string) => {
+    return new FlBasicDatasourcePaginated((_, __, data: FlDatasourceGetPageData<FlInputSearchFilter>) => {
 
       let filteredData: string[];
-      if (requestData) {
-        filteredData = array.filter((value) => ClStringHelper.stringContains(value, requestData,
+      if (data.filtersCriteria?.searchText) {
+        filteredData = array.filter((value) => ClStringHelper.stringContains(value, data.filtersCriteria?.searchText,
           true, true, true));
       } else {
         filteredData = array;
@@ -229,7 +241,7 @@ export class FlBasicDatasourcePaginated<T> extends FlDatasourcePaginated<T> {
         first: true,
         last: true,
         pageSize: filteredData.length,
-        totalElements: filteredData.length,
+        totalElements: filteredData.length
       });
     }, 0);
   }

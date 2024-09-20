@@ -55,7 +55,7 @@ export class CaHierarchyObject extends CaEntity {
   }
 }
 
-export type CaHierarchyObjectDatasource = FlEntityPaginatedDatasource<CaHierarchyObject>;
+export type CaHierarchyObjectDatasource<F = void> = FlEntityPaginatedDatasource<CaHierarchyObject, F>;
 
 export class CaHierarchyObjectWithChildren extends CaHierarchyObject {
 

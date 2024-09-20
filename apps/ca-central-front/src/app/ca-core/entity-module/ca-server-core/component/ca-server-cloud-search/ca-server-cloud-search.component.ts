@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -8,10 +8,10 @@ import {
   FlSearchState,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {CaServerCloud, CaServerCloudDatasource} from '../../../../model/entities/server/ca-server-cloud.class';
-import {CaServerService} from '../../../../service-api/ca-server.service';
-import {CaServerCloudFormDialogComponent} from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
-import {CaServerCloudSearch, CaServerCloudSearchFields} from '../../model/ca-server-cloud-search.class';
+import { CaServerCloud, CaServerCloudDatasource } from '../../../../model/entities/server/ca-server-cloud.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
+import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
+import { CaServerCloudSearch, CaServerCloudSearchFields } from '../../model/ca-server-cloud-search.class';
 
 @Component({
   selector: 'ca-server-cloud-search',
@@ -25,7 +25,7 @@ export class CaServerCloudSearchComponent implements OnInit {
 
   @Output() serverCloudSelected: EventEmitter<CaServerCloud> = new EventEmitter();
 
-  datasource: CaServerCloudDatasource;
+  datasource: CaServerCloudDatasource<CaServerCloudSearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private serverService: CaServerService,
@@ -36,14 +36,15 @@ export class CaServerCloudSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaServerCloudSearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaServerCloudSearch.getSearchForm,
       advancedFormClass: CaServerCloudSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaServerCloudSearch.advancedSearchManagerConfig,
+        config: CaServerCloudSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: this.mode === 'search'
+      storeSearchInUrl: this.mode === 'search',
+      defaultSort: {key: 'technicalName', direction: 'ASC'}
     };
 
     this.datasource = new FlEntityPaginatedDatasource(

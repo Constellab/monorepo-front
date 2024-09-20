@@ -1,3 +1,9 @@
 .page{
   padding-bottom: 1em;
 }
+
+// specific case for the sub page ca-lab-instance-status-history-page,
+// we enable internal scroll in the search
+.page:has(ca-lab-instance-status-history-page){
+  height: 100vh;
+}

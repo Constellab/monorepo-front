@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
+  FlInputSearchFilter,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
@@ -63,27 +64,25 @@ export class LabDocumentTemplateService {
     return this.apiService.get(`${this.route}/${id}/content`);
   }
 
-  public getSearchDatasource(): LabDocumentTemplateDatasource {
+  public getSearchDatasource(): LabDocumentTemplateDatasource<LabDocumentTemplateSearchFields> {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number, filters?: LabDocumentTemplateSearchFields) => this.search(page, pageSize, filters),
+      (page: number, pageSize: number, data) => this.search(page, pageSize, data),
       20, false
     );
   }
 
   public search(page: number, pageSize: number,
-                filters?: LabDocumentTemplateSearchFields): Observable<ClPageI<LabDocumentTemplate>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, LabDocumentTemplateSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/search`, data, LabDocumentTemplate, {
+                data: FlDatasourceGetPageData<LabDocumentTemplateSearchFields>): Observable<ClPageI<LabDocumentTemplate>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      LabDocumentTemplateSearch.filterConverter, LabDocumentTemplateSearch.sortConverter);
+    return this.apiService.post(`${this.route}/search`, searchInput, LabDocumentTemplate, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
 
-  public searchByNameDatasource(): LabDocumentTemplateDatasource {
+  public searchByNameDatasource(): LabDocumentTemplateDatasource<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number, name: string) => this.searchByName(page, pageSize, name),
+      (page: number, pageSize: number, data) => this.searchByName(page, pageSize, data.filtersCriteria.searchText),
       20, false
     );
   }
@@ -91,7 +90,7 @@ export class LabDocumentTemplateService {
   public searchByName(page: number, pageSize: number, name: string): Observable<ClPageI<LabDocumentTemplate>> {
     // if empty search, return all
     if (ClHelpService.isNullOrEmpty(name)) {
-      return this.search(page, pageSize);
+      return this.search(page, pageSize, null);
     }
     return this.apiService.get(`${this.route}/search-name/${name}`, LabDocumentTemplate, {
       page: page, pageSize: pageSize, resultIsPaginated: true

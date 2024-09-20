@@ -1,10 +1,13 @@
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlSortDirection } from './fl-sort.class';
 
 /**
  * Use to store the advanced search values in the URL
  */
-export interface FlAdvancedSearchObject {
-  filtersCriteria: Record<string, any>;
+export interface FlAdvancedSearchObjectUrl {
+  filtersCriteria?: Record<string, any>;
+  sortKey?: string;
+  sortDirection?: FlSortDirection;
 }
 
 /**
@@ -39,18 +42,37 @@ export class FlSearchPageUrlHelper {
    * For object with id, only keep the id and remove others fields
    * @param advancedSearch
    */
-  public static advancedSearchToString(advancedSearch: FlAdvancedSearchObject): string | null {
+  public static advancedSearchToString(advancedSearch: FlAdvancedSearchObjectUrl): string | null {
+    const simpleSearch: FlAdvancedSearchObjectUrl = {};
+
+    const filterCriteria = FlSearchPageUrlHelper.simplifyFilterObject(advancedSearch.filtersCriteria);
+    if (filterCriteria) {
+      simpleSearch.filtersCriteria = filterCriteria;
+    }
+
+    if (advancedSearch.sortKey && advancedSearch.sortDirection) {
+      simpleSearch.sortKey = advancedSearch.sortKey;
+      simpleSearch.sortDirection = advancedSearch.sortDirection;
+    }
+
+    if (ClHelpService.objectHasNonNullProperties(simpleSearch)) {
+      return JSON.stringify(simpleSearch);
+    }
+
+    return null;
+  }
+
+  private static simplifyFilterObject(filters: Record<string, any>): Record<string, any> | null {
     const simpleFilters: Record<string, any> = {};
 
-    const filters = advancedSearch.filtersCriteria;
     for (const key of Object.keys(filters)) {
       if (filters[key] == null) continue;
 
       let filter: any;
       if (Array.isArray(filters[key])) {
-        filter = filters[key].map((item: any) => this.advancedSearchObjectToString(item));
+        filter = filters[key].map((item: any) => this.filterSearchObjectToString(item));
       } else if (typeof filters[key] === 'object') {
-        filter = this.advancedSearchObjectToString(filters[key]);
+        filter = this.filterSearchObjectToString(filters[key]);
       } else {
         filter = filters[key];
       }
@@ -60,12 +82,14 @@ export class FlSearchPageUrlHelper {
       }
     }
 
-    if (ClHelpService.isNullOrEmpty(simpleFilters)) return null;
-
-    return JSON.stringify({ filtersCriteria: simpleFilters });
+    if (ClHelpService.isNullOrEmpty(simpleFilters)) {
+      return null;
+    }
+    return simpleFilters;
   }
 
-  private static advancedSearchObjectToString(obj: Record<any, any>): Record<any, any> | null {
+
+  private static filterSearchObjectToString(obj: Record<any, any>): Record<any, any> | null {
     // skip object where all values are null
     if (!ClHelpService.objectHasNonNullProperties(obj)) return null;
 
@@ -82,12 +106,12 @@ export class FlSearchPageUrlHelper {
   }
 
   // parse and check if the search string from URL is a list of SearchCriteria for advanced search
-  public static advancedSearchFromString(strSearch: string): FlAdvancedSearchObject | null {
+  public static advancedSearchFromString(strSearch: string): FlAdvancedSearchObjectUrl | null {
     if (!strSearch) {
       return null;
     }
 
-    let search: FlAdvancedSearchObject;
+    let search: FlAdvancedSearchObjectUrl;
     try {
       search = JSON.parse(strSearch);
     } catch {
@@ -95,7 +119,7 @@ export class FlSearchPageUrlHelper {
     }
 
     // check that the search attributes are correctly set
-    if (search && search.filtersCriteria) {
+    if (search && (search.filtersCriteria || search.sortKey)) {
       return search;
     }
     return null;

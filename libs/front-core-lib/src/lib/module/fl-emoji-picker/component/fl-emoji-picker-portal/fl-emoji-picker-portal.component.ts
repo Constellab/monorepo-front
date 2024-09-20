@@ -63,7 +63,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
           this.unhoverCurrentEmoji();
           this.hoverEmoji({ categoryIndex: 0, index: 0 });
         }, 0);
-        this.emojiCategories.getFirstPage(value);
+        this.emojiCategories.getFirstPage({ text: value });
       },
       complete: () => this.overlayRef.dispose()
     });

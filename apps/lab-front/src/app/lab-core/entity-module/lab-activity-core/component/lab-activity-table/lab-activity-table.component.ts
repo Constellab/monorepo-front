@@ -1,12 +1,12 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   ActivityObjectType,
   ActivityType,
   LabActivity,
   LabActivityDatasource
 } from '../../../../model/entities/lab-activity.entity';
-import {FlTableColumnStatic} from '@monorepo/front-core-lib';
-import {LabEntityType} from '../../../../model/entities/lab-navigable-entity.entity';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
 
 @Component({
   selector: 'lab-activity-table',
@@ -15,7 +15,7 @@ import {LabEntityType} from '../../../../model/entities/lab-navigable-entity.ent
 })
 export class LabActivityTableComponent {
 
-  @Input({required: true}) datasource: LabActivityDatasource;
+  @Input({required: true}) datasource: LabActivityDatasource<any>;
 
   @Input() columns: FlTableColumnStatic<LabActivity>[] = ['user', 'activityType', 'objectType', 'date', 'objectId', 'link'];
 

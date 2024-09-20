@@ -1,19 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   HaCreateStoryDtoInput,
   HaStoryCreateDialogComponent
 } from '../ha-story-create-dialog/ha-story-create-dialog.component';
-import {HaStory, HaStoryDatasourcePaginated, HaStoryFilter} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import {Router} from '@angular/router';
-import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {HaTopicService} from '../../../ha-core/ha-service/ha-topic.service';
-import {Observable} from 'rxjs';
-import {HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
-import {FormControl} from '@angular/forms';
-import {CoStoryCategory} from '@monorepo/community-lib';
+import {
+  HaStory,
+  HaStoryDatasourcePaginated,
+  HaStoryFilter
+} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { Router } from '@angular/router';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
+import { Observable } from 'rxjs';
+import { HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
+import { FormControl } from '@angular/forms';
+import { CoStoryCategory } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-story-list-page',
@@ -23,7 +27,7 @@ import {CoStoryCategory} from '@monorepo/community-lib';
 export class HaStoryListPageComponent implements OnInit {
 
 
-  stories: HaStoryDatasourcePaginated;
+  stories: HaStoryDatasourcePaginated<HaStoryFilter>;
   popularTopics$: Observable<HaTopicDto[]>;
 
   filters: HaStoryFilter = new HaStoryFilter();

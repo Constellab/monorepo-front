@@ -1,8 +1,8 @@
-<mat-table mat-table [dataSource]="datasource">
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
 
   <!-- Cloud provider -->
   <ng-container matColumnDef="cloudProvider">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'cloud_provider' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -12,7 +12,7 @@
 
   <!-- Technical name -->
   <ng-container matColumnDef="technicalName">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'technical_name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -22,7 +22,7 @@
 
   <!-- Server standard -->
   <ng-container matColumnDef="serverStandard">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'server_standard' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -32,7 +32,7 @@
 
   <!-- Ram -->
   <ng-container matColumnDef="ram">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'ram' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -42,7 +42,7 @@
 
   <!-- Disk -->
   <ng-container matColumnDef="disk">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'disk' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -52,7 +52,7 @@
 
   <!-- CPU -->
   <ng-container matColumnDef="cpu">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'cpu' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -65,7 +65,7 @@
 
   <!-- GPU -->
   <ng-container matColumnDef="gpu">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'gpu' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">

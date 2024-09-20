@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  FlDatasourcePaginated,
   FlDialogService,
   FlSavedSearch,
   FlSearchConfig,
@@ -8,7 +7,7 @@ import {
   FlThemeService
 } from '@monorepo/front-core-lib';
 import { LabReportSearch, LabReportSearchFields } from '../../model/lab-report-search.class';
-import { LabReport } from '../../../../model/entities/lab-report.entity';
+import { LabReport, LabReportDatasource } from '../../../../model/entities/lab-report.entity';
 import { LabReportService } from '../../../../entity-service/lab-report.service';
 import { LabRouterService } from '../../../../service/lab-router.service';
 import {
@@ -26,7 +25,7 @@ import {
   templateUrl: './lab-report-search.component.html',
   styleUrls: ['./lab-report-search.component.scss'],
   providers: [
-    FlSearchState,
+    FlSearchState
   ]
 })
 export class LabReportSearchComponent implements OnInit {
@@ -37,7 +36,7 @@ export class LabReportSearchComponent implements OnInit {
 
   @Output() reportSelected: EventEmitter<LabReport> = new EventEmitter();
 
-  datasource: FlDatasourcePaginated<LabReport>;
+  datasource: LabReportDatasource<LabReportSearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private reportService: LabReportService,
@@ -49,14 +48,15 @@ export class LabReportSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabReportSearch.getAdvancedSearchForm,
+      buildAdvancedForm: LabReportSearch.getSearchForm,
       advancedFormClass: LabReportSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: LabReportSearch.advancedSearchManagerConfig,
+        config: LabReportSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: this.fullPageSearch
+      storeSearchInUrl: this.fullPageSearch,
+      defaultSort: { key: 'lastModification', direction: 'DESC' }
     };
 
     this.datasource = this.reportService.getSearchDatasource();
@@ -72,7 +72,7 @@ export class LabReportSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: true,
-        filtersCriteria: {isNotValidated: false, isArchived: false} as Partial<LabReportSearchFields>
+        filtersCriteria: { isNotValidated: false, isArchived: false } as Partial<LabReportSearchFields>
       },
       {
         searchName: 'lab-report',
@@ -81,7 +81,7 @@ export class LabReportSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: false,
-        filtersCriteria: {isNotValidated: true, isArchived: true} as Partial<LabReportSearchFields>
+        filtersCriteria: { isNotValidated: true, isArchived: true } as Partial<LabReportSearchFields>
       }
     ];
   }
@@ -91,7 +91,7 @@ export class LabReportSearchComponent implements OnInit {
       mode: 'create'
     };
 
-    this.dialogService.openSmallDialog(LabReportFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(LabReportFormDialogComponent, { data: input }).afterClosed().subscribe(
       report => this.onFormClosed(report)
     );
   }
@@ -107,7 +107,7 @@ export class LabReportSearchComponent implements OnInit {
   }
 
   openDocumentTemplatesSearch(): void {
-    const data: LabSelectDocumentTemplateDialogInput = {mode: 'link'};
-    this.dialogService.openBigDialog(LabSelectDocumentTemplateDialogComponent, {data});
+    const data: LabSelectDocumentTemplateDialogInput = { mode: 'link' };
+    this.dialogService.openBigDialog(LabSelectDocumentTemplateDialogComponent, { data });
   }
 }

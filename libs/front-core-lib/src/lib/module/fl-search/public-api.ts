@@ -11,6 +11,7 @@ export * from './component/fl-search-saved-list/fl-search-saved-list.component';
 
 // Directives
 export * from './directive/fl-search-drawer-toggle/fl-search-drawer-toggle.directive';
+export * from './directive/fl-search-table-sort/fl-search-table-sort.directive';
 
 // Models
 export * from './model/fl-sort.class';

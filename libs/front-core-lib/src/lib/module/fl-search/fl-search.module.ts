@@ -1,28 +1,31 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FlSearchComponent} from './component/fl-search/fl-search.component';
-import {FlInfiniteScrollModule} from '../fl-inifite-scroll/fl-infinite-scroll.module';
-import {MatIconModule} from '@angular/material/icon';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FlSearchComponent } from './component/fl-search/fl-search.component';
+import { FlInfiniteScrollModule } from '../fl-inifite-scroll/fl-infinite-scroll.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
-import {FlLoaderModule} from '../fl-loader/fl-loader.module';
-import {FlDrawerModule} from '../fl-drawer/fl-drawer.module';
-import {FlSearchAdvancedFormComponent} from './component/fl-search-advanced-form/fl-search-advanced-form.component';
-import {FlSearchHeaderComponent} from './component/fl-search-header/fl-search-header.component';
-import {FlSearchResultComponent} from './component/fl-search-result/fl-search-result.component';
-import {FlTranslateModule} from '../fl-translate/fl-translate.module';
-import {FlTranslateService} from '../fl-translate/service/fl-translate.service';
-import {flSearchI18n} from './i18n/fl-search.i18n';
-import {FlFormInputsManagerModule} from '../fl-form-inputs-manager/fl-form-inputs-manager.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FlSearchSavedListComponent} from './component/fl-search-saved-list/fl-search-saved-list.component';
-import {FlSearchDateIntervalComponent} from './component/fl-search-date-interval/fl-search-date-interval.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {FlSearchDrawerToggleDirective} from './directive/fl-search-drawer-toggle/fl-search-drawer-toggle.directive';
-import {FlSearchHeaderActionsComponent} from './component/fl-search-header-actions/fl-search-header-actions.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
+import { FlLoaderModule } from '../fl-loader/fl-loader.module';
+import { FlDrawerModule } from '../fl-drawer/fl-drawer.module';
+import { FlSearchAdvancedFormComponent } from './component/fl-search-advanced-form/fl-search-advanced-form.component';
+import { FlSearchHeaderComponent } from './component/fl-search-header/fl-search-header.component';
+import { FlSearchResultComponent } from './component/fl-search-result/fl-search-result.component';
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { FlTranslateService } from '../fl-translate/service/fl-translate.service';
+import { flSearchI18n } from './i18n/fl-search.i18n';
+import { FlFormInputsManagerModule } from '../fl-form-inputs-manager/fl-form-inputs-manager.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlSearchSavedListComponent } from './component/fl-search-saved-list/fl-search-saved-list.component';
+import { FlSearchDateIntervalComponent } from './component/fl-search-date-interval/fl-search-date-interval.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FlSearchDrawerToggleDirective } from './directive/fl-search-drawer-toggle/fl-search-drawer-toggle.directive';
+import {
+  FlSearchHeaderActionsComponent
+} from './component/fl-search-header-actions/fl-search-header-actions.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { FlSearchTableSortDirective } from './directive/fl-search-table-sort/fl-search-table-sort.directive';
 
 
 @NgModule({
@@ -35,6 +38,7 @@ import {MatButtonModule} from '@angular/material/button';
     FlSearchDateIntervalComponent,
     FlSearchDrawerToggleDirective,
     FlSearchHeaderActionsComponent,
+    FlSearchTableSortDirective,
   ],
   exports: [
     FlSearchComponent,
@@ -45,6 +49,7 @@ import {MatButtonModule} from '@angular/material/button';
     FlSearchDateIntervalComponent,
     FlSearchDrawerToggleDirective,
     FlSearchHeaderActionsComponent,
+    FlSearchTableSortDirective,
   ],
   imports: [
     CommonModule,

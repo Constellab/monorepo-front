@@ -13,9 +13,9 @@ import { ClHelpService } from '@monorepo/core-lib';
 })
 export class CaFolderTableComponent {
 
-  @Input({ required: true }) datasource: CaFolderDatasource;
+  @Input({ required: true }) datasource: CaFolderDatasource<any>;
 
-  @Input() columns: FlTableColumnStatic<CaFolder>[] = ['code', 'leader', 'creation', 'actions'];
+  @Input() columns: FlTableColumnStatic<CaFolder>[] = ['name', 'leader', 'creation', 'actions'];
 
   // to support custom column
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;

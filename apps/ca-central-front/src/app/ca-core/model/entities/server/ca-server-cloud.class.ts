@@ -1,8 +1,8 @@
-import {CaEntity} from '../ca-entity.entity';
-import {Type} from 'class-transformer';
-import {CaCloudProvider} from '../ca-cloud-provider.class';
-import {FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {CaServerStandard} from './ca-server-standard.class';
+import { CaEntity } from '../ca-entity.entity';
+import { Type } from 'class-transformer';
+import { CaCloudProvider } from '../ca-cloud-provider.class';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { CaServerStandard } from './ca-server-standard.class';
 
 /**
  * Disk type for the servers
@@ -50,4 +50,4 @@ export class CaServerCloud extends CaEntity {
   }
 }
 
-export type CaServerCloudDatasource = FlEntityPaginatedDatasource<CaServerCloud>;
+export type CaServerCloudDatasource<F = void> = FlEntityPaginatedDatasource<CaServerCloud, F>;

@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
+  FlInputSearchFilter,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import { CaSpace, CaSpaceDatasource, CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
+import { CaSpace, CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
 import { Observable } from 'rxjs';
 import { ClHelpService, ClPage } from '@monorepo/core-lib';
 import { CaUser, CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
 import { CaSpaceSearch, CaSpaceSearchFields } from '../entity-module/ca-space-core/model/ca-space-search.class';
-import { CaSpaceRole, CaSpaceUser, CaSpaceUserDatasource } from '../model/entities/space/ca-space-user.class';
+import { CaSpaceRole, CaSpaceUser } from '../model/entities/space/ca-space-user.class';
 import {
   CaSpaceUserSearch,
   CaSpaceUserSearchFields
@@ -73,12 +74,6 @@ export class CaSpaceService {
       { page: page, pageSize: size, resultIsPaginated: true });
   }
 
-  public getAllDatasource(): CaSpaceDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAll(page, size), 20);
-  }
-
-
   public uploadSpacePhoto(spaceId: string, photo: File): Observable<CaSpace> {
     const formData = new FormData();
     formData.append('photo', photo);
@@ -93,12 +88,11 @@ export class CaSpaceService {
     return this.apiService.getBaseRouteUrl(`${this.route}/photo/${filename}`);
   }
 
-  public search(page: number, pageSize: number, filters?: CaSpaceSearchFields): Observable<ClPage<CaSpace>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaSpaceSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/search`, data, CaSpace, {
+  public search(page: number, pageSize: number,
+                data: FlDatasourceGetPageData<CaSpaceSearchFields>): Observable<ClPage<CaSpace>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      CaSpaceSearch.filterConverter, CaSpaceSearch.sortConverter);
+    return this.apiService.post(`${this.route}/search`, searchInput, CaSpace, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
@@ -132,15 +126,6 @@ export class CaSpaceService {
   }
 
   ////////////////////////////////// USER //////////////////////////////////////
-  public getUsersOfSpace(spaceId: string, page: number, size: number): Observable<ClPage<CaSpaceUser>> {
-    return this.apiService.get(`${this.route}/${spaceId}/user`, CaSpaceUser,
-      { page: page, pageSize: size, resultIsPaginated: true });
-  }
-
-  public getUsersOfSpaceDatasource(spaceId: string): CaSpaceUserDatasource {
-    return new CaSpaceUserDatasource(
-      (page, size) => this.getUsersOfSpace(spaceId, page, size), 20);
-  }
 
   public addUserToSpace(spaceId: string, userId: string): Observable<CaSpaceUser> {
     return this.apiService.post(`${this.route}/${spaceId}/user/${userId}`, null, CaSpaceUser);
@@ -176,12 +161,10 @@ export class CaSpaceService {
   }
 
   public searchSpaceUsers(spaceId: string, page: number, pageSize: number,
-                          filters?: CaSpaceUserSearchFields): Observable<ClPage<CaSpaceUser>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaSpaceUserSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/${spaceId}/user/search`, data, CaSpaceUser, {
+                          data: FlDatasourceGetPageData<CaSpaceUserSearchFields>): Observable<ClPage<CaSpaceUser>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      CaSpaceUserSearch.filterConverter, CaSpaceUserSearch.sortConverter);
+    return this.apiService.post(`${this.route}/${spaceId}/user/search`, searchInput, CaSpaceUser, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
@@ -193,9 +176,9 @@ export class CaSpaceService {
     });
   }
 
-  public searchSpaceUsersByNameDatasource(spaceId: string): CaUserDatasourcePaginated {
+  public searchSpaceUsersByNameDatasource(spaceId: string): CaUserDatasourcePaginated<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page, size, name) => this.searchSpaceUsersByName(spaceId, name, page, size), 20, false);
+      (page, size, data) => this.searchSpaceUsersByName(spaceId, data.filtersCriteria.searchText, page, size), 20, false);
   }
 
 

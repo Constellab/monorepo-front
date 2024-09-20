@@ -27,8 +27,8 @@ import {
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
 import { TeFigureBlockData, TeFileBlockData, TeRichTextContent, TeUploadedImage } from '@monorepo/text-editor';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
@@ -98,17 +98,18 @@ export class CaFolderService {
 
   public searchChildrenDatasource(id: string, filters?: CaHierarchyObjectSearchFields): CaHierarchyObjectDatasource {
     return new FlEntityPaginatedDatasource(
-      (page, pageSize) => this.searchChildren(id, page, pageSize, filters),
+      (page, pageSize) => this.searchChildren(id, page, pageSize, {
+        filtersCriteria: filters,
+        sortsCriteria: [{ key: 'name', direction: 'ASC' }]
+      }),
       30);
   }
 
   public searchChildren(id: string, page: number, size: number,
-                        filters?: Partial<CaHierarchyObjectSearchFields>): Observable<ClPageI<CaHierarchyObject>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaHierarchyObjectSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/${id}/children/paginated`, data, CaFolder,
+                        data: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>): Observable<ClPageI<CaHierarchyObject>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      CaHierarchyObjectSearch.filterConverter, CaHierarchyObjectSearch.sortConverter);
+    return this.apiService.post(`${this.route}/${id}/children/paginated`, searchInput, CaFolder,
       { resultIsPaginated: true, page: page, pageSize: size });
   }
 
@@ -139,13 +140,12 @@ export class CaFolderService {
       { resultIsPaginated: true, page: page, pageSize: size });
   }
 
-  public searchFoldersInCurrentSpace(page: number, pageSize: number, filters?: CaFolderSearchFields):
+  public searchFoldersInCurrentSpace(page: number, pageSize: number,
+                                     data: FlDatasourceGetPageData<CaFolderSearchFields>):
     Observable<ClPageI<CaFolder>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaFolderSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/current-space/search`, data, CaFolder, {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      CaFolderSearch.filterConverter, CaFolderSearch.sortConverter);
+    return this.apiService.post(`${this.route}/current-space/search`, searchInput, CaFolder, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
@@ -336,12 +336,10 @@ export class CaFolderService {
 
   /////////////////////////////// ACTIVITY ///////////////////////////////////////////
   public searchActivity(folderId: string, page: number, pageSize: number,
-                        filters?: CaActivitySearchFields): Observable<ClPageI<CaActivity>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaActivitySearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/${folderId}/activity`, data, CaActivity, {
+                        data: FlDatasourceGetPageData<CaActivitySearchFields>): Observable<ClPageI<CaActivity>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data, CaActivitySearch.filterConverter,
+      CaActivitySearch.sortConverter);
+    return this.apiService.post(`${this.route}/${folderId}/activity`, searchInput, CaActivity, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }

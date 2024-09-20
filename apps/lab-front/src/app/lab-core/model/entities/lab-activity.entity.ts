@@ -1,7 +1,7 @@
-import {LabBaseEntity} from '../global/lab-entity.entity';
-import {LabUser} from './lab-user.entity';
-import {Expose, Type} from 'class-transformer';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
+import { LabBaseEntity } from '../global/lab-entity.entity';
+import { LabUser } from './lab-user.entity';
+import { Expose, Type } from 'class-transformer';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 
 export enum ActivityType {
   CREATE = 'CREATE',
@@ -36,4 +36,4 @@ export class LabActivity extends LabBaseEntity {
   objectId: string;
 }
 
-export type LabActivityDatasource = FlDatasourcePaginated<LabActivity>;
+export type LabActivityDatasource<F = void> = FlDatasourcePaginated<LabActivity, F>;

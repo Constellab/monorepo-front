@@ -19,7 +19,7 @@ import { CaFolderSearch, CaFolderSearchFields } from '../../model/ca-folder-sear
 })
 export class CaFolderSearchComponent implements OnInit {
 
-  datasource: CaFolderDatasource;
+  datasource: CaFolderDatasource<CaFolderSearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private folderService: CaFolderService,
@@ -29,18 +29,19 @@ export class CaFolderSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaFolderSearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaFolderSearch.getSearchForm,
       advancedFormClass: CaFolderSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaFolderSearch.advancedSearchManagerConfig,
+        config: CaFolderSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: {key: 'name', direction: 'ASC'}
     };
 
     this.datasource = new FlEntityPaginatedDatasource(
-      (page, size, filters) => this.folderService.searchFoldersInCurrentSpace(page, size, filters),
+      (page, size, data) => this.folderService.searchFoldersInCurrentSpace(page, size, data),
       20, false);
     this.searchState.init(config, this.datasource);
   }

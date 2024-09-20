@@ -1,10 +1,13 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { FlDatasourcePaginated } from '../../../model/datasource/fl-datasource-paginated.class';
+import {
+  FlDatasourcePaginated,
+  FlDatasourceSortCriteria
+} from '../../../model/datasource/fl-datasource-paginated.class';
 import { FormGroup } from '@ngneat/reactive-forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { FlSearchConfig } from './fl-search-state-config.class';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FlAdvancedSearchObject, FlSearchPageUrlHelper, FlSearchUrlObject } from './fl-search-url.helper';
+import { FlAdvancedSearchObjectUrl, FlSearchPageUrlHelper, FlSearchUrlObject } from './fl-search-url.helper';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ClCoreJsonConvert } from '@monorepo/core-lib';
@@ -20,10 +23,12 @@ export class FlSearchState<T> implements OnDestroy {
 
   private config: FlSearchConfig;
   // datasource containing the data
-  public datasource: FlDatasourcePaginated<T>;
+  public datasource: FlDatasourcePaginated<T, any>;
 
   // form group instance of the advanced form
   public advancedSearchFormGroup: FormGroup;
+
+  public sortCriteria: FlDatasourceSortCriteria;
 
   // timestamp code of the last search to prevent calling the same search twice
   private lastSearchTimestamp: string;
@@ -33,7 +38,6 @@ export class FlSearchState<T> implements OnDestroy {
 
   // list of filter that are added programmatically and override search criteria
   private hiddenFilters: Record<string, any> = {};
-
 
   constructor(private route: ActivatedRoute,
               private router: Router) {
@@ -46,9 +50,10 @@ export class FlSearchState<T> implements OnDestroy {
   /**
    * Init the search page and call first search
    */
-  public init(config: FlSearchConfig, datasource: FlDatasourcePaginated<T>): void {
+  public init(config: FlSearchConfig, datasource: FlDatasourcePaginated<T, any>): void {
     this.config = config;
     this.advancedSearchFormGroup = config.buildAdvancedForm();
+    this.sortCriteria = config.defaultSort;
     this.datasource = datasource;
 
 
@@ -62,12 +67,20 @@ export class FlSearchState<T> implements OnDestroy {
 
   // call advanced search form advanced search form
   public callAdvancedSearchFromForm(): void {
-    const advancedSearch: FlAdvancedSearchObject = this.callAdvancedSearch(this.advancedSearchFormGroup.getRawValue());
+    const filterCriteria = this.advancedSearchFormGroup.getRawValue();
+    this.callAdvancedSearch(filterCriteria, this.sortCriteria);
+
+    // get sort and build the search url
+    const sortCriteria = this.getSortCriteria();
+    const searchUrl: FlAdvancedSearchObjectUrl = {
+      filtersCriteria: filterCriteria,
+      sortKey: sortCriteria?.key, sortDirection: sortCriteria?.direction
+    };
 
     const timestamp = this.generateSearchTimestamp();
 
     if (this.config.storeSearchInUrl) {
-      this.saveAdvancedSearchInUrl(advancedSearch, timestamp);
+      this.saveAdvancedSearchInUrl(searchUrl, timestamp);
     }
   }
 
@@ -94,40 +107,52 @@ export class FlSearchState<T> implements OnDestroy {
 
 
   // call the advanced search from a URL change
-  private callAdvancedSearchFromUrl(filtersCriteria: Record<string, any>, timestamp: string): void {
-    this.callAdvancedSearch(filtersCriteria);
+  private callAdvancedSearchFromUrl(filtersCriteria: Record<string, any>,
+                                    sortCriteria: FlDatasourceSortCriteria, timestamp: string): void {
+    this.callAdvancedSearch(filtersCriteria, sortCriteria);
     this.lastSearchTimestamp = timestamp;
 
+    this.sortCriteria = sortCriteria;
     this.resetAdvancedFormGroup(filtersCriteria);
   }
 
   // method to just call advanced search function
-  private callAdvancedSearch(filtersCriteria: Record<string, any>): FlAdvancedSearchObject {
+  private callAdvancedSearch(filtersCriteria: Record<string, any>, sortCriteria: FlDatasourceSortCriteria): void {
 
+    let fullFiltersCriteria = filtersCriteria;
     // add the hidden filters
     if (this.hiddenFilters) {
-      filtersCriteria = {...filtersCriteria, ...this.hiddenFilters};
+      fullFiltersCriteria = { ...filtersCriteria, ...this.hiddenFilters };
     }
 
     // call first page and set data
-    this.datasource.getFirstPage(filtersCriteria);
+    this.datasource.getFirstPage(fullFiltersCriteria, sortCriteria == null ? null : [sortCriteria]);
 
 
     // if the drawer is in over mode (small screens) close it
     if (this.drawer?.mode === 'over') {
       this.closeDrawer();
     }
-
-    return {filtersCriteria: filtersCriteria};
   }
 
   public getFiltersCriteria(): T {
     let filtersCriteria = this.advancedSearchFormGroup.getRawValue();
     // add the hidden filters
     if (this.hiddenFilters) {
-      filtersCriteria = {...filtersCriteria, ...this.hiddenFilters};
+      filtersCriteria = { ...filtersCriteria, ...this.hiddenFilters };
     }
     return filtersCriteria;
+  }
+
+  /////////////////////////////////////////////////// SORT CRITERIA ///////////////////////////////////////////////////
+
+  public setSortCriteriaAndCallSearch(sortCriteria: FlDatasourceSortCriteria): void {
+    this.sortCriteria = sortCriteria;
+    this.callAdvancedSearchFromForm();
+  }
+
+  public getSortCriteria(): FlDatasourceSortCriteria | null {
+    return this.sortCriteria;
   }
 
   /////////////////////////////////////////////////// URL ///////////////////////////////////////////////////
@@ -177,12 +202,17 @@ export class FlSearchState<T> implements OnDestroy {
     }
 
 
-    const formValue: FlAdvancedSearchObject = FlSearchPageUrlHelper.advancedSearchFromString(params?.search);
+    const formValue: FlAdvancedSearchObjectUrl = FlSearchPageUrlHelper.advancedSearchFromString(params?.search);
+
 
     if (formValue != null) {
       try {
         const filtersCriteria = ClCoreJsonConvert.deserialize(formValue.filtersCriteria, this.config.advancedFormClass);
-        this.callAdvancedSearchFromUrl(filtersCriteria, params.timestamp);
+        const sortCriteria: FlDatasourceSortCriteria = {
+          key: formValue.sortKey,
+          direction: formValue.sortDirection
+        }
+        this.callAdvancedSearchFromUrl(filtersCriteria, sortCriteria, params.timestamp);
         return true;
       } catch {
         return false;
@@ -202,10 +232,8 @@ export class FlSearchState<T> implements OnDestroy {
   }
 
   // save the advanced search in URL
-  private saveAdvancedSearchInUrl(advancedSearch: FlAdvancedSearchObject, timestamp: string): void {
-    // convert object to class and to plain json again to trigger transforms
-    // const convertedFilters = ClCoreJsonConvert.instanceToPlain(advancedSearch.filtersCriteria, this.config.advancedFormClass);
-    const searchString: string = FlSearchPageUrlHelper.advancedSearchToString({filtersCriteria: advancedSearch.filtersCriteria});
+  private saveAdvancedSearchInUrl(advancedSearch: FlAdvancedSearchObjectUrl, timestamp: string): void {
+    const searchString: string = FlSearchPageUrlHelper.advancedSearchToString(advancedSearch);
 
     // limit length to avoid URL problem
     if (!searchString || searchString.length < 1700) {

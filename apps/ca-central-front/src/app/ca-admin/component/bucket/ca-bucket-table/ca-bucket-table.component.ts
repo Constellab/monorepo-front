@@ -1,12 +1,13 @@
-import {Component, Input} from '@angular/core';
-import {CaBucketFull, CaBucketFullDatasource} from '../../../../ca-core/model/entities/ca-object-storage.class';
+import { Component, Input } from '@angular/core';
+import { CaBucketFull } from '../../../../ca-core/model/entities/ca-object-storage.class';
 import {
+  FlArrayObs,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlTableColumnStatic
 } from '@monorepo/front-core-lib';
-import {CaObjectStorageService} from '../../../../ca-core/service-api/ca-object-storage.service';
+import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-object-storage.service';
 import {
   CaBucketFormDialogComponent,
   CaBucketFormDialogInput
@@ -19,7 +20,7 @@ import {
 })
 export class CaBucketTableComponent {
 
-  @Input() datasource: CaBucketFullDatasource;
+  @Input({required: true}) datasource: FlArrayObs<CaBucketFull>;
 
   @Input() columns: FlTableColumnStatic<CaBucketFull>[] =
     ['name', 'contentType', 'object', 'credentials', 'lastModified', 'actions'];

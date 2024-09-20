@@ -20,7 +20,7 @@ import { CaUserSearch, CaUserSearchFields } from '../../model/ca-user-search.cla
 })
 export class CaUserSearchComponent implements OnInit {
 
-  datasource: CaUserDatasourcePaginated;
+  datasource: CaUserDatasourcePaginated<CaUserSearchFields>;
 
   columns: FlTableColumnStatic<CaUser>[] = ['alias', 'contact', 'category', 'lastLogin', 'createdAt', 'adminActions'];
 
@@ -34,13 +34,14 @@ export class CaUserSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaUserSearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaUserSearch.getSearchForm,
       advancedFormClass: CaUserSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaUserSearch.advancedSearchManagerConfig,
+        config: CaUserSearch.searchManagerConfig,
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: {key: 'createdAt', direction: 'DESC'}
     };
 
     this.datasource = new FlEntityPaginatedDatasource((page, size, filters) => this.userService.search(page, size, filters)

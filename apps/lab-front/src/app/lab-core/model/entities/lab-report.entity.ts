@@ -49,7 +49,7 @@ export class LabReport extends LabBaseEntityWithUser implements LabFolderObject 
   }
 }
 
-export type LabReportDatasource = FlDatasourcePaginated<LabReport>;
+export type LabReportDatasource<F = void> = FlDatasourcePaginated<LabReport, F>;
 
 export interface LabReportForm {
   title: string;

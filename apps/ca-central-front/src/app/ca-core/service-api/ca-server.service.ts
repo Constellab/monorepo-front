@@ -1,22 +1,22 @@
-import {Injectable} from '@angular/core';
-import {CaServerCloud, CaServerCloudDatasource} from '../model/entities/server/ca-server-cloud.class';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { CaServerCloud, CaServerCloudDatasource } from '../model/entities/server/ca-server-cloud.class';
+import { Observable } from 'rxjs';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {ClPageI} from '@monorepo/core-lib';
-import {CaServerCloudSearch} from '../entity-module/ca-server-core/model/ca-server-cloud-search.class';
-import {CaCloudProviderRegion} from '../model/entities/ca-cloud-provider.class';
+import { ClPageI } from '@monorepo/core-lib';
+import { CaServerCloudSearch } from '../entity-module/ca-server-core/model/ca-server-cloud-search.class';
+import { CaCloudProviderRegion } from '../model/entities/ca-cloud-provider.class';
 import {
   CaServerStandard,
   CaServerStandardDatasource,
   CaServerStandardSaveDTO
 } from '../model/entities/server/ca-server-standard.class';
-import {CaCreateServerPriceDTO, CaServerPrice} from '../model/entities/server/ca-server-price.class';
-import {CaCreateStoragePriceDTO, CaStoragePrice} from '../model/entities/server/ca-storage-price.class';
+import { CaCreateServerPriceDTO, CaServerPrice } from '../model/entities/server/ca-server-price.class';
+import { CaCreateStoragePriceDTO, CaStoragePrice } from '../model/entities/server/ca-storage-price.class';
 
 @Injectable({
   providedIn: 'root'
@@ -94,12 +94,11 @@ export class CaServerService {
     return this.apiService.get(`${this.routeCloud}/${id}`, CaServerCloud);
   }
 
-  public searchServerCloud(page: number, pageSize: number, filters?: CaServerCloudSearch): Observable<ClPageI<CaServerCloud>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaServerCloudSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.routeCloud}/search`, data, CaServerCloud, {
+  public searchServerCloud(page: number, pageSize: number,
+                           data: FlDatasourceGetPageData<CaServerCloudSearch>): Observable<ClPageI<CaServerCloud>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      CaServerCloudSearch.filterConverter, CaServerCloudSearch.sortConverter);
+    return this.apiService.post(`${this.routeCloud}/search`, searchInput, CaServerCloud, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
@@ -129,7 +128,7 @@ export class CaServerService {
 
   public createServerPrice(standardServerId: string, price: CaCreateServerPriceDTO): Observable<CaServerPrice> {
     return this.apiService.post(`${this.routeStandard}/${standardServerId}/price`, price, CaServerPrice,
-      {serialization: CaCreateServerPriceDTO});
+      { serialization: CaCreateServerPriceDTO });
   }
 
   public deleteServerPrice(standardServerId: string, priceId: string): Observable<void> {
@@ -152,7 +151,7 @@ export class CaServerService {
 
   public createStoragePrice(price: CaCreateStoragePriceDTO): Observable<CaStoragePrice> {
     return this.apiService.post(`${this.routeStoragePrice}`, price, CaStoragePrice,
-      {serialization: CaCreateStoragePriceDTO});
+      { serialization: CaCreateStoragePriceDTO });
   }
 
   public deleteStoragePrice(priceId: string): Observable<void> {

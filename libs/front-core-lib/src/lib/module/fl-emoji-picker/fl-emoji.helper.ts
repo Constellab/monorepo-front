@@ -200,11 +200,16 @@ export class FlEmojiHelper {
   }
 }
 
-export class FlEmojiDatasource extends FlDatasourcePaginated<FlEmojiCategory> {
+export interface FlEmojiSearchFilter {
+  text: string;
+}
+
+// TODO TO TEST
+export class FlEmojiDatasource extends FlDatasourcePaginated<FlEmojiCategory, FlEmojiSearchFilter> {
 
   constructor() {
     super((page, pageSize, filter) =>
-      FlEmojiHelper.search(filter, page, pageSize), 200, false);
+      FlEmojiHelper.search(filter.filtersCriteria.text, page, pageSize), 200, false);
   }
 
   protected equals(a: FlEmojiCategory, b: FlEmojiCategory): boolean {

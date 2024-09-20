@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
+import { Injectable } from '@angular/core';
+import { FlApiService, FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import {
   HaCreateStoryDto,
   HaListStoryDto,
@@ -7,28 +7,27 @@ import {
   HaStoryDatasourcePaginated,
   HaStoryFilter
 } from '../ha-model/ha-entities/ha-story.class';
-import {Observable} from 'rxjs';
-import {ClPage} from '@monorepo/core-lib';
-import {HaTopic, HaTopicDto} from '../ha-model/ha-entities/ha-topic.class';
-import {HaStoryCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
-import {HaFile} from '../entity-module/ha-file-core/model/ha-file';
+import { Observable } from 'rxjs';
+import { ClPage } from '@monorepo/core-lib';
+import { HaTopic, HaTopicDto } from '../ha-model/ha-entities/ha-topic.class';
+import { HaStoryCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 import {
   TeRichTextContent,
   TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryService,
   TeUploadedImage
 } from '@monorepo/text-editor';
-import {RvResourceView} from '@monorepo/resource-view';
-import {HaUser} from '../ha-model/ha-entities/ha-user';
-import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
-import {CoStoryCategory} from '@monorepo/community-lib';
-import {HaFileServiceInterface} from '../entity-module/ha-file-core/model/ha-file-service.interface';
-
+import { RvResourceView } from '@monorepo/resource-view';
+import { HaUser } from '../ha-model/ha-entities/ha-user';
+import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
+import { CoStoryCategory } from '@monorepo/community-lib';
+import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-file-service.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService{
+export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService {
   private readonly route: string = 'story';
 
   constructor(private apiService: FlApiService) {
@@ -62,13 +61,13 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.delete(this.route + '/' + id);
   }
 
-  public getAllPaginatedFiltered(pageSize: number =10): HaStoryDatasourcePaginated {
+  public getAllPaginatedFiltered(pageSize: number = 10): HaStoryDatasourcePaginated<HaStoryFilter> {
     return new FlEntityPaginatedDatasource(
       (page, size, filters) => this.getAllByFilter(filters, page, size), pageSize, false);
   }
 
-  private getAllByFilter(filters: HaStoryFilter, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
-    return this.apiService.post(this.route + '/filter', filters, HaStory, {
+  private getAllByFilter(data: FlDatasourceGetPageData<HaStoryFilter>, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
+    return this.apiService.post(this.route + '/filter', data.filtersCriteria, HaStory, {
       page: page,
       pageSize: size,
       resultIsPaginated: true
@@ -83,8 +82,9 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     });
   }
 
-  public getUserStoriesPaginated(pageSize: number = 4): HaStoryDatasourcePaginated{
-    return new FlEntityPaginatedDatasource((page, size, filters) => this.getUserStories(filters.userId, page, size), pageSize, false);
+  public getUserStoriesPaginated(pageSize: number = 4): HaStoryDatasourcePaginated {
+    return new FlEntityPaginatedDatasource((page, size, filters) =>
+      this.getUserStories(filters.filtersCriteria.userId, page, size), pageSize, false);
   }
 
   /**
@@ -94,7 +94,7 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
    * return a story
    */
   public updateTitle(storyId: string, title: string): Observable<HaStory> {
-    return this.apiService.put(`${this.route}/${storyId}/title`, {title: title}, HaStory);
+    return this.apiService.put(`${this.route}/${storyId}/title`, { title: title }, HaStory);
   }
 
   /**
@@ -104,7 +104,7 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
    * return a story
    */
   updateCategory(storyId: string, category: CoStoryCategory): Observable<HaStory> {
-    return this.apiService.put(`${this.route}/${storyId}/category`, {category: category}, HaStory);
+    return this.apiService.put(`${this.route}/${storyId}/category`, { category: category }, HaStory);
   }
 
   /**
@@ -114,10 +114,10 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
    * return a story
    */
   public updateContent(id: string, content: TeRichTextContent): Observable<HaStory> {
-    return this.apiService.put(this.route + '/' + id + '/content-edition', {contentEdition: content}, HaStory);
+    return this.apiService.put(this.route + '/' + id + '/content-edition', { contentEdition: content }, HaStory);
   }
 
-  public saveContent(id: string): Observable<HaStory>{
+  public saveContent(id: string): Observable<HaStory> {
     return this.apiService.put(this.route + '/' + id + '/content', {});
   }
 
@@ -153,13 +153,16 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.put(`${this.route}/${id}/publish`, {});
   }
 
-  getMyStoriesForList(): HaStoryDatasourcePaginated {
-    return new FlEntityPaginatedDatasource((page, size, filters) =>
+  getMyStoriesForList(): HaStoryDatasourcePaginated<HaStoryFilter> {
+    return new FlEntityPaginatedDatasource<HaListStoryDto, HaStoryFilter>((page, size, filters) =>
       this.getMyStoriesForListPaginated(page, size, filters), 10, false);
   }
 
-  private getMyStoriesForListPaginated(page: number, size: number, filters: HaStoryFilter): Observable<ClPage<HaListStoryDto>> {
-    return this.apiService.post(this.route + '/my-filtered', filters, HaStory, {page: page, pageSize: size, resultIsPaginated: true});
+  // TODO @vfoex : check types
+  private getMyStoriesForListPaginated(page: number, size: number,
+                                       data: FlDatasourceGetPageData<HaStoryFilter>): Observable<ClPage<HaListStoryDto>> {
+    return this.apiService.post(this.route + '/my-filtered', data.filtersCriteria,
+      HaStory, { page: page, pageSize: size, resultIsPaginated: true });
   }
 
   /***
@@ -222,43 +225,43 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.put(`${this.route}/invite/${token}/accept`, {});
   }
 
-  inviteCoAuthor(storyId: string, coAuthorMail: string): Observable<boolean>{
-    return this.apiService.post(`${this.route}/${storyId}/invite-co-author`, {coAuthorMail: coAuthorMail}, Boolean);
+  inviteCoAuthor(storyId: string, coAuthorMail: string): Observable<boolean> {
+    return this.apiService.post(`${this.route}/${storyId}/invite-co-author`, { coAuthorMail: coAuthorMail }, Boolean);
   }
 
 
-  getStoryFiles(storyId: string): Observable<HaFile[]>{
-    return this.apiService.get(`${this.route}/story-files/${storyId}`, HaFile, {resultIsPaginated: false})
+  getStoryFiles(storyId: string): Observable<HaFile[]> {
+    return this.apiService.get(`${this.route}/story-files/${storyId}`, HaFile, { resultIsPaginated: false });
   }
 
 
-  uploadFile(file: File, storyId: string): Observable<HaFile>{
+  uploadFile(file: File, storyId: string): Observable<HaFile> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/file/${storyId}`, formData);
   }
 
-  deleteFile(entityId: string, name: string): Observable<void>{
+  deleteFile(entityId: string, name: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${entityId}/file/${name}`);
   }
 
-  renameFile(storyFileId: string, newName: string): Observable<HaFile>{
-    return this.apiService.put(`${this.route}/file/${storyFileId}/rename`, {humanName: newName}, HaFile);
+  renameFile(storyFileId: string, newName: string): Observable<HaFile> {
+    return this.apiService.put(`${this.route}/file/${storyFileId}/rename`, { humanName: newName }, HaFile);
   }
 
-  getCoAuthorsPendingInvites(storyId: string): Observable<HaStoryCoAuthorInvite[]>{
-    return this.apiService.get(`${this.route}/${storyId}/co-authors-pending-invites`, HaStoryCoAuthorInvite, {resultIsPaginated: false});
+  getCoAuthorsPendingInvites(storyId: string): Observable<HaStoryCoAuthorInvite[]> {
+    return this.apiService.get(`${this.route}/${storyId}/co-authors-pending-invites`, HaStoryCoAuthorInvite, { resultIsPaginated: false });
   }
 
-  deleteCoAuthorInvite(inviteId: string): Observable<void>{
+  deleteCoAuthorInvite(inviteId: string): Observable<void> {
     return this.apiService.delete(`${this.route}/invite/${inviteId}`);
   }
 
-  uploadStoryResourceViewFile(storyId: string, file: FormData): Observable<any>{
+  uploadStoryResourceViewFile(storyId: string, file: FormData): Observable<any> {
     return this.apiService.post(`${this.route}/${storyId}/upload-view`, file);
   }
 
-  getView(storyId: string, id: string): Observable<RvResourceView>{
+  getView(storyId: string, id: string): Observable<RvResourceView> {
     return this.apiService.get(`${this.route}/${storyId}/view/${id}`);
   }
 

@@ -1,8 +1,8 @@
-<mat-table mat-table [dataSource]="datasource">
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
 
   <!-- Title -->
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig">
@@ -51,7 +51,7 @@
 
   <!-- Datetime -->
   <ng-container matColumnDef="lastModifiedAt">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'biox.view_config_date' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let viewConfig">

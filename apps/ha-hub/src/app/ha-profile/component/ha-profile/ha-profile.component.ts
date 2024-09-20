@@ -1,26 +1,25 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable, of, switchMap} from 'rxjs';
-import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import {ActivatedRoute} from '@angular/router';
-import {HaUserService} from '../../../ha-core/ha-service/ha-user.service';
-import {map} from 'rxjs/operators';
-import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import {HaSpaceService} from '../../../ha-core/ha-service/ha-space.service';
-import {HaLiveTaskDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
-import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {HaBrickService} from '../../../ha-core/ha-service/ha-brick.service';
-import {HaBrickDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {HaStoryDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {HaCoServiceConfig} from '../../../ha-core/ha-model/ha-config/ha-co-service.config';
-import {FlDialogService} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { Observable, of, switchMap } from 'rxjs';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { ActivatedRoute } from '@angular/router';
+import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
+import { map } from 'rxjs/operators';
+import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
+import { HaLiveTaskDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
+import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
+import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
+import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaStoryDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   HaProfileEditDialogComponent,
   HaProfileEditDialogData
 } from '../ha-profile-edit-dialog/ha-profile-edit-dialog.component';
-import {CoUser} from '@monorepo/community-lib';
+import { CoUser } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-profile',
@@ -43,7 +42,6 @@ export class HaProfileComponent implements OnInit {
               private liveTaskService: HaLiveTaskService,
               private brickService: HaBrickService,
               private storyService: HaStoryService,
-              private coServiceConfig: HaCoServiceConfig,
               private dialogService: FlDialogService,
               private route: ActivatedRoute) {
   }
@@ -61,7 +59,7 @@ export class HaProfileComponent implements OnInit {
       if (user) {
         this.init();
       }
-    })
+    });
   }
 
   getStoryImageLink(storyId: string, imageLinkOrId?: string): string {
@@ -78,7 +76,7 @@ export class HaProfileComponent implements OnInit {
         this.bricks$ = this.brickService.getUserBricksPaginated();
         this.stories$ = this.storyService.getUserStoriesPaginated();
         this.updateDatasources(params.id);
-        return this.userService.getUserById(params.id)
+        return this.userService.getUserById(params.id);
       })
     );
     this.currentUser$ = this.authenticatedUserService.getUser();
@@ -115,7 +113,7 @@ export class HaProfileComponent implements OnInit {
     });
     this.stories$.getFirstPage({
       userId: userId
-    })
+    });
   }
 
 }

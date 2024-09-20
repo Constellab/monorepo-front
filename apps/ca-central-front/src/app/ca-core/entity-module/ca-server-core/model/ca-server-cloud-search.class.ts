@@ -1,9 +1,14 @@
-import {FlFormInputsManagerConfig, FlSearchConverter, FlSearchCriteriaConverter} from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaCloudProvider} from '../../../model/entities/ca-cloud-provider.class';
-import {CaDiskType} from '../../../model/entities/server/ca-server-cloud.class';
-import {CaServerStandard} from '../../../model/entities/server/ca-server-standard.class';
+import {
+  FlFormInputsManagerConfig,
+  FlSearchConverter,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
+} from '@monorepo/front-core-lib';
+import { Type } from 'class-transformer';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { CaCloudProvider } from '../../../model/entities/ca-cloud-provider.class';
+import { CaDiskType } from '../../../model/entities/server/ca-server-cloud.class';
+import { CaServerStandard } from '../../../model/entities/server/ca-server-standard.class';
 
 export class CaServerCloudSearchFields {
   technicalName: string;
@@ -36,7 +41,7 @@ export class CaServerCloudSearch {
   /**
    * Const to configure Form Input Manager for advanced search
    */
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaServerCloudSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaServerCloudSearchFields> = {
     technicalName: 'technical_name',
     cloudProvider: 'cloud_provider',
     serverStandard: 'server_standard',
@@ -55,7 +60,7 @@ export class CaServerCloudSearch {
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaServerCloudSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaServerCloudSearchFields> = {
     technicalName: {key: 'technicalName', operator: 'CONTAINS'},
     cloudProvider: {key: 'cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     serverStandard: {key: 'serverStandard.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
@@ -68,7 +73,18 @@ export class CaServerCloudSearch {
     id: {key: 'id', operator: 'EQ'},
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaServerCloudSearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    cloudProvider: 'cloudProvider.name',
+    technicalName: 'technicalName',
+    serverStandard: 'serverStandard.name',
+    ram: 'ram',
+    disk: 'diskSpace',
+    cpu: 'cpuCount',
+    gpu: 'gpuCount',
+  };
+
+
+  public static getSearchForm(): FormGroup<CaServerCloudSearchFields> {
     return new FormBuilder().group(
       {
         technicalName: [null],

@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   LabCredentials,
   LabCredentialsData,
   LabCredentialsDatasource,
   LabSaveCredentialsDTO
 } from '../model/entities/lab-credentials.entity';
-import {ClCredentials, ClPageI} from '@monorepo/core-lib';
+import { ClCredentials, ClPageI } from '@monorepo/core-lib';
 import {
   LabCredentialsSearch,
   LabCredentialsSearchFields
@@ -54,7 +54,7 @@ export class LabCredentialsService {
   }
 
   public getAll(page: number, pageSize: number): Observable<ClPageI<LabCredentials>> {
-    return this.apiService.get(this.route, LabCredentials, {resultIsPaginated: true, page, pageSize});
+    return this.apiService.get(this.route, LabCredentials, { resultIsPaginated: true, page, pageSize });
   }
 
   public getAllDatasource(): LabCredentialsDatasource {
@@ -62,12 +62,11 @@ export class LabCredentialsService {
       (page, size) => this.getAll(page, size), 20, true);
   }
 
-  public search(page: number, pageSize: number, filters?: LabCredentialsSearchFields): Observable<ClPageI<LabCredentials>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, LabCredentialsSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/search`, data, LabCredentials, {
+  public search(page: number, pageSize: number,
+                data: FlDatasourceGetPageData<LabCredentialsSearchFields>): Observable<ClPageI<LabCredentials>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      LabCredentialsSearch.filterConverter, LabCredentialsSearch.sortConverter);
+    return this.apiService.post(`${this.route}/search`, searchInput, LabCredentials, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }

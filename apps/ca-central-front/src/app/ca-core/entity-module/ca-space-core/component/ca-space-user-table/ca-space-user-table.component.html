@@ -1,8 +1,8 @@
-<mat-table mat-table [dataSource]="datasource">
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
 
-  <!-- Photo -->
+  <!-- User -->
   <ng-container matColumnDef="user">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{'user' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -12,7 +12,7 @@
 
   <!-- Role -->
   <ng-container matColumnDef="role">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{'role' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -22,7 +22,7 @@
 
   <!-- AddedInfo -->
   <ng-container matColumnDef="addedInfo">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{'space_user_added_info' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -32,7 +32,7 @@
 
   <!-- active -->
   <ng-container matColumnDef="active">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{'active_license' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -42,7 +42,7 @@
 
   <!-- Last login success -->
   <ng-container matColumnDef="lastLogin">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{'last_login' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">

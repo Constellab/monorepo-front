@@ -18,7 +18,7 @@ export interface CaHierarchyObjectTableEvent {
   styleUrl: './ca-hierarchy-object-table.component.scss'
 })
 export class CaHierarchyObjectTableComponent {
-  @Input({ required: true }) datasource: CaHierarchyObjectDatasource;
+  @Input({ required: true }) datasource: CaHierarchyObjectDatasource<any>;
 
   @Input() columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt'];
 

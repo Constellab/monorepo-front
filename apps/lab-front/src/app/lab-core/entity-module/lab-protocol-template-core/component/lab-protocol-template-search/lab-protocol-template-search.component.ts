@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  FlDatasourcePaginated,
   FlPortalAction,
   FlPortalActionsService,
   FlSavedSearch,
@@ -9,13 +8,16 @@ import {
   FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabProtocolTemplate} from '../../../../model/entities/process/lab-protocol-template.entity';
-import {LabProtocolTemplateService} from '../../../../entity-service/lab-protocol-template.service';
+import {
+  LabProtocolTemplate,
+  LabProtocolTemplateDatasource
+} from '../../../../model/entities/process/lab-protocol-template.entity';
+import { LabProtocolTemplateService } from '../../../../entity-service/lab-protocol-template.service';
 import {
   LabProtocolTemplateSearch,
   LabProtocolTemplateSearchFields
 } from '../../model/lab-protocol-template-search.class';
-import {LabRouterService} from '../../../../service/lab-router.service';
+import { LabRouterService } from '../../../../service/lab-router.service';
 
 @Component({
   selector: 'lab-protocol-template-search',
@@ -29,7 +31,7 @@ export class LabProtocolTemplateSearchComponent implements OnInit {
 
   @Output() templateSelected: EventEmitter<LabProtocolTemplate> = new EventEmitter();
 
-  datasource: FlDatasourcePaginated<LabProtocolTemplate>;
+  datasource: LabProtocolTemplateDatasource<LabProtocolTemplateSearchFields>;
 
   columns: FlTableColumnStatic<LabProtocolTemplate>[] = ['name', 'tags', 'created'];
 
@@ -42,14 +44,15 @@ export class LabProtocolTemplateSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabProtocolTemplateSearch.getAdvancedSearchForm,
+      buildAdvancedForm: LabProtocolTemplateSearch.getSearchForm,
       advancedFormClass: LabProtocolTemplateSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: LabProtocolTemplateSearch.advancedSearchManagerConfig,
+        config: LabProtocolTemplateSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: false
+      storeSearchInUrl: false,
+      defaultSort: { key: 'lastModification', direction: 'DESC' }
     };
 
     this.datasource = this.protocolTemplateService.getSearchDatasource();
@@ -79,7 +82,7 @@ export class LabProtocolTemplateSearchComponent implements OnInit {
 
   createFromFile(file: File): void {
     const action: FlPortalAction = {
-      text: {text: 'biox.import_protocol_template', translateText: true},
+      text: { text: 'biox.import_protocol_template', translateText: true },
       type: 'importProtocolTemplate',
       action: this.protocolTemplateService.createFromFile(file),
       successLink: (result: LabProtocolTemplate) => LabRouterService.getProtocolTemplateDetailRoute(result.id)

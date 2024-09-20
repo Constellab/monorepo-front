@@ -1,13 +1,14 @@
-import {CaSpaceType} from '../../../model/entities/space/ca-space.class';
+import { CaSpaceType } from '../../../model/entities/space/ca-space.class';
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
-  FlSearchDateInterval
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaUser} from '../../../model/entities/ca-user.class';
-import {Type} from 'class-transformer';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { CaUser } from '../../../model/entities/ca-user.class';
+import { Type } from 'class-transformer';
 
 export class CaSpaceSearchFields {
 
@@ -28,7 +29,7 @@ export class CaSpaceSearchFields {
 
 export class CaSpaceSearch {
 
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaSpaceSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaSpaceSearchFields> = {
     name: 'name',
     domain: 'space_domain',
     type: 'type',
@@ -36,7 +37,7 @@ export class CaSpaceSearch {
     createdBy: 'created_by',
   };
 
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaSpaceSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaSpaceSearchFields> = {
     name: {key: 'name', operator: 'MATCH'},
     domain: {key: 'domain', operator: 'MATCH'},
     type: {key: 'type', operator: 'EQ'},
@@ -45,7 +46,14 @@ export class CaSpaceSearch {
     id: {key: 'id', operator: 'EQ'},
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaSpaceSearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    name: 'name',
+    type: 'type',
+    created: 'createdAt',
+    lastModified: 'lastModifiedAt',
+  };
+
+  public static getSearchForm(): FormGroup<CaSpaceSearchFields> {
     return new FormBuilder().group<CaSpaceSearchFields>({
       name: null,
       domain: null,

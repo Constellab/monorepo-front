@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -9,11 +9,10 @@ import {
   FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {CaSpaceRole, CaSpaceUser, CaSpaceUserDatasource} from '../../../../model/entities/space/ca-space-user.class';
-import {CaAuthenticatedUserService} from '../../../../service-api/ca-authenticated-user.service';
-import {CaSpaceSearchFields} from '../../model/ca-space-search.class';
-import {CaCurrentSpaceService} from '../../../../service-api/ca-current-space.service';
-import {CaSpaceUserSearch, CaSpaceUserSearchFields} from '../../model/ca-space-user-search.class';
+import { CaSpaceRole, CaSpaceUser, CaSpaceUserDatasource } from '../../../../model/entities/space/ca-space-user.class';
+import { CaSpaceSearchFields } from '../../model/ca-space-search.class';
+import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
+import { CaSpaceUserSearch, CaSpaceUserSearchFields } from '../../model/ca-space-user-search.class';
 import {
   CaGroupAddUserDialogComponent,
   CaGroupAddUserDialogInput
@@ -31,13 +30,12 @@ import {
 })
 export class CaSpaceUserSearchComponent implements OnInit {
 
-  datasource: CaSpaceUserDatasource;
+  datasource: CaSpaceUserDatasource<CaSpaceUserSearchFields>;
 
   columns: FlTableColumnStatic<CaSpaceUser>[] = ['user', 'role', 'active', 'addedInfo'];
 
   constructor(private searchState: FlSearchState<any>,
               private currentSpaceService: CaCurrentSpaceService,
-              private authenticatedUserService: CaAuthenticatedUserService,
               private themeService: FlThemeService,
               private dialogService: FlDialogService) {
   }
@@ -51,18 +49,19 @@ export class CaSpaceUserSearchComponent implements OnInit {
 
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaSpaceUserSearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaSpaceUserSearch.getSearchForm,
       advancedFormClass: CaSpaceUserSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaSpaceUserSearch.advancedSearchManagerConfig,
+        config: CaSpaceUserSearch.searchManagerConfig
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: { key: 'user', direction: 'ASC' }
     };
 
     this.datasource = new CaSpaceUserDatasource(
-      (page, size, filters) => this.currentSpaceService.searchSpaceUsers(
-        page, size, filters),
+      (page, size, data) => this.currentSpaceService.searchSpaceUsers(
+        page, size, data),
       20, false);
     this.searchState.init(config, this.datasource);
   }
@@ -87,7 +86,7 @@ export class CaSpaceUserSearchComponent implements OnInit {
       selectUserMode: 'all' // add the add bouton is only for admin, set the select to all user
     };
 
-    this.dialogService.openSmallDialog(CaGroupAddUserDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaGroupAddUserDialogComponent, { data: input }).afterClosed().subscribe(
       user => this.onAddUserClosed(user)
     );
   }
@@ -104,7 +103,7 @@ export class CaSpaceUserSearchComponent implements OnInit {
       updateRole: (role) => this.currentSpaceService.updateUserRole(user.user.id, role)
     };
 
-    this.dialogService.openSmallDialog(CaSpaceUserRoleDialogComponent, {data}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaSpaceUserRoleDialogComponent, { data }).afterClosed().subscribe(
       role => this.onUpdateRoleClosed(user, role)
     );
 

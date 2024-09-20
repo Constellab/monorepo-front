@@ -11,11 +11,13 @@ import {
   TeEvent,
   TeFakeInlineTool,
   TeFigureBlockConfig,
+  TeMentionSearchFilter,
   TeStrikethroughInlineTool,
   TeTools,
   TeUnderlineInlineTool,
   TeUploadedImage
 } from '@monorepo/text-editor';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib';
 
 
 export class CaChatMessageTextEditorImageConfig implements TeFigureBlockConfig {
@@ -88,13 +90,13 @@ export class CaChatMessageTextEditorConfig extends TeConfig {
     return {
       emoji: true,
       mention: {
-        getUsers: (name, page, pageSize) => this.getUsers(name, page, pageSize)
+        getUsers: (data, page, pageSize) => this.getUsers(data, page, pageSize)
       }
     };
   }
 
-  private getUsers(name: string, page: number, pageSize: number): Observable<ClPageI<CaUser>> {
-    return this.folderService.searchFolderUser(this.folderId, name, page, pageSize);
+  private getUsers(data: FlDatasourceGetPageData<TeMentionSearchFilter>, page: number, pageSize: number): Observable<ClPageI<CaUser>> {
+    return this.folderService.searchFolderUser(this.folderId, data.filtersCriteria.text, page, pageSize);
   }
 
   getTunes(): string[] {

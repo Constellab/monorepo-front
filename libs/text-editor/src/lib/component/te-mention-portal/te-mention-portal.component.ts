@@ -18,7 +18,7 @@ import {
 } from '@monorepo/front-core-lib';
 import {ClHelpService} from '@monorepo/core-lib';
 import {Observable} from 'rxjs';
-import {TeMentionConfig} from '../../plugin/te-mention.class';
+import { TeMentionConfig, TeMentionSearchFilter } from '../../plugin/te-mention.class';
 
 export interface TeMentionPortalInput {
   config: TeMentionConfig;
@@ -38,7 +38,7 @@ export class TeMentionPortalComponent implements OnInit, OnDestroy {
   public static PORTAL_MAX_WIDTH = 400;
   public static PORTAL_MAX_HEIGHT = 300;
 
-  users$: FlUserDatasource;
+  users$: FlUserDatasource<TeMentionSearchFilter>;
 
   input: TeMentionPortalInput = inject(FL_PORTAL_DATA);
 
@@ -59,7 +59,7 @@ export class TeMentionPortalComponent implements OnInit, OnDestroy {
     this.input.filter$.subscribe({
       next: (value: string) => {
         this.hoveredIndex = 0;
-        this.users$.getFirstPage(value);
+        this.users$.getFirstPage({ text: value });
       },
       complete: () => this.overlayRef.dispose()
     });

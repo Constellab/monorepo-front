@@ -1,9 +1,9 @@
-<mat-table mat-table [dataSource]="datasource" class="table">
+<mat-table mat-table [dataSource]="datasource" class="table" flSearchTableSort>
 
-  <!-- Code/Name -->
-  <ng-container matColumnDef="code">
-    <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'name' | translate }} / {{ 'code' | translate }} /</span>
+  <!-- Name/Code -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span> {{ 'name' | translate }} / {{ 'code' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let folder">
 
@@ -16,7 +16,7 @@
 
   <!-- Creation info -->
   <ng-container matColumnDef="creation">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let folder">
@@ -26,7 +26,7 @@
 
   <!-- Leader -->
   <ng-container matColumnDef="leader">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{ 'folder_leader' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let folder">

@@ -1,14 +1,15 @@
-import {Type} from 'class-transformer';
+import { Type } from 'class-transformer';
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
-  FlSearchDateInterval
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import {CaUser} from '../../../model/entities/ca-user.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaActivityEntityType, CaActivityType} from '../../../model/entities/ca-activity.class';
-import {CaSpace} from '../../../model/entities/space/ca-space.class';
+import { CaUser } from '../../../model/entities/ca-user.class';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { CaActivityEntityType, CaActivityType } from '../../../model/entities/ca-activity.class';
+import { CaSpace } from '../../../model/entities/space/ca-space.class';
 
 export class CaActivitySearchFields {
 
@@ -39,7 +40,7 @@ export class CaActivitySearchFields {
 
 export class CaActivitySearch {
 
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaActivitySearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaActivitySearchFields> = {
     entityType: 'activity_entity_type',
     entityId: 'activity_entity_id',
     actionType: 'activity_entity_name',
@@ -48,7 +49,7 @@ export class CaActivitySearch {
     includeSubFolders: 'include_sub_folders'
   };
 
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaActivitySearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaActivitySearchFields> = {
     entityType: {key: 'entityType', operator: 'IN'},
     entityId: {key: 'entityId', operator: 'EQ'},
     actionType: {key: 'actionType', operator: 'EQ'},
@@ -61,7 +62,14 @@ export class CaActivitySearch {
     includeSubFolders: {key: 'includeSubFolders', operator: 'EQ'},
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaActivitySearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    entityType: ['entityType', 'actionType'],
+    title: 'title',
+    entityName: 'entityName',
+    creation: 'createdAt',
+  };
+
+  public static getSearchForm(): FormGroup<CaActivitySearchFields> {
     return new FormBuilder().group<CaActivitySearchFields>({
       entityType: null,
       entityId: null,

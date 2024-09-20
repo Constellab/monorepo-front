@@ -32,7 +32,7 @@ export class LabDocumentTemplateSearchComponent implements OnInit {
 
   @Output() documentTemplateSelected: EventEmitter<LabDocumentTemplate> = new EventEmitter();
 
-  datasource: LabDocumentTemplateDatasource;
+  datasource: LabDocumentTemplateDatasource<LabDocumentTemplateSearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private documentTemplateService: LabDocumentTemplateService,
@@ -44,14 +44,15 @@ export class LabDocumentTemplateSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabDocumentTemplateSearch.getAdvancedSearchForm,
+      buildAdvancedForm: LabDocumentTemplateSearch.getSearchForm,
       advancedFormClass: LabDocumentTemplateSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: LabDocumentTemplateSearch.advancedSearchManagerConfig,
+        config: LabDocumentTemplateSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: this.fullPageSearch
+      storeSearchInUrl: this.fullPageSearch,
+      defaultSort: { key: 'lastModification', direction: 'DESC' }
     };
 
     this.datasource = this.documentTemplateService.getSearchDatasource();
@@ -81,7 +82,7 @@ export class LabDocumentTemplateSearchComponent implements OnInit {
       mode: 'create'
     };
 
-    this.dialogService.openSmallDialog(LabDocumentTemplateFormDialogComponent, {data}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(LabDocumentTemplateFormDialogComponent, { data }).afterClosed().subscribe(
       template => this.onCreateClosed(template)
     );
   }

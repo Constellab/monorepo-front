@@ -1,9 +1,9 @@
-<mat-table mat-table [dataSource]="datasource">
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
 
 
-  <!-- fullname -->
+  <!-- alias -->
   <ng-container matColumnDef="alias">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'fullname' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let user">
@@ -26,7 +26,7 @@
 
   <!-- createdAt -->
   <ng-container matColumnDef="createdAt">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'created_the' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let user">
@@ -36,7 +36,7 @@
 
   <!-- category -->
   <ng-container matColumnDef="category">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'user_category' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let user">
@@ -50,7 +50,7 @@
 
   <!-- Last login success -->
   <ng-container matColumnDef="lastLogin">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'last_login' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let user">

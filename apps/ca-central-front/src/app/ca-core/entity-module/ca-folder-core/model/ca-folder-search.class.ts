@@ -3,8 +3,9 @@ import { CaUser } from '../../../model/entities/ca-user.class';
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
-  FlSearchDateInterval
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 
@@ -33,7 +34,7 @@ export class CaFolderSearchFields {
 
 export class CaFolderSearch {
 
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaFolderSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaFolderSearchFields> = {
     code: 'code',
     name: 'name',
     startingDate: 'starting_date',
@@ -43,7 +44,7 @@ export class CaFolderSearch {
     includeSubFolders: 'include_sub_folders'
   };
 
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaFolderSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaFolderSearchFields> = {
     code: { key: 'code', operator: 'MATCH' },
     name: { key: 'name', operator: 'MATCH' },
     startingDate: FlSearchConverter.dateInterval('startingDate'),
@@ -54,7 +55,13 @@ export class CaFolderSearch {
     id: { key: 'id', operator: 'EQ' }
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaFolderSearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    name: 'name',
+    creation: 'createdAt',
+    leader: ['leader.firstname', 'leader.lastname'],
+  };
+
+  public static getSearchForm(): FormGroup<CaFolderSearchFields> {
     return new FormBuilder().group<CaFolderSearchFields>({
       code: null,
       name: null,

@@ -1,11 +1,11 @@
-import {HaEntity} from './ha-entity.class';
-import {HaReferenceDTO, HaRepoType} from './ha-version.class';
-import {HaBrickUser} from './ha-brick-user';
-import {ClVersion} from '@monorepo/core-lib';
-import {HaSpace} from './ha-space.class';
-import {Type} from 'class-transformer';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
-import {CoBrick} from '@monorepo/community-lib';
+import { HaEntity } from './ha-entity.class';
+import { HaReferenceDTO, HaRepoType } from './ha-version.class';
+import { HaBrickUser } from './ha-brick-user';
+import { ClVersion } from '@monorepo/core-lib';
+import { HaSpace } from './ha-space.class';
+import { Type } from 'class-transformer';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { CoBrick } from '@monorepo/community-lib';
 
 
 export enum HaBrickVisibility {
@@ -73,4 +73,5 @@ export class HaEditBrickDTO {
   imageLink?: string;
 }
 
-export type HaBrickDatasourcePaginated = FlDatasourcePaginated<HaBrick>;
+// TODO @fvoex mettre F = void et créer des type pour les filtres
+export type HaBrickDatasourcePaginated<F = any> = FlDatasourcePaginated<HaBrick, F>;
