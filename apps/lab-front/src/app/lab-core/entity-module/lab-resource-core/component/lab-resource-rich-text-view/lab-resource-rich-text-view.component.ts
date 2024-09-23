@@ -8,8 +8,8 @@ import {
 } from '../../../../../lab-document-template/lab-document-template-detail-page/lab-document-template-text-editor-config.class';
 import { LabRichTextObjectType } from '../../../../entity-service/lab-rich-text.service';
 import {
-  LabReportTextEditorConfig
-} from '../../../../../lab-report/module/lab-report-detail-page/lab-report-text-editor-config.class';
+  LabNoteTextEditorConfig
+} from '../../../../../lab-note/module/lab-note-detail-page/lab-note-text-editor-config.class';
 
 @Component({
   selector: 'lab-resource-rich-text-view',
@@ -23,8 +23,8 @@ export class LabResourceRichTextViewComponent
 
   ngOnInit(): void {
     switch (this.view.data.object_type) {
-      case LabRichTextObjectType.REPORT:
-        this.textEditorConfig = new LabReportTextEditorConfig(this.view.data.object_id);
+      case LabRichTextObjectType.NOTE:
+        this.textEditorConfig = new LabNoteTextEditorConfig(this.view.data.object_id);
         break;
       case LabRichTextObjectType.DOCUMENT_TEMPLATE:
         this.textEditorConfig = new LabDocumentTemplateTextEditorConfig(this.view.data.object_id);

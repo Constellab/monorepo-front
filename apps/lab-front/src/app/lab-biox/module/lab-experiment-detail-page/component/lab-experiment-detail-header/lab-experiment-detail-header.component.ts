@@ -17,11 +17,11 @@ import {
 import { map } from 'rxjs/operators';
 import { LabExperimentService } from '../../../../../lab-core/entity-service/lab-experiment.service';
 import { LabRouterService } from '../../../../../lab-core/service/lab-router.service';
-import { LabReport } from '../../../../../lab-core/model/entities/lab-report.entity';
+import { LabNote } from '../../../../../lab-core/model/entities/lab-note.entity';
 import {
-  LabReportFormDialogComponent,
-  LabReportFormDialogInput
-} from '../../../../../lab-core/entity-module/lab-report-core/component/lab-report-form-dialog/lab-report-form-dialog.component';
+  LabNoteFormDialogComponent,
+  LabNoteFormDialogInput
+} from '../../../../../lab-core/entity-module/lab-note-core/component/lab-note-form-dialog/lab-note-form-dialog.component';
 import {
   LabValidateObjectDialogComponent,
   LabValidateObjectDialogInput
@@ -174,23 +174,23 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     }
   }
 
-  openCreateReport(): void {
+  openCreateNote(): void {
     const experiment = this.experimentState.currentExperiment;
 
-    const input: LabReportFormDialogInput = {
+    const input: LabNoteFormDialogInput = {
       mode: 'create',
       experimentId: experiment.id,
       folder: experiment.folder
     };
 
-    this.dialogService.openSmallDialog(LabReportFormDialogComponent, { data: input }).afterClosed().subscribe(
-      report => this.onReportCreateClosed(report)
+    this.dialogService.openSmallDialog(LabNoteFormDialogComponent, { data: input }).afterClosed().subscribe(
+      note => this.onNoteCreateClosed(note)
     );
   }
 
-  private onReportCreateClosed(report?: LabReport): void {
-    if (report) {
-      this.routerService.navigateToReportDetail(report.id);
+  private onNoteCreateClosed(note?: LabNote): void {
+    if (note) {
+      this.routerService.navigateToNoteDetail(note.id);
     }
   }
 

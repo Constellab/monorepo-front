@@ -41,7 +41,7 @@ export class LabDocumentTemplateFormDialogComponent extends FlFormDialogAbstract
   }
 
   getCreateSuccessMessage(): string {
-    return 'biox.report_created';
+    return 'biox.note_created';
   }
 
   getUpdateSuccessMessage(): string {

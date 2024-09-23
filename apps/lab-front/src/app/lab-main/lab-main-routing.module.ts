@@ -8,8 +8,8 @@ import {
   labConstDocumentTemplateRoute,
   labConstExpeirmentRoute,
   labConstMonitoringRoute,
+  labConstNoteRoute,
   labConstProtocolTemplateRoute,
-  labConstReportRoute,
   labConstViewboxRoute
 } from '../lab-core/utils/lab-base-route';
 import { LabMainAppComponent } from './component/lab-main-app/lab-main-app.component';
@@ -45,7 +45,7 @@ const routes: Routes = [
         loadChildren: () => import('../lab-protocol-template/lab-protocol-template.module').then(m => m.LabProtocolTemplateModule)
       },
 
-      ////////////////////////  REPORT TEMPLATE  /////////////////////////
+      ////////////////////////  NOTE TEMPLATE  /////////////////////////
       {
         path: labConstDocumentTemplateRoute,
         loadChildren: () => import('../lab-document-template/lab-document-template.module').then(m => m.LabDocumentTemplateModule)
@@ -62,10 +62,10 @@ const routes: Routes = [
         path: labConstDataboxRoute,
         loadChildren: () => import('../lab-databox/lab-databox.module').then(m => m.LabDataboxModule)
       },
-      ////////////////////////  REPORT  /////////////////////////
+      ////////////////////////  NOTE  /////////////////////////
       {
-        path: labConstReportRoute,
-        loadChildren: () => import('../lab-report/lab-report.module').then(m => m.LabReportModule)
+        path: labConstNoteRoute,
+        loadChildren: () => import('../lab-note/lab-note.module').then(m => m.LabNoteModule)
       },
       ////////////////////////  VIEWBOX  /////////////////////////
       {

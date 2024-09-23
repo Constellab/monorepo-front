@@ -12,7 +12,7 @@ import {
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 
 export enum LabRichTextObjectType {
-  REPORT = 'report',
+  NOTE = 'note',
   DOCUMENT_TEMPLATE = 'document_template',
   NOTE_RESOURCE = 'note_resource',
 }

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { LabEntity } from '../../model/global/lab-entity.entity';
 import { LabRouterService } from '../../service/lab-router.service';
-import { LabReport } from '../../model/entities/lab-report.entity';
+import { LabNote } from '../../model/entities/lab-note.entity';
 import { LabExperiment } from '../../model/entities/lab-experiment.entity';
 import { LabResource } from '../../model/entities/resource/lab-resource.entity';
 import { LabProtocolTemplate } from '../../model/entities/process/lab-protocol-template.entity';
@@ -37,8 +37,8 @@ export class LabDetailRoutePipe implements PipeTransform {
         return LabRouterService.getExperimentDetailRoute(id);
       case 'RESOURCE':
         return LabRouterService.getResourceDetailRoute(id);
-      case 'REPORT':
-        return LabRouterService.getReportDetailRoute(id);
+      case 'NOTE':
+        return LabRouterService.getNoteDetailRoute(id);
       case 'PROTOCOL_TEMPLATE':
         return LabRouterService.getProtocolTemplateDetailRoute(id);
       case 'DOCUMENT_TEMPLATE':
@@ -57,8 +57,8 @@ export class LabDetailRoutePipe implements PipeTransform {
       return 'EXPERIMENT';
     } else if (obj instanceof LabResource) {
       return 'RESOURCE';
-    } else if (obj instanceof LabReport) {
-      return 'REPORT';
+    } else if (obj instanceof LabNote) {
+      return 'NOTE';
     } else if (obj instanceof LabProtocolTemplate) {
       return 'PROTOCOL_TEMPLATE';
     } else if (obj instanceof LabDocumentTemplate) {

@@ -17,8 +17,8 @@ import {
   LabSelectCredentialsDynamicFieldComponent
 } from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
 import {
-  LabSelectReportDynamicFieldComponent
-} from '../lab-report-core/component/lab-select-report-dynamic-field/lab-select-report-dynamic-field.component';
+  LabSelectNoteDynamicFieldComponent
+} from '../lab-note-core/component/lab-select-note-dynamic-field/lab-select-note-dynamic-field.component';
 import {
   LabRichTextDynamicFieldComponent
 } from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
@@ -39,7 +39,7 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
       'open_ai_chat': this.buildOpenAiChatField,
       'select_credentials': this.buildSelectCredentialsField,
       'select_document_template': this.buildSelectDocumentTemplateField,
-      'select_report': this.buildSelectReportField,
+      'select_note': this.buildSelectNoteField,
       'rich_text': this.buildRichTextField
     };
 
@@ -77,8 +77,8 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
     return viewContainer.createComponent(LabSelectDocumentTemplateDynamicFieldComponent);
   }
 
-  private buildSelectReportField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
-    return viewContainer.createComponent(LabSelectReportDynamicFieldComponent);
+  private buildSelectNoteField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+    return viewContainer.createComponent(LabSelectNoteDynamicFieldComponent);
   }
 
   private buildRichTextField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {

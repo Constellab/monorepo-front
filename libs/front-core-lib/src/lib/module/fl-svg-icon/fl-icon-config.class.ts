@@ -54,7 +54,7 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'process_config', filename: 'task-configuration.svg'},
   {name: 'archive', matIconName: 'inventory_2'},
   {name: 'unarchive', matIconName: 'unarchive'},
-  {name: 'report', matIconName: 'grading'},
+  {name: 'note', matIconName: 'grading'},
   {name: 'document_template', filename: 'document-template.svg'},
   {name: 'resource', matIconName: 'folder'},
   {name: 'view', matIconName: 'insert_chart'},

@@ -19,7 +19,7 @@ import {
 
 
 /**
- * Config for the text editor in the report to support view in the editor
+ * Config for the text editor in the note to support view in the editor
  */
 export class LabDocumentTemplateTextEditorConfig extends TeCompleteConfig {
 

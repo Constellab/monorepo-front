@@ -10,7 +10,7 @@ import { LabRichTextObjectType, LabRichTextService } from '../../../../entity-se
 
 /**
  * Component used in the Text editor to show a resource view.
- * It supports both report and note resource views.
+ * It supports both note and note resource views.
  */
 @Component({
   selector: 'lab-rich-text-view',
@@ -36,7 +36,7 @@ export class LabRichTextViewComponent extends TeElementBlockDirective {
   }
 
 
-  public setReportInput(resourceId: string, viewConfig: RvViewConfig, viewTitle: string, caption: string): void {
+  public setNoteInput(resourceId: string, viewConfig: RvViewConfig, viewTitle: string, caption: string): void {
     this.resourceId = resourceId;
     this.viewConfig = viewConfig;
     this.viewTitle = viewTitle;

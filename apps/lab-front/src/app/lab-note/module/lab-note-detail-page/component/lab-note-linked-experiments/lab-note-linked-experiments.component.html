@@ -1,0 +1,22 @@
+<fl-async-section [arrayObs]="experiments" emptyText="biox.no_note_linked_experiment">
+
+  <fl-section-header>
+    <fl-text-icon>
+      <mat-icon flIcon="experiment"></mat-icon>
+      <h3>{{'biox.note_linked_experiment' | translate}}</h3>
+    </fl-text-icon>
+
+    <fl-section-actions *ngIf="canEdit">
+      <button mat-icon-button type="button" [matTooltip]="'biox.note_link_experiment' | translate"
+              (click)="linkExperiment()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </fl-section-actions>
+
+  </fl-section-header>
+
+  <ng-container *flSectionBody>
+    <lab-experiment-table [datasource]="experiments" [columns]="columns" class="g-mat-table-main-background"
+                          (experimentUnlink)="unlinkExperiment($event)"></lab-experiment-table>
+  </ng-container>
+</fl-async-section>

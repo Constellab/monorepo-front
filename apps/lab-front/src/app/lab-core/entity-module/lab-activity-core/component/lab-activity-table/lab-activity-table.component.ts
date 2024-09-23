@@ -23,15 +23,15 @@ export class LabActivityTableComponent {
     return activity.activityType !== ActivityType.DELETE &&
       activity.objectId &&
       (activity.objectType === ActivityObjectType.EXPERIMENT ||
-        activity.objectType === ActivityObjectType.REPORT);
+        activity.objectType === ActivityObjectType.NOTE);
   }
 
   getLabObjectType(activity: LabActivity): LabEntityType {
     switch (activity.objectType) {
       case ActivityObjectType.EXPERIMENT:
         return 'EXPERIMENT';
-      case ActivityObjectType.REPORT:
-        return 'REPORT';
+      case ActivityObjectType.NOTE:
+        return 'NOTE';
       default:
         return null;
     }

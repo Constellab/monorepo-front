@@ -25,10 +25,10 @@
     <span>{{'biox.update_view_config_title' | translate}}</span>
   </button>
 
-  <button mat-menu-item type="button" (click)="openSelectReport()">
-    <mat-icon flIcon="report"></mat-icon>
-    <span>{{'biox.add_view_to_report' | translate}}</span>
-    @if(addToReportIsLoading){
+  <button mat-menu-item type="button" (click)="openSelectNote()">
+    <mat-icon flIcon="note"></mat-icon>
+    <span>{{'biox.add_view_to_note' | translate}}</span>
+    @if(addToNoteIsLoading){
     <fl-button-loader></fl-button-loader>
     }
   </button>
@@ -38,7 +38,7 @@
     <span>{{'biox.show_view_config' | translate}}</span>
   </button>
 
-  @if(!excludedViewInReport.includes(viewConfig.viewType)){
+  @if(!excludedViewInNote.includes(viewConfig.viewType)){
     <button mat-menu-item type="button" (click)="downloadViewJsonFile()" >
       <mat-icon>cloud_download</mat-icon>
       <span>{{'biox.download_view_json_file' | translate}}</span>

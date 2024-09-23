@@ -144,7 +144,7 @@
   "lab_entity_type_EXPERIMENT": "Experiment",
   "lab_entity_type_RESOURCE": "Resource",
   "lab_entity_type_VIEW": "View",
-  "lab_entity_type_REPORT": "Note",
+  "lab_entity_type_NOTE": "Note",
   "lab_entity_type_PROTOCOL_TEMPLATE": "Protocol template",
   "lab_entity_type_DOCUMENT_TEMPLATE": "Document template",
   "lab_usage_period_to": "To date",

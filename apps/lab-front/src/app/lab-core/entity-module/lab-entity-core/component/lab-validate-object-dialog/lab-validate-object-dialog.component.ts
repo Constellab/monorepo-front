@@ -1,11 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {LabFolder} from '../../../../model/entities/lab-folder.class';
-import {Observable} from 'rxjs';
-import {FormControl} from '@ngneat/reactive-forms';
-import {FlSnackBarService} from '@monorepo/front-core-lib';
-import {Validators} from '@angular/forms';
-import {LabEntity} from '../../../../model/global/lab-entity.entity';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { LabFolder } from '../../../../model/entities/lab-folder.class';
+import { Observable } from 'rxjs';
+import { FormControl } from '@ngneat/reactive-forms';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { Validators } from '@angular/forms';
+import { LabEntity } from '../../../../model/global/lab-entity.entity';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface LabValidateObjectDialogInput {
   title: string;
@@ -21,7 +21,7 @@ export interface LabValidateObjectDialogInput {
 
 /**
  * Generic dialog to validate an object by selecting a folder.
- * This works for experiments and reports
+ * This works for experiments and notes
  */
 @Component({
   selector: 'lab-validate-object-dialog',

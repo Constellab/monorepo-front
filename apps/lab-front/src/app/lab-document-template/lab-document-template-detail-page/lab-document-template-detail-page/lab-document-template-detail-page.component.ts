@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LabReportContent } from '../../../lab-core/model/entities/lab-report.entity';
+import { LabNoteContent } from '../../../lab-core/model/entities/lab-note.entity';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService } from '@monorepo/front-core-lib';
 import { ActivatedRoute } from '@angular/router';
 import { LabRouterService } from '../../../lab-core/service/lab-router.service';
@@ -75,11 +75,11 @@ export class LabDocumentTemplateDetailPageComponent implements OnInit, OnDestroy
     );
   }
 
-  onContentUpdate(content: LabReportContent): void {
+  onContentUpdate(content: LabNoteContent): void {
     this.contentDebouncer.setValue(content);
   }
 
-  saveContent(content: LabReportContent): void {
+  saveContent(content: LabNoteContent): void {
     this.documentTemplateService.updateContent(this.documentTemplateId, content).subscribe();
   }
 

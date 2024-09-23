@@ -18,7 +18,7 @@ export enum ActivityType {
 export enum ActivityObjectType {
   EXPERIMENT = 'EXPERIMENT',
   USER = 'USER',
-  REPORT = 'REPORT',
+  NOTE = 'NOTE',
 }
 
 export class LabActivity extends LabBaseEntity {

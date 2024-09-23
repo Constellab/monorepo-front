@@ -31,8 +31,8 @@ export class LabDocumentTemplateService {
     return this.apiService.post(this.route, data, LabDocumentTemplate);
   }
 
-  public createFromReport(reportId: string): Observable<LabDocumentTemplate> {
-    return this.apiService.post(`${this.route}/from-report`, { report_id: reportId }, LabDocumentTemplate);
+  public createFromNote(noteId: string): Observable<LabDocumentTemplate> {
+    return this.apiService.post(`${this.route}/from-note`, { note_id: noteId }, LabDocumentTemplate);
   }
 
 

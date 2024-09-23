@@ -42,10 +42,10 @@ export class LabViewConfigService {
 
   ///////////////////////////////////////////// SEARCH /////////////////////////////////////////////
 
-  public getViewConfigSearchFunction(reportId?: string): FLSearchFunction<LabViewConfig> {
-    if (reportId) {
+  public getViewConfigSearchFunction(noteId?: string): FLSearchFunction<LabViewConfig> {
+    if (noteId) {
       return (page: number, pageSize: number, data) =>
-        this.searchForReport(reportId, page, pageSize, data);
+        this.searchForNote(noteId, page, pageSize, data);
     } else {
       return (page: number, pageSize: number, data) =>
         this.search(page, pageSize, data);
@@ -61,11 +61,11 @@ export class LabViewConfigService {
     });
   }
 
-  private searchForReport(reportId: string, page: number, pageSize: number,
+  private searchForNote(noteId: string, page: number, pageSize: number,
                           data: FlDatasourceGetPageData<LabViewConfigSearchFields>): Observable<ClPageI<LabViewConfig>> {
     const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
       LabViewConfigSearch.filterConverter, LabViewConfigSearch.sortConverter);
-    return this.apiService.post(`${this.route}/search/report/${reportId}`, searchInput, LabViewConfig, {
+    return this.apiService.post(`${this.route}/search/note/${noteId}`, searchInput, LabViewConfig, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }

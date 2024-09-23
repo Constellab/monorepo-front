@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LabRichTextViewComponent } from './lab-rich-text-view.component';
 
-describe('LabReportContentViewComponent', () => {
+describe('LabNoteContentViewComponent', () => {
   let component: LabRichTextViewComponent;
   let fixture: ComponentFixture<LabRichTextViewComponent>;
 

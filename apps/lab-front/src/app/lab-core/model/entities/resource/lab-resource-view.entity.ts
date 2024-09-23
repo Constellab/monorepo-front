@@ -79,7 +79,7 @@ export class LabResourceView {
 }
 
 /**
- * View rich text (like report)
+ * View rich text (like note)
  */
 export interface LabResourceViewRichText extends RvResourceViewBase {
   type: 'rich-text-view';
@@ -95,6 +95,6 @@ export interface LabResourceViewRichText extends RvResourceViewBase {
 export type LabResourceViewData = RvResourceView | LabResourceViewResourcesList |
   LabResourceViewFolder | LabResourceViewRichText;
 
-export const excludedViewInReport: string[] = ['view', 'folder-view',
+export const excludedViewInNote: string[] = ['view', 'folder-view',
   'resources-list-view', 'empty-view', 'rich-text-view', 'streamlit-view'];
 

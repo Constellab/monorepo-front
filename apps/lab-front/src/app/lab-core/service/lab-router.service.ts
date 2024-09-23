@@ -6,8 +6,8 @@ import {
   labConstDocFullRoute,
   labConstDocumentTemplateFullRoute,
   labConstMonitoringFullRoute,
-  labConstProtocolTemplateFullRoute,
-  labConstReportFullRoute
+  labConstNoteFullRoute,
+  labConstProtocolTemplateFullRoute
 } from '../utils/lab-base-route';
 import { Router } from '@angular/router';
 
@@ -70,12 +70,12 @@ export class LabRouterService {
   }
 
 
-  public static getReportSearchRoute(): string {
-    return labConstReportFullRoute;
+  public static getNoteSearchRoute(): string {
+    return labConstNoteFullRoute;
   }
 
-  public static getReportDetailRoute(id: string): string {
-    return `${labConstReportFullRoute}/${id}`;
+  public static getNoteDetailRoute(id: string): string {
+    return `${labConstNoteFullRoute}/${id}`;
   }
 
   public static getDocumentTemplateSearchRoute(): string {
@@ -157,16 +157,16 @@ export class LabRouterService {
     return this.router.navigate([LabRouterService.getProtocolTemplatesRoute()]);
   }
 
-  public navigateToReportDetail(id: string): Promise<boolean> {
-    return this.router.navigate([LabRouterService.getReportDetailRoute(id)]);
+  public navigateToNoteDetail(id: string): Promise<boolean> {
+    return this.router.navigate([LabRouterService.getNoteDetailRoute(id)]);
   }
 
   public navigateToDocumentTemplateDetail(id: string): Promise<boolean> {
     return this.router.navigate([LabRouterService.getDocumentTemplateDetailRoute(id)]);
   }
 
-  public navigateToReportSearch(): Promise<boolean> {
-    return this.router.navigate([LabRouterService.getReportSearchRoute()]);
+  public navigateToNoteSearch(): Promise<boolean> {
+    return this.router.navigate([LabRouterService.getNoteSearchRoute()]);
   }
 
   public navigateToDocumentSearch(): Promise<boolean> {
