@@ -28,6 +28,8 @@
       {{ 'folder_leader' | translate }}
     </fl-text-icon>
 
+    <fl-user-inline [user]="folder.leader" class="folder-leader-user"></fl-user-inline>
+
     @if (folder.code) {
       <fl-text-icon>
         <mat-icon>badge</mat-icon>
@@ -35,8 +37,6 @@
       </fl-text-icon>
       <div>{{ folder.code }}</div>
     }
-
-    <fl-user-inline [user]="folder.leader" class="folder-leader-user"></fl-user-inline>
 
     @if (folder.startingDate || folder.endingDate) {
       <fl-text-icon>
