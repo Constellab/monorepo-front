@@ -6,26 +6,26 @@ import { PrConfigValues } from '@monorepo/protocol';
 
 
 /**
- * Service to call methods on enote resource
+ * Service to call methods on note resource resource
  */
 @Injectable({
   providedIn: 'root'
 })
-export class LabResourceENoteService {
+export class LabNoteResourceService {
 
-  private readonly route: string = 'resource-enote';
+  private readonly route: string = 'note-resource';
 
 
   constructor(private apiService: FlApiService) {
   }
 
-  public getFilePath(enoteResourceId: string, filename: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${enoteResourceId}/resource/${filename}/file`);
+  public getFilePath(noteResourceId: string, filename: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${noteResourceId}/resource/${filename}/file`);
   }
 
-  public callResourceView(enoteResourceId: string, subResourceKey: string,
+  public callResourceView(noteResourceId: string, subResourceKey: string,
                           viewMethodName: string, config: PrConfigValues): Observable<LabResourceView> {
-    return this.apiService.post(`${this.route}/${enoteResourceId}/resource/${subResourceKey}/views/${viewMethodName}`,
+    return this.apiService.post(`${this.route}/${noteResourceId}/resource/${subResourceKey}/views/${viewMethodName}`,
       config, LabResourceView);
   }
 }

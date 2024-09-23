@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RvResourceViewDirective } from '@monorepo/resource-view';
 import { LabResourceViewRichText } from '../../../../model/entities/resource/lab-resource-view.entity';
-import { LabEnoteTextEditorConfig } from '../../model/lab-enote-text-editor.config';
+import { LabNoteResourceTextEditorConfig } from '../../model/lab-note-resource-text-editor.config';
 import { TeConfig } from '@monorepo/text-editor';
 import {
   LabDocumentTemplateTextEditorConfig
@@ -29,8 +29,8 @@ export class LabResourceRichTextViewComponent
       case LabRichTextObjectType.DOCUMENT_TEMPLATE:
         this.textEditorConfig = new LabDocumentTemplateTextEditorConfig(this.view.data.object_id);
         break;
-      case LabRichTextObjectType.ENOTE:
-        this.textEditorConfig = new LabEnoteTextEditorConfig(this.resourceId);
+      case LabRichTextObjectType.NOTE_RESOURCE:
+        this.textEditorConfig = new LabNoteResourceTextEditorConfig(this.resourceId);
         break;
     }
   }

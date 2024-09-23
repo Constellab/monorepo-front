@@ -4,13 +4,13 @@ import { LabResourceViewData } from '../../../../model/entities/resource/lab-res
 import { Observable } from 'rxjs';
 import { RvViewConfig } from '@monorepo/resource-view';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
-import { LabResourceENoteService } from '../../../../entity-service/lab-resource-enote.service';
+import { LabNoteResourceService } from '../../../../entity-service/lab-note-resource.service';
 import { map } from 'rxjs/operators';
 import { LabRichTextObjectType, LabRichTextService } from '../../../../entity-service/lab-rich-text.service';
 
 /**
  * Component used in the Text editor to show a resource view.
- * It supports both report and enote views.
+ * It supports both report and note resource views.
  */
 @Component({
   selector: 'lab-rich-text-view',
@@ -30,7 +30,7 @@ export class LabRichTextViewComponent extends TeElementBlockDirective {
   view$: Observable<LabResourceViewData>;
 
   constructor(private resourceService: LabResourceService,
-              private enoteService: LabResourceENoteService,
+              private noteResourceService: LabNoteResourceService,
               private richTextService: LabRichTextService) {
     super();
   }
@@ -48,13 +48,13 @@ export class LabRichTextViewComponent extends TeElementBlockDirective {
     }
   }
 
-  public setEnoteInput(enoteResourceId: string, subResourceKey: string, viewConfig: RvViewConfig,
-                       viewTitle: string, caption: string): void {
-    this.resourceId = enoteResourceId;
+  public setNoteResourceInput(noteResourceId: string, subResourceKey: string, viewConfig: RvViewConfig,
+                              viewTitle: string, caption: string): void {
+    this.resourceId = noteResourceId;
     this.viewConfig = viewConfig;
     this.viewTitle = viewTitle;
     this.caption = caption;
-    this.view$ = this.enoteService.callResourceView(enoteResourceId, subResourceKey, viewConfig.methodName,
+    this.view$ = this.noteResourceService.callResourceView(noteResourceId, subResourceKey, viewConfig.methodName,
       viewConfig.configValues).pipe(
       map(view => view.view)
     );

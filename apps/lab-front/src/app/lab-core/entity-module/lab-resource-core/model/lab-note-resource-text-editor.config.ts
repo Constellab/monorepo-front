@@ -11,7 +11,7 @@ import {
 } from '@monorepo/text-editor';
 import { flRootInjector } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
-import { LabResourceENoteService } from '../../../entity-service/lab-resource-enote.service';
+import { LabNoteResourceService } from '../../../entity-service/lab-note-resource.service';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   LabRichTextFileViewBlock,
@@ -20,12 +20,12 @@ import {
 import { LabRichTextAudioTranscriptionConfig } from '../../../entity-service/lab-rich-text.service';
 
 
-export class LabENoteTextEditorImageConfig implements TeFigureBlockConfig {
+export class LabNoteResourceTextEditorImageConfig implements TeFigureBlockConfig {
 
-  private enoteService: LabResourceENoteService;
+  private noteResourceService: LabNoteResourceService;
 
-  constructor(private enoteResourceId: string) {
-    this.enoteService = flRootInjector.get(LabResourceENoteService);
+  constructor(private noteResourceId: string) {
+    this.noteResourceService = flRootInjector.get(LabNoteResourceService);
   }
 
   imageUploader(): Observable<TeUploadedImage> {
@@ -33,16 +33,16 @@ export class LabENoteTextEditorImageConfig implements TeFigureBlockConfig {
   }
 
   getImageUrl(filename: string): string {
-    return this.enoteService.getFilePath(this.enoteResourceId, filename);
+    return this.noteResourceService.getFilePath(this.noteResourceId, filename);
   }
 }
 
-export class LabENoteTextEditorFileConfig implements TeFileBlockConfig {
+export class LabNoteResourceTextEditorFileConfig implements TeFileBlockConfig {
 
-  private enoteService: LabResourceENoteService;
+  private noteResourceService: LabNoteResourceService;
 
-  constructor(private enoteResourceId: string) {
-    this.enoteService = flRootInjector.get(LabResourceENoteService);
+  constructor(private noteResourceId: string) {
+    this.noteResourceService = flRootInjector.get(LabNoteResourceService);
   }
 
   fileUploader(): Observable<TeFileBlockData> {
@@ -50,18 +50,18 @@ export class LabENoteTextEditorFileConfig implements TeFileBlockConfig {
   }
 
   getFileUrl(filename: string): string {
-    return this.enoteService.getFilePath(this.enoteResourceId, filename);
+    return this.noteResourceService.getFilePath(this.noteResourceId, filename);
   }
 }
 
 
 /**
- * Config for the text editor for enote. This retrieves the files from the enote resource and
- * enote resource service
+ * Config for the text editor for note resource. This retrieves the files from the note resource resource and
+ * note resource service
  */
-export class LabEnoteTextEditorConfig extends TeCompleteConfig {
+export class LabNoteResourceTextEditorConfig extends TeCompleteConfig {
 
-  constructor(private enoteResourceId: string) {
+  constructor(private noteResourceId: string) {
     super();
   }
 
@@ -75,18 +75,18 @@ export class LabEnoteTextEditorConfig extends TeCompleteConfig {
 
     // add the view block
     const data: LabRichTextViewBlockAdditionalData = {
-      type: 'enote',
-      entityId: this.enoteResourceId
+      type: 'note-resource',
+      entityId: this.noteResourceId
     };
-    tools.enoteView = teComponentBlockFactory(LabRichTextFileViewBlock, envInjector, applicationRef, data);
+    tools.noteResourceView = teComponentBlockFactory(LabRichTextFileViewBlock, envInjector, applicationRef, data);
 
     // configure and add the image block
-    const imageConfig = new LabENoteTextEditorImageConfig(this.enoteResourceId);
+    const imageConfig = new LabNoteResourceTextEditorImageConfig(this.noteResourceId);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
 
-    const fileConfig = new LabENoteTextEditorFileConfig(this.enoteResourceId);
+    const fileConfig = new LabNoteResourceTextEditorFileConfig(this.noteResourceId);
     tools.file = this.getFileConfig(fileConfig, envInjector, applicationRef);
 
     tools.audioTranscription = this.getAudioTranscriptionConfig(new LabRichTextAudioTranscriptionConfig(), envInjector, applicationRef);
