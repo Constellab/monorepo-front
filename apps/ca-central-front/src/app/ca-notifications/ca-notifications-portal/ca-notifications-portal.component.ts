@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CaNotification,
   CaNotificationDatasourcePaginated,
   CaNotificationType
 } from '../../ca-core/model/entities/ca-notification.class';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {CaNotificationState} from '../../ca-core/state/ca-notification.state';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { CaNotificationState } from '../../ca-core/state/ca-notification.state';
 
 
 @Component({
@@ -54,7 +54,7 @@ export class CaNotificationsPortalComponent implements OnInit {
       case 'DOCUMENT':
       case 'MESSAGE':
       case 'EXPERIMENT':
-      case 'REPORT':
+      case 'NOTE':
       case 'FOLDER':
         return 'folder';
       case 'USER':

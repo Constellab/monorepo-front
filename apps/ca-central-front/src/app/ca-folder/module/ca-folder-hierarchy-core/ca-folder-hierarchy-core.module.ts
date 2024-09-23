@@ -11,7 +11,7 @@ import {
 } from './component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 
 /**
- * Module that contains components for the folder, experiment and report objects
+ * Module that contains components for the folder, experiment and note objects
  */
 @NgModule({
   declarations: [

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CaHierarchyObjectDetailPageRoutingModule } from './ca-hierarchy-object-detail-page-routing.module';
 import { CaFolderDetailPageModule } from '../ca-folder-detail-page/ca-folder-detail-page.module';
 import { CaExperimentDetailPageModule } from '../ca-experiment-detail-page/ca-experiment-detail-page.module';
-import { CaReportDetailPageModule } from '../ca-report-detail-page/ca-report-detail-page.module';
+import { CaNoteDetailPageModule } from '../ca-note-detail-page/ca-note-detail-page.module';
 import {
   CaHierarchyObjectDetailPageComponent
 } from './component/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page.component';
@@ -30,7 +30,7 @@ import {
     CaHierarchyObjectCoreModule,
     CaFolderDetailPageModule,
     CaExperimentDetailPageModule,
-    CaReportDetailPageModule,
+    CaNoteDetailPageModule,
     CaFolderHierarchyCoreModule,
     CaDocumentDetailPageModule,
     CaFolderActivityPageModule,

@@ -1,6 +1,6 @@
 import { Component, ComponentRef, Inject, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { CaFolderDescriptionComponent } from '../ca-folder-description/ca-folder-description.component';
-import { CaFolderReportPreviewComponent } from '../ca-folder-report-preview/ca-folder-report-preview.component';
+import { CaFolderNotePreviewComponent } from '../ca-folder-note-preview/ca-folder-note-preview.component';
 import {
   CaFolderExperimentPreviewComponent
 } from '../ca-folder-experiment-preview/ca-folder-experiment-preview.component';
@@ -41,10 +41,10 @@ export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
         descComponent.instance.folderId = rightPanelState.objectId;
         this.viewComponentRef = descComponent;
         break;
-      case 'report':
-        const reportComponent = this.container.createComponent(CaFolderReportPreviewComponent);
-        reportComponent.instance.reportId = rightPanelState.objectId;
-        this.viewComponentRef = reportComponent;
+      case 'note':
+        const noteComponent = this.container.createComponent(CaFolderNotePreviewComponent);
+        noteComponent.instance.noteId = rightPanelState.objectId;
+        this.viewComponentRef = noteComponent;
         break;
       case 'experiment':
         const expComponent = this.container.createComponent(CaFolderExperimentPreviewComponent);

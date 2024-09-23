@@ -1,15 +1,15 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   CaExperimentDetailPageComponent
 } from './component/ca-experiment-detail-page/ca-experiment-detail-page.component';
-import {CaCoreModule} from '../../../ca-core/ca-core.module';
-import {CaExperimentCoreModule} from '../ca-experiment-core/ca-experiment-core.module';
-import {CaReportCoreModule} from '../ca-report-core/ca-report-core.module';
-import {RouterModule} from '@angular/router';
-import {CaLabCoreModule} from '../../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CaFolderHierarchyCoreModule} from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
+import { CaCoreModule } from '../../../ca-core/ca-core.module';
+import { CaExperimentCoreModule } from '../ca-experiment-core/ca-experiment-core.module';
+import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
+import { RouterModule } from '@angular/router';
+import { CaLabCoreModule } from '../../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import {CaFolderHierarchyCoreModule} from '../ca-folder-hierarchy-core/ca-folder
     CaFolderHierarchyCoreModule,
     CaExperimentCoreModule,
     CaLabCoreModule,
-    CaReportCoreModule,
+    CaNoteCoreModule,
   ]
 })
 export class CaExperimentDetailPageModule {

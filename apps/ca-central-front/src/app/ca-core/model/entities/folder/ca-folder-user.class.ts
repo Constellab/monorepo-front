@@ -16,7 +16,7 @@ export class CaFolderUserConfig {
 
   experimentNotif: CaFolderNotifOptions;
 
-  reportNotif: CaFolderNotifOptions;
+  noteNotif: CaFolderNotifOptions;
 
   documentNotif: CaFolderNotifOptions;
 }

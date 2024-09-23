@@ -1,12 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FlSnackBarService} from '@monorepo/front-core-lib';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
 import {
   CaFolderNotifOptions,
   CaFolderUserConfig
 } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
-import {FormBuilder, Validators} from '@angular/forms';
-import {CaFolderService} from '../../../../../ca-core/service-api/ca-folder.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 
 export interface CaFolderUserConfigDialogInput {
   folderId: string;
@@ -29,7 +29,7 @@ export class CaFolderUserConfigDialogComponent implements OnInit {
     folderNotif: [CaFolderNotifOptions.NONE, Validators.required],
     messageNotif: [CaFolderNotifOptions.NONE, Validators.required],
     experimentNotif: [CaFolderNotifOptions.NONE, Validators.required],
-    reportNotif: [CaFolderNotifOptions.NONE, Validators.required],
+    noteNotif: [CaFolderNotifOptions.NONE, Validators.required],
     documentNotif: [CaFolderNotifOptions.NONE, Validators.required],
   });
 

@@ -132,9 +132,9 @@ export class CaFolderDetailPageComponent implements OnInit {
       case CaHierarchyObjectType.FOLDER:
         this.routerService.navigateToFolderDetail(hierarchyObject.id);
         break;
-      case CaHierarchyObjectType.REPORT:
+      case CaHierarchyObjectType.NOTE:
         this.rightPanelState.updateRightPanelState({
-          type: 'report',
+          type: 'note',
           objectId: hierarchyObject.id
         });
         break;
@@ -215,8 +215,8 @@ export class CaFolderDetailPageComponent implements OnInit {
     switch (hierarchyObject.objectType) {
       case CaHierarchyObjectType.FOLDER:
         return CaRouterService.getFolderDetailRoute(hierarchyObject.id);
-      case CaHierarchyObjectType.REPORT:
-        return CaRouterService.getReportDetailRoute(hierarchyObject.id);
+      case CaHierarchyObjectType.NOTE:
+        return CaRouterService.getNoteDetailRoute(hierarchyObject.id);
       case CaHierarchyObjectType.EXPERIMENT:
         return CaRouterService.getExperimentDetailRoute(hierarchyObject.id);
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:

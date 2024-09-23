@@ -42,11 +42,11 @@
         </div>
 
 
-        <!---------------------   REPORT   ---------------------->
+        <!---------------------   NOTE   ---------------------->
         <div class="label">
           <fl-text-icon>
-            <mat-icon flIcon="report"></mat-icon>
-            <label>{{'folder_notif_report' | translate}}</label>
+            <mat-icon flIcon="note"></mat-icon>
+            <label>{{'folder_notif_note' | translate}}</label>
           </fl-text-icon>
         </div>
         <div class="g-layout-row g-layout-center">
@@ -66,7 +66,7 @@
           </fl-text-icon>
         </div>
         <div class="g-layout-row g-layout-center">
-          <mat-radio-group formControlName="reportNotif">
+          <mat-radio-group formControlName="noteNotif">
             <mat-radio-button *ngFor="let key of notificationOptions | flObjectKeys" [value]="notificationOptions[key]">
               {{('folder_notif_' + notificationOptions[key]) | translate}}
             </mat-radio-button>

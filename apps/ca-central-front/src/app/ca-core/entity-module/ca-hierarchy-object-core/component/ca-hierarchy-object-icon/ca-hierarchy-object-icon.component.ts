@@ -26,8 +26,8 @@ export class CaHierarchyObjectIconComponent {
         return 'folder';
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
         return 'constellab_document';
-      case CaHierarchyObjectType.REPORT:
-        return 'report';
+      case CaHierarchyObjectType.NOTE:
+        return 'note';
       case CaHierarchyObjectType.EXPERIMENT:
         return 'experiment';
     }
@@ -43,7 +43,7 @@ export class CaHierarchyObjectIconComponent {
       classes.push('g-icon-background', 'g-accent-background');
     } else if (objectType === CaHierarchyObjectType.EXPERIMENT) {
       classes.push('g-icon-background', 'g-warn-background');
-    } else if (objectType === CaHierarchyObjectType.REPORT) {
+    } else if (objectType === CaHierarchyObjectType.NOTE) {
       classes.push('g-icon-background', 'g-primary-background');
     }
     return classes;

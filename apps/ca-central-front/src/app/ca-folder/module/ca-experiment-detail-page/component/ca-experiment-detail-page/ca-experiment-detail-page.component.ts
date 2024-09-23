@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CaExperiment } from '../../../../../ca-core/model/entities/folder/ca-experiment.class';
 import { CaExperimentService } from '../../../../../ca-core/service-api/ca-experiment.service';
 import { Observable } from 'rxjs';
-import { CaReport } from '../../../../../ca-core/model/entities/folder/ca-report.class';
-import { CaReportService } from '../../../../../ca-core/service-api/ca-report.service';
+import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
+import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { map } from 'rxjs/operators';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
 
@@ -20,11 +20,11 @@ export class CaExperimentDetailPageComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  reports: FlArrayObs<CaReport>;
+  notes: FlArrayObs<CaNote>;
 
   constructor(private route: ActivatedRoute,
               private experimentService: CaExperimentService,
-              private reportService: CaReportService) {
+              private noteService: CaNoteService) {
   }
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class CaExperimentDetailPageComponent implements OnInit {
 
   private init(id: string): void {
     this.getExperiment(id);
-    this.reports = new FlEntityArrayObs(this.reportService.getReportsByExperiment(id));
+    this.notes = new FlEntityArrayObs(this.noteService.getNotesByExperiment(id));
   }
 
   private getExperiment(id: string): void {

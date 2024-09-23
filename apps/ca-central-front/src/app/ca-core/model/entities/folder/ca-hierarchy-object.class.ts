@@ -10,7 +10,7 @@ export enum CaHierarchyObjectType {
   DOCUMENT = 'DOCUMENT',
   CONSTELLAB_DOCUMENT = 'CONSTELLAB_DOCUMENT',
   // HIDDEN_DOCUMENT = 'HIDDEN_DOCUMENT',
-  REPORT = 'REPORT',
+  NOTE = 'NOTE',
   EXPERIMENT = 'EXPERIMENT',
 }
 
@@ -19,7 +19,7 @@ export const caHierarchyObjectTypeLabels: Record<CaHierarchyObjectType, string> 
   [CaHierarchyObjectType.DOCUMENT]: 'document',
   [CaHierarchyObjectType.CONSTELLAB_DOCUMENT]: 'constellab_document',
   // [CaFolderObjectType.HIDDEN_DOCUMENT]: 'Hidden document',
-  [CaHierarchyObjectType.REPORT]: 'report',
+  [CaHierarchyObjectType.NOTE]: 'note',
   [CaHierarchyObjectType.EXPERIMENT]: 'experiment'
 };
 
@@ -44,7 +44,7 @@ export class CaHierarchyObject extends CaEntity {
   hasDescription: boolean;
 
   /**
-   * For report or experiment only, if the object is validated
+   * For note or experiment only, if the object is validated
    */
   isValidated: boolean;
 

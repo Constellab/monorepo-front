@@ -14,7 +14,7 @@ export enum CaActivityEntityType {
   USER = 'USER',
   FOLDER = 'FOLDER',
   EXPERIMENT = 'EXPERIMENT',
-  REPORT = 'REPORT',
+  NOTE = 'NOTE',
   DOCUMENT = 'DOCUMENT',
   MESSAGE = 'MESSAGE',
 }

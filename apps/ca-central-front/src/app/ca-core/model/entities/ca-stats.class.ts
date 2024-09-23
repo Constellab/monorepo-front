@@ -7,5 +7,5 @@ export class CaStats{
 
   validatedExperimentNumber: number = 0;
 
-  validatedReportNumber: number = 0;
+  validatedNoteNumber: number = 0;
 }

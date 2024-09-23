@@ -7,8 +7,8 @@ import {
   CaExperimentDetailPageComponent
 } from '../ca-experiment-detail-page/component/ca-experiment-detail-page/ca-experiment-detail-page.component';
 import {
-  CaReportDetailPageComponent
-} from '../ca-report-detail-page/component/ca-report-detail-page/ca-report-detail-page.component';
+  CaNoteDetailPageComponent
+} from '../ca-note-detail-page/component/ca-note-detail-page/ca-note-detail-page.component';
 import {
   CaHierarchyObjectDetailPageComponent
 } from './component/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page.component';
@@ -28,7 +28,7 @@ const routes: Route[] = [
       {path: ':id', component: CaFolderDetailPageComponent},
       {path: ':id/activity', component: CaFolderActivityPageComponent},
       {path: 'experiment/:id', component: CaExperimentDetailPageComponent},
-      {path: 'report/:id', component: CaReportDetailPageComponent},
+      {path: 'note/:id', component: CaNoteDetailPageComponent},
       {path: 'document/:id', component: CaDocumentDetailPageComponent},
       {path: 'document/:id/preview', component: CaDocumentPreviewPageComponent}
     ]

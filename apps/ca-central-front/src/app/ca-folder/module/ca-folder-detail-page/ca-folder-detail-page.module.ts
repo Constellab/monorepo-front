@@ -6,7 +6,7 @@ import { CaFolderCoreModule } from '../../../ca-core/entity-module/ca-folder-cor
 import { CaFolderDetailComponent } from './component/ca-folder-detail/ca-folder-detail.component';
 import { RouterModule } from '@angular/router';
 import { CaExperimentCoreModule } from '../ca-experiment-core/ca-experiment-core.module';
-import { CaReportCoreModule } from '../ca-report-core/ca-report-core.module';
+import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
 import { CaGroupCoreModule } from '../../../ca-core/entity-module/ca-group-core/ca-group-core.module';
 import { CaFolderSharedListComponent } from './component/ca-folder-shared-list/ca-folder-shared-list.component';
 import {
@@ -14,9 +14,7 @@ import {
 } from './component/ca-folder-detail-right-panel/ca-folder-detail-right-panel.component';
 import { CaFolderDescriptionComponent } from './component/ca-folder-description/ca-folder-description.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  CaFolderReportPreviewComponent
-} from './component/ca-folder-report-preview/ca-folder-report-preview.component';
+import { CaFolderNotePreviewComponent } from './component/ca-folder-note-preview/ca-folder-note-preview.component';
 import {
   CaFolderExperimentPreviewComponent
 } from './component/ca-folder-experiment-preview/ca-folder-experiment-preview.component';
@@ -71,7 +69,7 @@ import {
     CaFolderSharedListComponent,
     CaFolderDetailRightPanelComponent,
     CaFolderDescriptionComponent,
-    CaFolderReportPreviewComponent,
+    CaFolderNotePreviewComponent,
     CaFolderExperimentPreviewComponent,
     CaFolderChatRightPanelComponent,
     CaFolderSettingsComponent,
@@ -95,7 +93,7 @@ import {
     CaFolderHierarchyCoreModule,
     CaFolderCoreModule,
     CaExperimentCoreModule,
-    CaReportCoreModule,
+    CaNoteCoreModule,
     CaDocumentCoreModule,
     CaGroupCoreModule,
     CaLabCoreModule,
