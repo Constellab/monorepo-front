@@ -11,12 +11,13 @@ import {
   Renderer2,
   Self
 } from '@angular/core';
-import {ControlValueAccessor, NgControl} from '@angular/forms';
-import {Subscription} from 'rxjs';
-import {FlFormFieldDirective} from '../../abstract-directive/form/fl-form-field.directive';
-import {FlFormFieldMultipleDirective} from '../../abstract-directive/form/fl-form-field-multiple.directive';
-import {FlFileHelper} from '../../service/fl-file.helper';
-import {ClHelpService} from '@monorepo/core-lib';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { FlFormFieldDirective } from '../../abstract-directive/form/fl-form-field.directive';
+import { FlFormFieldMultipleDirective } from '../../abstract-directive/form/fl-form-field-multiple.directive';
+import { FlFileHelper } from '../../service/fl-file.helper';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlSnackBarService } from '../fl-snack-bar/fl-snack-bar.service';
 
 /**
  * Directive of an input that supports form controls to manage input file.
@@ -30,7 +31,7 @@ import {ClHelpService} from '@monorepo/core-lib';
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'input[flInputFile][type=file]',
-  providers: [{provide: FlFormFieldDirective, useExisting: FlInputFileDirective}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlInputFileDirective }]
 })
 export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
   implements OnInit, ControlValueAccessor, OnDestroy {
@@ -52,6 +53,11 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
    */
   @Input() autoClearHtmlInput: boolean = false;
 
+  /**
+   * Maximum individual file size in bytes
+   */
+  @Input() maxFileSize: number = 0;
+
 
   /**
    *  @ignore
@@ -69,6 +75,7 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
 
   constructor(private elementRef: ElementRef<HTMLInputElement>,
               private renderer: Renderer2,
+              private snackBarService: FlSnackBarService,
               @Optional() @Self() ngControl: NgControl) {
     super(ngControl);
   }
@@ -85,7 +92,10 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
     if (this.strictMode) {
       const filteredFiles = this.filterInputFiles(files);
 
-      if (filteredFiles.length === 0) return;
+      if (filteredFiles.length === 0) {
+        this.handleError();
+        return;
+      }
       // if we are in strict mode we filter the files
       this.addOrReplaceValue(filteredFiles);
     } else {
@@ -162,6 +172,36 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
   private getAcceptAttribute(): string[] {
     // remove the '*' to compare the types
     return this.elementRef.nativeElement.accept.replace('*', '').split(',');
+  }
+
+  /**
+   * Method called when all file where filtered out to show an error
+   * @private
+   */
+  private handleError(): void {
+    if (this.maxFileSize) {
+      this.snackBarService.openErrorMessage({
+        text: 'flFileInput.file_too_big', translateText: true,
+        translateParam: {
+          param: {
+            maxSize: FlFileHelper.getFileSizeText(this.maxFileSize)
+          }
+        }
+      });
+      return;
+    }
+
+    if (this.getAcceptAttribute()?.length > 0) {
+      this.snackBarService.openErrorMessage({
+        text: 'flFileInput.file_wrong_format', translateText: true,
+        translateParam: {
+          param: {
+            formats: this.getAcceptAttribute().join(', ')
+          }
+        }
+      });
+      return;
+    }
   }
 
   ngOnDestroy(): void {

@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {FlPortalService} from '../../fl-portal/service/fl-portal.service';
-import {FlPortalAction, FlPortalActionResult} from '../model/fl-portal-actions.class';
-import {FlPortalConfig} from '../../fl-portal/model/fl-portal-config.class';
-import {FlPortalActionsComponent} from '../component/fl-portal-actions/fl-portal-actions.component';
-import {FlPortalActionsState} from './fl-portal-actions.state';
-import {Observable} from 'rxjs';
-import {FlOverlayRef} from '../../fl-portal/model/fl-overlay-ref.class';
+import { Injectable } from '@angular/core';
+import { FlPortalService } from '../../fl-portal/service/fl-portal.service';
+import { FlPortalAction, FlPortalActionResult } from '../model/fl-portal-actions.class';
+import { FlPortalConfig } from '../../fl-portal/model/fl-portal-config.class';
+import { FlPortalActionsComponent } from '../component/fl-portal-actions/fl-portal-actions.component';
+import { FlPortalActionsState } from './fl-portal-actions.state';
+import { Observable } from 'rxjs';
+import { FlOverlayRef } from '../../fl-portal/model/fl-overlay-ref.class';
 
 /**
  * Singleton to manager the portal actions
@@ -86,7 +86,7 @@ export class FlPortalActionsService {
 
   /**
    * Subscribe to the result
-   * @param type, if provided, only emit result for actions of type
+   * @param type if provided, only emit result for actions of type
    */
   public getResult$(type: string | string[] = []): Observable<FlPortalActionResult> {
     return this.actionsState.getResult$(type);
