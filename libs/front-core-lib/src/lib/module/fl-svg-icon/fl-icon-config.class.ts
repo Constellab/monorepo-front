@@ -82,6 +82,8 @@ export const flIconsDefault: FlIcon[] = [
 export function getFileIconFromExtension(extension: string): string {
   if(!extension) return 'description';
 
+  extension = extension.replace('.', '').toLowerCase();
+
   switch (extension.toLowerCase()) {
     case 'csv':
     case 'xls':
