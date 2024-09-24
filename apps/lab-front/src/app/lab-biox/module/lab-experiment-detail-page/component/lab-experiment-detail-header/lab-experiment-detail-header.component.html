@@ -12,8 +12,8 @@
                             (objectUpdate)="onExperimentUpdate($event)">
     </lab-sync-object-button>
 
-    <fl-status-chip [status]="experiment.status" mode="iconText"
-                    class="buttons"></fl-status-chip>
+    <fl-status-chip [status]="experiment.status" mode="iconText" (click)="openProgressInformation(experiment)"
+                    class="buttons" [ngClass]="{'not-draft-status': !experiment.isDraft()}"></fl-status-chip>
 
     <button mat-icon-button type="button" [matMenuTriggerFor]="menu"
             class="buttons">
@@ -114,7 +114,7 @@
 
     <!-- Monitoring menu -->
     <mat-menu #monitoring>
-      <button mat-menu-item type="button" (click)="openProgressInformation()">
+      <button mat-menu-item type="button" (click)="openProgressInformation(experiment)">
         <mat-icon>description</mat-icon>
         {{ 'biox.node_progress_detail' | translate }}
       </button>

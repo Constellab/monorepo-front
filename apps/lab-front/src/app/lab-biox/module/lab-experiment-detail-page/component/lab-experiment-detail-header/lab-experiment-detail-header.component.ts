@@ -313,7 +313,9 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     }
   }
 
-  openProgressInformation(): void {
+  openProgressInformation(experiment: LabExperiment): void {
+    if(experiment.isDraft()) return;
+
     this.dialogService.openBigDialog(LabProgressBarInfoDialogComponent,
       {
         data:
@@ -324,6 +326,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   }
 
   openProcessLogs(experiment: LabExperiment): void {
+    if(experiment.isDraft()) return;
     const input: LabLogBetweenDatesDialogInput = {
       title: experiment.title,
       loadFunction: (fromDatePage?: DateTime) => this.processService.getProcessLogs('PROTOCOL', experiment.protocol.id, fromDatePage),
