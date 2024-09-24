@@ -13,7 +13,8 @@ import { CaRouterService } from '../../ca-core/service/ca-router.service';
 @Injectable()
 export class CaChatState {
 
-  private hierarchyObjects: WritableSignal<CaHierarchyObjectWithChildren[]>;
+  private folderSignal: WritableSignal<CaHierarchyObjectWithChildren[]>;
+  private isLoadingSignal: WritableSignal<boolean>;
 
   public folderId$: Observable<string>;
 
@@ -24,22 +25,28 @@ export class CaChatState {
   }
 
   public init(): void {
-    this.hierarchyObjects = signal([]);
+    this.folderSignal = signal([]);
+    this.isLoadingSignal = signal(true);
     this.folderId$ = FlRouterHelper.listenToChildrenParams(this.router, this.route)
       .pipe(
         map(params => params.id)
       );
-    this.folderService.getChatRootFolders().subscribe(
-      folders => this.getFolderTreeSuccess(folders)
-    );
+    this.folderService.getChatRootFolders().subscribe({
+      next: folders => this.getFolderTreeSuccess(folders),
+      error: () => this.isLoadingSignal.set(false)
+    });
   }
 
   public get folders(): Signal<CaHierarchyObjectWithChildren[]> {
-    return this.hierarchyObjects;
+    return this.folderSignal;
+  }
+
+  public get isLoading(): Signal<boolean> {
+    return this.isLoadingSignal;
   }
 
   private getFolderTreeSuccess(folders: CaHierarchyObjectWithChildren[]): void {
-    this.hierarchyObjects.set(folders);
+    this.folderSignal.set(folders);
 
     // if there is not selected folder, select the first one
     this.folderId$.pipe(first()).subscribe(folderId => {
@@ -47,6 +54,7 @@ export class CaChatState {
         this.routerService.navigateToChatFolder(folders[0].id);
       }
     });
+    this.isLoadingSignal.set(false);
   }
 
   public getSelectedFolderId$(): Observable<string> {

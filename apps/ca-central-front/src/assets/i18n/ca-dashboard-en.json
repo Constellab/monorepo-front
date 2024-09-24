@@ -183,5 +183,7 @@
   "folder_chat_deactivated": "Chat deactivated in the folder",
   "folder_activate_chat": "Activate chat",
   "folder_deactivate_chat": "Deactivate chat",
-  "open_in_chat": "Open in chat"
+  "open_in_chat": "Open in chat",
+  "no_chat_activated": "No chat, please activate chat in folder settings to view the chats here"
+
 }

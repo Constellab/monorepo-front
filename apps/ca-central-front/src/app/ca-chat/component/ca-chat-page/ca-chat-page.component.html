@@ -1,12 +1,27 @@
-<div class="g-full drawer-container g-layout-row g-layout-start-stretch">
-
-  <div class="tree">
-    <ca-hierarchy-object-tree [hierarchyObjects$]="hierarchyObjects$"
-                              [selectedObject$]="selectedObjectId$"
-                              [getRoute]="getRoute" notificationObjectType="MESSAGE"></ca-hierarchy-object-tree>
+@if (isLoading()) {
+  <div class="center-container">
+    <fl-loader size="large"></fl-loader>
   </div>
+} @else {
 
+  @if (folders$ | async; as folders) {
 
-  <router-outlet></router-outlet>
+    @if (folders.length > 0) {
+      <div class="g-full drawer-container g-layout-row g-layout-start-stretch">
 
-</div>
+        <div class="tree">
+          <ca-hierarchy-object-tree [hierarchyObjects$]="folders$"
+                                    [selectedObject$]="selectedObjectId$"
+                                    [getRoute]="getRoute" notificationObjectType="MESSAGE"></ca-hierarchy-object-tree>
+        </div>
+
+        <router-outlet></router-outlet>
+
+      </div>
+    } @else {
+      <div class="center-container g-text-big">
+        <fl-error-text [errorMessage]="'no_chat_activated' | translate"></fl-error-text>
+      </div>
+    }
+  }
+}

@@ -5,6 +5,14 @@
   box-sizing: border-box;
 }
 
+.center-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .tree {
   width: 17em;
   padding: var(--main-menu-margin) 0.5em var(--main-menu-margin) 0.5em;

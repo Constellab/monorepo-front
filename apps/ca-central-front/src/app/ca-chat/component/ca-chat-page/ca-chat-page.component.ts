@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { CaChatState } from '../ca-chat.state';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
@@ -16,7 +16,8 @@ import { toObservable } from '@angular/core/rxjs-interop';
 })
 export class CaChatPageComponent {
 
-  hierarchyObjects$: Observable<CaHierarchyObjectWithChildren[]>;
+  isLoading: Signal<boolean>;
+  folders$: Observable<CaHierarchyObjectWithChildren[]>;
 
   selectedObjectId$: Observable<string>;
 
@@ -26,7 +27,8 @@ export class CaChatPageComponent {
 
   constructor(state: CaChatState) {
     state.init();
-    this.hierarchyObjects$ = toObservable(state.folders);
+    this.folders$ = toObservable(state.folders);
+    this.isLoading = state.isLoading;
     this.selectedObjectId$ = state.getSelectedFolderId$();
   }
 }

@@ -183,5 +183,6 @@
   "folder_chat_deactivated": "Chat désactivé dans le dossier",
   "folder_activate_chat": "Activer le chat",
   "folder_deactivate_chat": "Désactiver le chat",
-  "open_in_chat": "Ouvrir dans le chat"
+  "open_in_chat": "Ouvrir dans le chat",
+  "no_chat_activated": "Pas de chat, veuillez activer le chat dans les paramètres du dossier pour voir les chats ici"
 }
