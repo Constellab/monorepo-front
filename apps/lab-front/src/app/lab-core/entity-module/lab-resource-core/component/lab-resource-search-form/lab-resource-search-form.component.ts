@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
-import {FlSearchState} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import { FlSearchState } from '@monorepo/front-core-lib';
 
 /**
  * Work within the lab-resource-search and this manage the advanced search form
@@ -20,10 +20,4 @@ export class LabResourceSearchFormComponent implements OnInit {
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;
   }
-
-  callSearch(): void {
-    this.searchState.callAdvancedSearchFromForm();
-  }
-
-
 }

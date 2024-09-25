@@ -201,7 +201,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     if (this._selectedItem) {
       this.inputControl.setValue(this._selectedItem as any);
     } else {
-      this.inputControl.setValue('');
+      this.inputControl.setValue(null);
     }
   }
 

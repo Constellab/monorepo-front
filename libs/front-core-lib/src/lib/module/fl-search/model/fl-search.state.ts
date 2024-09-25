@@ -8,9 +8,8 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { FlSearchConfig } from './fl-search-state-config.class';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlAdvancedSearchObjectUrl, FlSearchPageUrlHelper, FlSearchUrlObject } from './fl-search-url.helper';
-import { first } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import { ClCoreJsonConvert } from '@monorepo/core-lib';
+import { debounceTime, first } from 'rxjs/operators';
+import { ClCoreJsonConvert, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlSavedSearch } from './fl-saved-search.class';
 
 
@@ -33,7 +32,7 @@ export class FlSearchState<T> implements OnDestroy {
   private lastSearchTimestamp: string;
 
   private drawer: MatDrawer;
-  private routeSubscription: Subscription;
+  private subscriptions = new ClSubscriptionHandler();
 
   // list of filter that are added programmatically and override search criteria
   private hiddenFilters: Record<string, any> = {};
@@ -55,11 +54,11 @@ export class FlSearchState<T> implements OnDestroy {
     this.sortCriteria = config.defaultSort;
     this.datasource = datasource;
 
-
     if (config.storeSearchInUrl) {
       this.subscribeToNavigation();
     } else {
       this.initFirstSearch();
+      this.initAfterFirstSearch();
     }
   }
 
@@ -162,16 +161,14 @@ export class FlSearchState<T> implements OnDestroy {
   // subscribe to navigation to call advanced search if it is a navigation back
   private subscribeToNavigation(): void {
     // subscribe to current url on init
+    // init the search with param of url
     this.route.queryParams.pipe(first()).subscribe(
       params => {
-        // init the search with param of url
         this.initFirstSearch(params as any);
 
-        // after init, subscribe to route change to call search is needed
-        this.routeSubscription = this.route.queryParams.subscribe(
-          params => this.checkAndCallSearchFromUrl(params as any)
-        );
-      });
+        this.initAfterFirstSearch();
+      }
+    );
   }
 
   /**
@@ -203,7 +200,6 @@ export class FlSearchState<T> implements OnDestroy {
       return false;
     }
 
-
     const formValue: FlAdvancedSearchObjectUrl = FlSearchPageUrlHelper.advancedSearchFromString(params?.search);
 
 
@@ -221,6 +217,27 @@ export class FlSearchState<T> implements OnDestroy {
       }
     }
     return false;
+  }
+
+  /**
+   * Method to call after the first search is done
+   * It will subscribe to the form change to call the search
+   * It will subscribe to the navigation to call the search if the URL change
+   * @private
+   */
+  private initAfterFirstSearch(): void {
+    this.subscriptions.add(this.advancedSearchFormGroup.valueChanges.pipe(
+      debounceTime(350)
+    ).subscribe(
+      () => this.callAdvancedSearchFromForm()
+    ));
+
+    if (this.config.storeSearchInUrl) {
+      // subscribe to route change to call search is needed (like back button)
+      this.subscriptions.add(this.route.queryParams.pipe(debounceTime(350)).subscribe(
+        params => this.checkAndCallSearchFromUrl(params as any)
+      ));
+    }
   }
 
 
@@ -278,7 +295,7 @@ export class FlSearchState<T> implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.routeSubscription?.unsubscribe();
+    this.subscriptions?.unsubscribe();
   }
 
 

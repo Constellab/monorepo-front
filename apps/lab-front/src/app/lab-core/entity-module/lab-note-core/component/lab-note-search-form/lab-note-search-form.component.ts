@@ -17,9 +17,4 @@ export class LabNoteSearchFormComponent implements OnInit {
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;
   }
-
-  callSearch(): void {
-    this.searchState.callAdvancedSearchFromForm();
-  }
-
 }

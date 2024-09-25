@@ -34,12 +34,12 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <lab-folder-select formControlName="folder" (selectionChange)="callSearch()"
+    <lab-folder-select formControlName="folder"
                         class="folders g-scrollable-element"></lab-folder-select>
   </mat-expansion-panel>
 
   <!--   Tags    -->
-  <lab-tag-filters formControlName="tags" (selectionChange)="callSearch()"></lab-tag-filters>
+  <lab-tag-filters formControlName="tags"></lab-tag-filters>
 
   <!--   Advanced search    -->
   <mat-expansion-panel>

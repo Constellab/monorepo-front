@@ -8,7 +8,8 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalActionsService
+  FlPortalActionsService,
+  FlTranslatableText
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
@@ -130,16 +131,16 @@ export class CaLabInstanceDetailServerState {
     );
   }
 
-  private onDialogClosed(result: FlConfirmDialogResult, text: string, action: Observable<any>): void {
+  private onDialogClosed(result: FlConfirmDialogResult, text: FlTranslatableText, action: Observable<any>): void {
     if (result.choice) {
       this.addPortalAction(text, action);
     }
   }
 
-  private addPortalAction(text: string, action: Observable<any>): void {
+  private addPortalAction(text: FlTranslatableText, action: Observable<any>): void {
     this.portalService.addAction({
       type: CaLabInstanceDetailPageState.actionType,
-      text: {text: text, translateText: true},
+      text: text,
       action: action
     });
   }
