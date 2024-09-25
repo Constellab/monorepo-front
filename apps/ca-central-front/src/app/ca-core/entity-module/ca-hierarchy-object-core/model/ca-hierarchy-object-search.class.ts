@@ -7,7 +7,7 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaHierarchyObjectType } from '../../../model/entities/folder/ca-hierarchy-object.class';
 
 export class CaHierarchyObjectSearchFields {
@@ -46,11 +46,11 @@ export class CaHierarchyObjectSearch {
     user: ['user.firstname', 'user.lastname']
   };
 
-  public static getSearchForm(): FormGroup<CaHierarchyObjectSearchFields> {
-    return new FormBuilder().group<CaHierarchyObjectSearchFields>({
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
       name: null,
       users: null,
-      lastModifiedAt: new FormBuilder().group<FlSearchDateInterval>({
+      lastModifiedAt: new FormBuilder().group({
         from: [null],
         to: [null]
       }),

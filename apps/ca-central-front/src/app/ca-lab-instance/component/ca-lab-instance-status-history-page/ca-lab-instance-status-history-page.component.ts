@@ -17,9 +17,8 @@ import {
   CaLabInstanceStatus,
   CaLabInstanceStatusHistoryDatasource
 } from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 import { Type } from 'class-transformer';
-import { UntypedFormGroup } from '@angular/forms';
 
 
 export class CaLabInstanceStatusHistorySearchFields {
@@ -54,13 +53,13 @@ export class CaLabInstanceStatusHistorySearch {
     endDate: 'endDate'
   };
 
-  public static getSearchForm(): FormGroup<CaLabInstanceStatusHistorySearchFields> {
-    return new FormBuilder().group<CaLabInstanceStatusHistorySearchFields>({
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null],
       }),
-      endDate: new FormBuilder().group<FlSearchDateInterval>({
+      endDate: new FormBuilder().group({
         from: [null],
         to: [null],
       }),

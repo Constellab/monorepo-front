@@ -10,7 +10,7 @@
 
         <div class="port-color" [style.background-color]="port.port.getDefaultColor$() | async"></div>
         <div class="text">
-          {{ port.text | flTranslatableText }}
+          {{ port.text | flTranslatableText | async }}
         </div>
         <div class="port-menu">
           <button mat-icon-button [matMenuTriggerFor]="menu" class="g-button-icon-tiny"

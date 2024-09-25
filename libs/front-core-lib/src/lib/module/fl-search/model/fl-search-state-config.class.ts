@@ -1,9 +1,9 @@
-import { FormGroup } from '@ngneat/reactive-forms';
 import { ClClassReference, ClPageI } from '@monorepo/core-lib';
 import { FlSavedSearch } from './fl-saved-search.class';
 import { FlFormInputsManagerConfig } from '../../fl-form-inputs-manager/fl-form-inputs-manager.class';
 import { Observable } from 'rxjs';
 import { FlDatasourceSortCriteria } from '../../../model/datasource/fl-datasource-paginated.class';
+import { FormGroup } from '@angular/forms';
 
 /**
  * Configuration object for the {@link FlSearchComponent}

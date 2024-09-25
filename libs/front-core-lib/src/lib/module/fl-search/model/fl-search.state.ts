@@ -3,7 +3,7 @@ import {
   FlDatasourcePaginated,
   FlDatasourceSortCriteria
 } from '../../../model/datasource/fl-datasource-paginated.class';
-import { FormGroup } from '@ngneat/reactive-forms';
+import { FormGroup } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { FlSearchConfig } from './fl-search-state-config.class';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,6 @@ import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ClCoreJsonConvert } from '@monorepo/core-lib';
 import { FlSavedSearch } from './fl-saved-search.class';
-import { ControlEventOptions } from '@ngneat/reactive-forms/lib/types';
 
 
 /**
@@ -100,7 +99,10 @@ export class FlSearchState<T> implements OnDestroy {
     this.callAdvancedSearchFromForm();
   }
 
-  public resetFormAndCallSearch(options?: ControlEventOptions): void {
+  public resetFormAndCallSearch(options?: {
+    onlySelf?: boolean;
+    emitEvent?: boolean;
+  }): void {
     this.resetAdvancedFormGroup(null, options);
     this.callAdvancedSearchFromForm();
   }
@@ -211,7 +213,7 @@ export class FlSearchState<T> implements OnDestroy {
         const sortCriteria: FlDatasourceSortCriteria = {
           key: formValue.sortKey,
           direction: formValue.sortDirection
-        }
+        };
         this.callAdvancedSearchFromUrl(filtersCriteria, sortCriteria, params.timestamp);
         return true;
       } catch {
@@ -256,7 +258,10 @@ export class FlSearchState<T> implements OnDestroy {
     this.hiddenFilters = hiddenFilters;
   }
 
-  private resetAdvancedFormGroup(value: any, options?: ControlEventOptions): void {
+  private resetAdvancedFormGroup(value: any, options?: {
+    onlySelf?: boolean;
+    emitEvent?: boolean;
+  }): void {
     this.advancedSearchFormGroup.reset(value, options);
   }
 

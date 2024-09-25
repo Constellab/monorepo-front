@@ -5,7 +5,7 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Type } from 'class-transformer';
 import { ClUserCategory, ClUserStatus } from '@monorepo/core-lib';
 import { CaUserLicense } from '../../../model/entities/ca-user.class';
@@ -69,8 +69,8 @@ export class CaUserSearch {
     lastLogin: 'lastLoginSuccess',
   };
 
-  public static getSearchForm(): FormGroup<CaUserSearchFields> {
-    return new FormBuilder().group<CaUserSearchFields>({
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
       firstname: null,
       lastname: null,
       email: null,
@@ -78,11 +78,11 @@ export class CaUserSearch {
       status: null,
       license: null,
       company: null,
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null],
       }),
-      lastLoginSuccess: new FormBuilder().group<FlSearchDateInterval>({
+      lastLoginSuccess: new FormBuilder().group({
         from: [null],
         to: [null],
       }),

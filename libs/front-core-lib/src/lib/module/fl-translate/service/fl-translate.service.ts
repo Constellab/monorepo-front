@@ -1,14 +1,14 @@
-import {Inject, Injectable} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {FlTranslatableText, FlTranslateMode, FlTranslateObject, FlTranslateParam} from '../model/fl-translate-param';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig} from '../model/fl-translate-module-config';
-import {CookieService} from 'ngx-cookie-service';
-import {DateAdapter} from '@angular/material/core';
-import {Settings} from 'luxon';
-import {ClDateHelper, clLangIsSupported, ClStringHelper, ClSupportedLanguage} from '@monorepo/core-lib';
-import {FlPlatformService} from '../../../service/fl-plateform.service';
+import { Inject, Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { FlTranslatableText, FlTranslateMode, FlTranslateObject, FlTranslateParam } from '../model/fl-translate-param';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig } from '../model/fl-translate-module-config';
+import { CookieService } from 'ngx-cookie-service';
+import { DateAdapter } from '@angular/material/core';
+import { Settings } from 'luxon';
+import { ClDateHelper, clLangIsSupported, ClStringHelper, ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlPlatformService } from '../../../service/fl-plateform.service';
 
 @Injectable()
 export class FlTranslateService {
@@ -72,11 +72,26 @@ export class FlTranslateService {
   public translatableText(translatableText: FlTranslatableText): string {
     if(translatableText == null)  return null;
     if (typeof translatableText === 'string') {
-      return translatableText;
-    } else if (!translatableText.translateText) {
+      return this.translate(translatableText);
+    } else if (translatableText.translateText === false) {
       return translatableText.text;
     } else {
       return this.translate(translatableText.text, translatableText.translateParam);
+    }
+  }
+
+  /**
+   * Translate or not a text
+   * @param translatableText
+   */
+  public translatableTextObs(translatableText: FlTranslatableText): Observable<string> {
+    if(translatableText == null)  return null;
+    if (typeof translatableText === 'string') {
+      return this.translateService.get(translatableText);
+    } else if (translatableText.translateText === false) {
+      return of(translatableText.text);
+    } else {
+      return this.translateService.get(translatableText.text, translatableText.translateParam);
     }
   }
 

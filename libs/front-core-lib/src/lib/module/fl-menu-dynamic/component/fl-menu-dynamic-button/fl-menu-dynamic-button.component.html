@@ -4,7 +4,7 @@
     @if (link().icon) {
       <mat-icon [flIcon]="link().icon" [color]="button().color"></mat-icon>
     }
-    <div [ngClass]="textColor()">{{ link().text | flTranslatableText }}</div>
+    <div [ngClass]="textColor()">{{ link().text | flTranslatableText | async }}</div>
   </a>
 
 } @else if (menuDynamic().type === 'downloadLink') {
@@ -13,7 +13,7 @@
     @if (downloadLink().icon) {
       <mat-icon [flIcon]="downloadLink().icon" [color]="downloadLink().color"></mat-icon>
     }
-    <div [ngClass]="textColor()">{{ downloadLink().text | flTranslatableText }}</div>
+    <div [ngClass]="textColor()">{{ downloadLink().text | flTranslatableText | async }}</div>
   </a>
 
 } @else {
@@ -23,6 +23,6 @@
     @if (button().icon) {
       <mat-icon [flIcon]="button().icon" [color]="button().color"></mat-icon>
     }
-    <div [ngClass]="textColor()">{{ button().text | flTranslatableText }}</div>
+    <div [ngClass]="textColor()">{{ button().text | flTranslatableText | async }}</div>
   </button>
 }

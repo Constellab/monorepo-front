@@ -6,7 +6,7 @@ import {
   FlSearchSortCriteriaConverter,
   FlTag
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
 import { Type } from 'class-transformer';
 import { LabResourceOrigin } from '../../../model/entities/resource/lab-resource.entity';
@@ -110,16 +110,11 @@ export class LabResourceSearch {
     name: 'name',
     creation: 'created_at',
     lastModification: 'last_modified_at',
-    type: 'resource_typing_name',
+    type: 'resource_typing_name'
   };
 
 
-  public static getSearchForm(): FormGroup<LabResourceSearchFields> {
-    const createAtFormGroup: FormGroup<FlSearchDateInterval> = new FormBuilder().group({
-      from: [null],
-      to: [null]
-    });
-
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         resourceTypingName: [null],
@@ -129,7 +124,10 @@ export class LabResourceSearch {
         origin: [null],
         data: [null],
         experiment: [null],
-        createdAt: createAtFormGroup,
+        createdAt: new FormBuilder().group({
+          from: [null],
+          to: [null]
+        }),
         createdBy: [null],
         folder: [null],
         isArchived: [null],

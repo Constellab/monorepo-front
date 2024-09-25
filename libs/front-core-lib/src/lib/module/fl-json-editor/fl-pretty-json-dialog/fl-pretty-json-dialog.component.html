@@ -1,5 +1,5 @@
 <fl-dialog-header>
-  {{title | flTranslatableText}}
+  {{title | flTranslatableText | async}}
 
   <fl-dialog-header-actions>
     <button mat-icon-button type="button" (click)="copyToClipboard()"

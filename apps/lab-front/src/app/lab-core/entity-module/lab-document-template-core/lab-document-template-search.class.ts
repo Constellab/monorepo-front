@@ -6,7 +6,7 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabUser } from '../../model/entities/lab-user.entity';
 
 
@@ -63,17 +63,17 @@ export class LabDocumentTemplateSearch {
   };
 
 
-  public static getSearchForm(): FormGroup<LabDocumentTemplateSearchFields> {
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         title: [null],
         createdBy: [null],
-        createdAt: new FormBuilder().group<FlSearchDateInterval>({
+        createdAt: new FormBuilder().group({
           from: [null],
           to: [null],
         }),
         lastModifiedBy: [null],
-        lastModifiedAt: new FormBuilder().group<FlSearchDateInterval>({
+        lastModifiedAt: new FormBuilder().group({
           from: [null],
           to: [null],
         }),

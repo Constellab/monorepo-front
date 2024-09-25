@@ -1,5 +1,5 @@
 <fl-dialog-header>
-  {{ dialogInput.config.title | flTranslatableText }}
+  {{ dialogInput.config.title | flTranslatableText | async }}
 </fl-dialog-header>
 
 <mat-dialog-content>
@@ -7,7 +7,7 @@
 
   @if (dialogInput.config.helpText) {
     <div class="help-text g-text-light g-text-centered">
-      {{ dialogInput.config.helpText | flTranslatableText }}
+      {{ dialogInput.config.helpText | flTranslatableText | async }}
     </div>
   }
 

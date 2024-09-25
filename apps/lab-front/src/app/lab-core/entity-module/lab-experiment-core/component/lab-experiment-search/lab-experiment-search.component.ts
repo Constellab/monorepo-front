@@ -46,7 +46,7 @@ export class LabExperimentSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabExperimentSearch.getSearchForm,
+      buildAdvancedForm: LabExperimentSearch.getSearchForm as any,
       advancedFormClass: LabExperimentSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {

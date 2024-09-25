@@ -7,7 +7,7 @@ import {
   FlTag
 } from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabUser } from '../../../model/entities/lab-user.entity';
 
 
@@ -61,17 +61,17 @@ export class LabProtocolTemplateSearch {
     lastModification: 'last_modified_at',
   };
 
-  public static getSearchForm(): FormGroup<LabProtocolTemplateSearchFields> {
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         name: [null],
         tags: [null],
         createdBy: [null],
-        createdAt: new FormBuilder().group<FlSearchDateInterval>({
+        createdAt: new FormBuilder().group({
           from: [null],
           to: [null],
         }),
-        lastModifiedAt: new FormBuilder().group<FlSearchDateInterval>({
+        lastModifiedAt: new FormBuilder().group({
           from: [null],
           to: [null],
         }),

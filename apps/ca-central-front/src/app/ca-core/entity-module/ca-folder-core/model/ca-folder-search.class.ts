@@ -7,7 +7,7 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 export class CaFolderSearchFields {
 
@@ -61,20 +61,20 @@ export class CaFolderSearch {
     leader: ['leader.firstname', 'leader.lastname'],
   };
 
-  public static getSearchForm(): FormGroup<CaFolderSearchFields> {
-    return new FormBuilder().group<CaFolderSearchFields>({
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
       code: null,
       name: null,
-      startingDate: new FormBuilder().group<FlSearchDateInterval>({
+      startingDate: new FormBuilder().group({
         from: [null],
         to: [null]
       }),
-      endingDate: new FormBuilder().group<FlSearchDateInterval>({
+      endingDate: new FormBuilder().group({
         from: [null],
         to: [null]
       }),
       leader: null,
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null]
       }),

@@ -19,7 +19,7 @@
       }
     }
 
-    <span class="title" [matTooltip]="title$ | async | flTranslatableText"
+    <span class="title" [matTooltip]="title$ | flTranslatableText | async"
           [matTooltipShowDelay]="1000" >
       {{ title$ | async | flTranslatableText }}
     </span>

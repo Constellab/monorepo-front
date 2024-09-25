@@ -5,7 +5,7 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaUser } from '../../../model/entities/ca-user.class';
 import { Type } from 'class-transformer';
 
@@ -41,12 +41,12 @@ export class CaTeamSearch {
     creation: 'createdAt',
   };
 
-  public static getSearchForm(): FormGroup<CaTeamSearchFields> {
-    return new FormBuilder().group<CaTeamSearchFields>({
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
       id: null,
       label: null,
       createdBy: null,
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null],
       }),

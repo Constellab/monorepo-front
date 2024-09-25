@@ -5,7 +5,7 @@ import {
   FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaCloudProvider } from '../../../model/entities/ca-cloud-provider.class';
 import { CaDiskType } from '../../../model/entities/server/ca-server-cloud.class';
 import { CaServerStandard } from '../../../model/entities/server/ca-server-standard.class';
@@ -84,7 +84,7 @@ export class CaServerCloudSearch {
   };
 
 
-  public static getSearchForm(): FormGroup<CaServerCloudSearchFields> {
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         technicalName: [null],

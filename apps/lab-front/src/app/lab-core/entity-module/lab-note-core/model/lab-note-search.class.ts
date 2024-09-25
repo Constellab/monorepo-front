@@ -8,7 +8,7 @@ import {
   FlTag
 } from '@monorepo/front-core-lib';
 import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabFolder } from '../../../model/entities/lab-folder.class';
 import { LabUser } from '../../../model/entities/lab-user.entity';
 
@@ -76,18 +76,18 @@ export class LabNoteSearch {
   };
 
 
-  public static getSearchForm(): FormGroup<LabNoteSearchFields> {
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         title: [null],
         tags: [null],
         folder: [null],
         createdBy: [null],
-        createdAt: new FormBuilder().group<FlSearchDateInterval>({
+        createdAt: new FormBuilder().group({
           from: [null],
           to: [null],
         }),
-        lastModifiedAt: new FormBuilder().group<FlSearchDateInterval>({
+        lastModifiedAt: new FormBuilder().group({
           from: [null],
           to: [null],
         }),

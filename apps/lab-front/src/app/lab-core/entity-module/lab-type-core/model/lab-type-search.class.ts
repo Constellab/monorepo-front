@@ -3,7 +3,7 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
 import { TdTypeObjectSubType, TdTypeObjectType } from '@monorepo/technical-doc';
 
@@ -78,7 +78,7 @@ export class LabTypeSearch {
     objectSubType: 'object_type',
   };
 
-  public static getSearchForm(): FormGroup<LabTypeSearchFields> {
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         brick: [[]],

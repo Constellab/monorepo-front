@@ -1,10 +1,10 @@
 <fl-dialog-header>
-  {{ title | flTranslatableText }}
+  {{ title | flTranslatableText | async }}
 </fl-dialog-header>
 
 <mat-dialog-content>
 
-  <div class="help-text g-text-light" [innerHTML]="helpText | flTranslatableText"></div>
+  <div class="help-text g-text-light" [innerHTML]="helpText | flTranslatableText | async"></div>
 
   <h2 class="other-impacts">{{'biox.impacted_objects' | translate}}</h2>
 
@@ -19,7 +19,7 @@
   <fl-text-icon class="warn-confirmation" *ngIf="!containsValidatedExperiments && !containsValidatedNotes">
     <mat-icon color="warn" class="g-icon-big">warnings</mat-icon>
     <div class="g-warn-text">
-      {{ 'biox.force_action_warning' | translate: {actionName: (title | flTranslatableText)} }}
+      {{ 'biox.force_action_warning' | translate: {actionName: (title | flTranslatableText | async)} }}
     </div>
   </fl-text-icon>
 
@@ -28,7 +28,7 @@
 <div mat-dialog-actions>
   <button mat-stroked-button color="warn" type="button" (click)="callAction()"
           [disabled]="containsValidatedExperiments || containsValidatedNotes">
-    {{ title | flTranslatableText }}
+    {{ title | flTranslatableText | async }}
   </button>
 
   <button mat-stroked-button matDialogClose type="button">

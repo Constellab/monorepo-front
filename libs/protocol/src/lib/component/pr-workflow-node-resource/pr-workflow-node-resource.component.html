@@ -1,7 +1,7 @@
 <pr-workflow-node-content [icon]="icon$ | async">
-  <pr-workflow-node-content-bottom [matTooltip]="title$ | async | flTranslatableText"
+  <pr-workflow-node-content-bottom [matTooltip]="title$ | flTranslatableText | async"
                                    [matTooltipShowDelay]="1000">
-    {{ title$ | async | flTranslatableText }}
+    {{ title$ | flTranslatableText | async }}
   </pr-workflow-node-content-bottom>
 </pr-workflow-node-content>
 

@@ -7,7 +7,7 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   CaLabInstanceServerTaskStatus,
   CaLabInstanceStatus,
@@ -105,8 +105,8 @@ export class CaLabInstanceSearch {
     serverCloud: 'serverCloud.serverStandard.name',
   };
 
-  public static getSearchForm(): FormGroup<CaLabInstanceSearchFields> {
-    return new FormBuilder().group<CaLabInstanceSearchFields>({
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
       name: null,
       currentStatus: null,
       virtualHost: null,
@@ -114,7 +114,7 @@ export class CaLabInstanceSearch {
       serverCloud: null,
       serverStandard: null,
       createdBy: null,
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null],
       }),

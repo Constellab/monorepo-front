@@ -16,7 +16,7 @@
       <div class="help-text">
         <fl-text-icon>
           <mat-icon>info</mat-icon>
-          {{ input.helpText | flTranslatableText }}
+          {{ input.helpText | flTranslatableText | async }}
         </fl-text-icon>
       </div>
     }

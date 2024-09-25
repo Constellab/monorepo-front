@@ -6,7 +6,7 @@ import {
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaUser } from '../../../model/entities/ca-user.class';
 import { Type } from 'class-transformer';
 
@@ -53,12 +53,12 @@ export class CaSpaceSearch {
     lastModified: 'lastModifiedAt',
   };
 
-  public static getSearchForm(): FormGroup<CaSpaceSearchFields> {
-    return new FormBuilder().group<CaSpaceSearchFields>({
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
       name: null,
       domain: null,
       type: null,
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null],
       }),

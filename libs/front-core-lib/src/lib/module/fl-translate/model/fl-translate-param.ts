@@ -1,4 +1,4 @@
-import {ClObject, ClSupportedLanguage} from '@monorepo/core-lib';
+import { ClObject, ClSupportedLanguage } from '@monorepo/core-lib';
 
 /**
  * When translating a mode can be provided
@@ -41,7 +41,7 @@ export type FlTranslateObject = {
 }
 
 /**
- * Object for text to translate or not. If string, the text is not translated
+ * Object for text to translate or not. If value is string, the text is translated
  */
 export type FlTranslatableText = string | {
   /**
@@ -49,7 +49,8 @@ export type FlTranslatableText = string | {
    */
   text: string;
   /**
-   * If true the text is translated
+   * If false the text is not translated
+   * Default is true
    */
   translateText?: boolean;
 
