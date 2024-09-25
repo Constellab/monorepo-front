@@ -1,5 +1,5 @@
-import {ComponentType, ConnectedPosition} from '@angular/cdk/overlay';
-import {FlPortalDefaultPosition, FlRelativeOverlayConfig} from '@monorepo/front-core-lib';
+import { ComponentType, ConnectedPosition } from '@angular/cdk/overlay';
+import { FlPortalDefaultPosition, FlRelativeOverlayConfig } from '../../module/fl-portal/model/fl-portal.class';
 
 /**
  * Config for the {@link FlMouseHoverPortalAbstractDirective}

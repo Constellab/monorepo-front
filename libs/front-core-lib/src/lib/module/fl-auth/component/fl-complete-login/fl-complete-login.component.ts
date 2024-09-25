@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import {Router} from '@angular/router';
-import {FlQueryParamHandler} from 'libs/front-core-lib/src/lib/model/fl-query-param-handler.class';
-import {FlAuthLogin2FaResponse, FlAuthLoginResponse, FlAuthService} from '../../service/fl-auth.service';
-import {FlLoginSavedRoute} from '../../../../utils/fl-login-saved-route';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { FlAuthLogin2FaResponse, FlAuthLoginResponse, FlAuthService } from '../../service/fl-auth.service';
+import { FlLoginSavedRoute } from '../../../../utils/fl-login-saved-route';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { FlQueryParamHandler } from '../../../../model/fl-query-param-handler.class';
 
 export interface FlCompleteLoginQueryParam {
   twoFAUrlCode: string;

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlUser} from '@monorepo/front-core-lib';
-import {DateTime} from 'luxon';
+import { Component, Input } from '@angular/core';
+import { DateTime } from 'luxon';
+import { FlUser } from '../../model/fl-user.class';
 
 /**
  * Simple component to show the last modification info
@@ -10,14 +10,8 @@ import {DateTime} from 'luxon';
   templateUrl: './fl-last-modification-info.component.html',
   styleUrls: ['./fl-last-modification-info.component.scss']
 })
-export class FlLastModificationInfoComponent implements OnInit {
+export class FlLastModificationInfoComponent {
 
   @Input() user: FlUser;
   @Input() date: DateTime;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }
