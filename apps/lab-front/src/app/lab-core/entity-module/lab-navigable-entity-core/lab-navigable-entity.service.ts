@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -9,18 +9,17 @@ import {
   FlTranslatableText,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {Observable, switchMap} from 'rxjs';
-import {LabNavigableEntityImpact} from '../../model/entities/lab-navigable-entity.entity';
+import { Observable, switchMap } from 'rxjs';
+import { LabNavigableEntityImpact } from '../../model/entities/lab-navigable-entity.entity';
 import {
   LabNavigableImpactDialogComponent,
   LabNavigableImpactDialogInput
 } from './component/lab-navigable-impact-dialog/lab-navigable-impact-dialog.component';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export interface LabNavigableImpactConfig {
   title: FlTranslatableText;
   confirmImpactConfirmText: FlTranslatableText;
-  confirm2?: FlTranslatableText;
   noImpactConfirmText: FlTranslatableText;
   checkImpact: () => Observable<LabNavigableEntityImpact>;
   callAction: () => Observable<any>;
@@ -88,10 +87,9 @@ export class LabNavigableEntityService {
 
   private showNoImpactConfirmDialog(data: LabNavigableImpactConfig): Observable<LabNavigableCallActionResult> {
     const input: FlConfirmDialogInput = {
-      title: this.translateService.translatableText(data.title),
-      content: this.translateService.translatableText(data.noImpactConfirmText),
-      translateTitleAndContent: false,
-      observable: data.callAction(),
+      title: data.title,
+      content: data.noImpactConfirmText,
+      observable: data.callAction()
     };
 
     return this.dialogService.openConfirmDialog(input).afterClosed().pipe(

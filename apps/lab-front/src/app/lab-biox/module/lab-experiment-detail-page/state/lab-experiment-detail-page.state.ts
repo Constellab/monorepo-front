@@ -331,10 +331,8 @@ export class LabExperimentDetailPageState {
     const data: FlConfirmDialogInput = {
       title: 'biox.stop_experiment',
       content: 'biox.stop_experiment_confirmation',
-      translateTitleAndContent: true,
       observable: this.experimentService.stopExperiment(this.currentExperiment.id),
       successMessage: 'biox.experiment_stopped',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

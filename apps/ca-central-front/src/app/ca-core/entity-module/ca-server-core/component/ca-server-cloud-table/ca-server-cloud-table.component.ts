@@ -53,10 +53,8 @@ export class CaServerCloudTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_server_cloud',
       content: 'delete_server_cloud_confirm',
-      translateTitleAndContent: true,
       observable: this.serverService.deleteServerCloud(serverCloud.id),
       successMessage: 'server_cloud_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

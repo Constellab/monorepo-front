@@ -1,13 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {FlConfirmDialogInput, FlFormDialogAbstractDirective, FlUploadImageDialogConfig} from '@monorepo/front-core-lib';
-import {HaBrick, HaEditBrickDTO} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {HaSpace} from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
-import {HaSpaceService} from '../../../../ha-core/ha-service/ha-space.service';
-import {map} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import {
+  FlConfirmDialogInput,
+  FlFormDialogAbstractDirective,
+  FlUploadImageDialogConfig
+} from '@monorepo/front-core-lib';
+import { HaBrick, HaEditBrickDTO } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ha-ha-public-edit-brick-dialog',
@@ -59,14 +63,12 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
     this.deleteImageConfig = {
       title: 'brick_delete_photo',
       content: 'brick_delete_photo_confirmation',
-      translateMessage: true,
       observable: this.brickService.deleteBrickImage(this.formGp.value.imageLink).pipe(
         map(() => {
           this.formGp.controls.imageLink.patchValue(null);
         })
       ),
       successMessage: 'brick_photo_deleted',
-      translateTitleAndContent: true
     };
   }
 
@@ -84,7 +86,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
     });
   }
 
-  create(formValue: HaEditBrickDTO): Observable<HaBrick> {
+  create(): Observable<HaBrick> {
     return null;
   }
 

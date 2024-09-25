@@ -56,7 +56,7 @@ export class FlUpdateImageContainerComponent {
 
     if (this.showDelete && this.deleteConfig) {
       menu.push({
-        text: {text: this.deleteConfig.title, translateText: true},
+        text: this.deleteConfig.title,
         icon: 'delete',
         type: 'button',
         onClick: () => this.deleteImage()

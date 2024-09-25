@@ -241,10 +241,8 @@ export class HaPublicDocComponent implements OnInit, OnDestroy {
     const input: FlConfirmDialogInput = {
       title: 'confirm_deletion',
       content: 'confirm_deletion_message',
-      translateTitleAndContent: true,
       observable: this.documentationService.deleteById(this.documentation.id),
       successMessage: 'documentation_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe();

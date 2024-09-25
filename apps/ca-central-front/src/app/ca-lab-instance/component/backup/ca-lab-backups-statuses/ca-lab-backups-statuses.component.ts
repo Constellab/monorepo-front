@@ -55,10 +55,8 @@ export class CaLabBackupsStatusesComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'lab_delete_backup',
       content: 'lab_delete_backup_confirmation',
-      translateTitleAndContent: true,
       observable: this.labService.deleteLabBackups(this.labInstanceId),
       successMessage: 'lab_backup_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(result => this.onDeleteBackupClosed(result));

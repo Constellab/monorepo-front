@@ -1,16 +1,16 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import {
   HaIcon,
   HaIconCreateDto,
   HaIconCreateFormData,
   HnIconType
 } from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {HaIconService} from '../../../ha-core/ha-service/ha-icon.service';
-import {Validators} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { Observable } from 'rxjs';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HaIconService } from '../../../ha-core/ha-service/ha-icon.service';
+import { Validators } from '@angular/forms';
 
 export type HaCreateIconDtoInput = FlFormDialogInput<HaIconCreateFormData>;
 
@@ -48,7 +48,8 @@ export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<H
   }
 
   create(formValue: HaIconCreateFormData): Observable<HaIcon> {
-    return this.iconService.create({
+    return this.iconService.create(
+      {
         subNames: formValue.subNames,
         name: formValue.name,
         type: formValue.type,
@@ -80,7 +81,8 @@ export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<H
     if (!file) return;
     this.input_file_trigered = true;
     if (file.size > 50000) {
-      this.snackBarService.openErrorMessage('file_icon_too_large');
+      // TODO @vfoex translate
+      this.snackBarService.openErrorMessage({ text: 'file_icon_too_large', translateText: false });
       setTimeout(() => {
         this.formGp.get('file').patchValue(null);
       }, 0);

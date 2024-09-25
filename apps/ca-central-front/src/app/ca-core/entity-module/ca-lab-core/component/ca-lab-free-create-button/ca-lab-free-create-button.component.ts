@@ -17,7 +17,7 @@ import { CoCommunityHelperService } from '@monorepo/community-lib';
 @Component({
   selector: 'ca-lab-free-create-button',
   templateUrl: './ca-lab-free-create-button.component.html',
-  styleUrls: ['./ca-lab-free-create-button.component.scss'],
+  styleUrls: ['./ca-lab-free-create-button.component.scss']
 })
 export class CaLabFreeCreateButtonComponent {
 
@@ -51,12 +51,10 @@ export class CaLabFreeCreateButtonComponent {
 <p>${this.translateService.translate('start_free_data_lab_confirmation_6', params)}</p></br>
 <p>${this.translateService.translate('start_free_data_lab_confirmation_7', params)}</p>`;
     const input: FlConfirmDialogInput = {
-      title: this.translateService.translate('start_free_data_lab'),
-      content: content,
-      translateTitleAndContent: false,
+      title: 'start_free_data_lab',
+      content: { text: content, translateText: false },
       observable: this.labService.createFreeLabInstanceCurrentUser(),
-      successMessage: 'free_data_lab_started',
-      translateMessage: true,
+      successMessage: 'free_data_lab_started'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

@@ -22,10 +22,8 @@ export class LabBrickDataTableComponent {
     const data: FlConfirmDialogInput = {
       title: 'monitoring.delete_brick_data',
       content: 'monitoring.delete_brick_data_confirmation',
-      translateTitleAndContent: true,
       observable: this.brickDataService.deleteBrickData(brickData.fsNodePath),
       successMessage: 'monitoring.brick_data_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

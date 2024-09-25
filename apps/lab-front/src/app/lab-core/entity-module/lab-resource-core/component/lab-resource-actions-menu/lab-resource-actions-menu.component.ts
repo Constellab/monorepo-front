@@ -82,17 +82,17 @@ export class LabResourceActionsMenuComponent implements OnInit {
       nodeExtension: this.resource.fsNode.getExtension()
     };
 
-    this.dialogService.openMediumDialog(LabImportResourceDialogComponent, {data: input});
+    this.dialogService.openMediumDialog(LabImportResourceDialogComponent, { data: input });
   }
 
   updateResourceType(): void {
-    this.dialogService.openSmallDialog(LabUpdateResourceTypeComponent, {data: this.resource}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(LabUpdateResourceTypeComponent, { data: this.resource }).afterClosed().subscribe(
       updatedResource => this.onUpdateResourceClosed(updatedResource)
     );
   }
 
   openUpdateName(): void {
-    this.dialogService.openSmallDialog(LabUpdateResourceNameDialogComponent, {data: this.resource}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(LabUpdateResourceNameDialogComponent, { data: this.resource }).afterClosed().subscribe(
       updatedResource => this.onUpdateResourceClosed(updatedResource)
     );
   }
@@ -109,7 +109,7 @@ export class LabResourceActionsMenuComponent implements OnInit {
       experiment: this.resource.experiment,
       folder: this.resource.folder
     };
-    this.dialogService.openSmallDialog(LabResourceUpdateFolderDialogComponent, {data: data})
+    this.dialogService.openSmallDialog(LabResourceUpdateFolderDialogComponent, { data: data })
       .afterClosed().subscribe(folder => this.updateFolderClosed(folder));
   }
 
@@ -126,7 +126,7 @@ export class LabResourceActionsMenuComponent implements OnInit {
       entityId: this.resource.id
     };
 
-    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, {data});
+    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, { data });
   }
 
   openTagDialog(): void {
@@ -149,25 +149,28 @@ export class LabResourceActionsMenuComponent implements OnInit {
     // for imported or transformed resources, we add an info message
     if (this.resource.experiment) {
       confirmation += `<p>${this.translateService.translate('databox.delete_generated_resource_confirmation',
-        {param: {experimentTitle: this.resource.experiment.title}})}</p>`;
+        { param: { experimentTitle: this.resource.experiment.title } })}</p>`;
 
       const deleteResourceWithExp = this.translateService.translate('biox.delete_resource_with_exp_confirm_impact',
-        {param: {title: this.resource.name, experimentTitle: this.resource.experiment.title}});
+        { param: { title: this.resource.name, experimentTitle: this.resource.experiment.title } });
       const resetProcessImpact = this.translateService.translate('biox.experiment_ressource_used_after',
-        {param: {title: this.resource.experiment.title}});
-      confirmImpactHelpText = `<p>${deleteResourceWithExp}</p><p>${resetProcessImpact}</p>`;
+        { param: { title: this.resource.experiment.title } });
+      confirmImpactHelpText = {
+        text: `<p>${deleteResourceWithExp}</p><p>${resetProcessImpact}</p>`,
+        translateText: false
+      };
     } else {
       confirmImpactHelpText = {
         text: 'biox.delete_resource_confirm_impact', translateText: true, translateParam: {
-          param: {title: this.resource.name}
+          param: { title: this.resource.name }
         }
       };
     }
 
     const impactData: LabNavigableImpactConfig = {
-      title: {text: 'databox.delete_resource', translateText: true},
+      title: { text: 'databox.delete_resource', translateText: true },
       confirmImpactConfirmText: confirmImpactHelpText,
-      noImpactConfirmText: {text: confirmation, translateText: false},
+      noImpactConfirmText: { text: confirmation, translateText: false },
       checkImpact: () => this.resourceService.checkImpactForDeleteResource(this.resource.id),
       callAction: () => this.resourceService.delete(this.resource.id)
     };
@@ -181,9 +184,12 @@ export class LabResourceActionsMenuComponent implements OnInit {
   private onResourceDeleteSuccess(result: FlPortalActionResult): void {
     if (result.status === 'success') {
       if (this.resource.experiment) {
-        this.snackBarService.openSuccessMessage({text: 'databox.resource_and_experiment_deleted', translateText: true});
+        this.snackBarService.openSuccessMessage({
+          text: 'databox.resource_and_experiment_deleted',
+          translateText: true
+        });
       } else {
-        this.snackBarService.openSuccessMessage({text: 'databox.resource_deleted', translateText: true});
+        this.snackBarService.openSuccessMessage({ text: 'databox.resource_deleted', translateText: true });
       }
       this.delete.next(this.resource);
     }

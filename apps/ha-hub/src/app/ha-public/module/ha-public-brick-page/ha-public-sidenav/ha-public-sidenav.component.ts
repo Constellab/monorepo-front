@@ -15,11 +15,11 @@ import {
   HaNodeDTO,
   HaNodeType
 } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlattener} from '@angular/material/tree';
-import {HaFolderService} from '../../../../ha-core/ha-service/ha-folder.service';
-import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlattener } from '@angular/material/tree';
+import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -30,22 +30,22 @@ import {
   FlOverlayRef,
   FlPortalActionsService
 } from '@monorepo/front-core-lib';
-import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
-import {HaFolder} from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
+import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
+import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
 import {
   HaPublicSidenavCreateFormDialogComponent
 } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
-import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import {CdkDragDrop} from '@angular/cdk/drag-drop';
-import {SelectionModel} from '@angular/cdk/collections';
-import {filter, Observable, of, startWith, tap} from 'rxjs';
-import {FormControl} from '@ngneat/reactive-forms';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {map} from 'rxjs/operators';
-import {HaBrick} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { SelectionModel } from '@angular/cdk/collections';
+import { filter, Observable, of, startWith, tap } from 'rxjs';
+import { FormControl } from '@ngneat/reactive-forms';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { map } from 'rxjs/operators';
+import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 
-import {isPlatformBrowser, isPlatformServer} from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 
 interface FlatNode {
@@ -112,12 +112,12 @@ export class HaPublicSidenavComponent implements OnInit {
         completePath: node.completePath,
         parentId: node.parentId,
         id: node.id,
-        level: level,
+        level: level
       };
     },
     node => node.level,
     node => node.expandable,
-    node => node.children,
+    node => node.children
   );
 
   treeFlattener = new MatTreeFlattener(
@@ -130,12 +130,12 @@ export class HaPublicSidenavComponent implements OnInit {
         completePath: node.completePath,
         parentId: node.parentId,
         id: node.id,
-        level: level,
+        level: level
       };
     },
     node => node.level,
     node => node.expandable,
-    node => node.children,
+    node => node.children
   );
 
   dataSource = new HaMateTreeFlatDataSource(this.treeControl, this.treeFlattener);
@@ -258,19 +258,19 @@ export class HaPublicSidenavComponent implements OnInit {
       return [
         {
           type: 'button',
-          text: {text: 'create', translateText: true},
+          text: { text: 'create', translateText: true },
           icon: 'add',
           onClick: () => this.openCreateDialog(id)
         },
         {
           type: 'button',
-          text: {text: 'edit_title', translateText: true},
+          text: { text: 'edit_title', translateText: true },
           icon: 'edit',
           onClick: () => this.prepareEditDialog(id, isFolder)
         },
         {
           type: 'button',
-          text: {text: 'delete', translateText: true},
+          text: { text: 'delete', translateText: true },
           icon: 'delete',
           onClick: () => this.openResourceDelete(id, isFolder),
           disabled: hasChild
@@ -280,13 +280,13 @@ export class HaPublicSidenavComponent implements OnInit {
     return [
       {
         type: 'button',
-        text: {text: 'edit_title', translateText: true},
+        text: { text: 'edit_title', translateText: true },
         icon: 'edit',
         onClick: () => this.prepareEditDialog(id, isFolder)
       },
       {
         type: 'button',
-        text: {text: 'delete', translateText: true},
+        text: { text: 'delete', translateText: true },
         icon: 'delete',
         onClick: () => this.openResourceDelete(id, isFolder)
       }
@@ -297,10 +297,8 @@ export class HaPublicSidenavComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'confirm_deletion',
       content: 'confirm_deletion_message',
-      translateTitleAndContent: true,
       observable: isFolder ? this.folderService.deleteById(id) : this.documentationService.deleteById(id),
-      successMessage: isFolder ? 'folder_deleted' : 'documentation_deleted',
-      translateMessage: true
+      successMessage: isFolder ? 'folder_deleted' : 'documentation_deleted'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(res => {
@@ -332,7 +330,7 @@ export class HaPublicSidenavComponent implements OnInit {
   }
 
   private openSmallDialog(input: any): void {
-    this.dialogService.openSmallDialog(HaPublicSidenavCreateFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(HaPublicSidenavCreateFormDialogComponent, { data: input }).afterClosed().subscribe(
       (res) => {
         if (res != null) {
           if (res[1] == HaNodeType.TEC) {
@@ -345,12 +343,12 @@ export class HaPublicSidenavComponent implements OnInit {
                 text: 'updating_brick_tech_doc',
                 translateText: true
               },
-              type: 'brick_tech_doc',
+              type: 'brick_tech_doc'
             }).subscribe((res) => {
               if (res) {
                 this.getTechnicalDocumentations();
               }
-            })
+            });
           } else {
             this.getDocumentations();
           }
@@ -459,9 +457,9 @@ export class HaPublicSidenavComponent implements OnInit {
     nodes = this.updatedTree(nodes, 0);
     this.folderService.updateTree(nodes).subscribe(() => {
       if (node.expandable) {
-        this.folderService.update({id: node.id, title: node.name, isFolder: true}).subscribe();
+        this.folderService.update({ id: node.id, title: node.name, isFolder: true }).subscribe();
       } else {
-        this.documentationService.update({id: node.id, isFolder: false, title: node.name}).subscribe();
+        this.documentationService.update({ id: node.id, isFolder: false, title: node.name }).subscribe();
       }
     });
   }
@@ -569,7 +567,7 @@ export class HaPublicSidenavComponent implements OnInit {
 
     let completePath: string = this.currentCompletePath.split('doc/')[1];
     if (completePath == null) return false;
-    if (completePath.includes('technical-folder')){
+    if (completePath.includes('technical-folder')) {
       return completePath + '/' == node.completePath;
     }
     const completePathSplit = completePath.split('/');
@@ -580,10 +578,6 @@ export class HaPublicSidenavComponent implements OnInit {
 
   private expandNode(node: HaNode): void {
     this.treeControl.expand(this.treeControl.dataNodes.find(n => n.completePath === node.completePath));
-  }
-
-  private expandTechNode(node: HaNode): void {
-    this.techTreeControl.expand(this.techTreeControl.dataNodes.find(n => n.completePath === node.completePath));
   }
 }
 

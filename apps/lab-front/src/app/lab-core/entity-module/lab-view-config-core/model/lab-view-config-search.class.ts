@@ -32,7 +32,6 @@ export class LabViewConfigSearchFields {
 
 export class LabViewConfigSearch {
 
-
   /**
    * Const to configure Form Input Manager for advanced search
    */

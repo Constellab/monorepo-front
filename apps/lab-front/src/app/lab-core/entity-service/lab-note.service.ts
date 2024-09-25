@@ -94,10 +94,8 @@ export class LabNoteService {
     const input: FlConfirmDialogInput = {
       title: 'biox.note_unlink_experiment',
       content: 'biox.note_unlink_experiment_confirmation',
-      translateTitleAndContent: true,
       observable: this.removeExperiment(noteId, experimentId),
       successMessage: 'biox.note_experiment_unlinked',
-      translateMessage: true
     };
 
     return this.dialogService.openConfirmDialog(input).afterClosed();

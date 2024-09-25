@@ -21,7 +21,7 @@
 
     <span class="title" [matTooltip]="title$ | flTranslatableText | async"
           [matTooltipShowDelay]="1000" >
-      {{ title$ | async | flTranslatableText }}
+      {{ title$ | flTranslatableText | async }}
     </span>
 
     <!--   Only for protocol, possibility to zoom in   -->

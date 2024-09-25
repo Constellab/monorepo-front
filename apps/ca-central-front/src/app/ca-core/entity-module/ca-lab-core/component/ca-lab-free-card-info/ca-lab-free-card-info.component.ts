@@ -62,10 +62,8 @@ export class CaLabFreeCardInfoComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'free_data_lab_delete',
       content: 'free_data_lab_delete_confirmation',
-      translateTitleAndContent: true,
       observable: this.labService.deleteFreeLab(freeLab.freeLab.id),
       successMessage: 'free_data_lab_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FlConfirmDialogInput, FlConfirmDialogResult } from '../../model/fl-confirm-dialog.class';
 import { FlSnackBarService } from '../../../fl-snack-bar/fl-snack-bar.service';
-import { FlTranslateService } from '../../../fl-translate/service/fl-translate.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, Validators } from '@angular/forms';
 import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
@@ -14,9 +13,6 @@ import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
 })
 export class FlConfirmDialogComponent implements OnInit {
 
-  title: string;
-  content: string;
-
   inputData: FlConfirmDialogInput;
 
   confirmTextFormControl: FormControl;
@@ -26,18 +22,8 @@ export class FlConfirmDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) inputData: FlConfirmDialogInput,
               private dialogRef: MatDialogRef<FlConfirmDialogComponent>,
-              private snackBarService: FlSnackBarService,
-              private translateService: FlTranslateService) {
+              private snackBarService: FlSnackBarService) {
     this.inputData = inputData;
-
-    // handle the title and content with translation
-    if (inputData.translateTitleAndContent) {
-      this.title = this.translateService.translate(inputData.title);
-      this.content = this.translateService.translate(inputData.content);
-    } else {
-      this.title = inputData.title;
-      this.content = inputData.content;
-    }
 
     if (inputData.confirmWithText) {
       this.confirmTextFormControl = new FormControl('', [Validators.required, FlGlobalValidators.isValue(inputData.confirmWithText)]);
@@ -64,7 +50,7 @@ export class FlConfirmDialogComponent implements OnInit {
       return;
     }
 
-    if(choice && this.confirmTextFormControl && this.confirmTextFormControl.invalid) {
+    if (choice && this.confirmTextFormControl && this.confirmTextFormControl.invalid) {
       this.confirmTextFormControl.markAllAsTouched();
       return;
     }
@@ -77,10 +63,7 @@ export class FlConfirmDialogComponent implements OnInit {
     // otherwise, return the choice with a null result
     else {
       if (choice && this.inputData.successMessage) {
-        this.snackBarService.openSuccessMessage({
-          text: this.inputData.successMessage,
-          translateText: this.inputData.translateMessage
-        });
+        this.snackBarService.openSuccessMessage(this.inputData.successMessage);
       }
 
       const response: FlConfirmDialogResult = {
@@ -103,10 +86,7 @@ export class FlConfirmDialogComponent implements OnInit {
   // on observable success
   private success(result: any): void {
     if (this.inputData.successMessage) {
-      this.snackBarService.openSuccessMessage({
-        text: this.inputData.successMessage,
-        translateText: this.inputData.translateMessage
-      });
+      this.snackBarService.openSuccessMessage(this.inputData.successMessage);
     }
 
     // return the result and close the dialog

@@ -113,8 +113,6 @@ export class HaIconListComponent implements OnInit, OnDestroy {
       title: 'delete_icon',
       successMessage: 'icon_deleted',
       content: 'delete_icon_content',
-      translateTitleAndContent: true,
-      translateMessage: true,
       observable: this.iconService.delete(icon.id)
     }
 

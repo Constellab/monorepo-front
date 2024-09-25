@@ -73,9 +73,7 @@ export class HaCoAuthorDialogComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'remove_coauthor',
       content: 'remove_coauthor_dialog_content',
-      translateTitleAndContent: true,
       successMessage: 'remove_coauthor_success',
-      translateMessage: true,
       observable: this.service.removeCoAuthor(this.id, coAuthor.id)
     }
 
@@ -91,9 +89,7 @@ export class HaCoAuthorDialogComponent implements OnInit {
       const input: FlConfirmDialogInput = {
         title: 'cancel_invitation',
         content: 'cancel_coauthor_invitation_dialog_content',
-        translateTitleAndContent: true,
         successMessage: 'cancel_invitation_success',
-        translateMessage: true,
         observable: this.service.deleteCoAuthorInvite(inviteId)
       }
 

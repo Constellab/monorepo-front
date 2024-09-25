@@ -36,7 +36,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
 
   getTitle$(): Observable<FlTranslatableText> {
     return this.getObject$().pipe(
-      map((process: PrProcess) => process.name ?? process.instanceName)
+      map((process: PrProcess) => ({ text: process.name ?? process.instanceName, translateText: false }))
     );
   }
 
@@ -124,7 +124,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   onNodeClick(): void {
     this.actionState.newAction({
       action: 'selectProcessNode',
-      processNode: this,
+      processNode: this
     });
   }
 

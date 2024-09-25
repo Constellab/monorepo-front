@@ -43,10 +43,8 @@ export class CaDocumentTrashListDialogComponent {
     const input: FlConfirmDialogInput = {
       title: 'empty_trash',
       content: 'empty_trash_confirmation',
-      translateTitleAndContent: true,
       observable: this.folderService.emptyTrash(this.input.folderId),
       successMessage: 'trash_emptied',
-      translateMessage: true
     }
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

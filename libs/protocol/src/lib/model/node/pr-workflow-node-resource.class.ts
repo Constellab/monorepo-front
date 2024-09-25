@@ -43,7 +43,7 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
       if (resourceId) {
         this.actionState.newAction({
           action: 'showResource',
-          resourceId: resourceId,
+          resourceId: resourceId
         });
       }
     });
@@ -57,11 +57,14 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
     return this.getResource$().pipe(
       map(resource => {
         if (resource?.status === 'success') {
-          return resource.object != null ? resource.object.name : this.getDefaultName();
+          return {
+            text: resource.object != null ? resource.object.name : this.getDefaultName(),
+            translateText: false
+          };
         } else if (resource?.status === 'error') {
-          return {text: 'pr.error', translateText: true};
+          return { text: 'pr.error', translateText: true };
         } else {
-          return this.getDefaultName();
+          return { text: this.getDefaultName(), translateText: false };
         }
       })
     );

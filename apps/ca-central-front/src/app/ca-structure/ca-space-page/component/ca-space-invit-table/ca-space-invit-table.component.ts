@@ -55,10 +55,8 @@ export class CaSpaceInvitTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'resend_invitation',
       content: 'resend_invitation_confirmation',
-      translateTitleAndContent: true,
       observable: this.spaceInvitService.resendInvitation(invitation.id),
       successMessage: 'invitation_resent',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input);
@@ -68,10 +66,8 @@ export class CaSpaceInvitTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'refresh_invitation_expiration',
       content: 'refresh_invitation_expiration_confirmation',
-      translateTitleAndContent: true,
       observable: this.spaceInvitService.refreshInvitationValidUntil(invitation.id),
       successMessage: 'invitation_expiration_refreshed',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -89,10 +85,8 @@ export class CaSpaceInvitTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_invitation',
       content: 'delete_invitation_confirmation',
-      translateTitleAndContent: true,
       observable: this.spaceInvitService.deleteInvitation(invitation.id),
       successMessage: 'invitation_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

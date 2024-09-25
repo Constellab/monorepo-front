@@ -153,10 +153,8 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
     const input: FlConfirmDialogInput = {
       title: 'biox.delete_note',
       content: 'biox.delete_note_confirmation',
-      translateTitleAndContent: true,
       observable: this.noteService.delete(this.state.currentNote.id),
       successMessage: 'biox.note_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -179,24 +177,20 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   archiveNote(): void {
     const note = this.state.currentNote;
 
-    let input: FlConfirmDialogInput = null;
+    let input: FlConfirmDialogInput;
     if (note.isArchived) {
       input = {
         title: 'biox.unarchive_note',
         content: 'biox.unarchive_note_confirmation',
-        translateTitleAndContent: true,
         observable: this.noteService.unarchive(note.id),
         successMessage: 'biox.note_unarchived',
-        translateMessage: true
       };
     } else {
       input = {
         title: 'biox.archive_note',
         content: 'biox.archive_note_confirmation',
-        translateTitleAndContent: true,
         observable: this.noteService.archive(note.id),
         successMessage: 'biox.note_archived',
-        translateMessage: true
       };
     }
 

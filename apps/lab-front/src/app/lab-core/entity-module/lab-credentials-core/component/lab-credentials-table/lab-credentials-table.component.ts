@@ -76,10 +76,8 @@ export class LabCredentialsTableComponent {
     const data: FlConfirmDialogInput = {
       title: 'biox.delete_credentials',
       content: 'biox.delete_credentials_confirmation',
-      translateTitleAndContent: true,
       observable: this.credentialsService.delete(credentials.id),
       successMessage: 'biox.credentials_deleted',
-      translateMessage: true,
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe((result: FlConfirmDialogResult) => {

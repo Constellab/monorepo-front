@@ -85,10 +85,8 @@ export class CaSpaceSearchComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'generate_all_user_space',
       content: 'generate_all_user_space_confirmation',
-      translateTitleAndContent: true,
       observable: this.spaceService.generateAllUserPersonalSpace(),
       successMessage: 'all_user_space_generated',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data);

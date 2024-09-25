@@ -198,7 +198,7 @@ export class LabResourceDetailState implements OnDestroy {
     this.actionService.addAction(
       {
         type: this.actionType,
-        text: viewName,
+        text: { text: viewName, translateText: false },
         action: view$,
       },
       true);

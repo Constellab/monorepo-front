@@ -126,9 +126,7 @@ export class HaLiveTaskOverviewComponent implements OnInit {
       title: 'delete_livetask',
       content: 'delete_livetask_content',
       successMessage: 'livetask_deleted',
-      translateTitleAndContent: true,
-      translateMessage: true,
-      observable: this.liveTaskService.deleteLiveTask(this.liveTask().id),
+      observable: this.liveTaskService.deleteLiveTask(this.liveTask().id)
     };
     this.dialogService.openConfirmDialog(confirmDeleteDialogInput).afterClosed().subscribe((res: FlConfirmDialogResult) => {
       if (res.choice) {

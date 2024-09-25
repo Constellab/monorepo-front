@@ -87,10 +87,8 @@ export class LabDocumentTemplateDetailPageComponent implements OnInit, OnDestroy
     const input: FlConfirmDialogInput = {
       title: 'biox.delete_document_template',
       content: 'biox.delete_document_template_confirmation',
-      translateTitleAndContent: true,
       observable: this.documentTemplateService.delete(this.documentTemplateId),
       successMessage: 'biox.document_template_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

@@ -119,10 +119,8 @@ export class CaSpaceUserSearchComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'space_deactivate_license',
       content: 'space_deactivate_license_confirmation',
-      translateTitleAndContent: true,
       observable: this.currentSpaceService.deactivateUser(user.user.id),
       successMessage: 'space_license_deactivated',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
@@ -140,10 +138,8 @@ export class CaSpaceUserSearchComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'space_activate_license',
       content: 'space_activate_license_confirmation',
-      translateTitleAndContent: true,
       observable: this.currentSpaceService.activateUser(user.user.id),
       successMessage: 'space_license_activated',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
@@ -161,10 +157,8 @@ export class CaSpaceUserSearchComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'space_remove_user',
       content: 'space_remove_user_confirmation',
-      translateTitleAndContent: true,
       observable: this.currentSpaceService.removeUserFromSpace(user.user.id),
       successMessage: 'space_user_removed',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

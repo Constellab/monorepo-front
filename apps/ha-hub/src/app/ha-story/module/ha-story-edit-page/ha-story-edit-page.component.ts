@@ -118,14 +118,12 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       this.deleteImageConfig = {
         title: 'story_delete_photo',
         content: 'story_delete_photo_confirmation',
-        translateMessage: true,
         observable: this.storyService.deleteMainImage(params.id).pipe(
           map((story: HaStory) => {
             this.story = story;
           })
         ),
         successMessage: 'story_photo_deleted',
-        translateTitleAndContent: true
       };
       this.getStory(params.id);
     });
@@ -186,7 +184,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       const input: FlConfirmDialogInput = {
         title: 'new_topic',
         content: 'new_topic_content',
-        translateTitleAndContent: true,
         observable: this.addTopicToStory(topic)
       };
 
@@ -253,8 +250,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         content: 'publish_story_dialog_content',
         successMessage: 'story_published',
         observable: this.publishStory(),
-        translateMessage: true,
-        translateTitleAndContent: true
       };
       this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
         if (res.choice && res.result) {
@@ -353,9 +348,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       title: 'delete_story',
       content: 'delete_story_content',
       observable: this.storyService.delete(this.story.id),
-      translateTitleAndContent: true,
       successMessage: 'story_deleted',
-      translateMessage: true
     };
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
       if (res && res.choice){

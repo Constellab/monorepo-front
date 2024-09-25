@@ -26,10 +26,11 @@ export class HaIconInfoPortalComponent {
   }
 
   copyTechnicalName(): void {
+    // TODO @vfoex use clipboard service + translate
     navigator.clipboard.writeText(this.icon?.technicalName).then(() => {
       this.snackBarService.openSuccessMessage({text: `technical_name_copied_to_clipboard`, translateText: true});
     }).catch(() => {
-      this.snackBarService.openErrorMessage('Error copying code to clipboard');
+      this.snackBarService.openErrorMessage({ text: 'Error copying code to clipboard', translateText: true });
     });
   }
 }

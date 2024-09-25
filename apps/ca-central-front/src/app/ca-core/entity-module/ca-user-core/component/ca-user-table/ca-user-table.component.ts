@@ -47,10 +47,8 @@ export class CaUserTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'lock_user',
       content: 'lock_user_confirmation',
-      translateTitleAndContent: true,
       observable: this.userAccountsService.lockUser(user.id),
       successMessage: 'user_locked',
-      translateMessage: true
     };
 
     this.openConfirmDialog(input);
@@ -60,10 +58,8 @@ export class CaUserTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'unlock_user',
       content: 'unlock_user_confirmation',
-      translateTitleAndContent: true,
       observable: this.userAccountsService.unlockUser(user.id),
       successMessage: 'user_unlocked',
-      translateMessage: true
     };
 
     this.openConfirmDialog(input);
@@ -104,10 +100,8 @@ export class CaUserTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'resend_activation_mail',
       content: 'resend_activation_mail_confirmation',
-      translateTitleAndContent: true,
       observable: this.userAccountsService.resendActivationMail(user.id),
       successMessage: 'activation_mail_resent',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe();

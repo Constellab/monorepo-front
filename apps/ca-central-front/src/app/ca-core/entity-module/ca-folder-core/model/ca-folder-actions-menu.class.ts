@@ -206,10 +206,8 @@ export class CaFolderActionsMenu {
     const input: FlConfirmDialogInput = {
       title: 'delete_folder',
       content: 'delete_folder_confirm',
-      translateTitleAndContent: true,
       observable: this.folderService.delete(this.folderInfo.id),
       successMessage: 'folder_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

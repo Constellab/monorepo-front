@@ -47,10 +47,8 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
     this.dialogService.openConfirmDialog({
       title: 'publish_live_task_version',
       content: 'publish_live_task_version_confirmation',
-      translateTitleAndContent: true,
       successMessage: 'live_task_version_published',
-      translateMessage: true,
-      observable: this.liveTaskService.publishLiveTaskVersion(this.liveTaskVersion().id),
+      observable: this.liveTaskService.publishLiveTaskVersion(this.liveTaskVersion().id)
     }).afterClosed().subscribe((result) => {
       if (result.choice && result.result != null) {
         this.liveTaskPageState.updateLiveTaskVersion(result.result);
@@ -68,9 +66,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
     this.dialogService.openConfirmDialog({
       title: 'delete_live_task_version',
       content: 'delete_live_task_version_confirmation',
-      translateTitleAndContent: true,
       successMessage: 'live_task_version_deleted',
-      translateMessage: true,
       observable: this.liveTaskService.deleteLiveTaskVersion(this.liveTaskVersion().id)
     }).afterClosed().subscribe((result) => {
       if (result.choice) {

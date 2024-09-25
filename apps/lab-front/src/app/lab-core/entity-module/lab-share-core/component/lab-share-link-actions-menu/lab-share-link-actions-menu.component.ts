@@ -59,10 +59,8 @@ export class LabShareLinkActionsMenuComponent {
     const input: FlConfirmDialogInput = {
       title: 'biox.delete_share_link',
       content: 'biox.delete_share_link_confirmation',
-      translateTitleAndContent: true,
       observable: this.shareLinkService.delete(this.shareLink.id),
       successMessage: 'biox.share_link_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

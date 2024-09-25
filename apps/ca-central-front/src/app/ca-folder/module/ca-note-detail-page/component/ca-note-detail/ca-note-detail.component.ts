@@ -54,10 +54,8 @@ export class CaNoteDetailComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_note',
       content: 'delete_note_confirmation',
-      translateTitleAndContent: true,
       observable: this.noteService.deleteNote(this.note.id),
       successMessage: 'note_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed()

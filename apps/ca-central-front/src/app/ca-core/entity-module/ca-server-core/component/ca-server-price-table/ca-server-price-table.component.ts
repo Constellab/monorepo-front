@@ -32,10 +32,8 @@ export class CaServerPriceTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_server_price',
       content: 'delete_server_price_confirm',
-      translateTitleAndContent: true,
       observable: this.serverService.deleteServerPrice(this.serverStandardId, price.id),
       successMessage: 'server_price_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

@@ -69,10 +69,8 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
     const input: FlConfirmDialogInput = {
       title: 'biox.remove_experiment_from_queue',
       content: 'biox.remove_experiment_from_queue_confirmation',
-      translateTitleAndContent: true,
       observable: this.queueService.removeExperimentFromQueue(job.experiment.id),
       successMessage: 'biox.experiment_removed_from_queue',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

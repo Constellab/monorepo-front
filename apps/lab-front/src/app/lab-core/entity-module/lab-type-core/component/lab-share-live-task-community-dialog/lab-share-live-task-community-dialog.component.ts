@@ -61,7 +61,6 @@ export class LabShareLiveTaskCommunityDialogComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: this.translateService.translate('biox.add_version_to_community_live_task'),
       content: content,
-      translateMessage: true,
       successMessage: 'biox.add_version_to_community_live_task_success',
       observable: this.protocolService.addVersionToCommunityLiveTask(this.processId,
         liveTask != null ? liveTask.id : this.currentLiveTask.id)

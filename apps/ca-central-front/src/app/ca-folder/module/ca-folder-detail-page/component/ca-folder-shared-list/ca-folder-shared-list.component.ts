@@ -57,10 +57,8 @@ export class CaFolderSharedListComponent {
     const input: FlConfirmDialogInput = {
       title: 'unshare',
       content: 'unshare_confirmation',
-      translateTitleAndContent: true,
       observable: this.folderService.unshareFolder(this.input.folderId, user.id),
       successMessage: 'unshared',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

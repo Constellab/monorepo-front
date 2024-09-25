@@ -1,12 +1,12 @@
-import {Component, computed, Input, OnDestroy, OnInit, signal, Signal, WritableSignal} from '@angular/core';
-import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
-import {FlCodeEditorLanguage, FlDebouncer, FlSnackBarService} from '@monorepo/front-core-lib';
-import {FormControl} from '@ngneat/reactive-forms';
-import {TranslateService} from '@ngx-translate/core';
-import {TeBasicConfig, TeRichText, TeRichTextContent} from '@monorepo/text-editor';
-import {HaBrickVersion} from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import {HaLiveTaskPageState} from '../../state/ha-live-task-page.state';
+import { Component, computed, Input, OnDestroy, OnInit, Signal } from '@angular/core';
+import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
+import { HaLiveTaskVersion } from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
+import { FlCodeEditorLanguage, FlDebouncer, FlSnackBarService } from '@monorepo/front-core-lib';
+import { FormControl } from '@ngneat/reactive-forms';
+import { TranslateService } from '@ngx-translate/core';
+import { TeBasicConfig, TeRichText, TeRichTextContent } from '@monorepo/text-editor';
+import { HaBrickVersion } from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
+import { HaLiveTaskPageState } from '../../state/ha-live-task-page.state';
 
 @Component({
   selector: 'ha-live-task-version-detail',
@@ -36,7 +36,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
         formControl.setValue(liveTaskVersion.versionInfos);
         formControl.disable();
       }
-      this.versionInfosFormControl = formControl
+      this.versionInfosFormControl = formControl;
     }
     return liveTaskVersion;
   });
@@ -83,7 +83,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if(this.sectionTitle == null){
+    if (this.sectionTitle == null) {
       this.translateService.get('detail_of_the_version').subscribe(value => {
         this.sectionTitle = value;
       });
@@ -138,11 +138,12 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   }
 
   onCopy(type: 'parameters' | 'code' | 'environment_file'): void {
+    // TODO @vfoex use clipboard service
     if (this.liveTaskVersion() && this.liveTaskVersion().params)
       navigator.clipboard.writeText(this.liveTaskVersion()?.params?.join('\n')).then(() => {
-        this.snackBarService.openSuccessMessage({text: `${type}_copied_to_clipboard`, translateText: true});
+        this.snackBarService.openSuccessMessage({ text: `${type}_copied_to_clipboard`, translateText: true });
       }).catch(() => {
-        this.snackBarService.openErrorMessage('Error copying code to clipboard');
+        this.snackBarService.openErrorMessage({ text: 'Error copying code to clipboard', translateText: false });
       });
   }
 
@@ -159,7 +160,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
         this.liveTaskPageState.updateLiveTaskVersion(liveTaskVersion);
       this.versionInfosDisabled = true;
       this.versionInfosFormControl.disable();
-    })
+    });
   }
 
   onVersionInfosChange(versionInfos: TeRichTextContent): void {

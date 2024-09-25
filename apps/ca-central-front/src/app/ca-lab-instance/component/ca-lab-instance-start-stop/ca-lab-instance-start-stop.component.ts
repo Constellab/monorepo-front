@@ -42,7 +42,6 @@ export class CaLabInstanceStartStopComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'start_lab',
       content: 'start_lab_confirm',
-      translateTitleAndContent: true,
       observable: this.labInstanceService.startLabInstance(this.state.getLabInstanceId()),
     };
 
@@ -55,7 +54,6 @@ export class CaLabInstanceStartStopComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'stop_lab',
       content: 'stop_lab_confirm',
-      translateTitleAndContent: true,
       observable: this.labInstanceService.stopLabInstance(this.state.getLabInstanceId()),
     };
 

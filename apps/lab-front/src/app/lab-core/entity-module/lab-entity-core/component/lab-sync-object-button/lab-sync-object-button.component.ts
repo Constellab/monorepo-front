@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LabFolderObject} from '../../../../model/entities/lab-folder.class';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LabFolderObject } from '../../../../model/entities/lab-folder.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 /**
  * Component containing the button to sync a lab folder object with space
@@ -46,16 +46,15 @@ export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements 
   }
 
   private openSyncConfirmDialog(): void {
-    let content =  `<p>${this.translateService.translate('biox.sync_object_confirmation')}</p>`;
+    let content = `<p>${this.translateService.translate('biox.sync_object_confirmation')}</p>`;
 
-    if(this.additionalConfirmText){
+    if (this.additionalConfirmText) {
       content += `<p>${this.translateService.translate(this.additionalConfirmText)}</p>`;
     }
 
     const data: FlConfirmDialogInput = {
-      title: this.translateService.translate('biox.sync_with_space'),
-      content: content,
-      translateTitleAndContent: false,
+      title: 'biox.sync_with_space',
+      content: { text: content, translateText: false }
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

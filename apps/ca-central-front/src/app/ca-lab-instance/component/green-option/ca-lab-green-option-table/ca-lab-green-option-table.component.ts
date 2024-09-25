@@ -51,10 +51,8 @@ export class CaLabGreenOptionTableComponent {
     const configInput: FlConfirmDialogInput = {
       title: 'lab_delete_green_option',
       content: 'lab_delete_green_option_confirmation',
-      translateTitleAndContent: true,
       observable: this.labInstanceService.deleteGreenOption(greenOption.id),
       successMessage: 'lab_green_option_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(configInput).afterClosed().subscribe(

@@ -151,10 +151,8 @@ export class CaDocumentActionMenu {
     const input: FlConfirmDialogInput = {
       title: 'move_document_to_trash',
       content: 'move_document_to_trash_confirmation',
-      translateTitleAndContent: true,
       observable: this.folderService.moveDocumentToTrash(this.documentInfo.id),
       successMessage: 'document_moved_to_trash',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -176,10 +174,8 @@ export class CaDocumentActionMenu {
     const input: FlConfirmDialogInput = {
       title: 'restore_document_from_trash',
       content: 'restore_document_from_trash_confirmation',
-      translateTitleAndContent: true,
       observable: this.folderService.restoreDocumentFromTrash(this.documentInfo.id),
       successMessage: 'document_restored_from_trash',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -201,10 +197,8 @@ export class CaDocumentActionMenu {
     const input: FlConfirmDialogInput = {
       title: 'delete_document',
       content: 'delete_document_confirmation',
-      translateTitleAndContent: true,
       observable: this.folderService.deleteDocument(this.documentInfo.id),
       successMessage: 'document_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

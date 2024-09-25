@@ -40,10 +40,8 @@ export class CaLabFoldersTableComponent {
     const data: FlConfirmDialogInput = {
       title: 'lab_remove_folder',
       content: 'lab_remove_folder_confirmation',
-      translateTitleAndContent: true,
       observable: this.labFolderService.removeFolderFromLab(this.labInstanceId, labFolder.rootFolder.id),
       successMessage: 'lab_folder_removed',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

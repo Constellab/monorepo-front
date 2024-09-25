@@ -44,10 +44,8 @@ export class LabProtocolTemplateDetailHeaderComponent {
     const data: FlConfirmDialogInput = {
       title: 'biox.delete_protocol_template',
       content: 'biox.delete_protocol_template_confirmation',
-      translateTitleAndContent: true,
       observable: this.protocolTemplateService.deleteProtocolTemplate(this.template.id),
       successMessage: 'biox.protocol_template_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

@@ -50,10 +50,8 @@ export class CaBucketTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_bucket',
       content: 'delete_bucket_confirm',
-      translateTitleAndContent: true,
       observable: this.objectStorageService.deleteBucket(bucket.id),
       successMessage: 'bucket_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

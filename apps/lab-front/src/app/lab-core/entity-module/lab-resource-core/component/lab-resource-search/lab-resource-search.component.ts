@@ -93,7 +93,7 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
         skipFalseBoolean: true
       },
       storeSearchInUrl: this.fullPageSearch,
-      defaultSort: {key: 'creation', direction: 'DESC'}
+      defaultSort: { key: 'creation', direction: 'DESC' }
     };
 
     this.datasource = new FlEntityPaginatedDatasource(this.resourceService.getAdvancedSearchFunction(),
@@ -136,7 +136,7 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
       dialogMode: selectedNodes,
       filenames: files.map(file => file.name)
     };
-    this.dialogService.openSmallDialog(LabFsNodeTypesSelectionDialogComponent, {data: data}).afterClosed().subscribe({
+    this.dialogService.openSmallDialog(LabFsNodeTypesSelectionDialogComponent, { data: data }).afterClosed().subscribe({
       next: result => this.onUploadFsNodeClosed(result, files)
     });
 
@@ -158,7 +158,7 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
     for (let i = 0; i < fileTypingNames.length; i++) {
       const action: FlPortalAction = {
-        text: files[i].name,
+        text: { text: files[i].name, translateText: false },
         type: LabFileResourceService.uploadFileActon,
         action: this.fileResourceService.uploadFile(files[i], fileTypingNames[i]),
         trackHttpEvents: true,
@@ -171,10 +171,10 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
   private uploadFolder(folderTypingName: string, files: File[]): void {
     const action: FlPortalAction = {
-      text: {text: 'databox.uploading_folder', translateText: true},
+      text: { text: 'databox.uploading_folder', translateText: true },
       type: LabFileResourceService.uploadFileActon,
       action: this.fileResourceService.uploadFolder(folderTypingName, files),
-      trackHttpEvents: true,
+      trackHttpEvents: true
     };
 
     this.actionsService.addAction(action, false);
@@ -208,24 +208,25 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
   private getSavedSearch(): FlSavedSearch[] {
     // list of predefined search of the resources
-    return [{
-      searchName: labResourceSearchName,
-      id: 'flagged-resources',
-      label: 'Flagged resources',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {} as Partial<LabResourceSearchFields>
-    },
-    {
-      searchName: labResourceSearchName,
-      id: 'all-resources',
-      label: 'All resources',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: false,
-      filtersCriteria: {includeNotFlagged: true} as Partial<LabResourceSearchFields>
-    }
+    return [
+      {
+        searchName: labResourceSearchName,
+        id: 'flagged-resources',
+        label: 'Flagged resources',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {} as Partial<LabResourceSearchFields>
+      },
+      {
+        searchName: labResourceSearchName,
+        id: 'all-resources',
+        label: 'All resources',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: false,
+        filtersCriteria: { includeNotFlagged: true } as Partial<LabResourceSearchFields>
+      }
     ];
   }
 

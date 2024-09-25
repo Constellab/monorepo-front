@@ -117,10 +117,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'biox.remove_experiment_from_queue',
       content: 'biox.remove_experiment_from_queue_confirmation',
-      translateTitleAndContent: true,
       observable: this.queueService.removeExperimentFromQueue(experiment.id),
-      successMessage: 'biox.experiment_removed_from_queue',
-      translateMessage: true
+      successMessage: 'biox.experiment_removed_from_queue'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -157,10 +155,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'biox.clone_experiment',
       content: 'biox.clone_experiment_confirmation',
-      translateTitleAndContent: true,
       observable: this.experimentService.cloneExperiment(experiment.id),
-      successMessage: 'biox.experiment_cloned',
-      translateMessage: true
+      successMessage: 'biox.experiment_cloned'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -226,7 +222,6 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
           param: { title: experiment.title }
         }
       },
-      confirm2: 'If you reset the experiment',
       noImpactConfirmText: { text: 'biox.reset_experiment_confirmation', translateText: true },
       checkImpact: () => this.experimentService.checkImpactForResetExperiment(experiment.id),
       callAction: () => this.experimentService.resetExperiment(experiment.id)
@@ -286,19 +281,15 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       input = {
         title: 'biox.unarchive_experiment',
         content: 'biox.unarchive_experiment_confirmation',
-        translateTitleAndContent: true,
         observable: this.experimentService.unarchiveExperiment(experiment.id),
-        successMessage: 'biox.experiment_unarchived',
-        translateMessage: true
+        successMessage: 'biox.experiment_unarchived'
       };
     } else {
       input = {
         title: 'biox.archive_experiment',
         content: 'biox.archive_experiment_confirmation',
-        translateTitleAndContent: true,
         observable: this.experimentService.archiveExperiment(experiment.id),
-        successMessage: 'biox.experiment_archived',
-        translateMessage: true
+        successMessage: 'biox.experiment_archived'
       };
     }
 
@@ -314,7 +305,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   }
 
   openProgressInformation(experiment: LabExperiment): void {
-    if(experiment.isDraft()) return;
+    if (experiment.isDraft()) return;
 
     this.dialogService.openBigDialog(LabProgressBarInfoDialogComponent,
       {
@@ -326,7 +317,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   }
 
   openProcessLogs(experiment: LabExperiment): void {
-    if(experiment.isDraft()) return;
+    if (experiment.isDraft()) return;
     const input: LabLogBetweenDatesDialogInput = {
       title: experiment.title,
       loadFunction: (fromDatePage?: DateTime) => this.processService.getProcessLogs('PROTOCOL', experiment.protocol.id, fromDatePage),
@@ -351,7 +342,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       entityId: experiment.id
     };
 
-    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, {data});
+    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, { data });
   }
 
 
@@ -361,10 +352,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'biox.delete_experiment_intermediate_resources',
       content: 'biox.delete_experiment_intermediate_resources_confirmation',
-      translateTitleAndContent: true,
       observable: this.experimentService.deleteIntermediateResources(experiment.id),
-      successMessage: 'biox.experiment_intermediate_resources_deleted',
-      translateMessage: true
+      successMessage: 'biox.experiment_intermediate_resources_deleted'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

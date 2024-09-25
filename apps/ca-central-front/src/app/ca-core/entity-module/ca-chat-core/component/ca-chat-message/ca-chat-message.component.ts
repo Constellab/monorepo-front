@@ -62,11 +62,9 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
     const input: FlConfirmDialogInput = {
       title: 'delete_message',
       content: 'delete_message_confirmation',
-      translateTitleAndContent: true,
       observable: this.folderService.deleteMessage(this.folderId(),
         this.message().id),
       successMessage: 'delete_message_success',
-      translateMessage: true
     };
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
       (res) => this.deleteMessageClosed(res)
