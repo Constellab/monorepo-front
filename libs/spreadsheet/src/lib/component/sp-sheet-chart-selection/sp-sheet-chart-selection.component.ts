@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {SpSpreadsheetState} from '../../state/sp-spreadsheet.state';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 import {
   SpSheetChart2dSerieSelectionForm,
   SpSheetChartSelectionForm,
@@ -13,13 +12,16 @@ import {
   SpSpreadsheetChartSelectionInputUpdate
 } from '../../model/chart/sp-sheet-chart-selection-form.class';
 import {
-  SpSheetChartSerieSelectionComponent,
+  SpSheetChartSerieSelectionComponent
 } from '../sp-sheet-chart-serie-selection/sp-sheet-chart-serie-selection.component';
-import {ClHelpService, ClSubscriptionHandler} from '@monorepo/core-lib';
-import {debounceTime, skip} from 'rxjs/operators';
-import {merge} from 'rxjs';
-import {SpSpreadsheetChartSelectionHelper,} from '../../utils/sp-spreadsheet-chart-selection.helper';
-import {SpSheetChartConfig, SpSpreadsheetChartSerieSelectionInput} from '../../model/chart/sp-sheet-chart-config.class';
+import { ClHelpService, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { debounceTime, skip } from 'rxjs/operators';
+import { merge } from 'rxjs';
+import { SpSpreadsheetChartSelectionHelper } from '../../utils/sp-spreadsheet-chart-selection.helper';
+import {
+  SpSheetChartConfig,
+  SpSpreadsheetChartSerieSelectionInput
+} from '../../model/chart/sp-sheet-chart-config.class';
 import {
   FL_PORTAL_DATA,
   FlGlobalValidators,
@@ -27,7 +29,7 @@ import {
   FlPortalConfig,
   FlPortalService
 } from '@monorepo/front-core-lib';
-import {ChChartHistogramMode, ChChartType} from '@monorepo/chart';
+import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
 
 
 /**
@@ -41,7 +43,24 @@ import {ChChartHistogramMode, ChChartType} from '@monorepo/chart';
 })
 export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
 
-  formGp: FormGroup<SpSheetChartSelectionForm>;
+  formGp = new FormBuilder().group({
+    id: [null as symbol],
+    chartType: [null as ChChartType, [
+      Validators.required
+    ]],
+    dataRange: [null as SpSheetSelectionRange],
+    series: [[] as SpSheetChart2dSerieSelectionForm[], Validators.required],
+    additionalFields: new FormBuilder().group({
+      nbOfBins: [10, [Validators.min(1), FlGlobalValidators.isInteger()]],
+      histogramMode: [ChChartHistogramMode.FREQUENCY],
+      normalize: [null],
+      xAxisLabel: [null],
+      yAxisLabel: [null],
+      xThreshold: [0.05, Validators.required],
+      yThreshold: [0.05, Validators.required]
+    })
+
+  });
 
   input: SpSpreadsheetChartSelectionInput;
 
@@ -88,25 +107,6 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   }
 
   private initForm(): void {
-    this.formGp = new FormBuilder().group({
-      id: [null],
-      chartType: [null, [
-        Validators.required,
-      ]],
-      dataRange: [null],
-      series: [[], Validators.required],
-      additionalFields: new FormBuilder().group({
-        nbOfBins: [10, [Validators.min(1), FlGlobalValidators.isInteger()]],
-        histogramMode: [ChChartHistogramMode.FREQUENCY],
-        normalize: [null],
-        xAxisLabel: [null],
-        yAxisLabel: [null],
-        xThreshold: [0.05, Validators.required],
-        yThreshold: [0.05, Validators.required],
-      })
-
-    });
-
     if (this.input.mode === 'create') {
       this.initCreate(this.input);
     } else {
@@ -156,7 +156,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   private validateForm(mode: 'create' | 'update'): void {
     this.submitted = true;
     if (this.formGp.valid && !this.maxNbOfSeriesReached) {
-      const value: SpSheetChartSelectionForm = this.formGp.value;
+      const value: SpSheetChartSelectionForm = this.formGp.getRawValue();
       // if we are in create mode we create a new id
       if (mode === 'create') {
         value.id = Symbol();
@@ -195,8 +195,8 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
     return this.formConfig.getAdditionalFieldsName().includes(key);
   }
 
-  get additionalFieldFormGp(): FormGroup<SpSheetChartSelectionFormAdditional> {
-    return this.formGp.get('additionalFields') as FormGroup<SpSheetChartSelectionFormAdditional>;
+  get additionalFieldFormGp(): UntypedFormGroup {
+    return this.formGp.get('additionalFields') as UntypedFormGroup;
   }
 
   addSerie(): void {
@@ -225,7 +225,11 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
     const data: SpSpreadsheetChartSerieSelectionInput = this.formConfig.getSelectSerieConfig(serie);
 
     // use the top 0 to make the portal appear on top (otherwise it takes all the height)
-    const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal({centerHorizontally: '0', top: '0'},
+    const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
+      {
+        centerHorizontally: '0',
+        top: '0'
+      },
       {
         disposeOnNavigation: true
       });

@@ -1,11 +1,10 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {CaServerService} from '../../../../service-api/ca-server.service';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {CaCreateServerPriceDTO, CaServerPrice} from '../../../../model/entities/server/ca-server-price.class';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CaServerService } from '../../../../service-api/ca-server.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CaCreateServerPriceDTO, CaServerPrice } from '../../../../model/entities/server/ca-server-price.class';
 
 export interface CaServerPriceFormDialogInput extends FlFormDialogInput<CaCreateServerPriceDTO> {
   standardServerId: string;
@@ -30,7 +29,7 @@ export class CaServerPriceFormDialogComponent
     this.init();
   }
 
-  buildForm(): FormGroup<CaCreateServerPriceDTO> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       price: [null, [Validators.required, Validators.min(0)]],
       startDate: [null, Validators.required],

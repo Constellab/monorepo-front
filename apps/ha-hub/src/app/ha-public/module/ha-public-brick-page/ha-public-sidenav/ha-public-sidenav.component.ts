@@ -39,13 +39,13 @@ import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-doc
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { SelectionModel } from '@angular/cdk/collections';
 import { filter, Observable, of, startWith, tap } from 'rxjs';
-import { FormControl } from '@ngneat/reactive-forms';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { FormControl } from '@angular/forms';
 
 
 interface FlatNode {

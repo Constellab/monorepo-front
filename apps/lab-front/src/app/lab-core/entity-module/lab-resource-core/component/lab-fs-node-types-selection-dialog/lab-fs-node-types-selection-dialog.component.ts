@@ -1,13 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {LabFileResourceService} from '../../../../entity-service/lab-file-resource.service';
-import {FormArray, FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {ClCachedObservable} from '@monorepo/core-lib';
-import {LabFileTypeAdditionalInfo, LabTypeEntity} from '../../../../model/entities/lab-type/lab-type.entity';
-import {TdTypingName} from '@monorepo/technical-doc';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FlFileHelper} from '@monorepo/front-core-lib';
+import { Component, Inject, OnInit } from '@angular/core';
+import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
+import { FormArray, FormBuilder, UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { ClCachedObservable } from '@monorepo/core-lib';
+import { LabFileTypeAdditionalInfo, LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
+import { TdTypingName } from '@monorepo/technical-doc';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FlFileHelper } from '@monorepo/front-core-lib';
 
 
 export type LabFsNodeTypesSelectionDialogMode = 'files' | 'folder' | 'filesOrFolder';
@@ -58,8 +57,8 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
 
   selectedNodes: LabFsNodeTypesSelectionDialogMode;
 
-  formArray: FormArray<LabFsNodeWithType>;
-  formGp: FormGroup<LabForm>;
+  formArray: UntypedFormArray;
+  formGp: UntypedFormGroup;
 
   resourceTypes$: Observable<LabTypeEntity[]>;
 
@@ -83,7 +82,7 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   }
 
   private buildForm(): void {
-    this.formArray = new FormArray<LabFsNodeWithType>([]);
+    this.formArray = new FormArray([]);
     this.formGp = new FormBuilder().group({
       nodeMode: this.selectedNodes === 'files' ? 'files' : 'folder',
       files: this.formArray
@@ -109,7 +108,7 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
         // detect the typing name automatically
         for (const filename of this.input.filenames) {
           // set the file as default typing name
-          filesWithType.push({filename: filename, typingName: this.getFileDefaultTyping(filename, typeEntities)});
+          filesWithType.push({ filename: filename, typingName: this.getFileDefaultTyping(filename, typeEntities) });
         }
 
         for (const file of filesWithType) {
@@ -122,20 +121,20 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   private initFormFolder(): void {
     this.resourceTypes$ = this.folderTypes$.getObs();
 
-    this.addItemToFormArray({filename: null, typingName: TdTypingName.resource.folder});
+    this.addItemToFormArray({ filename: null, typingName: TdTypingName.resource.folder });
   }
 
   private addItemToFormArray(fileWithType: LabFsNodeWithType): void {
     this.formArray.push(new FormBuilder().group({
       filename: [fileWithType.filename],
       typingName: [fileWithType.typingName, Validators.required]
-    }) as FormGroup<LabFsNodeWithType>);
+    }));
   }
 
   submit(): void {
     if (this.formGp.valid) {
 
-      const formValue = this.formGp.getRawValue();
+      const formValue: LabForm = this.formGp.getRawValue();
 
       const typingNames: string[] = formValue.files.map(file => file.typingName);
 
@@ -170,9 +169,9 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   private getFileDefaultTyping(filename: string, typeEntities: LabTypeEntity[]): string {
     const extension = FlFileHelper.getFileExtension(filename);
 
-    for(const type of typeEntities){
+    for (const type of typeEntities) {
       const additionalInfo: LabFileTypeAdditionalInfo = type.additionalInfo;
-      if(additionalInfo && additionalInfo.default_extensions.includes(extension)){
+      if (additionalInfo && additionalInfo.default_extensions.includes(extension)) {
         return type.typingName;
       }
     }

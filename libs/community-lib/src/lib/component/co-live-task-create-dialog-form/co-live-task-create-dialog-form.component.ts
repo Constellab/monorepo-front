@@ -1,21 +1,20 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {CoCreateLiveTaskFormData} from '../../model/co-live-task.class';
-import {CoSpace} from '../../model/co-space.class';
-import {CoConfig} from '../../service/co-service-config.config';
-
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CoCreateLiveTaskFormData } from '../../model/co-live-task.class';
+import { CoSpace } from '../../model/co-space.class';
+import { CoConfig } from '../../service/co-service-config.config';
+import { UntypedFormGroup } from '@angular/forms';
 
 
 @Component({
   selector: 'co-live-task-create-dialog-form',
   templateUrl: './co-live-task-create-dialog-form.component.html',
-  styleUrl: './co-live-task-create-dialog-form.component.scss',
+  styleUrl: './co-live-task-create-dialog-form.component.scss'
 })
 export class CoLiveTaskCreateDialogFormComponent {
 
   @Input() spaces$: Observable<CoSpace[]>;
-  @Input() formGp: FormGroup<CoCreateLiveTaskFormData>;
+  @Input() formGp: UntypedFormGroup;
 
   @Output() submitEvent: EventEmitter<CoCreateLiveTaskFormData> = new EventEmitter<CoCreateLiveTaskFormData>();
 

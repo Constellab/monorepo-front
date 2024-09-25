@@ -1,11 +1,10 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {CaFolderService} from '../../../../../ca-core/service-api/ca-folder.service';
-import {Observable} from 'rxjs';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {ValidatorFn, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {CaFolderStorageDTO} from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { Observable } from 'rxjs';
+import { FormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 
 
 export interface CaFolderConfigureStorageInput extends FlFormDialogInput<CaFolderStorageDTO> {
@@ -35,11 +34,11 @@ export class CaFolderConfigureStorageComponent
     this.init();
   }
 
-  buildForm(): FormGroup<CaFolderStorageDTO> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      mainStorage: [{value: null, disabled: this.dialogInput.object.mainStorage != null}, Validators.required],
-      backupStorage: [{value: null, disabled: this.dialogInput.object.backupStorage != null}],
-    }, {validator: this.differentBackupStorageValidator()});
+      mainStorage: [{ value: null, disabled: this.dialogInput.object.mainStorage != null }, Validators.required],
+      backupStorage: [{ value: null, disabled: this.dialogInput.object.backupStorage != null }]
+    }, { validator: this.differentBackupStorageValidator() });
   }
 
   create(): Observable<CaFolderStorageDTO> {
@@ -60,11 +59,12 @@ export class CaFolderConfigureStorageComponent
   }
 
   private differentBackupStorageValidator(): ValidatorFn {
-    return (control: FormGroup<CaFolderStorageDTO>): { [key: string]: any } => {
-      if (control.value.mainStorage == null || control.value.backupStorage == null) return null;
+    return (control: UntypedFormGroup): { [key: string]: any } => {
+      const value: CaFolderStorageDTO = control.value;
+      if (value.mainStorage == null || value.backupStorage == null) return null;
 
-      if (control.value.mainStorage.bucketId === control.value.backupStorage.bucketId) {
-        return {sameBackupStorage: true};
+      if (value.mainStorage.bucketId === value.backupStorage.bucketId) {
+        return { sameBackupStorage: true };
       }
       return null;
     };

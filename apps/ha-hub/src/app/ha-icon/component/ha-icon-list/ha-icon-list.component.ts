@@ -1,7 +1,7 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {HaIcon, HaIconDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
-import {Observable, Subscription} from 'rxjs';
-import {HaIconService} from '../../../ha-core/ha-service/ha-icon.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { HaIcon, HaIconDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
+import { Observable, Subscription } from 'rxjs';
+import { HaIconService } from '../../../ha-core/ha-service/ha-icon.service';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -9,12 +9,12 @@ import {
   FlPortalConfig,
   FlPortalService
 } from '@monorepo/front-core-lib';
-import {HaIconInfoPortalComponent} from '../ha-icon-info-portal/ha-icon-info-portal.component';
-import {FormControl} from '@ngneat/reactive-forms';
+import { HaIconInfoPortalComponent } from '../ha-icon-info-portal/ha-icon-info-portal.component';
 import {
   HaCreateIconDtoInput,
   HaIconCreateDialogComponent
 } from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ha-icon-list',

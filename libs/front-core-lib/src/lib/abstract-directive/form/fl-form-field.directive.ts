@@ -1,8 +1,6 @@
-import {ControlValueAccessor, NgControl} from '@angular/forms';
-import {Directive, HostBinding, Input} from '@angular/core';
-import {AbstractControl} from '@ngneat/reactive-forms';
-import {ValidationErrors} from '@ngneat/reactive-forms/lib/types';
-import {ClHelpService} from '@monorepo/core-lib';
+import { AbstractControl, ControlValueAccessor, NgControl, ValidationErrors } from '@angular/forms';
+import { Directive, HostBinding, Input } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Class to be extended by component that supports NgModel

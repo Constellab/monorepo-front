@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {BnBioNetworkEngineConfig, BnBioNetworkEngineState} from '../../state/bn-bio-network-engine.state';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { BnBioNetworkEngineConfig, BnBioNetworkEngineState } from '../../state/bn-bio-network-engine.state';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'bn-bio-network-engine-config',
@@ -10,7 +10,16 @@ import {BnBioNetworkEngineConfig, BnBioNetworkEngineState} from '../../state/bn-
 })
 export class BnBioNetworkEngineConfigComponent implements OnInit, OnDestroy {
 
-  formGp: FormGroup<BnBioNetworkEngineConfig>;
+  formGp = new FormBuilder().group({
+    liveDrawing: [null],
+    alphaMin: [null],
+    alphaDecay: [null],
+    velocityDecay: [null],
+    ignoreNodePositions: [null],
+    nodeStrength: [null],
+    centerStrength: [null],
+    linkDistance: [null]
+  });
 
   private subscription: Subscription;
 
@@ -18,17 +27,6 @@ export class BnBioNetworkEngineConfigComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.formGp = new FormBuilder().group<BnBioNetworkEngineConfig>({
-      liveDrawing: [null],
-      alphaMin: [null],
-      alphaDecay: [null],
-      velocityDecay: [null],
-      ignoreNodePositions: [null],
-      nodeStrength: [null],
-      centerStrength: [null],
-      linkDistance: [null],
-    });
-
     this.formGp.patchValue(this.engineState.engineConfig);
 
     // update the engine config when the form changes

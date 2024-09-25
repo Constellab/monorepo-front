@@ -1,10 +1,9 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {CaFolderService} from '../../../../../ca-core/service-api/ca-folder.service';
-import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface CaDocumentNameForm {
   name: string;
@@ -38,7 +37,7 @@ export class CaDocumentNameFormDialogComponent extends FlFormDialogAbstractDirec
     this.init();
   }
 
-  buildForm(): FormGroup<CaDocumentNameForm> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       name: [null, Validators.required]
     });

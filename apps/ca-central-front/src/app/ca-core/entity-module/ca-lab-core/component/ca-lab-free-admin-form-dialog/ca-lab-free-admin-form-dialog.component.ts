@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { CaLabInstanceWithSpace } from '../../../../model/entities/lab/ca-lab-instance.class';
 import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
-import { Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CaLabFreeCreateDto } from '../../../../model/entities/lab/ca-lab-free.class';
 
@@ -27,7 +26,7 @@ export class CaLabFreeAdminFormDialogComponent extends FlFormDialogAbstractDirec
     this.init();
   }
 
-  buildForm(): FormGroup<CaLabFreeCreateDto> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       user: [null, Validators.required],
       space: [null, Validators.required]

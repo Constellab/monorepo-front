@@ -6,9 +6,8 @@ import {
   FlPortalActionsService
 } from '@monorepo/front-core-lib';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { Observable } from 'rxjs';
-import { Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ClHelpService } from '@monorepo/core-lib';
 import { HaFileServiceInterface } from '../../model/ha-file-service.interface';
 import { HaFile } from '../../model/ha-file';
@@ -40,7 +39,7 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
     super();
   }
 
-  buildForm(): FormGroup<HaFileFormData> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       newFiles: [null, Validators.required],
       entity: [this.entity, Validators.required]
@@ -102,7 +101,7 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
     });
   }
 
-  onDocumentUploaded(result: any, entityId: string): void {
+  onDocumentUploaded(_: any, entityId: string): void {
     this.dialogInput.object.service.getById(entityId).subscribe((entity) => {
       this.entity = entity;
     });

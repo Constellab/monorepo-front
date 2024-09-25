@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
 import { Observable } from 'rxjs';
-import { FormControl } from '@ngneat/reactive-forms';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
-import { Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { LabEntity } from '../../../../model/global/lab-entity.entity';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 

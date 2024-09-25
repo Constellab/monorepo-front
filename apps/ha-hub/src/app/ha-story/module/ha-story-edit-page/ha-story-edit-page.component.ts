@@ -1,8 +1,7 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {HaStory, HaStoryContentFormDTO} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   FlConfirmDialogInput,
   FlDebouncer,
@@ -11,16 +10,16 @@ import {
   FlPortalService,
   FlUploadImageDialogConfig
 } from '@monorepo/front-core-lib';
-import {HaStoryTextEditorConfig} from './ha-story-text-editor.config';
-import {mergeMap, Observable, of, startWith} from 'rxjs';
-import {HaTopic, HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
-import {HaTopicService} from '../../../ha-core/ha-service/ha-topic.service';
-import {map} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
-import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {ClStringHelper} from '@monorepo/core-lib';
+import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
+import { mergeMap, Observable, of, startWith } from 'rxjs';
+import { HaTopic, HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
+import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
+import { map } from 'rxjs/operators';
+import { FormBuilder, FormControl, UntypedFormGroup } from '@angular/forms';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { ClStringHelper } from '@monorepo/core-lib';
 import {
   TeRichText,
   TeRichTextContent,
@@ -31,8 +30,9 @@ import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
-import {CoStoryCategory} from '@monorepo/community-lib';
+import { CoStoryCategory } from '@monorepo/community-lib';
 
+// TODO @vfoex, composant a refactor, trop gros complexe
 @Component({
   selector: 'ha-story-edit-page',
   templateUrl: './ha-story-edit-page.component.html',
@@ -42,7 +42,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
 
   story: HaStory;
-  formGp: FormGroup<HaStoryContentFormDTO>;
+  formGp: UntypedFormGroup;
   textEditorConfig: HaStoryTextEditorConfig;
 
   historyOverlayRef: FlOverlayRef;
@@ -208,7 +208,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onContentUpdate(content: TeRichTextContent): void {
-    this.formGp.controls.contentEdition.value = content;
+    // TODO @vfoex: j'ai commenté la ligne suivant pck erreur de type
+    // this.formGp.controls.contentEdition.value = content;
     this.syncWithBack = false;
     if(this.historyOverlayRef){
       this.historyOverlayRef.dispose();

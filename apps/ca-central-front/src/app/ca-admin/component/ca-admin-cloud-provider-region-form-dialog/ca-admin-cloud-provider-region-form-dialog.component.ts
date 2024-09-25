@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {Validators} from '@angular/forms';
-import {CaCloudProviderService} from '../../../ca-core/service-api/ca-cloud-provider.service';
-import {CaCloudProviderRegion} from '../../../ca-core/model/entities/ca-cloud-provider.class';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { CaCloudProviderService } from '../../../ca-core/service-api/ca-cloud-provider.service';
+import { CaCloudProviderRegion } from '../../../ca-core/model/entities/ca-cloud-provider.class';
 
 export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProviderRegion>;
 
@@ -19,7 +18,7 @@ export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProv
   styleUrls: ['./ca-admin-cloud-provider-region-form-dialog.component.scss']
 })
 export class CaAdminCloudProviderRegionFormDialogComponent
-  extends FlFormDialogAbstractDirective<Partial<CaCloudProviderRegion>, CaCloudProviderRegion>
+  extends FlFormDialogAbstractDirective<CaCloudProviderRegion, CaCloudProviderRegion>
   implements OnInit {
 
 
@@ -31,7 +30,7 @@ export class CaAdminCloudProviderRegionFormDialogComponent
     this.init();
   }
 
-  buildForm(): FormGroup<Partial<CaCloudProviderRegion>> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       technicalName: [null, Validators.required],
@@ -39,7 +38,7 @@ export class CaAdminCloudProviderRegionFormDialogComponent
       name: [null, Validators.required],
       cloudProvider: [null],
       city: [null, Validators.required],
-      s3Endpoint: [null],
+      s3Endpoint: [null]
     });
   }
 

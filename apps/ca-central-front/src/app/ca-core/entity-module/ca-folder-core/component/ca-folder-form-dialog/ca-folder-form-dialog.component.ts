@@ -1,8 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { CaFolder, CnSaveFolderDTO } from '../../../../model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { Observable } from 'rxjs';
 import { FlFormDialogAbstractDirective, FlFormMode } from '@monorepo/front-core-lib';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -25,10 +24,6 @@ export interface CaFolderFormDialogInput {
 export class CaFolderFormDialogComponent extends FlFormDialogAbstractDirective<CnSaveFolderDTO, CaFolder> implements OnInit {
 
   dialogInput: CaFolderFormDialogInput = inject(MAT_DIALOG_DATA);
-
-  formGp: FormGroup<CnSaveFolderDTO>;
-
-  isLoading: boolean = false;
 
   constructor(private folderService: CaFolderService,
               private spaceService: CaSpaceService) {
@@ -69,7 +64,7 @@ export class CaFolderFormDialogComponent extends FlFormDialogAbstractDirective<C
     }
   }
 
-  buildForm(): FormGroup<CnSaveFolderDTO> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       name: [null, Validators.required],
       code: [null],
@@ -110,10 +105,11 @@ export class CaFolderFormDialogComponent extends FlFormDialogAbstractDirective<C
   }
 
   private differentStorageValidator(): ValidatorFn {
-    return (control: FormGroup<CnSaveFolderDTO>): { [key: string]: any } => {
-      if (control.value.mainStorage == null || control.value.backupStorage == null) return null;
+    return (control: UntypedFormGroup): { [key: string]: any } => {
+      const value: CnSaveFolderDTO = control.value;
+      if (value.mainStorage == null || value.backupStorage == null) return null;
 
-      if (control.value.mainStorage.bucketId === control.value.backupStorage.bucketId) {
+      if (value.mainStorage.bucketId === value.backupStorage.bucketId) {
         return { sameBackupStorage: true };
       }
       return null;

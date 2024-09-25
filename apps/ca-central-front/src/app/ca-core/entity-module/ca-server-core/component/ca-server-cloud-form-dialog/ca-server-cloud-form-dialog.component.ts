@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {CaServerCloud} from '../../../../model/entities/server/ca-server-cloud.class';
-import {CaServerService} from '../../../../service-api/ca-server.service';
-import {Observable} from 'rxjs';
-import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
+import { Observable } from 'rxjs';
+import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 
 /**
  * Dialog to create or update a server info
@@ -24,7 +23,7 @@ export class CaServerCloudFormDialogComponent extends FlFormDialogAbstractDirect
     this.init();
   }
 
-  buildForm(): FormGroup<CaServerCloud> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       cloudProvider: [null, Validators.required],
@@ -36,7 +35,7 @@ export class CaServerCloudFormDialogComponent extends FlFormDialogAbstractDirect
       cpuCount: [null, [Validators.required, Validators.min(0)]],
       cpuType: [null, [Validators.required]],
       gpuCount: [null, [Validators.min(0)]],
-      gpuType: [null],
+      gpuType: [null]
     });
   }
 

@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {CaBucketCredentials, CaBucketCredentialsFull} from '../../../../model/entities/ca-object-storage.class';
-import {CaObjectStorageService} from '../../../../service-api/ca-object-storage.service';
-import {Observable} from 'rxjs';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { CaBucketCredentials, CaBucketCredentialsFull } from '../../../../model/entities/ca-object-storage.class';
+import { CaObjectStorageService } from '../../../../service-api/ca-object-storage.service';
+import { Observable } from 'rxjs';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 export type CaBucketCredentialsFormDialogInput = FlFormDialogInput<CaBucketCredentialsFull>;
 
@@ -25,7 +24,7 @@ export class CaBucketCredentialsFormDialogComponent
     this.init();
   }
 
-  buildForm(): FormGroup<Partial<CaBucketCredentialsFull>> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       name: [null, Validators.required],
@@ -34,7 +33,7 @@ export class CaBucketCredentialsFormDialogComponent
       cloudProvider: [null],
       space: [null],
       s3Username: [null],
-      shortDescription: [null],
+      shortDescription: [null]
     });
   }
 

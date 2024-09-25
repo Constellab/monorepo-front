@@ -1,11 +1,10 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {CaSpaceStorage} from '../../../../ca-core/model/entities/space/ca-space.dto';
-import {CaSpaceService} from '../../../../ca-core/service-api/ca-space.service';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CaSpaceStorage } from '../../../../ca-core/model/entities/space/ca-space.dto';
+import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface CaStorageLimit {
   limit: number;
@@ -36,9 +35,9 @@ export class CaCurrentSpaceUpdateStorageDialogComponent
     this.init();
   }
 
-  buildForm(): FormGroup<CaStorageLimit> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      limit: [null, [Validators.required, Validators.min(0)]],
+      limit: [null, [Validators.required, Validators.min(0)]]
     });
   }
 

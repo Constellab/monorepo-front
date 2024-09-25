@@ -6,11 +6,10 @@ import {
   HaIconCreateFormData,
   HnIconType
 } from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HaIconService } from '../../../ha-core/ha-service/ha-icon.service';
-import { Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 export type HaCreateIconDtoInput = FlFormDialogInput<HaIconCreateFormData>;
 
@@ -37,7 +36,7 @@ export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<H
     this.init();
   }
 
-  buildForm(): FormGroup<HaIconCreateFormData> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       technicalName: [null, [Validators.required, Validators.max(30), Validators.pattern(/^[a-z0-9_]+$/)]],
       name: [null, [Validators.required, Validators.max(30)]],

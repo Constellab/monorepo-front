@@ -6,8 +6,7 @@ import {
   CaBucketType
 } from '../../../../ca-core/model/entities/ca-object-storage.class';
 import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-object-storage.service';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
-import { Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {
   CaSelectCloudProviderRegionOptionsMode
@@ -43,7 +42,7 @@ export class CaBucketFormDialogComponent
     }
   }
 
-  buildForm(): FormGroup<Partial<CaBucketFull>> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       bucketType: [CaBucketType.NORMAL, Validators.required],

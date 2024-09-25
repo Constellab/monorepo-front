@@ -1,10 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlDynamicFieldConfigService, FlDynamicFormGroupConfig, FlDynamicFormHelper} from '@monorepo/front-core-lib';
-import {LabConfig, LabConfigureSpecsForm} from '../../../../model/entities/lab-config.entity';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {ControlContainer} from '@angular/forms';
-import {LabConfigureProcessDynamicField} from '../../lab-configure-process-dynamic-field.service';
-import {PrConfig} from '@monorepo/protocol';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlDynamicFieldConfigService, FlDynamicFormGroupConfig, FlDynamicFormHelper } from '@monorepo/front-core-lib';
+import { LabConfig } from '../../../../model/entities/lab-config.entity';
+import { ControlContainer, FormBuilder, UntypedFormGroup } from '@angular/forms';
+import { LabConfigureProcessDynamicField } from '../../lab-configure-process-dynamic-field.service';
+import { PrConfig } from '@monorepo/protocol';
 
 
 /**
@@ -16,15 +15,15 @@ import {PrConfig} from '@monorepo/protocol';
   styleUrls: ['./lab-configure-specs-form.component.scss'],
   providers: [
     // configure the dynamic field to support tags and other custom fields
-    {provide: FlDynamicFieldConfigService, useClass: LabConfigureProcessDynamicField}
+    { provide: FlDynamicFieldConfigService, useClass: LabConfigureProcessDynamicField }
   ]
 })
 export class LabConfigureSpecsFormComponent implements OnInit {
 
   @Input() configData: LabConfig;
 
-  publicFormGp: FormGroup;
-  protectedFormGp: FormGroup;
+  publicFormGp: UntypedFormGroup;
+  protectedFormGp: UntypedFormGroup;
 
   publicConfig: FlDynamicFormGroupConfig;
   protectedConfig: FlDynamicFormGroupConfig;
@@ -36,13 +35,13 @@ export class LabConfigureSpecsFormComponent implements OnInit {
   }
 
   // build the form group to configure specs
-  public static buildFormGroup(configData: PrConfig): FormGroup<LabConfigureSpecsForm> {
+  public static buildFormGroup(configData: PrConfig): UntypedFormGroup {
     const labConfig = LabConfig.fromSpecs(configData.specs, configData.values);
     const value = labConfig.mergeConfigWithDefault();
 
     return new FormBuilder().group({
       public: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('public'), value),
-      protected: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('protected'), value),
+      protected: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('protected'), value)
     });
   }
 

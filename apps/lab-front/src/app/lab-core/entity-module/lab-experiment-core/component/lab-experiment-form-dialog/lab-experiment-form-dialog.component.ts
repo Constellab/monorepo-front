@@ -1,13 +1,12 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {LabExperiment, LabExperimentSimpleForm} from '../../../../model/entities/lab-experiment.entity';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {Observable, of} from 'rxjs';
-import {LabExperimentService} from '../../../../entity-service/lab-experiment.service';
-import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {catchError, map} from 'rxjs/operators';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { LabExperiment, LabExperimentSimpleForm } from '../../../../model/entities/lab-experiment.entity';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { Observable, of } from 'rxjs';
+import { LabExperimentService } from '../../../../entity-service/lab-experiment.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { catchError, map } from 'rxjs/operators';
+import { ClHelpService } from '@monorepo/core-lib';
 
 export interface LabExperimentFormDialogInput extends FlFormDialogInput<LabExperimentSimpleForm> {
   experimentId?: string;
@@ -41,8 +40,8 @@ export class LabExperimentFormDialogComponent extends FlFormDialogAbstractDirect
     this.originalName = this.dialogInput.object?.title;
   }
 
-  buildForm(): FormGroup<LabExperimentSimpleForm> {
-    const formGroup: FormGroup<LabExperimentSimpleForm> = new FormBuilder().group({
+  buildForm(): UntypedFormGroup {
+    const formGroup = new FormBuilder().group({
       title: [null, Validators.required],
       folder: [null],
       protocolTemplate: [null],

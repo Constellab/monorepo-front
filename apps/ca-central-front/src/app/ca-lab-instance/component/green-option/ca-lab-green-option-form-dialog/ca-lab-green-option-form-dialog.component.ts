@@ -1,4 +1,4 @@
-import {Component, ComponentRef, inject, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import { Component, ComponentRef, inject, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import {
   FlDynamicFieldConfig,
   FlDynamicFormGroupComponent,
@@ -16,13 +16,12 @@ import {
   CaLabGreenOptionStopAfterTimeValue,
   CaLabGreenOptionType
 } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
-import {MatRadioChange} from '@angular/material/radio';
-import {ClDateHelper, ClHelpService} from '@monorepo/core-lib';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CaLabInstanceService } from '../../../../ca-core/service-api/ca-lab-instance.service';
+import { MatRadioChange } from '@angular/material/radio';
+import { ClDateHelper, ClHelpService } from '@monorepo/core-lib';
 
 export interface CaLabGreenOptionFormDialogInput extends FlFormDialogInput<CaLabGreenOptionFormDto> {
   labInstanceId?: string; // create mode
@@ -32,7 +31,7 @@ export interface CaLabGreenOptionFormDialogInput extends FlFormDialogInput<CaLab
 @Component({
   selector: 'ca-lab-green-option-form-dialog',
   templateUrl: './ca-lab-green-option-form-dialog.component.html',
-  styleUrls: ['./ca-lab-green-option-form-dialog.component.scss'],
+  styleUrls: ['./ca-lab-green-option-form-dialog.component.scss']
 })
 export class CaLabGreenOptionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabGreenOptionFormDto, CaLabGreenOption>
@@ -42,7 +41,7 @@ export class CaLabGreenOptionFormDialogComponent
   greenOptionType: any = CaLabGreenOptionType;
 
 
-  @ViewChild('subFormGroup', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+  @ViewChild('subFormGroup', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   warningText: string = null;
 
@@ -71,9 +70,9 @@ export class CaLabGreenOptionFormDialogComponent
     }
   }
 
-  buildForm(): FormGroup<CaLabGreenOptionFormDto> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      type: [{value: null, disabled: this.isUpdateMode()}, Validators.required],
+      type: [{ value: null, disabled: this.isUpdateMode() }, Validators.required],
       value: [null],
       isPersistent: [null]
     });
@@ -86,7 +85,7 @@ export class CaLabGreenOptionFormDialogComponent
 
     if (changeEvent.value === CaLabGreenOptionType.STOP_AFTER_INACTIVITY_TIME) {
       this.warningText = 'lab_green_option_STOP_AFTER_INACTIVITY_TIME_warnings';
-    }else{
+    } else {
       this.warningText = null;
     }
   }
@@ -101,7 +100,7 @@ export class CaLabGreenOptionFormDialogComponent
     };
     const defaultValue = value ?? this.getDefaultValue(type);
     // create the formGroup using the config
-    const formGroup: FormGroup = FlDynamicFormHelper.generateFormGroup(formConfig, defaultValue) as FormGroup;
+    const formGroup: UntypedFormGroup = FlDynamicFormHelper.generateFormGroup(formConfig, defaultValue);
 
     // create the sub form group component if needed
     if (!ClHelpService.isNullOrEmpty(formConfig)) {
@@ -122,12 +121,12 @@ export class CaLabGreenOptionFormDialogComponent
           hours: null,
           minutes: 0,
           timezone: ClDateHelper.getDate().zoneName,
-          days: null,
+          days: null
         } as CaLabGreenOptionStopAfterTimeValue;
       case CaLabGreenOptionType.STOP_AFTER_INACTIVITY_TIME:
         return {
           inactivityDuration: null,
-          days: null,
+          days: null
         } as CaLabGreenOptionStopAfterInactivityValue;
       default:
         return {};
@@ -173,7 +172,7 @@ export class CaLabGreenOptionFormDialogComponent
             type: 'input',
             placeholder: this.translateService.translate('lab_green_option_timezone'),
             inputType: 'text',
-            disabled: true,
+            disabled: true
           }
         };
       case CaLabGreenOptionType.STOP_AFTER_INACTIVITY_TIME:
@@ -195,7 +194,7 @@ export class CaLabGreenOptionFormDialogComponent
   }
 
   hasSubForm(): boolean {
-    const group: FormGroup = this.formGp.get('value') as FormGroup;
+    const group: UntypedFormGroup = this.formGp.get('value') as UntypedFormGroup;
     return !ClHelpService.isNullOrEmpty(group.controls);
   }
 

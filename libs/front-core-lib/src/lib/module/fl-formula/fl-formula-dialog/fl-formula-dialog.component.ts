@@ -1,9 +1,9 @@
 import { Component, inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { FlFormDialogInput, FlTranslatableText } from '@monorepo/front-core-lib';
-import { FormControl } from '@ngneat/reactive-forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { debounceTime, Observable, startWith } from 'rxjs';
+import { FlTranslatableText } from '../../fl-translate/model/fl-translate-param';
+import { FlFormDialogInput } from '../../../model/fl-form.class';
 
 export interface TeFormulaDialogInput extends FlFormDialogInput<string> {
   helpText?: FlTranslatableText;

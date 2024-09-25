@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
@@ -7,9 +7,9 @@ import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { CaCommunityBrickService } from '../../../ca-core/service-api/ca-community-brick.service';
 import { CaLabManagerBrickVersionDTO } from '../../../ca-core/model/entities/lab/ca-lab-manager.class';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { CaCommunityBrick, CaCommunityBrickDatasource } from '../../../ca-core/model/entities/ca-community-brick.class';
+import { CoBrick } from '@monorepo/community-lib';
 
 interface CaCommunityBrickFilers {
   spaceIds: string[];
@@ -24,7 +24,11 @@ interface CaCommunityBrickFilers {
 })
 export class CaLabInstanceConfigBrickComponent implements OnInit {
 
-  formGp: FormGroup<CaLabManagerBrickVersionDTO>;
+  formGp = new FormBuilder().group({
+    name: [null as string, Validators.required],
+    version: [null as string, Validators.required],
+    brick: [null as CoBrick, Validators.required]
+  });
   brickSelectionMode: boolean = true;
   isLoading: boolean = true;
 
@@ -53,7 +57,9 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
   ngOnInit(): void {
     this.isUpdate = this.brickVersionDTO != null;
 
-    this.initForm();
+    if (this.brickVersionDTO) {
+      this.formGp.patchValue(this.brickVersionDTO);
+    }
 
     this.authenticatedUserService.getUser$().subscribe((user) => {
       this.userId = user.id;
@@ -69,21 +75,9 @@ export class CaLabInstanceConfigBrickComponent implements OnInit {
         this.initBrickSelection();
       }
     });
-
-
   }
 
-  private initForm(): void {
-    this.formGp = new FormBuilder().group({
-      name: [null, Validators.required],
-      version: [null, Validators.required],
-      brick: [null, Validators.required]
-    });
 
-    if (this.brickVersionDTO) {
-      this.formGp.patchValue(this.brickVersionDTO);
-    }
-  }
 
   isSelected(spaceId: string): boolean {
     return this.spaceIdFilter.find((id) => id == spaceId) != null;

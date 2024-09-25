@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {HaBrickCreationDTO, HaBrickVisibility} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {Router} from '@angular/router';
-import {FlGlobalValidators, FlSnackBarService} from '@monorepo/front-core-lib';
-import {HaAddVersionInput, HaRepoType} from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
-import {HaSpaceService} from '../../../../ha-core/ha-service/ha-space.service';
-import {HaSpace} from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { Component, OnInit } from '@angular/core';
+import { HaBrickCreationDTO, HaBrickVisibility } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { Router } from '@angular/router';
+import { FlGlobalValidators, FlSnackBarService } from '@monorepo/front-core-lib';
+import { HaAddVersionInput, HaRepoType } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
+import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service';
+import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
 
 @Component({
   selector: 'ha-public-edit-brick-form',
@@ -18,7 +17,7 @@ export class HaPublicEditBrickFormComponent implements OnInit {
 
   brick: HaBrickCreationDTO;
 
-  formGp: FormGroup<HaBrickCreationDTO>;
+  formGp: UntypedFormGroup;
 
   isLoading: boolean;
   inputFile: HaAddVersionInput;

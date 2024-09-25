@@ -1,12 +1,11 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {HaCreateStoryDto, HaStory} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {CoStoryCategory} from '@monorepo/community-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { HaCreateStoryDto, HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CoStoryCategory } from '@monorepo/community-lib';
 
 export type HaCreateStoryDtoInput = FlFormDialogInput<HaCreateStoryDto>;
 
@@ -27,7 +26,7 @@ export class HaStoryCreateDialogComponent extends FlFormDialogAbstractDirective<
     this.init();
   }
 
-  buildForm(): FormGroup<HaCreateStoryDto> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       title: [null, Validators.required],
       category: [CoStoryCategory.ARTICLE, Validators.required]
@@ -38,7 +37,7 @@ export class HaStoryCreateDialogComponent extends FlFormDialogAbstractDirective<
     return this.storyService.create(formValue);
   }
 
-  update(formValue: HaCreateStoryDto): Observable<HaStory> {
+  update(): Observable<HaStory> {
     throw new Error('Method not implemented.');
   }
 

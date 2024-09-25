@@ -2,11 +2,13 @@ import { Component, computed, Input, OnDestroy, OnInit, Signal } from '@angular/
 import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
 import { HaLiveTaskVersion } from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
 import { FlCodeEditorLanguage, FlDebouncer, FlSnackBarService } from '@monorepo/front-core-lib';
-import { FormControl } from '@ngneat/reactive-forms';
 import { TranslateService } from '@ngx-translate/core';
 import { TeBasicConfig, TeRichText, TeRichTextContent } from '@monorepo/text-editor';
 import { HaBrickVersion } from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaLiveTaskPageState } from '../../state/ha-live-task-page.state';
+import { FormControl } from '@angular/forms';
+
+// TODO @vfoex composant a cleaner, beaucoup trop gros, beaucoup trop d'attribute
 
 @Component({
   selector: 'ha-live-task-version-detail',
@@ -61,7 +63,7 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   codeDebouncer: Signal<FlDebouncer<string>> = computed(() => {
     const debouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     debouncer.getDebouncedValue().subscribe(value => this.onCodeChange(value));
-    this.codeFormControl().value$.subscribe(code => {
+    this.codeFormControl().valueChanges.subscribe(code => {
       debouncer.setValue(code);
     });
     return debouncer;
@@ -96,14 +98,14 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
 
     this.paramsDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     this.paramsDebouncer.getDebouncedValue().subscribe(value => this.onParamsChange(value));
-    this.paramsFormControl.value$.subscribe(params => {
+    this.paramsFormControl.valueChanges.subscribe(params => {
       this.paramsDebouncer.setValue(params);
     });
 
     this.environmentFormControl.setValue(this.liveTaskVersion()?.environment);
     this.environmentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
     this.environmentDebouncer.getDebouncedValue().subscribe(value => this.onEnvironmentChange(value));
-    this.environmentFormControl.value$.subscribe(environment => {
+    this.environmentFormControl.valueChanges.subscribe(environment => {
       this.environmentDebouncer.setValue(environment);
     });
 

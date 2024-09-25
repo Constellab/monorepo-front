@@ -1,4 +1,4 @@
-import {Component, ComponentRef, inject, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import { Component, ComponentRef, inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import {
   FlDynamicAbstractFormComponent,
   FlDynamicFormAbstractControl,
@@ -17,14 +17,13 @@ import {
   LabCredentialsType,
   LabSaveCredentialsDTO
 } from '../../../../model/entities/lab-credentials.entity';
-import {Observable, of} from 'rxjs';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {AbstractControl, Validators} from '@angular/forms';
-import {ClHelpService} from '@monorepo/core-lib';
-import {catchError, map} from 'rxjs/operators';
-import {LabCredentialsService} from '../../../../entity-service/lab-credentials.service';
-import {MatSelectChange} from '@angular/material/select';
+import { Observable, of } from 'rxjs';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AbstractControl, FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ClHelpService } from '@monorepo/core-lib';
+import { catchError, map } from 'rxjs/operators';
+import { LabCredentialsService } from '../../../../entity-service/lab-credentials.service';
+import { MatSelectChange } from '@angular/material/select';
 
 export interface LabCredentialsFormDialogInput extends FlFormDialogInput<LabSaveCredentialsDTO> {
   id?: string;
@@ -69,7 +68,7 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
     }
   }
 
-  buildForm(): FormGroup<LabSaveCredentialsDTO> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       name: [null, Validators.required],
       type: [null, Validators.required],

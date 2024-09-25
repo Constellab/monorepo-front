@@ -1,8 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CaLabInstanceType, CaLabInstanceWithSpace } from '../../../../model/entities/lab/ca-lab-instance.class';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { Observable } from 'rxjs';
-import { Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
@@ -56,7 +55,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
     }
   }
 
-  buildForm(): FormGroup<CaLabInstanceAdminForm> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required]],

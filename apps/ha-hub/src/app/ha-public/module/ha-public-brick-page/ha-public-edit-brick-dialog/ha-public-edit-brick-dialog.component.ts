@@ -5,8 +5,7 @@ import {
   FlUploadImageDialogConfig
 } from '@monorepo/front-core-lib';
 import { HaBrick, HaEditBrickDTO } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
-import { Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
@@ -41,14 +40,14 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
     });
 
     this.imageConfig = {
-      title: {text: 'upload_brick_picture', translateText: true},
-      helpText: {text: 'image_square_help', translateText: true},
+      title: { text: 'upload_brick_picture', translateText: true },
+      helpText: { text: 'image_square_help', translateText: true },
       imagePreviewWidth: 150,
       imagePreviewHeight: 150,
       compressOptions: {
         cropWidth: 300,
         cropHeight: 300,
-        resizeWidthMax: 300,
+        resizeWidthMax: 300
       },
       uploadImage: (file: File) => {
         return this.brickService.editBrickImage(this.formGp.value.id, file).pipe(
@@ -57,7 +56,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
           })
         );
       },
-      uploadImageSuccessMessage: {text: 'brick_picture_uploaded', translateText: true}
+      uploadImageSuccessMessage: { text: 'brick_picture_uploaded', translateText: true }
     };
 
     this.deleteImageConfig = {
@@ -68,11 +67,11 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
           this.formGp.controls.imageLink.patchValue(null);
         })
       ),
-      successMessage: 'brick_photo_deleted',
+      successMessage: 'brick_photo_deleted'
     };
   }
 
-  buildForm(): FormGroup<Partial<HaEditBrickDTO>> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       description: [null, [Validators.required, Validators.maxLength(255)]],
@@ -121,7 +120,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   }
 
   onFileSelected(file: File | File[]): void {
-    if(this.isPhotoLoading)
+    if (this.isPhotoLoading)
       return;
     this.isPhotoLoading = true;
     this.brickService.editBrickImage(this.formGp.value.id, file as File).subscribe((image) => {

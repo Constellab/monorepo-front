@@ -1,19 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FL_PORTAL_DATA, FlFormHelper, FlOverlayRef} from '@monorepo/front-core-lib';
+import { Component, Inject } from '@angular/core';
+import { FL_PORTAL_DATA, FlFormHelper, FlOverlayRef } from '@monorepo/front-core-lib';
 import {
   labConvertTransformFormToParams,
   LabTransformerParams,
   LabTransformerWithConfig,
   LabTransformForm
 } from '../../../../model/global/lab-transformer.class';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {LabRouterService} from '../../../../service/lab-router.service';
-import {
-  LabTransformResourceComponent,
-  LabTransformResourceForm
-} from '../lab-transform-resource/lab-transform-resource.component';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { LabRouterService } from '../../../../service/lab-router.service';
+import { LabTransformResourceComponent } from '../lab-transform-resource/lab-transform-resource.component';
+import { FormBuilder } from '@angular/forms';
 
 export interface LabTransformResourcePortalInput {
   resourceTypingName: string;
@@ -21,10 +18,6 @@ export interface LabTransformResourcePortalInput {
   resourceId: string;
   // use to init form with transformers and config
   currentTransformers: LabTransformerWithConfig[];
-}
-
-interface LabTransformResourcePortalForm {
-  transformers: LabTransformResourceForm[];
 }
 
 /**
@@ -35,13 +28,16 @@ interface LabTransformResourcePortalForm {
   templateUrl: './lab-transform-resource-portal.component.html',
   styleUrls: ['./lab-transform-resource-portal.component.scss']
 })
-export class LabTransformResourcePortalComponent implements OnInit {
+export class LabTransformResourcePortalComponent {
 
   resourceTypingName: string;
 
   resourceName: string;
 
-  formGp: FormGroup<LabTransformResourcePortalForm>;
+  formGp = new FormBuilder().group({
+    transformers: LabTransformResourceComponent.buildFormArray(
+      this.input.currentTransformers, 1)
+  });
   isLoading: boolean = false;
 
   constructor(@Inject(FL_PORTAL_DATA) private input: LabTransformResourcePortalInput,
@@ -52,16 +48,9 @@ export class LabTransformResourcePortalComponent implements OnInit {
     this.resourceName = input.resourceName;
   }
 
-  ngOnInit(): void {
-    this.formGp = new FormBuilder().group({
-      transformers: LabTransformResourceComponent.buildFormArray(
-        this.input.currentTransformers, 1)
-    });
-  }
-
   submit(): void {
     if (this.formGp.valid && !this.isLoading) {
-      this.callTransformer(this.formGp.get('transformers').value);
+      this.callTransformer(this.formGp.getRawValue().transformers);
     } else {
       FlFormHelper.markAllAsTouched(this.formGp);
     }
@@ -70,10 +59,10 @@ export class LabTransformResourcePortalComponent implements OnInit {
   private callTransformer(formValue: LabTransformForm[]): void {
     const transformers: LabTransformerParams[] = labConvertTransformFormToParams(formValue);
     this.isLoading = true;
-    this.resourceService.transformResource(transformers, this.input.resourceId).subscribe(
-      experiment => this.onTransformSuccess(experiment),
-      () => this.isLoading = false
-    );
+    this.resourceService.transformResource(transformers, this.input.resourceId).subscribe({
+      next: experiment => this.onTransformSuccess(experiment),
+      error: () => this.isLoading = false
+    });
   }
 
   private onTransformSuccess(resource: LabResource): void {

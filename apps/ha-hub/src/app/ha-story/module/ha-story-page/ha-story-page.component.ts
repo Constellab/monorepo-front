@@ -1,29 +1,29 @@
-import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {HaStory} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import {HaStoryTextEditorConfig} from '../ha-story-edit-page/ha-story-text-editor.config';
-import {FormControl} from '@ngneat/reactive-forms';
-import {HaMetadataService} from '../../../ha-core/ha-service/ha-metadata.service';
+import { Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-editor.config';
+import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 
-import {isPlatformBrowser, isPlatformServer} from '@angular/common';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
-import {HaFile} from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
-import {TeRichText} from '@monorepo/text-editor';
-import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
-import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
-import {FlPortalService} from '@monorepo/front-core-lib';
-import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
-import {HaCommentType} from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { TeRichText } from '@monorepo/text-editor';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
+import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
+import { FlPortalService } from '@monorepo/front-core-lib';
+import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
+import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {
   HaCommentsPortalComponent,
   HaCommentsPortalData
 } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
-import {first} from 'rxjs';
-import {HaHttpRedirectionService} from '../../../ha-core/ha-service/ha-http-redirection.service';
+import { first } from 'rxjs';
+import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ha-story-page',

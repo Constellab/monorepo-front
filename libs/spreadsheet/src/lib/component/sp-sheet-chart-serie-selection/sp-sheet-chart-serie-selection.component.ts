@@ -1,9 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {SpSheetChart2dSerieSelectionForm} from '../../model/chart/sp-sheet-chart-selection-form.class';
-import {FormBuilder, FormControl, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {SpSpreadsheetChartSerieSelectionInput} from '../../model/chart/sp-sheet-chart-config.class';
-import {FL_PORTAL_DATA, FlOverlayRef} from '@monorepo/front-core-lib';
+import { Component, Inject, OnInit } from '@angular/core';
+import { SpSheetChart2dSerieSelectionForm } from '../../model/chart/sp-sheet-chart-selection-form.class';
+import { FormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { SpSpreadsheetChartSerieSelectionInput } from '../../model/chart/sp-sheet-chart-config.class';
+import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib';
 
 
 /**
@@ -16,7 +15,7 @@ import {FL_PORTAL_DATA, FlOverlayRef} from '@monorepo/front-core-lib';
 })
 export class SpSheetChartSerieSelectionComponent implements OnInit {
 
-  formGp: FormGroup<SpSheetChart2dSerieSelectionForm>;
+  formGp: UntypedFormGroup;
 
   input: SpSpreadsheetChartSerieSelectionInput;
 

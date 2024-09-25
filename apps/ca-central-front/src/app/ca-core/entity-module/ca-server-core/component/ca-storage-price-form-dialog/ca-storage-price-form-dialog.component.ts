@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
-import {CaServerService} from '../../../../service-api/ca-server.service';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {CaCreateStoragePriceDTO, CaStoragePrice} from '../../../../model/entities/server/ca-storage-price.class';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { CaServerService } from '../../../../service-api/ca-server.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CaCreateStoragePriceDTO, CaStoragePrice } from '../../../../model/entities/server/ca-storage-price.class';
 
 @Component({
   selector: 'ca-storage-price-form-dialog',
@@ -22,7 +21,7 @@ export class CaStoragePriceFormDialogComponent
     this.init();
   }
 
-  buildForm(): FormGroup<CaCreateStoragePriceDTO> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       volumeStoragePrice: [null, [Validators.required, Validators.min(0)]],
       backupStoragePrice: [null, [Validators.required, Validators.min(0)]],

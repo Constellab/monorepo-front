@@ -23,7 +23,8 @@
     </div>
 
     <mat-form-field class="form-field">
-      <mat-select [formControl]="formGp.controls.category" (valueChange)="onStoryCategoryChange($event)">
+<!--    TODO @vfoex formGp.controls.category a changer, utiliser les formcontrol name  -->
+      <mat-select [formControl]="$any(formGp.controls.category)" (valueChange)="onStoryCategoryChange($event)">
         <mat-option *ngFor="let category of storyCategories" [value]="category">
           {{category.toLowerCase() | translate}}
         </mat-option>

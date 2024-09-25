@@ -1,10 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {CaUser} from '../../../../model/entities/ca-user.class';
-import {FormControl} from '@ngneat/reactive-forms';
-import {FlSnackBarService, FlUserConfigSearchNameMode} from '@monorepo/front-core-lib';
-import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CaUser } from '../../../../model/entities/ca-user.class';
+import { FlSnackBarService, FlUserConfigSearchNameMode } from '@monorepo/front-core-lib';
+import { FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 
 export interface CaGroupAddUserDialogInput {

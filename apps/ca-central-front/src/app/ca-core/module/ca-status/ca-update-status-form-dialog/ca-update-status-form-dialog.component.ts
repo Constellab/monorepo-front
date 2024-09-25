@@ -1,9 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {FormControl} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {FlGlobalValidators, FlSnackBarService, FlStatus, FlStatusDict} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FormControl, Validators } from '@angular/forms';
+import { FlGlobalValidators, FlSnackBarService, FlStatus, FlStatusDict } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface UpdateStatusFormDialogInput<S extends string> {
   statusDict: FlStatusDict<S>;
@@ -41,7 +40,7 @@ export class CaUpdateStatusFormDialogComponent implements OnInit {
 
   private initForm(): void {
     // create form control with a validator to verify that the status has changed
-    this.formControl = new FormControl<any, any>(this.dialogInput.currentStatus.value,
+    this.formControl = new FormControl(this.dialogInput.currentStatus.value,
       [Validators.required, FlGlobalValidators.differentValue(this.dialogInput.currentStatus.value)]);
   }
 
@@ -53,14 +52,14 @@ export class CaUpdateStatusFormDialogComponent implements OnInit {
 
   private updateStatus(status: any): void {
     this.isLoading = true;
-    this.dialogInput.updateStatus(status).subscribe(
-      entity => this.updateStatusSuccess(entity),
-      () => this.isLoading = false
-    );
+    this.dialogInput.updateStatus(status).subscribe({
+      next: entity => this.updateStatusSuccess(entity),
+      error: () => this.isLoading = false
+    });
   }
 
   private updateStatusSuccess(entity: any): void {
-    this.snackBarService.openSuccessMessage({text: 'status_updated', translateText: true});
+    this.snackBarService.openSuccessMessage({ text: 'status_updated', translateText: true });
 
     this.isLoading = false;
     this.dialogRef.close(entity);

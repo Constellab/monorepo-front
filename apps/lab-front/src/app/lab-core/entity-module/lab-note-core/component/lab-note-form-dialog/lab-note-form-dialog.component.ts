@@ -1,9 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { LabNote, LabNoteForm } from '../../../../model/entities/lab-note.entity';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { Observable } from 'rxjs';
-import { Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { LabNoteService } from '../../../../entity-service/lab-note.service';
 import { LabEntity } from '../../../../model/global/lab-entity.entity';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -37,8 +36,8 @@ export class LabNoteFormDialogComponent extends FlFormDialogAbstractDirective<La
     return this.isCreateMode() ? 'biox.create_note' : 'biox.update_note';
   }
 
-  buildForm(): FormGroup<LabNoteForm> {
-    const formGroup: FormGroup<LabNoteForm> = new FormBuilder().group({
+  buildForm(): UntypedFormGroup {
+    const formGroup = new FormBuilder().group({
       title: [null, Validators.required],
       folder: [{value: this.dialogInput.folder, disabled: this.isCreateMode() && this.dialogInput.folder != null}],
       template: [{value: null, disabled: this.isUpdateMode()}]
