@@ -107,6 +107,15 @@ export class LabWorkflowEditConfig implements OnDestroy {
       });
   }
 
+  public addProtocolTemplate(protocolTemplateId: string, protocolTemplateName: string): void {
+    const obs = this.protocolService.addProtocolTemplateToProtocol(this.workflow.currentLayer.id, protocolTemplateId);
+    this.addProcessAction(obs,
+      {
+        text: 'pr.adding_process', translateText: true,
+        translateParam: { param: { processName: protocolTemplateName } }
+      });
+  }
+
   public duplicateProcess(processInstanceName: string, processName: string): void {
     const obs = this.protocolService.addDuplicateProcessToProtocol(this.workflow.currentLayer.id, processInstanceName);
     this.addProcessAction(obs,

@@ -5,7 +5,6 @@ import { TeHelper } from '../model/te.helper';
 import { Type } from '@angular/core';
 import { TeTimestampComponent } from '../component/te-timestamp/te-timestamp.component';
 import { ClDateHelper } from '@monorepo/core-lib';
-import { MenuConfig } from '@editorjs/editorjs/types/tools';
 
 export type TeTimestampFormat = ClDateFormatKey | 'FROM_NOW';
 
@@ -51,15 +50,4 @@ export class TeTimestampBlock extends TeComponentBlock<TeTimestampComponent> {
   validate(blockData: TeTimestampBlockData): boolean {
     return ClDateHelper.getDate(blockData.timestamp).isValid;
   }
-
-  renderSettings(): HTMLElement | MenuConfig {
-    const button = TeHelper.generateTuneButton(TeHelper.getTranslateService().translate('teTextEditor.settDDDDings'), 'settings');
-    button.addEventListener('click', () => {
-      // this.config.api.
-      console.log('Settings block tune');
-    });
-    return button;
-  }
-
-
 }

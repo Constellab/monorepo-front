@@ -1,24 +1,24 @@
-import {Injectable} from '@angular/core';
-import {FlApiWithCacheService, FlEntityPaginatedDatasource, FlFileHelper} from '@monorepo/front-core-lib';
-import {Observable, tap} from 'rxjs';
-import {LabProcessLayout, LabProtocol, LabProtocolLayout} from '../model/entities/process/lab-protocol.entity';
-import {LabProtocolUpdateDTO} from '../../lab-biox/module/lab-experiment-detail-page/model/lab-workflow-action.class';
-import {PrConfigValues} from '@monorepo/protocol';
+import { Injectable } from '@angular/core';
+import { FlApiWithCacheService, FlEntityPaginatedDatasource, FlFileHelper } from '@monorepo/front-core-lib';
+import { Observable, tap } from 'rxjs';
+import { LabProcessLayout, LabProtocol, LabProtocolLayout } from '../model/entities/process/lab-protocol.entity';
+import { LabProtocolUpdateDTO } from '../../lab-biox/module/lab-experiment-detail-page/model/lab-workflow-action.class';
+import { PrConfigValues } from '@monorepo/protocol';
 import {
   LabCreateProtocolTemplateDTO,
   LabProtocolTemplate
 } from '../model/entities/process/lab-protocol-template.entity';
-import {TdIOSpec} from '@monorepo/technical-doc';
+import { TdIOSpec } from '@monorepo/technical-doc';
 import {
   LabCreateCommunityLiveTaskVersionResDto,
   LabLiveTask,
   LabLiveTaskDatasourcePaginated
 } from '../model/entities/lab-live-task.entity';
-import {LabNavigableEntityImpact} from '../model/entities/lab-navigable-entity.entity';
-import {LabProcess} from '../model/entities/process/lab-process.entity';
-import {ClPage} from '@monorepo/core-lib';
-import {LabCommunitySpace} from '../model/entities/lab-community-space.entity';
-import {CoCreateLiveTaskFormData} from '@monorepo/community-lib';
+import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
+import { LabProcess } from '../model/entities/process/lab-process.entity';
+import { ClPage } from '@monorepo/core-lib';
+import { LabCommunitySpace } from '../model/entities/lab-community-space.entity';
+import { CoCreateLiveTaskFormData } from '@monorepo/community-lib';
 
 
 @Injectable({
@@ -205,6 +205,10 @@ export class LabProtocolService {
                        outputPortName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/add-sink/${processName}/${outputPortName}`,
       null, LabProtocolUpdateDTO);
+  }
+
+  public addProtocolTemplateToProtocol(protocolId: string, templateId: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/add-template/${templateId}`, null, LabProtocolUpdateDTO);
   }
 
   ///////////////////////////////////////////////// LAYOUT /////////////////////////////////////////////////

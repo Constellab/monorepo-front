@@ -155,7 +155,5 @@
   "lab_usage_period_LAST_12_HOURS": "Dernières 12 heures",
   "lab_usage_period_LAST_24_HOURS": "Dernières 24 heures",
   "lab_usage_period_CUSTOM": "Personnalisé",
-  "user": "Utilisateur",
-  "document_saved": "Saved",
-  "saving_document": "Saving..."
+  "user": "Utilisateur"
 }

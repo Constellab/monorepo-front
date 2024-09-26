@@ -184,7 +184,5 @@
   "folder_activate_chat": "Activer le chat",
   "folder_deactivate_chat": "Désactiver le chat",
   "open_in_chat": "Ouvrir dans le chat",
-  "no_chat_activated": "Pas de chat, veuillez activer le chat dans les paramètres du dossier pour voir les chats ici",
-  "document_saved": "Saved",
-  "saving_document": "Saving..."
+  "no_chat_activated": "Pas de chat, veuillez activer le chat dans les paramètres du dossier pour voir les chats ici"
 }
