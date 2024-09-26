@@ -1,31 +1,32 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LabNoteContent } from '../../../lab-core/model/entities/lab-note.entity';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService } from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { ActivatedRoute } from '@angular/router';
 import { LabRouterService } from '../../../lab-core/service/lab-router.service';
 import { LabDocumentTemplateService } from '../../../lab-core/entity-service/lab-document-template.service';
 import { LabDocumentTemplate } from '../../../lab-core/model/entities/lab-document-template.entity';
 import { LabDocumentTemplateTextEditorConfig } from '../lab-document-template-text-editor-config.class';
 import { TeConfig, TeRichTextContent } from '@monorepo/text-editor';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'lab-document-template-detail-page',
   templateUrl: './lab-document-template-detail-page.component.html',
   styleUrls: ['./lab-document-template-detail-page.component.scss']
 })
-export class LabDocumentTemplateDetailPageComponent implements OnInit, OnDestroy {
+export class LabDocumentTemplateDetailPageComponent implements OnInit {
 
   documentTemplate: LabDocumentTemplate;
-  content: TeRichTextContent;
 
   textEditorConfig: TeConfig;
 
   isLoading: boolean = false;
 
+  formControl: FormControl<LabNoteContent> = new FormControl({ value: null });
+
+  saveContentFunc: (value: TeRichTextContent) => Observable<TeRichTextContent>;
   private documentTemplateId: string;
-
-
-  private contentDebouncer: FlDebouncer<TeRichTextContent>;
 
   constructor(private route: ActivatedRoute,
               private dialogService: FlDialogService,
@@ -36,12 +37,6 @@ export class LabDocumentTemplateDetailPageComponent implements OnInit, OnDestroy
   ngOnInit(): void {
     this.route.params.subscribe(
       params => this.init(params.id)
-    );
-
-    // create a debouncer to save the description after x second of idle
-    this.contentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
-    this.contentDebouncer.getDebouncedValue().subscribe(
-      value => this.saveContent(value)
     );
   }
 
@@ -58,6 +53,9 @@ export class LabDocumentTemplateDetailPageComponent implements OnInit, OnDestroy
     this.documentTemplateService.getDocumentTemplateContent(id).subscribe({
       next: (content) => this.getDocumentTemplateContentSuccess(content)
     });
+
+    this.saveContentFunc = (value: TeRichTextContent) =>
+      this.documentTemplateService.updateContent(this.documentTemplateId, value);
   }
 
   private getDocumentTemplateSuccess(documentTemplate: LabDocumentTemplate): void {
@@ -66,7 +64,7 @@ export class LabDocumentTemplateDetailPageComponent implements OnInit, OnDestroy
   }
 
   private getDocumentTemplateContentSuccess(content: TeRichTextContent): void {
-    this.content = content;
+    this.formControl.patchValue(content, { emitEvent: false });
   }
 
   updateTitle(title: string): void {
@@ -75,20 +73,12 @@ export class LabDocumentTemplateDetailPageComponent implements OnInit, OnDestroy
     );
   }
 
-  onContentUpdate(content: LabNoteContent): void {
-    this.contentDebouncer.setValue(content);
-  }
-
-  saveContent(content: LabNoteContent): void {
-    this.documentTemplateService.updateContent(this.documentTemplateId, content).subscribe();
-  }
-
   delete(): void {
     const input: FlConfirmDialogInput = {
       title: 'biox.delete_document_template',
       content: 'biox.delete_document_template_confirmation',
       observable: this.documentTemplateService.delete(this.documentTemplateId),
-      successMessage: 'biox.document_template_deleted',
+      successMessage: 'biox.document_template_deleted'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -106,11 +96,6 @@ export class LabDocumentTemplateDetailPageComponent implements OnInit, OnDestroy
     if (window) {
       window.print();
     }
-  }
-
-
-  ngOnDestroy(): void {
-    this.contentDebouncer.complete();
   }
 }
 

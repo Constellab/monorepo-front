@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   LabDocumentTemplateDetailPageComponent
 } from './lab-document-template-detail-page/lab-document-template-detail-page.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabCoreModule } from '../../lab-core/lab-core.module';
 
 @NgModule({
@@ -14,8 +14,9 @@ import { LabCoreModule } from '../../lab-core/lab-core.module';
     CommonModule,
     FormsModule,
 
-    LabCoreModule
-  ],
+    LabCoreModule,
+    ReactiveFormsModule
+  ]
 })
 export class LabDocumentTemplateDetailPageModule {
 }

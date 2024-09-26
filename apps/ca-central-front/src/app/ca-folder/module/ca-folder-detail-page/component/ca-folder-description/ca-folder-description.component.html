@@ -1,4 +1,4 @@
-<fl-section [isLoading]="isLoading" [object]="formControl" class="section">
+<fl-section [isLoading]="getIsLoading" [object]="formControl" class="section">
 
   <fl-section-header>
     @if (folder$ | async; as folder) {
@@ -9,9 +9,13 @@
       </div>
     }
     <fl-section-actions>
+
+      <te-text-editor-save [formCtrl]="formControl" [saveFunc]="saveDescriptionFunc"
+                           [debounceTime]="1000" class="save-status"></te-text-editor-save>
+
       @if (canEdit) {
         <button mat-icon-button type="button" (click)="toggleEdit()">
-          <mat-icon>{{ edit ? 'visibility' : 'edit' }}</mat-icon>
+          <mat-icon>{{ formControl.enabled ? 'visibility' : 'edit' }}</mat-icon>
         </button>
       }
     </fl-section-actions>

@@ -79,6 +79,10 @@
       <div class="container">
         <div class="left-section">
 
+          <!--    Save status        -->
+          <te-text-editor-save [formCtrl]="formControl" [saveFunc]="saveContentFunc"
+                               [debounceTime]="2500"></te-text-editor-save>
+
           <!-- Tags -->
           <lab-tag-list [tags]="tags" entityType="NOTE" [entityId]="note.id"
                         [showNoTagMessage]="true" class="separator"></lab-tag-list>
@@ -86,8 +90,8 @@
 
           <!--  Folder  -->
           <lab-folder-inline-select [(ngModel)]="note.folder" (selectionChange)="updateFolder($event)"
-                                     [disabled]="!note.isEditable()" class="separator"
-                                     [updateFolderHelpText]="'biox.update_note_folder_help' | translate"></lab-folder-inline-select>
+                                    [disabled]="!note.isEditable()" class="separator"
+                                    [updateFolderHelpText]="'biox.update_note_folder_help' | translate"></lab-folder-inline-select>
 
           <!--  Validated info  -->
           <lab-object-validation-info class="separator" [object]="note"
@@ -114,8 +118,7 @@
         <!--   Note content     -->
         <div class="right-section g-max-article-width">
           <te-text-editor class="g-full-height g-print-section" [config]="textEditorConfig"
-                          [(ngModel)]="content" [disabled]="note.isValidated"
-                          (textChange)="onContentUpdate($event)"></te-text-editor>
+                          [formControl]="formControl"></te-text-editor>
         </div>
 
       </div>

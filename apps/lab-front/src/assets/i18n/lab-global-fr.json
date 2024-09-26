@@ -156,7 +156,6 @@
   "lab_usage_period_LAST_24_HOURS": "Dernières 24 heures",
   "lab_usage_period_CUSTOM": "Personnalisé",
   "user": "Utilisateur",
-  "task": "Tâche",
-  "resource_tags": "Tags de la ressource",
-  "view_tags": "Tags de la vue"
+  "document_saved": "Saved",
+  "saving_document": "Saving..."
 }

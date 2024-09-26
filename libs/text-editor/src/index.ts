@@ -28,6 +28,7 @@ export *
   from './lib/component/te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
 export * from './lib/component/te-files-list/te-files-list.component';
 export * from './lib/component/te-titles-list/te-titles-list.component';
+export * from './lib/component/te-text-editor-save/te-text-editor-save.component';
 
 // Model
 export * from './lib/model/te.helper';

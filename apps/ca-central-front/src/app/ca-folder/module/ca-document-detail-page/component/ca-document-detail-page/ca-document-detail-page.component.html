@@ -2,7 +2,7 @@
 
   <ca-hierarchy-object-breadcrumb class="g-print-hide"></ca-hierarchy-object-breadcrumb>
 
-  <fl-section [isLoading]="isLoading" [object]="document" class="section">
+  <fl-section [isLoading]="getIsLoading" [object]="document" class="section">
 
     <ng-template flSectionBody>
 
@@ -30,19 +30,25 @@
         </div>
 
         <div class="g-print-hide doc-header">
-          <div *ngIf="document.inTrash" class="g-warn-text">
-            {{ 'document_in_trash' | translate }}
-          </div>
+          @if (document.inTrash) {
+            <div class="g-warn-text">
+              {{ 'document_in_trash' | translate }}
+            </div>
+          }
 
           <fl-creation-info [user]="document.createdBy" [date]="document.createdAt">
           </fl-creation-info>
 
-          <fl-last-modification-info [user]="document.lastModifiedBy"
-                                     [date]="document.lastModifiedAt"></fl-last-modification-info>
+          <div class="g-layout-row g-layout-between-center">
+            <fl-last-modification-info [user]="document.lastModifiedBy"
+                                       [date]="document.lastModifiedAt"></fl-last-modification-info>
+
+            <te-text-editor-save [formCtrl]="contentFormControl" [saveFunc]="saveDescriptionFunc"
+                                 [debounceTime]="2500"></te-text-editor-save>
+          </div>
         </div>
 
         <te-text-editor [formControl]="contentFormControl" [config]="textEditorConfig"
-                        (textChange)="onContentUpdate($event)"
                         class="g-print-section text-editor"
                         [ngClass]="{'text-editor-edit': !contentFormControl.disabled}"></te-text-editor>
 

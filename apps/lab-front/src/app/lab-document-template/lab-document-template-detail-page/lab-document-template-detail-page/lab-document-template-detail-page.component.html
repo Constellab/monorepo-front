@@ -7,11 +7,11 @@
 
         <fl-text-icon>
           <mat-icon flIcon="document_template" class="g-icon-big"></mat-icon>
-          <h2>{{'biox.document_template' | translate}} :</h2>
+          <h2>{{ 'biox.document_template' | translate }} :</h2>
         </fl-text-icon>
         <div class="g-flex-auto g-flex">
           <h2 flElementEditable (flElementValueChange)="updateTitle($event)">
-            {{documentTemplate.title}}</h2>
+            {{ documentTemplate.title }}</h2>
         </div>
 
 
@@ -24,14 +24,14 @@
 
             <button mat-menu-item type="button" (click)="printDocument()">
               <mat-icon>print</mat-icon>
-              <span>{{'biox.print_document_template' | translate}}</span>
+              <span>{{ 'biox.print_document_template' | translate }}</span>
             </button>
 
 
             <button mat-menu-item type="button"
                     (click)="delete()">
               <mat-icon color="warn">delete</mat-icon>
-              <span class="g-warn-text">{{'biox.delete_document_template' | translate}}</span>
+              <span class="g-warn-text">{{ 'biox.delete_document_template' | translate }}</span>
             </button>
 
           </mat-menu>
@@ -41,6 +41,8 @@
       <!--   Content   -->
       <fl-article-container>
         <fl-article-left-side>
+          <te-text-editor-save [formCtrl]="formControl" [saveFunc]="saveContentFunc"
+                               [debounceTime]="2500" class="editor-save"></te-text-editor-save>
 
           <!--  Created by & Last modified bt  -->
           <p class="g-text-small g-text-light separator">
@@ -53,8 +55,8 @@
           </p>
         </fl-article-left-side>
         <fl-article>
-          <te-text-editor [(ngModel)]="content" class="g-full-height g-print-section"
-                          (textChange)="onContentUpdate($event)" [config]="textEditorConfig"
+          <te-text-editor [formControl]="formControl" class="g-full-height g-print-section"
+                          [config]="textEditorConfig"
                           [placeholder]="'biox.note_placeholder' | translate"></te-text-editor>
         </fl-article>
 

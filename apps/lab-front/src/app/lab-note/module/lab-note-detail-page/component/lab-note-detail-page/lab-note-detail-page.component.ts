@@ -2,14 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LabNote, LabNoteContent } from '../../../../../lab-core/model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
 import { ActivatedRoute } from '@angular/router';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDebouncer, FlDialogService } from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import {
   LabNoteFormDialogComponent,
   LabNoteFormDialogInput
 } from '../../../../../lab-core/entity-module/lab-note-core/component/lab-note-form-dialog/lab-note-form-dialog.component';
 import { LabRouterService } from '../../../../../lab-core/service/lab-router.service';
 import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import {
   LabValidateObjectDialogComponent,
   LabValidateObjectDialogInput
@@ -21,6 +21,8 @@ import { LabNoteTextEditorConfig } from '../../lab-note-text-editor-config.class
 import { LabTagDatasource } from '../../../../../lab-core/model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.service';
 import { first } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { TeRichTextContent } from '@monorepo/text-editor';
 
 @Component({
   selector: 'lab-note-detail-page',
@@ -31,7 +33,7 @@ import { first } from 'rxjs/operators';
 export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
 
   note$: Observable<LabNote>;
-  content: LabNoteContent;
+  formControl: FormControl<LabNoteContent> = new FormControl({ value: null });
 
   textEditorConfig: LabNoteTextEditorConfig;
 
@@ -41,7 +43,9 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
 
   tags: LabTagDatasource;
 
-  private contentDebouncer: FlDebouncer<LabNoteContent>;
+  saveContentFunc: (content: TeRichTextContent) => Observable<LabNoteContent>;
+
+  private subscription: Subscription;
 
   constructor(private noteService: LabNoteService,
               private state: LabNoteDetailPageState,
@@ -57,12 +61,6 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(
       params => this.init(params.id)
     );
-
-    // create a debouncer to save the description after x second of idle
-    this.contentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
-    this.contentDebouncer.getDebouncedValue().subscribe(
-      value => this.saveContent(value)
-    );
   }
 
   private init(id: string): void {
@@ -70,10 +68,27 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
     this.textEditorConfig = new LabNoteTextEditorConfig(id);
     this.note$ = this.state.getNote$();
     this.state.getContent$().pipe(first()).subscribe(
-      content => this.content = content
+      content => this.formControl.patchValue(content, { emitEvent: false })
     );
     this.tags = this.tagService.getEntityTagsDatasource('NOTE', id);
+
+    // disable the editor if the note is validated
+    this.subscription = this.note$.subscribe(
+      note => {
+        if (note.isValidated) {
+          this.formControl.disable({ emitEvent: false });
+        } else {
+          this.formControl.enable({ emitEvent: false });
+        }
+      });
+
+    this.saveContentFunc = (content: TeRichTextContent) =>
+      this.noteService.updateContent(this.state.currentNote.id, content).pipe(
+        // update the content in the state
+        tap(content => this.state.updateContent(content))
+      );
   }
+
 
   updateTitle(title: string): void {
     this.noteService.updateTitle(this.state.currentNote.id, title).subscribe(
@@ -97,12 +112,12 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       object: {
         title: note.title,
         folder: note.folder,
-        template: null,
+        template: null
       },
       disableFolder: note.isSynced
     };
 
-    this.dialogService.openSmallDialog(LabNoteFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(LabNoteFormDialogComponent, { data: input }).afterClosed().subscribe(
       note => this.updateNoteClosed(note)
     );
   }
@@ -111,20 +126,6 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
     if (note) {
       this.state.updateNote(note);
     }
-  }
-
-  onContentUpdate(content: LabNoteContent): void {
-    this.contentDebouncer.setValue(content);
-  }
-
-  saveContent(content: LabNoteContent): void {
-    this.noteService.updateContent(this.state.currentNote.id, content).subscribe(
-      (value) => this.saveContentSuccess(value),
-    );
-  }
-
-  private saveContentSuccess(content: LabNoteContent): void {
-    this.state.updateContent(content);
   }
 
   validate(): void {
@@ -138,7 +139,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       successMessage: 'biox.note_validated'
     };
 
-    this.dialogService.openSmallDialog(LabValidateObjectDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(LabValidateObjectDialogComponent, { data: input }).afterClosed().subscribe(
       result => this.onNoteUpdate(result)
     );
   }
@@ -154,7 +155,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       title: 'biox.delete_note',
       content: 'biox.delete_note_confirmation',
       observable: this.noteService.delete(this.state.currentNote.id),
-      successMessage: 'biox.note_deleted',
+      successMessage: 'biox.note_deleted'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -183,14 +184,14 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
         title: 'biox.unarchive_note',
         content: 'biox.unarchive_note_confirmation',
         observable: this.noteService.unarchive(note.id),
-        successMessage: 'biox.note_unarchived',
+        successMessage: 'biox.note_unarchived'
       };
     } else {
       input = {
         title: 'biox.archive_note',
         content: 'biox.archive_note_confirmation',
         observable: this.noteService.archive(note.id),
-        successMessage: 'biox.note_archived',
+        successMessage: 'biox.note_archived'
       };
     }
 
@@ -219,7 +220,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.contentDebouncer.complete();
+    this.subscription?.unsubscribe();
   }
 
 

@@ -269,7 +269,13 @@ export class CaFolderService {
   }
 
   public updateConstellabDocument(documentId: string, content: TeRichTextContent): Observable<CaConstellabDocument> {
-    return this.apiService.put(`${this.route}/constellab-document/${documentId}`, content, CaConstellabDocument);
+    return this.apiService.put(`${this.route}/constellab-document/${documentId}`, content, CaConstellabDocument,
+      {hideSnackBarError: true});
+  }
+
+  // raise an error if the document is 'locked'
+  public checkEditConstellabDocument(documentId: string): Observable<boolean> {
+    return this.apiService.get(`${this.route}/constellab-document/${documentId}/check-edit`);
   }
 
   public getConstellabDocument(documentId: string): Observable<CaConstellabDocument> {

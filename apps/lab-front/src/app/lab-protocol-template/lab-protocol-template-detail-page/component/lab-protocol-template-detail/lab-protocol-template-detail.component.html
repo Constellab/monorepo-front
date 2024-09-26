@@ -1,15 +1,10 @@
 <fl-article-container class="container">
 
   <fl-article-left-side>
+
     <!--  Tags  -->
-    <div class="g-layout-row">
-      <lab-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"
-                    entityType="PROTOCOL_TEMPLATE" [entityId]="template.id"></lab-tag-list>
-      <button mat-icon-button type="button" class="g-button-icon-small"
-              (click)="openTagsFormDialog()">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </div>
+    <lab-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"
+                  entityType="PROTOCOL_TEMPLATE" [entityId]="template.id"></lab-tag-list>
 
     <!--  Created by & Last modified bt  -->
     <p class="g-text-small g-text-light separator">
@@ -23,10 +18,12 @@
   </fl-article-left-side>
 
   <fl-article>
+    <te-text-editor-save [formCtrl]="formControl" [saveFunc]="saveDescriptionFunc"
+                         [debounceTime]="1000" class="editor-save"></te-text-editor-save>
+
     <te-text-editor [config]="textEditorConfig"
-                    [(ngModel)]="template.description" class="text-editor"
-                    [placeholder]="'biox.protocol_description_placeholder' | translate"
-                    (textChange)="onDescriptionChanged($event)"></te-text-editor>
+                    [formControl]="formControl" class="text-editor"
+                    [placeholder]="'biox.protocol_description_placeholder' | translate"></te-text-editor>
   </fl-article>
 </fl-article-container>
 

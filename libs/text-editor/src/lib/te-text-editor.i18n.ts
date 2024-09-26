@@ -39,6 +39,8 @@ const teTextEditorI18nFr: FlLangTranslation = {
     save: 'Sauvegarder',
     placeholder: 'Écrivez quelque chose, utilisez la touch / pour les commandes...',
     clean_style: 'Enlever le style',
+    document_saved: 'Enregistré',
+    saving_document: 'Enregistrement...',
     // Te ui
     delete: 'Supprimer',
     click_to_delete: 'Cliquez pour supprimer',
@@ -143,6 +145,8 @@ const teTextEditorI18nEn: FlLangTranslation = {
     save: 'Save',
     placeholder: 'Write something, use / for commands...',
     clean_style: 'Clean style',
+    document_saved: 'Saved',
+    saving_document: 'Saving...',
     // Te ui
     delete: 'Delete',
     click_to_delete: 'Click to delete',

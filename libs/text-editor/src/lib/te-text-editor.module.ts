@@ -77,6 +77,7 @@ import { TeTimestampComponent } from './component/te-timestamp/te-timestamp.comp
 import {
   TeTimestampConfigDialogComponent
 } from './component/te-timestamp-config-dialog/te-timestamp-config-dialog.component';
+import { TeTextEditorSaveComponent } from './component/te-text-editor-save/te-text-editor-save.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import {
     TeTitlesListComponent,
     TeAudioTranscriptionDialogComponent,
     TeTimestampComponent,
-    TeTimestampConfigDialogComponent
+    TeTimestampConfigDialogComponent,
+    TeTextEditorSaveComponent
   ],
   exports: [
     TeTextEditorComponent,
@@ -113,7 +115,8 @@ import {
     TeTextEditorServerSideComponent,
     TeTextEditorHistoryPortalComponent,
     TeFilesListComponent,
-    TeTitlesListComponent
+    TeTitlesListComponent,
+    TeTextEditorSaveComponent
   ],
   imports: [
     CommonModule,
