@@ -1,14 +1,21 @@
 <fl-portal class="portal">
   <fl-portal-content>
     <div class="spec">
-      <td-doc-io [ioSpec]="ioSpec"></td-doc-io>
+      <td-doc-io [ioSpec]="data.port.currentSpecs"></td-doc-io>
+
+      @if (data.ioface) {
+        <fl-key-value class="ioface">
+          <fl-key>{{ ('pr.' + data.ioface.type) | translate }}</fl-key>
+          {{ data.ioface.name }}
+        </fl-key-value>
+      }
     </div>
 
-    <fl-menu-dynamic-button *ngFor="let menuDynamic of menuDynamics" [menuDynamic]="menuDynamic"
+    <fl-menu-dynamic-button *ngFor="let menuDynamic of data.menuDynamics" [menuDynamic]="menuDynamic"
                             (buttonClick)="closePortal()">
     </fl-menu-dynamic-button>
 
-<!--    Fix the menu bug    -->
+    <!--    Fix the menu bug    -->
     <mat-menu>
     </mat-menu>
 

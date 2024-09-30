@@ -107,7 +107,7 @@ export class PrWorkflow {
       return;
     }
 
-    const layer: PrWorkflowLayer = this.findLayerWithId(layerId);
+    const layer: PrWorkflowLayer = this.findLayerById(layerId);
     if (!layerId) {
       throw new Error(`The layer with id ${layerId} doesn't exist`);
     }
@@ -140,7 +140,7 @@ export class PrWorkflow {
 
   public addLayer(layer: PrWorkflowLayer, parentLayerId: string, selectLayer: boolean = false): void {
     if (parentLayerId != null) {
-      layer.parentLayer = this.findLayerWithId(parentLayerId);
+      layer.parentLayer = this.findLayerById(parentLayerId);
     }
     this.layers.push(layer);
 
@@ -151,12 +151,12 @@ export class PrWorkflow {
   }
 
   public hasLayer(layerId: string): boolean {
-    return this.findLayerWithId(layerId) != null;
+    return this.findLayerById(layerId) != null;
   }
 
 
   // return the layer with the id
-  public findLayerWithId(layerId: string): PrWorkflowLayer {
+  public findLayerById(layerId: string): PrWorkflowLayer {
     return this.layers.find(layer => layer.id === layerId);
   }
 
@@ -187,7 +187,7 @@ export class PrWorkflow {
   }
 
   public deleteLayerAndChildren(layerId: string): void {
-    const layer = this.findLayerWithId(layerId);
+    const layer = this.findLayerById(layerId);
     if (layer == null) return;
     const children = this.getChildrenLayers(layer);
     for (const child of children) {
@@ -197,7 +197,7 @@ export class PrWorkflow {
   }
 
   private deleteLayer(layerId: string): void {
-    const layer = this.findLayerWithId(layerId);
+    const layer = this.findLayerById(layerId);
     if (layer == null) return;
 
     layer.destroy();

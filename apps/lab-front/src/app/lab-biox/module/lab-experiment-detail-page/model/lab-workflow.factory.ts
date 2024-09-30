@@ -1,4 +1,4 @@
-import {LabProcessLayout, LabProtocol} from '../../../../lab-core/model/entities/process/lab-protocol.entity';
+import { LabProcessLayout, LabProtocol } from '../../../../lab-core/model/entities/process/lab-protocol.entity';
 import {
   PrAddNodeWithConnection,
   PrProtocolLink,
@@ -13,9 +13,9 @@ import {
   PrWorkflowNodeViewer,
   PrWorkflowResourcesState
 } from '@monorepo/protocol';
-import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
-import {Observable} from 'rxjs';
-import {Injectable, NgZone} from '@angular/core';
+import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
+import { Observable } from 'rxjs';
+import { Injectable, NgZone } from '@angular/core';
 
 @Injectable()
 export class LabWorkflowFactory {
@@ -42,7 +42,7 @@ export class LabWorkflowFactory {
     if (rootLayer) {
       layer = PrWorkflowLayer.rootLayer(protocol.id, this.resourceState, this.actionState);
     } else {
-      layer = new PrWorkflowLayer(protocol.id, protocol.id, protocol.instanceName,
+      layer = new PrWorkflowLayer(protocol.id, protocol.id, protocol.instanceName, protocol.name,
         this.resourceState, this.actionState);
     }
 

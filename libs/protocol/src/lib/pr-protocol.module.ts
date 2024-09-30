@@ -51,6 +51,8 @@ import {
 } from './component/pr-workflow-node-resource/pr-workflow-node-resource.component';
 import { PrProcessInfoComponent } from './component/pr-process-info/pr-process-info.component';
 import { PrProcessInfoDialogComponent } from './component/pr-process-info-dialog/pr-process-info-dialog.component';
+import { PrIofaceInfoPortalComponent } from './component/pr-ioface-info-portal/pr-ioface-info-portal.component';
+import { MatSortHeader } from '@angular/material/sort';
 
 
 @NgModule({
@@ -76,7 +78,8 @@ import { PrProcessInfoDialogComponent } from './component/pr-process-info-dialog
     TdTechnicalDocModule,
     FlUserModule,
     FlCorePipeModule,
-    FlKeyValueModule
+    FlKeyValueModule,
+    MatSortHeader
   ],
   exports: [
     PrWorkflowComponent,
@@ -93,7 +96,8 @@ import { PrProcessInfoDialogComponent } from './component/pr-process-info-dialog
     PrWorkflowNodeContentBottomComponent,
     PrWorkflowNodeResourceComponent,
     PrProcessInfoComponent,
-    PrProcessInfoDialogComponent
+    PrProcessInfoDialogComponent,
+    PrIofaceInfoPortalComponent
   ]
 })
 export class PrProtocolModule {

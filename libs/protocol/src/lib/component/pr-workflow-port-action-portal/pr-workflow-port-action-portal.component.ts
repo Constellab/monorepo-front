@@ -1,11 +1,15 @@
-import {Component, Inject} from '@angular/core';
-import {FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef} from '@monorepo/front-core-lib';
-import {TdIOSpec} from '@monorepo/technical-doc';
-import {PrWorkflowPort} from '../../model/workflow/pr-workflow-port.class';
+import { Component, inject } from '@angular/core';
+import { FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef } from '@monorepo/front-core-lib';
+import { PrWorkflowPort } from '../../model/workflow/pr-workflow-port.class';
 
 export interface PrWorkflowPortActionPortalInput {
   port: PrWorkflowPort;
   menuDynamics: FlMenuDynamic[];
+  // provide if the port is an interface or an outerface
+  ioface?: {
+    name: string;
+    type : 'interface' | 'outerface';
+  }
 }
 
 /**
@@ -18,13 +22,9 @@ export interface PrWorkflowPortActionPortalInput {
 })
 export class PrWorkflowPortActionPortalComponent {
 
-  ioSpec: TdIOSpec;
-  menuDynamics: FlMenuDynamic[];
+  data: PrWorkflowPortActionPortalInput = inject(FL_PORTAL_DATA);
 
-  constructor(@Inject(FL_PORTAL_DATA) data: PrWorkflowPortActionPortalInput,
-              private overlayRef: FlOverlayRef) {
-    this.ioSpec = data.port.currentSpecs;
-    this.menuDynamics = data.menuDynamics;
+  constructor(private overlayRef: FlOverlayRef) {
   }
 
   closePortal(): void {

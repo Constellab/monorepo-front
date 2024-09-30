@@ -1,18 +1,18 @@
-import Drawflow, {ConnectionEvent} from 'drawflow';
-import {PrWorkflowNode} from '../node/pr-workflow-node.class';
-import {PrWorkflowConnection} from './pr-workflow-connection.class';
-import {PrWorkflowPort, PrWorkflowPortType} from './pr-workflow-port.class';
-import {PrConnection} from './pr-workflow-action.class';
-import {PrWorkflowNodeProcess} from '../node/pr-workflow-node-process.class';
-import {PrWorkflowNodeInterface} from '../node/pr-workflow-node-interface.class';
-import {PrWorkflowNodeOuterface} from '../node/pr-workflow-node-outerface.class';
-import {FlCoord} from '@monorepo/front-core-lib';
-import {PrWorkflowNodeProtocol} from '../node/pr-workflow-node-protocol.class';
-import {PrProcess} from '../pr-process.class';
-import {PrOI, PrPort} from '../pr-io.class';
-import {ClSubscriptionHandler} from '@monorepo/core-lib';
-import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
-import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
+import Drawflow, { ConnectionEvent } from 'drawflow';
+import { PrWorkflowNode } from '../node/pr-workflow-node.class';
+import { PrWorkflowConnection } from './pr-workflow-connection.class';
+import { PrWorkflowPort, PrWorkflowPortType } from './pr-workflow-port.class';
+import { PrConnection } from './pr-workflow-action.class';
+import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
+import { PrWorkflowNodeInterface } from '../node/pr-workflow-node-interface.class';
+import { PrWorkflowNodeOuterface } from '../node/pr-workflow-node-outerface.class';
+import { FlCoord } from '@monorepo/front-core-lib';
+import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
+import { PrProcess } from '../pr-process.class';
+import { PrOI, PrPort } from '../pr-io.class';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
 export class PrWorkflowLayer {
 
@@ -39,6 +39,7 @@ export class PrWorkflowLayer {
 
   constructor(public readonly id: string,
               public readonly drawflowId: string,
+              public readonly instanceName: string,
               public readonly title: string,
               private resourceState: PrWorkflowResourcesState,
               private actionState: PrWorkflowActionState) {
@@ -47,7 +48,7 @@ export class PrWorkflowLayer {
   public static rootLayer(id: string, resourceState: PrWorkflowResourcesState,
                           actionState: PrWorkflowActionState): PrWorkflowLayer {
     // for the root layer, the id MUST be home (required by drawflow)
-    return new PrWorkflowLayer(id, 'Home', 'Main protocol', resourceState, actionState);
+    return new PrWorkflowLayer(id, 'Home', '', 'Main protocol', resourceState, actionState);
   }
 
   public init(editor: Drawflow, containerElement: HTMLElement): void {
@@ -477,6 +478,16 @@ export class PrWorkflowLayer {
 
   public findConnectionsByNode(nodeName: string): PrWorkflowConnection[] {
     return this.connections.filter(connection => connection.isConnectedToNode(nodeName));
+  }
+
+  public findConnectionByRightNode(nodeName: string, portName: string): PrWorkflowConnection | null {
+    return this.connections.find(connection => connection.inputNode.instanceName === nodeName &&
+      connection.inputPort.name === portName);
+  }
+
+  public findConnectionsByLeftNode(nodeName: string, portName: string): PrWorkflowConnection[] {
+    return this.connections.filter(connection => connection.outputNode.instanceName === nodeName &&
+      connection.outputPort.name === portName);
   }
 
   public getLayerHierarchy(): PrWorkflowLayer[] {

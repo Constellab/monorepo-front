@@ -1,5 +1,5 @@
-import {Directive, ElementRef, Input, OnDestroy, Renderer2} from '@angular/core';
-import {PrWorkflowManagerState} from '../state/pr-workflow-manager-state';
+import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { PrWorkflowManagerState } from '../state/pr-workflow-manager-state';
 import {
   FlCoord,
   FlHtmlHelper,
@@ -8,13 +8,16 @@ import {
   FlPortalConnectedPosition,
   FlPortalService
 } from '@monorepo/front-core-lib';
-import {PrWorkflowNode} from '../model/node/pr-workflow-node.class';
-import {ClSubscriptionHandler} from '@monorepo/core-lib';
-import {PrWorkflowPort} from '../model/workflow/pr-workflow-port.class';
+import { PrWorkflowNode } from '../model/node/pr-workflow-node.class';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { PrWorkflowPort } from '../model/workflow/pr-workflow-port.class';
 import {
   PrWorkflowPortActionPortalComponent,
   PrWorkflowPortActionPortalInput
 } from '../component/pr-workflow-port-action-portal/pr-workflow-port-action-portal.component';
+import { PrWorkflowNodeProtocol } from '../model/node/pr-workflow-node-protocol.class';
+import { PrWorkflowNodeInterface } from '../model/node/pr-workflow-node-interface.class';
+import { PrWorkflowNodeOuterface } from '../model/node/pr-workflow-node-outerface.class';
 
 @Directive()
 export abstract class PrWorkflowNodeDirective implements OnDestroy {
@@ -61,11 +64,11 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
   }
 
   protected getNodeElement(): HTMLElement | null {
-    return FlHtmlHelper.getParent(this.elementRef.nativeElement, {className: 'drawflow-node'});
+    return FlHtmlHelper.getParent(this.elementRef.nativeElement, { className: 'drawflow-node' });
   }
 
   protected getNodeParentElement(): HTMLElement | null {
-    return FlHtmlHelper.getParent(this.elementRef.nativeElement, {className: 'parent-node'});
+    return FlHtmlHelper.getParent(this.elementRef.nativeElement, { className: 'parent-node' });
   }
 
   ////////////////////////////////////////////// HANDLE CLICK //////////////////////////////////////////////
@@ -137,13 +140,26 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
       menuDynamics: menuDynamics
     };
 
+    if (this.node instanceof PrWorkflowNodeProtocol) {
+      data.ioface = {
+        name: port.name,
+        type: port.type === 'input' ? 'interface' : 'outerface'
+      };
+    } else if (this.node instanceof PrWorkflowNodeInterface ||
+      this.node instanceof PrWorkflowNodeOuterface) {
+      data.ioface = {
+        name: port.name,
+        type: this.node instanceof PrWorkflowNodeInterface ? 'interface' : 'outerface'
+      };
+    }
+
     const position: FlPortalConnectedPosition[] = [
-      {originX: 'end', originY: 'bottom', overlayX: 'start', overlayY: 'top'},
+      { originX: 'end', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
       'right', 'top', 'left', 'bottom'];
 
     const config = this.portalService.configureRelativePortal(element, position, {
       disposeOnOutsideClick: true,
-      disposeOnNavigation: true,
+      disposeOnNavigation: true
     });
 
     if (PrWorkflowNodeDirective.currentOverlayRef) {

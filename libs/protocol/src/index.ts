@@ -37,6 +37,7 @@ export * from './lib/state/pr-workflow-resources.state';
 
 
 // component
+export * from './lib/component/pr-ioface-info-portal/pr-ioface-info-portal.component';
 export * from './lib/component/pr-process-config-info-dialog/pr-process-config-info-dialog.component';
 export * from './lib/component/pr-process-info/pr-process-info.component';
 export * from './lib/component/pr-process-info-dialog/pr-process-info-dialog.component';

@@ -337,7 +337,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
 
   private getAndCheckProcessNodeObject(protocolId: string, processInstanceName: string): PrProcess {
-    const layer = this.workflow.findLayerWithId(protocolId);
+    const layer = this.workflow.findLayerById(protocolId);
     const node = layer.findNodeByName(processInstanceName);
 
     if (node == null) {
@@ -364,7 +364,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   private onNewNode(node: PrWorkflowNode, layerId: string): void {
     // add the node to the workflow
-    const layer: PrWorkflowLayer = this.workflow.findLayerWithId(layerId);
+    const layer: PrWorkflowLayer = this.workflow.findLayerById(layerId);
     layer.addNode(node);
 
     // save the node positions after the creation
@@ -374,7 +374,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
   private onNewNodeWithConnector(processWithLink: PrAddNodeWithConnection, relativeCoord: PrNodeRelativeCoord): void {
 
     // add the node to the workflow
-    const layer: PrWorkflowLayer = this.workflow.findLayerWithId(relativeCoord.layerId);
+    const layer: PrWorkflowLayer = this.workflow.findLayerById(relativeCoord.layerId);
 
     // set the correct position for the new node
     const coord = layer.getRelativeNodePosition(relativeCoord.nodeName, relativeCoord.position);
@@ -528,7 +528,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
         if (workflowEvent.connection.isIOFaceConnection()) {
           this.snackBarService.openErrorMessage({ text: 'pr.delete_link_interface_error', translateText: true });
           // re-create the connection
-          const layer = this.workflow.findLayerWithId(workflowEvent.protocolId);
+          const layer = this.workflow.findLayerById(workflowEvent.protocolId);
           layer.addConnection(workflowEvent.connection);
           return;
         }
@@ -616,11 +616,11 @@ export class LabWorkflowEditConfig implements OnDestroy {
     // revert the DELETE and ADD_CONNECTION actions
     if (actionType === LabWorkflowAction.DELETE_CONNECTION) {
       const info: LabWorkflowEventConnectionAdditionalInfo = additionalInfo;
-      const layer = this.workflow.findLayerWithId(info.protocolId);
+      const layer = this.workflow.findLayerById(info.protocolId);
       layer.addConnection(info.connection);
     } else if (actionType === LabWorkflowAction.ADD_CONNECTION) {
       const info: LabWorkflowEventConnectionAdditionalInfo = additionalInfo;
-      const layer = this.workflow.findLayerWithId(info.protocolId);
+      const layer = this.workflow.findLayerById(info.protocolId);
       layer.removeConnection(info.connection);
     } else if ([LabWorkflowAction.DELETE_PROCESS, LabWorkflowAction.DELETE_INTERFACE, LabWorkflowAction.DELETE_OUTERFACE]
       .includes(actionType)) {
@@ -630,7 +630,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
       // re-create the node
       this.onNewNode(info.node, info.protocolId);
 
-      const layer: PrWorkflowLayer = this.workflow.findLayerWithId(info.protocolId);
+      const layer: PrWorkflowLayer = this.workflow.findLayerById(info.protocolId);
       // re-create the connections
       for (const connection of info.connections) {
         layer.addConnection(connection);

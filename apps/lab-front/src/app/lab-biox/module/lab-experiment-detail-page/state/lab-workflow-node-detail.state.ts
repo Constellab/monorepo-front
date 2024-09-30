@@ -1,6 +1,6 @@
-import {Injectable, ViewContainerRef} from '@angular/core';
-import {BehaviorSubject, filter, Observable, switchMap} from 'rxjs';
-import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
+import { Injectable, ViewContainerRef } from '@angular/core';
+import { BehaviorSubject, filter, Observable, switchMap } from 'rxjs';
+import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
   PrWorkflowActionEvent,
   PrWorkflowActionShowView,
@@ -15,25 +15,25 @@ import {
   LabResourceViewDetailDialogComponent,
   LabResourceViewDetailDialogInput
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
-import {FlDialogService, FlPortalConnectedPosition, FlPortalService} from '@monorepo/front-core-lib';
+import { FlDialogService, FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib';
 import {
   LabWorkflowAction,
   LabWorkflowEditConfig,
   LabWorkflowEventNodeAdditionalInfo
 } from '../model/lab-workflow-edit-config.class';
-import {TdIOSpec, TdTypingName} from '@monorepo/technical-doc';
-import {ClSubscriptionHandler} from '@monorepo/core-lib';
-import {LabProcessDashboardComponent} from '../component/lab-process-dashboard/lab-process-dashboard.component';
-import {LabExperimentDetailPageState} from './lab-experiment-detail-page.state';
-import {LabProtocolService} from '../../../../lab-core/entity-service/lab-protocol.service';
+import { TdIOSpec, TdTypingName } from '@monorepo/technical-doc';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { LabProcessDashboardComponent } from '../component/lab-process-dashboard/lab-process-dashboard.component';
+import { LabExperimentDetailPageState } from './lab-experiment-detail-page.state';
+import { LabProtocolService } from '../../../../lab-core/entity-service/lab-protocol.service';
 import {
   LabSelectResourceDialogComponent
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
-import {LabResource} from '../../../../lab-core/model/entities/resource/lab-resource.entity';
+import { LabResource } from '../../../../lab-core/model/entities/resource/lab-resource.entity';
 import {
   LabResourceNextObjectsPortalComponent
 } from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
-import {LabRouterService} from '../../../../lab-core/service/lab-router.service';
+import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -178,9 +178,9 @@ export class LabWorkflowNodeDetailState {
       resourceName: event.resourceName,
       viewMethodName: event.config.view_config.view_method_name,
       config: event.config.view_config.config_values,
-      saveViewConfig: true,
+      saveViewConfig: true
     };
-    this.dialogService.openBigDialog(LabResourceViewDetailDialogComponent, {data: data});
+    this.dialogService.openBigDialog(LabResourceViewDetailDialogComponent, { data: data });
   }
 
   private openResourceSelection(node: PrWorkflowNode): void {
@@ -199,7 +199,7 @@ export class LabWorkflowNodeDetailState {
 
   updateProcessName(process: LabProcess, newName: string): void {
     this.protocolService.renameProcess(process.parentProtocolId, process.instanceName, newName).subscribe(
-      process => this.onUpdateProcessNameSuccess(process),
+      process => this.onUpdateProcessNameSuccess(process)
     );
   }
 
@@ -212,7 +212,7 @@ export class LabWorkflowNodeDetailState {
 
     const config = this.portalService.configureRelativePortal(element, position, {
       disposeOnOutsideClick: true,
-      disposeOnNavigation: true,
+      disposeOnNavigation: true
     });
 
     this.portalService.createPortal(LabResourceNextObjectsPortalComponent, config, resourceId);

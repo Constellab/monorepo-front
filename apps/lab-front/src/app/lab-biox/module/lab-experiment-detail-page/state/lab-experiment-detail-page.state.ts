@@ -217,7 +217,7 @@ export class LabExperimentDetailPageState {
    * @param dbProtocol
    */
   public refreshProtocolAndOthers(dbProtocol: LabProtocol): void {
-    const protocol = this.workflow.findLayerWithId(dbProtocol.id);
+    const protocol = this.workflow.findLayerById(dbProtocol.id);
     if (protocol == null) return;
 
     this.refreshProtocolSuccess(dbProtocol);
@@ -231,7 +231,7 @@ export class LabExperimentDetailPageState {
   }
 
   public refreshProcess(process: LabProcess): void {
-    const layer = this.workflow.findLayerWithId(process.parentProtocolId);
+    const layer = this.workflow.findLayerById(process.parentProtocolId);
     if (layer) {
       layer.updateProcessObject(process.toPrProcess());
     }
@@ -290,7 +290,7 @@ export class LabExperimentDetailPageState {
 
   private refreshProtocolSuccess(protocol: LabProtocol): void {
     // refresh the layer object
-    const layer = this.workflow.findLayerWithId(protocol.id);
+    const layer = this.workflow.findLayerById(protocol.id);
     if (layer) {
       for (const labProcess of Object.values(protocol.data.nodes)) {
         layer.updateProcessObject(labProcess.toPrProcess());

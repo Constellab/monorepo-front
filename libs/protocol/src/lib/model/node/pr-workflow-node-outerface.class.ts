@@ -1,13 +1,13 @@
-import {PrOuterface} from '../pr-interface.class';
-import {PrWorkflowPort} from '../workflow/pr-workflow-port.class';
-import {map, Observable, of, switchMap} from 'rxjs';
-import {FlStatusEvent, FlThemeService} from '@monorepo/front-core-lib';
-import {PrWorkflowResourcesState} from '../../state/pr-workflow-resources.state';
-import {PrResource} from '../pr-resource.class';
-import {PrWorkflowNodeProcess} from './pr-workflow-node-process.class';
-import {PrProcess} from '../pr-process.class';
-import {PrWorkflowNodeResource, PrWorkNodeIoExternalButton} from './pr-workflow-node-resource.class';
-import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
+import { PrOuterface } from '../pr-interface.class';
+import { PrWorkflowPort } from '../workflow/pr-workflow-port.class';
+import { map, Observable, of, switchMap } from 'rxjs';
+import { FlStatusEvent, FlThemeService } from '@monorepo/front-core-lib';
+import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
+import { PrResource } from '../pr-resource.class';
+import { PrWorkflowNodeProcess } from './pr-workflow-node-process.class';
+import { PrProcess } from '../pr-process.class';
+import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
 
 /**
@@ -21,7 +21,7 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface>
   constructor(outerfaceObject: PrOuterface, parentLayerId: string, outerfaceName: string,
               private connectedNode: PrWorkflowNodeProcess, private connectedPort: PrWorkflowPort,
               resourceState: PrWorkflowResourcesState, actionState: PrWorkflowActionState) {
-    super(outerfaceObject.name, parentLayerId, outerfaceObject, false, resourceState, actionState);
+    super(outerfaceObject.name, parentLayerId, outerfaceObject, true, resourceState, actionState);
     this.outerfaceName = outerfaceName;
   }
 
@@ -83,7 +83,23 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface>
   }
 
   getExternalButtons$(): Observable<PrWorkNodeIoExternalButton | null> {
-    return undefined;
+    if (!this.showExternalButtons) return of(null);
+
+    return of({
+      position: 'after',
+      icon: 'arrow_forward',
+      tooltip: 'pr.show_outerface_info',
+      action: (event: MouseEvent) => {
+        this.actionState.newAction({
+          action: 'showIOFace',
+          element: event.target as HTMLElement,
+          type: 'outerface',
+          name: this.outerfaceName,
+          object: this.currentObject,
+          parentLayerId: this.parentLayerId
+        });
+      }
+    });
   }
 
   protected getDefaultIcon(): string {

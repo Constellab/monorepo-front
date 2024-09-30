@@ -43,6 +43,16 @@ const prProtocolI18nFr: FlLangTranslation = {
     typing_name: 'Type',
     show_config_detail: 'Configuration détaillée',
     process_detail: 'Détail du process',
+    show_interface_info: 'Afficher les informations de l\'interface',
+    show_outerface_info: 'Afficher les informations de l\'outerface',
+    interface: 'Interface',
+    outerface: 'Outerface',
+    interface_connected_in_parent: 'Interface connectée aux process suivants sur le parent',
+    outerface_connected_in_parent: 'Outerface connectée aux process suivants sur le parent',
+    interface_not_connect_in_parent: 'Interface non connectée sur le parent',
+    outerface_not_connect_in_parent: 'Outerface non connectée sur le parent',
+    process_name: 'Nom du process',
+    port_name: 'Nom du port',
   }
 };
 
@@ -84,6 +94,16 @@ const prProtocolI18nEn: FlLangTranslation = {
     typing_name: 'Type',
     show_config_detail: 'Detailed configuration',
     process_detail: 'Process detail',
+    show_interface_info: 'Show interface information',
+    show_outerface_info: 'Show outerface information',
+    interface: 'Interface',
+    outerface: 'Outerface',
+    interface_connected_in_parent: 'Interface connected to the following processes in parent',
+    outerface_connected_in_parent: 'Outerface connected to the following processes in parent',
+    interface_not_connect_in_parent: 'Interface not connected in parent',
+    outerface_not_connect_in_parent: 'Outerface not connected in parent',
+    process_name: 'Process name',
+    port_name: 'Port name',
   }
 };
 

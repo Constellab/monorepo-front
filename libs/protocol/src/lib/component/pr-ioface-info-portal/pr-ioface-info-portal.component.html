@@ -1,0 +1,53 @@
+<fl-portal class="portal">
+
+  <fl-portal-header>
+    {{ ('pr.' + data.type) | translate }}
+  </fl-portal-header>
+
+  <fl-portal-content>
+
+    <fl-key-value>
+      <fl-key>{{ 'name' | translate }}</fl-key>
+      {{ data.name }}
+    </fl-key-value>
+    @if (data.connectedNodesInParent.isEmpty()) {
+      <div>{{ ('pr.' + data.type + '_not_connect_in_parent') | translate }}</div>
+    } @else {
+
+      <div>{{ ('pr.' + data.type + '_connected_in_parent') | translate }}</div>
+
+      <mat-table mat-table [dataSource]="data.connectedNodesInParent">
+        <!-- Node name -->
+        <ng-container matColumnDef="node">
+          <mat-header-cell *matHeaderCellDef>
+            <span>{{ 'pr.process_name' | translate }}</span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <div>
+              <div>{{ row.node.getCurrentTitle() }}</div>
+              <div class="g-text-small g-text-light">
+                {{ row.node.instanceName }}
+              </div>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <!-- POrt name -->
+        <ng-container matColumnDef="port">
+          <mat-header-cell *matHeaderCellDef>
+            <span>{{ 'pr.port_name' | translate }}</span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.port.name }}
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+
+        <mat-row *matRowDef="let row; columns: columns;">
+        </mat-row>
+      </mat-table>
+    }
+
+  </fl-portal-content>
+</fl-portal>

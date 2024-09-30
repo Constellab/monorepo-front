@@ -25,7 +25,7 @@ export class PrWorkflowFactory {
    * key is the process id, value is the PrProtocol
    * @private
    */
-  private conversionMatch: Record<string, PrProtocol> = {}
+  private conversionMatch: Record<string, PrProtocol> = {};
 
   constructor(private graph: PrProtocolGraph, private id: string,
               private ngZone: NgZone,
@@ -34,27 +34,26 @@ export class PrWorkflowFactory {
   }
 
   public createWorkflow(): PrWorkflow {
-    const layer = this.createLayer(this.graph, true, this.id);
+    let rootLayer = PrWorkflowLayer.rootLayer(this.id, this.resourceState, this.actionState);
 
-    return new PrWorkflow(layer, 'readOnly', this.ngZone);
+    rootLayer = this.createLayerObjects(rootLayer, this.graph);
+
+    return new PrWorkflow(rootLayer, 'readOnly', this.ngZone);
   }
 
-  private createLayer(graph: PrProtocolGraph, rootLayer: boolean,
-                      id: string, title?: string): PrWorkflowLayer {
+  private createSubLayer(graph: PrProtocolGraph, id: string, instanceName: string, title: string): PrWorkflowLayer {
+    const layer = new PrWorkflowLayer(id, id, instanceName, title, this.resourceState, this.actionState);
+    return this.createLayerObjects(layer, graph);
+  }
 
-    let layer: PrWorkflowLayer;
-    if (rootLayer) {
-      layer = PrWorkflowLayer.rootLayer(id, this.resourceState, this.actionState);
-    } else {
-      layer = new PrWorkflowLayer(id, id, title, this.resourceState, this.actionState);
-    }
 
+  private createLayerObjects(layer: PrWorkflowLayer, graph: PrProtocolGraph): PrWorkflowLayer {
     const layout: PrProtocolLayout = graph.layout;
 
     for (const key of Object.keys(graph.nodes)) {
       const caProcess = graph.nodes[key];
       const nodeLayout = layout?.process_layouts[key] ?? null;
-      const node = this.createProcessNode(caProcess, key, id, nodeLayout);
+      const node = this.createProcessNode(caProcess, key, layer.id, nodeLayout);
       layer.addNode(node);
     }
 
@@ -100,7 +99,8 @@ export class PrWorkflowFactory {
       processNode = new PrWorkflowNodeViewer(prProcess.instanceName, protocolId, prProcess,
         false, this.resourceState, this.actionState);
     } else if (process.graph != null) {
-      const layer: () => Observable<PrWorkflowLayer> = () => of(this.createLayer(process.graph, false, prProcess.id, name));
+      const layer: () => Observable<PrWorkflowLayer> = () =>
+        of(this.createSubLayer(process.graph, prProcess.id, prProcess.instanceName, name));
       processNode = new PrWorkflowNodeProtocol(prProcess, layer, this.resourceState, this.actionState);
     } else {
       processNode = new PrWorkflowNodeProcess(prProcess, this.resourceState, this.actionState);
@@ -131,7 +131,7 @@ export class PrWorkflowFactory {
     };
   }
 
-  public findCaProcessByPrProcessId(processId: string): PrProtocol{
+  public findCaProcessByPrProcessId(processId: string): PrProtocol {
     return this.conversionMatch[processId];
   }
 }

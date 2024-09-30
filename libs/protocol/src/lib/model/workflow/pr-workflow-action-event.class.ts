@@ -1,6 +1,7 @@
-import {PrWorkflowNodeProcess} from '../node/pr-workflow-node-process.class';
-import {TdTaskViewerConfig} from '@monorepo/technical-doc';
-import {PrWorkflowNode} from '../node/pr-workflow-node.class';
+import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
+import { TdTaskViewerConfig } from '@monorepo/technical-doc';
+import { PrWorkflowNode } from '../node/pr-workflow-node.class';
+import { PrInterface } from '../pr-interface.class';
 
 export type PrWorkflowActionEvent =
   PrWorkflowActionSelectNode
@@ -8,7 +9,8 @@ export type PrWorkflowActionEvent =
   | PrWorkflowActionShowResource
   | PrWorkflowActionShowView
   | PrWorkflowActionShowNextExp
-  | PrWorkflowActionNavigateToExp;
+  | PrWorkflowActionNavigateToExp
+  | PrWorkflowActionShowIOFace;
 
 export interface PrWorkflowActionBase {
   action: string;
@@ -57,4 +59,13 @@ export interface PrWorkflowActionShowNextExp {
 export interface PrWorkflowActionNavigateToExp {
   action: 'navigateToExperiment';
   experimentId: string;
+}
+
+export interface PrWorkflowActionShowIOFace {
+  action: 'showIOFace';
+  element: HTMLElement;
+  type: 'interface' | 'outerface';
+  name: string;
+  object: PrInterface;
+  parentLayerId: string;
 }
