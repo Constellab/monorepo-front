@@ -4,7 +4,7 @@ import {
   caConstChatRoute,
   caConstDashboardRoute,
   caConstFolderRoute,
-  caConstLabInstancesRoute,
+  caConstLabsRoute,
   caConstMyFoldersRoute,
   caConstStructureRoute,
   caConstUserPageRoute
@@ -112,44 +112,44 @@ export class CaRouterService {
 
   //////////////////////////// Lab //////////////////////////////
 
-  public static getMyLabInstancesRoute(): string {
-    return CaRouterService.getFullRoute(caConstLabInstancesRoute);
+  public static getMyLabsRoute(): string {
+    return CaRouterService.getFullRoute(caConstLabsRoute);
   }
 
-  public static getLabInstanceDetailRoute(labInstanceId: string): string {
-    return CaRouterService.getFullRoute(`${caConstLabInstancesRoute}/${labInstanceId}`);
+  public static getLabDetailRoute(labId: string): string {
+    return CaRouterService.getFullRoute(`${caConstLabsRoute}/${labId}`);
   }
 
-  public navigateToLabInstanceDetail(labInstanceId: string): void {
-    this.router.navigate([CaRouterService.getLabInstanceDetailRoute(labInstanceId)]);
+  public navigateToLabDetail(labId: string): void {
+    this.router.navigate([CaRouterService.getLabDetailRoute(labId)]);
   }
 
-  public static getLabInstanceConfigRoute(labInstanceId: string): string {
-    return `${CaRouterService.getLabInstanceDetailRoute(labInstanceId)}/config`;
+  public static getLabConfigRoute(labId: string): string {
+    return `${CaRouterService.getLabDetailRoute(labId)}/config`;
   }
 
-  public static getLabInstanceStatusHistoryRoute(labInstanceId: string): string {
-    return `${CaRouterService.getLabInstanceDetailRoute(labInstanceId)}/status-history`;
+  public static getLabStatusHistoryRoute(labId: string): string {
+    return `${CaRouterService.getLabDetailRoute(labId)}/status-history`;
   }
 
-  public static getLabInstanceUsageRoute(labInstanceId: string): string {
-    return `${CaRouterService.getLabInstanceDetailRoute(labInstanceId)}/usage`;
+  public static getLabUsageRoute(labId: string): string {
+    return `${CaRouterService.getLabDetailRoute(labId)}/usage`;
   }
 
-  public static getLabBackupRoute(labInstanceId: string): string {
-    return `${CaRouterService.getLabInstanceDetailRoute(labInstanceId)}/backup`;
+  public static getLabBackupRoute(labId: string): string {
+    return `${CaRouterService.getLabDetailRoute(labId)}/backup`;
   }
 
-  public static getLabSupportRoute(labInstanceId: string): string {
-    return `${CaRouterService.getLabInstanceDetailRoute(labInstanceId)}/support`;
+  public static getLabSupportRoute(labId: string): string {
+    return `${CaRouterService.getLabDetailRoute(labId)}/support`;
   }
 
   public static getCreateLabRoute(): string {
-    return CaRouterService.getFullRoute(`${caConstLabInstancesRoute}/create`);
+    return CaRouterService.getFullRoute(`${caConstLabsRoute}/create`);
   }
 
-  public navigateToLabConfigRoute(labInstanceId: string): void {
-    this.router.navigate([CaRouterService.getLabInstanceConfigRoute(labInstanceId)]);
+  public navigateToLabConfigRoute(labId: string): void {
+    this.router.navigate([CaRouterService.getLabConfigRoute(labId)]);
   }
 
   ////////////////////////// STRUCTURE MODULE ///////////////////////

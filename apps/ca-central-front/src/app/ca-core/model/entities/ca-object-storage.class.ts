@@ -7,7 +7,7 @@ import {
   FlDatasourcePaginated,
   FlEntityPaginatedDatasource
 } from '@monorepo/front-core-lib';
-import { CaLabInstance } from './lab/ca-lab-instance.class';
+import { CaLab } from './lab/ca-lab.class';
 
 
 export class CaBucketCredentials extends CaBaseEntity {
@@ -77,8 +77,8 @@ export class CaBucketFull extends CaBucket {
   @Type(() => CaCloudProviderRegion)
   region?: CaCloudProviderRegion;
 
-  @Type(() => CaLabInstance)
-  labInstance?: CaLabInstance;
+  @Type(() => CaLab)
+  lab?: CaLab;
 
   @Type(() => CaBucketCredentials)
   credentials: CaBucketCredentials;

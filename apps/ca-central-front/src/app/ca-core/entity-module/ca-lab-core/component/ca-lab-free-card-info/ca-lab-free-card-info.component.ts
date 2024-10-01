@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CaLabFreeGetDto } from '../../../../model/entities/lab/ca-lab-free.class';
-import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { Observable, of } from 'rxjs';
 import {
@@ -21,11 +21,11 @@ export class CaLabFreeCardInfoComponent implements OnInit {
 
   @Input() userId: string;
 
-  @Input() labInstanceId: string;
+  @Input() labId: string;
 
   freeLabDTO$: Observable<CaLabFreeGetDto>;
 
-  constructor(private labService: CaLabInstanceService,
+  constructor(private labService: CaLabService,
               private dialogService: FlDialogService) {
 
   }
@@ -33,8 +33,8 @@ export class CaLabFreeCardInfoComponent implements OnInit {
   ngOnInit(): void {
     if (this.userId) {
       this.freeLabDTO$ = this.labService.getUserFreeLabByUser(this.userId);
-    } else if (this.labInstanceId) {
-      this.freeLabDTO$ = this.labService.getUserFreeLabByLab(this.labInstanceId);
+    } else if (this.labId) {
+      this.freeLabDTO$ = this.labService.getUserFreeLabByLab(this.labId);
     } else {
       this.freeLabDTO$ = this.labService.getCurrentUserFreeLab();
     }

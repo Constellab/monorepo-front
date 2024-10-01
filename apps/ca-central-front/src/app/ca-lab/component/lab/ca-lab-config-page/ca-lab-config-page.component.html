@@ -1,0 +1,16 @@
+<!--   Owner section      -->
+<ng-container *ngIf="isOwner$ | async">
+
+  <ng-container *ngIf="isHttpAccessible$ | async">
+
+    <ca-lab-global-status class="g-section"></ca-lab-global-status>
+
+    <ca-lab-manager class="g-section"></ca-lab-manager>
+
+    <ca-lab-green-options class="g-section"></ca-lab-green-options>
+
+  </ng-container>
+
+  <ca-lab-desktop-config *ngIf="isDesktop$ | async"
+                         class="g-section"></ca-lab-desktop-config>
+</ng-container>

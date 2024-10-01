@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Component, Input, OnInit } from '@angular/core';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
+import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-lab-login-button',
@@ -9,7 +9,7 @@ import {ClHelpService} from '@monorepo/core-lib';
 })
 export class CaLabLoginButtonComponent implements OnInit {
 
-  @Input() labInstanceId: string;
+  @Input() labId: string;
 
   @Input() isRunning: boolean = false;
 
@@ -17,7 +17,7 @@ export class CaLabLoginButtonComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(private labInstanceService: CaLabInstanceService) {
+  constructor(private labService: CaLabService) {
   }
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class CaLabLoginButtonComponent implements OnInit {
   loginToLab(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     this.isLoading = true;
-    this.labInstanceService.logUserToLab(this.labInstanceId).subscribe({
+    this.labService.logUserToLab(this.labId).subscribe({
       next: result => this.loginSuccess(result.url),
       error: () => this.isLoading = false
     });

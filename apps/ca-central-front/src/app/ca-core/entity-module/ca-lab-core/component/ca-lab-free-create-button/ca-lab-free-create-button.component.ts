@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { CaLabFreeGetDto } from '../../../../model/entities/lab/ca-lab-free.class';
 import { Observable } from 'rxjs';
 import {
@@ -9,7 +9,7 @@ import {
   FlTranslateParam,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import { CaLabInstance } from '../../../../model/entities/lab/ca-lab-instance.class';
+import { CaLab } from '../../../../model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import { CaEnvironmentHelper } from '../../../../utils/ca-environment.helper';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
@@ -23,14 +23,14 @@ export class CaLabFreeCreateButtonComponent {
 
   freeDto$: Observable<CaLabFreeGetDto> = this.labService.getCurrentUserFreeLab();
 
-  constructor(private labService: CaLabInstanceService,
+  constructor(private labService: CaLabService,
               private dialogService: FlDialogService,
               private router: CaRouterService,
               private translateService: FlTranslateService,
               private communityHelper: CoCommunityHelperService) {
   }
 
-  createFreeLabInstance(freeLab: CaLabFreeGetDto): void {
+  createFreeLab(freeLab: CaLabFreeGetDto): void {
     const params: FlTranslateParam = {
       param: {
         usageLimit: freeLab.standardInfo.usageLimitInHours,
@@ -53,18 +53,18 @@ export class CaLabFreeCreateButtonComponent {
     const input: FlConfirmDialogInput = {
       title: 'start_free_data_lab',
       content: { text: content, translateText: false },
-      observable: this.labService.createFreeLabInstanceCurrentUser(),
+      observable: this.labService.createFreeLabCurrentUser(),
       successMessage: 'free_data_lab_started'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onCreateFreeLabInstanceDialogClosed(result)
+      result => this.onCreateFreeLabDialogClosed(result)
     );
   }
 
-  private onCreateFreeLabInstanceDialogClosed(result: FlConfirmDialogResult<CaLabInstance>): void {
+  private onCreateFreeLabDialogClosed(result: FlConfirmDialogResult<CaLab>): void {
     if (result.choice) {
-      this.router.navigateToLabInstanceDetail(result.result.id);
+      this.router.navigateToLabDetail(result.result.id);
     }
 
   }

@@ -1,0 +1,12 @@
+<fl-dialog-header>
+  {{ 'lab_backup_statuses_details' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [arrayObs]="backupsStatuses">
+    <ng-container *flSectionBody>
+      <ca-lab-backup-status-table [datasource]="backupsStatuses" [columns]="columns"
+                                  [labId]="labId"></ca-lab-backup-status-table>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

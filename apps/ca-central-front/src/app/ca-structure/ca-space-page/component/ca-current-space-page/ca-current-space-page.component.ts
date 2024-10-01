@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {CaRouterService} from '../../../../ca-core/service/ca-router.service';
-import {Observable} from 'rxjs';
-import {CaSpace} from '../../../../ca-core/model/entities/space/ca-space.class';
-import {CaCurrentSpaceService} from '../../../../ca-core/service-api/ca-current-space.service';
-import {FlHorizontalNavBarItem} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { Observable } from 'rxjs';
+import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
+import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
+import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ca-current-space-page',
@@ -37,7 +37,7 @@ export class CaCurrentSpacePageComponent implements OnInit {
     if (this.currentSpaceService.isSpaceAdmin()) {
       this.routes.push(
         {
-          label: {text: 'lab_instances', translateText: true},
+          label: {text: 'labs', translateText: true},
           icon: 'lab',
           route: CaRouterService.getCurrentSpaceLabsRoute()
         },

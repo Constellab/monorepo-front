@@ -62,7 +62,7 @@ export class CaExperimentTechnicalReportComponent implements OnInit, OnDestroy {
       (res: CaTechnicalReport) => this.onTechnicalReportSuccess(res)
     );
 
-    this.workflowConfig = new CaWorkflowNodeMenuConfig(this.experiment.labInstance, this.snackBarService);
+    this.workflowConfig = new CaWorkflowNodeMenuConfig(this.experiment.lab, this.snackBarService);
     this.actionState.init();
 
 

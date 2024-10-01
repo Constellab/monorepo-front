@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 import {
-  CaLabInstanceStatusHistory,
-  CaLabInstanceStatusHistoryDatasource
-} from '../../../model/entities/lab/ca-lab-instance.class';
+  CaLabStatusHistory,
+  CaLabStatusHistoryDatasource
+} from '../../../model/entities/lab/ca-lab.class';
 
 @Component({
   selector: 'ca-status-history-table',
@@ -12,8 +12,8 @@ import {
 })
 export class CaStatusHistoryTableComponent {
 
-  @Input({ required: true }) datasource: CaLabInstanceStatusHistoryDatasource<any>;
+  @Input({ required: true }) datasource: CaLabStatusHistoryDatasource<any>;
 
-  @Input() columns: FlTableColumnStatic<CaLabInstanceStatusHistory>[] = ['createdAt', 'endDate', 'status', 'createdBy'];
+  @Input() columns: FlTableColumnStatic<CaLabStatusHistory>[] = ['createdAt', 'endDate', 'status', 'createdBy'];
 
 }

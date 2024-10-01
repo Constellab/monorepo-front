@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCityComponent} from './ca-city.component';
+import { CaCityComponent } from './ca-city.component';
 
-describe('CaLabInstanceCityComponent', () => {
+describe('CaLabCityComponent', () => {
   let component: CaCityComponent;
   let fixture: ComponentFixture<CaCityComponent>;
 

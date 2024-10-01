@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
-import { CaLabInstanceWithSpace } from '../../../../model/entities/lab/ca-lab-instance.class';
-import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
+import { CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CaLabFreeCreateDto } from '../../../../model/entities/lab/ca-lab-free.class';
@@ -14,11 +14,11 @@ import { CaLabFreeCreateDto } from '../../../../model/entities/lab/ca-lab-free.c
   templateUrl: './ca-lab-free-admin-form-dialog.component.html',
   styleUrl: './ca-lab-free-admin-form-dialog.component.scss'
 })
-export class CaLabFreeAdminFormDialogComponent extends FlFormDialogAbstractDirective<CaLabFreeCreateDto, CaLabInstanceWithSpace>
+export class CaLabFreeAdminFormDialogComponent extends FlFormDialogAbstractDirective<CaLabFreeCreateDto, CaLabWithSpace>
   implements OnInit {
 
 
-  constructor(private labInstanceService: CaLabInstanceService) {
+  constructor(private labService: CaLabService) {
     super();
   }
 
@@ -33,11 +33,11 @@ export class CaLabFreeAdminFormDialogComponent extends FlFormDialogAbstractDirec
     });
   }
 
-  create(formValue: CaLabFreeCreateDto): Observable<CaLabInstanceWithSpace> {
-    return this.labInstanceService.createFreeLab(formValue);
+  create(formValue: CaLabFreeCreateDto): Observable<CaLabWithSpace> {
+    return this.labService.createFreeLab(formValue);
   }
 
-  update(): Observable<CaLabInstanceWithSpace> {
+  update(): Observable<CaLabWithSpace> {
     throw Error('Not implemented');
   }
 

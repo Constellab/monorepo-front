@@ -26,7 +26,7 @@ export const caMainMenuLinks: CaMainMenuLink[] = [
   {
     label: 'my_labs',
     icon: 'lab',
-    route: CaRouterService.getMyLabInstancesRoute()
+    route: CaRouterService.getMyLabsRoute()
   },
   {
     label: 'chat',

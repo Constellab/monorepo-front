@@ -1,0 +1,113 @@
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
+
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'name' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let lab">
+      <ca-lab-inline [lab]="lab"></ca-lab-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Space -->
+  <ng-container matColumnDef="space">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'space' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let lab">
+      <ca-space-inline [space]="lab.space"></ca-space-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Current status -->
+  <ng-container matColumnDef="currentStatus">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'status' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let lab">
+      <fl-status-chip [status]="lab.currentStatus.status"></fl-status-chip>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Virtual host -->
+  <ng-container matColumnDef="virtualHost">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'virtual_host' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let lab">
+      {{ lab.virtualHost }}
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Created By -->
+  <ng-container matColumnDef="createdBy">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'created_by' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let lab">
+      <fl-user-inline [user]="lab.createdBy"></fl-user-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Server cloud -->
+  <ng-container matColumnDef="serverCloud">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{'server_cloud' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let lab">
+      <ca-server-cloud-inline *ngIf="lab.serverCloud" [serverCloud]="lab.serverCloud">
+      </ca-server-cloud-inline>
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Action -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="action-column g-table-icon-button-cell">
+    </mat-header-cell>
+    <mat-cell *matCellDef="let lab" class="action-column g-table-icon-button-cell">
+
+      <!--   Mat menu containing action buttons   -->
+      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="stopEventPropagation($event)">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <a mat-menu-item type="button" [caExternalSpaceLink]="getLabRoute(lab)"
+           [caExternalSpaceDomain]="lab.space.domain">
+          <mat-icon>visibility</mat-icon>
+          <span>{{ 'detail' | translate }}</span>
+        </a>
+
+        <button mat-menu-item type="button" (click)="openUpdateDialog(lab)">
+          <mat-icon>edit</mat-icon>
+          <span>{{ 'edit' | translate }}</span>
+        </button>
+        <button mat-menu-item type="button" (click)="openStatusDialog(lab)">
+          <mat-icon>info</mat-icon>
+          <span>{{ 'lab_check_status' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="openDeleteDialog(lab)">
+          <mat-icon color="warn">delete</mat-icon>
+          <span class="g-warn-text">{{ 'delete' | translate }}</span>
+        </button>
+      </mat-menu>
+
+
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+
+  <ng-container *ngIf="!disableLink; else noLink">
+    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
+             [routerLink]="row | caDetailRoute"></mat-row>
+  </ng-container>
+  <ng-template #noLink>
+    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  </ng-template>
+</mat-table>
+

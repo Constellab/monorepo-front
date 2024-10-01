@@ -1,0 +1,118 @@
+<fl-dialog-header>
+  {{title | translate}}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="server-info-form" [formGroup]="formGp">
+
+
+    <!--  Type  -->
+    <mat-radio-group aria-label="Select an option" formControlName="type"
+                     (change)="onTypeChange($event.value)" class="g-layout-row g-layout-between-stretch type">
+      <mat-radio-button value="CLOUD" flRadioButtonBig class="radio-button">
+        <div class="radio-text g-layout-row g-layout-start-center g-layout-gap-05em">
+          <mat-icon>cloud</mat-icon>
+          <div>{{'lab_type_CLOUD' | translate}}</div>
+        </div>
+
+        <div class="g-text-small g-text-light radio-description">
+          {{'lab_type_CLOUD_desc' | translate}}
+        </div>
+      </mat-radio-button>
+
+      <mat-radio-button value="DESKTOP" flRadioButtonBig class="radio-button">
+        <div class="radio-text g-layout-row g-layout-start-center g-layout-gap-05em">
+          <mat-icon>computer</mat-icon>
+          <div>{{'lab_type_DESKTOP' | translate}}</div>
+        </div>
+
+        <div class="g-text-small g-text-light radio-description">
+          {{'lab_type_DESKTOP_desc' | translate}}
+        </div>
+      </mat-radio-button>
+    </mat-radio-group>
+
+
+    <ng-container *ngIf="isCloud(); else onPromise">
+
+      <p class="help-text g-text-light">{{'lab_request_help' | translate}}</p>
+
+      <!--  Cloud provider  -->
+      <div>{{'lab_request_cloud_provider' | translate}}</div>
+      <mat-radio-group formControlName="cloudProvider" class="cloud-radio">
+        <mat-radio-button value="OVH">OVH</mat-radio-button>
+        <mat-radio-button value="AZURE">AZURE</mat-radio-button>
+        <mat-radio-button value="OUTSCALE">OUTSCALE</mat-radio-button>
+        <mat-radio-button value="I don’t know / Other">I don’t know / Other</mat-radio-button>
+      </mat-radio-group>
+
+      <!--  Cpu count  -->
+      <div>{{'lab_request_cpu_count' | translate}}</div>
+      <mat-radio-group formControlName="cpuCount" class="cloud-radio">
+        <mat-radio-button value="2">2</mat-radio-button>
+        <mat-radio-button value="4">4</mat-radio-button>
+        <mat-radio-button value="8">8</mat-radio-button>
+        <mat-radio-button value=">8">more than 8</mat-radio-button>
+        <mat-radio-button value="I don’t know / Other">I don’t know / Other</mat-radio-button>
+      </mat-radio-group>
+
+      <!--  Storage size  -->
+      <div>{{'lab_request_storage' | translate}}</div>
+      <mat-radio-group formControlName="storageSize" class="cloud-radio">
+        <mat-radio-button value="< 500 GB"><500 {{'flCoreComponent.giga_byte_symbole' | translate}}</mat-radio-button>
+        <mat-radio-button value="> 500 GB">>500 {{'flCoreComponent.giga_byte_symbole' | translate}}</mat-radio-button>
+        <mat-radio-button value="I don’t know / Other">I don’t know / Other</mat-radio-button>
+      </mat-radio-group>
+
+      <!--  Lab need  -->
+      <mat-form-field class="g-form-input lab-need">
+        <mat-label>{{'lab_request_need' | translate}}</mat-label>
+        <textarea matInput formControlName="labNeed" rows="4"
+                  [placeholder]="'lab_request_need' | translate"></textarea>
+      </mat-form-field>
+
+      <!--  Additional data  -->
+      <mat-form-field class="g-form-input">
+        <mat-label>{{'lab_request_additional_info' | translate}}</mat-label>
+        <textarea matInput formControlName="additionalInfo" rows="4"
+                  [placeholder]="'lab_request_additional_info' | translate"></textarea>
+      </mat-form-field>
+
+    </ng-container>
+
+    <ng-template #onPromise>
+      <!--  Name  -->
+      <mat-form-field class="g-form-input name">
+        <mat-label>{{'name' | translate}}</mat-label>
+        <input matInput formControlName="name" required [flInputMaxLength]="maxNameLength"
+               [placeholder]="'name' | translate">
+        <mat-error *ngIf="formGp.get('name').hasError('required')">
+          {{'name' | flErrorRequired}}
+        </mat-error>
+        <mat-error *ngIf="formGp.get('name').hasError('pattern')">
+          {{'lab_name_invalid' | translate}}
+        </mat-error>
+      </mat-form-field>
+
+      <!--  Desktop Platform  -->
+      <div class="desktop-platform">
+        {{'lab_desktop_platform' | translate}}
+        <mat-radio-group formControlName="desktopPlatform" required>
+          <mat-radio-button value="WINDOWS" color="primary">Windows</mat-radio-button>
+          <mat-radio-button value="MAC" color="primary">Mac OS</mat-radio-button>
+          <mat-radio-button value="LINUX" color="primary">Linux</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </ng-template>
+
+
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" type="submit" form="server-info-form"
+          class="g-centered-forced">
+    {{'save' | translate}}
+    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+  </button>
+</div>

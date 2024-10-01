@@ -4,7 +4,7 @@
 export const caConstBaseRoute = 'app';
 
 export const caConstDashboardRoute = 'dashboard';
-export const caConstLabInstancesRoute = 'labs';
+export const caConstLabsRoute = 'labs';
 export const caConstUserPageRoute = 'user';
 export const caConstMyFoldersRoute = 'my-folders';
 export const caConstFolderRoute = 'folder';

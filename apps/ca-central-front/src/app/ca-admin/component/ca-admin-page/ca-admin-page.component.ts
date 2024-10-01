@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {CaRouterService} from '../../../ca-core/service/ca-router.service';
-import {FlHorizontalNavBarItem} from '@monorepo/front-core-lib';
+import { Component } from '@angular/core';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
 
 /**
  * Global page for admin
@@ -24,7 +24,7 @@ export class CaAdminPageComponent {
       route: CaRouterService.getAdminUsersRoute()
     },
     {
-      label: {text: 'lab_instances', translateText: true},
+      label: {text: 'labs', translateText: true},
       icon: 'lab',
       route: CaRouterService.getAdminLabsRoute()
     },

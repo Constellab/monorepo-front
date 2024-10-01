@@ -20,9 +20,9 @@ export class CaExperimentCardDetailComponent implements OnInit {
   experimentRoute: string;
 
   ngOnInit(): void {
-    if (this.experiment.labInstance.isRunning()) {
+    if (this.experiment.lab.isRunning()) {
       this.experimentRoute =
-        `${this.experiment.labInstance.frontUrl}/app/biox/experiment/${this.experiment.id}`;
+        `${this.experiment.lab.frontUrl}/app/biox/experiment/${this.experiment.id}`;
     }
   }
 }

@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { DateTime } from 'luxon';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import { CaLabFreeGetDto, CaLabFreeUpdateDto } from '../../../../model/entities/lab/ca-lab-free.class';
 
@@ -27,7 +27,7 @@ export class CaLabFreeFormDialogComponent {
   isLoading: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) private input: CaLabFreeFormDialogInput,
-              private labService: CaLabInstanceService,
+              private labService: CaLabService,
               private snackBarService: FlSnackBarService,
               private dialogRef: MatDialogRef<CaLabFreeFormDialogComponent>) {
     this.formGp.patchValue({

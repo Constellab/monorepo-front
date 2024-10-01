@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {CaLabInstance} from '../../../../model/entities/lab/ca-lab-instance.class';
+import { Component, Input } from '@angular/core';
+import { CaLab } from '../../../../model/entities/lab/ca-lab.class';
 
 @Component({
   selector: 'ca-lab-inline',
@@ -8,5 +8,5 @@ import {CaLabInstance} from '../../../../model/entities/lab/ca-lab-instance.clas
 })
 export class CaLabInlineComponent {
 
-  @Input() lab: CaLabInstance;
+  @Input() lab: CaLab;
 }

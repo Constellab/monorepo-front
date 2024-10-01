@@ -1,5 +1,5 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
-import { CaLabInstance } from '../lab/ca-lab-instance.class';
+import { CaLab } from '../lab/ca-lab.class';
 import { FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform } from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
@@ -25,8 +25,8 @@ export class CaExperiment extends CaBaseEntity implements CaFolderObject {
 
   description: TeRichTextContent;
 
-  @Type(() => CaLabInstance)
-  labInstance: CaLabInstance;
+  @Type(() => CaLab)
+  lab: CaLab;
 
   @FlStatusTransform(caExperimentStatusDict)
   status: FlStatus<CaExperimentStatus>;

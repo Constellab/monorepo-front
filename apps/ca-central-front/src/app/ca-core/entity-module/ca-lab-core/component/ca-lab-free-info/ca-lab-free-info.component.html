@@ -50,8 +50,8 @@
   </fl-text-icon>
 </ng-container>
 
-<div class="g-text-centered" *ngIf="freeLab.freeLab?.labInstanceId">
-  <a [routerLink]="freeLab.freeLab.labInstanceId | caDetailRoute:'labInstance'"
+<div class="g-text-centered" *ngIf="freeLab.freeLab?.labId">
+  <a [routerLink]="freeLab.freeLab.labId | caDetailRoute:'lab'"
      mat-button type="button"
      flHideSamePageLink class="lab-link">
     {{'free_data_lab_open_lab' | translate}}

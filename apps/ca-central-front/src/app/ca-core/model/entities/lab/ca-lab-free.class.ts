@@ -12,7 +12,7 @@ export class CaLabFree extends CaBaseEntity {
   @ClLuxonDateTimeTransform()
   expirationDate: DateTime;
 
-  labInstanceId?: string;
+  labId?: string;
 
 }
 

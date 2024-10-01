@@ -7,10 +7,10 @@ import {
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
-import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
-import { CaLabInstance, CaLabInstanceDatasource } from '../../../../model/entities/lab/ca-lab-instance.class';
+import { CaLabService } from '../../../../service-api/ca-lab.service';
+import { CaLab, CaLabDatasource } from '../../../../model/entities/lab/ca-lab.class';
 import { map } from 'rxjs/operators';
-import { CaLabInstanceSearchFields } from '../../model/ca-lab-instance-search.class';
+import { CaLabSearchFields } from '../../model/ca-lab-search.class';
 
 @Component({
   selector: 'ca-select-lab',
@@ -18,32 +18,32 @@ import { CaLabInstanceSearchFields } from '../../model/ca-lab-instance-search.cl
   styleUrls: ['./ca-select-lab.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectLabComponent }]
 })
-export class CaSelectLabComponent extends FlFormFieldDirective<CaLabInstance> implements OnInit {
+export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements OnInit {
 
   @Input() mode: 'all' | 'all-cloud';
 
   @Input() placeholder: string;
 
-  @Output() valueChange: EventEmitter<CaLabInstance> = new EventEmitter();
+  @Output() valueChange: EventEmitter<CaLab> = new EventEmitter();
 
-  selectedLab: CaLabInstance | Observable<CaLabInstance>;
+  selectedLab: CaLab | Observable<CaLab>;
 
-  labDatasource: CaLabInstanceDatasource<FlInputSearchFilter>;
+  labDatasource: CaLabDatasource<FlInputSearchFilter>;
 
-  constructor(private labInstanceService: CaLabInstanceService,
+  constructor(private labService: CaLabService,
               @Optional() @Self() ngControl: NgControl) {
     super(ngControl);
   }
 
   ngOnInit(): void {
     this.labDatasource = new FlEntityPaginatedDatasource(
-      (page, size, data) => this.labInstanceService.searchAll(page, size,
+      (page, size, data) => this.labService.searchAll(page, size,
         this.getFilter(data.filtersCriteria.searchText)),
       20, false
     );
   }
 
-  private getFilter(name: string): FlDatasourceGetPageData<CaLabInstanceSearchFields> {
+  private getFilter(name: string): FlDatasourceGetPageData<CaLabSearchFields> {
     if (this.mode === 'all') {
       return { filtersCriteria: { name: name, type: 'CLOUD', isFreeLab: false }, sortsCriteria: [] };
     } else {
@@ -51,7 +51,7 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLabInstance> im
     }
   }
 
-  callChangeEvent(value: CaLabInstance): void {
+  callChangeEvent(value: CaLab): void {
     this.valueChange.emit(value);
     this.selectedLab = value;
   }
@@ -59,7 +59,7 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLabInstance> im
   onDisableChange(): void {
   }
 
-  writeValue(obj: CaLabInstance): void {
+  writeValue(obj: CaLab): void {
     if (obj == null || obj.id == null) {
       this.selectedLab = null;
       this.value = null;
@@ -68,8 +68,8 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLabInstance> im
 
     // if the user is not complete
     if (obj.name == null) {
-      this.selectedLab = this.labInstanceService.findById(obj.id).pipe(
-        map((lab) => lab.labInstance)
+      this.selectedLab = this.labService.findById(obj.id).pipe(
+        map((lab) => lab.lab)
       );
     } else {
       // if the user is complete

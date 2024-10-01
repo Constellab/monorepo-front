@@ -6,7 +6,7 @@ import { FlArrayObs } from '@monorepo/front-core-lib';
 import { CaHierarchyObject } from '../folder/ca-hierarchy-object.class';
 
 /**
- * N - N relation between lab instance and folder
+ * N - N relation between lab and folder
  */
 export class CaLabFolder {
 

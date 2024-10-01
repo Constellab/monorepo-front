@@ -83,7 +83,7 @@
   "delete_folder_confirm": "Êtes-vous sûr de vouloir supprimer ce dossier ? Il ne peut être supprimé s'il contient des sous dossiers, des expériences, des notes ou s'il est utilisé dans un lab.",
   "folder_deleted": "Dossier supprimé",
   "all_folders": "Tous les dossiers",
-  "all_lab_instances": "Toutes les labs",
+  "all_labs": "Tous les labs",
   "add_new_folder": "Ajouter un dossier",
   "add_new_lab": "Ajouter un nouveau lab digital",
   "all_teams": "Toutes les équipes",

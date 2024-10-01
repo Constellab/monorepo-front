@@ -5,7 +5,7 @@ import {
   caConstAdminRoute,
   caConstBaseRoute, caConstChatRoute,
   caConstDashboardRoute,
-  caConstLabInstancesRoute,
+  caConstLabsRoute,
   caConstMyFoldersRoute,
   caConstFolderRoute,
   caConstStructureRoute,
@@ -30,10 +30,10 @@ const routes: Route[] = [
         loadChildren: () => import('../ca-dashboard/ca-dashboard-page.module').then(m => m.CaDashboardPageModule)
       },
 
-      //////////////////////// LAB INSTANCE /////////////////////////
+      //////////////////////// LAB /////////////////////////
       {
-        path: caConstLabInstancesRoute,
-        loadChildren: () => import('../ca-lab-instance/ca-lab-instance.module').then(m => m.CaLabInstanceModule)
+        path: caConstLabsRoute,
+        loadChildren: () => import('../ca-lab/ca-lab.module').then(m => m.CaLabModule)
       },
 
       //////////////////////// MY FOLDER /////////////////////////

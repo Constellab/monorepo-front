@@ -65,9 +65,9 @@
     } @else {
       <!--  Lab  -->
       <fl-form-field class="g-form-input">
-        <ca-select-lab formControlName="labInstance" mode="all-cloud" [required]="true"
+        <ca-select-lab formControlName="lab" mode="all-cloud" [required]="true"
                        [placeholder]="'lab' | translate"></ca-select-lab>
-        <mat-error *ngIf="formGp.get('labInstance').hasError('required')">
+        <mat-error *ngIf="formGp.get('lab').hasError('required')">
           {{ 'lab' | flErrorRequired }}
         </mat-error>
       </fl-form-field>

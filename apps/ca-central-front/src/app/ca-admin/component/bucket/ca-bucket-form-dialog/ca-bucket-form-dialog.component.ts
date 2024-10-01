@@ -49,7 +49,7 @@ export class CaBucketFormDialogComponent
       name: [null, Validators.required],
       contentType: [null, Validators.required],
       region: [null, Validators.required],
-      labInstance: [null, Validators.required],
+      lab: [null, Validators.required],
       credentials: [null, Validators.required]
     });
   }
@@ -59,13 +59,13 @@ export class CaBucketFormDialogComponent
     if (bucketType === CaBucketType.LAB) {
       this.formGp.get('name').disable();
       this.formGp.get('region').disable();
-      this.formGp.get('labInstance').enable();
+      this.formGp.get('lab').enable();
       this.formGp.get('contentType').setValue(CaBucketContentType.FOLDER);
       this.formGp.get('contentType').disable();
     } else {
       this.formGp.get('name').enable();
       this.formGp.get('region').enable();
-      this.formGp.get('labInstance').disable();
+      this.formGp.get('lab').disable();
 
       if (bucketType === CaBucketType.NORMAL) {
         this.formGp.get('contentType').enable();

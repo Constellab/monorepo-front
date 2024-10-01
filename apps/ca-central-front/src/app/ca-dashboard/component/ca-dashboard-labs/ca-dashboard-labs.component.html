@@ -1,0 +1,21 @@
+<ca-dashboard-list-layout [datasource]="labsDatasource"
+                          sectionTitle="my_labs" titleIcon="lab" emptyText="no_lab"
+                          [completeListRoute]="myLabsRoute" completeListText="all_labs"
+                          addText="add_new_lab" [showAddButton]="true"
+                          (addClick)="openCreateLabDialog()">
+  <ng-template let-item>
+    <ca-lab-card [lab]="item"></ca-lab-card>
+  </ng-template>
+
+  <div section-header>
+    <ca-lab-free-create-button class="free-lab">
+    </ca-lab-free-create-button>
+
+<!--    <a [routerLink]="createLabRoute" mat-stroked-button>-->
+<!--      <mat-icon>add</mat-icon>-->
+<!--      {{ 'create_lab' | translate }}-->
+<!--    </a>-->
+  </div>
+</ca-dashboard-list-layout>
+
+

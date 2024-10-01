@@ -1,0 +1,145 @@
+@if (lab$ | async; as lab) {
+  <fl-card class="g-full-height">
+
+    <fl-card-header>
+      <fl-text-icon>
+        <mat-icon flIcon="lab"></mat-icon>
+        <h2 flElementEditable [flElementDisabled]="(isOwner$ | async) !== true"
+            (flElementValueChange)="updateLabName($event, lab)">
+          {{ lab.name | translate }}
+        </h2>
+      </fl-text-icon>
+
+      <fl-card-actions>
+        <button mat-icon-button type="button" [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+
+          @if (lab.isDesktop && (isOwner$| async)) {
+            <button mat-menu-item type="button" (click)="openLabDesktopUpdate(lab)">
+              <mat-icon>edit</mat-icon>
+              <span>{{ 'update_lab' | translate }}</span>
+            </button>
+          }
+
+          <button mat-menu-item type="button" (click)="openCodelabInfo(lab)">
+            <mat-icon flIcon="code"></mat-icon>
+            <span>{{ 'codelab_info' | translate }}</span>
+          </button>
+
+          <button mat-menu-item type="button" (click)="openLabConfig(lab)">
+            <mat-icon>info</mat-icon>
+            {{ 'lab_installed_brick' | translate }}
+          </button>
+
+        </mat-menu>
+      </fl-card-actions>
+    </fl-card-header>
+
+
+    <fl-card-body>
+
+      <!--   Lab type   -->
+      <fl-text-icon>
+        <mat-icon>{{ lab.typeIcon }}</mat-icon>
+        <fl-key-value>
+          <fl-key>{{ 'lab_type' | translate }}</fl-key>
+          {{ 'lab_type_' + lab.type | translate }}
+        </fl-key-value>
+      </fl-text-icon>
+
+
+      <!--   Lab url   -->
+      @if (lab.isOnServer) {
+        <fl-text-icon>
+          <mat-icon>link</mat-icon>
+          <fl-key-value>
+            <fl-key>{{ 'url' | translate }}</fl-key>
+            <a [href]="lab.frontUrl" target="_blank" class="g-text-link"
+               [matTooltip]="'open_lab_in_new_tab' | translate">
+              {{ lab.frontUrl }}
+            </a>
+          </fl-key-value>
+        </fl-text-icon>
+      }
+
+      @if (lab.region) {
+        <fl-text-icon>
+          <mat-icon>location_on</mat-icon>
+          <fl-key-value class="key-val-inline">
+            <fl-key class="key">{{ 'region' | translate }}</fl-key>
+            <ca-city [city]="lab.region.city" class="city"></ca-city>
+          </fl-key-value>
+        </fl-text-icon>
+      }
+
+      @if (lab.billingMode) {
+        <fl-text-icon>
+          <mat-icon>attach_money</mat-icon>
+          <fl-key-value class="key-val-inline">
+            <fl-key class="key">{{ 'lab_billing_mode' | translate }}</fl-key>
+            {{ 'lab_billing_mode_' + lab.billingMode | translate }}
+          </fl-key-value>
+        </fl-text-icon>
+      }
+
+      <!--   Platform   -->
+      @if (lab.desktopPlatform) {
+        <fl-text-icon>
+          <mat-icon>info</mat-icon>
+          <fl-key-value>
+            <fl-key>{{ 'lab_desktop_platform' | translate }}</fl-key>
+            {{ lab.desktopPlatform }}
+          </fl-key-value>
+        </fl-text-icon>
+      }
+
+      <!--   Free lab   -->
+      @if (lab.isFreeLab) {
+        <fl-text-icon>
+          <mat-icon>lightbulb</mat-icon>
+          {{ 'free_data_lab_long' | translate }}
+        </fl-text-icon>
+      }
+
+      @if (lab.isDesktop) {
+        <fl-text-icon>
+          <mat-icon>help</mat-icon>
+          <a [href]="desktopDocUrl" target="_blank" class="g-text-link">
+            {{ 'lab_desktop_how_to_link' | translate }}
+          </a>
+        </fl-text-icon>
+      }
+
+      <ca-lab-current-task [showConfigRouteLink]="true"></ca-lab-current-task>
+
+    </fl-card-body>
+
+    <fl-card-footer class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
+
+      @if (lab.isOnServer) {
+
+        @if (lab.isHttpAccessible) {
+          <ca-lab-login-button [labId]="lab.id"
+                               [isRunning]="labIsRunning$ | async"></ca-lab-login-button>
+        }
+
+        @if (lab.isCloud && (isOwner$ | async)) {
+          <ca-lab-start-stop></ca-lab-start-stop>
+        }
+      }
+
+      @if (lab.isDesktop) {
+        <button mat-stroked-button (click)="getDesktopConfigDownloadUrl(lab)"
+                type="button">
+          <mat-icon>cloud_download</mat-icon>
+          <span>{{ 'download_desktop_config' | translate }}</span>
+        </button>
+      }
+
+
+    </fl-card-footer>
+  </fl-card>
+}

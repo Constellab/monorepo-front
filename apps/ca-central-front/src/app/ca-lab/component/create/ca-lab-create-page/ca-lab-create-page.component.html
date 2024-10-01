@@ -1,0 +1,199 @@
+<div class="g-page page g-layout-col">
+
+  <fl-card class="card">
+    <fl-card-header>
+      <fl-text-icon>
+        <mat-icon flIcon="lab"></mat-icon>
+        <h1>{{ 'create_lab' | translate }}</h1>
+      </fl-text-icon>
+    </fl-card-header>
+
+    <fl-card-body>
+
+      <mat-stepper orientation="vertical" [linear]="true" #stepper>
+
+        <!--    Name step    -->
+        <mat-step [stepControl]="nameForm">
+          <form [formGroup]="nameForm">
+            <ng-template matStepLabel>{{ 'name' | translate }}</ng-template>
+            <div class="step-section">
+              <mat-form-field>
+                <mat-label>{{ 'name' | translate }}</mat-label>
+                <input matInput formControlName="name" required [flInputMaxLength]="maxNameLength"
+                       [placeholder]="'name' | translate" class="input">
+                <mat-error *ngIf="nameForm.get('name').hasError('required')">
+                  {{ 'name' | flErrorRequired }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <button mat-flat-button color="primary" matStepperNext>{{ 'next' | translate }}</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!--    Choose server    -->
+        <mat-step [stepControl]="serverForm">
+          <form [formGroup]="serverForm">
+            <ng-template matStepLabel>Choose server</ng-template>
+            <div class="step-section">
+              <ca-lab-select-server [formGp]="serverForm"></ca-lab-select-server>
+
+            </div>
+
+
+            <div>
+              <button mat-stroked-button color="primary" matStepperNext
+                      class="next-button button">{{ 'next' | translate }}
+              </button>
+              <button mat-stroked-button color="warn" matStepperPrevious class="button">{{ 'back' | translate }}
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+
+        <!--    Choose storage    -->
+        <mat-step [stepControl]="storageForm">
+          <ng-template matStepLabel>Choose storage</ng-template>
+          <form [formGroup]="storageForm">
+            <ng-template matStepLabel>{{ 'lab_storage' | translate }}</ng-template>
+            <div class="step-section">
+
+              @if (storagePrice$ | async; as storagePrice) {
+
+                <fl-text-icon class="help-section">
+                  <mat-icon>info</mat-icon>
+                  <p>{{ 'create_lab_storage_section' | translate }}</p>
+                </fl-text-icon>
+
+                <fl-key-value>
+                  <fl-key>
+                    {{ 'storage_price' | translate }}
+                  </fl-key>
+
+                  {{ storagePrice }} {{ 'storage_price_unit' | translate }}
+                </fl-key-value>
+
+                <div class="g-layout-row g-layout-start-center storage-amount-container">
+                  <button mat-mini-fab type="button" (click)="reduceStorageSize()"
+                          [disabled]="storageForm.get('storageSize').value <= MIN_STORAGE_SIZE">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+
+                  <!--                  <mat-form-field class="storage-amount g-form-field-no-hint">-->
+                  <!--                    <input matInput formControlName="storageSize"-->
+                  <!--                           type="number"-->
+                  <!--                           step="50" [min]="MIN_STORAGE_SIZE" [max]="MAX_STORAGE_SIZE">-->
+                  <!--                    <mat-error *ngIf="storageForm.get('storageSize').invalid">-->
+                  <!--                      {{ 'lab_volume_size_error' | translate }}-->
+                  <!--                    </mat-error>-->
+                  <!--                  </mat-form-field>-->
+                  <span
+                    class="storage-amount">{{ storageForm.get('storageSize').value }} {{ 'flCoreComponent.giga_byte_symbole' | translate }}</span>
+
+                  <button mat-mini-fab type="button" (click)="increaseStorageSize()"
+                          [disabled]="storageForm.get('storageSize').value >= MAX_STORAGE_SIZE">
+                    <mat-icon>add</mat-icon>
+                  </button>
+
+
+                  <span
+                    class="g-text-light storage-price">
+                            {{ (storagePrice * storageForm.get('storageSize').value) | number: '1.0-2' }}
+                    €
+                          / {{ 'month' | translate }}
+                        </span>
+                </div>
+              } @else {
+                <fl-loader></fl-loader>
+              }
+            </div>
+
+            <div>
+              <button mat-stroked-button color="primary" matStepperNext
+                      class="next-button button">{{ 'next' | translate }}
+              </button>
+              <button mat-stroked-button color="warn" matStepperPrevious class="button">{{ 'back' | translate }}
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!--    Configure lab (bricks)   -->
+        <mat-step>
+          <ng-template matStepLabel>{{ 'configure_lab' | translate }}</ng-template>
+
+          <div class="step-section">
+
+            <fl-text-icon class="help-section">
+              <mat-icon>info</mat-icon>
+              <p>{{ 'create_lab_configure_section' | translate }}</p>
+            </fl-text-icon>
+
+            <ca-lab-config-form [(labConfig)]="labConfig" [showAdvanced]="false"
+                                         [warningOnRemoveBrick]="false"></ca-lab-config-form>
+
+          </div>
+
+
+          <div>
+            <button mat-stroked-button color="primary" matStepperNext [disabled]="!labConfigIsValid()"
+                    class="next-button button">{{ 'next' | translate }}
+            </button>
+            <button mat-stroked-button color="warn" matStepperPrevious class="button">{{ 'back' | translate }}
+            </button>
+          </div>
+        </mat-step>
+
+        <!--    Summary    -->
+        <mat-step>
+          <ng-template matStepLabel>{{ 'create_lab_summary' | translate }}</ng-template>
+          <div class="step-section">
+
+            <fl-key-value class="summary-section">
+              <fl-key>{{ 'name' | translate }}</fl-key>
+              {{ nameForm.get('name').value }}
+            </fl-key-value>
+
+            @if (storagePrice$ | async; as storagePrice) {
+              <fl-key-value class="summary-section">
+                <fl-key>{{ 'lab_storage_size' | translate }}</fl-key>
+                {{ storageForm.get('storageSize').value }}
+                {{ (storagePrice * storageForm.get('storageSize').value) | number: '1.0-2' }}
+                €
+                / {{ 'month' | translate }}
+              </fl-key-value>
+            } @else {
+              <fl-loader></fl-loader>
+            }
+
+            <div class="summary-section">
+              <p>{{ 'lab_config' | translate }}</p>
+              <ul>
+                @for (brick of labConfig.brickVersions; track brick.name) {
+                  <li>
+                    <fl-key-value>
+                      <fl-key>{{ brick.name }}</fl-key>
+                      {{ brick.version }}
+                    </fl-key-value>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+
+          <button mat-stroked-button color="primary" type="button" (click)="createLab()"
+                  class="next-button button">{{ 'create_lab' | translate }}
+            <fl-button-loader *ngIf="createIsLoading"></fl-button-loader>
+          </button>
+          <button mat-stroked-button color="warn" matStepperPrevious class="button">{{ 'back' | translate }}
+          </button>
+        </mat-step>
+      </mat-stepper>
+    </fl-card-body>
+  </fl-card>
+
+
+</div>

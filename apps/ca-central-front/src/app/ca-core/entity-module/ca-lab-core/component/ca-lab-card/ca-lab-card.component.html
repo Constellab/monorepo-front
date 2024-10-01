@@ -1,0 +1,34 @@
+<fl-card class="card" matRipple>
+
+  <fl-card-header>
+    <!--  Title and logo    -->
+    <fl-text-icon>
+      <mat-icon class="g-icon-background" flIcon="lab"
+                [ngClass]="iconBackground" [matTooltip]="statusTooltip | translate"></mat-icon>
+      <h2>{{lab.name}}</h2>
+    </fl-text-icon>
+  </fl-card-header>
+
+
+  <fl-card-body>
+    <ca-city *ngIf="lab.region" [city]="lab.region.city"></ca-city>
+
+    <div class="g-text-light g-text-small since-the">
+      {{lab.currentStatus.status.name | translate}} {{'since_the' | translate}}
+      {{lab.currentStatus.createdAt | flDate}}
+    </div>
+
+
+    <div class="action-buttons g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+      <ca-lab-login-button *ngIf="lab.isHttpAccessible"
+                           [labId]="lab.id" [isRunning]="lab.isRunning()"
+                           size="small"></ca-lab-login-button>
+
+      <a mat-stroked-button [routerLink]="lab | caDetailRoute" class="g-button-small"
+         (click)="stopEventPropagation($event)" (mousedown)="stopEventPropagation($event)">
+        {{'detail' | translate}}
+      </a>
+    </div>
+  </fl-card-body>
+
+</fl-card>

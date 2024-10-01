@@ -2,13 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CaDashboardPageComponent } from './component/ca-dashboard-page/ca-dashboard-page.component';
 import { CaCoreModule } from '../ca-core/ca-core.module';
-import { CaFolderCoreModule } from '../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 import { RouterModule } from '@angular/router';
 import { CaLabCoreModule } from '../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
 import { CaDashboardFoldersComponent } from './component/ca-dashboard-folders/ca-dashboard-folders.component';
-import {
-  CaDashboardLabInstancesComponent
-} from './component/ca-dashboard-lab-instances/ca-dashboard-lab-instances.component';
+import { CaDashboardLabsComponent } from './component/ca-dashboard-labs/ca-dashboard-labs.component';
 import { CaDashboardTeamsComponent } from './component/ca-dashboard-teams/ca-dashboard-teams.component';
 import { CaGroupCoreModule } from '../ca-core/entity-module/ca-group-core/ca-group-core.module';
 import {
@@ -28,7 +25,9 @@ import {
 } from './component/ca-dashboard-list-layout/ca-dashboard-list-layout.component';
 import { CaDashboardRoutingModule } from './ca-dashboard-routing.module';
 import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
-import { CaHierarchyObjectCoreModule } from '../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
+import {
+  CaHierarchyObjectCoreModule
+} from '../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
 
 /**
  * Module for the dashboard page
@@ -37,7 +36,7 @@ import { CaHierarchyObjectCoreModule } from '../ca-core/entity-module/ca-hierarc
   declarations: [
     CaDashboardPageComponent,
     CaDashboardFoldersComponent,
-    CaDashboardLabInstancesComponent,
+    CaDashboardLabsComponent,
     CaDashboardTeamsComponent,
     CaDashboardMyActivityComponent,
     CaDashboardTaskOfTheDayComponent,

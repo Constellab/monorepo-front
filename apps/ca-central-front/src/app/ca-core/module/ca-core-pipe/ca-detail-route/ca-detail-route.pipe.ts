@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { CaEntity } from '../../../model/entities/ca-entity.entity';
 import { CaFolder } from '../../../model/entities/folder/ca-folder.class';
-import { CaLabInstance } from '../../../model/entities/lab/ca-lab-instance.class';
+import { CaLab } from '../../../model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../service/ca-router.service';
 import { CaGroup, CaGroupType } from '../../../model/entities/ca-group.entity';
 import { CaExperiment } from '../../../model/entities/folder/ca-experiment.class';
@@ -10,7 +10,7 @@ import { CaDocument } from '../../../model/entities/folder/ca-document.class';
 import { CaUser } from '../../../model/entities/ca-user.class';
 import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
 
-type CaObjectType = 'folder' | 'experiment' | 'note' | 'labInstance' | 'group' | 'document' | 'user';
+type CaObjectType = 'folder' | 'experiment' | 'note' | 'lab' | 'group' | 'document' | 'user';
 
 
 /**
@@ -45,8 +45,8 @@ export class CaDetailRoutePipe implements PipeTransform {
         return CaRouterService.getExperimentDetailRoute(id);
       case 'note':
         return CaRouterService.getNoteDetailRoute(id);
-      case 'labInstance':
-        return CaRouterService.getLabInstanceDetailRoute(id);
+      case 'lab':
+        return CaRouterService.getLabDetailRoute(id);
       case 'group':
         return CaRouterService.getTeamRoute(id);
       case 'document':
@@ -67,8 +67,8 @@ export class CaDetailRoutePipe implements PipeTransform {
       return ['experiment', obj.id];
     } else if (obj instanceof CaNote) {
       return ['note', obj.id];
-    } else if (obj instanceof CaLabInstance) {
-      return ['labInstance', obj.id];
+    } else if (obj instanceof CaLab) {
+      return ['lab', obj.id];
     } else if (obj instanceof CaGroup) {
       switch (obj.type) {
         case CaGroupType.TEAM:
