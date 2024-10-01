@@ -8,9 +8,10 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { FlSearchConfig } from './fl-search-state-config.class';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlAdvancedSearchObjectUrl, FlSearchPageUrlHelper, FlSearchUrlObject } from './fl-search-url.helper';
-import { debounceTime, first } from 'rxjs/operators';
+import { debounceTime, filter, first } from 'rxjs/operators';
 import { ClCoreJsonConvert, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlSavedSearch } from './fl-saved-search.class';
+import { merge, Subject } from 'rxjs';
 
 
 /**
@@ -37,6 +38,10 @@ export class FlSearchState<T> implements OnDestroy {
   // list of filter that are added programmatically and override search criteria
   private hiddenFilters: Record<string, any> = {};
 
+  // subject used to prevent search call on form change
+  // it is call when the form is submitted to overide the form change (to avoid calling search twice)
+  private skipSearch = new Subject<{ _skipSearch: true }>();
+
   constructor(private route: ActivatedRoute,
               private router: Router) {
   }
@@ -62,9 +67,15 @@ export class FlSearchState<T> implements OnDestroy {
     }
   }
 
+  public submitForm(): void {
+    this.callAdvancedSearchFromForm();
+    // cancel the search call on form change
+    this.skipSearch.next({ _skipSearch: true });
+  }
+
 
   // call advanced search form advanced search form
-  public callAdvancedSearchFromForm(): void {
+  private callAdvancedSearchFromForm(): void {
     const filterCriteria = this.advancedSearchFormGroup.getRawValue();
     this.callAdvancedSearch(filterCriteria, this.sortCriteria);
 
@@ -226,11 +237,16 @@ export class FlSearchState<T> implements OnDestroy {
    * @private
    */
   private initAfterFirstSearch(): void {
-    this.subscriptions.add(this.advancedSearchFormGroup.valueChanges.pipe(
-      debounceTime(350)
-    ).subscribe(
-      () => this.callAdvancedSearchFromForm()
-    ));
+    const subscription =
+      merge(this.advancedSearchFormGroup.valueChanges, this.skipSearch).pipe(
+        debounceTime(350),
+        // if the event is skip, do not call the search
+        filter((value: { _skipSearch: true }) => value?._skipSearch !== true)
+      ).subscribe(
+        () => this.callAdvancedSearchFromForm()
+      );
+
+    this.subscriptions.add(subscription);
 
     if (this.config.storeSearchInUrl) {
       // subscribe to route change to call search is needed (like back button)
@@ -296,6 +312,7 @@ export class FlSearchState<T> implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions?.unsubscribe();
+    this.skipSearch.complete();
   }
 
 

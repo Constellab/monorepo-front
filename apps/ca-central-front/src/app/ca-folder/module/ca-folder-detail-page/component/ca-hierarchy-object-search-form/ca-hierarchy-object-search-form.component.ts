@@ -29,7 +29,7 @@ export class CaHierarchyObjectSearchFormComponent implements OnInit {
 
   submit(): void {
     if (this.formGp.valid) {
-      this.searchState.callAdvancedSearchFromForm();
+      this.searchState.submitForm();
     }
   }
 

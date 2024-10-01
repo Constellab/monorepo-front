@@ -30,7 +30,7 @@ export class FlSearchAdvancedFormComponent implements OnInit {
 
   submit(): void {
     if (this.formGp.valid) {
-      this.searchState.callAdvancedSearchFromForm();
+      this.searchState.submitForm();
     }
   }
 }

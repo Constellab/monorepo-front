@@ -88,7 +88,7 @@ export class CaFolderDetailState implements OnDestroy {
       this.searchState.resetFormAndCallSearch({ emitEvent: false });
     } else {
       // trigger the first search using form value
-      this.searchState.callAdvancedSearchFromForm();
+      this.searchState.submitForm();
     }
 
     this.folder$.next(folder);
