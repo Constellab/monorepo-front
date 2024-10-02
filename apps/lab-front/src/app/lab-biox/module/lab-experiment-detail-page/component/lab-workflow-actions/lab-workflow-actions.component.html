@@ -56,7 +56,13 @@
 
   <button mat-menu-item type="button"
           (click)="addCommunityLiveTask()">
-    <mat-icon [svgIcon]="'code'"></mat-icon>
+    <mat-icon flIcon="code"></mat-icon>
     <span>{{ 'biox.add_community_live_task' | translate }}</span>
+  </button>
+
+  <button mat-menu-item type="button"
+          (click)="addEmptyProtocol()">
+    <mat-icon flIcon="protocol"></mat-icon>
+    <span>{{ 'pr.add_empty_protocol' | translate }}</span>
   </button>
 </mat-menu>

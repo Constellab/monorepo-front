@@ -114,18 +114,36 @@ export class PrWorkflowLayer {
     return this.nodes.find((node) => predicate(node));
   }
 
-  public removeNode(nodeId: string): PrWorkflowNode | undefined {
+  /**
+   * Method to remove a node from the children array
+   * @param nodeDrawflowId
+   */
+  public removeChildrenNode(nodeDrawflowId: string): void {
     // remove the node in the local array
-    const index: number = this.nodes.findIndex((node) => node.drawflowId === nodeId);
+    const index: number = this.nodes.findIndex((node) => node.drawflowId === nodeDrawflowId);
     if (index >= 0) {
-      const node: PrWorkflowNode = this.nodes[index];
       this.nodes.splice(index, 1);
-
-      return node;
     } else {
-      console.error('Couldn\'t find node with id ' + nodeId);
-      return null;
+      console.error('Couldn\'t find node with id ' + nodeDrawflowId);
     }
+  }
+
+  /**
+   * Method to delete a node from drawflow, destroy it and remove it from the local array
+   * @param nodeDrawflowId
+   */
+  public deleteNode(nodeDrawflowId: string): void {
+    const node = this.findNodeByDrawflowId(nodeDrawflowId);
+    if (node == null) return;
+
+    const nodeHTMLId = node.getHTMLId();
+
+    // first remove and destroy node on our code
+    this.removeChildrenNode(node.drawflowId);
+    node.destroy();
+    // the remove it from the editor
+    // so on delete node event, the node is already removed from the local array
+    this.editor.removeNodeId(nodeHTMLId);
   }
 
   public updateProcessObject(process: PrProcess): void {
@@ -290,8 +308,7 @@ export class PrWorkflowLayer {
     const port = node.findInputPortByName(portName);
     const interfaceNode = new PrWorkflowNodeInterface(
       {
-        // append 'i_' to name to make it unique with outerface
-        name: 'i_' + interfaceName,
+        name: interfaceName,
         portName: port.name,
         portType: port.currentSpecs
       }, this.id, interfaceName, node, port,
@@ -303,12 +320,12 @@ export class PrWorkflowLayer {
     }
     interfaceNode.setCoords(coords);
 
-    this.nodes.push(interfaceNode);
+    this.addNode(interfaceNode);
 
     // add to connection of the interface
     const connection = new PrWorkflowConnection(interfaceNode, node,
       interfaceNode.getPort(), port);
-    this.connections.push(connection);
+    this.addConnection(connection);
   }
 
   public addOuterface(outerfaceName: string, nodeName: string, portName: string, coords?: FlCoord): void {
@@ -319,27 +336,44 @@ export class PrWorkflowLayer {
       return;
     }
     const port = node.findOutputPortByName(portName);
+    if (coords == null) {
+      // calculate and set the position of the outerface node
+      coords = this.getRelativeNodePosition(nodeName, 'after');
+    }
+
     const outerfaceNode = new PrWorkflowNodeOuterface(
       {
-        // append 'o_' to name to make it unique with interface
-        name: 'o_' + outerfaceName,
+        name: outerfaceName,
         portName: port.name,
         portType: port.currentSpecs
       }, this.id, outerfaceName, node, port,
       this.resourceState, this.actionState);
 
-    if (coords == null) {
-      // calculate and set the position of the outerface node
-      coords = this.getRelativeNodePosition(nodeName, 'after');
-    }
     outerfaceNode.setCoords(coords);
 
-    this.nodes.push(outerfaceNode);
+    this.addNode(outerfaceNode);
 
     // add to connection of the outerface
     const connection = new PrWorkflowConnection(node, outerfaceNode,
       port, outerfaceNode.getPort());
-    this.connections.push(connection);
+    this.addConnection(connection);
+  }
+
+  /**
+   * Delete all interface and outerface that are not connected to any node
+   */
+  public removeDanglingIOFaces(): void {
+    for(const interfaceNode of this.nodes.filter(node => node instanceof PrWorkflowNodeInterface) as PrWorkflowNodeInterface[]) {
+      if (this.findConnectionsByNode(interfaceNode.instanceName).length == 0) {
+        this.deleteNode(interfaceNode.drawflowId);
+      }
+    }
+
+    for(const outerfaceNode of this.nodes.filter(node => node instanceof PrWorkflowNodeOuterface) as PrWorkflowNodeOuterface[]) {
+      if (this.findConnectionsByNode(outerfaceNode.instanceName).length == 0) {
+        this.deleteNode(outerfaceNode.drawflowId);
+      }
+    }
   }
 
   ///////////////////////////////// CONNECTION //////////////////////////////////////
@@ -515,6 +549,10 @@ export class PrWorkflowLayer {
 
   public isDrawflowReady(): boolean {
     return this.editor != null;
+  }
+
+  public isRootLayer(): boolean {
+    return this.parentLayer == null;
   }
 
   public deInitDrawflow(): void {

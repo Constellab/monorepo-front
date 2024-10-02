@@ -18,6 +18,10 @@ const prProtocolI18nFr: FlLangTranslation = {
     error: 'Erreur',
     delete_link_interface_error: 'Impossible de supprimer une connexion liée à une interface ou une outerface, veuillez supprimer directement l\'interface ou l\'outerface',
     deleting_process: "Suppression '{{processName}}'",
+    add_interface: "Ajouter une interface",
+    add_outerface: "Ajouter une outerface",
+    adding_interface: "Ajout d'une interface",
+    adding_outerface: "Ajout d'une outerface",
     deleting_interface: "Suppression de l'interface '{{name}}'",
     deleting_outerface: "Suppression de l'outerface '{{name}}'",
     adding_connection: "Ajout de la connexion",
@@ -53,6 +57,8 @@ const prProtocolI18nFr: FlLangTranslation = {
     outerface_not_connect_in_parent: 'Outerface non connectée sur le parent',
     process_name: 'Nom du process',
     port_name: 'Nom du port',
+    add_empty_protocol: 'Ajouter un protocole vide',
+    adding_empty_protocol: 'Ajout d\'un protocole vide',
   }
 };
 
@@ -69,6 +75,10 @@ const prProtocolI18nEn: FlLangTranslation = {
     error: 'Error',
     delete_link_interface_error: 'Can\'t delete a connection linked to an interface or an outerface, please delete directly the interface or outerface',
     deleting_process: "Deleting '{{processName}}'",
+    add_interface: "Add an interface",
+    add_outerface: "Add an outerface",
+    adding_interface: "Adding an interface",
+    adding_outerface: "Adding an outerface",
     deleting_interface: "Deleting interface '{{name}}'",
     deleting_outerface: "Deleting outerface '{{name}}'",
     adding_connection: "Adding connection",
@@ -104,6 +114,8 @@ const prProtocolI18nEn: FlLangTranslation = {
     outerface_not_connect_in_parent: 'Outerface not connected in parent',
     process_name: 'Process name',
     port_name: 'Port name',
+    add_empty_protocol: 'Add an empty protocol',
+    adding_empty_protocol: 'Adding an empty protocol',
   }
 };
 

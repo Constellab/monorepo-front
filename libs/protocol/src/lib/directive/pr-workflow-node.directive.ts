@@ -123,12 +123,14 @@ export abstract class PrWorkflowNodeDirective implements OnDestroy {
 
   onInputClick(port: PrWorkflowPort, element: Element): void {
     const menuDynamics: FlMenuDynamic[] = this.workflowManager.viewConfig.getInputMenu(port, this.node,
+      this.workflowManager.workflow.currentLayer,
       this.workflowManager.getCurrentMode());
     this.openPortPortal(port, menuDynamics, element);
   }
 
   onOutputClick(port: PrWorkflowPort, element: Element): void {
     const menuDynamics: FlMenuDynamic[] = this.workflowManager.viewConfig.getOutputMenu(port, this.node,
+      this.workflowManager.workflow.currentLayer,
       this.workflowManager.getCurrentMode());
     this.openPortPortal(port, menuDynamics, element);
   }

@@ -222,7 +222,12 @@ export class PrWorkflow {
 
   private onNodeRemoved(nodeId: number): void {
     const layer = this.currentLayer;
-    const node: PrWorkflowNode = layer.removeNode(nodeId.toString());
+    const node: PrWorkflowNode = layer.findNodeByDrawflowId(nodeId.toString());
+
+    // if we can't find the node, we don't need to do anything
+    // the node was already deleted by code
+    if(!node) return;
+    layer.removeChildrenNode(nodeId.toString());
     if (node) {
       this.workflowEvent$.next({
         action: 'deleteNode',

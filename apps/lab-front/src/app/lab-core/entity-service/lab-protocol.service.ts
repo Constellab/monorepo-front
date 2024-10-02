@@ -47,6 +47,11 @@ export class LabProtocolService {
       LabProtocolUpdateDTO);
   }
 
+  public addEmptyProtocolToProtocol(protocolId: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/add-empty-protocol`, null,
+      LabProtocolUpdateDTO);
+  }
+
   public addDuplicateProcessToProtocol(protocolId: string, processInstanceName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/duplicate-process/${processInstanceName}`, null,
       LabProtocolUpdateDTO);
@@ -179,6 +184,18 @@ export class LabProtocolService {
   }
 
   //////////////////////////////////////// INTERFACE / OUTERFACE /////////////////////////////////////
+
+  public addInterface(protocolId: string, target_process_name: string,
+                      target_port_name: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/interface/${target_process_name}/${target_port_name}`
+      , null, LabProtocolUpdateDTO);
+  }
+
+  public addOuterface(protocolId: string, target_process_name: string,
+                      target_port_name: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/outerface/${target_process_name}/${target_port_name}`
+      , null, LabProtocolUpdateDTO);
+  }
 
   public deleteInterface(protocolId: string, interfaceName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.delete(`${this.baseRoute}/${protocolId}/interface/${interfaceName}`, LabProtocolUpdateDTO);

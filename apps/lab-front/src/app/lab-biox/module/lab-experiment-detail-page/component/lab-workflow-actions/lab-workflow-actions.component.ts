@@ -96,10 +96,8 @@ export class LabWorkflowActionsComponent implements OnInit {
     );
   }
 
-  private onSelectCommunityLiveTask(communityLiveTask?: LabTypeEntity): void {
-    if (communityLiveTask) {
-      this.workflowEditState.addSource(communityLiveTask.id, communityLiveTask.name);
-    }
+  addEmptyProtocol(): void {
+    this.workflowEditState.addEmptyProtocol();
   }
 
   start(): void {

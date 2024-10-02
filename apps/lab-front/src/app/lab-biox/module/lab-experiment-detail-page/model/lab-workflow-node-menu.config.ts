@@ -1,11 +1,12 @@
 import {
+  PrWorkflowLayer,
   PrWorkflowMode,
   PrWorkflowNode,
   PrWorkflowNodeMenuConfig,
   PrWorkflowNodeSource,
   PrWorkflowPort
 } from '@monorepo/protocol';
-import {FlDialogService, FlMenuDynamicButton, FlSavedSearch, flThemeDetailLight} from '@monorepo/front-core-lib';
+import { FlDialogService, FlMenuDynamicButton, FlSavedSearch, flThemeDetailLight } from '@monorepo/front-core-lib';
 import {
   LabResourceDetailDialogComponent
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
@@ -13,7 +14,7 @@ import {
   LabSelectTypeDialogComponent,
   LabSelectTypeDialogInput
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
-import {LabTypeEntity} from '../../../../lab-core/model/entities/lab-type/lab-type.entity';
+import { LabTypeEntity } from '../../../../lab-core/model/entities/lab-type/lab-type.entity';
 import {
   LabResourceSearchFields
 } from '../../../../lab-core/entity-module/lab-resource-core/model/lab-resource-search.class';
@@ -24,9 +25,9 @@ import {
   LabSelectResourceDialogComponent,
   LabSelectResourceDialogInput
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
-import {LabResource} from '../../../../lab-core/model/entities/resource/lab-resource.entity';
-import {ClHelpService} from '@monorepo/core-lib';
-import {LabWorkflowEditConfig} from './lab-workflow-edit-config.class';
+import { LabResource } from '../../../../lab-core/model/entities/resource/lab-resource.entity';
+import { ClHelpService } from '@monorepo/core-lib';
+import { LabWorkflowEditConfig } from './lab-workflow-edit-config.class';
 
 export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
 
@@ -37,52 +38,67 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
 
 
   getInputMenu(port: PrWorkflowPort, node: PrWorkflowNode,
+               currentLayer: PrWorkflowLayer,
                workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
     const resourceId: string = node.getCurrentInputResourceId(port.name);
 
-    return [
-      {
-        type: 'button',
-        text: {text: 'biox.add_source', translateText: true},
-        icon: 'resource',
-        onClick: () => this.openResourceSelection(port, node),
-        // only activated if is editable and the port is not connected
-        disabled: workflowMode === 'readOnly' || node.inputPortIsConnected(port.name)
-      },
+    const buttons: FlMenuDynamicButton[] = [];
+
+    // for the root layer, we can add a source
+    // for the other layers, we can add an interface
+    if (currentLayer.isRootLayer()) {
+      buttons.push(this.getAddSourceButton(port, node, workflowMode));
+    } else {
+      buttons.push(this.getAddInterfaceButton(port, node, workflowMode));
+    }
+
+    buttons.push(
+      this.getAddSourceButton(port, node, workflowMode),
       this.getProcessSuggestionButton(port, node, 'input', workflowMode),
       this.getResourceDetailContextButton(resourceId)
-    ];
+    );
+    return buttons;
   }
 
   getOutputMenu(port: PrWorkflowPort, node: PrWorkflowNode,
+                currentLayer: PrWorkflowLayer,
                 workflowMode: PrWorkflowMode): FlMenuDynamicButton[] {
     const resourceId: string = node.getCurrentOutputResourceId(port.name);
 
-    return [
-      {
-        type: 'button',
-        text: {text: 'biox.add_output', translateText: true},
-        icon: 'output',
-        onClick: () => this.addTaskOutput(node.instanceName, port.name),
-        disabled: workflowMode === 'readOnly'
-      },
-      // {
-      //   type: 'button',
-      //   text: {text: 'biox.add_viewer', translateText: true},
-      //   icon: 'view',
-      //   onClick: () => this.addViewerToOutput(node.nodeName, port.name),
-      //   disabled: workflowMode === 'readOnly'
-      // },
-      {
-        type: 'button',
-        text: {text: 'biox.add_transformer', translateText: true},
-        icon: 'transformer',
-        onClick: () => this.openTransformerSelection(node.instanceName, port, node),
-        disabled: workflowMode === 'readOnly'
-      },
+    // {
+    //   type: 'button',
+    //   text: {text: 'biox.add_viewer', translateText: true},
+    //   icon: 'view',
+    //   onClick: () => this.addViewerToOutput(node.nodeName, port.name),
+    //   disabled: workflowMode === 'readOnly'
+    // },
+
+    const buttons: FlMenuDynamicButton[] = [];
+    // for the root layer, we can add an output
+    // for the other layers, we can add an outerface
+    if (currentLayer.isRootLayer()) {
+      buttons.push(this.getAddOutputButton(port, node, workflowMode));
+    } else {
+      buttons.push(this.getAddOuterfaceButton(port, node, workflowMode));
+    }
+
+    buttons.push(
+      this.getAddTransformerButton(port, node, workflowMode),
       this.getProcessSuggestionButton(port, node, 'output', workflowMode),
       this.getResourceDetailContextButton(resourceId)
-    ];
+    );
+    return buttons;
+  }
+
+  private getAddSourceButton(port: PrWorkflowPort, node: PrWorkflowNode, workflowMode: PrWorkflowMode): FlMenuDynamicButton {
+    return {
+      type: 'button',
+      text: { text: 'biox.add_source', translateText: true },
+      icon: 'resource',
+      onClick: () => this.openResourceSelection(port, node),
+      // only activated if is editable and the port is not connected
+      disabled: workflowMode === 'readOnly' || node.inputPortIsConnected(port.name)
+    };
   }
 
 
@@ -105,7 +121,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
       savedSearches: [savedSearch]
     };
 
-    this.dialogService.openBigDialog(LabSelectResourceDialogComponent, {data: data}).afterClosed().subscribe(
+    this.dialogService.openBigDialog(LabSelectResourceDialogComponent, { data: data }).afterClosed().subscribe(
       resource => this.addSource(resource, port, node)
     );
   }
@@ -116,6 +132,16 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
     this.editState.addSourceToProcessInput(resource.id, node.instanceName, port.name, resource.name);
   }
 
+  private getAddOutputButton(port: PrWorkflowPort, node: PrWorkflowNode, workflowMode: PrWorkflowMode): FlMenuDynamicButton {
+    return {
+      type: 'button',
+      text: { text: 'biox.add_output', translateText: true },
+      icon: 'output',
+      onClick: () => this.addTaskOutput(node.instanceName, port.name),
+      disabled: workflowMode === 'readOnly'
+    };
+  }
+
   private addTaskOutput(processNodeName: string, outputPortName: string): void {
     this.editState.addTaskOutput(processNodeName, outputPortName);
   }
@@ -123,7 +149,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   private getResourceDetailContextButton(resourceId: string | null): FlMenuDynamicButton {
     return {
       type: 'button',
-      text: {text: 'resource', translateText: true},
+      text: { text: 'resource', translateText: true },
       icon: 'resource',
       onClick: () => this.openResourceDetail(resourceId),
       disabled: ClHelpService.isNullOrEmpty(resourceId)
@@ -134,10 +160,10 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
                                      portType: 'input' | 'output', workflowMode: PrWorkflowMode): FlMenuDynamicButton {
     return {
       type: 'button',
-      text: {text: 'biox.suggested_processes', translateText: true},
+      text: { text: 'biox.suggested_processes', translateText: true },
       icon: 'tips_and_updates',
       onClick: () => this.openProcessSuggestion(port, node, portType),
-      disabled: workflowMode === 'readOnly'
+      disabled: workflowMode === 'readOnly' || (portType === 'input' && node.inputPortIsConnected(port.name))
     };
   }
 
@@ -158,7 +184,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
         resourceTypingNames: this.getPortTypingNames(port, node)
       }
     };
-    this.dialogService.openBigDialog(LabSelectTypeDialogComponent, {data: data}).afterClosed().subscribe(
+    this.dialogService.openBigDialog(LabSelectTypeDialogComponent, { data: data }).afterClosed().subscribe(
       processType => {
         // if the process where suggested
         if (portType == 'input') {
@@ -184,6 +210,17 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
 
 
   ///////////////////////////////// TRANSFORMER /////////////////////////////////
+
+  private getAddTransformerButton(port: PrWorkflowPort, node: PrWorkflowNode, workflowMode: PrWorkflowMode): FlMenuDynamicButton {
+    return {
+      type: 'button',
+      text: { text: 'biox.add_transformer', translateText: true },
+      icon: 'transformer',
+      onClick: () => this.openTransformerSelection(node.instanceName, port, node),
+      disabled: workflowMode === 'readOnly'
+    };
+  }
+
   private openTransformerSelection(outputProcessName: string, port: PrWorkflowPort, node: PrWorkflowNode): void {
     const data: LabSelectTypeDialogInput = {
       searchConfig: {
@@ -191,7 +228,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
         resourceTypingNames: this.getPortTypingNames(port, node)
       }
     };
-    this.dialogService.openBigDialog(LabSelectTypeDialogComponent, {data: data}).afterClosed().subscribe(
+    this.dialogService.openBigDialog(LabSelectTypeDialogComponent, { data: data }).afterClosed().subscribe(
       processType => this.addProcessConnectedToOutput(processType, outputProcessName, port.name)
     );
   }
@@ -209,6 +246,36 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
       // use the port typing names
       return port.getResourceTypingNames();
     }
+  }
+
+  //////////////////////////////////////// IOFACE ////////////////////////////////////////
+
+  private getAddInterfaceButton(port: PrWorkflowPort, node: PrWorkflowNode, workflowMode: PrWorkflowMode): FlMenuDynamicButton {
+    return {
+      type: 'button',
+      text: { text: 'pr.add_interface', translateText: true },
+      icon: 'login',
+      onClick: () => this.addInterface(port, node),
+      disabled: workflowMode === 'readOnly' || node.inputPortIsConnected(port.name)
+    };
+  }
+
+  private getAddOuterfaceButton(port: PrWorkflowPort, node: PrWorkflowNode, workflowMode: PrWorkflowMode): FlMenuDynamicButton {
+    return {
+      type: 'button',
+      text: { text: 'pr.add_outerface', translateText: true },
+      icon: 'logout',
+      onClick: () => this.addOuterface(port, node),
+      disabled: workflowMode === 'readOnly'
+    };
+  }
+
+  private addInterface(port: PrWorkflowPort, node: PrWorkflowNode): void {
+    this.editState.addInterface(node.instanceName, port.name);
+  }
+
+  private addOuterface(port: PrWorkflowPort, node: PrWorkflowNode): void {
+    this.editState.addOuterface(node.instanceName, port.name);
   }
 
 }

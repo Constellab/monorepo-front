@@ -1,8 +1,8 @@
-import {LabProcess} from '../../../../lab-core/model/entities/process/lab-process.entity';
-import {LabProcessTransform} from '../../../../lab-core/model/entities/process/lab-process.transform';
-import {Expose, Type} from 'class-transformer';
-import {LabProtocol} from '../../../../lab-core/model/entities/process/lab-protocol.entity';
-import {PrProtocolLink} from '@monorepo/protocol';
+import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
+import { LabProcessTransform } from '../../../../lab-core/model/entities/process/lab-process.transform';
+import { Expose, Type } from 'class-transformer';
+import { LabProtocol } from '../../../../lab-core/model/entities/process/lab-protocol.entity';
+import { PrProtocolIntOut, PrProtocolLink } from '@monorepo/protocol';
 
 
 export class LabProtocolUpdateDTO {
@@ -11,6 +11,8 @@ export class LabProtocolUpdateDTO {
   process?: LabProcess;
 
   link: PrProtocolLink;
+
+  ioface?: PrProtocolIntOut;
 
   @Type(() => LabProtocol)
   protocol?: LabProtocol;
