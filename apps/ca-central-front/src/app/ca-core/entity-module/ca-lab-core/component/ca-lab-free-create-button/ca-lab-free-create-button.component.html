@@ -1,9 +1,11 @@
-<ng-container *ngIf="freeDto$ | async as freeLab">
-  <div *ngIf="freeLab.status === 'NOT_USED'">
-    <button mat-flat-button type="button" (click)="createFreeLab(freeLab)"
-            color="primary">
-      <mat-icon>not_started</mat-icon>
-      {{'start_free_data_lab' | translate}}
-    </button>
-  </div>
-</ng-container>
+@if (freeLabInfo$ | async; as freeLabInfo) {
+  @if (freeLabInfo.showCreateFreeLab) {
+    <div>
+      <button mat-flat-button type="button" (click)="createFreeLab(freeLabInfo.freeLab)"
+              color="primary">
+        <mat-icon>not_started</mat-icon>
+        {{ 'start_free_data_lab' | translate }}
+      </button>
+    </div>
+  }
+}

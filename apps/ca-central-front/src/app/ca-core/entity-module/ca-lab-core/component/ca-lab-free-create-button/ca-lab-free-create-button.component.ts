@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { CaLabFreeGetDto } from '../../../../model/entities/lab/ca-lab-free.class';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -13,6 +13,13 @@ import { CaLab } from '../../../../model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import { CaEnvironmentHelper } from '../../../../utils/ca-environment.helper';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
+import { map } from 'rxjs/operators';
+
+interface CaFreeLabInfo {
+  showCreateFreeLab: boolean;
+  freeLab: CaLabFreeGetDto;
+}
 
 @Component({
   selector: 'ca-lab-free-create-button',
@@ -21,13 +28,23 @@ import { CoCommunityHelperService } from '@monorepo/community-lib';
 })
 export class CaLabFreeCreateButtonComponent {
 
-  freeDto$: Observable<CaLabFreeGetDto> = this.labService.getCurrentUserFreeLab();
+  freeLabInfo$: Observable<CaFreeLabInfo> = combineLatest([
+    this.labService.getCurrentUserFreeLab(),
+    this.currentSpaceService.getCurrentSpace$()]).pipe(
+    map(([freeLab, space]) => {
+      return {
+        showCreateFreeLab: freeLab.status === 'NOT_USED' && space.type === 'PERSONAL',
+        freeLab
+      };
+    })
+  );
 
   constructor(private labService: CaLabService,
               private dialogService: FlDialogService,
               private router: CaRouterService,
               private translateService: FlTranslateService,
-              private communityHelper: CoCommunityHelperService) {
+              private communityHelper: CoCommunityHelperService,
+              private currentSpaceService: CaCurrentSpaceService) {
   }
 
   createFreeLab(freeLab: CaLabFreeGetDto): void {
