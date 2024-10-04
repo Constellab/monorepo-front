@@ -2,10 +2,10 @@
 
   <!-- Title -->
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="g-column-width-2">
       <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let viewConfig">
+    <mat-cell *matCellDef="let viewConfig" class="g-column-width-2">
       <!--    Invisible link  -->
       <a *ngIf="!selectableRow" [routerLink]="viewConfig | labDetailRoute"
          [target]="rowLinkTarget" class="g-row-link"></a>

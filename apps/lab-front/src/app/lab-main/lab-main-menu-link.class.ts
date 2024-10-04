@@ -21,11 +21,6 @@ export interface LabMainMenuLink {
 export function getMainMenuLinks(): LabMainMenuLink[] {
   return [
     {
-      label: 'biox.notepad',
-      icon: 'note',
-      route: labConstNoteFullRoute,
-    },
-    {
       label: 'biox.scenarios',
       icon: 'scenario',
       route: labConstBioxFullRoute
@@ -44,6 +39,11 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       label: 'biox.protocol_templates',
       icon: 'protocol_template',
       route: labConstProtocolTemplateRoute,
+    },
+    {
+      label: 'biox.notepad',
+      icon: 'note',
+      route: labConstNoteFullRoute,
       divider: true
     },
     {
