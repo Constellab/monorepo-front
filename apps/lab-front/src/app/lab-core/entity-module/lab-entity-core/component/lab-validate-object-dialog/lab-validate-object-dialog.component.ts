@@ -20,7 +20,7 @@ export interface LabValidateObjectDialogInput {
 
 /**
  * Generic dialog to validate an object by selecting a folder.
- * This works for experiments and notes
+ * This works for scenarios and notes
  */
 @Component({
   selector: 'lab-validate-object-dialog',

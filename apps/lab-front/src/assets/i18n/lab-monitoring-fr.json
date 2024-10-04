@@ -73,7 +73,7 @@
     "number_of_processes": "Nombre de processus",
     "total_memory": "Mémoire totale",
     "clean_lab": "Nettoyer les données non utilisées du lab",
-    "clean_lab_confirmation": "Ceci va nettoyer toutes les données inutilisées du lab. Il va supprimer les fichiers temporaires et les ressources fantômes (ressources qui n'ont pas été correctement supprimées). Il ne peut être exécuté que si il n'y a pas d'expérience en attente ou en cours. Cela peut prendre quelques minutes.",
+    "clean_lab_confirmation": "Ceci va nettoyer toutes les données inutilisées du lab. Il va supprimer les fichiers temporaires et les ressources fantômes (ressources qui n'ont pas été correctement supprimées). Il ne peut être exécuté que si il n'y a pas de scénario en attente ou en cours. Cela peut prendre quelques minutes.",
     "bricks_data": "Données des briques",
     "bricks_data_help": "Voici la list des fichiers et dossiers externent téléchargé par des tâches.",
     "brick_data_size": "Taille",

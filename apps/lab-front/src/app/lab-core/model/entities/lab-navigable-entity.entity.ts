@@ -1,6 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 import { LabNote } from './lab-note.entity';
-import { LabExperiment } from './lab-experiment.entity';
+import { LabScenario } from './lab-scenario.entity';
 import { LabResource } from './resource/lab-resource.entity';
 import { LabViewConfig } from './resource/lab-view-config.entity';
 import { LabDocumentTemplate } from './lab-document-template.entity';
@@ -8,11 +8,11 @@ import { LabProtocolTemplate } from './process/lab-protocol-template.entity';
 import { LabFolder } from './lab-folder.class';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
-export type LabEntityType = 'EXPERIMENT' | 'RESOURCE' | 'VIEW' | 'NOTE'
+export type LabEntityType = 'SCENARIO' | 'RESOURCE' | 'VIEW' | 'NOTE'
   | 'PROTOCOL_TEMPLATE' | 'DOCUMENT_TEMPLATE' | 'FOLDER';
 
 export const labEntityTypeIcon: Record<LabEntityType, string> = {
-  EXPERIMENT: 'experiment',
+  SCENARIO: 'scenario',
   RESOURCE: 'resource',
   VIEW: 'view',
   NOTE: 'note',
@@ -48,8 +48,8 @@ export class LabNavigableEntity {
  */
 const LabNavigableEntityGroupedFactory: any = (json: TypeHelpOptions) => {
   switch (json.newObject.type) {
-    case 'EXPERIMENT':
-      return LabExperiment;
+    case 'SCENARIO':
+      return LabScenario;
     case 'RESOURCE':
       return LabResource;
     case 'VIEW':

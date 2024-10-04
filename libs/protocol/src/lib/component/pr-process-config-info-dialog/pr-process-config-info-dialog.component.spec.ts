@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrProcessConfigInfoDialogComponent } from './pr-process-config-info-dialog.component';
 
-describe('CaExperimentTechnicalReportConfigInfoDialogComponent', () => {
+describe('CaScenarioTechnicalReportConfigInfoDialogComponent', () => {
   let component: PrProcessConfigInfoDialogComponent;
   let fixture: ComponentFixture<PrProcessConfigInfoDialogComponent>;
 

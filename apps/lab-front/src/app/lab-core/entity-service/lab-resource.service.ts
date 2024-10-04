@@ -155,7 +155,7 @@ export class LabResourceService {
 
   //////////////////////////////////////// TRANSFORMERS  ///////////////////////////////////////
   /**
-   * Create an experiment for a resource, with a list of transformers
+   * Create an scenario for a resource, with a list of transformers
    * @param transformers
    * @param resourceId
    */

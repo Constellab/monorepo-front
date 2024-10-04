@@ -6,7 +6,7 @@ import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import { LabEntityType } from './lab-navigable-entity.entity';
 
-export type LabShareLinkType = 'RESOURCE' | 'EXPERIMENT';
+export type LabShareLinkType = 'RESOURCE' | 'SCENARIO';
 
 export class LabShareLink extends LabBaseEntityWithUser {
 

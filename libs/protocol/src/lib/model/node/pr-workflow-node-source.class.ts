@@ -1,9 +1,9 @@
-import {PrWorkflowNodeResource, PrWorkNodeIoExternalButton} from './pr-workflow-node-resource.class';
-import {PrProcess} from '../pr-process.class';
-import {TdTaskSourceConfig} from '@monorepo/technical-doc';
-import {FlThemeService} from '@monorepo/front-core-lib';
-import {PrResource} from '../pr-resource.class';
-import {first, map, Observable, of} from 'rxjs';
+import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
+import { PrProcess } from '../pr-process.class';
+import { TdTaskSourceConfig } from '@monorepo/technical-doc';
+import { FlThemeService } from '@monorepo/front-core-lib';
+import { PrResource } from '../pr-resource.class';
+import { first, map, Observable, of } from 'rxjs';
 
 export class PrWorkflowNodeSource extends PrWorkflowNodeResource<PrProcess> {
 
@@ -57,22 +57,22 @@ export class PrWorkflowNodeSource extends PrWorkflowNodeResource<PrProcess> {
     );
   }
 
-  // generate a button on the left to navigate to the experiment that generated the resource
+  // generate a button on the left to navigate to the scenario that generated the resource
   getExternalButtons$(): Observable<PrWorkNodeIoExternalButton | null> {
     if(!this.showExternalButtons) return of(null);
     return this.getResource$().pipe(
       map(resource => {
         if (!resource) return null;
-        if (resource.status !== 'success' || !resource.object.experiment) return null;
+        if (resource.status !== 'success' || !resource.object.scenario) return null;
 
         return {
           position: 'before',
           icon: 'arrow_backward',
-          tooltip: 'pr.open_resource_experiment',
+          tooltip: 'pr.open_resource_scenario',
           action: () => {
             this.actionState.newAction({
-              action: 'navigateToExperiment',
-              experimentId: resource.object.experiment.id,
+              action: 'navigateToScenario',
+              scenarioId: resource.object.scenario.id,
             });
           }
         };

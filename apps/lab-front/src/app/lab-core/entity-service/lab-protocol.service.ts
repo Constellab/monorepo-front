@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FlApiWithCacheService, FlEntityPaginatedDatasource, FlFileHelper } from '@monorepo/front-core-lib';
 import { Observable, tap } from 'rxjs';
 import { LabProcessLayout, LabProtocol, LabProtocolLayout } from '../model/entities/process/lab-protocol.entity';
-import { LabProtocolUpdateDTO } from '../../lab-biox/module/lab-experiment-detail-page/model/lab-workflow-action.class';
+import { LabProtocolUpdateDTO } from '../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-action.class';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
   LabCreateProtocolTemplateDTO,

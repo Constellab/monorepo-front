@@ -8,7 +8,7 @@
       <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="g-cell-with-left-border g-column-width-2 name-cell"
-              [style.border-left-color]="resource.experiment?.id | flStringToRgb">
+              [style.border-left-color]="resource.scenario?.id | flStringToRgb">
 
       <a *ngIf="!selectableRow" [routerLink]="resource | labDetailRoute"
          [target]="rowLinkTarget" class="g-row-link"></a>
@@ -40,10 +40,10 @@
         <div class="text g-text-dense-height">
           {{ resource.name }}
         </div>
-        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="resource.experiment"
+        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="resource.scenario"
                       gap="3px" flHide.xs>
-          <mat-icon flIcon="experiment" class="g-icon-tiny"></mat-icon>
-          <div class="text g-text-dense-height">{{ resource.experiment.title }}</div>
+          <mat-icon flIcon="scenario" class="g-icon-tiny"></mat-icon>
+          <div class="text g-text-dense-height">{{ resource.scenario.title }}</div>
         </fl-text-icon>
       </div>
 
@@ -160,7 +160,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" [attr.colspan]="columns.length"
               class="expanded-cell"
-              [style.border-left-color]="resource.experiment?.id | flStringToRgb">
+              [style.border-left-color]="resource.scenario?.id | flStringToRgb">
       <div class="expanded-cell-content" *ngIf="resource === expandedResource">
 
         <lab-resource-table

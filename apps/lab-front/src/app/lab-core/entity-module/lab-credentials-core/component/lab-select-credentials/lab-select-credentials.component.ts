@@ -62,7 +62,7 @@ export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCrede
       return;
     }
 
-    // if the provided object is not an instance of LabExperiment, load it from the api
+    // if the provided object is not an instance of LabScenario, load it from the api
     if (typeof obj == 'string') {
       this.selectedCredentials = this.credentialsService.findByName(obj);
     } else if (!(obj instanceof LabCredentials)) {

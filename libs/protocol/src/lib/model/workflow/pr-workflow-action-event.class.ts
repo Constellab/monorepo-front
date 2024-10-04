@@ -51,14 +51,14 @@ export interface PrWorkflowActionShowView extends PrWorkflowActionBase {
 }
 
 export interface PrWorkflowActionShowNextExp {
-  action: 'showNextExperiments';
+  action: 'showNextScenarios';
   resourceId: string;
   element: HTMLElement;
 }
 
 export interface PrWorkflowActionNavigateToExp {
-  action: 'navigateToExperiment';
-  experimentId: string;
+  action: 'navigateToScenario';
+  scenarioId: string;
 }
 
 export interface PrWorkflowActionShowIOFace {

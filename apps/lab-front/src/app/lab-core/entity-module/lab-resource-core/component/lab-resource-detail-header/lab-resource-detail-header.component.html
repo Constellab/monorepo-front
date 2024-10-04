@@ -1,20 +1,20 @@
 <div *ngIf="resource()" class="g-layout-row g-layout-start-center g-layout-gap-05em container">
 
   <div class="g-flex-auto g-layout-col g-layout-start-start header-left">
-    <!--  Resource,  experiment name & folder name  -->
+    <!--  Resource,  scenario name & folder name  -->
     <h1 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">{{resource().name}}</h1>
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small"
          *ngIf="displayMode !== 'dense'">
-      <a [routerLink]="resource().experiment.id | labDetailRoute:'EXPERIMENT'"
-         *ngIf="resource().experiment" class="g-text-link subtitle">
+      <a [routerLink]="resource().scenario.id | labDetailRoute:'SCENARIO'"
+         *ngIf="resource().scenario" class="g-text-link subtitle">
         <div class="g-layout-row g-layout-start-center">
-          <mat-icon flIcon="experiment" class="g-icon-small separator"></mat-icon>
-          {{resource().experiment.title}}
+          <mat-icon flIcon="scenario" class="g-icon-small separator"></mat-icon>
+          {{resource().scenario.title}}
         </div>
       </a>
 
-      <div *ngIf="resource().experiment && resource().folder" class="subtitle"> -</div>
+      <div *ngIf="resource().scenario && resource().folder" class="subtitle"> -</div>
 
       <div class="g-layout-row g-layout-start-center subtitle" *ngIf="resource().folder">
         <mat-icon flIcon="folder" class="g-icon-small separator"></mat-icon>

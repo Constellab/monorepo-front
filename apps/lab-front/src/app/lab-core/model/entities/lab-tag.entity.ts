@@ -14,7 +14,7 @@ import { Expose, Type } from 'class-transformer';
 import { LabUser } from './lab-user.entity';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
-export type LabEntityTagType = 'EXPERIMENT' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'PROTOCOL_TEMPLATE';
+export type LabEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'PROTOCOL_TEMPLATE';
 
 
 /**
@@ -51,7 +51,7 @@ const labTagOriginObjectFactory: any = (json: TypeHelpOptions) => {
   }
 }
 
-export type LabTagOriginType = 'USER' | 'S3' | 'TASK' | 'TASK_PROPAGATED' | 'EXPERIMENT_PROPAGATED'
+export type LabTagOriginType = 'USER' | 'S3' | 'TASK' | 'TASK_PROPAGATED' | 'SCENARIO_PROPAGATED'
   | 'RESOURCE_PROPAGATED' | 'VIEW_PROPAGATED';
 
 export class LabTagOrigin {
@@ -79,8 +79,8 @@ export class LabTagOrigin {
       case 'TASK':
       case 'TASK_PROPAGATED':
         return 'biox.task';
-      case 'EXPERIMENT_PROPAGATED':
-        return 'biox.experiment';
+      case 'SCENARIO_PROPAGATED':
+        return 'biox.scenario';
       case 'RESOURCE_PROPAGATED':
         return 'biox.resource';
       case 'VIEW_PROPAGATED':
@@ -93,8 +93,8 @@ export class LabTagOrigin {
    */
   get originEntityType(): LabEntityType | null {
     switch (this.originType) {
-      case 'EXPERIMENT_PROPAGATED':
-        return 'EXPERIMENT';
+      case 'SCENARIO_PROPAGATED':
+        return 'SCENARIO';
       case 'RESOURCE_PROPAGATED':
         return 'RESOURCE';
       case 'VIEW_PROPAGATED':

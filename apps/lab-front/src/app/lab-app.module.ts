@@ -43,9 +43,7 @@ import { PrProtocolModule } from '@monorepo/protocol';
 import { LabBioNetworkService } from './lab-core/entity-service/lab-bio-network.service';
 import { LabUserConfig } from './lab-core/model/config/lab-user-config.service';
 import { BnBioNetworkModule } from '@monorepo/bio-network';
-import {
-  LabWorkflowResourcesState
-} from './lab-biox/module/lab-experiment-detail-page/state/lab-workflow-resources.state';
+import { LabWorkflowResourcesState } from './lab-scenario/lab-scenario-detail-page/state/lab-workflow-resources.state';
 import { LabEnvironmentHelper } from './lab-core/utils/lab-environment.helper';
 import {
   LabDocumentTemplateCoreModule

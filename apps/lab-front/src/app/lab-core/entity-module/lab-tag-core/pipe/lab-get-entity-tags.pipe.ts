@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FlEntity } from '@monorepo/front-core-lib';
-import { LabExperiment } from '../../../model/entities/lab-experiment.entity';
+import { LabScenario } from '../../../model/entities/lab-scenario.entity';
 import { LabTagService } from '../../../entity-service/lab-tag.service';
 import { LabNote } from '../../../model/entities/lab-note.entity';
 import { LabResource } from '../../../model/entities/resource/lab-resource.entity';
@@ -27,8 +27,8 @@ export class LabGetEntityTagsPipe implements PipeTransform {
   }
 
   private getTagType(entity: FlEntity): LabEntityTagType {
-    if (entity instanceof LabExperiment) {
-      return 'EXPERIMENT';
+    if (entity instanceof LabScenario) {
+      return 'SCENARIO';
     } else if (entity instanceof LabNote) {
       return 'NOTE';
     } else if (entity instanceof LabResource) {

@@ -46,7 +46,7 @@ export const FL_ICON_MODULE =
  * List of default icon
  */
 export const flIconsDefault: FlIcon[] = [
-  {name: 'experiment', filename: 'flask-solid.svg'},
+  {name: 'scenario', filename: 'flask-solid.svg'},
   {name: 'protocol', filename: 'cogs-solid.svg'},
   {name: 'protocol_template', filename: 'protocol-template.svg'},
   {name: 'process', filename: 'cogs-solid.svg'},

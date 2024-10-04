@@ -1,5 +1,5 @@
-import {FlEntity} from '@monorepo/front-core-lib';
-import {TdSimpleTypeEntity, TdTypeStyle} from '@monorepo/technical-doc';
+import { FlEntity } from '@monorepo/front-core-lib';
+import { TdSimpleTypeEntity, TdTypeStyle } from '@monorepo/technical-doc';
 
 export interface PrResource extends FlEntity {
   name: string;
@@ -10,7 +10,7 @@ export interface PrResource extends FlEntity {
 
   style: TdTypeStyle;
 
-  experiment: {
+  scenario: {
     id: string;
     title: string;
   } | null;

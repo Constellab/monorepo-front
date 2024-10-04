@@ -60,7 +60,7 @@ export class LabTransformResourcePortalComponent {
     const transformers: LabTransformerParams[] = labConvertTransformFormToParams(formValue);
     this.isLoading = true;
     this.resourceService.transformResource(transformers, this.input.resourceId).subscribe({
-      next: experiment => this.onTransformSuccess(experiment),
+      next: scenario => this.onTransformSuccess(scenario),
       error: () => this.isLoading = false
     });
   }

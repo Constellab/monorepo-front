@@ -1,0 +1,51 @@
+import { Injectable } from '@angular/core';
+import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
+import { UntypedFormGroup } from '@angular/forms';
+import { FlFormHelper, FlPortalActionResult } from '@monorepo/front-core-lib';
+import { LabConfigureSpecsForm } from '../../../lab-core/model/entities/lab-config.entity';
+import { Observable, of } from 'rxjs';
+import { prConfigValueAreEqual, PrConfigValues } from '@monorepo/protocol';
+import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
+
+/**
+ * State for the process dashboard
+ */
+@Injectable()
+export class LabProcessDashboardState {
+
+  private task: LabProcess;
+  private taskFormGp: UntypedFormGroup;
+
+  constructor(private workflowEditConfig: LabWorkflowEditConfig) {
+  }
+
+  // save the current task and its form group to be able to save it from the dashboard
+  // (outside the form component)
+  public setCurrentTask(process: LabProcess, processFormGp: UntypedFormGroup): void {
+    this.task = process;
+    this.taskFormGp = processFormGp;
+  }
+
+  public saveCurrentTaskConfig(): Observable<FlPortalActionResult | null> {
+    if (this.task == null || this.taskFormGp == null) return of(null);
+    if (this.taskFormGp.valid) {
+      return this.saveConfig(this.taskFormGp.getRawValue());
+    } else {
+      FlFormHelper.markAllAsTouched(this.taskFormGp);
+      return of(null);
+    }
+  }
+
+  private saveConfig(config: LabConfigureSpecsForm): Observable<FlPortalActionResult | null> {
+    const configValue: PrConfigValues = {...config.public, ...config.protected};
+    // update the task config values
+    return this.workflowEditConfig.updateProcessConfig(this.task.parentProtocolId, this.task.instanceName, configValue);
+  }
+
+  /**
+   * return truc if the config has changed compared to the current task
+   */
+  public configHasChanged(process: LabProcess): boolean {
+    return !this.task || this.task.id !== process.id || !prConfigValueAreEqual(this.task.config.values, process.config.values);
+  }
+}

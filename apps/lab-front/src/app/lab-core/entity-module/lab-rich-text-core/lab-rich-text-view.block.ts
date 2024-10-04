@@ -29,7 +29,7 @@ export interface LabRichTextViewBlockAdditionalData {
 export interface LabNoteContentView {
   id: string;
   resource_id: string;
-  experiment_id?: string;
+  scenario_id?: string;
   view_method_name: string;
   view_config: PrConfigValues;
   title: string;
@@ -160,7 +160,7 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
     this.options.data = {
       id: viewConfig.id + '_' + new Date().getTime(),
       resource_id: viewConfig.resource.id,
-      experiment_id: viewConfig.experiment?.id,
+      scenario_id: viewConfig.scenario?.id,
       view_method_name: viewConfig.viewName,
       view_config: viewConfig.configValues,
       title: viewConfig.title,

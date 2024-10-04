@@ -22,12 +22,12 @@
                     entityType="RESOURCE" [entityId]="resource.id"></lab-tag-list>
     </fl-text-icon>
 
-    <!--  Experiment  -->
-    @if (resource.experiment) {
+    <!--  Scenario  -->
+    @if (resource.scenario) {
       <fl-text-icon class="line">
-        <mat-icon flIcon="experiment"></mat-icon>
-        <a [routerLink]="resource.experiment.id | labDetailRoute:'EXPERIMENT'"
-           class="g-text-link">{{ resource.experiment.title }}</a>
+        <mat-icon flIcon="scenario"></mat-icon>
+        <a [routerLink]="resource.scenario.id | labDetailRoute:'SCENARIO'"
+           class="g-text-link">{{ resource.scenario.title }}</a>
       </fl-text-icon>
     }
 

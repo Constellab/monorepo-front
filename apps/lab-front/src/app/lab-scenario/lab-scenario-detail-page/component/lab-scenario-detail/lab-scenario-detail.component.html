@@ -1,0 +1,63 @@
+<fl-article-container class="g-full-height container" *ngIf="scenario$ | async as scenario">
+
+  <!-- Technical information -->
+  <fl-article-left-side>
+
+    <!--  Tags  -->
+    <lab-tag-list class="g-flex-auto" [tags]="tags$" [showNoTagMessage]="true"
+                  entityType="SCENARIO" [entityId]="scenario.id"></lab-tag-list>
+
+    <!--  Folder  -->
+    <lab-folder-inline-select class="separator" [(ngModel)]="scenario.folder"
+                              (selectionChange)="updateFolder($event)"
+                              [disabled]="!scenario.isInfoEditable()"></lab-folder-inline-select>
+
+    <!--  Type  -->
+    <fl-text-icon class="separator"
+                  [matTooltip]="('biox.scenario_creation_type_help_' + scenario.creationType) | translate">
+      <mat-icon flIcon="scenario"></mat-icon>
+      <fl-key-value>
+        <fl-key>{{ 'biox.scenario_creation_type' | translate }}</fl-key>
+        {{ ('biox.scenario_creation_type_' + scenario.creationType) | translate }}
+      </fl-key-value>
+    </fl-text-icon>
+
+    <!--  Validated info  -->
+    <lab-object-validation-info class="separator" [object]="scenario"
+                                *ngIf="scenario.isValidated"></lab-object-validation-info>
+
+    <!--  Sync info  -->
+    <lab-object-sync-info class="separator" [object]="scenario" *ngIf="scenario.isSynced"></lab-object-sync-info>
+
+    <!--  Created by & Last modified bt  -->
+    <p class="g-text-small g-text-light separator">
+      <fl-creation-info [user]="scenario.createdBy"
+                        [date]="scenario.createdAt"></fl-creation-info>
+    </p>
+    <p class="g-text-small g-text-light">
+      <fl-last-modification-info [user]="scenario.lastModifiedBy"
+                                 [date]="scenario.lastModifiedAt"></fl-last-modification-info>
+    </p>
+
+
+  </fl-article-left-side>
+
+  <fl-article>
+    <te-text-editor-save [formCtrl]="descriptionFormControl" [saveFunc]="saveDescriptionFunc"
+                         [debounceTime]="1000" class="editor-save"></te-text-editor-save>
+
+    <te-text-editor [config]="textEditorConfig"
+                    [formControl]="descriptionFormControl"
+                    class="text-editor"
+                    [placeholder]="'biox.scenario_description_placeholder' | translate"></te-text-editor>
+  </fl-article>
+
+  <fl-article-right-side>
+
+    <fl-card>
+      <fl-card-body>
+        <lab-scenario-linked-notes [scenarioId]="scenario.id"></lab-scenario-linked-notes>
+      </fl-card-body>
+    </fl-card>
+  </fl-article-right-side>
+</fl-article-container>

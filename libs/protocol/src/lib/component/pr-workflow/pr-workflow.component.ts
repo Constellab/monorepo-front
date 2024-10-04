@@ -55,15 +55,15 @@ export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.loadExperimentFlow(), 0);
+    setTimeout(() => this.loadScenarioFlow(), 0);
   }
 
-  private loadExperimentFlow(): void {
-    this.loadExperimentFlowSuccess();
+  private loadScenarioFlow(): void {
+    this.loadScenarioFlowSuccess();
   }
 
 
-  private loadExperimentFlowSuccess(): void {
+  private loadScenarioFlowSuccess(): void {
     this.workflowManagerState.init(this.container.nativeElement, this.workflow, this.mode$, this.viewConfig);
 
     this.flowIsLoading = false;

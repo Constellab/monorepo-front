@@ -1,0 +1,8 @@
+<fl-dialog-header>
+  {{'biox.scenario_select' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <lab-scenario-search [scenarioSelectable]="true" [fullPageSearch]="false"
+                         (scenarioSelected)="onScenarioSelected($event)"></lab-scenario-search>
+</mat-dialog-content>

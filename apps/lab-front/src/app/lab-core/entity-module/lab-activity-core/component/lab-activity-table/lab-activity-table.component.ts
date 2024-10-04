@@ -22,14 +22,14 @@ export class LabActivityTableComponent {
   showLink(activity: LabActivity): boolean {
     return activity.activityType !== ActivityType.DELETE &&
       activity.objectId &&
-      (activity.objectType === ActivityObjectType.EXPERIMENT ||
+      (activity.objectType === ActivityObjectType.SCENARIO ||
         activity.objectType === ActivityObjectType.NOTE);
   }
 
   getLabObjectType(activity: LabActivity): LabEntityType {
     switch (activity.objectType) {
-      case ActivityObjectType.EXPERIMENT:
-        return 'EXPERIMENT';
+      case ActivityObjectType.SCENARIO:
+        return 'SCENARIO';
       case ActivityObjectType.NOTE:
         return 'NOTE';
       default:

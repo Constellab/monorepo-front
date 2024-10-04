@@ -10,7 +10,7 @@ import { LabDocumentTemplate } from '../../../../model/entities/lab-document-tem
 
 export interface LabNoteFormDialogInput extends FlFormDialogInput<LabNoteForm> {
   noteId?: string;
-  experimentId?: string; // can be provided during create to link the note directly to an experiment
+  scenarioId?: string; // can be provided during create to link the note directly to an scenario
   folder?: LabEntity;
   disableFolder?: boolean;
 }
@@ -51,8 +51,8 @@ export class LabNoteFormDialogComponent extends FlFormDialogAbstractDirective<La
   }
 
   create(formValue: LabNoteForm): Observable<LabNote> {
-    if (this.dialogInput.experimentId) {
-      return this.noteService.createForExperiment(formValue, this.dialogInput.experimentId);
+    if (this.dialogInput.scenarioId) {
+      return this.noteService.createForScenario(formValue, this.dialogInput.scenarioId);
     } else {
       return this.noteService.create(formValue);
     }

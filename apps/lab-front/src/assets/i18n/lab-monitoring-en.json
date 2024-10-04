@@ -73,7 +73,7 @@
     "number_of_processes": "Number of processes",
     "total_memory": "Total RAM",
     "clean_lab": "Clean unused data",
-    "clean_lab_confirmation": "This will clean all unused data from the lab. It will remove the temporary files and shadow resources (resources that were not correctly deleted). It can only be executed if there is no waiting or running experiment. It might take a few minutes.",
+    "clean_lab_confirmation": "This will clean all unused data from the lab. It will remove the temporary files and shadow resources (resources that were not correctly deleted). It can only be executed if there is no waiting or running scenario. It might take a few minutes.",
     "bricks_data": "Bricks data",
     "bricks_data_help": "Here is the list of external files and folders downloaded by tasks.",
     "brick_data_size": "Size",

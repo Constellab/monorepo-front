@@ -1,8 +1,8 @@
-import {PrWorkflowNodeResource, PrWorkNodeIoExternalButton} from './pr-workflow-node-resource.class';
-import {PrProcess} from '../pr-process.class';
-import {TdTypingName} from '@monorepo/technical-doc';
-import {FlThemeService} from '@monorepo/front-core-lib';
-import {map, Observable, of} from 'rxjs';
+import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
+import { PrProcess } from '../pr-process.class';
+import { TdTypingName } from '@monorepo/technical-doc';
+import { FlThemeService } from '@monorepo/front-core-lib';
+import { map, Observable, of } from 'rxjs';
 
 export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
 
@@ -51,7 +51,7 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
     return of(false);
   }
 
-  // generate a button on the right to show the next experiments
+  // generate a button on the right to show the next scenarios
   getExternalButtons$(): Observable<PrWorkNodeIoExternalButton | null> {
     if(!this.showExternalButtons) return of(null);
     return this.getResourceId$().pipe(
@@ -64,7 +64,7 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
           tooltip: 'pr.show_next_objects',
           action: (event: MouseEvent) => {
             this.actionState.newAction({
-              action: 'showNextExperiments',
+              action: 'showNextScenarios',
               resourceId: resourceId,
               element: event.target as HTMLElement
             });

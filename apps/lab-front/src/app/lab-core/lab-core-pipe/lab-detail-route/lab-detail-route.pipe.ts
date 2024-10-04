@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { LabEntity } from '../../model/global/lab-entity.entity';
 import { LabRouterService } from '../../service/lab-router.service';
 import { LabNote } from '../../model/entities/lab-note.entity';
-import { LabExperiment } from '../../model/entities/lab-experiment.entity';
+import { LabScenario } from '../../model/entities/lab-scenario.entity';
 import { LabResource } from '../../model/entities/resource/lab-resource.entity';
 import { LabProtocolTemplate } from '../../model/entities/process/lab-protocol-template.entity';
 import { LabDocumentTemplate } from '../../model/entities/lab-document-template.entity';
@@ -33,8 +33,8 @@ export class LabDetailRoutePipe implements PipeTransform {
     const id = typeof value === 'string' ? value : value.id;
 
     switch (objectType) {
-      case 'EXPERIMENT':
-        return LabRouterService.getExperimentDetailRoute(id);
+      case 'SCENARIO':
+        return LabRouterService.getScenarioDetailRoute(id);
       case 'RESOURCE':
         return LabRouterService.getResourceDetailRoute(id);
       case 'NOTE':
@@ -53,8 +53,8 @@ export class LabDetailRoutePipe implements PipeTransform {
   }
 
   private getObjectType(obj: any): LabEntityType {
-    if (obj instanceof LabExperiment) {
-      return 'EXPERIMENT';
+    if (obj instanceof LabScenario) {
+      return 'SCENARIO';
     } else if (obj instanceof LabResource) {
       return 'RESOURCE';
     } else if (obj instanceof LabNote) {

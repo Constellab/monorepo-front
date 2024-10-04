@@ -1,0 +1,20 @@
+<fl-async-section [arrayObs]="notes" emptyText="biox.no_scenario_linked_note">
+
+  <fl-section-header>
+    <h3>{{'biox.scenario_linked_note' | translate}}</h3>
+
+    <fl-section-actions>
+      <button mat-icon-button type="button" [matTooltip]="'biox.scenario_link_note' | translate"
+              (click)="linkScenario()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </fl-section-actions>
+
+  </fl-section-header>
+
+  <ng-container *flSectionBody>
+    <lab-note-table [datasource]="notes" [columns]="columns"
+                      (noteUnlink)="unlinkNote($event)">
+    </lab-note-table>
+  </ng-container>
+</fl-async-section>

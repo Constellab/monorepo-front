@@ -8,7 +8,7 @@ import {
   FlTranslateService
 } from '@monorepo/front-core-lib';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { LabExperiment } from '../../../../model/entities/lab-experiment.entity';
+import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
 import { LabNote } from '../../../../model/entities/lab-note.entity';
 import { LabNavigableImpactConfig } from '../../lab-navigable-entity.service';
 
@@ -33,7 +33,7 @@ export class LabNavigableImpactDialogComponent implements OnInit {
 
   impactedEntities: LabNavigableEntityGrouped[];
 
-  containsValidatedExperiments: boolean = false;
+  containsValidatedScenarios: boolean = false;
   containsValidatedNotes: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: LabNavigableImpactDialogInput,
@@ -46,12 +46,12 @@ export class LabNavigableImpactDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // check if there are some validated experiment
-    const experimentsGroup: LabNavigableEntityGrouped<LabExperiment> = this.impactedEntities.find(
-      group => group.type === 'EXPERIMENT'
+    // check if there are some validated scenario
+    const scenariosGroup: LabNavigableEntityGrouped<LabScenario> = this.impactedEntities.find(
+      group => group.type === 'SCENARIO'
     );
-    if (experimentsGroup) {
-      this.containsValidatedExperiments = experimentsGroup.entities.some(entity => entity.isValidated);
+    if (scenariosGroup) {
+      this.containsValidatedScenarios = scenariosGroup.entities.some(entity => entity.isValidated);
     }
 
     // check if there are some validated note
@@ -65,7 +65,7 @@ export class LabNavigableImpactDialogComponent implements OnInit {
 
 
   callAction(): void {
-    if (this.containsValidatedExperiments || this.containsValidatedNotes) return;
+    if (this.containsValidatedScenarios || this.containsValidatedNotes) return;
 
     const input: FlConfirmDialogInput = {
       title: this.translateService.translatableText(this.title),

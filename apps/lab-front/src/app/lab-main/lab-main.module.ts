@@ -1,16 +1,16 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {LabMainRoutingModule} from './lab-main-routing.module';
-import {LabMainAppComponent} from './component/lab-main-app/lab-main-app.component';
-import {LabCoreModule} from '../lab-core/lab-core.module';
-import {RouterModule} from '@angular/router';
-import {LabEnvironmentToggleComponent} from './component/lab-environment-toggle/lab-environment-toggle.component';
-import {LabErrorDetailComponent} from './component/lab-error-detail/lab-error-detail.component';
-import {LabMainMenuSettingsComponent} from './component/lab-main-menu-settings/lab-main-menu-settings.component';
-import {LabQueueJobsDialogComponent} from './component/lab-queue-jobs-dialog/lab-queue-jobs-dialog.component';
-import {LabExperimentCoreModule} from '../lab-core/entity-module/lab-experiment-core/lab-experiment-core.module';
-import {FormsModule} from '@angular/forms';
+import { LabMainRoutingModule } from './lab-main-routing.module';
+import { LabMainAppComponent } from './component/lab-main-app/lab-main-app.component';
+import { LabCoreModule } from '../lab-core/lab-core.module';
+import { RouterModule } from '@angular/router';
+import { LabEnvironmentToggleComponent } from './component/lab-environment-toggle/lab-environment-toggle.component';
+import { LabErrorDetailComponent } from './component/lab-error-detail/lab-error-detail.component';
+import { LabMainMenuSettingsComponent } from './component/lab-main-menu-settings/lab-main-menu-settings.component';
+import { LabQueueJobsDialogComponent } from './component/lab-queue-jobs-dialog/lab-queue-jobs-dialog.component';
+import { LabScenarioCoreModule } from '../lab-core/entity-module/lab-scenario-core/lab-scenario-core.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import {FormsModule} from '@angular/forms';
 
     // Routing
     LabMainRoutingModule,
-    LabExperimentCoreModule
+    LabScenarioCoreModule
   ]
 })
 

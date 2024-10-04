@@ -12,11 +12,11 @@
 
 
   <p class="g-warn-text"
-     *ngIf="containsValidatedExperiments">{{ 'biox.reset_impact_contains_validated_experiments' | translate }}</p>
+     *ngIf="containsValidatedScenarios">{{ 'biox.reset_impact_contains_validated_scenarios' | translate }}</p>
   <p class="g-warn-text"
      *ngIf="containsValidatedNotes">{{ 'biox.reset_impact_contains_validated_notes' | translate }}</p>
 
-  <fl-text-icon class="warn-confirmation" *ngIf="!containsValidatedExperiments && !containsValidatedNotes">
+  <fl-text-icon class="warn-confirmation" *ngIf="!containsValidatedScenarios && !containsValidatedNotes">
     <mat-icon color="warn" class="g-icon-big">warnings</mat-icon>
     <div class="g-warn-text">
       {{ 'biox.force_action_warning' | translate: {actionName: (title | flTranslatableText | async)} }}
@@ -27,7 +27,7 @@
 
 <div mat-dialog-actions>
   <button mat-stroked-button color="warn" type="button" (click)="callAction()"
-          [disabled]="containsValidatedExperiments || containsValidatedNotes">
+          [disabled]="containsValidatedScenarios || containsValidatedNotes">
     {{ title | flTranslatableText | async }}
   </button>
 

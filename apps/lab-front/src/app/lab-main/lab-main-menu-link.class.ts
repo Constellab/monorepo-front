@@ -26,8 +26,8 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       route: labConstNoteFullRoute,
     },
     {
-      label: 'biox.experiments',
-      icon: 'experiment',
+      label: 'biox.scenarios',
+      icon: 'scenario',
       route: labConstBioxFullRoute
     },
     {

@@ -3,7 +3,7 @@
  */
 export const labConstBaseRoute = 'app';
 
-export const labConstExpeirmentRoute = 'experiment';
+export const labConstExpeirmentRoute = 'scenario';
 export const labConstBiotaRoute = 'biota';
 export const labConstDataboxRoute = 'databox';
 export const labConstNoteRoute = 'note';

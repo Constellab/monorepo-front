@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {LabDevEnvironmentService} from '../../../lab-core/service/lab-dev-environment.service';
-import {Subscription} from 'rxjs';
-import {LabEnvStore} from '../../../lab-core/service/lab-env.store';
-import {LabRouterService} from '../../../lab-core/service/lab-router.service';
-import {Router} from '@angular/router';
-import {MatSlideToggleChange} from '@angular/material/slide-toggle';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { LabDevEnvironmentService } from '../../../lab-core/service/lab-dev-environment.service';
+import { Subscription } from 'rxjs';
+import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
+import { LabRouterService } from '../../../lab-core/service/lab-router.service';
+import { Router } from '@angular/router';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'lab-environment-toggle',
@@ -52,7 +52,7 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
       });
     } else {
       this.labEnvStore.setLabEnvironment('prod');
-      this.redirectToExperimentList();
+      this.redirectToScenarioList();
     }
   }
 
@@ -61,16 +61,16 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
     if (!activate) {
       this.checked = false;
     } else {
-      this.redirectToExperimentList();
+      this.redirectToScenarioList();
     }
   }
 
-  private redirectToExperimentList(): void {
-    if (this.router.isActive(LabRouterService.getExperimentListRoute(),
+  private redirectToScenarioList(): void {
+    if (this.router.isActive(LabRouterService.getScenarioListRoute(),
       {fragment: 'ignored', paths: 'exact', matrixParams: 'ignored', queryParams: 'ignored'})) {
       location.reload();
     } else {
-      this.routerService.navigateToExperimentListRoute();
+      this.routerService.navigateToScenarioListRoute();
     }
   }
 

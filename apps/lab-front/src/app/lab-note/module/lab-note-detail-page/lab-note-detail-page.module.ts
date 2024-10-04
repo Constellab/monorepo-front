@@ -4,17 +4,15 @@ import { LabNoteDetailPageComponent } from './component/lab-note-detail-page/lab
 import { LabCoreModule } from '../../../lab-core/lab-core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  LabNoteLinkedExperimentsComponent
-} from './component/lab-note-linked-experiments/lab-note-linked-experiments.component';
+  LabNoteLinkedScenariosComponent
+} from './component/lab-note-linked-scenarios/lab-note-linked-scenarios.component';
 import { RouterModule } from '@angular/router';
 import {
   LabViewConfigCoreModule
 } from '../../../lab-core/entity-module/lab-view-config-core/lab-view-config-core.module';
 import { LabResourceCoreModule } from '../../../lab-core/entity-module/lab-resource-core/lab-resource-core.module';
 import { LabEntityCoreModule } from '../../../lab-core/entity-module/lab-entity-core/lab-entity-core.module';
-import {
-  LabExperimentCoreModule
-} from '../../../lab-core/entity-module/lab-experiment-core/lab-experiment-core.module';
+import { LabScenarioCoreModule } from '../../../lab-core/entity-module/lab-scenario-core/lab-scenario-core.module';
 import { LabFolderCoreModule } from '../../../lab-core/entity-module/lab-folder-core/lab-folder-core.module';
 import { LabTagCoreModule } from '../../../lab-core/entity-module/lab-tag-core/lab-tag-core.module';
 import {
@@ -28,7 +26,7 @@ import {
 @NgModule({
   declarations: [
     LabNoteDetailPageComponent,
-    LabNoteLinkedExperimentsComponent,
+    LabNoteLinkedScenariosComponent,
     LabNoteInsertTemplateDialogComponent
   ],
   imports: [
@@ -40,7 +38,7 @@ import {
     LabViewConfigCoreModule,
     LabResourceCoreModule,
     LabEntityCoreModule,
-    LabExperimentCoreModule,
+    LabScenarioCoreModule,
     LabFolderCoreModule,
     LabTagCoreModule,
     ReactiveFormsModule,

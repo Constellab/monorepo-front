@@ -67,8 +67,8 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
     switch (this.entityType) {
       case 'RESOURCE':
         return 'biox.share_resource';
-      case 'EXPERIMENT':
-        return 'biox.share_experiment';
+      case 'SCENARIO':
+        return 'biox.share_scenario';
       default:
         throw new Error('Unknown entity type');
     }
@@ -78,8 +78,8 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
     switch (this.entityType) {
       case 'RESOURCE':
         return 'biox.share_resource';
-      case 'EXPERIMENT':
-        return 'biox.share_experiment';
+      case 'SCENARIO':
+        return 'biox.share_scenario';
       default:
         throw new Error('Unknown entity type');
     }

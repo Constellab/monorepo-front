@@ -27,7 +27,7 @@ export class LabRouterService {
     return `/${labConstBaseRoute}`;
   }
 
-  public static getExperimentListRoute(): string {
+  public static getScenarioListRoute(): string {
     return labConstBioxFullRoute;
   }
 
@@ -35,7 +35,7 @@ export class LabRouterService {
     return labConstDataboxFullRoute;
   }
 
-  public static getExperimentDetailRoute(id: string): string {
+  public static getScenarioDetailRoute(id: string): string {
     return `${labConstBioxFullRoute}/${id}`;
   }
 
@@ -137,16 +137,16 @@ export class LabRouterService {
     this.router.navigate([LabRouterService.getAppRoute()]);
   }
 
-  public navigateToExperimentListRoute(): Promise<boolean> {
-    return this.router.navigate([LabRouterService.getExperimentListRoute()]);
+  public navigateToScenarioListRoute(): Promise<boolean> {
+    return this.router.navigate([LabRouterService.getScenarioListRoute()]);
   }
 
   public navigateToDatabox(): Promise<boolean> {
     return this.router.navigate([LabRouterService.getDataboxRoute()]);
   }
 
-  public navigateToExperimentDetail(id: string): Promise<boolean> {
-    return this.router.navigate([LabRouterService.getExperimentDetailRoute(id)]);
+  public navigateToScenarioDetail(id: string): Promise<boolean> {
+    return this.router.navigate([LabRouterService.getScenarioDetailRoute(id)]);
   }
 
   public navigateToResourceDetail(id: string): Promise<boolean> {

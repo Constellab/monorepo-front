@@ -1,7 +1,7 @@
-import {Expose, Type} from 'class-transformer';
-import {FlArrayObs} from '@monorepo/front-core-lib';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
-import {DateTime} from 'luxon';
+import { Expose, Type } from 'class-transformer';
+import { FlArrayObs } from '@monorepo/front-core-lib';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { DateTime } from 'luxon';
 
 export class LabLogInfo {
   name: string;
@@ -33,7 +33,7 @@ export class LabLogCompleteInfo {
 // logs: List[LogLine]
 // from_date: datetime
 // to_date: datetime
-// from_experiment: bool
+// from_scenario: bool
 
 export type LabLogLevel = 'ERROR' | 'WARNING' | 'INFO' | 'DEBUG' | 'PROGRESS' | 'EXCEPTION';
 

@@ -1,11 +1,11 @@
-import {LabEntity} from '../../global/lab-entity.entity';
-import {FlFileHelper} from '@monorepo/front-core-lib';
-import {Expose, Type} from 'class-transformer';
-import {TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle} from '@monorepo/technical-doc';
-import {LabFlaggedEntity} from '../../global/lab-flagged-entity.class';
-import {LabFolder} from '../lab-folder.class';
-import {LabBaseEntityWithUser} from '../lab-user.entity';
-import {PrResource} from '@monorepo/protocol';
+import { LabEntity } from '../../global/lab-entity.entity';
+import { FlFileHelper } from '@monorepo/front-core-lib';
+import { Expose, Type } from 'class-transformer';
+import { TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle } from '@monorepo/technical-doc';
+import { LabFlaggedEntity } from '../../global/lab-flagged-entity.class';
+import { LabFolder } from '../lab-folder.class';
+import { LabBaseEntityWithUser } from '../lab-user.entity';
+import { PrResource } from '@monorepo/protocol';
 
 /**
  * Represent a file or a folder link to the resource
@@ -54,7 +54,7 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
 
   flagged: boolean;
 
-  experiment?: {
+  scenario?: {
     id: string;
     title: string;
   };
@@ -93,7 +93,7 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
       name: this.name,
       resourceTypingName: this.resourceTypingName,
       resourceType: this.resourceType,
-      experiment: this.experiment,
+      scenario: this.scenario,
       style: this.style
     };
   }

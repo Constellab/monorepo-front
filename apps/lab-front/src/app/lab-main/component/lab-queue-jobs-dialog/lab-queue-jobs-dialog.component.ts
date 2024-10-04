@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {LabExperiment, LabRunningExperimentInfo} from '../../../lab-core/model/entities/lab-experiment.entity';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { LabRunningScenarioInfo, LabScenario } from '../../../lab-core/model/entities/lab-scenario.entity';
 import {
   FlArrayObs,
   FlConfirmDialogInput,
@@ -7,11 +7,11 @@ import {
   FlDialogService,
   FlEntityArrayObs
 } from '@monorepo/front-core-lib';
-import {LabQueueService} from '../../../lab-core/entity-service/lab-queue.service';
-import {LabQueueJob} from '../../../lab-core/model/entities/lab-queue.entity';
-import {LabExperimentService} from '../../../lab-core/entity-service/lab-experiment.service';
-import {Subscription, tap, zip} from 'rxjs';
-import {MatDialogRef} from '@angular/material/dialog';
+import { LabQueueService } from '../../../lab-core/entity-service/lab-queue.service';
+import { LabQueueJob } from '../../../lab-core/model/entities/lab-queue.entity';
+import { LabScenarioService } from '../../../lab-core/entity-service/lab-scenario.service';
+import { Subscription, tap, zip } from 'rxjs';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'lab-queue-jobs-dialog',
@@ -20,8 +20,8 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
 
-  runningExperiments: FlArrayObs<LabRunningExperimentInfo>;
-  experimentColumns: string[] = ['title', 'runningTasks'];
+  runningScenarios: FlArrayObs<LabRunningScenarioInfo>;
+  scenarioColumns: string[] = ['title', 'runningTasks'];
 
   jobs: LabQueueJob[];
 
@@ -34,12 +34,12 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
   constructor(private dialogRef: MatDialogRef<LabQueueJobsDialogComponent>,
               private queueService: LabQueueService,
               private dialogService: FlDialogService,
-              private experimentService: LabExperimentService) {
+              private scenarioService: LabScenarioService) {
   }
 
   ngOnInit(): void {
     this.loadInfo();
-    this.runningExperiments = new FlEntityArrayObs();
+    this.runningScenarios = new FlEntityArrayObs();
   }
 
   private loadInfo(): void {
@@ -48,11 +48,11 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
       error: () => this.isLoading = false
     }));
 
-    const getRunningExperiments = this.experimentService.getRunningExperiments().pipe(tap({
-      next: experiments => this.runningExperiments.array = experiments,
+    const getRunningScenarios = this.scenarioService.getRunningScenarios().pipe(tap({
+      next: scenarios => this.runningScenarios.array = scenarios,
     }));
 
-    this.subscription = zip([getJobs, getRunningExperiments]).subscribe(() => this.getSuccess());
+    this.subscription = zip([getJobs, getRunningScenarios]).subscribe(() => this.getSuccess());
   }
 
   private getSuccess(): void {
@@ -65,12 +65,12 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
   }
 
 
-  removeExperimentFromQueue(job: LabQueueJob, index: number): void {
+  removeScenarioFromQueue(job: LabQueueJob, index: number): void {
     const input: FlConfirmDialogInput = {
-      title: 'biox.remove_experiment_from_queue',
-      content: 'biox.remove_experiment_from_queue_confirmation',
-      observable: this.queueService.removeExperimentFromQueue(job.experiment.id),
-      successMessage: 'biox.experiment_removed_from_queue',
+      title: 'biox.remove_scenario_from_queue',
+      content: 'biox.remove_scenario_from_queue_confirmation',
+      observable: this.queueService.removeScenarioFromQueue(job.scenario.id),
+      successMessage: 'biox.scenario_removed_from_queue',
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -78,7 +78,7 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
     );
   }
 
-  private onConfirmUpdateClosed(result: FlConfirmDialogResult<LabExperiment>, index: number): void {
+  private onConfirmUpdateClosed(result: FlConfirmDialogResult<LabScenario>, index: number): void {
     if (result.choice) {
       this.jobs.splice(index, 1);
     }

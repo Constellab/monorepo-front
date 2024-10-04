@@ -1,0 +1,40 @@
+<fl-search class="g-full-height">
+
+  <!-- Advanced section in the right in a drawer -->
+  <fl-search-advanced-form>
+    <lab-scenario-search-form></lab-scenario-search-form>
+  </fl-search-advanced-form>
+
+
+  <!--  Center header  -->
+  <fl-search-header>
+
+    <fl-text-icon>
+      <mat-icon flIcon="scenario"></mat-icon>
+      <h2>{{ 'biox.scenarios' | translate }}</h2>
+    </fl-text-icon>
+
+    <fl-search-header-actions class="g-layout-row g-layout-start-center">
+      <button mat-icon-button type="button" color="accent"
+              [matTooltip]="'biox.new_scenario' | translate" matTooltipPosition="before"
+              (click)="createScenario()">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <button mat-icon-button type="button" color="accent" (click)="openImportFromUrlDialog()"
+              [matTooltip]="'biox.import_scenario_from_lab' | translate">
+        <mat-icon>cloud_download</mat-icon>
+      </button>
+    </fl-search-header-actions>
+  </fl-search-header>
+
+
+  <fl-search-result>
+    <lab-scenario-table [datasource]="datasource"
+                          [rowSelectable]="scenarioSelectable"
+                          (scenarioSelected)="selectScenario($event)"
+                          (tagSelected)="searchOnTag($event)"></lab-scenario-table>
+  </fl-search-result>
+
+
+</fl-search>

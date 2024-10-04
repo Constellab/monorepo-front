@@ -10,7 +10,7 @@
 
         <mat-tab-group class="g-flex-auto g-mat-tab-full-height g-mat-tab-header-card-background"
                        [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="tabIndexChange($event)">
-          <mat-tab [label]="'biox.experiment_workflow' | translate">
+          <mat-tab [label]="'biox.scenario_workflow' | translate">
             <ng-template matTabContent>
               <lab-protocol-template-workflow [template]="template"></lab-protocol-template-workflow>
             </ng-template>

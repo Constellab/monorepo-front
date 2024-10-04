@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
 import { Type } from 'class-transformer';
 import { LabResourceOrigin } from '../../../model/entities/resource/lab-resource.entity';
-import { LabExperiment } from '../../../model/entities/lab-experiment.entity';
+import { LabScenario } from '../../../model/entities/lab-scenario.entity';
 import { LabFolder } from '../../../model/entities/lab-folder.class';
 import { LabUser } from '../../../model/entities/lab-user.entity';
 import { LabTypeEntity } from '../../../model/entities/lab-type/lab-type.entity';
@@ -28,7 +28,7 @@ export class LabResourceSearchFields {
   tags: FlTag[];
   origin: LabResourceOrigin;
   data: string;
-  experiment: LabExperiment;
+  scenario: LabScenario;
 
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
@@ -59,7 +59,7 @@ export class LabResourceSearch {
     tags: 'flTag.tags',
     origin: 'resource_origin',
     data: 'resource_data',
-    experiment: 'biox.experiment',
+    scenario: 'biox.scenario',
     isArchived: 'is_archived',
     // group the creation date into one chip
     createdAt: 'creation_date',
@@ -85,7 +85,7 @@ export class LabResourceSearch {
     tags: { key: 'tags', operator: 'EQ' },
     origin: { key: 'origin', operator: 'EQ' },
     data: { key: 'data', operator: 'MATCH' },
-    experiment: { key: 'experiment', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    scenario: { key: 'scenario', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     // Date
     createdAt: FlSearchConverter.dateInterval('created_at'),
     createdBy: { key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
@@ -123,7 +123,7 @@ export class LabResourceSearch {
         tags: [null],
         origin: [null],
         data: [null],
-        experiment: [null],
+        scenario: [null],
         createdAt: new FormBuilder().group({
           from: [null],
           to: [null]

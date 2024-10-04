@@ -1,0 +1,68 @@
+import { Component, Inject } from '@angular/core';
+import { TdIOSpec } from '@monorepo/technical-doc';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { PrWorkflowPortType } from '@monorepo/protocol';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { LabTypeEntity } from '../../../../lab-core/model/entities/lab-type/lab-type.entity';
+
+
+export interface LabDynamicPortConfigDialogInput {
+  portType: PrWorkflowPortType;
+  portName: string;
+  spec: TdIOSpec;
+}
+
+interface LabFormType {
+  resourceType: FormControl<LabTypeEntity>;
+  humanName: FormControl<string>;
+  shortDescription: FormControl<string>;
+  isOptional: FormControl<boolean>;
+  isConstant: FormControl<boolean>;
+  subClass: FormControl<boolean>;
+}
+
+/**
+ * Dialog to configure dynamic ports
+ */
+@Component({
+  selector: 'lab-dynamic-port-config-dialog',
+  templateUrl: './lab-dynamic-port-config-dialog.component.html',
+  styleUrls: ['./lab-dynamic-port-config-dialog.component.scss'],
+})
+export class LabDynamicPortConfigDialogComponent {
+
+  portType: PrWorkflowPortType;
+  formGp: FormGroup<LabFormType>;
+
+  constructor(@Inject(MAT_DIALOG_DATA) data: LabDynamicPortConfigDialogInput,
+              private dialogRef: MatDialogRef<LabDynamicPortConfigDialogComponent>) {
+
+    this.portType = data.portType;
+    this.formGp = new FormBuilder().group({
+      resourceType: new FormControl(LabTypeEntity.fromResourceType(data.spec.resource_types[0])),
+      humanName: new FormControl(data.spec.human_name),
+      shortDescription: new FormControl(data.spec.short_description),
+      isOptional: new FormControl(data.spec.is_optional),
+      isConstant: new FormControl(data.spec.is_constant),
+      // force subClass to true if portType is output
+      subClass: new FormControl(data.portType === 'output')
+    });
+  }
+
+
+  submit(): void {
+    if (this.formGp.valid) {
+      const value = this.formGp.getRawValue();
+      const spec: TdIOSpec = {
+        resource_types: [value.resourceType.toTypeRef()],
+        human_name: value.humanName,
+        short_description: value.shortDescription,
+        is_optional: value.isOptional,
+        is_constant: value.isConstant,
+        sub_class: value.subClass
+      };
+      this.dialogRef.close(spec);
+    }
+  }
+
+}

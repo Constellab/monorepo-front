@@ -1,0 +1,18 @@
+<fl-input-search [selectedItem]="selectedScenario"
+                 (selectedItemChange)="setAndEmitValue($event)"
+                 [datasource]="datasource"
+                 [placeholder]="'biox.scenario_select' | translate"
+                 [required]="required"
+                 [disabled]="disabled"
+                 [minInputSearchLength]="0"
+                 [advancedButton]="advancedButton">
+
+  <div class="photo" *flInputSearchPrefix="datasource as scenario">
+    <fl-user-profile-picture *ngIf="scenario" [user]="scenario.createdBy"
+                             size="small"></fl-user-profile-picture>
+
+  </div>
+
+  <lab-scenario-inline *flInputSearchOption="datasource as scenario" [scenario]="scenario">
+  </lab-scenario-inline>
+</fl-input-search>

@@ -18,7 +18,7 @@ import {
 } from '../model/entities/lab-note.entity';
 import { Observable } from 'rxjs';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
-import { LabExperiment } from '../model/entities/lab-experiment.entity';
+import { LabScenario } from '../model/entities/lab-scenario.entity';
 import { LabNoteSearch, LabNoteSearchFields } from '../entity-module/lab-note-core/model/lab-note-search.class';
 import { TeRichText } from '@monorepo/text-editor';
 
@@ -35,8 +35,8 @@ export class LabNoteService {
     return this.apiService.post(this.route, this.noteFormToBody(note), LabNote);
   }
 
-  public createForExperiment(note: LabNoteForm, experimentId: string): Observable<LabNote> {
-    return this.apiService.post(`${this.route}/experiment/${experimentId}`, this.noteFormToBody(note), LabNote);
+  public createForScenario(note: LabNoteForm, scenarioId: string): Observable<LabNote> {
+    return this.apiService.post(`${this.route}/scenario/${scenarioId}`, this.noteFormToBody(note), LabNote);
   }
 
   public update(id: string, note: LabNoteForm): Observable<LabNote> {
@@ -82,20 +82,20 @@ export class LabNoteService {
     return this.apiService.deleteById(this.route, id);
   }
 
-  public addExperiment(noteId: string, experimentId: string): Observable<LabExperiment> {
-    return this.apiService.put(`${this.route}/${noteId}/add-experiment/${experimentId}`, null, LabExperiment);
+  public addScenario(noteId: string, scenarioId: string): Observable<LabScenario> {
+    return this.apiService.put(`${this.route}/${noteId}/add-scenario/${scenarioId}`, null, LabScenario);
   }
 
-  public removeExperiment(noteId: string, experimentId: string): Observable<void> {
-    return this.apiService.delete(`${this.route}/${noteId}/remove-experiment/${experimentId}`, null);
+  public removeScenario(noteId: string, scenarioId: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/${noteId}/remove-scenario/${scenarioId}`, null);
   }
 
-  public removeExperimentWithConfirmation(noteId: string, experimentId: string): Observable<FlConfirmDialogResult<void>> {
+  public removeScenarioWithConfirmation(noteId: string, scenarioId: string): Observable<FlConfirmDialogResult<void>> {
     const input: FlConfirmDialogInput = {
-      title: 'biox.note_unlink_experiment',
-      content: 'biox.note_unlink_experiment_confirmation',
-      observable: this.removeExperiment(noteId, experimentId),
-      successMessage: 'biox.note_experiment_unlinked',
+      title: 'biox.note_unlink_scenario',
+      content: 'biox.note_unlink_scenario_confirmation',
+      observable: this.removeScenario(noteId, scenarioId),
+      successMessage: 'biox.note_scenario_unlinked',
     };
 
     return this.dialogService.openConfirmDialog(input).afterClosed();
@@ -115,12 +115,12 @@ export class LabNoteService {
     return this.apiService.get(`${this.route}/${id}/content`);
   }
 
-  public getByExperiment(experimentId: string): Observable<LabNote[]> {
-    return this.apiService.get(`${this.route}/experiment/${experimentId}`, LabNote);
+  public getByScenario(scenarioId: string): Observable<LabNote[]> {
+    return this.apiService.get(`${this.route}/scenario/${scenarioId}`, LabNote);
   }
 
-  public getExperimentByNotes(noteId: string): Observable<LabExperiment[]> {
-    return this.apiService.get(`${this.route}/${noteId}/experiments`, LabExperiment);
+  public getScenarioByNotes(noteId: string): Observable<LabScenario[]> {
+    return this.apiService.get(`${this.route}/${noteId}/scenarios`, LabScenario);
   }
 
 

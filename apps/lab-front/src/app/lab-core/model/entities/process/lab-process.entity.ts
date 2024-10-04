@@ -1,8 +1,8 @@
-import {Expose, Type} from 'class-transformer';
-import {LabProgressBar, LabProgressMessage} from '../lab-progress-bar.entity';
-import {FlStatus, FlStatusTransform} from '@monorepo/front-core-lib';
-import {LabBaseEntityWithUser} from '../lab-user.entity';
-import {TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle, TdTypingName} from '@monorepo/technical-doc';
+import { Expose, Type } from 'class-transformer';
+import { LabProgressBar, LabProgressMessage } from '../lab-progress-bar.entity';
+import { FlStatus, FlStatusTransform } from '@monorepo/front-core-lib';
+import { LabBaseEntityWithUser } from '../lab-user.entity';
+import { TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle, TdTypingName } from '@monorepo/technical-doc';
 import {
   PrConfig,
   PrOI,
@@ -11,9 +11,9 @@ import {
   prProcessStatusDict,
   PrProcessStatusHelper
 } from '@monorepo/protocol';
-import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
-import {LabEntity} from '../../global/lab-entity.entity';
+import { DateTime } from 'luxon';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { LabEntity } from '../../global/lab-entity.entity';
 
 export type LabProcessClass = 'TASK' | 'PROTOCOL';
 
@@ -32,8 +32,8 @@ export class LabProcess extends LabBaseEntityWithUser {
   @Expose({name: 'process_typing_name'})
   processTypingName: string;
 
-  @Expose({name: 'experiment_id'})
-  experimentId: string;
+  @Expose({name: 'scenario_id'})
+  scenarioId: string;
 
   @Expose({name: 'parent_protocol_id'})
   parentProtocolId: string;

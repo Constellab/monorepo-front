@@ -15,10 +15,10 @@
     "select_folder_type": "Type du dossier",
     "delete_resource": "Supprimer la resource",
     "delete_resource_confirmation": "Êtes-vous sûr de vouloir supprimer cette ressource ?",
-    "delete_generated_resource_confirmation": "Cette ressource a été générée par l'expérience '<strong>{{experimentTitle}}</strong>', si vous continuez l'expérience sera supprimée.",
+    "delete_generated_resource_confirmation": "Cette ressource a été générée par le scénario '<strong>{{scenarioTitle}}</strong>', si vous continuez le scénario sera supprimée.",
     "resource_deleted": "Ressource supprimé",
     "resource_see_children": "Voir les ressources filles",
-    "delete_resource_and_experiment": "Supprimer la ressource et l'expérience",
-    "resource_and_experiment_deleted": "Ressource et expérience supprimées"
+    "delete_resource_and_scenario": "Supprimer la ressource et le scénario",
+    "resource_and_scenario_deleted": "Ressource et scénario supprimés"
   }
 }

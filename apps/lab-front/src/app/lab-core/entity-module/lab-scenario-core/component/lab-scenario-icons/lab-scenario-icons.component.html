@@ -1,0 +1,17 @@
+@if (scenario.isValidated) {
+  <mat-icon [matTooltip]="'biox.scenario_validated' | translate"
+            [ngClass]="iconSizeClass" flIcon="validated">
+  </mat-icon>
+}
+
+@if (scenario.isArchived) {
+  <mat-icon [matTooltip]="'biox.scenario_archived' | translate"
+            [ngClass]="iconSizeClass" flIcon="archive">
+  </mat-icon>
+}
+
+@if (scenario.isSpecialCreationType) {
+  <mat-icon [matTooltip]="scenario.specialTypeInfo.description | translate"
+            [ngClass]="iconSizeClass" [flIcon]="scenario.specialTypeInfo.icon">
+  </mat-icon>
+}

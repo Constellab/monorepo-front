@@ -1,8 +1,8 @@
 import { Component, ComponentRef, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
 import {
-  LabExperimentTableComponent
-} from '../../../lab-experiment-core/component/lab-experiment-table/lab-experiment-table.component';
+  LabScenarioTableComponent
+} from '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib';
 import { LabNoteTableComponent } from '../../../lab-note-core/component/lab-note-table/lab-note-table.component';
 import {
@@ -33,8 +33,8 @@ export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     switch (this.type) {
-      case 'EXPERIMENT':
-        this.componentRef = this.experimentTable();
+      case 'SCENARIO':
+        this.componentRef = this.scenarioTable();
         break;
       case 'RESOURCE':
         this.componentRef = this.resourceTable();
@@ -50,8 +50,8 @@ export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  private experimentTable(): ComponentRef<any> {
-    const componentRef = this.viewContainer.createComponent(LabExperimentTableComponent);
+  private scenarioTable(): ComponentRef<any> {
+    const componentRef = this.viewContainer.createComponent(LabScenarioTableComponent);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['title', 'status', 'lastModification'];
     componentRef.instance.rowLinkTarget = '_blank';

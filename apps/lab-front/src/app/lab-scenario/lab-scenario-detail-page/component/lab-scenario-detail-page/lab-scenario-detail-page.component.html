@@ -1,0 +1,27 @@
+<!-- content of the page -->
+<fl-async-section [object]="scenario$" class="g-page-fixed page">
+
+  <ng-container *flSectionBody>
+    <div class="g-full-height g-layout-col">
+
+      <lab-scenario-detail-header class="g-card-background"></lab-scenario-detail-header>
+
+      <mat-tab-group class="g-flex-auto g-mat-tab-full-height g-mat-tab-header-card-background"
+                     [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="tabIndexChange($event)">
+        <mat-tab [label]="'biox.scenario_workflow' | translate">
+          <ng-template matTabContent>
+            <!--    Workflow of scenario      -->
+            <lab-workflow></lab-workflow>
+          </ng-template>
+        </mat-tab>
+
+        <mat-tab [label]="'biox.scenario_detail' | translate">
+          <lab-scenario-detail></lab-scenario-detail>
+        </mat-tab>
+      </mat-tab-group>
+
+
+    </div>
+  </ng-container>
+
+</fl-async-section>

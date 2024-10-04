@@ -106,7 +106,7 @@ export class LabResourceActionsMenuComponent implements OnInit {
   openUpdateFolder(): void {
     const data: LabResourceUpdateFolderDialogInput = {
       resourceId: this.resource.id,
-      experiment: this.resource.experiment,
+      scenario: this.resource.scenario,
       folder: this.resource.folder
     };
     this.dialogService.openSmallDialog(LabResourceUpdateFolderDialogComponent, { data: data })
@@ -147,14 +147,14 @@ export class LabResourceActionsMenuComponent implements OnInit {
 
 
     // for imported or transformed resources, we add an info message
-    if (this.resource.experiment) {
+    if (this.resource.scenario) {
       confirmation += `<p>${this.translateService.translate('databox.delete_generated_resource_confirmation',
-        { param: { experimentTitle: this.resource.experiment.title } })}</p>`;
+        { param: { scenarioTitle: this.resource.scenario.title } })}</p>`;
 
       const deleteResourceWithExp = this.translateService.translate('biox.delete_resource_with_exp_confirm_impact',
-        { param: { title: this.resource.name, experimentTitle: this.resource.experiment.title } });
-      const resetProcessImpact = this.translateService.translate('biox.experiment_ressource_used_after',
-        { param: { title: this.resource.experiment.title } });
+        { param: { title: this.resource.name, scenarioTitle: this.resource.scenario.title } });
+      const resetProcessImpact = this.translateService.translate('biox.scenario_ressource_used_after',
+        { param: { title: this.resource.scenario.title } });
       confirmImpactHelpText = {
         text: `<p>${deleteResourceWithExp}</p><p>${resetProcessImpact}</p>`,
         translateText: false
@@ -183,9 +183,9 @@ export class LabResourceActionsMenuComponent implements OnInit {
 
   private onResourceDeleteSuccess(result: FlPortalActionResult): void {
     if (result.status === 'success') {
-      if (this.resource.experiment) {
+      if (this.resource.scenario) {
         this.snackBarService.openSuccessMessage({
-          text: 'databox.resource_and_experiment_deleted',
+          text: 'databox.resource_and_scenario_deleted',
           translateText: true
         });
       } else {

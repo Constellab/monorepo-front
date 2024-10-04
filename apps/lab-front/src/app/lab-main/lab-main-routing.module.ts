@@ -36,7 +36,7 @@ const routes: Routes = [
       ////////////////////////  BIOX  /////////////////////////
       {
         path: labConstExpeirmentRoute,
-        loadChildren: () => import('../lab-biox/lab-biox.module').then(m => m.LabBioxModule)
+        loadChildren: () => import('../lab-scenario/lab-scenario.module').then(m => m.LabScenarioModule)
       },
 
       ////////////////////////  PROTOCOL TEMPLATE  /////////////////////////

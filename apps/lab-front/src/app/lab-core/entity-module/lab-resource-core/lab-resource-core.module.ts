@@ -38,7 +38,7 @@ import {
 import {
   LabResourceActionsMenuComponent
 } from './component/lab-resource-actions-menu/lab-resource-actions-menu.component';
-import { LabExperimentCoreModule } from '../lab-experiment-core/lab-experiment-core.module';
+import { LabScenarioCoreModule } from '../lab-scenario-core/lab-scenario-core.module';
 import { LabTagCoreModule } from '../lab-tag-core/lab-tag-core.module';
 import { LabTypeCoreModule } from '../lab-type-core/lab-type-core.module';
 import {
@@ -65,8 +65,8 @@ import {
   LabResourceViewHistoricComponent
 } from './component/lab-resource-view-historic/lab-resource-view-historic.component';
 import {
-  LabExperimentsUsingResourceComponent
-} from './component/lab-experiments-using-resource/lab-experiments-using-resource.component';
+  LabScenariosUsingResourceComponent
+} from './component/lab-scenarios-using-resource/lab-scenarios-using-resource.component';
 import {
   LabNotesUsingResourceComponent
 } from './component/lab-notes-using-resource/lab-notes-using-resource.component';
@@ -128,7 +128,7 @@ import {
     LabResourceViewSpecListComponent,
     LabResourceViewDetailComponent,
     LabResourceViewHistoricComponent,
-    LabExperimentsUsingResourceComponent,
+    LabScenariosUsingResourceComponent,
     LabNotesUsingResourceComponent,
     LabResourceInfoComponent,
     LabResourceViewDetailDialogComponent,
@@ -175,7 +175,7 @@ import {
     LabTransformerCoreModule,
     LabConfigCoreModule,
     LabTypeCoreModule,
-    LabExperimentCoreModule,
+    LabScenarioCoreModule,
     LabTagCoreModule,
     LabEntityCoreModule,
     LabFolderCoreModule,

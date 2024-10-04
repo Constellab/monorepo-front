@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {LabQueueJob} from '../model/entities/lab-queue.entity';
-import {LabExperiment} from '../model/entities/lab-experiment.entity';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { LabQueueJob } from '../model/entities/lab-queue.entity';
+import { LabScenario } from '../model/entities/lab-scenario.entity';
 
 @Injectable({providedIn: 'root'})
 export class LabQueueService {
@@ -16,7 +16,7 @@ export class LabQueueService {
     return this.apiService.get(`${this.route}/jobs`, LabQueueJob);
   }
 
-  public removeExperimentFromQueue(experimentId: string): Observable<LabExperiment> {
-    return this.apiService.deleteById(`${this.route}/experiment`, experimentId, LabExperiment);
+  public removeScenarioFromQueue(scenarioId: string): Observable<LabScenario> {
+    return this.apiService.deleteById(`${this.route}/scenario`, scenarioId, LabScenario);
   }
 }

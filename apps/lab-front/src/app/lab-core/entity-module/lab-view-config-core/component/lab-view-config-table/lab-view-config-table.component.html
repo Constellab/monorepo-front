@@ -25,10 +25,10 @@
     <mat-cell *matCellDef="let viewConfig">
       <div>
         <div class="text g-text-dense-height">{{ viewConfig.resource.name }}</div>
-        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="viewConfig.experiment"
+        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="viewConfig.scenario"
                       gap="3px">
-          <mat-icon flIcon="experiment" class="g-icon-tiny"></mat-icon>
-          <div class="text g-text-dense-height">{{ viewConfig.experiment.title }}</div>
+          <mat-icon flIcon="scenario" class="g-icon-tiny"></mat-icon>
+          <div class="text g-text-dense-height">{{ viewConfig.scenario.title }}</div>
         </fl-text-icon>
       </div>
     </mat-cell>
