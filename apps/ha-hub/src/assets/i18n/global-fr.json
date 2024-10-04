@@ -357,5 +357,8 @@
   "join_constellab": "Rejoindre Constellab",
   "members": "Membres",
   "fair_open_access_description": "Obtenez un accès libre pour démarrer sur Constellab, créez des projets open-source, gagnez des crédits grâce à votre travail",
-  "join_our_discord": "Rejoindre notre Discord"
+  "join_our_discord": "Rejoindre notre Discord",
+  "delete_live_task_version": "Supprimer la version de live task",
+  "delete_live_task_version_confirmation": "Êtes-vous sûr de vouloir supprimer cette version de live task ?",
+  "live_task_version_deleted": "Version de live task supprimée"
 }

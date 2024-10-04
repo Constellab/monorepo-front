@@ -1,113 +1,156 @@
-import { Component, computed, Input, OnDestroy, OnInit, Signal } from '@angular/core';
+import { Component, computed, Input, OnInit, Signal } from '@angular/core';
 import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
 import { HaLiveTaskVersion } from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
-import { FlCodeEditorLanguage, FlDebouncer, FlSnackBarService } from '@monorepo/front-core-lib';
-import { TranslateService } from '@ngx-translate/core';
-import { TeBasicConfig, TeRichText, TeRichTextContent } from '@monorepo/text-editor';
+import {
+  FlClipboardService,
+  FlCodeEditorLanguage,
+  FlDebouncer,
+} from '@monorepo/front-core-lib';
+import {
+  TeBasicConfig,
+  TeRichText,
+  TeRichTextContent,
+} from '@monorepo/text-editor';
 import { HaBrickVersion } from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaLiveTaskPageState } from '../../state/ha-live-task-page.state';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 // TODO @vfoex composant a cleaner, beaucoup trop gros, beaucoup trop d'attribute
 
 @Component({
   selector: 'ha-live-task-version-detail',
   templateUrl: './ha-live-task-version-detail.component.html',
-  styleUrls: ['./ha-live-task-version-detail.component.scss']
+  styleUrls: ['./ha-live-task-version-detail.component.scss'],
 })
-export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
-
-  @Input() sectionTitle?: string;
+export class HaLiveTaskVersionDetailComponent implements OnInit {
+  @Input() isOverview?: boolean;
   versionInfosDisabled = true;
   textEditorConfig: TeBasicConfig;
+
   paramsFormControl: FormControl<string> = new FormControl<string>(null);
   paramsDebouncer: FlDebouncer<string>;
+  paramsFormControlSubscription: Subscription;
 
   environmentFormControl: FormControl<string> = new FormControl<string>(null);
   environmentDebouncer: FlDebouncer<string>;
+  environmentFormControlSubscription: Subscription;
 
+  codeFormControl: FormControl<string> =  new FormControl<string>(null);
+  codeDebouncer: FlDebouncer<string>;
+  codeFormControlSubscription: Subscription;
+
+  lastLtVersion: number = null;
+
+  canEdit: Signal<boolean> = this.liveTaskPageState.canEditLt;
+  isEditable: Signal<boolean> =
+    this.liveTaskPageState.liveTaskVersionIsEditable;
+  brickDependencies: Signal<HaBrickVersion[]> =
+    this.liveTaskPageState.getBrickDependencies();
+  isLiveTaskVersionLoading: Signal<boolean> =
+    this.liveTaskPageState.isLiveTaskVersionLoading;
+  versionInfosFormControl: FormControl<TeRichTextContent> =
+    new FormControl<TeRichTextContent>(null);
   liveTaskVersion: Signal<HaLiveTaskVersion> = computed(() => {
     if (!this.liveTaskPageState.liveTaskVersion()) return null;
     const liveTaskVersion = this.liveTaskPageState.liveTaskVersion();
+    if (liveTaskVersion?.version == this.lastLtVersion) return liveTaskVersion;
+    this.lastLtVersion = liveTaskVersion.version;
+    this.codeDebouncer = null;
+    this.paramsDebouncer = null;
+    this.environmentDebouncer = null;
+
     if (this.versionInfosFormControl) {
       this.versionInfosFormControl.setValue(liveTaskVersion?.versionInfos);
       this.versionInfosFormControl.disable();
     } else {
       const formControl = new FormControl<TeRichTextContent>(null);
       if (liveTaskVersion?.versionInfos) {
-        formControl.setValue(liveTaskVersion.versionInfos);
+        formControl.patchValue(liveTaskVersion.versionInfos);
         formControl.disable();
       }
       this.versionInfosFormControl = formControl;
     }
+
+    this.codeFormControlSubscription?.unsubscribe();
+    this.codeFormControlSubscription = null;
+    this.paramsFormControlSubscription?.unsubscribe();
+    this.paramsFormControlSubscription = null;
+    this.environmentFormControlSubscription?.unsubscribe();
+    this.environmentFormControlSubscription = null;
+
+
+    this.codeDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
+    this.codeDebouncer
+      .getDebouncedValue()
+      .subscribe((value) => this.onCodeChange(value));
+    this.codeFormControl.patchValue(liveTaskVersion.code);
+
+    this.paramsDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
+    this.paramsDebouncer
+      .getDebouncedValue()
+      .subscribe((value) => this.onParamsChange(value));
+    this.paramsFormControl.patchValue(liveTaskVersion.params);
+
+    this.environmentFormControl.patchValue(liveTaskVersion.environment);
+    this.environmentDebouncer = new FlDebouncer(
+      FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME
+    );
+    this.environmentDebouncer
+      .getDebouncedValue()
+      .subscribe((value) => this.onEnvironmentChange(value));
+
+    this.codeFormControlSubscription = this.codeFormControl.valueChanges.subscribe((code) => {
+      if(this.canEdit() && this.isEditable())
+        this.codeDebouncer.setValue(code);
+    });
+
+    this.paramsFormControlSubscription = this.paramsFormControl.valueChanges.subscribe((params) => {
+      if(this.canEdit() && this.isEditable())
+        this.paramsDebouncer.setValue(params);
+    });
+
+    this.environmentFormControlSubscription = this.environmentFormControl.valueChanges.subscribe((environment) => {
+      if(this.canEdit() && this.isEditable())
+        this.environmentDebouncer.setValue(environment);
+    });
+
+    if (!this.isEditable() || !this.canEdit()) {
+      this.environmentFormControl.disable();
+      this.paramsFormControl.disable();
+      this.codeFormControl.disable();
+    }
+
     return liveTaskVersion;
   });
   isVersionInfosEmpty: Signal<boolean> = computed(() => {
     return TeRichText.isEmpty(this.liveTaskVersion()?.versionInfos);
   });
-  canEdit: Signal<boolean> = this.liveTaskPageState.canEditLt;
-  isEditable: Signal<boolean> = this.liveTaskPageState.liveTaskVersionIsEditable;
-  brickDependencies: Signal<HaBrickVersion[]> = this.liveTaskPageState.getBrickDependencies();
-  isLiveTaskVersionLoading: Signal<boolean> = this.liveTaskPageState.isLiveTaskVersionLoading;
-  codeFormControl: Signal<FormControl<string>> = computed(() => {
-    const formControl = new FormControl<string>(null);
-    if (this.liveTaskVersion()?.code) {
-      formControl.setValue(this.liveTaskVersion().code);
-    }
 
-    if (!this.isEditable() || !this.canEdit()) {
-      formControl.disable();
-    }
-    return formControl;
-  });
-  codeDebouncer: Signal<FlDebouncer<string>> = computed(() => {
-    const debouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
-    debouncer.getDebouncedValue().subscribe(value => this.onCodeChange(value));
-    this.codeFormControl().valueChanges.subscribe(code => {
-      debouncer.setValue(code);
-    });
-    return debouncer;
-  });
-  versionInfosFormControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>(null);
   languageCode: Signal<FlCodeEditorLanguage> = computed(() => {
-    return (this.liveTaskVersion()?.type as string)?.includes('PYTHON') ? 'python' : 'r';
+    return (this.liveTaskVersion()?.type as string)?.includes('PYTHON')
+      ? 'python'
+      : 'r';
   });
 
   languageEnvironment: Signal<FlCodeEditorLanguage> = computed(() => {
-    return (this.liveTaskVersion()?.environment as string)?.includes('PIP') ? null : 'yaml';
+    return (this.liveTaskVersion()?.environment as string)?.includes('PIP')
+      ? null
+      : 'yaml';
   });
 
-
-  constructor(private liveTaskService: HaLiveTaskService,
-              private snackBarService: FlSnackBarService,
-              private translateService: TranslateService,
-              private liveTaskPageState: HaLiveTaskPageState) {
-  }
+  constructor(
+    private liveTaskService: HaLiveTaskService,
+    private liveTaskPageState: HaLiveTaskPageState,
+    private clipboardService: FlClipboardService
+  ) {}
 
   ngOnInit(): void {
-    if (this.sectionTitle == null) {
-      this.translateService.get('detail_of_the_version').subscribe(value => {
-        this.sectionTitle = value;
-      });
-    }
     this.textEditorConfig = new TeBasicConfig();
 
     if (this.liveTaskVersion()?.params != null) {
-      this.paramsFormControl.setValue(this.liveTaskVersion().params.join('\n'));
+      this.paramsFormControl.setValue(this.liveTaskVersion().params);
     }
-
-    this.paramsDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
-    this.paramsDebouncer.getDebouncedValue().subscribe(value => this.onParamsChange(value));
-    this.paramsFormControl.valueChanges.subscribe(params => {
-      this.paramsDebouncer.setValue(params);
-    });
-
-    this.environmentFormControl.setValue(this.liveTaskVersion()?.environment);
-    this.environmentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
-    this.environmentDebouncer.getDebouncedValue().subscribe(value => this.onEnvironmentChange(value));
-    this.environmentFormControl.valueChanges.subscribe(environment => {
-      this.environmentDebouncer.setValue(environment);
-    });
 
     if (!this.isEditable() || !this.canEdit()) {
       this.environmentFormControl.disable();
@@ -116,37 +159,72 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
   }
 
   onEnvironmentChange(environment: string): void {
-    if (environment === this.liveTaskVersion()?.environment) return;
-    this.liveTaskService.saveLiveTaskVersionEnvironment(this.liveTaskVersion()?.id, environment).subscribe(liveTaskVersion => {
-      this.liveTaskPageState.setLiveTaskVersion(liveTaskVersion);
-    });
+    if (
+      environment === this.liveTaskVersion()?.environment ||
+      !this.canEdit() ||
+      this.liveTaskVersion() == null || this.lastLtVersion !== this.liveTaskVersion().version
+    )
+      return;
+    this.liveTaskService
+      .saveLiveTaskVersionEnvironment(this.liveTaskVersion()?.id, environment)
+      .subscribe((liveTaskVersion) => {
+        this.liveTaskPageState.setLiveTaskVersion(liveTaskVersion);
+      });
   }
 
   onParamsChange(params: string): void {
     const paramsArray = params?.split('\n');
-    if (params === this.liveTaskVersion()?.params?.join('\n') || paramsArray?.find(p => p.trim().length > 0) == null || !this.isEditable) {
+    if (
+      params === this.liveTaskVersion()?.params ||
+      paramsArray?.find((p) => p.trim().length > 0) == null ||
+      !this.isEditable() || !this.canEdit() ||
+      this.liveTaskVersion() == null || this.lastLtVersion !== this.liveTaskVersion().version
+    ) {
       return;
     }
-    this.liveTaskService.saveLiveTaskVersionParams(this.liveTaskVersion()?.id, paramsArray).subscribe(liveTaskVersion => {
-      this.liveTaskPageState.setLiveTaskVersion(liveTaskVersion);
-    });
+    this.liveTaskService
+      .saveLiveTaskVersionParams(this.liveTaskVersion()?.id, paramsArray)
+      .subscribe((liveTaskVersion) => {
+        this.liveTaskPageState.setLiveTaskVersion(liveTaskVersion);
+      });
   }
 
   onCodeChange(code: string): void {
-    if (code === this.liveTaskVersion()?.code || !this.isEditable) return;
-    this.liveTaskService.saveLiveTaskVersionCode(this.liveTaskVersion()?.id, code).subscribe(liveTaskVersion => {
-      this.liveTaskPageState.setLiveTaskVersion(liveTaskVersion);
-    });
+
+    if (
+      code === this.liveTaskVersion()?.code || this.isLiveTaskVersionLoading() ||
+      !this.isEditable() || !this.canEdit() ||
+      this.liveTaskVersion() == null || this.lastLtVersion !== this.liveTaskVersion().version
+    )
+      return;
+
+    this.liveTaskService
+      .saveLiveTaskVersionCode(this.liveTaskVersion()?.id, code)
+      .subscribe((liveTaskVersion) => {
+        this.liveTaskPageState.setLiveTaskVersion(liveTaskVersion);
+      });
   }
 
   onCopy(type: 'parameters' | 'code' | 'environment_file'): void {
     // TODO @vfoex use clipboard service
-    if (this.liveTaskVersion() && this.liveTaskVersion().params)
-      navigator.clipboard.writeText(this.liveTaskVersion()?.params?.join('\n')).then(() => {
-        this.snackBarService.openSuccessMessage({ text: `${type}_copied_to_clipboard`, translateText: true });
-      }).catch(() => {
-        this.snackBarService.openErrorMessage({ text: 'Error copying code to clipboard', translateText: false });
+    let text = null;
+    switch (type) {
+      case 'parameters':
+        text = this.liveTaskVersion()?.params;
+        break;
+      case 'code':
+        text = this.liveTaskVersion()?.code;
+        break;
+      case 'environment_file':
+        text = this.liveTaskVersion()?.environment;
+        break;
+    }
+    if (text) {
+      this.clipboardService.copy(text, {
+        text: `${type}_copied_to_clipboard`,
+        translateText: true,
       });
+    }
   }
 
   onVersionInfosEditorButtonClick(): void {
@@ -156,22 +234,20 @@ export class HaLiveTaskVersionDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.liveTaskService.saveLiveTaskVersionInfos(
-      this.liveTaskVersion().id, this.versionInfosFormControl.value as TeRichTextContent).subscribe((liveTaskVersion) => {
-      if (liveTaskVersion)
-        this.liveTaskPageState.updateLiveTaskVersion(liveTaskVersion);
-      this.versionInfosDisabled = true;
-      this.versionInfosFormControl.disable();
-    });
+    this.liveTaskService
+      .saveLiveTaskVersionInfos(
+        this.liveTaskVersion().id,
+        this.versionInfosFormControl.value as TeRichTextContent
+      )
+      .subscribe((liveTaskVersion) => {
+        if (liveTaskVersion)
+          this.liveTaskPageState.updateLiveTaskVersion(liveTaskVersion);
+        this.versionInfosDisabled = true;
+        this.versionInfosFormControl.disable();
+      });
   }
 
   onVersionInfosChange(versionInfos: TeRichTextContent): void {
     this.versionInfosFormControl?.setValue(versionInfos);
   }
-
-
-  ngOnDestroy(): void {
-    this.codeDebouncer().complete();
-  }
-
 }

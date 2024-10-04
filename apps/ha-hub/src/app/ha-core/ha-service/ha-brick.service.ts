@@ -96,6 +96,10 @@ export class HaBrickService implements HaCoAuthorService {
     return this.apiService.get(`${this.route}/name/${name}`, HaBrick);
   }
 
+  public checkIfBrickExistByName(name: string): Observable<boolean> {
+    return this.apiService.get(`${this.route}/check-brick-existence/${name}`)
+  }
+
   public getRootFolderId(brickId: string, version: string): Observable<any> {
     return this.apiService.get(this.route + `/root-folder/${brickId}/${version}`);
   }

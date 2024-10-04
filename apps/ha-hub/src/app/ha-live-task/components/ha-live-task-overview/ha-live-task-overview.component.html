@@ -1,4 +1,4 @@
-@if(liveTask()){
+@if (liveTask()) {
   <h2 flElementEditable (flElementValueChange)="onTitleChange($event)"
       [flElementDisabled]="!canEditLt()">
     {{ liveTask().title }}
@@ -9,7 +9,8 @@
         <fl-user-inline [user]="liveTask().createdBy" [portalOnHover]="false"></fl-user-inline>
       </a>
       <span class="g-text-small date-info">
-      <fl-from-now [date]="liveTask().createdAt" *ngIf="liveTask().latestPublishVersion > 0; else notPublished"></fl-from-now>
+      <fl-from-now [date]="liveTask().createdAt"
+                   *ngIf="liveTask().latestPublishVersion > 0; else notPublished"></fl-from-now>
     </span>
     </p>
     <div class="lt-buttons">
@@ -20,7 +21,7 @@
 
       <ha-comment-button [commentsCount]="liveTask().comments" (clicked)="openCommentsPanel()"></ha-comment-button>
 
-      @if(isAuthor()){
+      @if (isAuthor()) {
         <button mat-icon-button color="warn" (click)="deleteLiveTask()">
           <mat-icon>delete</mat-icon>
         </button>
@@ -46,20 +47,19 @@
         </fl-text-icon>
       </button>
     </div>
-    <div>
-      @if(canEditLt() || !liveTaskDescriptionEmpty()){
+    @if (canEditLt() || !liveTaskDescriptionEmpty()) {
+      <div>
         <te-text-editor
           class="description-editor" [ngClass]="canEditLt() ? 'editor-border' : ''"
           [config]="textEditorConfig()" (textChange)="onDescriptionChange($event)"
           [formControl]="descriptionFormControl()"
           [placeholder]="'live_task_description_place_holder' | translate"></te-text-editor>
-      }
-
-    </div>
+      </div>
+    }
   </div>
 
   <ha-live-task-version-detail *ngIf="!isLoading() && !isLiveTaskVersionLoading() && !isLiveTaskVersionError()"
-                               [sectionTitle]="('latest_version_infos' | translate) + ' (V' + liveTask()?.latestPublishVersion + ')'"></ha-live-task-version-detail>
+                               [isOverview]="true"></ha-live-task-version-detail>
 
 }
 

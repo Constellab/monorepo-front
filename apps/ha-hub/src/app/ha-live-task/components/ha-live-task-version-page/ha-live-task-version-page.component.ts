@@ -1,4 +1,4 @@
-import {Component, OnInit, Signal} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Signal } from '@angular/core';
 import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
 import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -18,19 +18,22 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
   canEdit: Signal<boolean> = this.liveTaskPageState.canEditLt;
   isLiveTaskVersionError: Signal<boolean> = this.liveTaskPageState.isLiveTaskVersionError;
   isLiveTaskVersionLoading: Signal<boolean> = this.liveTaskPageState.isLiveTaskVersionLoading;
-
-  // brickDependencies: Signal<HaBrickVersion[]> = this.liveTaskPageState.getBrickDependencies();
+  currentVersion = null;
 
   constructor(private liveTaskService: HaLiveTaskService,
               private activatedRoute: ActivatedRoute,
               private dialogService: FlDialogService,
               private snackBarService: FlSnackBarService,
               private router: Router,
-              private liveTaskPageState: HaLiveTaskPageState) {
+              private liveTaskPageState: HaLiveTaskPageState,
+              private changeDetector: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
+      this.currentVersion = null;
+      this.changeDetector.detectChanges();
+      this.currentVersion = params['versionNumber'];
       this.liveTaskPageState.setLiveTaskVersionByVersionNumber(params['id'], params['versionNumber']);
     });
   }
@@ -70,8 +73,9 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
       observable: this.liveTaskService.deleteLiveTaskVersion(this.liveTaskVersion().id)
     }).afterClosed().subscribe((result) => {
       if (result.choice) {
-        this.liveTaskPageState.removeLiveTaskVersionToList(this.liveTaskVersion());
-        this.router.navigate([HaRouterService.getLiveTaskRoute(this.liveTaskVersion().liveTask.id, this.liveTaskVersion().liveTask.title)]);
+        this.router.navigate([HaRouterService.getLiveTaskRoute(this.liveTaskVersion().liveTask.id, this.liveTaskVersion().liveTask.title)]).then(()=>{
+          this.liveTaskPageState.removeLiveTaskVersionToList(this.liveTaskVersion());
+        });
       }
     });
   }

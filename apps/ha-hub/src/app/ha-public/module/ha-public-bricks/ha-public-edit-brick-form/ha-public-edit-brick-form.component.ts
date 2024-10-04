@@ -117,8 +117,8 @@ export class HaPublicEditBrickFormComponent implements OnInit {
           this.snackBarService.openErrorMessage({text: this.errorFileText, translateText: true});
           return;
         } else {
-          this.brickService.getByName(srcResult.name).subscribe(res => {
-            if (res == null) {
+          this.brickService.checkIfBrickExistByName(srcResult.name).subscribe(res => {
+            if (!res) {
               this.inputFile =
                 new HaAddVersionInput(true, srcResult.name, srcResult.version, srcResult.environment, srcResult.technical_info);
               this.formGp.controls.name.setValue(this.inputFile.name);
