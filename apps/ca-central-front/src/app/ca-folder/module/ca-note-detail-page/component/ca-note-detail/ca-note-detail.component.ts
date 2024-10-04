@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
-import { CaExperiment } from '../../../../../ca-core/model/entities/folder/ca-experiment.class';
-import { CaExperimentService } from '../../../../../ca-core/service-api/ca-experiment.service';
+import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
+import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
 import {
   FlArrayObs,
   FlConfirmDialogInput,
@@ -10,9 +10,9 @@ import {
   FlEntityArrayObs
 } from '@monorepo/front-core-lib';
 import {
-  CaExperimentsListDialogInput,
-  CaExperimentsTableDialogComponent
-} from '../../../ca-experiment-core/component/ca-experiments-table-dialog/ca-experiments-table-dialog.component';
+  CaScenariosListDialogInput,
+  CaScenarioTableDialogComponent
+} from '../../../ca-scenario-core/component/ca-scenario-table-dialog/ca-scenario-table-dialog.component';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 
@@ -25,9 +25,9 @@ export class CaNoteDetailComponent {
 
   @Input({ required: true }) note: CaNote;
 
-  experiments: FlArrayObs<CaExperiment>;
+  scenarios: FlArrayObs<CaScenario>;
 
-  constructor(private experimentService: CaExperimentService,
+  constructor(private scenarioService: CaScenarioService,
               private dialogService: FlDialogService,
               private noteService: CaNoteService,
               private state: CaHierarchyObjectDetailState) {
@@ -39,15 +39,15 @@ export class CaNoteDetailComponent {
     }
   }
 
-  openExperimentsListDialog(): void {
-    this.experiments = new FlEntityArrayObs(this.experimentService.getExperimentsByNote(this.note.id));
+  openScenariosListDialog(): void {
+    this.scenarios = new FlEntityArrayObs(this.scenarioService.getScenariosByNote(this.note.id));
 
-    const input: CaExperimentsListDialogInput = {
-      experiments: this.experiments,
-      title: { text: 'note_associated_experiments', translateText: true }
+    const input: CaScenariosListDialogInput = {
+      scenarios: this.scenarios,
+      title: { text: 'note_associated_scenarios', translateText: true }
     };
 
-    this.dialogService.openMediumDialog(CaExperimentsTableDialogComponent, { data: input });
+    this.dialogService.openMediumDialog(CaScenarioTableDialogComponent, { data: input });
   }
 
   deleteNote(): void {

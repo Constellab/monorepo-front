@@ -4,10 +4,10 @@
     <h1>{{ note.title }}</h1>
 
     <fl-card-actions class="g-print-hide">
-      <button mat-stroked-button type="button" (click)="openExperimentsListDialog()"
+      <button mat-stroked-button type="button" (click)="openScenariosListDialog()"
               class="g-button-small button">
-        {{ 'experiments' | translate }}
-        <mat-icon flIcon="experiment"></mat-icon>
+        {{ 'scenarios' | translate }}
+        <mat-icon flIcon="scenario"></mat-icon>
       </button>
 
       <button mat-stroked-button type="button" (click)="printNote()"
@@ -78,7 +78,7 @@
   <!--        {{ 'print_note' | translate }}-->
   <!--        <mat-icon>print</mat-icon>-->
   <!--      </button>-->
-  <!--      <ca-experiments-list [experiments]="experiments" mode="small"></ca-experiments-list>-->
+  <!--      <ca-scenarios-list [scenarios]="scenarios" mode="small"></ca-scenarios-list>-->
   <!--    </fl-article-right-side>-->
   <!--  </fl-article-container>-->
 </fl-card>

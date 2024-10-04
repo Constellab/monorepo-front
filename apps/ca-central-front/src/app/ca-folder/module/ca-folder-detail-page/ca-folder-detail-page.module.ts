@@ -5,7 +5,7 @@ import { CaCoreModule } from '../../../ca-core/ca-core.module';
 import { CaFolderCoreModule } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 import { CaFolderDetailComponent } from './component/ca-folder-detail/ca-folder-detail.component';
 import { RouterModule } from '@angular/router';
-import { CaExperimentCoreModule } from '../ca-experiment-core/ca-experiment-core.module';
+import { CaScenarioCoreModule } from '../ca-scenario-core/ca-scenario-core.module';
 import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
 import { CaGroupCoreModule } from '../../../ca-core/entity-module/ca-group-core/ca-group-core.module';
 import { CaFolderSharedListComponent } from './component/ca-folder-shared-list/ca-folder-shared-list.component';
@@ -16,8 +16,8 @@ import { CaFolderDescriptionComponent } from './component/ca-folder-description/
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaFolderNotePreviewComponent } from './component/ca-folder-note-preview/ca-folder-note-preview.component';
 import {
-  CaFolderExperimentPreviewComponent
-} from './component/ca-folder-experiment-preview/ca-folder-experiment-preview.component';
+  CaFolderScenarioPreviewComponent
+} from './component/ca-folder-scenario-preview/ca-folder-scenario-preview.component';
 import { CaLabCoreModule } from '../../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
 import {
   CaFolderChatRightPanelComponent
@@ -70,7 +70,7 @@ import {
     CaFolderDetailRightPanelComponent,
     CaFolderDescriptionComponent,
     CaFolderNotePreviewComponent,
-    CaFolderExperimentPreviewComponent,
+    CaFolderScenarioPreviewComponent,
     CaFolderChatRightPanelComponent,
     CaFolderSettingsComponent,
     CaFolderStorageSettingsComponent,
@@ -92,7 +92,7 @@ import {
     CaHierarchyObjectCoreModule,
     CaFolderHierarchyCoreModule,
     CaFolderCoreModule,
-    CaExperimentCoreModule,
+    CaScenarioCoreModule,
     CaNoteCoreModule,
     CaDocumentCoreModule,
     CaGroupCoreModule,

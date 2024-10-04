@@ -73,8 +73,8 @@ export class CaRouterService {
     return CaRouterService.getFullRoute(caConstMyFoldersRoute);
   }
 
-  public static getExperimentDetailRoute(experimentId: string): string {
-    return CaRouterService.getFullRoute(`${caConstFolderRoute}/experiment/${experimentId}`);
+  public static getScenarioDetailRoute(scenarioId: string): string {
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/scenario/${scenarioId}`);
   }
 
   public static getNoteDetailRoute(noteId: string): string {
@@ -101,8 +101,8 @@ export class CaRouterService {
     this.router.navigate([CaRouterService.getDocumentPreviewRoute(documentId)]);
   }
 
-  public navigateToExperimentDetail(experimentId: string): void {
-    this.router.navigate([CaRouterService.getExperimentDetailRoute(experimentId)]);
+  public navigateToScenarioDetail(scenarioId: string): void {
+    this.router.navigate([CaRouterService.getScenarioDetailRoute(scenarioId)]);
   }
 
   public navigateToNoteDetail(noteId: string): void {

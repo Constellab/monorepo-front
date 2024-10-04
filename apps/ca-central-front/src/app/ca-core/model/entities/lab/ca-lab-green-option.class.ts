@@ -1,10 +1,10 @@
-import {CaBaseEntity} from '../ca-base-entity.class';
-import {ClHelpService} from '@monorepo/core-lib';
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { ClHelpService } from '@monorepo/core-lib';
 
 
 export enum CaLabGreenOptionType {
   // Stop rules
-  STOP_AFTER_EXPERIMENT = 'STOP_AFTER_EXPERIMENT',
+  STOP_AFTER_SCENARIO = 'STOP_AFTER_SCENARIO',
   STOP_AFTER_BACKUP = 'STOP_AFTER_BACKUP',
   STOP_AFTER_TIME = 'STOP_AFTER_TIME',
   STOP_AFTER_INACTIVITY_TIME = 'STOP_AFTER_INACTIVITY_TIME',

@@ -1,0 +1,28 @@
+<fl-card class="g-full card">
+
+  @if(showCardHeader){
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon flIcon="scenario"></mat-icon>
+      <h2 class="title g-text-dense-height">{{ scenario.title }}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <fl-status-chip [status]="scenario.status"></fl-status-chip>
+    </fl-card-actions>
+  </fl-card-header>
+  }
+
+
+  <fl-card-body>
+    <ca-scenario-info [scenario]="scenario"></ca-scenario-info>
+
+    <div class="g-text-centered open-button">
+      <a *ngIf="scenarioRoute" [href]="scenarioRoute" mat-stroked-button>
+        {{ 'open_scenario_in_lab' | translate }}
+        <mat-icon>arrow_forward_ios</mat-icon>
+      </a>
+    </div>
+  </fl-card-body>
+
+</fl-card>

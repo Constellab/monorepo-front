@@ -4,8 +4,8 @@ import {
   CaFolderDetailPageComponent
 } from '../ca-folder-detail-page/component/ca-folder-detail-page/ca-folder-detail-page.component';
 import {
-  CaExperimentDetailPageComponent
-} from '../ca-experiment-detail-page/component/ca-experiment-detail-page/ca-experiment-detail-page.component';
+  CaScenarioDetailPageComponent
+} from '../ca-scenario-detail-page/ca-scenario-detail-page/ca-scenario-detail-page.component';
 import {
   CaNoteDetailPageComponent
 } from '../ca-note-detail-page/component/ca-note-detail-page/ca-note-detail-page.component';
@@ -27,7 +27,7 @@ const routes: Route[] = [
     path: '', component: CaHierarchyObjectDetailPageComponent, children: [
       {path: ':id', component: CaFolderDetailPageComponent},
       {path: ':id/activity', component: CaFolderActivityPageComponent},
-      {path: 'experiment/:id', component: CaExperimentDetailPageComponent},
+      {path: 'scenario/:id', component: CaScenarioDetailPageComponent},
       {path: 'note/:id', component: CaNoteDetailPageComponent},
       {path: 'document/:id', component: CaDocumentDetailPageComponent},
       {path: 'document/:id/preview', component: CaDocumentPreviewPageComponent}

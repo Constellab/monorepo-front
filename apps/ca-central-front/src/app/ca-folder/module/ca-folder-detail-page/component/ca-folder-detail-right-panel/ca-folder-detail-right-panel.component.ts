@@ -1,9 +1,7 @@
 import { Component, ComponentRef, Inject, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { CaFolderDescriptionComponent } from '../ca-folder-description/ca-folder-description.component';
 import { CaFolderNotePreviewComponent } from '../ca-folder-note-preview/ca-folder-note-preview.component';
-import {
-  CaFolderExperimentPreviewComponent
-} from '../ca-folder-experiment-preview/ca-folder-experiment-preview.component';
+import { CaFolderScenarioPreviewComponent } from '../ca-folder-scenario-preview/ca-folder-scenario-preview.component';
 import { CaFolderChatRightPanelComponent } from '../ca-folder-chat-right-panel/ca-folder-chat-right-panel.component';
 import { CaFolderSettingsComponent } from '../ca-folder-settings/ca-folder-settings.component';
 import { CaFolderDetailRightPanel } from '../../state/ca-folder-right-panel.state';
@@ -46,9 +44,9 @@ export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
         noteComponent.instance.noteId = rightPanelState.objectId;
         this.viewComponentRef = noteComponent;
         break;
-      case 'experiment':
-        const expComponent = this.container.createComponent(CaFolderExperimentPreviewComponent);
-        expComponent.instance.experimentId = rightPanelState.objectId;
+      case 'scenario':
+        const expComponent = this.container.createComponent(CaFolderScenarioPreviewComponent);
+        expComponent.instance.scenarioId = rightPanelState.objectId;
         this.viewComponentRef = expComponent;
         break;
       case 'constellab-document':

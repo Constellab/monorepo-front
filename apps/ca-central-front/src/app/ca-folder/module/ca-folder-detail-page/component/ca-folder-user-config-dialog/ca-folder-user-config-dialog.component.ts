@@ -28,7 +28,7 @@ export class CaFolderUserConfigDialogComponent implements OnInit {
   formGp = new FormBuilder().group({
     folderNotif: [CaFolderNotifOptions.NONE, Validators.required],
     messageNotif: [CaFolderNotifOptions.NONE, Validators.required],
-    experimentNotif: [CaFolderNotifOptions.NONE, Validators.required],
+    scenarioNotif: [CaFolderNotifOptions.NONE, Validators.required],
     noteNotif: [CaFolderNotifOptions.NONE, Validators.required],
     documentNotif: [CaFolderNotifOptions.NONE, Validators.required],
   });

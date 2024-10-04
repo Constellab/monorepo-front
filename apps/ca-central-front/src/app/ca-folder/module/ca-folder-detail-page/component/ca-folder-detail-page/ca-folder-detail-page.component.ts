@@ -138,9 +138,9 @@ export class CaFolderDetailPageComponent implements OnInit {
           objectId: hierarchyObject.id
         });
         break;
-      case CaHierarchyObjectType.EXPERIMENT:
+      case CaHierarchyObjectType.SCENARIO:
         this.rightPanelState.updateRightPanelState({
-          type: 'experiment',
+          type: 'scenario',
           objectId: hierarchyObject.id
         });
         break;
@@ -217,8 +217,8 @@ export class CaFolderDetailPageComponent implements OnInit {
         return CaRouterService.getFolderDetailRoute(hierarchyObject.id);
       case CaHierarchyObjectType.NOTE:
         return CaRouterService.getNoteDetailRoute(hierarchyObject.id);
-      case CaHierarchyObjectType.EXPERIMENT:
-        return CaRouterService.getExperimentDetailRoute(hierarchyObject.id);
+      case CaHierarchyObjectType.SCENARIO:
+        return CaRouterService.getScenarioDetailRoute(hierarchyObject.id);
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
         return CaRouterService.getDocumentDetailRoute(hierarchyObject.id);
       case CaHierarchyObjectType.DOCUMENT:

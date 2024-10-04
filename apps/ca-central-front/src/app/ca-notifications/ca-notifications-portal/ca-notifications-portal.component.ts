@@ -53,7 +53,7 @@ export class CaNotificationsPortalComponent implements OnInit {
     switch (objectType) {
       case 'DOCUMENT':
       case 'MESSAGE':
-      case 'EXPERIMENT':
+      case 'SCENARIO':
       case 'NOTE':
       case 'FOLDER':
         return 'folder';

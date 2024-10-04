@@ -17,7 +17,7 @@ interface BreadcrumbLink {
 
 
 /**
- * Breadcrumb for hierarchy, note and experiments
+ * Breadcrumb for hierarchy, note and scenarios
  * It gets the hierarchy from the api
  */
 @Component({
@@ -66,8 +66,8 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
     switch (ancestor.objectType) {
       case CaHierarchyObjectType.FOLDER:
         return CaRouterService.getFolderDetailRoute(ancestor.id);
-      case CaHierarchyObjectType.EXPERIMENT:
-        return CaRouterService.getExperimentDetailRoute(ancestor.id);
+      case CaHierarchyObjectType.SCENARIO:
+        return CaRouterService.getScenarioDetailRoute(ancestor.id);
       case CaHierarchyObjectType.NOTE:
         return CaRouterService.getNoteDetailRoute(ancestor.id);
       case CaHierarchyObjectType.DOCUMENT:

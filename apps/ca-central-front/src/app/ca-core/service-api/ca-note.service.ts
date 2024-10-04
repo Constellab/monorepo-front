@@ -14,8 +14,8 @@ export class CaNoteService {
   constructor(private apiService: FlApiService) {
   }
 
-  getNotesByExperiment(experimentId: string): Observable<CaNote[]> {
-    return this.apiService.get(`${this.route}/experiment/${experimentId}`, CaNote);
+  getNotesByScenario(scenarioId: string): Observable<CaNote[]> {
+    return this.apiService.get(`${this.route}/scenario/${scenarioId}`, CaNote);
   }
 
   getById(id: string): Observable<CaNote> {

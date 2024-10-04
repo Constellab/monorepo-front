@@ -18,8 +18,8 @@ import {
   CaDashboardActivityCardComponent
 } from './component/ca-dashboard-activity-card/ca-dashboard-activity-card.component';
 import {
-  CaDashboardLastExperimentsComponent
-} from './component/ca-dashboard-last-experiments/ca-dashboard-last-experiments.component';
+  CaDashboardLastScenariosComponent
+} from './component/ca-dashboard-last-scenarios/ca-dashboard-last-scenarios.component';
 import {
   CaDashboardListLayoutComponent
 } from './component/ca-dashboard-list-layout/ca-dashboard-list-layout.component';
@@ -41,7 +41,7 @@ import {
     CaDashboardMyActivityComponent,
     CaDashboardTaskOfTheDayComponent,
     CaDashboardActivityCardComponent,
-    CaDashboardLastExperimentsComponent,
+    CaDashboardLastScenariosComponent,
     CaDashboardListLayoutComponent
   ],
   imports: [

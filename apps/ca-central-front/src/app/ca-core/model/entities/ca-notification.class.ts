@@ -34,7 +34,7 @@ export class CaNotification extends CaEntity {
 export type CaNotificationDatasourcePaginated = FlDatasourcePaginated<CaNotification>;
 
 
-export type CaNotificationType = 'USER' | 'FOLDER' | 'EXPERIMENT' | 'NOTE' | 'DOCUMENT' | 'MESSAGE';
+export type CaNotificationType = 'USER' | 'FOLDER' | 'SCENARIO' | 'NOTE' | 'DOCUMENT' | 'MESSAGE';
 
 export interface CaNotificationCountBySpace {
   spaceId: string;

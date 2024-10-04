@@ -1,0 +1,7 @@
+<fl-dialog-header>
+  {{ title | flTranslatableText | async }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <ca-scenario-table [datasource]="scenarios"></ca-scenario-table>
+</mat-dialog-content>

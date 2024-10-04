@@ -5,7 +5,7 @@ import { CaNoteDetailComponent } from './component/ca-note-detail/ca-note-detail
 import { CaCoreModule } from '../../../ca-core/ca-core.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CaExperimentCoreModule } from '../ca-experiment-core/ca-experiment-core.module';
+import { CaScenarioCoreModule } from '../ca-scenario-core/ca-scenario-core.module';
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
 
@@ -22,7 +22,7 @@ import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
 
     CaCoreModule,
     CaFolderHierarchyCoreModule,
-    CaExperimentCoreModule,
+    CaScenarioCoreModule,
     CaNoteCoreModule,
   ]
 })

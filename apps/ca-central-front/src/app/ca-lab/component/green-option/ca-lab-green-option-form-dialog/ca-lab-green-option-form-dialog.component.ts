@@ -134,7 +134,7 @@ export class CaLabGreenOptionFormDialogComponent
   }
 
   private forcePersistence(type: CaLabGreenOptionType): void {
-    if (type === CaLabGreenOptionType.STOP_AFTER_EXPERIMENT || type === CaLabGreenOptionType.STOP_AFTER_BACKUP) {
+    if (type === CaLabGreenOptionType.STOP_AFTER_SCENARIO || type === CaLabGreenOptionType.STOP_AFTER_BACKUP) {
       this.formGp.get('isPersistent').setValue(false);
       this.formGp.get('isPersistent').disable();
     } else {

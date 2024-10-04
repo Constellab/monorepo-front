@@ -28,8 +28,8 @@ export class CaHierarchyObjectIconComponent {
         return 'constellab_document';
       case CaHierarchyObjectType.NOTE:
         return 'note';
-      case CaHierarchyObjectType.EXPERIMENT:
-        return 'experiment';
+      case CaHierarchyObjectType.SCENARIO:
+        return 'scenario';
     }
   });
 
@@ -41,7 +41,7 @@ export class CaHierarchyObjectIconComponent {
     const objectType = this.objectType();
     if (objectType === CaHierarchyObjectType.FOLDER) {
       classes.push('g-icon-background', 'g-accent-background');
-    } else if (objectType === CaHierarchyObjectType.EXPERIMENT) {
+    } else if (objectType === CaHierarchyObjectType.SCENARIO) {
       classes.push('g-icon-background', 'g-warn-background');
     } else if (objectType === CaHierarchyObjectType.NOTE) {
       classes.push('g-icon-background', 'g-primary-background');

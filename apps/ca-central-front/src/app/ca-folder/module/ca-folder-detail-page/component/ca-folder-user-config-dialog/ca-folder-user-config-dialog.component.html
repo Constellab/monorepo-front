@@ -50,7 +50,7 @@
           </fl-text-icon>
         </div>
         <div class="g-layout-row g-layout-center">
-          <mat-radio-group formControlName="experimentNotif">
+          <mat-radio-group formControlName="scenarioNotif">
             <mat-radio-button *ngFor="let key of notificationOptions | flObjectKeys" [value]="notificationOptions[key]">
               {{('folder_notif_' + notificationOptions[key]) | translate}}
             </mat-radio-button>
@@ -58,11 +58,11 @@
         </div>
 
 
-        <!---------------------   EXPERIMENT   ---------------------->
+        <!---------------------   SCENARIO   ---------------------->
         <div class="label">
           <fl-text-icon>
-            <mat-icon flIcon="experiment"></mat-icon>
-            <label>{{'folder_notif_experiment' | translate}}</label>
+            <mat-icon flIcon="scenario"></mat-icon>
+            <label>{{'folder_notif_scenario' | translate}}</label>
           </fl-text-icon>
         </div>
         <div class="g-layout-row g-layout-center">

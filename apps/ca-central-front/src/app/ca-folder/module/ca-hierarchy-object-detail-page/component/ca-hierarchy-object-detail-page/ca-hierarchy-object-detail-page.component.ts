@@ -10,7 +10,7 @@ import { CaRouterService } from '../../../../../ca-core/service/ca-router.servic
 import { map } from 'rxjs/operators';
 
 /**
- * Detail page for the folder objects (folder, experiment, note).
+ * Detail page for the folder objects (folder, scenario, note).
  * It contains the breadcrumb and the tree panel that can be open on the left.
  * In center in contains a router outlet to render object page
  */
