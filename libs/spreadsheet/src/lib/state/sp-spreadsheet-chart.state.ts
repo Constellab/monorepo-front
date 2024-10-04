@@ -1,13 +1,15 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {SpSheetChartSelectionComponent} from '../component/sp-sheet-chart-selection/sp-sheet-chart-selection.component';
-import {SpSpreadsheetSelectionState} from './sp-spreadsheet-selection.state';
+import { Injectable, OnDestroy } from '@angular/core';
+import {
+  SpSheetChartSelectionComponent
+} from '../component/sp-sheet-chart-selection/sp-sheet-chart-selection.component';
+import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 import {
   SpSheetChartSelectionForm,
   SpSheetChartSelectionResult,
   SpSpreadsheetChartSelectionInput
 } from '../model/chart/sp-sheet-chart-selection-form.class';
-import {SpSpreadsheetState} from './sp-spreadsheet.state';
-import {Observable, Subscription} from 'rxjs';
+import { SpSpreadsheetState } from './sp-spreadsheet.state';
+import { Observable, Subscription } from 'rxjs';
 import {
   FlMenuDynamic,
   FlOverlayRef,
@@ -58,9 +60,9 @@ export class SpSpreadsheetChartState implements OnDestroy {
     }
 
     const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
-      {centerHorizontally: '0', top: '0'},
+      { centerHorizontally: '0', top: '0' },
       {
-        disposeOnNavigation: true,
+        disposeOnNavigation: true
       });
 
     let data: SpSpreadsheetChartSelectionInput;
@@ -119,14 +121,14 @@ export class SpSpreadsheetChartState implements OnDestroy {
         this.actionService.addAction({
           type: this.chartActionName,
           action: chartOverlay,
-          text: {text: 'spSpreadsheet.creating_chart', translateText: true},
+          text: { text: 'spSpreadsheet.creating_chart', translateText: true },
           additionalInformation: result.formValue
         }, true);
       } else {
         this.registerPortalOverlay(chartOverlay, result.formValue);
       }
     } catch (e) {
-      this.snackBarService.openErrorMessage('Error while generating chart');
+      this.snackBarService.openErrorMessage({ text: 'Error while generating chart', translateText: false });
       throw e;
     }
   }
@@ -184,7 +186,7 @@ export class SpSpreadsheetChartState implements OnDestroy {
     // button to edit the chart and reopen data selection
     menu.push({
       type: 'button',
-      text: {text: 'spSpreadsheet.chart_update', translateText: true},
+      text: { text: 'spSpreadsheet.chart_update', translateText: true },
       icon: 'edit',
       onClick: () => this.openUpdateChartSelectionPortal(selectionId)
     });
@@ -192,7 +194,7 @@ export class SpSpreadsheetChartState implements OnDestroy {
     // button to close all overlay
     menu.push({
       type: 'button',
-      text: {text: 'spSpreadsheet.chart_close_all', translateText: true},
+      text: { text: 'spSpreadsheet.chart_close_all', translateText: true },
       icon: 'clear',
       onClick: () => this.closeAllOverlay()
     });

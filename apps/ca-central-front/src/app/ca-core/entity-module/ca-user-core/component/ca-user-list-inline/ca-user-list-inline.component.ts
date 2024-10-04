@@ -11,10 +11,15 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
-import {CaUser, CaUserDatasourcePaginated} from '../../../../model/entities/ca-user.class';
-import {FlFormFieldDirective, FlOverlayRef, FlPortalConnectedPosition, FlPortalService} from '@monorepo/front-core-lib';
-import {NgControl} from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
+import {
+  FlFormFieldDirective,
+  FlOverlayRef,
+  FlPortalConnectedPosition,
+  FlPortalService
+} from '@monorepo/front-core-lib';
+import { NgControl } from '@angular/forms';
 
 interface UserList {
   previewUsers: CaUserSelection[];
@@ -90,7 +95,7 @@ export class CaUserListInlineComponent extends FlFormFieldDirective<UserList, Ca
       this.additionalUserLength = this.value.additionalUsers.length - this.previewListSize;
     }
 
-    if (this.tempSelectedUser.length > 0) {
+    if (this.tempSelectedUser?.length > 0) {
       this.selectUsers(this.tempSelectedUser);
     }
   }
@@ -137,6 +142,7 @@ export class CaUserListInlineComponent extends FlFormFieldDirective<UserList, Ca
   }
 
   private selectUsers(users: CaUser[]): void {
+    if(users == null) users = [];
     this.tempSelectedUser = users;
 
     if (this.value) {

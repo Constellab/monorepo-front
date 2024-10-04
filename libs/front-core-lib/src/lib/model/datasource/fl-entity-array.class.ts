@@ -7,8 +7,8 @@ export class FlEntityArrayObs<T extends FlEntity> extends FlArrayObs<T> {
 
   /**
    * @param data initial data
-   * @param disableAutoDisconnect, if true the auto disconnect is disabled. mat-table and fl-async-section will
-   * not automatically disconnect the array obs. It needs to be done manually (call manualDisconnect method)
+   * @param disableAutoDisconnect if true the auto disconnect is disabled. mat-table and fl-async-section will
+   *        not automatically disconnect the array obs. It needs to be done manually (call manualDisconnect method)
    * @protected
    */
   constructor(data?: T[] | Observable<T[]>, disableAutoDisconnect: boolean = false) {
@@ -17,5 +17,9 @@ export class FlEntityArrayObs<T extends FlEntity> extends FlArrayObs<T> {
 
   protected equals(a: T, b: T): boolean {
     return ClHelpService.compareFnIds(a, b);
+  }
+
+  findItemById(id: string): T | null {
+    return this.findItem({ id } as T);
   }
 }

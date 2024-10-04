@@ -1,7 +1,7 @@
 <div *ngIf="resource()" class="g-layout-row g-layout-start-center g-layout-gap-05em container">
 
   <div class="g-flex-auto g-layout-col g-layout-start-start header-left">
-    <!--  Resource,  experiment name & project name  -->
+    <!--  Resource,  experiment name & folder name  -->
     <h1 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">{{resource().name}}</h1>
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small"
@@ -14,12 +14,12 @@
         </div>
       </a>
 
-      <div *ngIf="resource().experiment && resource().project" class="subtitle"> -</div>
+      <div *ngIf="resource().experiment && resource().folder" class="subtitle"> -</div>
 
-      <div class="g-layout-row g-layout-start-center subtitle" *ngIf="resource().project">
-        <mat-icon flIcon="project" class="g-icon-small separator"></mat-icon>
-        <div class="circle-color separator" [style.background-color]="resource().project.id | flStringToRgb"></div>
-        <div>{{resource().project.code}} - {{resource().project.title}}</div>
+      <div class="g-layout-row g-layout-start-center subtitle" *ngIf="resource().folder">
+        <mat-icon flIcon="folder" class="g-icon-small separator"></mat-icon>
+        <div class="circle-color separator" [style.background-color]="resource().folder.id | flStringToRgb"></div>
+        <div>{{resource().folder.title}}</div>
       </div>
     </div>
   </div>

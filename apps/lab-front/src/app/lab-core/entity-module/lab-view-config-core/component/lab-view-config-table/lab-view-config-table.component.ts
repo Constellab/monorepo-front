@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlArrayObs, FlTableColumnStatic, FlTag} from '@monorepo/front-core-lib';
-import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
-import {LabRouterService} from '../../../../service/lab-router.service';
-import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource/lab-resource-view-type.class';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlArrayObs, FlTableColumnStatic, FlTag } from '@monorepo/front-core-lib';
+import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
+import { LabRouterService } from '../../../../service/lab-router.service';
 
 @Component({
   selector: 'lab-view-config-table',
@@ -11,7 +10,7 @@ import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource
 })
 export class LabViewConfigTableComponent {
 
-  @Input() datasource: FlArrayObs<LabViewConfig>;
+  @Input({ required: true }) datasource: FlArrayObs<LabViewConfig>;
 
   @Input() columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'resource', 'lastModifiedAt', 'preview'];
 
@@ -25,8 +24,6 @@ export class LabViewConfigTableComponent {
   @Output() tagSelected: EventEmitter<FlTag> = new EventEmitter();
 
   @Output() viewConfigSelected: EventEmitter<LabViewConfig> = new EventEmitter();
-
-  labConstResourceViewTypeInfos = labConstResourceViewTypeInfos;
 
   constructor(private routerService: LabRouterService) {
   }

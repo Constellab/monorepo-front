@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {CaUser, CaUserDatasourcePaginated} from '../model/entities/ca-user.class';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CaUser, CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
+  FlInputSearchFilter,
   FlSearchConverter
 } from '@monorepo/front-core-lib';
-import {ClPage} from '@monorepo/core-lib';
-import {CaUserSearch, CaUserSearchFields} from '../entity-module/ca-user-core/model/ca-user-search.class';
+import { ClPage } from '@monorepo/core-lib';
+import { CaUserSearch, CaUserSearchFields } from '../entity-module/ca-user-core/model/ca-user-search.class';
 
 /**
  * Service for the User entities
@@ -27,22 +28,19 @@ export class CaUsersService {
     return this.apiService.getBaseRouteUrl(`${this.route}/photo-v2/${photo}`);
   }
 
-  public search(page: number, pageSize: number, filters?: CaUserSearchFields): Observable<ClPage<CaUser>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaUserSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/search`, data, CaUser, {
+  public search(page: number, pageSize: number,
+                data: FlDatasourceGetPageData<CaUserSearchFields>): Observable<ClPage<CaUser>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      CaUserSearch.filterConverter, CaUserSearch.sortConverter);
+    return this.apiService.post(`${this.route}/search`, searchInput, CaUser, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
 
-  public exportSearch(filters?: CaUserSearchFields): Observable<Blob> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaUserSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/search/export`, data, null, {responseType: 'blob'});
+  public exportSearch(data: FlDatasourceGetPageData<CaUserSearchFields>): Observable<Blob> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      CaUserSearch.filterConverter, CaUserSearch.sortConverter);
+    return this.apiService.post(`${this.route}/search/export`, searchInput, null, { responseType: 'blob' });
   }
 
   public searchByNames(name: string, page: number, pageSize: number): Observable<ClPage<CaUser>> {
@@ -51,9 +49,9 @@ export class CaUsersService {
     });
   }
 
-  public searchByNamesDatasource(): CaUserDatasourcePaginated {
+  public searchByNamesDatasource(): CaUserDatasourcePaginated<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-        (page, size, name) => this.searchByNames(name, page, size), 20, false);
+      (page, size, data) => this.searchByNames(data.filtersCriteria.searchText, page, size), 20, false);
 
   }
 }

@@ -42,7 +42,7 @@ export abstract class FlApiErrorService {
   public handleDeserializationError(error: any, classReference: ClDeserializationRef): never {
     // get the predefine error message
     const errorMessage = this.translateService.translate('flApi.error_deserialize', {
-      param: {className: classReference.name}
+      param: { className: classReference.name }
     });
 
     // console logs
@@ -74,7 +74,7 @@ export abstract class FlApiErrorService {
       duration = this.defaultApiErrorDuration;
     }
 
-    this.snackBarService.openErrorMessage(message, duration,
+    this.snackBarService.openErrorMessage({ text: message, translateText: false }, duration,
       {
         showCloseButton: true, detailButton: detailButton
       });
@@ -93,7 +93,7 @@ export abstract class FlApiErrorService {
       duration = this.defaultApiErrorDuration;
     }
 
-    this.snackBarService.openSuccessMessage(message, duration,
+    this.snackBarService.openSuccessMessage({ text: message, translateText: false }, duration,
       {
         showCloseButton: true, detailButton: detailButton
       });

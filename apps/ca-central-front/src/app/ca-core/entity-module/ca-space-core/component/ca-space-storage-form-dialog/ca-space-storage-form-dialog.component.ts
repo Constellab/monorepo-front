@@ -1,11 +1,11 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {CaSpaceStorage, CaSpaceUpdateStorageLocationDTO} from '../../../../model/entities/space/ca-space.dto';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {CaSpaceService} from '../../../../service-api/ca-space.service';
-import {FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {CaSpaceStorageFormComponent} from '../ca-space-storage-form/ca-space-storage-form.component';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { CaSpaceStorage, CaSpaceUpdateStorageLocationDTO } from '../../../../model/entities/space/ca-space.dto';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CaSpaceService } from '../../../../service-api/ca-space.service';
+import { Observable } from 'rxjs';
+import { CaSpaceStorageFormComponent } from '../ca-space-storage-form/ca-space-storage-form.component';
+import { UntypedFormGroup } from '@angular/forms';
 
 export type CaSpaceStorageFormDialogInput = FlFormDialogInput<CaSpaceUpdateStorageLocationDTO>;
 
@@ -27,7 +27,7 @@ export class CaSpaceStorageFormDialogComponent extends FlFormDialogAbstractDirec
     this.init();
   }
 
-  buildForm(): FormGroup<CaSpaceUpdateStorageLocationDTO> {
+  buildForm(): UntypedFormGroup {
     return CaSpaceStorageFormComponent.buildForm();
   }
 

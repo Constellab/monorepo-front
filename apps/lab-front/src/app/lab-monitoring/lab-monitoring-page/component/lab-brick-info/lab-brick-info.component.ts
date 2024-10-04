@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {LabBrickEntity} from '../../../../lab-core/model/entities/lab-brick.entity';
-import {LabBrickService} from '../../../../lab-core/entity-service/lab-brick.service';
-import {FlDialogService, FlFileHelper} from '@monorepo/front-core-lib';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { LabBrickEntity } from '../../../../lab-core/model/entities/lab-brick.entity';
+import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   LabBrickCallMigrationDialogComponent
 } from '../lab-brick-call-migration-dialog/lab-brick-call-migration-dialog.component';
-import {LabTypeService} from '../../../../lab-core/entity-service/lab-type.service';
+import { LabTypeService } from '../../../../lab-core/entity-service/lab-type.service';
 
 /**
  * Show information and messages about a brick
@@ -35,13 +35,13 @@ export class LabBrickInfoComponent implements OnInit {
     this.generateDocIsLoading = true;
     this.labBrickService.generateTechnicalDoc(this.brick.name).subscribe({
       next: () => this.onComplete(),
-      error: () => this.onComplete(),
+      error: () => this.onComplete()
     });
   }
 
   openCallMigrationDialog(): void {
     this.dialogService.openMediumDialog(LabBrickCallMigrationDialogComponent,
-      {data: this.brick.name});
+      { data: this.brick.name });
   }
 
   private onComplete(): void {
@@ -53,10 +53,8 @@ export class LabBrickInfoComponent implements OnInit {
     this.dialogService.openConfirmDialog({
       title: 'monitoring.delete_unavailable_typings',
       content: 'monitoring.delete_unavailable_typings_confirmation',
-      translateTitleAndContent: true,
       observable: this.typeService.deleteUnavailableTypings(this.brick.name),
-      successMessage: 'monitoring.delete_unavailable_typings_success',
-      translateMessage: true
+      successMessage: 'monitoring.delete_unavailable_typings_success'
     });
   }
 

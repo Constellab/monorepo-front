@@ -1,5 +1,5 @@
-import {Observable, Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 /**
  * Class to manager a debounce time on a value that is regularly modify
@@ -11,6 +11,7 @@ export class FlDebouncer<T = any> {
 
   // debounce time for auto save set to 1 sec
   public static readonly AUTO_SAVE_DEBOUNCE_TIME = 1000;
+  public static readonly LONG_AUTO_SAVE_DEBOUNCE_TIME = 2500;
 
   private subject: Subject<T>;
 

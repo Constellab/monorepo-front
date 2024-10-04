@@ -47,10 +47,8 @@ export class CaLabBackupHistoryComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'backup_lab_production',
       content: 'backup_lab_production_confirmation',
-      translateTitleAndContent: true,
       observable: this.labInstanceService.backupProd(this.labInstanceId),
       successMessage: 'backup_lab_production_started',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -68,10 +66,8 @@ export class CaLabBackupHistoryComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'stop_lab_current_backups',
       content: 'stop_lab_current_backups_confirmation',
-      translateTitleAndContent: true,
       observable: this.labInstanceService.stopCurrentBackup(this.labInstanceId),
       successMessage: 'lab_current_backups_stopped',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

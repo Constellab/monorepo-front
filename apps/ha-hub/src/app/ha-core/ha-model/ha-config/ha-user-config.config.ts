@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {FlDatasourcePaginated, FlUserConfig} from '@monorepo/front-core-lib';
-import {HaUser} from '../ha-entities/ha-user';
-import {Observable} from 'rxjs';
-import {HaEnvironmentHelper} from './ha-environment.helper';
+import { Injectable } from '@angular/core';
+import { FlDatasourcePaginated, FlInputSearchFilter, FlUserConfig } from '@monorepo/front-core-lib';
+import { HaUser } from '../ha-entities/ha-user';
+import { Observable } from 'rxjs';
+import { HaEnvironmentHelper } from './ha-environment.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class HaUserConfig extends FlUserConfig {
     throw new Error('Method not implemented.');
   }
 
-  getSearchByNamesDatasource(): FlDatasourcePaginated<HaUser> {
+  getSearchByNamesDatasource(): FlDatasourcePaginated<HaUser, FlInputSearchFilter> {
     throw new Error('Method not implemented.');
   }
 

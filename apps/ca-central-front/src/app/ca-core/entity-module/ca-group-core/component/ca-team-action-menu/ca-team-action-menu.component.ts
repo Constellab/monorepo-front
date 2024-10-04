@@ -56,10 +56,8 @@ export class CaTeamActionMenuComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'delete_team',
       content: 'delete_team_confirmation',
-      translateTitleAndContent: true,
       observable: this.groupService.deleteTeamById(this.team.id),
       successMessage: 'team_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

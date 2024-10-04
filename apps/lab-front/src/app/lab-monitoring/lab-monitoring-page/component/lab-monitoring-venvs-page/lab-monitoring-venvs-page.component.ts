@@ -33,10 +33,8 @@ export class LabMonitoringVenvsPageComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'monitoring.delete_all_venvs',
       content: 'monitoring.delete_all_venvs_confirmation',
-      translateTitleAndContent: true,
       observable: this.venvService.deleteAllVenvs(),
       successMessage: 'monitoring.delete_all_venvs_success',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {CaExperiment} from '../model/entities/project/ca-experiment.class';
-import {FlApiService} from '@monorepo/front-core-lib';
-import {CaTechnicalReport} from '../model/entities/project/ca-technical-report.class';
-import {CaLabConfig} from '../model/entities/lab/ca-lab-config.class';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CaExperiment } from '../model/entities/folder/ca-experiment.class';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { CaTechnicalReport } from '../model/entities/folder/ca-technical-report.class';
+import { CaLabConfig } from '../model/entities/lab/ca-lab-config.class';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +23,8 @@ export class CaExperimentService {
     return this.apiService.get(`${this.route}/${id}`, CaExperiment);
   }
 
-  public getExperimentsByProject(projectId: string): Observable<CaExperiment[]> {
-    return this.apiService.get(`${this.route}/project/${projectId}`, CaExperiment);
-  }
-
-  public getExperimentsByReport(reportId: string): Observable<CaExperiment[]> {
-    return this.apiService.get(`${this.route}/report/${reportId}`, CaExperiment);
+  public getExperimentsByNote(noteId: string): Observable<CaExperiment[]> {
+    return this.apiService.get(`${this.route}/report/${noteId}`, CaExperiment);
   }
 
   public update(experiment: Partial<CaExperiment>): Observable<CaExperiment> {

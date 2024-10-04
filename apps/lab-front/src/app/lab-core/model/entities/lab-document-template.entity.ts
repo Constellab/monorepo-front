@@ -15,7 +15,7 @@ export class LabDocumentTemplate extends LabBaseEntityWithUser {
   }
 }
 
-export type LabDocumentTemplateDatasource = FlDatasourcePaginated<LabDocumentTemplate>;
+export type LabDocumentTemplateDatasource<F = void> = FlDatasourcePaginated<LabDocumentTemplate, F>;
 
 export interface LabDocumentTemplateForm {
   title: string;

@@ -1,0 +1,31 @@
+<fl-card class="card" matRipple>
+  <fl-card-header>
+    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+      <ca-hierarchy-object-icon [objectType]="hierarchyObject.objectType" [objectName]="hierarchyObject.name"
+                                class="icon"></ca-hierarchy-object-icon>
+      <h2>{{ hierarchyObject.name }}</h2>
+    </div>
+  </fl-card-header>
+
+
+  <fl-card-body class="body">
+    <fl-user-inline [user]="hierarchyObject.user" class="folder-leader-user"
+                    [showName]="true"></fl-user-inline>
+
+    <fl-text-icon class="dates">
+      <mat-icon>calendar_today</mat-icon>
+      <fl-from-now [date]="hierarchyObject.lastModifiedAt"></fl-from-now>
+    </fl-text-icon>
+
+    <!--    <div class="g-layout-row g-layout-between-center">-->
+    <!--      @if (folder.chatEnabled) {-->
+    <!--        <mat-icon>comment</mat-icon>-->
+    <!--      }-->
+
+    <!--      @if (folder.hasDescription) {-->
+    <!--        <mat-icon>description</mat-icon>-->
+    <!--      }-->
+    <!--    </div>-->
+
+  </fl-card-body>
+</fl-card>

@@ -9,7 +9,7 @@ import {
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDateModule,
-  FlDialogModule,
+  FlDialogModule, FlDragModule,
   FlDrawerModule,
   FlDynamicFieldModule,
   FlEmojiPickerModule,
@@ -86,6 +86,7 @@ import {TeTextEditorModule} from '@monorepo/text-editor';
     FlInputSearchModule,
     FlDynamicFieldModule,
     FlHorizontalNavBarModule,
+    FlDragModule,
 
 
     RvResourceViewModule,

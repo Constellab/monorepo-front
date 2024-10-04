@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlEntityPaginatedDatasource, FlFormFieldDirective} from '@monorepo/front-core-lib';
-import {CaSpace, CaSpaceDatasource} from '../../../../model/entities/space/ca-space.class';
-import {Observable} from 'rxjs';
-import {NgControl} from '@angular/forms';
-import {CaSpaceService} from '../../../../service-api/ca-space.service';
-import {CaCurrentSpaceService} from '../../../../service-api/ca-current-space.service';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { FlEntityPaginatedDatasource, FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib';
+import { CaSpace, CaSpaceDatasource } from '../../../../model/entities/space/ca-space.class';
+import { Observable } from 'rxjs';
+import { NgControl } from '@angular/forms';
+import { CaSpaceService } from '../../../../service-api/ca-space.service';
+import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
 
 @Component({
   selector: 'ca-select-space',
@@ -21,7 +21,7 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
 
   selectedSpace: CaSpace | Observable<CaSpace>;
 
-  spaceDatasource: CaSpaceDatasource;
+  spaceDatasource: CaSpaceDatasource<FlInputSearchFilter>;
 
   constructor(private spaceService: CaSpaceService,
               private currentSpaceService: CaCurrentSpaceService,
@@ -31,7 +31,7 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
 
   ngOnInit(): void {
     this.spaceDatasource = new FlEntityPaginatedDatasource(
-      (page, size, name) => this.spaceService.searchByNames(name, page, size),
+      (page, size, data) => this.spaceService.searchByNames(data.filtersCriteria.searchText, page, size),
       20, false
     );
   }

@@ -1,17 +1,24 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {LabTypeEntity} from '../../../../model/entities/lab-type/lab-type.entity';
-import {LabConfig, LabConfigureSpecsForm} from '../../../../model/entities/lab-config.entity';
-import {LabProcessType} from '../../../../model/entities/lab-type/lab-process-type.entity';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {ClHelpService} from '@monorepo/core-lib';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
+import { LabConfig, LabConfigureSpecsForm } from '../../../../model/entities/lab-config.entity';
+import { LabProcessType } from '../../../../model/entities/lab-type/lab-process-type.entity';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ClHelpService } from '@monorepo/core-lib';
 import {
   LabConfigureSpecsFormComponent
 } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@ngneat/reactive-forms';
-import {ControlContainer} from '@angular/forms';
-import {FlDialogService, FlGlobalValidators} from '@monorepo/front-core-lib';
-import {LabTransformerWithConfig} from '../../../../model/global/lab-transformer.class';
-import {LabTypeService} from '../../../../entity-service/lab-type.service';
+import {
+  ControlContainer,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  UntypedFormArray,
+  UntypedFormGroup
+} from '@angular/forms';
+import { FlDialogService, FlGlobalValidators } from '@monorepo/front-core-lib';
+import { LabTransformerWithConfig } from '../../../../model/global/lab-transformer.class';
+import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import {
   LabSelectTypeDialogComponent,
   LabSelectTypeDialogInput
@@ -35,7 +42,7 @@ export interface LabTransformResourceForm {
 @Component({
   selector: 'lab-transform-resource',
   templateUrl: './lab-transform-resource.component.html',
-  styleUrls: ['./lab-transform-resource.component.scss'],
+  styleUrls: ['./lab-transform-resource.component.scss']
 })
 export class LabTransformResourceComponent implements OnInit {
 
@@ -43,7 +50,7 @@ export class LabTransformResourceComponent implements OnInit {
 
   selectedTransformers: LabSelectedTransformer[] = [];
 
-  formArray: FormArray<LabTransformResourceForm>;
+  formArray: UntypedFormArray;
 
   loadingProcessType: boolean = false;
 
@@ -56,7 +63,7 @@ export class LabTransformResourceComponent implements OnInit {
 
   // Call this method to build the form array before using the component
   public static buildFormArray(transformers: LabTransformerWithConfig[] = [],
-                               arrayMinLength: number = 0): FormArray<LabTransformResourceForm> {
+                               arrayMinLength: number = 0): UntypedFormArray {
     const formArray = new FormArray([], FlGlobalValidators.arrayMinLength(arrayMinLength));
     for (const transformer of transformers) {
       formArray.push(this.buildFormGroup(transformer));
@@ -64,7 +71,7 @@ export class LabTransformResourceComponent implements OnInit {
     return formArray;
   }
 
-  private static buildFormGroup(transformer: LabTransformerWithConfig): FormGroup<LabTransformResourceForm> {
+  private static buildFormGroup(transformer: LabTransformerWithConfig): UntypedFormGroup {
     const configData = LabConfig.fromSpecs(transformer.transformer.configSpecs, transformer.config);
     return (new FormBuilder().group({
       transformer: [transformer.transformer],
@@ -117,7 +124,7 @@ export class LabTransformResourceComponent implements OnInit {
     moveItemInArray(this.selectedTransformers, event.previousIndex, event.currentIndex);
   }
 
-  getFormGroup(index: number): FormGroup<LabTransformResourceForm> {
+  getFormGroup(index: number): UntypedFormGroup {
     return this.formArray.at(index) as any;
   }
 
@@ -128,7 +135,7 @@ export class LabTransformResourceComponent implements OnInit {
         resourceTypingNames: [this.resourceTypingName]
       }
     };
-    this.dialogService.openBigDialog(LabSelectTypeDialogComponent, {data: data}).afterClosed().subscribe(
+    this.dialogService.openBigDialog(LabSelectTypeDialogComponent, { data: data }).afterClosed().subscribe(
       processType => this.loadAndAddTransformer(processType)
     );
   }

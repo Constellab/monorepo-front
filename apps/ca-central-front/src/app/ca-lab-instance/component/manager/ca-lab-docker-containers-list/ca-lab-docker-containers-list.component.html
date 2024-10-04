@@ -1,6 +1,6 @@
 <mat-accordion>
   @for (container of containers; track container.names) {
-    <mat-expansion-panel>
+    <mat-expansion-panel [disabled]="container.state.value === 'none'">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <div class="g-layout-row g-layout-between g-full">

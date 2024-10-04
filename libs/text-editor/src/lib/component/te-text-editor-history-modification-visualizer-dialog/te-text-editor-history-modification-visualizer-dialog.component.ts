@@ -77,8 +77,6 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
       title: 'teTextEditor.confirm_rollback_title',
       content: 'teTextEditor.confirm_rollback_content',
       successMessage: 'teTextEditor.confirm_rollback_success',
-      translateMessage: true,
-      translateTitleAndContent: true,
       observable: this.service.rollbackContent(this.entityId, this.group.mainModificationId())
     }
 

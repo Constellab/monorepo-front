@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {CaLabBackupHistory, CaLabBackupHistoryDatasource} from '../../../../model/entities/lab/ca-lab-backup.class';
-import {FlTableColumnStatic} from '@monorepo/front-core-lib';
-import {ClDateHelper} from '@monorepo/core-lib';
+import { Component, Input } from '@angular/core';
+import { CaLabBackupHistory, CaLabBackupHistoryDatasource } from '../../../../model/entities/lab/ca-lab-backup.class';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { ClDateHelper } from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-lab-backup-history-table',
@@ -10,7 +10,7 @@ import {ClDateHelper} from '@monorepo/core-lib';
 })
 export class CaLabBackupHistoryTableComponent {
 
-  @Input() datasource: CaLabBackupHistoryDatasource;
+  @Input({required: true}) datasource: CaLabBackupHistoryDatasource;
 
   @Input() columns: FlTableColumnStatic<CaLabBackupHistory>[] = ['date', 'region', 'data', 'db', 'info'];
 

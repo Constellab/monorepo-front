@@ -52,8 +52,8 @@ export class CaCurrentSpaceStorageComponent {
     const data: CaSpaceStorageFormDialogInput = {
       mode: 'update',
       object: {
-        defaultProjectStorageLocation: spaceStorage.defaultProjectStorageLocation,
-        defaultProjectBackupStorageLocation: spaceStorage.defaultBackupProjectStorageLocation
+        defaultFolderStorageLocation: spaceStorage.defaultFolderStorageLocation,
+        defaultFolderBackupStorageLocation: spaceStorage.defaultBackupFolderStorageLocation
       }
     };
 

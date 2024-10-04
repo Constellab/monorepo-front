@@ -17,7 +17,7 @@ import {
   CaCurrentSpaceInvitListComponent
 } from './component/ca-current-space-invit-list/ca-current-space-invit-list.component';
 import {CaLabCoreModule} from '../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
-import {CaProjectCoreModule} from '../../ca-core/entity-module/ca-project-core/ca-project-core.module';
+import {CaFolderCoreModule} from '../../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 import {CaRequestNewLicensesComponent} from './component/ca-request-new-licenses/ca-request-new-licenses.component';
 import {RouterModule} from '@angular/router';
 import {
@@ -30,8 +30,8 @@ import {
   CaCurrentSpaceLabInstancesPageComponent
 } from './component/ca-current-space-lab-instances-page/ca-current-space-lab-instances-page.component';
 import {
-  CaCurrentSpaceProjectsPageComponent
-} from './component/ca-current-space-projects-page/ca-current-space-projects-page.component';
+  CaCurrentSpaceFoldersPageComponent
+} from './component/ca-current-space-folders-page/ca-current-space-folders-page.component';
 import {
   CaCurrentSpaceTeamsPageComponent
 } from './component/ca-current-space-teams-page/ca-current-space-teams-page.component';
@@ -68,7 +68,7 @@ import {
     CaCurrentSpaceUsersPageComponent,
     CaCurrentSpaceDashboardPageComponent,
     CaCurrentSpaceLabInstancesPageComponent,
-    CaCurrentSpaceProjectsPageComponent,
+    CaCurrentSpaceFoldersPageComponent,
     CaCurrentSpaceTeamsPageComponent,
     CaCurrentSpaceOtherPageComponent,
     CaCurrentSpaceStorageComponent,
@@ -90,7 +90,7 @@ import {
     CaSpaceCoreModule,
     CaGroupCoreModule,
     CaLabCoreModule,
-    CaProjectCoreModule,
+    CaFolderCoreModule,
     CaCloudProviderCoreModule,
     CaObjectStorageCoreModule,
     CaBucketCredentialsCoreModule,

@@ -1,0 +1,7 @@
+<fl-dialog-header>
+  {{ title | flTranslatableText | async }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <ca-experiment-table [datasource]="experiments"></ca-experiment-table>
+</mat-dialog-content>

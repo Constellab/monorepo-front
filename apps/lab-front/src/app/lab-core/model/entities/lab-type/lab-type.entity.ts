@@ -1,13 +1,13 @@
-import {LabBaseEntity} from '../../global/lab-entity.entity';
-import {Expose} from 'class-transformer';
-import {FlDatasourcePaginated, FlSearchObjectToUrl} from '@monorepo/front-core-lib';
+import { LabBaseEntity } from '../../global/lab-entity.entity';
+import { Expose } from 'class-transformer';
+import { FlDatasourcePaginated, FlSearchObjectToUrl } from '@monorepo/front-core-lib';
 import {
-  TdTypeEntity,
   TdTypeObjectStatus,
   TdTypeObjectSubType,
   TdTypeObjectType,
   TdTypeRefDTO,
-  TdTypeStyle, TdTypeTypingEntity
+  TdTypeStyle,
+  TdTypeTypingEntity
 } from '@monorepo/technical-doc';
 
 export interface LabFileTypeAdditionalInfo {
@@ -16,31 +16,31 @@ export interface LabFileTypeAdditionalInfo {
 
 
 export class LabTypeEntity extends LabBaseEntity implements FlSearchObjectToUrl {
-  @Expose({name: 'object_type'})
+  @Expose({ name: 'object_type' })
   objectType: TdTypeObjectType;
 
-  @Expose({name: 'typing_name'})
+  @Expose({ name: 'typing_name' })
   typingName: string;
 
-  @Expose({name: 'brick_version'})
+  @Expose({ name: 'brick_version' })
   brickVersion: string;
 
-  @Expose({name: 'human_name'})
+  @Expose({ name: 'human_name' })
   humanName: string;
 
-  @Expose({name: 'short_description'})
+  @Expose({ name: 'short_description' })
   shortDescription: string | undefined;
 
-  @Expose({name: 'object_sub_type'})
+  @Expose({ name: 'object_sub_type' })
   objectSubType: TdTypeObjectSubType;
 
-  @Expose({name: 'deprecated_since'})
+  @Expose({ name: 'deprecated_since' })
   deprecatedSince: string | undefined;
 
-  @Expose({name: 'deprecated_message'})
+  @Expose({ name: 'deprecated_message' })
   deprecatedMessage: string | undefined;
 
-  @Expose({name: 'additional_info'})
+  @Expose({ name: 'additional_info' })
   additionalInfo: any;
 
   style: TdTypeStyle;
@@ -60,7 +60,7 @@ export class LabTypeEntity extends LabBaseEntity implements FlSearchObjectToUrl 
   }
 
   toUrlJson(): Record<string, any> {
-    return {typing_name: this.typingName};
+    return { typing_name: this.typingName };
   }
 
   public static fromResourceType(resourceDto: TdTypeRefDTO): LabTypeEntity {
@@ -106,5 +106,5 @@ export class LabTypeEntity extends LabBaseEntity implements FlSearchObjectToUrl 
 
 }
 
-export type LabTypeEntityDatasource = FlDatasourcePaginated<LabTypeEntity>;
+export type LabTypeEntityDatasource<F = void> = FlDatasourcePaginated<LabTypeEntity, F>;
 

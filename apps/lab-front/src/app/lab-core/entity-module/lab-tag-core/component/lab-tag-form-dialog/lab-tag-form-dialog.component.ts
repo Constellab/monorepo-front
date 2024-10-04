@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlTag, FlTagHelper} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {LabCreateTagResponse} from '../../../../model/entities/lab-tag.entity';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {LabTagService} from '../../../../entity-service/lab-tag.service';
-import {Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlTag, FlTagHelper } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { LabCreateTagResponse } from '../../../../model/entities/lab-tag.entity';
+import { LabTagService } from '../../../../entity-service/lab-tag.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 
 /**
@@ -28,7 +27,7 @@ export class LabTagFormDialogComponent extends FlFormDialogAbstractDirective<FlT
     this.init();
   }
 
-  buildForm(): FormGroup<FlTag> {
+  buildForm(): UntypedFormGroup {
     const defaultKey = this.dialogInput.object?.key ?? null;
     return new FormBuilder().group({
       key: [{

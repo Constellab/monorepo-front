@@ -1,19 +1,17 @@
-import {Component, inject, OnInit} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
   FlPortalAction,
-  FlPortalActionsService,
-  FlTranslateService
+  FlPortalActionsService
 } from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {Validators} from '@angular/forms';
-import {ClHelpService} from '@monorepo/core-lib';
-import {HaFileServiceInterface} from '../../model/ha-file-service.interface';
-import {HaFile} from '../../model/ha-file';
-import {HaBaseEntityWithFiles} from '../../model/ha-base-entity-with-files';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ClHelpService } from '@monorepo/core-lib';
+import { HaFileServiceInterface } from '../../model/ha-file-service.interface';
+import { HaFile } from '../../model/ha-file';
+import { HaBaseEntityWithFiles } from '../../model/ha-base-entity-with-files';
 
 export type HaFileDialogInput = FlFormDialogInput<HaFileDialogObjectInput>;
 
@@ -29,7 +27,7 @@ export interface HaFileFormData {
 @Component({
   selector: 'ha-file-dialog',
   templateUrl: './ha-file-dialog.component.html',
-  styleUrls: ['./ha-file-dialog.component.scss'],
+  styleUrls: ['./ha-file-dialog.component.scss']
 })
 export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileFormData, HaBaseEntityWithFiles> implements OnInit {
 
@@ -37,12 +35,11 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
 
   entity: HaBaseEntityWithFiles;
 
-  constructor(private translateService: FlTranslateService,
-              private actionService: FlPortalActionsService) {
+  constructor(private actionService: FlPortalActionsService) {
     super();
   }
 
-  buildForm(): FormGroup<HaFileFormData> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       newFiles: [null, Validators.required],
       entity: [this.entity, Validators.required]
@@ -69,7 +66,7 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
     this.formGp.controls.newFiles?.patchValue(ClHelpService.convertObjectOrArrayToArray(event));
 
     if (event[0].size > 20000000) {
-      this.snackBarService.openErrorMessage({text: 'file_too_large_error', translateText: true});
+      this.snackBarService.openErrorMessage({ text: 'file_too_large_error', translateText: true });
       return;
     }
 
@@ -82,8 +79,10 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
       const action: FlPortalAction = {
         type: 'upload-document',
         action: this.dialogInput.object.service.uploadFile(file, this.entity.id),
-        text: this.translateService.translate('uploading_document',
-          {param: {name: file.name}}),
+        text: {
+          text: 'uploading_document', translateText: true,
+          translateParam: { param: { name: file.name } }
+        },
         additionalInformation: this.entity.id
       };
       this.actionService.addAction(action, false);
@@ -102,7 +101,7 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
     });
   }
 
-  onDocumentUploaded(result: any, entityId: string): void {
+  onDocumentUploaded(_: any, entityId: string): void {
     this.dialogInput.object.service.getById(entityId).subscribe((entity) => {
       this.entity = entity;
     });
@@ -114,8 +113,10 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
     const action: FlPortalAction = {
       type: 'delete-entity-document',
       action: this.dialogInput.object.service.deleteFile(this.entity.id, file.name),
-      text: this.translateService.translate('deleting_document',
-        {param: {name: file.name}}),
+      text: {
+        text: 'deleting_document', translateText: true,
+        translateParam: { param: { name: file.name } }
+      },
       additionalInformation: this.entity.id
     };
 

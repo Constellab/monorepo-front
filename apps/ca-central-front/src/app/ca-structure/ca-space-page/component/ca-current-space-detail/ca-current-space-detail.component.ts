@@ -65,10 +65,8 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
       map(space => ({
         title: 'space_delete_photo',
         content: 'space_delete_photo_confirmation',
-        translateMessage: true,
         observable: this.spaceService.deleteSpacePhoto(space.id),
         successMessage: 'space_photo_deleted',
-        translateTitleAndContent: true
       }))
     );
   }
@@ -83,10 +81,8 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'delete_space',
       content: 'delete_space_confirmation',
-      translateTitleAndContent: true,
       observable: this.spaceService.deleteById(space.id),
       successMessage: 'space_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

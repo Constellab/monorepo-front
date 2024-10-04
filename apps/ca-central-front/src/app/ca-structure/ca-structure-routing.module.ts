@@ -15,8 +15,8 @@ import {
   CaCurrentSpaceLabInstancesPageComponent
 } from './ca-space-page/component/ca-current-space-lab-instances-page/ca-current-space-lab-instances-page.component';
 import {
-  CaCurrentSpaceProjectsPageComponent
-} from './ca-space-page/component/ca-current-space-projects-page/ca-current-space-projects-page.component';
+  CaCurrentSpaceFoldersPageComponent
+} from './ca-space-page/component/ca-current-space-folders-page/ca-current-space-folders-page.component';
 import {
   CaCurrentSpaceTeamsPageComponent
 } from './ca-space-page/component/ca-current-space-teams-page/ca-current-space-teams-page.component';
@@ -30,7 +30,7 @@ const routes: Route[] = [
       {path: '', component: CaCurrentSpaceDashboardPageComponent},
       {path: 'users', component: CaCurrentSpaceUsersPageComponent},
       {path: 'labs', component: CaCurrentSpaceLabInstancesPageComponent},
-      {path: 'projects', component: CaCurrentSpaceProjectsPageComponent},
+      {path: 'folders', component: CaCurrentSpaceFoldersPageComponent},
       {path: 'teams', component: CaCurrentSpaceTeamsPageComponent},
       {path: 'other', component: CaCurrentSpaceOtherPageComponent}
     ]

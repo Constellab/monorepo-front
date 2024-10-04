@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup} from '@ngneat/reactive-forms';
-import {FlFormInputsManagerConfig} from '../../../fl-form-inputs-manager/fl-form-inputs-manager.class';
-import {FlSearchState} from '../../model/fl-search.state';
+import { Component, OnInit } from '@angular/core';
+import { FlFormInputsManagerConfig } from '../../../fl-form-inputs-manager/fl-form-inputs-manager.class';
+import { FlSearchState } from '../../model/fl-search.state';
+import { FormGroup } from '@angular/forms';
 
 /**
  * Component to place under the {@link FlSearchComponent} and this contains the advanced search form

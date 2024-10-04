@@ -1,10 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {CaGroup} from '../../../../model/entities/ca-group.entity';
-import {Observable} from 'rxjs';
-import {FormControl} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {FlSnackBarService} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { CaGroup } from '../../../../model/entities/ca-group.entity';
+import { Observable } from 'rxjs';
+import { FormControl, Validators } from '@angular/forms';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface CaGroupShareDialogInput {
   // method call to share object with the group

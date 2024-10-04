@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {CaLabInstanceDetailPageState} from '../../state/ca-lab-instance-detail-page.state';
-import {CaLabInstanceService} from '../../../ca-core/service-api/ca-lab-instance.service';
+import { Component, OnInit } from '@angular/core';
+import { CaLabInstanceDetailPageState } from '../../state/ca-lab-instance-detail-page.state';
+import { CaLabInstanceService } from '../../../ca-core/service-api/ca-lab-instance.service';
 import {
   FlEntityPaginatedDatasource,
   FlFormInputsManagerConfig,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
   FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter,
   FlSearchState,
   FlThemeService
 } from '@monorepo/front-core-lib';
@@ -16,12 +17,11 @@ import {
   CaLabInstanceStatus,
   CaLabInstanceStatusHistoryDatasource
 } from '../../../ca-core/model/entities/lab/ca-lab-instance.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Type} from 'class-transformer';
-import {UntypedFormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
+import { Type } from 'class-transformer';
 
 
-export class CaLabInstanceStatusHistoryDatesFormData {
+export class CaLabInstanceStatusHistorySearchFields {
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
 
@@ -34,25 +34,32 @@ export class CaLabInstanceStatusHistoryDatesFormData {
 
 export class CaLabInstanceStatusHistorySearch {
 
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaLabInstanceStatusHistoryDatesFormData> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaLabInstanceStatusHistorySearchFields> = {
     createdAt: 'createdAt',
     endDate: 'endDate',
     status: 'status'
   };
 
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaLabInstanceStatusHistoryDatesFormData> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaLabInstanceStatusHistorySearchFields> = {
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     endDate: FlSearchConverter.dateInterval('endDate'),
     status: {key: 'status', operator: 'EQ'}
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaLabInstanceStatusHistoryDatesFormData> {
-    return new FormBuilder().group<CaLabInstanceStatusHistoryDatesFormData>({
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    createdAt: 'createdAt',
+    status: 'status',
+    createdBy: ['createdBy.firstname', 'createdBy.lastname'],
+    endDate: 'endDate'
+  };
+
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null],
       }),
-      endDate: new FormBuilder().group<FlSearchDateInterval>({
+      endDate: new FormBuilder().group({
         from: [null],
         to: [null],
       }),
@@ -69,7 +76,7 @@ export class CaLabInstanceStatusHistorySearch {
 })
 export class CaLabInstanceStatusHistoryPageComponent implements OnInit {
   id = this.state.getLabInstanceId();
-  datasource: CaLabInstanceStatusHistoryDatasource;
+  datasource: CaLabInstanceStatusHistoryDatasource<CaLabInstanceStatusHistorySearchFields>;
 
   formGp: UntypedFormGroup;
 
@@ -102,13 +109,14 @@ export class CaLabInstanceStatusHistoryPageComponent implements OnInit {
   private initDataSource(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaLabInstanceStatusHistorySearch.getAdvancedSearchForm,
-      advancedFormClass: CaLabInstanceStatusHistoryDatesFormData,
+      buildAdvancedForm: CaLabInstanceStatusHistorySearch.getSearchForm,
+      advancedFormClass: CaLabInstanceStatusHistorySearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaLabInstanceStatusHistorySearch.advancedSearchManagerConfig,
+        config: CaLabInstanceStatusHistorySearch.searchManagerConfig,
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: {key: 'createdAt', direction: 'DESC'}
     };
 
     this.datasource = new FlEntityPaginatedDatasource(
@@ -131,7 +139,7 @@ export class CaLabInstanceStatusHistoryPageComponent implements OnInit {
       color: this.themeService.getCurrentThemeDetail().primary,
       version: 1,
       default: true,
-      filtersCriteria: {} as Partial<CaLabInstanceStatusHistoryDatesFormData>
+      filtersCriteria: {} as Partial<CaLabInstanceStatusHistorySearchFields>
     }];
   }
 }

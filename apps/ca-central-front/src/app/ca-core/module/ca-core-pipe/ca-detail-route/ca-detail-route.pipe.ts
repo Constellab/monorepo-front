@@ -1,15 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { CaEntity } from '../../../model/entities/ca-entity.entity';
-import { CaProject } from '../../../model/entities/project/ca-project.class';
+import { CaFolder } from '../../../model/entities/folder/ca-folder.class';
 import { CaLabInstance } from '../../../model/entities/lab/ca-lab-instance.class';
 import { CaRouterService } from '../../../service/ca-router.service';
 import { CaGroup, CaGroupType } from '../../../model/entities/ca-group.entity';
-import { CaExperiment } from '../../../model/entities/project/ca-experiment.class';
-import { CaReport } from '../../../model/entities/project/ca-report.class';
-import { CaDocument } from '../../../model/entities/project/ca-document.class';
+import { CaExperiment } from '../../../model/entities/folder/ca-experiment.class';
+import { CaNote } from '../../../model/entities/folder/ca-note.class';
+import { CaDocument } from '../../../model/entities/folder/ca-document.class';
 import { CaUser } from '../../../model/entities/ca-user.class';
+import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
 
-type CaObjectType = 'project' | 'experiment' | 'report' | 'labInstance' | 'group' | 'document' | 'user';
+type CaObjectType = 'folder' | 'experiment' | 'note' | 'labInstance' | 'group' | 'document' | 'user';
 
 
 /**
@@ -38,12 +39,12 @@ export class CaDetailRoutePipe implements PipeTransform {
     if (objectType == null) return null;
 
     switch (objectType) {
-      case 'project':
-        return CaRouterService.getProjectDetailRoute(id);
+      case 'folder':
+        return CaRouterService.getFolderDetailRoute(id);
       case 'experiment':
         return CaRouterService.getExperimentDetailRoute(id);
-      case 'report':
-        return CaRouterService.getReportDetailRoute(id);
+      case 'note':
+        return CaRouterService.getNoteDetailRoute(id);
       case 'labInstance':
         return CaRouterService.getLabInstanceDetailRoute(id);
       case 'group':
@@ -60,12 +61,12 @@ export class CaDetailRoutePipe implements PipeTransform {
   }
 
   private getObjectType(obj: any): [CaObjectType, string] {
-    if (obj instanceof CaProject) {
-      return ['project', obj.id];
+    if (obj instanceof CaFolder || obj instanceof CaHierarchyObject) {
+      return ['folder', obj.id];
     } else if (obj instanceof CaExperiment) {
       return ['experiment', obj.id];
-    } else if (obj instanceof CaReport) {
-      return ['report', obj.id];
+    } else if (obj instanceof CaNote) {
+      return ['note', obj.id];
     } else if (obj instanceof CaLabInstance) {
       return ['labInstance', obj.id];
     } else if (obj instanceof CaGroup) {

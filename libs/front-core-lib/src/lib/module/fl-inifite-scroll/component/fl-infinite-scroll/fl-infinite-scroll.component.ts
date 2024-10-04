@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
-import {FlInfiniteScrollMode} from '../../directive/fl-infinite-scroll/fl-infinite-scroll.directive';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasource-paginated.class';
+import { FlInfiniteScrollMode } from '../../directive/fl-infinite-scroll/fl-infinite-scroll.directive';
 
 
 /**
@@ -14,7 +14,7 @@ import {FlInfiniteScrollMode} from '../../directive/fl-infinite-scroll/fl-infini
 })
 export class FlInfiniteScrollComponent implements OnInit {
 
-  @Input() datasource: FlDatasourcePaginated<any>;
+  @Input() datasource: FlDatasourcePaginated<any, any>;
 
   /**
    * Distance from bottom (in pixel) when the flTrigger is called

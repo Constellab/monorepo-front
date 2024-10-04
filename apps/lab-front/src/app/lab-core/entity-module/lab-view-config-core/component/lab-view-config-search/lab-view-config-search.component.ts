@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlSavedSearch,
@@ -8,13 +8,13 @@ import {
   FlTag,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabViewConfig, LabViewConfigDatasource} from '../../../../model/entities/resource/lab-view-config.entity';
-import {LabViewConfigSearch, LabViewConfigSearchFields} from '../../model/lab-view-config-search.class';
-import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
+import { LabViewConfig, LabViewConfigDatasource } from '../../../../model/entities/resource/lab-view-config.entity';
+import { LabViewConfigSearch, LabViewConfigSearchFields } from '../../model/lab-view-config-search.class';
+import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 
 
 /**
- * Search on view config, only work for search linked to a report
+ * Search on view config, only work for search linked to a note
  */
 @Component({
   selector: 'lab-view-config-search',
@@ -24,7 +24,7 @@ import {LabViewConfigService} from '../../../../entity-service/lab-view-config.s
 })
 export class LabViewConfigSearchComponent implements OnInit {
 
-  @Input() reportId: string;
+  @Input() noteId: string;
 
   @Input() fullPageSearch: boolean = true;
 
@@ -42,17 +42,18 @@ export class LabViewConfigSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabViewConfigSearch.getAdvancedSearchForm,
+      buildAdvancedForm: LabViewConfigSearch.getSearchForm,
       advancedFormClass: LabViewConfigSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: LabViewConfigSearch.advancedSearchManagerConfig,
+        config: LabViewConfigSearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: this.fullPageSearch
+      storeSearchInUrl: this.fullPageSearch,
+      defaultSort: {key: 'lastModifiedAt', direction: 'DESC'}
     };
 
-    this.datasource = new FlEntityPaginatedDatasource(this.viewConfigService.getViewConfigSearchFunction(this.reportId),
+    this.datasource = new FlEntityPaginatedDatasource(this.viewConfigService.getViewConfigSearchFunction(this.noteId),
       20, false);
 
     this.searchState.init(config, this.datasource);

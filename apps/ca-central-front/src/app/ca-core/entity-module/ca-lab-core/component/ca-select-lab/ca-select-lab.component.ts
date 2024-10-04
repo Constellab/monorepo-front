@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
-import { FlEntityPaginatedDatasource, FlFormFieldDirective } from '@monorepo/front-core-lib';
+import {
+  FlDatasourceGetPageData,
+  FlEntityPaginatedDatasource,
+  FlFormFieldDirective,
+  FlInputSearchFilter
+} from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
@@ -11,7 +16,7 @@ import { CaLabInstanceSearchFields } from '../../model/ca-lab-instance-search.cl
   selector: 'ca-select-lab',
   templateUrl: './ca-select-lab.component.html',
   styleUrls: ['./ca-select-lab.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: CaSelectLabComponent}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectLabComponent }]
 })
 export class CaSelectLabComponent extends FlFormFieldDirective<CaLabInstance> implements OnInit {
 
@@ -23,7 +28,7 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLabInstance> im
 
   selectedLab: CaLabInstance | Observable<CaLabInstance>;
 
-  labDatasource: CaLabInstanceDatasource;
+  labDatasource: CaLabInstanceDatasource<FlInputSearchFilter>;
 
   constructor(private labInstanceService: CaLabInstanceService,
               @Optional() @Self() ngControl: NgControl) {
@@ -32,17 +37,17 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLabInstance> im
 
   ngOnInit(): void {
     this.labDatasource = new FlEntityPaginatedDatasource(
-      (page, size, name) => this.labInstanceService.searchAll(page, size,
-        this.getFilter(name)),
+      (page, size, data) => this.labInstanceService.searchAll(page, size,
+        this.getFilter(data.filtersCriteria.searchText)),
       20, false
     );
   }
 
-  private getFilter(name: string): Partial<CaLabInstanceSearchFields> {
+  private getFilter(name: string): FlDatasourceGetPageData<CaLabInstanceSearchFields> {
     if (this.mode === 'all') {
-      return {name: name, type: 'CLOUD', isFreeLab: false};
+      return { filtersCriteria: { name: name, type: 'CLOUD', isFreeLab: false }, sortsCriteria: [] };
     } else {
-      return {name: name};
+      return { filtersCriteria: { name: name }, sortsCriteria: [] };
     }
   }
 

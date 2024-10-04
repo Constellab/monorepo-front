@@ -61,10 +61,8 @@ export class CaUserTwoFaToggleComponent implements OnInit {
     this.dialogService.openConfirmDialog({
       title: 'activate_two_fa',
       content: 'activate_two_fa_confirmation',
-      translateTitleAndContent: true,
       observable: this.authenticatedUserService.set2FA(true),
       successMessage: 'two_fa_enabled',
-      translateMessage: true
     }).afterClosed().subscribe(
       result => this.onActivateTwoFaClosed(result)
     );
@@ -80,10 +78,8 @@ export class CaUserTwoFaToggleComponent implements OnInit {
     this.dialogService.openConfirmDialog({
       title: 'deactivate_two_fa',
       content: 'deactivate_two_fa_confirmation',
-      translateTitleAndContent: true,
       observable: this.authenticatedUserService.set2FA(false),
       successMessage: 'two_fa_disabled',
-      translateMessage: true
     }).afterClosed().subscribe(
       result => this.onDeactivateTwoFaClosed(result)
     );

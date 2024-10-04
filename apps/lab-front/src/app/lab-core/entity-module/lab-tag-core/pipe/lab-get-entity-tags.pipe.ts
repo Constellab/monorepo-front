@@ -1,12 +1,12 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {FlEntity} from '@monorepo/front-core-lib';
-import {LabExperiment} from '../../../model/entities/lab-experiment.entity';
-import {LabTagService} from '../../../entity-service/lab-tag.service';
-import {LabReport} from '../../../model/entities/lab-report.entity';
-import {LabResource} from '../../../model/entities/resource/lab-resource.entity';
-import {LabViewConfig} from '../../../model/entities/resource/lab-view-config.entity';
-import {LabEntityTagType, LabTagDatasource} from '../../../model/entities/lab-tag.entity';
-import {LabProtocolTemplate} from '../../../model/entities/process/lab-protocol-template.entity';
+import { Pipe, PipeTransform } from '@angular/core';
+import { FlEntity } from '@monorepo/front-core-lib';
+import { LabExperiment } from '../../../model/entities/lab-experiment.entity';
+import { LabTagService } from '../../../entity-service/lab-tag.service';
+import { LabNote } from '../../../model/entities/lab-note.entity';
+import { LabResource } from '../../../model/entities/resource/lab-resource.entity';
+import { LabViewConfig } from '../../../model/entities/resource/lab-view-config.entity';
+import { LabEntityTagType, LabTagDatasource } from '../../../model/entities/lab-tag.entity';
+import { LabProtocolTemplate } from '../../../model/entities/process/lab-protocol-template.entity';
 
 @Pipe({
   name: 'labGetEntityTags',
@@ -29,8 +29,8 @@ export class LabGetEntityTagsPipe implements PipeTransform {
   private getTagType(entity: FlEntity): LabEntityTagType {
     if (entity instanceof LabExperiment) {
       return 'EXPERIMENT';
-    } else if (entity instanceof LabReport) {
-      return 'REPORT';
+    } else if (entity instanceof LabNote) {
+      return 'NOTE';
     } else if (entity instanceof LabResource) {
       return 'RESOURCE';
     } else if (entity instanceof LabViewConfig) {

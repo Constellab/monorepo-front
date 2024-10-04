@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {LabUser, LabUserDatasourcePaginated} from '../model/entities/lab-user.entity';
-import {ClPageI} from '@monorepo/core-lib';
+import { Injectable } from '@angular/core';
+import { FlApiService, FlEntityPaginatedDatasource, FlInputSearchFilter } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { LabUser, LabUserDatasourcePaginated } from '../model/entities/lab-user.entity';
+import { ClPageI } from '@monorepo/core-lib';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class LabUserService {
 
   private readonly route = 'user';
@@ -14,12 +14,12 @@ export class LabUserService {
 
   public searchByName(name: string, page: number, pageSize: number): Observable<ClPageI<LabUser>> {
     return this.apiService.get(`${this.route}/name-search/${name}`, LabUser,
-      {page, pageSize, resultIsPaginated: true});
+      { page, pageSize, resultIsPaginated: true });
   }
 
-  public searchByNameDatasource(): LabUserDatasourcePaginated {
+  public searchByNameDatasource(): LabUserDatasourcePaginated<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page, size, name) => this.searchByName(name, page, size), 20, false);
+      (page, size, data) => this.searchByName(data.filtersCriteria.searchText, page, size), 20, false);
   }
 
   public getUserById(userId: string): Observable<LabUser> {

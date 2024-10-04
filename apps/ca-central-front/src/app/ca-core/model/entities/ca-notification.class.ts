@@ -1,10 +1,10 @@
-import {CaEntity} from './ca-entity.entity';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
-import {DateTime} from 'luxon';
-import {Type} from 'class-transformer';
-import {CaUser} from './ca-user.class';
-import {CaSpace} from './space/ca-space.class';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
+import { CaEntity } from './ca-entity.entity';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { DateTime } from 'luxon';
+import { Type } from 'class-transformer';
+import { CaUser } from './ca-user.class';
+import { CaSpace } from './space/ca-space.class';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 
 export class CaNotification extends CaEntity {
   @ClLuxonDateTimeTransform()
@@ -34,7 +34,7 @@ export class CaNotification extends CaEntity {
 export type CaNotificationDatasourcePaginated = FlDatasourcePaginated<CaNotification>;
 
 
-export type CaNotificationType = 'USER' | 'PROJECT' | 'EXPERIMENT' | 'REPORT' | 'PROJECT_DOCUMENT' | 'PROJECT_COMMENT';
+export type CaNotificationType = 'USER' | 'FOLDER' | 'EXPERIMENT' | 'NOTE' | 'DOCUMENT' | 'MESSAGE';
 
 export interface CaNotificationCountBySpace {
   spaceId: string;

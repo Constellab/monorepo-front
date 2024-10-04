@@ -1,13 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormGroup} from '@ngneat/reactive-forms';
-import {Router} from '@angular/router';
-import {FlSignUpUser} from '../../model/fl-sign-up-user.class';
-import {FlThemeService} from '../../../fl-theme/fl-theme.service';
-import {FlUserAccountService} from '../../service/fl-user-account.service';
-import {FlSnackBarService} from '../../../fl-snack-bar/fl-snack-bar.service';
-import {FlSignupFormComponent} from '../fl-signup-form/fl-signup-form.component';
-import {FlCaptchaService} from '../../../fl-captcha/fl-captcha.service';
-import {Observable, switchMap} from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FlSignUpUser } from '../../model/fl-sign-up-user.class';
+import { FlThemeService } from '../../../fl-theme/fl-theme.service';
+import { FlUserAccountService } from '../../service/fl-user-account.service';
+import { FlSnackBarService } from '../../../fl-snack-bar/fl-snack-bar.service';
+import { FlSignupFormComponent } from '../fl-signup-form/fl-signup-form.component';
+import { FlCaptchaService } from '../../../fl-captcha/fl-captcha.service';
+import { Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'fl-signup-page',
@@ -27,7 +26,7 @@ export class FlSignupPageComponent implements OnInit {
 
   logo: string;
 
-  formGp: FormGroup<FlSignUpUser>;
+  formGp = FlSignupFormComponent.buildFormGroup();
 
   isLoading: boolean = false;
 
@@ -41,12 +40,6 @@ export class FlSignupPageComponent implements OnInit {
   ngOnInit(): void {
     this.logo = this.themeService.isDarkTheme() ? this.darkThemeLogo :
       this.lightThemeLogo;
-
-    this.initForm();
-  }
-
-  private initForm(): void {
-    this.formGp = FlSignupFormComponent.buildFormGroup();
   }
 
   submit(): void {
@@ -77,7 +70,7 @@ export class FlSignupPageComponent implements OnInit {
   }
 
   private onSignupSuccess(): void {
-    this.snackBarService.openSuccessMessage({text: 'flAuth.account_created', translateText: true}, 10000);
+    this.snackBarService.openSuccessMessage({ text: 'flAuth.account_created', translateText: true }, 10000);
 
     this.isLoading = false;
 

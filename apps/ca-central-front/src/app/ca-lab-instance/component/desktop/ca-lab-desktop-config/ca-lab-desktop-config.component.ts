@@ -48,7 +48,7 @@ export class CaLabDesktopConfigComponent implements OnInit {
       labConfig.glabTag = null;
       this.labConfig = labConfig;
     } else {
-      this.snackBarService.openErrorMessage(error.message);
+      this.snackBarService.openErrorMessage({ text: error.message, translateText: false });
     }
     this.getIsLoading = false;
   }

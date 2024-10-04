@@ -63,7 +63,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
           this.unhoverCurrentEmoji();
           this.hoverEmoji({ categoryIndex: 0, index: 0 });
         }, 0);
-        this.emojiCategories.getFirstPage(value);
+        this.emojiCategories.getFirstPage({ text: value });
       },
       complete: () => this.overlayRef.dispose()
     });
@@ -225,7 +225,8 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getHoveredEmoji(): FlSimpleEmoji {
+  private getHoveredEmoji(): FlSimpleEmoji | null {
+    if (!this.hoveredEmoji) return null;
     return this.getEmojiByCoord(this.hoveredEmoji);
   }
 

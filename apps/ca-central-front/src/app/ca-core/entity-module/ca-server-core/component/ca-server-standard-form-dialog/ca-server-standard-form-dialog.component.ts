@@ -1,11 +1,10 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {CaServerStandard, CaServerStandardSaveDTO} from '../../../../model/entities/server/ca-server-standard.class';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {CaServerService} from '../../../../service-api/ca-server.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { CaServerStandard, CaServerStandardSaveDTO } from '../../../../model/entities/server/ca-server-standard.class';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 
 export type CaServerStandardFormDialogInput = FlFormDialogInput<CaServerStandardSaveDTO>;
 
@@ -27,14 +26,14 @@ export class CaServerStandardFormDialogComponent extends FlFormDialogAbstractDir
     this.init();
   }
 
-  buildForm(): FormGroup<CaServerStandardSaveDTO> {
+  buildForm(): UntypedFormGroup {
     const formGp = new FormBuilder().group({
       id: [null],
       name: [null, Validators.required],
       description: [null, Validators.required],
       technicalDescription: [null, Validators.required],
       price: [null]
-    }) as FormGroup<CaServerStandardSaveDTO>;
+    });
 
     // price is only available in create mode
     if (this.isCreateMode()) {

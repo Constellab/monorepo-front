@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { CaMainAppComponent } from './component/ca-main-app/ca-main-app.component';
 import {
   caConstAdminRoute,
-  caConstBaseRoute,
+  caConstBaseRoute, caConstChatRoute,
   caConstDashboardRoute,
   caConstLabInstancesRoute,
-  caConstMyProjectsRoute,
-  caConstProjectRoute,
+  caConstMyFoldersRoute,
+  caConstFolderRoute,
   caConstStructureRoute,
   caConstUserPageRoute
 } from '../ca-core/utils/ca-base-route';
@@ -36,17 +36,17 @@ const routes: Route[] = [
         loadChildren: () => import('../ca-lab-instance/ca-lab-instance.module').then(m => m.CaLabInstanceModule)
       },
 
-      //////////////////////// MY PROJECT /////////////////////////
+      //////////////////////// MY FOLDER /////////////////////////
       {
-        path: caConstMyProjectsRoute,
-        loadChildren: () => import('../ca-project/module/ca-my-projects/ca-my-project.module').then(m => m.CaMyProjectModule)
+        path: caConstMyFoldersRoute,
+        loadChildren: () => import('../ca-folder/module/ca-my-folders/ca-my-folder.module').then(m => m.CaMyFolderModule)
       },
 
-      //////////////////////// PROJECT DETAIL /////////////////////////
+      //////////////////////// FOLDER DETAIL /////////////////////////
       {
-        path: caConstProjectRoute,
-        loadChildren: () => import('../ca-project/module/ca-project-object-detail-page/ca-project-object-detail-page.module')
-          .then(m => m.CaProjectObjectDetailPageModule)
+        path: caConstFolderRoute,
+        loadChildren: () => import('../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page.module')
+          .then(m => m.CaHierarchyObjectDetailPageModule)
       },
 
       //////////////////////// Admin /////////////////////////
@@ -59,6 +59,11 @@ const routes: Route[] = [
       {
         path: caConstStructureRoute,
         loadChildren: () => import('../ca-structure/ca-structure.module').then(m => m.CaStructureModule)
+      },
+      //////////////////////// CHAT /////////////////////////
+      {
+        path: caConstChatRoute,
+        loadChildren: () => import('../ca-chat/ca-chat.module').then(m => m.CaChatModule)
       },
 
       //////////////////////// USER PAGE /////////////////////////

@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CaNotification,
   CaNotificationDatasourcePaginated,
   CaNotificationType
 } from '../../ca-core/model/entities/ca-notification.class';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {CaNotificationState} from '../../ca-core/state/ca-notification.state';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { CaNotificationState } from '../../ca-core/state/ca-notification.state';
 
 
 @Component({
@@ -51,12 +51,12 @@ export class CaNotificationsPortalComponent implements OnInit {
 
   getNotificationObjectIcon(objectType: CaNotificationType): string {
     switch (objectType) {
-      case 'PROJECT_DOCUMENT':
-      case 'PROJECT_COMMENT':
+      case 'DOCUMENT':
+      case 'MESSAGE':
       case 'EXPERIMENT':
-      case 'REPORT':
-      case 'PROJECT':
-        return 'project';
+      case 'NOTE':
+      case 'FOLDER':
+        return 'folder';
       case 'USER':
         return 'people';
       default:

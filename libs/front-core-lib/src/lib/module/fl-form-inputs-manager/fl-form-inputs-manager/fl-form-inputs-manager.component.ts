@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output} from '@angular/core';
-import {AbstractControl, FormGroupDirective, NgForm, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
-import {Subscription} from 'rxjs';
-import {FlFormFilledInput, FlFormInputName, FlFormInputsManagerConfig} from '../fl-form-inputs-manager.class';
-import {FlTranslateService} from '../../fl-translate/service/fl-translate.service';
-import {FlFormHelper} from '../../../model/fl-form-helper';
-import {FlMouseButton} from '../../../utils/fl-keyboard.helper';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { AbstractControl, FormGroupDirective, NgForm, UntypedFormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { FlFormFilledInput, FlFormInputsManagerConfig } from '../fl-form-inputs-manager.class';
+import { FlFormHelper } from '../../../model/fl-form-helper';
+import { FlMouseButton } from '../../../utils/fl-keyboard.helper';
+import { FlTranslatableText } from '../../fl-translate/model/fl-translate-param';
 
 /**
  * Component that works with form to display the list of form input not null in a chip list
@@ -22,26 +22,21 @@ import {FlMouseButton} from '../../../utils/fl-keyboard.helper';
 })
 export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
 
+
+  /**
+   * Config for the name and group displayed in the chips
+   */
+  @Input({ required: true }) config: FlFormInputsManagerConfig = {};
+
   /**
    * FormGroup of the form. To be provided only if this component is not under the wanted form
    */
   @Input() formGp: UntypedFormGroup;
 
   /**
-   * Default value use for translation. If not translate field is provided
-   * for an object in the config, this value is used
-   */
-  @Input() translateByDefault: boolean = false;
-
-  /**
-   * Config for the name and group displayed in the chips
-   */
-  @Input() config?: FlFormInputsManagerConfig = {};
-
-  /**
    * If true, the false values are considered as null and the chip will not be created
    */
-  @Input() skipFalseBoolean : boolean = false;
+  @Input() skipFalseBoolean: boolean = false;
 
   /**
    * Event called whenever the chip list is refreshed (on form value change)
@@ -59,8 +54,7 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(@Optional() private ngForm: NgForm,
-              @Optional() private formGroupDirective: FormGroupDirective,
-              private translateService: FlTranslateService) {
+              @Optional() private formGroupDirective: FormGroupDirective) {
   }
 
   ngOnInit(): void {
@@ -97,49 +91,33 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   private refreshChipList(): void {
     this.filledInputs = [];
 
-    const config = this.config || {};
-
     // loop through each control
     for (const key of Object.keys(this.formGp.controls)) {
       // check control value
-      this.checkControlValue(key, this.formGp.get(key), config[key]);
+      this.checkControlValue(key, this.formGp.get(key), this.config[key]);
     }
 
     this.emitChipListChange();
   }
 
   // check a control value to see if it's empty or not
-  private checkControlValue(key: string, control: AbstractControl, config?: string | FlFormInputName | FlFormInputsManagerConfig): void {
+  private checkControlValue(key: string, control: AbstractControl, config?: FlTranslatableText): void {
     if (control == null) {
       return;
     }
 
-    // if this is not a nested config
-    if (typeof config === 'string' || (config != null && typeof config.name === 'string') || control instanceof UntypedFormControl) {
-
-      // skip false boolean, consider them like null
-      if (this.skipFalseBoolean && control.value === false) {
-        return;
-      }
-
-      if (!FlFormHelper.isControlEmpty(control)) {
-        this.filledInputs.push(this.getFilledInputName(key, control, config as any));
-      }
+    // skip false boolean, consider them like null
+    if (this.skipFalseBoolean && control.value === false) {
+      return;
     }
-    // if this is a nested config
-    else {
-      // avoid null config
-      config = config || {};
-      // loop through nested control to check values
-      for (const childKey of Object.keys((control as UntypedFormGroup).controls)) {
-        // recursive call to check children
-        this.checkControlValue(childKey, control.get(childKey), (config as any)[childKey]);
-      }
+
+    if (!FlFormHelper.isControlEmpty(control)) {
+      this.filledInputs.push(this.getFilledInputName(key, control, config));
     }
   }
 
-  onChipClick(formInput: FlFormFilledInput, event: MouseEvent): void{
-    if(event.button === FlMouseButton.MIDDLE){
+  onChipClick(formInput: FlFormFilledInput, event: MouseEvent): void {
+    if (event.button === FlMouseButton.MIDDLE) {
       this.clearInput(formInput);
     }
   }
@@ -153,37 +131,11 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
 
   // return the name of the input with the config
   private getFilledInputName(key: string, control: AbstractControl,
-                             config?: string | FlFormInputName): FlFormFilledInput {
-
-    // get the translate bool
-    let translate: boolean = this.translateByDefault;
-
-    // if config has the translate attribute to override default
-    if (config != null && (typeof config !== 'string') && config.translate != null) {
-      translate = config.translate;
-    }
-
-    // get the name
-    let name: string;
-    if (config == null) {
-      // if no config, take the key as the name
-      name = key;
-    } else if (typeof config === 'string') {
-      // if the config is a string, this is the name
-      name = config;
-    } else {
-      // if there is a name in the config object, use it
-      name = config.name;
-    }
-
-    // translate if necessary
-    if (translate) {
-      name = this.translateService.translate(name);
-    }
+                             config?: FlTranslatableText): FlFormFilledInput {
 
     return {
       key: key,
-      name: name,
+      name: config ?? { text: key, translateText: true },
       control: control
     };
   }

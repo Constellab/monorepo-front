@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
-import { FlDialogService, FlFormFieldDirective, FlInputSearchAdvancedButton } from '@monorepo/front-core-lib';
+import {
+  FlDialogService,
+  FlFormFieldDirective,
+  FlInputSearchAdvancedButton,
+  FlInputSearchFilter
+} from '@monorepo/front-core-lib';
 import { NgControl } from '@angular/forms';
 import {
   LabDocumentTemplate,
@@ -26,7 +31,7 @@ export class LabSelectDocumentTemplateComponent extends FlFormFieldDirective<Lab
 
   selectedDocumentTemplate: LabDocumentTemplate | Observable<LabDocumentTemplate>;
 
-  datasource: LabDocumentTemplateDatasource;
+  datasource: LabDocumentTemplateDatasource<FlInputSearchFilter>;
 
   advancedButton: FlInputSearchAdvancedButton<LabDocumentTemplate>;
 

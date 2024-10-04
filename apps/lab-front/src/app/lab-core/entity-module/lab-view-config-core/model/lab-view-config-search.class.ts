@@ -1,23 +1,24 @@
-import {Type} from 'class-transformer';
+import { Type } from 'class-transformer';
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
   FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter,
   FlTag
 } from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {LabResourceViewType} from '../../../model/entities/resource/lab-resource-view.entity';
-import {LabProject} from '../../../model/entities/lab-project.class';
-import {LabViewType} from '../../../model/entities/resource/lab-view-config.entity';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { LabResourceViewType } from '../../../model/entities/resource/lab-resource-view.entity';
+import { LabFolder } from '../../../model/entities/lab-folder.class';
+import { LabViewType } from '../../../model/entities/resource/lab-view-config.entity';
 
 export class LabViewConfigSearchFields {
   title: string;
 
   viewType: LabViewType;
 
-  @Type(() => LabProject)
-  project: LabProject[];
+  @Type(() => LabFolder)
+  folder: LabFolder[];
 
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
@@ -31,13 +32,12 @@ export class LabViewConfigSearchFields {
 
 export class LabViewConfigSearch {
 
-
   /**
    * Const to configure Form Input Manager for advanced search
    */
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabViewConfigSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<LabViewConfigSearchFields> = {
     title: 'title',
-    project: 'biox.project',
+    folder: 'biox.folder',
     viewType: 'biox.view_type',
     // group the creation date into one chip
     createdAt: 'creation_date',
@@ -49,27 +49,31 @@ export class LabViewConfigSearch {
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
-  public static advancedSearchConverter: FlSearchCriteriaConverter<LabViewConfigSearchFields> = {
-    title: {key: 'title', operator: 'CONTAINS'},
-    project: {key: 'project', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId},
-    viewType: {key: 'view_type', operator: 'EQ', convertValue: LabViewConfigSearch.viewTypeConverter},
+  public static filterConverter: FlSearchFilterCriteriaConverter<LabViewConfigSearchFields> = {
+    title: { key: 'title', operator: 'CONTAINS' },
+    folder: { key: 'folder', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId },
+    viewType: { key: 'view_type', operator: 'EQ', convertValue: LabViewConfigSearch.viewTypeConverter },
     // Date
     createdAt: FlSearchConverter.dateInterval('created_at'),
-    tags: {key: 'tags', operator: 'EQ'},
-    includeNotFavorite: {key: 'include_not_favorite', operator: 'EQ'},
-    id: {key: 'id', operator: 'EQ'}
+    tags: { key: 'tags', operator: 'EQ' },
+    includeNotFavorite: { key: 'include_not_favorite', operator: 'EQ' },
+    id: { key: 'id', operator: 'EQ' }
   };
 
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    title: 'title',
+    lastModifiedAt: 'last_modified_at'
+  };
 
-  public static getAdvancedSearchForm(): FormGroup<LabViewConfigSearchFields> {
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         title: [null],
-        project: [null],
+        folder: [null],
         viewType: [null],
-        createdAt: new FormBuilder().group<FlSearchDateInterval>({
+        createdAt: new FormBuilder().group({
           from: [null],
-          to: [null],
+          to: [null]
         }),
         tags: [null],
         includeNotFavorite: [null],

@@ -79,7 +79,7 @@ export class CaApiErrorService extends FlApiErrorService {
     }
 
     // throw the error to propagate it
-    return throwError(serverError);
+    return throwError(() => serverError);
 
 
   }
@@ -113,7 +113,7 @@ export class CaApiErrorService extends FlApiErrorService {
     this.showError(serverError.message, snackBarDuration);
 
     // throw the error to propagate it
-    return throwError(serverError);
+    return throwError(() => serverError);
   }
 
   /**

@@ -15,7 +15,7 @@ export class LabDocumentTemplateTableComponent {
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() rowSelectable: boolean = false;
 
-  @Input() datasource: LabDocumentTemplateDatasource;
+  @Input({required: true}) datasource: LabDocumentTemplateDatasource<any>;
 
   @Input() columns: FlTableColumnStatic<LabDocumentTemplate>[] = ['title', 'creation', 'lastModification'];
 

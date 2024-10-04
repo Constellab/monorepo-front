@@ -1,14 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
-import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import {
   HaAddVersionInput,
   HaNewVersionDTO,
-  HaNewVersionFile,
+  HaNewVersionFile
 } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {Validators} from '@angular/forms';
+import { Observable } from 'rxjs';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ha-public-add-version-dialog',
@@ -35,7 +34,7 @@ export class HaPublicAddVersionDialogComponent extends FlFormDialogAbstractDirec
     this.errorFile = false;
   }
 
-  buildForm(): FormGroup<Partial<HaNewVersionDTO>> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       version: [null, [Validators.pattern(new RegExp('^(\\d+\\.)(\\d+\\.)(\\*|\\d+)$'))]],
       repoType: [null],
@@ -54,7 +53,7 @@ export class HaPublicAddVersionDialogComponent extends FlFormDialogAbstractDirec
     return this.brickService.createNewVersion(formValue, this.inputFile.technicalInfo, this.inputFile.brickVersionReferences);
   }
 
-  update(formValue: Partial<HaNewVersionDTO>): Observable<Partial<HaNewVersionDTO>> {
+  update(): Observable<Partial<HaNewVersionDTO>> {
     return undefined;
   }
 

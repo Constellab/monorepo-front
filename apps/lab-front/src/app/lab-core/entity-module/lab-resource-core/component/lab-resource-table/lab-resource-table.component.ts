@@ -25,7 +25,7 @@ import { Observable } from 'rxjs';
 })
 export class LabResourceTableComponent implements OnInit {
 
-  @Input() datasource: FlArrayObs<LabResource>;
+  @Input({required: true}) datasource: FlArrayObs<LabResource>;
 
   @Input() columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'lastModification', 'viewResource'];
 
@@ -35,6 +35,8 @@ export class LabResourceTableComponent implements OnInit {
   @Input() rowLinkTarget: '_self' | '_blank' = '_self';
 
   @Input() tagSelectable: boolean = true;
+
+  @Input() sortDisabled: boolean = false;
 
   @Output() resourceSelected: EventEmitter<LabResource> = new EventEmitter();
 

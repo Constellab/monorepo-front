@@ -28,6 +28,12 @@ import { TeFileBlock, TeFileBlockConfig } from '../block/te-file-block';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { TeComponentInitData } from '../block/te-component-block.class';
 import TeTable from '../block/te-table-block.class';
+import {
+  TeAudioTranscriptionBlockTune,
+  TeAudioTranscriptionConfig
+} from '../block-tune/te-audio-transcription-block-tune.class';
+import { teBlockTuneFactory } from './te-block-tune-factory.class';
+import { TeTimestampBlock } from '../block/te-timestamp-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -187,6 +193,21 @@ export abstract class TeConfig {
     };
   }
 
+  getTimeStampConfig(envInjector: EnvironmentInjector,
+                     applicationRef: ApplicationRef): ToolSettings {
+    return {
+      class: teComponentBlockFactory(TeTimestampBlock, envInjector, applicationRef)
+    };
+  }
+
+  getAudioTranscriptionConfig(config: TeAudioTranscriptionConfig,
+                              envInjector: EnvironmentInjector,
+                              applicationRef: ApplicationRef): ToolSettings {
+    return {
+      class: teBlockTuneFactory(TeAudioTranscriptionBlockTune, envInjector, applicationRef, config)
+    };
+  }
+
   getBasicInlineToolbar(): string[] {
     return ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
   }
@@ -250,6 +271,7 @@ export class TeCompleteConfig extends TeConfig {
         inlineToolbar: true
       },
       video: teComponentBlockFactory(TeVideoBlock, envInjector, applicationRef),
+      timestamp: this.getTimeStampConfig(envInjector, applicationRef),
 
       // Inline
       underline: TeUnderlineInlineTool,
@@ -261,6 +283,8 @@ export class TeCompleteConfig extends TeConfig {
 
       // Other
       drag: TeDragBlockTune
+
+      // Block tune
     };
   }
 

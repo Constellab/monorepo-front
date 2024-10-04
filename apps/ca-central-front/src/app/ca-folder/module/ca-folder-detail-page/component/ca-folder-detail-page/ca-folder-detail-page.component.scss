@@ -1,0 +1,48 @@
+:host {
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--main-menu-margin) 1em 1em 1em;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+.drop-zone {
+  margin-top: 1em;
+  border: transparent 2px dashed;
+  position: relative;
+  min-height: 0; // don't overflow parent grid
+}
+
+.card-table {
+  height: 100%;
+}
+
+.drop-info {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: none;
+
+  mat-icon {
+    font-size: 100px;
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.drag-file-hover {
+  border-color: var(--primary-color);
+  border-radius: var(--card-radius);
+
+  .drop-info {
+    display: block;
+  }
+
+  .card-table {
+    filter: blur(5px);
+  }
+}

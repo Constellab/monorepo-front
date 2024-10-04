@@ -53,10 +53,8 @@ export class LabInfoComponent implements OnInit {
     this.dialogService.openConfirmDialog({
       title: 'monitoring.delete_all_unavailable_typings',
       content: 'monitoring.delete_unavailable_typings_confirmation',
-      translateTitleAndContent: true,
       observable: this.typeService.deleteUnavailableTypings(),
       successMessage: 'monitoring.delete_unavailable_typings_success',
-      translateMessage: true
     });
   }
 
@@ -69,7 +67,6 @@ export class LabInfoComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'monitoring.clean_lab',
       content: 'monitoring.clean_lab_confirmation',
-      translateTitleAndContent: true,
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

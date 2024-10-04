@@ -1,10 +1,11 @@
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
-  FlSearchDateInterval
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Type } from 'class-transformer';
 import { ClUserCategory, ClUserStatus } from '@monorepo/core-lib';
 import { CaUserLicense } from '../../../model/entities/ca-user.class';
@@ -37,7 +38,7 @@ export class CaUserSearchFields {
 
 export class CaUserSearch {
 
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaUserSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaUserSearchFields> = {
     firstname: 'firstname',
     lastname: 'lastname',
     email: 'email',
@@ -48,7 +49,7 @@ export class CaUserSearch {
     lastLoginSuccess: 'last_login',
   };
 
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaUserSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaUserSearchFields> = {
     firstname: {key: 'firstname', operator: 'MATCH'},
     lastname: {key: 'lastname', operator: 'MATCH'},
     email: {key: 'email', operator: 'MATCH'},
@@ -61,8 +62,15 @@ export class CaUserSearch {
     id: {key: 'id', operator: 'EQ'},
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaUserSearchFields> {
-    return new FormBuilder().group<CaUserSearchFields>({
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    alias: ['firstname', 'lastname'],
+    createdAt: 'createdAt',
+    category: 'category',
+    lastLogin: 'lastLoginSuccess',
+  };
+
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
       firstname: null,
       lastname: null,
       email: null,
@@ -70,11 +78,11 @@ export class CaUserSearch {
       status: null,
       license: null,
       company: null,
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null],
       }),
-      lastLoginSuccess: new FormBuilder().group<FlSearchDateInterval>({
+      lastLoginSuccess: new FormBuilder().group({
         from: [null],
         to: [null],
       }),

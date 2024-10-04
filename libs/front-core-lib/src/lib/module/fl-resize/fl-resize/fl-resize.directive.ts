@@ -1,7 +1,17 @@
-import {Directive, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, Renderer2} from '@angular/core';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlCoord} from '../../../model/shared/fl-coord.class';
-import {Observable, of, Subscription} from 'rxjs';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2
+} from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlCoord } from '../../../model/shared/fl-coord.class';
+import { Observable, of, Subscription } from 'rxjs';
 
 export type FlResizeMode = 'width' | 'height' | 'both' | 'bothKeepRatio';
 
@@ -86,7 +96,7 @@ export class FlResizeDirective implements OnInit, OnDestroy {
     } else {
       // when both mode, also activate width and height resizer
       // create them before the both resizer so it is on top of the other resizer
-      if (this.flResize === 'both' || this.flResize === 'bothKeepRatio') {
+      if (this.flResize === 'both') {
         this.createResizer('width');
         this.createResizer('height');
       }
@@ -202,7 +212,6 @@ export class FlResizeDirective implements OnInit, OnDestroy {
 
       // calculate width automatically bases on height and ratio
       newWidth = newHeight * ratio;
-
     } else {
       // calculate width base on mouse position
       newWidth = this.baseHostSize.x + event.pageX - this.baseEventPos.x;

@@ -1,6 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'lab-select-view-config-dialog',
@@ -9,11 +9,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 })
 export class LabSelectViewConfigDialogComponent {
 
-  reportId: string;
+  noteId: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) reportId: string,
+  constructor(@Inject(MAT_DIALOG_DATA) noteId: string,
               private dialogRef: MatDialogRef<LabSelectViewConfigDialogComponent>) {
-    this.reportId = reportId;
+    this.noteId = noteId;
   }
 
 

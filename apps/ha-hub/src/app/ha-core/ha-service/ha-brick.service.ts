@@ -1,23 +1,23 @@
-import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
 import {
   HaBrick,
   HaBrickCreationDTO,
   HaBrickDatasourcePaginated,
   HaEditBrickDTO
 } from '../ha-model/ha-entities/ha-brick.class';
-import {HaNode} from '../ha-model/ha-entities/ha-node.class';
-import {HaDocumentation, HaDocumentationSearchDTO} from '../ha-model/ha-entities/ha-documentation.class';
-import {HaNewVersionDTO, HaReferenceDTO} from '../ha-model/ha-entities/ha-version.class';
-import {HaBrickVersion} from '../ha-model/ha-entities/ha-brick-version.class';
-import {TdTypeEntity} from '@monorepo/technical-doc';
-import {HaBrickUser} from '../ha-model/ha-entities/ha-brick-user';
-import {ClPage, ClVersion} from '@monorepo/core-lib';
-import {HaBrickCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
-import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
-import {HaUser} from '../ha-model/ha-entities/ha-user';
-import {HaStory} from '../ha-model/ha-entities/ha-story.class';
+import { HaNode } from '../ha-model/ha-entities/ha-node.class';
+import { HaDocumentation, HaDocumentationSearchDTO } from '../ha-model/ha-entities/ha-documentation.class';
+import { HaNewVersionDTO, HaReferenceDTO } from '../ha-model/ha-entities/ha-version.class';
+import { HaBrickVersion } from '../ha-model/ha-entities/ha-brick-version.class';
+import { TdTypeEntity } from '@monorepo/technical-doc';
+import { HaBrickUser } from '../ha-model/ha-entities/ha-brick-user';
+import { ClPage, ClVersion } from '@monorepo/core-lib';
+import { HaBrickCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
+import { HaUser } from '../ha-model/ha-entities/ha-user';
+import { HaStory } from '../ha-model/ha-entities/ha-story.class';
 
 @Injectable({
   providedIn: 'root'
@@ -75,7 +75,8 @@ export class HaBrickService implements HaCoAuthorService {
 
   public getAllWithFiltersPaginated(pageSize = 10): HaBrickDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size, requestData) => this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), pageSize, false);
+      (page, size, requestData) => this.getAllWithFilters(requestData.filtersCriteria.spacesFilter,
+        requestData.filtersCriteria.titleFilter, page, size), pageSize, false);
   }
 
   public getUserBricks(userId: string, page: number, size: number): Observable<ClPage<HaBrick>> {
@@ -84,7 +85,7 @@ export class HaBrickService implements HaCoAuthorService {
 
   public getUserBricksPaginated(pageSize = 4): HaBrickDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size, requestData) => this.getUserBricks(requestData.userId, page, size), pageSize, false);
+      (page, size, requestData) => this.getUserBricks(requestData.filtersCriteria.userId, page, size), pageSize, false);
   }
 
   /**
@@ -93,6 +94,10 @@ export class HaBrickService implements HaCoAuthorService {
    */
   public getByName(name: string): Observable<HaBrick> {
     return this.apiService.get(`${this.route}/name/${name}`, HaBrick);
+  }
+
+  public checkIfBrickExistByName(name: string): Observable<boolean> {
+    return this.apiService.get(`${this.route}/check-brick-existence/${name}`)
   }
 
   public getRootFolderId(brickId: string, version: string): Observable<any> {

@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlTableColumnStatic} from '@monorepo/front-core-lib';
+import { Component, Input } from '@angular/core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 import {
   CaLabInstanceStatusHistory,
   CaLabInstanceStatusHistoryDatasource
@@ -10,15 +10,10 @@ import {
   templateUrl: './ca-status-history-table.component.html',
   styleUrls: ['./ca-status-history-table.component.scss']
 })
-export class CaStatusHistoryTableComponent implements OnInit {
+export class CaStatusHistoryTableComponent {
 
-  @Input() datasource: CaLabInstanceStatusHistoryDatasource;
+  @Input({ required: true }) datasource: CaLabInstanceStatusHistoryDatasource<any>;
 
   @Input() columns: FlTableColumnStatic<CaLabInstanceStatusHistory>[] = ['createdAt', 'endDate', 'status', 'createdBy'];
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 }

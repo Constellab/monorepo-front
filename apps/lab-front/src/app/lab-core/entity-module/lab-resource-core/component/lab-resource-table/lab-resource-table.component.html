@@ -1,8 +1,10 @@
-<mat-table mat-table [dataSource]="datasource" [multiTemplateDataRows]="true">
+<mat-table mat-table [dataSource]="datasource" [multiTemplateDataRows]="true"
+           flSearchTableSort [matSortDisabled]="sortDisabled">
 
   <!-- Name -->
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border g-column-width-2">
+    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border g-column-width-2"
+                     mat-sort-header>
       <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="g-cell-with-left-border g-column-width-2 name-cell"
@@ -50,7 +52,7 @@
 
   <!-- Creation -->
   <ng-container matColumnDef="creation">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
@@ -61,7 +63,7 @@
 
   <!-- Last modification -->
   <ng-container matColumnDef="lastModification">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
@@ -72,7 +74,7 @@
 
   <!-- Type -->
   <ng-container matColumnDef="type">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{ 'resource_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
@@ -164,7 +166,9 @@
         <lab-resource-table
           [datasource]="expandedChildrenResources$" [selectableRow]="selectableRow"
           [tagSelectable]="tagSelectable"
-          [columns]="subTableColumns" class="sub-table"
+          [columns]="subTableColumns"
+          [sortDisabled]="true"
+          class="sub-table"
           (resourceSelected)="emitResourceSelected($event)"
           (tagSelected)="emitTagSelected($event)"></lab-resource-table>
 

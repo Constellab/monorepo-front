@@ -1,0 +1,40 @@
+<div class="message">
+
+  <div class="g-layout-row" [caNotificationMark]="message().id" caNotificationObjectType="MESSAGE">
+    <div class="profile-pic">
+      <fl-user-profile-picture [user]="message().createdBy" [size]="3.75"></fl-user-profile-picture>
+    </div>
+
+    <div class="main-section">
+      <div class="g-text-small">
+        {{ message().createdBy.firstname }} -
+        <fl-from-now [date]="message().createdAt"></fl-from-now>
+      </div>
+
+      @if (editMode) {
+        <ca-chat-write-message [folderId]="folderId()" mode="update" [messageContent]="message().content"
+                               (send)="updateMessage($event)" (cancel)="disableEditMode()">
+        </ca-chat-write-message>
+      } @else {
+        <te-text-editor [config]="textEditorConfig" [ngModel]="message().content"
+                        class="text-editor" [disabled]="true"></te-text-editor>
+      }
+    </div>
+
+  </div>
+
+  @if (showButtons() && !editMode) {
+    <div class="buttons">
+      <button mat-icon-button class="g-button-icon-small"
+              [matTooltip]="'update_message' | translate"
+              (click)="enableEditMode()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button class="g-button-icon-small"
+              [matTooltip]="'delete_message' | translate"
+              (click)="deleteMessage()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  }
+</div>

@@ -1,0 +1,29 @@
+
+.parent-separator {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 2em;
+}
+
+.parent-folder {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+}
+
+.parent-folder:hover {
+  background-color: var(--hover-color);
+}
+
+.table {
+  min-height: 35em;
+  display: block;
+  margin-top: 0.5em;
+}
+
+// on dialog full screen, not height defined
+@media (max-width: 599px) {
+  .table {
+    height: initial;
+  }
+}

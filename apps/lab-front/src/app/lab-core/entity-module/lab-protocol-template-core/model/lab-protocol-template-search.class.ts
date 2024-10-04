@@ -1,13 +1,14 @@
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
   FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter,
   FlTag
 } from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {LabUser} from '../../../model/entities/lab-user.entity';
+import { Type } from 'class-transformer';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { LabUser } from '../../../model/entities/lab-user.entity';
 
 
 export class LabProtocolTemplateSearchFields {
@@ -31,7 +32,7 @@ export class LabProtocolTemplateSearch {
   /**
    * Const to configure Form Input Manager for advanced search
    */
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabProtocolTemplateSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<LabProtocolTemplateSearchFields> = {
     name: 'name',
     tags: 'flTag.tags',
     // group the creation date into one chip
@@ -44,7 +45,7 @@ export class LabProtocolTemplateSearch {
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
-  public static advancedSearchConverter: FlSearchCriteriaConverter<LabProtocolTemplateSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<LabProtocolTemplateSearchFields> = {
     name: {key: 'name', operator: 'CONTAINS'},
     tags: {key: 'tags', operator: 'EQ'},
     // Date
@@ -54,17 +55,23 @@ export class LabProtocolTemplateSearch {
     id: {key: 'id', operator: 'EQ'},
   };
 
-  public static getAdvancedSearchForm(): FormGroup<LabProtocolTemplateSearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    name: 'name',
+    creation: 'created_at',
+    lastModification: 'last_modified_at',
+  };
+
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         name: [null],
         tags: [null],
         createdBy: [null],
-        createdAt: new FormBuilder().group<FlSearchDateInterval>({
+        createdAt: new FormBuilder().group({
           from: [null],
           to: [null],
         }),
-        lastModifiedAt: new FormBuilder().group<FlSearchDateInterval>({
+        lastModifiedAt: new FormBuilder().group({
           from: [null],
           to: [null],
         }),

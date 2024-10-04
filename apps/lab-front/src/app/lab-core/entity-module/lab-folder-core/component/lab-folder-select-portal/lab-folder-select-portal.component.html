@@ -1,0 +1,11 @@
+<fl-portal class="portal">
+  <fl-portal-header>{{ 'biox.select_folder' | translate }}</fl-portal-header>
+
+  <fl-portal-content>
+
+    <div *ngIf="helpText" class="help-text g-text-small g-text-light">{{ helpText | translate }}</div>
+
+    <lab-folder-select [(ngModel)]="folders" [multiple]="false"
+                        (selectionChange)="folderSelected($any($event))"></lab-folder-select>
+  </fl-portal-content>
+</fl-portal>

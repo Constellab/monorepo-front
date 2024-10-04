@@ -1,8 +1,7 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {HaStory, HaStoryContentFormDTO} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   FlConfirmDialogInput,
   FlDebouncer,
@@ -11,16 +10,16 @@ import {
   FlPortalService,
   FlUploadImageDialogConfig
 } from '@monorepo/front-core-lib';
-import {HaStoryTextEditorConfig} from './ha-story-text-editor.config';
-import {mergeMap, Observable, of, startWith} from 'rxjs';
-import {HaTopic, HaTopicDto} from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
-import {HaTopicService} from '../../../ha-core/ha-service/ha-topic.service';
-import {map} from 'rxjs/operators';
-import {FormControl} from '@angular/forms';
-import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {ClStringHelper} from '@monorepo/core-lib';
+import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
+import { mergeMap, Observable, of, startWith } from 'rxjs';
+import { HaTopic, HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
+import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
+import { map } from 'rxjs/operators';
+import { FormBuilder, FormControl, UntypedFormGroup } from '@angular/forms';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { ClStringHelper } from '@monorepo/core-lib';
 import {
   TeRichText,
   TeRichTextContent,
@@ -31,8 +30,9 @@ import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
-import {CoStoryCategory} from '@monorepo/community-lib';
+import { CoStoryCategory } from '@monorepo/community-lib';
 
+// TODO @vfoex, composant a refactor, trop gros complexe
 @Component({
   selector: 'ha-story-edit-page',
   templateUrl: './ha-story-edit-page.component.html',
@@ -42,7 +42,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
 
 
   story: HaStory;
-  formGp: FormGroup<HaStoryContentFormDTO>;
+  formGp: UntypedFormGroup;
   textEditorConfig: HaStoryTextEditorConfig;
 
   historyOverlayRef: FlOverlayRef;
@@ -118,14 +118,12 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       this.deleteImageConfig = {
         title: 'story_delete_photo',
         content: 'story_delete_photo_confirmation',
-        translateMessage: true,
         observable: this.storyService.deleteMainImage(params.id).pipe(
           map((story: HaStory) => {
             this.story = story;
           })
         ),
         successMessage: 'story_photo_deleted',
-        translateTitleAndContent: true
       };
       this.getStory(params.id);
     });
@@ -186,7 +184,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       const input: FlConfirmDialogInput = {
         title: 'new_topic',
         content: 'new_topic_content',
-        translateTitleAndContent: true,
         observable: this.addTopicToStory(topic)
       };
 
@@ -211,7 +208,8 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onContentUpdate(content: TeRichTextContent): void {
-    this.formGp.controls.contentEdition.value = content;
+    // TODO @vfoex: j'ai commenté la ligne suivant pck erreur de type
+    // this.formGp.controls.contentEdition.value = content;
     this.syncWithBack = false;
     if(this.historyOverlayRef){
       this.historyOverlayRef.dispose();
@@ -253,8 +251,6 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         content: 'publish_story_dialog_content',
         successMessage: 'story_published',
         observable: this.publishStory(),
-        translateMessage: true,
-        translateTitleAndContent: true
       };
       this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
         if (res.choice && res.result) {
@@ -353,9 +349,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       title: 'delete_story',
       content: 'delete_story_content',
       observable: this.storyService.delete(this.story.id),
-      translateTitleAndContent: true,
       successMessage: 'story_deleted',
-      translateMessage: true
     };
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
       if (res && res.choice){

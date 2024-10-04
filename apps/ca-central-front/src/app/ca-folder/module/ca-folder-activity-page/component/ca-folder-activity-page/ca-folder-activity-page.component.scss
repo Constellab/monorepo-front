@@ -1,0 +1,12 @@
+:host{
+  height: 100vh;
+  box-sizing: border-box;
+  padding: var(--main-menu-margin) 1em;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1em;
+}
+
+.container {
+  min-height: 0;
+}

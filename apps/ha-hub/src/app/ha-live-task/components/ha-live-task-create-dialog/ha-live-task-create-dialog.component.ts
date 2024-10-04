@@ -1,36 +1,30 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlSnackBarService} from '@monorepo/front-core-lib';
-import {HaCreateLiveTaskDto} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {HaSpace} from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import {HaSpaceService} from '../../../ha-core/ha-service/ha-space.service';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { HaCreateLiveTaskDto } from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
+import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 import {
   HaLiveTaskVersion,
   HaLiveTaskVersionFileInput
 } from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
-import {CoCreateLiveTaskFormData} from '@monorepo/community-lib';
+import { CoCreateLiveTaskFormData } from '@monorepo/community-lib';
 
 export type HaCreateLiveTaskInput = FlFormDialogInput<HaCreateLiveTaskDto>;
 
 @Component({
   selector: 'ha-live-task-create-dialog',
   templateUrl: './ha-live-task-create-dialog.component.html',
-  styleUrls: ['./ha-live-task-create-dialog.component.scss'],
+  styleUrls: ['./ha-live-task-create-dialog.component.scss']
 })
-export class HaLiveTaskCreateDialogComponent extends
-  FlFormDialogAbstractDirective<HaCreateLiveTaskDto, HaLiveTaskVersion> implements OnInit {
+export class HaLiveTaskCreateDialogComponent extends FlFormDialogAbstractDirective<HaCreateLiveTaskDto, HaLiveTaskVersion> implements OnInit {
 
   spaces$: Observable<HaSpace[]>;
   inputFile: any;
 
-  constructor(snackBarService: FlSnackBarService,
-              dialogRef: MatDialogRef<HaLiveTaskCreateDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) dialogInput: HaCreateLiveTaskInput,
-              private liveTaskService: HaLiveTaskService,
+  constructor(private liveTaskService: HaLiveTaskService,
               private spaceService: HaSpaceService) {
     super();
   }
@@ -41,20 +35,20 @@ export class HaLiveTaskCreateDialogComponent extends
     this.init();
   }
 
-  buildForm(): FormGroup<HaCreateLiveTaskDto> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       title: [null, Validators.required],
       type: [null, Validators.required],
       versionFile: [null, Validators.required],
       space: [null]
-    })
+    });
   }
 
   create(formValue: HaCreateLiveTaskDto): Observable<HaLiveTaskVersion> {
     return this.liveTaskService.create(formValue);
   }
 
-  update(formValue: HaCreateLiveTaskDto): Observable<HaLiveTaskVersion> {
+  update(): Observable<HaLiveTaskVersion> {
     throw new Error('Method not implemented.');
   }
 
@@ -73,7 +67,7 @@ export class HaLiveTaskCreateDialogComponent extends
       return;
     }
     if (!event.name.endsWith('.json')) {
-      this.snackBarService.openErrorMessage({text: 'file_wrong_type', translateText: true});
+      this.snackBarService.openErrorMessage({ text: 'file_wrong_type', translateText: true });
       return;
     }
 
@@ -82,12 +76,12 @@ export class HaLiveTaskCreateDialogComponent extends
 
       reader.onload = (e: any) => {
         const srcResult: HaLiveTaskVersionFileInput = JSON.parse(e.target.result);
-        if(!HaLiveTaskVersionFileInput.isValid(srcResult)){
-          this.snackBarService.openErrorMessage({text: 'file_wrong_format', translateText: true});
+        if (!HaLiveTaskVersionFileInput.isValid(srcResult)) {
+          this.snackBarService.openErrorMessage({ text: 'file_wrong_format', translateText: true });
           return;
         }
         this.formGp.controls.versionFile.patchValue(srcResult);
-      }
+      };
 
       reader.readAsText(event);
     }

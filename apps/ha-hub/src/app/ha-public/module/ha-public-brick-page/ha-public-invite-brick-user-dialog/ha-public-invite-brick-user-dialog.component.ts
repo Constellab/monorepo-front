@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
-import {HaBrickUser} from '../../../../ha-core/ha-model/ha-entities/ha-brick-user';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { HaBrickUser } from '../../../../ha-core/ha-model/ha-entities/ha-brick-user';
+import { Observable } from 'rxjs';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 export interface HaInviteBrickUserFormData {
   id?: string;
@@ -27,7 +26,7 @@ export class HaPublicInviteBrickUserDialogComponent
     this.formGp = this.buildForm();
   }
 
-  buildForm(): FormGroup<HaInviteBrickUserFormData> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       email: ['', [Validators.required, Validators.email]]
     });

@@ -54,8 +54,6 @@ export class HaLiveTaskVersionsPanelComponent {
             title: 'create_new_live_task_version',
             content: 'create_new_live_task_version_content',
             successMessage: 'live_task_version_created',
-            translateTitleAndContent: true,
-            translateMessage: true,
             observable: this.liveTaskService.createNewDraftVersion(this.liveTask().id, srcResult)
           }
         } else {
@@ -64,8 +62,6 @@ export class HaLiveTaskVersionsPanelComponent {
             title: 'replace_not_published_live_task_version',
             content: 'replace_not_published_live_task_version_content',
             successMessage: 'live_task_version_replaced',
-            translateTitleAndContent: true,
-            translateMessage: true,
             observable: this.liveTaskService.replaceDraftVersion(this.liveTask().id, srcResult)
           }
         }

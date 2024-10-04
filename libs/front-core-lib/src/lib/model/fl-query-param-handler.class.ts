@@ -39,7 +39,7 @@ export class FlQueryParamHandler<T extends Params = Params> {
         relativeTo: this.route,
         queryParams: params,
         replaceUrl: replaceUrl,
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
     }, 0);
   }

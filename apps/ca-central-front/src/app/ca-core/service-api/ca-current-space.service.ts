@@ -1,15 +1,20 @@
-import {Injectable} from '@angular/core';
-import {CaSpaceService} from './ca-space.service';
-import {CaSpace} from '../model/entities/space/ca-space.class';
-import {FlCleanableService, FlCleanerService, FlCookieService} from '@monorepo/front-core-lib';
-import {BehaviorSubject, filter, firstValueFrom, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {CaUserDatasourcePaginated} from '../model/entities/ca-user.class';
-import {Title} from '@angular/platform-browser';
-import {CaSpaceRole, CaSpaceUser} from '../model/entities/space/ca-space-user.class';
-import {CaSpaceUserSearchFields} from '../entity-module/ca-space-core/model/ca-space-user-search.class';
-import {ClPage} from '@monorepo/core-lib';
-import {CaEnvironmentHelper} from '../utils/ca-environment.helper';
+import { Injectable } from '@angular/core';
+import { CaSpaceService } from './ca-space.service';
+import { CaSpace } from '../model/entities/space/ca-space.class';
+import {
+  FlCleanableService,
+  FlCleanerService,
+  FlCookieService,
+  FlDatasourceGetPageData
+} from '@monorepo/front-core-lib';
+import { BehaviorSubject, filter, firstValueFrom, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
+import { Title } from '@angular/platform-browser';
+import { CaSpaceRole, CaSpaceUser } from '../model/entities/space/ca-space-user.class';
+import { CaSpaceUserSearchFields } from '../entity-module/ca-space-core/model/ca-space-user-search.class';
+import { ClPage } from '@monorepo/core-lib';
+import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
 /**
  * Service to manage the current space
@@ -97,8 +102,8 @@ export class CaCurrentSpaceService implements FlCleanableService {
   }
 
   public searchSpaceUsers(page: number, pageSize: number,
-                          filters?: CaSpaceUserSearchFields): Observable<ClPage<CaSpaceUser>> {
-    return this.spaceService.searchSpaceUsers('current', page, pageSize, filters);
+                          data: FlDatasourceGetPageData<CaSpaceUserSearchFields>): Observable<ClPage<CaSpaceUser>> {
+    return this.spaceService.searchSpaceUsers('current', page, pageSize, data);
   }
 
   public addUserToSpace(userId: string): Observable<CaSpaceUser> {

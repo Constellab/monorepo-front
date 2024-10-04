@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { CaSpaceInvit, CaSpaceInvitCreateDTO } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
-import { Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { CaSpaceType } from '../../../../ca-core/model/entities/space/ca-space.class';
 import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -21,9 +20,12 @@ export interface CaSpaceInvitFormDialogInput {
   templateUrl: './ca-space-invit-form-dialog.component.html',
   styleUrls: ['./ca-space-invit-form-dialog.component.scss']
 })
-export class CaSpaceInvitFormDialogComponent implements OnInit {
+export class CaSpaceInvitFormDialogComponent {
 
-  formGp: FormGroup<CaSpaceInvitCreateDTO>;
+  formGp = new FormBuilder().group({
+    userMail: [null as string, [Validators.required, Validators.email]],
+    role: [CaSpaceRole.USER as CaSpaceRole, Validators.required]
+  });
   spaceType: CaSpaceType;
 
   availableRoles = CaSpaceRole;
@@ -37,16 +39,9 @@ export class CaSpaceInvitFormDialogComponent implements OnInit {
     this.spaceType = input.spaceType;
   }
 
-  ngOnInit(): void {
-    this.formGp = new FormBuilder().group({
-      userMail: [null, [Validators.required, Validators.email]],
-      role: [CaSpaceRole.USER, Validators.required]
-    });
-  }
-
   submit(): void {
     if (this.formGp.valid && !this.isLoading) {
-      this.createInvitation(this.formGp.value);
+      this.createInvitation(this.formGp.getRawValue());
     }
   }
 

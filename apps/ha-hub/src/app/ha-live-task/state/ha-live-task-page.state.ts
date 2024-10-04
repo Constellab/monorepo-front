@@ -145,10 +145,16 @@ export class HaLiveTaskPageState {
   }
 
   public setLiveTaskVersionByVersionNumber(liveTaskId: string, versionNumber: string): void {
+    this.liveTaskVersionStatusEvent.set({status: 'waiting'});
     if (!ClStringHelper.isUUID(liveTaskId)) {
       this.liveTaskVersionStatusEvent.set({status: 'error', error: 'live_task_version_not_found'});
       return;
     }
+
+    if(this.liveTaskVersion()?.version == +versionNumber) {
+      return;
+    }
+
     this.liveTaskService.getLiveTaskVersionByVersionNumber(liveTaskId, versionNumber).subscribe({
       next: (liveTaskVersion) => {
         if (liveTaskVersion == null || liveTaskVersion.id == null) {
@@ -206,6 +212,10 @@ export class HaLiveTaskPageState {
 
     if (this.liveTaskVersion().id === liveTaskVersion.id) {
       this.setLiveTaskVersion(liveTaskVersion);
+    }
+
+    if (this.liveTask().id === liveTaskVersion.liveTask.id) {
+      this.setLiveTask(liveTaskVersion.liveTask)
     }
   }
 

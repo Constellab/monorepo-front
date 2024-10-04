@@ -85,7 +85,7 @@ export class CaUser extends CaEntity implements FlUser {
   }
 }
 
-export type CaUserDatasourcePaginated = FlDatasourcePaginated<CaUser>
+export type CaUserDatasourcePaginated<F = void> = FlDatasourcePaginated<CaUser, F>
 
 export interface CaUserUpdateLicenseDTO {
   license: CaUserLicense;

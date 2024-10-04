@@ -1,10 +1,10 @@
-import {HaTopic,} from './ha-topic.class';
-import {FlDatasourcePaginated, FlEntity} from '@monorepo/front-core-lib';
-import {HaUser} from './ha-user';
-import {DateTime} from 'luxon';
-import {HaFile} from '../../entity-module/ha-file-core/model/ha-file';
-import {TeRichTextContent} from '@monorepo/text-editor';
-import {CoListStoryDto, CoStoryCategory} from '@monorepo/community-lib';
+import { HaTopic } from './ha-topic.class';
+import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib';
+import { HaUser } from './ha-user';
+import { DateTime } from 'luxon';
+import { HaFile } from '../../entity-module/ha-file-core/model/ha-file';
+import { TeRichTextContent } from '@monorepo/text-editor';
+import { CoListStoryDto, CoStoryCategory } from '@monorepo/community-lib';
 
 export enum HaStoryStatus {
   DRAFT = 'DRAFT',
@@ -96,34 +96,6 @@ export class HaListStoryDto implements CoListStoryDto{
 
 }
 
-export class HaStoryDataSourceDataDto {
-  id: string;
-  title: string;
-
-  category: CoStoryCategory;
-
-  status: HaStoryStatus;
-  createdAt: DateTime;
-
-  storyAuthors: HaStoryCoAuthor[];
-
-  publishedAt: DateTime;
-  lastModifiedAt: DateTime;
-
-  topics?: HaTopic[];
-
-  createdBy: HaUser;
-
-  getTopics(): HaTopic[] {
-    return this.topics.sort((a, b) => a.popularity - b.popularity);
-  }
-
-
-  getAuthor(): HaUser {
-    return this.createdBy;
-  }
-}
-
 export class HaStoryFilter {
   title: string;
   categories: string[];
@@ -136,9 +108,8 @@ export class HaStoryFilter {
   }
 }
 
-export type HaStoryDatasourcePaginated = FlDatasourcePaginated<HaListStoryDto>;
-
-export type HaMyStoriesDataSource = FlDatasourcePaginated<HaStoryDataSourceDataDto>;
+// TODO @fvoex mettre F = void et créer des type pour les filtres
+export type HaStoryDatasourcePaginated<F = any> = FlDatasourcePaginated<HaListStoryDto, F>;
 
 export class HaStoryContentFormDTO implements FlEntity {
   id: string;

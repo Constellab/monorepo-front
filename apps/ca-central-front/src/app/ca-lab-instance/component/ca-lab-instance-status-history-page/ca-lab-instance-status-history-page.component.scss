@@ -1,12 +1,14 @@
+:host{
+  height: 100%;
+  padding-top: 1em;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
 .form{
   padding-bottom: 2em;
 }
 
 .date{
   margin-bottom: 0.5em;
-}
-
-.status-history-card{
-  min-height: 30em;
-  max-height: 59.25em;
 }

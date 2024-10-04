@@ -3,10 +3,11 @@ import { CaUser } from '../../../model/entities/ca-user.class';
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
-  FlSearchDateInterval
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import {
   CaLabInstanceServerTaskStatus,
   CaLabInstanceStatus,
@@ -61,7 +62,7 @@ export class CaLabInstanceSearchFields {
 
 export class CaLabInstanceSearch {
 
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaLabInstanceSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaLabInstanceSearchFields> = {
     name: 'name',
     currentStatus: 'status',
     virtualHost: 'virtual_host',
@@ -77,7 +78,7 @@ export class CaLabInstanceSearch {
     serverTaskStatus: 'lab_server_task_status'
   };
 
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaLabInstanceSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaLabInstanceSearchFields> = {
     name: {key: 'name', operator: 'MATCH'},
     currentStatus: {key: 'currentStatus.status', operator: 'EQ'},
     virtualHost: {key: 'virtualHost', operator: 'MATCH'},
@@ -95,8 +96,17 @@ export class CaLabInstanceSearch {
     id: {key: 'id', operator: 'EQ'},
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaLabInstanceSearchFields> {
-    return new FormBuilder().group<CaLabInstanceSearchFields>({
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    name: 'name',
+    space: 'space.name',
+    virtualHost: 'virtualHost',
+    currentStatus: 'currentStatus.status',
+    createdBy: ['createdBy.firstname', 'createdBy.lastname'],
+    serverCloud: 'serverCloud.serverStandard.name',
+  };
+
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
       name: null,
       currentStatus: null,
       virtualHost: null,
@@ -104,7 +114,7 @@ export class CaLabInstanceSearch {
       serverCloud: null,
       serverStandard: null,
       createdBy: null,
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null],
       }),

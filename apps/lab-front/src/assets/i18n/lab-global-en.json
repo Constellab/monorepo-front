@@ -144,7 +144,7 @@
   "lab_entity_type_EXPERIMENT": "Experiment",
   "lab_entity_type_RESOURCE": "Resource",
   "lab_entity_type_VIEW": "View",
-  "lab_entity_type_REPORT": "Report",
+  "lab_entity_type_NOTE": "Note",
   "lab_entity_type_PROTOCOL_TEMPLATE": "Protocol template",
   "lab_entity_type_DOCUMENT_TEMPLATE": "Document template",
   "lab_usage_period_to": "To date",
@@ -155,5 +155,6 @@
   "lab_usage_period_LAST_12_HOURS": "Last 12 hours",
   "lab_usage_period_LAST_24_HOURS": "Last 24 hours",
   "lab_usage_period_CUSTOM": "Custom",
-  "user": "User"
+  "user": "User",
+  "public": "Public"
 }

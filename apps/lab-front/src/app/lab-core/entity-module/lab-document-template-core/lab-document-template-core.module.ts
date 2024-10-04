@@ -27,7 +27,7 @@ import {
 import {
   LabDocumentTemplateFormDialogComponent
 } from './component/lab-document-template-form-dialog/lab-document-template-form-dialog.component';
-import { LabProjectCoreModule } from '../lab-project-core/lab-project-core.module';
+import { LabFolderCoreModule } from '../lab-folder-core/lab-folder-core.module';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import { LabProjectCoreModule } from '../lab-project-core/lab-project-core.modul
     ReactiveFormsModule,
     RouterModule,
     LabCoreModule,
-    LabProjectCoreModule
+    LabFolderCoreModule
   ]
 })
 export class LabDocumentTemplateCoreModule {

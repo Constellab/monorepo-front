@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {CaGroup, CaSaveTeamDTO} from '../../../../model/entities/ca-group.entity';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {CaGroupService} from '../../../../service-api/ca-group.service';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { CaGroup, CaSaveTeamDTO } from '../../../../model/entities/ca-group.entity';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CaGroupService } from '../../../../service-api/ca-group.service';
 
 export type CaTeamFormDialogInput = FlFormDialogInput<CaSaveTeamDTO>;
 
@@ -29,7 +28,7 @@ export class CaTeamFormDialogComponent extends FlFormDialogAbstractDirective<CaS
   }
 
 
-  buildForm(): FormGroup<CaSaveTeamDTO> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       label: [null, [Validators.required]],

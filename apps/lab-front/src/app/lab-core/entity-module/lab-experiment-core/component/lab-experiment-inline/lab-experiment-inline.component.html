@@ -6,12 +6,12 @@
   <div>
     <div>{{ experiment.title }}</div>
 
-    @if (experiment.project) {
+    @if (experiment.folder) {
       <div class="g-layout-row g-layout-start-center g-text-tiny g-text-light">
-        <mat-icon flIcon="project" class="g-icon-tiny icon"></mat-icon>
-        <div class="project-circle project-content"
-             [style.background-color]="experiment.project?.id | flStringToRgb"></div>
-        <div class="project-content">{{ experiment.project.title }}</div>
+        <mat-icon flIcon="folder" class="g-icon-tiny icon"></mat-icon>
+        <div class="folder-circle folder-content"
+             [style.background-color]="experiment.folder?.id | flStringToRgb"></div>
+        <div class="folder-content">{{ experiment.folder.title }}</div>
       </div>
     }
   </div>

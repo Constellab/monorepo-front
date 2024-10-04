@@ -12,17 +12,17 @@ import {
 } from '../lab-update-view-config-dialog/lab-update-view-config-dialog.component';
 import { ClHelpService } from '@monorepo/core-lib';
 import {
-  LabSelectReportDialogComponent
-} from '../../../lab-report-core/component/lab-select-report-dialog/lab-select-report-dialog.component';
-import { LabReport } from '../../../../model/entities/lab-report.entity';
-import { LabReportService } from '../../../../entity-service/lab-report.service';
+  LabSelectNoteDialogComponent
+} from '../../../lab-note-core/component/lab-note-note-dialog/lab-select-note-dialog.component';
+import { LabNote } from '../../../../model/entities/lab-note.entity';
+import { LabNoteService } from '../../../../entity-service/lab-note.service';
 import { LabRouterService } from '../../../../service/lab-router.service';
 import {
   LabManageEntityTagsDialogComponent,
   LabManageEntityTagsDialogInput
 } from '../../../lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
-import { excludedViewInReport } from '../../../../model/entities/resource/lab-resource-view.entity';
+import { excludedViewInNote } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 
 /**
@@ -44,12 +44,12 @@ export class LabViewConfigActionsMenuComponent implements OnInit {
   @Output() update: EventEmitter<LabViewConfig> = new EventEmitter();
   @Output() updateTags: EventEmitter<LabTag[]> = new EventEmitter();
 
-  addToReportIsLoading: boolean = false;
+  addToNoteIsLoading: boolean = false;
 
-  excludedViewInReport = excludedViewInReport;
+  excludedViewInNote = excludedViewInNote;
 
   constructor(private dialogService: FlDialogService,
-              private reportService: LabReportService,
+              private noteService: LabNoteService,
               private snackBarService: FlSnackBarService,
               private resourceService: LabResourceService,
               private tagService: LabTagService) {
@@ -92,27 +92,27 @@ export class LabViewConfigActionsMenuComponent implements OnInit {
     this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, { data: data });
   }
 
-  openSelectReport(): void {
-    this.dialogService.openBigDialog(LabSelectReportDialogComponent).afterClosed().subscribe(
-      report => this.onSelectReportClosed(report)
+  openSelectNote(): void {
+    this.dialogService.openBigDialog(LabSelectNoteDialogComponent).afterClosed().subscribe(
+      note => this.onSelectNoteClosed(note)
     );
   }
 
-  private onSelectReportClosed(report?: LabReport): void {
-    if (!report) return;
+  private onSelectNoteClosed(note?: LabNote): void {
+    if (!note) return;
 
-    this.addToReportIsLoading = true;
-    this.reportService.addViewToContent(report.id, this.viewConfig.id).subscribe(
+    this.addToNoteIsLoading = true;
+    this.noteService.addViewToContent(note.id, this.viewConfig.id).subscribe(
       {
         next: () => this.onSuccess(),
-        error: () => this.addToReportIsLoading = false
+        error: () => this.addToNoteIsLoading = false
       });
 
   }
 
   private onSuccess(): void {
-    this.snackBarService.openSuccessMessage({ text: 'biox.view_added_to_report', translateText: true });
-    this.addToReportIsLoading = false;
+    this.snackBarService.openSuccessMessage({ text: 'biox.view_added_to_note', translateText: true });
+    this.addToNoteIsLoading = false;
   }
 
   showViewConfig(): void {

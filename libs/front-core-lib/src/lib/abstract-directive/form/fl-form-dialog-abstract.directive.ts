@@ -1,9 +1,10 @@
-import {Directive, inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Observable} from 'rxjs';
-import {FlSnackBarService} from '../../module/fl-snack-bar/fl-snack-bar.service';
-import {FlFormDialogInput} from '../../model/fl-form.class';
-import {FormGroup} from '@ngneat/reactive-forms';
+import { Directive, inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { FlSnackBarService } from '../../module/fl-snack-bar/fl-snack-bar.service';
+import { FlFormDialogInput } from '../../model/fl-form.class';
+import { UntypedFormGroup } from '@angular/forms';
+
 
 /**
  * Abstract directive to structure form dialog component that support create and update mode
@@ -20,11 +21,11 @@ export abstract class FlFormDialogAbstractDirective<FORM_TYPE, ENTITY = FORM_TYP
   snackBarService = inject(FlSnackBarService);
   dialogRef = inject(MatDialogRef);
 
-  formGp: FormGroup<FORM_TYPE>;
+  formGp: UntypedFormGroup;
 
   isLoading: boolean = false;
 
-  abstract buildForm(): FormGroup<FORM_TYPE>;
+  abstract buildForm(): UntypedFormGroup;
 
   abstract create(formValue: FORM_TYPE): Observable<ENTITY>;
 
@@ -79,7 +80,7 @@ export abstract class FlFormDialogAbstractDirective<FORM_TYPE, ENTITY = FORM_TYP
   }
 
   protected onSaveSuccess(entity: ENTITY, successText: string): void {
-    this.snackBarService.openSuccessMessage({text: successText, translateText: true});
+    this.snackBarService.openSuccessMessage({ text: successText, translateText: true });
 
     this.dialogRef.close(entity);
     this.isLoading = false;

@@ -31,7 +31,7 @@ export class CaSpace extends CaBaseEntity {
   }
 }
 
-export type CaSpaceDatasource = FlDatasourcePaginated<CaSpace>;
+export type CaSpaceDatasource<F = void> = FlDatasourcePaginated<CaSpace, F>;
 
 export class CaSpaceInfoDto {
   @Type(() => CaUser)

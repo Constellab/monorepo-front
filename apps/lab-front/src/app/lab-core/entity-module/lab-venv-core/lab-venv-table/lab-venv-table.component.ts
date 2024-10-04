@@ -40,10 +40,8 @@ export class LabVenvTableComponent {
     const data: FlConfirmDialogInput = {
       title: 'monitoring.delete_venv',
       content: 'monitoring.delete_venv_confirmation',
-      translateTitleAndContent: true,
       observable: this.venvService.deleteVenv(venv.name),
       successMessage: 'monitoring.delete_venv_success',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

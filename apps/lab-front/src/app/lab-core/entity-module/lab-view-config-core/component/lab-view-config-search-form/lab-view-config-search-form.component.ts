@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlSearchState} from '@monorepo/front-core-lib';
-import {FormGroup} from '@ngneat/reactive-forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlSearchState } from '@monorepo/front-core-lib';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'lab-view-config-search-form',
@@ -9,7 +9,7 @@ import {FormGroup} from '@ngneat/reactive-forms';
 })
 export class LabViewConfigSearchFormComponent implements OnInit {
 
-  @Input() showProjectFilter: boolean = true;
+  @Input() showFolderFilter: boolean = true;
 
   formGp: FormGroup;
 
@@ -19,9 +19,4 @@ export class LabViewConfigSearchFormComponent implements OnInit {
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;
   }
-
-  callSearch(): void {
-    this.searchState.callAdvancedSearchFromForm();
-  }
-
 }

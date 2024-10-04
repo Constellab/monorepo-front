@@ -1,6 +1,8 @@
-import {ClSupportedLanguage} from '@monorepo/core-lib';
-import {FlLangTranslation, FlTranslateObject, FlTranslateService} from '@monorepo/front-core-lib';
-import {I18nConfig} from '@editorjs/editorjs';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlLangTranslation, FlTranslateObject, FlTranslateService } from '@monorepo/front-core-lib';
+import { I18nConfig } from '@editorjs/editorjs';
+
+/* eslint-disable max-len */
 
 
 /**
@@ -37,6 +39,8 @@ const teTextEditorI18nFr: FlLangTranslation = {
     save: 'Sauvegarder',
     placeholder: 'Écrivez quelque chose, utilisez la touch / pour les commandes...',
     clean_style: 'Enlever le style',
+    document_saved: 'Enregistré',
+    saving_document: 'Enregistrement...',
     // Te ui
     delete: 'Supprimer',
     click_to_delete: 'Cliquez pour supprimer',
@@ -66,7 +70,6 @@ const teTextEditorI18nFr: FlLangTranslation = {
     modifications_history: 'Historique des modifications',
     rollback_to_this_content: 'Revenir à ce contenu',
     confirm_rollback_title: 'Confirmer le retour en arrière',
-    // eslint-disable-next-line max-len
     confirm_rollback_content: 'Êtes-vous sûr de vouloir revenir à cette version du contenu ? Les modifications apportées après cette version seront supprimées.',
     confirm_rollback_success: 'Retour en arrière effectué avec succès',
     modification: 'Modification',
@@ -79,6 +82,34 @@ const teTextEditorI18nFr: FlLangTranslation = {
     no_modifications: 'Aucune modification',
     attached_files: 'Fichiers attachés',
     table_of_contents: 'Table des matières',
+    formula_help: 'Vous pouvez générez des formules en parlant en utilisant l\'option \'Dicter\'',
+    // Audio transcription
+    dictate: 'Dicter',
+    mic_disabled_error: 'Le microphone est désactivé, veuillez l\'activer pour utiliser cette fonctionnalité.',
+    recording: 'En cours d\'enregistrement',
+    not_recording: 'Pas d\'enregistrement',
+    start_recording: 'Commencer l\'enregistrement',
+    stop_recording_and_transcribe: 'Arrêter l\'enregistrement',
+    cancel: 'Annuler',
+    transcription_in_progress: 'Transcription en cours',
+    voice_command_start: 'Vous pouvez utiliser des commandes vocales pour créer des blocs spécifiques:',
+    voice_command_title: '<strong>titre/en-tête</strong>: Créez un en-tête. Dites en-tête 1,2,3 ou sous-titre pour créer un en-tête à un niveau spécifique.',
+    voice_command_list: '<strong>liste</strong>: Créez une liste. Dites liste à puces ou liste numérotée pour créer une liste du type désiré. Vous pouvez créer des éléments imbriqués.',
+    voice_command_formula: '<strong>formule mathématique</strong>: Créez une formule mathématique. Beta : testez en générant seulement la formule.',
+    voice_command_end: 'Vous pouvez dire "fin de la commande" comme "fin du titre" pour forcer la fin d\'une commande.',
+    no_text_detected: 'Aucun texte détecté',
+    import_audio_file: 'Importer un fichier audio',
+    // Timestamp tool
+    timestamp: 'Horodatage',
+    timestamp_format: 'Format',
+    timestamp_format_date: 'Date',
+    timestamp_format_date_time: 'Date et heure',
+    timestamp_format_date_time_seconds: 'Date et heure avec secondes',
+    timestamp_format_time: 'Heure',
+    timestamp_format_from_now: 'À partir de maintenant',
+    timestamp_edit: 'Modifier',
+    // Settings
+    settings: 'Paramètres'
   }
 };
 
@@ -114,6 +145,8 @@ const teTextEditorI18nEn: FlLangTranslation = {
     save: 'Save',
     placeholder: 'Write something, use / for commands...',
     clean_style: 'Clean style',
+    document_saved: 'Saved',
+    saving_document: 'Saving...',
     // Te ui
     delete: 'Delete',
     click_to_delete: 'Click to delete',
@@ -155,6 +188,34 @@ const teTextEditorI18nEn: FlLangTranslation = {
     no_modifications: 'No modifications',
     attached_files: 'Attached files',
     table_of_contents: 'Table of contents',
+    formula_help: 'You can generate formulas by speaking using the \'Dictate\' option',
+    // Audio transcription
+    dictate: 'Dictate',
+    mic_disabled_error: 'Microphone is disabled, please enable it to use this feature.',
+    recording: 'Recording in progress',
+    not_recording: 'Not recording',
+    start_recording: 'Start recording',
+    stop_recording_and_transcribe: 'Stop recording',
+    cancel: 'Cancel',
+    transcription_in_progress: 'Transcription in progress',
+    voice_command_start: 'You can use voice commands to create specific blocks:',
+    voice_command_title: '<strong>title/header</strong>: Create a header. Say header 1,2,3 or sub header to create a header on a specific level.',
+    voice_command_list: '<strong>list</strong>: Create a list. Say unordered list or ordered list to create a list of the desired type. You can create nested items.',
+    voice_command_formula: '<strong>math formula</strong>: Create a math formula. Beta: test by generating only the formula.',
+    voice_command_end: 'You can say "end command" like "end title" to force the end of a command.',
+    no_text_detected: 'No text detected',
+    import_audio_file: 'Import an audio file',
+    // Timestamp tool
+    timestamp: 'Timestamp',
+    timestamp_format: 'Format',
+    timestamp_format_date: 'Date',
+    timestamp_format_date_time: 'Date and time',
+    timestamp_format_date_time_seconds: 'Date and time with seconds',
+    timestamp_format_time: 'Time',
+    timestamp_format_from_now: 'From now',
+    timestamp_edit: 'Edit',
+    // Settings
+    settings: 'Settings'
   }
 };
 
@@ -170,7 +231,7 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
         blockTunes: {
           toggler: {
             'Click to tune': translateService.translate('teTextEditor.click_to_tune')
-          },
+          }
         },
         inlineToolbar: {
           converter: {
@@ -179,7 +240,7 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
         },
         toolbar: {
           toolbox: {
-            'Add': translateService.translate('teTextEditor.add'),
+            'Add': translateService.translate('teTextEditor.add')
           }
         },
         popover: {
@@ -193,11 +254,11 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
         'Underline': translateService.translate('teTextEditor.underline'),
         'Strikethrough': translateService.translate('teTextEditor.strikethrough'),
         'Link': translateService.translate('teTextEditor.link'),
-        'InlineCode': translateService.translate('teTextEditor.inline_code'),
+        'InlineCode': translateService.translate('teTextEditor.inline_code')
       },
       tools: {
         link: {
-          'Add a link': translateService.translate('teTextEditor.add_link'),
+          'Add a link': translateService.translate('teTextEditor.add_link')
         },
         table: {
           'Add column to the left': translateService.translate('teTextEditor.add_column_to_left'),
@@ -206,7 +267,7 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
           'Add row above': translateService.translate('teTextEditor.add_row_above'),
           'Add row below': translateService.translate('teTextEditor.add_row_below'),
           'Delete row': translateService.translate('teTextEditor.delete_row'),
-          'Heading': translateService.translate('teTextEditor.table_heading'),
+          'Heading': translateService.translate('teTextEditor.table_heading')
         }
       },
       blockTunes: {
@@ -219,7 +280,7 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
         },
         'moveDown': {
           'Move down': translateService.translate('teTextEditor.move_down')
-        },
+        }
       }
     }
   };

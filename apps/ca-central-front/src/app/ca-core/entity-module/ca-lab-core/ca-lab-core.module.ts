@@ -27,7 +27,7 @@ import {
 } from './component/ca-lab-instance-form-dialog/ca-lab-instance-form-dialog.component';
 import { CaLabFreeInfoComponent } from './component/ca-lab-free-info/ca-lab-free-info.component';
 import { CaLabFreeFormDialogComponent } from './component/ca-lab-free-form-dialog/ca-lab-free-form-dialog.component';
-import { CaProjectCoreModule } from '../ca-project-core/ca-project-core.module';
+import { CaFolderCoreModule } from '../ca-folder-core/ca-folder-core.module';
 import { CaLabFreeCardInfoComponent } from './component/ca-lab-free-card-info/ca-lab-free-card-info.component';
 import {
   CaLabFreeCreateButtonComponent
@@ -97,7 +97,7 @@ import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-s
     CaCloudProviderCoreModule,
 
     CaCoreModule,
-    CaProjectCoreModule,
+    CaFolderCoreModule,
     CaObjectStorageCoreModule,
     NgOptimizedImage,
   ],

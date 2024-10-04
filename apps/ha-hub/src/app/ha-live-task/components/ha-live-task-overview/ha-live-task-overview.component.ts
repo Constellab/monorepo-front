@@ -1,22 +1,26 @@
-import {Component, computed, OnInit, Signal} from '@angular/core';
-import {HaLiveTaskTextEditorConfig} from '../ha-live-task-core/ha-live-task-text-editor.config';
-import {FormControl} from '@ngneat/reactive-forms';
-import {HaLiveTask} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
-import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
-import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TeRichText, TeRichTextContent} from '@monorepo/text-editor';
-import {HaLikeType} from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
-import {HaLikeService} from '../../../ha-core/ha-service/ha-like.service';
-import {HaAuthService} from '../../../ha-core/ha-service/ha-auth.service';
+import { Component, computed, OnInit, Signal } from '@angular/core';
+import { HaLiveTaskTextEditorConfig } from '../ha-live-task-core/ha-live-task-text-editor.config';
+import { HaLiveTask } from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
+import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TeRichText, TeRichTextContent } from '@monorepo/text-editor';
+import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
+import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
+import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
 import {
   HaCommentsPortalComponent,
   HaCommentsPortalData
 } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
-import {HaCommentType} from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService, FlPortalService} from '@monorepo/front-core-lib';
-import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
-import {HaLiveTaskPageState} from '../../state/ha-live-task-page.state';
+import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlPortalService
+} from '@monorepo/front-core-lib';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaLiveTaskPageState } from '../../state/ha-live-task-page.state';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ha-live-task-overview',
@@ -31,7 +35,6 @@ export class HaLiveTaskOverviewComponent implements OnInit {
 
 
   liveTask: Signal<HaLiveTask> = this.liveTaskPageState.getLiveTask();
-  liveTaskVersion: Signal<HaLiveTaskVersion> = this.liveTaskPageState.liveTaskVersion;
   isLiveTaskVersionError: Signal<boolean> = this.liveTaskPageState.isLiveTaskVersionError;
   isLiveTaskVersionLoading: Signal<boolean> = this.liveTaskPageState.isLiveTaskVersionLoading;
   canEditLt: Signal<boolean> = this.liveTaskPageState.canEditLt;
@@ -40,7 +43,7 @@ export class HaLiveTaskOverviewComponent implements OnInit {
   isAuthor: Signal<boolean> = this.liveTaskPageState.isAuthor;
   liveTaskDescription: Signal<TeRichTextContent> = this.liveTaskPageState.getLiveTaskDescription();
   descriptionFormControl: Signal<FormControl<TeRichTextContent>> = computed(() => {
-    const formControl = new FormControl<TeRichTextContent>();
+    const formControl = new FormControl<TeRichTextContent>(null);
     if (this.liveTaskDescription()) {
       formControl.setValue(this.liveTaskDescription());
       formControl.disable();
@@ -126,9 +129,7 @@ export class HaLiveTaskOverviewComponent implements OnInit {
       title: 'delete_livetask',
       content: 'delete_livetask_content',
       successMessage: 'livetask_deleted',
-      translateTitleAndContent: true,
-      translateMessage: true,
-      observable: this.liveTaskService.deleteLiveTask(this.liveTask().id),
+      observable: this.liveTaskService.deleteLiveTask(this.liveTask().id)
     };
     this.dialogService.openConfirmDialog(confirmDeleteDialogInput).afterClosed().subscribe((res: FlConfirmDialogResult) => {
       if (res.choice) {

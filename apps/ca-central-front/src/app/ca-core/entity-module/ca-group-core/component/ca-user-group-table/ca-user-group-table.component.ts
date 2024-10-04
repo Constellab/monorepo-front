@@ -27,10 +27,8 @@ export class CaUserGroupTableComponent {
     const data: FlConfirmDialogInput = {
       title: 'team_remove_user',
       content: 'team_remove_user_confirmation',
-      translateTitleAndContent: true,
       observable: this.groupService.removeUserFromTeam(userGroup.groupId, userGroup.user.id),
       successMessage: 'team_user_removed',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

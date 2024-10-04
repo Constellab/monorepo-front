@@ -1,2 +1,3 @@
 <fl-menu-dynamic #menuComponent [menuItems]="menu" [hasBackdrop]="false"
-                 [matMenuTriggerFor]="menuComponent.menu"></fl-menu-dynamic>
+                 [matMenuTriggerFor]="menuComponent.menu"
+                 (buttonClick)="onButtonClick($event)"></fl-menu-dynamic>

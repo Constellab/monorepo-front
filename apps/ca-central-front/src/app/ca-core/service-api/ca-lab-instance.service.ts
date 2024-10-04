@@ -12,8 +12,8 @@ import {
   CaLabServerInfoDTO
 } from '../model/entities/lab/ca-lab-instance.class';
 import {
-  FlAdvancedSearchInput,
   FlApiService,
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlFileHelper,
   FlSearchConverter
@@ -52,8 +52,8 @@ import {
   CaRequestLabInstanceForm
 } from '../model/entities/lab/ca-lab-instance.form';
 import {
-  CaLabInstanceStatusHistoryDatesFormData,
-  CaLabInstanceStatusHistorySearch
+  CaLabInstanceStatusHistorySearch,
+  CaLabInstanceStatusHistorySearchFields
 } from '../../ca-lab-instance/component/ca-lab-instance-status-history-page/ca-lab-instance-status-history-page.component';
 
 @Injectable({
@@ -114,12 +114,10 @@ export class CaLabInstanceService {
   }
 
   public searchInCurrentSpace(page: number, pageSize: number,
-                              filters?: CaLabInstanceSearchFields): Observable<ClPage<CaLabInstance>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaLabInstanceSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/current-space/search`, data, CaLabInstanceWithSpace, {
+                              data: FlDatasourceGetPageData<CaLabInstanceSearchFields>): Observable<ClPage<CaLabInstance>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data, CaLabInstanceSearch.filterConverter,
+      CaLabInstanceSearch.sortConverter);
+    return this.apiService.post(`${this.route}/current-space/search`, searchInput, CaLabInstanceWithSpace, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }
@@ -150,15 +148,14 @@ export class CaLabInstanceService {
   }
 
   public getStatusHistoriesDatasource(id: string, page: number, size: number,
-                                      filters: CaLabInstanceStatusHistoryDatesFormData): Observable<ClPageI<CaLabInstanceStatusHistory>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(
-        filters,
-        CaLabInstanceStatusHistorySearch.advancedSearchConverter
-      ),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/${id}/status/history`, data, CaLabInstanceStatusHistory, {
+                                      data: FlDatasourceGetPageData<CaLabInstanceStatusHistorySearchFields>
+  ): Observable<ClPageI<CaLabInstanceStatusHistory>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      CaLabInstanceStatusHistorySearch.filterConverter,
+      CaLabInstanceStatusHistorySearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/${id}/status/history`, searchInput, CaLabInstanceStatusHistory, {
       page: page,
       pageSize: size,
       resultIsPaginated: true
@@ -454,12 +451,10 @@ export class CaLabInstanceService {
   }
 
   public searchAll(page: number, pageSize: number,
-                   filters?: Partial<CaLabInstanceSearchFields>): Observable<ClPage<CaLabInstanceWithSpace>> {
-    const data: FlAdvancedSearchInput = {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(filters, CaLabInstanceSearch.advancedSearchConverter),
-      sortsCriteria: null
-    };
-    return this.apiService.post(`${this.route}/admin/search`, data, CaLabInstanceWithSpace, {
+                   data: FlDatasourceGetPageData<CaLabInstanceSearchFields>): Observable<ClPage<CaLabInstanceWithSpace>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
+      CaLabInstanceSearch.filterConverter, CaLabInstanceSearch.sortConverter);
+    return this.apiService.post(`${this.route}/admin/search`, searchInput, CaLabInstanceWithSpace, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
   }

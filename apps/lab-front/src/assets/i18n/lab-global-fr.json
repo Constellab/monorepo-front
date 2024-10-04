@@ -144,7 +144,7 @@
   "lab_entity_type_EXPERIMENT": "Expérience",
   "lab_entity_type_RESOURCE": "Ressource",
   "lab_entity_type_VIEW": "Vue",
-  "lab_entity_type_REPORT": "Rapport",
+  "lab_entity_type_NOTE": "Note",
   "lab_entity_type_PROTOCOL_TEMPLATE": "Template de protocole",
   "lab_entity_type_DOCUMENT_TEMPLATE": "Template de document",
   "lab_usage_period_to": "Date de fin",
@@ -156,7 +156,5 @@
   "lab_usage_period_LAST_24_HOURS": "Dernières 24 heures",
   "lab_usage_period_CUSTOM": "Personnalisé",
   "user": "Utilisateur",
-  "task": "Tâche",
-  "resource_tags": "Tags de la ressource",
-  "view_tags": "Tags de la vue"
+  "public": "Public"
 }

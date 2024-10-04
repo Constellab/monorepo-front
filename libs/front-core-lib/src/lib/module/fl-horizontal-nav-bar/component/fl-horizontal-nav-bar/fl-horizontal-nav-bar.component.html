@@ -12,7 +12,7 @@
            (click)="openMenu()">
         <fl-text-icon *ngIf="activeItem$ | async as activeItem">
           <mat-icon class="g-icon-big" [flIcon]="activeItem.icon">admin_panel_settings</mat-icon>
-          <h1>{{ activeItem.label | flTranslatableText }}</h1>
+          <h1>{{ activeItem.label | flTranslatableText | async }}</h1>
         </fl-text-icon>
 
         <mat-icon [matMenuTriggerFor]="menu" class="expand-icon">expand_more
@@ -26,7 +26,7 @@
            [routerLink]="item.route" routerLinkActive="small-menu-active"
            [routerLinkActiveOptions]="{exact: item.linkActiveExact}">
           <mat-icon [flIcon]="item.icon" class="menu-icon"></mat-icon>
-          <span class="menu-icon">{{ item.label | flTranslatableText }}</span>
+          <span class="menu-icon">{{ item.label | flTranslatableText | async }}</span>
         </a>
       </mat-menu>
 
@@ -39,7 +39,7 @@
          [routerLink]="item.route" routerLinkActive="menu-active"
          [routerLinkActiveOptions]="{exact: item.linkActiveExact}">
         <mat-icon [flIcon]="item.icon"></mat-icon>
-        <span class="item-text">{{ item.label | flTranslatableText }}</span>
+        <span class="item-text">{{ item.label | flTranslatableText | async }}</span>
       </a>
     </div>
   </div>

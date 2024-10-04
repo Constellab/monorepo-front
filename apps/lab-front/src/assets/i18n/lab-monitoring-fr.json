@@ -25,7 +25,7 @@
     "delete_all_unavailable_typings": "Supprimer tous les typings indisponibles",
     "delete_unavailable_typings_confirmation": "Êtes-vous sûr de vouloir supprimer les typings indisponibles de la base de donnée ?",
     "delete_unavailable_typings_success": "Typings indisponibles supprimés",
-    "synchronize_projects": "Synchroniser les projets",
+    "synchronize_folders": "Synchroniser les projets",
     "synchronize_users": "Synchroniser les utilisateurs",
     "synchronize_lab": "Synchroniser le lab",
     "synchronizing_lab": "Synchronisation du lab...",

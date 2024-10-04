@@ -1,11 +1,11 @@
-import {PrWorkflowNode} from '../node/pr-workflow-node.class';
-import {PrWorkflowConnection} from './pr-workflow-connection.class';
-import Drawflow, {ConnectionEvent} from 'drawflow';
-import {PrWorkflowLayer} from './pr-workflow-layer.class';
-import {BehaviorSubject, map, Observable, Subject} from 'rxjs';
-import {NgZone} from '@angular/core';
-import {PrWorkflowPort} from './pr-workflow-port.class';
-import {PrWorkflowNodeProtocol} from '../node/pr-workflow-node-protocol.class';
+import { PrWorkflowNode } from '../node/pr-workflow-node.class';
+import { PrWorkflowConnection } from './pr-workflow-connection.class';
+import Drawflow, { ConnectionEvent } from 'drawflow';
+import { PrWorkflowLayer } from './pr-workflow-layer.class';
+import { BehaviorSubject, first, map, Observable, Subject } from 'rxjs';
+import { NgZone } from '@angular/core';
+import { PrWorkflowPort } from './pr-workflow-port.class';
+import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
 
 export type PrWorkflowMode = 'edit' | 'readOnly';
 
@@ -170,7 +170,7 @@ export class PrWorkflow {
     const currentLayerId = this.currentLayer.id;
 
     protocol.setLoading(true);
-    protocol.loadSubLayer().subscribe({
+    protocol.loadSubLayer().pipe(first()).subscribe({
       next: layer => {
         if (!this.hasLayer(layer.id)) {
           this.addLayer(layer, currentLayerId, selectLayer);

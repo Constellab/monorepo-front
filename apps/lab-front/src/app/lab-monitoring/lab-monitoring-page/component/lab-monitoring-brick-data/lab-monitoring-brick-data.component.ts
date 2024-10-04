@@ -24,10 +24,8 @@ export class LabMonitoringBrickDataComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'monitoring.delete_all_brick_data',
       content: 'monitoring.delete_all_brick_data_confirmation',
-      translateTitleAndContent: true,
       observable: this.brickDataService.deleteAllBrickData(),
-      successMessage: 'monitoring.all_brick_data_deleted',
-      translateMessage: true
+      successMessage: 'monitoring.all_brick_data_deleted'
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

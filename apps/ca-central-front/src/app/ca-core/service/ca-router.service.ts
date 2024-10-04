@@ -1,10 +1,11 @@
 import {
   caConstAdminRoute,
   caConstBaseRoute,
+  caConstChatRoute,
   caConstDashboardRoute,
+  caConstFolderRoute,
   caConstLabInstancesRoute,
-  caConstMyProjectsRoute,
-  caConstProjectRoute,
+  caConstMyFoldersRoute,
   caConstStructureRoute,
   caConstUserPageRoute
 } from '../utils/ca-base-route';
@@ -22,6 +23,9 @@ export class CaRouterService {
   constructor(private router: Router) {
   }
 
+  public navigate(route: string): void {
+    this.router.navigate([route]);
+  }
 
   //////////////////////////////////// ROUTES OUTSIDE /APP ///////////////////////////////////////
 
@@ -54,39 +58,39 @@ export class CaRouterService {
     this.router.navigate([CaRouterService.getDashboardRoute()]);
   }
 
-  //////////////////////////// PROJECT //////////////////////////////
+  //////////////////////////// FOLDER //////////////////////////////
 
 
-  public static getProjectDetailRoute(projectId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/${projectId}`);
+  public static getFolderDetailRoute(folderId: string): string {
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/${folderId}`);
   }
 
-  public navigateToProjectDetail(projectId: string): void {
-    this.router.navigate([CaRouterService.getProjectDetailRoute(projectId)]);
+  public navigateToFolderDetail(folderId: string): void {
+    this.router.navigate([CaRouterService.getFolderDetailRoute(folderId)]);
   }
 
-  public static getMyProjectsRoute(): string {
-    return CaRouterService.getFullRoute(caConstMyProjectsRoute);
+  public static getMyFoldersRoute(): string {
+    return CaRouterService.getFullRoute(caConstMyFoldersRoute);
   }
 
   public static getExperimentDetailRoute(experimentId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/experiment/${experimentId}`);
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/experiment/${experimentId}`);
   }
 
-  public static getReportDetailRoute(reportId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/report/${reportId}`);
+  public static getNoteDetailRoute(noteId: string): string {
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/note/${noteId}`);
   }
 
   public static getDocumentDetailRoute(documentId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/document/${documentId}`);
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/document/${documentId}`);
   }
 
   public static getDocumentPreviewRoute(documentId: string): string {
-    return CaRouterService.getFullRoute(`${caConstProjectRoute}/document/${documentId}/preview`);
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/document/${documentId}/preview`);
   }
 
-  public static getProjectActivityRoute(projectId: string): string {
-    return `${CaRouterService.getProjectDetailRoute(projectId)}/activity`;
+  public static getFolderActivityRoute(folderId: string): string {
+    return `${CaRouterService.getFolderDetailRoute(folderId)}/activity`;
   }
 
   public navigateToDocumentDetail(documentId: string): void {
@@ -95,6 +99,14 @@ export class CaRouterService {
 
   public navigateToDocumentPreview(documentId: string): void {
     this.router.navigate([CaRouterService.getDocumentPreviewRoute(documentId)]);
+  }
+
+  public navigateToExperimentDetail(experimentId: string): void {
+    this.router.navigate([CaRouterService.getExperimentDetailRoute(experimentId)]);
+  }
+
+  public navigateToNoteDetail(noteId: string): void {
+    this.router.navigate([CaRouterService.getNoteDetailRoute(noteId)]);
   }
 
 
@@ -172,8 +184,8 @@ export class CaRouterService {
     return `${CaRouterService.getCurrentSpaceRoute()}/labs`;
   }
 
-  public static getCurrentSpaceProjectsRoute(): string {
-    return `${CaRouterService.getCurrentSpaceRoute()}/projects`;
+  public static getCurrentSpaceFoldersRoute(): string {
+    return `${CaRouterService.getCurrentSpaceRoute()}/folders`;
   }
 
   public static getCurrentSpaceTeamsRoute(): string {
@@ -182,6 +194,20 @@ export class CaRouterService {
 
   public static getCurrentSpaceOtherRoute(): string {
     return `${CaRouterService.getCurrentSpaceRoute()}/other`;
+  }
+
+  ////////////////////////// CHAT ///////////////////////
+
+  public static getChatRoute(): string {
+    return CaRouterService.getFullRoute(caConstChatRoute);
+  }
+
+  public static getChatFolderRoute(folderId: string): string {
+    return `${CaRouterService.getChatRoute()}/folder/${folderId}`;
+  }
+
+  public navigateToChatFolder(folderId: string): void {
+    this.router.navigate([CaRouterService.getChatFolderRoute(folderId)]);
   }
 
   ////////////////////////// ADMIN ///////////////////////

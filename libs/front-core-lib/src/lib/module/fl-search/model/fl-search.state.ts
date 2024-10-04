@@ -1,14 +1,16 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {FlDatasourcePaginated} from '../../../model/datasource/fl-datasource-paginated.class';
-import {FormGroup} from '@ngneat/reactive-forms';
-import {MatDrawer} from '@angular/material/sidenav';
-import {FlSearchConfig} from './fl-search-state-config.class';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FlAdvancedSearchObject, FlSearchPageUrlHelper, FlSearchUrlObject} from './fl-search-url.helper';
-import {first} from 'rxjs/operators';
-import {Subscription} from 'rxjs';
-import {ClCoreJsonConvert} from '@monorepo/core-lib';
-import {FlSavedSearch} from './fl-saved-search.class';
+import { Injectable, OnDestroy } from '@angular/core';
+import {
+  FlDatasourcePaginated,
+  FlDatasourceSortCriteria
+} from '../../../model/datasource/fl-datasource-paginated.class';
+import { FormGroup } from '@angular/forms';
+import { MatDrawer } from '@angular/material/sidenav';
+import { FlSearchConfig } from './fl-search-state-config.class';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FlAdvancedSearchObjectUrl, FlSearchPageUrlHelper, FlSearchUrlObject } from './fl-search-url.helper';
+import { debounceTime, first } from 'rxjs/operators';
+import { ClCoreJsonConvert, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlSavedSearch } from './fl-saved-search.class';
 
 
 /**
@@ -19,20 +21,21 @@ export class FlSearchState<T> implements OnDestroy {
 
   private config: FlSearchConfig;
   // datasource containing the data
-  public datasource: FlDatasourcePaginated<T>;
+  public datasource: FlDatasourcePaginated<T, any>;
 
   // form group instance of the advanced form
   public advancedSearchFormGroup: FormGroup;
+
+  public sortCriteria: FlDatasourceSortCriteria;
 
   // timestamp code of the last search to prevent calling the same search twice
   private lastSearchTimestamp: string;
 
   private drawer: MatDrawer;
-  private routeSubscription: Subscription;
+  private subscriptions = new ClSubscriptionHandler();
 
   // list of filter that are added programmatically and override search criteria
   private hiddenFilters: Record<string, any> = {};
-
 
   constructor(private route: ActivatedRoute,
               private router: Router) {
@@ -45,28 +48,37 @@ export class FlSearchState<T> implements OnDestroy {
   /**
    * Init the search page and call first search
    */
-  public init(config: FlSearchConfig, datasource: FlDatasourcePaginated<T>): void {
+  public init(config: FlSearchConfig, datasource: FlDatasourcePaginated<T, any>): void {
     this.config = config;
     this.advancedSearchFormGroup = config.buildAdvancedForm();
+    this.sortCriteria = config.defaultSort;
     this.datasource = datasource;
-
 
     if (config.storeSearchInUrl) {
       this.subscribeToNavigation();
     } else {
       this.initFirstSearch();
+      this.initAfterFirstSearch();
     }
   }
 
 
   // call advanced search form advanced search form
   public callAdvancedSearchFromForm(): void {
-    const advancedSearch: FlAdvancedSearchObject = this.callAdvancedSearch(this.advancedSearchFormGroup.getRawValue());
+    const filterCriteria = this.advancedSearchFormGroup.getRawValue();
+    this.callAdvancedSearch(filterCriteria, this.sortCriteria);
+
+    // get sort and build the search url
+    const sortCriteria = this.getSortCriteria();
+    const searchUrl: FlAdvancedSearchObjectUrl = {
+      filtersCriteria: filterCriteria,
+      sortKey: sortCriteria?.key, sortDirection: sortCriteria?.direction
+    };
 
     const timestamp = this.generateSearchTimestamp();
 
     if (this.config.storeSearchInUrl) {
-      this.saveAdvancedSearchInUrl(advancedSearch, timestamp);
+      this.saveAdvancedSearchInUrl(searchUrl, timestamp);
     }
   }
 
@@ -86,42 +98,62 @@ export class FlSearchState<T> implements OnDestroy {
     this.callAdvancedSearchFromForm();
   }
 
+  public resetFormAndCallSearch(options?: {
+    onlySelf?: boolean;
+    emitEvent?: boolean;
+  }): void {
+    this.resetAdvancedFormGroup(null, options);
+    this.callAdvancedSearchFromForm();
+  }
+
 
   // call the advanced search from a URL change
-  private callAdvancedSearchFromUrl(filtersCriteria: Record<string, any>, timestamp: string): void {
-    this.callAdvancedSearch(filtersCriteria);
+  private callAdvancedSearchFromUrl(filtersCriteria: Record<string, any>,
+                                    sortCriteria: FlDatasourceSortCriteria, timestamp: string): void {
+    this.callAdvancedSearch(filtersCriteria, sortCriteria);
     this.lastSearchTimestamp = timestamp;
 
+    this.sortCriteria = sortCriteria;
     this.resetAdvancedFormGroup(filtersCriteria);
   }
 
   // method to just call advanced search function
-  private callAdvancedSearch(filtersCriteria: Record<string, any>): FlAdvancedSearchObject {
+  private callAdvancedSearch(filtersCriteria: Record<string, any>, sortCriteria: FlDatasourceSortCriteria): void {
 
+    let fullFiltersCriteria = filtersCriteria;
     // add the hidden filters
     if (this.hiddenFilters) {
-      filtersCriteria = {...filtersCriteria, ...this.hiddenFilters};
+      fullFiltersCriteria = { ...filtersCriteria, ...this.hiddenFilters };
     }
 
     // call first page and set data
-    this.datasource.getFirstPage(filtersCriteria);
+    this.datasource.getFirstPage(fullFiltersCriteria, sortCriteria == null ? null : [sortCriteria]);
 
 
     // if the drawer is in over mode (small screens) close it
     if (this.drawer?.mode === 'over') {
       this.closeDrawer();
     }
-
-    return {filtersCriteria: filtersCriteria};
   }
 
   public getFiltersCriteria(): T {
     let filtersCriteria = this.advancedSearchFormGroup.getRawValue();
     // add the hidden filters
     if (this.hiddenFilters) {
-      filtersCriteria = {...filtersCriteria, ...this.hiddenFilters};
+      filtersCriteria = { ...filtersCriteria, ...this.hiddenFilters };
     }
     return filtersCriteria;
+  }
+
+  /////////////////////////////////////////////////// SORT CRITERIA ///////////////////////////////////////////////////
+
+  public setSortCriteriaAndCallSearch(sortCriteria: FlDatasourceSortCriteria): void {
+    this.sortCriteria = sortCriteria;
+    this.callAdvancedSearchFromForm();
+  }
+
+  public getSortCriteria(): FlDatasourceSortCriteria | null {
+    return this.sortCriteria;
   }
 
   /////////////////////////////////////////////////// URL ///////////////////////////////////////////////////
@@ -129,16 +161,14 @@ export class FlSearchState<T> implements OnDestroy {
   // subscribe to navigation to call advanced search if it is a navigation back
   private subscribeToNavigation(): void {
     // subscribe to current url on init
+    // init the search with param of url
     this.route.queryParams.pipe(first()).subscribe(
       params => {
-        // init the search with param of url
         this.initFirstSearch(params as any);
 
-        // after init, subscribe to route change to call search is needed
-        this.routeSubscription = this.route.queryParams.subscribe(
-          params => this.checkAndCallSearchFromUrl(params as any)
-        );
-      });
+        this.initAfterFirstSearch();
+      }
+    );
   }
 
   /**
@@ -170,19 +200,44 @@ export class FlSearchState<T> implements OnDestroy {
       return false;
     }
 
+    const formValue: FlAdvancedSearchObjectUrl = FlSearchPageUrlHelper.advancedSearchFromString(params?.search);
 
-    const formValue: FlAdvancedSearchObject = FlSearchPageUrlHelper.advancedSearchFromString(params?.search);
 
     if (formValue != null) {
       try {
         const filtersCriteria = ClCoreJsonConvert.deserialize(formValue.filtersCriteria, this.config.advancedFormClass);
-        this.callAdvancedSearchFromUrl(filtersCriteria, params.timestamp);
+        const sortCriteria: FlDatasourceSortCriteria = {
+          key: formValue.sortKey,
+          direction: formValue.sortDirection
+        };
+        this.callAdvancedSearchFromUrl(filtersCriteria, sortCriteria, params.timestamp);
         return true;
       } catch {
         return false;
       }
     }
     return false;
+  }
+
+  /**
+   * Method to call after the first search is done
+   * It will subscribe to the form change to call the search
+   * It will subscribe to the navigation to call the search if the URL change
+   * @private
+   */
+  private initAfterFirstSearch(): void {
+    this.subscriptions.add(this.advancedSearchFormGroup.valueChanges.pipe(
+      debounceTime(350)
+    ).subscribe(
+      () => this.callAdvancedSearchFromForm()
+    ));
+
+    if (this.config.storeSearchInUrl) {
+      // subscribe to route change to call search is needed (like back button)
+      this.subscriptions.add(this.route.queryParams.pipe(debounceTime(350)).subscribe(
+        params => this.checkAndCallSearchFromUrl(params as any)
+      ));
+    }
   }
 
 
@@ -196,19 +251,18 @@ export class FlSearchState<T> implements OnDestroy {
   }
 
   // save the advanced search in URL
-  private saveAdvancedSearchInUrl(advancedSearch: FlAdvancedSearchObject, timestamp: string): void {
-    // convert object to class and to plain json again to trigger transforms
-    // const convertedFilters = ClCoreJsonConvert.instanceToPlain(advancedSearch.filtersCriteria, this.config.advancedFormClass);
-    const searchString: string = FlSearchPageUrlHelper.advancedSearchToString({filtersCriteria: advancedSearch.filtersCriteria});
+  private saveAdvancedSearchInUrl(advancedSearch: FlAdvancedSearchObjectUrl, timestamp: string): void {
+    const searchString: string = FlSearchPageUrlHelper.advancedSearchToString(advancedSearch);
 
     // limit length to avoid URL problem
-    if (searchString.length < 1700) {
+    if (!searchString || searchString.length < 1700) {
       const searchUrl = FlSearchPageUrlHelper.buildSearchUrlObject(searchString, timestamp);
       // save the criteria list in the url as query params
       this.router.navigate([], {
         relativeTo: this.route,
         queryParams: searchUrl,
-        replaceUrl: true
+        replaceUrl: true,
+        queryParamsHandling: 'merge'
       });
     }
   }
@@ -221,8 +275,11 @@ export class FlSearchState<T> implements OnDestroy {
     this.hiddenFilters = hiddenFilters;
   }
 
-  private resetAdvancedFormGroup(value: any): void {
-    this.advancedSearchFormGroup.reset(value);
+  private resetAdvancedFormGroup(value: any, options?: {
+    onlySelf?: boolean;
+    emitEvent?: boolean;
+  }): void {
+    this.advancedSearchFormGroup.reset(value, options);
   }
 
   public closeDrawer(): void {
@@ -238,7 +295,7 @@ export class FlSearchState<T> implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.routeSubscription?.unsubscribe();
+    this.subscriptions?.unsubscribe();
   }
 
 

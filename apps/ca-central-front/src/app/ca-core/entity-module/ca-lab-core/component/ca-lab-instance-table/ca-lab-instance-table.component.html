@@ -1,8 +1,8 @@
-<mat-table mat-table [dataSource]="datasource">
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
 
   <!-- Name -->
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
@@ -12,7 +12,7 @@
 
   <!-- Space -->
   <ng-container matColumnDef="space">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ 'space' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
@@ -22,7 +22,7 @@
 
   <!-- Current status -->
   <ng-container matColumnDef="currentStatus">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ 'status' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
@@ -32,7 +32,7 @@
 
   <!-- Virtual host -->
   <ng-container matColumnDef="virtualHost">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ 'virtual_host' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
@@ -43,7 +43,7 @@
 
   <!-- Created By -->
   <ng-container matColumnDef="createdBy">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ 'created_by' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">
@@ -51,9 +51,9 @@
     </mat-cell>
   </ng-container>
 
-  <!-- Server info -->
+  <!-- Server cloud -->
   <ng-container matColumnDef="serverCloud">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{'server_cloud' | translate}}
     </mat-header-cell>
     <mat-cell *matCellDef="let labInstance">

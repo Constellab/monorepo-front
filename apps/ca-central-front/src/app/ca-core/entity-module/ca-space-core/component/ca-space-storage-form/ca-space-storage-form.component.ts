@@ -1,7 +1,13 @@
-import {Component, Input} from '@angular/core';
-import {ValidatorFn, Validators} from '@angular/forms';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaSpaceUpdateStorageLocationDTO} from '../../../../model/entities/space/ca-space.dto';
+import { Component, Input } from '@angular/core';
+import {
+  AbstractControlOptions,
+  FormBuilder,
+  FormGroup,
+  UntypedFormGroup,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
+import { CaSpaceUpdateStorageLocationDTO } from '../../../../model/entities/space/ca-space.dto';
 
 @Component({
   selector: 'ca-space-storage-form',
@@ -10,21 +16,24 @@ import {CaSpaceUpdateStorageLocationDTO} from '../../../../model/entities/space/
 })
 export class CaSpaceStorageFormComponent {
 
-  @Input({required: true}) formGp: FormGroup;
+  @Input({ required: true }) formGp: FormGroup;
 
-  public static buildForm(): FormGroup<CaSpaceUpdateStorageLocationDTO> {
+  public static buildForm(): UntypedFormGroup {
+    const groupOptions: AbstractControlOptions = { validators: [this.differentFolderStorageValidator()] };
+
     return new FormBuilder().group({
-      defaultProjectStorageLocation: [null, [Validators.required]],
-      defaultProjectBackupStorageLocation: [null],
-    }, {validator: this.differentProjectStorageValidator()});
+      defaultFolderStorageLocation: [null, [Validators.required]],
+      defaultFolderBackupStorageLocation: [null]
+    }, groupOptions);
   }
 
-  private static differentProjectStorageValidator(): ValidatorFn {
-    return (control: FormGroup<CaSpaceUpdateStorageLocationDTO>): { [key: string]: any } => {
-      if (control.value.defaultProjectStorageLocation == null || control.value.defaultProjectBackupStorageLocation == null) return null;
+  private static differentFolderStorageValidator(): ValidatorFn {
+    return (control: UntypedFormGroup): { [key: string]: any } => {
+      const value: CaSpaceUpdateStorageLocationDTO = control.value;
+      if (value.defaultFolderStorageLocation == null || value.defaultFolderBackupStorageLocation == null) return null;
 
-      if (control.value.defaultProjectStorageLocation.bucketId === control.value.defaultProjectBackupStorageLocation.bucketId) {
-        return {sameBackupStorage: true};
+      if (value.defaultFolderStorageLocation.bucketId === value.defaultFolderBackupStorageLocation.bucketId) {
+        return { sameBackupStorage: true };
       }
       return null;
     };

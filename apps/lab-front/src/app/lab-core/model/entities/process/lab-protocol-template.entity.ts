@@ -1,7 +1,7 @@
-import {FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {PrProtocolGraph} from '@monorepo/protocol';
-import {LabBaseEntityWithUser} from '../lab-user.entity';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { PrProtocolGraph } from '@monorepo/protocol';
+import { LabBaseEntityWithUser } from '../lab-user.entity';
+import { TeRichTextContent } from '@monorepo/text-editor';
 
 
 export class LabProtocolTemplate extends LabBaseEntityWithUser {
@@ -17,7 +17,7 @@ export class LabProtocolTemplate extends LabBaseEntityWithUser {
   }
 }
 
-export type LabProtocolTemplateDatasource = FlEntityPaginatedDatasource<LabProtocolTemplate>;
+export type LabProtocolTemplateDatasource<F = void> = FlEntityPaginatedDatasource<LabProtocolTemplate, F>;
 
 
 export interface LabCreateProtocolTemplateDTO {

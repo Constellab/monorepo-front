@@ -1,5 +1,5 @@
-import {Transform} from 'class-transformer';
-import {ClTransformFnParams} from '@monorepo/core-lib';
+import { Transform } from 'class-transformer';
+import { ClTransformFnParams } from './cl-json.converter';
 
 /**
  * Transformer to transform a string to json object for deserialization

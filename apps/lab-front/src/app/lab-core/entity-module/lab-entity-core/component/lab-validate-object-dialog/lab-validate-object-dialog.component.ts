@@ -1,27 +1,26 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {LabProject} from '../../../../model/entities/lab-project.class';
-import {Observable} from 'rxjs';
-import {FormControl} from '@ngneat/reactive-forms';
-import {FlSnackBarService} from '@monorepo/front-core-lib';
-import {Validators} from '@angular/forms';
-import {LabEntity} from '../../../../model/global/lab-entity.entity';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { LabFolder } from '../../../../model/entities/lab-folder.class';
+import { Observable } from 'rxjs';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { FormControl, Validators } from '@angular/forms';
+import { LabEntity } from '../../../../model/global/lab-entity.entity';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface LabValidateObjectDialogInput {
   title: string;
 
   helpText?: string;
 
-  validate(project: LabProject): Observable<any>;
+  validate(folder: LabFolder): Observable<any>;
 
   successMessage: string;
 
-  project?: LabEntity;
+  folder?: LabEntity;
 }
 
 /**
- * Generic dialog to validate an object by selecting a project.
- * This works for experiments and reports
+ * Generic dialog to validate an object by selecting a folder.
+ * This works for experiments and notes
  */
 @Component({
   selector: 'lab-validate-object-dialog',
@@ -49,7 +48,7 @@ export class LabValidateObjectDialogComponent implements OnInit {
   }
 
   private initFormControl(): void {
-    this.formControl = new FormControl(this.dialogInput.project, Validators.required);
+    this.formControl = new FormControl(this.dialogInput.folder, Validators.required);
   }
 
   submit(): void {
@@ -59,8 +58,8 @@ export class LabValidateObjectDialogComponent implements OnInit {
     }
   }
 
-  private validateObject(project: LabProject): void {
-    this.dialogInput.validate(project).subscribe(
+  private validateObject(folder: LabFolder): void {
+    this.dialogInput.validate(folder).subscribe(
       object => this.validateSuccess(object),
       () => this.isLoading = false
     );

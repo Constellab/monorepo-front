@@ -66,10 +66,8 @@ export class CaServerStandardTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_server_standard',
       content: 'delete_server_standard_confirm',
-      translateTitleAndContent: true,
       observable: this.serverService.deleteServerStandard(serverStandard.id),
       successMessage: 'server_standard_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

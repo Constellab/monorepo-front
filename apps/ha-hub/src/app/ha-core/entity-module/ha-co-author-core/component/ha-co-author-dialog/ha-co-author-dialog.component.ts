@@ -1,22 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlConfirmDialogInput, FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {HaCoAuthorService} from '../../model/ha-co-author-service';
-import {HaCoAuthorInvite} from '../../model/ha-co-author-invite.class';
-import {HaUser} from '../../../../ha-model/ha-entities/ha-user';
-import {HaRouterService} from '../../../../ha-service/ha-router.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FlConfirmDialogInput, FlDialogService, FlSnackBarService } from '@monorepo/front-core-lib';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HaCoAuthorService } from '../../model/ha-co-author-service';
+import { HaCoAuthorInvite } from '../../model/ha-co-author-invite.class';
+import { HaUser } from '../../../../ha-model/ha-entities/ha-user';
+import { HaRouterService } from '../../../../ha-service/ha-router.service';
 
 export interface HaCoAuthorsDialogInput {
   id: string;
   service: HaCoAuthorService;
   inviteText: string;
-}
-
-export interface HaCoAuthorFormData {
-  id?: string;
-  coAuthorMail: string;
 }
 
 @Component({
@@ -29,7 +23,9 @@ export class HaCoAuthorDialogComponent implements OnInit {
   profileRoute = HaRouterService.getProfileRoute();
   coAuthorPendingInvites: HaCoAuthorInvite[];
   id: string;
-  formGp: FormGroup<HaCoAuthorFormData>;
+  formGp = new FormBuilder().group({
+    coAuthorMail: [null, [Validators.required, Validators.email]]
+  });
   service: HaCoAuthorService;
   coAuthors: HaUser[];
   inviteText: string;
@@ -44,8 +40,6 @@ export class HaCoAuthorDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formGp = this.buildForm();
-
     this.updateCoAuthors();
     this.updateCoAuthorsInvitation();
   }
@@ -62,22 +56,13 @@ export class HaCoAuthorDialogComponent implements OnInit {
     });
   }
 
-  buildForm(): FormGroup<HaCoAuthorFormData> {
-    return new FormBuilder().group({
-      coAuthorMail: [null, [Validators.required, Validators.email]]
-    })
-  }
-
-
   openRemoveConfirmDialog(coAuthor: HaUser): void {
     const input: FlConfirmDialogInput = {
       title: 'remove_coauthor',
       content: 'remove_coauthor_dialog_content',
-      translateTitleAndContent: true,
       successMessage: 'remove_coauthor_success',
-      translateMessage: true,
       observable: this.service.removeCoAuthor(this.id, coAuthor.id)
-    }
+    };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(result => {
       if (result) {
@@ -91,11 +76,9 @@ export class HaCoAuthorDialogComponent implements OnInit {
       const input: FlConfirmDialogInput = {
         title: 'cancel_invitation',
         content: 'cancel_coauthor_invitation_dialog_content',
-        translateTitleAndContent: true,
         successMessage: 'cancel_invitation_success',
-        translateMessage: true,
         observable: this.service.deleteCoAuthorInvite(inviteId)
-      }
+      };
 
       this.dialogService.openConfirmDialog(input).afterClosed().subscribe(result => {
         if (result) {
@@ -111,7 +94,7 @@ export class HaCoAuthorDialogComponent implements OnInit {
       this.isLoading = true;
       this.service.inviteCoAuthor(this.id, inviteMail).subscribe(result => {
         if (result) {
-          this.snackBarService.openSuccessMessage({text: 'invitation_sent_successfully', translateText: true});
+          this.snackBarService.openSuccessMessage({ text: 'invitation_sent_successfully', translateText: true });
           this.updateCoAuthorsInvitation();
           this.formGp.controls.coAuthorMail.patchValue(null);
           this.isLoading = false;

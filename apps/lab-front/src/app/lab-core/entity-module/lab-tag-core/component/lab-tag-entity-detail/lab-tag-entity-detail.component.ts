@@ -86,10 +86,8 @@ export class LabTagEntityDetailComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'tag_delete',
       content: 'tag_delete_confirmation',
-      translateTitleAndContent: true,
       observable: this.tagService.deleteTag(tag.key, tag.value),
       successMessage: 'tag_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

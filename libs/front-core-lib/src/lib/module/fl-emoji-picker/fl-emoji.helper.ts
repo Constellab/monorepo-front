@@ -1,7 +1,7 @@
 import { FlDatasourcePaginated } from '../../model/datasource/fl-datasource-paginated.class';
 import { from, Observable } from 'rxjs';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
-import { FrequentlyUsed, SearchIndex } from 'emoji-mart';
+import { FrequentlyUsed, init, SearchIndex } from 'emoji-mart';
 import { map } from 'rxjs/operators';
 
 export interface FlEmojiCategory {
@@ -194,16 +194,22 @@ export class FlEmojiHelper {
       // load emojis info from emoji-mart
       const response = await fetch('https://cdn.jsdelivr.net/npm/@emoji-mart/data');
       FlEmojiHelper.emojisData = await response.json();
+      init({ data: FlEmojiHelper.emojisData });
     }
     return FlEmojiHelper.emojisData;
   }
 }
 
-export class FlEmojiDatasource extends FlDatasourcePaginated<FlEmojiCategory> {
+export interface FlEmojiSearchFilter {
+  text: string;
+}
+
+// TODO TO TEST
+export class FlEmojiDatasource extends FlDatasourcePaginated<FlEmojiCategory, FlEmojiSearchFilter> {
 
   constructor() {
     super((page, pageSize, filter) =>
-      FlEmojiHelper.search(filter, page, pageSize), 200, false);
+      FlEmojiHelper.search(filter.filtersCriteria.text, page, pageSize), 200, false);
   }
 
   protected equals(a: FlEmojiCategory, b: FlEmojiCategory): boolean {

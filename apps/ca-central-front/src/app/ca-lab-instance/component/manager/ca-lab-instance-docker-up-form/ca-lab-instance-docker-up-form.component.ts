@@ -1,7 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaLabComposeRestartOptions} from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder } from '@angular/forms';
 
 export interface CaLabInstanceDockerUpFormInput {
   mode: 'start' | 'restart';
@@ -15,24 +14,16 @@ export interface CaLabInstanceDockerUpFormInput {
   templateUrl: './ca-lab-instance-docker-up-form.component.html',
   styleUrls: ['./ca-lab-instance-docker-up-form.component.scss']
 })
-export class CaLabInstanceDockerUpFormComponent implements OnInit {
+export class CaLabInstanceDockerUpFormComponent {
 
-  formGp: FormGroup<CaLabComposeRestartOptions>;
+  formGp = new FormBuilder().group({
+    updateContainers: [true],
+    pruneSystem: [true],
+    destroyContainers: [false]
+  });
 
   constructor(@Inject(MAT_DIALOG_DATA) private input: CaLabInstanceDockerUpFormInput,
               private dialogRef: MatDialogRef<CaLabInstanceDockerUpFormComponent>) {
-  }
-
-  ngOnInit(): void {
-    this.initForm();
-  }
-
-  private initForm(): void {
-    this.formGp = new FormBuilder().group({
-      updateContainers: [true],
-      pruneSystem: [true],
-      destroyContainers: [false],
-    });
   }
 
   submit(): void {
@@ -45,7 +36,7 @@ export class CaLabInstanceDockerUpFormComponent implements OnInit {
     return this.input.mode === 'restart';
   }
 
-  get title(): string{
+  get title(): string {
     return this.input.mode === 'start' ? 'lab_manager_compose_up_form' : 'lab_manager_compose_restart_form';
   }
 }

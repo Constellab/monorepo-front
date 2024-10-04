@@ -51,11 +51,10 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'protocol_template', filename: 'protocol-template.svg'},
   {name: 'process', filename: 'cogs-solid.svg'},
   {name: 'lab', filename: 'microscope-solid.svg'},
-  {name: 'project', filename: 'briefcase-solid.svg'},
   {name: 'process_config', filename: 'task-configuration.svg'},
   {name: 'archive', matIconName: 'inventory_2'},
   {name: 'unarchive', matIconName: 'unarchive'},
-  {name: 'report', matIconName: 'grading'},
+  {name: 'note', matIconName: 'grading'},
   {name: 'document_template', filename: 'document-template.svg'},
   {name: 'resource', matIconName: 'folder'},
   {name: 'view', matIconName: 'insert_chart'},
@@ -79,3 +78,50 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'heart-fill', filename: 'heart-fill.svg'},
   {name: 'constellab_document', filename: 'constellab_document.svg'},
 ]
+
+export function getFileIconFromExtension(extension: string): string {
+  if(!extension) return 'description';
+
+  extension = extension.replace('.', '').toLowerCase();
+
+  switch (extension.toLowerCase()) {
+    case 'csv':
+    case 'xls':
+    case 'xlsx':
+      return 'csv_file_icon';
+    case 'jpeg':
+    case 'jpg':
+    case 'png':
+    case 'gif':
+    case 'svg':
+      return 'image';
+    case 'mp3':
+    case 'wav':
+    case 'flac':
+    case 'aac':
+    case 'ogg':
+    case 'wma':
+    case 'm4a':
+    case 'aiff':
+    case 'alac':
+      return 'audiotrack';
+    case 'txt':
+      return 'txt_file_icon';
+    case 'pdf':
+      return 'pdf_file_icon';
+    case 'doc':
+    case 'docx':
+      return 'docx_file_icon';
+    case 'json':
+      return 'json_file_icon';
+    case 'ppt':
+    case 'pptx':
+      return 'pptx_file_icon';
+    case 'zip':
+      return 'zip_file_icon';
+    case 'py':
+      return 'py_file_icon';
+    default:
+      return 'description';
+  }
+}

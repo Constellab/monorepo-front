@@ -1,5 +1,5 @@
 export class CaStats{
-  onGoingProjectNumber: number = 0;
+  onGoingFolderNumber: number = 0;
 
   teamsNumber: number = 0;
 
@@ -7,5 +7,5 @@ export class CaStats{
 
   validatedExperimentNumber: number = 0;
 
-  validatedReportNumber: number = 0;
+  validatedNoteNumber: number = 0;
 }

@@ -1,15 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CaLabDesktopPlatform,
   CaLabInstance,
   CaLabInstanceType,
   CaLabInstanceWithSpace
 } from '../../../../model/entities/lab/ca-lab-instance.class';
-import {FlFormDialogAbstractDirective, FlFormDialogInput, FlPlatformService} from '@monorepo/front-core-lib';
-import {CaLabInstanceService} from '../../../../service-api/ca-lab-instance.service';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
+import { FlFormDialogAbstractDirective, FlFormDialogInput, FlPlatformService } from '@monorepo/front-core-lib';
+import { CaLabInstanceService } from '../../../../service-api/ca-lab-instance.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 export type CaLabInstanceFormDialogInput = FlFormDialogInput<CaLabInstanceForm>;
 
@@ -54,7 +53,7 @@ export class CaLabInstanceFormDialogComponent extends FlFormDialogAbstractDirect
     this.onTypeChange(this.formGp.value.type);
   }
 
-  buildForm(): FormGroup<CaLabInstanceForm> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required]],

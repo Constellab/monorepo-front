@@ -13,20 +13,20 @@ import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/bloc
 import { LabRichTextObjectType } from '../../entity-service/lab-rich-text.service';
 
 export interface LabRichTextViewBlockAdditionalData {
-  type: 'report' | 'enote' | 'report-file-view' | 'document-template-view-file';
+  type: 'note' | 'note-resource' | 'note-file-view' | 'document-template-view-file';
   /**
-   * if report, id of the report,
-   * if enote, id of the enote,
-   * if report-file-view, id of the report
+   * if note, id of the note,
+   * if note-resource, id of the note resource,
+   * if note-file-view, id of the note
    * if document-template-view-file, id of the document template
    */
   entityId: string | null;
 }
 
 /**
- * Content for the report and report template
+ * Content for the note and note template
  */
-export interface LabReportContentView {
+export interface LabNoteContentView {
   id: string;
   resource_id: string;
   experiment_id?: string;
@@ -37,9 +37,9 @@ export interface LabReportContentView {
 }
 
 /**
- * Content for the enote
+ * Content for the note resource
  */
-export interface LabENoteContentView {
+export interface LabNoteResourceContentView {
   id: string;
   sub_resource_key: string;
   view_method_name: string;
@@ -49,7 +49,7 @@ export interface LabENoteContentView {
 }
 
 /**
- * Special type of view (for report) that are stored as a file and not attached to a resource
+ * Special type of view (for note) that are stored as a file and not attached to a resource
  */
 export interface LabRichTextFileView {
   id: string;
@@ -70,11 +70,11 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
     super(options, envInjector, applicationRef, additionalData);
   }
 
-  public static readonly TAG_NAME = 'lab-report-content-view';
+  public static readonly TAG_NAME = 'lab-note-content-view';
 
   static override get toolbox(): ToolboxConfig {
     return {
-      title: TeHelper.getTranslateService().translate('biox.report_resource_view'),
+      title: TeHelper.getTranslateService().translate('biox.note_resource_view'),
       icon: TeHelper.getMatIconElement('add_chart')
     };
   }
@@ -87,32 +87,32 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
     return LabRichTextViewBlock.TAG_NAME;
   }
 
-  initInputs(data: LabReportContentView | LabENoteContentView | LabRichTextFileView): void {
+  initInputs(data: LabNoteContentView | LabNoteResourceContentView | LabRichTextFileView): void {
     switch (this.additionalData.type) {
-      case 'report':
-        const reportData = data as LabReportContentView;
-        this.componentInstance.setReportInput(reportData.resource_id,
+      case 'note':
+        const noteData = data as LabNoteContentView;
+        this.componentInstance.setNoteInput(noteData.resource_id,
           {
-            methodName: reportData.view_method_name,
-            configValues: reportData.view_config
+            methodName: noteData.view_method_name,
+            configValues: noteData.view_config
           },
-          reportData.title,
-          reportData.caption
+          noteData.title,
+          noteData.caption
         );
         break;
-      case 'enote':
-        const enoteData = data as LabENoteContentView;
-        this.componentInstance.setEnoteInput(this.additionalData.entityId, enoteData.sub_resource_key,
+      case 'note-resource':
+        const noteResourceData = data as LabNoteResourceContentView;
+        this.componentInstance.setNoteResourceInput(this.additionalData.entityId, noteResourceData.sub_resource_key,
           {
-            methodName: enoteData.view_method_name,
-            configValues: enoteData.view_config
-          }, enoteData.title, enoteData.caption);
+            methodName: noteResourceData.view_method_name,
+            configValues: noteResourceData.view_config
+          }, noteResourceData.title, noteResourceData.caption);
         break;
-      case 'report-file-view':
+      case 'note-file-view':
       case 'document-template-view-file':
         const fileViewData = data as LabRichTextFileView;
-        const objectType: LabRichTextObjectType = this.additionalData.type === 'report-file-view' ?
-          LabRichTextObjectType.REPORT : LabRichTextObjectType.DOCUMENT_TEMPLATE;
+        const objectType: LabRichTextObjectType = this.additionalData.type === 'note-file-view' ?
+          LabRichTextObjectType.NOTE : LabRichTextObjectType.DOCUMENT_TEMPLATE;
         this.componentInstance.setFileViewInput(objectType, this.additionalData.entityId,
           fileViewData.filename, fileViewData.title, fileViewData.caption);
         break;
@@ -126,16 +126,16 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
     });
   }
 
-  validate(blockData: LabReportContentView | LabENoteContentView | LabRichTextFileView): boolean {
+  validate(blockData: LabNoteContentView | LabNoteResourceContentView | LabRichTextFileView): boolean {
     if (!blockData.id) return false;
     switch (this.additionalData.type) {
-      case 'report':
-        const reportData = blockData as LabReportContentView;
-        return !!reportData.resource_id && reportData.view_config != null;
-      case 'enote':
-        const enoteData = blockData as LabENoteContentView;
-        return !!enoteData.sub_resource_key && !!enoteData.view_method_name;
-      case 'report-file-view':
+      case 'note':
+        const noteData = blockData as LabNoteContentView;
+        return !!noteData.resource_id && noteData.view_config != null;
+      case 'note-resource':
+        const noteResourceContentView = blockData as LabNoteResourceContentView;
+        return !!noteResourceContentView.sub_resource_key && !!noteResourceContentView.view_method_name;
+      case 'note-file-view':
       case 'document-template-view-file':
         const fileViewData = blockData as LabRichTextFileView;
         return !!fileViewData.filename;
@@ -148,7 +148,7 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
   }
 
   public openSelectResourceView(): void {
-    if (this.additionalData.type === 'report') {
+    if (this.additionalData.type === 'note') {
       const dialogService: FlDialogService = this.envInjector.get(FlDialogService);
       dialogService.openBigDialog(LabSelectViewConfigDialogComponent, { data: this.additionalData.entityId }).afterClosed()
         .subscribe(viewConfig => this.insertResourceView(viewConfig));
@@ -176,7 +176,14 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
   //     onActivate: () => this.componentInstance.updateFormula(),
   //   }];
   // }
-
-
 }
 
+/**
+ * Override of the LabRichTextViewBlock to show a file view in the text editor
+ * It works the same except it has no toolbox, so no button is shown in the editor toolboxes. As this can't be added from the editor.
+ */
+export class LabRichTextFileViewBlock extends LabRichTextViewBlock {
+  static override get toolbox(): ToolboxConfig {
+    return null;
+  }
+}

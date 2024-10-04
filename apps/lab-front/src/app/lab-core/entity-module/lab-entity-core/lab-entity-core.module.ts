@@ -9,7 +9,7 @@ import {LabObjectSyncInfoComponent} from './component/lab-object-sync-info/lab-o
 import {
   LabObjectValidationInfoComponent
 } from './component/lab-object-validation-info/lab-object-validation-info.component';
-import {LabProjectCoreModule} from '../lab-project-core/lab-project-core.module';
+import {LabFolderCoreModule} from '../lab-folder-core/lab-folder-core.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LabFlagButtonComponent} from './component/lab-flag-button/lab-flag-button.component';
 
@@ -37,7 +37,7 @@ import {LabFlagButtonComponent} from './component/lab-flag-button/lab-flag-butto
     FormsModule,
 
     LabCoreModule,
-    LabProjectCoreModule,
+    LabFolderCoreModule,
   ]
 })
 export class LabEntityCoreModule {

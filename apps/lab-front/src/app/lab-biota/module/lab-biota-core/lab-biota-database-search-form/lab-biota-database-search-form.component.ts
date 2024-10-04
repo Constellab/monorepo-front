@@ -1,32 +1,20 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {LabBiotaDatabaseSearch} from '../../../model/lab-biota-database.class';
-import {Validators} from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { LabBiotaDatabaseSearch } from '../../../model/lab-biota-database.class';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'lab-biota-database-search-form',
   templateUrl: './lab-biota-database-search-form.component.html',
   styleUrls: ['./lab-biota-database-search-form.component.scss']
 })
-export class LabBiotaDatabaseSearchFormComponent implements OnInit {
+export class LabBiotaDatabaseSearchFormComponent {
 
-  formGp: FormGroup<LabBiotaDatabaseSearch>;
+  formGp = new FormBuilder().group({
+    typingName: [null, Validators.required],
+    searchText: [null, Validators.required]
+  });
 
   @Output() search: EventEmitter<LabBiotaDatabaseSearch> = new EventEmitter();
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-    this.buildForm();
-  }
-
-  private buildForm(): void {
-    this.formGp = new FormBuilder().group({
-      typingName: [null, Validators.required],
-      searchText: [null, Validators.required]
-    });
-  }
 
   submit(): void {
     if (this.formGp.valid) {

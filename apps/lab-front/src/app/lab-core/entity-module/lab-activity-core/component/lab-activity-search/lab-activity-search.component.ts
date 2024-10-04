@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlSavedSearch,
@@ -6,9 +6,9 @@ import {
   FlSearchState,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {LabActivityDatasource} from '../../../../model/entities/lab-activity.entity';
-import {LabActivityService} from '../../../../entity-service/lab-activity.service';
-import {LabActivitySearch, LabActivitySearchFields} from '../../model/lab-activity-search.class';
+import { LabActivityDatasource } from '../../../../model/entities/lab-activity.entity';
+import { LabActivityService } from '../../../../entity-service/lab-activity.service';
+import { LabActivitySearch, LabActivitySearchFields } from '../../model/lab-activity-search.class';
 
 @Component({
   selector: 'lab-activity-search',
@@ -17,7 +17,7 @@ import {LabActivitySearch, LabActivitySearchFields} from '../../model/lab-activi
   providers: [FlSearchState]
 })
 export class LabActivitySearchComponent implements OnInit {
-  datasource: LabActivityDatasource;
+  datasource: LabActivityDatasource<LabActivitySearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private activityService: LabActivityService,
@@ -27,14 +27,15 @@ export class LabActivitySearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: LabActivitySearch.getAdvancedSearchForm,
+      buildAdvancedForm: LabActivitySearch.getSearchForm,
       advancedFormClass: LabActivitySearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: LabActivitySearch.advancedSearchManagerConfig,
+        config: LabActivitySearch.searchManagerConfig,
         skipFalseBoolean: true
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: {key: 'date', direction: 'DESC'}
     };
 
     this.datasource = new FlEntityPaginatedDatasource(

@@ -1,16 +1,15 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import {
   LabCreateProtocolTemplateDTO,
   LabProtocolTemplate
 } from '../../../../model/entities/process/lab-protocol-template.entity';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {LabProtocolService} from '../../../../entity-service/lab-protocol.service';
-import {LabProtocolTemplateService} from '../../../../entity-service/lab-protocol-template.service';
-import {TeBasicConfig, TeRichTextContent} from '@monorepo/text-editor';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
+import { LabProtocolTemplateService } from '../../../../entity-service/lab-protocol-template.service';
+import { TeBasicConfig, TeRichTextContent } from '@monorepo/text-editor';
 
 export interface LabProtocolTemplateFormDialogInput extends FlFormDialogInput<LabProtocolTemplate> {
   protocolId?: string;
@@ -38,7 +37,7 @@ export class LabProtocolTemplateFormDialogComponent extends FlFormDialogAbstract
     this.init();
   }
 
-  buildForm(): FormGroup<LabCreateProtocolTemplateDTO> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       name: [this.dialogInput.defaultName, Validators.required],
       description: [this.dialogInput.defaultDescription],

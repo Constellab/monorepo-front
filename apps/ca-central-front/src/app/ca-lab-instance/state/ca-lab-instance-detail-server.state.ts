@@ -8,7 +8,8 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalActionsService
+  FlPortalActionsService,
+  FlTranslatableText
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
@@ -38,7 +39,6 @@ export class CaLabInstanceDetailServerState {
     const input: FlConfirmDialogInput = {
       title: 'lab_init_server',
       content: 'lab_init_server_confirmation',
-      translateTitleAndContent: true,
     };
 
     this.openDialog(input, this.labInstanceService.initServer(this.state.getLabInstanceId()));
@@ -48,7 +48,6 @@ export class CaLabInstanceDetailServerState {
     const input: FlConfirmDialogInput = {
       title: 'lab_create_server',
       content: 'lab_create_server_confirmation',
-      translateTitleAndContent: true,
     };
 
     this.openDialog(input, this.labInstanceService.createServer(this.state.getLabInstanceId()));
@@ -58,7 +57,6 @@ export class CaLabInstanceDetailServerState {
     const input: FlConfirmDialogInput = {
       title: 'lab_configure_server',
       content: 'lab_configure_server_confirmation',
-      translateTitleAndContent: true,
     };
 
     this.openDialog(input, this.labInstanceService.configureServer(this.state.getLabInstanceId()));
@@ -86,7 +84,6 @@ export class CaLabInstanceDetailServerState {
     const input: FlConfirmDialogInput = {
       title: 'lab_update_lab_configurer_repo',
       content: 'lab_update_lab_configurer_repo_confirmation',
-      translateTitleAndContent: true,
     };
 
     this.openDialog(input, this.labInstanceService.updateLabConfigurerRepository(this.state.getLabInstanceId()));
@@ -96,7 +93,6 @@ export class CaLabInstanceDetailServerState {
     const input: FlConfirmDialogInput = {
       title: 'lab_configurer_destroy_containers',
       content: 'lab_configurer_destroy_containers_confirmation',
-      translateTitleAndContent: true,
     };
 
     this.openDialog(input, this.labInstanceService.destroyLabConfigurerContainers(this.state.getLabInstanceId()));
@@ -106,7 +102,6 @@ export class CaLabInstanceDetailServerState {
     const input: FlConfirmDialogInput = {
       title: 'lab_configurer_migrate',
       content: 'lab_configurer_migrate_confirmation',
-      translateTitleAndContent: true,
     };
 
     this.openDialog(input, this.labInstanceService.migrateToGithub(this.state.getLabInstanceId()));
@@ -116,7 +111,6 @@ export class CaLabInstanceDetailServerState {
     const input: FlConfirmDialogInput = {
       title: 'lab_delete_server',
       content: 'lab_delete_server_confirmation',
-      translateTitleAndContent: true,
     };
 
     this.openDialog(input, this.labInstanceService.deleteServer(this.state.getLabInstanceId()));
@@ -126,7 +120,6 @@ export class CaLabInstanceDetailServerState {
     const input: FlConfirmDialogInput = {
       title: 'lab_stop_current_task',
       content: 'lab_stop_current_task_confirmation',
-      translateTitleAndContent: true,
     };
 
     this.openDialog(input, this.labInstanceService.stopCurrentServerTask(this.state.getLabInstanceId()));
@@ -138,16 +131,16 @@ export class CaLabInstanceDetailServerState {
     );
   }
 
-  private onDialogClosed(result: FlConfirmDialogResult, text: string, action: Observable<any>): void {
+  private onDialogClosed(result: FlConfirmDialogResult, text: FlTranslatableText, action: Observable<any>): void {
     if (result.choice) {
       this.addPortalAction(text, action);
     }
   }
 
-  private addPortalAction(text: string, action: Observable<any>): void {
+  private addPortalAction(text: FlTranslatableText, action: Observable<any>): void {
     this.portalService.addAction({
       type: CaLabInstanceDetailPageState.actionType,
-      text: {text: text, translateText: true},
+      text: text,
       action: action
     });
   }

@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {LabStreamlitService} from '../../../../lab-core/service/lab-streamlit.service';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {LabStreamlitStatus} from '../../../../lab-core/model/global/lab-streamlit.class';
+import { Component } from '@angular/core';
+import { LabStreamlitService } from '../../../../lab-core/service/lab-streamlit.service';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { LabStreamlitStatus } from '../../../../lab-core/model/global/lab-streamlit.class';
 
 /**
  * Component to show information about the streamlit status
@@ -20,14 +20,12 @@ export class LabMonitoringStreamlitStatusComponent {
               private dialogService: FlDialogService) {
   }
 
-  stopApp() {
+  stopApp(): void {
     const input: FlConfirmDialogInput = {
       title: 'monitoring.streamlit_stop_app',
       content: 'monitoring.streamlit_stop_app_confirmation',
-      translateTitleAndContent: true,
       observable: this.streamlitService.stopApp(),
-      successMessage: 'monitoring.streamlit_app_stopped',
-      translateMessage: true
+      successMessage: 'monitoring.streamlit_app_stopped'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

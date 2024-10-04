@@ -12,7 +12,7 @@ import { CaTeamTableComponent } from './component/ca-team-table/ca-team-table.co
 import { CaTeamActionMenuComponent } from './component/ca-team-action-menu/ca-team-action-menu.component';
 import { CaTeamSearchComponent } from './component/ca-team-search/ca-team-search.component';
 import { CaTeamSearchFormComponent } from './component/ca-team-search-form/ca-team-search-form.component';
-import { CaProjectCoreModule } from '../ca-project-core/ca-project-core.module';
+import { CaFolderCoreModule } from '../ca-folder-core/ca-folder-core.module';
 import { CaUserGroupTableComponent } from './component/ca-user-group-table/ca-user-group-table.component';
 import { CaSelectGroupComponent } from './component/ca-select-group/ca-select-group.component';
 
@@ -50,7 +50,7 @@ import { CaSelectGroupComponent } from './component/ca-select-group/ca-select-gr
     RouterModule,
 
     CaCoreModule,
-    CaProjectCoreModule
+    CaFolderCoreModule
   ]
 })
 export class CaGroupCoreModule {

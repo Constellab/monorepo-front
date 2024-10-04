@@ -44,6 +44,7 @@ import { SpSpreadsheetModule } from '@monorepo/spreadsheet';
 import { TeTextEditorModule } from '@monorepo/text-editor';
 import { RvViewStreamlitComponent } from './component/rv-view-streamlit/rv-view-streamlit.component';
 import { RvViewPlotlyComponent } from './component/rv-view-plotly/rv-view-plotly.component';
+import { RvViewAudioComponent } from './component/rv-view-audio/rv-view-audio.component';
 
 @NgModule({
   imports: [
@@ -85,6 +86,7 @@ import { RvViewPlotlyComponent } from './component/rv-view-plotly/rv-view-plotly
     RvViewHtmlComponent,
     RvViewStreamlitComponent,
     RvViewPlotlyComponent,
+    RvViewAudioComponent,
   ],
   exports: [
     RvResourceViewComponent,
@@ -101,6 +103,7 @@ import { RvViewPlotlyComponent } from './component/rv-view-plotly/rv-view-plotly
     RvViewHtmlComponent,
     RvViewStreamlitComponent,
     RvViewPlotlyComponent,
+    RvViewAudioComponent,
   ],
 })
 export class RvResourceViewModule {

@@ -1,11 +1,13 @@
-import {Component, Inject, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {FlFormDialogInput} from '@monorepo/front-core-lib';
-import {FormControl} from '@ngneat/reactive-forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Validators} from '@angular/forms';
-import {debounceTime, Observable, startWith} from 'rxjs';
+import { Component, inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormControl, Validators } from '@angular/forms';
+import { debounceTime, Observable, startWith } from 'rxjs';
+import { FlTranslatableText } from '../../fl-translate/model/fl-translate-param';
+import { FlFormDialogInput } from '../../../model/fl-form.class';
 
-export type TeFormulaDialogInput = FlFormDialogInput<string>;
+export interface TeFormulaDialogInput extends FlFormDialogInput<string> {
+  helpText?: FlTranslatableText;
+}
 
 @Component({
   selector: 'fl-formula-dialog',
@@ -14,14 +16,14 @@ export type TeFormulaDialogInput = FlFormDialogInput<string>;
 })
 export class FlFormulaDialogComponent implements OnInit {
 
-  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+  @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   formulaControl: FormControl<string>;
 
   formula$: Observable<string>;
+  input: TeFormulaDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: TeFormulaDialogInput,
-              private dialogRef: MatDialogRef<FlFormulaDialogComponent>) {
+  constructor(private dialogRef: MatDialogRef<FlFormulaDialogComponent>) {
   }
 
   async ngOnInit(): Promise<void> {

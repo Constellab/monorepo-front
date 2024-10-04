@@ -1,13 +1,14 @@
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
-  FlSearchDateInterval
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {LabUser} from '../../../model/entities/lab-user.entity';
-import {ActivityObjectType, ActivityType} from '../../../model/entities/lab-activity.entity';
+import { Type } from 'class-transformer';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { LabUser } from '../../../model/entities/lab-user.entity';
+import { ActivityObjectType, ActivityType } from '../../../model/entities/lab-activity.entity';
 
 
 export class LabActivitySearchFields {
@@ -28,7 +29,7 @@ export class LabActivitySearch {
   /**
    * Const to configure Form Input Manager for advanced search
    */
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabActivitySearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<LabActivitySearchFields> = {
     user: 'monitoring.activity_user',
     activityType: 'monitoring.activity_type',
     activityObjectType: 'monitoring.activity_object_type',
@@ -41,7 +42,7 @@ export class LabActivitySearch {
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
-  public static advancedSearchConverter: FlSearchCriteriaConverter<LabActivitySearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<LabActivitySearchFields> = {
     user: {key: 'user', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     activityType: {key: 'activity_type', operator: 'IN'},
     activityObjectType: {key: 'object_type', operator: 'IN'},
@@ -49,14 +50,21 @@ export class LabActivitySearch {
     createdAt: FlSearchConverter.dateInterval('created_at'),
   };
 
-  public static getAdvancedSearchForm(): FormGroup<LabActivitySearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    activity_type: 'activity_type',
+    objectType: 'object_type',
+    objectId: 'object_id',
+    date: 'last_modified_at',
+  };
+
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         user: [null],
         activityType: [null],
         activityObjectType: [null],
         objectId: [null],
-        createdAt: new FormBuilder().group<FlSearchDateInterval>({
+        createdAt: new FormBuilder().group({
           from: [null],
           to: [null],
         })

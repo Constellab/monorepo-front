@@ -50,10 +50,10 @@
 
 
       <ng-container *ngIf="formGroup.value.period === customPeriod">
-        <fl-datetime-picker [label]="'lab_usage_period_from' | translate" (dateTimeChange)="startDateChange($event)"
+        <fl-datetime-picker [placeholder]="'lab_usage_period_from' | translate" (dateTimeChange)="startDateChange($event)"
                             formControlName="customStartDate" [maxDate]="currentDate"></fl-datetime-picker>
         @if(formGroup.value.customStartDate){
-          <fl-datetime-picker [label]="'lab_usage_period_to' | translate" [minDate]="formGroup.value.customStartDate"
+          <fl-datetime-picker [placeholder]="'lab_usage_period_to' | translate" [minDate]="formGroup.value.customStartDate"
                               [maxDate]="currentDate"
                               (dateTimeChange)="endDateChange($event)" formControlName="customEndDate"></fl-datetime-picker>
         }

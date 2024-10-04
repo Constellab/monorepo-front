@@ -1,0 +1,113 @@
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
+
+  <!-- Title -->
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border" mat-sort-header>
+      <span> {{ 'title' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let note" class="g-cell-with-left-border"
+              [style.border-left-color]="note.folder?.id | flStringToRgb">
+
+      <!--    Invisible link  -->
+      @if (!rowSelectable) {
+        <a [routerLink]="note | labDetailRoute"
+           [target]="rowLinkTarget" class="g-row-link"></a>
+      }
+
+      <div>
+        <div class="g-text-dense-height text">{{ note.title }}</div>
+        @if (note.folder) {
+          <fl-text-icon class="g-text-tiny g-text-light"
+                        gap="3px">
+            <mat-icon flIcon="folder" class="g-icon-tiny"></mat-icon>
+            <div class="g-text-dense-height text">{{ note.folder.title }}</div>
+          </fl-text-icon>
+        }
+      </div>
+
+      @if (note.isValidated) {
+
+        <mat-icon class="status-icon over-link"
+                  [matTooltip]="'biox.note_validated' | translate" flIcon="validated">
+        </mat-icon>
+      }
+
+      @if (note.isArchived) {
+        <mat-icon class="status-icon over-link"
+                  [matTooltip]="'biox.note_archived' | translate" flIcon="archive">
+        </mat-icon>
+      }
+
+    </mat-cell>
+  </ng-container>
+
+  <!-- Tags -->
+  <ng-container matColumnDef="tags">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+      <span> {{ 'tags' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let note" class="g-column-width-2">
+      @defer (on viewport) {
+        <lab-tag-list [tags]="note | labGetEntityTags"
+                      [tagSelectable]="true"></lab-tag-list>
+      } @placeholder {
+        <div></div>
+      }
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Creation -->
+  <ng-container matColumnDef="creation">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span>{{ 'creation_info' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"
+                         class="over-link"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last Modification -->
+  <ng-container matColumnDef="lastModification">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span>{{ 'last_modification_info' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"
+                         class="over-link"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last Synchro -->
+  <ng-container matColumnDef="lastSynchro">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span>{{ 'biox.last_sync' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @if (row.isSynced) {
+        <fl-user-with-date [user]="row.lastSyncBy" [date]="row.lastSyncAt"
+                           class="over-link"></fl-user-with-date>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Unlinked note button -->
+  <ng-container matColumnDef="unlink">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
+    </mat-header-cell>
+    <mat-cell *matCellDef="let note" class="g-table-icon-button-cell">
+      <button mat-icon-button type="button" (click)="unlinkNote(note, $event)"
+              [matTooltip]="'biox.note_unlink_experiment' | translate"
+              class="over-link">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
+           (click)="rowClicked(row)"></mat-row>
+
+</mat-table>

@@ -1,9 +1,13 @@
-import {CaBaseEntity} from './ca-base-entity.class';
-import {FlDatasourcePaginated, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {CaUser} from './ca-user.class';
-import {Type} from 'class-transformer';
-import {ClGetPageFunction, ClHelpService, ClLuxonDateTimeTransform} from '@monorepo/core-lib';
-import {DateTime} from 'luxon';
+import { CaBaseEntity } from './ca-base-entity.class';
+import {
+  FlDatasourceGetPageFunction,
+  FlDatasourcePaginated,
+  FlEntityPaginatedDatasource
+} from '@monorepo/front-core-lib';
+import { CaUser } from './ca-user.class';
+import { Type } from 'class-transformer';
+import { ClHelpService, ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { DateTime } from 'luxon';
 
 export enum CaGroupType {
   SINGLE_USER = 'SINGLE_USER',
@@ -26,7 +30,7 @@ export class CaGroup extends CaBaseEntity {
   }
 }
 
-export type CaGroupDatasource = FlEntityPaginatedDatasource<CaGroup>;
+export type CaGroupDatasource<F = void> = FlEntityPaginatedDatasource<CaGroup, F>;
 
 export interface CaSaveTeamDTO {
   id: string;
@@ -51,7 +55,7 @@ export class CaUserGroup {
 
 export class CaUserGroupDatasource extends FlDatasourcePaginated<CaUserGroup> {
 
-  constructor(getPageFunction: ClGetPageFunction<CaUserGroup>, pageSize: number, initFirstPage: boolean = true) {
+  constructor(getPageFunction: FlDatasourceGetPageFunction<CaUserGroup>, pageSize: number, initFirstPage: boolean = true) {
     super(getPageFunction, pageSize, initFirstPage);
   }
 

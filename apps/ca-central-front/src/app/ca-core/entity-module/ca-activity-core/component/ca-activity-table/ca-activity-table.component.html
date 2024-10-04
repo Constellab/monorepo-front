@@ -1,8 +1,8 @@
-<mat-table mat-table [dataSource]="datasource">
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
 
   <!-- EntityType -->
   <ng-container matColumnDef="entityType">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{'activity_entity_type' | translate}}/{{'activity_action_type' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -15,7 +15,7 @@
 
   <!-- Title -->
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2" mat-sort-header>
       <span> {{'title' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-column-width-2">
@@ -25,7 +25,7 @@
 
   <!-- EntityName -->
   <ng-container matColumnDef="entityName">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{'activity_entity_name' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -33,30 +33,9 @@
     </mat-cell>
   </ng-container>
 
-  <!-- ActionType -->
-  <ng-container matColumnDef="actionType">
-    <mat-header-cell *matHeaderCellDef>
-      <span> {{'activity_action_type' | translate}}</span>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      {{row.actionType}}
-    </mat-cell>
-  </ng-container>
-
-  <!-- Space -->
-  <ng-container matColumnDef="space">
-    <mat-header-cell *matHeaderCellDef>
-      <span> {{'space' | translate}}</span>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <ca-space-inline [space]="row.space"></ca-space-inline>
-    </mat-cell>
-  </ng-container>
-
-
   <!-- Creation info -->
   <ng-container matColumnDef="creation">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span> {{'activity_user_date' | translate}}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">

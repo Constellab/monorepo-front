@@ -355,5 +355,8 @@
   "join_constellab": "Join Constellab",
   "members": "Members",
   "fair_open_access_description": "Get open access to start on Constellab, create open-source projects, earn credits from your work",
-  "join_our_discord": "Join our Discord"
+  "join_our_discord": "Join our Discord",
+  "delete_live_task_version": "Delete live task version",
+  "delete_live_task_version_confirmation": "Are you sure you want to delete this live task version ?",
+  "live_task_version_deleted": "Live task version deleted"
 }

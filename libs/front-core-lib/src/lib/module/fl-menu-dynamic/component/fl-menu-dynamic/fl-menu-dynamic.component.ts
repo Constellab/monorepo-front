@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FlMenuDynamic, FlMenuDynamicButton} from '../../model/fl-menu-dynamic.class';
-import {MatMenu, MatMenuTrigger, MenuPositionX, MenuPositionY} from '@angular/material/menu';
-import {Observable, of} from 'rxjs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FlMenuDynamic, FlMenuDynamicButton } from '../../model/fl-menu-dynamic.class';
+import { MatMenu, MatMenuTrigger, MenuPositionX, MenuPositionY } from '@angular/material/menu';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'fl-menu-dynamic',
@@ -9,7 +9,7 @@ import {Observable, of} from 'rxjs';
   styleUrls: ['./fl-menu-dynamic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlMenuDynamicComponent implements OnInit {
+export class FlMenuDynamicComponent {
 
   public static readonly containerClass = 'fl-dynamic-menu';
 
@@ -29,23 +29,25 @@ export class FlMenuDynamicComponent implements OnInit {
 
   // use to access the MatMenu from outside
   // use the [matMenuTriggerFor]="menuComponent.menu" with this value to open the menu
-  @ViewChild(MatMenu, {static: true}) public menu: MatMenu;
+  @ViewChild(MatMenu, { static: true }) public menu: MatMenu;
 
-  @ViewChild(MatMenuTrigger, {static: false}) menuTrigger: MatMenuTrigger;
+  @ViewChild(MatMenuTrigger, { static: false }) menuTrigger: MatMenuTrigger;
+
+  @Output() buttonClick: EventEmitter<FlMenuDynamic> = new EventEmitter();
 
   containerClass = FlMenuDynamicComponent.containerClass;
 
   menuItems$: Observable<FlMenuDynamic[]>;
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   callItem(menuItem: FlMenuDynamicButton, event: MouseEvent): void {
     if (menuItem.onClick) {
       menuItem.onClick(event);
+      this.buttonClick.next(menuItem);
     }
+  }
+
+  onButtonClick(menuItem: FlMenuDynamic): void {
+    this.buttonClick.next(menuItem);
   }
 }

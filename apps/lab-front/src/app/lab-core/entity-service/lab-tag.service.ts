@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FlApiService, FlTag, FlTagService, FlTagValue } from '@monorepo/front-core-lib';
+import { FlApiService, FlTag, FlTagSearchFilter, FlTagService, FlTagValue } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
   LabCreateTagResponse,
@@ -46,7 +46,7 @@ export class LabTagService extends FlTagService {
   }
 
 
-  searchTag(filters: { key: string; value?: string },
+  searchTag(filters: Partial<FlTagSearchFilter>,
             page: number, pageSize: number): Observable<ClPageI<any>> {
     if (filters.value == null) {
       return this.searchKeys(filters.key, page, pageSize);

@@ -17,16 +17,16 @@ import {
 import { map } from 'rxjs/operators';
 import { LabExperimentService } from '../../../../../lab-core/entity-service/lab-experiment.service';
 import { LabRouterService } from '../../../../../lab-core/service/lab-router.service';
-import { LabReport } from '../../../../../lab-core/model/entities/lab-report.entity';
+import { LabNote } from '../../../../../lab-core/model/entities/lab-note.entity';
 import {
-  LabReportFormDialogComponent,
-  LabReportFormDialogInput
-} from '../../../../../lab-core/entity-module/lab-report-core/component/lab-report-form-dialog/lab-report-form-dialog.component';
+  LabNoteFormDialogComponent,
+  LabNoteFormDialogInput
+} from '../../../../../lab-core/entity-module/lab-note-core/component/lab-note-form-dialog/lab-note-form-dialog.component';
 import {
   LabValidateObjectDialogComponent,
   LabValidateObjectDialogInput
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
-import { LabProject } from '../../../../../lab-core/model/entities/lab-project.class';
+import { LabFolder } from '../../../../../lab-core/model/entities/lab-folder.class';
 import { LabQueueService } from '../../../../../lab-core/entity-service/lab-queue.service';
 import {
   LabLogBetweenDatesDialogInput,
@@ -99,9 +99,9 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
 
     const input: LabValidateObjectDialogInput = {
       title: 'biox.validate_experiment',
-      validate: (project: LabProject): Observable<any> =>
-        this.experimentService.validateExperiment(experiment.id, project.id),
-      project: experiment.project,
+      validate: (folder: LabFolder): Observable<any> =>
+        this.experimentService.validateExperiment(experiment.id, folder.id),
+      folder: experiment.folder,
       helpText: 'biox.validate_experiment_help_text',
       successMessage: 'biox.experiment_validated'
     };
@@ -117,10 +117,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'biox.remove_experiment_from_queue',
       content: 'biox.remove_experiment_from_queue_confirmation',
-      translateTitleAndContent: true,
       observable: this.queueService.removeExperimentFromQueue(experiment.id),
-      successMessage: 'biox.experiment_removed_from_queue',
-      translateMessage: true
+      successMessage: 'biox.experiment_removed_from_queue'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -157,10 +155,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'biox.clone_experiment',
       content: 'biox.clone_experiment_confirmation',
-      translateTitleAndContent: true,
       observable: this.experimentService.cloneExperiment(experiment.id),
-      successMessage: 'biox.experiment_cloned',
-      translateMessage: true
+      successMessage: 'biox.experiment_cloned'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
@@ -174,23 +170,23 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     }
   }
 
-  openCreateReport(): void {
+  openCreateNote(): void {
     const experiment = this.experimentState.currentExperiment;
 
-    const input: LabReportFormDialogInput = {
+    const input: LabNoteFormDialogInput = {
       mode: 'create',
       experimentId: experiment.id,
-      project: experiment.project
+      folder: experiment.folder
     };
 
-    this.dialogService.openSmallDialog(LabReportFormDialogComponent, { data: input }).afterClosed().subscribe(
-      report => this.onReportCreateClosed(report)
+    this.dialogService.openSmallDialog(LabNoteFormDialogComponent, { data: input }).afterClosed().subscribe(
+      note => this.onNoteCreateClosed(note)
     );
   }
 
-  private onReportCreateClosed(report?: LabReport): void {
-    if (report) {
-      this.routerService.navigateToReportDetail(report.id);
+  private onNoteCreateClosed(note?: LabNote): void {
+    if (note) {
+      this.routerService.navigateToNoteDetail(note.id);
     }
   }
 
@@ -226,7 +222,6 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
           param: { title: experiment.title }
         }
       },
-      confirm2: 'If you reset the experiment',
       noImpactConfirmText: { text: 'biox.reset_experiment_confirmation', translateText: true },
       checkImpact: () => this.experimentService.checkImpactForResetExperiment(experiment.id),
       callAction: () => this.experimentService.resetExperiment(experiment.id)
@@ -286,19 +281,15 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       input = {
         title: 'biox.unarchive_experiment',
         content: 'biox.unarchive_experiment_confirmation',
-        translateTitleAndContent: true,
         observable: this.experimentService.unarchiveExperiment(experiment.id),
-        successMessage: 'biox.experiment_unarchived',
-        translateMessage: true
+        successMessage: 'biox.experiment_unarchived'
       };
     } else {
       input = {
         title: 'biox.archive_experiment',
         content: 'biox.archive_experiment_confirmation',
-        translateTitleAndContent: true,
         observable: this.experimentService.archiveExperiment(experiment.id),
-        successMessage: 'biox.experiment_archived',
-        translateMessage: true
+        successMessage: 'biox.experiment_archived'
       };
     }
 
@@ -313,7 +304,9 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     }
   }
 
-  openProgressInformation(): void {
+  openProgressInformation(experiment: LabExperiment): void {
+    if (experiment.isDraft()) return;
+
     this.dialogService.openBigDialog(LabProgressBarInfoDialogComponent,
       {
         data:
@@ -324,6 +317,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
   }
 
   openProcessLogs(experiment: LabExperiment): void {
+    if (experiment.isDraft()) return;
     const input: LabLogBetweenDatesDialogInput = {
       title: experiment.title,
       loadFunction: (fromDatePage?: DateTime) => this.processService.getProcessLogs('PROTOCOL', experiment.protocol.id, fromDatePage),
@@ -348,7 +342,7 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
       entityId: experiment.id
     };
 
-    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, {data});
+    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, { data });
   }
 
 
@@ -358,10 +352,8 @@ export class LabExperimentDetailHeaderComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'biox.delete_experiment_intermediate_resources',
       content: 'biox.delete_experiment_intermediate_resources_confirmation',
-      translateTitleAndContent: true,
       observable: this.experimentService.deleteIntermediateResources(experiment.id),
-      successMessage: 'biox.experiment_intermediate_resources_deleted',
-      translateMessage: true
+      successMessage: 'biox.experiment_intermediate_resources_deleted'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

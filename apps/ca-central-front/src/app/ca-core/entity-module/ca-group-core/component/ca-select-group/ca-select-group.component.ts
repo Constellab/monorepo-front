@@ -1,10 +1,10 @@
-import {Component, EventEmitter, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlEntityPaginatedDatasource, FlFormFieldDirective} from '@monorepo/front-core-lib';
-import {CaGroup, CaGroupDatasource} from '../../../../model/entities/ca-group.entity';
-import {Observable} from 'rxjs';
-import {NgControl} from '@angular/forms';
-import {CaGroupService} from '../../../../service-api/ca-group.service';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Component, EventEmitter, OnInit, Optional, Output, Self } from '@angular/core';
+import { FlEntityPaginatedDatasource, FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib';
+import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.entity';
+import { Observable } from 'rxjs';
+import { NgControl } from '@angular/forms';
+import { CaGroupService } from '../../../../service-api/ca-group.service';
+import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-select-group',
@@ -20,7 +20,7 @@ export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup>
 
   selectGroup: CaGroup | Observable<CaGroup>;
 
-  datasource: CaGroupDatasource;
+  datasource: CaGroupDatasource<FlInputSearchFilter>;
 
   constructor(@Optional() @Self() ngControl: NgControl,
               private groupService: CaGroupService) {
@@ -29,11 +29,11 @@ export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup>
 
   ngOnInit(): void {
     this.datasource = new FlEntityPaginatedDatasource(
-      (page, size, label) => {
-        if (ClHelpService.isNullOrEmpty(label)) {
+      (page, size, data) => {
+        if (ClHelpService.isNullOrEmpty(data.filtersCriteria.searchText)) {
           return this.groupService.getAllCurrentGroups(page, size);
         } else {
-          return this.groupService.searchGroupInCurrentSpaceByLabel(label, page, size);
+          return this.groupService.searchGroupInCurrentSpaceByLabel(data.filtersCriteria.searchText, page, size);
         }
       }, 20, false);
   }

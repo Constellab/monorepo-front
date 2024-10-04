@@ -3,8 +3,8 @@ import {
   labConstBioxFullRoute,
   labConstDataboxFullRoute,
   labConstDocumentTemplateFullRoute,
+  labConstNoteFullRoute,
   labConstProtocolTemplateRoute,
-  labConstReportFullRoute,
   labConstViewboxFullRoute
 } from '../lab-core/utils/lab-base-route';
 
@@ -21,6 +21,11 @@ export interface LabMainMenuLink {
 export function getMainMenuLinks(): LabMainMenuLink[] {
   return [
     {
+      label: 'biox.notepad',
+      icon: 'note',
+      route: labConstNoteFullRoute,
+    },
+    {
       label: 'biox.experiments',
       icon: 'experiment',
       route: labConstBioxFullRoute
@@ -34,11 +39,6 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       label: 'biox.viewbox',
       icon: 'view',
       route: labConstViewboxFullRoute
-    },
-    {
-      label: 'biox.reports',
-      icon: 'report',
-      route: labConstReportFullRoute,
     },
     {
       label: 'biox.protocol_templates',

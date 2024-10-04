@@ -1,10 +1,15 @@
-import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlDialogService, FlFormFieldDirective, FlInputSearchAdvancedButton} from '@monorepo/front-core-lib';
-import {LabTypeEntity, LabTypeEntityDatasource} from '../../../../model/entities/lab-type/lab-type.entity';
-import {NgControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {LabTypeService} from '../../../../entity-service/lab-type.service';
-import {TdTypeObjectType} from '@monorepo/technical-doc';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import {
+  FlDialogService,
+  FlFormFieldDirective,
+  FlInputSearchAdvancedButton,
+  FlInputSearchFilter
+} from '@monorepo/front-core-lib';
+import { LabTypeEntity, LabTypeEntityDatasource } from '../../../../model/entities/lab-type/lab-type.entity';
+import { NgControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { LabTypeService } from '../../../../entity-service/lab-type.service';
+import { TdTypeObjectType } from '@monorepo/technical-doc';
 import {
   LabSelectTypeDialogComponent,
   LabSelectTypeDialogInput
@@ -31,7 +36,7 @@ export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity>
 
   selectedType: LabTypeEntity | Observable<LabTypeEntity>;
 
-  datasource: LabTypeEntityDatasource;
+  datasource: LabTypeEntityDatasource<FlInputSearchFilter>;
 
   advancedButton: FlInputSearchAdvancedButton<LabTypeEntity>;
 
@@ -77,7 +82,7 @@ export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity>
     this.selectedType = value;
   }
 
-  onDisableChange(disable: boolean): void {
+  onDisableChange(): void {
   }
 
 }

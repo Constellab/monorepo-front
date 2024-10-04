@@ -1,12 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {HaDocumentationSearchDTO} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import {mergeMap, Observable, of, startWith} from 'rxjs';
-import {FormControl} from '@ngneat/reactive-forms';
-import {map} from 'rxjs/operators';
-import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
-import {clRxjsElasticSearch} from '@monorepo/core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { HaDocumentationSearchDTO } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import { mergeMap, Observable, of, startWith } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
+import { clRxjsElasticSearch } from '@monorepo/core-lib';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ha-public-find-doc-dialog',

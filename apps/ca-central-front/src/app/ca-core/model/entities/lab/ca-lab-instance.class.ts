@@ -61,7 +61,7 @@ export class CaLabInstanceStatusHistory extends CaStatusHistory<CaLabInstanceSta
   status: FlStatus<CaLabInstanceStatus>;
 }
 
-export type CaLabInstanceStatusHistoryDatasource = FlEntityPaginatedDatasource<CaLabInstanceStatusHistory>;
+export type CaLabInstanceStatusHistoryDatasource<F = void> = FlEntityPaginatedDatasource<CaLabInstanceStatusHistory, F>;
 
 /**
  * A lab instance is a running lab
@@ -164,7 +164,7 @@ export class CaLabInstanceWithSpace extends CaLabInstance {
   serverCloud: CaServerCloud;
 }
 
-export type CaLabInstanceDatasource = FlEntityPaginatedDatasource<CaLabInstance>;
+export type CaLabInstanceDatasource<F = void> = FlEntityPaginatedDatasource<CaLabInstance, F>;
 
 
 export class CaLabInstanceFindOneDto {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlDialogService,
@@ -6,17 +6,16 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTableColumnStatic,
   FlThemeService
 } from '@monorepo/front-core-lib';
-import {CaSpaceService} from '../../../../service-api/ca-space.service';
-import {CaSpaceSearch, CaSpaceSearchFields} from '../../model/ca-space-search.class';
-import {CaSpace, CaSpaceDatasource} from '../../../../model/entities/space/ca-space.class';
+import { CaSpaceService } from '../../../../service-api/ca-space.service';
+import { CaSpaceSearch, CaSpaceSearchFields } from '../../model/ca-space-search.class';
+import { CaSpaceDatasource } from '../../../../model/entities/space/ca-space.class';
 import {
   CaSpaceFormDialogComponent,
   CaSpaceFormDialogInput
 } from '../ca-space-form-dialog/ca-space-form-dialog.component';
-import {CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space.dto';
+import { CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
 
 
 @Component({
@@ -27,10 +26,7 @@ import {CaSpaceSettingsDto} from '../../../../model/entities/space/ca-space.dto'
 })
 export class CaSpaceSearchComponent implements OnInit {
 
-  datasource: CaSpaceDatasource;
-
-  columns: FlTableColumnStatic<CaSpace>[] = ['name', 'created', 'lastModified', 'type', 'detail'];
-
+  datasource: CaSpaceDatasource<CaSpaceSearchFields>;
 
   constructor(private searchState: FlSearchState<any>,
               private spaceService: CaSpaceService,
@@ -41,13 +37,14 @@ export class CaSpaceSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaSpaceSearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaSpaceSearch.getSearchForm,
       advancedFormClass: CaSpaceSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaSpaceSearch.advancedSearchManagerConfig,
+        config: CaSpaceSearch.searchManagerConfig
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: { key: 'created', direction: 'DESC' }
     };
 
     this.datasource = new FlEntityPaginatedDatasource(
@@ -73,7 +70,7 @@ export class CaSpaceSearchComponent implements OnInit {
       mode: 'create'
     };
 
-    this.dialogService.openSmallDialog(CaSpaceFormDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaSpaceFormDialogComponent, { data: input }).afterClosed().subscribe(
       version => this.onCreateClosed(version)
     );
   }
@@ -88,10 +85,8 @@ export class CaSpaceSearchComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'generate_all_user_space',
       content: 'generate_all_user_space_confirmation',
-      translateTitleAndContent: true,
       observable: this.spaceService.generateAllUserPersonalSpace(),
       successMessage: 'all_user_space_generated',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data);

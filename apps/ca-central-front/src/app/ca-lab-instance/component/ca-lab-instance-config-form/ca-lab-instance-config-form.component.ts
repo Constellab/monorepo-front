@@ -85,7 +85,6 @@ export class CaLabInstanceConfigFormComponent {
       const data: FlConfirmDialogInput = {
         title: 'lab_instance_remove_brick',
         content: 'lab_instance_remove_brick_confirmation',
-        translateTitleAndContent: true,
       };
 
       this.dialogService.openConfirmDialog(data).afterClosed().subscribe(

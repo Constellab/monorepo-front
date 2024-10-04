@@ -1,13 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
-import {HaFolder} from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
-import {HaFolderService} from '../../../../ha-core/ha-service/ha-folder.service';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {HaDocumentationService} from '../../../../ha-core/ha-service/ha-documentation.service';
-import {HaNodeDTO, HaNodeType} from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
-import {HaDocumentation} from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import { Component, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
+import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
+import { HaNodeDTO, HaNodeType } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
+import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 
 @Component({
   selector: 'ha-public-sidenav-create-form-dialog',
@@ -37,7 +36,7 @@ export class HaPublicSidenavCreateFormDialogComponent extends FlFormDialogAbstra
     this.formGp.value.folderId = this.dialogInput.object.folderId;
   }
 
-  buildForm(): FormGroup<Partial<HaNodeDTO>> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       title: [null, Validators.required],

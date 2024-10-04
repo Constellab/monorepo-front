@@ -1,8 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CaLabInstanceType, CaLabInstanceWithSpace } from '../../../../model/entities/lab/ca-lab-instance.class';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { Observable } from 'rxjs';
-import { ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
@@ -56,7 +55,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
     }
   }
 
-  buildForm(): FormGroup<CaLabInstanceAdminForm> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required]],
@@ -126,7 +125,7 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
         if (this.isCreateMode()) {
           this.formGp.get('dailyBackupRegion').enable();
           this.formGp.get('weeklyBackupRegion').enable();
-          this.formGp.addValidators([this.differentBackupRegionValidator()]);
+          this.formGp.addValidators([CaLabInstanceValidator.differentBackupRegionValidator()]);
         }
         break;
       case 'ON_PREMISE':
@@ -195,22 +194,6 @@ export class CaLabInstanceAdminFormDialogComponent extends FlFormDialogAbstractD
 
   getUpdateSuccessMessage(): string {
     return 'lab_instance_updated';
-  }
-
-  public differentBackupRegionValidator(): ValidatorFn {
-    return (control: FormGroup<CaLabInstanceAdminForm>): { [key: string]: any } => {
-      if (!control.value) return null;
-
-      const dailyBackupRegion = control.value.dailyBackupRegion;
-      const weeklyBackupRegion = control.value.weeklyBackupRegion;
-
-      if (dailyBackupRegion == null || weeklyBackupRegion == null) return null;
-
-      if (dailyBackupRegion.id === weeklyBackupRegion.id) {
-        return { sameBackupRegion: true };
-      }
-      return null;
-    };
   }
 
 }

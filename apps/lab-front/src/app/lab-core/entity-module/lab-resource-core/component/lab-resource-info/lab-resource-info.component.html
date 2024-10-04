@@ -31,11 +31,11 @@
       </fl-text-icon>
     }
 
-    <!--  Project  -->
-    @if (resource.project) {
+    <!--  Folder  -->
+    @if (resource.folder) {
       <fl-text-icon class="line">
-        <mat-icon flIcon="project"></mat-icon>
-        <lab-project-inline [project]="resource.project"></lab-project-inline>
+        <mat-icon flIcon="folder"></mat-icon>
+        <lab-folder-inline [folder]="resource.folder"></lab-folder-inline>
       </fl-text-icon>
     }
 

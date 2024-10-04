@@ -1,0 +1,63 @@
+<mat-table mat-table [dataSource]="datasource" class="table" flSearchTableSort>
+
+  <!-- Name/Code -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span> {{ 'name' | translate }} / {{ 'code' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let folder">
+
+      <!--    Invisible link  -->
+      <a [routerLink]="folder | caDetailRoute" class="g-row-link"></a>
+
+      <ca-folder-inline [folder]="folder"></ca-folder-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Creation info -->
+  <ng-container matColumnDef="creation">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span> {{ 'creation_info' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let folder">
+      <fl-user-with-date [user]="folder.createdBy" [date]="folder.createdAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Leader -->
+  <ng-container matColumnDef="leader">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span> {{ 'folder_leader' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let folder">
+      <fl-user-inline [user]="folder.leader"></fl-user-inline>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
+      <button mat-icon-button type="button"
+              (click)="openFolderActionMenu(row, $event)"
+              class="g-row-button">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Custom action where template is defined by parent -->
+  <ng-container matColumnDef="customAction">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
+      <ng-container *ngTemplateOutlet="templateRef; context: getViewContent(row)"></ng-container>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container">
+  </mat-row>
+</mat-table>

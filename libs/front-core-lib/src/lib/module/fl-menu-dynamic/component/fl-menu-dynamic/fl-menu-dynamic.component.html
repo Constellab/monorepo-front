@@ -9,14 +9,14 @@
       <button mat-menu-item [matMenuTriggerFor]="subMenu.menu" (click)="callItem(item, $event)"
               [disabled]="item.disabled">
         <mat-icon *ngIf="item.icon" [flIcon]="item.icon"></mat-icon>
-        {{item.text | flTranslatableText}}
+        {{item.text | flTranslatableText | async}}
       </button>
       <fl-menu-dynamic #subMenu [menuItems]="item.children" [hasBackdrop]="false"></fl-menu-dynamic>
     </span>
 
         <!-- Handle leaf node menu items -->
         <ng-template #leaf>
-          <fl-menu-dynamic-button [menuDynamic]="item"></fl-menu-dynamic-button>
+          <fl-menu-dynamic-button [menuDynamic]="item" (buttonClick)="onButtonClick($event)"></fl-menu-dynamic-button>
         </ng-template>
       </ng-container>
     </div>

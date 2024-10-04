@@ -1,9 +1,9 @@
 <fl-dialog-header [hideCloseButton]="true">
-  <div [innerHTML]="title"></div>
+  <div [innerHTML]="inputData.title | flTranslatableText | async"></div>
 </fl-dialog-header>
 
 <div mat-dialog-content>
-  <div [innerHTML]="content" class="content g-text-with-jump"></div>
+  <div [innerHTML]="inputData.content | flTranslatableText | async" class="content g-text-with-jump"></div>
 
 
   @if (confirmTextFormControl) {

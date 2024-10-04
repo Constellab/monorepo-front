@@ -19,14 +19,19 @@ export const caMainMenuLinks: CaMainMenuLink[] = [
     route: CaRouterService.getDashboardRoute(),
   },
   {
-    label: 'my_projects',
-    icon: 'project',
-    route: CaRouterService.getMyProjectsRoute()
+    label: 'my_folders',
+    icon: 'folder',
+    route: CaRouterService.getMyFoldersRoute()
   },
   {
     label: 'my_labs',
     icon: 'lab',
     route: CaRouterService.getMyLabInstancesRoute()
+  },
+  {
+    label: 'chat',
+    icon: 'chat',
+    route: CaRouterService.getChatRoute()
   },
   {
     label: 'my_teams',

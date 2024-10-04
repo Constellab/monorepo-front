@@ -32,10 +32,8 @@ export class CaStoragePriceTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_storage_price',
       content: 'delete_storage_price_confirm',
-      translateTitleAndContent: true,
       observable: this.serverService.deleteStoragePrice(price.id),
       successMessage: 'storage_price_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

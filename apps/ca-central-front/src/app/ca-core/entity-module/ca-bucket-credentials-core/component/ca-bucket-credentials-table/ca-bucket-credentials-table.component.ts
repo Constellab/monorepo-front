@@ -76,10 +76,8 @@ export class CaBucketCredentialsTableComponent implements OnInit {
     const input: FlConfirmDialogInput = {
       title: 'delete_bucket_credentials',
       content: 'delete_bucket_credentials_confirm',
-      translateTitleAndContent: true,
       observable: this.objectStorageService.deleteCredentials(credentials.id),
       successMessage: 'bucket_credentials_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

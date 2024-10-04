@@ -21,7 +21,11 @@
       </div>
     }
   </div>
-  <ha-live-task-version-detail></ha-live-task-version-detail>
+  @if(currentVersion) {
+    <ha-live-task-version-detail></ha-live-task-version-detail>
+  } @else {
+    <fl-loader></fl-loader>
+  }
 
 </div>
 <div *ngIf="isLiveTaskVersionLoading()">

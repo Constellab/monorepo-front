@@ -1,7 +1,11 @@
-import {FlFormInputsManagerConfig, FlSearchCriteriaConverter} from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {LabSearchConverter} from '../../../model/global/lab-search-converter.class';
-import {TdTypeObjectSubType, TdTypeObjectType} from '@monorepo/technical-doc';
+import {
+  FlFormInputsManagerConfig,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
+} from '@monorepo/front-core-lib';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
+import { TdTypeObjectSubType, TdTypeObjectType } from '@monorepo/technical-doc';
 
 /**
  * config for the lab type search component
@@ -49,7 +53,7 @@ export class LabTypeSearch {
   /**
    * Const to configure Form Input Manager for advanced search
    */
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<LabTypeSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<LabTypeSearchFields> = {
     text: 'name',
     objectSubType: 'biox.process_type_type',
     includeDeprecated: 'biox.type_include_deprecated',
@@ -59,7 +63,7 @@ export class LabTypeSearch {
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
-  public static advancedSearchConverter: FlSearchCriteriaConverter<LabTypeSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<LabTypeSearchFields> = {
     brick: {key: 'brick', operator: 'IN'},
     text: {key: 'text', operator: 'MATCH'},
     objectType: {key: 'object_type', operator: 'IN'},
@@ -68,7 +72,13 @@ export class LabTypeSearch {
     includeDeprecated: {key: 'include_deprecated', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck}
   };
 
-  public static getAdvancedSearchForm(): FormGroup<LabTypeSearchFields> {
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    name: 'human_name',
+    description: 'short_description',
+    objectSubType: 'object_type',
+  };
+
+  public static getSearchForm(): FormGroup {
     return new FormBuilder().group(
       {
         brick: [[]],

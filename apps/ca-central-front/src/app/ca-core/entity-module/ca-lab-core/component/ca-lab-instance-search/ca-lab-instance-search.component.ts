@@ -36,7 +36,7 @@ export class CaLabInstanceSearchComponent implements OnInit {
    */
   @Input() mode: CaLabInstanceSearchMode;
 
-  datasource: CaLabInstanceDatasource;
+  datasource: CaLabInstanceDatasource<CaLabInstanceSearchFields>;
 
   columns: FlTableColumnStatic<CaLabInstance>[];
 
@@ -50,13 +50,14 @@ export class CaLabInstanceSearchComponent implements OnInit {
   ngOnInit(): void {
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaLabInstanceSearch.getAdvancedSearchForm,
+      buildAdvancedForm: CaLabInstanceSearch.getSearchForm,
       advancedFormClass: CaLabInstanceSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaLabInstanceSearch.advancedSearchManagerConfig,
+        config: CaLabInstanceSearch.searchManagerConfig,
       },
-      storeSearchInUrl: true
+      storeSearchInUrl: true,
+      defaultSort: {key: 'name', direction: 'ASC'}
     };
 
     this.datasource = this.getDatasource();
@@ -91,11 +92,11 @@ export class CaLabInstanceSearchComponent implements OnInit {
     ];
   }
 
-  private getDatasource(): CaLabInstanceDatasource {
+  private getDatasource(): CaLabInstanceDatasource<CaLabInstanceSearchFields> {
     switch (this.mode) {
       case 'all':
         return new FlEntityPaginatedDatasource(
-          (page, size, filters) => this.labInstanceService.searchAll(page, size, filters),
+          (page, size, data) => this.labInstanceService.searchAll(page, size, data),
           20, false);
       case 'current-space':
         return new FlEntityPaginatedDatasource(

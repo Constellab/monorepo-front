@@ -1,0 +1,42 @@
+<form [formGroup]="formGp" (ngSubmit)="submit()"
+      class="g-layout-row g-layout-start-center g-layout-gap-1em">
+  <!--    Filter by name    -->
+  <mat-form-field class="g-form-field-compact" subscriptSizing="dynamic">
+    <mat-label>{{ 'name' | translate }}</mat-label>
+    <input matInput [placeholder]="'name' | translate" formControlName="name">
+  </mat-form-field>
+
+
+  <!--   Filter by object type     -->
+  <mat-form-field class="g-form-field-compact" subscriptSizing="dynamic">
+    <mat-label>{{ 'folder_object_type' | translate }}</mat-label>
+    <mat-select formControlName="objectType"
+                panelClass="g-mat-select-panel-no-max-height"
+                [placeholder]="'folder_object_type' | translate">
+      @if (typeIsSelected()) {
+        <mat-select-trigger>
+          {{ getSelectedTypeLabel() | translate }}
+        </mat-select-trigger>
+      }
+      <!-- Split if in two, otherwise, there is a warning     -->
+      @if (typeIsSelected()) {
+        <mat-option [value]="null">
+          <div class="g-layout-row g-layout-start-center g-text-light">
+            <mat-icon>block</mat-icon>
+            <div>{{ 'clear' | translate }}</div>
+          </div>
+        </mat-option>
+      }
+
+      <mat-option *ngFor="let key of objectTypes | flObjectKeys" [value]="key">
+        <div class="g-layout-row g-layout-start-center">
+          <ca-hierarchy-object-icon [objectType]="key" objectName=""></ca-hierarchy-object-icon>
+          {{ objectTypes[key] | translate }}
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <ca-user-list-inline [users$]="users$" formControlName="users"></ca-user-list-inline>
+
+</form>

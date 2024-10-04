@@ -52,10 +52,8 @@ export class CaAdminCloudProviderRegionTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_cloud_provider_region',
       content: 'delete_cloud_provider_region_confirm',
-      translateTitleAndContent: true,
       observable: this.cloudProviderService.deleteRegion(region.id),
       successMessage: 'cloud_provider_region_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

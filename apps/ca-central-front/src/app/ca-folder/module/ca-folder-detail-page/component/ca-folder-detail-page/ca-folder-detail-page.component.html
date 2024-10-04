@@ -1,0 +1,60 @@
+<div>
+  <ca-hierarchy-object-breadcrumb class="breadcrumbs"></ca-hierarchy-object-breadcrumb>
+
+  <ca-folder-detail class="page-content"></ca-folder-detail>
+</div>
+
+<div class="drop-zone" flDragHover="drag-file-hover" (flDrop)="onFileDrop($event)">
+
+  <fl-card class="card-table">
+
+    <fl-card-header>
+      <ca-hierarchy-object-search-form></ca-hierarchy-object-search-form>
+
+      <fl-card-actions>
+        <button mat-icon-button type="button" (click)="createConstellabDocument()"
+                [matTooltip]="'create_constellab_document' | translate">
+          <mat-icon flIcon="constellab_document"></mat-icon>
+        </button>
+
+        <!--   Upload files     -->
+        <fl-input-file-icon-container [matTooltip]="'upload_document' | translate" icon="cloud_upload">
+          <input flInputFile [multiple]="true" type="file" (fileChange)="uploadDocument($event)"
+                 [autoClearHtmlInput]="true">
+        </fl-input-file-icon-container>
+
+        <button mat-icon-button type="button" (click)="openDocumentInTrash()"
+                [matTooltip]="'documents_in_trash' | translate">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </fl-card-actions>
+    </fl-card-header>
+
+    <fl-card-body class="g-full-height" (contextmenu)="cardRightClick($event)">
+      <fl-infinite-table-container [datasource]="children" textNoResult="folder_empty" textNoMoreResult=""
+                                   class="g-full-height">
+        <ca-hierarchy-object-table [datasource]="children" [columns]="columns"
+                                   [rowSelectable]="true"
+                                   (rowEvent)="onHierarchyObjectRowEvent($event)">
+
+          <ng-template let-object>
+            @if (hierarchyObjectHasActionMenu(object)) {
+              <!--   Settings menu   -->
+              <button mat-icon-button type="button" (click)="hierarchyObjectMenuClick(object, $event)">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            }
+          </ng-template>
+
+        </ca-hierarchy-object-table>
+      </fl-infinite-table-container>
+    </fl-card-body>
+  </fl-card>
+
+  @if (folder$ | async; as folder) {
+    <div class="drop-info g-layout-col g-layout-center-center g-text-centered">
+      <mat-icon>folder</mat-icon>
+      <div class="g-text-big">{{ 'drop_file_in_folder' | translate : { name: folder.name } }}</div>
+    </div>
+  }
+</div>

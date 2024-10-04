@@ -1,12 +1,13 @@
 import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
-  FlSearchCriteriaConverter,
-  FlSearchDateInterval
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter
 } from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {CaUser} from '../../../model/entities/ca-user.class';
-import {Type} from 'class-transformer';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { CaUser } from '../../../model/entities/ca-user.class';
+import { Type } from 'class-transformer';
 
 export class CaTeamSearchFields {
   id: string;
@@ -23,24 +24,29 @@ export class CaTeamSearchFields {
 
 export class CaTeamSearch {
 
-  public static advancedSearchManagerConfig: FlFormInputsManagerConfig<CaTeamSearchFields> = {
+  public static searchManagerConfig: FlFormInputsManagerConfig<CaTeamSearchFields> = {
     createdBy: 'created_by',
     createdAt: 'creation_date',
   };
 
-  public static advancedSearchConverter: FlSearchCriteriaConverter<CaTeamSearchFields> = {
+  public static filterConverter: FlSearchFilterCriteriaConverter<CaTeamSearchFields> = {
     id: {key: 'id', operator: 'EQ'},
     label: {key: 'label', operator: 'CONTAINS'},
     createdBy: {key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
     createdAt: FlSearchConverter.dateInterval('createdAt'),
   };
 
-  public static getAdvancedSearchForm(): FormGroup<CaTeamSearchFields> {
-    return new FormBuilder().group<CaTeamSearchFields>({
+  public static sortConverter: FlSearchSortCriteriaConverter = {
+    label: 'label',
+    creation: 'createdAt',
+  };
+
+  public static getSearchForm(): FormGroup {
+    return new FormBuilder().group({
       id: null,
       label: null,
       createdBy: null,
-      createdAt: new FormBuilder().group<FlSearchDateInterval>({
+      createdAt: new FormBuilder().group({
         from: [null],
         to: [null],
       }),

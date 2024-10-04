@@ -11,6 +11,7 @@ import { RvViewImageComponent } from '../component/rv-view-image/rv-view-image.c
 import { RvViewHtmlComponent } from '../component/rv-view-html/rv-view-html.component';
 import { RvViewStreamlitComponent } from '../component/rv-view-streamlit/rv-view-streamlit.component';
 import { RvViewPlotlyComponent } from '../component/rv-view-plotly/rv-view-plotly.component';
+import { RvViewAudioComponent } from '../component/rv-view-audio/rv-view-audio.component';
 
 // Information of the view type
 export interface RvResourceViewTypeInfo {
@@ -27,64 +28,67 @@ export interface RvResourceViewTypeInfo {
  */
 export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTypeInfo> = {
   'json-view': {
-    viewComponent: RvViewJsonComponent,
+    viewComponent: RvViewJsonComponent
   },
   'text-view': {
-    viewComponent: RvViewTextComponent,
+    viewComponent: RvViewTextComponent
   },
   'html-view': {
-    viewComponent: RvViewHtmlComponent,
+    viewComponent: RvViewHtmlComponent
   },
   'table-view': {
-    viewComponent: RvViewSpreadsheetComponent,
+    viewComponent: RvViewSpreadsheetComponent
   },
   'tabular-view': {
-    viewComponent: RvViewSpreadsheetComponent,
+    viewComponent: RvViewSpreadsheetComponent
   },
   'dataset-view': {
-    viewComponent: RvViewSpreadsheetComponent,
+    viewComponent: RvViewSpreadsheetComponent
   },
   'network-view': {
-    viewComponent: RvViewNetworkComponent,
+    viewComponent: RvViewNetworkComponent
   },
   'image-view': {
-    viewComponent: RvViewImageComponent,
+    viewComponent: RvViewImageComponent
   },
   'scatter-plot-2d-view': {
-    viewComponent: RvViewChart2dComponent,
+    viewComponent: RvViewChart2dComponent
   },
   'line-plot-2d-view': {
-    viewComponent: RvViewChart2dComponent,
+    viewComponent: RvViewChart2dComponent
   },
   'vulcano-plot-view': {
-    viewComponent: RvViewChart2dComponent,
+    viewComponent: RvViewChart2dComponent
   },
   'bar-plot-view': {
-    viewComponent: RvViewChart2dComponent,
+    viewComponent: RvViewChart2dComponent
   },
   'stacked-bar-plot-view': {
-    viewComponent: RvViewChart2dComponent,
+    viewComponent: RvViewChart2dComponent
   },
   'histogram-view': {
-    viewComponent: RvViewChart2dComponent,
+    viewComponent: RvViewChart2dComponent
   },
   'box-plot-view': {
-    viewComponent: RvViewChart2dComponent,
+    viewComponent: RvViewChart2dComponent
   },
   'multi-view': {
-    viewComponent: RvViewMultiViewsComponent,
+    viewComponent: RvViewMultiViewsComponent
   },
   'venn-diagram-view': {
-    viewComponent: RvViewChart2dComponent,
+    viewComponent: RvViewChart2dComponent
   },
   'heatmap-view': {
-    viewComponent: RvViewChart2dComponent,
+    viewComponent: RvViewChart2dComponent
   },
   'plotly-view': {
-    viewComponent: RvViewPlotlyComponent,
+    viewComponent: RvViewPlotlyComponent
   },
   'streamlit-view': {
-    viewComponent: RvViewStreamlitComponent,
+    viewComponent: RvViewStreamlitComponent
+  },
+  'audio-view': {
+    viewComponent: RvViewAudioComponent
   }
 };
 

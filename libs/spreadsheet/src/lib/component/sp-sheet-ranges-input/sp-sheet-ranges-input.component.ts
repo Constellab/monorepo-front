@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self} from '@angular/core';
-import {NgControl} from '@angular/forms';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {SpSpreadsheetState} from '../../state/sp-spreadsheet.state';
-import {Observable, of, Subscription} from 'rxjs';
-import {SpSheetSelectionRange} from '../../model/chart/sp-sheet-chart-selection-form.class';
-import {SpSheetSingleSelection} from '../../model/selection/sp-sheet-single-selection.class';
-import {SpSpreadsheetChartSelectionHelper} from '../../utils/sp-spreadsheet-chart-selection.helper';
-import {SpCellsMultipleRange} from '../../model/selection/sp-cells-multiple-range.class';
-import {FlFormFieldDirective} from '@monorepo/front-core-lib';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
+import { FormBuilder, NgControl, UntypedFormGroup } from '@angular/forms';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
+import { Observable, of, Subscription } from 'rxjs';
+import { SpSheetSelectionRange } from '../../model/chart/sp-sheet-chart-selection-form.class';
+import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
+import { SpSpreadsheetChartSelectionHelper } from '../../utils/sp-spreadsheet-chart-selection.helper';
+import { SpCellsMultipleRange } from '../../model/selection/sp-cells-multiple-range.class';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib';
 
 interface SpSpreadsheetRangeForm {
   type: 'range' | 'columns';
@@ -26,7 +25,7 @@ interface SpSpreadsheetRangeForm {
   selector: 'sp-sheet-ranges-input',
   templateUrl: './Sp-sheet-ranges-input.component.html',
   styleUrls: ['./Sp-sheet-ranges-input.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent }]
 })
 export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsheetRangeForm, SpSheetSelectionRange>
   implements OnInit, OnDestroy {
@@ -41,8 +40,7 @@ export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsh
 
   @Output() selectionChange: EventEmitter<SpSheetSelectionRange> = new EventEmitter();
 
-
-  formGp: FormGroup<SpSpreadsheetRangeForm>;
+  formGp: UntypedFormGroup;
 
   columnSearchFunc: (searchString: string) => Observable<string[]>;
 
@@ -51,13 +49,10 @@ export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsh
   constructor(@Optional() @Self() ngControl: NgControl,
               private state: SpSpreadsheetState) {
     super(ngControl);
-
-
   }
 
   ngOnInit(): void {
     this.initForm();
-
 
     this.columnSearchFunc = (searchString => of(this.state.currentSheet.searchColumns(searchString)));
 

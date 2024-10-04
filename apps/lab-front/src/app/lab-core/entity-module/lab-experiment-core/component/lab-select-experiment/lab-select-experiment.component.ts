@@ -1,9 +1,14 @@
-import {Component, EventEmitter, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlDialogService, FlFormFieldDirective, FlInputSearchAdvancedButton} from '@monorepo/front-core-lib';
-import {LabExperiment, LabExperimentDatasource} from '../../../../model/entities/lab-experiment.entity';
-import {NgControl} from '@angular/forms';
-import {LabExperimentService} from '../../../../entity-service/lab-experiment.service';
-import {Observable} from 'rxjs';
+import { Component, EventEmitter, OnInit, Optional, Output, Self } from '@angular/core';
+import {
+  FlDialogService,
+  FlFormFieldDirective,
+  FlInputSearchAdvancedButton,
+  FlInputSearchFilter
+} from '@monorepo/front-core-lib';
+import { LabExperiment, LabExperimentDatasource } from '../../../../model/entities/lab-experiment.entity';
+import { NgControl } from '@angular/forms';
+import { LabExperimentService } from '../../../../entity-service/lab-experiment.service';
+import { Observable } from 'rxjs';
 import {
   LabSelectExperimentDialogComponent
 } from '../lab-select-experiment-dialog/lab-select-experiment-dialog.component';
@@ -21,7 +26,7 @@ export class LabSelectExperimentComponent extends FlFormFieldDirective<LabExperi
 
   selectedExperiment: LabExperiment | Observable<LabExperiment>;
 
-  datasource: LabExperimentDatasource;
+  datasource: LabExperimentDatasource<FlInputSearchFilter>;
 
   advancedButton: FlInputSearchAdvancedButton<LabExperiment>;
 

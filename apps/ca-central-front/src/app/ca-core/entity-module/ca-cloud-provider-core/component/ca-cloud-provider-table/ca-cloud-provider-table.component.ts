@@ -49,10 +49,8 @@ export class CaCloudProviderTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_cloud_provider',
       content: 'delete_cloud_provider_confirm',
-      translateTitleAndContent: true,
       observable: this.cloudProviderService.delete(cloudProvider.id),
       successMessage: 'cloud_provider_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

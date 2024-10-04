@@ -64,10 +64,8 @@ export class CaLabInstanceTableComponent {
     const input: FlConfirmDialogInput = {
       title: 'delete_lab_instance',
       content: 'delete_lab_instance_confirmation',
-      translateTitleAndContent: true,
       observable: this.labInstanceService.delete(labInstance.id),
       successMessage: 'lab_instance_deleted',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(

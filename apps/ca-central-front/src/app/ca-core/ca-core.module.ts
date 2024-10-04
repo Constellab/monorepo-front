@@ -1,19 +1,18 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {CaCoreComponentModule} from './module/ca-core-component/ca-core-component.module';
-import {CaCustomMaterialModule} from './custom-material/ca-custom-material.module';
-import {CaCustomLibraryModule} from './custom-library/ca-custom-library.module';
-import {CaCoreDirectiveModule} from './module/ca-core-directive/ca-core-directive.module';
-import {CaCorePipeModule} from './module/ca-core-pipe/ca-core-pipe.module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CaCoreComponentModule } from './module/ca-core-component/ca-core-component.module';
+import { CaCustomMaterialModule } from './custom-material/ca-custom-material.module';
+import { CaCustomLibraryModule } from './custom-library/ca-custom-library.module';
+import { CaCoreDirectiveModule } from './module/ca-core-directive/ca-core-directive.module';
+import { CaCorePipeModule } from './module/ca-core-pipe/ca-core-pipe.module';
 
 /**
  * Core module of the app containing, component, services, directives and pipes
  * shared across the application
  */
 @NgModule({
-  declarations: [],
   imports: [
-    CommonModule,
+    CommonModule
   ],
   exports: [
     // export all core modules
@@ -25,7 +24,7 @@ import {CaCorePipeModule} from './module/ca-core-pipe/ca-core-pipe.module';
     CaCustomMaterialModule,
 
     // Library
-    CaCustomLibraryModule,
+    CaCustomLibraryModule
   ]
 })
 export class CaCoreModule {

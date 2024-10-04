@@ -53,10 +53,8 @@ export class LabMainMenuSettingsComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'reset_dev_env',
       content: 'reset_dev_env_confirmation',
-      translateTitleAndContent: true,
       observable: this.systemService.resetDevEnvironment(),
       successMessage: 'dev_env_reset_success',
-      translateMessage: true,
       confirmWithText: 'reset-dev-env'
     };
 
@@ -67,10 +65,8 @@ export class LabMainMenuSettingsComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'stop_dev_api',
       content: 'stop_dev_api_confirmation',
-      translateTitleAndContent: true,
       observable: this.systemService.killApi(),
       successMessage: 'dev_api_stooped',
-      translateMessage: true
     };
 
     this.dialogService.openConfirmDialog(data);

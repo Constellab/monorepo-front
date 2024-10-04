@@ -1,15 +1,14 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective, FlFormDialogInput} from '@monorepo/front-core-lib';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {Validators} from '@angular/forms';
-import {CaLabInstanceService} from '../../../../ca-core/service-api/ca-lab-instance.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { CaLabInstanceService } from '../../../../ca-core/service-api/ca-lab-instance.service';
 import {
   CaLabInstanceUser,
   CaLabInstanceUserRole
 } from '../../../../ca-core/model/entities/lab/ca-lab-instance-user.class';
-import {CaUser} from '../../../../ca-core/model/entities/ca-user.class';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface LabInstanceUserFormDialogInput extends FlFormDialogInput<CaLabInstanceUserForm> {
   labInstanceId: string;
@@ -41,7 +40,7 @@ export class CaLabInstanceUserFormDialogComponent
     this.init();
   }
 
-  buildForm(): FormGroup<CaLabInstanceUserForm> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       //in update mode can't change user
       user: [{value: null, disabled: this.isUpdateMode()}, Validators.required],

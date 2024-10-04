@@ -1,13 +1,13 @@
-<mat-table mat-table [dataSource]="datasource">
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
 
 
   <!-- Title -->
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border">
+    <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border" mat-sort-header>
       <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment" class="g-cell-with-left-border"
-              [style.border-left-color]="experiment.project?.id | flStringToRgb">
+              [style.border-left-color]="experiment.folder?.id | flStringToRgb">
 
       <!--    Invisible link  -->
       @if (!rowSelectable) {
@@ -18,10 +18,10 @@
       <div>
         <div class="text g-text-dense-height">{{ experiment.title }}</div>
 
-        @if (experiment.project) {
-          <fl-text-icon class="g-text-tiny g-text-light project" gap="3px">
-            <mat-icon flIcon="project" class="g-icon-tiny"></mat-icon>
-            <div class="text g-text-dense-height">{{ experiment.project.title }}</div>
+        @if (experiment.folder) {
+          <fl-text-icon class="g-text-tiny g-text-light folder" gap="3px">
+            <mat-icon flIcon="folder" class="g-icon-tiny"></mat-icon>
+            <div class="text g-text-dense-height">{{ experiment.folder.title }}</div>
           </fl-text-icon>
         }
       </div>
@@ -30,7 +30,7 @@
 
   <!-- Status -->
   <ng-container matColumnDef="status">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'status' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment">
@@ -44,7 +44,7 @@
 
   <!-- Creation -->
   <ng-container matColumnDef="creation">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment">
@@ -55,7 +55,7 @@
 
   <!-- Last modification -->
   <ng-container matColumnDef="lastModification">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let experiment">
@@ -87,7 +87,7 @@
     <mat-cell *matCellDef="let experiment" class="g-table-icon-button-cell">
       <button mat-icon-button type="button" (click)="unlinkedExperiment(experiment, $event)"
               class=" over-link"
-              [matTooltip]="'biox.report_unlink_experiment' | translate">
+              [matTooltip]="'biox.note_unlink_experiment' | translate">
         <mat-icon>clear</mat-icon>
       </button>
     </mat-cell>

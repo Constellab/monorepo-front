@@ -1,5 +1,4 @@
-<mat-table mat-table [dataSource]="datasource" class="table">
-
+<mat-table mat-table [dataSource]="datasource" class="table" flSearchTableSort>
 
   <!-- User -->
   <ng-container matColumnDef="user">
@@ -13,7 +12,7 @@
 
   <!-- activityType-->
   <ng-container matColumnDef="activityType">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'monitoring.activity_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -23,7 +22,7 @@
 
   <!-- Object type-->
   <ng-container matColumnDef="objectType">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'monitoring.activity_object_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -33,7 +32,7 @@
 
   <!-- objectId-->
   <ng-container matColumnDef="objectId">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'monitoring.activity_object_id' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -43,7 +42,7 @@
 
   <!-- date-->
   <ng-container matColumnDef="date">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       <span>{{ 'monitoring.activity_date' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">

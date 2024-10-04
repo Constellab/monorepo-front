@@ -1,0 +1,36 @@
+:host {
+  height: 100%;
+  display: block;
+  padding: 1em 1em 1em 1em;
+  box-sizing: border-box;
+}
+
+.chat {
+  height: 100%;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-rows: 1fr auto;
+}
+
+.message-div {
+  flex-basis: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+.messages-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 0.5em;
+}
+
+.message {
+  margin-bottom: 1em;
+}
+
+// avoid overflow with chat button
+.new-message {
+  padding-inline: 5px;
+  max-height: 30em;
+  margin-top: 5px;
+}

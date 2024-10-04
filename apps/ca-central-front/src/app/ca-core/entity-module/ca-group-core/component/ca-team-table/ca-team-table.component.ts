@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib';
-import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.entity';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { CaGroup } from '../../../../model/entities/ca-group.entity';
 
 @Component({
   selector: 'ca-team-table',
@@ -9,7 +9,7 @@ import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.
 })
 export class CaTeamTableComponent {
 
-  @Input() datasource: CaGroupDatasource;
+  @Input({ required: true }) datasource: FlArrayObs<CaGroup>;
 
   @Input() columns: FlTableColumnStatic<CaGroup>[] = ['label', 'creation', 'actions'];
 

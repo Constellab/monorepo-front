@@ -141,9 +141,9 @@ export class LabConfig extends LabBaseEntity {
       const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
       config.type = 'select_document_template';
       return config;
-    } else if (spec.type === 'report_param') {
+    } else if (spec.type === 'note_param') {
       const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'select_report';
+      config.type = 'select_note';
       return config;
     } else if (tdCodeParamSpecTypeList.includes(spec.type)) {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;

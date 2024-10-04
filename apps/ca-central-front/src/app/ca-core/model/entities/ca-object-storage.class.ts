@@ -2,9 +2,12 @@ import { CaBaseEntity } from './ca-base-entity.class';
 import { CaCloudProvider, CaCloudProviderRegion } from './ca-cloud-provider.class';
 import { Type } from 'class-transformer';
 import { CaSpace } from './space/ca-space.class';
-import { FlDatasourcePaginated, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import {
+  FlDatasourceGetPageFunction,
+  FlDatasourcePaginated,
+  FlEntityPaginatedDatasource
+} from '@monorepo/front-core-lib';
 import { CaLabInstance } from './lab/ca-lab-instance.class';
-import { ClGetPageFunction } from '@monorepo/core-lib';
 
 
 export class CaBucketCredentials extends CaBaseEntity {
@@ -40,7 +43,7 @@ export enum CaBucketContentType {
   LAB_BACKUP = 'LAB_BACKUP',
   SPACE_IMAGE = 'SPACE_IMAGE',
   USER_IMAGE = 'USER_IMAGE',
-  PROJECT = 'PROJECT',
+  FOLDER = 'FOLDER',
 }
 
 export enum CaBucketType {
@@ -81,7 +84,7 @@ export class CaBucketFull extends CaBucket {
   credentials: CaBucketCredentials;
 }
 
-export type CaBucketFullDatasource = FlEntityPaginatedDatasource<CaBucketFull>;
+export type CaBucketFullDatasource<F = void> = FlEntityPaginatedDatasource<CaBucketFull, F>;
 
 /**
  * DTO to only show the location of the bucket without the name
@@ -101,7 +104,7 @@ export class CaBucketLocationDTO {
 
 export class CaBucketLocationDatasource extends FlDatasourcePaginated<CaBucketLocationDTO> {
 
-  constructor(getPageFunction: ClGetPageFunction<CaBucketLocationDTO>, pageSize: number, initFirstPage: boolean = true,
+  constructor(getPageFunction: FlDatasourceGetPageFunction<CaBucketLocationDTO>, pageSize: number, initFirstPage: boolean = true,
               disableAutoDisconnect: boolean = false) {
     super(getPageFunction, pageSize, initFirstPage, disableAutoDisconnect);
   }

@@ -1,0 +1,90 @@
+<fl-dialog-header>
+  <fl-text-icon>
+    <mat-icon>mic</mat-icon>
+    {{ 'teTextEditor.dictate' | translate }}
+  </fl-text-icon>
+</fl-dialog-header>
+
+<mat-dialog-content>
+
+
+  @if (micDisabled) {
+
+    <div class="g-layout-col g-layout-start-center">
+      <mat-icon class="g-icon-big" color="warn">mic_off</mat-icon>
+      <fl-error-text [errorMessage]="'teTextEditor.mic_disabled_error' | translate">
+      </fl-error-text>
+    </div>
+
+  } @else {
+
+    <div class="help-command">
+      <p>{{ 'teTextEditor.voice_command_start' | translate }}</p>
+      <ul>
+        <li [innerHTML]="'teTextEditor.voice_command_title' | translate"></li>
+        <li [innerHTML]="'teTextEditor.voice_command_list' | translate"></li>
+        <li [innerHTML]="'teTextEditor.voice_command_formula' | translate"></li>
+      </ul>
+      <p>{{ 'teTextEditor.voice_command_end' | translate }}</p>
+    </div>
+
+    <mat-divider class="divider"></mat-divider>
+
+    <div class="g-layout-col g-layout-start-center">
+
+      @if (isRecording) {
+
+
+        <fl-text-icon>
+          <mat-icon color="warn" class="g-icon-big record-icon">radio_button_checked</mat-icon>
+          {{ 'teTextEditor.recording' | translate }}
+        </fl-text-icon>
+
+        <div class="button-container">
+          <button mat-stroked-button class="button" type="button"
+                  (click)="stopRecordingAndTranscribe()" [disabled]="transcriptionLoading">
+            <mat-icon>stop</mat-icon>
+            {{ 'teTextEditor.stop_recording_and_transcribe' | translate }}
+          </button>
+
+          <button mat-stroked-button color="warn" class="button"
+                  (click)="stopRecording()" type="button" [disabled]="transcriptionLoading">
+            <mat-icon>clear</mat-icon>
+            {{ 'teTextEditor.cancel' | translate }}
+          </button>
+        </div>
+
+      } @else {
+        <fl-text-icon>
+          <mat-icon class="g-icon-big g-text-light">radio_button_unchecked</mat-icon>
+          {{ 'teTextEditor.not_recording' | translate }}
+        </fl-text-icon>
+
+        <div class="button-container">
+          <button mat-stroked-button class="button"
+                  (click)="startRecording()" type="button" [disabled]="transcriptionLoading">
+            <mat-icon>play_arrow</mat-icon>
+            {{ 'teTextEditor.start_recording' | translate }}
+          </button>
+        </div>
+      }
+    </div>
+  }
+
+  <mat-divider class="divider"></mat-divider>
+
+  <fl-input-file-container color="primary" [autoClear]="true" class="select-file-button" icon="upload_file"
+                           [placeholder]="'teTextEditor.import_audio_file' | translate" (click)="stopRecording()">
+    <input flInputFile [multiple]="false" type="file" (fileChange)="uploadAudioFile($any($event))"
+           accept="audio/*" [strictMode]="true" [autoClearHtmlInput]="true" [disabled]="transcriptionLoading">
+  </fl-input-file-container>
+
+  @if (transcriptionLoading) {
+    <mat-divider class="divider"></mat-divider>
+    <div class="g-layout-col g-layout-start-center">
+      <div class="g-text-big">{{ 'teTextEditor.transcription_in_progress' | translate }}</div>
+      <fl-loader class="loader"></fl-loader>
+    </div>
+  }
+
+</mat-dialog-content>

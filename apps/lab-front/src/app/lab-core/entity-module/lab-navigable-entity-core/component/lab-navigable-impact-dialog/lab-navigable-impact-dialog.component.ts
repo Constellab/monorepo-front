@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {LabNavigableEntityGrouped} from '../../../../model/entities/lab-navigable-entity.entity';
+import { Component, Inject, OnInit } from '@angular/core';
+import { LabNavigableEntityGrouped } from '../../../../model/entities/lab-navigable-entity.entity';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -7,10 +7,10 @@ import {
   FlTranslatableText,
   FlTranslateService
 } from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {LabExperiment} from '../../../../model/entities/lab-experiment.entity';
-import {LabReport} from '../../../../model/entities/lab-report.entity';
-import {LabNavigableImpactConfig} from '../../lab-navigable-entity.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { LabExperiment } from '../../../../model/entities/lab-experiment.entity';
+import { LabNote } from '../../../../model/entities/lab-note.entity';
+import { LabNavigableImpactConfig } from '../../lab-navigable-entity.service';
 
 
 export interface LabNavigableImpactDialogInput {
@@ -30,12 +30,11 @@ export interface LabNavigableImpactDialogInput {
 export class LabNavigableImpactDialogComponent implements OnInit {
   title: FlTranslatableText;
   helpText: FlTranslatableText;
-  confirm2: FlTranslatableText;
 
   impactedEntities: LabNavigableEntityGrouped[];
 
   containsValidatedExperiments: boolean = false;
-  containsValidatedReports: boolean = false;
+  containsValidatedNotes: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: LabNavigableImpactDialogInput,
               private dialogRef: MatDialogRef<LabNavigableImpactDialogComponent>,
@@ -43,7 +42,6 @@ export class LabNavigableImpactDialogComponent implements OnInit {
               private translateService: FlTranslateService) {
     this.title = data.config.title;
     this.helpText = data.config.confirmImpactConfirmText;
-    this.confirm2 = data.config.confirm2;
     this.impactedEntities = data.impactedEntities;
   }
 
@@ -56,18 +54,18 @@ export class LabNavigableImpactDialogComponent implements OnInit {
       this.containsValidatedExperiments = experimentsGroup.entities.some(entity => entity.isValidated);
     }
 
-    // check if there are some validated report
-    const reportsGroup: LabNavigableEntityGrouped<LabReport> = this.impactedEntities.find(
-      group => group.type === 'REPORT'
+    // check if there are some validated note
+    const notesGroup: LabNavigableEntityGrouped<LabNote> = this.impactedEntities.find(
+      group => group.type === 'NOTE'
     );
-    if (reportsGroup) {
-      this.containsValidatedReports = reportsGroup.entities.some(entity => entity.isValidated);
+    if (notesGroup) {
+      this.containsValidatedNotes = notesGroup.entities.some(entity => entity.isValidated);
     }
   }
 
 
   callAction(): void {
-    if (this.containsValidatedExperiments || this.containsValidatedReports) return;
+    if (this.containsValidatedExperiments || this.containsValidatedNotes) return;
 
     const input: FlConfirmDialogInput = {
       title: this.translateService.translatableText(this.title),

@@ -1,5 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlMenuDynamic, FlMenuDynamicButton} from '../../model/fl-menu-dynamic.class';
+import { Component, computed, EventEmitter, input, Output, Signal } from '@angular/core';
+import {
+  FlMenuDynamic,
+  FlMenuDynamicButton,
+  FlMenuDynamicDownloadLink,
+  FlMenuDynamicLink
+} from '../../model/fl-menu-dynamic.class';
+import { FlThemeHelper } from '../../../fl-theme/model/fl-theme-detail.class';
 
 /**
  * Leaf button of the DynamicMenu, doesn't work for parent buttons
@@ -9,17 +15,19 @@ import {FlMenuDynamic, FlMenuDynamicButton} from '../../model/fl-menu-dynamic.cl
   templateUrl: './fl-menu-dynamic-button.component.html',
   styleUrls: ['./fl-menu-dynamic-button.component.scss']
 })
-export class FlMenuDynamicButtonComponent implements OnInit {
+export class FlMenuDynamicButtonComponent {
 
-  @Input() menuDynamic: FlMenuDynamic;
+  menuDynamic = input.required<FlMenuDynamic>();
+
+  link: Signal<FlMenuDynamicLink> = computed(() => this.menuDynamic() as FlMenuDynamicLink);
+  downloadLink: Signal<FlMenuDynamicDownloadLink> = computed(() => this.menuDynamic() as FlMenuDynamicDownloadLink);
+  button: Signal<FlMenuDynamicButton> = computed(() => this.menuDynamic() as FlMenuDynamicButton);
+
+  textColor: Signal<string | null> = computed(
+    () => FlThemeHelper.paletteToTextCssClass(this.button().color)
+  );
 
   @Output() buttonClick: EventEmitter<FlMenuDynamic> = new EventEmitter();
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   callItem(menuItem: FlMenuDynamicButton, event: MouseEvent): void {
     if (menuItem.onClick) {

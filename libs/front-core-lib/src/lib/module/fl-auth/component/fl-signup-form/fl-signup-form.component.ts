@@ -1,8 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {FlSignUpUser} from '../../model/fl-sign-up-user.class';
-import {Validators} from '@angular/forms';
-import {FlGlobalValidators} from '../../../../utils/fl-global.validators';
+import { Component, Input } from '@angular/core';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
 
 /**
  * Component that contains the form to create a new user
@@ -12,15 +10,11 @@ import {FlGlobalValidators} from '../../../../utils/fl-global.validators';
   templateUrl: './fl-signup-form.component.html',
   styleUrls: ['./fl-signup-form.component.scss']
 })
-export class FlSignupFormComponent implements OnInit {
+export class FlSignupFormComponent {
 
-  @Input() formGp: FormGroup<FlSignUpUser>;
+  @Input() formGp: UntypedFormGroup;
 
-
-  constructor() {
-  }
-
-  public static buildFormGroup(): FormGroup<FlSignUpUser> {
+  public static buildFormGroup(): UntypedFormGroup {
     return new FormBuilder().group({
       firstname: [null, Validators.required],
       lastname: [null, Validators.required],
@@ -30,11 +24,8 @@ export class FlSignupFormComponent implements OnInit {
         FlGlobalValidators.repeatPasswordValidator('password')]],
       category: [null, Validators.required],
       validateCGU: [false, FlGlobalValidators.isValue(true)],
-      phone: [null],
+      phone: [null]
     });
-  }
-
-  ngOnInit(): void {
   }
 
   // update the repeat password validity on password change

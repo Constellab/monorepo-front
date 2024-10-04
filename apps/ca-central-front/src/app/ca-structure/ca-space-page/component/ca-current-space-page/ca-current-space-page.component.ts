@@ -42,9 +42,9 @@ export class CaCurrentSpacePageComponent implements OnInit {
           route: CaRouterService.getCurrentSpaceLabsRoute()
         },
         {
-          label: {text: 'projects', translateText: true},
-          icon: 'project',
-          route: CaRouterService.getCurrentSpaceProjectsRoute()
+          label: {text: 'folders', translateText: true},
+          icon: 'folder',
+          route: CaRouterService.getCurrentSpaceFoldersRoute()
         },
         {
           label: {text: 'teams', translateText: true},

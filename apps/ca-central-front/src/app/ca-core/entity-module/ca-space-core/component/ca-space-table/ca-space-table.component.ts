@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {FlDatasource, FlTableColumnStatic} from '@monorepo/front-core-lib';
-import {CaSpace} from '../../../../model/entities/space/ca-space.class';
-import {CaRouterService} from '../../../../service/ca-router.service';
+import { Component, Input } from '@angular/core';
+import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { CaSpace } from '../../../../model/entities/space/ca-space.class';
+import { CaRouterService } from '../../../../service/ca-router.service';
 
 @Component({
   selector: 'ca-space-table',
@@ -10,9 +10,9 @@ import {CaRouterService} from '../../../../service/ca-router.service';
 })
 export class CaSpaceTableComponent {
 
-  @Input() datasource: FlDatasource<CaSpace>;
+  @Input({ required: true }) datasource: FlDatasource<CaSpace>;
 
-  @Input() columns: FlTableColumnStatic<CaSpace>[] = [];
+  @Input() columns: FlTableColumnStatic<CaSpace>[] = ['name', 'created', 'lastModified', 'type', 'detail'];
 
   currentSpaceRoute = CaRouterService.getCurrentSpaceRoute();
 

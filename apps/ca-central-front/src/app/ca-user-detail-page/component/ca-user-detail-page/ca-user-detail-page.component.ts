@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {CaUser} from '../../../ca-core/model/entities/ca-user.class';
-import {CaAuthenticatedUserService} from '../../../ca-core/service-api/ca-authenticated-user.service';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { CaUser } from '../../../ca-core/model/entities/ca-user.class';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import {
   FlConfirmDialogInput,
   FlDialogService,
   FlFormDialogInput,
   FlUploadImageDialogConfig
 } from '@monorepo/front-core-lib';
-import {CaSpaceService} from '../../../ca-core/service-api/ca-space.service';
-import {CaUserSettingsDialogComponent} from '../ca-user-settings-dialog/ca-user-settings-dialog.component';
-import {CaUserProfileEditDialogComponent} from '../ca-user-profile-edit-dialog/ca-user-profile-edit-dialog.component';
+import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
+import { CaUserSettingsDialogComponent } from '../ca-user-settings-dialog/ca-user-settings-dialog.component';
+import { CaUserProfileEditDialogComponent } from '../ca-user-profile-edit-dialog/ca-user-profile-edit-dialog.component';
 
 /**
  * Component that show a form on first user login to complete his information
@@ -50,27 +50,25 @@ export class CaUserDetailPageComponent implements OnInit {
     });
 
     this.imageConfig = {
-      title: {text: 'upload_profile_picture', translateText: true},
-      helpText: {text: 'image_square_help', translateText: true},
+      title: { text: 'upload_profile_picture', translateText: true },
+      helpText: { text: 'image_square_help', translateText: true },
       imagePreviewWidth: 200,
       imagePreviewHeight: 200,
       roundImage: true,
       compressOptions: {
         cropWidth: 300,
         cropHeight: 300,
-        resizeWidthMax: 300,
+        resizeWidthMax: 300
       },
       uploadImage: (file: File) => this.authenticatedUserService.uploadPhoto(file),
-      uploadImageSuccessMessage: {text: 'profile_picture_uploaded', translateText: true}
+      uploadImageSuccessMessage: { text: 'profile_picture_uploaded', translateText: true }
     };
 
     this.deleteImageConfig = {
       title: 'space_delete_photo',
       content: 'space_delete_photo_confirmation',
-      translateMessage: true,
       observable: this.authenticatedUserService.deletePhoto(),
-      successMessage: 'space_photo_deleted',
-      translateTitleAndContent: true
+      successMessage: 'space_photo_deleted'
     };
   }
 
@@ -79,7 +77,7 @@ export class CaUserDetailPageComponent implements OnInit {
       mode: 'update',
       object: user
     };
-    this.dialogService.openMediumDialog(CaUserProfileEditDialogComponent, {data: input});
+    this.dialogService.openMediumDialog(CaUserProfileEditDialogComponent, { data: input });
   }
 
   openSettings(): void {

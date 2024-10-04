@@ -10,14 +10,14 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
-import {FormControl} from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
 import {
   FlInputSearchOptionContext,
   FlInputSearchOptionDirective
 } from '../../directive/fl-input-search-option.directive';
-import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
-import {ClHelpService, clRxjsElasticSearch} from '@monorepo/core-lib';
+import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasource-paginated.class';
+import { ClHelpService, clRxjsElasticSearch } from '@monorepo/core-lib';
 import {
   FlInputSearchPrefixContext,
   FlInputSearchPrefixDirective
@@ -30,7 +30,10 @@ import {
  */
 export interface FlInputSearchAdvancedButton<T>{
   onClick: () => Observable<T | null>;
+}
 
+export interface FlInputSearchFilter {
+  searchText: string;
 }
 
 /**
@@ -58,7 +61,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
 
   @Output() selectedItemChange: EventEmitter<T> = new EventEmitter();
 
-  @Input() datasource: FlDatasourcePaginated<T>;
+  @Input() datasource: FlDatasourcePaginated<T, FlInputSearchFilter>;
 
   @Input() placeholder: string = 'Search';
 
@@ -116,7 +119,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     this.inputControl.valueChanges.pipe(
       clRxjsElasticSearch(350, this.minInputSearchLength)
     ).subscribe(value => {
-      this.datasource.getFirstPage(value);
+      this.datasource.getFirstPage({ searchText: value } as FlInputSearchFilter);
     });
   }
 
@@ -198,7 +201,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     if (this._selectedItem) {
       this.inputControl.setValue(this._selectedItem as any);
     } else {
-      this.inputControl.setValue('');
+      this.inputControl.setValue(null);
     }
   }
 

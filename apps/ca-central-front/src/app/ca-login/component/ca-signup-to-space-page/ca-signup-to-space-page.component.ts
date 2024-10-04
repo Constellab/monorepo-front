@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup} from '@ngneat/reactive-forms';
-import {FlCaptchaService, FlSignupFormComponent, FlSignUpUser, FlSnackBarService} from '@monorepo/front-core-lib';
-import {CaSpaceInvitService} from '../../../ca-core/service-api/ca-space-invit.service';
-import {ActivatedRoute} from '@angular/router';
-import {CaRouterService} from '../../../ca-core/service/ca-router.service';
-import {CaSpaceInvitReadDTO} from '../../../ca-core/model/entities/space/ca-space-invit.class';
-import {Observable, switchMap, tap} from 'rxjs';
-import {CaUserAccountsService} from '../../../ca-core/service-api/ca-user-accounts.service';
-import {CaAuthService} from '../../service/ca-auth.service';
+import { Component, OnInit } from '@angular/core';
+import { FlCaptchaService, FlSignupFormComponent, FlSignUpUser, FlSnackBarService } from '@monorepo/front-core-lib';
+import { CaSpaceInvitService } from '../../../ca-core/service-api/ca-space-invit.service';
+import { ActivatedRoute } from '@angular/router';
+import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { CaSpaceInvitReadDTO } from '../../../ca-core/model/entities/space/ca-space-invit.class';
+import { Observable, switchMap, tap } from 'rxjs';
+import { CaUserAccountsService } from '../../../ca-core/service-api/ca-user-accounts.service';
+import { CaAuthService } from '../../service/ca-auth.service';
+import { UntypedFormGroup } from '@angular/forms';
 
 /**
  * Page on which the user can join an space. He can create an account or use an existing one.
@@ -23,7 +23,7 @@ export class CaSignupToSpacePageComponent implements OnInit {
 
   invitationCode: string;
 
-  signupFormGp: FormGroup<FlSignUpUser>;
+  signupFormGp: UntypedFormGroup;
 
   isLoading: boolean = false;
 

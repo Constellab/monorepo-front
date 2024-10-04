@@ -1,0 +1,20 @@
+.container {
+  height: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+  margin-inline: auto;
+  width: var(--article-width);
+}
+
+.separator {
+  margin-bottom: 1em;
+}
+
+.button {
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+
+.note-content {
+  margin-top: 2em;
+}

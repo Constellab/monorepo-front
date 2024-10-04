@@ -7,9 +7,9 @@ import { CaUser } from '../ca-user.class';
 export enum CaLabInstanceStatusRunPeriod {
   CURRENT_MONTH = 'CURRENT_MONTH',
   CURRENT_YEAR = 'CURRENT_YEAR',
-  LAST_WEEK = 'LAST_WEEK',
-  LAST_MONTH = 'LAST_MONTH',
-  LAST_YEAR = 'LAST_YEAR',
+  LAST_7_DAYS = 'LAST_7_DAYS',
+  LAST_30_DAYS = 'LAST_30_DAYS',
+  LAST_365_DAYS = 'LAST_365_DAYS',
   ALL = 'ALL',
   CUSTOM = 'CUSTOM',
 }

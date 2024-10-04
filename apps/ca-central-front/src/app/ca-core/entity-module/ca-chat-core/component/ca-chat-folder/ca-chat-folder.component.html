@@ -1,0 +1,21 @@
+<div class="chat">
+
+  <!-- List of messages -->
+  <fl-infinite-scroll [datasource]="messages()" class="message-div" [reverseMode]="true" [textNoResult]="'no_messages'"
+                      [textNoMoreResult]="''">
+    <div class="messages-container g-layout-col-reverse">
+      @for (message of messages() | flDatasourceConnect | async; track message.id) {
+        <ca-chat-message [message]="message" [folderId]="folderId()" class="message"
+                         (messageUpdated)="messageUpdated($event)"
+                         (messageDeleted)="messageDeleted($event)"></ca-chat-message>
+      }
+    </div>
+  </fl-infinite-scroll>
+
+  <!-- Zone to write a new message -->
+  <!-- force re-creation of component when the folderId changes -->
+  <ca-chat-write-message *flRecreateView="folderId()" [folderId]="folderId()" mode="create"
+                         (send)="createNewMessage($event)"
+                         class="new-message g-scrollable-element"></ca-chat-write-message>
+</div>
+

@@ -1,11 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlFormDialogAbstractDirective} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormBuilder, FormGroup} from '@ngneat/reactive-forms';
-import {Observable} from 'rxjs';
-import {HaUserService} from '../../../ha-core/ha-service/ha-user.service';
-import {Validators} from '@angular/forms';
-import {CoUser} from '@monorepo/community-lib';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { CoUser } from '@monorepo/community-lib';
 
 export interface HaProfileEditDialogData {
   user: CoUser;
@@ -41,7 +40,7 @@ export class HaProfileEditDialogComponent extends FlFormDialogAbstractDirective<
     this.formGp = this.buildForm();
   }
 
-  buildForm(): FormGroup<HaProfileEditDialogFormData> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [this.user.id],
       alias: [this.user.alias, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]*$/), Validators.maxLength(52)]],
@@ -52,7 +51,7 @@ export class HaProfileEditDialogComponent extends FlFormDialogAbstractDirective<
     });
   }
 
-  create(formValue: HaProfileEditDialogFormData): Observable<CoUser> {
+  create(): Observable<CoUser> {
     return undefined;
   }
 

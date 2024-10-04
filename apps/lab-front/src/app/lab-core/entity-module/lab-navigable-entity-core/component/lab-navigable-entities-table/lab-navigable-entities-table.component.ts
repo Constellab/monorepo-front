@@ -4,9 +4,7 @@ import {
   LabExperimentTableComponent
 } from '../../../lab-experiment-core/component/lab-experiment-table/lab-experiment-table.component';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib';
-import {
-  LabReportTableComponent
-} from '../../../lab-report-core/component/lab-report-table/lab-report-table.component';
+import { LabNoteTableComponent } from '../../../lab-note-core/component/lab-note-table/lab-note-table.component';
 import {
   LabResourceTableComponent
 } from '../../../lab-resource-core/component/lab-resource-table/lab-resource-table.component';
@@ -44,8 +42,8 @@ export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
       case 'VIEW':
         this.componentRef = this.viewConfigTable();
         break;
-      case 'REPORT':
-        this.componentRef = this.reportTable();
+      case 'NOTE':
+        this.componentRef = this.noteTable();
         break;
       default:
         throw new Error(`[LabNavigableEntitiesTableComponent] Type ${this.type} is not supported`);
@@ -76,8 +74,8 @@ export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
     return componentRef;
   }
 
-  private reportTable(): ComponentRef<any> {
-    const componentRef = this.viewContainer.createComponent(LabReportTableComponent);
+  private noteTable(): ComponentRef<any> {
+    const componentRef = this.viewContainer.createComponent(LabNoteTableComponent);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['title', 'creation'];
     componentRef.instance.rowLinkTarget = '_blank';

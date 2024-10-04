@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
-import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
-import { Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LabDocumentTemplate, LabDocumentTemplateForm } from '../../../../model/entities/lab-document-template.entity';
 import { LabDocumentTemplateService } from '../../../../entity-service/lab-document-template.service';
 
+
 @Component({
   selector: 'lab-document-template-form-dialog',
   templateUrl: './lab-document-template-form-dialog.component.html',
-  styleUrl: './lab-document-template-form-dialog.component.scss',
+  styleUrl: './lab-document-template-form-dialog.component.scss'
 })
 export class LabDocumentTemplateFormDialogComponent extends FlFormDialogAbstractDirective<LabDocumentTemplateForm, LabDocumentTemplate>
   implements OnInit {
@@ -26,9 +26,9 @@ export class LabDocumentTemplateFormDialogComponent extends FlFormDialogAbstract
     return this.isCreateMode() ? 'biox.create_document_template' : '';
   }
 
-  buildForm(): FormGroup<LabDocumentTemplateForm> {
+  buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      title: [null, Validators.required],
+      title: [null as string, Validators.required]
     });
   }
 
@@ -41,7 +41,7 @@ export class LabDocumentTemplateFormDialogComponent extends FlFormDialogAbstract
   }
 
   getCreateSuccessMessage(): string {
-    return 'biox.report_created';
+    return 'biox.note_created';
   }
 
   getUpdateSuccessMessage(): string {

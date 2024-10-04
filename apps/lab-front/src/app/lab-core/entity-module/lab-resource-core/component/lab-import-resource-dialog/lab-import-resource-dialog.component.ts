@@ -1,24 +1,24 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import {
   LabConfigureSpecsFormComponent
 } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
-import {LabConfig, LabConfigureSpecsForm} from '../../../../model/entities/lab-config.entity';
-import {FormGroup} from '@ngneat/reactive-forms';
-import {FlDialogService, FlFormHelper, FlOverlayRef, FlSnackBarService} from '@monorepo/front-core-lib';
-import {LabRouterService} from '../../../../service/lab-router.service';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {LabProcessType} from '../../../../model/entities/lab-type/lab-process-type.entity';
+import { LabConfig } from '../../../../model/entities/lab-config.entity';
+import { FlDialogService, FlFormHelper, FlOverlayRef, FlSnackBarService } from '@monorepo/front-core-lib';
+import { LabRouterService } from '../../../../service/lab-router.service';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { LabProcessType } from '../../../../model/entities/lab-type/lab-process-type.entity';
 import {
   LabSelectTypeDialogComponent,
   LabSelectTypeDialogInput
 } from '../../../lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
-import {LabTypeEntity} from '../../../../model/entities/lab-type/lab-type.entity';
-import {LabTypeService} from '../../../../entity-service/lab-type.service';
-import {TdIOSpec, TdTypingName} from '@monorepo/technical-doc';
-import {PrConfigValues} from '@monorepo/protocol';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CoCommunityHelperService} from '@monorepo/community-lib';
+import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
+import { LabTypeService } from '../../../../entity-service/lab-type.service';
+import { TdIOSpec, TdTypingName } from '@monorepo/technical-doc';
+import { PrConfigValues } from '@monorepo/protocol';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { UntypedFormGroup } from '@angular/forms';
 
 export interface LabImportResourceDialogInput {
   resourceId: string;
@@ -37,7 +37,7 @@ export interface LabImportResourceDialogInput {
 })
 export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
 
-  formGp: FormGroup<LabConfigureSpecsForm>;
+  formGp: UntypedFormGroup;
 
   selectedImporterType: LabProcessType = null;
   sourceSpec: TdIOSpec;

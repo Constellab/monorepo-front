@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, Inject, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {FL_PORTAL_DATA} from '../../../fl-portal/model/fl-portal.class';
-import {FlMenuDynamic} from '../../model/fl-menu-dynamic.class';
-import {FlOverlayRef} from '../../../fl-portal/model/fl-overlay-ref.class';
-import {FlEventWrapper} from '../../../../model/fl-event-wrapper.class';
-import {FlMenuDynamicComponent} from '../fl-menu-dynamic/fl-menu-dynamic.component';
-import {MatMenuTrigger} from '@angular/material/menu';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { FL_PORTAL_DATA } from '../../../fl-portal/model/fl-portal.class';
+import { FlMenuDynamic } from '../../model/fl-menu-dynamic.class';
+import { FlOverlayRef } from '../../../fl-portal/model/fl-overlay-ref.class';
+import { FlEventWrapper } from '../../../../model/fl-event-wrapper.class';
+import { FlMenuDynamicComponent } from '../fl-menu-dynamic/fl-menu-dynamic.component';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 /**
  * this is a simple portal to wrap the menu-dynamic
@@ -58,6 +58,10 @@ export class FlMenuDynamicPortalComponent implements OnInit, AfterViewInit, OnDe
 
     // otherwise, close the menu (this means that the click is outside the menu)
     this.menuTrigger.closeMenu();
+  }
+
+  onButtonClick(menuItem: FlMenuDynamic): void {
+    this.overlayRef.dispose(menuItem);
   }
 
   ngOnDestroy(): void {

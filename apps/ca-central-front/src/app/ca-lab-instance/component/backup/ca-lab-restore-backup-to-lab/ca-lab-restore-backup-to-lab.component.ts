@@ -55,10 +55,8 @@ export class CaLabRestoreBackupToLabComponent {
     const input: FlConfirmDialogInput = {
       title: 'restore_backup_to_lab',
       content: 'restore_backup_to_lab_confirmation',
-      translateTitleAndContent: true,
       observable: this.labService.restoreBackup(this.data.labId, this.data.backupStatus.lastSuccessBackupId, configDTO),
       successMessage: 'restore_backup_to_lab_started',
-      translateMessage: true,
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(res => this.restoreBackupSuccess(res));

@@ -1,0 +1,50 @@
+<div class="container">
+  <fl-text-icon>
+    <mat-icon>settings</mat-icon>
+    <h2>{{ 'folder_settings' | translate }}</h2>
+  </fl-text-icon>
+
+  <ca-folder-detail-info class="section"></ca-folder-detail-info>
+
+  @if (folder$ | async; as folder) {
+    <div class="section">
+      <fl-text-icon>
+        <mat-icon>message</mat-icon>
+        <h3>{{ 'chat' | translate }}</h3>
+      </fl-text-icon>
+
+      <div class="g-text-centered">
+        <div class="g-text-light">
+          @if (folder.chatEnabled) {
+            {{ 'folder_chat_activated' | translate }}
+          } @else {
+            {{ 'folder_chat_deactivated' | translate }}
+          }
+        </div>
+
+        <button mat-stroked-button type="button" class="chat-button"
+                (click)="toggleChat(folder)">
+          <mat-icon>
+            @if (folder.chatEnabled) {
+              speaker_notes_off
+            } @else {
+              <mat-icon>chat</mat-icon>
+            }
+          </mat-icon>
+          <span>
+          @if (folder.chatEnabled) {
+            {{ 'folder_deactivate_chat' | translate }}
+          } @else {
+            {{ 'folder_activate_chat' | translate }}
+          }
+            </span>
+        </button>
+      </div>
+    </div>
+  }
+
+  <ca-folder-storage-settings class="section" *ngIf="showStorageSettings$ | async"></ca-folder-storage-settings>
+
+  <ca-folder-storage-usage-section class="section"></ca-folder-storage-usage-section>
+
+</div>

@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
-import {FlApiService, FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
+import { Injectable } from '@angular/core';
+import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import {
   HaCreateLiveTaskDto,
   HaLiveTask,
   HaLiveTaskDatasourcePaginated
 } from '../ha-model/ha-entities/ha-live-task.class';
-import {Observable} from 'rxjs';
-import {HaLiveTaskVersion, HaLiveTaskVersionFileInput} from '../ha-model/ha-entities/ha-live-task-version.class';
-import {ClPage} from '@monorepo/core-lib';
-import {HaBrickVersion} from '../ha-model/ha-entities/ha-brick-version.class';
-import {TeRichTextContent, TeUploadedImage} from '@monorepo/text-editor';
-import {HaCoAuthorService} from '../entity-module/ha-co-author-core/model/ha-co-author-service';
-import {HaUser} from '../ha-model/ha-entities/ha-user';
-import {HaLiveTaskCoAuthorInvite} from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
-import {HaFile} from '../entity-module/ha-file-core/model/ha-file';
-import {RvResourceView} from '@monorepo/resource-view';
+import { Observable } from 'rxjs';
+import { HaLiveTaskVersion, HaLiveTaskVersionFileInput } from '../ha-model/ha-entities/ha-live-task-version.class';
+import { ClPage } from '@monorepo/core-lib';
+import { HaBrickVersion } from '../ha-model/ha-entities/ha-brick-version.class';
+import { TeRichTextContent, TeUploadedImage } from '@monorepo/text-editor';
+import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
+import { HaUser } from '../ha-model/ha-entities/ha-user';
+import { HaLiveTaskCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
+import { RvResourceView } from '@monorepo/resource-view';
 
 @Injectable({
   providedIn: 'root'
@@ -27,19 +27,6 @@ export class HaLiveTaskService implements HaCoAuthorService {
   }
 
   ////////////////////////////////// Live Task //////////////////////////////////
-
-  /**
-   * Call http get to get all live tasks
-   * return a list of live tasks
-   */
-  private getAll(page: number, size: number): Observable<ClPage<HaLiveTask>> {
-    return this.apiService.get(this.route, HaLiveTask, {page: page, pageSize: size, resultIsPaginated: true});
-  }
-
-  public getAllPaginated(): HaLiveTaskDatasourcePaginated {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAll(page, size), 10);
-  }
 
   /**
    * Call http post to get all live tasks with filters
@@ -57,7 +44,8 @@ export class HaLiveTaskService implements HaCoAuthorService {
   public getAllWithFiltersPaginated(pageSize: number = 10): HaLiveTaskDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
-        this.getAllWithFilters(requestData.spacesFilter, requestData.titleFilter, page, size), pageSize, false);
+        this.getAllWithFilters(requestData.filtersCriteria.spacesFilter,
+          requestData.filtersCriteria.titleFilter, page, size), pageSize, false);
   }
 
   public getUserLiveTasks(userId: string, page: number, size: number): Observable<ClPage<HaLiveTask>>{
@@ -66,7 +54,7 @@ export class HaLiveTaskService implements HaCoAuthorService {
 
   public getUserLiveTasksPaginated(pageSize: number = 4): HaLiveTaskDatasourcePaginated{
     return new FlEntityPaginatedDatasource(
-      (page, size, requestData) => this.getUserLiveTasks(requestData.userId, page, size), pageSize, false);
+      (page, size, requestData) => this.getUserLiveTasks(requestData.filtersCriteria.userId, page, size), pageSize, false);
   }
 
   /**
