@@ -76,7 +76,7 @@ export class FlTranslateService {
     } else if (translatableText.translateText === false) {
       return translatableText.text;
     } else {
-      return this.translate(translatableText.text, translatableText.translateParam);
+      return this.translate(translatableText.text, translatableText.translateParam?.param);
     }
   }
 
@@ -91,7 +91,7 @@ export class FlTranslateService {
     } else if (translatableText.translateText === false) {
       return of(translatableText.text);
     } else {
-      return this.translateService.get(translatableText.text, translatableText.translateParam);
+      return this.translateService.get(translatableText.text, translatableText.translateParam?.param);
     }
   }
 
