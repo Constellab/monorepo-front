@@ -43,6 +43,7 @@
   "input_max_length": "Taille max {{count}}",
   "open_resource_detail": "ouvrir le détail",
   "resource": "Ressource",
+  "resources": "Resources",
   "resource_empty": "Ressource vide",
   "resource_info": "Info",
   "resource_type": "Type",

@@ -1,15 +1,15 @@
-import {Injectable, NgModule} from '@angular/core';
-import {ActivatedRouteSnapshot, Router, RouterModule, Routes, UrlTree} from '@angular/router';
+import { Injectable, NgModule } from '@angular/core';
+import { ActivatedRouteSnapshot, Router, RouterModule, Routes, UrlTree } from '@angular/router';
 import {
   LabResourceSearchPageComponent
-} from './module/lab-resource-search-page/component/lab-resource-search-page/lab-resource-search-page.component';
+} from './lab-resource-search-page/lab-resource-search-page/lab-resource-search-page.component';
 import {
   LabResourceDetailPageComponent
-} from './module/lab-resource-detail-page/component/lab-resource-detail-page/lab-resource-detail-page.component';
-import {Observable, of} from 'rxjs';
-import {LabViewConfigService} from '../lab-core/entity-service/lab-view-config.service';
-import {catchError, map} from 'rxjs/operators';
-import {LabRouterService} from '../lab-core/service/lab-router.service';
+} from './lab-resource-detail-page/lab-resource-detail-page/lab-resource-detail-page.component';
+import { Observable, of } from 'rxjs';
+import { LabViewConfigService } from '../lab-core/entity-service/lab-view-config.service';
+import { catchError, map } from 'rxjs/operators';
+import { LabRouterService } from '../lab-core/service/lab-router.service';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +51,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LabDataboxRoutingModule {
+export class LabResourceRoutingModule {
 }
 
 

@@ -57,20 +57,20 @@ const routes: Routes = [
         loadChildren: () => import('../lab-biota/lab-biota.module').then(m => m.LabBiotaModule)
       },
 
-      ////////////////////////  DATABOX  /////////////////////////
+      ////////////////////////  DATA  ///////////////////////
       {
         path: labConstDataboxRoute,
-        loadChildren: () => import('../lab-databox/lab-databox.module').then(m => m.LabDataboxModule)
+        loadChildren: () => import('../lab-resource/lab-resource.module').then(m => m.LabResourceModule)
       },
       ////////////////////////  NOTE  /////////////////////////
       {
         path: labConstNoteRoute,
         loadChildren: () => import('../lab-note/lab-note.module').then(m => m.LabNoteModule)
       },
-      ////////////////////////  VIEWBOX  /////////////////////////
+      ////////////////////////  VIEW  /////////////////////////
       {
         path: labConstViewboxRoute,
-        loadChildren: () => import('../lab-viewbox/lab-viewbox.module').then(m => m.LabViewboxModule)
+        loadChildren: () => import('../lab-view/lab-view.module').then(m => m.LabViewModule)
       },
       ////////////////////////  DOC  /////////////////////////
       {

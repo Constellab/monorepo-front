@@ -5,9 +5,9 @@ export const labConstBaseRoute = 'app';
 
 export const labConstExpeirmentRoute = 'scenario';
 export const labConstBiotaRoute = 'biota';
-export const labConstDataboxRoute = 'databox';
+export const labConstDataboxRoute = 'data';
 export const labConstNoteRoute = 'note';
-export const labConstViewboxRoute = 'viewbox';
+export const labConstViewboxRoute = 'views';
 export const labConstMonitoringRoute = 'monitoring';
 export const labConstDocRoute = 'doc';
 export const labConstProtocolTemplateRoute = 'protocol-template';

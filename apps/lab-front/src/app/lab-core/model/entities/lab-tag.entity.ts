@@ -82,7 +82,7 @@ export class LabTagOrigin {
       case 'SCENARIO_PROPAGATED':
         return 'biox.scenario';
       case 'RESOURCE_PROPAGATED':
-        return 'biox.resource';
+        return 'resource';
       case 'VIEW_PROPAGATED':
         return 'biox.view';
     }

@@ -26,12 +26,12 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       route: labConstBioxFullRoute
     },
     {
-      label: 'databox.file_explorer',
-      icon: 'folder',
+      label: 'resources',
+      icon: 'resource',
       route: labConstDataboxFullRoute
     },
     {
-      label: 'biox.viewbox',
+      label: 'biox.views',
       icon: 'view',
       route: labConstViewboxFullRoute
     },
@@ -41,7 +41,7 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       route: labConstProtocolTemplateRoute,
     },
     {
-      label: 'biox.notepad',
+      label: 'biox.notes',
       icon: 'note',
       route: labConstNoteFullRoute,
       divider: true

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabResourceSearchPageComponent} from './lab-resource-search-page.component';
+import { LabResourceSearchPageComponent } from './lab-resource-search-page.component';
 
 describe('BioxResourceSearchPageComponent', () => {
   let component: LabResourceSearchPageComponent;

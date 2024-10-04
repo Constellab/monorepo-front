@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabResourceDetailPageComponent} from './lab-resource-detail-page.component';
+import { LabResourceDetailPageComponent } from './lab-resource-detail-page.component';
 
 describe('BioxResourceDetailPageComponent', () => {
   let component: LabResourceDetailPageComponent;
