@@ -75,7 +75,7 @@ const routes: Routes = [
       ////////////////////////  DOC  /////////////////////////
       {
         path: labConstDocRoute,
-        loadChildren: () => import('../lab-doc/lab-doc.module').then(m => m.LabDocModule)
+        loadChildren: () => import('../lab-documentation/lab-documentation.module').then(m => m.LabDocumentationModule)
       },
       //////////////////////// MONITORING  /////////////////////////
       {

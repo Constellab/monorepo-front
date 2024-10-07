@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {LabTypeEntity} from '../../../lab-core/model/entities/lab-type/lab-type.entity';
-import {mergeMap, Observable} from 'rxjs';
-import {LabTypeService} from '../../../lab-core/entity-service/lab-type.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LabTypeEntity } from '../../lab-core/model/entities/lab-type/lab-type.entity';
+import { mergeMap, Observable } from 'rxjs';
+import { LabTypeService } from '../../lab-core/entity-service/lab-type.service';
 
 @Component({
   selector: 'lab-technical-doc-page',
