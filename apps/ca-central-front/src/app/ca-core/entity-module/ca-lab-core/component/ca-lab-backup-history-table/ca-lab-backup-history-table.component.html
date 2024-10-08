@@ -37,12 +37,8 @@
     <mat-header-cell *matHeaderCellDef>
       {{ 'lab_backup_data' | translate }}
     </mat-header-cell>
-    <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
-      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-        <fl-status-chip [status]="row.dataStatus" size="small" mode="iconOnly"></fl-status-chip>
-        <span>{{ row.dataSize | flByteText }}</span>
-      </div>
-      <div class="g-text-light g-text-small message">{{ row.dataMessage }}</div>
+    <mat-cell *matCellDef="let row" class="col-cell">
+      <ca-lab-backup-history-detail [detail]="row.dataDetails"></ca-lab-backup-history-detail>
     </mat-cell>
   </ng-container>
 
@@ -51,12 +47,8 @@
     <mat-header-cell *matHeaderCellDef>
       {{ 'lab_backup_database' | translate }}
     </mat-header-cell>
-    <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
-      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-        <fl-status-chip [status]="row.dbStatus" size="small" mode="iconOnly"></fl-status-chip>
-        <span>{{ row.dbSize | flByteText }}</span>
-      </div>
-      <div class="g-text-light g-text-small message">{{ row.dbMessage }}</div>
+    <mat-cell *matCellDef="let row" class="col-cell">
+      <ca-lab-backup-history-detail [detail]="row.dbDetails"></ca-lab-backup-history-detail>
     </mat-cell>
   </ng-container>
 

@@ -1,7 +1,7 @@
-import {CaBaseEntity} from '../ca-base-entity.class';
-import {Type} from 'class-transformer';
-import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { Type } from 'class-transformer';
+import { DateTime } from 'luxon';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import {
   FlArrayObs,
   FlEntityPaginatedDatasource,
@@ -10,7 +10,7 @@ import {
   FlStatusHelper,
   FlStatusTransform
 } from '@monorepo/front-core-lib';
-import {CaCloudProviderRegion} from '../ca-cloud-provider.class';
+import { CaCloudProviderRegion } from '../ca-cloud-provider.class';
 
 export type CaLabBackupFrequency = 'DAILY' | 'WEEKLY';
 export type CaLabBackupTriggerMode = 'MANUAL' | 'AUTOMATIC';
@@ -19,8 +19,37 @@ export type CaLabBackupStatus = 'IN_PROGRESS' | 'SUCCESS' | 'ERROR';
 const caLabBackupStatus: FlStatusDict<CaLabBackupStatus> = {
   IN_PROGRESS: FlStatusHelper.getLoadingStatus('IN_PROGRESS', 'flStatus.running'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR')
 };
+
+export class CnLabBackupHistoryDetail extends CaBaseEntity {
+
+  type: 'DATA' | 'DB';
+
+  // Data info
+  @FlStatusTransform(caLabBackupStatus)
+  status: FlStatus<CaLabBackupStatus>;
+
+  message: string;
+
+  totalSize: number;
+
+  transferSize: number;
+
+  transferDuration: number;
+
+  transferSpeed: number;
+
+  transferNbErrors: number;
+
+  transferNbChecks: number;
+
+  transferNbFile: number;
+
+  transferNbDeleted: number;
+
+  transferNbRenamed: number;
+}
 
 export class CaLabBackupHistory extends CaBaseEntity {
 
@@ -42,40 +71,20 @@ export class CaLabBackupHistory extends CaBaseEntity {
   @FlStatusTransform(caLabBackupStatus)
   status: FlStatus<CaLabBackupStatus>;
 
-  @FlStatusTransform(caLabBackupStatus)
-  dataStatus: FlStatus<CaLabBackupStatus>;
+  @Type(() => CnLabBackupHistoryDetail)
+  dataDetails: CnLabBackupHistoryDetail;
 
-  dataMessage: string;
-
-  dataSize: number;
-
-  @FlStatusTransform(caLabBackupStatus)
-  dbStatus: FlStatus<CaLabBackupStatus>;
-
-  dbMessage: string;
-
-  dbSize: number;
+  @Type(() => CnLabBackupHistoryDetail)
+  dbDetails: CnLabBackupHistoryDetail;
 }
 
 export type CaLabBackupHistoryDatasource = FlEntityPaginatedDatasource<CaLabBackupHistory>;
-
-export class CaLabBackupOption extends CaBaseEntity {
-  frequency1: CaLabBackupFrequency;
-
-  @Type(() => CaCloudProviderRegion)
-  region1: CaCloudProviderRegion;
-
-  frequency2: CaLabBackupFrequency;
-
-  @Type(() => CaCloudProviderRegion)
-  region2: CaCloudProviderRegion;
-}
 
 export type CaLabBackupGlobalStatus = 'SUCCESS' | 'NONE';
 
 const caLabBackupGlobalStatus: FlStatusDict<CaLabBackupGlobalStatus> = {
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  NONE: FlStatusHelper.getErrorStatus('NONE', 'lab_no_backup'),
+  NONE: FlStatusHelper.getErrorStatus('NONE', 'lab_no_backup')
 };
 
 

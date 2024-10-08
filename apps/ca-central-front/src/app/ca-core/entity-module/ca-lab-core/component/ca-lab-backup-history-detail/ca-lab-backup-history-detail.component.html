@@ -1,0 +1,15 @@
+<div [caLabBackupHistoryDetailPortal]="detail" [flMouseEnterDelay]="1500">
+  <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+    <fl-status-chip [status]="detail.status" size="small" mode="iconOnly"></fl-status-chip>
+    <div class="g-text-light g-text-small message">{{ detail.message }}</div>
+  </div>
+
+  <fl-key-value>
+    <fl-key>{{ 'lab_backup_transferred_size' | translate }}</fl-key>
+    {{ detail.transferSize | flByteText }}
+  </fl-key-value>
+  <fl-key-value>
+    <fl-key>{{ 'lab_backup_total_size' | translate }}</fl-key>
+    {{ detail.totalSize | flByteText }}
+  </fl-key-value>
+</div>

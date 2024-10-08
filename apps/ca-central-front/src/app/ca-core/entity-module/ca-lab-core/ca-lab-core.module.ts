@@ -33,6 +33,13 @@ import {
   CaLabFreeAdminFormDialogComponent
 } from './component/ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
 import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-storage-core.module';
+import {
+  CaLabBackupHistoryDetailComponent
+} from './component/ca-lab-backup-history-detail/ca-lab-backup-history-detail.component';
+import {
+  CaLabBackupHistoryDetailPortalComponent
+} from './component/ca-lab-backup-history-detail-portal/ca-lab-backup-history-detail-portal.component';
+import { CaLabBackupHistoryDetailPortalDirective } from './directive/ca-lab-backup-history-detail-portal.directive';
 
 /**
  * Core module for Lab and Lab
@@ -58,6 +65,9 @@ import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-s
     CaLabInlineComponent,
     CaLabFreeFormDialogComponent,
     CaLabFreeAdminFormDialogComponent,
+    CaLabBackupHistoryDetailComponent,
+    CaLabBackupHistoryDetailPortalDirective,
+    CaLabBackupHistoryDetailPortalComponent
   ],
   exports: [
     CaLabCardComponent,
@@ -76,6 +86,8 @@ import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-s
     CaLabBackupHistoryTableComponent,
     CaSelectLabComponent,
     CaLabInlineComponent,
+    CaLabBackupHistoryDetailComponent,
+    CaLabBackupHistoryDetailPortalComponent
   ],
   imports: [
     CommonModule,
@@ -91,7 +103,8 @@ import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-s
     CaCoreModule,
     CaFolderCoreModule,
     CaObjectStorageCoreModule,
-    NgOptimizedImage,
-  ],
+    NgOptimizedImage
+  ]
 })
-export class CaLabCoreModule {}
+export class CaLabCoreModule {
+}

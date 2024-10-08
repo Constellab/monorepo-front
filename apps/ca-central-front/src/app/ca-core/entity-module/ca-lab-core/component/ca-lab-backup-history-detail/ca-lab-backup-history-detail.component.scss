@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

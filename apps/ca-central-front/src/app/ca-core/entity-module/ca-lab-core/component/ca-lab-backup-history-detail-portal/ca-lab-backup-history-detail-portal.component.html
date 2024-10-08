@@ -1,0 +1,38 @@
+<fl-portal>
+
+  <fl-portal-header>
+    <fl-status-chip [status]="detail.status" size="small"></fl-status-chip>
+  </fl-portal-header>
+
+  <fl-portal-content>
+    <fl-key-value>
+      <fl-key>{{ 'lab_backup_transferred_size' | translate }}</fl-key>
+      {{ detail.transferSize | flByteText }}
+    </fl-key-value>
+    <fl-key-value>
+      <fl-key>{{ 'lab_backup_total_size' | translate }}</fl-key>
+      {{ detail.totalSize | flByteText }}
+    </fl-key-value>
+
+    <fl-key-value>
+      <fl-key>{{ 'lab_backup_speed' | translate }}</fl-key>
+      {{ detail.transferSpeed | flByteText }} / s
+    </fl-key-value>
+
+    <fl-key-value>
+      <fl-key>{{ 'lab_backup_transferred_file' | translate }}</fl-key>
+      {{ detail.transferNbFile }}
+    </fl-key-value>
+
+    <fl-key-value>
+      <fl-key>{{ 'lab_backup_transferred_deleted' | translate }}</fl-key>
+      {{ detail.transferNbDeleted }}
+    </fl-key-value>
+
+    <fl-key-value class="message">
+      <fl-key>{{ 'lab_backup_message' | translate }}</fl-key>
+      <span class="g-text-small">{{ detail.message }}</span>
+    </fl-key-value>
+  </fl-portal-content>
+
+</fl-portal>
