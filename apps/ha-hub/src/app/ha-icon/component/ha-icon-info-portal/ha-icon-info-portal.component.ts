@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {FL_PORTAL_DATA, FlOverlayRef, FlSnackBarService} from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA, FlClipboardService, FlOverlayRef, FlSnackBarService } from '@monorepo/front-core-lib';
 import {HaIcon} from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
 
 @Component({
@@ -13,7 +13,8 @@ export class HaIconInfoPortalComponent {
 
   constructor(@Inject(FL_PORTAL_DATA) icon: HaIcon,
               private readonly overlayRef: FlOverlayRef,
-              private readonly snackBarService: FlSnackBarService) {
+              private readonly snackBarService: FlSnackBarService,
+              private readonly clipboardService: FlClipboardService) {
     this.icon = icon;
   }
 
@@ -26,11 +27,6 @@ export class HaIconInfoPortalComponent {
   }
 
   copyTechnicalName(): void {
-    // TODO @vfoex use clipboard service + translate
-    navigator.clipboard.writeText(this.icon?.technicalName).then(() => {
-      this.snackBarService.openSuccessMessage({text: `technical_name_copied_to_clipboard`, translateText: true});
-    }).catch(() => {
-      this.snackBarService.openErrorMessage({ text: 'Error copying code to clipboard', translateText: true });
-    });
+    this.clipboardService.copy(this.icon?.technicalName, {text: `technical_name_copied_to_clipboard`, translateText: true})
   }
 }

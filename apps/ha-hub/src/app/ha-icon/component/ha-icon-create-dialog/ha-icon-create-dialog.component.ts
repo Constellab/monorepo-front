@@ -80,8 +80,7 @@ export class HaIconCreateDialogComponent extends FlFormDialogAbstractDirective<H
     if (!file) return;
     this.input_file_trigered = true;
     if (file.size > 50000) {
-      // TODO @vfoex translate
-      this.snackBarService.openErrorMessage({ text: 'file_icon_too_large', translateText: false });
+      this.snackBarService.openErrorMessage({ text: 'file_icon_too_large', translateText: true });
       setTimeout(() => {
         this.formGp.get('file').patchValue(null);
       }, 0);

@@ -6,8 +6,7 @@
   <form (ngSubmit)="submit()" id="story-form" [formGroup]="formGp">
     <mat-form-field appearance="outline" class="g-full">
       <mat-label>{{'email' | translate}}</mat-label>
-      <!--    TODO @vfoex formGp.controls.category a changer, utiliser les formcontrol name  -->
-      <input matInput type="email" [formControl]="$any(formGp.controls.email)" />
+      <input matInput type="email" formControlName="email"/>
       <mat-error *ngIf="formGp.get('email').hasError('required')">
         {{'email' | flErrorRequired}}
       </mat-error>

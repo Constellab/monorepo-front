@@ -16,8 +16,7 @@ import { HaLiveTaskPageState } from '../../state/ha-live-task-page.state';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-// TODO @vfoex composant a cleaner, beaucoup trop gros, beaucoup trop d'attribute
-
+// TODO: A voir si c'est possible d'encore ameliorer ce composant
 @Component({
   selector: 'ha-live-task-version-detail',
   templateUrl: './ha-live-task-version-detail.component.html',
@@ -26,6 +25,7 @@ import { Subscription } from 'rxjs';
 export class HaLiveTaskVersionDetailComponent implements OnInit {
   @Input() isOverview?: boolean;
   versionInfosDisabled = true;
+
   textEditorConfig: TeBasicConfig;
 
   paramsFormControl: FormControl<string> = new FormControl<string>(null);
@@ -42,6 +42,9 @@ export class HaLiveTaskVersionDetailComponent implements OnInit {
 
   lastLtVersion: number = null;
 
+  versionInfosFormControl: FormControl<TeRichTextContent> =
+    new FormControl<TeRichTextContent>(null);
+
   canEdit: Signal<boolean> = this.liveTaskPageState.canEditLt;
   isEditable: Signal<boolean> =
     this.liveTaskPageState.liveTaskVersionIsEditable;
@@ -49,8 +52,6 @@ export class HaLiveTaskVersionDetailComponent implements OnInit {
     this.liveTaskPageState.getBrickDependencies();
   isLiveTaskVersionLoading: Signal<boolean> =
     this.liveTaskPageState.isLiveTaskVersionLoading;
-  versionInfosFormControl: FormControl<TeRichTextContent> =
-    new FormControl<TeRichTextContent>(null);
   liveTaskVersion: Signal<HaLiveTaskVersion> = computed(() => {
     if (!this.liveTaskPageState.liveTaskVersion()) return null;
     const liveTaskVersion = this.liveTaskPageState.liveTaskVersion();
@@ -206,7 +207,6 @@ export class HaLiveTaskVersionDetailComponent implements OnInit {
   }
 
   onCopy(type: 'parameters' | 'code' | 'environment_file'): void {
-    // TODO @vfoex use clipboard service
     let text = null;
     switch (type) {
       case 'parameters':

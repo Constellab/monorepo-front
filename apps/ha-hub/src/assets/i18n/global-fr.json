@@ -360,5 +360,6 @@
   "join_our_discord": "Rejoindre notre Discord",
   "delete_live_task_version": "Supprimer la version de live task",
   "delete_live_task_version_confirmation": "Êtes-vous sûr de vouloir supprimer cette version de live task ?",
-  "live_task_version_deleted": "Version de live task supprimée"
+  "live_task_version_deleted": "Version de live task supprimée",
+  "file_icon_too_large": "L'icône du fichier est trop volumineuse, la taille maximale autorisée est de 50 Mb"
 }
