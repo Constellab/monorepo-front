@@ -32,7 +32,7 @@ import {
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import { CoStoryCategory } from '@monorepo/community-lib';
 
-// TODO @vfoex, composant a refactor, trop gros complexe
+// TODO @vfoex, composant a refactor, trop gros complexe (Refactor avec le auto save composant ?)
 @Component({
   selector: 'ha-story-edit-page',
   templateUrl: './ha-story-edit-page.component.html',
@@ -208,8 +208,7 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onContentUpdate(content: TeRichTextContent): void {
-    // TODO @vfoex: j'ai commenté la ligne suivant pck erreur de type
-    // this.formGp.controls.contentEdition.value = content;
+    this.formGp.controls.contentEdition.patchValue(content);
     this.syncWithBack = false;
     if(this.historyOverlayRef){
       this.historyOverlayRef.dispose();

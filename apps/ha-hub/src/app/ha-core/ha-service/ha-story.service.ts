@@ -158,7 +158,6 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
       this.getMyStoriesForListPaginated(page, size, filters), 10, false);
   }
 
-  // TODO @vfoex : check types
   private getMyStoriesForListPaginated(page: number, size: number,
                                        data: FlDatasourceGetPageData<HaStoryFilter>): Observable<ClPage<HaListStoryDto>> {
     return this.apiService.post(this.route + '/my-filtered', data.filtersCriteria,
