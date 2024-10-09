@@ -396,5 +396,6 @@
   "destination_lab": "Lab de destination",
   "restore_db": "Restaurer la base de données",
   "restore_data": "Restaurer les données",
-  "force_restore": "Forcer la restauration (remplace les données existantes)"
+  "force_restore": "Forcer la restauration (remplace les données existantes)",
+  "lab_volume_history": "Historique du volume"
 }

@@ -1,0 +1,56 @@
+<mat-table mat-table [dataSource]="datasource">
+
+  <!-- Start date -->
+  <ng-container matColumnDef="dates">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'dates' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div>
+        <div [matTooltip]="(row.fromDate | flDate:'DATE_TIME') + ' - ' + (row.toDate | flDate:'DATE_TIME') "
+             [matTooltipShowDelay]="1000">
+          {{ row.fromDate | flDate }} - {{ row.toDate | flDate }}
+        </div>
+        <div>
+          {{ row.durationInHour }} {{ 'lab_usage_billed_hours' | translate }}
+        </div>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Size -->
+  <ng-container matColumnDef="backupSize">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'lab_backup_size' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.backupSize | flByteText }}
+    </mat-cell>
+  </ng-container>
+
+
+  <!-- Price per GB per hour -->
+  <ng-container matColumnDef="backupPricePerGBPerHour">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'lab_backup_storage_price_per_gb_per_hour' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.backupPricePerGBPerHour | number:  '1.5-5' }} €
+    </mat-cell>
+  </ng-container>
+
+  <!-- Price -->
+  <ng-container matColumnDef="backupPrice">
+    <mat-header-cell *matHeaderCellDef>
+      <span>{{ 'lab_backup_storage_price' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.backupPrice | number: '1.5-5' }} €
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>
+

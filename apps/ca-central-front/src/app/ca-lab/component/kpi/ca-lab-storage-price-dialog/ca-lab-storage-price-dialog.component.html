@@ -1,0 +1,22 @@
+<fl-dialog-header>
+  {{ 'lab_storage_price_detail' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+
+  <h3 class="title">{{ 'lab_volume_price' | translate }}</h3>
+
+  <ca-lab-volume-price-table [datasource]="volumes"></ca-lab-volume-price-table>
+
+  <h3 class="title backup">{{ 'lab_backup_storage_price' | translate }}</h3>
+
+  <ca-lab-backup-storage-price-table [datasource]="backups"></ca-lab-backup-storage-price-table>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button color="primary" matDialogClose
+          class="g-centered-forced">
+    {{ 'ok' | translate }}
+  </button>
+</div>

@@ -1,0 +1,20 @@
+<fl-dialog-header>
+  {{ 'lab_volume_history' | translate }}
+
+  @if (isAdmin) {
+    <fl-dialog-header-actions>
+      <button mat-icon-button (click)="updateLabVolume()"
+              type="button"
+              [matTooltip]="'update_volume' | translate">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </fl-dialog-header-actions>
+  }
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-infinite-table-container [datasource]="volumes" textNoMoreResult="">
+    <ca-lab-volume-table [labId]="labId" [datasource]="volumes"
+                         [columns]="columns"></ca-lab-volume-table>
+  </fl-infinite-table-container>
+</mat-dialog-content>

@@ -35,10 +35,16 @@
           </fl-key-value>
         </ng-container>
 
-        <fl-key-value>
-          <fl-key>{{ 'lab_volume_size' | translate }}</fl-key>
-          {{ serverInfo.volumeSize }} ({{ 'lab_volume_type_' + serverInfo.volumeType | translate }})
-        </fl-key-value>
+        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+          <fl-key-value>
+            <fl-key>{{ 'lab_volume_size' | translate }}</fl-key>
+            {{ serverInfo.volumeSize }} ({{ 'lab_volume_type_' + serverInfo.volumeType | translate }})
+          </fl-key-value>
+          <button mat-icon-button type="button" (click)="openVolumeHistoryDialog()"
+                  [matTooltip]="'lab_volume_history' | translate" class="g-button-icon-small">
+            <mat-icon>history</mat-icon>
+          </button>
+        </div>
       </ng-container>
     </fl-async-section>
 

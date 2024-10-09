@@ -36,7 +36,11 @@ import { CaLabSearch, CaLabSearchFields } from '../entity-module/ca-lab-core/mod
 import { CaServerCompleteInfo } from '../model/entities/lab/ca-lab-server.class';
 import { CaLabConfig } from '../model/entities/lab/ca-lab-config.class';
 import { CaLabGreenOption, CaLabGreenOptionFormDto } from '../model/entities/lab/ca-lab-green-option.class';
-import { CaLabStatusRunRequest, CaLabStatusRunResponse } from '../model/entities/lab/ca-lab-status.dto';
+import {
+  CaLabStatusRunRequest,
+  CaLabStatusRunResponse,
+  CaLabStorageResponse
+} from '../model/entities/lab/ca-lab-stats.dto';
 import { CaLabFreeCreateDto, CaLabFreeGetDto, CaLabFreeUpdateDto } from '../model/entities/lab/ca-lab-free.class';
 import { CaLabBackupHistory, CaLabBackupStatusDTO } from '../model/entities/lab/ca-lab-backup.class';
 import {
@@ -49,6 +53,7 @@ import {
   CaLabStatusHistorySearch,
   CaLabStatusHistorySearchFields
 } from '../../ca-lab/component/lab/ca-lab-status-history-page/ca-lab-status-history-page.component';
+import { CaLabUpdateVolumeDTO, CaLabVolume } from '../model/entities/lab/ca-lab-volume.class';
 
 @Injectable({
   providedIn: 'root'
@@ -155,6 +160,24 @@ export class CaLabService {
       resultIsPaginated: true
     });
   }
+
+  //////////////////////////// VOLUME ////////////////////////////////
+
+  updateLabVolume(id: string, updateVolume: CaLabUpdateVolumeDTO): Observable<CaLabVolume> {
+    return this.apiService.put(`${this.route}/${id}/volume`, updateVolume, CaLabVolume,
+      { serialization: CaLabUpdateVolumeDTO });
+  }
+
+  deleteLabVolume(id: string, volumeId: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/${id}/volume/${volumeId}`);
+  }
+
+  getLabVolumeHistory(id: string, page: number, size: number): Observable<ClPage<CaLabVolume>> {
+    return this.apiService.get(`${this.route}/${id}/volume`, CaLabVolume, {
+      resultIsPaginated: true, page: page, pageSize: size
+    });
+  }
+
 
   //////////////////////////// USERS ////////////////////////////////
   public addUserToLab(labId: string, userId: string, role: CaLabUserRole): Observable<CaLabUser> {
@@ -407,10 +430,15 @@ export class CaLabService {
   }
 
 
-  //////////////////////////// KPI ////////////////////////////////
+  //////////////////////////// STATS ////////////////////////////////
 
-  public getRunningKpi(id: string, request: CaLabStatusRunRequest): Observable<CaLabStatusRunResponse> {
-    return this.apiService.post(`${this.route}/${id}/kpi/running`, request, CaLabStatusRunResponse,
+  public getLabRunningStats(id: string, request: CaLabStatusRunRequest): Observable<CaLabStatusRunResponse> {
+    return this.apiService.post(`${this.route}/${id}/stats/running`, request, CaLabStatusRunResponse,
+      { serialization: CaLabStatusRunRequest });
+  }
+
+  public getLabStorageStats(id: string, request: CaLabStatusRunRequest): Observable<CaLabStorageResponse> {
+    return this.apiService.post(`${this.route}/${id}/stats/storage`, request, CaLabStorageResponse,
       { serialization: CaLabStatusRunRequest });
   }
 

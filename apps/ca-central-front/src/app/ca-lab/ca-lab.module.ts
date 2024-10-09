@@ -119,6 +119,22 @@ import { CaGroupCoreModule } from '../ca-core/entity-module/ca-group-core/ca-gro
 import {
   CaHierarchyObjectCoreModule
 } from '../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
+import {
+  CaLabVolumeHistoryDialogComponent
+} from './component/volume/ca-lab-volume-history-dialog/ca-lab-volume-history-dialog.component';
+import {
+  CaLabVolumeUpdateDialogComponent
+} from './component/volume/ca-lab-volume-update-dialog/ca-lab-volume-update-dialog.component';
+import { CaLabVolumeTableComponent } from './component/volume/ca-lab-volume-table/ca-lab-volume-table.component';
+import {
+  CaLabVolumePriceTableComponent
+} from './component/kpi/ca-lab-volume-price-table/ca-lab-volume-price-table.component';
+import {
+  CaLabBackupStoragePriceTableComponent
+} from './component/kpi/ca-lab-backup-storage-price-table/ca-lab-backup-storage-price-table.component';
+import {
+  CaLabStoragePriceDialogComponent
+} from './component/kpi/ca-lab-storage-price-dialog/ca-lab-storage-price-dialog.component';
 
 /**
  * Module the lab detail page with iframe for the lab
@@ -178,7 +194,13 @@ import {
     CaLabSelectServerComponent,
     CaLabSupportPageComponent,
     CaLabSupportComponent,
-    CaLabRestoreBackupToLabComponent
+    CaLabRestoreBackupToLabComponent,
+    CaLabVolumeHistoryDialogComponent,
+    CaLabVolumeUpdateDialogComponent,
+    CaLabVolumeTableComponent,
+    CaLabStoragePriceDialogComponent,
+    CaLabVolumePriceTableComponent,
+    CaLabBackupStoragePriceTableComponent
   ],
   imports: [
     CommonModule,

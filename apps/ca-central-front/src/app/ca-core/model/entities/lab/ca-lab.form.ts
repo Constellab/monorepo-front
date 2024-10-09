@@ -2,8 +2,9 @@ import { CaServerCloud } from '../server/ca-server-cloud.class';
 import { Type } from 'class-transformer';
 import { CaSpace } from '../space/ca-space.class';
 import { CaCloudProviderRegion } from '../ca-cloud-provider.class';
-import { CaLabBillingMode, CaLabDesktopPlatform, CaLabType, CaLabVolumeType } from './ca-lab.class';
+import { CaLabBillingMode, CaLabDesktopPlatform, CaLabType } from './ca-lab.class';
 import { CaLabManagerConfig } from './ca-lab-manager.class';
+import { CaLabVolumeType } from './ca-lab-volume.class';
 
 
 export class CaLabAdminForm {

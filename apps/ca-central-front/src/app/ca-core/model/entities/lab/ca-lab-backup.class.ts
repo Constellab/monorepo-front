@@ -94,8 +94,6 @@ export class CaLabBackupStatusDTO {
   @Type(() => CaCloudProviderRegion)
   region: CaCloudProviderRegion;
 
-  labVolumeSize: number;
-
   @FlStatusTransform(caLabBackupGlobalStatus)
   status: FlStatus<CaLabBackupGlobalStatus>;
 
@@ -111,8 +109,14 @@ export class CaLabBackupStatusDTO {
    */
   sizeInBucket?: number;
   nbDocumentsInBucket?: number;
-
 }
+
+export class CaLabCheckBackupSizeResponseDTO  {
+  @Type(() => CaLabBackupStatusDTO)
+  backupSizes: CaLabBackupStatusDTO[];
+  labVolumeSize: number;
+}
+
 
 export class CaLabBackupStatusDatasource extends FlArrayObs<CaLabBackupStatusDTO> {
 

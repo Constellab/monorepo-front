@@ -14,13 +14,15 @@
       <mat-form-field subscriptSizing="dynamic" class="period">
         <mat-label>{{ 'lab_usage_period' | translate }}</mat-label>
         <mat-select [placeholder]="'lab_usage_period' | translate" formControlName="period">
-          <mat-option *ngFor="let key of periods | flObjectKeys" [value]="periods[key]">
-            {{ 'lab_usage_period_' + key | translate }}
-          </mat-option>
+          @for (key of periods | flObjectKeys; track key) {
+            <mat-option [value]="periods[key]">
+              {{ 'lab_usage_period_' + key | translate }}
+            </mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
-      <ng-container *ngIf="formGroup.value.period === customPeriod">
+      @if (formGroup.value.period === customPeriod) {
 
         <!--    Created at from    -->
         <mat-form-field subscriptSizing="dynamic">
@@ -41,29 +43,63 @@
           <mat-datepicker-toggle matSuffix [for]="createdAtTo"></mat-datepicker-toggle>
           <mat-datepicker #createdAtTo></mat-datepicker>
         </mat-form-field>
-      </ng-container>
+      }
     </form>
 
-    <fl-async-section [object]="runResponse$" class="section">
-      <ng-container *flSectionBody="runResponse$ as runResponse">
-        <fl-key-value>
-          <fl-key>{{ 'lab_usage_total_running_duration' | translate }}</fl-key>
-          {{ (runResponse.runningDuration * 1000) | flDuration:3 }}
-        </fl-key-value>
-
-        @if (runResponse.billInfo) {
+    <div class="section g-layout-row g-layout-start-start">
+      <fl-async-section [object]="runResponse$">
+        <ng-container *flSectionBody="runResponse$ as runResponse">
           <fl-key-value>
-            <fl-key>{{ 'lab_usage_total_billed_hours' | translate }}</fl-key>
-            {{ runResponse.billInfo.nbOfHours }}
+            <fl-key>{{ 'lab_usage_total_running_duration' | translate }}</fl-key>
+            {{ (runResponse.runningDuration * 1000) | flDuration:3 }}
           </fl-key-value>
 
-          <fl-key-value>
-            <fl-key>{{ 'lab_usage_total_price' | translate }}</fl-key>
-            {{ (runResponse.billInfo.totalPrice | number: '1.2-2') }} €
-          </fl-key-value>
-        }
-      </ng-container>
-    </fl-async-section>
+          @if (runResponse.billInfo) {
+            <fl-key-value>
+              <fl-key>{{ 'lab_usage_total_billed_hours' | translate }}</fl-key>
+              {{ runResponse.billInfo.nbOfHours }}
+            </fl-key-value>
+
+            <fl-key-value>
+              <fl-key>{{ 'lab_usage_total_price' | translate }}</fl-key>
+              {{ (runResponse.billInfo.totalPrice | number: '1.2-2') }} €
+            </fl-key-value>
+          }
+        </ng-container>
+      </fl-async-section>
+
+      @if (isCloud$ | async) {
+        <fl-async-section [object]="storageKpi$" class="volume">
+          <ng-container *flSectionBody="storageKpi$ as storageKpi">
+
+            <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+              <fl-key-value>
+                <fl-key>{{ 'lab_volume_price' | translate }}</fl-key>
+                {{ (storageKpi.totalVolumePrice | number: '1.2-2') }} € ({{ storageKpi.totalNbOfMillionSeconds | flDuration }}
+                )
+              </fl-key-value>
+              <button mat-icon-button type="button" class="g-button-icon-small"
+                      (click)="openStorageDetail(storageKpi)"
+                      [matTooltip]="'lab_storage_price_detail' | translate">
+                <mat-icon>info</mat-icon>
+              </button>
+            </div>
+
+            <fl-key-value>
+              <fl-key>{{ 'lab_backup_storage_price' | translate }}</fl-key>
+              {{ (storageKpi.totalBackupStoragePrice | number: '1.2-2') }} €
+              ({{ storageKpi.totalBackupNbOfMillionSeconds | flDuration }})
+            </fl-key-value>
+
+            <fl-key-value>
+              <fl-key>{{ 'lab_backup_transfer_price' | translate }}</fl-key>
+              {{ (storageKpi.totalBackupTransferredDataPrice | number: '1.2-2') }} €
+              ({{ storageKpi.totalBackupTransferredData | flByteText }})
+            </fl-key-value>
+          </ng-container>
+        </fl-async-section>
+      }
+    </div>
 
     <div class="g-section">
       <h3>{{ 'lab_usage_running_periods' | translate }}</h3>

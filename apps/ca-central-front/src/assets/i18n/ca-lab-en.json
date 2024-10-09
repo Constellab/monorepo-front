@@ -396,5 +396,18 @@
   "destination_lab": "Destination lab",
   "restore_db" : "Restore database",
   "restore_data": "Restore data",
-  "force_restore": "Force restore (replace existing data)"
+  "force_restore": "Force restore (replace existing data)",
+  "lab_volume_history": "Volume history",
+  "delete_volume_history": "Delete volume history",
+  "delete_volume_history_confirmation": "Are you sure you want to delete the volume history ?",
+  "volume_history_deleted": "Volume history deleted",
+  "update_volume": "Update volume",
+  "volume_updated": "Volume updated",
+  "lab_volume_price": "Volume price",
+  "lab_backup_storage_price": "Backup storage price",
+  "lab_backup_transfer_price": "Backup transfer price",
+  "lab_storage_price_detail": "Storage price detail",
+  "lab_volume_price_per_gb_per_hour": "Price per GB per hour",
+  "lab_backup_storage_price_per_gb_per_hour": "Price per GB per hour",
+  "lab_backup_size": "Backup size (GB)"
 }

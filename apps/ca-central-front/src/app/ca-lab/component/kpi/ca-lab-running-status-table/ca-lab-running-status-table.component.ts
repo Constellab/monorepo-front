@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CaLabRunningStatus } from '../../../../ca-core/model/entities/lab/ca-lab-status.dto';
+import { CaLabRunningStatus } from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
 import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
 
 @Component({

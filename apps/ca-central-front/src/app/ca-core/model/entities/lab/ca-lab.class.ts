@@ -14,9 +14,9 @@ import { CaLabUserRole } from './ca-lab-user.class';
 import { CaCloudProvider, CaCloudProviderRegion } from '../ca-cloud-provider.class';
 import { DateTime } from 'luxon';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { CaLabVolumeType } from './ca-lab-volume.class';
 
 export type CaLabBillingMode = 'HOURLY' | 'MONTHLY';
-export type CaLabVolumeType = 'CLASSIC' | 'HIGH_SPEED';
 export type CaLabType = 'CLOUD' | 'DESKTOP' | 'ON_PREMISE';
 export type CaLabDesktopPlatform = 'WINDOWS' | 'LINUX' | 'MAC';
 
