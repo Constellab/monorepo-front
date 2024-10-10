@@ -48,7 +48,7 @@ export class PrWorkflowLayer {
   public static rootLayer(id: string, resourceState: PrWorkflowResourcesState,
                           actionState: PrWorkflowActionState): PrWorkflowLayer {
     // for the root layer, the id MUST be home (required by drawflow)
-    return new PrWorkflowLayer(id, 'Home', '', 'Main protocol', resourceState, actionState);
+    return new PrWorkflowLayer(id, 'Home', '', 'Playground', resourceState, actionState);
   }
 
   public init(editor: Drawflow, containerElement: HTMLElement): void {

@@ -57,8 +57,8 @@ const prProtocolI18nFr: FlLangTranslation = {
     outerface_not_connect_in_parent: 'Outerface non connectée sur le parent',
     process_name: 'Nom du process',
     port_name: 'Nom du port',
-    add_empty_protocol: 'Ajouter un protocole vide',
-    adding_empty_protocol: 'Ajout d\'un protocole vide',
+    add_empty_protocol: 'Ajouter un playground vide',
+    adding_empty_protocol: 'Ajout d\'un playground vide',
   }
 };
 
@@ -114,8 +114,8 @@ const prProtocolI18nEn: FlLangTranslation = {
     outerface_not_connect_in_parent: 'Outerface not connected in parent',
     process_name: 'Process name',
     port_name: 'Port name',
-    add_empty_protocol: 'Add an empty protocol',
-    adding_empty_protocol: 'Adding an empty protocol',
+    add_empty_protocol: 'Add an empty playground',
+    adding_empty_protocol: 'Adding an empty playground',
   }
 };
 
