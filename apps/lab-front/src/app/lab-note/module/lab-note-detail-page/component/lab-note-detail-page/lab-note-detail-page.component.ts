@@ -15,8 +15,8 @@ import {
   LabValidateObjectDialogInput
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
 import { LabFolder } from '../../../../../lab-core/model/entities/lab-folder.class';
-import { LabDocumentTemplateService } from '../../../../../lab-core/entity-service/lab-document-template.service';
-import { LabDocumentTemplate } from '../../../../../lab-core/model/entities/lab-document-template.entity';
+import { LabNoteTemplateService } from '../../../../../lab-core/entity-service/lab-note-template.service';
+import { LabNoteTemplate } from '../../../../../lab-core/model/entities/lab-note-template.entity';
 import { LabNoteTextEditorConfig } from '../../lab-note-text-editor-config.class';
 import { LabTagDatasource } from '../../../../../lab-core/model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.service';
@@ -52,7 +52,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private dialogService: FlDialogService,
               private routerService: LabRouterService,
-              private documentTemplateService: LabDocumentTemplateService,
+              private noteTemplateService: LabNoteTemplateService,
               private tagService: LabTagService) {
   }
 
@@ -206,17 +206,17 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  createDocumentTemplate(): void {
+  createNoteTemplate(): void {
     if (this.createTemplateLoading) return;
     this.createTemplateLoading = true;
-    this.documentTemplateService.createFromNote(this.state.currentNote.id).subscribe({
-      next: template => this.createDocumentTemplateSuccess(template),
+    this.noteTemplateService.createFromNote(this.state.currentNote.id).subscribe({
+      next: template => this.createNoteTemplateSuccess(template),
       error: () => this.createTemplateLoading = false
     });
   }
 
-  private createDocumentTemplateSuccess(documentTemplate: LabDocumentTemplate): void {
-    this.routerService.navigateToDocumentTemplateDetail(documentTemplate.id);
+  private createNoteTemplateSuccess(noteTemplate: LabNoteTemplate): void {
+    this.routerService.navigateToNoteTemplateDetail(noteTemplate.id);
   }
 
   ngOnDestroy(): void {

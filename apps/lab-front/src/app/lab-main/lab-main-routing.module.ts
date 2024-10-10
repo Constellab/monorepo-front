@@ -5,10 +5,10 @@ import {
   labConstBiotaRoute,
   labConstDataboxRoute,
   labConstDocRoute,
-  labConstDocumentTemplateRoute,
   labConstExpeirmentRoute,
   labConstMonitoringRoute,
   labConstNoteRoute,
+  labConstNoteTemplateRoute,
   labConstProtocolTemplateRoute,
   labConstViewboxRoute
 } from '../lab-core/utils/lab-base-route';
@@ -47,8 +47,8 @@ const routes: Routes = [
 
       ////////////////////////  NOTE TEMPLATE  /////////////////////////
       {
-        path: labConstDocumentTemplateRoute,
-        loadChildren: () => import('../lab-document-template/lab-document-template.module').then(m => m.LabDocumentTemplateModule)
+        path: labConstNoteTemplateRoute,
+        loadChildren: () => import('../lab-note-template/lab-note-template.module').then(m => m.LabNoteTemplateModule)
       },
 
       ////////////////////////  BIOTA  /////////////////////////

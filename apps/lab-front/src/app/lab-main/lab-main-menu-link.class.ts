@@ -2,8 +2,8 @@ import {
   labConstBiotaFullRoute,
   labConstBioxFullRoute,
   labConstDataboxFullRoute,
-  labConstDocumentTemplateFullRoute,
   labConstNoteFullRoute,
+  labConstNoteTemplateFullRoute,
   labConstProtocolTemplateRoute,
   labConstViewboxFullRoute
 } from '../lab-core/utils/lab-base-route';
@@ -47,9 +47,9 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       divider: true
     },
     {
-      label: 'biox.document_templates',
-      icon: 'document_template',
-      route: labConstDocumentTemplateFullRoute,
+      label: 'biox.note_templates',
+      icon: 'note_template',
+      route: labConstNoteTemplateFullRoute,
     },
   ];
 }

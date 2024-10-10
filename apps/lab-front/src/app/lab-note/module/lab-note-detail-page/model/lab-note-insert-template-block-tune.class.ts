@@ -12,12 +12,12 @@ export class LabNoteInsertTemplateBlockTuneConfig {
 }
 
 /**
- * Block tune add the option to insert a document template in the note rich text
+ * Block tune add the option to insert a note template in the note rich text
  */
 export class LabNoteInsertTemplateBlockTune extends TeBlockTune {
   render(): HTMLElement | MenuConfig {
     const button = TeHelper.generateTuneButton(
-      TeHelper.getTranslateService().translate('biox.note_insert_document_template'),
+      TeHelper.getTranslateService().translate('biox.note_insert_note_template'),
       'description'
     );
     button.addEventListener('click', () => {

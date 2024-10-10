@@ -4,8 +4,8 @@ import { LabResourceViewRichText } from '../../../../model/entities/resource/lab
 import { LabNoteResourceTextEditorConfig } from '../../model/lab-note-resource-text-editor.config';
 import { TeConfig } from '@monorepo/text-editor';
 import {
-  LabDocumentTemplateTextEditorConfig
-} from '../../../../../lab-document-template/lab-document-template-detail-page/lab-document-template-text-editor-config.class';
+  LabNoteTemplateTextEditorConfig
+} from '../../../../../lab-note-template/lab-note-template-detail-page/lab-note-template-text-editor-config.class';
 import { LabRichTextObjectType } from '../../../../entity-service/lab-rich-text.service';
 import {
   LabNoteTextEditorConfig
@@ -26,8 +26,8 @@ export class LabResourceRichTextViewComponent
       case LabRichTextObjectType.NOTE:
         this.textEditorConfig = new LabNoteTextEditorConfig(this.view.data.object_id);
         break;
-      case LabRichTextObjectType.DOCUMENT_TEMPLATE:
-        this.textEditorConfig = new LabDocumentTemplateTextEditorConfig(this.view.data.object_id);
+      case LabRichTextObjectType.NOTE_TEMPLATE:
+        this.textEditorConfig = new LabNoteTemplateTextEditorConfig(this.view.data.object_id);
         break;
       case LabRichTextObjectType.NOTE_RESOURCE:
         this.textEditorConfig = new LabNoteResourceTextEditorConfig(this.resourceId);

@@ -137,9 +137,9 @@ export class LabConfig extends LabBaseEntity {
       config.type = 'select_credentials';
       config.additionalInfo = {credentialsType: spec.additional_info.credentials_type};
       return config;
-    } else if (spec.type === 'document_template_param') {
+    } else if (spec.type === 'note_template_param') {
       const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'select_document_template';
+      config.type = 'select_note_template';
       return config;
     } else if (spec.type === 'note_param') {
       const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;

@@ -11,7 +11,7 @@ export const labConstViewboxRoute = 'views';
 export const labConstMonitoringRoute = 'monitoring';
 export const labConstDocRoute = 'doc';
 export const labConstProtocolTemplateRoute = 'protocol-template';
-export const labConstDocumentTemplateRoute = 'document-template';
+export const labConstNoteTemplateRoute = 'note-template';
 export const labConstLoginRoute = '/login';
 
 export const labConstBioxFullRoute = `/${labConstBaseRoute}/${labConstExpeirmentRoute}`;
@@ -22,5 +22,5 @@ export const labConstViewboxFullRoute = `/${labConstBaseRoute}/${labConstViewbox
 export const labConstMonitoringFullRoute = `/${labConstBaseRoute}/${labConstMonitoringRoute}`;
 export const labConstDocFullRoute = `/${labConstBaseRoute}/${labConstDocRoute}`;
 export const labConstProtocolTemplateFullRoute = `/${labConstBaseRoute}/${labConstProtocolTemplateRoute}`;
-export const labConstDocumentTemplateFullRoute = `/${labConstBaseRoute}/${labConstDocumentTemplateRoute}`;
+export const labConstNoteTemplateFullRoute = `/${labConstBaseRoute}/${labConstNoteTemplateRoute}`;
 

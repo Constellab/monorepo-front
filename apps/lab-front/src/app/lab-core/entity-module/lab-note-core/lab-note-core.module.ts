@@ -12,7 +12,7 @@ import { LabEntityCoreModule } from '../lab-entity-core/lab-entity-core.module';
 import { LabFolderCoreModule } from '../lab-folder-core/lab-folder-core.module';
 import { LabSelectNoteComponent } from './component/lab-select-note/lab-select-note.component';
 import { LabNoteInlineComponent } from './component/lab-note-inline/lab-note-inline.component';
-import { LabDocumentTemplateCoreModule } from '../lab-document-template-core/lab-document-template-core.module';
+import { LabNoteTemplateCoreModule } from '../lab-note-template-core/lab-note-template-core.module';
 import {
   LabSelectNoteDynamicFieldComponent
 } from './component/lab-select-note-dynamic-field/lab-select-note-dynamic-field.component';
@@ -48,7 +48,7 @@ import { LabTagCoreModule } from '../lab-tag-core/lab-tag-core.module';
     LabCoreModule,
     LabEntityCoreModule,
     LabFolderCoreModule,
-    LabDocumentTemplateCoreModule,
+    LabNoteTemplateCoreModule,
     LabTagCoreModule
   ]
 })

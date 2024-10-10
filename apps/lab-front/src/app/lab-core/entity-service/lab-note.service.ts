@@ -66,7 +66,7 @@ export class LabNoteService {
     return this.apiService.put(`${this.route}/${id}/content`, content);
   }
 
-  public insertDocumentTemplate(id: string, data: LabNoteInsertTemplateDTO): Observable<LabNoteContent> {
+  public insertNoteTemplate(id: string, data: LabNoteInsertTemplateDTO): Observable<LabNoteContent> {
     return this.apiService.put(`${this.route}/${id}/content/insert-template`, data);
   }
 

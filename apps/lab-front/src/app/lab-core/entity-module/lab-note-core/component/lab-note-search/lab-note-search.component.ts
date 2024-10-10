@@ -15,9 +15,9 @@ import {
   LabNoteFormDialogInput
 } from '../lab-note-form-dialog/lab-note-form-dialog.component';
 import {
-  LabSelectDocumentTemplateDialogComponent,
-  LabSelectDocumentTemplateDialogInput
-} from '../../../lab-document-template-core/component/lab-select-document-template-dialog/lab-select-document-template-dialog.component';
+  LabSelectNoteTemplateDialogComponent,
+  LabSelectNoteTemplateDialogInput
+} from '../../../lab-note-template-core/component/lab-select-note-template-dialog/lab-select-note-template-dialog.component';
 
 
 @Component({
@@ -106,8 +106,8 @@ export class LabNoteSearchComponent implements OnInit {
     this.noteSelected.next(note);
   }
 
-  openDocumentTemplatesSearch(): void {
-    const data: LabSelectDocumentTemplateDialogInput = { mode: 'link' };
-    this.dialogService.openBigDialog(LabSelectDocumentTemplateDialogComponent, { data });
+  openNoteTemplatesSearch(): void {
+    const data: LabSelectNoteTemplateDialogInput = { mode: 'link' };
+    this.dialogService.openBigDialog(LabSelectNoteTemplateDialogComponent, { data });
   }
 }

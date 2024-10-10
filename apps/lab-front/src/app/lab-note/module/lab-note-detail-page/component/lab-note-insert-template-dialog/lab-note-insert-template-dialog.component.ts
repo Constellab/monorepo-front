@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
-import { LabDocumentTemplate } from '../../../../../lab-core/model/entities/lab-document-template.entity';
+import { LabNoteTemplate } from '../../../../../lab-core/model/entities/lab-note-template.entity';
 import { LabNoteContent } from '../../../../../lab-core/model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
 
@@ -11,7 +11,7 @@ export interface LabNoteInsertTemplateDialogData {
 }
 
 /**
- * Dialog to insert a document template in the note
+ * Dialog to insert a note template in the note
  */
 @Component({
   selector: 'lab-note-insert-template-dialog',
@@ -20,7 +20,7 @@ export interface LabNoteInsertTemplateDialogData {
 })
 export class LabNoteInsertTemplateDialogComponent {
 
-  formControl: FormControl<LabDocumentTemplate> = new FormControl();
+  formControl: FormControl<LabNoteTemplate> = new FormControl();
   isLoading: boolean = false;
 
   private dialogInput: LabNoteInsertTemplateDialogData = inject(MAT_DIALOG_DATA);
@@ -34,11 +34,11 @@ export class LabNoteInsertTemplateDialogComponent {
     }
   }
 
-  private insertTemplate(documentTemplate: LabDocumentTemplate): void {
+  private insertTemplate(noteTemplate: LabNoteTemplate): void {
     this.isLoading = true;
-    this.noteService.insertDocumentTemplate(this.dialogInput.noteId, {
+    this.noteService.insertNoteTemplate(this.dialogInput.noteId, {
       block_index: this.dialogInput.blockIndex.toString(),
-      document_template_id: documentTemplate.id
+      note_template_id: noteTemplate.id
     }).subscribe({
       next: content => this.insertTemplateSuccess(content),
       error: () => this.isLoading = false

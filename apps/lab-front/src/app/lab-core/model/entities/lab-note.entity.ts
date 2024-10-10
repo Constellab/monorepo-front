@@ -5,7 +5,7 @@ import { LabFolder, LabFolderObject } from './lab-folder.class';
 import { LabEntity } from '../global/lab-entity.entity';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
-import { LabDocumentTemplate } from './lab-document-template.entity';
+import { LabNoteTemplate } from './lab-note-template.entity';
 import { TeRichTextContent } from '@monorepo/text-editor';
 
 export type LabNoteContent = TeRichTextContent;
@@ -54,10 +54,10 @@ export type LabNoteDatasource<F = void> = FlDatasourcePaginated<LabNote, F>;
 export interface LabNoteForm {
   title: string;
   folder: LabEntity;
-  template: LabDocumentTemplate;
+  template: LabNoteTemplate;
 }
 
 export interface LabNoteInsertTemplateDTO {
   block_index: string;
-  document_template_id: string;
+  note_template_id: string;
 }

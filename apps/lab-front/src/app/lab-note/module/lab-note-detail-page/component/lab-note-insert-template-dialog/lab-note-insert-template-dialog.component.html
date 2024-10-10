@@ -1,24 +1,24 @@
 <fl-dialog-header>
   <fl-text-icon>
-    <mat-icon flIcon="document_template" class="g-icon-big"></mat-icon>
-    {{ 'biox.note_insert_document_template' | translate }}
+    <mat-icon flIcon="note_template" class="g-icon-big"></mat-icon>
+    {{ 'biox.note_insert_note_template' | translate }}
   </fl-text-icon>
 </fl-dialog-header>
 
 <mat-dialog-content>
 
   <p class="help-text">
-    {{'biox.note_insert_document_template_help' | translate}}
+    {{'biox.note_insert_note_template_help' | translate}}
   </p>
   <form (ngSubmit)="submit()" id="insert-doc-template-form">
 
     <fl-form-field>
-      <lab-select-document-template [formControl]="formControl"
-                                    [placeholder]="'biox.select_document_template' | translate"
-                                    [required]="true"></lab-select-document-template>
+      <lab-select-note-template [formControl]="formControl"
+                                    [placeholder]="'biox.select_note_template' | translate"
+                                    [required]="true"></lab-select-note-template>
       <mat-error class="g-warn-text g-text-small"
                  *ngIf="formControl.hasError('required')">
-        {{'biox.select_document_template' | flErrorRequired}}
+        {{'biox.select_note_template' | flErrorRequired}}
       </mat-error>
     </fl-form-field>
 

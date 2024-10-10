@@ -46,8 +46,8 @@ import { BnBioNetworkModule } from '@monorepo/bio-network';
 import { LabWorkflowResourcesState } from './lab-scenario/lab-scenario-detail-page/state/lab-workflow-resources.state';
 import { LabEnvironmentHelper } from './lab-core/utils/lab-environment.helper';
 import {
-  LabDocumentTemplateCoreModule
-} from './lab-core/entity-module/lab-document-template-core/lab-document-template-core.module';
+  LabNoteTemplateCoreModule
+} from './lab-core/entity-module/lab-note-template-core/lab-note-template-core.module';
 import { LabCredentialsCoreModule } from './lab-core/entity-module/lab-credentials-core/lab-credentials-core.module';
 import { LabRichTextCoreModule } from './lab-core/entity-module/lab-rich-text-core/lab-rich-text-core.module';
 import { TranslateLoader } from '@ngx-translate/core';
@@ -106,7 +106,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
         CoCommunityLibModule.forRoot(LabCoServiceConfig),
         // import core module here because they have dynamic field component required
         // in task config
-        LabDocumentTemplateCoreModule,
+        LabNoteTemplateCoreModule,
         LabCredentialsCoreModule,
         LabRichTextCoreModule,
         LabAppRoutingModule], providers: [

@@ -3,13 +3,13 @@ import { LabNote } from './lab-note.entity';
 import { LabScenario } from './lab-scenario.entity';
 import { LabResource } from './resource/lab-resource.entity';
 import { LabViewConfig } from './resource/lab-view-config.entity';
-import { LabDocumentTemplate } from './lab-document-template.entity';
+import { LabNoteTemplate } from './lab-note-template.entity';
 import { LabProtocolTemplate } from './process/lab-protocol-template.entity';
 import { LabFolder } from './lab-folder.class';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
 export type LabEntityType = 'SCENARIO' | 'RESOURCE' | 'VIEW' | 'NOTE'
-  | 'PROTOCOL_TEMPLATE' | 'DOCUMENT_TEMPLATE' | 'FOLDER';
+  | 'PROTOCOL_TEMPLATE' | 'NOTE_TEMPLATE' | 'FOLDER';
 
 export const labEntityTypeIcon: Record<LabEntityType, string> = {
   SCENARIO: 'scenario',
@@ -17,7 +17,7 @@ export const labEntityTypeIcon: Record<LabEntityType, string> = {
   VIEW: 'view',
   NOTE: 'note',
   PROTOCOL_TEMPLATE: 'protocol_template',
-  DOCUMENT_TEMPLATE: 'document_template',
+  NOTE_TEMPLATE: 'note_template',
   FOLDER: 'folder'
 };
 
@@ -58,8 +58,8 @@ const LabNavigableEntityGroupedFactory: any = (json: TypeHelpOptions) => {
       return LabNote;
     case 'PROTOCOL_TEMPLATE':
       return LabProtocolTemplate;
-    case 'DOCUMENT_TEMPLATE':
-      return LabDocumentTemplate;
+    case 'NOTE_TEMPLATE':
+      return LabNoteTemplate;
     case 'FOLDER':
       return LabFolder;
     default:

@@ -9,7 +9,7 @@ import { NgControl } from '@angular/forms';
 import { LabNote, LabNoteDatasource } from '../../../../model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../entity-service/lab-note.service';
 import { LabSelectNoteDialogComponent } from '../lab-note-note-dialog/lab-select-note-dialog.component';
-import { LabDocumentTemplate } from '../../../../model/entities/lab-document-template.entity';
+import { LabNoteTemplate } from '../../../../model/entities/lab-note-template.entity';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -61,7 +61,7 @@ export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implem
 
     if (typeof obj == 'string') {
       this.selectedNote = this.noteService.getNote(obj);
-    } else if (!(obj instanceof LabDocumentTemplate)) {
+    } else if (!(obj instanceof LabNoteTemplate)) {
       this.selectedNote = this.noteService.getNote((obj as any).id);
     } else {
       // if the user is complete

@@ -13,12 +13,12 @@ import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/bloc
 import { LabRichTextObjectType } from '../../entity-service/lab-rich-text.service';
 
 export interface LabRichTextViewBlockAdditionalData {
-  type: 'note' | 'note-resource' | 'note-file-view' | 'document-template-view-file';
+  type: 'note' | 'note-resource' | 'note-file-view' | 'note-template-view-file';
   /**
    * if note, id of the note,
    * if note-resource, id of the note resource,
    * if note-file-view, id of the note
-   * if document-template-view-file, id of the document template
+   * if note-template-view-file, id of the note template
    */
   entityId: string | null;
 }
@@ -109,10 +109,10 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
           }, noteResourceData.title, noteResourceData.caption);
         break;
       case 'note-file-view':
-      case 'document-template-view-file':
+      case 'note-template-view-file':
         const fileViewData = data as LabRichTextFileView;
         const objectType: LabRichTextObjectType = this.additionalData.type === 'note-file-view' ?
-          LabRichTextObjectType.NOTE : LabRichTextObjectType.DOCUMENT_TEMPLATE;
+          LabRichTextObjectType.NOTE : LabRichTextObjectType.NOTE_TEMPLATE;
         this.componentInstance.setFileViewInput(objectType, this.additionalData.entityId,
           fileViewData.filename, fileViewData.title, fileViewData.caption);
         break;
@@ -136,7 +136,7 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
         const noteResourceContentView = blockData as LabNoteResourceContentView;
         return !!noteResourceContentView.sub_resource_key && !!noteResourceContentView.view_method_name;
       case 'note-file-view':
-      case 'document-template-view-file':
+      case 'note-template-view-file':
         const fileViewData = blockData as LabRichTextFileView;
         return !!fileViewData.filename;
     }

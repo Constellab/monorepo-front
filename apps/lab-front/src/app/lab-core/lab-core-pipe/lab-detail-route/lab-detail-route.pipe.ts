@@ -5,7 +5,7 @@ import { LabNote } from '../../model/entities/lab-note.entity';
 import { LabScenario } from '../../model/entities/lab-scenario.entity';
 import { LabResource } from '../../model/entities/resource/lab-resource.entity';
 import { LabProtocolTemplate } from '../../model/entities/process/lab-protocol-template.entity';
-import { LabDocumentTemplate } from '../../model/entities/lab-document-template.entity';
+import { LabNoteTemplate } from '../../model/entities/lab-note-template.entity';
 import { LabEntityType } from '../../model/entities/lab-navigable-entity.entity';
 import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
 
@@ -41,8 +41,8 @@ export class LabDetailRoutePipe implements PipeTransform {
         return LabRouterService.getNoteDetailRoute(id);
       case 'PROTOCOL_TEMPLATE':
         return LabRouterService.getProtocolTemplateDetailRoute(id);
-      case 'DOCUMENT_TEMPLATE':
-        return LabRouterService.getDocumentTemplateDetailRoute(id);
+      case 'NOTE_TEMPLATE':
+        return LabRouterService.getNoteTemplateDetailRoute(id);
       case 'VIEW':
         return LabRouterService.getViewConfigRedirectRoute(id);
       default:
@@ -61,8 +61,8 @@ export class LabDetailRoutePipe implements PipeTransform {
       return 'NOTE';
     } else if (obj instanceof LabProtocolTemplate) {
       return 'PROTOCOL_TEMPLATE';
-    } else if (obj instanceof LabDocumentTemplate) {
-      return 'DOCUMENT_TEMPLATE';
+    } else if (obj instanceof LabNoteTemplate) {
+      return 'NOTE_TEMPLATE';
     } else if (obj instanceof LabViewConfig) {
       return 'VIEW';
     } else {

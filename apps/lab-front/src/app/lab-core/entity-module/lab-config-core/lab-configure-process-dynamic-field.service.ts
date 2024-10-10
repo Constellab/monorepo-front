@@ -23,8 +23,8 @@ import {
   LabRichTextDynamicFieldComponent
 } from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
 import {
-  LabSelectDocumentTemplateDynamicFieldComponent
-} from '../lab-document-template-core/component/lab-select-document-template-dynamic-field/lab-select-document-template-dynamic-field.component';
+  LabSelectNoteTemplateDynamicFieldComponent
+} from '../lab-note-template-core/component/lab-select-note-template-dynamic-field/lab-select-note-template-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
@@ -38,7 +38,7 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
       'tags': this.buildTagField,
       'open_ai_chat': this.buildOpenAiChatField,
       'select_credentials': this.buildSelectCredentialsField,
-      'select_document_template': this.buildSelectDocumentTemplateField,
+      'select_note_template': this.buildSelectNoteTemplateField,
       'select_note': this.buildSelectNoteField,
       'rich_text': this.buildRichTextField
     };
@@ -73,8 +73,8 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
     return component;
   }
 
-  private buildSelectDocumentTemplateField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
-    return viewContainer.createComponent(LabSelectDocumentTemplateDynamicFieldComponent);
+  private buildSelectNoteTemplateField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+    return viewContainer.createComponent(LabSelectNoteTemplateDynamicFieldComponent);
   }
 
   private buildSelectNoteField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {

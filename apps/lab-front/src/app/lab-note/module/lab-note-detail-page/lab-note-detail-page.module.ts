@@ -19,8 +19,8 @@ import {
   LabNoteInsertTemplateDialogComponent
 } from './component/lab-note-insert-template-dialog/lab-note-insert-template-dialog.component';
 import {
-  LabDocumentTemplateCoreModule
-} from '../../../lab-core/entity-module/lab-document-template-core/lab-document-template-core.module';
+  LabNoteTemplateCoreModule
+} from '../../../lab-core/entity-module/lab-note-template-core/lab-note-template-core.module';
 
 
 @NgModule({
@@ -42,7 +42,7 @@ import {
     LabFolderCoreModule,
     LabTagCoreModule,
     ReactiveFormsModule,
-    LabDocumentTemplateCoreModule
+    LabNoteTemplateCoreModule
   ],
   exports: [
     LabNoteInsertTemplateDialogComponent

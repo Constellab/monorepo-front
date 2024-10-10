@@ -6,7 +6,7 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { LabNoteService } from '../../../../entity-service/lab-note.service';
 import { LabEntity } from '../../../../model/global/lab-entity.entity';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LabDocumentTemplate } from '../../../../model/entities/lab-document-template.entity';
+import { LabNoteTemplate } from '../../../../model/entities/lab-note-template.entity';
 
 export interface LabNoteFormDialogInput extends FlFormDialogInput<LabNoteForm> {
   noteId?: string;
@@ -70,7 +70,7 @@ export class LabNoteFormDialogComponent extends FlFormDialogAbstractDirective<La
     return 'biox.note_updated';
   }
 
-  onTemplateSelected(template: LabDocumentTemplate): void {
+  onTemplateSelected(template: LabNoteTemplate): void {
     if (!this.formGp.value.title) {
       this.formGp.patchValue({title: template.title});
     }
