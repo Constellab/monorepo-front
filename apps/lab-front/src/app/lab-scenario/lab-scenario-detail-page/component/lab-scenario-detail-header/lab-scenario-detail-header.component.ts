@@ -38,9 +38,9 @@ import {
 } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import { LabProcessService } from '../../../../lab-core/entity-service/lab-process.service';
 import {
-  LabProtocolTemplateFormDialogComponent,
-  LabProtocolTemplateFormDialogInput
-} from '../../../../lab-core/entity-module/lab-protocol-template-core/component/lab-protocol-template-form-dialog/lab-protocol-template-form-dialog.component';
+  LabScenarioTemplateFormDialogComponent,
+  LabScenarioTemplateFormDialogInput
+} from '../../../../lab-core/entity-module/lab-scenario-template-core/component/lab-scenario-template-form-dialog/lab-scenario-template-form-dialog.component';
 import { LabProtocolService } from '../../../../lab-core/entity-service/lab-protocol.service';
 import { DateTime } from 'luxon';
 import {
@@ -190,10 +190,10 @@ export class LabScenarioDetailHeaderComponent implements OnInit {
     }
   }
 
-  openCreateProtocolTemplate(): void {
+  openCreateScenarioTemplate(): void {
     const scenario = this.scenarioState.currentScenario;
 
-    const input: LabProtocolTemplateFormDialogInput = {
+    const input: LabScenarioTemplateFormDialogInput = {
       mode: 'create',
       protocolId: scenario.protocol.id,
       defaultName: scenario.title,
@@ -201,15 +201,15 @@ export class LabScenarioDetailHeaderComponent implements OnInit {
     };
 
 
-    this.dialogService.openSmallDialog(LabProtocolTemplateFormDialogComponent,
+    this.dialogService.openSmallDialog(LabScenarioTemplateFormDialogComponent,
       { data: input, panelClass: 'g-dialog-main-background' }).afterClosed().subscribe();
   }
 
-  downloadProtocolTemplate(scenario: LabScenario): void {
+  downloadScenarioTemplate(scenario: LabScenario): void {
     this.actionsService.addAction({
-      type: 'download-protocol-template',
-      action: this.protocolService.downloadProtocolTemplate(scenario.protocol.id),
-      text: { text: 'biox.download_protocol_template', translateText: true }
+      type: 'download-scenario-template',
+      action: this.protocolService.downloadScenarioTemplate(scenario.protocol.id),
+      text: { text: 'biox.download_scenario_template', translateText: true }
     });
   }
 

@@ -6,7 +6,7 @@ import { LabNote } from '../../../model/entities/lab-note.entity';
 import { LabResource } from '../../../model/entities/resource/lab-resource.entity';
 import { LabViewConfig } from '../../../model/entities/resource/lab-view-config.entity';
 import { LabEntityTagType, LabTagDatasource } from '../../../model/entities/lab-tag.entity';
-import { LabProtocolTemplate } from '../../../model/entities/process/lab-protocol-template.entity';
+import { LabScenarioTemplate } from '../../../model/entities/process/lab-scenario-template.entity';
 
 @Pipe({
   name: 'labGetEntityTags',
@@ -35,8 +35,8 @@ export class LabGetEntityTagsPipe implements PipeTransform {
       return 'RESOURCE';
     } else if (entity instanceof LabViewConfig) {
       return 'VIEW';
-    } else if (entity instanceof LabProtocolTemplate) {
-      return 'PROTOCOL_TEMPLATE';
+    } else if (entity instanceof LabScenarioTemplate) {
+      return 'SCENARIO_TEMPLATE';
     } else {
       console.error('[labGetEntityTags] Entity type not supported', entity);
       return null;

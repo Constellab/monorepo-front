@@ -114,12 +114,12 @@ export class LabWorkflowEditConfig implements OnDestroy {
       });
   }
 
-  public addProtocolTemplate(protocolTemplateId: string, protocolTemplateName: string): void {
-    const obs = this.protocolService.addProtocolTemplateToProtocol(this.workflow.currentLayer.id, protocolTemplateId);
+  public addScenarioTemplate(scenarioTemplateId: string, scenarioTemplateName: string): void {
+    const obs = this.protocolService.addScenarioTemplateToProtocol(this.workflow.currentLayer.id, scenarioTemplateId);
     this.addProcessAction(obs,
       {
         text: 'pr.adding_process', translateText: true,
-        translateParam: { param: { processName: protocolTemplateName } }
+        translateParam: { param: { processName: scenarioTemplateName } }
       });
   }
 

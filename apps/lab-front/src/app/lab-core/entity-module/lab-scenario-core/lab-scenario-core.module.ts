@@ -28,7 +28,7 @@ import {
   LabRunningScenarioTableComponent
 } from './component/lab-running-scenario-table/lab-running-scenario-table.component';
 import { LabProcessCoreModule } from '../lab-process-core/lab-process-core.module';
-import { LabProtocolTemplateCoreModule } from '../lab-protocol-template-core/lab-protocol-template-core.module';
+import { LabScenarioTemplateCoreModule } from '../lab-scenario-template-core/lab-scenario-template-core.module';
 import { LabScenarioInlineComponent } from './component/lab-scenario-inline/lab-scenario-inline.component';
 import { LabTypeCoreModule } from '../lab-type-core/lab-type-core.module';
 import {
@@ -76,7 +76,7 @@ import { LabScenarioIconsComponent } from './component/lab-scenario-icons/lab-sc
     LabTagCoreModule,
     LabFolderCoreModule,
     LabProcessCoreModule,
-    LabProtocolTemplateCoreModule,
+    LabScenarioTemplateCoreModule,
     LabTypeCoreModule
   ]
 })

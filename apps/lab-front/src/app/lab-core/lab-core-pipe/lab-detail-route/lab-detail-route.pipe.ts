@@ -4,7 +4,7 @@ import { LabRouterService } from '../../service/lab-router.service';
 import { LabNote } from '../../model/entities/lab-note.entity';
 import { LabScenario } from '../../model/entities/lab-scenario.entity';
 import { LabResource } from '../../model/entities/resource/lab-resource.entity';
-import { LabProtocolTemplate } from '../../model/entities/process/lab-protocol-template.entity';
+import { LabScenarioTemplate } from '../../model/entities/process/lab-scenario-template.entity';
 import { LabNoteTemplate } from '../../model/entities/lab-note-template.entity';
 import { LabEntityType } from '../../model/entities/lab-navigable-entity.entity';
 import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
@@ -39,8 +39,8 @@ export class LabDetailRoutePipe implements PipeTransform {
         return LabRouterService.getResourceDetailRoute(id);
       case 'NOTE':
         return LabRouterService.getNoteDetailRoute(id);
-      case 'PROTOCOL_TEMPLATE':
-        return LabRouterService.getProtocolTemplateDetailRoute(id);
+      case 'SCENARIO_TEMPLATE':
+        return LabRouterService.getScenarioTemplateDetailRoute(id);
       case 'NOTE_TEMPLATE':
         return LabRouterService.getNoteTemplateDetailRoute(id);
       case 'VIEW':
@@ -59,8 +59,8 @@ export class LabDetailRoutePipe implements PipeTransform {
       return 'RESOURCE';
     } else if (obj instanceof LabNote) {
       return 'NOTE';
-    } else if (obj instanceof LabProtocolTemplate) {
-      return 'PROTOCOL_TEMPLATE';
+    } else if (obj instanceof LabScenarioTemplate) {
+      return 'SCENARIO_TEMPLATE';
     } else if (obj instanceof LabNoteTemplate) {
       return 'NOTE_TEMPLATE';
     } else if (obj instanceof LabViewConfig) {

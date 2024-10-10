@@ -1,0 +1,22 @@
+<div class="g-layout-row g-layout-between-center">
+
+
+  <h1 flElementEditable (flElementValueChange)="updateName($event)"
+      class="title">{{ template.name }}</h1>
+
+  <div>
+    <button mat-icon-button type="button" (click)="downloadScenarioTemplate()" class="button"
+            [matTooltip]="'biox.download_scenario_template' | translate">
+      <mat-icon>cloud_download</mat-icon>
+
+    </button>
+
+    <button mat-icon-button type="button" (click)="openDeleteDialog()" color="warn"
+            class="button"
+            [matTooltip]="'biox.update_scenario_template' | translate">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+
+</div>

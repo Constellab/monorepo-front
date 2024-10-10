@@ -7,7 +7,7 @@ import {
   labConstMonitoringFullRoute,
   labConstNoteFullRoute,
   labConstNoteTemplateFullRoute,
-  labConstProtocolTemplateFullRoute
+  labConstScenarioTemplateFullRoute
 } from '../utils/lab-base-route';
 import { Router } from '@angular/router';
 
@@ -39,12 +39,12 @@ export class LabRouterService {
     return `${labConstBioxFullRoute}/${id}`;
   }
 
-  public static getProtocolTemplatesRoute(): string {
-    return `${labConstProtocolTemplateFullRoute}`;
+  public static getScenarioTemplatesRoute(): string {
+    return `${labConstScenarioTemplateFullRoute}`;
   }
 
-  public static getProtocolTemplateDetailRoute(id: string): string {
-    return `${labConstProtocolTemplateFullRoute}/${id}`;
+  public static getScenarioTemplateDetailRoute(id: string): string {
+    return `${labConstScenarioTemplateFullRoute}/${id}`;
   }
 
   public static getResourceDetailRoute(id: string): string {
@@ -153,8 +153,8 @@ export class LabRouterService {
     return this.router.navigate([LabRouterService.getResourceDetailRoute(id)]);
   }
 
-  public navigateToProtocolTemplates(): Promise<boolean> {
-    return this.router.navigate([LabRouterService.getProtocolTemplatesRoute()]);
+  public navigateToScenarioTemplates(): Promise<boolean> {
+    return this.router.navigate([LabRouterService.getScenarioTemplatesRoute()]);
   }
 
   public navigateToNoteDetail(id: string): Promise<boolean> {

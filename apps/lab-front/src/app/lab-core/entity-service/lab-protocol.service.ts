@@ -5,9 +5,9 @@ import { LabProcessLayout, LabProtocol, LabProtocolLayout } from '../model/entit
 import { LabProtocolUpdateDTO } from '../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-action.class';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
-  LabCreateProtocolTemplateDTO,
-  LabProtocolTemplate
-} from '../model/entities/process/lab-protocol-template.entity';
+  LabCreateScenarioTemplateDTO,
+  LabScenarioTemplate
+} from '../model/entities/process/lab-scenario-template.entity';
 import { TdIOSpec } from '@monorepo/technical-doc';
 import {
   LabCreateCommunityLiveTaskVersionResDto,
@@ -224,7 +224,7 @@ export class LabProtocolService {
       null, LabProtocolUpdateDTO);
   }
 
-  public addProtocolTemplateToProtocol(protocolId: string, templateId: string): Observable<LabProtocolUpdateDTO> {
+  public addScenarioTemplateToProtocol(protocolId: string, templateId: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(`${this.baseRoute}/${protocolId}/add-template/${templateId}`, null, LabProtocolUpdateDTO);
   }
 
@@ -286,14 +286,14 @@ export class LabProtocolService {
   }
 
   ///////////////////////////////////////////////// PROTOCOL TEMPLATE /////////////////////////////////////////////////
-  public createProtocolTemplate(protocolId: string, template: LabCreateProtocolTemplateDTO): Observable<LabProtocolTemplate> {
-    return this.apiService.post(`${this.baseRoute}/${protocolId}/template`, template, LabProtocolTemplate);
+  public createScenarioTemplate(protocolId: string, template: LabCreateScenarioTemplateDTO): Observable<LabScenarioTemplate> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/template`, template, LabScenarioTemplate);
   }
 
-  public downloadProtocolTemplate(protocolId: string): Observable<Blob> {
+  public downloadScenarioTemplate(protocolId: string): Observable<Blob> {
     return this.apiService.get(`${this.baseRoute}/${protocolId}/template/download`, null,
       {responseType: 'blob'}).pipe(
-      tap((result) => FlFileHelper.downloadBlob(result, 'protocol-template.json'))
+      tap((result) => FlFileHelper.downloadBlob(result, 'scenario-template.json'))
     );
   }
 

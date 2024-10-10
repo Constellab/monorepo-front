@@ -101,14 +101,14 @@
 
     <!-- Protocol menu -->
     <mat-menu #protocol>
-      <button mat-menu-item type="button" (click)="openCreateProtocolTemplate()">
-        <mat-icon flIcon="protocol_template"></mat-icon>
-        {{ 'biox.create_protocol_template' | translate }}
+      <button mat-menu-item type="button" (click)="openCreateScenarioTemplate()">
+        <mat-icon flIcon="scenario_template"></mat-icon>
+        {{ 'biox.create_scenario_template' | translate }}
       </button>
 
-      <button mat-menu-item type="button" (click)="downloadProtocolTemplate(scenario)">
+      <button mat-menu-item type="button" (click)="downloadScenarioTemplate(scenario)">
         <mat-icon>cloud_download</mat-icon>
-        {{ 'biox.download_protocol_template' | translate }}
+        {{ 'biox.download_scenario_template' | translate }}
       </button>
     </mat-menu>
 

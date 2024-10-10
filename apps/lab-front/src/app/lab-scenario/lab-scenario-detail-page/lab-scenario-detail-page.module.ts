@@ -36,8 +36,8 @@ import { LabFolderCoreModule } from '../../lab-core/entity-module/lab-folder-cor
 import { LabProcessDashboardComponent } from './component/lab-process-dashboard/lab-process-dashboard.component';
 import { LabProcessIoPanelComponent } from './component/lab-process-io-panel/lab-process-io-panel.component';
 import {
-  LabProtocolTemplateCoreModule
-} from '../../lab-core/entity-module/lab-protocol-template-core/lab-protocol-template-core.module';
+  LabScenarioTemplateCoreModule
+} from '../../lab-core/entity-module/lab-scenario-template-core/lab-scenario-template-core.module';
 import {
   LabDynamicPortConfigDialogComponent
 } from './component/lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
@@ -84,7 +84,7 @@ import { LabSystemCoreModule } from '../../lab-core/entity-module/lab-system-cor
     LabMonitorCoreModule,
     LabProgressBarCoreModule,
     LabFolderCoreModule,
-    LabProtocolTemplateCoreModule,
+    LabScenarioTemplateCoreModule,
     LabTagCoreModule,
     LabNavigableEntityCoreModule,
     LabSystemCoreModule

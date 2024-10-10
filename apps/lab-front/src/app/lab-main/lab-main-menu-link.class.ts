@@ -4,7 +4,7 @@ import {
   labConstDataboxFullRoute,
   labConstNoteFullRoute,
   labConstNoteTemplateFullRoute,
-  labConstProtocolTemplateRoute,
+  labConstScenarioTemplateRoute,
   labConstViewboxFullRoute
 } from '../lab-core/utils/lab-base-route';
 
@@ -36,9 +36,9 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       route: labConstViewboxFullRoute
     },
     {
-      label: 'biox.protocol_templates',
-      icon: 'protocol_template',
-      route: labConstProtocolTemplateRoute,
+      label: 'biox.scenario_templates',
+      icon: 'scenario_template',
+      route: labConstScenarioTemplateRoute,
     },
     {
       label: 'biox.notes',

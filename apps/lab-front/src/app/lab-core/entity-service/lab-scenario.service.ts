@@ -62,19 +62,19 @@ export class LabScenarioService {
 
   private scenarioFormToBody(scenario: LabScenarioSimpleForm): Observable<any> {
     // extract json from file if it exists
-    if (scenario.protocolTemplateJsonFile) {
-      return FlFileHelper.readBlobContent(scenario.protocolTemplateJsonFile, true).pipe(
+    if (scenario.scenarioTemplateJsonFile) {
+      return FlFileHelper.readBlobContent(scenario.scenarioTemplateJsonFile, true).pipe(
         map((json: any) => ({
           title: scenario.title,
           folder_id: scenario.folder?.id ?? null,
-          protocol_template_id: scenario.protocolTemplate?.id ?? null,
-          protocol_template_json: json
+          scenario_template_id: scenario.scenarioTemplate?.id ?? null,
+          scenario_template_json: json
         })));
     }
     return of({
       title: scenario.title,
       folder_id: scenario.folder?.id ?? null,
-      protocol_template_id: scenario.protocolTemplate?.id ?? null
+      scenario_template_id: scenario.scenarioTemplate?.id ?? null
     });
   }
 

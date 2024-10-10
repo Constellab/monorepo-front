@@ -14,7 +14,7 @@ import { Expose, Type } from 'class-transformer';
 import { LabUser } from './lab-user.entity';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
-export type LabEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'PROTOCOL_TEMPLATE';
+export type LabEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'SCENARIO_TEMPLATE';
 
 
 /**

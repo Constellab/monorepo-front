@@ -48,7 +48,7 @@ export const FL_ICON_MODULE =
 export const flIconsDefault: FlIcon[] = [
   {name: 'scenario', matIconName: 'slow_motion_video'},
   {name: 'protocol', filename: 'cogs-solid.svg'},
-  {name: 'protocol_template', filename: 'protocol-template.svg'},
+  {name: 'scenario_template', matIconName: 'extension'},
   {name: 'process', filename: 'cogs-solid.svg'},
   {name: 'lab', filename: 'microscope-solid.svg'},
   {name: 'process_config', filename: 'task-configuration.svg'},

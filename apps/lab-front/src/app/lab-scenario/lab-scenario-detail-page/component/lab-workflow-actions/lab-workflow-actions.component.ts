@@ -18,10 +18,10 @@ import {
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-community-live-task-dialog/lab-select-community-live-task-dialog.component';
 import { LabLiveTask } from '../../../../lab-core/model/entities/lab-live-task.entity';
 import {
-  LabSelectProtocolTemplateDialogComponent,
-  LabSelectProtocolTemplateDialogInput
-} from '../../../../lab-core/entity-module/lab-protocol-template-core/component/lab-select-protocol-template-dialog/lab-select-protocol-template-dialog.component';
-import { LabProtocolTemplate } from '../../../../lab-core/model/entities/process/lab-protocol-template.entity';
+  LabSelectScenarioTemplateDialogComponent,
+  LabSelectScenarioTemplateDialogInput
+} from '../../../../lab-core/entity-module/lab-scenario-template-core/component/lab-select-scenario-template-dialog/lab-select-scenario-template-dialog.component';
+import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 
 /**
  * Actions button for the workflow
@@ -71,18 +71,18 @@ export class LabWorkflowActionsComponent implements OnInit {
     }
   }
 
-  addProtocolTemplate(): void {
-    const data: LabSelectProtocolTemplateDialogInput = {
+  addScenarioTemplate(): void {
+    const data: LabSelectScenarioTemplateDialogInput = {
       rowSelectable: true
     };
-    this.dialogService.openBigDialog(LabSelectProtocolTemplateDialogComponent, { data: data }).afterClosed().subscribe(
-      protocolTemplate => this.onSelectProtocolTemplateClosed(protocolTemplate)
+    this.dialogService.openBigDialog(LabSelectScenarioTemplateDialogComponent, { data: data }).afterClosed().subscribe(
+      scenarioTemplate => this.onSelectScenarioTemplateClosed(scenarioTemplate)
     );
   }
 
-  private onSelectProtocolTemplateClosed(protocolTemplate?: LabProtocolTemplate): void {
-    if (protocolTemplate) {
-      this.workflowEditState.addProtocolTemplate(protocolTemplate.id, protocolTemplate.name);
+  private onSelectScenarioTemplateClosed(scenarioTemplate?: LabScenarioTemplate): void {
+    if (scenarioTemplate) {
+      this.workflowEditState.addScenarioTemplate(scenarioTemplate.id, scenarioTemplate.name);
     }
   }
 

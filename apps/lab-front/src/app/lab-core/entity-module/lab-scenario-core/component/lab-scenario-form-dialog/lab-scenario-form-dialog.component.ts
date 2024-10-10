@@ -44,8 +44,8 @@ export class LabScenarioFormDialogComponent extends FlFormDialogAbstractDirectiv
     const formGroup = new FormBuilder().group({
       title: [null, Validators.required],
       folder: [null],
-      protocolTemplate: [null],
-      protocolTemplateJsonFile: [null],
+      scenarioTemplate: [null],
+      scenarioTemplateJsonFile: [null],
     });
 
     if (this.isUpdateMode() && this.dialogInput.disabledFolder) {

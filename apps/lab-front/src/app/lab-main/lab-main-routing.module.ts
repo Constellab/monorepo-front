@@ -9,7 +9,7 @@ import {
   labConstMonitoringRoute,
   labConstNoteRoute,
   labConstNoteTemplateRoute,
-  labConstProtocolTemplateRoute,
+  labConstScenarioTemplateRoute,
   labConstViewboxRoute
 } from '../lab-core/utils/lab-base-route';
 import { LabMainAppComponent } from './component/lab-main-app/lab-main-app.component';
@@ -41,8 +41,8 @@ const routes: Routes = [
 
       ////////////////////////  PROTOCOL TEMPLATE  /////////////////////////
       {
-        path: labConstProtocolTemplateRoute,
-        loadChildren: () => import('../lab-protocol-template/lab-protocol-template.module').then(m => m.LabProtocolTemplateModule)
+        path: labConstScenarioTemplateRoute,
+        loadChildren: () => import('../lab-scenario-template/lab-scenario-template.module').then(m => m.LabScenarioTemplateModule)
       },
 
       ////////////////////////  NOTE TEMPLATE  /////////////////////////

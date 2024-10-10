@@ -136,8 +136,8 @@ export type LabScenarioDatasource<F = void> = FlEntityPaginatedDatasource<LabSce
 export interface LabScenarioSimpleForm {
   title: string;
   folder: LabEntity;
-  protocolTemplate?: FlEntity;
-  protocolTemplateJsonFile?: File;
+  scenarioTemplate?: FlEntity;
+  scenarioTemplateJsonFile?: File;
 }
 
 export class LabRunningScenarioInfo extends LabEntity {

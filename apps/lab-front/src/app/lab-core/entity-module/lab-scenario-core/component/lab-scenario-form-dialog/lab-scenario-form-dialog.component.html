@@ -20,22 +20,22 @@
 
 
     <!--  Protocol template  -->
-    <div class="protocol-template" *ngIf="isCreateMode()">
-      <p class="protocol-template-title"><strong>{{'biox.protocol_template' | translate}}</strong></p>
-      <div class="g-text-small g-text-light protocol-help">{{'biox.select_protocol_template_help_text' | translate}}</div>
+    <div class="scenario-template" *ngIf="isCreateMode()">
+      <p class="scenario-template-title"><strong>{{'biox.scenario_template' | translate}}</strong></p>
+      <div class="g-text-small g-text-light protocol-help">{{'biox.select_scenario_template_help_text' | translate}}</div>
       <fl-form-field>
-        <lab-select-protocol-template formControlName="protocolTemplate"
-                                      [placeholder]="'biox.protocol_template' | translate">
-        </lab-select-protocol-template>
+        <lab-select-scenario-template formControlName="scenarioTemplate"
+                                      [placeholder]="'biox.scenario_template' | translate">
+        </lab-select-scenario-template>
       </fl-form-field>
 
       <p class="or-text">{{'or' | translate}}</p>
 
       <!--  Protocol template file  -->
-      <fl-input-file-container color="primary" [placeholder]="'biox.import_protocol_template' | translate"
+      <fl-input-file-container color="primary" [placeholder]="'biox.import_scenario_template' | translate"
                                class="g-centered-forced">
         <input flInputFile type="file" [strictMode]="true"
-               accept="application/json" formControlName="protocolTemplateJsonFile">
+               accept="application/json" formControlName="scenarioTemplateJsonFile">
       </fl-input-file-container>
 
     </div>
