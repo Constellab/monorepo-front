@@ -32,7 +32,7 @@
       <h5 class="lt-user-title">
         <span>{{ 'authors' | translate }}</span>
         @if (isAuthor()) {
-          <button mat-icon-button (click)="openLtCoAuthorsDialog()">
+          <button mat-icon-button (click)="openLtCoAuthorsDialog()" [matTooltip]="'open_coauthor_panel' | translate">
             <mat-icon>group_add</mat-icon>
           </button>
         }

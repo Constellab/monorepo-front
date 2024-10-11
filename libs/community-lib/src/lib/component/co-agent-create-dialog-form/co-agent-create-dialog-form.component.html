@@ -1,5 +1,5 @@
 <mat-dialog-content>
-  <form (ngSubmit)="submit()" id="live-task-form" [formGroup]="formGp">
+  <form (ngSubmit)="submit()" id="agent-form" [formGroup]="formGp">
 
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'coCommunityLib.title' | translate }}</mat-label>
@@ -55,7 +55,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="live-task-form" class="g-centered-forced"
+  <button mat-flat-button color="primary" type="submit" form="agent-form" class="g-centered-forced"
           [disabled]="!formGp.valid && !isLoading">
     {{ 'coCommunityLib.create' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>

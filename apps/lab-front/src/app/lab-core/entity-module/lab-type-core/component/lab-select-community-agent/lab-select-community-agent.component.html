@@ -25,13 +25,13 @@
         </mat-form-field>
       </form>
     </div>
-    <div class="live-tasks-list-div g-scrollable-element" *ngIf="liveTasksDatasource"
-         (flInfiniteScroll)="liveTasksDatasource.getNextPage()"
-         [flInfiniteDisabled]="liveTasksDatasource?.isLoading || liveTasksDatasource?.page?.last"
+    <div class="agents-list-div g-scrollable-element" *ngIf="agentsDatasource"
+         (flInfiniteScroll)="agentsDatasource.getNextPage()"
+         [flInfiniteDisabled]="agentsDatasource?.isLoading || agentsDatasource?.page?.last"
          flInfiniteMode="auto">
-      <div *ngFor="let liveTask of liveTasksDatasource.connect() | async">
-        <co-live-task-list-item [liveTask]="pythonLabLiveTaskToCoLiveTask(liveTask)"
-                                class="live-task-item" (click)="onLiveTaskClick(liveTask)"></co-live-task-list-item>
+      <div *ngFor="let agent of agentsDatasource.connect() | async">
+        <co-agent-list-item [agent]="pythonLabAgentToCoAgent(agent)"
+                            class="agent-item" (click)="onAgentClick(agent)"></co-agent-list-item>
       </div>
     </div>
   </div>

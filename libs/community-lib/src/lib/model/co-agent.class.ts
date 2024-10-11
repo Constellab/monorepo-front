@@ -1,9 +1,9 @@
-import {TeRichTextContent} from '@monorepo/text-editor';
-import {DateTime} from 'luxon';
-import {CoSpace} from './co-space.class';
-import {CoUser} from './co-user.class';
+import { TeRichTextContent } from '@monorepo/text-editor';
+import { DateTime } from 'luxon';
+import { CoSpace } from './co-space.class';
+import { CoUser } from './co-user.class';
 
-export class CoLiveTask {
+export class CoAgent {
   id: string;
   title: string;
   description?: TeRichTextContent;
@@ -16,13 +16,13 @@ export class CoLiveTask {
   comments: number;
 }
 
-export enum CoLiveTaskType {
+export enum CoAgentType {
   PUBLIC = 'PUBLIC',
   SPACE = 'SPACE'
 }
 
-export class CoCreateLiveTaskFormData {
+export class CoCreateAgentFormData {
   title: string;
-  type: CoLiveTaskType;
+  type: CoAgentType;
   space?: CoSpace;
 }

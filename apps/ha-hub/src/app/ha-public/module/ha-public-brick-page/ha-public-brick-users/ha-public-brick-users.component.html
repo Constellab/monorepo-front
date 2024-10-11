@@ -2,7 +2,7 @@
   <h5 class="brick-user-title">
     <span>{{'authors' | translate}}</span>
     @if (isCreator$ | async){
-      <button mat-icon-button (click)="openAddUserToBrickDialog()">
+      <button mat-icon-button (click)="openAddUserToBrickDialog()" [matTooltip]="'open_coauthor_panel' | translate">
         <mat-icon>group_add</mat-icon>
       </button>
     }

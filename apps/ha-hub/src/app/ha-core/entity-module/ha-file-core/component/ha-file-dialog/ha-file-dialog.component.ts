@@ -65,7 +65,7 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
   uploadDocument(event: File | File[]): void {
     this.formGp.controls.newFiles?.patchValue(ClHelpService.convertObjectOrArrayToArray(event));
 
-    if (event[0].size > 20000000) {
+    if ((event as File[])[0].size > 20000000) {
       this.snackBarService.openErrorMessage({ text: 'file_too_large_error', translateText: true });
       return;
     }

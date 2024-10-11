@@ -35,7 +35,7 @@
       <form type="submit" (ngSubmit)="search($event)">
         <mat-form-field class="section-search-bar">
           <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
-          <button mat-icon-button matSuffix (click)="search($event)">
+          <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate">
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
@@ -43,7 +43,7 @@
     </div>
     <a class="live-task-result-card-div" *ngFor="let liveTask of liveTasksPaginated | flDatasourceConnect | async"
        [routerLink]="(liveTask | haDetailRoute)">
-      <co-live-task-list-item [liveTask]="liveTask"></co-live-task-list-item>
+      <co-agent-list-item [agent]="liveTask"></co-agent-list-item>
     </a>
   </fl-infinite-scroll>
 </div>

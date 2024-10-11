@@ -113,7 +113,7 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
    * @param content new content
    * return a story
    */
-  public updateContent(id: string, content: TeRichTextContent): Observable<HaStory> {
+  public updateContentEdition(id: string, content: TeRichTextContent): Observable<HaStory> {
     return this.apiService.put(this.route + '/' + id + '/content-edition', { contentEdition: content }, HaStory);
   }
 

@@ -62,7 +62,7 @@
                             cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_live_task_yet' | translate">
           <a class="list-element" *ngFor="let liveTask of liveTasks$ | flDatasourceConnect | async"
              [routerLink]="(liveTask | haDetailRoute)">
-            <co-live-task-list-item [liveTask]="liveTask"></co-live-task-list-item>
+            <co-agent-list-item [agent]="liveTask"></co-agent-list-item>
           </a>
         </fl-infinite-scroll>
         <div class="profile-list-separator"></div>

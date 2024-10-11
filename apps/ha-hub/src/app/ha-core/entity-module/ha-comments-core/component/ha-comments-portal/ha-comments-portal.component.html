@@ -2,7 +2,7 @@
      flInfiniteMode="auto" class="comments-portal-div">
   <div class="comments-portal">
     <h4>{{ 'comments' | translate}} - {{entity.comments}}</h4>
-    <button mat-icon-button (click)="closePortal()">
+    <button mat-icon-button (click)="closePortal()" [matTooltip]="'close' | translate">
       <mat-icon>close</mat-icon>
     </button>
   </div>

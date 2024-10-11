@@ -80,7 +80,7 @@
       </p>
       <div class="home-list-div">
         <a *ngFor="let liveTask of liveTasks$ | flDatasourceConnect | async" [routerLink]="(liveTask | haDetailRoute)">
-          <co-live-task-list-item class="home-card" [liveTask]="liveTask"></co-live-task-list-item>
+          <co-agent-list-item class="home-card" [agent]="liveTask"></co-agent-list-item>
         </a>
       </div>
       <a mat-stroked-button [routerLink]="liveTaskListRoute" class="go-to-button">

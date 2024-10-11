@@ -43,7 +43,7 @@
       <form (submit)="search()">
         <mat-form-field class="section-search-bar">
           <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
-          <button mat-icon-button matSuffix (click)="search()">
+          <button mat-icon-button matSuffix (click)="search()" [matTooltip]="'search' | translate">
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>

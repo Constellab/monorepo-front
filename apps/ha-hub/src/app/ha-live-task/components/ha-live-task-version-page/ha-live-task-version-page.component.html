@@ -15,7 +15,7 @@
             {{ 'publish' | translate }}
           </button>
         }
-        <button mat-icon-button color="warn" (click)="deleteLiveTaskVersion()">
+        <button mat-icon-button color="warn" (click)="deleteLiveTaskVersion()" [matTooltip]="'delete_live_task_version' | translate">
           <mat-icon>delete</mat-icon>
         </button>
       </div>

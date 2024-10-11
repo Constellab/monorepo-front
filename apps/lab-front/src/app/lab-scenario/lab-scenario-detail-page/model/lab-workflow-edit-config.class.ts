@@ -132,12 +132,12 @@ export class LabWorkflowEditConfig implements OnDestroy {
       });
   }
 
-  public addCommunityLiveTask(liveTaskVersionId: string, liveTaskTitle: string): void {
-    const obs = this.protocolService.addCommunityLiveTaskToProtocol(this.workflow.currentLayer.id, liveTaskVersionId);
+  public addCommunityAgent(agentVersionId: string, agentTitle: string): void {
+    const obs = this.protocolService.addCommunityAgentToProtocol(this.workflow.currentLayer.id, agentVersionId);
     this.addProcessAction(obs,
       {
-        text: 'pr.adding_community_live_task', translateText: true,
-        translateParam: { param: { processName: liveTaskTitle } }
+        text: 'pr.adding_community_agent', translateText: true,
+        translateParam: { param: { processName: agentTitle } }
       });
   }
 

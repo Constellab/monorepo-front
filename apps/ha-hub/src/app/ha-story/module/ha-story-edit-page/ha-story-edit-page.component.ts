@@ -1,10 +1,9 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   FlConfirmDialogInput,
-  FlDebouncer,
   FlDialogService,
   FlOverlayRef,
   FlPortalService,
@@ -15,7 +14,7 @@ import { mergeMap, Observable, of, startWith } from 'rxjs';
 import { HaTopic, HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
 import { map } from 'rxjs/operators';
-import { FormBuilder, FormControl, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -36,50 +35,46 @@ import { CoStoryCategory } from '@monorepo/community-lib';
 @Component({
   selector: 'ha-story-edit-page',
   templateUrl: './ha-story-edit-page.component.html',
-  styleUrls: ['./ha-story-edit-page.component.scss']
+  styleUrls: ['./ha-story-edit-page.component.scss'],
 })
-export class HaStoryEditPageComponent implements OnInit, OnDestroy {
-
-
+export class HaStoryEditPageComponent implements OnInit {
   story: HaStory;
-  formGp: UntypedFormGroup;
+  formGp: FormGroup;
   textEditorConfig: HaStoryTextEditorConfig;
 
   historyOverlayRef: FlOverlayRef;
 
   contentEditorIsFocused: boolean = false;
-  private contentDebouncer: FlDebouncer<TeRichTextContent>;
-
   contentHasError: boolean = false;
-
   contentError: string;
-
-
-  topicControl: FormControl<string | HaTopic> = new FormControl<string | HaTopic>('');
-
+  topicControl: FormControl<string | HaTopic> = new FormControl<
+    string | HaTopic
+  >('');
   topics: HaTopicDto[];
-
   filteredTopics: Observable<HaTopicDto[]>;
-
   canSaveTopic: boolean = false;
-
   inputTopic: string = '';
-
   isAuthor: boolean;
-
   storyCategories: string[] = Object.keys(CoStoryCategory);
-
   syncWithBack: boolean = false;
-
   contentModified: boolean = false;
-
   notFound: boolean = false;
-
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
-
+  contentEditionFormControl: FormControl<TeRichTextContent> =
+    new FormControl<TeRichTextContent>(TeRichText.emptyContent());
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
+
+  testSave = (value: TeRichTextContent) => of(value).pipe(
+    mergeMap((value) => this.storyService.updateContentEdition(this.story.id, value)),
+    map((story) => {
+      this.story = story;
+      this.contentModified = !TeRichText.areSimilar(this.story.contentEdition, this.story.content);
+      this.syncWithBack = true;
+      return story;
+    })
+  )
 
   constructor(
     private storyService: HaStoryService,
@@ -88,16 +83,16 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     private topicService: HaTopicService,
     private authenticatedUserService: HaAuthenticatedUserService,
     private portalService: FlPortalService,
-    private router: Router) {
-  }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
 
-    this.activatedRoute.params.pipe().subscribe(params => {
+    this.activatedRoute.params.pipe().subscribe((params) => {
       this.imageConfig = {
-        title: {text: 'upload_story_picture', translateText: true},
-        helpText: {text: 'image_square_help', translateText: true},
+        title: { text: 'upload_story_picture', translateText: true },
+        helpText: { text: 'image_square_help', translateText: true },
         imagePreviewWidth: 115,
         imagePreviewHeight: 115,
         compressOptions: {
@@ -112,7 +107,10 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
             })
           );
         },
-        uploadImageSuccessMessage: {text: 'story_picture_uploaded', translateText: true}
+        uploadImageSuccessMessage: {
+          text: 'story_picture_uploaded',
+          translateText: true,
+        },
       };
 
       this.deleteImageConfig = {
@@ -128,34 +126,32 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       this.getStory(params.id);
     });
 
-    //create a debouncer to save the description after x second of idle
-    this.contentDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
-    this.contentDebouncer.getDebouncedValue().subscribe(
-      value => {
-        if (this.story && this.story.contentEdition !== value) {
-          this.saveContent(value);
-        }
-      }
-    );
-
-    this.topicService.getAll().subscribe(topics => {
+    this.topicService.getAll().subscribe((topics) => {
       this.topics = topics;
       this.filteredTopics = this.topicControl.valueChanges.pipe(
         startWith(''),
-        map(value => {
+        map((value) => {
           if (value == null || value == '') return [];
           const name = typeof value === 'string' ? value : value.name;
           this.canSaveTopic = name && name.trim() !== '';
-          return name ? this._filter(name).slice(0, 3).filter((topic => !this.story.topics.find(t => t.id === topic.id))) :
-            this.topics.slice(0, 3).filter((topic => !this.story.topics.find(t => t.id === topic.id)));
-        }),
+          return name
+            ? this._filter(name)
+                .slice(0, 3)
+                .filter(
+                  (topic) => !this.story.topics.find((t) => t.id === topic.id)
+                )
+            : this.topics
+                .slice(0, 3)
+                .filter(
+                  (topic) => !this.story.topics.find((t) => t.id === topic.id)
+                );
+        })
       );
     });
-
   }
 
   onTitleChange(event: string): void {
-    if(event !== this.story.title && event.length > 0){
+    if (event !== this.story.title && event.length > 0) {
       this.saveTitle(event);
     } else {
       const titleElement = document.getElementById('storyTitle');
@@ -164,31 +160,40 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onStoryCategoryChange(newCategory: CoStoryCategory): void {
-    if(newCategory){
-      this.storyService.updateCategory(this.story.id, newCategory).subscribe((story) => {
-        this.story.category = story.category;
-      });
+    if (newCategory) {
+      this.storyService
+        .updateCategory(this.story.id, newCategory)
+        .subscribe((story) => {
+          this.story.category = story.category;
+        });
     }
   }
+
   saveTitle(newTitle: string): void {
-    this.storyService.updateTitle(this.story.id, newTitle).subscribe((story) => {
-      this.story.title = story.title;
-    });
+    this.storyService
+      .updateTitle(this.story.id, newTitle)
+      .subscribe((story) => {
+        this.story.title = story.title;
+      });
   }
 
   saveTopic(): void {
-    const topic: HaTopicDto = typeof this.topicControl.value === 'string' ?
-      new HaTopicDto(this.topicControl.value) : new HaTopicDto(this.topicControl.value.name, this.topicControl.value.id);
+    const topic: HaTopicDto =
+      typeof this.topicControl.value === 'string'
+        ? new HaTopicDto(this.topicControl.value)
+        : new HaTopicDto(
+            this.topicControl.value.name,
+            this.topicControl.value.id
+          );
 
     if (topic.id == null) {
       const input: FlConfirmDialogInput = {
         title: 'new_topic',
         content: 'new_topic_content',
-        observable: this.addTopicToStory(topic)
+        observable: this.addTopicToStory(topic),
       };
 
       this.dialogService.openConfirmDialog(input).afterClosed().subscribe();
-
     } else {
       this.addTopicToStory(topic).subscribe();
     }
@@ -208,18 +213,12 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   onContentUpdate(content: TeRichTextContent): void {
-    this.formGp.controls.contentEdition.patchValue(content);
+    this.contentEditionFormControl.patchValue(content);
     this.syncWithBack = false;
-    if(this.historyOverlayRef){
+    if (this.historyOverlayRef) {
       this.historyOverlayRef.dispose();
       this.historyOverlayRef = null;
     }
-    this.contentDebouncer.setValue(content);
-  }
-
-  ngOnDestroy(): void {
-    this.contentDebouncer.complete();
-
   }
 
   buildForm(): void {
@@ -234,16 +233,12 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     return topic && topic.name ? topic.name : '';
   }
 
-  private saveContent(value: TeRichTextContent): void {
-    this.storyService.updateContent(this.story.id, value).subscribe((story) => {
-      this.story = story;
-      this.syncWithBack = true;
-      this.contentModified = !TeRichText.areSimilar(this.story.contentEdition, this.story.content);
-    });
-  }
-
   publish(): void {
-    if (TeRichText.getFiguresBlocks(this.formGp.get('contentEdition').value).length > 0 || this.story.mainPicture != null) {
+    if (
+      TeRichText.getFiguresBlocks(this.contentEditionFormControl.value).length >
+        0 ||
+      this.story.mainPicture != null
+    ) {
       this.contentHasError = false;
       const input: FlConfirmDialogInput = {
         title: 'publish_story',
@@ -251,12 +246,15 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
         successMessage: 'story_published',
         observable: this.publishStory(),
       };
-      this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
-        if (res.choice && res.result) {
-          this.router.navigate(['/stories', res.result.id]);
-          this.story = res.result;
-        }
-      });
+      this.dialogService
+        .openConfirmDialog(input)
+        .afterClosed()
+        .subscribe((res) => {
+          if (res.choice && res.result) {
+            this.router.navigate(['/stories', res.result.id]);
+            this.story = res.result;
+          }
+        });
     } else {
       this.contentHasError = true;
       this.contentError = 'story_content_no_picture_error';
@@ -264,7 +262,11 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
-    if (TeRichText.getFirstFigureLink(this.formGp.get('contentEdition').value)?.length > 0 || this.story.mainPicture != null) {
+    if (
+      TeRichText.getFirstFigureLink(this.contentEditionFormControl.value)
+        ?.length > 0 ||
+      this.story.mainPicture != null
+    ) {
       this.contentHasError = false;
       this.storyService.saveContent(this.story.id).subscribe((story) => {
         this.story = story;
@@ -278,33 +280,14 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  private publishStory(): Observable<HaStory> {
-    return this.storyService.publishStory(this.story.id);
-  }
-
   removeTopic(topic: HaTopic): void {
-    this.storyService.removeTopicFromStory(topic.id, this.story.id).subscribe(() => {
-      this.story.topics = this.story.topics.filter(t => t.id !== topic.id);
-      this.topics = this.topics.filter(t => t.id !== topic.id);
-      this.topicControl.enable();
-    });
-  }
-
-  getContentFormControl(): FormControl<TeRichTextContent> {
-    return this.formGp.controls.contentEdition as any;
-  }
-
-  private checkUserIsAuthorOrCoAuthor(story: HaStory): void {
-    this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
-      if (user.id !== story.getAuthor().id && !story.getCoAuthors().some(coAuthor => coAuthor.id === user.id)) {
-        this.notFound = true;
-      }
-    });
-  }
-
-  private _filter(name: string): HaTopicDto[] {
-    const filterValue = name.toLowerCase();
-    return this.topics.filter(topic => topic.name.toLowerCase().includes(filterValue));
+    this.storyService
+      .removeTopicFromStory(topic.id, this.story.id)
+      .subscribe(() => {
+        this.story.topics = this.story.topics.filter((t) => t.id !== topic.id);
+        this.topics = this.topics.filter((t) => t.id !== topic.id);
+        this.topicControl.enable();
+      });
   }
 
   onSelectTopic(event: MatAutocompleteSelectedEvent): void {
@@ -324,23 +307,35 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
     const input: HaCoAuthorsDialogInput = {
       id: this.story.id,
       service: this.storyService,
-      inviteText: 'invite_story_coauthor_information'
+      inviteText: 'invite_story_coauthor_information',
     };
 
-    this.dialogService.openSmallDialog(HaCoAuthorDialogComponent, {data: input}).afterClosed().subscribe();
+    this.dialogService
+      .openSmallDialog(HaCoAuthorDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe();
   }
 
-  checkTopicControl(): boolean{
-    return this.topicControl.value != null && this.topicControl.value != '' &&
-      typeof this.topicControl.value == 'string' && this.topicControl.value.trim() != '';
+  checkTopicControl(): boolean {
+    return (
+      this.topicControl.value != null &&
+      this.topicControl.value != '' &&
+      typeof this.topicControl.value == 'string' &&
+      this.topicControl.value.trim() != ''
+    );
   }
 
   getStoryImageLink(imageLinkOrId: string): string {
-    return ClStringHelper.isHttpLink(imageLinkOrId) ? imageLinkOrId : this.storyService.getImageUrl(this.story.id, imageLinkOrId);
+    return ClStringHelper.isHttpLink(imageLinkOrId)
+      ? imageLinkOrId
+      : this.storyService.getImageUrl(this.story.id, imageLinkOrId);
   }
 
   isMainImageInContent(): boolean {
-    return TeRichText.isLinkInFigures(this.story.contentEdition, this.story.mainPicture);
+    return TeRichText.isLinkInFigures(
+      this.story.contentEdition,
+      this.story.mainPicture
+    );
   }
 
   openDeleteStoryConfirmDialog(): void {
@@ -350,36 +345,14 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       observable: this.storyService.delete(this.story.id),
       successMessage: 'story_deleted',
     };
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res) => {
-      if (res && res.choice){
-        this.router.navigate(['/stories']);
-      }
-    });
-  }
-
-  private getStory(id: string): void {
-    this.storyService.getById(id).subscribe({
-      next: story => {
-        if(story == null){
-          this.notFound = true;
-          return;
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((res) => {
+        if (res && res.choice) {
+          this.router.navigate(['/stories']);
         }
-        this.checkUserIsAuthorOrCoAuthor(story);
-
-        this.story = story;
-        this.contentModified = !TeRichText.areSimilar(this.story?.contentEdition, this.story?.content);
-        this.syncWithBack = true;
-        this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
-        if (this.story.topics.length >= 5) this.topicControl.disable();
-        this.formGp.patchValue(this.story);
-        this.isAuthor$().subscribe((isAuthor) => {
-          this.isAuthor = isAuthor;
-        });
-      },
-      error: () => {
-        this.notFound = true;
-      }
-    });
+      });
   }
 
   openHistoryPanel(): void {
@@ -387,15 +360,72 @@ export class HaStoryEditPageComponent implements OnInit, OnDestroy {
       this.historyOverlayRef.dispose();
       this.historyOverlayRef = null;
     } else {
-      this.historyOverlayRef =
-        this.portalService.createPortal(TeTextEditorHistoryPortalComponent, this.portalService.getRightSidePortalConfig(false), {
+      this.historyOverlayRef = this.portalService.createPortal(
+        TeTextEditorHistoryPortalComponent,
+        this.portalService.getRightSidePortalConfig(false),
+        {
           service: this.storyService,
           entityId: this.story.id,
-          textEditorConfig: this.textEditorConfig
-        } as TeTextEditorHistoryPortalData);
+          textEditorConfig: this.textEditorConfig,
+        } as TeTextEditorHistoryPortalData
+      );
       this.historyOverlayRef.detachments().subscribe(() => {
         this.historyOverlayRef = null;
       });
     }
+  }
+
+  private publishStory(): Observable<HaStory> {
+    return this.storyService.publishStory(this.story.id);
+  }
+
+  private checkUserIsAuthorOrCoAuthor(story: HaStory): void {
+    this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
+      if (
+        user.id !== story.getAuthor().id &&
+        !story.getCoAuthors().some((coAuthor) => coAuthor.id === user.id)
+      ) {
+        this.notFound = true;
+      }
+    });
+  }
+
+  private _filter(name: string): HaTopicDto[] {
+    const filterValue = name.toLowerCase();
+    return this.topics.filter((topic) =>
+      topic.name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  private getStory(id: string): void {
+    this.storyService.getById(id).subscribe({
+      next: (story) => {
+        if (story == null) {
+          this.notFound = true;
+          return;
+        }
+        this.checkUserIsAuthorOrCoAuthor(story);
+
+        this.story = story;
+        this.contentModified = !TeRichText.areSimilar(
+          this.story?.contentEdition,
+          this.story?.content
+        );
+        this.syncWithBack = true;
+        this.textEditorConfig = new HaStoryTextEditorConfig(
+          this.storyService,
+          this.story.id
+        );
+        if (this.story.topics.length >= 5) this.topicControl.disable();
+        this.formGp.patchValue(this.story);
+        this.contentEditionFormControl.patchValue(this.story.contentEdition);
+        this.isAuthor$().subscribe((isAuthor) => {
+          this.isAuthor = isAuthor;
+        });
+      },
+      error: () => {
+        this.notFound = true;
+      },
+    });
   }
 }

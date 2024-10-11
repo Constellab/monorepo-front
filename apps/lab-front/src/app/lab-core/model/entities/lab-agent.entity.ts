@@ -1,0 +1,36 @@
+import { TeRichTextContent } from '@monorepo/text-editor';
+import { LabEntity } from '../global/lab-entity.entity';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { DateTime } from 'luxon';
+import { CoAgent, CoUser } from '@monorepo/community-lib';
+
+export class LabAgent extends LabEntity {
+  title: string;
+  space?: any;
+  created_at?: string;
+  last_modified_at?: string;
+  created_by?: CoUser;
+  description?: TeRichTextContent;
+  latest_publish_version: number;
+
+  toCoAgent(): CoAgent {
+    const coAgent = new CoAgent();
+    coAgent.id = this.id;
+    coAgent.title = this.title;
+    coAgent.description = this.description;
+    coAgent.latestPublishVersion = this.latest_publish_version;
+    coAgent.createdAt = DateTime.fromISO(this.created_at);
+    coAgent.lastModifiedAt = DateTime.fromISO(this.last_modified_at);
+    coAgent.createdBy = this.created_by;
+    coAgent.space = this.space;
+    return coAgent;
+  }
+}
+
+export type LabAgentDatasourcePaginated = FlDatasourcePaginated<LabAgent>;
+
+export class LabCreateCommunityAgentVersionResDto {
+  id: string;
+  agent_version: string;
+  title: string;
+}

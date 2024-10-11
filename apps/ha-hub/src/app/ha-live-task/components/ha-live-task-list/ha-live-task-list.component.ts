@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {FlDialogService} from '@monorepo/front-core-lib';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
+import { FlDialogService } from '@monorepo/front-core-lib';
+import { Router } from '@angular/router';
 import {
   HaCreateLiveTaskInput,
   HaLiveTaskCreateDialogComponent
 } from '../ha-live-task-create-dialog/ha-live-task-create-dialog.component';
-import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
-import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import {HaLiveTaskDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
-import {FormControl} from '@angular/forms';
-import {ClStringHelper} from "@monorepo/core-lib";
-import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
+import { HaLiveTaskVersion } from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaLiveTaskDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
+import { FormControl } from '@angular/forms';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-live-task-list',
@@ -74,7 +74,7 @@ export class HaLiveTaskListComponent implements OnInit {
     this.selectSpace(spaceId)
   }
 
-  search(event): void {
+  search(event: any): void {
     event.preventDefault();
     this.updateLiveTask();
   }

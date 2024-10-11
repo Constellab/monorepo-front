@@ -1,0 +1,38 @@
+<fl-dialog-header>
+  {{ title | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="content">
+    @if(currentAgent  && currentAgent.created_by.id === currentUser.id){
+      <div class="existant-lt-info-div">
+        <span>{{'biox.existent_lt_info_1' | translate}}</span>
+      </div>
+      <co-agent-list-item class="current-agent" [agent]="currentAgent.toCoAgent()" (click)="onSelectAgent(currentAgent)"></co-agent-list-item>
+      <mat-divider class="divider"></mat-divider>
+    }
+    @if(!isLoading || !agentVersionId){
+      <div class="current-lt-div">
+        <button (click)="openCreateCommunityAgentDialog(agentVersionId ? labCreateCommunityAgentDialogMode.FORK : labCreateCommunityAgentDialogMode.CREATE)"
+                mat-stroked-button type="button">
+          <mat-icon>add_circle</mat-icon>
+          {{ 'biox.create_new_community_agent' | translate }}
+        </button>
+      </div>
+
+      @if((currentAgent && currentAgent.created_by.id == currentUser.id) || !agentVersionId){
+        <mat-divider class="divider"></mat-divider>
+        <h3>{{'biox.my_agents' | translate}}</h3>
+        <div class="existant-lt-info-div">
+          <span>{{'biox.existent_lt_info_2' | translate}}</span>
+        </div>
+        <div class="all-lt-list-div" [ngClass]="currentAgent && currentAgent.created_by.id === currentUser.id ? 'all-lt-list-div-short' : ''">
+          <lab-select-community-agent [personalOnly]="true"
+                                          (agentSelected)="onSelectAgent($event)"></lab-select-community-agent>
+        </div>
+      }
+    } @else {
+      <fl-loader></fl-loader>
+    }
+  </div>
+</mat-dialog-content>

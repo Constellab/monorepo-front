@@ -47,10 +47,10 @@
               <span>{{ 'biox.process_type_doc' | translate }}</span>
             </button>
 
-            @if (isLiveTask$ | async) {
-              <button mat-menu-item [matMenuTriggerFor]="liveTaskMenu">
+            @if (isAgent$ | async) {
+              <button mat-menu-item [matMenuTriggerFor]="agentMenu">
                 <mat-icon flIcon="code"></mat-icon>
-                {{ 'biox.live_task' | translate }}
+                {{ 'biox.agent' | translate }}
               </button>
             }
 
@@ -92,21 +92,21 @@
 
           </mat-menu>
 
-          <mat-menu #liveTaskMenu>
-            <button mat-menu-item type="button" (click)="downloadLiveTaskFile(process)">
+          <mat-menu #agentMenu>
+            <button mat-menu-item type="button" (click)="downloadAgentFile(process)">
               <mat-icon>download</mat-icon>
-              {{ 'biox.download_live_task_file' | translate }}
+              {{ 'biox.download_agent_file' | translate }}
             </button>
 
-            <button mat-menu-item type="button" (click)="openShareCommunityLiveTaskDialog(process)">
+            <button mat-menu-item type="button" (click)="openShareCommunityAgentDialog(process)">
               <mat-icon>share</mat-icon>
-              {{ 'biox.share_live_task_to_community' | translate }}
+              {{ 'biox.share_agent_to_community' | translate }}
             </button>
 
-            @if (isPyLiveTask$ | async) {
-              <button mat-menu-item type="button" (click)="convertLiveTaskCodeToTask(process)">
+            @if (isPyAgent$ | async) {
+              <button mat-menu-item type="button" (click)="convertAgentCodeToTask(process)">
                 <mat-icon>code</mat-icon>
-                {{ 'biox.convert_live_task_code_to_task' | translate }}
+                {{ 'biox.convert_agent_code_to_task' | translate }}
               </button>
               <button mat-menu-item type="button" (click)="openPipPackageList()">
                 <mat-icon>inventory_2</mat-icon>

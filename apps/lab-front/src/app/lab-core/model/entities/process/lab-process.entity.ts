@@ -85,8 +85,8 @@ export class LabProcess extends LabBaseEntityWithUser {
 
   name: string;
 
-  @Expose({name: 'community_live_task_version_id'})
-  communityLiveTaskVersionId?: string;
+  @Expose({name: 'community_agent_version_id'})
+  communityAgentVersionId?: string;
 
   style: TdTypeStyle;
 

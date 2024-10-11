@@ -22,7 +22,7 @@
       <ha-comment-button [commentsCount]="liveTask().comments" (clicked)="openCommentsPanel()"></ha-comment-button>
 
       @if (isAuthor()) {
-        <button mat-icon-button color="warn" (click)="deleteLiveTask()">
+        <button mat-icon-button color="warn" (click)="deleteLiveTask()" [matTooltip]="'delete_livetask' | translate">
           <mat-icon>delete</mat-icon>
         </button>
       }

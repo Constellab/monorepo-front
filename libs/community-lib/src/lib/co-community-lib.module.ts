@@ -1,4 +1,4 @@
-import {ModuleWithProviders, NgModule, Provider, Type} from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import {
   FlCardModule,
   FlCoreDirectiveModule,
@@ -13,31 +13,31 @@ import {
   FlTextIconModule,
   FlTranslateModule,
   FlTranslateService,
-  FlUserModule,
+  FlUserModule
 } from '@monorepo/front-core-lib';
-import {coCommunityLibI18n} from './co-community-lib.i18n';
-import {CoLiveTaskListItemComponent} from './component/co-live-task-list-item/co-live-task-list-item.component';
-import {MatButtonModule} from '@angular/material/button';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {MatDialogActions, MatDialogContent} from "@angular/material/dialog";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatRadioModule} from "@angular/material/radio";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { coCommunityLibI18n } from './co-community-lib.i18n';
+import { CoAgentListItemComponent } from './component/co-agent-list-item/co-agent-list-item.component';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  CoLiveTaskCreateDialogFormComponent
-} from './component/co-live-task-create-dialog-form/co-live-task-create-dialog-form.component';
-import {CoCommunityListItemComponent} from './component/co-community-list-item/co-community-list-item.component';
+  CoAgentCreateDialogFormComponent
+} from './component/co-agent-create-dialog-form/co-agent-create-dialog-form.component';
+import { CoCommunityListItemComponent } from './component/co-community-list-item/co-community-list-item.component';
 import {
   CoCommunityListItemMainContentComponent
 } from './component/co-community-list-item-main-content/co-community-list-item-main-content.component';
-import {CoVisibilityBadgeComponent} from './component/co-visibility-badge/co-visibility-badge.component';
-import {MatIconModule} from '@angular/material/icon';
-import {CoStoryListItemComponent} from './component/co-story-list-item/co-story-list-item.component';
-import {MatChipsModule} from '@angular/material/chips';
-import {CoBrickListItemComponent} from './component/co-brick-list-item/co-brick-list-item.component';
-import {TeTextEditorModule} from '@monorepo/text-editor';
-import {CoConfig} from './service/co-service-config.config';
+import { CoVisibilityBadgeComponent } from './component/co-visibility-badge/co-visibility-badge.component';
+import { MatIconModule } from '@angular/material/icon';
+import { CoStoryListItemComponent } from './component/co-story-list-item/co-story-list-item.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { CoBrickListItemComponent } from './component/co-brick-list-item/co-brick-list-item.component';
+import { TeTextEditorModule } from '@monorepo/text-editor';
+import { CoConfig } from './service/co-service-config.config';
 
 
 @NgModule({
@@ -70,8 +70,8 @@ import {CoConfig} from './service/co-service-config.config';
     FlIconModule,
   ],
   declarations: [
-    CoLiveTaskListItemComponent,
-    CoLiveTaskCreateDialogFormComponent,
+    CoAgentListItemComponent,
+    CoAgentCreateDialogFormComponent,
     CoCommunityListItemComponent,
     CoCommunityListItemMainContentComponent,
     CoVisibilityBadgeComponent,
@@ -79,8 +79,8 @@ import {CoConfig} from './service/co-service-config.config';
     CoBrickListItemComponent
   ],
   exports: [
-    CoLiveTaskListItemComponent,
-    CoLiveTaskCreateDialogFormComponent,
+    CoAgentListItemComponent,
+    CoAgentCreateDialogFormComponent,
     CoCommunityListItemComponent,
     CoCommunityListItemMainContentComponent,
     CoVisibilityBadgeComponent,

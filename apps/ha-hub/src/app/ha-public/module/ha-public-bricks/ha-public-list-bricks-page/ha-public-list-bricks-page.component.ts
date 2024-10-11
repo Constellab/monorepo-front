@@ -1,13 +1,13 @@
-import {Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState} from '@angular/core';
-import {HaBrickService} from '../../../../ha-core/ha-service/ha-brick.service';
-import {HaBrick, HaBrickDatasourcePaginated} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import {HaRouterService} from '../../../../ha-core/ha-service/ha-router.service';
+import { Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState } from '@angular/core';
+import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
+import { HaBrick, HaBrickDatasourcePaginated } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 
-import {isPlatformBrowser, isPlatformServer} from '@angular/common';
-import {HaMetadataService} from '../../../../ha-core/ha-service/ha-metadata.service';
-import {FormControl} from '@angular/forms';
-import {HaUser} from '../../../../ha-core/ha-model/ha-entities/ha-user';
-import {HaAuthenticatedUserService} from '../../../../ha-core/ha-service/ha-authenticated-user.service';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
+import { FormControl } from '@angular/forms';
+import { HaUser } from '../../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -59,7 +59,7 @@ export class HaPublicListBricksPageComponent implements OnInit {
     return HaRouterService.getBrickPageRoute(brick.name);
   }
 
-  search(event): void {
+  search(event: any): void {
     event.preventDefault();
     this.updateBricks();
   }

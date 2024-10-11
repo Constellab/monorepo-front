@@ -42,9 +42,14 @@
 
 
       </div>
+      @if(!formCtrl.disabled){
+        <div class="g-layout-row g-layout-between-center">
+          <te-text-editor-save [formCtrl]="formCtrl" [saveFunc]="saveContent"
+                               [debounceTime]="2500"></te-text-editor-save>
+        </div>
+      }
       <form class="documentation-form" *ngIf="!isLoading">
         <te-text-editor [formControl]="formCtrl" [config]="textEditorConfig"
-                        (textChange)="onContentUpdate($event)"
                         class="content-editor g-max-article-width"
                         [ngClass]="{'text-editor-edit': !formCtrl.disabled}"></te-text-editor>
       </form>

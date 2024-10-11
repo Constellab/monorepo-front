@@ -1,22 +1,22 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CoCreateLiveTaskFormData } from '../../model/co-live-task.class';
+import { CoCreateAgentFormData } from '../../model/co-agent.class';
 import { CoSpace } from '../../model/co-space.class';
 import { CoConfig } from '../../service/co-service-config.config';
 import { UntypedFormGroup } from '@angular/forms';
 
 
 @Component({
-  selector: 'co-live-task-create-dialog-form',
-  templateUrl: './co-live-task-create-dialog-form.component.html',
-  styleUrl: './co-live-task-create-dialog-form.component.scss'
+  selector: 'co-agent-create-dialog-form',
+  templateUrl: './co-agent-create-dialog-form.component.html',
+  styleUrl: './co-agent-create-dialog-form.component.scss'
 })
-export class CoLiveTaskCreateDialogFormComponent {
+export class CoAgentCreateDialogFormComponent {
 
   @Input() spaces$: Observable<CoSpace[]>;
   @Input() formGp: UntypedFormGroup;
 
-  @Output() submitEvent: EventEmitter<CoCreateLiveTaskFormData> = new EventEmitter<CoCreateLiveTaskFormData>();
+  @Output() submitEvent: EventEmitter<CoCreateAgentFormData> = new EventEmitter<CoCreateAgentFormData>();
 
   isLoading = false;
 

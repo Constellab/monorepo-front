@@ -3,7 +3,7 @@ import { HaSpace } from './ha-space.class';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 import { HaLiveTaskVersionFileInput } from './ha-live-task-version.class';
 import { TeRichTextContent } from '@monorepo/text-editor';
-import { CoCreateLiveTaskFormData, CoLiveTaskType } from '@monorepo/community-lib';
+import { CoAgentType, CoCreateAgentFormData } from '@monorepo/community-lib';
 import { HaUser } from './ha-user';
 
 
@@ -17,9 +17,9 @@ export class HaLiveTask extends HaEntity {
   liveTaskCoAuthors: HaLiveTaskCoAuthor[];
 }
 
-export class HaCreateLiveTaskDto implements CoCreateLiveTaskFormData{
+export class HaCreateLiveTaskDto implements CoCreateAgentFormData{
   title: string;
-  type: CoLiveTaskType;
+  type: CoAgentType;
   space?: HaSpace;
   versionFile: HaLiveTaskVersionFileInput;
 }

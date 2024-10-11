@@ -178,7 +178,7 @@
   "uploading_document": "Upload du document",
   "no_files_attached": "Aucun fichier joint",
   "delete_file": "Supprimer le fichier",
-  "open_story_coauthor_panel": "Ouvrir le panneau des co-auteurs",
+  "open_coauthor_panel": "Ouvrir le panneau des co-auteurs",
   "open_live_task_coauthor_panel": "Ouvrir le panneau des co-auteurs de la live task",
   "publish_the_story": "Publier la story",
   "open_story_files_panel": "Ouvrir le panneau des fichiers",
@@ -361,5 +361,8 @@
   "delete_live_task_version": "Supprimer la version de live task",
   "delete_live_task_version_confirmation": "Êtes-vous sûr de vouloir supprimer cette version de live task ?",
   "live_task_version_deleted": "Version de live task supprimée",
-  "file_icon_too_large": "L'icône du fichier est trop volumineuse, la taille maximale autorisée est de 50 Mb"
+  "file_icon_too_large": "L'icône du fichier est trop volumineuse, la taille maximale autorisée est de 50 Mb",
+  "search": "Rechercher",
+  "change_language": "Changer de langue",
+
 }

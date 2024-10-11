@@ -76,20 +76,17 @@
                     [disabled]="!syncWithBack">
               {{ 'publish_story_modifications' | translate }}
             </button>
-            @if (syncWithBack) {
-              <span class="g-text-small">
-              {{ 'story_modification_saved_to_draft' | translate }}
-            </span>
-            } @else {
-              <fl-loader size="small" [matTooltip]="'saving_story_content' | translate"></fl-loader>
-            }
+            <div class="g-layout-row g-layout-between-center">
+              <te-text-editor-save [formCtrl]="contentEditionFormControl" [saveFunc]="testSave"
+                                   [debounceTime]="2500"></te-text-editor-save>
+            </div>
           </div>
 
         }
         <div class="right-bts-div">
           @if (isAuthor) {
             <button mat-icon-button type="button" class="co-author-bt"
-                    (click)="openCoAuthorDialog()" [matTooltip]="'open_story_coauthor_panel' | translate">
+                    (click)="openCoAuthorDialog()" [matTooltip]="'open_coauthor_panel' | translate">
               <mat-icon>group_add</mat-icon>
             </button>
           }
@@ -109,11 +106,11 @@
       @if (contentHasError) {
         <mat-error>{{ contentError | translate }}</mat-error>
       }
-      <form class="story-content-form" [formGroup]="formGp" id="story-content-form"
+      <div class="story-content-form"
             [ngClass]="contentEditorIsFocused ? ['focus'] : []">
         <te-text-editor class="border-none editor" [config]="textEditorConfig"
-                        (textChange)="onContentUpdate($event)" [formControl]="getContentFormControl()"></te-text-editor>
-      </form>
+                        (textChange)="onContentUpdate($event)" [formControl]="contentEditionFormControl"></te-text-editor>
+      </div>
     </div>
   </form>
 } @else if (notFound) {

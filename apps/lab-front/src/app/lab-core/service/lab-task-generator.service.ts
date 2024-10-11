@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -14,20 +14,20 @@ export class LabTaskGeneratorService {
   }
 
   /**
-   * Specific route for the live task to generate the task code form the live task code
-   * @param liveTaskId
+   * Specific route for the agent to generate the task code form the agent code
+   * @param agentId
    */
-  public generateTaskCodeFromLiveTask(liveTaskId: string): Observable<Blob> {
-    return this.apiService.downloadFilePost(`${this.route}/from-live-task/${liveTaskId}`, null,
+  public generateTaskCodeFromAgent(agentId: string): Observable<Blob> {
+    return this.apiService.downloadFilePost(`${this.route}/from-agent/${agentId}`, null,
       'task.py');
   }
 
   /**
-   * Specific route for the live task to generate the live task file
-   * @param liveTaskId
+   * Specific route for the agent to generate the agent file
+   * @param agentId
    */
-  public generateLiveTaskFile(liveTaskId: string): Observable<Blob> {
-    return this.apiService.downloadFilePost(`${this.route}/live-task-file/${liveTaskId}`, null,
-      'live_task_file.json');
+  public generateAgentFile(agentId: string): Observable<Blob> {
+    return this.apiService.downloadFilePost(`${this.route}/agent-file/${agentId}`, null,
+      'agent_file.json');
   }
 }

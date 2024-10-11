@@ -22,7 +22,7 @@
   justify-content: space-between;
 }
 
-.live-tasks-list-div{
+.agents-list-div{
   display: flex;
   flex-direction: column;
 }
@@ -49,12 +49,12 @@
   //height: auto;
 }
 
-.live-task-dates-div{
+.agent-dates-div{
   display: flex;
   flex-direction: row;
 }
 
-.live-task-date-div{
+.agent-date-div{
   flex: 1;
 }
 
@@ -78,15 +78,15 @@
     width: 241px;
   }
 
-  .live-task-dates-div{
+  .agent-dates-div{
     flex-direction: column;
   }
 
-  .live-task-date-div{
+  .agent-date-div{
     margin-bottom: 12px;
   }
 
-  .live-task-date-div:last-child{
+  .agent-date-div:last-child{
     margin-bottom: 0;
   }
 }

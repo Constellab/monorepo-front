@@ -55,7 +55,7 @@ export function app(): express.Express {
       const frameSrc = 'frame-src \'self\' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com';
       const workerSrc = 'worker-src  *.gencovery.com *.constellab.community data: \'self\' blob:';
       const styleSrc = 'style-src \'self\' \'unsafe-inline\' *.gencovery.com *.constellab.community https://fonts.googleapis.com';
-      const fontSrc = 'font-src \'self\' data: http: https: fonts.googleapis.com';
+      const fontSrc = 'font-src \'self\' data: http: https: fonts.googleapis.com fonts.gstatic.com';
       const imgSrc = 'img-src \'self\' blob: data: http: https: *.gencovery.com *.constellab.community';
       // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
       // eslint-disable-next-line max-len

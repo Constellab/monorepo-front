@@ -1,4 +1,4 @@
-import {TdTypeObjectType} from './td-type.class';
+import { TdTypeObjectType } from './td-type.class';
 
 /**
  * Base class to find the unique name or brick name of a typing name
@@ -21,7 +21,7 @@ export class TdTypingName {
     },
     tableImporter: 'TASK.gws_core.TableImporter',
     viewer: 'TASK.gws_core.Viewer',
-    pyLiveTask: 'TASK.gws_core.PyLiveTask',
+    pyAgent: 'TASK.gws_core.PyAgent',
   };
 
   public static resource = {

@@ -1,6 +1,7 @@
-import {FlUser} from '@monorepo/front-core-lib';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {diffChars} from 'diff';
+import { FlUser } from '@monorepo/front-core-lib';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { diffChars } from 'diff';
+import { DateTime } from 'luxon';
 
 
 export enum TeTextEditorHistoryModificationType{
@@ -24,7 +25,7 @@ export class TeTextEditorHistoryBlockModification {
   user: FlUser;
   blockId: string;
   blockType: string;
-  time: number;
+  time: string | DateTime;
   version: string;
   type: TeTextEditorHistoryModificationType;
   index: number;
@@ -33,10 +34,10 @@ export class TeTextEditorHistoryBlockModification {
   oldIndex?: number;
 
   constructor(version: string, blockId: string, blockType: string, type: TeTextEditorHistoryModificationType, index: number,
-              userId: string, id?: string, time?: number) {
+              userId: string, id?: string, time?: string) {
     this.id = id ?? ClStringHelper.generateUUID();
     this.version = version;
-    this.time = time ?? new Date().getTime();
+    this.time = DateTime.fromISO(time) ?? DateTime.now();
     this.blockId = blockId;
     this.blockType = blockType;
     this.type = type;
@@ -51,11 +52,11 @@ export interface TeTextEditorHistoryModificationList{
 }
 
 export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistoryModificationList{
-  end: number;
+  end: DateTime;
   currentIndex?: number;
   modifications: TeTextEditorHistoryBlockModification[];
 
-  constructor(end?: number) {
+  constructor(end?: DateTime) {
     this.end = end
   }
 

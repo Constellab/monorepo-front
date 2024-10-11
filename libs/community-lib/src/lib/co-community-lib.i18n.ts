@@ -1,5 +1,5 @@
-import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
-import {ClSupportedLanguage} from '@monorepo/core-lib';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
 
 const coCommunityLibI18nFr: FlLangTranslation = {
   coCommunityLib: {
@@ -14,7 +14,7 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     'space': 'Space',
     'type': 'Type',
     'create': 'Créer',
-    'your_spaces': 'Sélectionner le space de la live task',
+    'your_spaces': 'Sélectionner le space de l\'agent',
     'no_published': 'Non publié',
     'write_a_comment': 'Écrire un commentaire',
     'comment': 'Commentaire',
@@ -36,7 +36,7 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     'space': 'Space',
     'type': 'Type',
     'create': 'Create',
-    'your_spaces': 'Select the space of the live task',
+    'your_spaces': 'Select the space of the agent',
     'no_published': 'Not published',
     'write_a_comment': 'Write a comment',
     'comment': 'Comment',

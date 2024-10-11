@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit, Signal } from '@angular/core';
-import {HaLiveTaskVersion} from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
-import {HaLiveTaskService} from '../../../ha-core/ha-service/ha-live-task.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FlDialogService, FlSnackBarService} from '@monorepo/front-core-lib';
-import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
-import {HaLiveTaskPageState} from '../../state/ha-live-task-page.state';
+import { HaLiveTaskVersion } from '../../../ha-core/ha-model/ha-entities/ha-live-task-version.class';
+import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FlDialogService, FlSnackBarService } from '@monorepo/front-core-lib';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaLiveTaskPageState } from '../../state/ha-live-task-page.state';
 
 @Component({
   selector: 'ha-live-task-version-page',
@@ -18,7 +18,7 @@ export class HaLiveTaskVersionPageComponent implements OnInit {
   canEdit: Signal<boolean> = this.liveTaskPageState.canEditLt;
   isLiveTaskVersionError: Signal<boolean> = this.liveTaskPageState.isLiveTaskVersionError;
   isLiveTaskVersionLoading: Signal<boolean> = this.liveTaskPageState.isLiveTaskVersionLoading;
-  currentVersion = null;
+  currentVersion: any = null;
 
   constructor(private liveTaskService: HaLiveTaskService,
               private activatedRoute: ActivatedRoute,

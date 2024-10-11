@@ -23,7 +23,6 @@
     <ha-selectable-space-list *ngIf="user" [user]="user" (spaceSelectedEvent)="onSpace($event)">
     </ha-selectable-space-list>
   </div>
-
 </div>
 
 <div class="main-container">
@@ -36,7 +35,7 @@
         <form type="submit" (ngSubmit)="search($event)">
           <mat-form-field class="section-search-bar">
             <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
-            <button mat-icon-button matSuffix (click)="search($event)">
+            <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate">
               <mat-icon>search</mat-icon>
             </button>
           </mat-form-field>

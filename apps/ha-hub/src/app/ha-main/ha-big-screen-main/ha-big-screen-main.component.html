@@ -25,16 +25,15 @@
   </div>
 
   <span class="span-initials">
-      <button mat-icon-button [matMenuTriggerFor]="langMenu"
-              class="g-text-light">
+      <button mat-icon-button [matMenuTriggerFor]="langMenu" class="g-text-light" [matTooltip]="'change_language'|translate">
         <mat-icon>language</mat-icon>
       </button>
       <button mat-icon-button
-              (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme()" class="g-text-light">
+              (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme()" class="g-text-light" [matTooltip]="'light_theme' | translate">
         <mat-icon>light_mode</mat-icon>
       </button>
       <button mat-icon-button
-              (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme()" class="g-text-light">
+              (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme()" class="g-text-light" [matTooltip]="'dark_theme' | translate">
         <mat-icon>dark_mode</mat-icon>
       </button>
       <ng-container *ngIf="(userConnected$ | async) == null">

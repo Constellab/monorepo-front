@@ -44,8 +44,8 @@ export class CoCommunityHelperService {
     return `${this.getCommunityUrl()}/bricks/${brickName}/latest/doc/technical-folder/task/${taskUniqueName}`;
   }
 
-  public getLiveTasKVersionUrl(liveTaskId: string, versionId: string): string {
-    return `${this.getCommunityUrl()}/live-tasks/${liveTaskId}/versions/${versionId}`;
+  public getAgentVersionUrl(agentId: string, title: string, versionId: string): string {
+    return `${this.getCommunityUrl()}/agents/${agentId}/${title}/versions/${versionId}`;
   }
 
   /////////////////////////////////// SPECIFIC ROUTES //////////////////////////////////////

@@ -10,15 +10,15 @@ import {
 } from '../model/entities/process/lab-scenario-template.entity';
 import { TdIOSpec } from '@monorepo/technical-doc';
 import {
-  LabCreateCommunityLiveTaskVersionResDto,
-  LabLiveTask,
-  LabLiveTaskDatasourcePaginated
-} from '../model/entities/lab-live-task.entity';
+  LabAgent,
+  LabAgentDatasourcePaginated,
+  LabCreateCommunityAgentVersionResDto
+} from '../model/entities/lab-agent.entity';
 import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
 import { LabProcess } from '../model/entities/process/lab-process.entity';
 import { ClPage } from '@monorepo/core-lib';
 import { LabCommunitySpace } from '../model/entities/lab-community-space.entity';
-import { CoCreateLiveTaskFormData } from '@monorepo/community-lib';
+import { CoCreateAgentFormData } from '@monorepo/community-lib';
 
 
 @Injectable({
@@ -58,48 +58,48 @@ export class LabProtocolService {
   }
 
   /**
-   * Call http post to get all live tasks with filters
+   * Call http post to get all agents with filters
    * @param spacesFilter
    * @param titleFilter
    * @param personalOnly
    * @param page
    * @param size
-   * @return a list of live tasks
+   * @return a list of agents
    */
-  public getAllCommunityLiveTasksWithFilters(spacesFilter: string[], titleFilter: string, personalOnly: boolean,
-                                             page: number, size: number): Observable<ClPage<LabLiveTask>> {
-    return this.apiService.post(`${this.baseRoute}/get-community-available-live-tasks`,
+  public getAllCommunityAgentsWithFilters(spacesFilter: string[], titleFilter: string, personalOnly: boolean,
+                                          page: number, size: number): Observable<ClPage<LabAgent>> {
+    return this.apiService.post(`${this.baseRoute}/get-community-available-agents`,
       {spacesFilter: spacesFilter, titleFilter: titleFilter, personalOnly: personalOnly},
-      LabLiveTask, {page: page, pageSize: size, resultIsPaginated: true});
+      LabAgent, {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public getCommunityAvailableLiveTasksWithFiltersPaginated(spacesFilter: string[], titleFilter: string,
-                                                            personalOnly: boolean = false): LabLiveTaskDatasourcePaginated {
+  public getCommunityAvailableAgentsWithFiltersPaginated(spacesFilter: string[], titleFilter: string,
+                                                         personalOnly: boolean = false): LabAgentDatasourcePaginated {
     return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAllCommunityLiveTasksWithFilters(spacesFilter, titleFilter, personalOnly, page, size), 10);
+      (page, size) => this.getAllCommunityAgentsWithFilters(spacesFilter, titleFilter, personalOnly, page, size), 10);
   }
 
-  public getCurrentLiveTask(liveTaskVersionId: string): Observable<LabLiveTask> {
-    return this.apiService.get(`${this.baseRoute}/get-current-live-task/${liveTaskVersionId}`, LabLiveTask);
+  public getCurrentAgent(agentVersionId: string): Observable<LabAgent> {
+    return this.apiService.get(`${this.baseRoute}/get-current-agent/${agentVersionId}`, LabAgent);
   }
 
 
-  public createCommunityLiveTask(processId: string,
-                                 formData: CoCreateLiveTaskFormData): Observable<LabCreateCommunityLiveTaskVersionResDto>{
-    return this.apiService.post(`${this.baseRoute}/${processId}/create-community-live-task`,
-      formData, LabCreateCommunityLiveTaskVersionResDto);
+  public createCommunityAgent(processId: string,
+                              formData: CoCreateAgentFormData): Observable<LabCreateCommunityAgentVersionResDto>{
+    return this.apiService.post(`${this.baseRoute}/${processId}/create-community-agent`,
+      formData, LabCreateCommunityAgentVersionResDto);
   }
 
-  public forkIntoNewCommunityLiveTask(processId: string,
-                                      formData: CoCreateLiveTaskFormData,
-                                      liveTaskVersionId: string): Observable<LabCreateCommunityLiveTaskVersionResDto>{
-    return this.apiService.post(`${this.baseRoute}/${processId}/fork-community-live-task/${liveTaskVersionId}`,
-      formData, LabCreateCommunityLiveTaskVersionResDto);
+  public forkIntoNewCommunityAgent(processId: string,
+                                   formData: CoCreateAgentFormData,
+                                   agentVersionId: string): Observable<LabCreateCommunityAgentVersionResDto>{
+    return this.apiService.post(`${this.baseRoute}/${processId}/fork-community-agent/${agentVersionId}`,
+      formData, LabCreateCommunityAgentVersionResDto);
   }
 
-  public addVersionToCommunityLiveTask(processId: string, liveTaskId: string): Observable<LabCreateCommunityLiveTaskVersionResDto> {
-    return this.apiService.post(`${this.baseRoute}/${processId}/add-version-to-community-live-task/${liveTaskId}`,
-      null, LabCreateCommunityLiveTaskVersionResDto);
+  public addVersionToCommunityAgent(processId: string, agentId: string): Observable<LabCreateCommunityAgentVersionResDto> {
+    return this.apiService.post(`${this.baseRoute}/${processId}/add-version-to-community-agent/${agentId}`,
+      null, LabCreateCommunityAgentVersionResDto);
   }
 
 
@@ -108,8 +108,8 @@ export class LabProtocolService {
   }
 
 
-  public addCommunityLiveTaskToProtocol(protocolId: string, liveTaskVersionId: string): Observable<LabProtocolUpdateDTO> {
-    return this.apiService.post(`${this.baseRoute}/${protocolId}/add-community-live-task/${liveTaskVersionId}`, null,
+  public addCommunityAgentToProtocol(protocolId: string, agentVersionId: string): Observable<LabProtocolUpdateDTO> {
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/add-community-agent/${agentVersionId}`, null,
       LabProtocolUpdateDTO);
   }
 
