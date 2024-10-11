@@ -10,14 +10,14 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [HaProfileComponent, HaProfileEditDialogComponent, HaProfileAttachedLinkComponent],
-    imports: [
-        CommonModule,
-        HaUtilComponentCoreModule,
-        HaCoreModule,
-        HaProfileRoutingModule,
-        FormsModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    CommonModule,
+    HaUtilComponentCoreModule,
+    HaCoreModule,
+    HaProfileRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   providers: [],
   exports: []
 })

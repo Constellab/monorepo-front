@@ -2,15 +2,15 @@ import {NgModule} from '@angular/core';
 import {
   FlArticleModule,
   FlAuthModule,
-  FlCardModule,
+  FlCardModule, FlCodeEditorModule,
   FlCoreComponentModule,
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDateModule,
   FlDialogModule,
   FlFormModule,
-  FlIconModule,
-  FlInfiniteScrollModule, FlInputFileModule,
+  FlIconModule, FlImageModule,
+  FlInfiniteScrollModule, FlInputFileModule, FlInputSearchModule,
   FlKeyValueModule,
   FlLoaderModule,
   FlMenuDynamicModule, FlPortalActionsModule,
@@ -55,6 +55,9 @@ import {CoCommunityLibModule} from '@monorepo/community-lib';
     FlInfiniteScrollModule,
     FlPortalActionsModule,
     FlInputFileModule,
+    FlInputSearchModule,
+    FlCodeEditorModule,
+    FlImageModule,
 
     //-------------------
 

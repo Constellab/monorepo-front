@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
-import {HaCustomLibraryModule} from './ha-custom-library/ha-custom-library.module';
-import {HaCustomMaterialModule} from './ha-custom-material/ha-custom-material.module';
-import {HaCoreDirectiveModule} from './ha-module/ha-core-directive/ha-core-directive.module';
-import {HaCorePipeModule} from './ha-module/ha-core-pipe/ha-core-pipe.module';
-import {CommonModule, NgClass} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { HaCustomLibraryModule } from './ha-custom-library/ha-custom-library.module';
+import { HaCustomMaterialModule } from './ha-custom-material/ha-custom-material.module';
+import { HaCoreDirectiveModule } from './ha-module/ha-core-directive/ha-core-directive.module';
+import { HaCorePipeModule } from './ha-module/ha-core-pipe/ha-core-pipe.module';
+import { CommonModule, NgClass } from '@angular/common';
 
 @NgModule({
   exports: [
@@ -12,10 +12,6 @@ import {CommonModule, NgClass} from '@angular/common';
     HaCoreDirectiveModule,
     HaCorePipeModule,
   ],
-  imports: [
-    NgClass,
-    CommonModule,
-  ]
+  imports: [NgClass, CommonModule],
 })
-export class HaCoreModule {
-}
+export class HaCoreModule {}
