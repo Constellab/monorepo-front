@@ -1,4 +1,4 @@
-@if (user$ | async; as user) {
+@if (user) {
   <div class="main-panel profile">
     <div class="profile-left-side-div">
       <div class="head-infos">
@@ -6,7 +6,7 @@
           <fl-user-profile-picture [user]="user" [size]="12"></fl-user-profile-picture>
           <h5>{{ user.alias }}</h5>
           <p>#{{ user.userCode }}</p>
-          @if (isCurrentUser$ | async) {
+          @if (isCurrentUser) {
             <button mat-stroked-button (click)="openEditProfileDialog(user)">
               {{ 'edit_profile' | translate }}
             </button>
@@ -44,7 +44,12 @@
     </div>
     <div class="profile-right-side-div">
       @if (stories$ && stories$.page) {
-        <h4 class="list-title">{{ 'stories' | translate }} - <span>{{ stories$.page.totalElements }}</span></h4>
+        <h4 class="list-title">
+          <fl-text-icon>
+            <mat-icon>description</mat-icon>
+            {{ 'stories' | translate }} - <span>{{ stories$.page.totalElements }}</span>
+          </fl-text-icon>
+        </h4>
         <fl-infinite-scroll [datasource]="stories$" infiniteMode="auto" class="list g-scrollable-element"
                             cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_story_yet' | translate">
           <a class="list-element" *ngFor="let story of stories$ | flDatasourceConnect | async"
@@ -53,11 +58,15 @@
                                 [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
           </a>
         </fl-infinite-scroll>
-        <div class="profile-list-separator"></div>
       }
 
       @if (agents$ && agents$.page) {
-        <h4 class="list-title">{{ 'agents' | translate }} - <span>{{ agents$.page.totalElements }}</span></h4>
+        <h4 class="list-title">
+          <fl-text-icon>
+            <mat-icon svgIcon="agent" class="svg-icon"></mat-icon>
+            {{ 'agents' | translate }} - <span>{{ agents$.page.totalElements }}</span>
+          </fl-text-icon>
+        </h4>
         <fl-infinite-scroll [datasource]="agents$" infiniteMode="auto" class="list g-scrollable-element"
                             cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_agent_yet' | translate">
           <a class="list-element" *ngFor="let agent of agents$ | flDatasourceConnect | async"
@@ -65,11 +74,15 @@
             <co-agent-list-item [agent]="agent"></co-agent-list-item>
           </a>
         </fl-infinite-scroll>
-        <div class="profile-list-separator"></div>
       }
 
       @if (bricks$ && bricks$.page) {
-        <h4 class="list-title">{{ 'bricks' | translate }} - <span>{{ bricks$.page.totalElements }}</span></h4>
+        <h4 class="list-title">
+          <fl-text-icon>
+            <mat-icon svgIcon="brick" class="svg-icon"></mat-icon>
+            {{ 'bricks' | translate }} - <span>{{ bricks$.page.totalElements }}</span>
+          </fl-text-icon>
+        </h4>
         <fl-infinite-scroll [datasource]="bricks$" infiniteMode="auto" class="list g-scrollable-element"
                             cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_brick_yet' | translate">
           <a class="list-element" *ngFor="let brick of bricks$ | flDatasourceConnect | async"

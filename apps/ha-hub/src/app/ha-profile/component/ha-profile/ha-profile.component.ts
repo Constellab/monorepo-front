@@ -28,9 +28,8 @@ import { CoUser } from '@monorepo/community-lib';
 })
 export class HaProfileComponent implements OnInit {
 
-  user$: Observable<CoUser>;
-  currentUser$: Observable<HaUser>;
-  isCurrentUser$: Observable<boolean>;
+  user: CoUser;
+  isCurrentUser: boolean;
   commonSpace$: Observable<HaSpace[]>;
   agents$: HaAgentDatasourcePaginated;
   stories$: HaStoryDatasourcePaginated;
@@ -70,38 +69,25 @@ export class HaProfileComponent implements OnInit {
   }
 
   private init(): void {
-    this.user$ = this.route.params.pipe(
-      switchMap(params => {
-        this.agents$ = this.agentService.getUserAgentsPaginated();
-        this.bricks$ = this.brickService.getUserBricksPaginated();
-        this.stories$ = this.storyService.getUserStoriesPaginated();
-        this.updateDatasources(params.id);
-        return this.userService.getUserById(params.id);
+    const paramId = this.route.snapshot.params['id'];
+    this.agents$ = this.agentService.getUserAgentsPaginated();
+    this.bricks$ = this.brickService.getUserBricksPaginated();
+    this.stories$ = this.storyService.getUserStoriesPaginated();
+    this.updateDatasources(paramId);
+
+    this.userService.getUserById(paramId).subscribe(user => {
+      this.user = user;
+      this.authenticatedUserService.getUser().subscribe(currentUser => {
+        this.isCurrentUser = currentUser?.id === user?.id;
+        if (currentUser != null) {
+          this.commonSpace$ = this.spaceService.getUserCommonSpace(user.id).pipe(
+            map(spaces => {
+              return spaces;
+            })
+          );
+        }
       })
-    );
-    this.currentUser$ = this.authenticatedUserService.getUser();
-    this.isCurrentUser$ = this.user$.pipe(
-      switchMap(user => this.currentUser$.pipe(
-        map(currentUser => currentUser?.id === user?.id)
-      ))
-    );
-    this.commonSpace$ = this.user$.pipe(
-      switchMap(user => this.currentUser$.pipe(
-        switchMap(currentUser => this.isCurrentUser$.pipe(
-          switchMap(isCurrentUser => {
-            if (currentUser != null && !isCurrentUser) {
-              return this.spaceService.getUserCommonSpace(user.id).pipe(
-                map(spaces => {
-                  return spaces;
-                })
-              );
-            } else {
-              return of([]);
-            }
-          })
-        ))
-      ))
-    );
+    });
   }
 
   private updateDatasources(userId: string): void {

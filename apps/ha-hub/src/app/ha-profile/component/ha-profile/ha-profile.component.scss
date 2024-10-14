@@ -70,16 +70,14 @@
     }
 
   }
-
-  .profile-list-separator{
-    width: 80%;
-    margin: 0 auto;
-    border-top: 1px solid var(--hover-color);
-  }
 }
 
 .common-space-div{
   margin-top: 0.5em;
+}
+
+.svg-icon{
+  font-size: 0;
 }
 
 @media (max-width: 965px) {

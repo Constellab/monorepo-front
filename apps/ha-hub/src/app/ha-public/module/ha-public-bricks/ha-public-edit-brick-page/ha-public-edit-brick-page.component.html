@@ -1,8 +1,13 @@
-<div class="brick-form">
-  <button mat-raised-button color="primary" [routerLink]="'../'" class="bt-back-to-list">
-     {{'back_to_all_bricks' | translate}}
-  </button>
+<div class="left-panel">
+  <a [routerLink]="bricksListRoute" class="back-link">
+    <fl-text-icon [iconPosition]="'start'">
+      <mat-icon>arrow_back</mat-icon>
+      {{'back_to_all_bricks' | translate}}
+    </fl-text-icon>
+  </a>
+</div>
 
+<div class="brick-form">
   <ha-public-edit-brick-form ></ha-public-edit-brick-form>
 </div>
 

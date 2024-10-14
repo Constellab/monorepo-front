@@ -44,7 +44,7 @@
       <p class="g-scrollable-element tech-info">{{ latestBrickVersion.repoType }}</p>
     </div>
 
-    <div class="tech-info-div" *ngIf="brick.gitRepo && isCreatorOrBrickUser$ | async">
+    <div class="tech-info-div" *ngIf="brick.gitRepo">
       <span>
         {{ 'repo_git' | translate }} : <ha-github-star-button [repo]="brick.gitRepo"></ha-github-star-button>
       </span>
@@ -54,7 +54,7 @@
     </div>
 
 
-    <div class="tech-info-div" *ngIf="brick.pipRepo && isCreatorOrBrickUser$ | async">
+    <div class="tech-info-div" *ngIf="brick.pipRepo">
       {{ 'repo_pip' | translate }} :
       <p class="g-scrollable-element tech-info">{{ brick.pipRepo }}</p>
     </div>

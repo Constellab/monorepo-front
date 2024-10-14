@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-public-edit-brick-page',
@@ -8,6 +9,7 @@ import {Component, OnInit} from '@angular/core';
 export class HaPublicEditBrickPageComponent implements OnInit {
 
   loaded = false;
+  bricksListRoute = HaRouterService.getBrickListRoute();
 
   ngOnInit(): void {
     this.loaded = true;

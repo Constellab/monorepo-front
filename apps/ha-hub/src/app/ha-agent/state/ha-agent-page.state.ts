@@ -275,9 +275,6 @@ export class HaAgentPageState {
     this.authenticatedUserService.getUser().subscribe(user => {
       this.currentUser.set(user);
       this.initAgent(agentId, paramTitle);
-      this.agentService.getPublishedAgentVersions(agentId).subscribe(agentVersions => {
-        this.agentVersionsList.set(agentVersions);
-      });
     });
   }
 

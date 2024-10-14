@@ -77,6 +77,8 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'heart', filename: 'heart.svg'},
   {name: 'heart-fill', filename: 'heart-fill.svg'},
   {name: 'constellab_document', filename: 'constellab_document.svg'},
+  {name: 'brick', filename: 'brick.svg'},
+  {name: 'agent', filename: 'laptop-code-solid.svg'},
 ]
 
 export function getFileIconFromExtension(extension: string): string {

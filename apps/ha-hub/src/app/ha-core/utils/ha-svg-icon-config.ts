@@ -2,8 +2,8 @@ import {FlIcon, flIconsDefault} from '@monorepo/front-core-lib';
 
 export const haSvgIcons: FlIcon[] = [
   ...flIconsDefault,
-  {name: 'brick-icon', filename: 'brick.svg'},
-  {name: 'code', filename: 'laptop-code-solid.svg'},
+  // {name: 'brick-icon', filename: 'brick.svg'},
+
   {name: 'community-icon', filename: 'community_logo.svg'},
 
   {name: 'comment-accent', filename: 'comment-accent.svg'},

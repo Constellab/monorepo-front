@@ -28,12 +28,12 @@
     {{ 'stories' | translate }}
   </a>
   <a [routerLink]="agentsRoute" [ngClass]="currentRoute == 'agent' ? 'bottom-menu-current-bt' : ''">
-    <mat-icon class="menu-icon" [svgIcon]="'code'"></mat-icon>
+    <mat-icon class="menu-icon" svgIcon="agent"></mat-icon>
     {{ 'agents' | translate }}
   </a>
 
   <a [routerLink]="brickListRoute" [ngClass]="currentRoute == 'brick' ? 'bottom-menu-current-bt' : ''">
-    <mat-icon [svgIcon]="'brick-icon'" class="menu-icon"></mat-icon>
+    <mat-icon svgIcon="brick" class="menu-icon"></mat-icon>
     {{ 'bricks' | translate }}
   </a>
   <div [matMenuTriggerFor]="docMenu" [ngClass]="currentRoute == 'doc' ? 'bottom-menu-current-bt' : ''">
