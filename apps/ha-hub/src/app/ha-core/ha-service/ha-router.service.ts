@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HaEnvironmentHelper} from '../ha-model/ha-config/ha-environment.helper';
-import {HaLiveTaskVersion} from '../ha-model/ha-entities/ha-live-task-version.class';
+import {HaAgentVersion} from '../ha-model/ha-entities/ha-agent-version.class';
 import {ClStringHelper} from '@monorepo/core-lib';
 import {TdBrick} from '@monorepo/technical-doc';
 
@@ -43,18 +43,18 @@ export class HaRouterService {
     return '/icons';
   }
 
-  ////////////////////////// LIVE TASKS ////////////////////////////////
-  public static getLiveTaskListRoute(): string {
-    return '/live-tasks/';
+  ////////////////////////// AGENTS ////////////////////////////////
+  public static getAgentsListRoute(): string {
+    return '/agents/';
   }
 
-  public static getLiveTaskRoute(id: string, titlePath: string): string {
-    return `${this.getLiveTaskListRoute()}${id}/${titlePath}`;
+  public static getAgentRoute(id: string, titlePath: string): string {
+    return `${this.getAgentsListRoute()}${id}/${titlePath}`;
   }
 
-  public static getLiveTaskVersionRoute(liveTaskVersion: HaLiveTaskVersion): string{
-    return `${this.getLiveTaskRoute(liveTaskVersion.liveTask.id,
-      ClStringHelper.getCleanUrlPath(liveTaskVersion.liveTask.title))}/version/${liveTaskVersion.version}`;
+  public static getAgentVersionRoute(agentVersion: HaAgentVersion): string{
+    return `${this.getAgentRoute(agentVersion.agent.id,
+      ClStringHelper.getCleanUrlPath(agentVersion.agent.title))}/version/${agentVersion.version}`;
   }
 
   ////////////////////////// STORIES ////////////////////////////////

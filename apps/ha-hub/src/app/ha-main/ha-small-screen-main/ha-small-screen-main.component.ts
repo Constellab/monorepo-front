@@ -12,7 +12,7 @@ import {HaThemeState} from '../../ha-core/ha-state/ha-theme.state';
 export enum HaSmallScreenPossibleRoute {
   STORY = 'story',
   BRICK = 'brick',
-  LIVE_TASK = 'live-task',
+  AGENT = 'agent',
   DOC = 'doc'
 }
 
@@ -39,7 +39,7 @@ export class HaSmallScreenMainComponent implements OnInit{
 
   techDocRoute = HaRouterService.getTechDocRoute();
 
-  liveTaskRoute = HaRouterService.getLiveTaskListRoute();
+  agentsRoute = HaRouterService.getAgentsListRoute();
 
   homeRoute = HaRouterService.getHomeRoute();
 
@@ -76,8 +76,8 @@ export class HaSmallScreenMainComponent implements OnInit{
         case this.brickListRoute:
           this.currentRoute = HaSmallScreenPossibleRoute.BRICK;
           break;
-        case this.liveTaskRoute:
-          this.currentRoute = HaSmallScreenPossibleRoute.LIVE_TASK;
+        case this.agentsRoute:
+          this.currentRoute = HaSmallScreenPossibleRoute.AGENT;
           break;
         default:
           this.currentRoute = HaSmallScreenPossibleRoute.DOC;

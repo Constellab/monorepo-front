@@ -27,9 +27,9 @@
     <mat-icon class="menu-icon">description</mat-icon>
     {{ 'stories' | translate }}
   </a>
-  <a [routerLink]="liveTaskRoute" [ngClass]="currentRoute == 'live-task' ? 'bottom-menu-current-bt' : ''">
+  <a [routerLink]="agentsRoute" [ngClass]="currentRoute == 'agent' ? 'bottom-menu-current-bt' : ''">
     <mat-icon class="menu-icon" [svgIcon]="'code'"></mat-icon>
-    {{ 'live_tasks' | translate }}
+    {{ 'agents' | translate }}
   </a>
 
   <a [routerLink]="brickListRoute" [ngClass]="currentRoute == 'brick' ? 'bottom-menu-current-bt' : ''">

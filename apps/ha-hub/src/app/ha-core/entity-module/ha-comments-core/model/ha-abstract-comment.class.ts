@@ -5,7 +5,7 @@ import {TeRichTextContent} from '@monorepo/text-editor';
 
 export enum HaCommentType {
   STORY_COMMENT = 'story',
-  LIVE_TASK_COMMENT = 'live-task',
+  AGENT_COMMENT = 'agent',
 }
 
 export interface HaCommentEntity extends FlEntity{

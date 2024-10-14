@@ -1,0 +1,36 @@
+<div *ngIf="agentVersion()">
+  <div class="agent-version-title">
+    <h2>{{ agentVersion().agent.title }}</h2>
+    <div class="g-badge g-warn-background">{{ agentVersion().type | translate }}</div>
+  </div>
+
+
+  <div class="agent-infos-div">
+    <h4>{{ 'version' | translate }} {{ agentVersion().version }}</h4>
+    @if (canEdit()) {
+      <div class="agent-infos">
+        @if (agentVersion().versionState == 'DRAFT') {
+          <span class="g-text-small g-warn-text">{{ 'warn_agent_version_not_published' | translate }}</span>
+          <button mat-stroked-button color="primary" (click)="publishAgentVersion()">
+            {{ 'publish' | translate }}
+          </button>
+        }
+        <button mat-icon-button color="warn" (click)="deleteAgentVersion()" [matTooltip]="'delete_agent_version' | translate">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    }
+  </div>
+  @if(currentVersion) {
+    <ha-agent-version-detail></ha-agent-version-detail>
+  } @else {
+    <fl-loader></fl-loader>
+  }
+
+</div>
+<div *ngIf="isAgentVersionLoading()">
+  <fl-loader class="g-centered"></fl-loader>
+</div>
+<div *ngIf="isAgentVersionError()">
+  <ha-ha404 ></ha-ha404>
+</div>

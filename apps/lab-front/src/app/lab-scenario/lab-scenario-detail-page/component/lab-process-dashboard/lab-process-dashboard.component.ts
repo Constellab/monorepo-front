@@ -35,6 +35,16 @@ import { CoAgentHelper, CoCommunityHelperService } from '@monorepo/community-lib
 import {
   LabSystemConfigDialogComponent
 } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
+import {
+  LabMonitorBetweenDatesDialogComponent,
+  LabMonitorBetweenDatesDialogInput
+} from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
+import { LabProcessService } from '../../../../lab-core/entity-service/lab-process.service';
+import { LabTaskGeneratorService } from '../../../../lab-core/service/lab-task-generator.service';
+import {
+  LabShareAgentCommunityDialogComponent
+} from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
+import { LabCreateCommunityAgentVersionResDto } from '../../../../lab-core/model/entities/lab-agent.entity';
 
 
 /**
@@ -82,7 +92,7 @@ export class LabProcessDashboardComponent {
     const data: LabTypeDialogInput = {
       typingName: typingName
     };
-    this.dialogService.openMediumDialog(LabTypeDialogComponent, {data: data, panelClass: 'g-dialog-main-background'});
+    this.dialogService.openMediumDialog(LabTypeDialogComponent, { data: data, panelClass: 'g-dialog-main-background' });
   }
 
   saveConfigAndRunProcess(process: LabProcess): void {
@@ -116,7 +126,7 @@ export class LabProcessDashboardComponent {
       map(process => process.progressBar)
     );
 
-    this.dialogService.openBigDialog(LabProgressBarInfoDialogComponent, {data: progressBar$});
+    this.dialogService.openBigDialog(LabProgressBarInfoDialogComponent, { data: progressBar$ });
   }
 
   openProcessLogs(process: LabProcess): void {
@@ -126,7 +136,7 @@ export class LabProcessDashboardComponent {
       downloadUrl: this.processService.getDownloadProcessLogUrl(process.getProcessType(), process.id)
     };
 
-    this.dialogService.openBigDialog(LabLogsBetweenDatesDialogComponent, {data: input});
+    this.dialogService.openBigDialog(LabLogsBetweenDatesDialogComponent, { data: input });
   }
 
   openProcessMonitor(process: LabProcess): void {
@@ -135,7 +145,7 @@ export class LabProcessDashboardComponent {
       monitor$: this.processService.getProcessMonitor(process.getProcessType(), process.id)
     };
 
-    this.dialogService.openBigDialog(LabMonitorBetweenDatesDialogComponent, {data: input});
+    this.dialogService.openBigDialog(LabMonitorBetweenDatesDialogComponent, { data: input });
   }
 
   resetProcess(): void {
@@ -172,7 +182,7 @@ export class LabProcessDashboardComponent {
     this.nodeState.updateProcessName(process, newName);
   }
 
-  duplicateTask(process: LabProcess): void{
+  duplicateTask(process: LabProcess): void {
     this.workflowEditConfig.duplicateProcess(process.instanceName, process.name);
   }
 

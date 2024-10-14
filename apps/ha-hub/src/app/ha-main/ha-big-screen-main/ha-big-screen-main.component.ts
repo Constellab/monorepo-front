@@ -29,7 +29,7 @@ export class HaBigScreenMainComponent implements OnInit{
 
   techDocRoute = HaRouterService.getTechDocRoute();
 
-  liveTaskRoute = HaRouterService.getLiveTaskListRoute();
+  agentsRoute = HaRouterService.getAgentsListRoute();
 
   profileRoute = HaRouterService.getProfileRoute();
 

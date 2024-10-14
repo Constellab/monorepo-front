@@ -1,0 +1,164 @@
+@if (agentVersion()) {
+
+  <div class="spacer"></div>
+
+  <h4 class="detail-version-title">
+    @if(agentVersion()?.agent != null && isOverview){
+      {{ ('latest_version_infos' | translate) + ' (V' + agentVersion()?.agent.latestPublishVersion + ')' }}
+    } @else {
+      {{'detail_of_the_version' | translate}}
+    }
+  </h4>
+
+  @if (brickDependencies() && brickDependencies().length > 0) {
+    <div>
+      <div>{{ 'necessary_bricks' | translate }} :</div>
+      <div class="brick-dependencies-div">
+        <mat-chip *ngFor="let brickDep of brickDependencies()">
+          {{ brickDep?.brickMajorVersion?.brick?.name }} {{ brickDep?.version }}
+        </mat-chip>
+      </div>
+    </div>
+
+  }
+
+  <div class="agent-version-detail-card info-version-card"
+       *ngIf="agentVersion() && (agentVersion().versionInfos || canEdit())">
+    <div class="card-header">
+      <h5>
+        {{ 'info_about_this_version' | translate }}
+      </h5>
+      <button mat-stroked-button color="primary" class="g-button-small"
+              *ngIf="canEdit()" (click)="onVersionInfosEditorButtonClick()">
+        <fl-text-icon [iconPosition]="'end'">
+          <mat-icon>{{ versionInfosDisabled ? 'edit' : 'save' }}</mat-icon>
+          {{ versionInfosDisabled ? ('edit' | translate) : ('save' | translate) }}
+        </fl-text-icon>
+      </button>
+    </div>
+    <div>
+      @defer (when agentVersion() && !isAgentVersionLoading() && versionInfosFormControl){
+        @if (canEdit() || !isVersionInfosEmpty()) {
+          <te-text-editor class="version-infos-editor" [ngClass]="canEdit() ? 'editor-border': ''"
+                          [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)"
+                          [formControl]="versionInfosFormControl" [disabled]="!canEdit()"
+                          [placeholder]="'agent_version_infos_place_holder' | translate">
+          </te-text-editor>
+        }
+      }
+    </div>
+  </div>
+
+
+  <fl-card class="agent-version-detail-card"
+           *ngIf="(agentVersion()?.inputSpecs?.specs | flIsNotEmpty) || (agentVersion()?.outputSpecs?.specs | flIsNotEmpty)">
+    <fl-card-header>
+      <div class="io-card-div">
+        <h5 class="io-card-div-column">
+          {{'input' | translate}}
+        </h5>
+        <h5 class="io-card-div-column">
+          {{ 'output' | translate }}
+        </h5>
+      </div>
+    </fl-card-header>
+    <fl-card-body>
+      <div class="io-card-div">
+        <div class="io-card-div-column">
+          <div *ngFor="let spec of agentVersion()?.inputSpecs?.specs | flObjectKeys; index as i"
+               [class]="i < (agentVersion()?.inputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
+            <td-doc-io [ioSpec]="agentVersion()?.inputSpecs?.specs[spec]"></td-doc-io>
+          </div>
+        </div>
+        <div class="io-card-div-column">
+          <div *ngFor="let spec of agentVersion()?.outputSpecs?.specs | flObjectKeys; index as i"
+               [class]="i < (agentVersion()?.outputSpecs?.specs | flObjectKeys).length -1 ? 'spacing-6-v2' : ''">
+            <td-doc-io [ioSpec]="agentVersion()?.outputSpecs?.specs[spec]"></td-doc-io>
+          </div>
+        </div>
+      </div>
+    </fl-card-body>
+  </fl-card>
+
+
+  <fl-card class="agent-version-detail-card" *ngIf="agentVersion()?.configSpecs | flIsNotEmpty">
+    <fl-card-header>
+      <h5>
+        {{ 'configuration' | translate }}
+      </h5>
+    </fl-card-header>
+    <fl-card-body>
+      <td-config [configSpecs]="agentVersion()?.configSpecs"></td-config>
+    </fl-card-body>
+  </fl-card>
+
+  @if (isEditable() || (agentVersion().params != null && agentVersion().params.length > 0)) {
+    <fl-card class="agent-version-detail-card">
+      <fl-card-header>
+        <div class="card-header">
+          <h5>
+            {{ 'parameters' | translate }}
+          </h5>
+          <div>
+            <button mat-stroked-button color="primary" (click)="onCopy('parameters')" class="g-button-small">
+              <fl-text-icon [iconPosition]="'end'">
+                <mat-icon>content_copy</mat-icon>
+                {{ 'copy_parameters' | translate }}
+              </fl-text-icon>
+            </button>
+          </div>
+        </div>
+      </fl-card-header>
+      <fl-card-body>
+        <fl-code-editor [language]="languageCode()" [formCtrl]="paramsFormControl"></fl-code-editor>
+      </fl-card-body>
+    </fl-card>
+  }
+
+  <!--TODO: Corriger le bug du changement de theme-->
+  @if (((isEditable() && canEdit()) || agentVersion()?.environment | flIsNotEmpty) && agentVersion().type !== 'PYTHON') {
+    <fl-card class="agent-version-detail-card">
+      <fl-card-header>
+        <div class="card-header">
+          <h5>
+            {{ 'environment_file' | translate }}
+          </h5>
+          <div>
+            <button mat-stroked-button color="primary" (click)="onCopy('environment_file')" class="g-button-small">
+              <fl-text-icon [iconPosition]="'end'">
+                <mat-icon>content_copy</mat-icon>
+                {{ 'copy_environment' | translate }}
+              </fl-text-icon>
+            </button>
+          </div>
+        </div>
+      </fl-card-header>
+      <fl-card-body>
+        <fl-code-editor [language]="languageEnvironment()" [formCtrl]="environmentFormControl"></fl-code-editor>
+      </fl-card-body>
+    </fl-card>
+  }
+
+  <fl-card class="agent-version-detail-card">
+    <fl-card-header>
+      <div class="card-header">
+        <h5>
+          {{ 'code' | translate }}
+        </h5>
+        <div>
+          <button mat-stroked-button color="primary" (click)="onCopy('code')" class="g-button-small">
+            <fl-text-icon [iconPosition]="'end'">
+              <mat-icon>content_copy</mat-icon>
+              {{ 'copy_code' | translate }}
+            </fl-text-icon>
+          </button>
+        </div>
+      </div>
+    </fl-card-header>
+    <fl-card-body>
+      <fl-code-editor [language]="languageCode()" [formCtrl]="codeFormControl"></fl-code-editor>
+    </fl-card-body>
+  </fl-card>
+
+}
+

@@ -7,8 +7,8 @@ import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
 import { map } from 'rxjs/operators';
 import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
-import { HaLiveTaskDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-live-task.class';
-import { HaLiveTaskService } from '../../../ha-core/ha-service/ha-live-task.service';
+import { HaAgentDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
 import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
@@ -32,14 +32,14 @@ export class HaProfileComponent implements OnInit {
   currentUser$: Observable<HaUser>;
   isCurrentUser$: Observable<boolean>;
   commonSpace$: Observable<HaSpace[]>;
-  liveTasks$: HaLiveTaskDatasourcePaginated;
+  agents$: HaAgentDatasourcePaginated;
   stories$: HaStoryDatasourcePaginated;
   bricks$: HaBrickDatasourcePaginated;
 
   constructor(private authenticatedUserService: HaAuthenticatedUserService,
               private userService: HaUserService,
               private spaceService: HaSpaceService,
-              private liveTaskService: HaLiveTaskService,
+              private agentService: HaAgentService,
               private brickService: HaBrickService,
               private storyService: HaStoryService,
               private dialogService: FlDialogService,
@@ -72,7 +72,7 @@ export class HaProfileComponent implements OnInit {
   private init(): void {
     this.user$ = this.route.params.pipe(
       switchMap(params => {
-        this.liveTasks$ = this.liveTaskService.getUserLiveTasksPaginated();
+        this.agents$ = this.agentService.getUserAgentsPaginated();
         this.bricks$ = this.brickService.getUserBricksPaginated();
         this.stories$ = this.storyService.getUserStoriesPaginated();
         this.updateDatasources(params.id);
@@ -105,7 +105,7 @@ export class HaProfileComponent implements OnInit {
   }
 
   private updateDatasources(userId: string): void {
-    this.liveTasks$.getFirstPage({
+    this.agents$.getFirstPage({
       userId: userId
     });
     this.bricks$.getFirstPage({

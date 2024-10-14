@@ -72,19 +72,19 @@
     </div>
 
     <div class="home-section ">
-      <a [routerLink]="liveTaskListRoute" class="home-section-title">
-        {{ 'live_tasks' | translate }}
+      <a [routerLink]="agentsListRoute" class="home-section-title">
+        {{ 'agents' | translate }}
       </a>
       <p class="home-section-description">
-        {{'live_tasks_description' | translate}}
+        {{'agents_description' | translate}}
       </p>
       <div class="home-list-div">
-        <a *ngFor="let liveTask of liveTasks$ | flDatasourceConnect | async" [routerLink]="(liveTask | haDetailRoute)">
-          <co-agent-list-item class="home-card" [agent]="liveTask"></co-agent-list-item>
+        <a *ngFor="let agent of agents$ | flDatasourceConnect | async" [routerLink]="(agent | haDetailRoute)">
+          <co-agent-list-item class="home-card" [agent]="agent"></co-agent-list-item>
         </a>
       </div>
-      <a mat-stroked-button [routerLink]="liveTaskListRoute" class="go-to-button">
-        {{ 'go_to_live_tasks' | translate }}
+      <a mat-stroked-button [routerLink]="agentsListRoute" class="go-to-button">
+        {{ 'go_to_agents' | translate }}
         <mat-icon>chevron_right</mat-icon>
       </a>
     </div>

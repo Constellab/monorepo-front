@@ -1,0 +1,253 @@
+import { Component, computed, Input, OnInit, Signal } from '@angular/core';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
+import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
+import {
+  FlClipboardService,
+  FlCodeEditorLanguage,
+  FlDebouncer,
+} from '@monorepo/front-core-lib';
+import {
+  TeBasicConfig,
+  TeRichText,
+  TeRichTextContent,
+} from '@monorepo/text-editor';
+import { HaBrickVersion } from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
+import { HaAgentPageState } from '../../state/ha-agent-page.state';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
+// TODO: A voir si c'est possible d'encore ameliorer ce composant
+@Component({
+  selector: 'ha-agent-version-detail',
+  templateUrl: './ha-agent-version-detail.component.html',
+  styleUrls: ['./ha-agent-version-detail.component.scss'],
+})
+export class HaAgentVersionDetailComponent implements OnInit {
+  @Input() isOverview?: boolean;
+  versionInfosDisabled = true;
+
+  textEditorConfig: TeBasicConfig;
+
+  paramsFormControl: FormControl<string> = new FormControl<string>(null);
+  paramsDebouncer: FlDebouncer<string>;
+  paramsFormControlSubscription: Subscription;
+
+  environmentFormControl: FormControl<string> = new FormControl<string>(null);
+  environmentDebouncer: FlDebouncer<string>;
+  environmentFormControlSubscription: Subscription;
+
+  codeFormControl: FormControl<string> =  new FormControl<string>(null);
+  codeDebouncer: FlDebouncer<string>;
+  codeFormControlSubscription: Subscription;
+
+  lastAgentVersion: number = null;
+
+  versionInfosFormControl: FormControl<TeRichTextContent> =
+    new FormControl<TeRichTextContent>(null);
+
+  canEdit: Signal<boolean> = this.agentPageState.canEditAgent;
+  isEditable: Signal<boolean> =
+    this.agentPageState.agentVersionIsEditable;
+  brickDependencies: Signal<HaBrickVersion[]> =
+    this.agentPageState.getBrickDependencies();
+  isAgentVersionLoading: Signal<boolean> =
+    this.agentPageState.isAgentVersionLoading;
+  agentVersion: Signal<HaAgentVersion> = computed(() => {
+    if (!this.agentPageState.agentVersion()) return null;
+    const agentVersion = this.agentPageState.agentVersion();
+    if (agentVersion?.version == this.lastAgentVersion) return agentVersion;
+    this.lastAgentVersion = agentVersion.version;
+    this.codeDebouncer = null;
+    this.paramsDebouncer = null;
+    this.environmentDebouncer = null;
+
+    if (this.versionInfosFormControl) {
+      this.versionInfosFormControl.setValue(agentVersion?.versionInfos);
+      this.versionInfosFormControl.disable();
+    } else {
+      const formControl = new FormControl<TeRichTextContent>(null);
+      if (agentVersion?.versionInfos) {
+        formControl.patchValue(agentVersion.versionInfos);
+        formControl.disable();
+      }
+      this.versionInfosFormControl = formControl;
+    }
+
+    this.codeFormControlSubscription?.unsubscribe();
+    this.codeFormControlSubscription = null;
+    this.paramsFormControlSubscription?.unsubscribe();
+    this.paramsFormControlSubscription = null;
+    this.environmentFormControlSubscription?.unsubscribe();
+    this.environmentFormControlSubscription = null;
+
+
+    this.codeDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
+    this.codeDebouncer
+      .getDebouncedValue()
+      .subscribe((value) => this.onCodeChange(value));
+    this.codeFormControl.patchValue(agentVersion.code);
+
+    this.paramsDebouncer = new FlDebouncer(FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME);
+    this.paramsDebouncer
+      .getDebouncedValue()
+      .subscribe((value) => this.onParamsChange(value));
+    this.paramsFormControl.patchValue(agentVersion.params);
+
+    this.environmentFormControl.patchValue(agentVersion.environment);
+    this.environmentDebouncer = new FlDebouncer(
+      FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME
+    );
+    this.environmentDebouncer
+      .getDebouncedValue()
+      .subscribe((value) => this.onEnvironmentChange(value));
+
+    this.codeFormControlSubscription = this.codeFormControl.valueChanges.subscribe((code) => {
+      if(this.canEdit() && this.isEditable())
+        this.codeDebouncer.setValue(code);
+    });
+
+    this.paramsFormControlSubscription = this.paramsFormControl.valueChanges.subscribe((params) => {
+      if(this.canEdit() && this.isEditable())
+        this.paramsDebouncer.setValue(params);
+    });
+
+    this.environmentFormControlSubscription = this.environmentFormControl.valueChanges.subscribe((environment) => {
+      if(this.canEdit() && this.isEditable())
+        this.environmentDebouncer.setValue(environment);
+    });
+
+    if (!this.isEditable() || !this.canEdit()) {
+      this.environmentFormControl.disable();
+      this.paramsFormControl.disable();
+      this.codeFormControl.disable();
+    }
+
+    return agentVersion;
+  });
+  isVersionInfosEmpty: Signal<boolean> = computed(() => {
+    return TeRichText.isEmpty(this.agentVersion()?.versionInfos);
+  });
+
+  languageCode: Signal<FlCodeEditorLanguage> = computed(() => {
+    return (this.agentVersion()?.type as string)?.includes('PYTHON')
+      ? 'python'
+      : 'r';
+  });
+
+  languageEnvironment: Signal<FlCodeEditorLanguage> = computed(() => {
+    return (this.agentVersion()?.environment as string)?.includes('PIP')
+      ? null
+      : 'yaml';
+  });
+
+  constructor(
+    private agentService: HaAgentService,
+    private agentPageState: HaAgentPageState,
+    private clipboardService: FlClipboardService
+  ) {}
+
+  ngOnInit(): void {
+    this.textEditorConfig = new TeBasicConfig();
+
+    if (this.agentVersion()?.params != null) {
+      this.paramsFormControl.setValue(this.agentVersion().params);
+    }
+
+    if (!this.isEditable() || !this.canEdit()) {
+      this.environmentFormControl.disable();
+      this.paramsFormControl.disable();
+    }
+  }
+
+  onEnvironmentChange(environment: string): void {
+    if (
+      environment === this.agentVersion()?.environment ||
+      !this.canEdit() ||
+      this.agentVersion() == null || this.lastAgentVersion !== this.agentVersion().version
+    )
+      return;
+    this.agentService
+      .saveAgentVersionEnvironment(this.agentVersion()?.id, environment)
+      .subscribe((agentVersion) => {
+        this.agentPageState.setAgentVersion(agentVersion);
+      });
+  }
+
+  onParamsChange(params: string): void {
+    const paramsArray = params?.split('\n');
+    if (
+      params === this.agentVersion()?.params ||
+      paramsArray?.find((p) => p.trim().length > 0) == null ||
+      !this.isEditable() || !this.canEdit() ||
+      this.agentVersion() == null || this.lastAgentVersion !== this.agentVersion().version
+    ) {
+      return;
+    }
+    this.agentService
+      .saveAgentVersionParams(this.agentVersion()?.id, paramsArray)
+      .subscribe((agentVersion) => {
+        this.agentPageState.setAgentVersion(agentVersion);
+      });
+  }
+
+  onCodeChange(code: string): void {
+
+    if (
+      code === this.agentVersion()?.code || this.isAgentVersionLoading() ||
+      !this.isEditable() || !this.canEdit() ||
+      this.agentVersion() == null || this.lastAgentVersion !== this.agentVersion().version
+    )
+      return;
+
+    this.agentService
+      .saveAgentVersionCode(this.agentVersion()?.id, code)
+      .subscribe((agentVersion) => {
+        this.agentPageState.setAgentVersion(agentVersion);
+      });
+  }
+
+  onCopy(type: 'parameters' | 'code' | 'environment_file'): void {
+    let text = null;
+    switch (type) {
+      case 'parameters':
+        text = this.agentVersion()?.params;
+        break;
+      case 'code':
+        text = this.agentVersion()?.code;
+        break;
+      case 'environment_file':
+        text = this.agentVersion()?.environment;
+        break;
+    }
+    if (text) {
+      this.clipboardService.copy(text, {
+        text: `${type}_copied_to_clipboard`,
+        translateText: true,
+      });
+    }
+  }
+
+  onVersionInfosEditorButtonClick(): void {
+    if (this.versionInfosDisabled) {
+      this.versionInfosDisabled = false;
+      this.versionInfosFormControl.enable();
+      return;
+    }
+
+    this.agentService
+      .saveAgentVersionInfos(
+        this.agentVersion().id,
+        this.versionInfosFormControl.value as TeRichTextContent
+      )
+      .subscribe((agentVersion) => {
+        if (agentVersion)
+          this.agentPageState.updateAgentVersion(agentVersion);
+        this.versionInfosDisabled = true;
+        this.versionInfosFormControl.disable();
+      });
+  }
+
+  onVersionInfosChange(versionInfos: TeRichTextContent): void {
+    this.versionInfosFormControl?.setValue(versionInfos);
+  }
+}

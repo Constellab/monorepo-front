@@ -1,0 +1,70 @@
+@if (agent()) {
+  <h2 flElementEditable (flElementValueChange)="onTitleChange($event)"
+      [flElementDisabled]="!canEditAgent()">
+    {{ agent().title }}
+  </h2>
+  <div class="agent-utils-div">
+    <p class="small-text user-date-info">
+      <a [routerLink]="profileRoute + agent().createdBy?.id">
+        <fl-user-inline [user]="agent().createdBy" [portalOnHover]="false"></fl-user-inline>
+      </a>
+      <span class="g-text-small date-info">
+      <fl-from-now [date]="agent().createdAt"
+                   *ngIf="agent().latestPublishVersion > 0; else notPublished"></fl-from-now>
+    </span>
+    </p>
+    <div class="agent-buttons">
+      <co-visibility-badge [space]="agent().space"></co-visibility-badge>
+
+      <ha-like-button class="agent-like-bt" (clicked)="toggleLikeAgentButton()" [isLiked]="agentIsLiked()"
+                      [likesCount]="agent().likes"></ha-like-button>
+
+      <ha-comment-button [commentsCount]="agent().comments" (clicked)="openCommentsPanel()"></ha-comment-button>
+
+      @if (isAuthor()) {
+        <button mat-icon-button color="warn" (click)="deleteAgent()" [matTooltip]="'delete_agent' | translate">
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="g-flex" *ngIf="isLoading()">
+    <fl-loader class="g-centered"></fl-loader>
+  </div>
+
+
+  <div *ngIf="!isLoading()">
+    <div class="card-header">
+      <h5>
+        {{ 'agent_description' | translate }}
+      </h5>
+      <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()"
+              *ngIf="canEditAgent()">
+        <fl-text-icon [iconPosition]="'end'">
+          <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
+          {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}
+        </fl-text-icon>
+      </button>
+    </div>
+    @if (canEditAgent() || !agentDescriptionEmpty()) {
+      <div>
+        <te-text-editor
+          class="description-editor" [ngClass]="canEditAgent() ? 'editor-border' : ''"
+          [config]="textEditorConfig()" (textChange)="onDescriptionChange($event)"
+          [formControl]="descriptionFormControl()"
+          [placeholder]="'agent_description_place_holder' | translate"></te-text-editor>
+      </div>
+    }
+  </div>
+
+  <ha-agent-version-detail *ngIf="!isLoading() && !isAgentVersionLoading() && !isAgentVersionError()"
+                               [isOverview]="true"></ha-agent-version-detail>
+
+}
+
+<ng-template #notPublished>
+    <span class="g-warn-text">
+      {{ 'not_published' | translate }}
+    </span>
+</ng-template>

@@ -24,8 +24,12 @@ const routes: Routes = [
   },
   {
     path: 'live-tasks',
+    redirectTo: 'agents'
+  },
+  {
+    path: 'agents',
     component: HaMainComponent,
-    loadChildren: () => import('../ha-live-task/ha-live-task.module').then(m => m.HaLiveTaskModule)
+    loadChildren: () => import('../ha-agent/ha-agent.module').then(m => m.HaAgentModule)
   },
   {
     path: 'profile',

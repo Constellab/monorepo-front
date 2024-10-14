@@ -1,0 +1,99 @@
+.card-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.code-editor{
+  background-color: var(--main-background);
+  min-height: 5em;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.32px;
+  text-decoration: none;
+}
+
+.card-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.version-infos-editor{
+  border: none;
+  padding: 0.5em 0.5em;
+  min-height: 1.5em;
+  margin-top: 0.5em;
+}
+
+.editor-border{
+  border: solid 1px var(--hover-color);
+}
+
+.io-div{
+  display: flex;
+  flex-direction: row;
+}
+
+.i-div, .o-div{
+  flex: 1;
+}
+
+.i-div{
+  padding-right: 12px;
+}
+
+.o-div{
+  padding-left: 12px;
+  border-left: solid 1px var(--hover-color);
+}
+
+.info-version-div{
+  background-color: var(--main-background);
+  border: 2px solid var(--card-background);
+}
+
+@media (max-width: 672px){
+  .io-div{
+    flex-direction: column;
+  }
+}
+
+.brick-dependencies-div{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1.5em;
+}
+
+
+.info-version-card {
+  background-color: var(--main-background);
+}
+
+
+.io-card-div {
+  display: flex;
+  flex-direction: row;
+  gap: 64px;
+
+  .io-card-div-column {
+    width: calc(50% - 32px);
+  }
+}
+
+.spacer {
+  border: 2px solid var(--hover-color);
+  margin: 32px 0;
+}
+
+.detail-version-title{
+  margin-bottom: 16px;
+}
+
+.agent-version-detail-card {
+  margin-bottom: 32px;
+}

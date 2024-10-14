@@ -106,8 +106,8 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
 
         const dynamicBricksUrls = await fetchBricksMap();
         const dynamicStoriesUrls = await fetchStoriesMap();
-        const dynamicLiveTasksUrls = await fetchLiveTasksMap();
-        const dynamicUrls = [...dynamicBricksUrls, ...dynamicStoriesUrls, ...dynamicLiveTasksUrls];
+        const dynamicAgentsUrls = await fetchAgentsMap();
+        const dynamicUrls = [...dynamicBricksUrls, ...dynamicStoriesUrls, ...dynamicAgentsUrls];
         const allUrls = [...urls, ...dynamicUrls];
 
         allUrls.forEach((url) => smStream.write(url));
@@ -213,12 +213,12 @@ async function fetchStoriesMap(): Promise<SitemapItem[]> {
   }
 }
 
-async function fetchLiveTasksMap(): Promise<SitemapItem[]> {
+async function fetchAgentsMap(): Promise<SitemapItem[]> {
   try {
-    const response = await axios.get(`${environment.settings.apiUrl}/live-task/all-map`);
+    const response = await axios.get(`${environment.settings.apiUrl}/agent/all-map`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching live tasks URLs:', error);
+    console.error('Error fetching agents URLs:', error);
     return [];
   }
 }

@@ -1,0 +1,57 @@
+<div class="agent-page-div">
+
+  @if(!isLoading() && !notFound() && agent()){
+    <div class="left-panel">
+      <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
+      <a [routerLink]="agentsListRoute" class="back-link">
+        <fl-text-icon [iconPosition]="'start'">
+          <mat-icon>arrow_back</mat-icon>
+          {{'back_to_agents_list' | translate}}
+        </fl-text-icon>
+      </a>
+      <ha-agent-versions-panel></ha-agent-versions-panel>
+    </div>
+  }
+
+
+  <div class="main-panel main-agent-panel">
+    @if (agent() && !isLoading() && !notFound()) {
+      <router-outlet></router-outlet>
+    } @else if (notFound() && !isLoading()) {
+      <ha-ha404></ha-ha404>
+    } @else {
+      <div class="g-flex">
+        <fl-loader></fl-loader>
+      </div>
+    }
+  </div>
+
+
+  <div class="right-panel" *ngIf="agent() && !isLoading() && !notFound()">
+    <div class="agent-user-div">
+      <h5 class="agent-user-title">
+        <span>{{ 'authors' | translate }}</span>
+        @if (isAuthor()) {
+          <button mat-icon-button (click)="openLtCoAuthorsDialog()" [matTooltip]="'open_coauthor_panel' | translate">
+            <mat-icon>group_add</mat-icon>
+          </button>
+        }
+      </h5>
+      @if(agent() && agent().createdBy){
+        <div class="agent-user-line">
+          <a [routerLink]="profileRoute + agent().createdBy.id">
+            <fl-user-inline [user]="agent().createdBy" [portalOnHover]="false"></fl-user-inline>
+          </a>
+          <mat-icon>workspace_premium</mat-icon>
+        </div>
+      }
+      @for (ltCoAuthor of agentCoAuthors(); track ltCoAuthor.id) {
+        <div class="agent-user-line">
+          <a [routerLink]="profileRoute + ltCoAuthor.id">
+            <fl-user-inline [user]="ltCoAuthor" [portalOnHover]="false"></fl-user-inline>
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</div>

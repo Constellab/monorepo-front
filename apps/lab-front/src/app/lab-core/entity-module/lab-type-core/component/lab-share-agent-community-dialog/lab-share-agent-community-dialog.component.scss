@@ -7,7 +7,7 @@
   gap: 0.75em;
 }
 
-.current-lt-div{
+.current-agent-div{
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -17,16 +17,16 @@
   width: 100%;
 }
 
-.all-lt-list-div{
+.all-agent-list-div{
   width: 100%;
   height: calc(80vh - 10em);
 }
 
-.all-lt-list-div-short{
+.all-agent-list-div-short{
   height: calc(80vh - 24em);
 }
 
-.existant-lt-info-div{
+.existant-agent-info-div{
   display: flex;
   flex-direction: row;
   justify-content: center;
