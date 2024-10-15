@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit, Signal } from '@angular/core';
 import { HaBrickVersionDataSource } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +12,8 @@ import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.clas
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { Observable } from 'rxjs';
 import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaBrickPageState } from '../../../state/ha-brick-page.state';
+import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
 @Component({
   selector: 'ha-public-versions-page',
@@ -21,32 +23,31 @@ import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-au
 export class HaPublicVersionsComponent implements OnInit {
 
   brickVersions: HaBrickVersionDataSource;
-  brickId: string;
-  isCreatorOrBrickUser$: Observable<boolean>;
+  brick: Signal<HaBrick> = computed(() => {
+    const brick = this.brickPageState.brick();
+    if (!brick) {
+      return null;
+    }
+    this.init(brick);
+    return brick;
+  });
+  userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
 
   constructor(
     private brickVersionService: HaBrickVersionService,
-    private route: ActivatedRoute,
-    private brickService: HaBrickService,
     private dialogService: FlDialogService,
     private metadataService: HaMetadataService,
-    private authUserService: HaAuthenticatedUserService) {
+    private brickPageState: HaBrickPageState) {
   }
 
   ngOnInit(): void {
-    this.route.parent.url.subscribe(url => {
-      this.init(url[0].path);
-    });
+
   }
 
-  private init(brickName: string): void {
-    this.metadataService.setPageTitle('ha.versions.brick.title', true, { brickTitle: brickName });
-    this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true, { brickTitle: brickName });
-    this.brickService.getByName(brickName).subscribe(brick => {
-      this.isCreatorOrBrickUser$ = this.authUserService.isBrickCreatorOrBrickUser(brick);
-      this.brickId = brick.id;
-      this.setDataSource();
-    });
+  private init(brick: HaBrick): void {
+    this.metadataService.setPageTitle('ha.versions.brick.title', true, { brickTitle: brick.name });
+    this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true, { brickTitle: brick.name });
+    this.setDataSource(brick);
   }
 
   openNewVersionDialog(brickId: string): void {
@@ -65,13 +66,13 @@ export class HaPublicVersionsComponent implements OnInit {
     this.dialogService.openSmallDialog(HaPublicAddVersionDialogComponent, { data: input }).afterClosed().subscribe(
       (res: HaNodeDTO) => {
         if (res != null) {
-          this.setDataSource();
+          this.setDataSource(this.brick());
         }
       }
     );
   }
 
-  private setDataSource(): void {
-    this.brickVersions = this.brickVersionService.getDataSource(this.brickId);
+  private setDataSource(brick: HaBrick): void {
+    this.brickVersions = this.brickVersionService.getDataSource(brick.id);
   }
 }

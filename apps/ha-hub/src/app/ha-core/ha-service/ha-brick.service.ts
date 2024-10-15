@@ -114,7 +114,7 @@ export class HaBrickService implements HaCoAuthorService {
   }
 
   public getLastVersion(brickName: string): Observable<HaBrickVersion> {
-    return this.apiService.get(`${this.route}/latest/${brickName}`);
+    return this.apiService.get(`${this.route}/latest/${brickName}`, HaBrickVersion);
   }
 
   /*Import the technical documentation of the brick*/

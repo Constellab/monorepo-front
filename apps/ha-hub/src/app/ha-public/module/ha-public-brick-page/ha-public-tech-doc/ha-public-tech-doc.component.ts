@@ -1,10 +1,9 @@
-import { Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState } from '@angular/core';
+import { Component, computed, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { TdTypeEntity } from '@monorepo/technical-doc';
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
-
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { HaBrickPageState } from '../../../state/ha-brick-page.state';
+import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
 @Component({
   selector: 'ha-public-tech-doc-page',
@@ -12,82 +11,44 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
   styleUrls: ['./ha-public-tech-doc.component.scss'],
 })
 export class HaPublicTechDocComponent implements OnInit {
-  techDoc: TdTypeEntity;
-  brickName: string;
-  brickVersion: string;
-  isLoading: boolean = true;
-  techDocNotFound: boolean = false;
-
-  TECH_DOC_KEY: StateKey<object>;
+  techDoc: Signal<TdTypeEntity> = computed(() => {
+    const techDoc = this.brickPageState.techDoc();
+    if (techDoc) {
+      this.onTechDoc(techDoc);
+    }
+    return techDoc;
+  });
+  brick: Signal<HaBrick> = this.brickPageState.brick;
+  isTechDocLoading: Signal<boolean> = this.brickPageState.isTechDocLoading;
+  techDocNotFound: Signal<boolean> = this.brickPageState.isTechDocError;
 
   constructor(
-    private brickService: HaBrickService,
     private route: ActivatedRoute,
     private metadataService: HaMetadataService,
-    private transferState: TransferState,
-    @Inject(PLATFORM_ID) private platformId: object
+    private brickPageState: HaBrickPageState
   ) {}
 
   ngOnInit(): void {
-    this.TECH_DOC_KEY = makeStateKey<object>('techDoc');
     this.getActiveDoc();
   }
 
   private getActiveDoc(): void {
     this.route.params.subscribe((params) => {
-      this.brickName = this.brickName ?? params.brickName;
-      this.brickVersion = this.brickVersion ?? params.version;
-
-      if (
-        isPlatformBrowser(this.platformId) &&
-        this.transferState.hasKey(this.TECH_DOC_KEY)
-      ) {
-        this.onTechDoc(
-          this.transferState.get(this.TECH_DOC_KEY, null as any) as TdTypeEntity
-        );
-        this.transferState.remove(this.TECH_DOC_KEY);
-        return;
-      }
-
-      this.techDocNotFound = false;
-      this.isLoading = true;
-
-      this.brickService
-        .getTechDocByPath(
-          this.brickName,
-          this.brickVersion,
-          params.type,
-          params.uniqueName
-        )
-        .subscribe((techDoc) => {
-          if (
-            isPlatformServer(this.platformId) &&
-            !this.transferState.hasKey(this.TECH_DOC_KEY)
-          ) {
-            this.transferState.set(this.TECH_DOC_KEY, techDoc);
-          }
-          this.onTechDoc(techDoc);
-        });
+      this.brickPageState.initTechDoc(params.type, params.uniqueName);
     });
   }
 
   private onTechDoc(techDoc: TdTypeEntity): void {
-    this.isLoading = false;
-    if (techDoc == null) {
-      this.techDocNotFound = true;
-      return;
-    }
-    this.techDoc = techDoc;
     this.metadataService.setPageTitle(
       'ha.techdocumentation.brick.title',
       true,
-      { brickTitle: this.brickName, docTitle: this.techDoc.humanName }
+      { brickTitle: this.brick().name, docTitle: techDoc.humanName }
     );
     this.metadataService.addMetaTag(
       'description',
       'ha.techdocumentation.brick.description',
       true,
-      { brickTitle: this.brickName, docTitle: this.techDoc.humanName }
+      { brickTitle: this.brick().name, docTitle: techDoc.humanName }
     );
   }
 }

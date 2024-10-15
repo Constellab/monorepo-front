@@ -1,12 +1,12 @@
-@if(isLoading){
+@if(isLoading()){
   <div class="main-panel g-centered-forced">
     <fl-loader></fl-loader>
   </div>
 } @else {
-  @if(!brickNotFound){
-    <fl-section [object]="brick" class="full-w" [emptyText]="'error_brick_not_found'">
+  @if(!brickNotFound()){
+    <fl-section [object]="brick()" class="full-w" [emptyText]="'error_brick_not_found'">
       <ng-container *flSectionBody>
-        <div class="left-panel" *ngIf="brick">
+        <div class="left-panel" *ngIf="brick()">
           <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
 
           <a [routerLink]="brickListRoute" class="back-link">
@@ -16,7 +16,7 @@
             </fl-text-icon>
           </a>
 
-          <ha-public-sidenav [brick]="brick"></ha-public-sidenav>
+          <ha-public-sidenav></ha-public-sidenav>
         </div>
         <div class="main-panel">
           <div class="brick-content-div">

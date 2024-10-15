@@ -1,6 +1,6 @@
-<div class="table-version">
-  <button mat-flat-button color="primary" *ngIf="isCreatorOrBrickUser$ | async" class="button-add-version"
-          (click)="openNewVersionDialog(brickId)">
+<div class="table-version" *ngIf="brick()">
+  <button mat-flat-button color="primary" *ngIf="userHasEditRight()" class="button-add-version"
+          (click)="openNewVersionDialog(brick().id)">
     {{'add_version' | translate}}
   </button>
   <div class="data-table-versions">

@@ -29,6 +29,19 @@ export class HaBrickVersion extends HaEntity {
       this.subPatch = version.subPatch;
     }
   }
+
+  static initInstance(brickVersion: HaBrickVersion): HaBrickVersion {
+    const brickVersionInstance = new HaBrickVersion();
+    brickVersionInstance.id = brickVersion.id;
+    brickVersionInstance.minor = brickVersion.minor;
+    brickVersionInstance.patch = brickVersion.patch;
+    brickVersionInstance.brickMajorVersion = brickVersion.brickMajorVersion;
+    brickVersionInstance.repoType = brickVersion.repoType;
+    brickVersionInstance.versionType = brickVersion.versionType;
+    brickVersionInstance.technicalInfo = brickVersion.technicalInfo;
+    brickVersionInstance.subPatch = brickVersion.subPatch;
+    return brickVersionInstance;
+  }
 }
 
 export type HaBrickVersionDataSource = FlEntityPaginatedDatasource<HaBrickVersion>;

@@ -1,21 +1,21 @@
-<div class="no-doc-div" *ngIf="docNotFound">
+<div class="no-doc-div" *ngIf="docNotFound()">
   <ha-ha404 [errorText]="'error_doc_not_found'"></ha-ha404>
 </div>
 
 
-<div *ngIf="!docNotFound">
-  <div class="loader" *ngIf="isLoading || !documentation">
+<div *ngIf="!docNotFound()">
+  <div class="loader" *ngIf="isDocLoading() || !documentation()">
     <fl-loader size="medium"></fl-loader>
   </div>
-  <div class="doc-div" *ngIf="!isLoading && documentation">
+  <div class="doc-div" *ngIf="!isDocLoading() && documentation()">
     <div class="doc-div-content g-max-article-width">
       <div class="doc-title-div">
         <h3 flElementEditable (flElementValueChange)="onTitleChange($event)"
             [flElementValue]="titleCurrentValue()" [maxLength]="50" [minLength]="2"
-            [flElementDisabled]="!(isCreatorOrBrickUser$ | async)">{{documentation.title}}</h3>
+            [flElementDisabled]="!userHasEditRight()">{{documentation().title}}</h3>
 
 
-        <button mat-icon-button type="button" *ngIf="isCreatorOrBrickUser$ | async"
+        <button mat-icon-button type="button" *ngIf="userHasEditRight()"
                 [matMenuTriggerFor]="menu">
           <mat-icon>
             more_vert
@@ -48,7 +48,7 @@
                                [debounceTime]="2500"></te-text-editor-save>
         </div>
       }
-      <form class="documentation-form" *ngIf="!isLoading">
+      <form class="documentation-form" *ngIf="!isDocLoading()">
         <te-text-editor [formControl]="formCtrl" [config]="textEditorConfig"
                         class="content-editor g-max-article-width"
                         [ngClass]="{'text-editor-edit': !formCtrl.disabled}"></te-text-editor>
@@ -56,9 +56,9 @@
     </div>
   </div>
 </div>
-@if(documentation && (documentation.content || docFiles?.length > 0) && docFileUrlPrefix  ){
-  <ha-text-editor-right-side-panel [content]="documentation.content"
-                                   [files]="docFiles"
-                                   [urlToDownloadFilePrefix]="docFileUrlPrefix"></ha-text-editor-right-side-panel>
+@if(documentation() && (documentation().content || docFiles()?.length > 0) && docFileUrlPrefix()){
+  <ha-text-editor-right-side-panel [content]="documentation().content"
+                                   [files]="docFiles()"
+                                   [urlToDownloadFilePrefix]="docFileUrlPrefix()"></ha-text-editor-right-side-panel>
 }
 

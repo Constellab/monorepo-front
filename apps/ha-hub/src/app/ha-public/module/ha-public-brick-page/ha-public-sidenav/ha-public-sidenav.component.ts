@@ -1,11 +1,11 @@
 import {
   ChangeDetectorRef,
-  Component,
+  Component, computed,
   Inject,
   Input,
   makeStateKey,
   OnInit,
-  PLATFORM_ID,
+  PLATFORM_ID, Signal,
   StateKey,
   TransferState
 } from '@angular/core';
@@ -46,6 +46,8 @@ import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-au
 
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { FormControl } from '@angular/forms';
+import { HaBrickPageState } from '../../../state/ha-brick-page.state';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 
 interface FlatNode {
@@ -64,12 +66,15 @@ interface FlatNode {
 })
 export class HaPublicSidenavComponent implements OnInit {
 
-  @Input() brick: HaBrick;
   searchTechDocControl = new FormControl<string>('');
-  isCreatorOrBrickUser$: Observable<boolean>;
-  brickId: string;
-  brickName: string;
-  brickVersion: string;
+
+  userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
+
+  brickAndPathVersion$: Observable<[HaBrick, string]> = toObservable(this.brickPageState.brickAndPathVersion);
+
+  pathVersion: Signal<string> = this.brickPageState.getBrickVersionPath();
+  brick: Signal<HaBrick> = this.brickPageState.brick;
+
   menuOpen: boolean;
   openedMenu: FlOverlayRef;
 
@@ -155,10 +160,10 @@ export class HaPublicSidenavComponent implements OnInit {
     private folderService: HaFolderService,
     private dialogService: FlDialogService,
     private changeDetectorRefs: ChangeDetectorRef,
-    private authenticatedUserService: HaAuthenticatedUserService,
     @Inject(PLATFORM_ID) private platformId: object,
     private transferState: TransferState,
-    private portalActionsService: FlPortalActionsService) {
+    private portalActionsService: FlPortalActionsService,
+    private brickPageState: HaBrickPageState) {
   }
 
   hasChild = (_: number, node: FlatNode): boolean => node.expandable;
@@ -168,42 +173,36 @@ export class HaPublicSidenavComponent implements OnInit {
     this.DOCUMENTATIONS_KEY = makeStateKey<object>('DOCUMENTATIONS_KEY');
     this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
 
-    this.isCreatorOrBrickUser$ = this.authenticatedUserService.isBrickCreatorOrBrickUser(this.brick);
-
-    this.route.params.subscribe(params => {
-      this.initCurrentCompletePath(params['version']);
-      this.init(params['brickName'], params['version']);
+    this.brickAndPathVersion$.subscribe(([brick, pathVersion]) => {
+      if (!brick) return null;
+      this.initCurrentCompletePath(pathVersion);
+      this.init(brick, pathVersion);
+      return brick;
     });
   }
 
-  private initCurrentCompletePath(separator: string): void {
-    this.currentCompletePath = this.router.url.split(separator)[1];
+  private initCurrentCompletePath(pathVersion: string): void {
+    this.currentCompletePath = this.router.url.split(pathVersion)[1];
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        this.currentCompletePath = event.url.split(separator)[1];
+        this.currentCompletePath = event.url.split(pathVersion)[1];
       });
   }
 
-  private init(brickName: string, brickVersion: string): void {
-    this.brickService.getByName(brickName).subscribe(brick => {
-      this.brick = brick;
-      this.brickId = brick.id;
-      this.brickName = brickName;
-      this.brickVersion = brickVersion;
-      this.getTechnicalDocumentations();
-      this.getDocumentations();
-    });
+  private init(brick: HaBrick, pathVersion: string): void {
+    this.getTechnicalDocumentations(brick, pathVersion);
+    this.getDocumentations(brick, pathVersion);
   }
 
-  private getTechnicalDocumentations(): void {
+  private getTechnicalDocumentations(brick: HaBrick, pathVersion: string): void {
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.TECH_DOCUMENTATION_KEY)) {
       const data = this.transferState.get(this.TECH_DOCUMENTATION_KEY, null) as HaNode;
       this.transferState.remove(this.TECH_DOCUMENTATION_KEY);
       this.onTechDocumentationsData(data);
       return;
     }
-    this.brickService.getTechnicalDocumentation(this.brickId, this.brickVersion).subscribe(data => {
+    this.brickService.getTechnicalDocumentation(brick.id, pathVersion).subscribe(data => {
       if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.TECH_DOCUMENTATION_KEY)) {
         this.transferState.set(this.TECH_DOCUMENTATION_KEY, data);
       }
@@ -211,14 +210,14 @@ export class HaPublicSidenavComponent implements OnInit {
     });
   }
 
-  private getDocumentations(): void {
+  private getDocumentations(brick: HaBrick, pathVersion: string): void {
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
       const data = this.transferState.get(this.DOCUMENTATIONS_KEY, null) as HaNode;
       this.transferState.remove(this.DOCUMENTATIONS_KEY);
       this.onDocumentationsData(data);
       return;
     }
-    this.brickService.getBrickDocs(this.brickId, this.brickVersion).subscribe((data) => {
+    this.brickService.getBrickDocs(brick.id, pathVersion).subscribe((data) => {
       if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
         this.transferState.set(this.DOCUMENTATIONS_KEY, data);
       }
@@ -243,7 +242,7 @@ export class HaPublicSidenavComponent implements OnInit {
       this.openedMenu.overlayRef.detach();
     }
     if (!id) {
-      this.brickService.getRootFolderId(this.brickId, this.brickVersion).subscribe(res => {
+      this.brickService.getRootFolderId(this.brick()?.id, this.pathVersion()).subscribe(res => {
         this.openCreateDialog(res.id);
       });
     } else {
@@ -308,7 +307,7 @@ export class HaPublicSidenavComponent implements OnInit {
 
   private onCloseConfirmDialog(res: FlConfirmDialogResult): void {
     if (res.choice) {
-      this.brickService.getBrickDocs(this.brickId, this.brickVersion).subscribe((data) => {
+      this.brickService.getBrickDocs(this.brick()?.id, this.pathVersion()).subscribe((data) => {
         this.rebuildTreeForData(data.children);
       });
     }
@@ -336,7 +335,7 @@ export class HaPublicSidenavComponent implements OnInit {
           if (res[1] == HaNodeType.TEC) {
             this.portalActionsService.addAction({
               action: this.brickService.importTechnicalDocumentation({
-                brickName: this.brickName,
+                brickName: this.brick().name,
                 importFile: res[0]
               }),
               text: {
@@ -346,11 +345,11 @@ export class HaPublicSidenavComponent implements OnInit {
               type: 'brick_tech_doc'
             }).subscribe((res) => {
               if (res) {
-                this.getTechnicalDocumentations();
+                this.getTechnicalDocumentations(this.brick(), this.pathVersion());
               }
             });
           } else {
-            this.getDocumentations();
+            this.getDocumentations(this.brick(), this.pathVersion());
           }
         }
       }
