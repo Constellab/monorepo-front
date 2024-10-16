@@ -24,7 +24,7 @@ export class CaScenarioService {
   }
 
   public getScenariosByNote(noteId: string): Observable<CaScenario[]> {
-    return this.apiService.get(`${this.route}/report/${noteId}`, CaScenario);
+    return this.apiService.get(`${this.route}/note/${noteId}`, CaScenario);
   }
 
   public update(scenario: Partial<CaScenario>): Observable<CaScenario> {

@@ -76,7 +76,7 @@ export class FlTranslateService {
     } else if (translatableText.translateText === false) {
       return translatableText.text;
     } else {
-      return this.translate(translatableText.text, translatableText.translateParam?.param);
+      return this.translate(translatableText.text, translatableText.translateParam);
     }
   }
 
