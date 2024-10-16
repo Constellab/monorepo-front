@@ -2,7 +2,7 @@
   <a [routerLink]="storiesListRoute" class="back-link">
     <fl-text-icon [iconPosition]="'start'">
       <mat-icon>arrow_back</mat-icon>
-      {{'back_to_stories_list' | translate}}
+      {{ 'back_to_stories_list' | translate }}
     </fl-text-icon>
   </a>
 </div>
@@ -20,7 +20,8 @@
             </a>
 
             <span class="g-text-small date-info">
-              <fl-from-now [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
+              <fl-from-now
+                [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
             </span>
           </p>
           @if (storyCoAuthors?.length > 0) {
@@ -38,15 +39,14 @@
         </div>
         <div class="story-like-comment-infos-div">
           <div class="story-like-comment">
-            <ha-like-button (clicked)="toggleLikeStoryButton()" [isLiked]="storyIsLiked" [likesCount]="story.likes"></ha-like-button>
+            <ha-like-button (clicked)="toggleLikeStoryButton()" [isLiked]="storyIsLiked"
+                            [likesCount]="story.likes"></ha-like-button>
             <ha-comment-button (clicked)="openCommentsPannel()" [commentsCount]="story.comments"></ha-comment-button>
           </div>
           @if (hasRightToEdit) {
             <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+ story.id" class="edit-button">
-              <fl-text-icon [iconPosition]="'end'">
-                <mat-icon>edit</mat-icon>
-                {{ 'edit' | translate }}
-              </fl-text-icon>
+              <mat-icon>edit</mat-icon>
+              {{ 'edit' | translate }}
             </a>
           }
         </div>
@@ -56,11 +56,11 @@
                       class="g-scrollable-element border-none"></te-text-editor>
     </div>
   </div>
-} @else if(notFound) {
+} @else if (notFound) {
   <div class="main-panel">
     <ha-ha404></ha-ha404>
   </div>
-}@else{
+} @else {
   <div class="main-panel">
     <fl-loader></fl-loader>
   </div>
@@ -68,6 +68,7 @@
 
 
 @if ((story && story.content || storyFiles && storyFiles.length > 0 && urlToDownloadFilePrefix) && !notFound) {
-  <ha-text-editor-right-side-panel [content]="story.content" [files]="storyFiles" [urlToDownloadFilePrefix]="urlToDownloadFilePrefix"></ha-text-editor-right-side-panel>
+  <ha-text-editor-right-side-panel [content]="story.content" [files]="storyFiles"
+                                   [urlToDownloadFilePrefix]="urlToDownloadFilePrefix"></ha-text-editor-right-side-panel>
 }
 

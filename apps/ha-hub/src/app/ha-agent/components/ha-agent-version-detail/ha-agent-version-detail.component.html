@@ -3,10 +3,10 @@
   <div class="spacer"></div>
 
   <h4 class="detail-version-title">
-    @if(agentVersion()?.agent != null && isOverview){
+    @if (agentVersion()?.agent != null && isOverview) {
       {{ ('latest_version_infos' | translate) + ' (V' + agentVersion()?.agent.latestPublishVersion + ')' }}
     } @else {
-      {{'detail_of_the_version' | translate}}
+      {{ 'detail_of_the_version' | translate }}
     }
   </h4>
 
@@ -30,14 +30,12 @@
       </h5>
       <button mat-stroked-button color="primary" class="g-button-small"
               *ngIf="canEdit()" (click)="onVersionInfosEditorButtonClick()">
-        <fl-text-icon [iconPosition]="'end'">
-          <mat-icon>{{ versionInfosDisabled ? 'edit' : 'save' }}</mat-icon>
-          {{ versionInfosDisabled ? ('edit' | translate) : ('save' | translate) }}
-        </fl-text-icon>
+        <mat-icon>{{ versionInfosDisabled ? 'edit' : 'save' }}</mat-icon>
+        {{ versionInfosDisabled ? ('edit' | translate) : ('save' | translate) }}
       </button>
     </div>
     <div>
-      @defer (when agentVersion() && !isAgentVersionLoading() && versionInfosFormControl){
+      @defer (when agentVersion() && !isAgentVersionLoading() && versionInfosFormControl) {
         @if (canEdit() || !isVersionInfosEmpty()) {
           <te-text-editor class="version-infos-editor" [ngClass]="canEdit() ? 'editor-border': ''"
                           [config]="textEditorConfig" (textChange)="onVersionInfosChange($event)"
@@ -55,7 +53,7 @@
     <fl-card-header>
       <div class="io-card-div">
         <h5 class="io-card-div-column">
-          {{'input' | translate}}
+          {{ 'input' | translate }}
         </h5>
         <h5 class="io-card-div-column">
           {{ 'output' | translate }}
@@ -101,10 +99,8 @@
           </h5>
           <div>
             <button mat-stroked-button color="primary" (click)="onCopy('parameters')" class="g-button-small">
-              <fl-text-icon [iconPosition]="'end'">
-                <mat-icon>content_copy</mat-icon>
-                {{ 'copy_parameters' | translate }}
-              </fl-text-icon>
+              <mat-icon>content_copy</mat-icon>
+              {{ 'copy_parameters' | translate }}
             </button>
           </div>
         </div>
@@ -125,10 +121,8 @@
           </h5>
           <div>
             <button mat-stroked-button color="primary" (click)="onCopy('environment_file')" class="g-button-small">
-              <fl-text-icon [iconPosition]="'end'">
-                <mat-icon>content_copy</mat-icon>
-                {{ 'copy_environment' | translate }}
-              </fl-text-icon>
+              <mat-icon>content_copy</mat-icon>
+              {{ 'copy_environment' | translate }}
             </button>
           </div>
         </div>
@@ -147,10 +141,8 @@
         </h5>
         <div>
           <button mat-stroked-button color="primary" (click)="onCopy('code')" class="g-button-small">
-            <fl-text-icon [iconPosition]="'end'">
-              <mat-icon>content_copy</mat-icon>
-              {{ 'copy_code' | translate }}
-            </fl-text-icon>
+            <mat-icon>content_copy</mat-icon>
+            {{ 'copy_code' | translate }}
           </button>
         </div>
       </div>

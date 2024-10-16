@@ -62,27 +62,28 @@
           <div>
             <button mat-flat-button type="button" class="publish-story-bt" *haIsAuthenticated
                     (click)="publish()" color="primary" [matTooltip]="'publish_the_story' | translate">
-              <fl-text-icon [iconPosition]="'end'">
-                <mat-icon>publish</mat-icon>
-                {{ 'publish_story' | translate }}
-              </fl-text-icon>
+              {{ 'publish_story' | translate }}
+              <mat-icon>publish</mat-icon>
             </button>
           </div>
         }
-        @if (story.status !== 'DRAFT' && (contentModified || !syncWithBack)) {
-          <div class="save-content-div">
+
+        <div class="save-content-div">
+          @if (story.status !== 'DRAFT' && (contentModified || !syncWithBack)) {
+
             <button mat-flat-button type="button" class="save-story-bt" *haIsAuthenticated
                     (click)="save()" color="primary" [matTooltip]="'publish_story_with_modifications' | translate"
                     [disabled]="!syncWithBack">
               {{ 'publish_story_modifications' | translate }}
             </button>
-            <div class="g-layout-row g-layout-between-center">
-              <te-text-editor-save [formCtrl]="contentEditionFormControl" [saveFunc]="testSave"
-                                   [debounceTime]="2500"></te-text-editor-save>
-            </div>
+          }
+          <div class="g-layout-row g-layout-between-center save-info">
+            <te-text-editor-save [formCtrl]="contentEditionFormControl" [saveFunc]="saveContentEdition"
+                                 [debounceTime]="2500"></te-text-editor-save>
           </div>
 
-        }
+        </div>
+
         <div class="right-bts-div">
           @if (isAuthor) {
             <button mat-icon-button type="button" class="co-author-bt"
@@ -107,9 +108,9 @@
         <mat-error>{{ contentError | translate }}</mat-error>
       }
       <div class="story-content-form"
-            [ngClass]="contentEditorIsFocused ? ['focus'] : []">
+           [ngClass]="contentEditorIsFocused ? ['focus'] : []">
         <te-text-editor class="border-none editor" [config]="textEditorConfig"
-                        (textChange)="onContentUpdate($event)" [formControl]="contentEditionFormControl"></te-text-editor>
+                        [formControl]="contentEditionFormControl"></te-text-editor>
       </div>
     </div>
   </form>

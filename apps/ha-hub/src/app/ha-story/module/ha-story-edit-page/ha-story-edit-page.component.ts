@@ -66,7 +66,7 @@ export class HaStoryEditPageComponent implements OnInit {
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
 
-  testSave = (value: TeRichTextContent) => of(value).pipe(
+  saveContentEdition = (value: TeRichTextContent): Observable<HaStory> => of(value).pipe(
     mergeMap((value) => this.storyService.updateContentEdition(this.story.id, value)),
     map((story) => {
       this.story = story;
@@ -136,15 +136,15 @@ export class HaStoryEditPageComponent implements OnInit {
           this.canSaveTopic = name && name.trim() !== '';
           return name
             ? this._filter(name)
-                .slice(0, 3)
-                .filter(
-                  (topic) => !this.story.topics.find((t) => t.id === topic.id)
-                )
+              .slice(0, 3)
+              .filter(
+                (topic) => !this.story.topics.find((t) => t.id === topic.id)
+              )
             : this.topics
-                .slice(0, 3)
-                .filter(
-                  (topic) => !this.story.topics.find((t) => t.id === topic.id)
-                );
+              .slice(0, 3)
+              .filter(
+                (topic) => !this.story.topics.find((t) => t.id === topic.id)
+              );
         })
       );
     });
@@ -182,9 +182,9 @@ export class HaStoryEditPageComponent implements OnInit {
       typeof this.topicControl.value === 'string'
         ? new HaTopicDto(this.topicControl.value)
         : new HaTopicDto(
-            this.topicControl.value.name,
-            this.topicControl.value.id
-          );
+          this.topicControl.value.name,
+          this.topicControl.value.id
+        );
 
     if (topic.id == null) {
       const input: FlConfirmDialogInput = {
@@ -210,15 +210,6 @@ export class HaStoryEditPageComponent implements OnInit {
         return of(res);
       })
     );
-  }
-
-  onContentUpdate(content: TeRichTextContent): void {
-    this.contentEditionFormControl.patchValue(content);
-    this.syncWithBack = false;
-    if (this.historyOverlayRef) {
-      this.historyOverlayRef.dispose();
-      this.historyOverlayRef = null;
-    }
   }
 
   buildForm(): void {
@@ -418,7 +409,7 @@ export class HaStoryEditPageComponent implements OnInit {
         );
         if (this.story.topics.length >= 5) this.topicControl.disable();
         this.formGp.patchValue(this.story);
-        this.contentEditionFormControl.patchValue(this.story.contentEdition);
+        this.contentEditionFormControl.patchValue(this.story.contentEdition ?? TeRichText.emptyContent());
         this.isAuthor$().subscribe((isAuthor) => {
           this.isAuthor = isAuthor;
         });

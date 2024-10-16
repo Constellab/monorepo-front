@@ -48,8 +48,11 @@ h2{
 .save-content-div{
   display: flex;
   flex-direction: row;
-  gap: 1em;
   align-items: center;
+
+  .save-info{
+    margin-left: 1em;
+  }
 }
 
 .story-content-form:hover{

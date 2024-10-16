@@ -1,17 +1,16 @@
 <div class="left-panel" *haIsGencoveryMember>
   <button mat-flat-button type="button" (click)="openCreateIconDialog()">
-    <fl-text-icon>
-      <mat-icon>create</mat-icon>
-      {{'create' | translate}}
-    </fl-text-icon>
+    <mat-icon>create</mat-icon>
+    {{ 'create' | translate }}
   </button>
 </div>
 
 <div class="main-panel">
   <div class="google-material-icons-text-div">
-    <span >
-      {{'icon_from_material_are_allowed_text' | translate}}
-      <a class="material-icons-link" href="https://fonts.google.com/icons?icon.set=Material+Icons" target="_blank">{{'here' | translate}}</a>
+    <span>
+      {{ 'icon_from_material_are_allowed_text' | translate }}
+      <a class="material-icons-link" href="https://fonts.google.com/icons?icon.set=Material+Icons"
+         target="_blank">{{ 'here' | translate }}</a>
       .
     </span>
   </div>
