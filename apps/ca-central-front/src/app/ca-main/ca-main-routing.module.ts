@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { CaMainAppComponent } from './component/ca-main-app/ca-main-app.component';
 import {
   caConstAdminRoute,
-  caConstBaseRoute, caConstChatRoute,
-  caConstDashboardRoute,
+  caConstBaseRoute,
+  caConstChatRoute,
+  caConstFolderRoute,
+  caConstHomeRoute,
   caConstLabsRoute,
   caConstMyFoldersRoute,
-  caConstFolderRoute,
   caConstStructureRoute,
   caConstUserPageRoute
 } from '../ca-core/utils/ca-base-route';
@@ -22,11 +23,15 @@ const routes: Route[] = [
     path: caConstBaseRoute, component: CaMainAppComponent, canActivate: [CaLoadUserGuard],
     children: [
       {
-        path: '', redirectTo: caConstDashboardRoute, pathMatch: 'full'
+        path: '', redirectTo: caConstHomeRoute, pathMatch: 'full'
+      },
+      // TODO remove once begin of december 2024
+      {
+        path: 'dashboard', redirectTo: caConstHomeRoute, pathMatch: 'full'
       },
       //////////////////////// DASHBOARD /////////////////////////
       {
-        path: caConstDashboardRoute,
+        path: caConstHomeRoute,
         loadChildren: () => import('../ca-dashboard/ca-dashboard-page.module').then(m => m.CaDashboardPageModule)
       },
 

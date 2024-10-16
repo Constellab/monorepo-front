@@ -127,7 +127,7 @@
   "count_result": "{{count}} Results",
   "queue_jobs": "Execution queue",
   "empty_queue": "There is no scenario in the execution queue",
-  "dashboard": "Dashboard",
+  "home": "Home",
   "settings": "Settings",
   "reduce_menu": "Reduce",
   "validation_info": "Validated",

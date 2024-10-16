@@ -1,5 +1,5 @@
-import {CaRouterService} from '../../ca-core/service/ca-router.service';
-import {ClUserCategory} from '@monorepo/core-lib';
+import { CaRouterService } from '../../ca-core/service/ca-router.service';
+import { ClUserCategory } from '@monorepo/core-lib';
 
 /**
  * Describe one main menu link button
@@ -14,9 +14,9 @@ export interface CaMainMenuLink {
 // list of the main menu links buttons
 export const caMainMenuLinks: CaMainMenuLink[] = [
   {
-    label: 'dashboard',
-    icon: 'dashboard',
-    route: CaRouterService.getDashboardRoute(),
+    label: 'home',
+    icon: 'home',
+    route: CaRouterService.getHomeRoute(),
   },
   {
     label: 'my_folders',

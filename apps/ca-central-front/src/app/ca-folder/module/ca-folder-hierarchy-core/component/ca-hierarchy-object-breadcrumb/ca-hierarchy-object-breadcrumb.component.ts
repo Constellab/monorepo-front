@@ -55,7 +55,7 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
     links.unshift({
       id: '1',
       title: this.translateService.translate('dashboard'),
-      url: CaRouterService.getDashboardRoute()
+      url: CaRouterService.getHomeRoute()
     });
 
 

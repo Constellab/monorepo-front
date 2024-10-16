@@ -16,7 +16,7 @@
   "not_authorized": "Vous n'avez pas l'autorisation",
   "connection_lost": "La connexion a été perdue",
   "session_expired": "Session expirée",
-  "dashboard": "Dashboard",
+  "home": "Home",
   "settings": "Paramètres",
   "chat": "Chat",
   "theme": "Thème",

@@ -3,7 +3,7 @@
  */
 export const caConstBaseRoute = 'app';
 
-export const caConstDashboardRoute = 'dashboard';
+export const caConstHomeRoute = 'home';
 export const caConstLabsRoute = 'labs';
 export const caConstUserPageRoute = 'user';
 export const caConstMyFoldersRoute = 'my-folders';

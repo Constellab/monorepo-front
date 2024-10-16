@@ -127,7 +127,7 @@
   "count_result": "{{count}} Résultats",
   "queue_jobs": "Queue d'exécution",
   "empty_queue": "Aucun scénario n'est dans la queue d'exécution",
-  "dashboard": "Dashboard",
+  "home": "home",
   "settings": "Paramètre",
   "reduce_menu": "Réduire",
   "validation_info": "Validé",

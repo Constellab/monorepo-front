@@ -2,8 +2,8 @@ import {
   caConstAdminRoute,
   caConstBaseRoute,
   caConstChatRoute,
-  caConstDashboardRoute,
   caConstFolderRoute,
+  caConstHomeRoute,
   caConstLabsRoute,
   caConstMyFoldersRoute,
   caConstStructureRoute,
@@ -50,12 +50,12 @@ export class CaRouterService {
     return `/${caConstBaseRoute}`;
   }
 
-  public static getDashboardRoute(): string {
-    return CaRouterService.getFullRoute(caConstDashboardRoute);
+  public static getHomeRoute(): string {
+    return CaRouterService.getFullRoute(caConstHomeRoute);
   }
 
   public navigateToDashboard(): void {
-    this.router.navigate([CaRouterService.getDashboardRoute()]);
+    this.router.navigate([CaRouterService.getHomeRoute()]);
   }
 
   //////////////////////////// FOLDER //////////////////////////////
