@@ -45,7 +45,7 @@ export class CoCommunityHelperService {
   }
 
   public getAgentVersionUrl(agentId: string, title: string, versionId: string): string {
-    return `${this.getCommunityUrl()}/agents/${agentId}/${title}/versions/${versionId}`;
+    return `${this.getCommunityUrl()}/agents/${agentId}/${title}/version/${versionId}`;
   }
 
   /////////////////////////////////// SPECIFIC ROUTES //////////////////////////////////////
