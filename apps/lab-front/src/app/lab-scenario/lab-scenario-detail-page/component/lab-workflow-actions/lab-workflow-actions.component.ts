@@ -14,14 +14,14 @@ import {
 } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import {
-  LabSelectCommunityLiveTaskDialogComponent
-} from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-community-live-task-dialog/lab-select-community-live-task-dialog.component';
-import {
   LabSelectScenarioTemplateDialogComponent,
   LabSelectScenarioTemplateDialogInput
 } from '../../../../lab-core/entity-module/lab-scenario-template-core/component/lab-select-scenario-template-dialog/lab-select-scenario-template-dialog.component';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import { LabAgent } from '../../../../lab-core/model/entities/lab-agent.entity';
+import {
+  LabSelectCommunityAgentDialogComponent
+} from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-community-agent-dialog/lab-select-community-agent-dialog.component';
 
 /**
  * Actions button for the workflow

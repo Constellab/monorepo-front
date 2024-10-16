@@ -17,20 +17,10 @@ import {
   LabLogBetweenDatesDialogInput,
   LabLogsBetweenDatesDialogComponent
 } from '../../../../lab-core/entity-module/lab-log-core/lab-logs-between-dates-dialog/lab-logs-between-dates-dialog.component';
-import {
-  LabMonitorBetweenDatesDialogComponent,
-  LabMonitorBetweenDatesDialogInput
-} from '../../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
-import { LabProcessService } from '../../../../../lab-core/entity-service/lab-process.service';
 import { LabProcessDashboardState } from '../../state/lab-process-dashboard.state';
 import { DateTime } from 'luxon';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { TdTypingName } from '@monorepo/technical-doc';
-import { LabTaskGeneratorService } from '../../../../../lab-core/service/lab-task-generator.service';
-import { LabCreateCommunityAgentVersionResDto } from '../../../../../lab-core/model/entities/lab-agent.entity';
-import {
-  LabShareAgentCommunityDialogComponent
-} from '../../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
 import { CoAgentHelper, CoCommunityHelperService } from '@monorepo/community-lib';
 import {
   LabSystemConfigDialogComponent
