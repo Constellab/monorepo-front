@@ -50,7 +50,7 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'protocol', filename: 'cogs-solid.svg'},
   {name: 'scenario_template', matIconName: 'extension'},
   {name: 'process', filename: 'cogs-solid.svg'},
-  {name: 'lab', filename: 'microscope-solid.svg'},
+  {name: 'lab', matIconName: 'dns'},
   {name: 'process_config', filename: 'task-configuration.svg'},
   {name: 'archive', matIconName: 'inventory_2'},
   {name: 'unarchive', matIconName: 'unarchive'},
