@@ -83,6 +83,11 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
   @Input() minInputSearchLength: number = 2;
 
   /**
+   * If true, the search will be triggered when the input is focused
+   */
+  @Input() initSearchOnFocus: boolean = false;
+
+  /**
    * Event emitted when the input is focused, this is useful to init the list of items
    */
   @Output() focused: EventEmitter<T | null> = new EventEmitter();
@@ -149,6 +154,11 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     if (this._selectedItem && this.input.nativeElement.value) {
       // select the input value with caret
       this.input.nativeElement.setSelectionRange(0, this.input.nativeElement.value.length);
+    }
+
+    // initialize the search when the input is focused and empty and datasouce is empty
+    if(this.initSearchOnFocus && !this.inputControl.value && this.datasource.isEmpty()){
+      this.datasource.getFirstPage({ searchText: '' } as FlInputSearchFilter);
     }
 
     this.focused.emit(this._selectedItem);
