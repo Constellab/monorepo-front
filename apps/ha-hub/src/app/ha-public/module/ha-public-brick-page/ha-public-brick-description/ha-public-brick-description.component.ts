@@ -8,7 +8,6 @@ import { HaBrickVersion } from '../../../../ha-core/ha-model/ha-entities/ha-bric
 import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { HaPublicEditBrickDialogComponent } from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
 import { HaReferenceDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
-import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { HaAuthService } from '../../../../ha-core/ha-service/ha-auth.service';
 import { HaLikeService } from '../../../../ha-core/ha-service/ha-like.service';
@@ -28,9 +27,11 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     }
     return brick;
   });
-  latestBrickVersion: Signal<HaBrickVersion> = this.brickPageState.latestBrickVersion;
+  latestBrickVersion: Signal<HaBrickVersion> =
+    this.brickPageState.latestBrickVersion;
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
-  directReferences: Signal<HaReferenceDTO[]> = this.brickPageState.getDirectReferences();
+  directReferences: Signal<HaReferenceDTO[]> =
+    this.brickPageState.getDirectReferences();
 
   brickIsLiked = false;
 

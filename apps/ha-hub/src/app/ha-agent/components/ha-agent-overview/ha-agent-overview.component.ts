@@ -45,9 +45,11 @@ export class HaAgentOverviewComponent implements OnInit {
   descriptionFormControl: Signal<FormControl<TeRichTextContent>> = computed(() => {
     const formControl = new FormControl<TeRichTextContent>(null);
     if (this.agentDescription()) {
-      formControl.setValue(this.agentDescription());
-      formControl.disable();
+      formControl.patchValue(this.agentDescription());
+    } else {
+      formControl.patchValue(TeRichText.emptyContent());
     }
+    formControl.disable();
     return formControl;
   });
   agentDescriptionEmpty: Signal<boolean> = computed(() => {

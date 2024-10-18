@@ -17,5 +17,5 @@ export const haSvgIcons: FlIcon[] = [
   {name: 'github', filename: 'github-logo.svg'},
   {name: 'linkedin', filename: 'linkedin-logo.svg'},
   {name: 'x', filename: 'x-logo.svg'},
-  // {name: 'discord', filename: 'discord-logo.svg'}
+  {name: 'discord', filename: 'discord-logo.svg'}
 ];

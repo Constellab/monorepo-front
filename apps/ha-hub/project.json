@@ -14,6 +14,7 @@
         "browser": "apps/ha-hub/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ha-hub/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
         "server": "apps/ha-hub/src/main.server.ts",
         "prerender": false,
         "ssr": {
@@ -21,6 +22,10 @@
         },
         "assets": [
           "apps/ha-hub/src/assets",
+          {
+            "glob": "**/*",
+            "input": "public"
+          },
           {
             "glob": "**/*",
             "input": "libs/front-core-lib/src/assets/logo",
@@ -61,7 +66,7 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true,
+          "sourceMap": false,
           "namedChunks": true,
           "budgets": [
             {
@@ -160,7 +165,7 @@
         },
         "development": {
           "optimization": false,
-          "sourceMap": true,
+          "sourceMap": false,
           "extractLicenses": false,
           "buildOptimizer": false
         }

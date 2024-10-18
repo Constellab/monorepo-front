@@ -65,6 +65,11 @@ export class HaRouterService {
   public static getStoryRoute(id: string, titlePath: string): string {
     return `${this.getStoriesListRoute()}${id}/${titlePath}`;
   }
+
+  public static getStoryEditRoute(id: string): string {
+    return `${this.getStoriesListRoute()}edit/${id}`;
+  }
+
   ////////////////////////// BRICKS ////////////////////////////////
 
   public static getBrickPageRoute(brickName: string, brickMajor?: string): string {
