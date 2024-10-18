@@ -2,7 +2,9 @@
   <div>
     <div class="title-div">
       <div class="icon-title">
-        <img [src]="brick().imageLink | haBrickImage" class="brick-icon">
+        <div class="brick-icon">
+          <img [ngSrc]="brick().imageLink | haBrickImage" fill priority>
+        </div>
         <h2 class="g-text-dense-height">{{ brick().name }}</h2>
       </div>
       <div class="brick-like-edit-button-div">

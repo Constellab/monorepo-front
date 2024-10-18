@@ -117,7 +117,6 @@ export function TranslationLoaderFactory(
   ],
   providers: [
     TransferState,
-    provideHttpClient(withFetch()),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FlHttpInterceptorService,
@@ -146,7 +145,7 @@ export function TranslationLoaderFactory(
       useFactory: TranslationLoaderFactory,
       deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
     },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
   ],
 })
 export class HaAppModule {

@@ -39,11 +39,10 @@ export function app(): express.Express {
     res: express.Response,
     next: express.NextFunction
   ): void => {
-
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-Xss-Protection', '1; mode=block');
     if (environment.production) {
+      res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.setHeader('X-Xss-Protection', '1; mode=block');
       // TODO: CHECK IF THERE IS A BETTER WAY
       const defaultSrc = 'default-src \'self\' *.constellab.community';
       //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' is for the inline script in the index.html
@@ -62,14 +61,16 @@ export function app(): express.Express {
       const connectSrc = 'connect-src \'self\' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com';
       // eslint-disable-next-line max-len
       res.setHeader('Content-Security-Policy', `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`);
-    }
-    res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
 
-    res.setHeader(
-      'Feature-Policy',
-      // eslint-disable-next-line max-len
-      'accelerometer \'none\'; autoplay \'none\'; camera \'none\'; encrypted-media \'none\'; geolocation \'none\'; gyroscope \'none\'; magnetometer \'none\'; microphone \'self\'; midi \'none\'; payment \'none\''
-    );
+      res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
+
+      res.setHeader(
+        'Feature-Policy',
+        // eslint-disable-next-line max-len
+        'accelerometer \'none\'; autoplay \'none\'; camera \'none\'; encrypted-media \'none\'; geolocation \'none\'; gyroscope \'none\'; magnetometer \'none\'; microphone \'self\'; midi \'none\'; payment \'none\''
+      );
+    }
+
 
     next();
   };
@@ -147,8 +148,9 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
+  server.get('**', express.static(browserDistFolder, {
+    maxAge: '1y',
+    index: 'index.html',
   }));
 
 
@@ -187,7 +189,10 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
 
         res.send(html)
       })
-      .catch((err) => next(err));
+      .catch((err) => {
+        console.error(err);
+        next(err)
+      });
   });
   return server;
 }

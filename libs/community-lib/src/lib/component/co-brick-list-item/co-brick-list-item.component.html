@@ -8,6 +8,8 @@
   [likes]="brick.likes">
 <!--  [comments]="brick.comments">-->
   <div rightSide class="brick-right-side">
-    <div class="brick-logo" [style.background-image]="'url(' + brickImage + ')'"></div>
+    <div class="brick-logo">
+      <img [ngSrc]="brickImage" fill priority/>
+    </div>
   </div>
 </co-community-list-item>

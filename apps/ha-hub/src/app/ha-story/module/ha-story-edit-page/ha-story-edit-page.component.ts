@@ -373,8 +373,8 @@ export class HaStoryEditPageComponent implements OnInit {
   private checkUserIsAuthorOrCoAuthor(story: HaStory): void {
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
       if (
-        user.id !== story.getAuthor().id &&
-        !story.getCoAuthors().some((coAuthor) => coAuthor.id === user.id)
+        user?.id !== story.getAuthor().id &&
+        !story.getCoAuthors()?.some((coAuthor) => coAuthor.id === user?.id)
       ) {
         this.notFound = true;
       }
