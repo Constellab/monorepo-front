@@ -335,9 +335,10 @@ p{
   margin-top: 2em;
 
   .fair-open-access-img{
-    width: 50vw;
+    width: 50%;
     margin: 0 auto;
     height: 40.67vw;
+    max-height: 354px !important;
     position: relative;
   }
 
