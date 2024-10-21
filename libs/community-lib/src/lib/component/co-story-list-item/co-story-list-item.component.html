@@ -17,7 +17,6 @@
     </mat-chip-listbox>
   </div>
 
-  <div rightSide class="story-image">
-    <img [ngSrc]="imageLink" fill priority>
-  </div>
+  <div rightSide [style.background-image]="'url(\'' + imageLink + '\')'"
+       class="story-image"></div>
 </co-community-list-item>
