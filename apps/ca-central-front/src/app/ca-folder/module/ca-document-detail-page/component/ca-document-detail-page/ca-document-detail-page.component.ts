@@ -5,7 +5,7 @@ import { CaConstellabDocument, CaDocument } from '../../../../../ca-core/model/e
 import {
   FlDialogService,
   FlMenuDynamicService,
-  FlPortalActionsService,
+  FlPortalActionsService, FlPortalService,
   FlServerError,
   FlSnackBarService
 } from '@monorepo/front-core-lib';
@@ -41,7 +41,8 @@ export class CaDocumentDetailPageComponent implements OnInit {
               private dialogService: FlDialogService,
               private menuDynamicService: FlMenuDynamicService,
               private actionService: FlPortalActionsService,
-              private snackBarService: FlSnackBarService) {
+              private snackBarService: FlSnackBarService,
+              private portalService: FlPortalService) {
   }
 
   ngOnInit(): void {
@@ -87,7 +88,7 @@ export class CaDocumentDetailPageComponent implements OnInit {
   openDocumentActionMenu(document: CaDocument, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     const documentActionMenu = new CaDocumentActionMenu(this.dialogService, this.folderService,
-      this.menuDynamicService, this.actionService, document.basicInfo);
+      this.menuDynamicService, this.actionService, document.basicInfo, this.portalService, this.textEditorConfig);
 
     documentActionMenu.openActionMenu(false, event).subscribe(event => {
       this.onDocumentAction(event);

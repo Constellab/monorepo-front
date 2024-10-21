@@ -25,7 +25,13 @@ import {
   CaActivitySearch,
   CaActivitySearchFields
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
-import { TeFigureBlockData, TeFileBlockData, TeRichTextContent, TeUploadedImage } from '@monorepo/text-editor';
+import {
+  TeFigureBlockData,
+  TeFileBlockData,
+  TeRichTextContent, TeTextEditorHistoryBlockModification,
+  TeTextEditorHistoryService,
+  TeUploadedImage
+} from '@monorepo/text-editor';
 import {
   FlApiService,
   FlDatasourceGetPageData,
@@ -49,7 +55,7 @@ import { CaFolderSearch, CaFolderSearchFields } from '../entity-module/ca-folder
 @Injectable({
   providedIn: 'root'
 })
-export class CaFolderService {
+export class CaFolderService implements TeTextEditorHistoryService{
 
   private readonly route: string = 'folders';
 
@@ -348,5 +354,19 @@ export class CaFolderService {
     return this.apiService.post(`${this.route}/${folderId}/activity`, searchInput, CaActivity, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
+  }
+
+  //////////////////////////////////// HISTORY ///////////////////////////////////////////
+
+  getHistory(documentId: string): Observable<TeTextEditorHistoryBlockModification[]> {
+    return this.apiService.get(`${this.route}/history/${documentId}/`);
+  }
+
+  getUndoContent(documentId: string, modificationId: string): Observable<TeRichTextContent> {
+    return this.apiService.get(`${this.route}/history/undo-content/${documentId}/${modificationId}`);
+  }
+
+  rollbackContent(documentId: string, modificationId: string): Observable<CaDocument> {
+    return this.apiService.put(`${this.route}/history/rollback/${documentId}/${modificationId}`, {});
   }
 }

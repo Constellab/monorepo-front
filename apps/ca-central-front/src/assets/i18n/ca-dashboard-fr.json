@@ -194,5 +194,6 @@
   "lab_storage_price_detail": "Détail du prix du stockage",
   "lab_volume_price_per_gb_per_hour": "Prix du volume par GB par heure",
   "lab_backup_storage_price_per_gb_per_hour": "Prix du stockage de backup par GB par heure",
-  "lab_backup_size": "Taille du backup (GB)"
+  "lab_backup_size": "Taille du backup (GB)",
+  "history": "Historique"
 }

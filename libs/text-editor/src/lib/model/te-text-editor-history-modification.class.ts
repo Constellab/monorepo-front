@@ -48,6 +48,7 @@ export class TeTextEditorHistoryBlockModification {
 
 
 export interface TeTextEditorHistoryModificationList{
+  version?: number;
   modifications: TeTextEditorHistoryBlockModification[];
 }
 
