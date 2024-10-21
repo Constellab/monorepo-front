@@ -3,9 +3,9 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlMenuDynamic,
-  FlMenuDynamicService,
+  FlMenuDynamicService, FlOverlayRef,
   FlPortalActionResult,
-  FlPortalActionsService
+  FlPortalActionsService, FlPortalService
 } from '@monorepo/front-core-lib';
 import {
   CaDocumentNameFormDialogComponent,
@@ -20,6 +20,11 @@ import { CaFolder } from '../../../ca-core/model/entities/folder/ca-folder.class
 import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
 import { mergeMap, Observable, Subject } from 'rxjs';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import {
+  TeCompleteConfig,
+  TeTextEditorHistoryPortalComponent,
+  TeTextEditorHistoryPortalData
+} from '@monorepo/text-editor';
 
 export type CaDocumentActionEvent = {
   action: 'update' | 'moveToTrash' | 'restoreFromTrash' | 'moveToFolder';
@@ -33,11 +38,21 @@ export class CaDocumentActionMenu {
 
   private subject: Subject<CaDocumentActionEvent> = new Subject();
 
+  private historyOverlayRef: FlOverlayRef;
+
+  private portalService: FlPortalService;
+
+  private textEditorConfig: TeCompleteConfig;
+
   constructor(private dialogService: FlDialogService,
               private folderService: CaFolderService,
               private menuDynamicService: FlMenuDynamicService,
               private actionService: FlPortalActionsService,
-              private documentInfo: CaDocumentBasicInfo) {
+              private documentInfo: CaDocumentBasicInfo,
+              portalService?: FlPortalService,
+              textEditorConfig?: TeCompleteConfig) {
+    this.portalService = portalService;
+    this.textEditorConfig = textEditorConfig;
   }
 
   public openActionMenu(showLinks: boolean, event: MouseEvent): Observable<CaDocumentActionEvent | null> {
@@ -80,6 +95,15 @@ export class CaDocumentActionMenu {
           text: { text: 'download_document', translateText: true },
           icon: 'cloud_download',
           href: this.folderService.getDocumentDownloadUrl(this.documentInfo.id, this.documentInfo.name)
+        });
+      }
+    } else {
+      if (this.documentInfo.isConstellabDocument){
+        menu.push({
+          type: 'button',
+          text: { text: 'history', translateText: true },
+          icon: 'history',
+          onClick: () => this.openHistoryPanel()
         });
       }
     }
@@ -249,5 +273,25 @@ export class CaDocumentActionMenu {
       });
     }
     this.subject.complete();
+  }
+
+  private openHistoryPanel(): void {
+    if (this.historyOverlayRef) {
+      this.historyOverlayRef.dispose();
+      this.historyOverlayRef = null;
+    } else {
+      this.historyOverlayRef = this.portalService.createPortal(
+        TeTextEditorHistoryPortalComponent,
+        this.portalService.getRightSidePortalConfig(true),
+        {
+          service: this.folderService,
+          entityId: this.documentInfo.id,
+          textEditorConfig: this.textEditorConfig,
+        } as TeTextEditorHistoryPortalData
+      );
+      this.historyOverlayRef.detachments().subscribe(() => {
+        this.historyOverlayRef = null;
+      });
+    }
   }
 }

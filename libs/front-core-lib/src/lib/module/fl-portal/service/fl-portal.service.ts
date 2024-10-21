@@ -138,7 +138,7 @@ export class FlPortalService {
    * @param width width of the portal
    * @param disposeOnNavigation if the portal should be disposed on navigation
    */
-  public getRightSidePortalConfig(backdrop: boolean = true, width: string = '25%',
+  public getRightSidePortalConfig(backdrop: boolean = true, width: string = '50rem',
                                   disposeOnNavigation: boolean = true): FlPortalConfig {
     const config: FlPortalConfig = new FlPortalConfig().configureOverlay({
       height: '100vh',
