@@ -54,7 +54,7 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'process_config', filename: 'task-configuration.svg'},
   {name: 'archive', matIconName: 'inventory_2'},
   {name: 'unarchive', matIconName: 'unarchive'},
-  {name: 'note', matIconName: 'grading'},
+  {name: 'note', matIconName: 'description'},
   {name: 'note_template', filename: 'note-template.svg'},
   {name: 'resource', filename: 'boxes.svg'},
   {name: 'view', matIconName: 'insert_chart'},
@@ -76,13 +76,13 @@ export const flIconsDefault: FlIcon[] = [
   {name: 'comment-warn', filename: 'comment-warn.svg'},
   {name: 'heart', filename: 'heart.svg'},
   {name: 'heart-fill', filename: 'heart-fill.svg'},
-  {name: 'constellab_document', filename: 'constellab_document.svg'},
+  {name: 'constellab_document', matIconName: 'description'},
   {name: 'brick', filename: 'brick.svg'},
   {name: 'agent', filename: 'laptop-code-solid.svg'},
 ]
 
 export function getFileIconFromExtension(extension: string): string {
-  if(!extension) return 'description';
+  if(!extension) return 'insert_drive_file';
 
   extension = extension.replace('.', '').toLowerCase();
 
@@ -124,6 +124,6 @@ export function getFileIconFromExtension(extension: string): string {
     case 'py':
       return 'py_file_icon';
     default:
-      return 'description';
+      return 'insert_drive_file';
   }
 }

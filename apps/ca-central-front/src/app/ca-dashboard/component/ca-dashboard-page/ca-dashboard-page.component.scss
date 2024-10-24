@@ -1,12 +1,13 @@
 .dashboard-left {
   padding: var(--main-menu-margin) 0.5em var(--main-menu-margin) 1em;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .dashboard-right {
   min-width: 25%;
-  padding: 1em 1em 1em 0.5em
-
+  padding: 1em 1em 1em 0.5em;
+  box-sizing: border-box;
 }
 
 .section {
@@ -42,3 +43,9 @@
   margin-left: 10px;
 }
 
+@media (max-width: 959px) {
+  .dashboard-left {
+    padding: var(--main-menu-margin) 1em var(--main-menu-margin) 1em;
+  }
+
+}

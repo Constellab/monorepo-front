@@ -7,7 +7,14 @@
 
 mat-tree-node {
   min-height: 0;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  //background-color: var(--main-background);
+  border-radius: 10px;
+}
+
+.selected-tree-node {
+  background-color: var(--hover-color);
 }
 
 .tree .tree-node:not(:last-child) {
@@ -16,8 +23,6 @@ mat-tree-node {
 
 .tree-node {
   min-height: 32px;
-  background-color: var(--main-background);
-  border-radius: 10px;
   padding-right: 0;
   width: 100%;
 }
@@ -27,12 +32,10 @@ mat-tree-node {
   padding-right: 0.5em;
 }
 
-.selected-tree-node {
-  background-color: var(--hover-color);
-}
+
 
 .node-icon {
-  margin-left: 0.5em;
+  //margin-left: 0.5em;
   margin-right: 0.5em;
   flex-shrink: 0;
 }

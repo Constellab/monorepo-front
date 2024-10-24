@@ -1,6 +1,10 @@
+.container{
+  min-height: 30px; // keep height even if button is hidden
+}
+
 .toggle-button{
   // made to align button with page title
-  margin-left: -0.6em;
+  margin-left: -6px;
 }
 
 .separator {

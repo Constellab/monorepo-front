@@ -29,6 +29,8 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
 
   links$: Observable<BreadcrumbLink[]>;
 
+  hasChildren$: Observable<boolean> = this.state.hasSubFolders$();
+
   constructor(private state: CaHierarchyObjectDetailState,
               private translateService: FlTranslateService) {
   }

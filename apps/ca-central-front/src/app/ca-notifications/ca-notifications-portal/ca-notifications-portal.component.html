@@ -16,33 +16,39 @@
               (click)="markAllNotificationsAsRead()">{{ 'mark_all_as_read' | translate }}</span>
       </div>
 
-      <a *ngFor="let notif of notifications.connect() | async" class="notification"
-         [routerLink]="getNotificationLink(notif.link)" [queryParams]="getNotificationQueryParams(notif.link)"
-         (click)="markAsRead(notif)">
-        <div class="created-by-pp">
-          <fl-user-profile-picture [user]="notif.createdBy" [size]="4"></fl-user-profile-picture>
-        </div>
-        <div class="notification-content">
-          <div class="notification-text g-text-dense-height"
-               [matTooltip]="notif.text" [matTooltipShowDelay]="1000">{{ notif.text }}</div>
+      @for (notif of notifications | flDatasourceConnect | async ; track notif.id) {
 
-
-          <!--      Detail informations    -->
-          <fl-text-icon iconPosition="start" gap="3px">
-            <mat-icon class="g-icon-tiny g-text-light"
-                      [flIcon]="getNotificationObjectIcon(notif.objectType)">
-            </mat-icon>
-            <span class="g-text-tiny g-text-light">{{ notif.text2 }}</span>
-          </fl-text-icon>
-
-          <div class="g-text-tiny g-text-light">
-            <fl-from-now [date]="notif.createdAt"></fl-from-now>
+        <a class="notification"
+           [routerLink]="getNotificationLink(notif.link)" [queryParams]="getNotificationQueryParams(notif.link)"
+           (click)="markAsRead(notif)">
+          <div class="created-by-pp">
+            <fl-user-profile-picture [user]="notif.createdBy" [size]="4"></fl-user-profile-picture>
           </div>
-        </div>
-        <div class="notification-read-div">
-          <div class="not-read-dot" *ngIf="!notif.isRead"></div>
-        </div>
-      </a>
+          <div class="notification-content">
+            <div class="notification-text g-text-dense-height"
+                 [matTooltip]="notif.text" [matTooltipShowDelay]="1000">{{ notif.text }}
+            </div>
+
+
+            <!--      Detail informations    -->
+            <fl-text-icon iconPosition="start" gap="3px">
+              <mat-icon class="g-icon-tiny g-text-light"
+                        [flIcon]="getNotificationObjectIcon(notif.objectType)">
+              </mat-icon>
+              <span class="g-text-tiny g-text-light">{{ notif.text2 }}</span>
+            </fl-text-icon>
+
+            <div class="g-text-tiny g-text-light">
+              <fl-from-now [date]="notif.createdAt"></fl-from-now>
+            </div>
+          </div>
+          <div class="notification-read-div">
+            @if (!notif.isRead) {
+              <div class="not-read-dot"></div>
+            }
+          </div>
+        </a>
+      }
     </fl-infinite-scroll>
   </fl-portal-content>
 </fl-portal>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   CaNotification,
   CaNotificationDatasourcePaginated,
@@ -13,18 +13,15 @@ import { CaNotificationState } from '../../ca-core/state/ca-notification.state';
   templateUrl: './ca-notifications-portal.component.html',
   styleUrls: ['./ca-notifications-portal.component.scss']
 })
-export class CaNotificationsPortalComponent implements OnInit {
+export class CaNotificationsPortalComponent {
 
   notifications: CaNotificationDatasourcePaginated = this.notificationState.notifications;
 
   constructor(private notificationState: CaNotificationState) {
   }
 
-  ngOnInit(): void {
-  }
-
   markAsRead(notification: CaNotification): void {
-    this.notificationState.markNotifAsRead({id: notification.id});
+    this.notificationState.markNotifAsRead({ id: notification.id });
   }
 
   markAllNotificationsAsRead(): void {

@@ -19,7 +19,7 @@
     </fl-section-header>
 
     <ng-container *flSectionBodyDatasource="labsDatasource as labs">
-      <div class="g-grid-5-rows">
+      <div class="g-grid-5-cols">
         <a *ngFor="let lab of labs" [routerLink]="lab | caDetailRoute">
           <ca-lab-card [lab]="lab"></ca-lab-card>
         </a>

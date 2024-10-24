@@ -7,7 +7,7 @@
         <fl-text-icon iconPosition="start">
           <mat-icon class="g-icon-background g-primary-background"
                     [flIcon]="titleIcon"></mat-icon>
-          <h2>{{sectionTitle | translate}}</h2>
+          <h2>{{ sectionTitle | translate }}</h2>
         </fl-text-icon>
       </a>
 
@@ -16,26 +16,30 @@
   </fl-section-header>
 
   <ng-container *flSectionBodyDatasource="datasource as items">
-    <div class="g-grid-4-rows">
-      <a *ngFor="let item of items" [routerLink]="item | caDetailRoute">
-        <ng-template [ngTemplateOutlet]="templateRef"
-                     [ngTemplateOutletContext]="{$implicit: item}"></ng-template>
-      </a>
+    <div class="grid-4-cols">
+      @for (item of items; track item) {
+        <a [routerLink]="item | caDetailRoute">
+          <ng-template [ngTemplateOutlet]="templateRef"
+                       [ngTemplateOutletContext]="{$implicit: item}"></ng-template>
+        </a>
+      }
 
-      <ca-add-card *ngIf="showAddButton && datasource.page?.totalElements < maxItems"
-                   (click)="addClicked($event)"
-                   [cardTitle]="addText | translate">
-      </ca-add-card>
+      @if(showAddButton && datasource.page?.totalElements < maxItems) {
+        <ca-add-card (click)="addClicked($event)"
+                     [cardTitle]="addText | translate"></ca-add-card>
+      }
     </div>
 
-    <div *ngIf="datasource.page?.totalElements >= maxItems" class="all-button">
+    @if(datasource.page?.totalElements >= maxItems){
+    <div class="all-button">
       <fl-text-icon iconPosition="end" gap="0">
         <a class="g-text-link" [routerLink]="completeListRoute">
-          {{completeListText | translate}}
+          {{ completeListText | translate }}
         </a>
         <mat-icon>chevron_right</mat-icon>
       </fl-text-icon>
     </div>
+    }
 
   </ng-container>
 

@@ -5,30 +5,32 @@
     <fl-text-icon>
       <mat-icon class="g-icon-background" flIcon="lab"
                 [ngClass]="iconBackground" [matTooltip]="statusTooltip | translate"></mat-icon>
-      <h2>{{lab.name}}</h2>
+      <h2 class="g-text-dense-height">{{ lab.name }}</h2>
     </fl-text-icon>
   </fl-card-header>
 
 
-  <fl-card-body>
-    <ca-city *ngIf="lab.region" [city]="lab.region.city"></ca-city>
+  <fl-card-body class="card-body">
+    <div class="body-info">
+      <ca-city *ngIf="lab.region" [city]="lab.region.city"></ca-city>
 
-    <div class="g-text-light g-text-small since-the">
-      {{lab.currentStatus.status.name | translate}} {{'since_the' | translate}}
-      {{lab.currentStatus.createdAt | flDate}}
+      <div class="g-text-light g-text-small since-the">
+        {{ lab.currentStatus.status.name | translate }} {{ 'since_the' | translate }}
+        {{ lab.currentStatus.createdAt | flDate }}
+      </div>
     </div>
 
-
-    <div class="action-buttons g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+    <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
       <ca-lab-login-button *ngIf="lab.isHttpAccessible"
                            [labId]="lab.id" [isRunning]="lab.isRunning()"
-                           size="small"></ca-lab-login-button>
+                           size="small" class="action-buttons"></ca-lab-login-button>
 
-      <a mat-stroked-button [routerLink]="lab | caDetailRoute" class="g-button-small"
+      <a mat-stroked-button [routerLink]="lab | caDetailRoute" class="g-button-small action-buttons"
          (click)="stopEventPropagation($event)" (mousedown)="stopEventPropagation($event)">
-        {{'detail' | translate}}
+        {{ 'detail' | translate }}
       </a>
     </div>
+
   </fl-card-body>
 
 </fl-card>

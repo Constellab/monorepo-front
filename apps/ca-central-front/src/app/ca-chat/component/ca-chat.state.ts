@@ -51,7 +51,7 @@ export class CaChatState {
     // if there is not selected folder, select the first one
     this.folderId$.pipe(first()).subscribe(folderId => {
       if (!folderId && folders.length > 0) {
-        this.routerService.navigateToChatFolder(folders[0].id);
+        this.routerService.navigateToChatFolder(folders[0].id, {replaceUrl: true});
       }
     });
     this.isLoadingSignal.set(false);

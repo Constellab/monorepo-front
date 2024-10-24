@@ -68,8 +68,6 @@
   .g-text-editor {
     font-size: 14px;
     word-break: break-word;
-    font-family: "Poppins", "Helvetica Neue", sans-serif;
-    font-weight: 100;
 
     // force the block to be behind the popover
     .ce-block__content {
@@ -259,7 +257,7 @@
     ///////////////////////// HEADER /////////////////////////
     h1 {
       font-size: 24px;
-      font-weight: bold;
+      font-weight: 600;
       margin-top: 1em
     }
 
@@ -447,7 +445,6 @@
     code {
       background-color: var(--hover-color);
       color: #e8912d;
-      font-weight: 100;
     }
   }
 

@@ -56,26 +56,18 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
       next: folderTree => this.getTreeSuccess(folderTree)
     });
 
+    // force closing the tree if there is no sub folders
+    this.hasSubFolders$().subscribe(
+      hasSubFolders => {
+        if (!hasSubFolders) {
+          this.setTreeOpened(false);
+        }
+      }
+    );
+
     this.treeDrawerOpened$ = new BehaviorSubject(false);
 
     this.initTreeDrawerOpened();
-  }
-
-  private getTreeSuccess(folderTree: CaHierarchyObjectWithChildren): void {
-    this.folderTree.setData(folderTree);
-  }
-
-  private getAncestorSuccess(ancestors: CaHierarchyObject[]): void {
-    this.ancestorFolders$.array = ancestors;
-  }
-
-  private initTreeDrawerOpened(): void {
-    this.queryParamHandler = new FlQueryParamHandler(this.router, this.route);
-    // init tree open
-    this.queryParamHandler.getFirstQueryParams().subscribe(
-      // if the query param is not present, the tree is opened
-      params => this.treeDrawerOpened$.next(params.showTree !== "false")
-    );
   }
 
   toggleTree(): void {
@@ -87,7 +79,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     if (treeOpened) {
       this.queryParamHandler.mergeQueryParams({ showTree: null });
     } else {
-      this.queryParamHandler.mergeQueryParams({ showTree: "false" });
+      this.queryParamHandler.mergeQueryParams({ showTree: 'false' });
     }
   }
 
@@ -118,6 +110,12 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   public getFolderTree$(): Observable<CaHierarchyObjectWithChildren> {
     return this.folderTree.connect().pipe(
       filter(folderTree => folderTree != null)
+    );
+  }
+
+  public hasSubFolders$(): Observable<boolean> {
+    return this.getFolderTree$().pipe(
+      map(folderTree => folderTree.children && folderTree.children.length > 0)
     );
   }
 
@@ -160,6 +158,23 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     this.folderTree?.disconnect();
     this.subscription?.unsubscribe();
     this.ancestorFolders$?.disconnect();
+  }
+
+  private getTreeSuccess(folderTree: CaHierarchyObjectWithChildren): void {
+    this.folderTree.setData(folderTree);
+  }
+
+  private getAncestorSuccess(ancestors: CaHierarchyObject[]): void {
+    this.ancestorFolders$.array = ancestors;
+  }
+
+  private initTreeDrawerOpened(): void {
+    this.queryParamHandler = new FlQueryParamHandler(this.router, this.route);
+    // init tree open
+    this.queryParamHandler.getFirstQueryParams().subscribe(
+      // if the query param is not present, the tree is opened
+      params => this.treeDrawerOpened$.next(params.showTree !== 'false')
+    );
   }
 
 

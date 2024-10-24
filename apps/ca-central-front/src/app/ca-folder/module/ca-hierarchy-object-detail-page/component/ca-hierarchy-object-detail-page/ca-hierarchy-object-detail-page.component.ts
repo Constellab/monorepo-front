@@ -40,7 +40,7 @@ export class CaHierarchyObjectDetailPageComponent implements OnInit {
 
     this.treeOpened$ = this.state.getTreeDrawerOpened$();
     this.hierarchyObjects$ = this.state.getFolderTree$().pipe(
-      map(tree => tree.children)
+      map(tree => [tree])
     );
 
     this.activeObject$ = this.state.getAncestorsFolders$().pipe(

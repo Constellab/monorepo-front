@@ -1,5 +1,5 @@
-import {Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
-import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
+import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 
 /**
  * Layout component for the dashboard to structure the list section
@@ -10,7 +10,7 @@ import {FlDatasourcePaginated} from '@monorepo/front-core-lib';
   templateUrl: './ca-dashboard-list-layout.component.html',
   styleUrls: ['./ca-dashboard-list-layout.component.scss']
 })
-export class CaDashboardListLayoutComponent implements OnInit {
+export class CaDashboardListLayoutComponent {
 
   public static maxItems = 4;
 
@@ -36,12 +36,6 @@ export class CaDashboardListLayoutComponent implements OnInit {
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
   maxItems = CaDashboardListLayoutComponent.maxItems;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   addClicked(event: MouseEvent): void {
     this.addClick.emit(event);

@@ -1,9 +1,16 @@
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="tree">
   <!-- This is the tree node template for leaf nodes -->
   <mat-tree-node *matTreeNodeDef="let node"
-                 matTreeNodePadding [matTreeNodePaddingIndent]="10">
-    <div class="g-text-small tree-node g-layout-row g-layout-start-center"
-         [ngClass]="{'selected-tree-node': node.isSelected}">
+                 matTreeNodePadding [matTreeNodePaddingIndent]="10"
+                 [ngClass]="{'selected-tree-node': node.isSelected}">
+    <div class="g-text-small tree-node g-layout-row g-layout-start-center">
+      <button mat-icon-button matTreeNodeToggle class="g-button-icon-small toggle-parent-button"
+              [attr.aria-label]="'Toggle ' + node.name" type="button">
+        <mat-icon>
+          {{ treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
+        </mat-icon>
+      </button>
+
       <ca-hierarchy-object-icon class="node-icon" [objectType]="node.objectType" [objectName]="node.name"
                                 size="small"></ca-hierarchy-object-icon>
       <a [routerLink]="getRoute()(node)" queryParamsHandling="preserve" class="object-name g-text-link">
@@ -15,9 +22,17 @@
     </div>
   </mat-tree-node>
   <!-- This is the tree node template for expandable nodes -->
-  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding [matTreeNodePaddingIndent]="10">
-    <div class="g-text-small tree-node g-layout-row g-layout-start-center"
-         [ngClass]="{'selected-tree-node': node.isSelected}">
+  <mat-tree-node *matTreeNodeDef="let node;when: hasChild"
+                 matTreeNodePadding [matTreeNodePaddingIndent]="10"
+                 [ngClass]="{'selected-tree-node': node.isSelected}">
+    <div class="g-text-small tree-node g-layout-row g-layout-start-center">
+      <button mat-icon-button matTreeNodeToggle class="g-button-icon-small toggle-parent-button"
+              [attr.aria-label]="'Toggle ' + node.name" type="button">
+        <mat-icon>
+          {{ treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
+        </mat-icon>
+      </button>
+
       <ca-hierarchy-object-icon class="node-icon" [objectType]="node.objectType" [objectName]="node.name"
                                 size="small"></ca-hierarchy-object-icon>
 
@@ -27,13 +42,6 @@
           {{ node.name }}
         </div>
       </a>
-      <button mat-icon-button matTreeNodeToggle class="g-button-icon-small toggle-parent-button"
-              [attr.aria-label]="'Toggle ' + node.name" type="button">
-        <mat-icon>
-          {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_left' }}
-        </mat-icon>
-      </button>
     </div>
   </mat-tree-node>
 </mat-tree>
-

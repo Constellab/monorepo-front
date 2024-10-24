@@ -10,7 +10,7 @@ import {
   caConstUserPageRoute
 } from '../utils/ca-base-route';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
 /* eslint-disable @typescript-eslint/member-ordering */
@@ -206,8 +206,8 @@ export class CaRouterService {
     return `${CaRouterService.getChatRoute()}/folder/${folderId}`;
   }
 
-  public navigateToChatFolder(folderId: string): void {
-    this.router.navigate([CaRouterService.getChatFolderRoute(folderId)]);
+  public navigateToChatFolder(folderId: string, extras?: NavigationExtras): void {
+    this.router.navigate([CaRouterService.getChatFolderRoute(folderId)], extras);
   }
 
   ////////////////////////// ADMIN ///////////////////////

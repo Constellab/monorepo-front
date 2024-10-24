@@ -16,3 +16,27 @@
   margin-top: 1em;
 }
 
+.grid-4-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 1em;
+}
+
+@media (max-width: 1500px) {
+  .grid-4-cols {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+
+@media (max-width: 1279px) {
+  .grid-4-cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 599px) {
+  .grid-4-cols {
+    grid-template-columns: 1fr;
+  }
+}
