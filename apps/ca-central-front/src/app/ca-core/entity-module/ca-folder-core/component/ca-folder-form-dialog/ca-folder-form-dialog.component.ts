@@ -30,6 +30,14 @@ export class CaFolderFormDialogComponent extends FlFormDialogAbstractDirective<C
     super();
   }
 
+  get title(): string {
+    return this.isCreateMode() ? 'new_folder' : 'update_folder';
+  }
+
+  get showStorage(): boolean {
+    return !this.dialogInput.parentId && this.isCreateMode();
+  }
+
   async ngOnInit(): Promise<void> {
     this.init();
 
@@ -72,7 +80,7 @@ export class CaFolderFormDialogComponent extends FlFormDialogAbstractDirective<C
       endingDate: [null],
       mainStorage: [null, this.showStorage ? Validators.required : null],
       backupStorage: [null]
-    }, { validator: this.showStorage ? this.differentStorageValidator() : null });
+    }, { validators: this.showStorage ? this.differentStorageValidator() : null });
   }
 
   create(formValue: CnSaveFolderDTO): Observable<CaFolder> {
@@ -87,21 +95,12 @@ export class CaFolderFormDialogComponent extends FlFormDialogAbstractDirective<C
     return this.folderService.update(this.dialogInput.folderId, formValue);
   }
 
-
-  get title(): string {
-    return this.isCreateMode() ? 'new_folder' : 'update_folder';
-  }
-
   getCreateSuccessMessage(): string {
     return 'folder_created';
   }
 
   getUpdateSuccessMessage(): string {
     return 'folder_updated';
-  }
-
-  get showStorage(): boolean {
-    return !this.dialogInput.parentId && this.isCreateMode();
   }
 
   private differentStorageValidator(): ValidatorFn {

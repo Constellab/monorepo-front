@@ -5,10 +5,12 @@
   </fl-text-icon>
 
   <fl-section-actions>
-    <button mat-icon-button type="button" (click)="openUpdateFolderDialog()"
-            [matTooltip]="'update_folder' | translate">
-      <mat-icon>edit</mat-icon>
-    </button>
+    @if (canEditFolder$ | async) {
+      <button mat-icon-button type="button" (click)="openUpdateFolderDialog()"
+              [matTooltip]="'update_folder' | translate">
+        <mat-icon>edit</mat-icon>
+      </button>
+    }
   </fl-section-actions>
 </fl-section-header>
 
@@ -28,7 +30,16 @@
       {{ 'folder_leader' | translate }}
     </fl-text-icon>
 
-    <fl-user-inline [user]="folder.leader" class="folder-leader-user"></fl-user-inline>
+    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+      <fl-user-inline [user]="folder.leader" class="folder-leader-user"></fl-user-inline>
+
+      @if (canEditFolder$ | async) {
+        <button mat-icon-button class="g-button-icon-tiny" type="button" (click)="openUpdateFolderLeaderDialog(folder)"
+                [matTooltip]="'change_folder_leader' | translate">
+          <mat-icon>edit</mat-icon>
+        </button>
+      }
+    </div>
 
     @if (folder.code) {
       <fl-text-icon>

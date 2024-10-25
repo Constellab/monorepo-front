@@ -22,29 +22,43 @@
           }
         </div>
 
-        <button mat-stroked-button type="button" class="chat-button"
-                (click)="toggleChat(folder)">
-          <mat-icon>
-            @if (folder.chatEnabled) {
-              speaker_notes_off
-            } @else {
-              <mat-icon>chat</mat-icon>
-            }
-          </mat-icon>
-          <span>
+        @if (canEditFolder$ | async) {
+          <button mat-stroked-button type="button" class="chat-button"
+                  (click)="toggleChat(folder)">
+            <mat-icon>
+              @if (folder.chatEnabled) {
+                speaker_notes_off
+              } @else {
+                <mat-icon>chat</mat-icon>
+              }
+            </mat-icon>
+            <span>
           @if (folder.chatEnabled) {
             {{ 'folder_deactivate_chat' | translate }}
           } @else {
             {{ 'folder_activate_chat' | translate }}
           }
             </span>
-        </button>
+          </button>
+        }
       </div>
     </div>
   }
 
-  <ca-folder-storage-settings class="section" *ngIf="showStorageSettings$ | async"></ca-folder-storage-settings>
+  @if ((canEditFolder$ | async) && (showStorageSettings$ | async)) {
+    <ca-folder-storage-settings class="section"></ca-folder-storage-settings>
+  }
 
   <ca-folder-storage-usage-section class="section"></ca-folder-storage-usage-section>
+
+  @if ((canEditFolder$ | async) && (folder$ | async); as folder) {
+    <div class="g-text-centered delete-button">
+      <button mat-stroked-button type="button" (click)="openDeleteFolderDialog(folder)"
+              class="g-button-small" color="warn">
+        <mat-icon>delete</mat-icon>
+        {{ 'delete_folder' | translate }}
+      </button>
+    </div>
+  }
 
 </div>

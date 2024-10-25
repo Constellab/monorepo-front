@@ -9,15 +9,27 @@
 }
 
 .drop-zone {
-  margin-top: 1em;
   border: transparent 2px dashed;
   position: relative;
   min-height: 0; // don't overflow parent grid
 }
 
-.card-table {
-  height: 100%;
+.actions{
+  flex-shrink: 0;
+  display: flex;
 }
+
+.card-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container{
+  min-height: 0;
+  flex: 1;
+}
+
 
 .drop-info {
   position: absolute;

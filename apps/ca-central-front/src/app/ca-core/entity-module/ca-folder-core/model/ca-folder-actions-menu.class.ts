@@ -1,27 +1,10 @@
 import { CaFolder, CaFolderInfo, CaFolderWithHierarchy } from '../../../model/entities/folder/ca-folder.class';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlMenuDynamic,
-  FlMenuDynamicService
-} from '@monorepo/front-core-lib';
-import { CaFolderService } from '../../../service-api/ca-folder.service';
-import {
-  CaFolderFormDialogComponent,
-  CaFolderFormDialogInput
-} from '../component/ca-folder-form-dialog/ca-folder-form-dialog.component';
-import {
-  CaUpdateFolderLeaderDialogComponent,
-  CaUpdateFolderLeaderDialogInput
-} from '../component/ca-update-folder-leader-dialog/ca-update-folder-leader-dialog.component';
+import { FlConfirmDialogResult, FlDialogService, FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib';
 import { mergeMap, Observable, Subject } from 'rxjs';
-import { CaRouterService } from '../../../service/ca-router.service';
-import {
-  CaDocumentNameFormDialogComponent,
-  CaDocumentNameFormDialogInput
-} from '../../../../ca-folder/module/ca-document-core/component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
 import { CaConstellabDocument } from '../../../model/entities/folder/ca-document.class';
+import { CaRouterService } from '../../../service/ca-router.service';
+import { CaSecurityService } from '../../../service/ca-security.service';
+import { CaFolderActionService } from '../ca-folder-action.service';
 
 export type CaFolderActionEvent = {
   action: 'createChild';
@@ -40,17 +23,17 @@ export type CaFolderActionEvent = {
 
 export class CaFolderActionsMenu {
 
-  private subject: Subject<CaFolderActionEvent> = new Subject();
+  protected subject: Subject<CaFolderActionEvent> = new Subject();
 
-  constructor(private dialogService: FlDialogService,
-              private folderService: CaFolderService,
-              private menuDynamicService: FlMenuDynamicService,
-              private folderInfo: CaFolderInfo) {
+  constructor(protected dialogService: FlDialogService,
+              protected folderActionService: CaFolderActionService,
+              protected menuDynamicService: FlMenuDynamicService,
+              protected securityService: CaSecurityService,
+              protected folderInfo: CaFolderInfo) {
   }
 
   /**
    * Open the action menu for the folder in the table
-   * @param event
    */
   public openTableItemActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
     const menu = this.generateTableItemActionMenu();
@@ -58,13 +41,53 @@ export class CaFolderActionsMenu {
     return this.openActionMenu(menu, event);
   }
 
+  /**
+   * Open the action menu when right-click on the folder children section
+   */
   public openFolderChildrenActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
     const menu = this.generateFolderChildrenActionMenu();
 
     return this.openActionMenu(menu, event);
   }
 
-  private openActionMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<CaFolderActionEvent> {
+  public getCreateChildButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'create_sub_folder', translateText: true },
+      icon: 'folder',
+      onClick: () => this.openChildCreation()
+    };
+  }
+
+  public getOpenFolderButton(): FlMenuDynamic {
+    return {
+      type: 'link',
+      text: { text: 'open_folder', translateText: true },
+      icon: 'folder',
+      link: CaRouterService.getFolderDetailRoute(this.folderInfo.id)
+    };
+  }
+
+  public getUpdateFolderButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'update_folder', translateText: true },
+      icon: 'edit',
+      onClick: () => this.openUpdateFolderDialog()
+    };
+  }
+
+  public getDeleteFolderButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'delete_folder', translateText: true },
+      icon: 'delete',
+      onClick: () => this.openDeleteFolderDialog(),
+      color: 'warn'
+    };
+  }
+
+  protected openActionMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<CaFolderActionEvent> {
     const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(menu, event);
 
     return overlayRef.detachments().pipe(
@@ -80,40 +103,22 @@ export class CaFolderActionsMenu {
     );
   }
 
+  protected canEditFolder(): boolean {
+    return this.securityService.canEditFolder(this.folderInfo.leader.id);
+  }
+
   private generateTableItemActionMenu(): FlMenuDynamic[] {
-    return [
-      this.getCreateChildConfig(),
-      {
-        type: 'button',
-        text: { text: 'update_folder', translateText: true },
-        icon: 'edit',
-        onClick: () => this.openUpdateFolderDialog()
-      },
-      {
-        type: 'button',
-        text: { text: 'change_folder_leader', translateText: true },
-        icon: 'person',
-        onClick: () => this.openUpdateFolderLeaderDialog()
-      },
-      {
-        type: 'link',
-        text: { text: 'activities', translateText: true },
-        icon: 'task',
-        link: CaRouterService.getFolderActivityRoute(this.folderInfo.id)
-      },
-      {
-        type: 'button',
-        text: { text: 'delete_folder', translateText: true },
-        icon: 'delete',
-        onClick: () => this.openDeleteFolderDialog(),
-        color: 'warn'
-      }
-    ];
+    const menu: FlMenuDynamic[] = [this.getOpenFolderButton()];
+
+    if (this.canEditFolder()) {
+      menu.push(this.getUpdateFolderButton(), this.getDeleteFolderButton());
+    }
+    return menu;
   }
 
   private generateFolderChildrenActionMenu(): FlMenuDynamic[] {
     return [
-      this.getCreateChildConfig(),
+      this.getCreateChildButton(),
       {
         type: 'button',
         text: { text: 'create_constellab_document', translateText: true },
@@ -123,24 +128,8 @@ export class CaFolderActionsMenu {
     ];
   }
 
-  private getCreateChildConfig(): FlMenuDynamic {
-    return {
-      type: 'button',
-      text: { text: 'new_sub_folder', translateText: true },
-      icon: 'add',
-      onClick: () => this.openChildCreation()
-    };
-  }
-
   private openUpdateFolderDialog(): void {
-    const dialogInput: CaFolderFormDialogInput = {
-      mode: 'update',
-      folderId: this.folderInfo.id
-    };
-
-    this.dialogService.openSmallDialog(CaFolderFormDialogComponent, {
-      data: dialogInput
-    }).afterClosed().subscribe(
+    this.folderActionService.openUpdateFolderDialog(this.folderInfo.id).subscribe(
       folder => this.updateDialogClosed(folder)
     );
   }
@@ -156,19 +145,12 @@ export class CaFolderActionsMenu {
   }
 
   private openChildCreation(): void {
-    const dialogInput: CaFolderFormDialogInput = {
-      mode: 'create',
-      parentId: this.folderInfo.id
-    };
-
-    this.dialogService.openSmallDialog(CaFolderFormDialogComponent, {
-      data: dialogInput
-    }).afterClosed().subscribe(
+    this.folderActionService.openChildCreation(this.folderInfo.id).subscribe(
       folder => this.createChildSuccess(folder)
     );
   }
 
-  private createChildSuccess(folder: CaFolderWithHierarchy): void {
+  private createChildSuccess(folder?: CaFolderWithHierarchy): void {
     if (folder) {
       this.subject.next({
         action: 'createChild',
@@ -178,39 +160,8 @@ export class CaFolderActionsMenu {
     this.subject.complete();
   }
 
-  private openUpdateFolderLeaderDialog(): void {
-    const dialogInput: CaUpdateFolderLeaderDialogInput = {
-      folderId: this.folderInfo.id,
-      currentLeader: this.folderInfo.leader,
-      users$: this.folderService.getUsersOfFolder(this.folderInfo.id)
-    };
-
-    this.dialogService.openSmallDialog(CaUpdateFolderLeaderDialogComponent, {
-      data: dialogInput
-    }).afterClosed().subscribe(
-      leader => this.onLeaderClosed(leader)
-    );
-  }
-
-  private onLeaderClosed(folder: CaFolder): void {
-    if (folder) {
-      this.subject.next({
-        action: 'update',
-        folder: folder
-      });
-    }
-    this.subject.complete();
-  }
-
   private openDeleteFolderDialog(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'delete_folder',
-      content: 'delete_folder_confirm',
-      observable: this.folderService.delete(this.folderInfo.id),
-      successMessage: 'folder_deleted',
-    };
-
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
+    this.folderActionService.openDeleteFolderDialog(this.folderInfo.id).subscribe(
       result => this.onDeleteClosed(result)
     );
   }
@@ -226,12 +177,7 @@ export class CaFolderActionsMenu {
   }
 
   private createConstellabDocument(): void {
-    const input: CaDocumentNameFormDialogInput = {
-      mode: 'create',
-      parentFolderId: this.folderInfo.id
-    };
-
-    this.dialogService.openSmallDialog(CaDocumentNameFormDialogComponent, { data: input }).afterClosed()
+    this.folderActionService.createConstellabDocument(this.folderInfo.id)
       .subscribe((doc: CaConstellabDocument) => this.createConstellabDocClosed(doc));
   }
 
@@ -244,5 +190,4 @@ export class CaFolderActionsMenu {
     }
     this.subject.complete();
   }
-
 }

@@ -58,6 +58,9 @@ import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-fold
 import {
   CaHierarchyObjectSearchFormComponent
 } from './component/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import {
+  CaFolderDetailActionsComponent
+} from './component/ca-folder-detail-actions/ca-folder-detail-actions.component';
 
 /**
  * Module for the folder detail page
@@ -80,7 +83,8 @@ import {
     CaFolderStorageUsageSectionComponent,
     CaConstellabDocumentPreviewComponent,
     CaFolderDetailInfoComponent,
-    CaHierarchyObjectSearchFormComponent
+    CaHierarchyObjectSearchFormComponent,
+    CaFolderDetailActionsComponent
   ],
   imports: [
     CommonModule,

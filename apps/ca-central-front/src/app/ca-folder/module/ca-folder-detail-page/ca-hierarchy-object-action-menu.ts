@@ -11,6 +11,8 @@ import {
 import { CaDocumentActionEvent, CaDocumentActionMenu } from '../ca-document-core/ca-document-action-menu';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CaSecurityService } from '../../../ca-core/service/ca-security.service';
+import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 export type CaHierarchyObjectActionEvent = {
   entity: 'folder';
@@ -24,8 +26,10 @@ export class CaHierarchyObjectActionMenu {
 
   constructor(private dialogService: FlDialogService,
               private folderService: CaFolderService,
+              private folderActionService: CaFolderActionService,
               private actionService: FlPortalActionsService,
               private menuDynamicService: FlMenuDynamicService,
+              private securityService: CaSecurityService,
               private hierarchyObject: CaHierarchyObject) {
   }
 
@@ -45,13 +49,13 @@ export class CaHierarchyObjectActionMenu {
   }
 
   private openFolderActionMenu(event: MouseEvent): Observable<CaFolderActionEvent | null> {
-    const folderActionsMenu = new CaFolderActionsMenu(this.dialogService, this.folderService,
-      this.menuDynamicService,
+    const folderActionsMenu = new CaFolderActionsMenu(this.dialogService, this.folderActionService,
+      this.menuDynamicService, this.securityService,
       {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
         leader: this.hierarchyObject.user
-      });
+      })
     return folderActionsMenu.openTableItemActionMenu(event);
   }
 

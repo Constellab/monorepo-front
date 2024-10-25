@@ -1,18 +1,17 @@
-import {Component, Inject} from '@angular/core';
-import {FlArrayObs, FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
-import {CaFolderService} from '../../../../../ca-core/service-api/ca-folder.service';
+import { Component, Inject } from '@angular/core';
+import { FlArrayObs, FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import {
   CaGroupShareDialogComponent,
   CaGroupShareDialogInput
 } from '../../../../../ca-core/entity-module/ca-group-core/component/ca-group-share-dialog/ca-group-share-dialog.component';
-import {Observable} from 'rxjs';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {CaUser} from '../../../../../ca-core/model/entities/ca-user.class';
-import {CaFolderDetailState} from '../../state/ca-folder-detail.state';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
 
 export interface CaFolderSharedGroupsListInput {
   folderId: string;
-  canEdit$: Observable<boolean>;
+  canEdit: boolean;
+  users$: FlArrayObs<CaUser>;
 }
 
 /**
@@ -21,19 +20,19 @@ export interface CaFolderSharedGroupsListInput {
 @Component({
   selector: 'ca-folder-shared-list',
   templateUrl: './ca-folder-shared-list.component.html',
-  styleUrls: ['./ca-folder-shared-list.component.scss'],
+  styleUrls: ['./ca-folder-shared-list.component.scss']
 })
 export class CaFolderSharedListComponent {
 
-  canEdit$: Observable<boolean>;
+  canEdit: boolean;
 
-  users$: FlArrayObs = this.state.getUsers();
+  users$: FlArrayObs<CaUser>;
 
   constructor(@Inject(MAT_DIALOG_DATA) private input: CaFolderSharedGroupsListInput,
-              private state: CaFolderDetailState,
               private folderService: CaFolderService,
               private dialogService: FlDialogService) {
-    this.canEdit$ = input.canEdit$;
+    this.canEdit = input.canEdit;
+    this.users$ = input.users$;
   }
 
 
@@ -42,15 +41,9 @@ export class CaFolderSharedListComponent {
       share: group => this.folderService.shareFolder(this.input.folderId, group.id)
     };
 
-    this.dialogService.openSmallDialog(CaGroupShareDialogComponent, {data: input}).afterClosed().subscribe(
+    this.dialogService.openSmallDialog(CaGroupShareDialogComponent, { data: input }).afterClosed().subscribe(
       group => this.onShareDialogClosed(group)
     );
-  }
-
-  private onShareDialogClosed(users: CaUser[]): void {
-    if (users) {
-      this.users$.array = users;
-    }
   }
 
   openUnshareDialog(user: CaUser): void {
@@ -58,12 +51,18 @@ export class CaFolderSharedListComponent {
       title: 'unshare',
       content: 'unshare_confirmation',
       observable: this.folderService.unshareFolder(this.input.folderId, user.id),
-      successMessage: 'unshared',
+      successMessage: 'unshared'
     };
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
       result => this.onRemoveSharingClosed(result, user)
     );
+  }
+
+  private onShareDialogClosed(users: CaUser[]): void {
+    if (users) {
+      this.users$.array = users;
+    }
   }
 
   private onRemoveSharingClosed(result: FlConfirmDialogResult, user: CaUser): void {

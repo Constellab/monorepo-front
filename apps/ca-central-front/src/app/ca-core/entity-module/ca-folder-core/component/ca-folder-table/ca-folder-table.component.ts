@@ -3,8 +3,9 @@ import { FlDialogService, FlMenuDynamicService, FlTableColumnStatic, FlViewConte
 import { CaFolder, CaFolderDatasource } from '../../../../model/entities/folder/ca-folder.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import { CaFolderActionEvent, CaFolderActionsMenu } from '../../model/ca-folder-actions-menu.class';
-import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { ClHelpService } from '@monorepo/core-lib';
+import { CaSecurityService } from '../../../../service/ca-security.service';
+import { CaFolderActionService } from '../../ca-folder-action.service';
 
 @Component({
   selector: 'ca-folder-table',
@@ -24,13 +25,14 @@ export class CaFolderTableComponent {
   constructor(private routerService: CaRouterService,
               private dialogService: FlDialogService,
               private menuDynamicService: FlMenuDynamicService,
-              private folderService: CaFolderService) {
+              private folderActionService: CaFolderActionService,
+              private securityService: CaSecurityService) {
   }
 
   openFolderActionMenu(folder: CaFolder, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    const folderActionsMenu = new CaFolderActionsMenu(this.dialogService, this.folderService,
-      this.menuDynamicService, {
+    const folderActionsMenu = new CaFolderActionsMenu(this.dialogService, this.folderActionService,
+      this.menuDynamicService, this.securityService, {
         id: folder.id,
         name: folder.name,
         leader: folder.leader
@@ -41,6 +43,10 @@ export class CaFolderTableComponent {
     });
   }
 
+  getViewContent(folder: CaFolder): FlViewContext<CaFolder> {
+    return { $implicit: folder };
+  }
+
   private onFolderAction(folderEvent: CaFolderActionEvent): void {
     if (folderEvent.action === 'update') {
       this.datasource.updateItem(folderEvent.folder);
@@ -49,10 +55,6 @@ export class CaFolderTableComponent {
     } else if (folderEvent.action === 'createChild') {
       this.routerService.navigateToFolderDetail(folderEvent.folder.id);
     }
-  }
-
-  getViewContent(folder: CaFolder): FlViewContext<CaFolder> {
-    return { $implicit: folder };
   }
 
 }

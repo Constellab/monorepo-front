@@ -4,11 +4,11 @@ import { CaFolder } from '../../../../ca-core/model/entities/folder/ca-folder.cl
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
 import { map } from 'rxjs/operators';
-import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
 import {
   FlArrayObs,
   FlEntityArrayObs,
   FlEntityPaginatedDatasource,
+  FlPortalActionsService,
   FlSearchConfig,
   FlSearchState
 } from '@monorepo/front-core-lib';
@@ -22,6 +22,8 @@ import {
   CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields
 } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import { CaSecurityService } from '../../../../ca-core/service/ca-security.service';
+import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 
 @Injectable()
@@ -36,9 +38,11 @@ export class CaFolderDetailState implements OnDestroy {
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
   constructor(private folderService: CaFolderService,
-              private authenticatedUserService: CaAuthenticatedUserService,
+              private folderActionService: CaFolderActionService,
+              private actionService: FlPortalActionsService,
               private hierarchyObjectDetailState: CaHierarchyObjectDetailState,
-              private searchState: FlSearchState<CaHierarchyObject>) {
+              private searchState: FlSearchState<CaHierarchyObject>,
+              private securityService: CaSecurityService) {
   }
 
   public init(id$: Observable<string>): void {
@@ -74,24 +78,10 @@ export class CaFolderDetailState implements OnDestroy {
       defaultSort: { key: 'lastModifiedAt', direction: 'DESC' }
     };
     this.searchState.init(config, this.childrenDatasource);
-  }
 
-  private initFolder(folder: CaFolder): void {
-    // update the folder id in the search function
-    this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
-      this.folderService.searchChildren(folder.id, page, pageSize, requestData)
-    );
-
-    // if this is not the first get (navigation between folder), reset the search form
-    if (this.folder$.value) {
-      // reset the search form and prevent event so the valueChange is not triggered
-      this.searchState.resetFormAndCallSearch({ emitEvent: false });
-    } else {
-      // trigger the first search using form value
-      this.searchState.submitForm();
-    }
-
-    this.folder$.next(folder);
+    this.subscription.add(this.folderActionService.getUploadedDocumentActionResult().subscribe(
+      document => this.onDocumentUploaded(document.document, document.folderId)
+    ));
   }
 
   public getFolderId$(): Observable<string> {
@@ -115,16 +105,13 @@ export class CaFolderDetailState implements OnDestroy {
     );
   }
 
-  public getUsers(): FlArrayObs {
+  public getUsers(): FlArrayObs<CaUser> {
     return this.users$;
   }
 
   public canEditFolder$(): Observable<boolean> {
-    const user = this.authenticatedUserService.getCurrentUser();
-
     return this.getFolder$(false).pipe(
-      map(folder => this.authenticatedUserService.isCurrentSpaceAdmin() ||
-        (folder != null && folder.leader.id === user.id))
+      map(folder => this.securityService.canEditFolder(folder?.leader.id))
     );
   }
 
@@ -132,6 +119,9 @@ export class CaFolderDetailState implements OnDestroy {
     return this.childrenDatasource;
   }
 
+  public refreshChildren(): void {
+    this.childrenDatasource.getFirstPage();
+  }
 
   public updateFolder(folder: CaFolder): void {
     if (this.getCurrentFolder().id === folder.id) {
@@ -181,5 +171,28 @@ export class CaFolderDetailState implements OnDestroy {
     this.subscription?.unsubscribe();
   }
 
+  private initFolder(folder: CaFolder): void {
+    // update the folder id in the search function
+    this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
+      this.folderService.searchChildren(folder.id, page, pageSize, requestData)
+    );
+
+    // if this is not the first get (navigation between folder), reset the search form
+    if (this.folder$.value) {
+      // reset the search form and prevent event so the valueChange is not triggered
+      this.searchState.resetFormAndCallSearch({ emitEvent: false });
+    } else {
+      // trigger the first search using form value
+      this.searchState.submitForm();
+    }
+
+    this.folder$.next(folder);
+  }
+
+  private onDocumentUploaded(hierarchyObject: CaHierarchyObject, folderId: string): void {
+    const currentFolderId = this.folder$.value?.id;
+    if (currentFolderId !== folderId) return;
+    this.childrenDatasource.unshiftItem(hierarchyObject);
+  }
 
 }

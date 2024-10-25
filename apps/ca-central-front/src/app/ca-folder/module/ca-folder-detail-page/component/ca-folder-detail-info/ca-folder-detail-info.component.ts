@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaFolder, CaFolderWithHierarchy } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
-import {
-  CaFolderFormDialogComponent,
-  CaFolderFormDialogInput
-} from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-form-dialog/ca-folder-form-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
+import {
+  CaUpdateFolderLeaderDialogComponent,
+  CaUpdateFolderLeaderDialogInput
+} from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-update-folder-leader-dialog/ca-update-folder-leader-dialog.component';
+import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 @Component({
   selector: 'ca-folder-detail-info',
@@ -15,21 +16,32 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 })
 export class CaFolderDetailInfoComponent {
 
-  state = inject(CaFolderDetailState);
-  folder$: Observable<CaFolder> = inject(CaFolderDetailState).getFolder$();
+  private state = inject(CaFolderDetailState);
 
-  dialogService = inject(FlDialogService);
+  folder$: Observable<CaFolder> = this.state.getFolder$();
+  canEditFolder$: Observable<boolean> = this.state.canEditFolder$();
+
+  private dialogService = inject(FlDialogService);
+
+  private folderActionService = inject(CaFolderActionService);
 
   openUpdateFolderDialog(): void {
-    const dialogInput: CaFolderFormDialogInput = {
-      mode: 'update',
-      folderId: this.state.getCurrentFolder().id
+    this.folderActionService.openUpdateFolderDialog(this.state.getCurrentFolder().id).subscribe(
+      folder => this.updateDialogClosed(folder)
+    );
+  }
+
+  openUpdateFolderLeaderDialog(folder: CaFolder): void {
+    const dialogInput: CaUpdateFolderLeaderDialogInput = {
+      folderId: folder.id,
+      currentLeader: folder.leader,
+      users$: this.state.getUsers().connect()
     };
 
-    this.dialogService.openSmallDialog(CaFolderFormDialogComponent, {
+    this.dialogService.openSmallDialog(CaUpdateFolderLeaderDialogComponent, {
       data: dialogInput
     }).afterClosed().subscribe(
-      folder => this.updateDialogClosed(folder)
+      leader => this.updateDialogClosed(leader)
     );
   }
 

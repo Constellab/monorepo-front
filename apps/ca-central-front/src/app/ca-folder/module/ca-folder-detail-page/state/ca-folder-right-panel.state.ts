@@ -64,6 +64,10 @@ export class CaFolderRightPanelState implements OnDestroy {
     this.currentOverlayRef = null;
   }
 
+  public closeRightPanel(): void {
+    this.currentOverlayRef?.dispose();
+  }
+
 
   ngOnDestroy(): void {
     // unsubscribe the overlay destroy event to prevent calling queryParamHandler.mergeQueryParams which will trigger a navigation

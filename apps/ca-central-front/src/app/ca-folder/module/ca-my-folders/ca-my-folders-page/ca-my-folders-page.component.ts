@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import { CaFolderWithHierarchy } from '../../../../ca-core/model/entities/folder/ca-folder.class';
-import { FlDialogService } from '@monorepo/front-core-lib';
 import { CaHierarchyObjectDatasource } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import {
-  CaFolderFormDialogComponent,
-  CaFolderFormDialogInput
-} from '../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-form-dialog/ca-folder-form-dialog.component';
+import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 @Component({
   selector: 'ca-my-folders-page',
@@ -18,7 +14,7 @@ export class CaMyFoldersPageComponent implements OnInit {
   folderDatasource: CaHierarchyObjectDatasource;
 
   constructor(private folderService: CaFolderService,
-              private dialogService: FlDialogService) {
+              private folderActionService: CaFolderActionService) {
   }
 
   ngOnInit(): void {
@@ -26,10 +22,7 @@ export class CaMyFoldersPageComponent implements OnInit {
   }
 
   openCreateFolderDialog(): void {
-    const dialogInput: CaFolderFormDialogInput = {
-      mode: 'create'
-    };
-    this.dialogService.openSmallDialog(CaFolderFormDialogComponent, { data: dialogInput }).afterClosed().subscribe(
+    this.folderActionService.openCreateRootFolderDialog().subscribe(
       folders => this.onCreateFolderClosed(folders)
     );
   }

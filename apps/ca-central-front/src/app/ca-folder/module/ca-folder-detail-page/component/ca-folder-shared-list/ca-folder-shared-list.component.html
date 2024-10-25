@@ -1,5 +1,5 @@
 <fl-dialog-header>
-  {{'folder_shared_groups' | translate}}
+  {{ 'folder_shared_groups' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
@@ -8,20 +8,26 @@
     <ng-container *flSectionBodyDatasource="users$ as users">
 
 
-      <div *ngFor="let user of users" class="g-layout-row g-layout-between-center">
-        <fl-user-inline [user]="user"></fl-user-inline>
+      @for (user of users; track user.id) {
+        <div class="g-layout-row g-layout-between-center">
+          <fl-user-inline [user]="user"></fl-user-inline>
 
-        <button mat-icon-button type="button" (click)="openUnshareDialog(user)"
-                [matTooltip]="'unshare' | translate" *ngIf="canEdit$ | async" color="warn">
-          <mat-icon>clear</mat-icon>
+          @if (canEdit) {
+            <button mat-icon-button type="button" (click)="openUnshareDialog(user)"
+                    [matTooltip]="'unshare' | translate" color="warn">
+              <mat-icon>clear</mat-icon>
+            </button>
+          }
+        </div>
+      }
+
+      @if (canEdit) {
+        <button mat-stroked-button type="button" (click)="openShareDialog()"
+                class="share-button">
+          <mat-icon>share</mat-icon>
+          <span>{{ 'share' | translate }}</span>
         </button>
-      </div>
-
-      <button mat-stroked-button type="button" (click)="openShareDialog()"
-              *ngIf="canEdit$ | async" class="share-button">
-        <mat-icon>share</mat-icon>
-        <span>{{'share' | translate}}</span>
-      </button>
+      }
 
     </ng-container>
 
