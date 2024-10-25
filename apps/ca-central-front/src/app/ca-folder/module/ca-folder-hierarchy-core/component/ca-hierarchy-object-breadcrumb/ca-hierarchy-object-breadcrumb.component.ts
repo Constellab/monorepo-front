@@ -72,9 +72,10 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
         return CaRouterService.getScenarioDetailRoute(ancestor.id);
       case CaHierarchyObjectType.NOTE:
         return CaRouterService.getNoteDetailRoute(ancestor.id);
-      case CaHierarchyObjectType.DOCUMENT:
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
         return CaRouterService.getDocumentDetailRoute(ancestor.id);
+      case CaHierarchyObjectType.DOCUMENT:
+        return CaRouterService.getDocumentPreviewRoute(ancestor.id);
     }
   }
 
