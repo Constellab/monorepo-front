@@ -17,6 +17,7 @@
   "connection_lost": "La connexion a été perdue",
   "session_expired": "Session expirée",
   "home": "Home",
+  "dashboard": "Dashboard",
   "settings": "Paramètres",
   "chat": "Chat",
   "theme": "Thème",

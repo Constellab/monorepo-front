@@ -38,7 +38,9 @@
       {{ 'lab_backup_data' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="col-cell">
-      <ca-lab-backup-history-detail [detail]="row.dataDetails"></ca-lab-backup-history-detail>
+      @if (row.dataDetails) {
+        <ca-lab-backup-history-detail [detail]="row.dataDetails"></ca-lab-backup-history-detail>
+      }
     </mat-cell>
   </ng-container>
 
@@ -48,7 +50,9 @@
       {{ 'lab_backup_database' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="col-cell">
-      <ca-lab-backup-history-detail [detail]="row.dbDetails"></ca-lab-backup-history-detail>
+      @if (row.dbDetails) {
+        <ca-lab-backup-history-detail [detail]="row.dbDetails"></ca-lab-backup-history-detail>
+      }
     </mat-cell>
   </ng-container>
 

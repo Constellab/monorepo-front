@@ -14,12 +14,13 @@ import { CaCloudProviderRegion } from '../ca-cloud-provider.class';
 
 export type CaLabBackupFrequency = 'DAILY' | 'WEEKLY';
 export type CaLabBackupTriggerMode = 'MANUAL' | 'AUTOMATIC';
-export type CaLabBackupStatus = 'IN_PROGRESS' | 'SUCCESS' | 'ERROR';
+export type CaLabBackupStatus = 'IN_PROGRESS' | 'SUCCESS' | 'ERROR' | 'DELETED';
 
 const caLabBackupStatus: FlStatusDict<CaLabBackupStatus> = {
   IN_PROGRESS: FlStatusHelper.getLoadingStatus('IN_PROGRESS', 'flStatus.running'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR')
+  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  DELETED: FlStatusHelper.getInfoStatus('DELETED', 'lab_backup_status_deleted', 'delete')
 };
 
 export class CnLabBackupHistoryDetail extends CaBaseEntity {
@@ -72,19 +73,20 @@ export class CaLabBackupHistory extends CaBaseEntity {
   status: FlStatus<CaLabBackupStatus>;
 
   @Type(() => CnLabBackupHistoryDetail)
-  dataDetails: CnLabBackupHistoryDetail;
+  dataDetails?: CnLabBackupHistoryDetail;
 
   @Type(() => CnLabBackupHistoryDetail)
-  dbDetails: CnLabBackupHistoryDetail;
+  dbDetails?: CnLabBackupHistoryDetail;
 }
 
 export type CaLabBackupHistoryDatasource = FlEntityPaginatedDatasource<CaLabBackupHistory>;
 
-export type CaLabBackupGlobalStatus = 'SUCCESS' | 'NONE';
+export type CaLabBackupGlobalStatus = 'SUCCESS' | 'DELETED' | 'NONE';
 
 const caLabBackupGlobalStatus: FlStatusDict<CaLabBackupGlobalStatus> = {
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  NONE: FlStatusHelper.getErrorStatus('NONE', 'lab_no_backup')
+  NONE: FlStatusHelper.getErrorStatus('NONE', 'lab_no_backup'),
+  DELETED: FlStatusHelper.getInfoStatus('DELETED', 'lab_backup_status_deleted', 'delete')
 };
 
 

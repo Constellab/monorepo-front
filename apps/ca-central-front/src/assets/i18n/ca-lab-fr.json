@@ -155,6 +155,7 @@
   "stop_lab_current_backups_confirmation": "Êtes-vous sûr de vouloir arrêter les backups en cours ?",
   "lab_current_backups_stopped": "Backups en cours arrêtés",
   "lab_backup_status": "Statut",
+  "lab_backup_status_deleted": "Supprimé",
   "lab_backup_started_at": "Démarré le",
   "lab_backup_finished_at": "Terminé le",
   "lab_backup_data": "Data",
