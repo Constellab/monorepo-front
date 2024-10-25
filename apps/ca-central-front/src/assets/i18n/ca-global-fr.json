@@ -115,7 +115,7 @@
   "space_add_user": "Ajouter un utilisateur à l'espace",
   "space_user_added": "Utilisateur ajouté",
   "space_remove_user": "Retirer l'utilisateur de l'espace",
-  "space_remove_user_confirmation": "Êtes-vous sûr de vouloir retirer l'utilisateur de l'espace ? Il ne pourra plus accéder aux objects de l'espace",
+  "space_remove_user_confirmation": "Êtes-vous sûr de vouloir retirer l'utilisateur de l'espace ? Il ne pourra plus accéder aux objects de l'espace, il sera retiré des dossiers, labs et équipes de l'espace.",
   "space_user_removed": "Utilisateur retirer de l'espace",
   "space_domain": "Domaine de l'espace",
   "space_type": "Type d'espace",

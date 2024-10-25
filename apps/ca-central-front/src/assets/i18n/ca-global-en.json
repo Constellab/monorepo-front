@@ -115,7 +115,7 @@
   "space_add_user": "Add user to space",
   "space_user_added": "User added",
   "space_remove_user": "Remove user from space",
-  "space_remove_user_confirmation": "Are you sure you want to remove this user from the space ? He will not be able to access space's objects",
+  "space_remove_user_confirmation": "Are you sure you want to remove this user from the space ? He will not be able to access space's objects, he will be removed from all folders, labs and teams of the space",
   "space_user_removed": "User removed from space",
   "space_domain": "Space domain",
   "space_type": "Space type",
