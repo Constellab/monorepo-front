@@ -12,7 +12,9 @@
     <div class="material-icon-input-button-div">
       <mat-form-field class="g-form-field-compact-height">
         <mat-label>{{'coCommunityLib.material_icon_name' | translate}}</mat-label>
-        <input matInput [ngModel]="matIconName" (ngModelChange)="changeMaterialIcon($event)" [placeholder]="'coCommunityLib.material_icon_name' | translate" flInputMaxLength="50">
+        <input matInput [ngModel]="matIconName" (ngModelChange)="changeMaterialIcon($event)"
+               [placeholder]="'coCommunityLib.material_icon_name' | translate" flInputMaxLength="50">
+        <mat-icon matSuffix>{{matIconName}}</mat-icon>
       </mat-form-field>
       <button mat-stroked-button (click)="selectMaterialIcon()" class="g-button-tiny">{{'coCommunityLib.save' | translate}}</button>
     </div>
