@@ -3,7 +3,7 @@ import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-
 import {
   HaCreateAgentDto,
   HaAgent,
-  HaAgentDatasourcePaginated
+  HaAgentDatasourcePaginated, HaAgentDatasourceFilters
 } from '../ha-model/ha-entities/ha-agent.class';
 import { Observable } from 'rxjs';
 import { HaAgentVersion, HaAgentVersionFileInput } from '../ha-model/ha-entities/ha-agent-version.class';
@@ -15,6 +15,10 @@ import { HaUser } from '../ha-model/ha-entities/ha-user';
 import { HaAgentCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 import { RvResourceView } from '@monorepo/resource-view';
+import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
+import {
+  HaAgentEditStyleFormData
+} from '../../ha-agent/components/ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +45,7 @@ export class HaAgentService implements HaCoAuthorService {
       {spacesFilter: spacesFilter, titleFilter: titleFilter}, HaAgent, {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public getAllWithFiltersPaginated(pageSize: number = 10): HaAgentDatasourcePaginated {
+  public getAllWithFiltersPaginated(pageSize: number = 10): HaAgentDatasourcePaginated<HaAgentDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
         this.getAllWithFilters(requestData.filtersCriteria.spacesFilter,
@@ -52,7 +56,7 @@ export class HaAgentService implements HaCoAuthorService {
     return this.apiService.get(`${this.route}/user/${userId}`, HaAgent, {page: page, pageSize: size, resultIsPaginated: true})
   }
 
-  public getUserAgentsPaginated(pageSize: number = 4): HaAgentDatasourcePaginated{
+  public getUserAgentsPaginated(pageSize: number = 4): HaAgentDatasourcePaginated<HaProfileDatasourceFilters>{
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) => this.getUserAgents(requestData.filtersCriteria.userId, page, size), pageSize, false);
   }
@@ -91,6 +95,10 @@ export class HaAgentService implements HaCoAuthorService {
 
   public deleteAgent(id: string): Observable<any> {
     return this.apiService.delete(`${this.route}/${id}`);
+  }
+
+  updateAgentStyle(entityId: string, formValue: HaAgentEditStyleFormData): Observable<HaAgent> {
+    return this.apiService.put(`${this.route}/style/${entityId}`, formValue, HaAgent);
   }
 
 
@@ -213,6 +221,10 @@ export class HaAgentService implements HaCoAuthorService {
    */
   getAgentVersionBrickDependencies(agentVersionId: string): Observable<HaBrickVersion[]> {
     return this.apiService.get(`${this.route}/version/${agentVersionId}/brick-dependencies`, HaBrickVersion);
+  }
+
+  updateAgentVersionStyle(entityId: string, formValue: HaAgentEditStyleFormData): Observable<HaAgentVersion> {
+    return this.apiService.put(`${this.route}/version/style/${entityId}`, formValue, HaAgentVersion);
   }
 
   ////////////////////////////////////////// CO AUTHORS //////////////////////////////////////////

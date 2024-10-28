@@ -73,5 +73,9 @@ export class HaEditBrickDTO {
   imageLink?: string;
 }
 
-// TODO @fvoex mettre F = void et créer des type pour les filtres
-export type HaBrickDatasourcePaginated<F = any> = FlDatasourcePaginated<HaBrick, F>;
+export class HaBrickDatasourceFilters {
+  spacesFilter: string[];
+  titleFilter: string;
+}
+
+export type HaBrickDatasourcePaginated<F = void> = FlDatasourcePaginated<HaBrick, F>;

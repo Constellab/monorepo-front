@@ -1,8 +1,15 @@
 @if (agent()) {
-  <h2 flElementEditable (flElementValueChange)="onTitleChange($event)"
-      [flElementDisabled]="!canEditAgent()">
-    {{ agent().title }}
-  </h2>
+  <div class="g-flex g-layout-row g-layout-start-center g-layout-gap-05em">
+    @if(agent() && agent().latestStyle){
+      <co-update-type-icon-container [style]="agent().latestStyle" [iconSize]="40"
+                                     [disabled]="!canEditAgent()" (onClickEvent)="openAgentEditStyleDialog()">
+      </co-update-type-icon-container>
+    }
+    <h2 flElementEditable (flElementValueChange)="onTitleChange($event)"
+        [flElementDisabled]="!canEditAgent()" class="g-flex-auto">
+      {{ agent().title }}
+    </h2>
+  </div>
   <div class="agent-utils-div">
     <p class="small-text user-date-info">
       <a [routerLink]="profileRoute + agent().createdBy?.id">

@@ -2,6 +2,7 @@ export * from './lib/co-community-lib.module';
 
 // Services
 export * from './lib/service/co-service-config.config';
+export * from './lib/service/co-icon.service';
 
 // Components
 export * from './lib/component/co-agent-list-item/co-agent-list-item.component';
@@ -11,6 +12,10 @@ export * from './lib/component/co-community-list-item-main-content/co-community-
 export * from './lib/component/co-visibility-badge/co-visibility-badge.component';
 export * from './lib/component/co-story-list-item/co-story-list-item.component';
 export * from './lib/component/co-brick-list-item/co-brick-list-item.component';
+export * from './lib/component/co-update-type-icon-container/co-update-type-icon-container.component';
+export * from './lib/component/co-update-type-icon-dialog-form/co-update-type-icon-form.component';
+export * from './lib/component/co-community-icon-select-dialog/co-community-icon-select-dialog.component';
+export * from './lib/component/co-icon-list/co-icon-list.component';
 
 // Helpers
 export * from './lib/helper/co-agent.helper';
@@ -22,5 +27,6 @@ export * from './lib/model/co-story.class';
 export * from './lib/model/co-brick.class';
 export * from './lib/model/co-space.class';
 export * from './lib/model/co-user.class';
+export * from './lib/model/co-icon.class';
 
 

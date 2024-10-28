@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import { FL_PORTAL_DATA, FlClipboardService, FlOverlayRef, FlSnackBarService } from '@monorepo/front-core-lib';
-import {HaIcon} from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
+import { CoIcon } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-icon-info-portal',
@@ -9,9 +9,9 @@ import {HaIcon} from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
 })
 export class HaIconInfoPortalComponent {
 
-  icon: HaIcon;
+  icon: CoIcon;
 
-  constructor(@Inject(FL_PORTAL_DATA) icon: HaIcon,
+  constructor(@Inject(FL_PORTAL_DATA) icon: CoIcon,
               private readonly overlayRef: FlOverlayRef,
               private readonly snackBarService: FlSnackBarService,
               private readonly clipboardService: FlClipboardService) {

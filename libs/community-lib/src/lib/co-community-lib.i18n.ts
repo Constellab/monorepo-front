@@ -20,6 +20,17 @@ const coCommunityLibI18nFr: FlLangTranslation = {
     'comment': 'Commentaire',
     'comments': 'Commentaires',
     'visibility': 'Visibilité',
+    'load_more_icons': 'Load more icons',
+    'select_an_icon': 'Sélectionner une icône',
+    'material_icon_name': 'Nom de l\'icône Material',
+    'change_icon': 'Changer l\'icône',
+    'change_background_color': 'Changer la couleur de fond',
+    'search': 'Rechercher',
+    'search_icon': 'Rechercher une icône',
+    'reference_a_material_icon': 'Référencer une icône de Material, vous pouvez trouver toutes les icônes de Material',
+    'here': 'ici',
+    'or_chose_a_community_icon': 'Ou choisir une icône de Community dans la liste ci-dessous',
+    'save': 'Enregistrer'
   }
 };
 
@@ -42,6 +53,17 @@ const coCommunityLibI18nEn: FlLangTranslation = {
     'comment': 'Comment',
     'comments': 'Comments',
     'visibility': 'Visibility',
+    'load_more_icons': 'Load more icons',
+    'select_an_icon': 'Select an icon',
+    'material_icon_name': 'Material icon name',
+    'change_icon': 'Change the icon',
+    'change_background_color': 'Change the background color',
+    'search': 'Search',
+    'search_icon': 'Search icon',
+    'reference_a_material_icon': 'Reference a Material Icon, you can find all Material Icons',
+    'here': 'here',
+    'or_chose_a_community_icon': 'Or chose a Community Icon in the list below',
+    'save': 'Save'
   }
 };
 export const coCommunityLibI18n: FlTranslateObject = {
