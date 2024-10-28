@@ -55,8 +55,8 @@ export class CaLabFreeCreateButtonComponent {
         ramSize: freeLab.standardInfo.ramSize,
         storageSize: freeLab.standardInfo.diskSize,
         supportMail: CaEnvironmentHelper.getSupportMail(),
-        overviewLink: this.communityHelper.getDigitalLabOverviewRoute(),
-        configureLink: this.communityHelper.getDigitalLabManagementRoute()
+        overviewLink: this.communityHelper.getDataLabOverviewRoute(),
+        configureLink: this.communityHelper.getDataLabManagementRoute()
       }
     };
 
