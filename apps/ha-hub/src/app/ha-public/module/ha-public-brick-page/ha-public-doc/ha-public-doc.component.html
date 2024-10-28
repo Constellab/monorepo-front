@@ -14,13 +14,20 @@
             [flElementValue]="titleCurrentValue()" [maxLength]="50" [minLength]="2"
             [flElementDisabled]="!userHasEditRight()">{{documentation().title}}</h3>
 
-
-        <button mat-icon-button type="button" *ngIf="userHasEditRight()"
-                [matMenuTriggerFor]="menu">
-          <mat-icon>
-            more_vert
-          </mat-icon>
-        </button>
+        <div class="save-info-and-bt-div">
+          @if(!formCtrl.disabled){
+            <div class="g-layout-row g-layout-between-center">
+              <te-text-editor-save [formCtrl]="formCtrl" [saveFunc]="saveContent"
+                                   [debounceTime]="2500"></te-text-editor-save>
+            </div>
+          }
+          <button mat-icon-button type="button" *ngIf="userHasEditRight()"
+                  [matMenuTriggerFor]="menu">
+            <mat-icon>
+              more_vert
+            </mat-icon>
+          </button>
+        </div>
 
         <mat-menu #menu="matMenu">
 
@@ -42,12 +49,6 @@
 
 
       </div>
-      @if(!formCtrl.disabled){
-        <div class="g-layout-row g-layout-between-center">
-          <te-text-editor-save [formCtrl]="formCtrl" [saveFunc]="saveContent"
-                               [debounceTime]="2500"></te-text-editor-save>
-        </div>
-      }
       <form class="documentation-form" *ngIf="!isDocLoading()">
         <te-text-editor [formControl]="formCtrl" [config]="textEditorConfig"
                         class="content-editor g-max-article-width"

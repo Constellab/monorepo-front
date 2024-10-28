@@ -239,6 +239,7 @@ export class HaBrickPageState {
 
     if (!ClStringHelper.isUUID(docId)) {
       this.redirectToCompletePathDoc(url);
+      return;
     }
 
     if (

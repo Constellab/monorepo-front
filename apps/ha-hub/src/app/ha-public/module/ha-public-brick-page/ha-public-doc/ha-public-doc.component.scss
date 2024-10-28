@@ -9,6 +9,14 @@
   max-width: calc(100vw - 18px);
 }
 
+.save-info-and-bt-div{
+  display: flex;
+  flex-direction: row;
+  gap: 0.2em;
+  align-items: center;
+  margin-left: auto;
+}
+
 
 @media (max-width: 900px) {
   .doc-div{
@@ -31,10 +39,6 @@ form{
 .doc-title-div{
   display: flex;
   align-items: center;
-}
-
-.doc-title-div > button{
-  margin-left: auto;
 }
 
 .content-editor{
