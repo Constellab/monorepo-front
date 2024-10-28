@@ -48,6 +48,7 @@ import {
   CaHierarchyObjectSearchFields
 } from '../entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaFolderSearch, CaFolderSearchFields } from '../entity-module/ca-folder-core/model/ca-folder-search.class';
+import { CaConstellabDocumentService } from './ca-constellab-document.service';
 
 /**
  * Service to manage folder entity
@@ -55,7 +56,7 @@ import { CaFolderSearch, CaFolderSearchFields } from '../entity-module/ca-folder
 @Injectable({
   providedIn: 'root'
 })
-export class CaFolderService implements TeTextEditorHistoryService{
+export class CaFolderService{
 
   private readonly route: string = 'folders';
 
@@ -354,19 +355,5 @@ export class CaFolderService implements TeTextEditorHistoryService{
     return this.apiService.post(`${this.route}/${folderId}/activity`, searchInput, CaActivity, {
       page: page, pageSize: pageSize, resultIsPaginated: true
     });
-  }
-
-  //////////////////////////////////// HISTORY ///////////////////////////////////////////
-
-  getHistory(documentId: string): Observable<TeTextEditorHistoryBlockModification[]> {
-    return this.apiService.get(`${this.route}/history/${documentId}/`);
-  }
-
-  getUndoContent(documentId: string, modificationId: string): Observable<TeRichTextContent> {
-    return this.apiService.get(`${this.route}/history/undo-content/${documentId}/${modificationId}`);
-  }
-
-  rollbackContent(documentId: string, modificationId: string): Observable<CaDocument> {
-    return this.apiService.put(`${this.route}/history/rollback/${documentId}/${modificationId}`, {});
   }
 }

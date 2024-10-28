@@ -14,8 +14,13 @@ import { FormControl } from '@angular/forms';
 import { TeRichTextContent } from '@monorepo/text-editor';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { ClHelpService } from '@monorepo/core-lib';
-import { CaDocumentActionEvent, CaDocumentActionMenu } from '../../../ca-document-core/ca-document-action-menu';
+import {
+  CaDocumentActionDetailMenu,
+  CaDocumentActionEvent,
+  CaDocumentActionMenu
+} from '../../../ca-document-core/ca-document-action-menu';
 import { Observable, tap } from 'rxjs';
+import { CaConstellabDocumentService } from '../../../../../ca-core/service-api/ca-constellab-document.service';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -42,7 +47,8 @@ export class CaDocumentDetailPageComponent implements OnInit {
               private menuDynamicService: FlMenuDynamicService,
               private actionService: FlPortalActionsService,
               private snackBarService: FlSnackBarService,
-              private portalService: FlPortalService) {
+              private portalService: FlPortalService,
+              private constellabDocumentService: CaConstellabDocumentService) {
   }
 
   ngOnInit(): void {
@@ -87,8 +93,8 @@ export class CaDocumentDetailPageComponent implements OnInit {
 
   openDocumentActionMenu(document: CaDocument, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    const documentActionMenu = new CaDocumentActionMenu(this.dialogService, this.folderService,
-      this.menuDynamicService, this.actionService, document.basicInfo, this.portalService, this.textEditorConfig);
+    const documentActionMenu = new CaDocumentActionDetailMenu(this.dialogService, this.folderService,
+      this.menuDynamicService, this.actionService, document.basicInfo,  this.constellabDocumentService, this.portalService, this.textEditorConfig);
 
     documentActionMenu.openActionMenu(false, event).subscribe(event => {
       this.onDocumentAction(event);
