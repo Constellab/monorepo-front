@@ -7,7 +7,6 @@
   padding-top: 0 !important;
 }
 
-
 .header {
   padding-left: 24px;
   padding-right: 24px;
@@ -57,5 +56,20 @@
 .output-section.is-opened {
   border-left: 1px solid var(--hover-color);
   flex: 1;
+}
+
+.process-style{
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--hover-color);
+  margin: auto 5px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.update-style{
+  margin-bottom: 1px;
 }
 
