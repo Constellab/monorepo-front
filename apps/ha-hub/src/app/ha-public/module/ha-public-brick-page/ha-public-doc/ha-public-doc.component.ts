@@ -162,6 +162,7 @@ export class HaPublicDocComponent implements OnInit {
           service: this.documentationService,
           entityId: this.documentation().id,
           textEditorConfig: this.textEditorConfig,
+          isEditable: this.userHasEditRight(),
         } as TeTextEditorHistoryPortalData
       );
       this.historyOverlayRef.detachments().subscribe(() => {

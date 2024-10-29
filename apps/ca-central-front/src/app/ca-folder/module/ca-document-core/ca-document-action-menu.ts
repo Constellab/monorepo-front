@@ -338,6 +338,7 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
           service: this.constellabDocumentService,
           entityId: this.documentInfo.id,
           textEditorConfig: this.textEditorConfig,
+          isEditable: true
         } as TeTextEditorHistoryPortalData
       );
       this.historyOverlayRef.detachments().subscribe(() => {

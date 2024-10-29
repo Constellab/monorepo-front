@@ -19,6 +19,7 @@ export interface TeTextEditorHistoryModificationVisualizerDialogData {
   entityId: string;
   clickEventData: TeTextEditorHistoryClickEventData;
   users: TeTextEditorHistoryUser[];
+  isEditable: boolean;
 }
 
 
@@ -39,6 +40,7 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
   content: TeRichTextContent;
   private entityId: string;
   isLoading = true;
+  isEditable = true;
 
   constructor(@Inject(MAT_DIALOG_DATA) dialogInput: TeTextEditorHistoryModificationVisualizerDialogData,
               private el: ElementRef,
@@ -49,6 +51,7 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
     this.entityId = dialogInput.entityId;
     this.group = dialogInput.clickEventData.group;
     this.textEditorHistoryUsers = dialogInput.users;
+    this.isEditable = dialogInput.isEditable;
   }
 
   ngOnInit(): void {
