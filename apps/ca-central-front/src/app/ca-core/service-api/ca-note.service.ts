@@ -40,4 +40,7 @@ export class CaNoteService {
     return this.apiService.get(`${this.route}/${noteId}/view/${viewId}`, CaResourceView);
   }
 
+  ////////////////////////////// HISTORY //////////////////////////
+
+
 }

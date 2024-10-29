@@ -3,18 +3,23 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlMenuDynamic,
-  FlMenuDynamicService, FlOverlayRef,
+  FlMenuDynamicService,
+  FlOverlayRef,
   FlPortalActionResult,
-  FlPortalActionsService, FlPortalService
+  FlPortalActionsService,
+  FlPortalService,
 } from '@monorepo/front-core-lib';
 import {
   CaDocumentNameFormDialogComponent,
-  CaDocumentNameFormDialogInput
+  CaDocumentNameFormDialogInput,
 } from './component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
-import { CaDocument, CaDocumentBasicInfo } from '../../../ca-core/model/entities/folder/ca-document.class';
+import {
+  CaDocument,
+  CaDocumentBasicInfo,
+} from '../../../ca-core/model/entities/folder/ca-document.class';
 import {
   CaSelectFolderDialogComponent,
-  CaSelectFolderDialogInput
+  CaSelectFolderDialogInput,
 } from '../../../ca-core/entity-module/ca-folder-core/component/ca-select-folder-dialog/ca-select-folder-dialog.component';
 import { CaFolder } from '../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
@@ -23,42 +28,42 @@ import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
   TeCompleteConfig,
   TeTextEditorHistoryPortalComponent,
-  TeTextEditorHistoryPortalData
+  TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
+import { CaConstellabDocumentService } from '../../../ca-core/service-api/ca-constellab-document.service';
 
-export type CaDocumentActionEvent = {
-  action: 'update' | 'moveToTrash' | 'restoreFromTrash' | 'moveToFolder';
-  document: CaDocument;
-} | {
-  action: 'delete';
-  document: CaDocumentBasicInfo;
-}
+export type CaDocumentActionEvent =
+  | {
+      action: 'update' | 'moveToTrash' | 'restoreFromTrash' | 'moveToFolder';
+      document: CaDocument;
+    }
+  | {
+      action: 'delete';
+      document: CaDocumentBasicInfo;
+    };
 
 export class CaDocumentActionMenu {
-
   private subject: Subject<CaDocumentActionEvent> = new Subject();
 
-  private historyOverlayRef: FlOverlayRef;
-
-  private portalService: FlPortalService;
-
-  private textEditorConfig: TeCompleteConfig;
-
-  constructor(private dialogService: FlDialogService,
-              private folderService: CaFolderService,
-              private menuDynamicService: FlMenuDynamicService,
-              private actionService: FlPortalActionsService,
-              private documentInfo: CaDocumentBasicInfo,
-              portalService?: FlPortalService,
-              textEditorConfig?: TeCompleteConfig) {
-    this.portalService = portalService;
-    this.textEditorConfig = textEditorConfig;
+  constructor(
+    private dialogService: FlDialogService,
+    private folderService: CaFolderService,
+    private menuDynamicService: FlMenuDynamicService,
+    private actionService: FlPortalActionsService,
+    protected documentInfo: CaDocumentBasicInfo
+  ) {
   }
 
-  public openActionMenu(showLinks: boolean, event: MouseEvent): Observable<CaDocumentActionEvent | null> {
+  public openActionMenu(
+    showLinks: boolean,
+    event: MouseEvent
+  ): Observable<CaDocumentActionEvent | null> {
     const menu = this.generateActionMenu(showLinks);
 
-    const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(menu, event);
+    const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(
+      menu,
+      event
+    );
 
     return overlayRef.detachments().pipe(
       mergeMap((menu: FlMenuDynamic) => {
@@ -73,7 +78,7 @@ export class CaDocumentActionMenu {
     );
   }
 
-  private generateActionMenu(showLinks: boolean): FlMenuDynamic[] {
+  protected generateActionMenu(showLinks: boolean): FlMenuDynamic[] {
     if (this.documentInfo.inTrash) {
       return this.getTrashMenu();
     }
@@ -81,29 +86,22 @@ export class CaDocumentActionMenu {
     const menu: FlMenuDynamic[] = [];
 
     if (showLinks) {
-
       if (this.documentInfo.isConstellabDocument) {
         menu.push({
           type: 'link',
           text: { text: 'view_document', translateText: true },
           icon: 'visibility',
-          link: CaRouterService.getDocumentDetailRoute(this.documentInfo.id)
+          link: CaRouterService.getDocumentDetailRoute(this.documentInfo.id),
         });
       } else {
         menu.push({
           type: 'downloadLink',
           text: { text: 'download_document', translateText: true },
           icon: 'cloud_download',
-          href: this.folderService.getDocumentDownloadUrl(this.documentInfo.id, this.documentInfo.name)
-        });
-      }
-    } else {
-      if (this.documentInfo.isConstellabDocument){
-        menu.push({
-          type: 'button',
-          text: { text: 'history', translateText: true },
-          icon: 'history',
-          onClick: () => this.openHistoryPanel()
+          href: this.folderService.getDocumentDownloadUrl(
+            this.documentInfo.id,
+            this.documentInfo.name
+          ),
         });
       }
     }
@@ -112,20 +110,20 @@ export class CaDocumentActionMenu {
       type: 'button',
       text: { text: 'rename_document', translateText: true },
       icon: 'edit',
-      onClick: () => this.renameDocument()
+      onClick: () => this.renameDocument(),
     });
     menu.push({
       type: 'button',
       text: { text: 'move_to_folder', translateText: true },
       icon: 'drive_file_move',
-      onClick: () => this.moveDocument()
+      onClick: () => this.moveDocument(),
     });
     menu.push({
       type: 'button',
       text: { text: 'move_document_to_trash', translateText: true },
       icon: 'clear',
       onClick: () => this.moveToTrash(),
-      color: 'warn'
+      color: 'warn',
     });
 
     return menu;
@@ -137,15 +135,15 @@ export class CaDocumentActionMenu {
         type: 'button',
         text: { text: 'restore_document_from_trash', translateText: true },
         icon: 'restore_from_trash',
-        onClick: () => this.restoreFromTrash()
+        onClick: () => this.restoreFromTrash(),
       },
       {
         type: 'button',
         text: { text: 'delete_document', translateText: true },
         icon: 'delete_forever',
         onClick: () => this.deleteDocument(),
-        color: 'warn'
-      }
+        color: 'warn',
+      },
     ];
   }
 
@@ -153,19 +151,20 @@ export class CaDocumentActionMenu {
     const input: CaDocumentNameFormDialogInput = {
       mode: 'update',
       object: { name: this.documentInfo.name },
-      documentId: this.documentInfo.id
+      documentId: this.documentInfo.id,
     };
 
-    this.dialogService.openSmallDialog(CaDocumentNameFormDialogComponent, { data: input }).afterClosed().subscribe(
-      result => this.onRenameClosed(result)
-    );
+    this.dialogService
+      .openSmallDialog(CaDocumentNameFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((result) => this.onRenameClosed(result));
   }
 
   private onRenameClosed(doc?: CaDocument): void {
     if (doc) {
       this.subject.next({
         action: 'update',
-        document: doc
+        document: doc,
       });
     }
     this.subject.complete();
@@ -179,16 +178,17 @@ export class CaDocumentActionMenu {
       successMessage: 'document_moved_to_trash',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onMoveToTrashClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onMoveToTrashClosed(result));
   }
 
   private onMoveToTrashClosed(result: FlConfirmDialogResult<CaDocument>): void {
     if (result.choice) {
       this.subject.next({
         action: 'moveToTrash',
-        document: result.result
+        document: result.result,
       });
     }
     this.subject.complete();
@@ -198,20 +198,25 @@ export class CaDocumentActionMenu {
     const input: FlConfirmDialogInput = {
       title: 'restore_document_from_trash',
       content: 'restore_document_from_trash_confirmation',
-      observable: this.folderService.restoreDocumentFromTrash(this.documentInfo.id),
+      observable: this.folderService.restoreDocumentFromTrash(
+        this.documentInfo.id
+      ),
       successMessage: 'document_restored_from_trash',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onRestoreFromTrashClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onRestoreFromTrashClosed(result));
   }
 
-  private onRestoreFromTrashClosed(result: FlConfirmDialogResult<CaDocument>): void {
+  private onRestoreFromTrashClosed(
+    result: FlConfirmDialogResult<CaDocument>
+  ): void {
     if (result.choice) {
       this.subject.next({
         action: 'restoreFromTrash',
-        document: result.result
+        document: result.result,
       });
     }
     this.subject.complete();
@@ -225,16 +230,20 @@ export class CaDocumentActionMenu {
       successMessage: 'document_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, this.documentInfo)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, this.documentInfo));
   }
 
-  private onDeleteClosed(result: FlConfirmDialogResult, document: CaDocumentBasicInfo): void {
+  private onDeleteClosed(
+    result: FlConfirmDialogResult,
+    document: CaDocumentBasicInfo
+  ): void {
     if (result.choice) {
       this.subject.next({
         action: 'delete',
-        document: document
+        document: document,
       });
     }
     this.subject.complete();
@@ -244,47 +253,89 @@ export class CaDocumentActionMenu {
     const input: CaSelectFolderDialogInput = {
       title: { text: 'move_to_folder', translateText: true },
       mode: 'any',
-      currentObjectId: this.documentInfo.id
+      currentObjectId: this.documentInfo.id,
     };
-    this.dialogService.openMediumDialog(CaSelectFolderDialogComponent, { data: input, autoFocus: false })
-      .afterClosed().subscribe((folder) => this.onMoveDocumentClosed(folder));
+    this.dialogService
+      .openMediumDialog(CaSelectFolderDialogComponent, {
+        data: input,
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe((folder) => this.onMoveDocumentClosed(folder));
   }
 
   private onMoveDocumentClosed(folder?: CaFolder): void {
     if (folder) {
-      this.actionService.addAction({
-        type: 'move-doc-to-folder',
-        action: this.folderService.moveDocumentToFolder(this.documentInfo.id, folder.id),
-        text: { text: 'moving_to_folder', translateText: true }
-      }).subscribe({
-        next: result => this.onMoveDocumentSuccess(result),
-        error: () => this.subject.complete()
-      });
+      this.actionService
+        .addAction({
+          type: 'move-doc-to-folder',
+          action: this.folderService.moveDocumentToFolder(
+            this.documentInfo.id,
+            folder.id
+          ),
+          text: { text: 'moving_to_folder', translateText: true },
+        })
+        .subscribe({
+          next: (result) => this.onMoveDocumentSuccess(result),
+          error: () => this.subject.complete(),
+        });
     } else {
       this.subject.complete();
     }
   }
 
-  private onMoveDocumentSuccess(result: FlPortalActionResult<CaDocument>): void {
+  private onMoveDocumentSuccess(
+    result: FlPortalActionResult<CaDocument>
+  ): void {
     if (result.status === 'success') {
       this.subject.next({
         action: 'moveToFolder',
-        document: result.result
+        document: result.result,
       });
     }
     this.subject.complete();
   }
+}
 
-  private openHistoryPanel(): void {
+export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
+
+  private historyOverlayRef: FlOverlayRef;
+
+  constructor(dialogService: FlDialogService,
+              folderService: CaFolderService,
+              menuDynamicService: FlMenuDynamicService,
+              actionService: FlPortalActionsService,
+              documentInfo: CaDocumentBasicInfo,
+              private constellabDocumentService: CaConstellabDocumentService,
+              private portalService: FlPortalService,
+              private textEditorConfig: TeCompleteConfig
+  ) {
+    super(dialogService, folderService, menuDynamicService, actionService, documentInfo);
+  }
+
+  protected override generateActionMenu(showLinks: boolean){
+    const menu = super.generateActionMenu(showLinks);
+    if (!showLinks && this.documentInfo.isConstellabDocument) {
+      menu.unshift({
+        type: 'button',
+        text: { text: 'history', translateText: true },
+        icon: 'history',
+        onClick: () => this.toggleConstellabDocumentHistoryPanel(),
+      });
+    }
+    return menu;
+  }
+
+  private toggleConstellabDocumentHistoryPanel(): void {
     if (this.historyOverlayRef) {
       this.historyOverlayRef.dispose();
       this.historyOverlayRef = null;
     } else {
-      this.historyOverlayRef = this.portalService.createPortal(
+      this.historyOverlayRef = this.portalService?.createPortal(
         TeTextEditorHistoryPortalComponent,
-        this.portalService.getRightSidePortalConfig(true),
+        this.portalService?.getRightSidePortalConfig(true),
         {
-          service: this.folderService,
+          service: this.constellabDocumentService,
           entityId: this.documentInfo.id,
           textEditorConfig: this.textEditorConfig,
         } as TeTextEditorHistoryPortalData
