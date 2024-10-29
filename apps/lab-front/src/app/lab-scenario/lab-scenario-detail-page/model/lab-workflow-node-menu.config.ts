@@ -53,7 +53,6 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
     }
 
     buttons.push(
-      this.getAddSourceButton(port, node, workflowMode),
       this.getProcessSuggestionButton(port, node, 'input', workflowMode),
       this.getResourceDetailContextButton(resourceId)
     );
