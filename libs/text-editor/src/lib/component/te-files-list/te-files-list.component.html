@@ -1,4 +1,4 @@
-@if (files && files.length > 0) {
+@if (files() && files().length > 0) {
   <div class="files-div">
     <h6 class="side-box-title">
       <fl-text-icon>
@@ -7,9 +7,9 @@
       </fl-text-icon>
     </h6>
     <div class="list-div">
-      @for (file of files; track file.name) {
+      @for (file of files(); track file.name) {
         <div class="file" [matTooltip]="file.name">
-          <a type="button" [href]="urlToDownloadPrefix + file.name" download>
+          <a type="button" [href]="urlToDownloadPrefix() + file.name" download>
             <fl-file-text-icon [filename]="file.name"></fl-file-text-icon>
           </a>
         </div>

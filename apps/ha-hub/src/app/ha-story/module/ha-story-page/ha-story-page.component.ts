@@ -148,7 +148,7 @@ export class HaStoryPageComponent implements OnInit {
 
   private getStoryFiles(): void{
     this.storyService.getStoryFiles(this.story.id).subscribe((files: HaFile[]) => {
-      this.storyFiles = files.filter(file => file.type === 'FILE');
+      this.storyFiles = files;
     });
   }
 

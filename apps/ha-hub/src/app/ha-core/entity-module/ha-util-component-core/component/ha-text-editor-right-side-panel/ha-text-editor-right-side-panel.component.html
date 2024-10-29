@@ -1,8 +1,11 @@
-<div class="right-div right-panel g-scrollable-element">
-  @if(files && files.length > 0){
-    <te-files-list [files]="files" [urlToDownloadPrefix]="urlToDownloadFilePrefix"></te-files-list>
-  }
-  @if(content){
-    <te-titles-list [content]="content"></te-titles-list>
-  }
-</div>
+@if (filesToShow()?.length > 0 || titles()?.length > 0){
+  <div class="right-div right-panel g-scrollable-element">
+    @if(filesToShow()?.length > 0){
+      <te-files-list [files]="filesToShow()" [urlToDownloadPrefix]="urlToDownloadFilePrefix()"></te-files-list>
+    }
+    @if(titles()?.length > 0){
+      <te-titles-list [titles]="titles()"></te-titles-list>
+    }
+  </div>
+}
+
