@@ -239,6 +239,7 @@ export class HaBrickPageState {
 
     if (!ClStringHelper.isUUID(docId)) {
       this.redirectToCompletePathDoc(url);
+      return;
     }
 
     if (
@@ -254,6 +255,11 @@ export class HaBrickPageState {
 
     this.documentationService.getById(docId).subscribe({
       next: (doc) => {
+        if (url.slice(0, -1).join('/') + '/' != doc.completePath){
+          const realDocUrl = HaRouterService.getDocumentationRoute(this.brick().name, this.pathVersion(), doc.completePath, doc.id);
+          this.httpRedirectionService.redirectTo(realDocUrl);
+        }
+
         this.setDoc(doc);
         if (
           isPlatformServer(this.platformId) &&
