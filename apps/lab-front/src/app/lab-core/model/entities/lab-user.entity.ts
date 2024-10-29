@@ -18,6 +18,8 @@ export class LabUser implements FlUser {
 
   lang: ClSupportedLanguage;
 
+  photo?: string;
+
   get alias(): string {
     return (this.firstname || '') + ' ' + (this.lastname || '');
   }

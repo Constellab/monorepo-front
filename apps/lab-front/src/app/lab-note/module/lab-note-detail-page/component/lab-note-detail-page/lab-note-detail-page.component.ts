@@ -2,7 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LabNote, LabNoteContent } from '../../../../../lab-core/model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
 import { ActivatedRoute } from '@angular/router';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlPortalService
+} from '@monorepo/front-core-lib';
 import {
   LabNoteFormDialogComponent,
   LabNoteFormDialogInput
@@ -22,7 +27,11 @@ import { LabTagDatasource } from '../../../../../lab-core/model/entities/lab-tag
 import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.service';
 import { first } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import {
+  TeRichTextContent,
+  TeTextEditorHistoryPortalComponent,
+  TeTextEditorHistoryPortalData
+} from '@monorepo/text-editor';
 
 @Component({
   selector: 'lab-note-detail-page',
@@ -53,7 +62,8 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
               private dialogService: FlDialogService,
               private routerService: LabRouterService,
               private noteTemplateService: LabNoteTemplateService,
-              private tagService: LabTagService) {
+              private tagService: LabTagService,
+              private portalService: FlPortalService) {
   }
 
   ngOnInit(): void {
@@ -213,6 +223,19 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       next: template => this.createNoteTemplateSuccess(template),
       error: () => this.createTemplateLoading = false
     });
+  }
+
+  openHistoryPanel(id: string): void{
+    this.portalService.createPortal(
+      TeTextEditorHistoryPortalComponent,
+      this.portalService.getRightSidePortalConfig(),
+      {
+        service: this.noteService,
+        entityId: id,
+        textEditorConfig: this.textEditorConfig,
+        isEditable: !this.state.currentNote.isArchived
+      } as TeTextEditorHistoryPortalData
+    );
   }
 
   private createNoteTemplateSuccess(noteTemplate: LabNoteTemplate): void {

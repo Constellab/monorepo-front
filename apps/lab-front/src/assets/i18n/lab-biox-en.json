@@ -421,6 +421,7 @@
     "scenario_import_resource_mode_input_only" : "Input resources only",
     "scenario_import_resource_mode_input_output" : "Input and output resources",
     "scenario_import_resource_mode_all" : "All resources",
-    "scenario_import_resource_mode_none" : "No resource"
+    "scenario_import_resource_mode_none" : "No resource",
+    "history": "History"
   }
 }
