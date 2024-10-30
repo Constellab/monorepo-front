@@ -1,6 +1,5 @@
 {
   "databox": {
-    "data": "Data",
     "upload_file": "Uploader des fichiers",
     "upload_folder": "Uploader un dossier",
     "uploading_files": "Envoie de {{nbFiles}} fichiers",
