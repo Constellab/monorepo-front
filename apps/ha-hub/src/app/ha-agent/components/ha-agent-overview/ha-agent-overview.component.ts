@@ -37,16 +37,18 @@ export class HaAgentOverviewComponent implements OnInit {
   descriptionEditorDisabled: boolean = true;
 
   agent: Signal<HaAgent> = this.agentPageState.getAgent();
-  isAgentVersionError: Signal<boolean> =
-    this.agentPageState.isAgentVersionError;
-  isAgentVersionLoading: Signal<boolean> =
-    this.agentPageState.isAgentVersionLoading;
+
   canEditAgent: Signal<boolean> = this.agentPageState.canEditAgent;
+
   agentIsLiked: Signal<boolean> = this.agentPageState.getIsLiked();
+
   isLoading: Signal<boolean> = this.agentPageState.getIsLoading();
+
   isAuthor: Signal<boolean> = this.agentPageState.isAuthor;
+
   agentDescription: Signal<TeRichTextContent> =
     this.agentPageState.getAgentDescription();
+
   descriptionFormControl: Signal<FormControl<TeRichTextContent>> = computed(
     () => {
       const formControl = new FormControl<TeRichTextContent>(null);
@@ -59,9 +61,11 @@ export class HaAgentOverviewComponent implements OnInit {
       return formControl;
     }
   );
+
   agentDescriptionEmpty: Signal<boolean> = computed(() => {
     return TeRichText.isEmpty(this.agentDescription());
   });
+
   textEditorConfig: Signal<HaAgentTextEditorConfig> = computed(() => {
     return new HaAgentTextEditorConfig(this.agentService, this.agent().id);
   });

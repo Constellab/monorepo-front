@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CoConfig, CoIcon, CoIconDatasourceFilters, CoIconDatasourcePaginated } from '@monorepo/community-lib';
 import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
+import { CoConfig } from './co-service-config.config';
+import { CoIcon, CoIconDatasourceFilters, CoIconDatasourcePaginated } from '../model/co-icon.class';
 
 @Injectable({
   providedIn: 'root',
@@ -35,9 +36,6 @@ export class CoIconService {
     size: number
   ): Observable<ClPage<CoIcon>> {
     let route = '/' + this.route + '/filter';
-    if (this.serviceConfig.getCommunityApiUrl()[-1] === '/') {
-      route = route.slice(1);
-    }
     return this.apiService.post(
       route,
       { subNameFilter: subNameFilter },

@@ -4,7 +4,7 @@
 
 <mat-dialog-content>
   <form [formGroup]="formGp" (ngSubmit)="submit()">
-    <co-update-type-icon-form [formGp]="formGp"></co-update-type-icon-form>
+    <co-update-type-icon-form formControlName="style"></co-update-type-icon-form>
 
     @if (!isVersion){
       <mat-checkbox formControlName="allVersionsChecked">{{'modify_style_for_all_agent_versions' | translate}}</mat-checkbox>

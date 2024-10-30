@@ -40,23 +40,23 @@ export class HaAgentService implements HaCoAuthorService {
    * @param size
    * @return a list of agents
    */
-  public getAllWithFilters(spacesFilter: string[], titleFilter: string, page: number, size: number): Observable<ClPage<HaAgent>> {
+  getAllWithFilters(spacesFilter: string[], titleFilter: string, page: number, size: number): Observable<ClPage<HaAgent>> {
     return this.apiService.post(`${this.route}/filters`,
       {spacesFilter: spacesFilter, titleFilter: titleFilter}, HaAgent, {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public getAllWithFiltersPaginated(pageSize: number = 10): HaAgentDatasourcePaginated<HaAgentDatasourceFilters> {
+  getAllWithFiltersPaginated(pageSize: number = 10): HaAgentDatasourcePaginated<HaAgentDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
         this.getAllWithFilters(requestData.filtersCriteria.spacesFilter,
           requestData.filtersCriteria.titleFilter, page, size), pageSize, false);
   }
 
-  public getUserAgents(userId: string, page: number, size: number): Observable<ClPage<HaAgent>>{
+  getUserAgents(userId: string, page: number, size: number): Observable<ClPage<HaAgent>>{
     return this.apiService.get(`${this.route}/user/${userId}`, HaAgent, {page: page, pageSize: size, resultIsPaginated: true})
   }
 
-  public getUserAgentsPaginated(pageSize: number = 4): HaAgentDatasourcePaginated<HaProfileDatasourceFilters>{
+  getUserAgentsPaginated(pageSize: number = 4): HaAgentDatasourcePaginated<HaProfileDatasourceFilters>{
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) => this.getUserAgents(requestData.filtersCriteria.userId, page, size), pageSize, false);
   }
@@ -66,7 +66,7 @@ export class HaAgentService implements HaCoAuthorService {
    * @param id
    * @return a agent
    */
-  public getAgentById(id: string): Observable<HaAgent> {
+  getAgentById(id: string): Observable<HaAgent> {
     return this.apiService.get(`${this.route}/${id}`, HaAgent);
   }
 
@@ -75,12 +75,12 @@ export class HaAgentService implements HaCoAuthorService {
    * @param createAgentDto
    * @return the created agent
    */
-  public create(createAgentDto: HaCreateAgentDto): Observable<HaAgentVersion> {
+  create(createAgentDto: HaCreateAgentDto): Observable<HaAgentVersion> {
     return this.apiService.post(this.route, createAgentDto, HaAgent);
   }
 
-  public updateTitle(agentId: string, title: string): Observable<HaAgent> {
-    return this.apiService.put(`${this.route}/${agentId}/title`, {title: title}, HaAgent);
+  updateTitle(agentId: string, title: string): Observable<HaAgent> {
+    return this.apiService.put(`${this.route}/title/${agentId}`, {title: title}, HaAgent);
   }
 
   /**
@@ -89,11 +89,11 @@ export class HaAgentService implements HaCoAuthorService {
    * @param description
    * @return the updated agent
    */
-  public saveAgentDescription(agentId: string, description: Record<string, any>): Observable<HaAgent> {
+  saveAgentDescription(agentId: string, description: Record<string, any>): Observable<HaAgent> {
     return this.apiService.put(`${this.route}/description/${agentId}`, description, HaAgent);
   }
 
-  public deleteAgent(id: string): Observable<any> {
+  deleteAgent(id: string): Observable<any> {
     return this.apiService.delete(`${this.route}/${id}`);
   }
 
@@ -110,7 +110,7 @@ export class HaAgentService implements HaCoAuthorService {
    * @param versionNumber
    * @return the agent version
    */
-  public getAgentVersionByVersionNumber(agentId: string, versionNumber: string): Observable<HaAgentVersion> {
+  getAgentVersionByVersionNumber(agentId: string, versionNumber: string): Observable<HaAgentVersion> {
     return this.apiService.get(`${this.route}/${agentId}/version/${versionNumber}`, HaAgentVersion);
   }
 
@@ -120,7 +120,7 @@ export class HaAgentService implements HaCoAuthorService {
    * @param environment
    * @return the updated agent version
    */
-  public saveAgentVersionEnvironment(agentVersionId: string, environment: string): Observable<HaAgentVersion> {
+  saveAgentVersionEnvironment(agentVersionId: string, environment: string): Observable<HaAgentVersion> {
     const environmentData = {environment: environment};
     return this.apiService.put(`${this.route}/version/${agentVersionId}/environment`, environmentData, HaAgentVersion);
   }
@@ -131,7 +131,7 @@ export class HaAgentService implements HaCoAuthorService {
    * @param params
    * @return the updated agent version
    */
-  public saveAgentVersionParams(agentVersionId: string, params: string[]): Observable<HaAgentVersion> {
+  saveAgentVersionParams(agentVersionId: string, params: string[]): Observable<HaAgentVersion> {
     const paramsData = {params: params};
     return this.apiService.put(`${this.route}/version/${agentVersionId}/params`, paramsData, HaAgentVersion);
   }
@@ -142,7 +142,7 @@ export class HaAgentService implements HaCoAuthorService {
    * @param code
    * @return the updated agent version
    */
-  public saveAgentVersionCode(agentVersionId: string, code: string): Observable<HaAgentVersion> {
+  saveAgentVersionCode(agentVersionId: string, code: string): Observable<HaAgentVersion> {
     const codeData = {code: code};
     return this.apiService.put(`${this.route}/version/${agentVersionId}/code`, codeData, HaAgentVersion);
   }
@@ -207,15 +207,6 @@ export class HaAgentService implements HaCoAuthorService {
 
   /**
    * Call http get to get agent version brick dependencies
-   * @param agentId
-   * return the agent version brickVersions
-   */
-  getAgentBrickDependencies(agentId: string): Observable<HaBrickVersion[]> {
-    return this.apiService.get(`${this.route}/${agentId}/brick-dependencies`, HaBrickVersion);
-  }
-
-  /**
-   * Call http get to get agent version brick dependencies
    * @param agentVersionId
    * return the agent version brickVersions
    */
@@ -230,31 +221,31 @@ export class HaAgentService implements HaCoAuthorService {
   ////////////////////////////////////////// CO AUTHORS //////////////////////////////////////////
 
   acceptInvite(token: string): Observable<HaAgent> {
-    return this.apiService.put(`${this.route}/invite/${token}/accept`, {}, HaAgent);
+    return this.apiService.put(`${this.route}/co-authors/invite/${token}/accept`, {}, HaAgent);
   }
 
   deleteCoAuthorInvite(inviteId: string): Observable<void> {
-    return this.apiService.delete(`${this.route}/invite/${inviteId}`);
+    return this.apiService.delete(`${this.route}/co-authors/invite/${inviteId}`);
   }
 
   getCoAuthors(id: string): Observable<HaUser[]> {
-    return this.apiService.get(`${this.route}/${id}/co-authors`, HaUser);
+    return this.apiService.get(`${this.route}/co-authors/${id}`, HaUser);
   }
 
   getCoAuthorsPendingInvites(id: string): Observable<HaAgentCoAuthorInvite[]> {
-    return this.apiService.get(`${this.route}/${id}/co-authors-pending-invites`, HaAgentCoAuthorInvite, {resultIsPaginated: false});
+    return this.apiService.get(`${this.route}/co-authors/${id}/pending-invites`, HaAgentCoAuthorInvite, {resultIsPaginated: false});
   }
 
   inviteCoAuthor(id: string, coAuthorMail: string): Observable<boolean> {
-    return this.apiService.post(`${this.route}/${id}/invite-co-author`, {coAuthorMail: coAuthorMail}, Boolean);
+    return this.apiService.post(`${this.route}/co-authors/${id}/invite`, {coAuthorMail: coAuthorMail}, Boolean);
   }
 
   isCoAuthorInviteValid(token: string): Observable<HaAgentCoAuthorInvite> {
-    return this.apiService.get(`${this.route}/invite/${token}/is-valid`, HaAgentCoAuthorInvite);
+    return this.apiService.get(`${this.route}/co-authors/invite/${token}/is-valid`, HaAgentCoAuthorInvite);
   }
 
   removeCoAuthor(id: string, coAuthorId: string): Observable<HaAgent> {
-    return this.apiService.put(`${this.route}/${id}/remove-co-author/${coAuthorId}`, {}, HaAgent);
+    return this.apiService.put(`${this.route}/co-authors/${id}/remove/${coAuthorId}`, {}, HaAgent);
   }
 
   uploadImage(file: File, agentId: string): Observable<TeUploadedImage>{
@@ -273,13 +264,10 @@ export class HaAgentService implements HaCoAuthorService {
     return this.apiService.post(`${this.route}/file/${agentId}`, formData);
   }
 
-  public getFilePath(agentId: string, name: string): string {
+  getFilePath(agentId: string, name: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${agentId}/file/${name}`);
   }
 
-  deleteFile(entityId: string, name: string): Observable<void>{
-    return this.apiService.delete(`${this.route}/${entityId}/file/${name}`);
-  }
 
   uploadResourceViewFile(agentId: string, file: FormData): Observable<any>{
     return this.apiService.post(`${this.route}/view/${agentId}`, file);

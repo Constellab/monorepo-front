@@ -1,22 +1,23 @@
-<div [formGroup]="formGp" class="form-div">
+<div class="form-div">
   <div class="change-div">
     <label>{{ 'coCommunityLib.change_icon' | translate }} : </label>
     <button mat-flat-button type="button" (click)="openCommunityIconSelectMode()" [matTooltip]="'coCommunityLib.select_an_icon' | translate">
-      <td-type-icon [iconSize]="30" [iconType]="formGp.controls.icon_type.value" [iconTechnicalName]="formGp.controls.icon_technical_name.value"
+      <td-type-icon [iconSize]="30" [iconType]="value.icon_type" [iconTechnicalName]="value.icon_technical_name"
                     [iconColor]="isDarkTheme ? '#FFFFFF' : '#000000'"></td-type-icon>
     </button>
   </div>
   <div class="change-div">
     <label>{{ 'coCommunityLib.change_background_color' | translate }} : </label>
     <fl-color-picker
-      formControlName="background_color"
+      (ngModelChange)="changeBgColor($event)"
+      [ngModel]="value.background_color"
       size="40px">
     </fl-color-picker>
   </div>
-  @if (!formGp.invalid) {
+  @if (value.icon_technical_name && value.background_color) {
     <mat-divider class="g-full"></mat-divider>
     <div class="preview">
-      <td-type-icon-badge [iconSize]="80" [style]="style()"></td-type-icon-badge>
+      <td-type-icon-badge [iconSize]="80" [style]="value"></td-type-icon-badge>
     </div>
   }
 </div>

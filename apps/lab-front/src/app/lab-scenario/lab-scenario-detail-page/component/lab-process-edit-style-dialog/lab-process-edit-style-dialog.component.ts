@@ -9,12 +9,16 @@ import { LabProtocolService } from '../../../../lab-core/entity-service/lab-prot
 
 export type LabProcessEditStyleDialogInputData = FlFormDialogInput<LabProcess>;
 
+export interface LabProcessEditStyleFormData {
+  style: TdTypeStyle;
+}
+
 @Component({
   selector: 'lab-process-edit-style-dialog',
   templateUrl: './lab-process-edit-style-dialog.component.html',
   styleUrl: './lab-process-edit-style-dialog.component.scss'
 })
-export class LabProcessEditStyleDialogComponent extends FlFormDialogAbstractDirective<TdTypeStyle, LabProcess>
+export class LabProcessEditStyleDialogComponent extends FlFormDialogAbstractDirective<LabProcessEditStyleFormData, LabProcess>
   implements OnInit{
 
   process: LabProcess;
@@ -31,17 +35,11 @@ export class LabProcessEditStyleDialogComponent extends FlFormDialogAbstractDire
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      icon_type: [this.process.style.icon_type, Validators.required],
-      icon_color: [this.process.style.icon_color, Validators.required],
-      icon_technical_name: [
-        this.process.style.icon_technical_name,
-        [Validators.required],
-      ],
-      background_color: [this.process.style.background_color, Validators.required]
+      style: [this.process.style, Validators.required]
     });
   }
 
-  create(formValue: TdTypeStyle): Observable<LabProcess> {
+  create(formValue: LabProcessEditStyleFormData): Observable<LabProcess> {
     return undefined;
   }
 
@@ -53,7 +51,7 @@ export class LabProcessEditStyleDialogComponent extends FlFormDialogAbstractDire
     return 'biox.process_style_updated';
   }
 
-  update(formValue: TdTypeStyle): Observable<LabProcess> {
-    return this.protocolService.updateStyle(this.process.parentProtocolId, this.process.instanceName, formValue);
+  update(formValue: LabProcessEditStyleFormData): Observable<LabProcess> {
+    return this.protocolService.updateStyle(this.process.parentProtocolId, this.process.instanceName, formValue.style);
   }
 }

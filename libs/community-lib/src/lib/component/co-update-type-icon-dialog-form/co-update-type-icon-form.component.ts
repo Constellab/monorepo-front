@@ -1,41 +1,29 @@
-import { Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit, Optional, Self, signal, WritableSignal } from '@angular/core';
+import { FormControl, FormGroup, NgControl } from '@angular/forms';
 import { TdTypeStyle, TdTypeStyleIconType } from '@monorepo/technical-doc';
-import { FlColorHelper, FlDialogService, FlThemeService } from '@monorepo/front-core-lib';
+import { FlColorHelper, FlDialogService, FlFormFieldDirective, FlThemeService } from '@monorepo/front-core-lib';
 import {
   CoCommunityIconSelectDialogComponent
 } from '../co-community-icon-select-dialog/co-community-icon-select-dialog.component';
 import { CoIcon } from '../../model/co-icon.class';
-
-export interface CoUpdateTypeIconFormGroup {
-  icon_type: FormControl<TdTypeStyleIconType>;
-  icon_color: FormControl<string>;
-  icon_technical_name: FormControl<string>;
-  background_color: FormControl<string>;
-}
 
 @Component({
   selector: 'co-update-type-icon-form',
   templateUrl: './co-update-type-icon-form.component.html',
   styleUrl: './co-update-type-icon-form.component.scss',
 })
-export class CoUpdateTypeIconFormComponent implements OnInit {
-  @Input({ required: true }) formGp: FormGroup<CoUpdateTypeIconFormGroup>;
-  style: WritableSignal<TdTypeStyle> = signal<TdTypeStyle>(null);
+export class CoUpdateTypeIconFormComponent extends FlFormFieldDirective<TdTypeStyle> implements OnInit {
 
   isDarkTheme = this.themeService.isDarkTheme();
 
-  constructor(private dialogService: FlDialogService,
-              private themeService: FlThemeService) {}
+  constructor(@Optional() @Self() ngControl: NgControl,
+              private dialogService: FlDialogService,
+              private themeService: FlThemeService) {
+    super(ngControl);
+  }
 
   ngOnInit(): void {
-    this.style.set(this.updateStylePreview(this.formGp.value as TdTypeStyle));
 
-    this.formGp.controls.background_color.valueChanges.subscribe(
-      (bgColor: string) => {
-        this.style.set(this.updateStylePreview(this.formGp.value as TdTypeStyle));
-      }
-    );
   }
 
   openCommunityIconSelectMode(): void {
@@ -43,16 +31,45 @@ export class CoUpdateTypeIconFormComponent implements OnInit {
     this.dialogService.openMediumDialog(CoCommunityIconSelectDialogComponent)
       .afterClosed().subscribe((icon: CoIcon) => {
       if (icon) {
-        this.formGp.controls.icon_technical_name.patchValue(icon.technicalName);
-        this.formGp.controls.icon_type.patchValue(icon.type);
-        this.style.set(this.updateStylePreview(this.formGp.value as TdTypeStyle));
+        const newStyle: TdTypeStyle = {
+          icon_type: icon.type,
+          icon_technical_name: icon.technicalName,
+          background_color: this.value.background_color,
+          icon_color: FlColorHelper.getContrastColor(this.value.background_color) == 'black' ? '#000000' : '#FFFFFF'
+        }
+        this.checkAndSend(newStyle);
       }
     });
   }
 
-  updateStylePreview(value: TdTypeStyle): TdTypeStyle {
-    value.icon_color = FlColorHelper.getContrastColor(value.background_color) == 'black' ? '#000000' : '#FFFFFF';
-    this.formGp.controls.icon_color.patchValue(value.icon_color);
-    return value;
+  changeBgColor(color: string): void {
+    const newStyle: TdTypeStyle = {
+      icon_type: this.value.icon_type,
+      icon_technical_name: this.value.icon_technical_name,
+      background_color: color,
+      icon_color: FlColorHelper.getContrastColor(color) == 'black' ? '#000000' : '#FFFFFF'
+    }
+    this.checkAndSend(newStyle);
+  }
+
+  isValidStyle(): boolean {
+    return this.value.icon_technical_name != null && this.value.icon_technical_name !== '' && this.value.background_color != null;
+  }
+
+  callChangeEvent(value: TdTypeStyle): void {
+  }
+
+  onDisableChange(disable: boolean): void {
+    this.disabled = disable;
+  }
+
+  writeValue(obj: TdTypeStyle): void {
+    this.value = obj;
+  }
+
+  private checkAndSend(style: TdTypeStyle): void {
+    if (this.isValidStyle()) {
+      this.setAndEmitValue(style);
+    }
   }
 }

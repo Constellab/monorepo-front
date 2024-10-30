@@ -28,4 +28,8 @@ export class FlColorPickerComponent extends FlFormFieldDirective<string> {
   writeValue(obj: string): void {
     this.value = obj;
   }
+
+  onInputChange(value: string): void {
+    this.setAndEmitValue(value);
+  }
 }

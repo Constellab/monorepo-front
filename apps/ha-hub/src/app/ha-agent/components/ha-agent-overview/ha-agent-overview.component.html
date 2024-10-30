@@ -1,6 +1,6 @@
 @if (agent()) {
   <div class="g-flex g-layout-row g-layout-start-center g-layout-gap-05em">
-    @if(agent() && agent().latestStyle){
+    @if(agent().latestStyle){
       <co-update-type-icon-container [style]="agent().latestStyle" [iconSize]="40"
                                      [disabled]="!canEditAgent()" (onClickEvent)="openAgentEditStyleDialog()">
       </co-update-type-icon-container>
@@ -16,9 +16,12 @@
         <fl-user-inline [user]="agent().createdBy" [portalOnHover]="false"></fl-user-inline>
       </a>
       <span class="g-text-small date-info">
-      <fl-from-now [date]="agent().createdAt"
-                   *ngIf="agent().latestPublishVersion > 0; else notPublished"></fl-from-now>
-    </span>
+        @if (agent().latestPublishVersion > 0){
+          <fl-from-now [date]="agent().createdAt"></fl-from-now>
+        } @else {
+          <ng-container [ngTemplateOutlet]="notPublished"></ng-container>
+        }
+      </span>
     </p>
     <div class="agent-buttons">
       <co-visibility-badge [space]="agent().space"></co-visibility-badge>
@@ -36,36 +39,36 @@
     </div>
   </div>
 
-  <div class="g-flex" *ngIf="isLoading()">
-    <fl-loader class="g-centered"></fl-loader>
-  </div>
-
-
-  <div *ngIf="!isLoading()">
-    <div class="card-header">
-      <h5>
-        {{ 'agent_description' | translate }}
-      </h5>
-      <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()"
-              *ngIf="canEditAgent()">
-        <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
-        {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}
-      </button>
+  @if (isLoading()){
+    <div class="g-flex">
+      <fl-loader class="g-centered"></fl-loader>
     </div>
-    @if (canEditAgent() || !agentDescriptionEmpty()) {
-      <div>
-        <te-text-editor
-          class="description-editor" [ngClass]="canEditAgent() ? 'editor-border' : ''"
-          [config]="textEditorConfig()" (textChange)="onDescriptionChange($event)"
-          [formControl]="descriptionFormControl()"
-          [placeholder]="'agent_description_place_holder' | translate"></te-text-editor>
+  } @else {
+    <div>
+      <div class="card-header">
+        <h5>
+          {{ 'agent_description' | translate }}
+        </h5>
+        @if(canEditAgent()){
+          <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()">
+            <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
+            {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}
+          </button>
+        }
       </div>
-    }
-  </div>
+      @if (canEditAgent() || !agentDescriptionEmpty()) {
+        <div>
+          <te-text-editor
+            class="description-editor" [ngClass]="canEditAgent() ? 'editor-border' : ''"
+            [config]="textEditorConfig()" (textChange)="onDescriptionChange($event)"
+            [formControl]="descriptionFormControl()"
+            [placeholder]="'agent_description_place_holder' | translate"></te-text-editor>
+        </div>
+      }
+    </div>
 
-  <ha-agent-version-detail *ngIf="!isLoading() && !isAgentVersionLoading() && !isAgentVersionError()"
-                           [isOverview]="true"></ha-agent-version-detail>
-
+    <ha-agent-version-detail [isOverview]="true"></ha-agent-version-detail>
+  }
 }
 
 <ng-template #notPublished>

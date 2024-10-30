@@ -181,7 +181,6 @@ export class LabProcessDashboardComponent {
     this.dialogService.openSmallDialog(LabProcessEditStyleDialogComponent, {data: dialogData}).afterClosed().subscribe((process: LabProcess) => {
       if (process){
         this.nodeState.updateProcessStyle(process);
-        this.process$ = this.nodeState.getProcess$();
       }
     });
   }

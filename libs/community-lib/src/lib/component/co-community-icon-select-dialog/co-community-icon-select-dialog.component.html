@@ -4,11 +4,13 @@
 
 <mat-dialog-content class="content g-scrollable-element">
   <div class="material-icon-section">
+
     <span>
       {{'coCommunityLib.reference_a_material_icon' | translate}}
       <a class="material-icons-link" href="https://fonts.google.com/icons?icon.set=Material+Icons"
          target="_blank">{{ 'coCommunityLib.here' | translate }}</a>
     </span>
+
     <div class="material-icon-input-button-div">
       <mat-form-field class="g-form-field-compact-height">
         <mat-label>{{'coCommunityLib.material_icon_name' | translate}}</mat-label>
@@ -16,13 +18,18 @@
                [placeholder]="'coCommunityLib.material_icon_name' | translate" flInputMaxLength="50">
         <mat-icon matSuffix>{{matIconName}}</mat-icon>
       </mat-form-field>
-      <button mat-stroked-button (click)="selectMaterialIcon()" class="g-button-tiny">{{'coCommunityLib.save' | translate}}</button>
+
+      <button mat-stroked-button (click)="selectMaterialIcon()" class="g-button-tiny" [disabled]="!matIconName || matIconName.length == 0">{{'coCommunityLib.save' | translate}}</button>
     </div>
+
   </div>
+
   <div class="community-icon-section">
+
     <span>
       {{'coCommunityLib.or_chose_a_community_icon' | translate}}
     </span>
+
     <div class="icons-list">
       <co-icon-list (iconSelected)="selectIcon($event)" [infiniteMode]="'container'"></co-icon-list>
     </div>
