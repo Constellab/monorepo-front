@@ -6,7 +6,7 @@ import {
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
 import { map } from 'rxjs/operators';
 import {
@@ -181,6 +181,7 @@ export class LabProcessDashboardComponent {
     this.dialogService.openSmallDialog(LabProcessEditStyleDialogComponent, {data: dialogData}).afterClosed().subscribe((process: LabProcess) => {
       if (process){
         this.nodeState.updateProcessStyle(process);
+        this.process$ = of(process);
       }
     });
   }
