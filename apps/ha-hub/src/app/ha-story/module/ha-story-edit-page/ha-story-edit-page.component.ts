@@ -164,6 +164,10 @@ export class HaStoryEditPageComponent implements OnInit {
     });
   }
 
+  onEditorChange(): void{
+    this.syncWithBack = false;
+  }
+
   saveTopic(): void {
     const topic: HaTopicDto =
       typeof this.topicControl.value === 'string'
