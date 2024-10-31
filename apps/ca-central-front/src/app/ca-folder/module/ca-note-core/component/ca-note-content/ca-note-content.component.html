@@ -2,6 +2,6 @@
   <ng-container *flSectionBody="content$ as content">
     <te-text-editor [ngModel]="content"  [disabled]="true"
                     class="g-full-height g-print-section g-scrollable-element"
-                    [config]="textEditorConfig"></te-text-editor>
+                    [config]="textEditorConfig()"></te-text-editor>
   </ng-container>
 </fl-async-section>

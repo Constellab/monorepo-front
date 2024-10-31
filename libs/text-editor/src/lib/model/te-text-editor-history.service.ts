@@ -9,5 +9,5 @@ export interface TeTextEditorHistoryService {
 
   getUndoContent(entityId: string, modificationId: string): Observable<TeRichTextContent>;
 
-  rollbackContent(entityId: string, modificationId: string): Observable<any>;
+  rollbackContent?(entityId: string, modificationId: string): Observable<any>;
 }

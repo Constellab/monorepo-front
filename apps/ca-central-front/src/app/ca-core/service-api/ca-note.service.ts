@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { CaNote, CaResourceView } from '../model/entities/folder/ca-note.class';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import {
+  TeRichTextContent,
+  TeTextEditorHistoryBlockModification,
+  TeTextEditorHistoryService
+} from '@monorepo/text-editor';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CaNoteService {
+export class CaNoteService implements TeTextEditorHistoryService{
 
   private readonly route: string = 'notes';
 
@@ -40,7 +44,14 @@ export class CaNoteService {
     return this.apiService.get(`${this.route}/${noteId}/view/${viewId}`, CaResourceView);
   }
 
-  ////////////////////////////// HISTORY //////////////////////////
+  ////////////////////////////////////////// HISTORY //////////////////////////////////////////
 
+  getHistory(noteId: string): Observable<TeTextEditorHistoryBlockModification[]> {
+    return this.apiService.get(`${this.route}/history/${noteId}/`);
+  }
+
+  getUndoContent(noteId: string, modificationId: string): Observable<TeRichTextContent> {
+    return this.apiService.get(`${this.route}/history/undo-content/${noteId}/${modificationId}`);
+  }
 
 }

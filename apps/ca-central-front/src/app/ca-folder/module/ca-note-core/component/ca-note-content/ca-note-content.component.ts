@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaNoteTextEditorConfig } from '../../model/ca-note-text-editor-config.class';
@@ -16,8 +16,9 @@ export class CaNoteContentComponent implements OnInit {
 
   @Input() noteId: string;
 
+  textEditorConfig = input.required<CaNoteTextEditorConfig>();
+
   content$: Observable<TeRichTextContent>;
-  textEditorConfig: CaNoteTextEditorConfig;
 
 
   constructor(private noteService: CaNoteService) {
@@ -25,7 +26,7 @@ export class CaNoteContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.content$ = this.noteService.getContent(this.noteId);
-    this.textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.noteId);
+
   }
 
 }
