@@ -42,38 +42,8 @@ export class HaAgentVersionPageComponent implements OnInit {
     });
   }
 
-  publishAgentVersion(): void {
-    if (this.agentVersion().versionState === 'PUBLISHED') return;
-    if (this.agentVersion().code == null || this.agentVersion().code === '') {
-      this.snackBarService.openErrorMessage({
-        text: 'cannot_publish_agent_version_without_code',
-        translateText: true,
-      });
-      return;
-    }
-    this.dialogService
-      .openConfirmDialog({
-        title: 'publish_agent_version',
-        content: 'publish_agent_version_confirmation',
-        successMessage: 'agent_version_published',
-        observable: this.agentService.publishAgentVersion(this.agentVersion().id),
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result.choice && result.result != null) {
-          this.agentPageState.updateAgentVersion(result.result);
-          this.router.navigate([
-            HaRouterService.getAgentRoute(
-              this.agentVersion().agent.id,
-              ClStringHelper.getCleanUrlPath(this.agentVersion().agent.title)
-            ),
-          ]);
-        }
-      });
-  }
-
-  updateAgentVersion(agentVersion: HaAgentVersion): void {
-    this.agentPageState.setAgentVersion(agentVersion);
+  publishAgentVersion(agentVersionId: string): void {
+    this.agentPageState.publishAgentVersion(agentVersionId);
   }
 
   deleteAgentVersion(): void {
@@ -95,26 +65,6 @@ export class HaAgentVersionPageComponent implements OnInit {
             .then(() => {
               this.agentPageState.removeAgentVersionToList(this.agentVersion());
             });
-        }
-      });
-  }
-
-  openAgentEditStyleDialog(): void {
-    const dialogData: HaAgentEditStyleDialogInputData = {
-      mode: 'update',
-      object: {
-        style: this.agentVersion().style,
-        isVersion: true,
-        entityId: this.agentVersion().id,
-      },
-    };
-    this.dialogService
-      .openSmallDialog(HaAgentEditStyleDialogComponent, { data: dialogData })
-      .afterClosed()
-      .subscribe((result: HaAgentVersion) => {
-        if (result) {
-          this.agentPageState.setAgent(result.agent);
-          this.agentPageState.setAgentVersion(result);
         }
       });
   }
