@@ -281,5 +281,6 @@
   "license_ENTERPRISE": "Enterprise",
   "update_license": "Mettre à jour la licence",
   "license_updated": "Licence mise à jour",
-  "contact": "Contact"
+  "contact": "Contact",
+  "no_message": "Aucun message, écrivez le premier"
 }
