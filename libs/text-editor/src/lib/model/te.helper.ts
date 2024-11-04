@@ -45,6 +45,7 @@ export class TeHelper {
    * @param editorHtml
    */
   public static getBlockDropTargetId(editorHtml: HTMLElement): string | null {
+    if (editorHtml == null) return null;
     const blockTarget = TeHelper.getBlockTargetElement(editorHtml);
     if (blockTarget == null) return null;
     return TeHelper.getBlockIdFromElement(blockTarget);
@@ -287,5 +288,12 @@ export class TeHelper {
       element.style.padding = '4px';
       element.style.margin = '4px';
     }
+  }
+
+  /**
+   * Get the redactor element
+   */
+  public static getRedactorElement(): HTMLElement{
+    return document.querySelector('.codex-editor__redactor');
   }
 }
