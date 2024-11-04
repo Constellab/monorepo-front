@@ -1,15 +1,12 @@
 <fl-section [object]="messages" [emptyText]="'monitoring.lab_no_brick_message' | translate">
 
   <ng-container *flSectionBody>
-
-    <div>
-      <div *ngFor="let message of messages">
-        <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-          <fl-status-chip mode="iconText" [status]="message.status"></fl-status-chip>
-          <p>{{message.message}}</p>
-        </div>
-        <mat-divider></mat-divider>
+    @for (message of messages; track message) {
+      <div class="g-layout-row g-layout-start-center g-layout-gap-1em row">
+        <fl-status-chip mode="iconText" [status]="message.status" size="small"></fl-status-chip>
+        <p>{{ message.message }}</p>
       </div>
-    </div>
+      <mat-divider></mat-divider>
+    }
   </ng-container>
 </fl-section>
