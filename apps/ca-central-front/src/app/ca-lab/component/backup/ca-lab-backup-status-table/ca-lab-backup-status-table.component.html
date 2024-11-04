@@ -38,7 +38,7 @@
     <mat-cell *matCellDef="let row">
       @if (row.lastSuccessBackupSize && row.lastSuccessBackupAt) {
         {{ row.lastSuccessBackupAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
-        ({{ row.lastSuccessBackupSize | flByteText }} {{ 'flCoreComponent.giga_byte_symbole' | translate }})
+        ({{ row.lastSuccessBackupSize | flByteText }})
       }
     </mat-cell>
   </ng-container>
