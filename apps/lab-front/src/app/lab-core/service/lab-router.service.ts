@@ -7,7 +7,7 @@ import {
   labConstNoteFullRoute,
   labConstNoteTemplateFullRoute,
   labConstResourceFullRoute,
-  labConstScenarioTemplateFullRoute,
+  labConstScenarioTemplateFullRoute
 } from '../utils/lab-base-route';
 import { Router } from '@angular/router';
 
@@ -113,7 +113,7 @@ export class LabRouterService {
   }
 
   public static getMonitoringVenvsRoute(): string {
-    return `${LabRouterService.getMonitoringRoute()}/venvs`;
+    return `${LabRouterService.getMonitoringRoute()}/virtual-envs`;
   }
 
   public static getMonitoringLogsRoute(): string {
