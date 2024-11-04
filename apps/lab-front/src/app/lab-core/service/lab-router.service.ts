@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import {
   labConstBaseRoute,
   labConstBioxFullRoute,
-  labConstDataboxFullRoute,
   labConstDocFullRoute,
   labConstMonitoringFullRoute,
   labConstNoteFullRoute,
   labConstNoteTemplateFullRoute,
-  labConstScenarioTemplateFullRoute
+  labConstResourceFullRoute,
+  labConstScenarioTemplateFullRoute,
 } from '../utils/lab-base-route';
 import { Router } from '@angular/router';
 
@@ -15,12 +15,10 @@ import { Router } from '@angular/router';
  * Class to get app route paths
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabRouterService {
-
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   ////// Static function to get routes  //////
   public static getAppRoute(): string {
@@ -32,7 +30,7 @@ export class LabRouterService {
   }
 
   public static getDataboxRoute(): string {
-    return labConstDataboxFullRoute;
+    return labConstResourceFullRoute;
   }
 
   public static getScenarioDetailRoute(id: string): string {
@@ -48,16 +46,19 @@ export class LabRouterService {
   }
 
   public static getResourceDetailRoute(id: string): string {
-    return `${labConstDataboxFullRoute}/resource/${id}`;
+    return `${labConstResourceFullRoute}/${id}`;
   }
 
-  public static getViewConfigDetailRoute(resourceId: string, viewConfigId: string): {
-    route: string,
-    queryParams: any
+  public static getViewConfigDetailRoute(
+    resourceId: string,
+    viewConfigId: string,
+  ): {
+    route: string;
+    queryParams: any;
   } {
     return {
-      route: `${labConstDataboxFullRoute}/resource/${resourceId}`,
-      queryParams: {viewId: viewConfigId}
+      route: `${labConstResourceFullRoute}/${resourceId}`,
+      queryParams: { viewId: viewConfigId },
     };
   }
 
@@ -66,9 +67,8 @@ export class LabRouterService {
    * @param viewConfigId
    */
   public static getViewConfigRedirectRoute(viewConfigId: string): string {
-    return `${labConstDataboxFullRoute}/view-redirect/${viewConfigId}`;
+    return `${labConstResourceFullRoute}/view-redirect/${viewConfigId}`;
   }
-
 
   public static getNoteSearchRoute(): string {
     return labConstNoteFullRoute;
@@ -91,7 +91,7 @@ export class LabRouterService {
   }
 
   public static getTechnicalDocRoute(typingName: string): string {
-    typingName = typingName.replaceAll('.', '-')
+    typingName = typingName.replaceAll('.', '-');
     return `${LabRouterService.getDocRoute()}/technical-doc/${typingName}`;
   }
 
@@ -175,7 +175,6 @@ export class LabRouterService {
 
   public navigateToViewConfig(resourceId: string, viewConfigId: string): Promise<boolean> {
     const viewRoute = LabRouterService.getViewConfigDetailRoute(resourceId, viewConfigId);
-    return this.router.navigate([viewRoute.route], {queryParams: viewRoute.queryParams});
+    return this.router.navigate([viewRoute.route], { queryParams: viewRoute.queryParams });
   }
-
 }

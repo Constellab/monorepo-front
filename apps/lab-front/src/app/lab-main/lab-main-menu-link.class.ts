@@ -1,11 +1,11 @@
 import {
   labConstBiotaFullRoute,
   labConstBioxFullRoute,
-  labConstDataboxFullRoute,
   labConstNoteFullRoute,
   labConstNoteTemplateFullRoute,
+  labConstResourceFullRoute,
   labConstScenarioTemplateRoute,
-  labConstViewboxFullRoute
+  labConstViewFullRoute,
 } from '../lab-core/utils/lab-base-route';
 
 /**
@@ -28,12 +28,12 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
     {
       label: 'resources',
       icon: 'resource',
-      route: labConstDataboxFullRoute
+      route: labConstResourceFullRoute
     },
     {
       label: 'biox.views',
       icon: 'view',
-      route: labConstViewboxFullRoute
+      route: labConstViewFullRoute
     },
     {
       label: 'biox.scenario_templates',
