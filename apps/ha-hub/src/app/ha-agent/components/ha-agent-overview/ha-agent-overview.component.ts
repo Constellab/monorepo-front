@@ -119,7 +119,11 @@ export class HaAgentOverviewComponent implements OnInit {
   }
 
   onTitleChange(title: string): void {
-    this.agentService.updateTitle(this.agent().id, title).subscribe();
+    this.agentService.updateTitle(this.agent().id, title).subscribe((agent) => {
+      if(agent != null) {
+        this.agentPageState.setAgent(agent);
+      }
+    });
   }
 
   openCommentsPanel(): void {

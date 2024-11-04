@@ -80,7 +80,7 @@ export class HaAgentService implements HaCoAuthorService {
   }
 
   updateTitle(agentId: string, title: string): Observable<HaAgent> {
-    return this.apiService.put(`${this.route}/title/${agentId}`, {title: title}, HaAgent);
+    return this.apiService.put(`${this.route}/${agentId}/title`, {title: title}, HaAgent);
   }
 
   /**
@@ -90,7 +90,7 @@ export class HaAgentService implements HaCoAuthorService {
    * @return the updated agent
    */
   saveAgentDescription(agentId: string, description: Record<string, any>): Observable<HaAgent> {
-    return this.apiService.put(`${this.route}/description/${agentId}`, description, HaAgent);
+    return this.apiService.put(`${this.route}/${agentId}/description`, description, HaAgent);
   }
 
   deleteAgent(id: string): Observable<any> {
@@ -98,7 +98,7 @@ export class HaAgentService implements HaCoAuthorService {
   }
 
   updateAgentStyle(entityId: string, formValue: HaAgentEditStyleFormData): Observable<HaAgent> {
-    return this.apiService.put(`${this.route}/style/${entityId}`, formValue, HaAgent);
+    return this.apiService.put(`${this.route}/${entityId}/style`, formValue, HaAgent);
   }
 
 
@@ -215,7 +215,7 @@ export class HaAgentService implements HaCoAuthorService {
   }
 
   updateAgentVersionStyle(entityId: string, formValue: HaAgentEditStyleFormData): Observable<HaAgentVersion> {
-    return this.apiService.put(`${this.route}/version/style/${entityId}`, formValue, HaAgentVersion);
+    return this.apiService.put(`${this.route}/version/${entityId}/style`, formValue, HaAgentVersion);
   }
 
   ////////////////////////////////////////// CO AUTHORS //////////////////////////////////////////
@@ -270,7 +270,7 @@ export class HaAgentService implements HaCoAuthorService {
 
 
   uploadResourceViewFile(agentId: string, file: FormData): Observable<any>{
-    return this.apiService.post(`${this.route}/view/${agentId}`, file);
+    return this.apiService.post(`${this.route}/${agentId}/view`, file);
   }
 
   getView(agentId: string, id: string): Observable<RvResourceView>{
