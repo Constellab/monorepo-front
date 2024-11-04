@@ -11,7 +11,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class CaNoteService implements TeTextEditorHistoryService{
+export class CaNoteService{
 
   private readonly route: string = 'notes';
 
@@ -46,12 +46,12 @@ export class CaNoteService implements TeTextEditorHistoryService{
 
   ////////////////////////////////////////// HISTORY //////////////////////////////////////////
 
-  getHistory(noteId: string): Observable<TeTextEditorHistoryBlockModification[]> {
-    return this.apiService.get(`${this.route}/history/${noteId}/`);
+  getNoteHistory(noteId: string): Observable<TeTextEditorHistoryBlockModification[]> {
+    return this.apiService.get(`${this.route}/${noteId}/history/`);
   }
 
-  getUndoContent(noteId: string, modificationId: string): Observable<TeRichTextContent> {
-    return this.apiService.get(`${this.route}/history/undo-content/${noteId}/${modificationId}`);
+  getNotePreviousVersion(noteId: string, modificationId: string): Observable<TeRichTextContent> {
+    return this.apiService.get(`${this.route}/${noteId}/history/undo-content/${modificationId}`);
   }
 
 }

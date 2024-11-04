@@ -126,7 +126,7 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
     return this.apiService.get(`${this.route}/history/${entityId}/`);
   }
 
-  getUndoContent(entityId: string, modificationId: string): Observable<TeRichTextContent> {
+  getPreviousVersion(entityId: string, modificationId: string): Observable<TeRichTextContent> {
     return this.apiService.get(`${this.route}/history/undo-content/${entityId}/${modificationId}`);
   }
 

@@ -17,6 +17,7 @@ import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.servic
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { TeTextEditorHistoryPortalComponent, TeTextEditorHistoryPortalData } from '@monorepo/text-editor';
 import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text-editor-config.class';
+import { CaNoteHistoryService } from '../../../../../ca-core/service/ca-note-history.service';
 
 @Component({
   selector: 'ca-note-detail',
@@ -36,6 +37,7 @@ export class CaNoteDetailComponent implements OnInit {
     private scenarioService: CaScenarioService,
     private dialogService: FlDialogService,
     private noteService: CaNoteService,
+    private noteHistoryService: CaNoteHistoryService,
     private state: CaHierarchyObjectDetailState,
     private portalService: FlPortalService
   ) {}
@@ -74,7 +76,7 @@ export class CaNoteDetailComponent implements OnInit {
         TeTextEditorHistoryPortalComponent,
         this.portalService?.getRightSidePortalConfig(true),
         {
-          service: this.noteService,
+          service: this.noteHistoryService,
           entityId: this.note.id,
           textEditorConfig: this.textEditorConfig,
           isEditable: false,
@@ -94,10 +96,7 @@ export class CaNoteDetailComponent implements OnInit {
       successMessage: 'note_deleted',
     };
 
-    this.dialogService
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result) => this.onNoteDeleted(result));
+    this.dialogService.openConfirmDialog(input).afterClosed().subscribe((result) => this.onNoteDeleted(result));
   }
 
   private async onNoteDeleted(result: FlConfirmDialogResult): Promise<void> {

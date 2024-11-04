@@ -13,7 +13,7 @@ import {
   LabNote,
   LabNoteContent,
   LabNoteDatasource,
-  LabNoteForm, LabNoteHistoryBlockModification,
+  LabNoteForm,
   LabNoteInsertTemplateDTO
 } from '../model/entities/lab-note.entity';
 import { Observable } from 'rxjs';
@@ -26,7 +26,6 @@ import {
   TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryService
 } from '@monorepo/text-editor';
-import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class LabNoteService implements TeTextEditorHistoryService{
@@ -180,16 +179,10 @@ export class LabNoteService implements TeTextEditorHistoryService{
   ///////////////////////////////////////////// HISTORY /////////////////////////////////////////////
 
   getHistory(entityId: string): Observable<TeTextEditorHistoryBlockModification[]> {
-    return this.apiService.get(`${this.route}/${entityId}/history`, LabNoteHistoryBlockModification).pipe(
-      map((modifications: LabNoteHistoryBlockModification[]) => {
-         return modifications.map((modification) => {
-           return modification.toTeTextEditorHistoryBlockModification(modification);
-         });
-      })
-    );
+    return this.apiService.get(`${this.route}/${entityId}/history`);
   }
 
-  getUndoContent(entityId: string, modificationId: string): Observable<TeRichTextContent> {
+  getPreviousVersion(entityId: string, modificationId: string): Observable<TeRichTextContent> {
     return this.apiService.get(`${this.route}/${entityId}/history/undo-content/${modificationId}`);
   }
 

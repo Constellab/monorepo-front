@@ -29,7 +29,6 @@ import {
   TeFigureBlockData,
   TeFileBlockData,
   TeRichTextContent, TeTextEditorHistoryBlockModification,
-  TeTextEditorHistoryService,
   TeUploadedImage
 } from '@monorepo/text-editor';
 import {
@@ -48,7 +47,7 @@ import {
   CaHierarchyObjectSearchFields
 } from '../entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaFolderSearch, CaFolderSearchFields } from '../entity-module/ca-folder-core/model/ca-folder-search.class';
-import { CaConstellabDocumentService } from './ca-constellab-document.service';
+import { CaConstellabDocumentHistoryService } from '../service/ca-constellab-document-history.service';
 
 /**
  * Service to manage folder entity
@@ -303,6 +302,18 @@ export class CaFolderService{
 
   public getConstellabDocumentFileUrl(documentId: string, filename: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/constellab-document/${documentId}/file/${filename}`);
+  }
+
+  getConstellabDocumentHistory(documentId: string): Observable<TeTextEditorHistoryBlockModification[]> {
+    return this.apiService.get(`${this.route}/constellab-document/${documentId}/history/`);
+  }
+
+  getConstellabDocumentUndoContent(documentId: string, modificationId: string): Observable<TeRichTextContent> {
+    return this.apiService.get(`${this.route}/constellab-document/${documentId}/history/undo-content/${modificationId}`);
+  }
+
+  rollbackConstellabDocumentContent(documentId: string, modificationId: string): Observable<CaDocument> {
+    return this.apiService.put(`${this.route}/constellab-document/${documentId}/history/rollback/${modificationId}`, {});
   }
 
 

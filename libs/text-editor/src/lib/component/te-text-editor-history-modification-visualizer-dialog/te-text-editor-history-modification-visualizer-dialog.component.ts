@@ -57,7 +57,7 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
   ngOnInit(): void {
     const modificationId = this.group.mainModificationId();
     this.textEditorEvent = new TeEvent();
-    this.service.getUndoContent(this.entityId, modificationId).subscribe(content => {
+    this.service.getPreviousVersion(this.entityId, modificationId).subscribe(content => {
       this.content = content;
       this.highlightChanges()
     });
