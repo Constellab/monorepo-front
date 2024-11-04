@@ -9,7 +9,10 @@ import {
 import {HaAgentVersion} from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import {HaAgentDatasourcePaginated} from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
+import {
+  HaAgentDatasourceFilters,
+  HaAgentDatasourcePaginated
+} from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import {FormControl} from '@angular/forms';
 import {ClStringHelper} from "@monorepo/core-lib";
 import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
@@ -21,7 +24,7 @@ import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
 })
 export class HaAgentListComponent implements OnInit {
 
-  agentsPaginated: HaAgentDatasourcePaginated;
+  agentsPaginated: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
   user: HaUser;
   spaceIdFilter: string[] = [];
   titleFormControl: FormControl<string> = new FormControl('');

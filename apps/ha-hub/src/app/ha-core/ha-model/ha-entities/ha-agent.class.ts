@@ -5,6 +5,7 @@ import { HaAgentVersionFileInput } from './ha-agent-version.class';
 import { TeRichTextContent } from '@monorepo/text-editor';
 import { CoAgentType, CoCreateAgentFormData } from '@monorepo/community-lib';
 import { HaUser } from './ha-user';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 
 
 export class HaAgent extends HaEntity {
@@ -15,6 +16,7 @@ export class HaAgent extends HaEntity {
   likes: number;
   comments: number;
   agentCoAuthors: HaAgentCoAuthor[];
+  latestStyle?: TdTypeStyle;
 }
 
 export class HaCreateAgentDto implements CoCreateAgentFormData{
@@ -30,5 +32,9 @@ export class HaAgentCoAuthor {
   user: HaUser;
 }
 
-// TODO @fvoex mettre F = void et créer des type pour les filtres
-export type HaAgentDatasourcePaginated<F = any> = FlDatasourcePaginated<HaAgent, F>;
+export interface HaAgentDatasourceFilters {
+  titleFilter: string;
+  spacesFilter: string[];
+}
+
+export type HaAgentDatasourcePaginated<F = void> = FlDatasourcePaginated<HaAgent, F>;

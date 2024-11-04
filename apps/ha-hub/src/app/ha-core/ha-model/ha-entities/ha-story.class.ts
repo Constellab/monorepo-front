@@ -96,7 +96,7 @@ export class HaListStoryDto implements CoListStoryDto{
 
 }
 
-export class HaStoryFilter {
+export class HaStoryFilters {
   title: string;
   categories: string[];
   topics: string[];
@@ -108,8 +108,7 @@ export class HaStoryFilter {
   }
 }
 
-// TODO @fvoex mettre F = void et créer des type pour les filtres
-export type HaStoryDatasourcePaginated<F = any> = FlDatasourcePaginated<HaListStoryDto, F>;
+export type HaStoryDatasourcePaginated<F = void> = FlDatasourcePaginated<HaListStoryDto, F>;
 
 export class HaStoryContentFormDTO implements FlEntity {
   id: string;

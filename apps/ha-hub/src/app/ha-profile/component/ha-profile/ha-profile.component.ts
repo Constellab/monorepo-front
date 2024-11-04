@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, switchMap } from 'rxjs';
-import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { Observable } from 'rxjs';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { ActivatedRoute } from '@angular/router';
 import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
@@ -17,55 +16,64 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   HaProfileEditDialogComponent,
-  HaProfileEditDialogData
+  HaProfileEditDialogData,
 } from '../ha-profile-edit-dialog/ha-profile-edit-dialog.component';
 import { CoUser } from '@monorepo/community-lib';
+
+export interface HaProfileDatasourceFilters {
+  userId: string;
+}
 
 @Component({
   selector: 'ha-profile',
   templateUrl: './ha-profile.component.html',
-  styleUrl: './ha-profile.component.scss'
+  styleUrl: './ha-profile.component.scss',
 })
 export class HaProfileComponent implements OnInit {
-
   user: CoUser;
   isCurrentUser: boolean;
   commonSpace$: Observable<HaSpace[]>;
-  agents$: HaAgentDatasourcePaginated;
-  stories$: HaStoryDatasourcePaginated;
-  bricks$: HaBrickDatasourcePaginated;
+  agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
+  stories$: HaStoryDatasourcePaginated<HaProfileDatasourceFilters>;
+  bricks$: HaBrickDatasourcePaginated<HaProfileDatasourceFilters>;
 
-  constructor(private authenticatedUserService: HaAuthenticatedUserService,
-              private userService: HaUserService,
-              private spaceService: HaSpaceService,
-              private agentService: HaAgentService,
-              private brickService: HaBrickService,
-              private storyService: HaStoryService,
-              private dialogService: FlDialogService,
-              private route: ActivatedRoute) {
-  }
+  constructor(
+    private authenticatedUserService: HaAuthenticatedUserService,
+    private userService: HaUserService,
+    private spaceService: HaSpaceService,
+    private agentService: HaAgentService,
+    private brickService: HaBrickService,
+    private storyService: HaStoryService,
+    private dialogService: FlDialogService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.init();
   }
 
   openEditProfileDialog(user: CoUser): void {
-    this.dialogService.openMediumDialog(HaProfileEditDialogComponent, {
-      data: {
-        user: user
-      } as HaProfileEditDialogData
-    }).afterClosed().subscribe(user => {
-      if (user) {
-        this.init();
-      }
-    });
+    this.dialogService
+      .openMediumDialog(HaProfileEditDialogComponent, {
+        data: {
+          user: user,
+        } as HaProfileEditDialogData,
+      })
+      .afterClosed()
+      .subscribe((user) => {
+        if (user) {
+          this.init();
+        }
+      });
   }
 
   getStoryImageLink(storyId: string, imageLinkOrId?: string): string {
     if (!imageLinkOrId) {
       return '';
     }
-    return ClStringHelper.isHttpLink(imageLinkOrId) ? imageLinkOrId : this.storyService.getImageUrl(storyId, imageLinkOrId);
+    return ClStringHelper.isHttpLink(imageLinkOrId)
+      ? imageLinkOrId
+      : this.storyService.getImageUrl(storyId, imageLinkOrId);
   }
 
   private init(): void {
@@ -75,31 +83,32 @@ export class HaProfileComponent implements OnInit {
     this.stories$ = this.storyService.getUserStoriesPaginated();
     this.updateDatasources(paramId);
 
-    this.userService.getUserById(paramId).subscribe(user => {
+    this.userService.getUserById(paramId).subscribe((user) => {
       this.user = user;
-      this.authenticatedUserService.getUser().subscribe(currentUser => {
+      this.authenticatedUserService.getUser().subscribe((currentUser) => {
         this.isCurrentUser = currentUser?.id === user?.id;
         if (currentUser != null) {
-          this.commonSpace$ = this.spaceService.getUserCommonSpace(user.id).pipe(
-            map(spaces => {
-              return spaces;
-            })
-          );
+          this.commonSpace$ = this.spaceService
+            .getUserCommonSpace(user.id)
+            .pipe(
+              map((spaces) => {
+                return spaces;
+              })
+            );
         }
-      })
+      });
     });
   }
 
   private updateDatasources(userId: string): void {
     this.agents$.getFirstPage({
-      userId: userId
+      userId: userId,
     });
     this.bricks$.getFirstPage({
-      userId: userId
+      userId: userId,
     });
     this.stories$.getFirstPage({
-      userId: userId
+      userId: userId,
     });
   }
-
 }

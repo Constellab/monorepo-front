@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, Input } from '@angular/core';
 import {TdTypeStyle} from '../../model/td-type.class';
 
 /**
@@ -12,11 +12,7 @@ import {TdTypeStyle} from '../../model/td-type.class';
 })
 export class TdTypeIconBadgeComponent {
 
-  @Input({required: true}) style: TdTypeStyle;
-
-  @Input({required: true}) iconSize: number;
-
-  get padding(): string {
-    return Math.round(this.iconSize / 4) + 'px';
-  }
+  style = input.required<TdTypeStyle>();
+  iconSize = input.required<number>();
+  padding = computed(() => Math.round(this.iconSize() / 4) + 'px');
 }

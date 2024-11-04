@@ -1,0 +1,4 @@
+<input type="color" [ngModel]="value" class="color-picker" (ngModelChange)="onInputChange($event)"
+       [matTooltip]="tooltip() | translate"
+       [style.width]="size()" [style.height]="size()">
+

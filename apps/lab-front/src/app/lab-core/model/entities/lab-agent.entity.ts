@@ -3,6 +3,7 @@ import { LabEntity } from '../global/lab-entity.entity';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 import { DateTime } from 'luxon';
 import { CoAgent, CoUser } from '@monorepo/community-lib';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 
 export class LabAgent extends LabEntity {
   title: string;
@@ -12,6 +13,7 @@ export class LabAgent extends LabEntity {
   created_by?: CoUser;
   description?: TeRichTextContent;
   latest_publish_version: number;
+  latest_style?: TdTypeStyle;
 
   toCoAgent(): CoAgent {
     const coAgent = new CoAgent();
@@ -23,6 +25,7 @@ export class LabAgent extends LabEntity {
     coAgent.lastModifiedAt = DateTime.fromISO(this.last_modified_at);
     coAgent.createdBy = this.created_by;
     coAgent.space = this.space;
+    coAgent.latestStyle = this.latest_style;
     return coAgent;
   }
 }

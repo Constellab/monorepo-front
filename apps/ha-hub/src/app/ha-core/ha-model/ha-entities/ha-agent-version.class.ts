@@ -1,7 +1,7 @@
 import {HaAgent} from './ha-agent.class';
 import {FlEntity} from '@monorepo/front-core-lib';
 import {DateTime} from 'luxon';
-import {TdParamSpecs} from '@monorepo/technical-doc';
+import { TdParamSpecs, TdTypeStyle } from '@monorepo/technical-doc';
 import {TeRichTextContent} from '@monorepo/text-editor';
 
 export enum HaAgentVersionState {
@@ -33,6 +33,7 @@ export class HaAgentVersion implements FlEntity{
   inputSpecs?: Record<string, any>;
   outputSpecs?: Record<string, any>;
   configSpecs?: TdParamSpecs;
+  style?: TdTypeStyle;
 }
 
 export class HaAgentVersionFileInputBrick {
@@ -50,6 +51,7 @@ export class HaAgentVersionFileInput {
   config_specs: Record<string, any>;
   bricks: HaAgentVersionFileInputBrick[];
   task_type: HaAgentVersionType;
+  style?: TdTypeStyle;
 
   static isValid(obj: any): boolean {
     //check vars exist and vars type

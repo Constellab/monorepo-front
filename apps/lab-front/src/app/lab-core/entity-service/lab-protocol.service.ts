@@ -8,7 +8,7 @@ import {
   LabCreateScenarioTemplateDTO,
   LabScenarioTemplate
 } from '../model/entities/process/lab-scenario-template.entity';
-import { TdIOSpec } from '@monorepo/technical-doc';
+import { TdIOSpec, TdTypeStyle } from '@monorepo/technical-doc';
 import {
   LabAgent,
   LabAgentDatasourcePaginated,
@@ -283,6 +283,10 @@ export class LabProtocolService {
   public renameProcess(protocolId: string, processName: string, newName: string): Observable<LabProcess> {
     return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processName}/rename`, {new_name: newName},
       LabProcess);
+  }
+
+  public updateStyle(protocolId: string, processName: string, style: TdTypeStyle): Observable<LabProcess> {
+    return this.apiService.put(`${this.baseRoute}/${protocolId}/process/${processName}/style`, style, LabProcess);
   }
 
   ///////////////////////////////////////////////// PROTOCOL TEMPLATE /////////////////////////////////////////////////

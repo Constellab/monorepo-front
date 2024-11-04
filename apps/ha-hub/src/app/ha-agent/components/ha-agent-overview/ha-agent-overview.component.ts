@@ -9,18 +9,22 @@ import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
 import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
 import {
   HaCommentsPortalComponent,
-  HaCommentsPortalData
+  HaCommentsPortalData,
 } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
 import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalService
+  FlPortalService,
 } from '@monorepo/front-core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { FormControl } from '@angular/forms';
+import {
+  HaAgentEditStyleDialogComponent,
+  HaAgentEditStyleDialogInputData,
+} from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 
 @Component({
   selector: 'ha-agent-overview',
@@ -28,33 +32,40 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./ha-agent-overview.component.scss'],
 })
 export class HaAgentOverviewComponent implements OnInit {
-
   profileRoute = HaRouterService.getProfileRoute();
 
   descriptionEditorDisabled: boolean = true;
 
-
   agent: Signal<HaAgent> = this.agentPageState.getAgent();
-  isAgentVersionError: Signal<boolean> = this.agentPageState.isAgentVersionError;
-  isAgentVersionLoading: Signal<boolean> = this.agentPageState.isAgentVersionLoading;
+
   canEditAgent: Signal<boolean> = this.agentPageState.canEditAgent;
+
   agentIsLiked: Signal<boolean> = this.agentPageState.getIsLiked();
+
   isLoading: Signal<boolean> = this.agentPageState.getIsLoading();
+
   isAuthor: Signal<boolean> = this.agentPageState.isAuthor;
-  agentDescription: Signal<TeRichTextContent> = this.agentPageState.getAgentDescription();
-  descriptionFormControl: Signal<FormControl<TeRichTextContent>> = computed(() => {
-    const formControl = new FormControl<TeRichTextContent>(null);
-    if (this.agentDescription()) {
-      formControl.patchValue(this.agentDescription());
-    } else {
-      formControl.patchValue(TeRichText.emptyContent());
+
+  agentDescription: Signal<TeRichTextContent> =
+    this.agentPageState.getAgentDescription();
+
+  descriptionFormControl: Signal<FormControl<TeRichTextContent>> = computed(
+    () => {
+      const formControl = new FormControl<TeRichTextContent>(null);
+      if (this.agentDescription()) {
+        formControl.patchValue(this.agentDescription());
+      } else {
+        formControl.patchValue(TeRichText.emptyContent());
+      }
+      formControl.disable();
+      return formControl;
     }
-    formControl.disable();
-    return formControl;
-  });
+  );
+
   agentDescriptionEmpty: Signal<boolean> = computed(() => {
     return TeRichText.isEmpty(this.agentDescription());
   });
+
   textEditorConfig: Signal<HaAgentTextEditorConfig> = computed(() => {
     return new HaAgentTextEditorConfig(this.agentService, this.agent().id);
   });
@@ -67,16 +78,15 @@ export class HaAgentOverviewComponent implements OnInit {
     private portalService: FlPortalService,
     private dialogService: FlDialogService,
     private router: Router,
-    private agentPageState: HaAgentPageState) {
-  }
+    private agentPageState: HaAgentPageState
+  ) {}
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe(params => {
+    this.activeRoute.params.subscribe((params) => {
       if (params['id'] != null) {
         this.setupLatestAgentVersion(params['id']);
       }
     });
-
   }
 
   setupLatestAgentVersion(id: string): void {
@@ -87,7 +97,6 @@ export class HaAgentOverviewComponent implements OnInit {
     this.descriptionFormControl().setValue(description);
   }
 
-
   onDescriptionEditorButtonClick(): void {
     if (this.descriptionEditorDisabled) {
       this.descriptionEditorDisabled = false;
@@ -95,30 +104,43 @@ export class HaAgentOverviewComponent implements OnInit {
       return;
     }
 
-    this.agentService.saveAgentDescription(this.agent().id, this.descriptionFormControl().value)
+    this.agentService
+      .saveAgentDescription(
+        this.agent().id,
+        this.descriptionFormControl().value
+      )
       .subscribe((agent: HaAgent) => {
         this.descriptionEditorDisabled = true;
         if (agent != null) {
           this.agentPageState.setAgent(agent);
         }
         this.descriptionFormControl().disable();
-      })
+      });
   }
 
   onTitleChange(title: string): void {
-    this.agentService.updateTitle(this.agent().id, title).subscribe();
+    this.agentService.updateTitle(this.agent().id, title).subscribe((agent) => {
+      if(agent != null) {
+        this.agentPageState.setAgent(agent);
+      }
+    });
   }
 
   openCommentsPanel(): void {
-    this.portalService.createPortal(HaCommentsPortalComponent, this.portalService.getRightSidePortalConfig(), {
-      user: this.agentPageState.getCurrentUser()(),
-      entity: this.agent(),
-      commentType: HaCommentType.AGENT_COMMENT
-    } as HaCommentsPortalData).detachments();
-
+    this.portalService
+      .createPortal(
+        HaCommentsPortalComponent,
+        this.portalService.getRightSidePortalConfig(),
+        {
+          user: this.agentPageState.getCurrentUser()(),
+          entity: this.agent(),
+          commentType: HaCommentType.AGENT_COMMENT,
+        } as HaCommentsPortalData
+      )
+      .detachments();
   }
 
-  toggleLikeAgentButton(): void{
+  toggleLikeAgentButton(): void {
     if (this.agentIsLiked()) {
       this.unlikeAgent();
     } else {
@@ -131,13 +153,16 @@ export class HaAgentOverviewComponent implements OnInit {
       title: 'delete_agent',
       content: 'delete_agent_content',
       successMessage: 'agent_deleted',
-      observable: this.agentService.deleteAgent(this.agent().id)
+      observable: this.agentService.deleteAgent(this.agent().id),
     };
-    this.dialogService.openConfirmDialog(confirmDeleteDialogInput).afterClosed().subscribe((res: FlConfirmDialogResult) => {
-      if (res.choice) {
-        this.router.navigate(['../'], {relativeTo: this.activeRoute});
-      }
-    });
+    this.dialogService
+      .openConfirmDialog(confirmDeleteDialogInput)
+      .afterClosed()
+      .subscribe((res: FlConfirmDialogResult) => {
+        if (res.choice) {
+          this.router.navigate(['../'], { relativeTo: this.activeRoute });
+        }
+      });
   }
 
   private unlikeAgent(): void {
@@ -146,25 +171,48 @@ export class HaAgentOverviewComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService.unlike(HaLikeType.AGENT_LIKE, this.agent().id).subscribe((agent: HaAgent) => {
-      if (agent != null) {
-        this.agentPageState.setIsLiked(false);
-        this.agentPageState.setAgent(agent);
-      }
-    });
+    this.likeService
+      .unlike(HaLikeType.AGENT_LIKE, this.agent().id)
+      .subscribe((agent: HaAgent) => {
+        if (agent != null) {
+          this.agentPageState.setIsLiked(false);
+          this.agentPageState.setAgent(agent);
+        }
+      });
   }
 
   private likeAgent(): void {
-    if (!this.authService.hasAuthorizationCookie()){
+    if (!this.authService.hasAuthorizationCookie()) {
       // navigate to login page
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService.like(HaLikeType.AGENT_LIKE, this.agent().id).subscribe((agent: HaAgent) => {
-      if (agent != null) {
-        this.agentPageState.setIsLiked(true);
-        this.agentPageState.setAgent(agent);
-      }
-    });
+    this.likeService
+      .like(HaLikeType.AGENT_LIKE, this.agent().id)
+      .subscribe((agent: HaAgent) => {
+        if (agent != null) {
+          this.agentPageState.setIsLiked(true);
+          this.agentPageState.setAgent(agent);
+        }
+      });
+  }
+
+  openAgentEditStyleDialog(): void {
+    const dialogData: HaAgentEditStyleDialogInputData = {
+      mode: 'update',
+      object: {
+        style: this.agent().latestStyle,
+        isVersion: false,
+        entityId: this.agent().id,
+      },
+    };
+    this.dialogService
+      .openSmallDialog(HaAgentEditStyleDialogComponent, { data: dialogData })
+      .afterClosed()
+      .subscribe((result: HaAgent) => {
+        if (result) {
+          this.agentPageState.setAgent(result);
+        }
+      });
   }
 }

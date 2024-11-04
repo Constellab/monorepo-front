@@ -6,8 +6,7 @@ import {
 } from '../ha-story-create-dialog/ha-story-create-dialog.component';
 import {
   HaStory,
-  HaStoryDatasourcePaginated,
-  HaStoryFilter
+  HaStoryDatasourcePaginated, HaStoryFilters
 } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { Router } from '@angular/router';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
@@ -27,10 +26,10 @@ import { CoStoryCategory } from '@monorepo/community-lib';
 export class HaStoryListPageComponent implements OnInit {
 
 
-  stories: HaStoryDatasourcePaginated<HaStoryFilter>;
+  stories: HaStoryDatasourcePaginated<HaStoryFilters>;
   popularTopics$: Observable<HaTopicDto[]>;
 
-  filters: HaStoryFilter = new HaStoryFilter();
+  filters: HaStoryFilters = new HaStoryFilters();
 
   categories: any[] = [{
     cat: CoStoryCategory.ARTICLE,

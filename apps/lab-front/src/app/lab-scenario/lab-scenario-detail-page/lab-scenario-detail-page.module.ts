@@ -49,6 +49,7 @@ import {
   LabResourceNextObjectsPortalComponent
 } from './component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
 import { LabSystemCoreModule } from '../../lab-core/entity-module/lab-system-core/lab-system-core.module';
+import { LabProcessEditStyleDialogComponent } from './component/lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { LabSystemCoreModule } from '../../lab-core/entity-module/lab-system-cor
     LabProcessDashboardComponent,
     LabProcessIoPanelComponent,
     LabDynamicPortConfigDialogComponent,
-    LabResourceNextObjectsPortalComponent
+    LabResourceNextObjectsPortalComponent,
+    LabProcessEditStyleDialogComponent
   ],
   imports: [
     CommonModule,

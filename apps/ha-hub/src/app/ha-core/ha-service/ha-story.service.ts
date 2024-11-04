@@ -4,8 +4,7 @@ import {
   HaCreateStoryDto,
   HaListStoryDto,
   HaStory,
-  HaStoryDatasourcePaginated,
-  HaStoryFilter
+  HaStoryDatasourcePaginated, HaStoryFilters
 } from '../ha-model/ha-entities/ha-story.class';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
@@ -23,6 +22,7 @@ import { HaUser } from '../ha-model/ha-entities/ha-user';
 import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import { CoStoryCategory } from '@monorepo/community-lib';
 import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-file-service.interface';
+import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
 
 @Injectable({
   providedIn: 'root'
@@ -61,12 +61,12 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.delete(this.route + '/' + id);
   }
 
-  public getAllPaginatedFiltered(pageSize: number = 10): HaStoryDatasourcePaginated<HaStoryFilter> {
+  public getAllPaginatedFiltered(pageSize: number = 10): HaStoryDatasourcePaginated<HaStoryFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, filters) => this.getAllByFilter(filters, page, size), pageSize, false);
   }
 
-  private getAllByFilter(data: FlDatasourceGetPageData<HaStoryFilter>, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
+  private getAllByFilter(data: FlDatasourceGetPageData<HaStoryFilters>, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
     return this.apiService.post(this.route + '/filter', data.filtersCriteria, HaStory, {
       page: page,
       pageSize: size,
@@ -82,7 +82,7 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     });
   }
 
-  public getUserStoriesPaginated(pageSize: number = 4): HaStoryDatasourcePaginated {
+  public getUserStoriesPaginated(pageSize: number = 4): HaStoryDatasourcePaginated<HaProfileDatasourceFilters> {
     return new FlEntityPaginatedDatasource((page, size, filters) =>
       this.getUserStories(filters.filtersCriteria.userId, page, size), pageSize, false);
   }
@@ -153,13 +153,13 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.put(`${this.route}/${id}/publish`, {});
   }
 
-  getMyStoriesForList(): HaStoryDatasourcePaginated<HaStoryFilter> {
-    return new FlEntityPaginatedDatasource<HaListStoryDto, HaStoryFilter>((page, size, filters) =>
+  getMyStoriesForList(): HaStoryDatasourcePaginated<HaStoryFilters> {
+    return new FlEntityPaginatedDatasource<HaListStoryDto, HaStoryFilters>((page, size, filters) =>
       this.getMyStoriesForListPaginated(page, size, filters), 10, false);
   }
 
   private getMyStoriesForListPaginated(page: number, size: number,
-                                       data: FlDatasourceGetPageData<HaStoryFilter>): Observable<ClPage<HaListStoryDto>> {
+                                       data: FlDatasourceGetPageData<HaStoryFilters>): Observable<ClPage<HaListStoryDto>> {
     return this.apiService.post(this.route + '/my-filtered', data.filtersCriteria,
       HaStory, { page: page, pageSize: size, resultIsPaginated: true });
   }

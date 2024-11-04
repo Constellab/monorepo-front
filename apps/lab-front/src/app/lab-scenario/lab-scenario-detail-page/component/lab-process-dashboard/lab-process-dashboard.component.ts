@@ -6,7 +6,7 @@ import {
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
 import { map } from 'rxjs/operators';
 import {
@@ -35,6 +35,10 @@ import {
   LabShareAgentCommunityDialogComponent
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
 import { LabCreateCommunityAgentVersionResDto } from '../../../../lab-core/model/entities/lab-agent.entity';
+import {
+  LabProcessEditStyleDialogComponent,
+  LabProcessEditStyleDialogInputData
+} from '../lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
 
 
 /**
@@ -151,7 +155,7 @@ export class LabProcessDashboardComponent {
   }
 
   downloadAgentFile(process: LabProcess): void {
-    this.taskGeneratorService.generateAgentFile(process.id).subscribe();
+    this.taskGeneratorService.generateAgentFile(process.parentProtocolId ,process.id).subscribe();
   }
 
   openShareCommunityAgentDialog(process: LabProcess): void {
@@ -164,6 +168,20 @@ export class LabProcessDashboardComponent {
       }).afterClosed().subscribe((res: LabCreateCommunityAgentVersionResDto) => {
       if (res) {
         window.open(this.communityHelper.getAgentVersionUrl(res.id, res.title, res.agent_version), '_blank');
+      }
+    });
+  }
+
+  openProcessEditStyleDialog(process: LabProcess): void{
+    const dialogData: LabProcessEditStyleDialogInputData = {
+      mode: 'update',
+      object: process,
+    };
+
+    this.dialogService.openSmallDialog(LabProcessEditStyleDialogComponent, {data: dialogData}).afterClosed().subscribe((process: LabProcess) => {
+      if (process){
+        this.nodeState.updateProcessStyle(process);
+        this.process$ = of(process);
       }
     });
   }

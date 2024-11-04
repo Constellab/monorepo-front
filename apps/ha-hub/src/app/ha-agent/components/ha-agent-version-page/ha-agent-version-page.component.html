@@ -1,6 +1,10 @@
 <div *ngIf="agentVersion()">
-  <div class="agent-version-title">
-    <h2>{{ agentVersion().agent.title }}</h2>
+  <div class="agent-version-title g-layout-gap-05em">
+    @if (agentVersion().style){
+      <co-update-type-icon-container [style]="agentVersion().style" [iconSize]="40" [disabled]="!canEdit()" (onClickEvent)="openAgentEditStyleDialog()">
+      </co-update-type-icon-container>
+    }
+    <h2 class="g-flex-auto">{{ agentVersion().agent.title }}</h2>
     <div class="g-badge g-warn-background">{{ agentVersion().type | translate }}</div>
   </div>
 
