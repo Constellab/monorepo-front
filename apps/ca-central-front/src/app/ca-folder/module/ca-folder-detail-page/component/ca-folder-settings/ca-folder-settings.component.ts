@@ -48,8 +48,8 @@ export class CaFolderSettingsComponent {
 
   private onDeleteClosed(result: FlConfirmDialogResult, folder: CaFolder): void {
     if (result.choice) {
-      this.state.deleteHierarchyObject(folder.id);
       this.rightPanelState.closeRightPanel();
+      this.state.deleteHierarchyObject(folder.id);
     }
   }
 }

@@ -1,7 +1,7 @@
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {first} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 
 /**
  * Simple class to simplify QueryParam management
@@ -32,15 +32,12 @@ export class FlQueryParamHandler<T extends Params = Params> {
    * @param replaceUrl When true, navigates while replacing the current state in history.
    */
   public mergeQueryParams(params: Partial<T>, replaceUrl: boolean = true): void {
-    // use a time otherwise it does not work correctly if it's called multiple time quickly
-    setTimeout(() => {
-      // save the criteria list in the url as query params
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: params,
-        replaceUrl: replaceUrl,
-        queryParamsHandling: 'merge',
-      });
-    }, 0);
+    // save the criteria list in the url as query params
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: params,
+      replaceUrl: replaceUrl,
+      queryParamsHandling: 'merge'
+    });
   }
 }
